@@ -3,16 +3,18 @@
 
 #include "ParameterizedItem.h"
 
-class BasicLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ BasicLatticeTypeItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_LATTICE_LENGTH1, P_LATTICE_LENGTH2, P_LATTICE_ANGLE;
+    static const QString P_LATTICE_LENGTH1;
+    static const QString P_LATTICE_LENGTH2;
+    static const QString P_LATTICE_ANGLE;
     explicit BasicLatticeTypeItem(ParameterizedItem *parent=0);
     ~BasicLatticeTypeItem(){}
 };
 
-class SquareLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ SquareLatticeTypeItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -21,7 +23,7 @@ public:
     ~SquareLatticeTypeItem(){}
 };
 
-class HexagonalLatticeTypeItem : public ParameterizedItem
+class BA_CORE_API_ HexagonalLatticeTypeItem : public ParameterizedItem
 {
     Q_OBJECT
 public:

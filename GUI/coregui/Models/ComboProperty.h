@@ -1,6 +1,7 @@
 #ifndef COMBO_PROPERTY_H
 #define COMBO_PROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <QMetaType>
 #include <QVariant>

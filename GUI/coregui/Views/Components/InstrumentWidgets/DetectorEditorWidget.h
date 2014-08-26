@@ -1,6 +1,7 @@
 #ifndef DETECTOR_EDITOR_WIDGET_H
 #define DETECTOR_EDITOR_WIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class QComboBox;

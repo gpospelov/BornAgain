@@ -1,6 +1,7 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
+#include "WinDllMacros.h"
 #include "item_constants.h"
 #include <QMap>
 #include <QString>

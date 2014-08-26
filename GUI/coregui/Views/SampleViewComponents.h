@@ -10,7 +10,7 @@
 #include "SampleModel.h"
 
 
-class SampleInfoStreamInterface : public QWidget
+class BA_CORE_API_ SampleInfoStreamInterface : public QWidget
 {
 public:
     explicit SampleInfoStreamInterface(QWidget *parent = 0) : QWidget(parent)
@@ -22,7 +22,7 @@ public:
 };
 
 
-class SampleViewComponents
+class BA_CORE_API_ SampleViewComponents
 {
 public:
     static SampleWidgetBox *createWidgetBox(

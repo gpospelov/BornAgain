@@ -27,7 +27,7 @@ class SampleModel;
 class ParameterizedItem;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
-class GUIObjectBuilder : public ISampleVisitor
+class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
 {
 public:
     GUIObjectBuilder();

@@ -18,7 +18,7 @@
 
 #include "ParameterizedGraphicsItem.h"
 
-class ParticleLayoutItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

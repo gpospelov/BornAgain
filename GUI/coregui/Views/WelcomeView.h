@@ -14,7 +14,7 @@
 
 
 
-class WelcomeView : public QWidget
+class BA_CORE_API_ WelcomeView : public QWidget
 {
     Q_OBJECT
 

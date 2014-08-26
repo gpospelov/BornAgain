@@ -70,7 +70,9 @@ class BA_CORE_API_ FTDistribution2DItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_CORR_LENGTH_X, P_CORR_LENGTH_Y, P_GAMMA;
+    static const QString P_CORR_LENGTH_X;
+    static const QString P_CORR_LENGTH_Y;
+    static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name, ParameterizedItem *parent)
         : ParameterizedItem(name, parent) {
         registerProperty(P_GAMMA, 0.0);

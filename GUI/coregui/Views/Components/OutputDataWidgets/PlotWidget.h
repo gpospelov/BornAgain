@@ -3,17 +3,13 @@
 
 #include "OutputDataItem.h"
 #include "centralplot.h"
-
-
 #include <QWidget>
 #include <QSplitter>
 #include <QMouseEvent>
 
-
 class HistogramPlot;
 
-
-class PlotWidget : public QWidget
+class BA_CORE_API_ PlotWidget : public QWidget
 {
     Q_OBJECT
 

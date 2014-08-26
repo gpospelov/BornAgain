@@ -1,8 +1,10 @@
 #ifndef QUICKSIMULATIONWIDGET_H
 #define QUICKSIMULATIONWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QString>
+
 class SampleModel;
 class InstrumentModel;
 class ModelTuningWidget;
@@ -15,7 +17,7 @@ class QuickSimulationSettings;
 //! The QuickSimulationWidget is the main widget to access quick simulation functionality.
 //! Resides on the second tab of the SimulationView. Holds widget for tuning model
 //! parameters and plot widget.
-class QuickSimulationWidget : public QWidget
+class BA_CORE_API_ QuickSimulationWidget : public QWidget
 {
     Q_OBJECT
 

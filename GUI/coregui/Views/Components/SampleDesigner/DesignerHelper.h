@@ -1,6 +1,8 @@
 #ifndef DESIGNERHELPER_H
 #define DESIGNERHELPER_H
 
+#include "WinDllMacros.h"
+
 #include <QGradient>
 #include <QColor>
 #include <QRect>

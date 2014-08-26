@@ -16,6 +16,7 @@
 #ifndef DOMAINOBJECTBUILDER_H
 #define DOMAINOBJECTBUILDER_H
 
+#include "WinDllMacros.h"
 class ISample;
 class Instrument;
 class MultiLayer;

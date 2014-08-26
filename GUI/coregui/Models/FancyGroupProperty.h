@@ -1,7 +1,7 @@
 #ifndef FANCYGROUPPROPERTY_H
 #define FANCYGROUPPROPERTY_H
 
-
+#include "WinDllMacros.h"
 #include <QString>
 #include <QMap>
 #include <QMetaType>

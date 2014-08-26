@@ -4,7 +4,7 @@
 #include "SessionModel.h"
 #include "MaterialProperty.h"
 
-class SampleModel : public SessionModel
+class BA_CORE_API_ SampleModel : public SessionModel
 {
     Q_OBJECT
 

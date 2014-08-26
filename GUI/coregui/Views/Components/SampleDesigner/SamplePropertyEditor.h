@@ -1,7 +1,7 @@
 #ifndef SAMPLEPROPERTYEDITOR_H
 #define SAMPLEPROPERTYEDITOR_H
 
-
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QMap>
 #include <QString>
@@ -20,7 +20,7 @@ class ParameterizedItem;
 
 //! property editor to modify property of the objectcurrently selected on the graphics scene
 //! located in the bottom right corner of SampleView
-class SamplePropertyEditor : public QWidget
+class BA_CORE_API_ SamplePropertyEditor : public QWidget
 {
     Q_OBJECT
 

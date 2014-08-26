@@ -1,6 +1,7 @@
 #ifndef TRANSFORMFROMDOMAIN_H
 #define TRANSFORMFROMDOMAIN_H
 
+#include "WinDllMacros.h"
 #include <QString>
 
 class FormFactorAnisoPyramid;
@@ -15,25 +16,28 @@ class Detector;
 
 namespace TransformFromDomain
 {
-void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
+                       const FormFactorAnisoPyramid *sample);
+
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction1DParaCrystal *sample);
 
-void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction2DParaCrystal *sample);
 
-void setItemFromSample(ParameterizedItem *item,
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction2DLattice *sample);
 
-void setItemFromSample(ParameterizedItem *layerItem, const Layer *layer, const LayerInterface *top_interface);
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *layerItem, const Layer *layer, const LayerInterface *top_interface);
 
-void setItemFromSample(ParameterizedItem *item , const LayerRoughness *sample);
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item , const LayerRoughness *sample);
 
 
-bool isValidRoughness(const LayerRoughness *roughness);
-bool isSquareLattice(double length1, double length2, double angle);
-bool isHexagonalLattice(double length1, double length2, double angle);
+BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
+BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);
+BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angle);
 
-QString getDetectorBinning(const Detector *detector);
+BA_CORE_API_ QString getDetectorBinning(const Detector *detector);
 
 }
 

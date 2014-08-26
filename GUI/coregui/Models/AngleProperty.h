@@ -2,6 +2,7 @@
 #define ANGLEPROPERTY_H
 
 
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <QMetaType>
 #include <QVariant>

@@ -12,7 +12,7 @@ class PropertyWidget;
 class OutputDataToolBar;
 
 
-class OutputDataWidget : public QWidget
+class BA_CORE_API_ OutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:

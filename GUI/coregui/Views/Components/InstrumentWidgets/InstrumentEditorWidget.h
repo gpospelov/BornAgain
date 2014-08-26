@@ -2,6 +2,7 @@
 #define INSTRUMENT_EDITOR_WIDGET_H
 
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QLabel>
 #include <QMap>
@@ -12,7 +13,7 @@ class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
 
-class InstrumentEditorWidget : public QWidget
+class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
     Q_OBJECT
 

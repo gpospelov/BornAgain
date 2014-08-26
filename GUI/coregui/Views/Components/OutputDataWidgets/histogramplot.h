@@ -3,7 +3,7 @@
 
 #include "centralplot.h"
 
-class HistogramPlot : public QCustomPlot
+class BA_CORE_API_ HistogramPlot : public QCustomPlot
 {
     Q_OBJECT
 

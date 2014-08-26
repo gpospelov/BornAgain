@@ -1,6 +1,7 @@
 #ifndef JOBSELECTORWIDGET_H
 #define JOBSELECTORWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class JobQueueModel;
@@ -14,7 +15,7 @@ class JobItem;
 //! Widget to select JobQueueItem in a list and display its properties
 //! Left side of JobQueueView
 //! Contains two widgets: JobListWidget (top) and JobQueueProperties(buttom)
-class JobSelectorWidget : public QWidget
+class BA_CORE_API_ JobSelectorWidget : public QWidget
 {
 public:
     explicit JobSelectorWidget(JobQueueModel *model, QWidget *parent = 0);

@@ -1,9 +1,10 @@
 #ifndef PYSCRIPTSYNTAXHIGHLIGHTER_H
 #define PYSCRIPTSYNTAXHIGHLIGHTER_H
 
+#include "WinDllMacros.h"
 #include <QSyntaxHighlighter>
 
-class PyScriptSyntaxHighlighter : public QSyntaxHighlighter
+class BA_CORE_API_  PyScriptSyntaxHighlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 

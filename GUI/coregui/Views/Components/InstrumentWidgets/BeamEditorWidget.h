@@ -1,6 +1,7 @@
 #ifndef BEAM_EDITOR_WIDGET_H
 #define BEAM_EDITOR_WIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class QComboBox;

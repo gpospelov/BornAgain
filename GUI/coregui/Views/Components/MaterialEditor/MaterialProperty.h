@@ -7,10 +7,11 @@
 #include <QString>
 #include <QVariant>
 
+#include "WinDllMacros.h"
 
 //! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
 //! to access materials from MaterialEditor;
-class MaterialProperty
+class BA_CORE_API_ MaterialProperty
 {
 public:
     explicit MaterialProperty(const QString &identifier=QString())

@@ -1,7 +1,7 @@
 #ifndef DESIGNERSCENE_H
 #define DESIGNERSCENE_H
 
-
+#include "WinDllMacros.h"
 #include <QGraphicsScene>
 #include <QModelIndex>
 #include <QMap>

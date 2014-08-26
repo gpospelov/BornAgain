@@ -1,6 +1,7 @@
 #ifndef ISAMPLEVIEW_H
 #define ISAMPLEVIEW_H
 
+#include "WinDllMacros.h"
 #include "IView.h"
 #include "NodeEditorPort.h"
 

@@ -18,11 +18,13 @@
 
 #include "ParameterizedGraphicsItem.h"
 
-class LayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ LayerItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    static const QString P_THICKNESS, P_ROUGHNESS, P_MATERIAL;
+    static const QString P_THICKNESS;
+    static const QString P_ROUGHNESS;
+    static const QString P_MATERIAL;
     explicit LayerItem(ParameterizedItem *parent=0);
     ~LayerItem(){}
 };

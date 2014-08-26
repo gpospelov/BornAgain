@@ -1,7 +1,7 @@
 #ifndef PROJECTMANAGER_H
 #define PROJECTMANAGER_H
 
-
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -10,7 +10,7 @@ class ProjectDocument;
 class QSettings;
 
 //! handles activity related to opening/save projects
-class ProjectManager : public QObject
+class BA_CORE_API_ ProjectManager : public QObject
 {
     Q_OBJECT
 public:

@@ -7,7 +7,7 @@
 class QDoubleSpinBox;
 class QHBoxLayout;
 
-class ModelTuningDelegate : public QItemDelegate
+class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 

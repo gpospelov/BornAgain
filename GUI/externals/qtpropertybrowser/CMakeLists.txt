@@ -19,7 +19,9 @@ set(include_dirs
 
 include_directories(${include_dirs})
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
+if(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
+endif()
 
 set(resource_files
     "qtpropertybrowser.qrc"

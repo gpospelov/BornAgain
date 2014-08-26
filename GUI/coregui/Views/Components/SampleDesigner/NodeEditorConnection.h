@@ -13,7 +13,7 @@
 class NodeEditorPort;
 class ConnectableView;
 
-class NodeEditorConnection : public QGraphicsPathItem
+class BA_CORE_API_ NodeEditorConnection : public QGraphicsPathItem
 {
 public:
     enum { Type = DesignerHelper::NodeEditorConnectionType };

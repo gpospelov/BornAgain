@@ -1,6 +1,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
+#include "WinDllMacros.h"
 #include <QList>
 #include <QVariant>
 #include <QString>
@@ -15,7 +16,7 @@ class OutputDataItem;
 //!
 //! See also JobQueueItem which is stored in a list by JobQueueModel and serve
 //! as an adapter for given JobItem.
-class JobItem : public QObject
+class BA_CORE_API_ JobItem : public QObject
 {
     Q_OBJECT
 

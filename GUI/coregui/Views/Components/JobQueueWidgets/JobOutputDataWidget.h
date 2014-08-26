@@ -1,6 +1,7 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QMap>
 
@@ -10,7 +11,7 @@ class QStackedWidget;
 class QModelIndex;
 class JobItem;
 
-class JobOutputDataWidget : public QWidget
+class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:

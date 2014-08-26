@@ -4,7 +4,7 @@
 
 #include "ParameterizedItem.h"
 
-class InstrumentItem : public ParameterizedItem
+class BA_CORE_API_ InstrumentItem : public ParameterizedItem
 {
     Q_OBJECT
 public:

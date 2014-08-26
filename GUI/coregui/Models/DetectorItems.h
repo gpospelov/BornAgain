@@ -18,7 +18,14 @@ class PhiAlphaDetectorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_AXES_UNITS, P_BINNING, P_PHI_MIN, P_PHI_MAX, P_NPHI, P_ALPHA_MIN, P_ALPHA_MAX, P_NALPHA;
+    static const QString P_AXES_UNITS;
+    static const QString P_BINNING;
+    static const QString P_PHI_MIN;
+    static const QString P_PHI_MAX;
+    static const QString P_NPHI;
+    static const QString P_ALPHA_MIN;
+    static const QString P_ALPHA_MAX;
+    static const QString P_NALPHA;
     explicit PhiAlphaDetectorItem(ParameterizedItem *parent=0);
     ~PhiAlphaDetectorItem(){}
 

@@ -15,7 +15,7 @@ class QDoubleValidator;
 
 //! The MaterialPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for MaterialProperty.
-class MaterialPropertyEdit : public QWidget
+class BA_CORE_API_ MaterialPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
@@ -62,7 +62,7 @@ private:
 
 
 
-class FancyGroupPropertyEdit : public QWidget
+class BA_CORE_API_ FancyGroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
@@ -93,7 +93,7 @@ private:
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ColorProperty
-class ColorPropertyEdit : public QWidget
+class BA_CORE_API_ ColorPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
@@ -118,7 +118,7 @@ private:
 
 //! The ScientificDoublePropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ScientificDoubleProperty
-class ScientificDoublePropertyEdit : public QWidget
+class BA_CORE_API_ ScientificDoublePropertyEdit : public QWidget
 {
     Q_OBJECT
 public:

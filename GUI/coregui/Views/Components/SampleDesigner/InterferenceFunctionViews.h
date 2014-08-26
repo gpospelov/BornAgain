@@ -4,7 +4,7 @@
 
 #include "ConnectableView.h"
 
-class InterferenceFunction1DParaCrystalView : public ConnectableView
+class BA_CORE_API_ InterferenceFunction1DParaCrystalView : public ConnectableView
 {
     Q_OBJECT
 
@@ -17,7 +17,7 @@ public:
 };
 
 
-class InterferenceFunction2DParaCrystalView : public ConnectableView
+class BA_CORE_API_ InterferenceFunction2DParaCrystalView : public ConnectableView
 {
     Q_OBJECT
 
@@ -29,7 +29,7 @@ public:
     int type() const { return Type; }
 };
 
-class InterferenceFunction2DLatticeView : public ConnectableView
+class BA_CORE_API_ InterferenceFunction2DLatticeView : public ConnectableView
 {
     Q_OBJECT
 

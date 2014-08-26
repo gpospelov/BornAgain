@@ -2,13 +2,14 @@
 #define OUTPUTDATATOOLBAR_H
 
 #include <QToolBar>
+#include "WinDllMacros.h"
 
 class QAction;
 class QToolButton;
 class QToolBar;
 
 //! main tool bar of OutputDataWidget
-class OutputDataToolBar : public QToolBar
+class BA_CORE_API_ OutputDataToolBar : public QToolBar
 {
     Q_OBJECT
 

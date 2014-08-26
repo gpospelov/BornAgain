@@ -10,7 +10,7 @@ class QGraphicsItem;
 
 //! Class to handle visual appearance of ParameterizedItem's property in
 //! different kind of property editors.
-class PropertyAttribute {
+class BA_CORE_API_ PropertyAttribute {
 public:
     enum Appearance {
         VisibleProperty = 0x0000,

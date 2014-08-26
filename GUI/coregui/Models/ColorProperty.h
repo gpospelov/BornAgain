@@ -1,6 +1,7 @@
 #ifndef COLORPROPERTY_H
 #define COLORPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QMetaType>
 #include <QColor>
 #include <QPixmap>

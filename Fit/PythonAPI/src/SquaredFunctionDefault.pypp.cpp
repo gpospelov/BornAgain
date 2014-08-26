@@ -26,10 +26,10 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredDifference = this->get_override( "calculateSquaredDifference" ) )
             return func_calculateSquaredDifference( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionDefault::calculateSquaredDifference( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredDifference( double real_value, double simulated_value ) const  {
         return SquaredFunctionDefault::calculateSquaredDifference( real_value, simulated_value );
@@ -38,10 +38,10 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
     virtual double calculateSquaredError( double real_value, double simulated_value=0 ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionDefault::calculateSquaredError( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredError( double real_value, double simulated_value=0 ) const  {
         return SquaredFunctionDefault::calculateSquaredError( real_value, simulated_value );
@@ -50,10 +50,10 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
     virtual ::SquaredFunctionDefault * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->SquaredFunctionDefault::clone(  );
+        }
     }
-    
     
     ::SquaredFunctionDefault * default_clone(  ) const  {
         return SquaredFunctionDefault::clone( );
@@ -69,8 +69,8 @@ void register_SquaredFunctionDefault_class(){
         bp::scope SquaredFunctionDefault_scope( SquaredFunctionDefault_exposer );
         { //::SquaredFunctionDefault::calculateSquaredDifference
         
-            typedef double ( ::SquaredFunctionDefault::*calculateSquaredDifference_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionDefault_wrapper::*default_calculateSquaredDifference_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionDefault::*calculateSquaredDifference_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionDefault_wrapper::*default_calculateSquaredDifference_function_type)( double,double ) const;
             
             SquaredFunctionDefault_exposer.def( 
                 "calculateSquaredDifference"
@@ -81,8 +81,8 @@ void register_SquaredFunctionDefault_class(){
         }
         { //::SquaredFunctionDefault::calculateSquaredError
         
-            typedef double ( ::SquaredFunctionDefault::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionDefault_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionDefault::*calculateSquaredError_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionDefault_wrapper::*default_calculateSquaredError_function_type)( double,double ) const;
             
             SquaredFunctionDefault_exposer.def( 
                 "calculateSquaredError"
@@ -93,8 +93,8 @@ void register_SquaredFunctionDefault_class(){
         }
         { //::SquaredFunctionDefault::clone
         
-            typedef ::SquaredFunctionDefault * ( ::SquaredFunctionDefault::*clone_function_type )(  ) const;
-            typedef ::SquaredFunctionDefault * ( SquaredFunctionDefault_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::SquaredFunctionDefault * ( ::SquaredFunctionDefault::*clone_function_type)(  ) const;
+            typedef ::SquaredFunctionDefault * ( SquaredFunctionDefault_wrapper::*default_clone_function_type)(  ) const;
             
             SquaredFunctionDefault_exposer.def( 
                 "clone"

@@ -22,7 +22,7 @@ void register_Bin1D_class(){
         bp::scope Bin1D_scope( Bin1D_exposer );
         { //::Bin1D::getBinSize
         
-            typedef double ( ::Bin1D::*getBinSize_function_type )(  ) const;
+            typedef double ( ::Bin1D::*getBinSize_function_type)(  ) const;
             
             Bin1D_exposer.def( 
                 "getBinSize"
@@ -31,7 +31,7 @@ void register_Bin1D_class(){
         }
         { //::Bin1D::getMidPoint
         
-            typedef double ( ::Bin1D::*getMidPoint_function_type )(  ) const;
+            typedef double ( ::Bin1D::*getMidPoint_function_type)(  ) const;
             
             Bin1D_exposer.def( 
                 "getMidPoint"

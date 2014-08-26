@@ -33,10 +33,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual ::IntensityNormalizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IntensityNormalizer::clone(  );
+        }
     }
-    
     
     ::IntensityNormalizer * default_clone(  ) const  {
         return IntensityNormalizer::clone( );
@@ -45,10 +45,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual ::OutputData< double > * createNormalizedData( ::OutputData< double > const & data ) const  {
         if( bp::override func_createNormalizedData = this->get_override( "createNormalizedData" ) )
             return func_createNormalizedData( boost::ref(data) );
-        else
+        else{
             return this->IntensityNormalizer::createNormalizedData( boost::ref(data) );
+        }
     }
-    
     
     ::OutputData< double > * default_createNormalizedData( ::OutputData< double > const & data ) const  {
         return IntensityNormalizer::createNormalizedData( boost::ref(data) );
@@ -57,10 +57,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual void setMaximumIntensity( double max_intensity ) {
         if( bp::override func_setMaximumIntensity = this->get_override( "setMaximumIntensity" ) )
             func_setMaximumIntensity( max_intensity );
-        else
+        else{
             this->IntensityNormalizer::setMaximumIntensity( max_intensity );
+        }
     }
-    
     
     void default_setMaximumIntensity( double max_intensity ) {
         IntensityNormalizer::setMaximumIntensity( max_intensity );
@@ -69,10 +69,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -81,10 +81,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -93,10 +93,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -105,10 +105,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -117,10 +117,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -129,10 +129,10 @@ struct IntensityNormalizer_wrapper : IntensityNormalizer, bp::wrapper< Intensity
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -148,8 +148,8 @@ void register_IntensityNormalizer_class(){
         bp::scope IntensityNormalizer_scope( IntensityNormalizer_exposer );
         { //::IntensityNormalizer::clone
         
-            typedef ::IntensityNormalizer * ( ::IntensityNormalizer::*clone_function_type )(  ) const;
-            typedef ::IntensityNormalizer * ( IntensityNormalizer_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::IntensityNormalizer * ( ::IntensityNormalizer::*clone_function_type)(  ) const;
+            typedef ::IntensityNormalizer * ( IntensityNormalizer_wrapper::*default_clone_function_type)(  ) const;
             
             IntensityNormalizer_exposer.def( 
                 "clone"
@@ -160,8 +160,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IntensityNormalizer::createNormalizedData
         
-            typedef ::OutputData< double > * ( ::IntensityNormalizer::*createNormalizedData_function_type )( ::OutputData< double > const & ) const;
-            typedef ::OutputData< double > * ( IntensityNormalizer_wrapper::*default_createNormalizedData_function_type )( ::OutputData< double > const & ) const;
+            typedef ::OutputData< double > * ( ::IntensityNormalizer::*createNormalizedData_function_type)( ::OutputData< double > const & ) const;
+            typedef ::OutputData< double > * ( IntensityNormalizer_wrapper::*default_createNormalizedData_function_type)( ::OutputData< double > const & ) const;
             
             IntensityNormalizer_exposer.def( 
                 "createNormalizedData"
@@ -173,8 +173,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IntensityNormalizer::setMaximumIntensity
         
-            typedef void ( ::IntensityNormalizer::*setMaximumIntensity_function_type )( double ) ;
-            typedef void ( IntensityNormalizer_wrapper::*default_setMaximumIntensity_function_type )( double ) ;
+            typedef void ( ::IntensityNormalizer::*setMaximumIntensity_function_type)( double ) ;
+            typedef void ( IntensityNormalizer_wrapper::*default_setMaximumIntensity_function_type)( double ) ;
             
             IntensityNormalizer_exposer.def( 
                 "setMaximumIntensity"
@@ -185,8 +185,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IntensityNormalizer_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IntensityNormalizer_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IntensityNormalizer_exposer.def( 
                 "areParametersChanged"
@@ -196,8 +196,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IntensityNormalizer_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IntensityNormalizer_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IntensityNormalizer_exposer.def( 
                 "clearParameterPool"
@@ -207,8 +207,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IntensityNormalizer_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IntensityNormalizer_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IntensityNormalizer_exposer.def( 
                 "createParameterTree"
@@ -219,8 +219,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IntensityNormalizer_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IntensityNormalizer_wrapper::*default_printParameters_function_type)(  ) const;
             
             IntensityNormalizer_exposer.def( 
                 "printParameters"
@@ -230,8 +230,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IntensityNormalizer_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IntensityNormalizer_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IntensityNormalizer_exposer.def( 
                 "setParameterValue"
@@ -242,8 +242,8 @@ void register_IntensityNormalizer_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IntensityNormalizer_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IntensityNormalizer_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IntensityNormalizer_exposer.def( 
                 "setParametersAreChanged"

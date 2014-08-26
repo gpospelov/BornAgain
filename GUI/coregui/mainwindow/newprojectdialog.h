@@ -1,6 +1,7 @@
 #ifndef NEWPROJECTDIALOG_H
 #define NEWPROJECTDIALOG_H
 
+#include "WinDllMacros.h"
 #include <QDialog>
 #include <QString>
 #include <QLineEdit>
@@ -12,7 +13,7 @@ class QPalette;
 
 
 //! new project dialog window
-class NewProjectDialog : public QDialog
+class BA_CORE_API_ NewProjectDialog : public QDialog
 {
     Q_OBJECT
 public:

@@ -33,10 +33,10 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
     virtual ::IFitStrategy * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyDefault::clone(  );
+        }
     }
-    
     
     ::IFitStrategy * default_clone(  ) const  {
         return FitStrategyDefault::clone( );
@@ -45,10 +45,10 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyDefault::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyDefault::execute( );
@@ -64,8 +64,8 @@ void register_FitStrategyDefault_class(){
         bp::scope FitStrategyDefault_scope( FitStrategyDefault_exposer );
         { //::FitStrategyDefault::clone
         
-            typedef ::IFitStrategy * ( ::FitStrategyDefault::*clone_function_type )(  ) const;
-            typedef ::IFitStrategy * ( FitStrategyDefault_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::IFitStrategy * ( ::FitStrategyDefault::*clone_function_type)(  ) const;
+            typedef ::IFitStrategy * ( FitStrategyDefault_wrapper::*default_clone_function_type)(  ) const;
             
             FitStrategyDefault_exposer.def( 
                 "clone"
@@ -76,8 +76,8 @@ void register_FitStrategyDefault_class(){
         }
         { //::FitStrategyDefault::execute
         
-            typedef void ( ::FitStrategyDefault::*execute_function_type )(  ) ;
-            typedef void ( FitStrategyDefault_wrapper::*default_execute_function_type )(  ) ;
+            typedef void ( ::FitStrategyDefault::*execute_function_type)(  ) ;
+            typedef void ( FitStrategyDefault_wrapper::*default_execute_function_type)(  ) ;
             
             FitStrategyDefault_exposer.def( 
                 "execute"

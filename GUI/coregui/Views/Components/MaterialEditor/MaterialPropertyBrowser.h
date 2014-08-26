@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QString>
 
+#include "WinDllMacros.h"
+
 class MaterialModel;
 class MaterialItem;
 class QtTreePropertyBrowser;
@@ -22,7 +24,7 @@ class ParameterizedItem;
 
 //! Class which holds QtProperty tree browser to adjust material properties.
 //! Belongs to MaterialEditorWidget
-class MaterialPropertyBrowser : public QWidget
+class BA_CORE_API_ MaterialPropertyBrowser : public QWidget
 {
     Q_OBJECT
 

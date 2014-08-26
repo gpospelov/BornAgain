@@ -169,7 +169,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
 }
 
 
-void JobOutputDataWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
+void JobOutputDataWidget::dataChanged(const QModelIndex &, const QModelIndex &)
 {
     /*qDebug() << "JobOutputDataWidget::dataChanged()";
     JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);

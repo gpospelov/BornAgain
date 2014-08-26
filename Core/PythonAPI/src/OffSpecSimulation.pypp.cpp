@@ -28,10 +28,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual ::OffSpecSimulation * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->OffSpecSimulation::clone(  );
+        }
     }
-    
     
     ::OffSpecSimulation * default_clone(  ) const  {
         return OffSpecSimulation::clone( );
@@ -40,10 +40,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -52,10 +52,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -64,10 +64,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -76,10 +76,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -107,10 +107,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -119,10 +119,10 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -138,8 +138,8 @@ void register_OffSpecSimulation_class(){
         bp::scope OffSpecSimulation_scope( OffSpecSimulation_exposer );
         { //::OffSpecSimulation::clone
         
-            typedef ::OffSpecSimulation * ( ::OffSpecSimulation::*clone_function_type )(  ) const;
-            typedef ::OffSpecSimulation * ( OffSpecSimulation_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::OffSpecSimulation * ( ::OffSpecSimulation::*clone_function_type)(  ) const;
+            typedef ::OffSpecSimulation * ( OffSpecSimulation_wrapper::*default_clone_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "clone"
@@ -150,7 +150,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getInstrument
         
-            typedef ::Instrument const & ( ::OffSpecSimulation::*getInstrument_function_type )(  ) const;
+            typedef ::Instrument const & ( ::OffSpecSimulation::*getInstrument_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getInstrument"
@@ -160,7 +160,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getIntensityData_function_type )(  ) const;
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getIntensityData"
@@ -170,7 +170,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getPolarizedIntensityData
         
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getPolarizedIntensityData_function_type )( int,int ) const;
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getPolarizedIntensityData_function_type)( int,int ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getPolarizedIntensityData"
@@ -181,7 +181,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getSample
         
-            typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type )(  ) const;
+            typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getSample"
@@ -191,7 +191,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getSampleBuilder
         
-            typedef ::SampleBuilder_t ( ::OffSpecSimulation::*getSampleBuilder_function_type )(  ) const;
+            typedef ::SampleBuilder_t ( ::OffSpecSimulation::*getSampleBuilder_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getSampleBuilder"
@@ -200,7 +200,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::getSimulationParameters
         
-            typedef ::SimulationParameters ( ::OffSpecSimulation::*getSimulationParameters_function_type )(  ) const;
+            typedef ::SimulationParameters ( ::OffSpecSimulation::*getSimulationParameters_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getSimulationParameters"
@@ -209,7 +209,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::prepareSimulation
         
-            typedef void ( ::OffSpecSimulation::*prepareSimulation_function_type )(  ) ;
+            typedef void ( ::OffSpecSimulation::*prepareSimulation_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "prepareSimulation"
@@ -218,7 +218,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::runSimulation
         
-            typedef void ( ::OffSpecSimulation::*runSimulation_function_type )(  ) ;
+            typedef void ( ::OffSpecSimulation::*runSimulation_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "runSimulation"
@@ -227,7 +227,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setBeamIntensity
         
-            typedef void ( ::OffSpecSimulation::*setBeamIntensity_function_type )( double ) ;
+            typedef void ( ::OffSpecSimulation::*setBeamIntensity_function_type)( double ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setBeamIntensity"
@@ -237,7 +237,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setBeamParameters
         
-            typedef void ( ::OffSpecSimulation::*setBeamParameters_function_type )( double,::IAxis const &,double ) ;
+            typedef void ( ::OffSpecSimulation::*setBeamParameters_function_type)( double,::IAxis const &,double ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setBeamParameters"
@@ -247,7 +247,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type )( ::OutputData< double > const & ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
@@ -257,7 +257,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type )( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
@@ -267,7 +267,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type )( ::DetectorParameters const & ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
@@ -277,7 +277,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorResolutionFunction
         
-            typedef void ( ::OffSpecSimulation::*setDetectorResolutionFunction_function_type )( ::IResolutionFunction2D const & ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorResolutionFunction"
@@ -287,7 +287,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setInstrument
         
-            typedef void ( ::OffSpecSimulation::*setInstrument_function_type )( ::Instrument const & ) ;
+            typedef void ( ::OffSpecSimulation::*setInstrument_function_type)( ::Instrument const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setInstrument"
@@ -297,7 +297,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setSample
         
-            typedef void ( ::OffSpecSimulation::*setSample_function_type )( ::ISample const & ) ;
+            typedef void ( ::OffSpecSimulation::*setSample_function_type)( ::ISample const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setSample"
@@ -307,7 +307,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setSampleBuilder
         
-            typedef void ( ::OffSpecSimulation::*setSampleBuilder_function_type )( ::SampleBuilder_t ) ;
+            typedef void ( ::OffSpecSimulation::*setSampleBuilder_function_type)( ::SampleBuilder_t ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setSampleBuilder"
@@ -317,7 +317,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setSimulationParameters
         
-            typedef void ( ::OffSpecSimulation::*setSimulationParameters_function_type )( ::SimulationParameters const & ) ;
+            typedef void ( ::OffSpecSimulation::*setSimulationParameters_function_type)( ::SimulationParameters const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setSimulationParameters"
@@ -327,7 +327,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setThreadInfo
         
-            typedef void ( ::OffSpecSimulation::*setThreadInfo_function_type )( ::ThreadInfo const & ) ;
+            typedef void ( ::OffSpecSimulation::*setThreadInfo_function_type)( ::ThreadInfo const & ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setThreadInfo"
@@ -337,8 +337,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( OffSpecSimulation_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( OffSpecSimulation_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "areParametersChanged"
@@ -348,8 +348,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( OffSpecSimulation_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( OffSpecSimulation_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "clearParameterPool"
@@ -359,8 +359,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( OffSpecSimulation_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( OffSpecSimulation_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "createParameterTree"
@@ -371,8 +371,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( OffSpecSimulation_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( OffSpecSimulation_wrapper::*default_printParameters_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "printParameters"
@@ -392,8 +392,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( OffSpecSimulation_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( OffSpecSimulation_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setParameterValue"
@@ -404,8 +404,8 @@ void register_OffSpecSimulation_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( OffSpecSimulation_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( OffSpecSimulation_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setParametersAreChanged"

@@ -1,6 +1,12 @@
 ############################################################################
 # CMakeLists.txt file for building and running unit tests
 ############################################################################
+if(POLICY CMP0020)
+cmake_policy(SET CMP0020 NEW)
+endif()
+if(POLICY CMP0043)
+cmake_policy(SET CMP0043 NEW)
+endif()
 
 enable_testing()
 
@@ -13,7 +19,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
-#    ${GSL_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
     ${BornAgainGUI_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
 )

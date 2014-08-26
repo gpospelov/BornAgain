@@ -35,7 +35,7 @@ void register_Lattice_class(){
         }
         { //::Lattice::getBasisVectorA
         
-            typedef ::kvector_t ( ::Lattice::*getBasisVectorA_function_type )(  ) const;
+            typedef ::kvector_t ( ::Lattice::*getBasisVectorA_function_type)(  ) const;
             
             Lattice_exposer.def( 
                 "getBasisVectorA"
@@ -44,7 +44,7 @@ void register_Lattice_class(){
         }
         { //::Lattice::getBasisVectorB
         
-            typedef ::kvector_t ( ::Lattice::*getBasisVectorB_function_type )(  ) const;
+            typedef ::kvector_t ( ::Lattice::*getBasisVectorB_function_type)(  ) const;
             
             Lattice_exposer.def( 
                 "getBasisVectorB"
@@ -53,7 +53,7 @@ void register_Lattice_class(){
         }
         { //::Lattice::getBasisVectorC
         
-            typedef ::kvector_t ( ::Lattice::*getBasisVectorC_function_type )(  ) const;
+            typedef ::kvector_t ( ::Lattice::*getBasisVectorC_function_type)(  ) const;
             
             Lattice_exposer.def( 
                 "getBasisVectorC"
@@ -62,7 +62,7 @@ void register_Lattice_class(){
         }
         { //::Lattice::setSelectionRule
         
-            typedef void ( ::Lattice::*setSelectionRule_function_type )( ::ISelectionRule const & ) ;
+            typedef void ( ::Lattice::*setSelectionRule_function_type)( ::ISelectionRule const & ) ;
             
             Lattice_exposer.def( 
                 "setSelectionRule"

@@ -1,6 +1,7 @@
 #ifndef COMBO_PROPERTY_H
 #define COMBO_PROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <QMetaType>
 #include <QVariant>
@@ -9,7 +10,7 @@
 //! from predefined list.
 //!
 //! This is a light version of GroupProperty without SubItem mechanism
-class ComboProperty
+class BA_CORE_API_ ComboProperty
 {
 public:
 

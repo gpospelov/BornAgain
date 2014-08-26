@@ -1,6 +1,7 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
+#include "WinDllMacros.h"
 #include "item_constants.h"
 #include <QMap>
 #include <QString>
@@ -12,7 +13,7 @@ class ParameterizedItem;
 
 //! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
 //! according to the given name of the group.
-class GroupPropertyRegistry
+class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
     //! correspondance of group name to ParameterizedItem's types to labels

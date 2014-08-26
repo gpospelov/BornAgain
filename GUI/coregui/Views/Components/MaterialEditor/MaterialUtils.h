@@ -12,18 +12,10 @@ class IMaterial;
 namespace MaterialUtils
 {
 
-QColor suggestMaterialColor(const QString &name);
-//MaterialProperty getMaterialProperty(MaterialItem *material);
-MaterialProperty getDefaultMaterialProperty();
-ColorProperty suggestMaterialColorProperty(const QString &name);
-
-//QString getMaterialName(const MaterialProperty &material_property);
-//QColor getMaterialColor(const MaterialProperty &material_property);
-
-IMaterial *createDomainMaterial(const MaterialProperty &material_property);
-
-//IMaterial *createDomainMaterial(const MaterialItem *material);
-//IMaterial *createDomainMaterial(const QString &name);
+BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
+BA_CORE_API_ MaterialProperty getDefaultMaterialProperty();
+BA_CORE_API_ ColorProperty suggestMaterialColorProperty(const QString &name);
+BA_CORE_API_ IMaterial *createDomainMaterial(const MaterialProperty &material_property);
 
 }
 

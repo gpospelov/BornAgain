@@ -1,6 +1,7 @@
 #ifndef JOBLISTWIDGET_H
 #define JOBLISTWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QModelIndex>
 
@@ -13,7 +14,7 @@ class QPushButton;
 //! Widget to select JobQueueItem in a list
 //! Top left corner of JobQueueView
 //! Part of JobSelectorWidget
-class JobListWidget : public QWidget
+class BA_CORE_API_ JobListWidget : public QWidget
 {
     Q_OBJECT
 public:

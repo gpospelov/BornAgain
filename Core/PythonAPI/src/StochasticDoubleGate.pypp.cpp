@@ -26,10 +26,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual ::StochasticDoubleGate * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->StochasticDoubleGate::clone(  );
+        }
     }
-    
     
     ::StochasticDoubleGate * default_clone(  ) const  {
         return StochasticDoubleGate::clone( );
@@ -38,10 +38,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else
+        else{
             return this->StochasticDoubleGate::getFWHM(  );
+        }
     }
-    
     
     double default_getFWHM(  ) const  {
         return StochasticDoubleGate::getFWHM( );
@@ -50,10 +50,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual double probabilityDensity( double value ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( value );
-        else
+        else{
             return this->StochasticDoubleGate::probabilityDensity( value );
+        }
     }
-    
     
     double default_probabilityDensity( double value ) const  {
         return StochasticDoubleGate::probabilityDensity( value );
@@ -62,10 +62,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual void setToRandom(  ) {
         if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
             func_setToRandom(  );
-        else
+        else{
             this->StochasticDoubleGate::setToRandom(  );
+        }
     }
-    
     
     void default_setToRandom(  ) {
         StochasticDoubleGate::setToRandom( );
@@ -74,10 +74,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else
+        else{
             return this->StochasticParameter< double >::getRandom(  );
+        }
     }
-    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -86,10 +86,10 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else
+        else{
             this->StochasticParameter< double >::setToAverage(  );
+        }
     }
-    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );
@@ -105,8 +105,8 @@ void register_StochasticDoubleGate_class(){
         bp::scope StochasticDoubleGate_scope( StochasticDoubleGate_exposer );
         { //::StochasticDoubleGate::clone
         
-            typedef ::StochasticDoubleGate * ( ::StochasticDoubleGate::*clone_function_type )(  ) const;
-            typedef ::StochasticDoubleGate * ( StochasticDoubleGate_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::StochasticDoubleGate * ( ::StochasticDoubleGate::*clone_function_type)(  ) const;
+            typedef ::StochasticDoubleGate * ( StochasticDoubleGate_wrapper::*default_clone_function_type)(  ) const;
             
             StochasticDoubleGate_exposer.def( 
                 "clone"
@@ -117,8 +117,8 @@ void register_StochasticDoubleGate_class(){
         }
         { //::StochasticDoubleGate::getFWHM
         
-            typedef double ( ::StochasticDoubleGate::*getFWHM_function_type )(  ) const;
-            typedef double ( StochasticDoubleGate_wrapper::*default_getFWHM_function_type )(  ) const;
+            typedef double ( ::StochasticDoubleGate::*getFWHM_function_type)(  ) const;
+            typedef double ( StochasticDoubleGate_wrapper::*default_getFWHM_function_type)(  ) const;
             
             StochasticDoubleGate_exposer.def( 
                 "getFWHM"
@@ -128,7 +128,7 @@ void register_StochasticDoubleGate_class(){
         }
         { //::StochasticDoubleGate::getStdDev
         
-            typedef double ( ::StochasticDoubleGate::*getStdDev_function_type )(  ) const;
+            typedef double ( ::StochasticDoubleGate::*getStdDev_function_type)(  ) const;
             
             StochasticDoubleGate_exposer.def( 
                 "getStdDev"
@@ -137,8 +137,8 @@ void register_StochasticDoubleGate_class(){
         }
         { //::StochasticDoubleGate::probabilityDensity
         
-            typedef double ( ::StochasticDoubleGate::*probabilityDensity_function_type )( double ) const;
-            typedef double ( StochasticDoubleGate_wrapper::*default_probabilityDensity_function_type )( double ) const;
+            typedef double ( ::StochasticDoubleGate::*probabilityDensity_function_type)( double ) const;
+            typedef double ( StochasticDoubleGate_wrapper::*default_probabilityDensity_function_type)( double ) const;
             
             StochasticDoubleGate_exposer.def( 
                 "probabilityDensity"
@@ -149,8 +149,8 @@ void register_StochasticDoubleGate_class(){
         }
         { //::StochasticDoubleGate::setToRandom
         
-            typedef void ( ::StochasticDoubleGate::*setToRandom_function_type )(  ) ;
-            typedef void ( StochasticDoubleGate_wrapper::*default_setToRandom_function_type )(  ) ;
+            typedef void ( ::StochasticDoubleGate::*setToRandom_function_type)(  ) ;
+            typedef void ( StochasticDoubleGate_wrapper::*default_setToRandom_function_type)(  ) ;
             
             StochasticDoubleGate_exposer.def( 
                 "setToRandom"
@@ -161,8 +161,8 @@ void register_StochasticDoubleGate_class(){
         { //::StochasticParameter< double >::getRandom
         
             typedef StochasticDoubleGate exported_class_t;
-            typedef double ( exported_class_t::*getRandom_function_type )(  ) ;
-            typedef double ( StochasticDoubleGate_wrapper::*default_getRandom_function_type )(  ) ;
+            typedef double ( exported_class_t::*getRandom_function_type)(  ) ;
+            typedef double ( StochasticDoubleGate_wrapper::*default_getRandom_function_type)(  ) ;
             
             StochasticDoubleGate_exposer.def( 
                 "getRandom"
@@ -173,8 +173,8 @@ void register_StochasticDoubleGate_class(){
         { //::StochasticParameter< double >::setToAverage
         
             typedef StochasticDoubleGate exported_class_t;
-            typedef void ( exported_class_t::*setToAverage_function_type )(  ) ;
-            typedef void ( StochasticDoubleGate_wrapper::*default_setToAverage_function_type )(  ) ;
+            typedef void ( exported_class_t::*setToAverage_function_type)(  ) ;
+            typedef void ( StochasticDoubleGate_wrapper::*default_setToAverage_function_type)(  ) ;
             
             StochasticDoubleGate_exposer.def( 
                 "setToAverage"

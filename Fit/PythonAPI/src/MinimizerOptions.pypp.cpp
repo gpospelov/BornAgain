@@ -22,7 +22,7 @@ void register_MinimizerOptions_class(){
         bp::scope MinimizerOptions_scope( MinimizerOptions_exposer );
         { //::MinimizerOptions::addValue
         
-            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,double ) ;
+            typedef void ( ::MinimizerOptions::*addValue_function_type)( ::std::string const &,double ) ;
             
             MinimizerOptions_exposer.def( 
                 "addValue"
@@ -32,7 +32,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::addValue
         
-            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,int ) ;
+            typedef void ( ::MinimizerOptions::*addValue_function_type)( ::std::string const &,int ) ;
             
             MinimizerOptions_exposer.def( 
                 "addValue"
@@ -42,7 +42,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::addValue
         
-            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,::std::string const & ) ;
+            typedef void ( ::MinimizerOptions::*addValue_function_type)( ::std::string const &,::std::string const & ) ;
             
             MinimizerOptions_exposer.def( 
                 "addValue"
@@ -52,7 +52,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getIntValue
         
-            typedef int ( ::MinimizerOptions::*getIntValue_function_type )( ::std::string const & ) ;
+            typedef int ( ::MinimizerOptions::*getIntValue_function_type)( ::std::string const & ) ;
             
             MinimizerOptions_exposer.def( 
                 "getIntValue"
@@ -62,7 +62,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getMaxFunctionCalls
         
-            typedef int ( ::MinimizerOptions::*getMaxFunctionCalls_function_type )(  ) const;
+            typedef int ( ::MinimizerOptions::*getMaxFunctionCalls_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "getMaxFunctionCalls"
@@ -71,7 +71,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getMaxIterations
         
-            typedef int ( ::MinimizerOptions::*getMaxIterations_function_type )(  ) const;
+            typedef int ( ::MinimizerOptions::*getMaxIterations_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "getMaxIterations"
@@ -80,7 +80,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getNamedValue
         
-            typedef ::std::string ( ::MinimizerOptions::*getNamedValue_function_type )( ::std::string const & ) ;
+            typedef ::std::string ( ::MinimizerOptions::*getNamedValue_function_type)( ::std::string const & ) ;
             
             MinimizerOptions_exposer.def( 
                 "getNamedValue"
@@ -90,7 +90,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getPrecision
         
-            typedef double ( ::MinimizerOptions::*getPrecision_function_type )(  ) const;
+            typedef double ( ::MinimizerOptions::*getPrecision_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "getPrecision"
@@ -99,7 +99,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getPrintLevel
         
-            typedef int ( ::MinimizerOptions::*getPrintLevel_function_type )(  ) const;
+            typedef int ( ::MinimizerOptions::*getPrintLevel_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "getPrintLevel"
@@ -108,7 +108,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getRealValue
         
-            typedef double ( ::MinimizerOptions::*getRealValue_function_type )( ::std::string const & ) ;
+            typedef double ( ::MinimizerOptions::*getRealValue_function_type)( ::std::string const & ) ;
             
             MinimizerOptions_exposer.def( 
                 "getRealValue"
@@ -118,7 +118,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::getTolerance
         
-            typedef double ( ::MinimizerOptions::*getTolerance_function_type )(  ) const;
+            typedef double ( ::MinimizerOptions::*getTolerance_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "getTolerance"
@@ -127,7 +127,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::print
         
-            typedef void ( ::MinimizerOptions::*print_function_type )(  ) const;
+            typedef void ( ::MinimizerOptions::*print_function_type)(  ) const;
             
             MinimizerOptions_exposer.def( 
                 "print"
@@ -136,7 +136,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setMaxFunctionCalls
         
-            typedef void ( ::MinimizerOptions::*setMaxFunctionCalls_function_type )( int ) ;
+            typedef void ( ::MinimizerOptions::*setMaxFunctionCalls_function_type)( int ) ;
             
             MinimizerOptions_exposer.def( 
                 "setMaxFunctionCalls"
@@ -146,7 +146,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setMaxIterations
         
-            typedef void ( ::MinimizerOptions::*setMaxIterations_function_type )( int ) ;
+            typedef void ( ::MinimizerOptions::*setMaxIterations_function_type)( int ) ;
             
             MinimizerOptions_exposer.def( 
                 "setMaxIterations"
@@ -156,7 +156,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setPrecision
         
-            typedef void ( ::MinimizerOptions::*setPrecision_function_type )( double ) ;
+            typedef void ( ::MinimizerOptions::*setPrecision_function_type)( double ) ;
             
             MinimizerOptions_exposer.def( 
                 "setPrecision"
@@ -166,7 +166,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setPrintLevel
         
-            typedef void ( ::MinimizerOptions::*setPrintLevel_function_type )( int ) ;
+            typedef void ( ::MinimizerOptions::*setPrintLevel_function_type)( int ) ;
             
             MinimizerOptions_exposer.def( 
                 "setPrintLevel"
@@ -176,7 +176,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setTolerance
         
-            typedef void ( ::MinimizerOptions::*setTolerance_function_type )( double ) ;
+            typedef void ( ::MinimizerOptions::*setTolerance_function_type)( double ) ;
             
             MinimizerOptions_exposer.def( 
                 "setTolerance"
@@ -186,7 +186,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setValue
         
-            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,double ) ;
+            typedef void ( ::MinimizerOptions::*setValue_function_type)( ::std::string const &,double ) ;
             
             MinimizerOptions_exposer.def( 
                 "setValue"
@@ -196,7 +196,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setValue
         
-            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,int ) ;
+            typedef void ( ::MinimizerOptions::*setValue_function_type)( ::std::string const &,int ) ;
             
             MinimizerOptions_exposer.def( 
                 "setValue"
@@ -206,7 +206,7 @@ void register_MinimizerOptions_class(){
         }
         { //::MinimizerOptions::setValue
         
-            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,::std::string const & ) ;
+            typedef void ( ::MinimizerOptions::*setValue_function_type)( ::std::string const &,::std::string const & ) ;
             
             MinimizerOptions_exposer.def( 
                 "setValue"

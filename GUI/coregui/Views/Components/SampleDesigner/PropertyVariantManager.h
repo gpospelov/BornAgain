@@ -13,7 +13,7 @@ class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined
 //! QVariant based properties.
-class PropertyVariantManager : public QtVariantPropertyManager
+class BA_CORE_API_ PropertyVariantManager : public QtVariantPropertyManager
 {
     Q_OBJECT
 public:

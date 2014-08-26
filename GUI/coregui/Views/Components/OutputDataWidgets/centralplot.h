@@ -6,7 +6,7 @@
 #include <sstream>
 #include "OutputDataItem.h"
 
-class CentralPlot : public QCustomPlot
+class BA_CORE_API_ CentralPlot : public QCustomPlot
 {
     Q_OBJECT
 

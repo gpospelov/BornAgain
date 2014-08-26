@@ -18,7 +18,7 @@
 
 #include "ParameterizedGraphicsItem.h"
 
-class MultiLayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ MultiLayerItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

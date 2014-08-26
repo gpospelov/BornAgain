@@ -1,6 +1,7 @@
 #ifndef JOBPROPERTIESWIDGET_H
 #define JOBPROPERTIESWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QMap>
 
@@ -11,7 +12,7 @@ class JobItem;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
-class JobPropertiesWidget : public QWidget
+class BA_CORE_API_ JobPropertiesWidget : public QWidget
 {
     Q_OBJECT
 public:

@@ -35,10 +35,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual ::FTDistribution2DVoigt * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FTDistribution2DVoigt::clone(  );
+        }
     }
-    
     
     ::FTDistribution2DVoigt * default_clone(  ) const  {
         return FTDistribution2DVoigt::clone( );
@@ -47,10 +47,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual double evaluate( double qx, double qy ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( qx, qy );
-        else
+        else{
             return this->FTDistribution2DVoigt::evaluate( qx, qy );
+        }
     }
-    
     
     double default_evaluate( double qx, double qy ) const  {
         return FTDistribution2DVoigt::evaluate( qx, qy );
@@ -59,10 +59,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual double evaluateLattice( double qx, double qy ) const  {
         if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
             return func_evaluateLattice( qx, qy );
-        else
+        else{
             return this->FTDistribution2DVoigt::evaluateLattice( qx, qy );
+        }
     }
-    
     
     double default_evaluateLattice( double qx, double qy ) const  {
         return FTDistribution2DVoigt::evaluateLattice( qx, qy );
@@ -71,10 +71,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual double getEta(  ) const  {
         if( bp::override func_getEta = this->get_override( "getEta" ) )
             return func_getEta(  );
-        else
+        else{
             return this->FTDistribution2DVoigt::getEta(  );
+        }
     }
-    
     
     double default_getEta(  ) const  {
         return FTDistribution2DVoigt::getEta( );
@@ -83,10 +83,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -95,10 +95,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -107,10 +107,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -119,10 +119,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -150,10 +150,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -162,10 +162,10 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -181,8 +181,8 @@ void register_FTDistribution2DVoigt_class(){
         bp::scope FTDistribution2DVoigt_scope( FTDistribution2DVoigt_exposer );
         { //::FTDistribution2DVoigt::clone
         
-            typedef ::FTDistribution2DVoigt * ( ::FTDistribution2DVoigt::*clone_function_type )(  ) const;
-            typedef ::FTDistribution2DVoigt * ( FTDistribution2DVoigt_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FTDistribution2DVoigt * ( ::FTDistribution2DVoigt::*clone_function_type)(  ) const;
+            typedef ::FTDistribution2DVoigt * ( FTDistribution2DVoigt_wrapper::*default_clone_function_type)(  ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "clone"
@@ -193,8 +193,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::FTDistribution2DVoigt::evaluate
         
-            typedef double ( ::FTDistribution2DVoigt::*evaluate_function_type )( double,double ) const;
-            typedef double ( FTDistribution2DVoigt_wrapper::*default_evaluate_function_type )( double,double ) const;
+            typedef double ( ::FTDistribution2DVoigt::*evaluate_function_type)( double,double ) const;
+            typedef double ( FTDistribution2DVoigt_wrapper::*default_evaluate_function_type)( double,double ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "evaluate"
@@ -205,8 +205,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::FTDistribution2DVoigt::evaluateLattice
         
-            typedef double ( ::FTDistribution2DVoigt::*evaluateLattice_function_type )( double,double ) const;
-            typedef double ( FTDistribution2DVoigt_wrapper::*default_evaluateLattice_function_type )( double,double ) const;
+            typedef double ( ::FTDistribution2DVoigt::*evaluateLattice_function_type)( double,double ) const;
+            typedef double ( FTDistribution2DVoigt_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "evaluateLattice"
@@ -217,8 +217,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::FTDistribution2DVoigt::getEta
         
-            typedef double ( ::FTDistribution2DVoigt::*getEta_function_type )(  ) const;
-            typedef double ( FTDistribution2DVoigt_wrapper::*default_getEta_function_type )(  ) const;
+            typedef double ( ::FTDistribution2DVoigt::*getEta_function_type)(  ) const;
+            typedef double ( FTDistribution2DVoigt_wrapper::*default_getEta_function_type)(  ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "getEta"
@@ -228,8 +228,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FTDistribution2DVoigt_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FTDistribution2DVoigt_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FTDistribution2DVoigt_exposer.def( 
                 "areParametersChanged"
@@ -239,8 +239,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FTDistribution2DVoigt_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FTDistribution2DVoigt_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FTDistribution2DVoigt_exposer.def( 
                 "clearParameterPool"
@@ -250,8 +250,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FTDistribution2DVoigt_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FTDistribution2DVoigt_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "createParameterTree"
@@ -262,8 +262,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FTDistribution2DVoigt_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FTDistribution2DVoigt_wrapper::*default_printParameters_function_type)(  ) const;
             
             FTDistribution2DVoigt_exposer.def( 
                 "printParameters"
@@ -283,8 +283,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FTDistribution2DVoigt_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FTDistribution2DVoigt_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FTDistribution2DVoigt_exposer.def( 
                 "setParameterValue"
@@ -295,8 +295,8 @@ void register_FTDistribution2DVoigt_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FTDistribution2DVoigt_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FTDistribution2DVoigt_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FTDistribution2DVoigt_exposer.def( 
                 "setParametersAreChanged"

@@ -1,11 +1,12 @@
 #ifndef QUICKSIMULATIONSETTINGS_H
 #define QUICKSIMULATIONSETTINGS_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class QRadioButton;
 
-class QuickSimulationSettings : public QWidget
+class BA_CORE_API_ QuickSimulationSettings : public QWidget
 {
     Q_OBJECT
 

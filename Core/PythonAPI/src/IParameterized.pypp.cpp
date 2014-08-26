@@ -42,10 +42,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -54,10 +54,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -66,10 +66,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -78,10 +78,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -109,10 +109,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -121,10 +121,10 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -142,8 +142,8 @@ void register_IParameterized_class(){
         IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IParameterized_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IParameterized_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IParameterized_exposer.def( 
                 "areParametersChanged"
@@ -153,8 +153,8 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IParameterized_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IParameterized_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IParameterized_exposer.def( 
                 "clearParameterPool"
@@ -164,8 +164,8 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IParameterized_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IParameterized_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IParameterized_exposer.def( 
                 "createParameterTree"
@@ -176,7 +176,7 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::getParameterPool
         
-            typedef ::ParameterPool const * ( ::IParameterized::*getParameterPool_function_type )(  ) const;
+            typedef ::ParameterPool const * ( ::IParameterized::*getParameterPool_function_type)(  ) const;
             
             IParameterized_exposer.def( 
                 "getParameterPool"
@@ -186,7 +186,7 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::operator=
         
-            typedef ::IParameterized & ( ::IParameterized::*assign_function_type )( ::IParameterized const & ) ;
+            typedef ::IParameterized & ( ::IParameterized::*assign_function_type)( ::IParameterized const & ) ;
             
             IParameterized_exposer.def( 
                 "assign"
@@ -197,8 +197,8 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IParameterized_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IParameterized_wrapper::*default_printParameters_function_type)(  ) const;
             
             IParameterized_exposer.def( 
                 "printParameters"
@@ -218,8 +218,8 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IParameterized_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IParameterized_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IParameterized_exposer.def( 
                 "setParameterValue"
@@ -230,8 +230,8 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IParameterized_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IParameterized_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IParameterized_exposer.def( 
                 "setParametersAreChanged"

@@ -28,10 +28,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::FormFactorInfLongBox * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorInfLongBox::clone(  );
+        }
     }
-    
     
     ::FormFactorInfLongBox * default_clone(  ) const  {
         return FormFactorInfLongBox::clone( );
@@ -40,10 +40,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -52,10 +52,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else
+        else{
             return this->FormFactorInfLongBox::evaluate_for_q( boost::ref(q) );
+        }
     }
-    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorInfLongBox::evaluate_for_q( boost::ref(q) );
@@ -64,10 +64,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorInfLongBox::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorInfLongBox::getHeight( );
@@ -76,10 +76,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorInfLongBox::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorInfLongBox::getNumberOfStochasticParameters( );
@@ -88,10 +88,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->FormFactorInfLongBox::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return FormFactorInfLongBox::getRadius( );
@@ -100,10 +100,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->FormFactorInfLongBox::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return FormFactorInfLongBox::getVolume( );
@@ -112,10 +112,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -124,10 +124,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -136,10 +136,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -148,10 +148,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -160,10 +160,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -172,10 +172,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -184,10 +184,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -196,10 +196,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -208,10 +208,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -220,10 +220,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -232,10 +232,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -263,10 +263,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -275,10 +275,10 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -294,8 +294,8 @@ void register_FormFactorInfLongBox_class(){
         bp::scope FormFactorInfLongBox_scope( FormFactorInfLongBox_exposer );
         { //::FormFactorInfLongBox::clone
         
-            typedef ::FormFactorInfLongBox * ( ::FormFactorInfLongBox::*clone_function_type )(  ) const;
-            typedef ::FormFactorInfLongBox * ( FormFactorInfLongBox_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorInfLongBox * ( ::FormFactorInfLongBox::*clone_function_type)(  ) const;
+            typedef ::FormFactorInfLongBox * ( FormFactorInfLongBox_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "clone"
@@ -306,8 +306,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::evaluate
         
-            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "evaluate"
@@ -318,8 +318,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "evaluate_for_q"
@@ -330,8 +330,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::getHeight
         
-            typedef double ( ::FormFactorInfLongBox::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorInfLongBox_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getHeight"
@@ -341,8 +341,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorInfLongBox::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorInfLongBox_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorInfLongBox::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorInfLongBox_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -352,8 +352,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::getRadius
         
-            typedef double ( ::FormFactorInfLongBox::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorInfLongBox_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getRadius"
@@ -363,8 +363,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::getVolume
         
-            typedef double ( ::FormFactorInfLongBox::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorInfLongBox_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getVolume"
@@ -374,7 +374,7 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::FormFactorInfLongBox::getWidth
         
-            typedef double ( ::FormFactorInfLongBox::*getWidth_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getWidth_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getWidth"
@@ -383,8 +383,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorInfLongBox_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "areParametersChanged"
@@ -394,8 +394,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorInfLongBox_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "clearParameterPool"
@@ -405,8 +405,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorInfLongBox_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorInfLongBox_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "cloneInvertB"
@@ -417,8 +417,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorInfLongBox_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "containsMagneticMaterial"
@@ -428,8 +428,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorInfLongBox_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "createDistributedFormFactors"
@@ -441,8 +441,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorInfLongBox_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorInfLongBox_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "createParameterTree"
@@ -453,8 +453,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "getCompositeSample"
@@ -465,8 +465,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "getCompositeSample"
@@ -477,8 +477,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IFormFactor::isDistributedFormFactor
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorInfLongBox_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "isDistributedFormFactor"
@@ -488,8 +488,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorInfLongBox_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorInfLongBox_exposer.def( 
                 "printParameters"
@@ -499,8 +499,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorInfLongBox_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "printSampleTree"
@@ -520,8 +520,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorInfLongBox_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "setParameterValue"
@@ -532,8 +532,8 @@ void register_FormFactorInfLongBox_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorInfLongBox_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorInfLongBox_exposer.def( 
                 "setParametersAreChanged"

@@ -4,7 +4,7 @@
 #include "ParameterizedGraphicsItem.h"
 #include <QVector>
 
-class ParticleCoreShellItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

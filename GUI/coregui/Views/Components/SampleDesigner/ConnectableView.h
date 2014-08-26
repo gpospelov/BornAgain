@@ -1,6 +1,7 @@
 #ifndef ISAMPLEVIEW_H
 #define ISAMPLEVIEW_H
 
+#include "WinDllMacros.h"
 #include "IView.h"
 #include "NodeEditorPort.h"
 
@@ -10,7 +11,7 @@ class QWidget;
 class NodeEditorPort;
 
 //! view of ISample's with rectangular shape and node functionality
-class ConnectableView : public IView
+class BA_CORE_API_ ConnectableView : public IView
 {
 public:
     enum { Type = DesignerHelper::ISampleRectType };

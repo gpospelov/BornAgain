@@ -1,6 +1,7 @@
 #ifndef QUICKSIMULATIONRUNNER_H
 #define QUICKSIMULATIONRUNNER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 class JobQueueData;
@@ -10,7 +11,7 @@ class OutputDataWidget;
 
 //! The QuickSimulationRunner class runs the simulation in real time following
 //! requests of SampleTuningWidget
-class QuickSimulationRunner : public QObject
+class BA_CORE_API_ QuickSimulationRunner : public QObject
 {
     Q_OBJECT
 public:

@@ -5,11 +5,12 @@
 #include "ParameterizedItem.h"
 
 
-class ParameterizedGraphicsItem : public ParameterizedItem
+class BA_CORE_API_ ParameterizedGraphicsItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_XPOS, P_YPOS;
+    static const QString P_XPOS;
+    static const QString P_YPOS;
 
 protected:
     explicit ParameterizedGraphicsItem(const QString &model_type=QString(),

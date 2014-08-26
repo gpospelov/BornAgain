@@ -16,6 +16,7 @@
 // for toupper
 #include <algorithm>
 #include <functional>
+#include <string>
 #include <ctype.h>   // need to use c version of tolower defined here
 
 namespace ROOT { 
@@ -69,7 +70,7 @@ namespace GenAlgoOptUtil {
       const OptionsMap & gOpts = GenAlgoOptUtil::gAlgoOptions; 
       for (  OptionsMap::const_iterator pos = gOpts.begin(); 
           pos != gOpts.end(); ++pos) { 
-            os << "Default specific options for algorithm "  << pos->first << " : " << std::endl;
+            os << std::string("Default specific options for algorithm ")  << pos->first << std::string(" : ") << std::endl;
             (pos->second).Print(os);         
       }
    }

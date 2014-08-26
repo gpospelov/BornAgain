@@ -19,7 +19,7 @@
 #include "ParameterizedItem.h"
 class IFormFactor;
 
-class FormFactorItem : public ParameterizedItem
+class BA_CORE_API_ FormFactorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -29,77 +29,92 @@ public:
 };
 
 
-class AnisoPyramidItem : public FormFactorItem
+class BA_CORE_API_ AnisoPyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_WIDTH, P_HEIGHT, P_ALPHA;
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ALPHA;
     explicit AnisoPyramidItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class BoxItem : public FormFactorItem
+class BA_CORE_API_ BoxItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_WIDTH, P_HEIGHT;
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
     explicit BoxItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class ConeItem : public FormFactorItem
+class BA_CORE_API_ ConeItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT, P_ALPHA;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
+    static const QString P_ALPHA;
     explicit ConeItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class Cone6Item : public FormFactorItem
+class BA_CORE_API_ Cone6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT, P_ALPHA;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
+    static const QString P_ALPHA;
     explicit Cone6Item(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class CuboctahedronItem : public FormFactorItem
+class BA_CORE_API_ CuboctahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_HEIGHT, P_HEIGHT_RATIO, P_ALPHA;
+    static const QString P_LENGTH;
+    static const QString P_HEIGHT;
+    static const QString P_HEIGHT_RATIO;
+    static const QString P_ALPHA;
     explicit CuboctahedronItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class CylinderItem : public FormFactorItem
+class BA_CORE_API_ CylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
     explicit CylinderItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class EllipsoidalCylinderItem : public FormFactorItem
+class BA_CORE_API_ EllipsoidalCylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS_A, P_RADIUS_B, P_HEIGHT;
+    static const QString P_RADIUS_A;
+    static const QString P_RADIUS_B;
+    static const QString P_HEIGHT;
     explicit EllipsoidalCylinderItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class FullSphereItem : public FormFactorItem
+class BA_CORE_API_ FullSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -109,101 +124,118 @@ public:
 };
 
 
-class FullSpheroidItem : public FormFactorItem
+class BA_CORE_API_ FullSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
     explicit FullSpheroidItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class HemiEllipsoidItem : public FormFactorItem
+class BA_CORE_API_ HemiEllipsoidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS_A, P_RADIUS_B, P_HEIGHT;
+    static const QString P_RADIUS_A;
+    static const QString P_RADIUS_B;
+    static const QString P_HEIGHT;
     explicit HemiEllipsoidItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class Prism3Item : public FormFactorItem
+class BA_CORE_API_ Prism3Item : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_HEIGHT;
+    static const QString P_LENGTH;
+    static const QString P_HEIGHT;
     explicit Prism3Item(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class Prism6Item : public FormFactorItem
+class BA_CORE_API_ Prism6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
     explicit Prism6Item(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class PyramidItem : public FormFactorItem
+class BA_CORE_API_ PyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_HEIGHT, P_ALPHA;
+    static const QString P_LENGTH;
+    static const QString P_HEIGHT;
+    static const QString P_ALPHA;
     explicit PyramidItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class Ripple1Item : public FormFactorItem
+class BA_CORE_API_ Ripple1Item : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_WIDTH, P_HEIGHT;
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
     explicit Ripple1Item(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class Ripple2Item : public FormFactorItem
+class BA_CORE_API_ Ripple2Item : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_WIDTH, P_HEIGHT, P_ASYMMETRY;
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ASYMMETRY;
     explicit Ripple2Item(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class TetrahedronItem : public FormFactorItem
+class BA_CORE_API_ TetrahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_LENGTH, P_HEIGHT, P_ALPHA;
+    static const QString P_LENGTH;
+    static const QString P_HEIGHT;
+    static const QString P_ALPHA;
     explicit TetrahedronItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class TruncatedSphereItem : public FormFactorItem
+class BA_CORE_API_ TruncatedSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
     explicit TruncatedSphereItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 
 
-class TruncatedSpheroidItem : public FormFactorItem
+class BA_CORE_API_ TruncatedSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
-    static const QString P_RADIUS, P_HEIGHT, P_HFC;
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
+    static const QString P_HFC;
     explicit TruncatedSpheroidItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };

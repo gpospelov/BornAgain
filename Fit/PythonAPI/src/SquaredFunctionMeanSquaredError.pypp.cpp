@@ -26,10 +26,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredDifference = this->get_override( "calculateSquaredDifference" ) )
             return func_calculateSquaredDifference( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionMeanSquaredError::calculateSquaredDifference( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredDifference( double real_value, double simulated_value ) const  {
         return SquaredFunctionMeanSquaredError::calculateSquaredDifference( real_value, simulated_value );
@@ -38,10 +38,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual double calculateSquaredError( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionMeanSquaredError::calculateSquaredError( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredError( double real_value, double simulated_value ) const  {
         return SquaredFunctionMeanSquaredError::calculateSquaredError( real_value, simulated_value );
@@ -50,10 +50,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual ::SquaredFunctionMeanSquaredError * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->SquaredFunctionMeanSquaredError::clone(  );
+        }
     }
-    
     
     ::SquaredFunctionMeanSquaredError * default_clone(  ) const  {
         return SquaredFunctionMeanSquaredError::clone( );
@@ -69,8 +69,8 @@ void register_SquaredFunctionMeanSquaredError_class(){
         bp::scope SquaredFunctionMeanSquaredError_scope( SquaredFunctionMeanSquaredError_exposer );
         { //::SquaredFunctionMeanSquaredError::calculateSquaredDifference
         
-            typedef double ( ::SquaredFunctionMeanSquaredError::*calculateSquaredDifference_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredDifference_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionMeanSquaredError::*calculateSquaredDifference_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredDifference_function_type)( double,double ) const;
             
             SquaredFunctionMeanSquaredError_exposer.def( 
                 "calculateSquaredDifference"
@@ -81,8 +81,8 @@ void register_SquaredFunctionMeanSquaredError_class(){
         }
         { //::SquaredFunctionMeanSquaredError::calculateSquaredError
         
-            typedef double ( ::SquaredFunctionMeanSquaredError::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionMeanSquaredError::*calculateSquaredError_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredError_function_type)( double,double ) const;
             
             SquaredFunctionMeanSquaredError_exposer.def( 
                 "calculateSquaredError"
@@ -93,8 +93,8 @@ void register_SquaredFunctionMeanSquaredError_class(){
         }
         { //::SquaredFunctionMeanSquaredError::clone
         
-            typedef ::SquaredFunctionMeanSquaredError * ( ::SquaredFunctionMeanSquaredError::*clone_function_type )(  ) const;
-            typedef ::SquaredFunctionMeanSquaredError * ( SquaredFunctionMeanSquaredError_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::SquaredFunctionMeanSquaredError * ( ::SquaredFunctionMeanSquaredError::*clone_function_type)(  ) const;
+            typedef ::SquaredFunctionMeanSquaredError * ( SquaredFunctionMeanSquaredError_wrapper::*default_clone_function_type)(  ) const;
             
             SquaredFunctionMeanSquaredError_exposer.def( 
                 "clone"

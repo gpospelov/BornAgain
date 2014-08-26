@@ -5,7 +5,7 @@
 
 
 //! Class that represents view of Layer
-class LayerView : public ILayerView
+class BA_CORE_API_ LayerView : public ILayerView
 {
     Q_OBJECT
 public:

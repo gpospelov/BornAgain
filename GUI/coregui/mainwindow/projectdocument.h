@@ -1,6 +1,7 @@
 #ifndef PROJECTDOCUMENT_H
 #define PROJECTDOCUMENT_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
 
@@ -27,7 +28,7 @@ namespace ProjectDocumentXML
 //! getProgectPath()     - '/home/users/development'
 //! getProjectDir()      - 'home/users/development/Untitled
 //! getProjectFileName() - '/home/users/development/Untitled/Untitled.pro'
-class ProjectDocument : public QObject
+class BA_CORE_API_ ProjectDocument : public QObject
 {
     Q_OBJECT
 

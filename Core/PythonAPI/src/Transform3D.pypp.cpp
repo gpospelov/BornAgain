@@ -23,7 +23,7 @@ void register_Transform3D_class(){
         Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("other") )) );
         { //::Geometry::Transform3D::clone
         
-            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*clone_function_type )(  ) const;
+            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*clone_function_type)(  ) const;
             
             Transform3D_exposer.def( 
                 "clone"
@@ -43,7 +43,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::createInverse
         
-            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*createInverse_function_type )(  ) const;
+            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*createInverse_function_type)(  ) const;
             
             Transform3D_exposer.def( 
                 "createInverse"
@@ -87,7 +87,7 @@ void register_Transform3D_class(){
         Transform3D_exposer.def( bp::self * bp::self );
         { //::Geometry::Transform3D::print
         
-            typedef void ( ::Geometry::Transform3D::*print_function_type )( ::std::ostream & ) const;
+            typedef void ( ::Geometry::Transform3D::*print_function_type)( ::std::ostream & ) const;
             
             Transform3D_exposer.def( 
                 "print"
@@ -97,7 +97,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::transformedInverse
         
-            typedef ::Geometry::BasicVector3D< double > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            typedef ::Geometry::BasicVector3D< double > ( ::Geometry::Transform3D::*transformedInverse_function_type)( ::Geometry::BasicVector3D< double > const & ) const;
             
             Transform3D_exposer.def( 
                 "transformedInverse"
@@ -107,7 +107,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::transformedInverse
         
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > ( ::Geometry::Transform3D::*transformedInverse_function_type)( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
             
             Transform3D_exposer.def( 
                 "transformedInverse"

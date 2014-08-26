@@ -4,7 +4,7 @@
 #include "ConnectableView.h"
 
 //! Class representing view of Particle item
-class ParticleCoreShellView : public ConnectableView
+class BA_CORE_API_ ParticleCoreShellView : public ConnectableView
 {
     Q_OBJECT
 

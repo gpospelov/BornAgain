@@ -1,6 +1,7 @@
 #ifndef HOSTOSINFO_H
 #define HOSTOSINFO_H
 
+#include "WinDllMacros.h"
 #include <QString>
 
 namespace Utils {
@@ -9,7 +10,7 @@ namespace Utils {
 
 enum OsType { OsTypeWindows, OsTypeLinux, OsTypeMac, OsTypeOtherUnix, OsTypeOther };
 
-class OsSpecificAspects
+class BA_CORE_API_ OsSpecificAspects
 {
 public:
     OsSpecificAspects(OsType osType) : m_osType(osType) { }
@@ -38,7 +39,7 @@ private:
 };
 
 
-class HostOsInfo
+class BA_CORE_API_ HostOsInfo
 {
 public:
 
@@ -78,7 +79,7 @@ private:
 };
 
 
-OsType HostOsInfo::hostOs()
+BA_CORE_API_ OsType HostOsInfo::hostOs()
 {
 #if defined(Q_OS_WIN)
     return OsTypeWindows;
@@ -93,7 +94,7 @@ OsType HostOsInfo::hostOs()
 #endif
 }
 
-bool HostOsInfo::isAnyUnixHost()
+BA_CORE_API_ bool HostOsInfo::isAnyUnixHost()
 {
 #ifdef Q_OS_UNIX
     return true;

@@ -58,7 +58,7 @@ void QuickSimulationRunner::setOutputDataWidget(OutputDataWidget *outputDataWidg
 }
 
 
-void QuickSimulationRunner::onJobItemIsModified(JobItem *item)
+void QuickSimulationRunner::onJobItemIsModified(JobItem *)
 {
 //    qDebug() << "QuickSimulationRunner::onJobItemIsModified()" << item->getProgress();
 

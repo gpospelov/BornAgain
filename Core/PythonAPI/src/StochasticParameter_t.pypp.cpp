@@ -31,10 +31,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else
+        else{
             return this->StochasticParameter< double >::getFWHM(  );
+        }
     }
-    
     
     double default_getFWHM(  ) const  {
         return StochasticParameter< double >::getFWHM( );
@@ -43,10 +43,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else
+        else{
             return this->StochasticParameter< double >::getRandom(  );
+        }
     }
-    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -60,10 +60,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else
+        else{
             this->StochasticParameter< double >::setToAverage(  );
+        }
     }
-    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );
@@ -85,7 +85,7 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::clone
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef ::StochasticParameter<double> * ( exported_class_t::*clone_function_type )(  ) const;
+            typedef ::StochasticParameter<double> * ( exported_class_t::*clone_function_type)(  ) const;
             
             StochasticParameter_t_exposer.def( 
                 "clone"
@@ -96,7 +96,7 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::getAverage
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef double ( exported_class_t::*getAverage_function_type )(  ) ;
+            typedef double ( exported_class_t::*getAverage_function_type)(  ) ;
             
             StochasticParameter_t_exposer.def( 
                 "getAverage"
@@ -106,7 +106,7 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::getCurrent
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef double ( exported_class_t::*getCurrent_function_type )(  ) const;
+            typedef double ( exported_class_t::*getCurrent_function_type)(  ) const;
             
             StochasticParameter_t_exposer.def( 
                 "getCurrent"
@@ -116,8 +116,8 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::getFWHM
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef double ( exported_class_t::*getFWHM_function_type )(  ) const;
-            typedef double ( StochasticParameter_less__double__greater__wrapper::*default_getFWHM_function_type )(  ) const;
+            typedef double ( exported_class_t::*getFWHM_function_type)(  ) const;
+            typedef double ( StochasticParameter_less__double__greater__wrapper::*default_getFWHM_function_type)(  ) const;
             
             StochasticParameter_t_exposer.def( 
                 "getFWHM"
@@ -128,8 +128,8 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::getRandom
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef double ( exported_class_t::*getRandom_function_type )(  ) ;
-            typedef double ( StochasticParameter_less__double__greater__wrapper::*default_getRandom_function_type )(  ) ;
+            typedef double ( exported_class_t::*getRandom_function_type)(  ) ;
+            typedef double ( StochasticParameter_less__double__greater__wrapper::*default_getRandom_function_type)(  ) ;
             
             StochasticParameter_t_exposer.def( 
                 "getRandom"
@@ -140,7 +140,7 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::probabilityDensity
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef double ( exported_class_t::*probabilityDensity_function_type )( double ) const;
+            typedef double ( exported_class_t::*probabilityDensity_function_type)( double ) const;
             
             StochasticParameter_t_exposer.def( 
                 "probabilityDensity"
@@ -151,8 +151,8 @@ void register_StochasticParameter_t_class(){
         { //::StochasticParameter< double >::setToAverage
         
             typedef StochasticParameter< double > exported_class_t;
-            typedef void ( exported_class_t::*setToAverage_function_type )(  ) ;
-            typedef void ( StochasticParameter_less__double__greater__wrapper::*default_setToAverage_function_type )(  ) ;
+            typedef void ( exported_class_t::*setToAverage_function_type)(  ) ;
+            typedef void ( StochasticParameter_less__double__greater__wrapper::*default_setToAverage_function_type)(  ) ;
             
             StochasticParameter_t_exposer.def( 
                 "setToAverage"
@@ -162,7 +162,7 @@ void register_StochasticParameter_t_class(){
         }
         { //::IStochasticParameter::setToRandom
         
-            typedef void ( ::IStochasticParameter::*setToRandom_function_type )(  ) ;
+            typedef void ( ::IStochasticParameter::*setToRandom_function_type)(  ) ;
             
             StochasticParameter_t_exposer.def( 
                 "setToRandom"

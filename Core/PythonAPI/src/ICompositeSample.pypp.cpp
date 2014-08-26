@@ -33,10 +33,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -45,10 +45,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -57,10 +57,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
-    
     
     ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
@@ -69,10 +69,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -81,10 +81,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -93,10 +93,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -105,10 +105,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -117,10 +117,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -129,10 +129,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -141,10 +141,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -172,10 +172,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -184,10 +184,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -203,7 +203,7 @@ void register_ICompositeSample_class(){
         bp::scope ICompositeSample_scope( ICompositeSample_exposer );
         { //::ICompositeSample::clone
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*clone_function_type )(  ) const;
+            typedef ::ICompositeSample * ( ::ICompositeSample::*clone_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "clone"
@@ -213,8 +213,8 @@ void register_ICompositeSample_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             ICompositeSample_exposer.def( 
                 "getCompositeSample"
@@ -225,8 +225,8 @@ void register_ICompositeSample_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "getCompositeSample"
@@ -237,8 +237,8 @@ void register_ICompositeSample_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( ICompositeSample_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( ICompositeSample_wrapper::*default_size_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "size"
@@ -248,8 +248,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ICompositeSample_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( ICompositeSample_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             ICompositeSample_exposer.def( 
                 "areParametersChanged"
@@ -259,8 +259,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( ICompositeSample_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( ICompositeSample_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             ICompositeSample_exposer.def( 
                 "clearParameterPool"
@@ -270,8 +270,8 @@ void register_ICompositeSample_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( ICompositeSample_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( ICompositeSample_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "cloneInvertB"
@@ -282,8 +282,8 @@ void register_ICompositeSample_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( ICompositeSample_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( ICompositeSample_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "containsMagneticMaterial"
@@ -293,8 +293,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ICompositeSample_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ICompositeSample_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "createParameterTree"
@@ -305,8 +305,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ICompositeSample_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( ICompositeSample_wrapper::*default_printParameters_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "printParameters"
@@ -316,8 +316,8 @@ void register_ICompositeSample_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( ICompositeSample_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( ICompositeSample_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             ICompositeSample_exposer.def( 
                 "printSampleTree"
@@ -337,8 +337,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( ICompositeSample_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ICompositeSample_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             ICompositeSample_exposer.def( 
                 "setParameterValue"
@@ -349,8 +349,8 @@ void register_ICompositeSample_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ICompositeSample_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ICompositeSample_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             ICompositeSample_exposer.def( 
                 "setParametersAreChanged"

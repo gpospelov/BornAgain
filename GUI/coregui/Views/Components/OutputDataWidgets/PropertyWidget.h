@@ -9,7 +9,7 @@ class QtProperty;
 class QtVariantProperty;
 
 
-class PropertyWidget : public QWidget
+class BA_CORE_API_ PropertyWidget : public QWidget
 {
     Q_OBJECT
 

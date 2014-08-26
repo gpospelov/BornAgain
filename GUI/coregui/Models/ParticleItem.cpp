@@ -30,12 +30,11 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
 {
     setItemName(Constants::ParticleType);
     setItemPort(ParameterizedItem::PortInfo::Port0);
-    //registerGroupProperty(P_FORM_FACTOR, Constants::CylinderType);
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
-
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
-
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);
+
+    addToValidChildren(Constants::TransformationType, PortInfo::Port0, 1);
 }
 

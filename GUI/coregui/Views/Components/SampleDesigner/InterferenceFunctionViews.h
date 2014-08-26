@@ -1,5 +1,5 @@
-#ifndef PARACRYSTALVIEWS_H
-#define PARACRYSTALVIEWS_H
+#ifndef INTERFERENCEFUNCTIONVIEWS_H
+#define INTERFERENCEFUNCTIONVIEWS_H
 
 
 #include "ConnectableView.h"
@@ -41,5 +41,4 @@ public:
     int type() const { return Type; }
 };
 
-
-#endif
+#endif // INTERFERENCEFUNCTIONVIEWS_H

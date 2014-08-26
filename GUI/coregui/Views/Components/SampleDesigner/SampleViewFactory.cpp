@@ -4,6 +4,7 @@
 #include "LayerView.h"
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
+#include "TransformationView.h"
 #include "ParticleCoreShellView.h"
 #include "InterferenceFunctionViews.h"
 #include "GUIHelpers.h"
@@ -15,6 +16,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
+        << Constants::TransformationType
         << Constants::ParticleCoreShellType
         << Constants::InterferenceFunction1DParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
@@ -44,6 +46,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==Constants::ParticleType) {
         return new ParticleView();
+    }
+    else if (name==Constants::TransformationType) {
+        return new TransformationView();
     }
     else if (name==Constants::ParticleCoreShellType) {
         return new ParticleCoreShellView();

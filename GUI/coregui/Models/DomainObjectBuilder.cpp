@@ -18,11 +18,15 @@
 #include "GUIHelpers.h"
 #include "ParticleCoreShellItem.h"
 #include "Samples.h"
+#include "PositionParticleInfo.h"
 #include "Instrument.h"
 #include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
 #include "ParticleCoreShell.h"
 #include "LayerItem.h"
+#include "TransformationItem.h"
+#include "VectorItem.h"
+#include "RotationItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -104,11 +108,13 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType) {
+            ParameterizedItem *particle_item = children[i];
             double depth(0), abundance(0);
             boost::scoped_ptr<Particle>
-                    particle(buildParticle(*children[i], depth, abundance));
+                    particle(buildParticle(*particle_item, depth, abundance));
             if (particle.get()) {
-                result->addParticle(*particle, depth, abundance);
+                addParticleToLayout(result, particle_item, depth, abundance,
+                                    *particle);
             }
         }
         else if(children[i]->modelType().startsWith("InterferenceFunction")) {
@@ -126,9 +132,6 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
                 result->addParticle(*coreshell, depth, abundance);
             }
         }
-
-
-
         else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
         }
@@ -137,15 +140,44 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
 }
 
 
-Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const
+Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item,
+                                   double &depth, double &abundance) const
 {
     Particle *result = TransformToDomain::createParticle(item, depth, abundance);
+    QList<ParameterizedItem *> children = item.childItems();
+    if (children.size()>1) {
+        throw GUIHelpers::Error(
+                "DomainObjectBuilder::buildParticle() "
+                "-> Error! ParticleItem has too many child items.");
+    }
+    for (int i=0; i<children.size(); ++i) {
+        if (children[i]->modelType() == Constants::TransformationType) {
+            RotationItem *rot_item = dynamic_cast<RotationItem *>(
+                children[i]->getSubItems()[TransformationItem::P_ROT]);
+            if (!rot_item) {
+                throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() "
+                                        "-> Error! ParticleItem's child is"
+                                        " not a transformation.");
+            }
+            boost::scoped_ptr<Geometry::Transform3D> P_transform(
+                        rot_item->createTransform());
+            if (P_transform.get() && !P_transform->isIdentity()) {
+                result->setTransformation(*P_transform);
+            }
+        }
+        else {
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() "
+                                    "-> Error! Not implemented");
+        }
+    }
     return result;
 }
 
-IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
+IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(
+        const ParameterizedItem &item) const
 {
-    IInterferenceFunction *result = TransformToDomain::createInterferenceFunction(item);
+    IInterferenceFunction *result = TransformToDomain::
+            createInterferenceFunction(item);
     Q_ASSERT(result);
     return result;
 }
@@ -153,11 +185,9 @@ IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const Para
 
 Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) const
 {
-//    qDebug() << "DomainObjectBuilder::buildInstrument";
     Instrument *result = TransformToDomain::createInstrument(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
-//        qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
         if (children[i]->modelType() == Constants::BeamType) {
             boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
             if (P_beam.get()) {
@@ -165,7 +195,8 @@ Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) 
             }
         }
         else if (children[i]->modelType() == Constants::DetectorType) {
-            TransformToDomain::initInstrumentFromDetectorItem(*children[i], result);
+            TransformToDomain::initInstrumentFromDetectorItem(*children[i],
+                                                              result);
         }
 
     }
@@ -205,6 +236,46 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     delete coreParticle;
     delete shellParticle;
     return result;
+}
+
+void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
+    ParameterizedItem *particle_item, double depth, double abundance,
+    const Particle& particle) const
+{
+    QList<ParameterizedItem *> particle_children =
+            particle_item->childItems();
+    if (particle_children.size()>1) {
+        throw GUIHelpers::Error(
+                "DomainObjectBuilder::buildParticleLayout() "
+                "-> Error! ParticleItem has too many child items.");
+    }
+    if (particle_children.size()==0) {
+        result->addParticle(particle, depth, abundance);
+    }
+    for (int i=0; i<particle_children.size(); ++i) {
+        if (particle_children[i]->modelType() == Constants::TransformationType) {
+            ParameterizedItem *pos_item = particle_children[i]->getSubItems()
+                    [TransformationItem::P_POS];
+            double pos_x = pos_item->getRegisteredProperty(
+                        VectorItem::P_X).toDouble();
+            double pos_y = pos_item->getRegisteredProperty(
+                        VectorItem::P_Y).toDouble();
+            double pos_z = pos_item->getRegisteredProperty(
+                        VectorItem::P_Z).toDouble();
+            if (pos_x!=0.0 || pos_y!=0.0 || pos_z!=0.0) {
+                kvector_t position(pos_x, pos_y, pos_z);
+                PositionParticleInfo particle_info(
+                            particle, position, abundance);
+                result->addParticleInfo(particle_info);
+            } else {
+                result->addParticle(particle, depth, abundance);
+            }
+        }
+        else {
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() "
+                                    "-> Error! Not implemented");
+        }
+    }
 }
 
 

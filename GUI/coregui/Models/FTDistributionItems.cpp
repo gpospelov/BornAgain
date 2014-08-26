@@ -1,10 +1,12 @@
 #include "FTDistributionItems.h"
+#include "Units.h"
 
 const QString FTDistribution1DItem::P_CORR_LENGTH = "Corr_length";
 const QString FTDistribution1DVoigtItem::P_ETA = "Eta";
 
 const QString FTDistribution2DItem::P_CORR_LENGTH_X = "Corr_length_x";
 const QString FTDistribution2DItem::P_CORR_LENGTH_Y = "Corr_length_y";
+const QString FTDistribution2DItem::P_GAMMA = "Gamma";
 const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
 
 
@@ -110,10 +112,13 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem(ParameterizedItem *parent
 
 IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 {
-    return new FTDistribution2DCauchy(
+    FTDistribution2DCauchy *p_result = new FTDistribution2DCauchy(
                 getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
                 getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
                 );
+    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    p_result->setGamma(gamma);
+    return p_result;
 }
 
 // Gauss
@@ -127,10 +132,13 @@ FTDistribution2DGaussItem::FTDistribution2DGaussItem(ParameterizedItem *parent)
 
 IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 {
-    return new FTDistribution2DGauss(
+    FTDistribution2DGauss *p_result =  new FTDistribution2DGauss(
                 getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
                 getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
                 );
+    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    p_result->setGamma(gamma);
+    return p_result;
 }
 
 // Gate
@@ -144,10 +152,13 @@ FTDistribution2DGateItem::FTDistribution2DGateItem(ParameterizedItem *parent)
 
 IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 {
-    return new FTDistribution2DGate(
+    FTDistribution2DGate *p_result = new FTDistribution2DGate(
                 getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
                 getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
                 );
+    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    p_result->setGamma(gamma);
+    return p_result;
 }
 
 // Cone
@@ -161,10 +172,13 @@ FTDistribution2DConeItem::FTDistribution2DConeItem(ParameterizedItem *parent)
 
 IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 {
-    return new FTDistribution2DCone(
+    FTDistribution2DCone *p_result = new FTDistribution2DCone(
                 getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
                 getRegisteredProperty(P_CORR_LENGTH_Y).toDouble()
                 );
+    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    p_result->setGamma(gamma);
+    return p_result;
 }
 
 // Voigt
@@ -179,9 +193,12 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem(ParameterizedItem *parent)
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const
 {
-    return new FTDistribution2DVoigt(
+    FTDistribution2DVoigt *p_result = new FTDistribution2DVoigt(
                 getRegisteredProperty(P_CORR_LENGTH_X).toDouble(),
                 getRegisteredProperty(P_CORR_LENGTH_Y).toDouble(),
                 getRegisteredProperty(P_ETA).toDouble()
                 );
+    double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
+    p_result->setGamma(gamma);
+    return p_result;
 }

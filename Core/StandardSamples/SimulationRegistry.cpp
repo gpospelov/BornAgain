@@ -131,8 +131,9 @@ SimulationRegistry::SimulationRegistry()
         "gui_isgisaxs06a", StandardSimulations::gui_IsGISAXS06L1,
         "GUI: 2D lattice with disorders");
 
-
-
+    registerItem(
+        "gui_isgisaxs07", StandardSimulations::gui_IsGISAXS07,
+        "GUI: Mixture of fixed particles");
 }
 
 

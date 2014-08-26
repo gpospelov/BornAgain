@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widgetbox version="0.5">
-    
+
     <category name="Layers">
-        
-        
+
         <categoryentry  name="Multi Layer" icon="images/MultiLayer.png">
             <widget class="MultiLayer">
                 <property name="objectName">
@@ -19,12 +18,11 @@
                 </property>
             </widget>
         </categoryentry>
-        
+
     </category>
-    
-    
+
     <category name="Particle layouts">
-        
+
         <categoryentry name="Basic particle layout" icon="images/ParticleLayout.png">
             <widget class="ParticleLayout">
                 <property name="objectName">
@@ -32,12 +30,11 @@
                 </property>
             </widget>
         </categoryentry>
-                
+
     </category>
-    
-    
+
     <category name="Interference functions">
-        
+
         <categoryentry name="1D paracrystal" icon="images/ParaCrystal1D.png">
             <widget class="InterferenceFunction1DParaCrystal">
                 <property name="objectName">
@@ -45,7 +42,7 @@
                 </property>
             </widget>
         </categoryentry>
-        
+
         <categoryentry  name="2D paracrystal" icon="images/ParaCrystal2D.png">
             <widget class="InterferenceFunction2DParaCrystal">
                 <property name="objectName">
@@ -53,7 +50,7 @@
                 </property>
             </widget>
         </categoryentry>
-        
+
         <categoryentry  name="2D lattice" icon="images/Lattice2D.png">
             <widget class="InterferenceFunction2DLattice">
                 <property name="objectName">
@@ -63,8 +60,7 @@
         </categoryentry>
 
     </category>
-    
-    
+
     <category name="Particles">
 
         <categoryentry name="Anisotropic pyramid" icon="images/ff_anisopyramid_32.png">
@@ -74,7 +70,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Box" icon="images/ff_box_32.png">
             <widget class="FormFactorBox">
                 <property name="objectName">
@@ -82,7 +78,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Cone" icon="images/ff_cone_32.png">
             <widget class="FormFactorCone">
                 <property name="objectName">
@@ -90,7 +86,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Cone6" icon="images/ff_cone6_32.png">
             <widget class="FormFactorCone6">
                 <property name="objectName">
@@ -98,7 +94,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Cuboctahedron" icon="images/ff_cubeoct_32.png">
             <widget class="FormFactorCuboctahedron">
                 <property name="objectName">
@@ -106,7 +102,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Cylinder" icon="images/ff_cylinder_32.png">
             <widget class="FormFactorCylinder">
                 <property name="objectName">
@@ -114,7 +110,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Ellipsoidal cylinder" icon="images/ff_ellipscylinder_32.png">
             <widget class="FormFactorEllipsoidalCylinder">
                 <property name="objectName">
@@ -122,7 +118,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Full sphere" icon="images/ff_fullsphere_32.png">
             <widget class="FormFactorFullSphere">
                 <property name="objectName">
@@ -130,7 +126,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Full spheroid" icon="images/ff_fullspheroid_32.png">
             <widget class="FormFactorFullSpheroid">
                 <property name="objectName">
@@ -138,7 +134,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Hemi ellipsoid" icon="images/ff_hemiellipsoid_32.png">
             <widget class="FormFactorHemiEllipsoid">
                 <property name="objectName">
@@ -146,7 +142,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Prism3" icon="images/ff_prism3_32.png">
             <widget class="FormFactorPrism3">
                 <property name="objectName">
@@ -154,7 +150,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Prism6" icon="images/ff_prism6_32.png">
             <widget class="FormFactorPrism6">
                 <property name="objectName">
@@ -162,7 +158,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Pyramid" icon="images/ff_pyramid_32.png">
             <widget class="FormFactorPyramid">
                 <property name="objectName">
@@ -170,7 +166,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Ripple1" icon="images/ff_ripple1_32.png">
             <widget class="FormFactorRipple1">
                 <property name="objectName">
@@ -178,7 +174,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Ripple2" icon="images/ff_ripple2_32.png">
             <widget class="FormFactorRipple2">
                 <property name="objectName">
@@ -194,7 +190,7 @@
                 </property>
             </widget>
         </categoryentry>
-        
+
         <categoryentry name="Truncated sphere" icon="images/ff_truncsphere_32.png">
             <widget class="FormFactorTruncatedSphere">
                 <property name="objectName">
@@ -202,7 +198,7 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
         <categoryentry name="Truncated spheroid" icon="images/ff_truncspheroid_32.png">
             <widget class="FormFactorTruncatedSpheroid">
                 <property name="objectName">
@@ -210,11 +206,22 @@
                 </property>
             </widget>
         </categoryentry>
-        
+
+    </category>
+
+    <category name="Transformations">
+
+        <categoryentry name="Transformation" icon="images/Transformation.png">
+            <widget class="Transformation">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
 
 
-    
     <category name="Particle assemblies">
 
         <categoryentry name="Core shell particle" icon="images/ParticleCoreShell.png">
@@ -224,14 +231,12 @@
                 </property>
             </widget>
         </categoryentry>
-    
+
     </category>
 
-    
-    
     <category name="Standard samples">
-        
-        <categoryentry name="Example #1 (no interference)" icon="images/Transformation.png">
+
+        <categoryentry name="Example #1 (no interference)" icon="images/sample_layers2.png">
             <widget class="example01">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -279,7 +284,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Example #7 (Mixture of fixed particles)" icon="images/sample_layers2.png">
+            <widget class="example07">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
-        
 
 </widgetbox>

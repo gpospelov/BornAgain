@@ -18,6 +18,8 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include "TransformationItem.h"
+#include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
@@ -44,6 +46,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerType] = &createInstance<LayerItem>;
     result[Constants::ParticleLayoutType] = &createInstance<ParticleLayoutItem>;
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
+    result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
@@ -71,6 +74,11 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
+
+    result[Constants::XRotationType] = &createInstance<XRotationItem>;
+    result[Constants::YRotationType] = &createInstance<YRotationItem>;
+    result[Constants::ZRotationType] = &createInstance<ZRotationItem>;
+    result[Constants::EulerRotationType] = &createInstance<EulerRotationItem>;
 
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
@@ -110,6 +118,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
+        << Constants::TransformationType
         << Constants::ParticleCoreShellType
         << Constants::InterferenceFunction1DParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType

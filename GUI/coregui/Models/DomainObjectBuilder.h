@@ -45,10 +45,16 @@ public:
 private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
-    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth,
+                            double &abundance) const;
+    IInterferenceFunction *buildInterferenceFunction(
+            const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth, double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
+                                     double &depth, double &abundance) const;
+    void addParticleToLayout(ParticleLayout *result,
+        ParameterizedItem *particle_item, double depth, double abundance,
+        const Particle& particle) const;
 
     ISample *mp_sample;
     Instrument *m_instrument;

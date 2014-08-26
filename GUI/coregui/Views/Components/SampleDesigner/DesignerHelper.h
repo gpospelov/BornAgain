@@ -23,7 +23,8 @@ public:
         InterferenceFunction1DParaType,
         InterferenceFunction2DParaType,
         InterferenceFunction2DLatticeType,
-        ParticleType
+        ParticleType,
+        TransformationType
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }
@@ -40,9 +41,13 @@ public:
     static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4; }
     static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*4; }
 
-    static int getDefaultParticleWidth() { return m_default_layer_height*3; }
+    static int getDefaultParticleWidth() { return m_default_layer_height*3.5; }
     static int getDefaultParticleHeight() { return m_default_layer_height*4; }
     static QColor getDefaultParticleColor() { return QColor(210, 223, 237); }
+
+    static int getDefaultTransformationWidth() { return m_default_layer_height*4; }
+    static int getDefaultTransformationHeight() { return m_default_layer_height*2; }
+    static QColor getDefaultTransformationColor() { return QColor(145, 50, 220); }
 
     static int getDefaultMaterialWidth() { return m_default_layer_height*1.2; }
     static int getDefaultMaterialHeight() { return m_default_layer_height*1.2; }

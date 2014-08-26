@@ -1,6 +1,7 @@
 #include "ParticleView.h"
 #include "ParticleItem.h"
 #include "FancyGroupProperty.h"
+#include "GUIHelpers.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -15,7 +16,7 @@ ParticleView::ParticleView(QGraphicsItem *parent)
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
-    addPort("rotation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
+    addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;
     m_label_vspace = 45;
 }
@@ -68,5 +69,16 @@ void ParticleView::onPropertyChange(const QString &propertyName)
         update();
     } else {
         IView::onPropertyChange(propertyName);
+    }
+}
+
+void ParticleView::addView(IView *childView, int /*row*/)
+{
+    qDebug() << "ParticleView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
+    if(childView->type() == DesignerHelper::TransformationType) {
+        connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
+    }
+    else {
+        throw GUIHelpers::Error("ParticleView::addView() -> Error. Unknown view");
     }
 }

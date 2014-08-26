@@ -14,6 +14,7 @@ const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
+const ModelType TransformationType = "Transformation";
 const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
 const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
@@ -40,6 +41,11 @@ const ModelType Ripple2Type = "Ripple2";
 const ModelType TetrahedronType = "Tetrahedron";
 const ModelType TruncatedSphereType = "TruncatedSphere";
 const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
+
+const ModelType XRotationType = "XRotation";
+const ModelType YRotationType = "YRotation";
+const ModelType ZRotationType = "ZRotation";
+const ModelType EulerRotationType = "EulerRotation";
 
 const ModelType VectorType = "Vector";
 
@@ -77,6 +83,7 @@ const ModelType MagneticFieldType = "MagneticField";
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
+const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType FTDistribution1DGroup = "PDF 1D";

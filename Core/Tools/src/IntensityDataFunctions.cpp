@@ -18,7 +18,7 @@ void IntensityDataFunctions::setEllipticMask(OutputData<double>& data,
     data.setMask(*mask1);
 }
 
-double IntensityDataFunctions::GetRelativeDifference(const OutputData<double> &result, const OutputData<double> &reference)
+double IntensityDataFunctions::getRelativeDifference(const OutputData<double> &result, const OutputData<double> &reference)
 {
     OutputData<double> *c_result = result.clone();
 

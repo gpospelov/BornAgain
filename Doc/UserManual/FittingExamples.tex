@@ -110,7 +110,7 @@ def run_fitting(): @\label{script2::run_fitting}@
     simulation = get_simulation()
     simulation.setSample(sample) @\label{script2::setup_simulation2}@
 
-    real_data = OutputDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt') @\label{script2::real_data}@
+    real_data = IntensityDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt') @\label{script2::real_data}@
 \end{lstlisting}
 Lines
 ~\ref{script2::setup_simulation1}-~\ref{script2::setup_simulation2}

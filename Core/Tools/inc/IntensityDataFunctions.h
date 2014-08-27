@@ -39,7 +39,7 @@ public:
 
     //! Returns relative difference between two data sets
     //! sum(result[i] - reference[i])/reference[i])
-    static double GetRelativeDifference(const OutputData<double> &result,
+    static double getRelativeDifference(const OutputData<double> &result,
                          const OutputData<double> &reference);
 
     //! Returns new IntensityData objects which axes clipped to represent the specified rectangle

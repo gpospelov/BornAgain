@@ -70,6 +70,7 @@ OutputData<double > *OutputDataReadStreamINT::readOutputData(std::istream &input
         if (line.find("axis") != std::string::npos) {
             IAxis *axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);
+            delete axis;
         }
 
         if (line.find("data") != std::string::npos) {

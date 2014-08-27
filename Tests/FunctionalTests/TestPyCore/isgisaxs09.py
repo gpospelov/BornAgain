@@ -90,11 +90,11 @@ def RunSimulation2():
 def runTest():
     result1 = RunSimulation1()
     reference1 = get_reference_data("isgisaxs09_reference_pyramid_Z0.int.gz")
-    diff = IntensityDataFunctions.GetRelativeDifference(result1, reference1)
+    diff = IntensityDataFunctions.getRelativeDifference(result1, reference1)
 
     result2 = RunSimulation2()
     reference2 = get_reference_data("isgisaxs09_reference_pyramid_Z45.int.gz")
-    diff += IntensityDataFunctions.GetRelativeDifference(result2, reference2)
+    diff += IntensityDataFunctions.getRelativeDifference(result2, reference2)
 
     diff /= 2.
 

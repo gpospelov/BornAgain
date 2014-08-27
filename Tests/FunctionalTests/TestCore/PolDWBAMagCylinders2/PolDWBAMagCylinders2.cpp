@@ -20,10 +20,10 @@ int main(int argc, char **argv)
 
     const double threshold(2e-10);
     double diff(0);
-    diff += IntensityDataFunctions::GetRelativeDifference(*simulation->getPolarizedIntensityData(0,0),*reference00);
-    diff += IntensityDataFunctions::GetRelativeDifference(*simulation->getPolarizedIntensityData(0,1),*reference01);
-    diff += IntensityDataFunctions::GetRelativeDifference(*simulation->getPolarizedIntensityData(1,0),*reference10);
-    diff += IntensityDataFunctions::GetRelativeDifference(*simulation->getPolarizedIntensityData(1,1),*reference11);
+    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(0,0),*reference00);
+    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(0,1),*reference01);
+    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(1,0),*reference10);
+    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(1,1),*reference11);
     diff /= 4.;
 
     delete simulation;

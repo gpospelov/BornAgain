@@ -332,6 +332,8 @@ def ManualClassTunings(mb):
         call_policies.return_value_policy(call_policies.return_by_value)
     mb.class_("Transform3D").member_function("createRotateZ").call_policies = \
         call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateEuler").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
     #
     cl = mb.class_("ParticleCoreShell")
     cl.member_functions().exclude()

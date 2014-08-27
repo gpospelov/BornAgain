@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
     const double threshold(2e-10);
     // Calculating average relative difference.
-    double diff = IntensityDataFunctions::GetRelativeDifference(*result,*reference);
+    double diff = IntensityDataFunctions::getRelativeDifference(*result,*reference);
 
     delete simulation;
     delete result;

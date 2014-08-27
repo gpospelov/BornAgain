@@ -163,7 +163,7 @@ def runTest():
     simulation.normalize()
     result = simulation.getIntensityData()
 
-    diff = IntensityDataFunctions.GetRelativeDifference(result, reference)
+    diff = IntensityDataFunctions.getRelativeDifference(result, reference)
 
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)):

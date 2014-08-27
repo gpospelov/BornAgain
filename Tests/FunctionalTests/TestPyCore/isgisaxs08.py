@@ -94,11 +94,11 @@ def RunSimulation2():
 def runTest():
     result1 = RunSimulation1()
     reference1 = get_reference_data("isgisaxs08_reference_2DDL_lattice.int.gz")
-    diff = IntensityDataFunctions.GetRelativeDifference(result1, reference1)
+    diff = IntensityDataFunctions.getRelativeDifference(result1, reference1)
 
     result2 = RunSimulation2()
     reference2 = get_reference_data("isgisaxs08_reference_2DDL_lattice2.int.gz")
-    diff += IntensityDataFunctions.GetRelativeDifference(result2, reference2)
+    diff += IntensityDataFunctions.getRelativeDifference(result2, reference2)
 
     diff /= 2
 

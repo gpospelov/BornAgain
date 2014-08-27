@@ -193,7 +193,7 @@ def get_simulation():  @\label{run1}@
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation() @\label{run2}@
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True) @\label{rundetector}@
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree) @\label{rundetector}@
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) @\label{runbeam}@
     return simulation @\label{returnsimul}@
 \end{lstlisting}
@@ -209,32 +209,46 @@ The detector parameters are set using ranges of angles via
 the function:
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style=false)},
+setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max),
 \end{lstlisting}
 
-%\Code{
-%setDetectorParameters(n\_phi, phi\_f\_min,
-%  phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, %alpha\_f\_max, isgisaxs\_style=false)}, \\
 
-\noindent where \Code{n\_phi=100} is the number of iterations for $\phi_f$,\\ \Code{phi\_f\_min=-1.0*degree} and \Code{phi\_f\_max=1.0*degree}
-are the minimum and maximum values of $\phi_f$, respectively, \\ \Code{n\_alpha=100} is
-the number of iterations for $\alpha_f$,\\ \Code{alpha\_f\_min=0.0*degree} and \Code{alpha\_f\_max=2.0*degree} 
-are the minimum and maximum values of
-$\alpha_f$, respectively. \\
-\Code{isgisaxs\_style=True} (default value = \Code{False}) is a boolean
-used to characterise the structure of the output data. If
-\Code{isgisaxs\_style=True}, the output data is binned at constant
-values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
-at constant values of these two angles.\\
+\noindent where number of bins \Code{n\_phi}, low edge of first bin \Code{phi\_f\_min} and
+upper edge of last bin \Code{phi\_f\_max} all together define $\phi_f$ detector axis, 
+while \Code{n\_alpha}, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} are related to 
+$\alpha_f$ detector axis.
+
+\ImportantPoint{Remark:}{Axis binning\\
+By default axes are binned to provide constant bin size in k-space, which means slightly
+non-equidistant binning in angle space. Other possible options, including user defined
+axes with custom variable bin size are explained elsewhere.
+}
+\vspace*{2mm}
 
 
-\noindent To characterize the beam we use function \Code{setBeamParameters(lambda, alpha\_i, phi\_i)}, where\\
-\Code{lambda=1.0*angstrom} is the incident beam wavelength,
-\Code{alpha\_i=0.2*degree} is the incident
+%are the minimum and maximum values of $\phi_f$, respectively, \Code{n\_alpha} is
+%the number of bins for $\alpha_f$ axis, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} 
+%are the minimum and maximum values of
+%$\alpha_f$, respectively.
+
+%\Code{isgisaxs\_style=True} (default value = \Code{False}) is a boolean
+%used to characterise the structure of the output data. If
+%\Code{isgisaxs\_style=True}, the output data is binned at constant
+%values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
+%at constant values of these two angles.\\
+
+
+
+\noindent To characterize the beam we use function 
+\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+setBeamParameters(lambda, alpha_i, phi_i),
+\end{lstlisting}
+
+\noindent where \Code{lambda} is the incident beam wavelength,
+\Code{alpha\_i} is the incident
 grazing angle on the surface of the sample,
-\Code{phi\_i=0.0*degree} is the in-plane
-direction of the incident beam (measured with respect to the
-$x$-axis).
+\Code{phi\_i} is the in-plane
+direction of the incident beam (measured with respect to the $x$-axis).
 
 \ImportantPoint{Remark:}{Scattering vector\\
 In \BornAgain\, the wave vector $\mathbf{q}$ is defined as

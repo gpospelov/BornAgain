@@ -63,7 +63,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -144,7 +144,7 @@ def get_simulation():
     Create GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -157,7 +157,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = OutputDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt')
+    real_data = IntensityDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt')
     
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

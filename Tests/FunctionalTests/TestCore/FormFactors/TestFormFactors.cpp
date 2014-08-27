@@ -73,7 +73,7 @@ int run_tests()
         OutputData<double> *result = run_simulation(it->first);
         OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir() + it->second);
 
-        double diff = IntensityDataFunctions::GetRelativeDifference(*result, *reference);
+        double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
         std::ostringstream sdiff;
         sdiff << std::setprecision(4) << diff;
 

@@ -244,19 +244,19 @@ def buildSample(xi_value):
 def runTest():
     result_lattice = RunSimulation_lattice()
     reference_lattice = get_reference_data("isgisaxs06_reference_lattice.int.gz")
-    diff = IntensityDataFunctions.GetRelativeDifference(result_lattice, reference_lattice)
+    diff = IntensityDataFunctions.getRelativeDifference(result_lattice, reference_lattice)
 
     result_centered = RunSimulation_centered()
     reference_centered = get_reference_data("isgisaxs06_reference_centered.int.gz")
-    diff += IntensityDataFunctions.GetRelativeDifference(result_centered, reference_centered)
+    diff += IntensityDataFunctions.getRelativeDifference(result_centered, reference_centered)
 
     result_rotated = RunSimulation_rotated()
     reference_rotated = get_reference_data("isgisaxs06_reference_rotated.int.gz")
-    diff += IntensityDataFunctions.GetRelativeDifference(result_rotated, reference_rotated)
+    diff += IntensityDataFunctions.getRelativeDifference(result_rotated, reference_rotated)
 
     result_variants = RunSimulation_variants()
     reference_variants = get_reference_data("isgisaxs06_reference_variants.int.gz")
-    diff += IntensityDataFunctions.GetRelativeDifference(result_variants, reference_variants)
+    diff += IntensityDataFunctions.getRelativeDifference(result_variants, reference_variants)
 
     diff /=4
 

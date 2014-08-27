@@ -58,7 +58,7 @@ def runTest():
     result = RunSimulation()
     reference = get_reference_data('isgisaxs01_normalize_reference.int.gz')
 
-    diff = IntensityDataFunctions.GetRelativeDifference(result, reference)
+    diff = IntensityDataFunctions.getRelativeDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)):
         status = "FAILED"

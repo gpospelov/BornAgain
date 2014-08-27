@@ -37,7 +37,7 @@ int TestBatchSimulation()
     }
 
 
-    double diff = IntensityDataFunctions::GetRelativeDifference(*result,*reference);
+    double diff = IntensityDataFunctions::getRelativeDifference(*result,*reference);
 
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;

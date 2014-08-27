@@ -23,7 +23,7 @@
 //! @ingroup tools
 //! @brief Class holding collection of static methods to work with intensity data.
 
-class BA_CORE_API_ IntensityDataFunctions
+class  BA_CORE_API_ IntensityDataFunctions
 {
 public:
 

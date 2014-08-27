@@ -14,22 +14,12 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
-void register_IntensityDataFunctions_class(){
+void register_IntensityDataFunctions_class() {
 
     { //::IntensityDataFunctions
         typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
         IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions" );
         bp::scope IntensityDataFunctions_scope( IntensityDataFunctions_exposer );
-        { //::IntensityDataFunctions::GetRelativeDifference
-        
-            typedef double ( *GetRelativeDifference_function_type )( ::OutputData< double > const &,::OutputData< double > const & );
-            
-            IntensityDataFunctions_exposer.def( 
-                "GetRelativeDifference"
-                , GetRelativeDifference_function_type( &::IntensityDataFunctions::GetRelativeDifference )
-                , ( bp::arg("result"), bp::arg("reference") ) );
-        
-        }
         { //::IntensityDataFunctions::createClippedDataSet
         
             typedef ::OutputData< double > * ( *createClippedDataSet_function_type )( ::OutputData< double > const &,double,double,double,double );
@@ -41,7 +31,17 @@ void register_IntensityDataFunctions_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IntensityDataFunctions::setEllipticMask
+        { //::IntensityDataFunctions::getRelativeDifference
+        
+            typedef double ( *getRelativeDifference_function_type )( ::OutputData< double > const &,::OutputData< double > const & );
+            
+            IntensityDataFunctions_exposer.def( 
+                "getRelativeDifference"
+                , getRelativeDifference_function_type( &::IntensityDataFunctions::getRelativeDifference )
+                , ( bp::arg("result"), bp::arg("reference") ) );
+        
+         }
+        {  //::IntensityDataFunctions::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
             
@@ -61,10 +61,10 @@ void register_IntensityDataFunctions_class(){
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") ) );
         
         }
-        IntensityDataFunctions_exposer.staticmethod( "GetRelativeDifference" );
         IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
+        IntensityDataFunctions_exposer.staticmethod( "getRelativeDifference" );
         IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );
-        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );
+        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );;
     }
 
 }

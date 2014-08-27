@@ -20,7 +20,7 @@ void TestFunctionalTests::execute()
 
         IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-        double diff = IntensityDataFunctions::GetRelativeDifference(*test->getResult(), *test->getReference());
+        double diff = IntensityDataFunctions::getRelativeDifference(*test->getResult(), *test->getReference());
         std::cout << "diff: " << diff << std::endl;
 
         IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),

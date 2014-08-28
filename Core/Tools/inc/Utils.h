@@ -45,6 +45,9 @@ public:
     //! Split string into vector of string using delimeter.
     static std::vector<std::string> Split(const std::string& text,
                                           const std::string& delimeter);
+
+    //! replace all occurences of items from string text with delimeter
+    static void replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement=std::string(""));
 };
 
 

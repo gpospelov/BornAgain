@@ -21,7 +21,6 @@
 
 Instrument::Instrument()
     : IParameterized("Instrument")
-    , m_isgisaxs_style(false)
 {
     init_parameters();
 }
@@ -30,7 +29,6 @@ Instrument::Instrument(const Instrument& other)
 : IParameterized()
 , m_detector(other.m_detector)
 , m_beam(other.m_beam)
-, m_isgisaxs_style(other.m_isgisaxs_style)
 {
     setName(other.getName());
     init_parameters();
@@ -50,7 +48,6 @@ void Instrument::setDetectorParameters(
     size_t n_alpha, double alpha_f_min, double alpha_f_max,
     bool isgisaxs_style)
 {
-    m_isgisaxs_style = isgisaxs_style;
     if(phi_f_max <= phi_f_min) {
         throw LogicErrorException("Instrument::setDetectorParameters() -> Error! phi_f_max <= phi_f_min");
     }
@@ -82,6 +79,23 @@ void Instrument::setDetectorParameters(const DetectorParameters& params)
 
     m_detector.addAxis(params.m_phi_params);
     m_detector.addAxis(params.m_alpha_params);
+}
+
+void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
+{
+    m_detector.clear();
+
+    IAxis *p_axis0 = axis0.clone();
+    p_axis0->setName(BornAgain::PHI_AXIS_NAME);
+
+    IAxis *p_axis1 = axis1.clone();
+    p_axis1->setName(BornAgain::ALPHA_AXIS_NAME);
+
+    m_detector.addAxis(*p_axis0);
+    m_detector.addAxis(*p_axis1);
+
+    delete p_axis0;
+    delete p_axis1;
 }
 
 std::string Instrument::addParametersToExternalPool(

@@ -16,7 +16,7 @@ namespace bp = boost::python;
 
 struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
 
-    IAxis_wrapper(::std::string name )
+    IAxis_wrapper(::std::string const & name )
     : IAxis( name )
       , bp::wrapper< IAxis >(){
         // constructor
@@ -28,9 +28,40 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_clone(  );
     }
 
-    virtual ::IAxis * createDoubleBinSize(  ) const {
-        bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" );
-        return func_createDoubleBinSize(  );
+    virtual bool contains( double value ) const  {
+        if( bp::override func_contains = this->get_override( "contains" ) )
+            return func_contains( value );
+        else{
+            return this->IAxis::contains( value );
+        }
+    }
+    
+    bool default_contains( double value ) const  {
+        return IAxis::contains( value );
+    }
+
+    virtual ::IAxis * createClippedAxis( double arg0, double arg1 ) const  {
+        if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
+            return func_createClippedAxis( arg0, arg1 );
+        else{
+            return this->IAxis::createClippedAxis( arg0, arg1 );
+        }
+    }
+    
+    ::IAxis * default_createClippedAxis( double arg0, double arg1 ) const  {
+        return IAxis::createClippedAxis( arg0, arg1 );
+    }
+
+    virtual ::IAxis * createDoubleBinSize(  ) const  {
+        if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
+            return func_createDoubleBinSize(  );
+        else{
+            return this->IAxis::createDoubleBinSize(  );
+        }
+    }
+    
+    ::IAxis * default_createDoubleBinSize(  ) const  {
+        return IAxis::createDoubleBinSize( );
     }
 
     virtual ::std::size_t findClosestIndex( double value ) const {
@@ -41,6 +72,30 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::Bin1D getBin( ::std::size_t index ) const {
         bp::override func_getBin = this->get_override( "getBin" );
         return func_getBin( index );
+    }
+
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else{
+            return this->IAxis::getBinBoundaries(  );
+        }
+    }
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return IAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else{
+            return this->IAxis::getBinCenters(  );
+        }
+    }
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return IAxis::getBinCenters( );
     }
 
     virtual double getMax(  ) const {
@@ -74,11 +129,11 @@ void register_IAxis_class(){
 
     { //::IAxis
         typedef bp::class_< IAxis_wrapper, boost::noncopyable > IAxis_exposer_t;
-        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string >(( bp::arg("name") )) );
+        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone
         
-            typedef ::IAxis * ( ::IAxis::*clone_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*clone_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "clone"
@@ -86,19 +141,46 @@ void register_IAxis_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IAxis::contains
+        
+            typedef bool ( ::IAxis::*contains_function_type)( double ) const;
+            typedef bool ( IAxis_wrapper::*default_contains_function_type)( double ) const;
+            
+            IAxis_exposer.def( 
+                "contains"
+                , contains_function_type(&::IAxis::contains)
+                , default_contains_function_type(&IAxis_wrapper::default_contains)
+                , ( bp::arg("value") ) );
+        
+        }
+        { //::IAxis::createClippedAxis
+        
+            typedef ::IAxis * ( ::IAxis::*createClippedAxis_function_type)( double,double ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createClippedAxis_function_type)( double,double ) const;
+            
+            IAxis_exposer.def( 
+                "createClippedAxis"
+                , createClippedAxis_function_type(&::IAxis::createClippedAxis)
+                , default_createClippedAxis_function_type(&IAxis_wrapper::default_createClippedAxis)
+                , ( bp::arg("arg0"), bp::arg("arg1") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::IAxis::createDoubleBinSize
         
-            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type)(  ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createDoubleBinSize_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "createDoubleBinSize"
-                , bp::pure_virtual( createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize) )
+                , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
+                , default_createDoubleBinSize_function_type(&IAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::IAxis::*findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::IAxis::*findClosestIndex_function_type)( double ) const;
             
             IAxis_exposer.def( 
                 "findClosestIndex"
@@ -108,7 +190,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getBin
         
-            typedef ::Bin1D ( ::IAxis::*getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::IAxis::*getBin_function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "getBin"
@@ -116,9 +198,31 @@ void register_IAxis_class(){
                 , ( bp::arg("index") ) );
         
         }
+        { //::IAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type)(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinBoundaries_function_type)(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&IAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type)(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinCenters_function_type)(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::IAxis::getBinCenters)
+                , default_getBinCenters_function_type(&IAxis_wrapper::default_getBinCenters) );
+        
+        }
         { //::IAxis::getMax
         
-            typedef double ( ::IAxis::*getMax_function_type )(  ) const;
+            typedef double ( ::IAxis::*getMax_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getMax"
@@ -127,7 +231,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getMin
         
-            typedef double ( ::IAxis::*getMin_function_type )(  ) const;
+            typedef double ( ::IAxis::*getMin_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getMin"
@@ -136,7 +240,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getName
         
-            typedef ::std::string ( ::IAxis::*getName_function_type )(  ) const;
+            typedef ::std::string ( ::IAxis::*getName_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getName"
@@ -145,7 +249,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getSize
         
-            typedef ::std::size_t ( ::IAxis::*getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::IAxis::*getSize_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getSize"
@@ -154,7 +258,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::operator[]
         
-            typedef double ( ::IAxis::*__getitem___function_type )( ::std::size_t ) const;
+            typedef double ( ::IAxis::*__getitem___function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "__getitem__"
@@ -164,7 +268,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::print
         
-            typedef void ( IAxis_wrapper::*print_function_type )( ::std::ostream & ) const;
+            typedef void ( IAxis_wrapper::*print_function_type)( ::std::ostream & ) const;
             
             IAxis_exposer.def( 
                 "print"
@@ -174,7 +278,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::setName
         
-            typedef void ( ::IAxis::*setName_function_type )( ::std::string ) ;
+            typedef void ( ::IAxis::*setName_function_type)( ::std::string ) ;
             
             IAxis_exposer.def( 
                 "setName"
@@ -182,6 +286,9 @@ void register_IAxis_class(){
                 , ( bp::arg("name") ) );
         
         }
+        IAxis_exposer.def( bp::self != bp::self );
+        IAxis_exposer.def( bp::self_ns::str( bp::self ) );
+        IAxis_exposer.def( bp::self == bp::self );
     }
 
 }

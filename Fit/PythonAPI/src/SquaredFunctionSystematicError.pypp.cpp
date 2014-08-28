@@ -26,10 +26,10 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredDifference = this->get_override( "calculateSquaredDifference" ) )
             return func_calculateSquaredDifference( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionSystematicError::calculateSquaredDifference( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredDifference( double real_value, double simulated_value ) const  {
         return SquaredFunctionSystematicError::calculateSquaredDifference( real_value, simulated_value );
@@ -38,10 +38,10 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
     virtual double calculateSquaredError( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionSystematicError::calculateSquaredError( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredError( double real_value, double simulated_value ) const  {
         return SquaredFunctionSystematicError::calculateSquaredError( real_value, simulated_value );
@@ -50,10 +50,10 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
     virtual ::SquaredFunctionSystematicError * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->SquaredFunctionSystematicError::clone(  );
+        }
     }
-    
     
     ::SquaredFunctionSystematicError * default_clone(  ) const  {
         return SquaredFunctionSystematicError::clone( );
@@ -69,8 +69,8 @@ void register_SquaredFunctionSystematicError_class(){
         bp::scope SquaredFunctionSystematicError_scope( SquaredFunctionSystematicError_exposer );
         { //::SquaredFunctionSystematicError::calculateSquaredDifference
         
-            typedef double ( ::SquaredFunctionSystematicError::*calculateSquaredDifference_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionSystematicError_wrapper::*default_calculateSquaredDifference_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionSystematicError::*calculateSquaredDifference_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionSystematicError_wrapper::*default_calculateSquaredDifference_function_type)( double,double ) const;
             
             SquaredFunctionSystematicError_exposer.def( 
                 "calculateSquaredDifference"
@@ -81,8 +81,8 @@ void register_SquaredFunctionSystematicError_class(){
         }
         { //::SquaredFunctionSystematicError::calculateSquaredError
         
-            typedef double ( ::SquaredFunctionSystematicError::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionSystematicError_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionSystematicError::*calculateSquaredError_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionSystematicError_wrapper::*default_calculateSquaredError_function_type)( double,double ) const;
             
             SquaredFunctionSystematicError_exposer.def( 
                 "calculateSquaredError"
@@ -93,8 +93,8 @@ void register_SquaredFunctionSystematicError_class(){
         }
         { //::SquaredFunctionSystematicError::clone
         
-            typedef ::SquaredFunctionSystematicError * ( ::SquaredFunctionSystematicError::*clone_function_type )(  ) const;
-            typedef ::SquaredFunctionSystematicError * ( SquaredFunctionSystematicError_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::SquaredFunctionSystematicError * ( ::SquaredFunctionSystematicError::*clone_function_type)(  ) const;
+            typedef ::SquaredFunctionSystematicError * ( SquaredFunctionSystematicError_wrapper::*default_clone_function_type)(  ) const;
             
             SquaredFunctionSystematicError_exposer.def( 
                 "clone"

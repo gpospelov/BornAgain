@@ -61,5 +61,6 @@
         <file>images/toolbar_redo.png</file>
         <file>images/toolbar_unddo.png</file>
         <file>images/toolbar_align.png</file>
+        <file>images/toolbar_recycle_dark.png</file>
     </qresource>
 </RCC>

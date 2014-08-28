@@ -59,7 +59,7 @@ def get_simulation():
     characterizing the input beam and output detector
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(400,-1.5*degree, 1.5*degree, 400, 0.0*degree, 2.5*degree, True)
+    simulation.setDetectorParameters(400,-1.5*degree, 1.5*degree, 400, 0.0*degree, 2.5*degree)
     simulation.setBeamParameters(1.6*angstrom, 0.3*degree, 0.0*degree)
 
     return simulation

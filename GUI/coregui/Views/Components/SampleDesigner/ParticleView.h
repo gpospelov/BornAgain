@@ -6,7 +6,7 @@
 #include <QPixmap>
 
 //! Class representing view of Particle item
-class ParticleView : public ConnectableView
+class BA_CORE_API_ ParticleView : public ConnectableView
 {
     Q_OBJECT
 
@@ -22,6 +22,8 @@ public:
     void setParameterizedItem(ParameterizedItem *item);
 
     void onPropertyChange(const QString &propertyName);
+
+    void addView(IView *childView, int row = 0); // to add Transformation
 
 private:
     QPixmap m_pixmap;

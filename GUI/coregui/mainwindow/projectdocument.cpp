@@ -5,6 +5,7 @@
 #include "JobItem.h"
 #include "OutputDataItem.h"
 #include "SampleModel.h"
+#include "IntensityDataIOFactory.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -62,7 +63,7 @@ ProjectDocument::ProjectDocument(const QString &path, const QString &name)
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    //qDebug() << "ProjectDocument::onDataChanged()";
+    qDebug() << "ProjectDocument::onDataChanged()";
     m_modified = true;
     emit modified();
 }
@@ -71,7 +72,7 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
     if(materialModel != m_materialModel) {
-        if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        if(m_materialModel) disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
         m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
@@ -277,7 +278,7 @@ void ProjectDocument::saveOutputData()
             QString filename = getProjectDir() + "/" + dataItem->getName();
             const OutputData<double> *data = dataItem->getOutputData();
             if(data) {
-                OutputDataIOFactory::writeIntensityData(*data, filename.toStdString());
+                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
             }
         }
 
@@ -297,7 +298,7 @@ void ProjectDocument::loadOutputData()
             QString filename = getProjectDir() + "/" + dataItem->getName();
             QFileInfo info(filename);
             if(info.exists()) {
-                jobItem->getOutputDataItem()->setOutputData(OutputDataIOFactory::readIntensityData(filename.toStdString()));
+                jobItem->getOutputDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
             }
         }
     }

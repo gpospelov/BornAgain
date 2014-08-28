@@ -27,7 +27,7 @@
 //! @brief Definition of SimulationDataModel that holds lists of samples,
 //! instruments and simulation parameters
 //- -------------------------------------------------------------------
-class SimulationDataModel
+class BA_CORE_API_ SimulationDataModel
 {
 public:
     SimulationDataModel();

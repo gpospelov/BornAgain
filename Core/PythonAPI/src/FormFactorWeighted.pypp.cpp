@@ -28,10 +28,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::FormFactorWeighted * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorWeighted::clone(  );
+        }
     }
-    
     
     ::FormFactorWeighted * default_clone(  ) const  {
         return FormFactorWeighted::clone( );
@@ -40,10 +40,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->FormFactorWeighted::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return FormFactorWeighted::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -52,10 +52,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorWeighted::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorWeighted::getNumberOfStochasticParameters( );
@@ -64,10 +64,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -76,10 +76,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -88,10 +88,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -100,10 +100,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -112,10 +112,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -124,10 +124,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -136,10 +136,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -148,10 +148,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -160,10 +160,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->IFormFactor::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return IFormFactor::getHeight( );
@@ -172,10 +172,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -184,10 +184,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactor::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactor::getVolume( );
@@ -196,10 +196,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -208,10 +208,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -220,10 +220,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -251,10 +251,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -263,10 +263,10 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -282,7 +282,7 @@ void register_FormFactorWeighted_class(){
         bp::scope FormFactorWeighted_scope( FormFactorWeighted_exposer );
         { //::FormFactorWeighted::addFormFactor
         
-            typedef void ( ::FormFactorWeighted::*addFormFactor_function_type )( ::IFormFactor const &,double ) ;
+            typedef void ( ::FormFactorWeighted::*addFormFactor_function_type)( ::IFormFactor const &,double ) ;
             
             FormFactorWeighted_exposer.def( 
                 "addFormFactor"
@@ -292,8 +292,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::FormFactorWeighted::clone
         
-            typedef ::FormFactorWeighted * ( ::FormFactorWeighted::*clone_function_type )(  ) const;
-            typedef ::FormFactorWeighted * ( FormFactorWeighted_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorWeighted * ( ::FormFactorWeighted::*clone_function_type)(  ) const;
+            typedef ::FormFactorWeighted * ( FormFactorWeighted_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "clone"
@@ -304,8 +304,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::FormFactorWeighted::evaluate
         
-            typedef ::complex_t ( ::FormFactorWeighted::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorWeighted_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorWeighted::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorWeighted_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorWeighted_exposer.def( 
                 "evaluate"
@@ -316,8 +316,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::FormFactorWeighted::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorWeighted::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorWeighted_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorWeighted::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorWeighted_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -327,8 +327,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorWeighted_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorWeighted_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorWeighted_exposer.def( 
                 "areParametersChanged"
@@ -338,8 +338,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorWeighted_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorWeighted_exposer.def( 
                 "clearParameterPool"
@@ -349,8 +349,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorWeighted_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorWeighted_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "cloneInvertB"
@@ -361,8 +361,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorWeighted_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorWeighted_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "containsMagneticMaterial"
@@ -372,8 +372,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorWeighted_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorWeighted_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorWeighted_exposer.def( 
                 "createDistributedFormFactors"
@@ -385,8 +385,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorWeighted_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorWeighted_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "createParameterTree"
@@ -397,8 +397,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorWeighted_exposer.def( 
                 "getCompositeSample"
@@ -409,8 +409,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "getCompositeSample"
@@ -421,8 +421,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IFormFactor::getHeight
         
-            typedef double ( ::IFormFactor::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorWeighted_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "getHeight"
@@ -432,8 +432,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IFormFactor::getRadius
         
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorWeighted_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "getRadius"
@@ -443,8 +443,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactor::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorWeighted_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "getVolume"
@@ -454,8 +454,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IFormFactor::isDistributedFormFactor
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorWeighted_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorWeighted_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "isDistributedFormFactor"
@@ -465,8 +465,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorWeighted_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorWeighted_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorWeighted_exposer.def( 
                 "printParameters"
@@ -476,8 +476,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorWeighted_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorWeighted_exposer.def( 
                 "printSampleTree"
@@ -497,8 +497,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorWeighted_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorWeighted_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorWeighted_exposer.def( 
                 "setParameterValue"
@@ -509,8 +509,8 @@ void register_FormFactorWeighted_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorWeighted_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorWeighted_exposer.def( 
                 "setParametersAreChanged"

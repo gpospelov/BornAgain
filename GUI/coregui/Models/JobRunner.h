@@ -1,13 +1,14 @@
 #ifndef JOBRUNNER_H
 #define JOBRUNNER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
 
 class Simulation;
 
 //! Class for running the simulation in a thread
-class JobRunner : public QObject
+class BA_CORE_API_ JobRunner : public QObject
 {
     Q_OBJECT
 public:

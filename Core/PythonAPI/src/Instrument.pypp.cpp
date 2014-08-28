@@ -35,10 +35,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -47,10 +47,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -59,10 +59,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -71,10 +71,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -102,10 +102,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -114,10 +114,10 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -134,7 +134,7 @@ void register_Instrument_class(){
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
         
-            typedef ::Beam ( ::Instrument::*getBeam_function_type )(  ) const;
+            typedef ::Beam ( ::Instrument::*getBeam_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getBeam"
@@ -143,7 +143,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetector
         
-            typedef ::Detector ( ::Instrument::*getDetector_function_type )(  ) const;
+            typedef ::Detector ( ::Instrument::*getDetector_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetector"
@@ -152,7 +152,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetectorAxis
         
-            typedef ::IAxis const & ( ::Instrument::*getDetectorAxis_function_type )( ::std::size_t ) const;
+            typedef ::IAxis const & ( ::Instrument::*getDetectorAxis_function_type)( ::std::size_t ) const;
             
             Instrument_exposer.def( 
                 "getDetectorAxis"
@@ -163,7 +163,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetectorDimension
         
-            typedef ::std::size_t ( ::Instrument::*getDetectorDimension_function_type )(  ) const;
+            typedef ::std::size_t ( ::Instrument::*getDetectorDimension_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetectorDimension"
@@ -172,25 +172,16 @@ void register_Instrument_class(){
         }
         { //::Instrument::getIntensity
         
-            typedef double ( ::Instrument::*getIntensity_function_type )(  ) const;
+            typedef double ( ::Instrument::*getIntensity_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getIntensity"
                 , getIntensity_function_type( &::Instrument::getIntensity ) );
         
         }
-        { //::Instrument::getIsgisaxsStyle
-        
-            typedef bool ( ::Instrument::*getIsgisaxsStyle_function_type )(  ) const;
-            
-            Instrument_exposer.def( 
-                "getIsgisaxsStyle"
-                , getIsgisaxsStyle_function_type( &::Instrument::getIsgisaxsStyle ) );
-        
-        }
         { //::Instrument::matchDetectorParameters
         
-            typedef void ( ::Instrument::*matchDetectorParameters_function_type )( ::OutputData< double > const & ) ;
+            typedef void ( ::Instrument::*matchDetectorParameters_function_type)( ::OutputData< double > const & ) ;
             
             Instrument_exposer.def( 
                 "matchDetectorParameters"
@@ -200,7 +191,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setBeam
         
-            typedef void ( ::Instrument::*setBeam_function_type )( ::Beam const & ) ;
+            typedef void ( ::Instrument::*setBeam_function_type)( ::Beam const & ) ;
             
             Instrument_exposer.def( 
                 "setBeam"
@@ -210,7 +201,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setBeamIntensity
         
-            typedef void ( ::Instrument::*setBeamIntensity_function_type )( double ) ;
+            typedef void ( ::Instrument::*setBeamIntensity_function_type)( double ) ;
             
             Instrument_exposer.def( 
                 "setBeamIntensity"
@@ -220,7 +211,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setBeamParameters
         
-            typedef void ( ::Instrument::*setBeamParameters_function_type )( double,double,double ) ;
+            typedef void ( ::Instrument::*setBeamParameters_function_type)( double,double,double ) ;
             
             Instrument_exposer.def( 
                 "setBeamParameters"
@@ -228,9 +219,19 @@ void register_Instrument_class(){
                 , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
+        { //::Instrument::setDetectorAxes
+        
+            typedef void ( ::Instrument::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetectorAxes"
+                , setDetectorAxes_function_type( &::Instrument::setDetectorAxes )
+                , ( bp::arg("axis0"), bp::arg("axis1") ) );
+        
+        }
         { //::Instrument::setDetectorParameters
         
-            typedef void ( ::Instrument::*setDetectorParameters_function_type )( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             Instrument_exposer.def( 
                 "setDetectorParameters"
@@ -240,7 +241,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setDetectorParameters
         
-            typedef void ( ::Instrument::*setDetectorParameters_function_type )( ::DetectorParameters const & ) ;
+            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
             
             Instrument_exposer.def( 
                 "setDetectorParameters"
@@ -250,7 +251,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setDetectorResolutionFunction
         
-            typedef void ( ::Instrument::*setDetectorResolutionFunction_function_type )( ::IResolutionFunction2D const & ) ;
+            typedef void ( ::Instrument::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;
             
             Instrument_exposer.def( 
                 "setDetectorResolutionFunction"
@@ -260,8 +261,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Instrument_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( Instrument_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             Instrument_exposer.def( 
                 "areParametersChanged"
@@ -271,8 +272,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Instrument_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( Instrument_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             Instrument_exposer.def( 
                 "clearParameterPool"
@@ -282,8 +283,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Instrument_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( Instrument_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "createParameterTree"
@@ -294,8 +295,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Instrument_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( Instrument_wrapper::*default_printParameters_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "printParameters"
@@ -315,8 +316,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Instrument_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( Instrument_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             Instrument_exposer.def( 
                 "setParameterValue"
@@ -327,8 +328,8 @@ void register_Instrument_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Instrument_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( Instrument_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             Instrument_exposer.def( 
                 "setParametersAreChanged"

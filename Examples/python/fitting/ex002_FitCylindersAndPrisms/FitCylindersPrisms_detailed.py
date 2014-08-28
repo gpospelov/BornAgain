@@ -90,7 +90,7 @@ def create_real_data():
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data[i] = noisy_amplitude
-    OutputDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.txt')
+    IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
 
 
 
@@ -99,7 +99,7 @@ def get_simulation():
     Create GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -160,7 +160,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = OutputDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt')
+    real_data = IntensityDataIOFactory.readIntensityData('refdata_fitcylinderprisms.int.gz')
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

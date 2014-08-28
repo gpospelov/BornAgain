@@ -76,6 +76,14 @@ void FitSuite::addFitStrategy(const IFitStrategy &strategy)
     addFitStrategy(strategy.clone());
 }
 
+void FitSuite::setMinimizer(IMinimizer *minimizer)
+{
+    delete m_minimizer;
+    m_minimizer = minimizer;
+    if(!m_minimizer) {
+        msglog(MSG::WARNING) << "FitSuite::setMinimizer() -> Warning. Attempt to set NULL minimizer.";
+    }
+}
 
 //! link FitMultiParameters with simulation parameters
 void FitSuite::link_fit_parameters()
@@ -97,6 +105,8 @@ bool FitSuite::check_prerequisites() const
 
 void FitSuite::runFit()
 {
+    m_start_time =  boost::posix_time::microsec_clock::local_time();
+
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
 
@@ -116,6 +126,7 @@ void FitSuite::runFit()
     m_is_last_iteration = true;
     notifyObservers();
 
+    m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
 
@@ -169,6 +180,32 @@ void FitSuite::initPrint(int print_every_nth)
 {
     boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
     attachObserver(observer);
+}
+
+FitParameter *FitSuite::getFitParameter(const std::string &name)
+{
+    return getFitParameters()->getParameter(name);
+}
+
+void FitSuite::fixAllParameters()
+{
+    getFitParameters()->fixAll();
+}
+
+void FitSuite::releaseAllParameters()
+{
+    getFitParameters()->releaseAll();
+}
+
+void FitSuite::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
+{
+    getFitParameters()->setParametersFixed(pars, is_fixed);
+}
+
+double FitSuite::getRunTime() const
+{
+    boost::posix_time::time_duration diff = m_end_time - m_start_time;
+    return diff.total_milliseconds()/1000.;
 }
 
 

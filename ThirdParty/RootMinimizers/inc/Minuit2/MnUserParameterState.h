@@ -62,18 +62,20 @@ public:
                                                              fGlobalCC(state.fGlobalCC), fIntParameters(state.fIntParameters), fIntCovariance(state.fIntCovariance) {}
 
    MnUserParameterState& operator=(const MnUserParameterState& state) {
-      fValid = state.fValid;
-      fCovarianceValid = state.fCovarianceValid;
-      fGCCValid = state.fGCCValid;
-      fCovStatus = state.fCovStatus;
-      fFVal = state.fFVal;
-      fEDM = state.fEDM;
-      fNFcn = state.fNFcn;
-      fParameters = state.fParameters;
-      fCovariance = state.fCovariance;
-      fGlobalCC = state.fGlobalCC;
-      fIntParameters = state.fIntParameters;
-      fIntCovariance = state.fIntCovariance;
+      if(this != &state) {
+         fValid = state.fValid;
+         fCovarianceValid = state.fCovarianceValid;
+         fGCCValid = state.fGCCValid;
+         fCovStatus = state.fCovStatus;
+         fFVal = state.fFVal;
+         fEDM = state.fEDM;
+         fNFcn = state.fNFcn;
+         fParameters = state.fParameters;
+         fCovariance = state.fCovariance;
+         fGlobalCC = state.fGlobalCC;
+         fIntParameters = state.fIntParameters;
+         fIntCovariance = state.fIntCovariance;
+      }   
       return *this;
    }
 
@@ -127,12 +129,13 @@ public:
    //interaction via external number of Parameter
    void Fix(unsigned int);
    void Release(unsigned int);
+   void RemoveLimits(unsigned int);
    void SetValue(unsigned int, double);
    void SetError(unsigned int, double);
    void SetLimits(unsigned int, double, double);
    void SetUpperLimit(unsigned int, double);
    void SetLowerLimit(unsigned int, double);
-   void RemoveLimits(unsigned int);
+   void SetName(unsigned int iext, const std::string &name) { fParameters.SetName(iext,name); }
 
    double Value(unsigned int) const;
    double Error(unsigned int) const;

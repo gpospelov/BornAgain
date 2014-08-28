@@ -35,10 +35,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual ::FTDistribution1DGauss * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FTDistribution1DGauss::clone(  );
+        }
     }
-    
     
     ::FTDistribution1DGauss * default_clone(  ) const  {
         return FTDistribution1DGauss::clone( );
@@ -47,10 +47,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual double evaluate( double q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( q );
-        else
+        else{
             return this->FTDistribution1DGauss::evaluate( q );
+        }
     }
-    
     
     double default_evaluate( double q ) const  {
         return FTDistribution1DGauss::evaluate( q );
@@ -59,10 +59,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -71,10 +71,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -83,10 +83,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -95,10 +95,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -126,10 +126,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -138,10 +138,10 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -157,8 +157,8 @@ void register_FTDistribution1DGauss_class(){
         bp::scope FTDistribution1DGauss_scope( FTDistribution1DGauss_exposer );
         { //::FTDistribution1DGauss::clone
         
-            typedef ::FTDistribution1DGauss * ( ::FTDistribution1DGauss::*clone_function_type )(  ) const;
-            typedef ::FTDistribution1DGauss * ( FTDistribution1DGauss_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FTDistribution1DGauss * ( ::FTDistribution1DGauss::*clone_function_type)(  ) const;
+            typedef ::FTDistribution1DGauss * ( FTDistribution1DGauss_wrapper::*default_clone_function_type)(  ) const;
             
             FTDistribution1DGauss_exposer.def( 
                 "clone"
@@ -169,8 +169,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::FTDistribution1DGauss::evaluate
         
-            typedef double ( ::FTDistribution1DGauss::*evaluate_function_type )( double ) const;
-            typedef double ( FTDistribution1DGauss_wrapper::*default_evaluate_function_type )( double ) const;
+            typedef double ( ::FTDistribution1DGauss::*evaluate_function_type)( double ) const;
+            typedef double ( FTDistribution1DGauss_wrapper::*default_evaluate_function_type)( double ) const;
             
             FTDistribution1DGauss_exposer.def( 
                 "evaluate"
@@ -181,8 +181,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FTDistribution1DGauss_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FTDistribution1DGauss_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FTDistribution1DGauss_exposer.def( 
                 "areParametersChanged"
@@ -192,8 +192,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FTDistribution1DGauss_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FTDistribution1DGauss_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FTDistribution1DGauss_exposer.def( 
                 "clearParameterPool"
@@ -203,8 +203,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FTDistribution1DGauss_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FTDistribution1DGauss_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FTDistribution1DGauss_exposer.def( 
                 "createParameterTree"
@@ -215,8 +215,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FTDistribution1DGauss_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FTDistribution1DGauss_wrapper::*default_printParameters_function_type)(  ) const;
             
             FTDistribution1DGauss_exposer.def( 
                 "printParameters"
@@ -236,8 +236,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FTDistribution1DGauss_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FTDistribution1DGauss_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FTDistribution1DGauss_exposer.def( 
                 "setParameterValue"
@@ -248,8 +248,8 @@ void register_FTDistribution1DGauss_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FTDistribution1DGauss_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FTDistribution1DGauss_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FTDistribution1DGauss_exposer.def( 
                 "setParametersAreChanged"

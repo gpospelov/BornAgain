@@ -27,7 +27,7 @@ class SampleModel;
 class ParameterizedItem;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
-class GUIObjectBuilder : public ISampleVisitor
+class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
 {
 public:
     GUIObjectBuilder();
@@ -52,6 +52,7 @@ public:
     void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
+    void visit(const PositionParticleInfo *);
 
     void visit(const FormFactorAnisoPyramid *);
     void visit(const FormFactorBox *);
@@ -74,6 +75,7 @@ public:
 
     void visit(const InterferenceFunction1DParaCrystal *);
     void visit(const InterferenceFunction2DParaCrystal *);
+    void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunctionNone *);
 
     void visit(const LayerRoughness *);
@@ -82,11 +84,14 @@ public:
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
+    void addRotationItem(const Geometry::Transform3D *p_transformation,
+                         ParameterizedItem *transformation_item);
 
     SampleModel *m_sampleModel;
 
-    QMap<int, ParameterizedItem *> m_levelToParent;
+    QMap<int, ParameterizedItem *> m_levelToParentItem;
     QMap<QString, double > m_propertyToValue;
+    QMap<QString, bool> m_sample_encountered;
     QMap<ParameterizedItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };

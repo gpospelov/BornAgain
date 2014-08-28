@@ -4,7 +4,7 @@
 #include "FancyGroupProperty.h"
 #include <QStringList>
 
-class SelectableGroupProperty : public FancyGroupProperty
+class BA_CORE_API_ SelectableGroupProperty : public FancyGroupProperty
 {
 public:
 

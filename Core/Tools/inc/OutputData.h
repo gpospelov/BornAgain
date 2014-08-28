@@ -24,8 +24,8 @@ typedef _object PyObject;
 #endif
 
 
-#include "AxisDouble.h"
 #include "Types.h"
+#include "FixedBinAxis.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
@@ -151,6 +151,9 @@ public:
 
     //! Returns value of axis with given name at given index
     double getValueOfAxis(const std::string& axis_name, size_t index) const;
+
+    //! Returns value of axis with given axis_number at given index
+    double getValueOfAxis(size_t axis_number, size_t index) const;
 
     //! Returns bin of axis with given name and index
     Bin1D getBinOfAxis(const std::string& axis_name, size_t index) const;
@@ -310,7 +313,7 @@ void OutputData<T>::addAxis(const std::string& name, size_t size,
             "OutputData<T>::addAxis(std::string name) -> "
             "Error! Attempt to add axis with already existing name '" +
             name+"'");
-    AxisDouble new_axis(name, size, start, end);
+    FixedBinAxis new_axis(name, size, start, end);
     addAxis(new_axis);
 }
 
@@ -556,6 +559,16 @@ double OutputData<T>::getValueOfAxis(
                 "OutputData<T>::getValueOfAxis() -> "
                 "Error! Axis with given name not found '" + axis_name + "'");
 }
+
+template <class T>
+double OutputData<T>::getValueOfAxis(
+    size_t axis_number, size_t index) const
+{
+    int axis_index = toCoordinate(index, axis_number);
+    return (*m_value_axes[axis_number])[axis_index];
+}
+
+
 
 template <class T>
 Bin1D OutputData<T>::getBinOfAxis(const std::string& axis_name, size_t index) const

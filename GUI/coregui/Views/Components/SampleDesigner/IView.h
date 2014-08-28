@@ -7,7 +7,7 @@
 class ParameterizedItem;
 
 //! parent class for graphic representation of all ISample's
-class IView : public QGraphicsObject
+class BA_CORE_API_ IView : public QGraphicsObject
 {
     Q_OBJECT
 public:

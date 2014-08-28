@@ -1,6 +1,7 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QMap>
 
@@ -10,7 +11,7 @@ class QStackedWidget;
 class QModelIndex;
 class JobItem;
 
-class JobOutputDataWidget : public QWidget
+class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -22,14 +23,16 @@ public slots:
     void itemClicked(JobItem *item);
     void dataChanged(const QModelIndex &, const QModelIndex &);
     void onJobItemDelete(JobItem *item);
+    void onJobItemFinished(const QString &identifier);
 
 private:
     JobQueueModel *m_jobQueueModel;
+    JobItem *m_currentJobItem;
 
-    //OutputDataWidget *m_outputDataWidget;
 
     QStackedWidget *m_stack;
     QMap<JobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
+
 };
 
 

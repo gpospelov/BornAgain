@@ -16,9 +16,10 @@
 #ifndef OUTPUTDATAWRITESTRATEGY_H
 #define OUTPUTDATAWRITESTRATEGY_H
 
-#include "OutputData.h"
-#include "Types.h"
+#include "WinDllMacros.h"
 #include <string>
+
+template <class T> class OutputData;
 
 
 //! @class IOutputDataWriteStrategy
@@ -28,7 +29,7 @@
 class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
-    IOutputDataWriteStrategy() : m_precision(10) {}
+    IOutputDataWriteStrategy() : m_precision(12) {}
     virtual ~IOutputDataWriteStrategy(){}
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
@@ -36,24 +37,10 @@ protected:
     int m_precision;
 };
 
-
-//! @class OutputDataWriteStreamIMA
+//! @class OutputDataWriteStreamINT
 //! @ingroup tools_internal
-//! @brief Strategy to write OutputData to IsGisaxs *.ima files
-
-class OutputDataWriteStreamIMA : public IOutputDataWriteStrategy
-{
-public:
-    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
-};
-
-
-//! @class OutputDataWriteStreamV1
-//! @ingroup tools_internal
-//! @brief Strategy to write OutputData to ascii files
-//! 1d array for x-axis, 1d array for y-axis, 2d array for data
-
-class OutputDataWriteStreamV1 : public IOutputDataWriteStrategy
+//! @brief Strategy to write OutputData to special BornAgain ASCII format
+class OutputDataWriteStreamINT : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);

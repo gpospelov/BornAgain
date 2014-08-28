@@ -1,6 +1,7 @@
 #ifndef SIMULATIONSETUPWIDGET_H
 #define SIMULATIONSETUPWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QString>
 
@@ -9,7 +10,7 @@ class QComboBox;
 class QPushButton;
 class JobQueueModel;
 
-class SimulationSetupWidget : public QWidget
+class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
     Q_OBJECT
 

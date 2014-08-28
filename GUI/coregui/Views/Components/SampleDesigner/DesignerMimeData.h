@@ -1,13 +1,14 @@
 #ifndef DESIGNERMIMEDATA_H
 #define DESIGNERMIMEDATA_H
 
+#include "WinDllMacros.h"
 #include <QMimeData>
 
 class QDrag;
 class QXmlStreamReader;
 
 //! Mime data for use with SampleDesigner drag and drop operations
-class DesignerMimeData : public QMimeData
+class BA_CORE_API_ DesignerMimeData : public QMimeData
 {
     Q_OBJECT
 public:

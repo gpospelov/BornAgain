@@ -34,7 +34,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam (+ divergence) and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
     alpha_distr = DistributionGaussian(-0.2*degree, 0.1*degree)

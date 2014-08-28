@@ -1,6 +1,7 @@
 #ifndef DETECTOR_EDITOR_WIDGET_H
 #define DETECTOR_EDITOR_WIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class QComboBox;
@@ -8,8 +9,9 @@ class QLabel;
 class ParameterizedItem;
 class QSpinBox;
 class QDoubleSpinBox;
+class AngleProperty;
 
-class DetectorEditorWidget : public QWidget
+class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
     Q_OBJECT
 
@@ -21,12 +23,13 @@ public:
 public slots:
     void onPropertyChanged(const QString &);
     void onDetectorTypeChanged(int);
+    void onAngleUnitsChanged(int);
+    void onBinningTypeChanged(int);
     void onAngleEditorChanged(const QString &);
 
 private:
     void updateWidgets();
-    void updateAngleUnits(const QString &units);
-    void setAngleUnits(QDoubleSpinBox *, const QString &units);
+    void setAngleUnits(QDoubleSpinBox *editor, const AngleProperty &units, double min_deg = -90.0, double max_deg = 90.0);
 
     QComboBox *m_detectorTypeCombo;
     QComboBox *m_unitsCombo;

@@ -1,77 +1,71 @@
 #include "DetectorItems.h"
 #include "ComboProperty.h"
+#include "AngleProperty.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "Detector";
-const QString DetectorItem::P_AXES_UNITS = "Units";
-const QString DetectorItem::P_BINNING = "Binning";
-
-
-const QString ThetaPhiDetectorItem::P_NPHI = "Phi, nbins";
-const QString ThetaPhiDetectorItem::P_PHI_MIN = "Phi, min";
-const QString ThetaPhiDetectorItem::P_PHI_MAX = "Phi, max";
-const QString ThetaPhiDetectorItem::P_NALPHA = "Alpha, nbins";
-const QString ThetaPhiDetectorItem::P_ALPHA_MIN = "Alpha, min";
-const QString ThetaPhiDetectorItem::P_ALPHA_MAX = "Alpha, max";
 
 DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
     setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-
-//    registerProperty(P_NBINX, 100);
-//    registerProperty(P_NBINY, 100);
 }
 
 
-XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::XYDetectorType, parent)
-{
-    setItemName(Constants::XYDetectorType);
+const QString PhiAlphaDetectorItem::P_AXES_UNITS = "Axes Units";
+const QString PhiAlphaDetectorItem::P_BINNING = "Binning";
+const QString PhiAlphaDetectorItem::P_NPHI = "Phi, nbins";
+const QString PhiAlphaDetectorItem::P_PHI_MIN = "Phi, min";
+const QString PhiAlphaDetectorItem::P_PHI_MAX = "Phi, max";
+const QString PhiAlphaDetectorItem::P_NALPHA = "Alpha, nbins";
+const QString PhiAlphaDetectorItem::P_ALPHA_MIN = "Alpha, min";
+const QString PhiAlphaDetectorItem::P_ALPHA_MAX = "Alpha, max";
 
-    ComboProperty units;
-    units << "Millimeters";
-    registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
+PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
+{
+    setItemName(Constants::PhiAlphaDetectorType);
 
     ComboProperty binning;
-    binning << "Flat";
-    registerProperty(DetectorItem::P_BINNING, binning.getVariant());
-
-//    registerProperty(DetectorItem::P_XMIN, 0.0);
-//    registerProperty(DetectorItem::P_XMAX, 0.0);
-
-}
-
-
-ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::ThetaPhiDetectorType, parent)
-{
-    setItemName(Constants::ThetaPhiDetectorType);
-
-    ComboProperty units;
-    units << "Degrees" << "Radians";
-    registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
-
-    ComboProperty binning;
-    binning << "Flat" << "Flat in sin";
-    registerProperty(DetectorItem::P_BINNING, binning.getVariant());
+    binning << "Const KBin" << "Fixed";
+    registerProperty(P_BINNING, binning.getVariant());
 
     registerProperty(P_NPHI, 100);
-    registerProperty(P_PHI_MIN, -1.0);
-    registerProperty(P_PHI_MAX,  1.0);
+    registerProperty(P_PHI_MIN, AngleProperty::Degrees(-1.0));
+    registerProperty(P_PHI_MAX,  AngleProperty::Degrees(1.0));
     registerProperty(P_NALPHA, 100);
-    registerProperty(P_ALPHA_MIN, 0.0);
-    registerProperty(P_ALPHA_MAX,  2.0);
+    registerProperty(P_ALPHA_MIN, AngleProperty::Degrees(0.0));
+    registerProperty(P_ALPHA_MAX,  AngleProperty::Degrees(2.0));
+
+    registerProperty(P_AXES_UNITS, AngleProperty::Degrees());
 }
 
 
-void ThetaPhiDetectorItem::onPropertyChange(const QString &name)
+void PhiAlphaDetectorItem::onPropertyChange(const QString &name)
 {
-//    if(name == DetectorItem::P_AXES_UNITS) {
 
-//    }
-//    qDebug() << "ThetaPhiDetectorItem::onPropertyChange() -> before emit";
+    if(name == P_AXES_UNITS) {
+        qDebug() << "PhiAlphaDetectorItem::onPropertyChange()" << name;
+        AngleProperty axes_units = getRegisteredProperty(P_AXES_UNITS).value<AngleProperty>();
+
+        AngleProperty phi_min_property = getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN).value<AngleProperty>();
+        phi_min_property.setUnits(axes_units.getUnits());
+        setRegisteredProperty(P_PHI_MIN, phi_min_property.getVariant());
+
+        AngleProperty phi_max_property = getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX).value<AngleProperty>();
+        phi_max_property.setUnits(axes_units.getUnits());
+        setRegisteredProperty(P_PHI_MAX, phi_max_property.getVariant());
+
+        AngleProperty alpha_min_property = getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN).value<AngleProperty>();
+        alpha_min_property.setUnits(axes_units.getUnits());
+        setRegisteredProperty(P_ALPHA_MIN, alpha_min_property.getVariant());
+
+        AngleProperty alpha_max_property = getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX).value<AngleProperty>();
+        alpha_max_property.setUnits(axes_units.getUnits());
+        setRegisteredProperty(P_ALPHA_MAX, alpha_max_property.getVariant());
+
+    }
     ParameterizedItem::onPropertyChange(name);
 }
 

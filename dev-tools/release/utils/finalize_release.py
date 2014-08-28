@@ -8,46 +8,44 @@ from check_release import *
 def upload_release():
     print "Uploading to the app server ..."
     cmd = "rsync --delete -avzhe ssh %s/ apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain/" % get_upload_dir()
-    print cmd
-    #run_command(cmd)
+    run_command(cmd)
 
 
 def finalize_git():
     print "Finalizing git ..."
     cmd = "cd %s; git commit -a -m \"Release %s\"" % (get_source_dir(), get_version())
-    #run_command(cmd)
+    run_command(cmd)
+
     cmd = "cd %s; git push" % get_source_dir()
-    #run_command(cmd)
+    run_command(cmd)
 
     # master branch
     cmd = "cd %s; git checkout master" % get_source_dir()
-    #run_command(cmd)
+    run_command(cmd)
 
-    cmd = "cd %s; git merge --no--ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
-    #run_command(cmd)
+    cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
+    run_command(cmd)
 
     cmd = "cd %s; git tag -a %s -m \"Release %s\"" % (get_source_dir(), get_version(), get_version())
-    #run_command(cmd)
+    run_command(cmd)
 
     cmd = "cd %s; git push --tags" % get_source_dir()
-    #run_command(cmd)
+    run_command(cmd)
 
     # develop branch
     cmd = "cd %s; git checkout develop" % get_source_dir()
-    #run_command(cmd)
+    run_command(cmd)
 
-    cmd = "cd %s; git merge --no--ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
-    #run_command(cmd)
+    cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
+    run_command(cmd)
 
     cmd = "cd %s; git push" % get_source_dir()
-    #run_command(cmd)
+    run_command(cmd)
 
     # deleting branch
-    cmd = "cd %s; git branch -d %s" % (get_source_dir(), get_branch_name())
-    #run_command(cmd)
 
     cmd = "cd %s; git push origin --delete %s" % (get_source_dir(), get_branch_name())
-    #run_command(cmd)
+    run_command(cmd)
 
 
 def finalize_release():

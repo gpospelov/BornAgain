@@ -39,7 +39,15 @@ public:
 
     void setProbabilityDistribution(const IFTDistribution2D& pdf);
 
+    const IFTDistribution2D *getProbabilityDistribution() const {
+        return mp_pdf;
+    }
+
     virtual double evaluate(const cvector_t& q) const;
+
+    Lattice2DIFParameters getLatticeParameters() const {
+        return m_lattice_params;
+    }
 protected:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;

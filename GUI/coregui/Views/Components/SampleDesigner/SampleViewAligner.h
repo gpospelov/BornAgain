@@ -1,6 +1,7 @@
 #ifndef SAMPLEVIEWALIGNER_H
 #define SAMPLEVIEWALIGNER_H
 
+#include "WinDllMacros.h"
 #include <QMap>
 #include <QModelIndex>
 #include <QPointF>
@@ -11,7 +12,7 @@ class ParameterizedItem;
 
 //! Makes alignment of sample droped on graphics scene.
 //! Implements additional algorithm for smart alignment.
-class SampleViewAligner
+class BA_CORE_API_ SampleViewAligner
 {
 public:
     SampleViewAligner(DesignerScene *scene);

@@ -1,22 +1,21 @@
 #include "OutputDataWidget.h"
-#include "JobQueueModel.h"
-#include "JobQueueItem.h"
-#include "JobItem.h"
-#include "OutputDataItem.h"
 #include "PlotWidget.h"
-
+#include "PropertyWidget.h"
+#include "OutputDataToolBar.h"
 #include <QVBoxLayout>
 #include <QModelIndex>
+#include <QMouseEvent>
+//#include <QSplitter>
 
 
 //OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
-OutputDataWidget::OutputDataWidget(QWidget *parent)
+OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget)
     : QWidget(parent)
-    , m_jobQueueModel(0)
     , m_plotWidget(0)
-    , m_currentJobItem(0)
     , m_data(0)
 {
+    qDebug() << " ";
+    qDebug() << "OutputDataWidget::OutputDataWidget() -> c-tor";
 //    setModel(model);
 
     setMinimumSize(600, 600);
@@ -25,175 +24,169 @@ OutputDataWidget::OutputDataWidget(QWidget *parent)
     setObjectName(QLatin1String("Job Properties"));
 //    setStyleSheet("background-color:white;");
 
-    m_plotWidget = new PlotWidget(true, this);
-    m_plotWidget->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
-    m_plotWidget->hide();
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(0);
-    mainLayout->addWidget(m_plotWidget);
-    setLayout(mainLayout);
+    m_gradient = QCPColorGradient::gpPolar;
+    m_isProjectionsVisible = true;
+
+
+
+
+
+    m_plotWidget = new PlotWidget();
+    connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
+    connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
+
+
+//    m_splitter = new QSplitter(this);
+//    m_splitter->setStyleSheet("background-color:white;");
+//    m_splitter->addWidget(m_plotWidget);
+
+    m_propertyWidget = new PropertyWidget(this);
+    connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
+    connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+
+    //m_splitter->addWidget(m_propertyWidget);
+    //connect(m_splitter, SIGNAL(splitterMoved(int,int)), this, SLOT(onPropertySplitterMoved(int,int)));
+    //m_currentPropertyWidgetWidth = m_propertyWidget->getWidth();
+
+
+    m_layout = new QHBoxLayout;
+    m_layout->setMargin(0);
+    m_layout->setSpacing(0);
+
+    m_layout->addWidget(m_plotWidget);
+    m_layout->addWidget(m_propertyWidget);
+
+    m_mainLayout = new QVBoxLayout;
+    m_mainLayout->setMargin(0);
+    m_mainLayout->setSpacing(0);
+
+    if(isCreateToolBar)
+    {
+        m_toolBar = new OutputDataToolBar();
+        //m_toolBar->hide();
+        connectToobarSignals();
+        m_mainLayout->addWidget(m_toolBar);
+    }
+
+    m_mainLayout->addLayout(m_layout);
+    setLayout(m_mainLayout);
+
+    m_propertyWidget->setVisible(isCreatePropertyWidget);
 
 }
 
 
-void OutputDataWidget::setCurrentItem(JobItem *jobItem)
+void OutputDataWidget::setCurrentItem(OutputDataItem *item)
 {
-    if(m_currentJobItem != jobItem) {
-        m_currentJobItem = jobItem;
-        disconnect();
-        connect(m_currentJobItem, SIGNAL(modified(JobItem*)), this, SLOT(onModifiedItem(JobItem *)));
-    }
+    qDebug() << "OutputDataWidget::setCurrentItem()" << item;
+    m_currentOutputDataItem = item;
 
-    OutputDataItem *dataItem = jobItem->getOutputDataItem();
+    m_plotWidget->drawPlot(item);
 
-    if(jobItem->getStatus() != JobItem::Completed || !dataItem || !dataItem->getOutputData()) {
-        m_plotWidget->hide();
-        return;
-    }
+    m_propertyWidget->updateData(item, m_gradient);
 
-    m_plotWidget->show();
-    //m_plotWidget->drawPlot(dataItem->getOutputData());
-    m_plotWidget->drawPlot(dataItem);
 
-    /*if(data == m_data)
-        return;
+    //connectPropertyWidgetSignals(isPropertyWidgetVisible);
 
-    m_data = data;*/
-
-    //Draw(dataItem->getOutputData());
 }
 
-
-void OutputDataWidget::onModifiedItem(JobItem *jobItem)
+void OutputDataWidget::connectToobarSignals()
 {
-    qDebug() << "OutputDataWidget::onModifiedItem(JobItem *jobItem)";
-    Q_ASSERT(m_currentJobItem == jobItem);
-    setCurrentItem(jobItem);
+    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
+    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
+    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(resetTriggered()));
+    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
+
 }
 
-
-//void OutputDataWidget::setModel(JobQueueModel *model)
-//{
-//    Q_ASSERT(model);
-//    if(model != m_jobQueueModel) {
-//        m_jobQueueModel = model;
-
-//        connect(m_jobQueueModel,
-//            SIGNAL( selectionChanged(JobItem *) ),
-//            this,
-//            SLOT( itemClicked(JobItem *) )
-//            );
-
-//        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
-//                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
-
-
-//    }
-//}
-
-
-//void OutputDataWidget::itemClicked(JobItem *jobItem)
-//{
-//    qDebug() << "OutputDataWidget::itemClicked" << jobItem->getName();
-
-//    if(m_currentJobItem != jobItem)
-//        m_currentJobItem = jobItem;
-
-//    OutputDataItem *dataItem = jobItem->getOutputDataItem();
-
-//    if(!dataItem || !dataItem->getOutputData()) {
-//        m_customPlot->hide();
-//        return;
-//    }
-
-//    m_customPlot->show();
-//    Draw(dataItem->getOutputData());
-//}
-
-
-//void OutputDataWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
-//{
-//    qDebug() << "OutputDataWidget::dataChanged()";
-//    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-//    if(jobItem == m_currentJobItem) {
-//        itemClicked(jobItem);
-//    }
-//}
-
-
-
-/*void OutputDataWidget::Draw(const OutputData<double> *data)
+void OutputDataWidget::togglePropertyPanel()
 {
-    Q_ASSERT(data);
+    //qDebug() << "OutputDataWidget::togglePropertyPanel()";
+    setPropertyPanelVisible(!m_propertyWidget->isVisible());
 
-    if(data->getRank() != 2) {
-        throw NullPointerException("CustomCanvas::Draw() -> Error. Zero pointer to the data to draw");
+}
+
+void OutputDataWidget::setPropertyPanelVisible(bool visible)
+{
+    //int width = 0;
+    if(visible)
+    {
+        //width = m_propertyWidget->getWidth();
+        m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
     }
-
-    if(data == m_data)
-        return;
-
-    m_data = data;
-
-    qDebug() << "OutputDataWidget::Draw() ->";
-    m_customPlot->clearPlottables();
-    //m_customPlot->clearItems();
-
-
-    m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
-    m_customPlot->axisRect()->setupFullAxesBox(true);
-    m_customPlot->xAxis->setLabel("x");
-    m_customPlot->yAxis->setLabel("y");
-
-    const IAxis *axis_x = data->getAxis(0);
-    const IAxis *axis_y = data->getAxis(1);
-
-    // set up the QCPColorMap:
-    QCPColorMap *colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
-    m_customPlot->addPlottable(colorMap);
-
-    int nx = axis_x->getSize();
-    int ny = axis_y->getSize();
-    colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-    colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
-
-    OutputData<double>::const_iterator it = data->begin();
-    while (it != data->end()) {
-        std::vector<int> indices =
-                data->toCoordinates(it.getIndex());
-
-        colorMap->data()->setCell(indices[0], indices[1], *it);
-        ++it;
+    else
+    {
+        //width = 0;
+        m_propertyWidget->updateData(0);
     }
+    m_propertyWidget->setVisible(visible);
+    m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
+
+}
+
+/*void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
+{
+
+    QList<int> sizes_org = this->m_splitter->sizes();
+
+    if(sizes_org.at(index) != m_currentPropertyWidgetWidth)
+    {
+
+        if(sizes_org.at(index) == m_propertyWidget->getWidth())
+        {
+            qDebug() << "OutputDataWidget::onPropertySplitterMoved() about to enable propertyWidget";
+            m_currentPropertyWidgetWidth = sizes_org.at(1);
+            m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
+        }
+        else
+        {
+            qDebug() << "OutputDataWidget::onPropertySplitterMoved() about to disable propertyWidget";
+            m_currentPropertyWidgetWidth = 0;
+            m_propertyWidget->updateData(0, m_gradient);
+        }
 
 
-    // add a color scale:
-    QCPColorScale *colorScale = new QCPColorScale(m_customPlot);
-    m_customPlot->plotLayout()->addElement(0, 1, colorScale); // add it to the right of the main axis rect
-
-    colorScale->setDataScaleType(QCPAxis::stLogarithmic);
-
-    colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
-    colorMap->setColorScale(colorScale); // associate the color map with the color scale
-
-    // set the color gradient of the color map to one of the presets:
-    colorMap->setGradient(QCPColorGradient::gpPolar);
-    // we could have also created a QCPColorGradient instance and added own colors to
-    // the gradient, see the documentation of QCPColorGradient for what's possible.
-
-    // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
-    colorMap->rescaleDataRange();
-
-    // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
-    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
-    colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
-
-    // rescale the key (x) and value (y) axes so the whole color map is visible:
-    m_customPlot->rescaleAxes();
-
-    m_customPlot->replot();
+    }
 }*/
+
+void OutputDataWidget::toggleProjections()
+{
+    m_propertyWidget->toggleProjections();
+}
+
+void OutputDataWidget::resetTriggered()
+{
+    m_plotWidget->resetTriggered();
+}
+
+void OutputDataWidget::savePlot()
+{
+
+    m_plotWidget->savePlot();
+
+}
+
+void OutputDataWidget::projectionsChanged(bool projection)
+{
+    if(m_isProjectionsVisible == projection)
+    {
+        return;
+    }
+
+    m_isProjectionsVisible = projection;
+    m_plotWidget->projectionsChanged(projection);
+    m_propertyWidget->setProjections(projection);
+}
+
+void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
+{
+    m_gradient = gradient;
+    m_plotWidget->gradientChanged(gradient);
+
+}
+
+
+
+
 

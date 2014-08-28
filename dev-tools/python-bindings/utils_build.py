@@ -124,6 +124,36 @@ def DefaultReturnPolicy(mb):
             mem_fun.call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
 
 
+def InjectGetStringCustomCode(cls, method_name):
+    '''Injects custom wrapper for getString to deal with Windows and MSVC2012'''
+    cls.member_function(method_name).exclude()
+    wrapper_code = '''
+    virtual ::std::string {1}(  ) const  {{
+        if( bp::override func_{1} = this->get_override( \"{1}\" ) )
+            return boost::python::call<std::string>(func_{1}(  ));
+        else{{
+            return this->{0}::{1}(  );
+        }}
+    }}
+
+    ::std::string default_{1}(  ) const  {{
+        return {0}::{1}( );
+    }}
+    '''
+    wrapper_code = wrapper_code.format(cls.name, method_name)
+    cls.add_wrapper_code(wrapper_code)
+    registration_code = """
+            def(
+                \"{1}\"
+                , (::std::string ( ::{0}::*)(  ) const)(&::{0}::{1})
+                , (::std::string ( {0}_wrapper::*)(  ) const)(&{0}_wrapper::default_{1}) )
+    """
+    registration_code = registration_code.format(cls.name, method_name)
+    cls.add_code(registration_code)
+
+
+
+
 class from_address_custom_t(transformers.type_modifier_t):
 
     '''This is a patched version of pyplusplus.function_transformers classes to

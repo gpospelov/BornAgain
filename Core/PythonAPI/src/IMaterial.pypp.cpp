@@ -33,10 +33,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::IMaterial * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IMaterial::clone(  );
+        }
     }
-    
     
     ::IMaterial * default_clone(  ) const  {
         return IMaterial::clone( );
@@ -45,10 +45,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
             return func_createTransformedMaterial( boost::ref(transform) );
-        else
+        else{
             return this->IMaterial::createTransformedMaterial( boost::ref(transform) );
+        }
     }
-    
     
     ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         return IMaterial::createTransformedMaterial( boost::ref(transform) );
@@ -57,10 +57,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->IMaterial::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return IMaterial::getRefractiveIndex( );
@@ -69,10 +69,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else
+        else{
             return this->IMaterial::isScalarMaterial(  );
+        }
     }
-    
     
     bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );
@@ -88,8 +88,8 @@ void register_IMaterial_class(){
         bp::scope IMaterial_scope( IMaterial_exposer );
         { //::IMaterial::clone
         
-            typedef ::IMaterial * ( ::IMaterial::*clone_function_type )(  ) const;
-            typedef ::IMaterial * ( IMaterial_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::IMaterial * ( ::IMaterial::*clone_function_type)(  ) const;
+            typedef ::IMaterial * ( IMaterial_wrapper::*default_clone_function_type)(  ) const;
             
             IMaterial_exposer.def( 
                 "clone"
@@ -100,8 +100,8 @@ void register_IMaterial_class(){
         }
         { //::IMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
-            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
             
             IMaterial_exposer.def( 
                 "createTransformedMaterial"
@@ -113,8 +113,8 @@ void register_IMaterial_class(){
         }
         { //::IMaterial::getRefractiveIndex
         
-            typedef ::complex_t ( ::IMaterial::*getRefractiveIndex_function_type )(  ) const;
-            typedef ::complex_t ( IMaterial_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ::IMaterial::*getRefractiveIndex_function_type)(  ) const;
+            typedef ::complex_t ( IMaterial_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
             
             IMaterial_exposer.def( 
                 "getRefractiveIndex"
@@ -124,8 +124,8 @@ void register_IMaterial_class(){
         }
         { //::IMaterial::isScalarMaterial
         
-            typedef bool ( ::IMaterial::*isScalarMaterial_function_type )(  ) const;
-            typedef bool ( IMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) const;
+            typedef bool ( ::IMaterial::*isScalarMaterial_function_type)(  ) const;
+            typedef bool ( IMaterial_wrapper::*default_isScalarMaterial_function_type)(  ) const;
             
             IMaterial_exposer.def( 
                 "isScalarMaterial"

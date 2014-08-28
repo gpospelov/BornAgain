@@ -30,7 +30,7 @@
 #include "MultiLayer.h"
 #include "OutputData.h"
 #include "OutputDataFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"

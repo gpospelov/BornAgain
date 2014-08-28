@@ -15,7 +15,7 @@ class QThread;
 
 //! Holds correspondance of job identifiers and JobItem, QThread, JobRunner
 //! and Simulation objects. Contains all run/cancel/progress logic for job.
-class JobQueueData : public QObject
+class BA_CORE_API_ JobQueueData : public QObject
 {
     Q_OBJECT
 public:

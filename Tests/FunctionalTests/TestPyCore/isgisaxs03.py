@@ -2,7 +2,7 @@
 import sys
 import os
 import numpy
-import gzip
+from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -42,7 +42,7 @@ def RunSimulationDWBA():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -75,7 +75,7 @@ def RunSimulationBA():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -118,47 +118,7 @@ def RunSimulationBA_Size():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
-
-      
-# ----------------------------------
-# read reference data from file
-# ----------------------------------
-def GetReferenceData():
-    path = os.path.split(__file__)[0]
-    if path: path +="/"
-    fBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA.ima.gz', 'rb')
-    referenceBA=numpy.fromstring(fBA.read(),numpy.float64,sep=' ')
-    fBA.close()
-    fBA_Size = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA_size.ima.gz', 'rb')
-    referenceBA_Size=numpy.fromstring(fBA_Size.read(),numpy.float64,sep=' ')
-    fBA_Size.close()
-    fDWBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_DWBA.ima.gz', 'rb')
-    referenceDWBA=numpy.fromstring(fDWBA.read(),numpy.float64,sep=' ')
-    fDWBA.close()
-    reference=numpy.concatenate((referenceBA,referenceBA_Size,referenceDWBA),axis=0)  
-    return reference
-
-
-# --------------------------------------------------------------
-# calculate numeric difference between result and reference data
-# --------------------------------------------------------------
-def GetDifference(data, reference):
-    reference = reference.reshape(data.shape)
-    # calculating relative average difference
-    data -= reference
-    diff=0.0
-    epsilon = sys.float_info.epsilon
-    for x, y in numpy.ndindex(data.shape):
-        v1 = data[x][y]
-        v2 = reference[x][y]
-        if v1 <= epsilon and v2 <= epsilon:
-            diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
-        else:
-            diff += abs(v1/v2)
-    return diff/data.size
+    return simulation.getIntensityData()
 
 
 # --------------------------------------------------------------
@@ -168,22 +128,23 @@ def runTest():
     resultBA = RunSimulationBA()
     resultDWBA = RunSimulationDWBA()
     resultBA_Size = RunSimulationBA_Size()
-    result = numpy.concatenate((resultBA,resultBA_Size,resultDWBA),axis=0)
-    reference = GetReferenceData()
 
-    diff = GetDifference(result, reference)
+    diff = IntensityDataFunctions.getRelativeDifference(resultBA, get_reference_data("isgisaxs03_reference_BA.int.gz"))
+    diff += IntensityDataFunctions.getRelativeDifference(resultBA_Size, get_reference_data("isgisaxs03_reference_BA_size.int.gz"))
+    diff += IntensityDataFunctions.getRelativeDifference(resultDWBA, get_reference_data("isgisaxs03_reference_DWBA.int.gz"))
+    diff /= 3
+
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", status
+    if(diff > 2e-10 or numpy.isnan(diff)):
+        status = "FAILED"
+    return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", diff, status
 
    
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, diff, status = runTest()
+    print name, description, diff, status
+    if("FAILED" in status):
+        exit(1)
 
 
 

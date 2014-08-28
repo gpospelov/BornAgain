@@ -5,6 +5,7 @@
 #include "Detector.h"
 #include "Exceptions.h"
 #include "OutputData.h"
+#include "FixedBinAxis.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DSimple.h"
 
@@ -26,8 +27,8 @@ class DetectorTest : public ::testing::Test
 DetectorTest::DetectorTest()
 {
     originalDetector = new Detector();
-    AxisDouble axis0("axis0", 10, 0.0, 10.0);
-    AxisDouble axis1("axis1", 20, 0.0, 20.0);
+    FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
+    FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
     originalDetector->addAxis(axis0);
     originalDetector->addAxis(axis1);
     originalDetector->setDetectorResolution(new ConvolutionDetectorResolution(
@@ -51,8 +52,8 @@ TEST_F(DetectorTest, InitialDetectorState)
 TEST_F(DetectorTest, DetectorConstruction)
 {
     // pushing two axes
-    AxisDouble axis0("axis0", 10, 0.0, 10.0);
-    AxisDouble axis1("axis1", 20, 0.0, 20.0);
+    FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
+    FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
     constructedDetector.addAxis(axis0);
     constructedDetector.addAxis(axis1);
 

@@ -73,13 +73,15 @@ public:
       fLowerLimTrafo(trafo.fLowerLimTrafo), fCache(trafo.fCache) {}
   
    MnUserTransformation& operator=(const MnUserTransformation& trafo) {
-      fPrecision = trafo.fPrecision;
-      fParameters = trafo.fParameters;
-      fExtOfInt = trafo.fExtOfInt;
-      fDoubleLimTrafo = trafo.fDoubleLimTrafo;
-      fUpperLimTrafo = trafo.fUpperLimTrafo;
-      fLowerLimTrafo = trafo.fLowerLimTrafo;
-      fCache = trafo.fCache;
+      if(this != &trafo) {
+         fPrecision = trafo.fPrecision;
+         fParameters = trafo.fParameters;
+         fExtOfInt = trafo.fExtOfInt;
+         fDoubleLimTrafo = trafo.fDoubleLimTrafo;
+         fUpperLimTrafo = trafo.fUpperLimTrafo;
+         fLowerLimTrafo = trafo.fLowerLimTrafo;
+         fCache = trafo.fCache;
+      }
       return *this;
    }
 
@@ -152,12 +154,13 @@ public:
    //interaction via external number of Parameter
    void Fix(unsigned int);
    void Release(unsigned int);
+   void RemoveLimits(unsigned int);
    void SetValue(unsigned int, double);
    void SetError(unsigned int, double);
    void SetLimits(unsigned int, double, double);
    void SetUpperLimit(unsigned int, double);
    void SetLowerLimit(unsigned int, double);
-   void RemoveLimits(unsigned int);
+   void SetName(unsigned int, const std::string &);
 
    double Value(unsigned int) const;
    double Error(unsigned int) const;

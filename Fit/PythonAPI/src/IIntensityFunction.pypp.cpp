@@ -43,7 +43,7 @@ void register_IIntensityFunction_class(){
         bp::scope IIntensityFunction_scope( IIntensityFunction_exposer );
         { //::IIntensityFunction::clone
         
-            typedef ::IIntensityFunction * ( ::IIntensityFunction::*clone_function_type )(  ) const;
+            typedef ::IIntensityFunction * ( ::IIntensityFunction::*clone_function_type)(  ) const;
             
             IIntensityFunction_exposer.def( 
                 "clone"
@@ -53,7 +53,7 @@ void register_IIntensityFunction_class(){
         }
         { //::IIntensityFunction::evaluate
         
-            typedef double ( ::IIntensityFunction::*evaluate_function_type )( double ) const;
+            typedef double ( ::IIntensityFunction::*evaluate_function_type)( double ) const;
             
             IIntensityFunction_exposer.def( 
                 "evaluate"

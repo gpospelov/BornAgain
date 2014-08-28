@@ -26,10 +26,10 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
     virtual ::ParameterPool * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ParameterPool::clone(  );
+        }
     }
-    
     
     ::ParameterPool * default_clone(  ) const  {
         return ParameterPool::clone( );
@@ -45,7 +45,7 @@ void register_ParameterPool_class(){
         bp::scope ParameterPool_scope( ParameterPool_exposer );
         { //::ParameterPool::addParameter
         
-            typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string const &,::RealParameterWrapper ) ;
+            typedef bool ( ::ParameterPool::*addParameter_function_type)( ::std::string const &,::RealParameterWrapper ) ;
             
             ParameterPool_exposer.def( 
                 "addParameter"
@@ -55,7 +55,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::clear
         
-            typedef void ( ::ParameterPool::*clear_function_type )(  ) ;
+            typedef void ( ::ParameterPool::*clear_function_type)(  ) ;
             
             ParameterPool_exposer.def( 
                 "clear"
@@ -64,8 +64,8 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::clone
         
-            typedef ::ParameterPool * ( ::ParameterPool::*clone_function_type )(  ) const;
-            typedef ::ParameterPool * ( ParameterPool_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::ParameterPool::*clone_function_type)(  ) const;
+            typedef ::ParameterPool * ( ParameterPool_wrapper::*default_clone_function_type)(  ) const;
             
             ParameterPool_exposer.def( 
                 "clone"
@@ -76,7 +76,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::cloneWithPrefix
         
-            typedef ::ParameterPool * ( ::ParameterPool::*cloneWithPrefix_function_type )( ::std::string const & ) const;
+            typedef ::ParameterPool * ( ::ParameterPool::*cloneWithPrefix_function_type)( ::std::string const & ) const;
             
             ParameterPool_exposer.def( 
                 "cloneWithPrefix"
@@ -87,7 +87,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::fixRatioBetweenParameters
         
-            typedef int ( ::ParameterPool::*fixRatioBetweenParameters_function_type )( ::std::string const &,::std::string const &,double ) ;
+            typedef int ( ::ParameterPool::*fixRatioBetweenParameters_function_type)( ::std::string const &,::std::string const &,double ) ;
             
             ParameterPool_exposer.def( 
                 "fixRatioBetweenParameters"
@@ -97,7 +97,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::getParameter
         
-            typedef ::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type )( ::std::string const & ) const;
+            typedef ::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type)( ::std::string const & ) const;
             
             ParameterPool_exposer.def( 
                 "getParameter"
@@ -107,7 +107,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::setMatchedParametersValue
         
-            typedef int ( ::ParameterPool::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( ::ParameterPool::*setMatchedParametersValue_function_type)( ::std::string const &,double ) ;
             
             ParameterPool_exposer.def( 
                 "setMatchedParametersValue"
@@ -117,7 +117,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::setParameterValue
         
-            typedef bool ( ::ParameterPool::*setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::ParameterPool::*setParameterValue_function_type)( ::std::string const &,double ) ;
             
             ParameterPool_exposer.def( 
                 "setParameterValue"
@@ -127,7 +127,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::size
         
-            typedef ::std::size_t ( ::ParameterPool::*size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParameterPool::*size_function_type)(  ) const;
             
             ParameterPool_exposer.def( 
                 "size"

@@ -10,16 +10,15 @@ PropertyWidget::PropertyWidget(QWidget *parent)
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
     , m_outputDataItem(0)
 {
-    maxWidth = 230;
-    this->setMaximumWidth(maxWidth);
+    m_maxWidth = 230;
+    this->setMaximumWidth(m_maxWidth);
     this->setMinimumHeight(800);
 
-    isProjection = true;
+    m_isProjection = true;
     initGradientVector();
 
     m_variantManager = new QtVariantPropertyManager(this);
-    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(valueChanged(QtProperty *, const QVariant &)));
+    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)), this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 
     QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
     m_propertyBrowser->setFactoryForManager(m_variantManager, variantFactory);
@@ -42,15 +41,41 @@ void PropertyWidget::initGradientVector()
     m_gradientVector.append(QCPColorGradient::gpHues);
 }
 
+void PropertyWidget::updateData(OutputDataItem *outputDataItem, QCPColorGradient gradient)
+{
+    qDebug() << "PropertyWidget::updateData()" << outputDataItem;
+
+    if(!outputDataItem)
+    {
+        qDebug() << "   PropertyWidget::updateData() 1.1" << outputDataItem;
+        //disconnect();
+
+        if(m_outputDataItem)
+        {
+            disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+        }
+
+        return;
+    }
+
+    setupPropertyWidget(outputDataItem, gradient);
+
+}
+
 
 void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
 
-    if(m_outputDataItem == outputDataItem) return;
+    if(outputDataItem == 0) {
+        return;
+    }
 
-    if(m_outputDataItem)
-        disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+    qDebug() << "PropertyWidget::setupPropertyWidget creating new";
+
+
+
+    //disconnect();
 
     QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
     while (itProp != propertyToId.constEnd()) {
@@ -62,46 +87,49 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     idToProperty.clear();
 
     m_outputDataItem = outputDataItem;
-    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()), Qt::UniqueConnection);
 
-     qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
+
+    qDebug() << "PropertyWidget::setupPropertyWidget connecting";
+
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
 
     m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
     m_projectionsProperty->setToolTip("Projections");
-    m_projectionsProperty->setValue(isProjection);
+    m_projectionsProperty->setValue(m_isProjection);
     addProperty(m_projectionsProperty, tr("Projections"));
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.2";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.2";
 
     m_interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
     m_interpolationProperty->setToolTip("Interploation");
     m_interpolationProperty->setValue(outputDataItem->isInterpolated());
     addProperty(m_interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.3";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.3";
 
     m_logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
     m_logzProperty->setToolTip("Logz");
     m_logzProperty->setValue(outputDataItem->isLogz());
     addProperty(m_logzProperty, JobQueueXML::OutputDataLogzAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.4";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.4";
 
     m_zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
     m_zminProperty->setValue(outputDataItem->getZaxisMin());
     m_zminProperty->setAttribute(QLatin1String("decimals"), 6);
     addProperty(m_zminProperty, JobQueueXML::OutputDataZminAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.5";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.5";
 
     m_zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
     m_zmaxProperty->setValue(outputDataItem->getZaxisMax());
     m_zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
     addProperty(m_zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.6";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.6";
 
 
     int gradIndex = 0;
@@ -118,25 +146,27 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     m_gradientProperty->setValue(gradIndex);
     addProperty(m_gradientProperty, tr("Gradient"));
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.7";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.7";
 
     m_xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
     m_xtitleProperty->setValue(outputDataItem->getXaxisTitle());
     addProperty(m_xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.8";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.8";
 
     m_ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
     m_ytitleProperty->setValue(outputDataItem->getYaxisTitle());
     addProperty(m_ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
 
-    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.9";
+    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.9";
 
 }
 
+
+
 int PropertyWidget::getWidth()
 {
-    return maxWidth;
+    return m_maxWidth;
 }
 
 void PropertyWidget::addProperty(QtVariantProperty *property, const QString &id)
@@ -172,7 +202,7 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
         m_outputDataItem->setLogz(value.toBool());
 
     } else if(id == tr("Projections")) {
-        isProjection = value.toBool();
+        m_isProjection = value.toBool();
         emit projectionsChanged(value.toBool());
 
     } else if(id == tr("Gradient")) {
@@ -195,11 +225,8 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 
 void PropertyWidget::onOutputDataItemModified()
 {
-    qDebug() << "PropertyWidget::onOutputDataItemModified()";
-    OutputDataItem *item = qobject_cast<OutputDataItem *>(sender());
-    (void)item;
-    Q_ASSERT(item == m_outputDataItem);
 
+    qDebug() << "PropertyWidget::onOutputDataItemModified()" << m_outputDataItem;
     idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());
     idToProperty[JobQueueXML::OutputDataZminAttribute]->setValue(m_outputDataItem->getZaxisMin());
     idToProperty[JobQueueXML::OutputDataZmaxAttribute]->setValue(m_outputDataItem->getZaxisMax());
@@ -211,6 +238,36 @@ void PropertyWidget::onOutputDataItemModified()
 
 void PropertyWidget::toggleProjections()
 {
-  m_projectionsProperty->setValue(!isProjection);
+  m_projectionsProperty->setValue(!m_isProjection);
 }
+
+void PropertyWidget::setProjections(bool visible)
+{
+    if(m_isProjection!=visible)
+    m_projectionsProperty->setValue(visible);
+}
+
+/*void PropertyWidget::connectSignals()
+{
+    qDebug() << "PropertyWidget::connectSignals()" << m_outputDataItem;
+
+    Q_ASSERT(m_outputDataItem);
+    m_isWidgetVisible = true;
+    onOutputDataItemModified();
+    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()), Qt::UniqueConnection);
+
+}
+void PropertyWidget::disconnectSignals()
+{
+    m_isWidgetVisible = false;
+    static const QMetaMethod valueChangedSignal = QMetaMethod::fromSignal(&OutputDataItem::modified);
+    if(isSignalConnected(valueChangedSignal))
+    {
+        disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+    }
+
+
+}*/
+
+
 

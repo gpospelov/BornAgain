@@ -7,6 +7,7 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 class QGraphicsScene;
@@ -17,7 +18,7 @@ class QPointF;
 //! The NodeEditor class implement for QGraphicsScene an editable schematic
 //! of the dependency graph, displaying nodes and the connections between their
 //! attributes
-class NodeEditor : public QObject
+class BA_CORE_API_ NodeEditor : public QObject
 {
 	Q_OBJECT
 

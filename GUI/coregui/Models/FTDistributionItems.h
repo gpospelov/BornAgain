@@ -6,7 +6,7 @@
 #include "FTDistributions.h"
 
 
-class FTDistribution1DItem : public ParameterizedItem
+class BA_CORE_API_ FTDistribution1DItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -17,7 +17,7 @@ public:
     virtual ~FTDistribution1DItem(){}
 };
 
-class FTDistribution1DCauchyItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DCauchyItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -25,7 +25,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution1DGaussItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DGaussItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -33,7 +33,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution1DGateItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DGateItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -41,7 +41,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution1DTriangleItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DTriangleItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -49,7 +49,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution1DCosineItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DCosineItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -57,7 +57,7 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution1DVoigtItem : public FTDistribution1DItem
+class BA_CORE_API_ FTDistribution1DVoigtItem : public FTDistribution1DItem
 {
     Q_OBJECT
 public:
@@ -66,19 +66,23 @@ public:
     virtual IFTDistribution1D *createFTDistribution() const;
 };
 
-class FTDistribution2DItem : public ParameterizedItem
+class BA_CORE_API_ FTDistribution2DItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_CORR_LENGTH_X, P_CORR_LENGTH_Y;
+    static const QString P_CORR_LENGTH_X;
+    static const QString P_CORR_LENGTH_Y;
+    static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name, ParameterizedItem *parent)
-        : ParameterizedItem(name, parent){}
+        : ParameterizedItem(name, parent) {
+        registerProperty(P_GAMMA, 0.0);
+    }
     virtual IFTDistribution2D *createFTDistribution() const { return 0;}
     virtual ~FTDistribution2DItem(){}
 };
 
 
-class FTDistribution2DCauchyItem : public FTDistribution2DItem
+class BA_CORE_API_ FTDistribution2DCauchyItem : public FTDistribution2DItem
 {
     Q_OBJECT
 public:
@@ -87,7 +91,7 @@ public:
 };
 
 
-class FTDistribution2DGaussItem : public FTDistribution2DItem
+class BA_CORE_API_ FTDistribution2DGaussItem : public FTDistribution2DItem
 {
     Q_OBJECT
 public:
@@ -96,7 +100,7 @@ public:
 };
 
 
-class FTDistribution2DGateItem : public FTDistribution2DItem
+class BA_CORE_API_ FTDistribution2DGateItem : public FTDistribution2DItem
 {
     Q_OBJECT
 public:
@@ -105,7 +109,7 @@ public:
 };
 
 
-class FTDistribution2DConeItem : public FTDistribution2DItem
+class BA_CORE_API_ FTDistribution2DConeItem : public FTDistribution2DItem
 {
     Q_OBJECT
 public:
@@ -114,7 +118,7 @@ public:
 };
 
 
-class FTDistribution2DVoigtItem : public FTDistribution2DItem
+class BA_CORE_API_ FTDistribution2DVoigtItem : public FTDistribution2DItem
 {
     Q_OBJECT
 public:

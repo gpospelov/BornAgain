@@ -4,13 +4,19 @@
 
 #include "ParameterizedItem.h"
 
-class BeamItem : public ParameterizedItem
+class BA_CORE_API_ BeamItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_INTENSITY, P_WAVELENGTH, P_ANGLE_UNITS, P_INCLINATION_ANGLE, P_AZIMUTHAL_ANGLE;
+    static const QString P_INTENSITY;
+    static const QString P_WAVELENGTH;
+    static const QString P_INCLINATION_ANGLE;
+    static const QString P_AZIMUTHAL_ANGLE;
     explicit BeamItem(ParameterizedItem *parent=0);
     ~BeamItem(){}
+
+    void onPropertyChange(const QString &name);
+
 };
 
 

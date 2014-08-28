@@ -16,6 +16,7 @@
 #ifndef PROGRESSHANDLER_H
 #define PROGRESSHANDLER_H
 
+#include "WinDllMacros.h"
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
@@ -28,7 +29,7 @@ class Simulation;
 //! and report it to GUI.
 //!
 //! Thread safe to be used from DWBASimulation
-class ProgressHandler
+class BA_CORE_API_ ProgressHandler
 {
 public:
     typedef boost::function<bool (int)> Callback_t;

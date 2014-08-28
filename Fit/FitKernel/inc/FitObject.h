@@ -21,7 +21,6 @@
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
 
-
 //! @class FitObject
 //! @ingroup fitting_internal
 //! @brief Single simulation description, real data and chi2 module (used by FitSuite)

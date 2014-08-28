@@ -1,9 +1,16 @@
 #include "QuickSimulationWidget.h"
+#include "QuickSimulationSettings.h"
+#include "ModelTuningWidget.h"
+#include "OutputDataWidget.h"
+#include "QuickSimulationRunner.h"
+#include "OutputDataWidget.h"
+#include "minisplitter.h"
+
 #include "qdebug.h"
 #include "QHBoxLayout"
-#include "ModelTuningWidget.h"
-#include "PlotWidget.h"
-#include "QuickSimulationRunner.h"
+#include "QVBoxLayout"
+#include <QSplitter>
+
 
 
 QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
@@ -19,36 +26,55 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     setAutoFillBackground(true);
     //setPalette(palette);
 
-    m_plotWidget = new PlotWidget(false);
-    m_plotWidget->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
-    m_plotWidget->setProjectionsVisible(false);
-    m_plotWidget->setPropertyPanelVisible(false);
-    //m_plotWidget->setFixedWidth(600);
-
+    m_outputDataWidget = new OutputDataWidget(this, false, false);
 
     m_quickSimulationRunner = new QuickSimulationRunner(this);
-    m_quickSimulationRunner->setPlotWidget(m_plotWidget);
+    m_quickSimulationRunner->setOutputDataWidget(m_outputDataWidget);
 
 
     m_modelTuningWidget = new ModelTuningWidget(m_sampleModel, m_instrumentModel);
     m_modelTuningWidget->setQuickSimulationRunner(m_quickSimulationRunner);
-    m_modelTuningWidget->setFixedWidth(380);
+    //m_modelTuningWidget->setFixedWidth(320);
     m_modelTuningWidget->setContentsMargins(0,0,0,0);
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addStretch();
-    mainLayout->addWidget(m_plotWidget);
-    mainLayout->addStretch();
-    mainLayout->addWidget(m_modelTuningWidget);
+    m_quickSimulationSettings = new QuickSimulationSettings();
 
-    mainLayout->setContentsMargins(0,0,0,0);
+
+    QVBoxLayout *settingsLayout = new QVBoxLayout(this);
+    settingsLayout->addWidget(m_quickSimulationSettings);
+    settingsLayout->addWidget(m_modelTuningWidget);
+    settingsLayout->setMargin(0);
+    settingsLayout->setSpacing(0);
+
+    QWidget *settingsWidget = new QWidget();
+    settingsWidget->setLayout(settingsLayout);
+
+
+    m_splitter = new Manhattan::MiniSplitter(this);
+    m_splitter->setStyleSheet("background-color:white;");
+    m_splitter->addWidget(m_outputDataWidget);
+    m_splitter->addWidget(settingsWidget);
+
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->addWidget(m_splitter);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
 
     setLayout(mainLayout);
+
+    connect(m_quickSimulationSettings, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(sliderRangeChanged(double)));
+
 }
 
 void QuickSimulationWidget::updateViews(const QString &instrument, const QString &sample)
 {
     m_modelTuningWidget->updateTreeView(instrument, sample);
+}
+
+void QuickSimulationWidget::sliderRangeChanged(double value)
+{
+    //qDebug() << "QuickSimulationWidget::sliderRangeChanged" << value;
+    m_modelTuningWidget->setSliderRangeFactor(value);
 }
 
 

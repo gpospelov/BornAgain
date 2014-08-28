@@ -1,16 +1,17 @@
 #ifndef QUICKSIMULATIONRUNNER_H
 #define QUICKSIMULATIONRUNNER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 class JobQueueData;
 class Simulation;
 class JobItem;
-class PlotWidget;
+class OutputDataWidget;
 
 //! The QuickSimulationRunner class runs the simulation in real time following
 //! requests of SampleTuningWidget
-class QuickSimulationRunner : public QObject
+class BA_CORE_API_ QuickSimulationRunner : public QObject
 {
     Q_OBJECT
 public:
@@ -22,7 +23,7 @@ public:
 
     bool isSimulationInProgress() const;
 
-    void setPlotWidget(PlotWidget *plotWidget);
+    void setOutputDataWidget(OutputDataWidget *outputDataWidget);
 
 public slots:
     void onJobItemIsModified(JobItem *);
@@ -30,8 +31,10 @@ public slots:
 
 private:
     JobQueueData *m_jobQueueData;
-    PlotWidget *m_plotWidget;
+    OutputDataWidget *m_outputDataWidget;
     bool m_simulation_in_progress;
+
+    QString m_current_identifier;
 };
 
 

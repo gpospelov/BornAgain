@@ -17,7 +17,7 @@
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "BeamItem.h"
@@ -32,6 +32,9 @@
 #include "VectorItem.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "AngleProperty.h"
+#include "FixedBinAxis.h"
+#include "ConstKBinAxis.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -146,22 +149,28 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
     }
     else if(item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
 
-        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
+        ParameterizedItem *latticeItem = item.getSubItems()
+                [InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
 
         double length_1(0), length_2(0), alpha_lattice(0.0);
         if(latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
-            length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
-            alpha_lattice = Units::deg2rad(item.getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
+            length_1 = latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
+            length_2 = latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
+            alpha_lattice = Units::deg2rad(latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
         }
         else if(latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            length_1 = latticeItem->getRegisteredProperty(
+                        SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = M_PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            length_1 = latticeItem->getRegisteredProperty(
+                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = 2*M_PI/3.0;
         }
@@ -195,6 +204,42 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         result->setProbabilityDistributions(*pdf1, *pdf2);
         return result;
     }
+    else if(item.modelType() == Constants::InterferenceFunction2DLatticeType) {
+
+        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
+        Q_ASSERT(latticeItem);
+
+        Lattice2DIFParameters lattice_params;
+        if(latticeItem->modelType() == Constants::BasicLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
+            lattice_params.m_length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
+            lattice_params.m_angle = Units::deg2rad(latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
+        }
+        else if(latticeItem->modelType() == Constants::SquareLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            lattice_params.m_length_2 = lattice_params.m_length_1;
+            lattice_params.m_angle = M_PI/2.0;
+        }
+        else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            lattice_params.m_length_2 = lattice_params.m_length_1;
+            lattice_params.m_angle = 2*M_PI/3.0;
+        }
+        else {
+            throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
+        }
+        lattice_params.m_xi = Units::deg2rad(item.getRegisteredProperty(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE).toDouble());
+
+        InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(lattice_params);
+
+        ParameterizedItem *pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_PDF];
+        Q_ASSERT(pdfItem);
+        boost::scoped_ptr<IFTDistribution2D> pdf(dynamic_cast<FTDistribution2DItem *>(pdfItem)->createFTDistribution());
+        Q_ASSERT(pdf.get());
+
+        result->setProbabilityDistribution(*pdf);
+        return result;
+    }
 
     return 0;
 }
@@ -214,9 +259,10 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
     result->setName(item.itemName().toUtf8().constData());
     result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
     double lambda = item.getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble();
-    double alpha_i = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
-    double phi_i = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
-    result->setCentralK( lambda, Units::deg2rad(alpha_i), Units::deg2rad(phi_i));
+
+    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
     return result;
 }
 
@@ -229,27 +275,36 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     Q_ASSERT(subDetector);
 
 //    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
-    if (subDetector->modelType() == Constants::ThetaPhiDetectorType) {
-        int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
-        double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();
-        double phi_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX).toDouble();
-        int nalpha = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA).toInt();
-        double alpha_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN).toDouble();
-        double alpha_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX).toDouble();
-        bool isgisaxs_style(true);
+    if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+        int nphi = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NPHI).toInt();
 
-        ComboProperty binning = subDetector->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
-        if(binning.getValue() == QStringLiteral("Flat")) isgisaxs_style = false;
+        AngleProperty phi_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN).value<AngleProperty>();
+        AngleProperty phi_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX).value<AngleProperty>();
+        double phi_min = phi_min_property.getValueInRadians();
+        double phi_max = phi_max_property.getValueInRadians();
 
-        ComboProperty units = subDetector->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();
-        if(units.getValue() == QStringLiteral("Degrees")) {
-            phi_min = Units::deg2rad(phi_min);
-            phi_max = Units::deg2rad(phi_max);
-            alpha_min = Units::deg2rad(alpha_min);
-            alpha_max = Units::deg2rad(alpha_max);
+        int nalpha = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA).toInt();
+
+        AngleProperty alpha_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN).value<AngleProperty>();
+        AngleProperty alpha_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX).value<AngleProperty>();
+        double alpha_min = alpha_min_property.getValueInRadians();
+        double alpha_max = alpha_max_property.getValueInRadians();
+
+        ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+        // FIXME Get rid from hardcoded string
+//        if(binning.getValue() != QStringLiteral("Const KBin"))
+//            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
+
+        if(binning.getValue() == QStringLiteral("Const KBin")) {
+            instrument->setDetectorAxes(ConstKBinAxis("phi_x",nphi, phi_min, phi_max), ConstKBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
+        }else if(binning.getValue() == QStringLiteral("Fixed")) {
+            instrument->setDetectorAxes(FixedBinAxis("phi_x",nphi, phi_min, phi_max), FixedBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
+        } else {
+            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
         }
 
-        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max, isgisaxs_style);
+//        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
+
     }
     else {
         throw GUIHelpers::Error("TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "+subDetector->modelType());

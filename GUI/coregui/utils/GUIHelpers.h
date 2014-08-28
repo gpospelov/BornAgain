@@ -16,16 +16,16 @@
 #ifndef GUIHELPERS_H
 #define GUIHELPERS_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QString>
-
 #include <exception>
 
 class QVariant;
 
 namespace GUIHelpers
 {
-class Error : public std::exception
+class BA_CORE_API_ Error : public std::exception
 {
 public:
     explicit Error(const QString &message) throw()
@@ -38,18 +38,18 @@ private:
     const char *message;
 };
 
-void information(QWidget *parent, const QString &title,
+BA_CORE_API_ void information(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
-void warning(QWidget *parent, const QString &title,
+BA_CORE_API_ void warning(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
-bool question(QWidget *parent, const QString &title,
+BA_CORE_API_ bool question(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString(),
         const QString &yesText=QObject::tr("&Yes"),
         const QString &noText=QObject::tr("&No"));
-bool okToDelete(QWidget *parent, const QString &title,
+BA_CORE_API_ bool okToDelete(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
 
-int getVariantType(const QVariant &variant);
+BA_CORE_API_ int getVariantType(const QVariant &variant);
 
 }
 

@@ -8,7 +8,7 @@
 #include "Instrument.h"
 #include "DomainObjectBuilder.h"
 #include "ParameterizedItem.h"
-#include "OutputDataFunctions.h"
+#include "IntensityDataFunctions.h"
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
 
@@ -43,7 +43,7 @@ void GUIFunctionalTest::runTest()
 
 int GUIFunctionalTest::analyseResults()
 {
-    double diff = OutputDataFunctions::GetDifference(*m_domain_simulation->getOutputData(),*m_reference_simulation->getOutputData());
+    double diff = IntensityDataFunctions::getRelativeDifference(*m_domain_simulation->getOutputData(),*m_reference_simulation->getOutputData());
 
     std::cout << m_name<< " " << " " << diff
               << " " << (diff>m_threshold ? "[FAILED]" : "[OK]") << std::endl;
@@ -68,6 +68,7 @@ void GUIFunctionalTest::createDomainSimulation()
     // populating GUI models from domain
     boost::scoped_ptr<ISample> reference_sample(m_reference_simulation->getSample()->clone());
     boost::scoped_ptr<Instrument> reference_instrument(new Instrument(m_reference_simulation->getInstrument()));
+
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(sampleModel.get(), reference_sample.get());
     guiBuilder.populateInstrumentModel(instrumentModel.get(), reference_instrument.get());

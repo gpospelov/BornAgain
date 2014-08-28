@@ -69,6 +69,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     # TODO refactor this
     if(APPLE)
         find_package(PythonLibsNew REQUIRED)
+    elseif(WIN32)
+        find_package(PythonLibs REQUIRED)
     else()
         set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
         find_package(PythonLibs REQUIRED)
@@ -99,8 +101,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 endif()
 
 
-
 # --- ROOT ---
 if(ROOT_SUPPORT)
-find_package(ROOT)
+    find_package(ROOT)
 endif()

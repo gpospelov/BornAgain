@@ -16,7 +16,6 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-//    m_listWidget = new QListWidget;
     m_listView = new QListView;
     m_listView->setViewMode(QListView::IconMode);
     m_listView->setIconSize(QSize(96, 84));
@@ -34,39 +33,15 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     "}\n"
     ""));
 
-
-
-
-
-
-//    QMenu *addInstrumentMenu = new QMenu();
-//    m_addDefaultGisasAction = new QAction(tr("Default GISAS instrument"), this);
-//    m_addDefaultGisasAction->setStatusTip(tr("Add default GISAS instrument"));
-//    connect(m_addDefaultGisasAction, SIGNAL(triggered()), this, SLOT(onAddDefaultGISAS()) );
-//    addInstrumentMenu->addAction(m_addDefaultGisasAction);
-
-//    QPushButton *addInstrumentButton = new QPushButton("Add new instrument");
-//    addInstrumentButton->setMinimumHeight(30);
-//    addInstrumentButton->setMenu(addInstrumentMenu);
-
-
     QVBoxLayout *verticaLayout = new QVBoxLayout;
     verticaLayout->setMargin(10);
     verticaLayout->setSpacing(10);
     verticaLayout->addWidget(m_listView, 3);
-//    verticaLayout->addWidget(addInstrumentButton);
 
     setLayout(verticaLayout);
 
     setInstrumentModel(model);
 }
-
-
-//void InstrumentSelectorWidget::onAddDefaultGISAS()
-//{
-//    qDebug() << "InstrumentSelectorWidget::onAddDefaultGISAS() ";
-//}
-
 
 
 void InstrumentSelectorWidget::setInstrumentModel(InstrumentModel *model)
@@ -87,20 +62,25 @@ void InstrumentSelectorWidget::setInstrumentModel(InstrumentModel *model)
             SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) )
         );
 
-//        connect(m_instrumentModel, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this, SLOT(onRowsInserted(const QModelIndex &,int,int)));
     }
 }
+
 
 QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
 {
     return m_listView->selectionModel();
 }
 
-//void InstrumentSelectorWidget::onRowsInserted(const QModelIndex &parent, int first, int /* last */)
-//{
-//    QModelIndex indexToSelect = m_instrumentModel->index(first, 0, parent);
-//    qDebug() << "InstrumentSelectorWidget::onRowsInserted()" << indexToSelect;
-//    m_listView->selectionModel()->select(indexToSelect, QItemSelectionModel::Select);
-//}
+
+//! select last item if no selection exists
+void InstrumentSelectorWidget::updateSelection()
+{
+    qDebug() << "InstrumentSelectorWidget::updateSelection()" << m_instrumentModel->rowCount(QModelIndex());
+    if(!getSelectionModel()->hasSelection()) {
+        QModelIndex itemIndex = m_instrumentModel->index(m_instrumentModel->rowCount(QModelIndex()) - 1,0,QModelIndex());
+        qDebug() << "       InstrumentSelectorWidget::updateSelection()" << itemIndex;
+        getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    }
+}
 
 

@@ -38,10 +38,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual double evaluateLattice( double qx, double qy ) const  {
         if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
             return func_evaluateLattice( qx, qy );
-        else
+        else{
             return this->IFTDistribution2D::evaluateLattice( qx, qy );
+        }
     }
-    
     
     double default_evaluateLattice( double qx, double qy ) const  {
         return IFTDistribution2D::evaluateLattice( qx, qy );
@@ -50,10 +50,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -62,10 +62,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -74,10 +74,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -86,10 +86,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -117,10 +117,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -129,10 +129,10 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -148,7 +148,7 @@ void register_IFTDistribution2D_class(){
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone
         
-            typedef ::IFTDistribution2D * ( ::IFTDistribution2D::*clone_function_type )(  ) const;
+            typedef ::IFTDistribution2D * ( ::IFTDistribution2D::*clone_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "clone"
@@ -158,7 +158,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::evaluate
         
-            typedef double ( ::IFTDistribution2D::*evaluate_function_type )( double,double ) const;
+            typedef double ( ::IFTDistribution2D::*evaluate_function_type)( double,double ) const;
             
             IFTDistribution2D_exposer.def( 
                 "evaluate"
@@ -168,8 +168,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::evaluateLattice
         
-            typedef double ( ::IFTDistribution2D::*evaluateLattice_function_type )( double,double ) const;
-            typedef double ( IFTDistribution2D_wrapper::*default_evaluateLattice_function_type )( double,double ) const;
+            typedef double ( ::IFTDistribution2D::*evaluateLattice_function_type)( double,double ) const;
+            typedef double ( IFTDistribution2D_wrapper::*default_evaluateLattice_function_type)( double,double ) const;
             
             IFTDistribution2D_exposer.def( 
                 "evaluateLattice"
@@ -180,7 +180,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::getCoherenceLengthX
         
-            typedef double ( ::IFTDistribution2D::*getCoherenceLengthX_function_type )(  ) const;
+            typedef double ( ::IFTDistribution2D::*getCoherenceLengthX_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "getCoherenceLengthX"
@@ -189,7 +189,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::getCoherenceLengthY
         
-            typedef double ( ::IFTDistribution2D::*getCoherenceLengthY_function_type )(  ) const;
+            typedef double ( ::IFTDistribution2D::*getCoherenceLengthY_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "getCoherenceLengthY"
@@ -198,7 +198,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::getDelta
         
-            typedef double ( ::IFTDistribution2D::*getDelta_function_type )(  ) const;
+            typedef double ( ::IFTDistribution2D::*getDelta_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "getDelta"
@@ -207,7 +207,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::getGamma
         
-            typedef double ( ::IFTDistribution2D::*getGamma_function_type )(  ) const;
+            typedef double ( ::IFTDistribution2D::*getGamma_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "getGamma"
@@ -216,7 +216,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::setGamma
         
-            typedef void ( ::IFTDistribution2D::*setGamma_function_type )( double ) ;
+            typedef void ( ::IFTDistribution2D::*setGamma_function_type)( double ) ;
             
             IFTDistribution2D_exposer.def( 
                 "setGamma"
@@ -226,7 +226,7 @@ void register_IFTDistribution2D_class(){
         }
         { //::IFTDistribution2D::transformToStarBasis
         
-            typedef void ( ::IFTDistribution2D::*transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
+            typedef void ( ::IFTDistribution2D::*transformToStarBasis_function_type)( double,double,double,double,double,double &,double & ) const;
             
             IFTDistribution2D_exposer.def( 
                 "transformToStarBasis"
@@ -236,8 +236,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IFTDistribution2D_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IFTDistribution2D_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IFTDistribution2D_exposer.def( 
                 "areParametersChanged"
@@ -247,8 +247,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IFTDistribution2D_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IFTDistribution2D_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IFTDistribution2D_exposer.def( 
                 "clearParameterPool"
@@ -258,8 +258,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IFTDistribution2D_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IFTDistribution2D_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "createParameterTree"
@@ -270,8 +270,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IFTDistribution2D_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IFTDistribution2D_wrapper::*default_printParameters_function_type)(  ) const;
             
             IFTDistribution2D_exposer.def( 
                 "printParameters"
@@ -291,8 +291,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IFTDistribution2D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IFTDistribution2D_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IFTDistribution2D_exposer.def( 
                 "setParameterValue"
@@ -303,8 +303,8 @@ void register_IFTDistribution2D_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IFTDistribution2D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IFTDistribution2D_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IFTDistribution2D_exposer.def( 
                 "setParametersAreChanged"

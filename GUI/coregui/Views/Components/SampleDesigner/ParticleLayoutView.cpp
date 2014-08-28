@@ -27,7 +27,8 @@ void ParticleLayoutView::addView(IView *childView, int /* row */)
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }
     else if(childView->type() == DesignerHelper::InterferenceFunction1DParaType
-            || childView->type() == DesignerHelper::InterferenceFunction2DParaType) {
+         || childView->type() == DesignerHelper::InterferenceFunction2DParaType
+         || childView->type() == DesignerHelper::InterferenceFunction2DLatticeType) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 1);
     }
     else {

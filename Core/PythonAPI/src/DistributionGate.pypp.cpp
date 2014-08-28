@@ -35,10 +35,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual ::DistributionGate * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->DistributionGate::clone(  );
+        }
     }
-    
     
     ::DistributionGate * default_clone(  ) const  {
         return DistributionGate::clone( );
@@ -47,10 +47,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
         if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
             return func_generateValueList( nbr_samples, sigma_factor );
-        else
+        else{
             return this->DistributionGate::generateValueList( nbr_samples, sigma_factor );
+        }
     }
-    
     
     ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
         return DistributionGate::generateValueList( nbr_samples, sigma_factor );
@@ -59,10 +59,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
-        else
+        else{
             return this->DistributionGate::getMean(  );
+        }
     }
-    
     
     double default_getMean(  ) const  {
         return DistributionGate::getMean( );
@@ -71,10 +71,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual double probabilityDensity( double x ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( x );
-        else
+        else{
             return this->DistributionGate::probabilityDensity( x );
+        }
     }
-    
     
     double default_probabilityDensity( double x ) const  {
         return DistributionGate::probabilityDensity( x );
@@ -83,10 +83,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -95,10 +95,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -107,10 +107,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -119,10 +119,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -150,10 +150,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -162,10 +162,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -181,8 +181,8 @@ void register_DistributionGate_class(){
         bp::scope DistributionGate_scope( DistributionGate_exposer );
         { //::DistributionGate::clone
         
-            typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type )(  ) const;
-            typedef ::DistributionGate * ( DistributionGate_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type)(  ) const;
+            typedef ::DistributionGate * ( DistributionGate_wrapper::*default_clone_function_type)(  ) const;
             
             DistributionGate_exposer.def( 
                 "clone"
@@ -193,8 +193,8 @@ void register_DistributionGate_class(){
         }
         { //::DistributionGate::generateValueList
         
-            typedef ::std::vector< double > ( ::DistributionGate::*generateValueList_function_type )( ::std::size_t,double ) const;
-            typedef ::std::vector< double > ( DistributionGate_wrapper::*default_generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( ::DistributionGate::*generateValueList_function_type)( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( DistributionGate_wrapper::*default_generateValueList_function_type)( ::std::size_t,double ) const;
             
             DistributionGate_exposer.def( 
                 "generateValueList"
@@ -205,8 +205,8 @@ void register_DistributionGate_class(){
         }
         { //::DistributionGate::getMean
         
-            typedef double ( ::DistributionGate::*getMean_function_type )(  ) const;
-            typedef double ( DistributionGate_wrapper::*default_getMean_function_type )(  ) const;
+            typedef double ( ::DistributionGate::*getMean_function_type)(  ) const;
+            typedef double ( DistributionGate_wrapper::*default_getMean_function_type)(  ) const;
             
             DistributionGate_exposer.def( 
                 "getMean"
@@ -216,8 +216,8 @@ void register_DistributionGate_class(){
         }
         { //::DistributionGate::probabilityDensity
         
-            typedef double ( ::DistributionGate::*probabilityDensity_function_type )( double ) const;
-            typedef double ( DistributionGate_wrapper::*default_probabilityDensity_function_type )( double ) const;
+            typedef double ( ::DistributionGate::*probabilityDensity_function_type)( double ) const;
+            typedef double ( DistributionGate_wrapper::*default_probabilityDensity_function_type)( double ) const;
             
             DistributionGate_exposer.def( 
                 "probabilityDensity"
@@ -228,8 +228,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( DistributionGate_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( DistributionGate_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             DistributionGate_exposer.def( 
                 "areParametersChanged"
@@ -239,8 +239,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( DistributionGate_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( DistributionGate_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             DistributionGate_exposer.def( 
                 "clearParameterPool"
@@ -250,8 +250,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( DistributionGate_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( DistributionGate_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             DistributionGate_exposer.def( 
                 "createParameterTree"
@@ -262,8 +262,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( DistributionGate_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( DistributionGate_wrapper::*default_printParameters_function_type)(  ) const;
             
             DistributionGate_exposer.def( 
                 "printParameters"
@@ -283,8 +283,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( DistributionGate_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( DistributionGate_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             DistributionGate_exposer.def( 
                 "setParameterValue"
@@ -295,8 +295,8 @@ void register_DistributionGate_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( DistributionGate_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( DistributionGate_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             DistributionGate_exposer.def( 
                 "setParametersAreChanged"

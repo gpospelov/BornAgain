@@ -40,7 +40,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree, True)
+    simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree)
     simulation.setBeamParameters(wlgth, alphai, phii)
     sim_params= SimulationParameters()
     # Choice between BA and DWBA

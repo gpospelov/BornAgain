@@ -142,6 +142,9 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     else  if (name==Constants::ParticleLayoutType) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
     }
+    else  if (name==Constants::TransformationType) {
+        return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
+    }
     else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
     }

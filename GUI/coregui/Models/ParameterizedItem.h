@@ -16,6 +16,7 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
+#include "WinDllMacros.h"
 #include "item_constants.h"
 #include "PropertyAttribute.h"
 #include "MaterialProperty.h"
@@ -26,11 +27,12 @@
 
 class QEvent;
 
-class ParameterizedItem : public QObject
+class BA_CORE_API_ ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    static const QString P_NAME, P_PORT;
+    static const QString P_NAME;
+    static const QString P_PORT;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type

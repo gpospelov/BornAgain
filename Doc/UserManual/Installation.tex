@@ -43,14 +43,13 @@ To successfully build \BornAgain\ a number of prerequisite packages must be inst
 \item boost library ($\geq 1.48$)
 \item GNU scientific library ($\geq 1.15$)
 \item fftw3 library ($\geq 3.3$)
-\item \Python\ ($\geq 2.7$, $< 3.0$), python-devel, python-numpy-devel
+\item \Python\ ($\geq 2.7$, $< 3.0$), python-devel, python-numpy-devel, python-matplotlib
 \end{itemize}
 \vspace*{2mm}
 
 Other packages are optional
 \begin{itemize}
 \item ROOT framework (adds several additional fitting algorithms to \BornAgain)
-\item python-matplotlib (allows to run usage examples with graphics)
 %\item Eigen3 library ($\geq 3.1.0$)
 \end{itemize}
 
@@ -68,13 +67,13 @@ commands for invoking the package manager as well as slightly different names of
 {\large\bf Ubuntu (12.10, 13.04), Debian (7.1)} \newline
 Installing the required packages
 \begin{lstlisting}[language=shell, style=commandline]
-sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy
+sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy python-matplotlib python-matplotlib-tk
 \end{lstlisting}
 
 \noindent
 Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
-sudo apt-get install ``libroot-*'' ``root-plugin-*'' ``root-system-*'' ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
+sudo apt-get install root-system
 \end{lstlisting}
 \vspace*{3mm}
 
@@ -84,21 +83,26 @@ sudo apt-get install ``libroot-*'' ``root-plugin-*'' ``root-system-*'' ttf-root-
 % ---------------
 \noindent
 {\large\bf OpenSuse 12.3} \newline
-Adding the ``scientific'' repository 
+
+\noindent
+Installing the required packages
+\begin{lstlisting}[language=shell, style=commandline]
+sudo zypper install git-core cmake gsl-devel boost-devel fftw3-devel python-devel python-numpy-devel python-matplotlib python-matplotlib-tk
+\end{lstlisting}
+
+\noindent
+Installing the optional packages. First add the ``scientific'' repository for your version of OpenSuse
+
+
+\noindent
 \begin{lstlisting}[language=shell, style=commandline]
 sudo zypper ar http://download.opensuse.org/repositories/science/openSUSE_12.3 science
 \end{lstlisting}
 
 \noindent
-Installing the required packages
+Then install optional ROOT framework
 \begin{lstlisting}[language=shell, style=commandline]
-sudo zypper install git-core cmake gsl-devel boost-devel fftw3-devel python-devel python-numpy-devel
-\end{lstlisting}
-
-\noindent
-Installing the optional packages
-\begin{lstlisting}[language=shell, style=commandline]
-sudo zypper ``install libroot-*'' ``root-plugin-*'' ``root-system-*'' root-ttf libeigen3-devel python-matplotlib
+sudo zypper root-system 
 \end{lstlisting}
 \vspace*{3mm}
 
@@ -124,15 +128,14 @@ sudo port -v selfupdate
 sudo port install git-core cmake
 sudo port install fftw-3 gsl
 sudo port install boost -no_single-no_static+python27 
+sudo port install py27-matplotlib py27-numpy py27-scipy
 sudo port select --set python python27
 \end{lstlisting}
 
 \noindent
 Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
-sudo port install py27-matplotlib py27-numpy py27-scipy
 sudo port install root +fftw3+python27
-sudo port install eigen3
 \end{lstlisting}
 
 
@@ -142,7 +145,7 @@ sudo port install eigen3
 \BornAgain\ source can be downloaded at \url{http://apps.jcns.fz-juelich.de/BornAgain}
 and unpacked with
 \begin{lstlisting}[language=shell, style=commandline]
-tar xfz bornagain-<version>.tar.gz
+tar xfz BornAgain-<version>.tar.gz
 \end{lstlisting}
 
 \noindent
@@ -189,7 +192,7 @@ previous sections, type the build commands
 mkdir <build_dir>
 cd <build_dir>
 cmake  -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
-make
+make -j4
 \end{lstlisting}
 \vspace*{3mm}
 
@@ -227,6 +230,9 @@ into  the installation directory.
 \begin{lstlisting}[language=shell, style=commandline]
 make install
 \end{lstlisting}
+
+\subsubsection{After installation}
+
 
 After the installation is completed, the location of \BornAgain\ libraries needs to be included into your
 \Code{LD\_LIBRARY\_PATH} and \Code{PYTHONPATH} environment variables.

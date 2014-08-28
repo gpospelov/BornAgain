@@ -44,11 +44,14 @@ const QString ColorRedAttribute("Red");
 const QString ColorGreenAttribute("Green");
 const QString ColorBlueAttribute("Blue");
 const QString ColorAlphaAttribute("Alpha");
+
+const QString AngleUnitsAttribute("Units");
+
 }
 
 class IconProvider;
 
-class SessionModel : public QAbstractItemModel
+class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
 

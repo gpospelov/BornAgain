@@ -1,6 +1,7 @@
 #ifndef SCIENTIFICDOUBLEPROPERTY_H
 #define SCIENTIFICDOUBLEPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QMetaType>
 #include <QString>
 #include <QVariant>
@@ -9,7 +10,7 @@
 //!
 //! The reason is to have simple editor for doubles in scientific notation
 //! in PropertyEditor instead of inconvenient QDoubleSpinBox
-class ScientificDoubleProperty
+class BA_CORE_API_ ScientificDoubleProperty
 {
 public:
     explicit ScientificDoubleProperty(double value = 0) : m_value(value) {}

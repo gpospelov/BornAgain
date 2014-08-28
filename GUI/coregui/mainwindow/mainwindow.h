@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "WinDllMacros.h"
 #include "fancymainwindow.h"
 
 namespace Manhattan {
@@ -32,7 +33,7 @@ class MaterialModel;
 class SampleModel;
 
 
-class MainWindow : public Manhattan::FancyMainWindow
+class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
     

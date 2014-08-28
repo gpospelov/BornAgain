@@ -3,7 +3,7 @@
 
 #include "ConnectableView.h"
 
-class ParticleLayoutView : public ConnectableView
+class BA_CORE_API_ ParticleLayoutView : public ConnectableView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )

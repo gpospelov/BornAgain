@@ -5,7 +5,7 @@ project(UserManual NONE)
 # user manual version number will be automatically propagated into tes
 set(UM_VERSION_MAJOR 0)
 set(UM_VERSION_MINOR 2)
-set(UM_VERSION_PATCH 5)
+set(UM_VERSION_PATCH 6)
 
 
 set(LATEX_COMPILER_FLAGS

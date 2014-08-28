@@ -17,7 +17,6 @@
 #define SAMPLES_H
 
 #include "Crystal.h"
-#include "MaterialManager.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"

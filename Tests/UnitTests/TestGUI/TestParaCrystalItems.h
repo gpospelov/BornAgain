@@ -2,7 +2,7 @@
 #define TESTPARACRYSTALITEMS_H
 
 #include <QtTest>
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "FancyGroupProperty.h"
 
 class TestParaCrystalItems : public QObject {

@@ -35,10 +35,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual ::ISample * buildSample(  ) const  {
         if( bp::override func_buildSample = this->get_override( "buildSample" ) )
             return func_buildSample(  );
-        else
+        else{
             return this->ISampleBuilder::buildSample(  );
+        }
     }
-    
     
     ::ISample * default_buildSample(  ) const  {
         return ISampleBuilder::buildSample( );
@@ -47,10 +47,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -59,10 +59,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -71,10 +71,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -83,10 +83,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -114,10 +114,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -126,10 +126,10 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -145,8 +145,8 @@ void register_ISampleBuilder_class(){
         bp::scope ISampleBuilder_scope( ISampleBuilder_exposer );
         { //::ISampleBuilder::buildSample
         
-            typedef ::ISample * ( ::ISampleBuilder::*buildSample_function_type )(  ) const;
-            typedef ::ISample * ( ISampleBuilder_wrapper::*default_buildSample_function_type )(  ) const;
+            typedef ::ISample * ( ::ISampleBuilder::*buildSample_function_type)(  ) const;
+            typedef ::ISample * ( ISampleBuilder_wrapper::*default_buildSample_function_type)(  ) const;
             
             ISampleBuilder_exposer.def( 
                 "buildSample"
@@ -157,8 +157,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ISampleBuilder_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( ISampleBuilder_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             ISampleBuilder_exposer.def( 
                 "areParametersChanged"
@@ -168,8 +168,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( ISampleBuilder_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( ISampleBuilder_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             ISampleBuilder_exposer.def( 
                 "clearParameterPool"
@@ -179,8 +179,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ISampleBuilder_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ISampleBuilder_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             ISampleBuilder_exposer.def( 
                 "createParameterTree"
@@ -191,8 +191,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ISampleBuilder_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( ISampleBuilder_wrapper::*default_printParameters_function_type)(  ) const;
             
             ISampleBuilder_exposer.def( 
                 "printParameters"
@@ -212,8 +212,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( ISampleBuilder_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ISampleBuilder_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             ISampleBuilder_exposer.def( 
                 "setParameterValue"
@@ -224,8 +224,8 @@ void register_ISampleBuilder_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ISampleBuilder_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ISampleBuilder_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             ISampleBuilder_exposer.def( 
                 "setParametersAreChanged"

@@ -2,7 +2,8 @@
 import sys
 import os
 import numpy
-import gzip
+from utils import get_difference
+from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -46,7 +47,7 @@ def RunSimulation1():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -84,44 +85,7 @@ def RunSimulation2():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
-
-
-# ----------------------------------
-# read reference data from file
-# ----------------------------------
-def GetReferenceData():
-    path = os.path.split(__file__)[0]
-    if path: path +="/"
-    f1 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs08_reference_2DDL_lattice.ima.gz', 'rb')
-    reference1=numpy.fromstring(f1.read(),numpy.float64,sep=' ')
-    f1.close()
-    f2 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs08_reference_2DDL_lattice2.ima.gz', 'rb')
-    reference2=numpy.fromstring(f2.read(),numpy.float64,sep=' ')
-    f2.close()
-    reference=numpy.concatenate((reference1,reference2),axis=0)    
-    return reference
-
-
-# --------------------------------------------------------------
-# calculate numeric difference between result and reference data
-# --------------------------------------------------------------
-def GetDifference(data, reference):
-    reference = reference.reshape(data.shape)
-    # calculating relative average difference
-    data -= reference
-    diff=0.0
-    epsilon = sys.float_info.epsilon
-    for x, y in numpy.ndindex(data.shape):
-        v1 = data[x][y]
-        v2 = reference[x][y]
-        if v1 <= epsilon and v2 <= epsilon:
-            diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
-        else:
-            diff += abs(v1/v2)
-    return diff/data.size
+    return simulation.getIntensityData()
 
 
 # --------------------------------------------------------------
@@ -129,20 +93,26 @@ def GetDifference(data, reference):
 # --------------------------------------------------------------
 def runTest():
     result1 = RunSimulation1()
-    result2 = RunSimulation2()
-    result = numpy.concatenate((result1,result2),axis=0) 
-    reference = GetReferenceData()
+    reference1 = get_reference_data("isgisaxs08_reference_2DDL_lattice.int.gz")
+    diff = IntensityDataFunctions.getRelativeDifference(result1, reference1)
 
-    diff = GetDifference(result, reference)
+    result2 = RunSimulation2()
+    reference2 = get_reference_data("isgisaxs08_reference_2DDL_lattice2.int.gz")
+    diff += IntensityDataFunctions.getRelativeDifference(result2, reference2)
+
+    diff /= 2
+
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS08", "2DDL paracrystal", status
+    if(diff > 2e-10 or numpy.isnan(diff)):
+        status = "FAILED"
+    return "IsGISAXS07", "Paracrystals", diff, status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, diff, status = runTest()
+    print name, description, diff, status
+    if("FAILED" in status):
+        exit(1)

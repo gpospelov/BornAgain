@@ -1,7 +1,7 @@
 #ifndef JOBQUEUEVIEW_H
 #define JOBQUEUEVIEW_H
 
-//#include <QMainWindow>
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QVector>
 
@@ -20,7 +20,7 @@ namespace Manhattan {
 }
 
 
-class JobQueueView : public QWidget
+class BA_CORE_API_ JobQueueView : public QWidget
 {
     Q_OBJECT
 

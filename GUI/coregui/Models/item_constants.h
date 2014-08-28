@@ -14,8 +14,10 @@ const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
+const ModelType TransformationType = "Transformation";
 const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
+const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
@@ -40,12 +42,17 @@ const ModelType TetrahedronType = "Tetrahedron";
 const ModelType TruncatedSphereType = "TruncatedSphere";
 const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 
+const ModelType XRotationType = "XRotation";
+const ModelType YRotationType = "YRotation";
+const ModelType ZRotationType = "ZRotation";
+const ModelType EulerRotationType = "EulerRotation";
+
 const ModelType VectorType = "Vector";
 
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType ThetaPhiDetectorType = "ThetaPhiDetector";
+const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
@@ -76,6 +83,7 @@ const ModelType MagneticFieldType = "MagneticField";
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
+const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
@@ -83,6 +91,9 @@ const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 
+// --- Units -------------------------------------------------------------------
+const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsRadians = "Radians";
 
 }
 

@@ -1,14 +1,15 @@
 #ifndef MATERIALEDITOR_H
 #define MATERIALEDITOR_H
 
-
-#include <QObject>
+#include "WinDllMacros.h"
 #include "MaterialProperty.h"
+#include <QObject>
+
 class MaterialModel;
 class SessionModel;
 
 //! The MaterialEditor is the main class to access materials.
-class MaterialEditor : public QObject
+class BA_CORE_API_ MaterialEditor : public QObject
 {
     Q_OBJECT
 public:

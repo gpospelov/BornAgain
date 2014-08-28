@@ -4,18 +4,18 @@
 #include <QObject>
 #include <QString>
 #include "OutputData.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
 //! Holds graphical settings for the representation of OutputData in a view
-class OutputDataItem : public QObject
+class BA_CORE_API_ OutputDataItem : public QObject
 {
     Q_OBJECT
 public:
     OutputDataItem();
-    virtual ~OutputDataItem(){}
+    virtual ~OutputDataItem();
 
     QString getName() const { return m_name;}
 

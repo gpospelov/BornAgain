@@ -148,12 +148,13 @@ void JobQueueData::cancelJob(QString identifier)
 //! remove job from list completely
 void JobQueueData::removeJob(QString identifier)
 {
-    //qDebug() << "JobQueueData::removeJob";
+    qDebug() << "JobQueueData::removeJob" << identifier;
     cancelJob(identifier);
     // removing jobs
     for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
         if(it.key() == identifier) {
             delete it.value();
+            qDebug() << "       JobQueueData::removeJob   removing job" << identifier;
             m_job_items.erase(it);
             break;
         }
@@ -162,6 +163,7 @@ void JobQueueData::removeJob(QString identifier)
     for(QMap<QString, Simulation *>::iterator it=m_simulations.begin(); it!=m_simulations.end(); ++it) {
         if(it.key() == identifier) {
             delete it.value();
+            qDebug() << "       JobQueueData::removeJob   removing simulation" << identifier;
             m_simulations.erase(it);
             break;
         }
@@ -211,9 +213,12 @@ void JobQueueData::onFinishedJob()
     if(jobItem->getRunPolicy() & JobItem::RunImmediately)
         emit focusRequest(jobItem);
 
+//    qDebug() << "     JobQueueData::onFinishedJob() -> before emiting jobIsFinished()";
     emit jobIsFinished(runner->getIdentifier());
+//    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), before asigning runner for deletion";
 
     assignForDeletion(runner);
+//    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
 }
 
@@ -284,10 +289,12 @@ void JobQueueData::assignForDeletion(QThread *thread)
 //! Removes JobRunner from the map of known runners, assigns it for deletion.
 void JobQueueData::assignForDeletion(JobRunner *runner)
 {
+    qDebug() << "JobQueueData::assignForDeletion(JobRunner)";
     Q_ASSERT(runner);
     runner->disconnect();
     for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
         if(it.value() == runner) {
+            qDebug() << "       JobQueueData::assignForDeletion(JobRunner) -> deleting runner";
             runner->deleteLater();
             m_runners.erase(it);
             return;

@@ -24,6 +24,7 @@
 #include "IMinimizer.h"
 #include "IObserver.h"
 #include <string>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 class Simulation;
 class ParameterPool;
@@ -57,7 +58,7 @@ class BA_CORE_API_ FitSuite : public IObservable
     void addFitStrategy(const IFitStrategy &strategy);
 
     //! Sets minimizer
-    void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer);
     //! Returns minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
@@ -97,6 +98,21 @@ class BA_CORE_API_ FitSuite : public IObservable
     AttFitting &getAttributes() { return m_fit_attributes; }
     void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
 
+    //! Returns fit parameter with given name
+    FitParameter *getFitParameter(const std::string &name);
+
+    //! Set all parameters to fixed
+    void fixAllParameters();
+
+    //! Set all parameters to released
+    void releaseAllParameters();
+
+    //! Set fixed flag for parameters from the list
+    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
+
+    //! Returns total wall time in seconds which was spend for run fit
+    double getRunTime() const;
+
  private:
     //! disabled copy constructor and assignment operator
     FitSuite& operator=(const FitSuite& );
@@ -114,6 +130,9 @@ class BA_CORE_API_ FitSuite : public IObservable
     FitSuiteGradientFunction m_function_gradient;
 
     bool m_is_last_iteration; //! Sets to true after last iteration complete
+
+    boost::posix_time::ptime m_start_time;
+    boost::posix_time::ptime m_end_time;
 };
 
 #endif // FITSUITE_H

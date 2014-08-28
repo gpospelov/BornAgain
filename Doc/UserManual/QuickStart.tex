@@ -39,7 +39,7 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 \begin{lstlisting}[language=shell, style=commandline]
 mkdir <build_dir>; cd <build_dir>;
 cmake -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
-make
+make -j4
 make check
 make install
 \end{lstlisting}

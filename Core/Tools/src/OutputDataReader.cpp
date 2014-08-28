@@ -12,11 +12,33 @@
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-
+#include "OutputData.h"
 #include "OutputDataReader.h"
+#include "OutputDataReadStrategy.h"
 #include <fstream>
 #include <cassert>
 #include <iostream>
+
+OutputDataReader::OutputDataReader(const std::string &file_name)
+    : m_file_name(file_name)
+    , m_read_strategy(0)
+{
+
+}
+
+
+OutputDataReader::OutputDataReader(IOutputDataReadStrategy *read_strategy)
+    : m_read_strategy(read_strategy)
+{
+
+}
+
+
+OutputDataReader::~OutputDataReader()
+{
+    delete m_read_strategy;
+}
+
 
 OutputData<double > *OutputDataReader::getOutputData()
 {
@@ -42,6 +64,13 @@ OutputData<double > *OutputDataReader::getOutputData()
     fin.close();
 
     return result;
+}
+
+
+void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
+{
+    delete m_read_strategy;
+    m_read_strategy = read_strategy;
 }
 
 

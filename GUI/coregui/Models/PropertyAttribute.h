@@ -3,13 +3,14 @@
 
 
 #include <QString>
+#include "AttLimits.h"
 
 class QGraphicsItem;
 
 
 //! Class to handle visual appearance of ParameterizedItem's property in
 //! different kind of property editors.
-class PropertyAttribute {
+class BA_CORE_API_ PropertyAttribute {
 public:
     enum Appearance {
         VisibleProperty = 0x0000,
@@ -19,10 +20,17 @@ public:
 
     PropertyAttribute(Appearance appearance=VisibleProperty, const QString &label = QString())
         : m_appearance(appearance)
-        , m_label(label) { }
+        , m_label(label)
+        , m_limits(AttLimits::limitless()){ }
     PropertyAttribute(const QString &label)
         : m_appearance(VisibleProperty)
-        , m_label(label) { }
+        , m_label(label)
+        , m_limits(AttLimits::limitless()){ }
+
+    PropertyAttribute(AttLimits limits)
+        : m_appearance(VisibleProperty)
+        , m_label(QString())
+        , m_limits(limits){ }
 
     static PropertyAttribute visibleProperty() { return PropertyAttribute(VisibleProperty); }
     static PropertyAttribute hiddenProperty() { return PropertyAttribute(HiddenProperty); }
@@ -34,11 +42,15 @@ public:
     void setLabel(const QString &label) { m_label = label; }
 
 
+    AttLimits getLimits() const {return m_limits;}
+    void setLimits(AttLimits limits) {m_limits = limits;}
+
 //    bool isHiddenProperty();
 
 private:
     Appearance m_appearance;
     QString m_label;
+    AttLimits m_limits;
 };
 
 

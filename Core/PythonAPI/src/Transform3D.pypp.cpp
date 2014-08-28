@@ -20,10 +20,17 @@ void register_Transform3D_class(){
         typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
         Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
         bp::scope Transform3D_scope( Transform3D_exposer );
+        bp::enum_< Geometry::Transform3D::RotationType>("RotationType")
+            .value("EULER", Geometry::Transform3D::EULER)
+            .value("XAXIS", Geometry::Transform3D::XAXIS)
+            .value("YAXIS", Geometry::Transform3D::YAXIS)
+            .value("ZAXIS", Geometry::Transform3D::ZAXIS)
+            .export_values()
+            ;
         Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("other") )) );
         { //::Geometry::Transform3D::clone
         
-            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*clone_function_type )(  ) const;
+            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*clone_function_type)(  ) const;
             
             Transform3D_exposer.def( 
                 "clone"
@@ -43,12 +50,23 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::createInverse
         
-            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*createInverse_function_type )(  ) const;
+            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*createInverse_function_type)(  ) const;
             
             Transform3D_exposer.def( 
                 "createInverse"
                 , createInverse_function_type( &::Geometry::Transform3D::createInverse )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Geometry::Transform3D::createRotateEuler
+        
+            typedef ::Geometry::Transform3D ( *createRotateEuler_function_type )( double,double,double );
+            
+            Transform3D_exposer.def( 
+                "createRotateEuler"
+                , createRotateEuler_function_type( &::Geometry::Transform3D::createRotateEuler )
+                , ( bp::arg("alpha"), bp::arg("beta"), bp::arg("gamma") )
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::Geometry::Transform3D::createRotateX
@@ -84,10 +102,28 @@ void register_Transform3D_class(){
                 , bp::return_value_policy< bp::return_by_value >() );
         
         }
+        { //::Geometry::Transform3D::getRotationType
+        
+            typedef ::Geometry::Transform3D::RotationType ( ::Geometry::Transform3D::*getRotationType_function_type)(  ) const;
+            
+            Transform3D_exposer.def( 
+                "getRotationType"
+                , getRotationType_function_type( &::Geometry::Transform3D::getRotationType ) );
+        
+        }
+        { //::Geometry::Transform3D::isIdentity
+        
+            typedef bool ( ::Geometry::Transform3D::*isIdentity_function_type)(  ) const;
+            
+            Transform3D_exposer.def( 
+                "isIdentity"
+                , isIdentity_function_type( &::Geometry::Transform3D::isIdentity ) );
+        
+        }
         Transform3D_exposer.def( bp::self * bp::self );
         { //::Geometry::Transform3D::print
         
-            typedef void ( ::Geometry::Transform3D::*print_function_type )( ::std::ostream & ) const;
+            typedef void ( ::Geometry::Transform3D::*print_function_type)( ::std::ostream & ) const;
             
             Transform3D_exposer.def( 
                 "print"
@@ -97,7 +133,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::transformedInverse
         
-            typedef ::Geometry::BasicVector3D< double > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            typedef ::Geometry::BasicVector3D< double > ( ::Geometry::Transform3D::*transformedInverse_function_type)( ::Geometry::BasicVector3D< double > const & ) const;
             
             Transform3D_exposer.def( 
                 "transformedInverse"
@@ -107,7 +143,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::transformedInverse
         
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > ( ::Geometry::Transform3D::*transformedInverse_function_type)( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
             
             Transform3D_exposer.def( 
                 "transformedInverse"
@@ -116,6 +152,7 @@ void register_Transform3D_class(){
         
         }
         Transform3D_exposer.staticmethod( "createIdentity" );
+        Transform3D_exposer.staticmethod( "createRotateEuler" );
         Transform3D_exposer.staticmethod( "createRotateX" );
         Transform3D_exposer.staticmethod( "createRotateY" );
         Transform3D_exposer.staticmethod( "createRotateZ" );

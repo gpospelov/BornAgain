@@ -2,13 +2,14 @@
 #define OUTPUTDATATOOLBAR_H
 
 #include <QToolBar>
+#include "WinDllMacros.h"
 
 class QAction;
 class QToolButton;
 class QToolBar;
 
-//! main tool bar on top of SampleView window
-class OutputDataToolBar : public QToolBar
+//! main tool bar of OutputDataWidget
+class BA_CORE_API_ OutputDataToolBar : public QToolBar
 {
     Q_OBJECT
 
@@ -21,14 +22,12 @@ signals:
     void resetView();
     void savePlot();
 
-
 private:
+    QToolButton *m_togglePropertyPanelButton;
+    QToolButton *m_toggleProjectionsButton;
+    QToolButton *m_resetViewButton;
+    QToolButton *m_savePlotButton;
 
-
-    QAction *m_togglePropertyPanelAction;
-    QAction *m_toggleProjectionsAction;
-    QAction *m_resetViewAction;
-    QAction *m_savePlotAction;
 };
 
 

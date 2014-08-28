@@ -1,14 +1,14 @@
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
 
-
+#include "WinDllMacros.h"
 #include <QString>
 
 namespace Utils
 {
 
 
-QString withTildeHomePath(const QString &path);
+BA_CORE_API_ QString withTildeHomePath(const QString &path);
 
 
 }

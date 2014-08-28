@@ -45,7 +45,7 @@ namespace JobQueueXML
 
 //! The model for all jobs in a queue. Contains JobQueueItem in a list.
 //! Provides interface to access real JobItem objects.
-class JobQueueModel : public QAbstractListModel
+class BA_CORE_API_ JobQueueModel : public QAbstractListModel
 {
     Q_OBJECT
 public:

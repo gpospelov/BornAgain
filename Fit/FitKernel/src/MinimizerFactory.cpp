@@ -42,9 +42,7 @@ MinimizerFactory::Catalogue::Catalogue()
     m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
     m_data["GSLLMA"] = boost::assign::list_of("");
     m_data["GSLSimAn"]    = boost::assign::list_of("");
-#ifdef HAS_GENETIC_MINIMIZER
     m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
-#endif
 }
 
 
@@ -110,6 +108,10 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 #ifdef HAS_GENETIC_MINIMIZER
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
+#else
+    } else if( minimizer == "Genetic" ) {
+        std::cout << "MinimizerFactory::createMinimizer() -> Error! Genetic minimizer doesn't exists (project was compiled without ROOT support)." << std::endl;
+        result = 0;
 #endif
 
     }

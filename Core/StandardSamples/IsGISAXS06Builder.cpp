@@ -22,7 +22,7 @@
 #include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
 #include "Utils.h"
@@ -57,10 +57,8 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     // particles
     ParticleLayout particle_layout;
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
-    kvector_t position(0.0, 0.0, 0.0);
-    PositionParticleInfo particle_info(
-        new Particle(particle_material, ff_cyl), position, 1.0);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout.addParticle(
+                new Particle(particle_material, ff_cyl), 0.0, 1.0);
 
     particle_layout.addInterferenceFunction(p_interference_function);
 

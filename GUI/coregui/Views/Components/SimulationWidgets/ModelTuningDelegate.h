@@ -7,7 +7,7 @@
 class QDoubleSpinBox;
 class QHBoxLayout;
 
-class ModelTuningDelegate : public QItemDelegate
+class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
@@ -27,6 +27,7 @@ public:
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model,
                       const QModelIndex &index) const;
+    void setSliderRangeFactor(double value);
 
 signals:
     void currentLinkChanged(ItemLink link);
@@ -37,12 +38,18 @@ private slots:
 
 private:
     int m_valueColumn;
+    double m_sliderRangeFactor; //percentage of orginal value
+    double m_multiplyFactor;
     mutable QSlider *m_slider;
     mutable QDoubleSpinBox *m_valueBox;
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
-    double m_multiplyFactor;
     mutable ItemLink m_current_link;
+    mutable double m_lowerLimit;
+    mutable double m_upperLimit;
+
+    void updateSlider(double value) const;
+    void emitSignals(double value);
 };
 
 #endif //SAMPLETUNINGDELEGATE_H

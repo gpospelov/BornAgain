@@ -16,6 +16,7 @@
 #ifndef DOMAINOBJECTBUILDER_H
 #define DOMAINOBJECTBUILDER_H
 
+#include "WinDllMacros.h"
 class ISample;
 class Instrument;
 class MultiLayer;
@@ -28,7 +29,7 @@ class ParticleCoreShell;
 class ParameterizedItem;
 class LayerRoughness;
 
-class DomainObjectBuilder
+class BA_CORE_API_ DomainObjectBuilder
 {
 public:
     explicit DomainObjectBuilder();
@@ -45,10 +46,16 @@ public:
 private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
-    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth,
+                            double &abundance) const;
+    IInterferenceFunction *buildInterferenceFunction(
+            const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth, double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
+                                     double &depth, double &abundance) const;
+    void addParticleToLayout(ParticleLayout *result,
+        ParameterizedItem *particle_item, double depth, double abundance,
+        const Particle& particle) const;
 
     ISample *mp_sample;
     Instrument *m_instrument;

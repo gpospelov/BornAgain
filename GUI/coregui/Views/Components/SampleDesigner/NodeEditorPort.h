@@ -15,8 +15,7 @@ class QNEBlock;
 class NodeEditorConnection;
 class IView;
 
-class NodeEditorPort : public QGraphicsPathItem
-//class NodeEditorPort : public QGraphicsItem
+class BA_CORE_API_ NodeEditorPort : public QGraphicsPathItem
 {
 public:
     enum { Type = DesignerHelper::NodeEditorPortType };

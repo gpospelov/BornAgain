@@ -3,6 +3,7 @@
 
 from pyplusplus.module_builder import call_policies
 #from pyplusplus import messages
+import utils_build
 
 license = '''\
 // BornAgain: simulate and fit scattering at grazing incidence
@@ -84,17 +85,46 @@ exclude_patterns = [
 # AdditionalRules
 # -----------------------------------------------------------------------------
 def ManualClassTunings(mb):
+
+    # IMinimizer
     cl = mb.class_("IMinimizer")
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
-    cl.member_function("getAlgorithmName").exclude() # temporarily due to compilation problems under MSVC
-    cl.member_function("getMinimizerName").exclude() # temporarily due to compilation problems under MSVC
+    # cl.member_function("getAlgorithmName").exclude() # removed due to compilation problems under MSVC
+    #cl.member_function("getMinimizerName").exclude() # temporarily due to compilation problems under MSVC
     for fun in cl.member_functions():
         if "getOptions" in fun.name:
             if "::MinimizerOptions const & ( ::IMinimizer::* )(  ) const" in fun.decl_string:
                 fun.exclude()
             else:
                 fun.call_policies = call_policies.return_internal_reference()
+
+    # adding hand made wrapper code to bypass a error with std::string conversion under Windows & MSVC2012
+    # code = """
+    # virtual ::std::string getAlgorithmName(  ) const  {
+    #     if( bp::override func_getAlgorithmName = this->get_override( "getAlgorithmName" ) )
+    #         return boost::python::call<std::string>(func_getAlgorithmName(  ));
+    #     else{
+    #         return this->IMinimizer::getAlgorithmName(  );
+    #     }
+    # }
+    #
+    # ::std::string default_getAlgorithmName(  ) const  {
+    #     return IMinimizer::getAlgorithmName( );
+    # }
+    # """
+    # cl.add_wrapper_code(code)
+    utils_build.InjectGetStringCustomCode(cl, "getAlgorithmName")
+    utils_build.InjectGetStringCustomCode(cl, "getMinimizerName")
+
+    # code = """
+    #         def(
+    #             "getAlgorithmName"
+    #             , (::std::string ( ::IMinimizer::*)(  ) const)(&::IMinimizer::getAlgorithmName)
+    #             , (::std::string ( IMinimizer_wrapper::*)(  ) const)(&IMinimizer_wrapper::default_getAlgorithmName) )
+    # """
+    # cl.add_code(code)
+
 
     #
     cl = mb.class_("FitSuite")

@@ -5,7 +5,7 @@
 #include <QMetaType>
 
 
-class ItemLink
+class BA_CORE_API_ ItemLink
 {
 
 public:

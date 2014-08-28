@@ -26,10 +26,10 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredDifference = this->get_override( "calculateSquaredDifference" ) )
             return func_calculateSquaredDifference( real_value, simulated_value );
-        else
+        else{
             return this->SquaredFunctionGaussianError::calculateSquaredDifference( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredDifference( double real_value, double simulated_value ) const  {
         return SquaredFunctionGaussianError::calculateSquaredDifference( real_value, simulated_value );
@@ -38,10 +38,10 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
     virtual double calculateSquaredError( double arg0, double arg1 ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( arg0, arg1 );
-        else
+        else{
             return this->SquaredFunctionGaussianError::calculateSquaredError( arg0, arg1 );
+        }
     }
-    
     
     double default_calculateSquaredError( double arg0, double arg1 ) const  {
         return SquaredFunctionGaussianError::calculateSquaredError( arg0, arg1 );
@@ -50,10 +50,10 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
     virtual ::SquaredFunctionGaussianError * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->SquaredFunctionGaussianError::clone(  );
+        }
     }
-    
     
     ::SquaredFunctionGaussianError * default_clone(  ) const  {
         return SquaredFunctionGaussianError::clone( );
@@ -69,8 +69,8 @@ void register_SquaredFunctionGaussianError_class(){
         bp::scope SquaredFunctionGaussianError_scope( SquaredFunctionGaussianError_exposer );
         { //::SquaredFunctionGaussianError::calculateSquaredDifference
         
-            typedef double ( ::SquaredFunctionGaussianError::*calculateSquaredDifference_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionGaussianError_wrapper::*default_calculateSquaredDifference_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionGaussianError::*calculateSquaredDifference_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionGaussianError_wrapper::*default_calculateSquaredDifference_function_type)( double,double ) const;
             
             SquaredFunctionGaussianError_exposer.def( 
                 "calculateSquaredDifference"
@@ -81,8 +81,8 @@ void register_SquaredFunctionGaussianError_class(){
         }
         { //::SquaredFunctionGaussianError::calculateSquaredError
         
-            typedef double ( ::SquaredFunctionGaussianError::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionGaussianError_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( ::SquaredFunctionGaussianError::*calculateSquaredError_function_type)( double,double ) const;
+            typedef double ( SquaredFunctionGaussianError_wrapper::*default_calculateSquaredError_function_type)( double,double ) const;
             
             SquaredFunctionGaussianError_exposer.def( 
                 "calculateSquaredError"
@@ -93,8 +93,8 @@ void register_SquaredFunctionGaussianError_class(){
         }
         { //::SquaredFunctionGaussianError::clone
         
-            typedef ::SquaredFunctionGaussianError * ( ::SquaredFunctionGaussianError::*clone_function_type )(  ) const;
-            typedef ::SquaredFunctionGaussianError * ( SquaredFunctionGaussianError_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::SquaredFunctionGaussianError * ( ::SquaredFunctionGaussianError::*clone_function_type)(  ) const;
+            typedef ::SquaredFunctionGaussianError * ( SquaredFunctionGaussianError_wrapper::*default_clone_function_type)(  ) const;
             
             SquaredFunctionGaussianError_exposer.def( 
                 "clone"

@@ -128,11 +128,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
-        "magcyl1",
+        "polmagcylinders1",
         IFactoryCreateFunction<PolarizedDWBAMagCylinders1Builder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
     registerItem(
-        "magcyl2",
+        "polmagcylinders2",
         IFactoryCreateFunction<PolarizedDWBAMagCylinders2Builder, ISampleBuilder>,
         "Polarized DWBA with non-zero magnetic field");
 

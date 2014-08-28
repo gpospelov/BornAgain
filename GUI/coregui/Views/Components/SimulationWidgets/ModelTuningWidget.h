@@ -17,8 +17,7 @@ class InstrumentModel;
 class QuickSimulationRunner;
 
 
-//! TestView window to try things in mainwindow
-class ModelTuningWidget : public QWidget
+class BA_CORE_API_ ModelTuningWidget : public QWidget
 {
     Q_OBJECT
 
@@ -31,20 +30,14 @@ public:
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
     void setQuickSimulationRunner(QuickSimulationRunner * simulationRunner);
+    void setSliderRangeFactor(double value);
+
 
 public slots:
     void onModelChanged(const QModelIndex &first, const QModelIndex &second);
     void onCurrentLinkChanged(ItemLink link);
 
 private:
-    //QStandardItemModel *getItemModelFromSessionModel();
-    // QStandardItemModel *getTestItemModel();
-    QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
-    void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
-    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem);
-
-    QStandardItemModel *createParameterModel();
-
     QModelIndex getMultiLayerIndex(const QString &name);
 
     QStandardItemModel *m_parameterModel;

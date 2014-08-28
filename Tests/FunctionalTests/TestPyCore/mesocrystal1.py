@@ -7,6 +7,8 @@ import numpy
 import time
 import ctypes
 import math
+from utils import get_reference_data
+
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -151,50 +153,22 @@ def runTest():
     simulation.setSampleBuilder( sample_builder )
 
     # loading reference data
-    reference_data = GetReferenceData()
+    reference = get_reference_data("mesocrystal01_reference.int.gz")
 
     # setting detector axis as in reference data
-    simulation.setDetectorParameters(reference_data)
+    simulation.setDetectorParameters(reference)
 
     #running simulation
     simulation.runSimulation()
     simulation.normalize()
     result = simulation.getIntensityData()
 
-    diff = GetDifference(result, reference_data)
-    print diff
+    diff = IntensityDataFunctions.getRelativeDifference(result, reference)
+
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "MesoCrystal1", "Mesocrystal simulation", status
-
-
-# ----------------------------------
-# read reference data from file
-# ----------------------------------
-def GetReferenceData():
-    path = os.path.split(__file__)[0]
-    if path: path +="/"
-    filename = path+'../../ReferenceData/BornAgain/mesocrystal1_reference_v2_nphi2.txt.gz'
-    return OutputDataIOFactory.readIntensityData(filename)
-    return reference
-
-
-# --------------------------------------------------------------
-# calculate numeric difference between result and reference data
-# --------------------------------------------------------------
-def GetDifference(data, reference):
-    epsilon = sys.float_info.epsilon
-    diff = 0.0
-    for i in range(0,data.getAllocatedSize()):
-        v1 = data[i] - reference[i]
-        v2 = reference[i]
-        if v1 <= epsilon and v2 <= epsilon:
-            diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
-        else:
-            diff += abs(v1/v2)
-    return diff/data.getAllocatedSize()
+    if(diff > 1e-10 or numpy.isnan(diff)):
+        status = "FAILED"
+    return "MesoCrystal1", "Mesocrystal simulation", diff, status
 
 
 # create simulation
@@ -206,11 +180,8 @@ def createSimulation():
     return simulation
 
 
-
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, diff, status = runTest()
+    print name, description, diff, status
+    if("FAILED" in status):
+        exit(1)

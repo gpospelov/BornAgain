@@ -24,12 +24,17 @@
 //! @ingroup tools_internal
 //! @brief One dimensional bin with left and right bounds.
 
+#include <iostream>
+
 struct BA_CORE_API_ Bin1D
 {
     double m_lower;  //!< lower bound of the bin
     double m_upper;  //!< upper bound of the bin
     double getMidPoint() const { return (m_lower + m_upper)/2.0; }
-    double getBinSize() const { return m_upper - m_lower; }
+    double getBinSize() const
+    {
+        return m_upper - m_lower;
+    }
 };
 
 
@@ -45,25 +50,28 @@ struct BA_CORE_API_ Bin1DCVector
     Bin1DCVector(double wavelength, const Bin1D& alpha_bin,
                  const Bin1D& phi_bin);
     cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
-    cvector_t getDelta() const { return m_q_upper - m_q_lower; }
+    cvector_t getDelta() const
+    {
+        return m_q_upper - m_q_lower;
+    }
     cvector_t m_q_lower;  //!< lower bound of the bin
     cvector_t m_q_upper;  //!< upper bound of the bin
 };
 
-inline bool operator==(const Bin1D& left, const Bin1D& right)
-{
-    if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) {
-        return false;
-    }
-    if (std::abs(left.m_upper - right.m_upper) > Numeric::double_epsilon) {
-        return false;
-    }
-    return true;
-}
+//inline bool operator==(const Bin1D& left, const Bin1D& right)
+//{
+//    if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) {
+//        return false;
+//    }
+//    if (std::abs(left.m_upper - right.m_upper) > Numeric::double_epsilon) {
+//        return false;
+//    }
+//    return true;
+//}
 
-inline bool operator!=(const Bin1D& left, const Bin1D& right) {
-    return !(left==right);
-}
+//inline bool operator!=(const Bin1D& left, const Bin1D& right) {
+//    return !(left==right);
+//}
 
 //! creation on Bin1DCVector from alpha and phi bins
 inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin,

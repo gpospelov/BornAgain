@@ -25,30 +25,15 @@ Layer::Layer()
     : m_thickness(0)
     , mp_material(0)
     , mp_layout(0)
-    , mp_parent_multilayer(0)
 {
     setName("Layer");
     init_parameters();
 }
 
-//Layer::Layer(const IMaterial* material, double thickness, ILayout *decoration)
-//    : m_thickness(0)
-//    , mp_decoration(0)
-//{
-//    if (thickness < 0.)
-//        throw DomainErrorException("Layer thickness cannot be negative");
-//    m_thickness = thickness;
-//    setName("Layer");
-//    setDecorationPtr(decoration);
-//    setMaterial(material);
-//    init_parameters();
-//}
-
 Layer::Layer(const IMaterial &material, double thickness)
     : m_thickness(thickness)
     , mp_material(0)
     , mp_layout(0)
-    , mp_parent_multilayer(0)
 {
     setName("Layer");
     setMaterial(material);
@@ -65,7 +50,7 @@ Layer::Layer(const Layer& other) : ICompositeSample()
     }
     m_thickness = other.m_thickness;
     setName(other.getName());
-    setParentMultiLayer(other.mp_parent_multilayer);
+    setNumberOfLayers(other.getNumberOfLayers());
     init_parameters();
 }
 
@@ -86,7 +71,7 @@ Layer* Layer::cloneInvertB() const
     p_clone->m_thickness = this->m_thickness;
     std::string clone_name = this->getName() + "_inv";
     p_clone->setName(clone_name);
-    p_clone->setParentMultiLayer(mp_parent_multilayer);
+    p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
 }
@@ -184,7 +169,3 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
     return 0;
 }
 
-size_t Layer::getNumberOfLayers() const
-{
-    return mp_parent_multilayer->getNumberOfLayers();
-}

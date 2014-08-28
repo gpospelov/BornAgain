@@ -113,13 +113,17 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
+            // First call to getOutCoeffs
             boost::scoped_ptr<const ILayerRTCoefficients> P_RT_coeffs(
                         mp_specular_info->getOutCoefficients(alpha_f, 0.0));
             if (std::abs(P_RT_coeffs->getScalarR())!=0.0 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }
+            // Two calls of getOutCoeffs in getKfBin
             Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
+            // each ffdwba: 1 call to getOutCoeffs
+            // for ffdwbaconstz: 1 extra call to getOutCoeffs
             *it_intensity = p_strategy->evaluate(
                 k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
             ++it_intensity;

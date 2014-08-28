@@ -18,6 +18,8 @@
 #include "DWBADiffuseReflection.h"
 #include "BornAgainNamespace.h"
 
+#include <boost/scoped_ptr.hpp>
+
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
 {
@@ -119,20 +121,20 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
 
     const ILayerRTCoefficients *p_in_coeff =
             mp_specular_info_vector[ilayer+1]->getInCoefficients();
-    const ILayerRTCoefficients *p_out_coeff =
-            mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0);
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
+        mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0) );
 
 
     double sigma = mp_multi_layer->getLayerBottomInterface(ilayer)->
         getRoughness()->getSigma();
     double sigma2 = -0.5*sigma*sigma;
-    complex_t term1 = p_in_coeff->getScalarT() * p_out_coeff->getScalarT()
+    complex_t term1 = p_in_coeff->getScalarT() * P_out_coeff->getScalarT()
             * std::exp( sigma2*qz1*qz1 );
-    complex_t term2 = p_in_coeff->getScalarT() * p_out_coeff->getScalarR()
+    complex_t term2 = p_in_coeff->getScalarT() * P_out_coeff->getScalarR()
             * std::exp( sigma2*qz2*qz2 );
-    complex_t term3 = p_in_coeff->getScalarR()  * p_out_coeff->getScalarT()
+    complex_t term3 = p_in_coeff->getScalarR()  * P_out_coeff->getScalarT()
             * std::exp( sigma2*qz3*qz3 );
-    complex_t term4 = p_in_coeff->getScalarR()  * p_out_coeff->getScalarR()
+    complex_t term4 = p_in_coeff->getScalarR()  * P_out_coeff->getScalarR()
             * std::exp( sigma2*qz4*qz4 );
 
     return term1 + term2 + term3 + term4;

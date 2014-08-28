@@ -60,8 +60,8 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 
 void TestPolarizedDWBATerms::execute()
 {
-    Bin1D alpha_f_bin = { m_alpha_f, m_alpha_f };
-    Bin1D zero_bin = { 0.0, 0.0 };
+    Bin1D alpha_f_bin(m_alpha_f, m_alpha_f);
+    Bin1D zero_bin;
     mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin);
     mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin, zero_bin);
 
@@ -77,8 +77,8 @@ void TestPolarizedDWBATerms::initWavevectors()
 {
     m_ki.setLambdaAlphaPhi(0.21, -m_alpha_i, 0.0);
 
-    Bin1D alpha_bin = { m_alpha_f, m_alpha_f };
-    Bin1D phi_bin = { 0.0, 0.0 };
+    Bin1D alpha_bin( m_alpha_f, m_alpha_f );
+    Bin1D phi_bin;
     m_kf_bin = Bin1DCVector(0.21, alpha_bin, phi_bin);
 }
 

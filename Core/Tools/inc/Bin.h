@@ -28,6 +28,8 @@
 
 struct BA_CORE_API_ Bin1D
 {
+    Bin1D() {}
+    Bin1D(double lower, double upper) : m_lower(lower), m_upper(upper) {}
     double m_lower;  //!< lower bound of the bin
     double m_upper;  //!< upper bound of the bin
     double getMidPoint() const { return (m_lower + m_upper)/2.0; }

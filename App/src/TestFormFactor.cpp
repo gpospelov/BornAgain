@@ -58,8 +58,8 @@ void TestFormFactor::execute()
                 it.getIndex());
         double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
         Bin1D alpha_f_bin_degrees = p_z_axis->getBin(index_z);
-        Bin1D alpha_f_bin = { M_PI*alpha_f_bin_degrees.m_lower/180.0,
-                              M_PI*alpha_f_bin_degrees.m_upper/180.0 };
+        Bin1D alpha_f_bin(M_PI*alpha_f_bin_degrees.m_lower/180.0,
+                              M_PI*alpha_f_bin_degrees.m_upper/180.0);
         double alpha_f = alpha_f_bin.getMidPoint();
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);

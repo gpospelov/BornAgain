@@ -126,7 +126,7 @@ void TestInfLongRipple1::drawff()
             cvector_t k_f;
             k_f.setLambdaAlphaPhi(lambda, M_PI*af/180.0, M_PI*pf/180.0);
 
-            Bin1D alpha_f_bin = {M_PI*af0/180.0, M_PI*af/180.0};
+            Bin1D alpha_f_bin(M_PI*af0/180.0, M_PI*af/180.0);
             Bin1DCVector k_f_bin(k_f0, k_f);
 
             af0 = af;

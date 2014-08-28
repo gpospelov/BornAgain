@@ -51,7 +51,7 @@ void DiffuseDWBASimulation::run()
                 ++it_intensity;
                 continue;
             }
-            Bin1DCVector k_f_bin = getKfBin1_matrix(getWaveLength(), alpha_bin,
+            Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin,
                     phi_bin);
 
             Eigen::Matrix2d total_intensity = Eigen::Matrix2d::Zero();

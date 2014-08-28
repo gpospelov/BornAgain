@@ -395,3 +395,7 @@
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
 | 2014-08-13 14:26:00 | jcnsopc126 | linuxx8664gcc | 0  | 26.218   | 1.321        | 2.063        | 1.386        | 0.834        | 6.561        | 3.807        | 0.487        | 7.879        | 1.880        |
 
+# Release 0.9.8
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2014-08-28 13:15:59 | jcnsopc126 | linuxx8664gcc | 0  | 26.373   | 1.316        | 2.104        | 1.420        | 0.800        | 6.685        | 3.848        | 0.487        | 7.860        | 1.852        |

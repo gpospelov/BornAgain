@@ -1,9 +1,33 @@
+BornAgain-0.9.8, released 2014.08.28
+  > Summary: 
+    1) Further GUI development toward first beta scheduled for October, 2014.
+       Implemented rotation of particles in GUI, real time simulation window.
+    2) Few bugfixes, minor refactoring in UserAPI.
+  > Details:
+  * Bug #741: ScalarSpecularInfoMapTest failing under Debian 32 bits
+  * Bug #764: Memory leackage in mesocrystal simulation.
+  * Bug #765: Genetic minimizer crashes for certain ROOT configurations
+  * Bug #779: Transformations on core/shell are not being used
+  * Feature #465: Organize BornAgain mail list with subscription
+  * Feature #604: Implement QStandartItemModel hierarchy
+  * Feature #682: Provide PlotWidget with x,y-axis in both, radians and degrees.
+  * Feature #702: Implement position particle info equivalent in GUI
+  * Feature #703: Implement rotation of particles in GUI
+  * Feature #704: Implement Lattice2D interference function in GUI
+  * Feature #736: Compile GUI under Windows with Qt5.3 and provide installer.
+  * Feature #738: Perform new round of profiling and memory leackage investigation
+  * Feature #746: Refactor GUI's OutputDataWidget to disantagle projections/property editor/plot widget.
+  * Feature #747: Finalize QuickSimulationView.
+  * Feature #748: Refactor IAxis family
+  * Feature #763: Provide icon set for recent widgets
+  * Feature #766: Propagate latest API changes (IAxis, IntensityDataIOFactory) into user manual.
+  
 BornAgain-0.9.7, released 2014.07.31
   > Summary: 
     1) Further GUI development toward first beta scheduled for October, 2014.
     2) Redesign of RT coefficient calculations to reduce numerical instabilities in very thick layers.
     3) Improvements in Monte-Carlo integration to cope with highly oscillatory form factors of super large particles.
-    3) Experimental support for running BornAgain on high performance computing clusters under OpenMPI environment.
+    4) Experimental support for running BornAgain on high performance computing clusters under OpenMPI environment.
   > Details:
   * Bug #578: Initialization problem in LLData class
   * Bug #706: Layer cannot be dropped from widgetbox to designer scene

@@ -113,7 +113,6 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            // First call to getOutCoeffs
             size_t n_layers = mp_layer->getNumberOfLayers();
             if (n_layers>1 && alpha_f<0) {
                 ++it_intensity;
@@ -122,7 +121,6 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             // Two calls of getOutCoeffs in getKfBin
             Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
             // each ffdwba: 1 call to getOutCoeffs
-            // for ffdwbaconstz: 1 extra call to getOutCoeffs
             *it_intensity = p_strategy->evaluate(
                 k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
             ++it_intensity;

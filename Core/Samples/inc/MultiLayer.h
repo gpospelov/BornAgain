@@ -136,6 +136,7 @@ private:
     void addAndRegisterLayer(Layer *child)
     {
         m_layers.push_back(child);
+        child->setParentMultiLayer(this);
         registerChild(child);
     }
 

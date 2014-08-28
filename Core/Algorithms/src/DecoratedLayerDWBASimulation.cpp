@@ -114,9 +114,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
             // First call to getOutCoeffs
-            boost::scoped_ptr<const ILayerRTCoefficients> P_RT_coeffs(
-                        mp_specular_info->getOutCoefficients(alpha_f, 0.0));
-            if (std::abs(P_RT_coeffs->getScalarR())!=0.0 && alpha_f<0) {
+            size_t n_layers = mp_layer->getNumberOfLayers();
+            if (n_layers>1 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }

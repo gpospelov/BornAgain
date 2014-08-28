@@ -83,6 +83,12 @@ public:
 
     virtual double getTotalParticleSurfaceDensity() const;
 
+    void setParentMultiLayer(const MultiLayer *parent) {
+        mp_parent_multilayer = parent;
+    }
+
+    size_t getNumberOfLayers() const;
+
 protected:
     Layer(const Layer& other);
 
@@ -96,6 +102,7 @@ protected:
     double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material
     ILayout *mp_layout;       //!< particle layout
+    const MultiLayer *mp_parent_multilayer;
 };
 
 

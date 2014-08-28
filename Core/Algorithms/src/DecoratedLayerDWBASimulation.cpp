@@ -118,7 +118,6 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
                 ++it_intensity;
                 continue;
             }
-            // Two calls of getOutCoeffs in getKfBin
             Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
             // each ffdwba: 1 call to getOutCoeffs
             *it_intensity = p_strategy->evaluate(

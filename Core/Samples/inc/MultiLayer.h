@@ -136,6 +136,7 @@ private:
     void addAndRegisterLayer(Layer *child)
     {
         m_layers.push_back(child);
+        setNLayersInLayers();
         registerChild(child);
     }
 
@@ -145,6 +146,8 @@ private:
         m_interfaces.push_back(child);
         registerChild(child);
     }
+
+    void setNLayersInLayers() const;
 
     //! Checks index of layer w.r.t. vector length
     inline size_t check_layer_index(size_t i_layer) const

@@ -16,6 +16,7 @@
 #include "Layer.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
+#include "MultiLayer.h"
 
 #include <iomanip>
 
@@ -28,19 +29,6 @@ Layer::Layer()
     setName("Layer");
     init_parameters();
 }
-
-//Layer::Layer(const IMaterial* material, double thickness, ILayout *decoration)
-//    : m_thickness(0)
-//    , mp_decoration(0)
-//{
-//    if (thickness < 0.)
-//        throw DomainErrorException("Layer thickness cannot be negative");
-//    m_thickness = thickness;
-//    setName("Layer");
-//    setDecorationPtr(decoration);
-//    setMaterial(material);
-//    init_parameters();
-//}
 
 Layer::Layer(const IMaterial &material, double thickness)
     : m_thickness(thickness)
@@ -62,6 +50,7 @@ Layer::Layer(const Layer& other) : ICompositeSample()
     }
     m_thickness = other.m_thickness;
     setName(other.getName());
+    setNumberOfLayers(other.getNumberOfLayers());
     init_parameters();
 }
 
@@ -82,6 +71,7 @@ Layer* Layer::cloneInvertB() const
     p_clone->m_thickness = this->m_thickness;
     std::string clone_name = this->getName() + "_inv";
     p_clone->setName(clone_name);
+    p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
 }
@@ -178,3 +168,4 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
     delete p_sim;
     return 0;
 }
+

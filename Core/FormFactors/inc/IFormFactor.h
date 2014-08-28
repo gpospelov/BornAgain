@@ -110,7 +110,7 @@ inline double IFormFactor::getVolume() const
 {
     cvector_t zero_vector;
     Bin1DCVector zero_vector_bin(zero_vector, zero_vector);
-    Bin1D zero_bin = { 0.0, 0.0 };
+    Bin1D zero_bin;
     return std::abs(evaluate(zero_vector, zero_vector_bin, zero_bin));
 }
 

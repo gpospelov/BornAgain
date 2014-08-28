@@ -260,4 +260,12 @@ void MultiLayer::print(std::ostream& ostr) const
     ostr << "}";
 }
 
+void MultiLayer::setNLayersInLayers() const
+{
+    size_t n_layers = getNumberOfLayers();
+    for (size_t i=0; i<getNumberOfLayers(); ++i) {
+        m_layers[i]->setNumberOfLayers(n_layers);
+    }
+}
+
 

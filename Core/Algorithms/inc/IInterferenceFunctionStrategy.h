@@ -63,10 +63,6 @@ protected:
 private:
     struct IntegrationParamsAlpha {
         cvector_t k_i;
-        cvector_t k_f00;
-        cvector_t k_f01;
-        cvector_t k_f10;
-        cvector_t k_f11;
         double wavelength;
         Bin1D alpha_bin;
         Bin1D phi_bin;
@@ -96,16 +92,16 @@ private:
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
     double MCIntegratedEvaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
     Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region
     IntegrationParamsAlpha getIntegrationParams(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Evaluate for fixed angles
     double evaluate_for_fixed_angles(double *fractions, size_t dim, void* params) const;

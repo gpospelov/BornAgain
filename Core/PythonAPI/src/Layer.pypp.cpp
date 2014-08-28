@@ -380,6 +380,15 @@ void register_Layer_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Layer::getNumberOfLayers
+        
+            typedef ::std::size_t ( ::Layer::*getNumberOfLayers_function_type)(  ) const;
+            
+            Layer_exposer.def( 
+                "getNumberOfLayers"
+                , getNumberOfLayers_function_type( &::Layer::getNumberOfLayers ) );
+        
+        }
         { //::Layer::getRefractiveIndex
         
             typedef ::complex_t ( ::Layer::*getRefractiveIndex_function_type)(  ) const;
@@ -447,6 +456,16 @@ void register_Layer_class(){
                 , setMaterialAndThickness_function_type(&::Layer::setMaterialAndThickness)
                 , default_setMaterialAndThickness_function_type(&Layer_wrapper::default_setMaterialAndThickness)
                 , ( bp::arg("material"), bp::arg("thickness") ) );
+        
+        }
+        { //::Layer::setNumberOfLayers
+        
+            typedef void ( ::Layer::*setNumberOfLayers_function_type)( ::std::size_t ) ;
+            
+            Layer_exposer.def( 
+                "setNumberOfLayers"
+                , setNumberOfLayers_function_type( &::Layer::setNumberOfLayers )
+                , ( bp::arg("n_layers") ) );
         
         }
         { //::Layer::setThickness

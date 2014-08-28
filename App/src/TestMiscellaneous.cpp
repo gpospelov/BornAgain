@@ -381,7 +381,7 @@ void TestMiscellaneous::test_FormFactor()
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin = { 0.0, 0.0 };
+        Bin1D zero_bin;
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
@@ -494,7 +494,7 @@ void TestMiscellaneous::test_FormFactor1()
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin = { 0.0, 0.0 };
+        Bin1D zero_bin;
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));

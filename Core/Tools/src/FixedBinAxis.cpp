@@ -42,7 +42,7 @@ Bin1D FixedBinAxis::getBin(size_t index) const
         throw Exceptions::OutOfBoundsException("FixedBinAxis::getBin() -> Error. Wrong index.");
 
     double step = (m_end - m_start)/m_nbins;
-    Bin1D result = { m_start + step*index, m_start + step*(index+1) };
+    Bin1D result( m_start + step*index, m_start + step*(index+1) );
     return result;
 }
 

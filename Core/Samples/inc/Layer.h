@@ -83,6 +83,14 @@ public:
 
     virtual double getTotalParticleSurfaceDensity() const;
 
+    void setNumberOfLayers(size_t n_layers) {
+        mn_layers = n_layers;
+    }
+
+    size_t getNumberOfLayers() const {
+        return mn_layers;
+    }
+
 protected:
     Layer(const Layer& other);
 
@@ -96,6 +104,7 @@ protected:
     double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material
     ILayout *mp_layout;       //!< particle layout
+    size_t mn_layers;
 };
 
 

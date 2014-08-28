@@ -88,7 +88,7 @@ TEST_F(ConstKBinAxisTest, ClippedAxis)
     delete clip1;
 
     ConstKBinAxis *clip2 = m_axis.createClippedAxis(Units::deg2rad(-3.0), Units::deg2rad(3.0));
-    EXPECT_EQ(clip2->getSize(), 8);
+    EXPECT_EQ(clip2->getSize(), size_t(8));
     std::vector<double> boundaries = clip2->getBinBoundaries();
     for(size_t i=0; i<boundaries.size(); ++i) {
         EXPECT_EQ(boundaries[i], m_axis.getBin(1+i).m_lower);

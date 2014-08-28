@@ -18,7 +18,7 @@ TEST_F(VariableBinAxisTest, VectorOfUnitLength)
     std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
     VariableBinAxis axis("name", 1, values);
     EXPECT_EQ("name", axis.getName());
-    EXPECT_EQ(1, axis.getSize());
+    EXPECT_EQ(size_t(1), axis.getSize());
     EXPECT_EQ(0.0, axis.getMin());
     EXPECT_EQ(1.0, axis.getMax());
     EXPECT_EQ(0.5, axis[0]);
@@ -92,27 +92,27 @@ TEST_F(VariableBinAxisTest, FindClosestIndex)
     static const double arr2[] = {-1.5, -0.5, 0.5, 1.5};
     std::vector<double> values2 (arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
     VariableBinAxis v2("name", 3, values2);
-    EXPECT_EQ(0, v2.findClosestIndex(-1.5));
-    EXPECT_EQ(0, v2.findClosestIndex(-1.0));
-    EXPECT_EQ(1, v2.findClosestIndex(-0.5));
-    EXPECT_EQ(1, v2.findClosestIndex(0.0));
-    EXPECT_EQ(2, v2.findClosestIndex(0.5));
-    EXPECT_EQ(2, v2.findClosestIndex(1.499));
+    EXPECT_EQ(size_t(0), v2.findClosestIndex(-1.5));
+    EXPECT_EQ(size_t(0), v2.findClosestIndex(-1.0));
+    EXPECT_EQ(size_t(1), v2.findClosestIndex(-0.5));
+    EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
+    EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
+    EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
     ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
 
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values3 (arr3, arr3 + sizeof(arr3) / sizeof(arr2[0]) );
     VariableBinAxis v3("name", 4, values3);
-    EXPECT_EQ(0, v3.findClosestIndex(-1.0));
-    EXPECT_EQ(0, v3.findClosestIndex(-0.75));
-    EXPECT_EQ(0, v3.findClosestIndex(-0.51));
-    EXPECT_EQ(1, v3.findClosestIndex(-0.5));
-    EXPECT_EQ(1, v3.findClosestIndex(0.1));
-    EXPECT_EQ(1, v3.findClosestIndex(0.4999));
-    EXPECT_EQ(2, v3.findClosestIndex(0.5));
-    EXPECT_EQ(2, v3.findClosestIndex(0.99999));
-    EXPECT_EQ(3, v3.findClosestIndex(1.0));
-    EXPECT_EQ(3, v3.findClosestIndex(1.9999));
+    EXPECT_EQ(size_t(0), v3.findClosestIndex(-1.0));
+    EXPECT_EQ(size_t(0), v3.findClosestIndex(-0.75));
+    EXPECT_EQ(size_t(0), v3.findClosestIndex(-0.51));
+    EXPECT_EQ(size_t(1), v3.findClosestIndex(-0.5));
+    EXPECT_EQ(size_t(1), v3.findClosestIndex(0.1));
+    EXPECT_EQ(size_t(1), v3.findClosestIndex(0.4999));
+    EXPECT_EQ(size_t(2), v3.findClosestIndex(0.5));
+    EXPECT_EQ(size_t(2), v3.findClosestIndex(0.99999));
+    EXPECT_EQ(size_t(3), v3.findClosestIndex(1.0));
+    EXPECT_EQ(size_t(3), v3.findClosestIndex(1.9999));
 }
 
 
@@ -195,7 +195,7 @@ TEST_F(VariableBinAxisTest, BinCenters)
     VariableBinAxis axis("name", 4, values);
 
     std::vector<double> centers = axis.getBinCenters();
-    EXPECT_EQ(4, centers.size());
+    EXPECT_EQ(size_t(4), centers.size());
     EXPECT_DOUBLE_EQ(-0.75, centers[0]);
     EXPECT_DOUBLE_EQ(0.0, centers[1]);
     EXPECT_DOUBLE_EQ(0.75, centers[2]);
@@ -210,7 +210,7 @@ TEST_F(VariableBinAxisTest, BinBoundaries)
     VariableBinAxis axis("name", 4, values);
 
     std::vector<double> boundaries = axis.getBinBoundaries();
-    EXPECT_EQ(5, boundaries.size());
+    EXPECT_EQ(size_t(5), boundaries.size());
     EXPECT_DOUBLE_EQ(-1.0, boundaries[0]);
     EXPECT_DOUBLE_EQ(-0.5, boundaries[1]);
     EXPECT_DOUBLE_EQ(0.5, boundaries[2]);
@@ -229,7 +229,7 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
     delete clip1;
 
     VariableBinAxis *clip2 = axis.createClippedAxis(-0.5, 1.5);
-    EXPECT_EQ(clip2->getSize(), 3);
+    EXPECT_EQ(clip2->getSize(), size_t(3));
     EXPECT_EQ(clip2->getMin(), -0.5);
     EXPECT_EQ(clip2->getMax(), 2.0);
     std::vector<double> centers = clip2->getBinCenters();
@@ -240,7 +240,7 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
     delete clip2;
 
     VariableBinAxis *clip3 = axis.createClippedAxis(-0.5, 0.99);
-    EXPECT_EQ(clip3->getSize(), 2);
+    EXPECT_EQ(clip3->getSize(), size_t(2));
     EXPECT_EQ(clip3->getMin(), -0.5);
     EXPECT_EQ(clip3->getMax(), 1.0);
     std::vector<double> boundaries = clip3->getBinBoundaries();

@@ -130,7 +130,9 @@ target_link_libraries(${library_name}
 
 # --- Installation ---
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-
+if(APPLE)
+  set(source_files ${source_files} ${CMAKE_SOURCE_DIR}/Images/BAicon.icns)
+endif(APPLE)
 # system libraries: ROOT installation
 if(WIN32)
 #     install(FILES 

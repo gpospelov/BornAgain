@@ -1,6 +1,6 @@
 # this script is a trick to print the message at the end of installation
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT CREATE_BUNDLE)
 set(after_install_text "
 Installation done. Please read below.
 -------------------------------------------------------------------------------

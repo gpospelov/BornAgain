@@ -63,6 +63,6 @@ if(NOT WIN32)
             DESTINATION bin)
 endif()
 
-if(APPLE)
+if(APPLE AND CREATE_BUNDLE)
   include(DarwinSetup)
-endif(APPLE)
+endif(APPLE AND CREATE_BUNDLE)

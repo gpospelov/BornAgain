@@ -17,7 +17,7 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-if(APPLE)
+if(APPLE AND CREATE_BUNDLE)
   add_executable(${executable_name} MACOSX_BUNDLE main.cpp)
   get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
   add_library(Python SHARED IMPORTED)
@@ -47,7 +47,7 @@ else()
     ${BornAgainFit_LIBRARY}
     ${BornAgainGUI_LIBRARY}
   )
-endif(APPLE)
+endif(APPLE AND CREATE_BUNDLE)
 
 #target_link_libraries(${executable_name}
 #    ${ManhattanStyle_LIBRARY}
@@ -61,12 +61,12 @@ endif(APPLE)
 #)
 
 # --- Installation ---
-IF(APPLE)
-  set(plugin_dest_dir ${INBUNDLE}/Contents/MacOS/plugins)
+IF(APPLE AND CREATE_BUNDLE)
+  set(plugin_dest_dir ${INBUNDLE}/Contents/PlugIns)
   set(qtconf_dest_dir ${INBUNDLE}/Contents/Resources)
   set(APPS "\${CMAKE_INSTALL_PREFIX}/${INBUNDLE}")
 
-  message("PYTHON_LIBRARY: ${PYTHON_LIBRARY}")
+#  message("PYTHON_LIBRARY: ${PYTHON_LIBRARY}")
 
   get_filename_component(ManhattanStyle_LIBRARY_DIR "${ManhattanStyle_LIBRARY}" REALPATH)
   get_filename_component(qcustomplot_LIBRARY_DIR "${qcustomplot_LIBRARY}" REALPATH)
@@ -74,20 +74,7 @@ IF(APPLE)
   get_filename_component(Boost_Real_LIBRARY_DIR "${Boost_LIBRARY_DIR}" REALPATH)
   get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_REAL_LIBRARY}" PATH)
 
-  message("PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}")
-
-#  set(DEPLIBS
-#    ${ManhattanStyle_LIBRARY}
-#    ${qcustomplot_LIBRARY}
-#    ${qtpropertybrowser_LIBRARY}
-#    ${PYTHON_LIBRARY}
-#    ${PYTHON_REAL_LIBRARY}
-#    ${Boost_LIBRARIES}
-#    ${BornAgainCore_LIBRARY}
-#    ${BornAgainFit_LIBRARY}
-#    ${BornAgainGUI_LIBRARY}
-#  )
-
+#  message("PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}")
 
   set(DIRS
     ${ManhattanStyle_LIBRARY_DIR}
@@ -108,7 +95,7 @@ IF(APPLE)
 
   set(qtconf_text "
 [Paths]
-Plugins = MacOS/plugins
+Plugins = PlugIns
   ")
 
   install(CODE "
@@ -126,5 +113,5 @@ Plugins = MacOS/plugins
 
 else()
   install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
-endif(APPLE)
+endif(APPLE AND CREATE_BUNDLE)
 

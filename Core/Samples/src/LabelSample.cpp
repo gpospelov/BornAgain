@@ -1,10 +1,5 @@
-#include <map>
 #include <iostream>
 #include "LabelSample.h"
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
 
 LabelSample::LabelSample()
 {
@@ -76,6 +71,11 @@ std::map<const LayerRoughness *,std::string>* LabelSample::getLayerRoughnessMap(
     return &m_layerRoughnessLabel;
 }
 
+std::map<const IMaterial*, std::string>* LabelSample::getMaterialMap()
+{
+    return &m_materialLabel;
+}
+
 std::map<const MultiLayer *,std::string>* LabelSample::getMultiLayerMap()
 {
     return &m_multiLayerLabel;
@@ -96,9 +96,9 @@ std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
     return &m_particleLayoutLabel;
 }
 
-std::map<const IMaterial*, std::string>* LabelSample::getMaterialMap()
+std::set<const Particle *>* LabelSample::getStochasticallyGeneratedParticle()
 {
-    return &m_materialLabel;
+    return &StochasticallyGeneratedParticle;
 }
 
 void LabelSample::insertMaterial(const IMaterial *sample)
@@ -123,11 +123,19 @@ void LabelSample::insertMaterial(const IMaterial *sample)
     }
 }
 
+void LabelSample::insertStochasticallyGeneratedParticle(const Particle *sample)
+{
+    StochasticallyGeneratedParticle.insert(sample);
+}
+
 void LabelSample::setLabel(const IFormFactor *sample)
 {
-    std::ostringstream inter;
-    inter << "FormFactor_" << m_formFactorLabel.size()+1;
-    m_formFactorLabel[sample] = inter.str();
+//    if (StochasticallyGeneratedParticle.getSimpleFormFactor()->find(sample) ==  StochasticallyGeneratedParticle.getSimpleFormFactor()->end())
+    {
+        std::ostringstream inter;
+        inter << "FormFactor_" << m_formFactorLabel.size()+1;
+        m_formFactorLabel[sample] = inter.str();
+    }
 }
 
 void LabelSample::setLabel(const IInterferenceFunction *sample)

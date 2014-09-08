@@ -10,10 +10,12 @@
 #include "ISample.h"
 #include "LabelSample.h"
 #include "Materials.h"
-#include "PyGenVisitor.h"
 #include "Samples.h"
 #include "Simulation.h"
 #include "TestPyGenerator.h"
+#include "StochasticSampledParameter.h"
+#include "StochasticGaussian.h"
+#include "MyParticleBuilder.h"
 
 TestPyGenerator::TestPyGenerator()
 {
@@ -26,40 +28,13 @@ void TestPyGenerator::execute()
 
     //Simulation *sm = makeSimulation();
     MultiLayer *ml = makeSample();
-    ml->printSampleTree();
+   // ml->printSampleTree();
 
     std::cout << "\n\n\n\n";
-    PyGenVisitor visitor;
 
     VisitSampleTree(*ml, visitor);
     visitor.genPyScript();
 }
-
-/*  # defining materials
-    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
-
-    # collection of particles
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
-    prism = Particle(m_particle, prism_ff)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
-    interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
-
-    # air layer with particles and substrate form multi layer
-    air_layer = Layer(m_air)
-    air_layer.setLayout(particle_layout)
-    substrate_layer = Layer(m_substrate, 0)
-    multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
-*/
 
 MultiLayer *TestPyGenerator::makeSample()
 {
@@ -74,23 +49,35 @@ MultiLayer *TestPyGenerator::makeSample()
     ParticleLayout particle_layout;
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    FormFactorCylinder ff_1(5.0,5.0);
-    FormFactorBox ff_2(10.0,15.0,20.0);
+    double radius1 = 1.0;
+    double sigma1_ratio = 0.2;
+    FormFactorCylinder ff_1(radius1,2.0);
+    FormFactorBox ff_2(3.0,4.0,5.0);
 
     LayerRoughness roughness(1.0,0.3,5.0);
     Particle Particle1(particle_material, ff_1);
     Particle Particle2(particle_material, ff_2);
 
-    particle_layout.addParticle(Particle1, 0.0, 0.5);
+    // radius of nanoparticles will be sampled with gaussian probability
+    int nbins=150;
+    double sigma1 = radius1*sigma1_ratio;
+    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
+    StochasticDoubleGaussian sg1(radius1, sigma1);
+    StochasticSampledParameter par1(sg1, nbins, nfwhm);
+
+    // building nano particles
+    MyParticleBuilder builder;
+    builder.setPrototype(Particle1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
+    builder.plantParticles(particle_layout,visitor.getLabelSample());
+
+    //particle_layout.addParticle(Particle1, 0.0, 0.5);
     particle_layout.addParticle(Particle2, 0.0, 0.5);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-
     air_layer.setLayout(particle_layout);
 
-    m_sample->addLayerWithTopRoughness(substrate_layer, roughness);
     m_sample->addLayer(air_layer);
     m_sample->addLayerWithTopRoughness(substrate_layer, roughness);
     m_sample->addLayer(substrate_layer);
-    m_sample->addLayerWithTopRoughness(substrate_layer, roughness);
     return m_sample;
 }
+

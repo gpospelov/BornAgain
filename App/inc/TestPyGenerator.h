@@ -1,7 +1,8 @@
 #ifndef TESTPYGENERATOR_H
 #define TESTPYGENERATOR_H
-
 #include "IApplicationTest.h"
+#include "MyParticleBuilder.h"
+#include "PyGenVisitor.h"
 
 class MultiLayer;
 
@@ -13,8 +14,11 @@ public:
     virtual void execute();
 
 private:
+    PyGenVisitor visitor;
     MultiLayer *makeSample();
     MultiLayer *m_sample;
+
+
 };
 
 #endif //

@@ -11,11 +11,12 @@
 #include "Layer.h"
 #include "LabelSample.h"
 #include "LayerInterface.h"
-#include "PyGenVisitor.h"
+#include "ParticleBuilder.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleInfo.h"
 #include "ParticleLayout.h"
+#include "PyGenVisitor.h"
 #include "TestPyGenerator.h"
 
 PyGenVisitor::PyGenVisitor()
@@ -34,6 +35,7 @@ void PyGenVisitor::genPyScript()
     std::ofstream myfile;
     myfile.open ("PythonScript.py");
     myfile << "import numpy \nimport matplotlib \nimport pylab \nfrom libBornAgainCore import *\n\n";
+    myfile << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     myfile << "def GetSample():\n\t# Defining Materials" << std::endl;
     std::map<const IMaterial *,std::string>::iterator it1 = m_label->getMaterialMap()->begin();
     while (it1 != m_label->getMaterialMap()->end())
@@ -81,7 +83,7 @@ void PyGenVisitor::genPyScript()
         {
             myfile << " = FormFactorAnisoPyramid(" << anisoPyramid->getLength() << "*nanometer,"
             << anisoPyramid->getWidth() << "*nanometer," << anisoPyramid->getHeight() << "*nanometer,"
-            << anisoPyramid->getAlpha() << "*nanometer)" << std::endl;
+            << anisoPyramid->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorBox *box = dynamic_cast<const FormFactorBox *>(iFormFactor))
@@ -93,20 +95,20 @@ void PyGenVisitor::genPyScript()
         else if (const FormFactorCone *cone = dynamic_cast<const FormFactorCone *>(iFormFactor))
         {
             myfile << " = FormFactorCone(" << cone->getRadius() << "*nanometer," << cone->getHeight()
-            << "*nanometer," << cone->getAlpha() << "*nanometer)" << std::endl;
+            << "*nanometer," << cone->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorCone6 *cone6 = dynamic_cast<const FormFactorCone6 *>(iFormFactor))
         {
             myfile << " = FormFactorCone6(" << cone6->getRadius() << "*nanometer," << cone6->getHeight()
-            << "*nanometer," << cone6->getAlpha() << "*nanometer)" << std::endl;
+            << "*nanometer," << cone6->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorCuboctahedron *cuboctahedron = dynamic_cast<const FormFactorCuboctahedron *>(iFormFactor))
         {
             myfile << " = FormFactorCuboctahedron(" << cuboctahedron->getLength() << "*nanometer,"
             << cuboctahedron->getHeight() << "*nanometer," << cuboctahedron->getHeightRatio() << "*nanometer"
-            << cuboctahedron->getAlpha() << "*nanometer)" << std::endl;
+            << cuboctahedron->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorCylinder *cylinder = dynamic_cast<const FormFactorCylinder *>(iFormFactor))
@@ -122,12 +124,6 @@ void PyGenVisitor::genPyScript()
             << ellipsoidalCylinder->getHeight() << "*nanometer)" << std::endl;
         }
 
-        else if (const FormFactorCylinder *cylinder = dynamic_cast<const FormFactorCylinder *>(iFormFactor))
-        {
-            myfile << " = FormFactorCylinder(" << cylinder->getHeight() << "*nanometer,"
-            << cylinder->getRadius() << "*nanometer)" << std::endl;
-        }
-
         else if (const FormFactorFullSphere *fullSphere = dynamic_cast<const FormFactorFullSphere *>(iFormFactor))
         {
             myfile << " = FormFactorFullSphere(" << fullSphere->getRadius() << "*nanometer)" << std::endl;
@@ -137,11 +133,6 @@ void PyGenVisitor::genPyScript()
         {
             myfile << " = FormFactorFullSpheroid(" << fullSpheroid->getRadius() << "*nanometer,"
             << fullSpheroid->getHeight() << "*nanometer)" << std::endl;
-        }
-
-        else if (const FormFactorFullSphere *fullSphere = dynamic_cast<const FormFactorFullSphere *>(iFormFactor))
-        {
-            myfile << " = FormFactorFullSphere(" << fullSphere->getRadius() << "*nanometer)" << std::endl;
         }
 
         else if (const FormFactorGauss *gauss = dynamic_cast<const FormFactorGauss *>(iFormFactor))
@@ -161,12 +152,6 @@ void PyGenVisitor::genPyScript()
         {
             myfile << " = FormFactorHemiEllipsoid(" << hemiEllipsoid->getRadiusA() << "*nanometer,"
             << hemiEllipsoid->getRadiusB() << "*nanometer," << hemiEllipsoid->getHeight() << "*nanometer)" << std::endl;
-        }
-
-        else if (const FormFactorInfLongBox *infLongBox = dynamic_cast<const FormFactorInfLongBox *>(iFormFactor))
-        {
-            myfile << " = FormFactorInfLongBox(" << infLongBox->getWidth() << "*nanometer,"
-            << infLongBox->getHeight() << "*nanometer)" << std::endl;
         }
 
         else if (const FormFactorInfLongBox *infLongBox = dynamic_cast<const FormFactorInfLongBox *>(iFormFactor))
@@ -215,7 +200,7 @@ void PyGenVisitor::genPyScript()
         else if (const FormFactorPyramid *pyramid = dynamic_cast<const FormFactorPyramid *>(iFormFactor))
         {
             myfile << " = FormFactorPyramid(" << pyramid->getLength() << "*nanometer," <<
-            pyramid->getHeight() << "*nanometer," << pyramid->getAlpha() << "*nanometer)" << std::endl;
+            pyramid->getHeight() << "*nanometer," << pyramid->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorRipple1 *ripple1 = dynamic_cast<const FormFactorRipple1 *>(iFormFactor))
@@ -234,7 +219,7 @@ void PyGenVisitor::genPyScript()
         else if (const FormFactorTetrahedron *tetrahedron = dynamic_cast<const FormFactorTetrahedron *>(iFormFactor))
         {
             myfile << " = FormFactorTetrahedron(" << tetrahedron->getLength() << "*nanometer," <<
-            tetrahedron->getHeight() << "*nanometer," << tetrahedron->getAlpha() << "*nanometer)" << std::endl;
+            tetrahedron->getHeight() << "*nanometer," << tetrahedron->getAlpha() << ")" << std::endl;
         }
 
         else if (const FormFactorTruncatedSphere *truncatedSphere = dynamic_cast<const FormFactorTruncatedSphere *>(iFormFactor))
@@ -414,22 +399,15 @@ void PyGenVisitor::genPyScript()
     size_t index = 0;
     while (index != numberOfDetectorDimensions)
     {
+        if (index != 0) {myfile << ",";}
         myfile << simulation->getInstrument().getDetectorAxis(index).getSize() << "," <<
         simulation->getInstrument().getDetectorAxis(index).getMin() << "," <<
-        simulation->getInstrument().getDetectorAxis(index).getMax() << ",";
+        simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
     }
-    if (simulation->getInstrument().getIsgisaxsStyle() == 1)
-    {
-        myfile << "True";
-    }
-    else
-    {
-        myfile << "False";
-    }
-    myfile << ") \n\t#Default Units for Axis Angles: Radians \n";
+    myfile << ") \n";
     myfile << "\tsimulation.setBeamParameters(" ;
-    myfile << simulation->getInstrument().getBeam().getWavelength() << ","
+    myfile << simulation->getInstrument().getBeam().getWavelength() << "*nanometer,"
     << simulation->getInstrument().getBeam().getAlpha() << "," <<
     simulation->getInstrument().getBeam().getPhi() << ")\n";
     myfile.close();

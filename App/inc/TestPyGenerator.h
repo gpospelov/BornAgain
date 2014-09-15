@@ -1,7 +1,6 @@
 #ifndef TESTPYGENERATOR_H
 #define TESTPYGENERATOR_H
 #include "IApplicationTest.h"
-#include "MyParticleBuilder.h"
 #include "PyGenVisitor.h"
 
 class MultiLayer;

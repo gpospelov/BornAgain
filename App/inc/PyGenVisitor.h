@@ -50,7 +50,6 @@ public:
     void visit(const Particle *sample);
     void visit(const ParticleInfo *){}
     void visit(const ParticleLayout *sample);
-    LabelSample * getLabelSample();
 
 private:
     LabelSample *m_label;

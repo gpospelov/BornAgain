@@ -15,7 +15,7 @@
 #include "TestPyGenerator.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticGaussian.h"
-#include "MyParticleBuilder.h"
+#include "ParticleBuilder.h"
 
 TestPyGenerator::TestPyGenerator()
 {
@@ -66,9 +66,9 @@ MultiLayer *TestPyGenerator::makeSample()
     StochasticSampledParameter par1(sg1, nbins, nfwhm);
 
     // building nano particles
-    MyParticleBuilder builder;
+    ParticleBuilder builder;
     builder.setPrototype(Particle1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
-    builder.plantParticles(particle_layout,visitor.getLabelSample());
+    builder.plantParticles(particle_layout);
 
     //particle_layout.addParticle(Particle1, 0.0, 0.5);
     particle_layout.addParticle(Particle2, 0.0, 0.5);

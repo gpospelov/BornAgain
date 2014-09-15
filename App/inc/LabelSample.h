@@ -2,7 +2,6 @@
 #define LABELSAMPLE_H
 #include <map>
 #include "MultiLayer.h"
-#include "MyParticleBuilder.h"
 #include "Layer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"

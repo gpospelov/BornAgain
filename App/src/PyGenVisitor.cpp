@@ -25,11 +25,6 @@ PyGenVisitor::PyGenVisitor()
 
 }
 
-LabelSample * PyGenVisitor::getLabelSample()
-{
-    return m_label;
-}
-
 void PyGenVisitor::genPyScript()
 {
     std::ofstream myfile;

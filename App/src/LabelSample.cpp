@@ -96,11 +96,6 @@ std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
     return &m_particleLayoutLabel;
 }
 
-std::set<const Particle *>* LabelSample::getStochasticallyGeneratedParticle()
-{
-    return &StochasticallyGeneratedParticle;
-}
-
 void LabelSample::insertMaterial(const IMaterial *sample)
 {
     std::map<const IMaterial *,std::string>::iterator it = m_materialLabel.begin();
@@ -121,11 +116,6 @@ void LabelSample::insertMaterial(const IMaterial *sample)
         inter << "Material_" << m_materialLabel.size()+1;
         m_materialLabel[sample] = inter.str();
     }
-}
-
-void LabelSample::insertStochasticallyGeneratedParticle(const Particle *sample)
-{
-    StochasticallyGeneratedParticle.insert(sample);
 }
 
 void LabelSample::setLabel(const IFormFactor *sample)

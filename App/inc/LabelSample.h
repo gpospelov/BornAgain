@@ -30,9 +30,7 @@ public:
     std::string getLabel(const Particle *sample);
     std::string getLabel(const ParticleInfo *sample);
     std::string getLabel(const ILayout *sample);
-    std::set<const Particle *>* getStochasticallyGeneratedParticle();
     void insertMaterial(const IMaterial *sample);
-    void insertStochasticallyGeneratedParticle(const Particle *sample);
     void setLabel(const IFormFactor *sample);
     void setLabel(const IInterferenceFunction *sample);
     void setLabel(const Layer *sample);
@@ -43,7 +41,6 @@ public:
     void setLabel(const ILayout *sample);
 
 private:
-    std::set<const Particle *> StochasticallyGeneratedParticle;
     std::map<const IFormFactor *,std::string> m_formFactorLabel;
     std::map<const IInterferenceFunction *, std::string> m_interferenceFunctionLabel;
     std::map<const Layer *,std::string> m_layerLabel;

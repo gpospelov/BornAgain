@@ -5,6 +5,7 @@
 #include "FormFactors.h"
 #include "ICompositeSample.h"
 #include "INamed.h"
+#include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
 #include "InterferenceFunctionNone.h"
 #include "ISample.h"
@@ -13,9 +14,6 @@
 #include "Samples.h"
 #include "Simulation.h"
 #include "TestPyGenerator.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticGaussian.h"
-#include "ParticleBuilder.h"
 
 TestPyGenerator::TestPyGenerator()
 {
@@ -38,46 +36,30 @@ void TestPyGenerator::execute()
 
 MultiLayer *TestPyGenerator::makeSample()
 {
-    m_sample = new MultiLayer();
+    MultiLayer *multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0., 0.);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    ParticleLayout particle_layout;
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    InterferenceFunction1DParaCrystal *p_interference_function =
+            new InterferenceFunction1DParaCrystal(20.0, 1000.0);
+    FTDistribution1DGauss pdf(7.0);
+    p_interference_function->setProbabilityDistribution(pdf);
+    FormFactorCylinder ff_cylinder(5.0, 10.0);
 
-    double radius1 = 1.0;
-    double sigma1_ratio = 0.2;
-    FormFactorCylinder ff_1(radius1,2.0);
-    FormFactorBox ff_2(3.0,4.0,5.0);
+    ParticleLayout particle_layout( new Particle(
+            particle_material, ff_cylinder ) );
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    LayerRoughness roughness(1.0,0.3,5.0);
-    Particle Particle1(particle_material, ff_1);
-    Particle Particle2(particle_material, ff_2);
-
-    // radius of nanoparticles will be sampled with gaussian probability
-    int nbins=150;
-    double sigma1 = radius1*sigma1_ratio;
-    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg1(radius1, sigma1);
-    StochasticSampledParameter par1(sg1, nbins, nfwhm);
-
-    // building nano particles
-    ParticleBuilder builder;
-    builder.setPrototype(Particle1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
-    builder.plantParticles(particle_layout);
-
-    //particle_layout.addParticle(Particle1, 0.0, 0.5);
-    particle_layout.addParticle(Particle2, 0.0, 0.5);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.setLayout(particle_layout);
 
-    m_sample->addLayer(air_layer);
-    m_sample->addLayerWithTopRoughness(substrate_layer, roughness);
-    m_sample->addLayer(substrate_layer);
-    return m_sample;
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
 }
 

@@ -4,6 +4,8 @@
 #include "FormFactors.h"
 #include "Materials.h"
 #include "Particle.h"
+#include "ParticleLayout.h"
+#include "ParticleInfo.h"
 
 class Compare
 {
@@ -35,6 +37,7 @@ public:
     bool compareFormFactorTruncatedSpheroid(const FormFactorTruncatedSpheroid *a,const FormFactorTruncatedSpheroid *b);
     bool compareMaterial(const IMaterial *a,const IMaterial *b);
     bool compareParticle(const Particle *a,const Particle *b);
+    bool compareParticleLayout(const ParticleLayout *a, const ParticleLayout *b);
 };
 
 

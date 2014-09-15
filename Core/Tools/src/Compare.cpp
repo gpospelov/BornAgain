@@ -409,3 +409,31 @@ bool Compare::compareParticle(const Particle *a,const Particle *b)
     else
         return 0;
 }
+
+bool Compare::compareParticleLayout(const ParticleLayout *a,const ParticleLayout *b)
+{
+    bool check = 1;
+    size_t aParticles = a->getNumberOfParticles();
+    size_t bParticles = a->getNumberOfParticles();
+    if (aParticles != bParticles)
+    {
+        check = 0;
+    }
+    size_t particleIndex = 0;
+    while (particleIndex != aParticles && check == 1)
+    {
+        const ParticleInfo *aInfo = a->getParticleInfo(particleIndex);
+        const ParticleInfo *bInfo = b->getParticleInfo(particleIndex);
+        if(aInfo->getAbundance() != bInfo->getAbundance()
+            || aInfo->getDepth() != bInfo->getDepth()
+            || compareParticle(aInfo->getParticle(),bInfo->getParticle()) != 1)
+        {
+            check = 0;
+        }
+    }
+
+    if (check == 1)
+        return 1;
+    else
+        return 0;
+}

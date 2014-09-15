@@ -130,12 +130,9 @@ void LabelSample::insertStochasticallyGeneratedParticle(const Particle *sample)
 
 void LabelSample::setLabel(const IFormFactor *sample)
 {
-//    if (StochasticallyGeneratedParticle.getSimpleFormFactor()->find(sample) ==  StochasticallyGeneratedParticle.getSimpleFormFactor()->end())
-    {
         std::ostringstream inter;
         inter << "FormFactor_" << m_formFactorLabel.size()+1;
         m_formFactorLabel[sample] = inter.str();
-    }
 }
 
 void LabelSample::setLabel(const IInterferenceFunction *sample)

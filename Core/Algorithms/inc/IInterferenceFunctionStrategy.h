@@ -68,13 +68,6 @@ private:
         Bin1D phi_bin;
         int index;
     };
-    //! Returns mean form factor, possibly including their position information
-    complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin, bool use_position=false) const;
-
-    //! Returns mean squared form factor
-    double meanSquaredFormFactor(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
     //! Constructs one list of evaluated form factors to be used in subsequent
     //! calculations

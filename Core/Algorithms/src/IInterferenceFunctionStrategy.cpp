@@ -71,38 +71,6 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::evaluatePol(
     return result;
 }
 
-complex_t IInterferenceFunctionStrategy::meanFormFactor(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-        bool use_position) const
-{
-    complex_t result;
-    for (SafePointerVector<FormFactorInfo>::const_iterator
-             it=m_ff_infos.begin();
-         it != m_ff_infos.end(); ++it) {
-        complex_t ff_value =
-            (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
-        if (use_position) {
-            cvector_t q = getQ(k_i, k_f_bin);
-            complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
-            ff_value *= std::exp(complex_t(0.0, 1.0)*phase);
-        }
-        result += ff_value;
-    }
-    return result;
-}
-
-double IInterferenceFunctionStrategy::meanSquaredFormFactor(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
-{
-    double result=0.0;
-    for (SafePointerVector<FormFactorInfo>::const_iterator it =
-            m_ff_infos.begin(); it != m_ff_infos.end(); ++it) {
-        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
-        result += std::norm(ff_value);
-    }
-    return result;
-}
-
 void IInterferenceFunctionStrategy::calculateFormFactorList(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {

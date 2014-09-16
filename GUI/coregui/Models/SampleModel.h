@@ -12,6 +12,8 @@ public:
     explicit SampleModel(QObject *parent = 0);
     ~SampleModel(){}
 
+    SampleModel *createCopy(ParameterizedItem *parent = 0);
+
 public slots:
     void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);
 

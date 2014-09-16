@@ -333,8 +333,10 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
+    qDebug() << "SessionModel::readFrom()" << m_model_tag << reader->name() << m_root_item;
+
     if(reader->name() != m_model_tag) {
-        throw GUIHelpers::Error("SessioneModel::readFrom() -> Format error in p1");
+        throw GUIHelpers::Error("SessionModel::readFrom() -> Format error in p1");
     }
 
     beginResetModel();
@@ -353,13 +355,14 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 }
 
 
-void SessionModel::writeTo(QXmlStreamWriter *writer)
+void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
 {
     writer->writeStartElement(m_model_tag);
     writer->writeAttribute(SessionXML::ModelNameAttribute, m_name);
 
     qDebug() << "SessionModel::writeTo";
-    writeItemAndChildItems(writer, m_root_item);
+    if(!parent) parent = m_root_item;
+    writeItemAndChildItems(writer, parent);
 
     writer->writeEndElement(); // m_model_tag
 }
@@ -404,55 +407,12 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 }
 
 
-//ParameterizedItem *SessionModel::createNewItem(QString model_type,
-//                                               ParameterizedItem *parent, int row)
-//{
-//    if (!m_root_item) {
-//        m_root_item = ItemFactory::createEmptyItem();
-//    }
-//    if (!parent) parent = m_root_item;
-//    if (row == -1) row = parent->childItemCount();
-//    if (row < 0 || row > parent->childItemCount()) return 0;
-
-//    if (parent != m_root_item) {
-//        if (!parent->acceptsAsChild(model_type))
-//            return 0;
-//    }
-//    return ItemFactory::createItem(model_type);
-//}
+SessionModel *SessionModel::createCopy(ParameterizedItem *parent)
+{
+    throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
+}
 
 
-//void SessionModel::insertNewItem(ParameterizedItem *new_item,
-//                                               ParameterizedItem *parent,
-//                                               int row,
-//                                               ParameterizedItem::PortInfo::Keys port)
-//{
-//    if(!new_item)
-//        throw GUIHelpers::Error("SessionModel::insertNewItem() ->Attempt to insert zero item");
-
-////    Q_ASSERT(new_item);
-////    if (!m_root_item) {
-////        m_root_item = ItemFactory::createEmptyItem();
-////    }
-//    if (!parent) parent = m_root_item;
-//    if (row == -1) row = parent->childItemCount();
-//    if (row < 0 || row > parent->childItemCount()) return;
-////    if (parent != m_root_item) {
-////        if (!parent->acceptsAsChild(model_type))
-////            return 0;
-////    }
-
-
-////    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-//    if(port != ParameterizedItem::PortInfo::PortDef)
-//        new_item->setItemPort(port);
-
-
-//    connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
-//    parent->insertChildItem(row, new_item);
-
-////    return new_item;
-//}
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
@@ -799,6 +759,28 @@ void SessionModel::onItemPropertyChange(const QString & name )
     Q_ASSERT(itemIndex.isValid());
     emit dataChanged(itemIndex, itemIndex);
 }
+
+
+void SessionModel::initFrom(SessionModel *model, ParameterizedItem *parent)
+{
+    qDebug() << "SessionModel::initFrom() -> " << model->getModelTag() << parent;
+    QByteArray byte_array;
+    QXmlStreamWriter writer(&byte_array);
+    writer.setAutoFormatting(true);
+
+    model->writeTo(&writer, parent);
+
+    QXmlStreamReader reader(byte_array);
+
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
+            readFrom(&reader);
+        }
+    }
+
+}
+
 
 void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last */)
 {

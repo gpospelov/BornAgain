@@ -93,6 +93,7 @@ public:
 
     QString getModelTag() const { return m_model_tag; }
     QString getModelName() const { return m_name; }
+    void setModelName(const QString &name) { m_name = name; }
 
     QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
 
@@ -108,7 +109,7 @@ public:
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
-    void writeTo(QXmlStreamWriter *writer);
+    void writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent = 0);
 
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
@@ -121,8 +122,14 @@ public:
 //        int row;
 //    };
 
+    virtual SessionModel *createCopy(ParameterizedItem *parent=0);
+
 public slots:
     void onItemPropertyChange(const QString &name);
+
+
+protected:
+    virtual void initFrom(SessionModel *model, ParameterizedItem *parent);
 
 private:
 //    ParameterizedItem *createNewItem(QString model_type, ParameterizedItem *parent, int row = -1);

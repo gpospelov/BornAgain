@@ -12,6 +12,13 @@ SampleModel::SampleModel(QObject *parent)
 
 }
 
+SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
+{
+    SampleModel *result = new SampleModel();
+    result->initFrom(this, parent);
+    return result;
+}
+
 void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelIndex & /* second */)
 {
     MaterialModel *materialModel = qobject_cast<MaterialModel *>(sender());

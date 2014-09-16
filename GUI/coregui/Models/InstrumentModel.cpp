@@ -5,3 +5,11 @@ InstrumentModel::InstrumentModel(QObject *parent)
 {
 
 }
+
+InstrumentModel *InstrumentModel::createCopy(ParameterizedItem *parent)
+{
+    InstrumentModel *result = new InstrumentModel();
+    result->initFrom(this, parent);
+    return result;
+}
+

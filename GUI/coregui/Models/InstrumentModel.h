@@ -11,6 +11,8 @@ public:
     explicit InstrumentModel(QObject *parent = 0);
     ~InstrumentModel(){}
 
+    virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
+
 };
 
 

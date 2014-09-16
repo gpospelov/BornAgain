@@ -32,7 +32,9 @@ add_subdirectory(externals/qt-manhattan-style)
 add_subdirectory(externals/qcustomplot)
 add_subdirectory(externals/qtpropertybrowser)
 add_subdirectory(coregui)
+add_subdirectory(crashhandler)
 add_subdirectory(main)
+
 
 set(BornAgainGUI_INCLUDE_DIRS ${BornAgainGUI_INCLUDE_DIRS} PARENT_SCOPE)
 set(BornAgainGUI_LIBRARY ${BornAgainGUI_LIBRARY} PARENT_SCOPE)

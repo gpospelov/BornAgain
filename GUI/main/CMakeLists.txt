@@ -87,6 +87,7 @@ IF(APPLE AND CREATE_BUNDLE)
     "$ENV{QTDIR}/plugins"
   )
 
+
   install (TARGETS ${executable_name}
     BUNDLE DESTINATION  . COMPONENT Applications
     RUNTIME DESTINATION ${destination_bin} COMPONENT Runtime)

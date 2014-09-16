@@ -107,7 +107,7 @@ private:
     double evaluate_for_fixed_angles(double *fractions, size_t dim, void* params) const;
 
     //! Evaluate polarized for fixed angles
-    double evaluate_for_fixed_kf_pol(double *fractions, size_t dim, void* params) const;
+    double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;

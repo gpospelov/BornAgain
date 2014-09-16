@@ -172,7 +172,7 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i,
         alpha_f_bin, phi_f_bin);
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function
-        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol;
+        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
         mc_integrator(p_function, this, 2);
     double min_array[] = { 0.0, 0.0 };
@@ -232,7 +232,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     return std::cos(alpha)*evaluateForList(k_i, k_f_bin, m_ff00);
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
         double *fractions, size_t dim, void *params) const
 {
     (void)dim;

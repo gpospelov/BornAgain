@@ -39,6 +39,7 @@
 #include <QString>
 #include <QStyle>
 #include <QTextStream>
+#include <QDebug>
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -56,7 +57,9 @@ int main(int argc, char *argv[])
     Q_PID parentPid = getppid();
     QString parentExecutable = QFile::symLinkTarget(QString::fromLatin1("/proc/%1/exe")
         .arg(QString::number(parentPid)));
-    if (argc > 2 || !parentExecutable.contains(QLatin1String("qtcreator"))) {
+
+    //if (argc > 2 || !parentExecutable.contains(QLatin1String("qtcreator"))) {
+    if (argc > 2 ) {
         QTextStream err(stderr);
         err << QString::fromLatin1("This crash handler will be called by Qt Creator itself. "
                                    "Do not call this manually.\n");

@@ -39,6 +39,7 @@
 
 #include <QApplication>
 #include <QString>
+#include <QDebug>
 
 #include <stdlib.h>
 
@@ -89,12 +90,14 @@ extern "C" void signalHandler(int signal)
 
 void setupCrashHandler()
 {
-#ifdef BUILD_CRASH_HANDLER
-    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
-        return;
+//#ifdef BUILD_CRASH_HANDLER
+    qDebug() << "setupCrashHandler()" << qApp->applicationDirPath();
+
+//    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
+//        return;
 
     const QString crashHandlerPath = qApp->applicationDirPath()
-        + QLatin1String("/qtcreator_crash_handler");
+        + QLatin1String("/crashhandler");
     crashHandlerPathC = qstrdup(qPrintable(crashHandlerPath));
 
     // Setup an alternative stack for the signal handler. This way we are able to handle SIGSEGV
@@ -134,13 +137,15 @@ void setupCrashHandler()
                 strsignal(signalsToHandle[i]), Q_FUNC_INFO);
         }
     }
-#endif // BUILD_CRASH_HANDLER
+
+    qDebug() << "setupCrashHandler() -> done";
+//#endif // BUILD_CRASH_HANDLER
 }
 
 void cleanupCrashHandler()
 {
-#ifdef BUILD_CRASH_HANDLER
+//#ifdef BUILD_CRASH_HANDLER
     delete[] crashHandlerPathC;
     free(signalHandlerStack);
-#endif
+//#endif
 }

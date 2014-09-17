@@ -40,7 +40,7 @@
 #include <QSettings>
 #include <QDebug>
 
-static const char SettingsApplication[] = "QtCreator";
+static const char SettingsApplication[] = "BornAgain";
 static const char SettingsKeySkipWarningAbortingBacktrace[]
     = "CrashHandler/SkipWarningAbortingBacktrace";
 
@@ -128,7 +128,7 @@ void CrashHandlerDialog::disableDebugAppButton()
 
 void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
 {
-    const QString ideName = QLatin1String("Qt Creator");
+    const QString ideName = QLatin1String("BornAgain");
     const QString title = tr("%1 has closed unexpectedly (Signal \"%2\")").arg(ideName, signalName);
     const QString introLabelContents = tr(
         "<p><b>%1.</b></p>"

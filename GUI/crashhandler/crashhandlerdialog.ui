@@ -70,7 +70,7 @@
    <item alignment="Qt::AlignRight">
     <widget class="QCheckBox" name="restartAppCheckBox">
      <property name="text">
-      <string>&amp;Restart Qt Creator on close</string>
+      <string>&amp;Restart BornAgain on close</string>
      </property>
      <property name="checked">
       <bool>true</bool>

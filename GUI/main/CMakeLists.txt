@@ -35,7 +35,7 @@ if(APPLE AND CREATE_BUNDLE)
     Python
   )
 else()
-  add_executable(${executable_name} main.cpp)
+  add_executable(${executable_name} main.cpp crashhandlersetup.cpp crashhandlersetup.h)
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}

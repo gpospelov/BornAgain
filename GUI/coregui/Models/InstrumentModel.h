@@ -2,6 +2,7 @@
 #define INSTRUMENTMODEL_H
 
 #include "SessionModel.h"
+#include <QStringList>
 
 class BA_CORE_API_ InstrumentModel : public SessionModel
 {
@@ -12,6 +13,8 @@ public:
     ~InstrumentModel(){}
 
     virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
+
+    QMap<QString, ParameterizedItem *> getInstrumentMap() const;
 
 };
 

@@ -9,6 +9,8 @@ class SimulationDataModel;
 class QComboBox;
 class QPushButton;
 class JobQueueModel;
+class SampleModel;
+class InstrumentModel;
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -18,6 +20,8 @@ public:
     SimulationSetupWidget(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
     void updateViewElements();
     void setJobQueueModel(JobQueueModel *model);
+    void setSampleModel(SampleModel *model);
+    void setInstrumentModel(InstrumentModel *model);
 
     QString getInstrumentSelection() const;
     QString getSampleSelection() const;
@@ -30,8 +34,13 @@ public slots:
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
 
+    InstrumentModel *getJobInstrumentModel();
+    SampleModel *getJobSampleModel();
+
     SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;

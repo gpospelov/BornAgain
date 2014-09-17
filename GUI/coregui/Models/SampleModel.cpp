@@ -12,12 +12,32 @@ SampleModel::SampleModel(QObject *parent)
 
 }
 
+
 SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 {
     SampleModel *result = new SampleModel();
     result->initFrom(this, parent);
     return result;
 }
+
+
+//! returns list of MultiLayers defined in the model
+QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
+{
+    QMap<QString, ParameterizedItem *> result;
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = itemForIndex(itemIndex)){
+             if(item->modelType() == Constants::MultiLayerType) {
+                 result[item->itemName()] = item;
+             }
+         }
+    }
+    return result;
+}
+
 
 void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelIndex & /* second */)
 {

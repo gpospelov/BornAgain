@@ -23,9 +23,13 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     m_jobQueueModel = mainWindow->getJobQueueModel();
     m_sampleModel = mainWindow->getSampleModel();
     m_instrumentModel = mainWindow->getInstrumentModel();
+    Q_ASSERT(m_sampleModel);
+    Q_ASSERT(m_instrumentModel);
 
     m_simulationSetupWidget = new SimulationSetupWidget(mp_simulation_data_model);
     m_simulationSetupWidget->setJobQueueModel(m_jobQueueModel);
+    m_simulationSetupWidget->setSampleModel(m_sampleModel);
+    m_simulationSetupWidget->setInstrumentModel(m_instrumentModel);
 
     m_quickSimulationWidget = new QuickSimulationWidget(m_sampleModel, m_instrumentModel);
 
@@ -48,6 +52,7 @@ SimulationView::SimulationView(MainWindow *mainWindow)
 
 void SimulationView::updateSimulationViewElements()
 {
+    qDebug() << "SimulationView::updateSimulationViewElements()" << m_sampleModel << m_instrumentModel;
     m_simulationSetupWidget->updateViewElements();
 //    m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
 }

@@ -36,7 +36,8 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    void setSpecularInfo(const LayerSpecularInfo& layer_specular_info);
+    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
+                         const ILayerRTCoefficients *p_out_coeffs);
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
@@ -44,20 +45,13 @@ public:
     friend class TestPolarizedDWBATerms;
 
 protected:
-    const ILayerRTCoefficients *getOutCoeffs(double alpha_f) const;
     void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             const Bin1D &alpha_f_bin) const;
 
-    LayerSpecularInfo *mp_specular_info;
-
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
-    mutable boost::scoped_ptr<const ILayerRTCoefficients> mP_RTCoeffs;
+    const ILayerRTCoefficients *mp_in_coeffs;
+    const ILayerRTCoefficients *mp_out_coeffs;
 };
-
-inline const ILayerRTCoefficients* FormFactorDWBA::getOutCoeffs(
-        double alpha) const {
-    return mp_specular_info->getOutCoefficients(alpha, 0.0);
-}
 
 #endif /* FORMFACTORDWBA_H_ */
 

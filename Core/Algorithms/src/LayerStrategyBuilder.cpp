@@ -170,7 +170,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         }
         else {
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle, *mp_specular_info, depth);
+                    p_ff_particle, depth);
         }
         break;
     }

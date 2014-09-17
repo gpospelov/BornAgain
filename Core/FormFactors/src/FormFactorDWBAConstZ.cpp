@@ -31,7 +31,7 @@ complex_t FormFactorDWBAConstZ::evaluate(
     calculateTerms(k_i, k_f_bin, alpha_f_bin);
 
     complex_t k_iz = k_i.z();
-    complex_t k_fz = mP_RTCoeffs->getScalarKz();
+    complex_t k_fz = mp_out_coeffs->getScalarKz();
     m_term_S *= getDepthPhase(k_iz-k_fz);
     m_term_RS *= getDepthPhase(-k_iz-k_fz);
     m_term_SR *= getDepthPhase(k_iz+k_fz);
@@ -44,9 +44,7 @@ FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
     FormFactorDWBAConstZ *p_clone =
         new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-    if (mp_specular_info) {
-        p_clone->setSpecularInfo(*mp_specular_info);
-    }
+    p_clone->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     return p_clone;
 }
 

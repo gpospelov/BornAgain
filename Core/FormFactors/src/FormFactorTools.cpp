@@ -18,12 +18,10 @@
 #include "FormFactorDWBAPolConstZ.h"
 
 IFormFactor* FormFactorTools::createDWBAScalarFormFactor(
-        IFormFactor* p_form_factor, const LayerSpecularInfo& specular_info,
-        double depth)
+        IFormFactor* p_form_factor, double depth)
 {
     FormFactorDWBAConstZ *p_result =
         new FormFactorDWBAConstZ(p_form_factor, depth);
-    p_result->setSpecularInfo(specular_info);
     return p_result;
 }
 

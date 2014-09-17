@@ -21,6 +21,8 @@
 #include "Bin.h"
 #include "EigenCore.h"
 
+class ILayerRTCoefficients;
+
 //! @class IFormFactor
 //! @ingroup formfactors_internal
 //! @brief The basic interface for form factors.
@@ -87,6 +89,15 @@ public:
         (void)probabilities;
         (void)nbr_samples;
     }
+
+    //! Sets reflection/transmission info
+    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
+                         const ILayerRTCoefficients *p_out_coeffs) {
+        (void)p_in_coeffs;
+        (void)p_out_coeffs;
+    }
+
+
 };
 
 #ifndef GCCXML_SKIP_THIS

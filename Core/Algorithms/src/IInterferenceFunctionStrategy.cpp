@@ -75,9 +75,15 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     clearFormFactorLists();
+    const ILayerRTCoefficients *p_in_coeffs =
+            mp_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+            mp_specular_info->getOutCoefficients(
+                    alpha_f_bin.getMidPoint(), 0.0) );
     SafePointerVector<FormFactorInfo>::const_iterator it =
             m_ff_infos.begin();
     while(it != m_ff_infos.end()) {
+        (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
         m_ff00.push_back(ff_mat);
         ++it;

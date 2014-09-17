@@ -5,7 +5,7 @@
 #include <QWidget>
 
 class MainWindow;
-class SimulationDataModel;
+//class SimulationDataModel;
 class JobQueueModel;
 class SampleModel;
 class InstrumentModel;
@@ -28,7 +28,7 @@ public slots:
     void onChangeTabWidget(int index);
 
 private:
-    SimulationDataModel *mp_simulation_data_model;
+//    SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

@@ -5,7 +5,6 @@
 #include <QWidget>
 #include <QString>
 
-class SimulationDataModel;
 class QComboBox;
 class QPushButton;
 class JobQueueModel;
@@ -17,7 +16,7 @@ class BA_CORE_API_ SimulationSetupWidget : public QWidget
     Q_OBJECT
 
 public:
-    SimulationSetupWidget(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
+    SimulationSetupWidget(QWidget *parent = 0);
     void updateViewElements();
     void setJobQueueModel(JobQueueModel *model);
     void setSampleModel(SampleModel *model);
@@ -37,7 +36,6 @@ private:
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
 
-    SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

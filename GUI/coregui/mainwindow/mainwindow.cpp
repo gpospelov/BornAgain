@@ -10,7 +10,6 @@
 #include "JobQueueView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
-#include "SimulationDataModel.h"
 #include "JobQueueModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
@@ -63,7 +62,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
-    , mp_sim_data_model(0)
     , m_jobQueueModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -135,7 +133,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete m_materialEditor;
-    delete mp_sim_data_model;
 }
 
 
@@ -189,7 +186,6 @@ void MainWindow::onChangeTabWidget(int index)
         m_instrumentView->updateView();
     }
     else if(index == SimulationTab) {
-        updateSimModel();
         m_simulationView->updateSimulationViewElements();
     }
 }
@@ -230,8 +226,6 @@ void MainWindow::initModels()
     initJobQueueModel();
 
     initInstrumentModel();
-
-    initSimModel();
 }
 
 
@@ -294,69 +288,6 @@ void MainWindow::initInstrumentModel()
 //    Q_UNUSED(beam1);
 
     //m_instrumentModel->save("instrument.xml");
-}
-
-
-void MainWindow::initSimModel()
-{
-    if (mp_sim_data_model) delete mp_sim_data_model;
-    mp_sim_data_model = new SimulationDataModel;
-}
-
-
-void MainWindow::updateSimModel()
-{
-    Q_ASSERT(mp_sim_data_model);
-    Q_ASSERT(m_sampleModel);
-    Q_ASSERT(m_instrumentModel);
-    qDebug() << " ";
-    qDebug() << "MainWindow::updateSimModel()" << m_sampleModel->rowCount( QModelIndex() );
-    mp_sim_data_model->clear();
-    updateSamples();
-    updateInstruments();
-}
-
-
-void MainWindow::updateSamples()
-{
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_sampleModel->rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = m_sampleModel->index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
-             qDebug() << item->itemName() << item->modelType();
-             if(item->modelType() == Constants::MultiLayerType) {
-                 DomainObjectBuilder builder;
-                 MultiLayer *multilayer = builder.buildMultiLayer(*item);
-                 multilayer->printSampleTree();
-                 if(multilayer) {
-                     mp_sim_data_model->addSample(item->itemName(), multilayer);
-                 }
-             }
-         }
-    }
-}
-
-
-void MainWindow::updateInstruments()
-{
-    qDebug() << "MainWindow::updateInstruments()";
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
-             qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
-             if(item->modelType() == Constants::InstrumentType) {
-                 DomainObjectBuilder builder;
-                 Instrument *instrument = builder.buildInstrument(*item);
-                 std::cout << *instrument << std::endl;
-                 if(instrument) {
-                     mp_sim_data_model->addInstrument(item->itemName(), instrument);
-                 }
-             }
-         }
-    }
 }
 
 

@@ -1,6 +1,4 @@
 #include "SimulationSetupWidget.h"
-
-#include "SimulationDataModel.h"
 #include "Simulation.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
@@ -22,9 +20,8 @@
 #include <QtCore>
 #include <QMenu>
 
-SimulationSetupWidget::SimulationSetupWidget(SimulationDataModel *p_simulation_data_model, QWidget *parent)
+SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-    , mp_simulation_data_model(p_simulation_data_model)
     , m_jobQueueModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -151,6 +148,7 @@ QString SimulationSetupWidget::getInstrumentSelection() const
     return instrumentSelectionBox->currentText();
 }
 
+
 QString SimulationSetupWidget::getSampleSelection() const
 {
     return sampleSelectionBox->currentText();
@@ -159,47 +157,9 @@ QString SimulationSetupWidget::getSampleSelection() const
 
 void SimulationSetupWidget::updateViewElements()
 {
-    qDebug() << "SimulationSetupWidget::updateViewElements()" << m_instrumentModel << m_sampleModel;
-//    updateSelectionBox(instrumentSelectionBox, mp_simulation_data_model->getInstrumentList().keys());
-//    updateSelectionBox(sampleSelectionBox, mp_simulation_data_model->getSampleList().keys());
     updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
     updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
 }
-
-/*
-void SimulationSetupWidget::onRunSimulation()
-{
-    qDebug() << "SimulationView::onRunSimulation()";
-    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
-                instrumentSelectionBox->currentText(), 0);
-    if (!p_instrument) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-    ISample *p_sample = mp_simulation_data_model->getSampleList().value(
-                sampleSelectionBox->currentText(), 0);
-    if (!p_sample) {
-        QMessageBox::warning(this, tr("No Sample Selected"),
-                             tr("You must select a sample first."));
-        return;
-    }
-    Simulation *p_sim = new Simulation;
-    p_sim->setSample(*p_sample);
-    p_sim->setInstrument(*p_instrument);
-
-    if(runPolicySelectionBox->currentText() == "Immediately") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
-    } else if(runPolicySelectionBox->currentText() == "In background") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
-    } else if(runPolicySelectionBox->currentText() == "Submit only") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-    } else {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-    }
-}
-
-*/
 
 
 void SimulationSetupWidget::onRunSimulation()
@@ -240,27 +200,27 @@ void SimulationSetupWidget::onRunSimulation()
 
 void SimulationSetupWidget::onPythonJobLaunched()
 {
-    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
-                instrumentSelectionBox->currentText(), 0);
-    if (!p_instrument) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
-                            QDir::homePath(), tr("Python scripts (*.py)"),
-                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
-    if (file_name.isNull()) {
-        return;
-    }
-    PythonScriptSampleBuilder builder(file_name);
-    ISample *p_sample = builder.buildSample();
-    Simulation *p_sim = new Simulation;
-    p_sim->setSample(*p_sample);
-    p_sim->setInstrument(*p_instrument);
+//    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
+//                instrumentSelectionBox->currentText(), 0);
+//    if (!p_instrument) {
+//        QMessageBox::warning(this, tr("No Instrument Selected"),
+//                             tr("You must select an instrument first."));
+//        return;
+//    }
+//    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
+//                            QDir::homePath(), tr("Python scripts (*.py)"),
+//                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
+//    if (file_name.isNull()) {
+//        return;
+//    }
+//    PythonScriptSampleBuilder builder(file_name);
+//    ISample *p_sample = builder.buildSample();
+//    Simulation *p_sim = new Simulation;
+//    p_sim->setSample(*p_sample);
+//    p_sim->setInstrument(*p_instrument);
 
-    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
-    m_jobQueueModel->runJob(identifier);
+//    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
+//    m_jobQueueModel->runJob(identifier);
 }
 
 

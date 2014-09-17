@@ -11,7 +11,8 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
-    , m_terminate_flag(false)
+    , m_job_status(JobItem::Idle)
+    , m_terminate_request_flag(false)
 {
 
 }
@@ -34,7 +35,7 @@ int JobRunner::getProgress() const
 void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
-    m_terminate_flag = false;
+    m_terminate_request_flag = false;
     emit started();
 
     if(m_simulation) {
@@ -45,8 +46,22 @@ void JobRunner::start()
         //ThreadInfo info;
         //info.n_threads = 8;
         //m_simulation->setThreadInfo(info);
-        m_simulation->runSimulation();
-        if(m_terminate_flag) m_progress=-1;
+
+        m_job_status = JobItem::Running;
+
+        try {
+            m_simulation->runSimulation();
+            m_job_status = JobItem::Completed;
+        }
+        catch(const std::exception &ex)
+        {
+            qDebug() << "XXXXXXXXXXXXXXXXXXXXXX" << ex.what();
+            m_job_status = JobItem::Failed;
+        }
+
+
+
+        if(m_terminate_request_flag) m_progress=-1;
         emit progressUpdate();
         emit finished();
     } else {
@@ -64,7 +79,7 @@ void JobRunner::runFakeSimulation()
         emit progressUpdate();
         QTimer::singleShot(100, this, SLOT(runFakeSimulation()));
     }
-    if(m_progress >=100 || m_terminate_flag) {
+    if(m_progress >=100 || m_terminate_request_flag) {
         emit progressUpdate();
         emit finished();
     }
@@ -77,12 +92,13 @@ bool JobRunner::similationProgressCallback(int progress)
     m_progress = progress;
     //qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
     emit progressUpdate();
-    return !m_terminate_flag;
+    return !m_terminate_request_flag;
 }
 
 
 void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";
-    m_terminate_flag = true;
+    m_terminate_request_flag = true;
+    m_job_status = JobItem::Canceled;
 }

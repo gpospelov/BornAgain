@@ -11,6 +11,13 @@
 #include <QThread>
 
 
+QStringList JobItem::m_status_list = QStringList()
+        << QString("Idle")
+        << QString("Running")
+        << QString("Completed")
+        << QString("Canceled")
+        << QString("Failed");
+
 QStringList JobItem::m_run_policies = QStringList()
         << QString("Immediately")
         << QString("In background")
@@ -37,7 +44,6 @@ JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, con
 {
     init();
     setRunPolicy(run_policy);
-    qDebug() << "XXXX" << m_run_policy;
 }
 
 
@@ -61,7 +67,6 @@ void JobItem::init()
     OutputDataItem *dataItem = new OutputDataItem();
     m_data_items.append(dataItem);
     connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
-    m_status_list << "" << "running" << "completed" << "canceled";
 }
 
 

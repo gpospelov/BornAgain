@@ -220,11 +220,12 @@ void JobQueueData::onFinishedJob()
         jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
     }
 
-    if(runner->isTerminated()) {
-        jobItem->setStatus(JobItem::Canceled);
-    } else {
-        jobItem->setStatus(JobItem::Completed);
-    }
+//    if(runner->isTerminated()) {
+//        jobItem->setStatus(JobItem::Canceled);
+//    } else {
+//        jobItem->setStatus(JobItem::Completed);
+//    }
+    jobItem->setStatus(runner->getStatus());
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();

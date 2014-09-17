@@ -28,7 +28,8 @@ public:
         Idle,
         Running,
         Completed,
-        Canceled
+        Canceled,
+        Failed
     };
 
     enum RunPolicy
@@ -99,12 +100,12 @@ private:
     int m_progress;
 
     QList<OutputDataItem *> m_data_items;
-    QStringList m_status_list;
     RunPolicy m_run_policy;
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
 
+    static QStringList m_status_list;
     static QStringList m_run_policies;
 };
 

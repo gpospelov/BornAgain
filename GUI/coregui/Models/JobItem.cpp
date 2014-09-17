@@ -2,6 +2,8 @@
 #include "JobQueueModel.h"
 #include "JobRunner.h"
 #include "OutputDataItem.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "GUIHelpers.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
@@ -9,18 +11,33 @@
 #include <QThread>
 
 
-JobItem::JobItem(QString name)
+QStringList JobItem::m_run_policies = QStringList()
+        << QString("Immediately")
+        << QString("In background")
+        << QString("Submit only");
+
+
+JobItem::JobItem(const QString &name)
+    : m_name(name)
+    , m_status(Idle)
+    , m_progress(0)
+    , m_run_policy(SubmitOnly)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
+{
+    init();
+}
+
+JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy)
     : m_status(Idle)
     , m_progress(0)
     , m_run_policy(SubmitOnly)
+    , m_sampleModel(sampleModel)
+    , m_instrumentModel(instrumentModel)
 {
-    OutputDataItem *dataItem = new OutputDataItem();
-    m_data_items.append(dataItem);
-
-    setName(name);
-
-    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
-    m_status_list << "" << "running" << "completed" << "canceled";
+    init();
+    setRunPolicy(run_policy);
+    qDebug() << "XXXX" << m_run_policy;
 }
 
 
@@ -34,6 +51,17 @@ void JobItem::clear()
 {
     qDeleteAll(m_data_items);
     m_data_items.clear();
+    delete m_sampleModel;
+    delete m_instrumentModel;
+}
+
+
+void JobItem::init()
+{
+    OutputDataItem *dataItem = new OutputDataItem();
+    m_data_items.append(dataItem);
+    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+    m_status_list << "" << "running" << "completed" << "canceled";
 }
 
 
@@ -63,6 +91,26 @@ OutputDataItem *JobItem::getOutputDataItem(int n_item)
     if(m_data_items.empty() || n_item < 0 || n_item >= m_data_items.size())
         return 0;
     return m_data_items.at(n_item);
+}
+
+
+// FIXME Make it nicer
+void JobItem::setRunPolicy(const QString &run_policy)
+{
+    if(run_policy == QString("Immediately")) {
+        m_run_policy = RunImmediately;
+    } else if(run_policy == QString("In background")) {
+        m_run_policy = RunInBackground;
+    } else {
+        m_run_policy = SubmitOnly;
+    }
+//    if(run_policy )
+//    int index = m_run_policies.indexOf(run_policy);
+//    if(index != -1) {
+//        m_run_policy = (RunPolicy)index;
+//    } else {
+//        m_run_policy = SubmitOnly;
+//    }
 }
 
 

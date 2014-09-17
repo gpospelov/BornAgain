@@ -22,6 +22,7 @@ public:
     JobQueueData();
 
     QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString createJob(JobItem *jobItem);
 
     const JobItem *getJobItem(QString identifier) const;
     JobItem *getJobItem(QString identifier);

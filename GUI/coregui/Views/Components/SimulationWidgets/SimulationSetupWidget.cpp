@@ -66,10 +66,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     // run policy
     QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
     runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->addItem(tr("Immediately"));
-    runPolicySelectionBox->addItem(tr("In background"));
-    runPolicySelectionBox->addItem(tr("Submit only"));
-    runPolicySelectionBox->addItem(tr("Real time"));
+    runPolicySelectionBox->addItems(JobItem::getRunPolicies());
 
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
@@ -180,21 +177,24 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    Simulation *p_sim = QuickSimulationHelper::getSimulation(jobSampleModel, jobInstrumentModel);
+//    Simulation *p_sim = QuickSimulationHelper::getSimulation(jobSampleModel, jobInstrumentModel);
+//    if(runPolicySelectionBox->currentText() == "Immediately") {
+////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
+//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunImmediately);
+//    } else if(runPolicySelectionBox->currentText() == "In background") {
+////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
+//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunInBackground);
+//    } else if(runPolicySelectionBox->currentText() == "Submit only") {
+////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
+//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
+//    } else {
+////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
+//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
+//    }
 
-    if(runPolicySelectionBox->currentText() == "Immediately") {
-//        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
-        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunImmediately);
-    } else if(runPolicySelectionBox->currentText() == "In background") {
-//        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
-        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunInBackground);
-    } else if(runPolicySelectionBox->currentText() == "Submit only") {
-//        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
-    } else {
-//        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
-    }
+    qDebug() << "runPolicySelectionBox->currentText()" << runPolicySelectionBox->currentText();
+    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
+    m_jobQueueModel->addJob(jobItem);
 }
 
 

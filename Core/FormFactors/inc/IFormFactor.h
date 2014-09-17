@@ -46,7 +46,6 @@ public:
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const=0;

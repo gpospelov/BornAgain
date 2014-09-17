@@ -54,9 +54,7 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
-    //! @param k_f1_bin   outgoing wavevector bin for first eigenmode
-    //! @param k_f2_bin   outgoing wavevector bin for second eigenmode
-    //! @param alpha_i incident inclination angle wrt scattering surface
+    //! @param k_f_bin   outgoing wavevector bin
     //! @param alpha_f outgoing inclination angle wrt scattering surface
     //! @param phi_f outgoing azimuthal angle wrt scattering surface
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,

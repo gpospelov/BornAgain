@@ -39,7 +39,12 @@ public:
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
 
+    Lattice1DIFParameters getLatticeParameters() const {return m_lattice_params; }
+
+    const IFTDistribution1D *getProbabilityDistribution() const { return mp_pdf; }
+
     virtual double evaluate(const cvector_t& q) const;
+
 protected:
 
     Lattice1DIFParameters m_lattice_params;

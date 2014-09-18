@@ -20,13 +20,13 @@ int main(int argc, char *argv[])
 
 #ifdef BORNAGAIN_CRASHHANDLER
     std::cout << "BORNAGAIN_CRASHHANDLER" << std::endl;
+    StackTraceSetup s;
 #endif
 
 //    QVector<double> vector;
 //    double d = vector[0]+0.1;
 //    qDebug() << "main double:" << d;
 
-    StackTraceSetup s;
 
     return a.exec();
 

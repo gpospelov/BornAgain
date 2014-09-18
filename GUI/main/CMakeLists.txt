@@ -24,8 +24,10 @@ set(source_files
 )
 
 if(BORNAGAIN_CRASHHANDLER)
-    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
-    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
+#    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
+#    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
+    list(APPEND source_files stacktracesetup.cpp)
+    list(APPEND include_files stacktracesetup.h)
 endif()
 
 

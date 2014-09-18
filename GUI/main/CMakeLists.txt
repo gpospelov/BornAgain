@@ -19,11 +19,13 @@ include_directories(
 
 set(source_files
     main.cpp
-    crashhandlersetup.cpp
-    stacktracesetup.cpp
 )
 
-if(BORNAGAIN_CRASHHANDLER)
+set(include_files)
+
+    message("XXXXX ${BORNAGAIN_CRASHHADLER}")
+
+if(BORNAGAIN_CRASHHADLER)
 #    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
 #    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
     list(APPEND source_files stacktracesetup.cpp)

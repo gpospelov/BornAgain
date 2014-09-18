@@ -14,10 +14,13 @@
 #include "ParticleBuilder.h"
 #include "MultiLayer.h"
 #include "Particle.h"
+#include "ParticleCoreShell.h"
 #include "ParticleInfo.h"
+#include "PositionParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "TestPyGenerator.h"
+#include "Transform3D.h"
 
 PyGenVisitor::PyGenVisitor()
     : m_label(new LabelSample())
@@ -43,7 +46,7 @@ void PyGenVisitor::genPyScript()
             double delta = 1-real(ri);
             double beta = imag(ri);
             myfile << "\t" << m_label->getLabel(material) << " = HomogenousMaterial(\"" << material->getName();
-            myfile << "\"," << PrintDouble(delta) << "," << PrintDouble(beta) << ")\n";
+            myfile << "\"," << printDouble(delta) << "," << printDouble(beta) << ")\n";
         }
         it1++;
     }
@@ -64,7 +67,7 @@ void PyGenVisitor::genPyScript()
 
     if (m_label->getParticleMap()->size() != 0)
     {
-        myfile << "\n\t# Defining Particles\n";
+        myfile << "\n\t# Defining Form Factors and Particles\n";
     }
 
     int formFactorNotFound =0;
@@ -232,7 +235,8 @@ void PyGenVisitor::genPyScript()
 
         else
         {
-            myfile << std::endl << formFactorNotFound << ": " << iFormFactor->getName()
+            // I should give proper Exception here
+            std::cout << "\n" << formFactorNotFound << ": " << iFormFactor->getName()
             << "Not Casted To Any FormFactor\n";
             formFactorNotFound++;
         }
@@ -243,8 +247,34 @@ void PyGenVisitor::genPyScript()
     while (it4 != m_label->getParticleMap()->end())
     {
         const Particle *particle = it4->first;
+        if(particle->getPTransform3D())
+        {
+            double alpha, beta, gamma;
+            particle->getPTransform3D()->calculateEulerAngles(&alpha, &beta, &gamma);
+            switch (particle->getPTransform3D()->getRotationType()) {
+            case 1:
+                myfile << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateX("
+                << beta << ")\n";
+                break;
+            case 2:
+                myfile << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateY("
+                << gamma << ")\n";
+                break;
+            case 3:
+                myfile << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateZ("
+                << alpha << ")\n";
+                break;
+            default:
+                break;
+            }
+        }
         myfile << "\t" << it4->second << " = Particle(" << m_label->getLabel(particle->getMaterial())
-        << "," << m_label->getLabel(particle->getSimpleFormFactor()) << ")\n";
+        << "," << m_label->getLabel(particle->getSimpleFormFactor());
+        if (particle->getPTransform3D())
+        {
+            myfile << "," << it4->second << "_rotation";
+        }
+        myfile << ")\n";
         it4++;
     }
 
@@ -267,18 +297,160 @@ void PyGenVisitor::genPyScript()
 
         else if (const InterferenceFunction1DLattice *oneDLattice = dynamic_cast<const InterferenceFunction1DLattice *>(iInterferenceFunction))
         {
-            myfile << " = InterFerenceFunction1DLattice()\n";
+            const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
+            myfile << " = InterFerenceFunction1DLattice(" << printDouble(latticeParameters.m_length) << "," << printDouble(latticeParameters.m_xi) << ")\n";
+
+            const IFTDistribution1D *pdf =  oneDLattice->getProbabilityDistribution();
+
+            if (const FTDistribution1DVoigt *fTD1DVoigt = dynamic_cast<const FTDistribution1DVoigt *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DVoigt->getOmega())
+                << "," << printDouble(fTD1DVoigt->getEta()) << ")\n";
+            }
+
+            if (pdf->getOmega() != 0.0)
+            {
+                if (const FTDistribution1DCauchy *fTD1DCauchy = dynamic_cast<const FTDistribution1DCauchy *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DCosine *fTD1DCosine = dynamic_cast<const FTDistribution1DCosine *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DGate *fTD1DGate = dynamic_cast<const FTDistribution1DGate *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGate->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DGauss *fTD1DGauss = dynamic_cast<const FTDistribution1DGauss *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DTriangle *fTD1DTriangle = dynamic_cast<const FTDistribution1DTriangle *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                }
+
+                myfile << "\t" << it->second << ".setProbabilityDistribution(" << it->second << "_pdf)\n\n";
+            }
         }
 
         else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal = dynamic_cast<const InterferenceFunction1DParaCrystal *>(iInterferenceFunction))
         {
             myfile << " = InterFerenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
             << "*nanometer," << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
+            if (oneDParaCrystal->getKappa() != 0.0)
+            {
+                myfile << "\t" << it->second << ".setKappa(" << printDouble(oneDParaCrystal->getKappa()) << ")\n";
+            }
+
+            if (oneDParaCrystal->getDomainSize() != 0.0)
+            {
+                myfile << "\t" << it->second << ".setDomainSize(" << printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
+            }
+
+            const IFTDistribution1D *pdf =  oneDParaCrystal->getPropabilityDistribution();
+
+            if (const FTDistribution1DVoigt *fTD1DVoigt = dynamic_cast<const FTDistribution1DVoigt *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DVoigt->getOmega())
+                << "," << printDouble(fTD1DVoigt->getEta()) << ")\n";
+            }
+
+            if (pdf->getOmega() != 0.0)
+            {
+                if (const FTDistribution1DCauchy *fTD1DCauchy = dynamic_cast<const FTDistribution1DCauchy *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DCosine *fTD1DCosine = dynamic_cast<const FTDistribution1DCosine *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DGate *fTD1DGate = dynamic_cast<const FTDistribution1DGate *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGate->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DGauss *fTD1DGauss = dynamic_cast<const FTDistribution1DGauss *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                }
+
+                else if (const FTDistribution1DTriangle *fTD1DTriangle = dynamic_cast<const FTDistribution1DTriangle *>(pdf))
+                {
+                    myfile << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                }
+
+                myfile << "\t" << it->second << ".setProbabilityDistribution(" << it->second << "_pdf)\n\n";
+            }
         }
 
         else if (const InterferenceFunction2DLattice *twoDLattice = dynamic_cast<const InterferenceFunction2DLattice *>(iInterferenceFunction))
         {
-            myfile << " = InterFerenceFunction2DLattice)\n";
+            const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
+            myfile << " = InterFerenceFunction2DLattice(" << printDouble(latticeParameters.m_length_1) << "*nanometer,"
+            << printDouble(latticeParameters.m_length_2) << "*nanometer," << printDouble(latticeParameters.m_angle) << ","
+            << printDouble(latticeParameters.m_xi) << ")\n";
+
+            const IFTDistribution2D *pdf =  twoDLattice->getProbabilityDistribution();
+
+            if (const FTDistribution2DCauchy *fTD2DCauchy = dynamic_cast<const FTDistribution2DCauchy *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCauchy(" << printDouble(fTD2DCauchy->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCauchy->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCauchy->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCone->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCone->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCone->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGate->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGate->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGauss->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DVoigt->getCoherenceLengthY()) << "*nanometer" << "," << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                if (fTD2DVoigt->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                }
+            }
+
         }
 
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(iInterferenceFunction))
@@ -287,47 +459,128 @@ void PyGenVisitor::genPyScript()
             << "*nanometer," << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer," <<
             twoDParaCrystal->getAlphaLattice() << "*nanometer," << twoDParaCrystal->getLatticeOrientation()
             << "*nanometer," << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
+
+  /*          const IFTDistribution2D *pdf =  twoDParaCrystal->getProbabilityDistributions();
+
+            if (const FTDistribution2DCauchy *fTD2DCauchy = dynamic_cast<const FTDistribution2DCauchy *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCauchy(" << printDouble(fTD2DCauchy->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCauchy->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCauchy->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCone->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCone->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCone->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGate->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGate->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGauss->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                }
+            }
+
+            if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf))
+            {
+                myfile << "\t" << it->second << "_pdf  = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX()) << "*nanometer,"
+                << printDouble(fTD2DVoigt->getCoherenceLengthY()) << "*nanometer" << "," << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                if (fTD2DVoigt->getGamma() != 0.0)
+                {
+                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                }  */
         }
 
         else
         {
-            myfile << std::endl << interfernceFunctionNotFound << ": " << iInterferenceFunction->getName()
+            // I should Give Proper Exception Here
+            std::cout << "\n" << interfernceFunctionNotFound << ": " << iInterferenceFunction->getName()
             << "Not Casted To Any Interference Function\n";
             formFactorNotFound++;
         }
+
         it++;
+    }
+
+    if (m_label->getParticleCoreShellMap()->size() != 0)
+    {
+        myfile << "\n\t# Defining Particle Core Shells\n";
+    }
+    std::map<const ParticleCoreShell *,std::string>::iterator it5 = m_label->getParticleCoreShellMap()->begin();
+    while (it5 != m_label->getParticleCoreShellMap()->end())
+    {
+        kvector_t position = it5->first->getRelativeCorePosition();
+        myfile << "\t" << it5->second << "_relPosition = kvector_t(" << position.x()
+        << "*nanometer," << position.y() << "*nanometer," << position.z() << "*nanometer)";
+        myfile << "\n\t" << it5->second << " = ParticleCoreShell(" << m_label->getLabel(it5->first->getShellParticle())
+        << "," << m_label->getLabel(it5->first->getCoreParticle()) << ", " << it5->second << "_relPosition)\n";
+        it5++;
     }
 
     if (m_label->getParticleLayoutMap()->size() > 0)
     {
-        myfile << "\n\t# Defining Particle layouts\n";
+        myfile << "\n\t# Defining Particle layouts and adding Particles\n";
     }
-    std::map<const ILayout *,std::string>::iterator it5 = m_label->getParticleLayoutMap()->begin();
-    while (it5 != m_label->getParticleLayoutMap()->end())
+
+    std::map<const ILayout *,std::string>::iterator it6 = m_label->getParticleLayoutMap()->begin();
+    while (it6 != m_label->getParticleLayoutMap()->end())
     {
-        const ILayout *iLayout = it5->first;
+        const ILayout *iLayout = it6->first;
         if (const ParticleLayout *particleLayout = dynamic_cast<const ParticleLayout *>(iLayout))
         {
-            myfile << "\t" << it5->second << " = ParticleLayout()\n";
+            myfile << "\t" << it6->second << " = ParticleLayout()\n\n";
             size_t numberOfParticles = particleLayout->getNumberOfParticles();
             size_t particleIndex = 0;
             while (particleIndex != numberOfParticles)
             {
                 const ParticleInfo *particleInfo = particleLayout->getParticleInfo(particleIndex);
-                myfile << "\t" << it5->second << ".addParticle(" << m_label->getLabel(particleInfo->getParticle()) << ","
-                << PrintDouble(particleInfo->getDepth()) << "," << PrintDouble(particleInfo->getAbundance()) << ")\n";
+                if (const PositionParticleInfo *positionParticleInfo = dynamic_cast<const PositionParticleInfo *>(particleInfo))
+                {
+                    myfile << "\t# Defining " << m_label->getLabel(particleInfo->getParticle());
+                    myfile << "\n\t" << m_label->getLabel(particleInfo->getParticle()) << "_position = kvector_t(" << positionParticleInfo->getPosition().x() << "*nanometer,"
+                    << positionParticleInfo->getPosition().y() << "*nanometer," << positionParticleInfo->getPosition().z() << "*nanometer)\n";
+                    myfile << "\t" << it6->second << ".addParticle(" << m_label->getLabel(particleInfo->getParticle()) << ","
+                    << m_label->getLabel(particleInfo->getParticle()) << "_position," << printDouble(particleInfo->getAbundance()) << ")\n";
+                }
+                else
+                {
+                    myfile << "\t# Defining " << m_label->getLabel(particleInfo->getParticle());
+                    myfile << "\n\t" << it6->second << ".addParticle(" << m_label->getLabel(particleInfo->getParticle()) << ","
+                    << printDouble(particleInfo->getDepth()) << "," << printDouble(particleInfo->getAbundance()) << ")\n";
+                }
                 particleIndex++;
             }
             size_t numberOfInterferenceFunctions = particleLayout->getNumberOfInterferenceFunctions();
             size_t interferenceFunctionsIndex = 0;
             while (interferenceFunctionsIndex != numberOfInterferenceFunctions)
             {
-                myfile << "\t" << it5->second << ".addInterferenceFunction("
+                myfile << "\t" << it6->second << ".addInterferenceFunction("
                 << m_label->getLabel(particleLayout->getInterferenceFunction(interferenceFunctionsIndex)) << ")\n";
                 interferenceFunctionsIndex++;
             }
         }
-        it5++;
+        it6++;
     }
 
     it2 = m_label->getLayerMap()->begin();
@@ -336,7 +589,7 @@ void PyGenVisitor::genPyScript()
         const Layer *layer = it2->first;
         if (layer->hasDWBASimulation())
         {
-            myfile << "\t" << it2->second << ".setLayout(" << m_label->getLabel(layer->getLayout())<< ")\n";
+            myfile << "\n\t" << it2->second << ".setLayout(" << m_label->getLabel(layer->getLayout())<< ")\n";
         }
         it2++;
     }
@@ -345,43 +598,43 @@ void PyGenVisitor::genPyScript()
     {
         myfile << "\n\t# Defining Roughness Parameters\n";
     }
-    std::map<const LayerRoughness *,std::string>::iterator it6 = m_label->getLayerRoughnessMap()->begin();
-    while (it6 != m_label->getLayerRoughnessMap()->end())
+    std::map<const LayerRoughness *,std::string>::iterator it7 = m_label->getLayerRoughnessMap()->begin();
+    while (it7 != m_label->getLayerRoughnessMap()->end())
     {
-        myfile << "\t" << it6->second << " = LayerRoughness(" << it6->first->getSigma()
-        << "*nanometer," << it6->first->getHurstParameter() << "*nanometer,"
-        << it6->first->getLatteralCorrLength() << "*nanometer)\n";
-        it6++;
+        myfile << "\t" << it7->second << " = LayerRoughness(" << it7->first->getSigma()
+        << "*nanometer," << it7->first->getHurstParameter() << "*nanometer,"
+        << it7->first->getLatteralCorrLength() << "*nanometer)\n";
+        it7++;
     }
 
     myfile << "\n\t# Defining Multilayers\n";
-    std::map<const MultiLayer *,std::string>::iterator it7 = m_label->getMultiLayerMap()->begin();
-    while (it7 != m_label->getMultiLayerMap()->end())
+    std::map<const MultiLayer *,std::string>::iterator it8 = m_label->getMultiLayerMap()->begin();
+    while (it8 != m_label->getMultiLayerMap()->end())
     {
-        myfile << "\t" << it7->second << " = MultiLayer()\n";
-        size_t numberOfLayers = it7->first->getNumberOfLayers();
-        myfile << "\t" << it7->second << ".addLayer(" <<
-        m_label->getLabel(it7->first->getLayer(0)) << ")\n";
+        myfile << "\t" << it8->second << " = MultiLayer()\n";
+        size_t numberOfLayers = it8->first->getNumberOfLayers();
+        myfile << "\t" << it8->second << ".addLayer(" <<
+        m_label->getLabel(it8->first->getLayer(0)) << ")\n";
         size_t layerIndex = 1;
         while (layerIndex != numberOfLayers)
         {
-            const LayerInterface *layerInterface = it7->first->getLayerInterface(layerIndex-1);
+            const LayerInterface *layerInterface = it8->first->getLayerInterface(layerIndex-1);
             if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
                 == m_label->getLayerRoughnessMap()->end())
             {
-                myfile << "\t" << it7->second << ".addLayer(" <<
-                m_label->getLabel(it7->first->getLayer(layerIndex)) << ")\n";
+                myfile << "\t" << it8->second << ".addLayer(" <<
+                m_label->getLabel(it8->first->getLayer(layerIndex)) << ")\n";
             }
             else
             {
-                myfile << "\t" << it7->second << ".addLayerWithTopRoughness(" <<
-                m_label->getLabel(it7->first->getLayer(layerIndex)) << "," <<
+                myfile << "\t" << it8->second << ".addLayerWithTopRoughness(" <<
+                m_label->getLabel(it8->first->getLayer(layerIndex)) << "," <<
                 m_label->getLabel(layerInterface->getRoughness()) << ")\n";
             }
             layerIndex++;
         }
-        myfile <<"\treturn " << it7->second <<  std::endl << std::endl;
-        it7++;
+        myfile <<"\treturn " << it8->second <<  std::endl << std::endl;
+        it8++;
     }
 
     myfile << "def getSimulation():\n";
@@ -437,12 +690,12 @@ Simulation *PyGenVisitor::makeSimulation()
 
 }
 
-std::string PyGenVisitor::PrintDouble(double input)
+std::string PyGenVisitor::printDouble(double input)
 {
     std::ostringstream inter;
     if((input-floor(input)) == 0.0)
     {
-        inter << input << ".";
+        inter << input << ".0";
     }
     else
     {
@@ -597,13 +850,6 @@ void PyGenVisitor::visit(const Layer *sample)
     m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const LayerInterface *)
-{
-/*    myfile << sample->getLayerTop()->getMaterial()->getName() << std::endl;
-    myfile << sample->getLayerBottom()->getMaterial()->getName() << std::endl;
-*/
-}
-
 void PyGenVisitor::visit(const LayerRoughness *sample)
 {
     m_label->setLabel(sample);
@@ -617,6 +863,11 @@ void PyGenVisitor::visit(const MultiLayer *sample)
 void PyGenVisitor::visit(const Particle *sample)
 {
     m_label->insertMaterial(sample->getMaterial());
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const ParticleCoreShell *sample)
+{
     m_label->setLabel(sample);
 }
 

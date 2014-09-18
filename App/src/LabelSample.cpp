@@ -41,6 +41,11 @@ std::string LabelSample::getLabel(const Particle *sample)
     return m_particleLabel[sample];
 }
 
+std::string LabelSample::getLabel(const ParticleCoreShell *sample)
+{
+    return m_particleCoreShellLabel[sample];
+}
+
 std::string LabelSample::getLabel(const ParticleInfo *sample)
 {
     return m_particleInfoLabel[sample];
@@ -84,6 +89,11 @@ std::map<const MultiLayer *,std::string>* LabelSample::getMultiLayerMap()
 std::map<const Particle *,std::string>* LabelSample::getParticleMap()
 {
     return &m_particleLabel;
+}
+
+std::map<const ParticleCoreShell *,std::string>* LabelSample::getParticleCoreShellMap()
+{
+    return &m_particleCoreShellLabel;
 }
 
 std::map<const ParticleInfo *,std::string>* LabelSample::getParticleInfoMap()
@@ -132,6 +142,14 @@ void LabelSample::setLabel(const IInterferenceFunction *sample)
     m_interferenceFunctionLabel[sample] = inter.str();
 }
 
+void LabelSample::setLabel(const ILayout *sample)
+{
+    std::ostringstream inter;
+    inter << "ParticleLayout_" << m_particleLayoutLabel.size()+1;
+    m_particleLayoutLabel[sample] = inter.str();;
+}
+
+
 void LabelSample::setLabel(const Layer *sample)
 {
     std::ostringstream inter;
@@ -163,16 +181,17 @@ void LabelSample::setLabel(const Particle *sample)
     m_particleLabel[sample] = inter.str();;
 }
 
+void LabelSample::setLabel(const ParticleCoreShell *sample)
+{
+    std::ostringstream inter;
+    inter << "ParticleCoreShell_" << m_particleCoreShellLabel.size()+1;
+    m_particleCoreShellLabel[sample] = inter.str();;
+}
+
+
 void LabelSample::setLabel(const ParticleInfo *sample)
 {
     std::ostringstream inter;
     inter << "ParticleInfo_" << m_particleInfoLabel.size()+1;
     m_particleInfoLabel[sample] = inter.str();;
-}
-
-void LabelSample::setLabel(const ILayout *sample)
-{
-    std::ostringstream inter;
-    inter << "ParticleLayout_" << m_particleLayoutLabel.size()+1;
-    m_particleLayoutLabel[sample] = inter.str();;
 }

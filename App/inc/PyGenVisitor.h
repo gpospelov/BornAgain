@@ -14,7 +14,7 @@ public:
     using ISampleVisitor::visit;
 
     void genPyScript();
-    std::string PrintDouble(double input);
+    std::string printDouble(double input);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);
     void visit(const FormFactorCone *sample);
@@ -44,12 +44,15 @@ public:
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunction2DParaCrystal *);
     void visit(const Layer *sample);
-    void visit(const LayerInterface *);
+    void visit(const LayerInterface *){}
     void visit(const LayerRoughness *sample);
     void visit(const MultiLayer *sample);
     void visit(const Particle *sample);
+    void visit(const ParticleCoreShell *sample);
     void visit(const ParticleInfo *){}
     void visit(const ParticleLayout *sample);
+    void visit(const PositionParticleInfo *){}
+
 
 private:
     LabelSample *m_label;

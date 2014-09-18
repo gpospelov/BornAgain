@@ -19,6 +19,7 @@ public:
     std::map<const IMaterial*, std::string>* getMaterialMap();
     std::map<const MultiLayer *,std::string>* getMultiLayerMap();
     std::map<const Particle *,std::string>* getParticleMap();
+    std::map<const ParticleCoreShell *,std::string>* getParticleCoreShellMap();
     std::map<const ParticleInfo *,std::string>* getParticleInfoMap();
     std::map<const ILayout *,std::string>* getParticleLayoutMap();
     std::string getLabel(const IFormFactor *sample);
@@ -28,17 +29,20 @@ public:
     std::string getLabel(const LayerRoughness *sample);
     std::string getLabel(const MultiLayer *sample);
     std::string getLabel(const Particle *sample);
+    std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ParticleInfo *sample);
     std::string getLabel(const ILayout *sample);
     void insertMaterial(const IMaterial *sample);
     void setLabel(const IFormFactor *sample);
     void setLabel(const IInterferenceFunction *sample);
+    void setLabel(const ILayout *sample);
     void setLabel(const Layer *sample);
     void setLabel(const LayerRoughness *sample);
     void setLabel(const MultiLayer *sample);
     void setLabel(const Particle *sample);
+    void setLabel(const ParticleCoreShell *sample);
     void setLabel(const ParticleInfo *sample);
-    void setLabel(const ILayout *sample);
+
 
 private:
     std::map<const IFormFactor *,std::string> m_formFactorLabel;
@@ -48,6 +52,7 @@ private:
     std::map<const IMaterial*, std::string> m_materialLabel;
     std::map<const MultiLayer *,std::string> m_multiLayerLabel;
     std::map<const Particle *,std::string> m_particleLabel;
+    std::map<const ParticleCoreShell *, std::string> m_particleCoreShellLabel;
     std::map<const ParticleInfo *,std::string> m_particleInfoLabel;
     std::map<const ILayout *,std::string> m_particleLayoutLabel;
 };

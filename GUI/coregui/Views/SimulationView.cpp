@@ -50,6 +50,7 @@ void SimulationView::updateSimulationViewElements()
 {
     m_simulationSetupWidget->updateViewElements();
 //    m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
+    delete reinterpret_cast<QString*>(0xFEE1DEAD);
 }
 
 void SimulationView::onChangeTabWidget(int index)

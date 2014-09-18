@@ -21,6 +21,7 @@ option(CREATE_BUNDLE "Create a Mac OS X bundle" OFF)
 option(ROOT_SUPPORT "Build with dependencies from ROOT" ON)
 option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
+option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" ON)
 
 
 # --- Path for additional cmake modules ---

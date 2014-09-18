@@ -1,7 +1,9 @@
-#include "crashhandlersetup.h"
+//#include "crashhandlersetup.h"
 #include "mainwindow.h"
+#include "stacktracesetup.h"
 #include <QApplication>
 #include <QDebug>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -15,11 +17,16 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
-    
+
+#ifdef BORNAGAIN_CRASHHANDLER
+    std::cout << "BORNAGAIN_CRASHHANDLER" << std::endl;
+#endif
 
 //    QVector<double> vector;
 //    double d = vector[0]+0.1;
 //    qDebug() << "main double:" << d;
+
+    StackTraceSetup s;
 
     return a.exec();
 

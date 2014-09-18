@@ -32,7 +32,10 @@ add_subdirectory(externals/qt-manhattan-style)
 add_subdirectory(externals/qcustomplot)
 add_subdirectory(externals/qtpropertybrowser)
 add_subdirectory(coregui)
-add_subdirectory(crashhandler)
+if(BORNAGAIN_CRASHHADLER)
+    add_definitions(-DBORNAGAIN_CRASHHANDLER)
+    add_subdirectory(crashhandler)
+endif()
 add_subdirectory(main)
 
 

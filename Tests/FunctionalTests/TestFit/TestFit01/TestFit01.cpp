@@ -84,9 +84,9 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
     fitSuite->runFit();
 
     double height_found = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0);
-    double height_diff = std::fabs(height_found - m_cylinder_height)/m_cylinder_height;
+    double height_diff = std::abs(height_found - m_cylinder_height)/m_cylinder_height;
     double radius_found = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(1);
-    double radius_diff = std::fabs(radius_found - m_cylinder_radius)/m_cylinder_radius;
+    double radius_diff = std::abs(radius_found - m_cylinder_radius)/m_cylinder_radius;
 
 //    mb.Stop("test");
 //    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "RealTime" % mb.GetRealTime("test");

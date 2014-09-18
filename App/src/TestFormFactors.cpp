@@ -301,7 +301,7 @@ void TestFormFactors::finalise()
         double diff(0);
         for(OutputData<double>::const_iterator it =
             our_data->begin(); it!=our_data->end(); ++it) {
-            diff+= std::fabs(*it);
+            diff+= std::abs(*it);
         }
         diff /= our_data->getAllocatedSize();
 

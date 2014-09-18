@@ -89,7 +89,7 @@ int TestFit02::run()
     const double threshold = 1.0e-02;
     bool isSuccess = true;
     for(size_t i=0; i<results.size(); ++i) {
-        double diff = std::fabs(results[i] - initialParameters[i])/
+        double diff = std::abs(results[i] - initialParameters[i])/
                 initialParameters[i];
         if(diff > threshold) isSuccess=false;
     }

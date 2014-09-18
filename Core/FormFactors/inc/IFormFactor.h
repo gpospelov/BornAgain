@@ -21,6 +21,8 @@
 #include "Bin.h"
 #include "EigenCore.h"
 
+class ILayerRTCoefficients;
+
 //! @class IFormFactor
 //! @ingroup formfactors_internal
 //! @brief The basic interface for form factors.
@@ -46,7 +48,6 @@ public:
     //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
-    //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const=0;
@@ -54,9 +55,7 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
-    //! @param k_f1_bin   outgoing wavevector bin for first eigenmode
-    //! @param k_f2_bin   outgoing wavevector bin for second eigenmode
-    //! @param alpha_i incident inclination angle wrt scattering surface
+    //! @param k_f_bin   outgoing wavevector bin
     //! @param alpha_f outgoing inclination angle wrt scattering surface
     //! @param phi_f outgoing azimuthal angle wrt scattering surface
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
@@ -90,6 +89,15 @@ public:
         (void)probabilities;
         (void)nbr_samples;
     }
+
+    //! Sets reflection/transmission info
+    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
+                         const ILayerRTCoefficients *p_out_coeffs) {
+        (void)p_in_coeffs;
+        (void)p_out_coeffs;
+    }
+
+
 };
 
 #ifndef GCCXML_SKIP_THIS

@@ -54,13 +54,18 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
     mp_scalar_ff = new FormFactorDWBA(p_material_ff->clone());
     mp_specular_info = new LayerSpecularInfo();
     initSpecularInfo();
-    mp_matrix_ff->setSpecularInfo(*mp_specular_info);
-    mp_scalar_ff->setSpecularInfo(*mp_specular_info);
 }
 
 void TestPolarizedDWBATerms::execute()
 {
     Bin1D alpha_f_bin(m_alpha_f, m_alpha_f);
+    const ILayerRTCoefficients *p_in_coeffs =
+            mp_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+            mp_specular_info->getOutCoefficients(
+                    alpha_f_bin.getMidPoint(), 0.0) );
+    mp_scalar_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
+    mp_matrix_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
     Bin1D zero_bin;
     mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin);
     mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin, zero_bin);

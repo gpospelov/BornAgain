@@ -162,15 +162,14 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         break;
     case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
     {
-        assert(mp_specular_info);
         double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle, *mp_specular_info, depth);
+                    p_ff_particle, depth);
         }
         else {
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle, *mp_specular_info, depth);
+                    p_ff_particle, depth);
         }
         break;
     }

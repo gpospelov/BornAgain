@@ -30,7 +30,7 @@ IFormFactor* createDWBAScalarFormFactor(IFormFactor* p_form_factor,
 //! Decorates the given formfactor with a matrix dwba formfactor and returns
 //! this form factor
 IFormFactor* createDWBAMatrixFormFactor(IFormFactor* p_form_factor,
-        const LayerSpecularInfo &specular_info, double depth=0.0);
+        double depth=0.0);
 }
 
 

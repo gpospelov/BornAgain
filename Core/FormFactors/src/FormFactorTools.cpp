@@ -26,8 +26,7 @@ IFormFactor* FormFactorTools::createDWBAScalarFormFactor(
 }
 
 IFormFactor* FormFactorTools::createDWBAMatrixFormFactor(
-        IFormFactor* p_form_factor, const LayerSpecularInfo& specular_info,
-        double depth)
+        IFormFactor* p_form_factor, double depth)
 {
     FormFactorDWBAPol *p_result(0);
     if (depth) {
@@ -36,6 +35,5 @@ IFormFactor* FormFactorTools::createDWBAMatrixFormFactor(
     else {
         p_result = new FormFactorDWBAPol(p_form_factor);
     }
-    p_result->setSpecularInfo(specular_info);
     return p_result;
 }

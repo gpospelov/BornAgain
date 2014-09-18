@@ -54,12 +54,20 @@ void DiffuseDWBASimulation::run()
             Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin,
                     phi_bin);
 
+            const ILayerRTCoefficients *p_in_coeffs =
+                    mp_specular_info->getInCoefficients();
+            boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+                    mp_specular_info->getOutCoefficients(
+                            alpha_f, phi_bin.getMidPoint()) );
+
             Eigen::Matrix2d total_intensity = Eigen::Matrix2d::Zero();
             for (size_t i=0; i<diffuse_terms.size(); ++i) {
                 DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
                 Eigen::Matrix2cd amplitude = Eigen::Matrix2cd::Zero();
                 Eigen::Matrix2d intensity = Eigen::Matrix2d::Zero();
                 for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                    p_diffuse_term->m_form_factors[j]
+                            ->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
                     Eigen::Matrix2cd amp =
                         p_diffuse_term->m_form_factors[j]->evaluatePol(
                             m_ki, k_f_bin, alpha_bin, phi_bin);
@@ -173,7 +181,7 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 IFormFactor *p_dwba_ff(p_ff_particle);
                 if (checkPolarizationPresent()) {
                     p_dwba_ff = FormFactorTools::createDWBAMatrixFormFactor(
-                            p_ff_particle, *mp_specular_info, depth);
+                            p_ff_particle, depth);
                 }
                 else {
                     p_dwba_ff = FormFactorTools::createDWBAScalarFormFactor(

@@ -29,7 +29,7 @@ double IntensityDataFunctions::getRelativeDifference(const OutputData<double> &r
     double diff(0);
     for(OutputData<double>::const_iterator it =
             c_result->begin(); it!=c_result->end(); ++it) {
-        diff+= std::fabs(*it);
+        diff+= std::abs(*it);
     }
     diff /= c_result->getAllocatedSize();
 

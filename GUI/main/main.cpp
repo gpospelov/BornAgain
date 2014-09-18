@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
 
 
-    setupCrashHandler();
+//    setupCrashHandler();
 
 
     MainWindow w;
@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
 //    double d = vector[0]+0.1;
 //    qDebug() << "main double:" << d;
 
-    //return a.exec();
+    return a.exec();
 
-    const int r = a.exec();
+//    const int r = a.exec();
 
-    cleanupCrashHandler();
-    return r;
+//    cleanupCrashHandler();
+//    return r;
 }

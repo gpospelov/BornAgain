@@ -55,11 +55,9 @@ void JobRunner::start()
         }
         catch(const std::exception &ex)
         {
-            qDebug() << "XXXXXXXXXXXXXXXXXXXXXX" << ex.what();
             m_job_status = JobItem::Failed;
+            m_failure_message = QString(ex.what());
         }
-
-
 
         if(m_terminate_request_flag) m_progress=-1;
         emit progressUpdate();

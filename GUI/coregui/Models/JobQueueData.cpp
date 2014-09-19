@@ -122,6 +122,7 @@ void JobQueueData::runJob(QString identifier)
         simulation = QuickSimulationHelper::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
         m_simulations[identifier] = simulation;
     }
+    // endoffixme
 
     JobRunner *runner = new JobRunner(identifier, getSimulation(identifier));
     m_runners[identifier] = runner;
@@ -226,6 +227,8 @@ void JobQueueData::onFinishedJob()
 //        jobItem->setStatus(JobItem::Completed);
 //    }
     jobItem->setStatus(runner->getStatus());
+    if(runner->getStatus() == JobItem::Failed)
+        jobItem->setComments(runner->getFailureMessage());
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();

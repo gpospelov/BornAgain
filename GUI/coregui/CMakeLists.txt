@@ -12,6 +12,10 @@ endif()
 
 set(library_name BornAgainGUI)
 
+if(BORNAGAIN_CRASHHADLER)
+    add_definitions(-DBORNAGAIN_CRASHHANDLER)
+endif()
+
 # --- source and include files ---
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/mainwindow

@@ -50,7 +50,10 @@ void SimulationView::updateSimulationViewElements()
 {
     m_simulationSetupWidget->updateViewElements();
 //    m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
+#ifdef BORNAGAIN_CRASHHANDLER
+    // Intentional memory corruption to make application crashing
     delete reinterpret_cast<QString*>(0xFEE1DEAD);
+#endif
 }
 
 void SimulationView::onChangeTabWidget(int index)

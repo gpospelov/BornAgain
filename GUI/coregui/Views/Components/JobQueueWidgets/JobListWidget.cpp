@@ -5,6 +5,7 @@
 #include "styledbar.h"
 #include <QPushButton>
 #include <QListView>
+#include <QMenu>
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QAction>
@@ -15,6 +16,8 @@ JobListWidget::JobListWidget(QWidget *parent)
     , m_jobQueueModel(0)
     , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new QListView(this))
+    , m_runJobAction(0)
+    , m_removeJobAction(0)
 //    , m_submitButton(new QPushButton("Submit"))
 //    , m_runButton(new QPushButton("Run"))
 //    , m_saveButton(new QPushButton("Save"))
@@ -26,7 +29,11 @@ JobListWidget::JobListWidget(QWidget *parent)
     m_listView->setAcceptDrops(true);
     m_listView->setDefaultDropAction(Qt::MoveAction);
     m_listView->setItemDelegate(m_listViewDelegate);
-    m_listView->setContextMenuPolicy(Qt::ActionsContextMenu);
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    // connect context menu for tree view
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(showContextMenu(const QPoint &)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -56,7 +63,7 @@ JobListWidget::JobListWidget(QWidget *parent)
 //    connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
 //    connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
 
-    setupContextMenu();
+    setupContextMenuActions();
 }
 
 
@@ -89,10 +96,10 @@ void JobListWidget::save()
 }
 
 
-void JobListWidget::submit()
-{
-    m_jobQueueModel->addJob(0);
-}
+//void JobListWidget::submit()
+//{
+//    m_jobQueueModel->addJob(0);
+//}
 
 
 void JobListWidget::runJob()
@@ -105,17 +112,13 @@ void JobListWidget::runJob()
 
 
 //! setup context menu for listView
-void JobListWidget::setupContextMenu()
+void JobListWidget::setupContextMenuActions()
 {
-    QAction *removeJobAction = new QAction(tr("Remove Job"), this);
-    connect(removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
-    m_listView->addAction(removeJobAction);
+    m_removeJobAction = new QAction(tr("Remove Job"), this);
+    connect(m_removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
 
-    QAction *runJobAction = new QAction(tr("Run Job"), this);
-    connect(runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
-    m_listView->addAction(runJobAction);
-
-
+    m_runJobAction = new QAction(tr("Run Job"), this);
+    connect(m_runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
 }
 
 
@@ -132,6 +135,26 @@ void JobListWidget::makeJobItemSelected(const QModelIndex &index)
 {
     m_listView->selectionModel()->clearSelection();
     m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
+}
+
+
+void JobListWidget::showContextMenu(const QPoint &pnt)
+{
+    qDebug() << "JobListWidget::showContextMenu()";
+
+    QMenu menu;
+
+    QModelIndex item_index = m_listView->indexAt(pnt);
+    if(item_index.isValid()) {
+        const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(item_index);
+        if(jobItem->getStatus() == JobItem::Idle) {
+            menu.addAction(m_runJobAction);
+        }
+    }
+
+    menu.addAction(m_removeJobAction);
+
+    menu.exec(m_listView->mapToGlobal(pnt));
 }
 
 

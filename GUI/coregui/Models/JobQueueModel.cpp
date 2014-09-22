@@ -115,6 +115,7 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
 
 QString JobQueueModel::addJob(JobItem *jobItem)
 {
+    Q_ASSERT(jobItem);
     qDebug() << "JobQueueModel::addJob(JobItem *jobItem)" << jobItem->getRunPolicy();
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);

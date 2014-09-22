@@ -30,6 +30,7 @@ signals:
 public slots:
     void onZaxisRangeChanged(QCPRange newRange);
     void updatePlot();
+    void updateIntensity();
 
     void resetTriggered();
     void savePlot();

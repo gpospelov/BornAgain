@@ -23,13 +23,13 @@ class QVariant;
 class BA_CORE_API_ QuickSimulationHelper
 {
 public:
-
-
     static Simulation *getSimulation(SampleModel *sampleModel, const QString &sample_name, InstrumentModel *instrumentModel, const QString &instrument_name);
 
-    static Instrument *getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name);
+    static Simulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
-    static MultiLayer *getMultiLayer(SampleModel *sampleModel, const QString &sample_name);
+    static Instrument *getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name = QString());
+
+    static MultiLayer *getMultiLayer(SampleModel *sampleModel, const QString &sample_name = QString());
 
     static QStandardItemModel *createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 

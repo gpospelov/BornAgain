@@ -5,10 +5,11 @@
 #include <QWidget>
 #include <QMap>
 
-class QtProperty;
-class QtVariantProperty;
 class JobQueueModel;
 class JobItem;
+class QtProperty;
+class QtVariantProperty;
+class QTextEdit;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
@@ -42,6 +43,8 @@ private:
     QMap<QString, bool> idToExpanded;
 
     JobItem *m_currentItem;
+
+    QTextEdit *m_commentsEditor;
 };
 
 

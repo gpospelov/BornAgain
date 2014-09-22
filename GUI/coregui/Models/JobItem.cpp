@@ -2,25 +2,53 @@
 #include "JobQueueModel.h"
 #include "JobRunner.h"
 #include "OutputDataItem.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
+#include "InstrumentItem.h"
 #include "GUIHelpers.h"
+#include "Simulation.h"
+#include "AngleProperty.h"
+#include "DetectorItems.h"
+#include "InstrumentItem.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
 #include <QTimer>
 #include <QThread>
 
 
-JobItem::JobItem(QString name)
+QStringList JobItem::m_status_list = QStringList()
+        << QString("Idle")
+        << QString("Running")
+        << QString("Completed")
+        << QString("Canceled")
+        << QString("Failed");
+
+QStringList JobItem::m_run_policies = QStringList()
+        << QString("Immediately")
+        << QString("In background")
+        << QString("Submit only");
+
+
+JobItem::JobItem(const QString &name)
+    : m_name(name)
+    , m_status(Idle)
+    , m_progress(0)
+    , m_run_policy(SubmitOnly)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
+{
+//    initOutputDataItem();
+}
+
+JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy)
     : m_status(Idle)
     , m_progress(0)
     , m_run_policy(SubmitOnly)
+    , m_sampleModel(sampleModel)
+    , m_instrumentModel(instrumentModel)
 {
-    OutputDataItem *dataItem = new OutputDataItem();
-    m_data_items.append(dataItem);
-
-    setName(name);
-
-    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
-    m_status_list << "" << "running" << "completed" << "canceled";
+//    initOutputDataItem();
+    setRunPolicy(run_policy);
 }
 
 
@@ -34,6 +62,55 @@ void JobItem::clear()
 {
     qDeleteAll(m_data_items);
     m_data_items.clear();
+    delete m_sampleModel;
+    delete m_instrumentModel;
+}
+
+
+void JobItem::initOutputDataItem()
+{
+    qDeleteAll(m_data_items);
+    m_data_items.clear();
+    OutputDataItem *dataItem = new OutputDataItem();
+    m_data_items.append(dataItem);
+    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+}
+
+
+void JobItem::setResults(const Simulation *simulation)
+{
+//    qDeleteAll(m_data_items);
+//    m_data_items.clear();
+    if(m_data_items.isEmpty()) {
+        OutputDataItem *dataItem = new OutputDataItem();
+        m_data_items.append(dataItem);
+        connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+
+    }
+
+    OutputDataItem *outputDataItem = m_data_items.front();
+
+    // propagatind angle units to OutputDataItem
+    if(m_instrumentModel) {
+        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(m_instrumentModel->getInstrumentMap().begin().value());
+        qDebug() << instrumentItem->modelType();
+        Q_ASSERT(instrumentItem);
+        DetectorItem *detectorItem = instrumentItem->getDetectorItem();
+        Q_ASSERT(detectorItem);
+        ParameterizedItem *subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+        Q_ASSERT(subDetector);
+
+        if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+            AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
+            if(angle_property.inDegrees())
+                outputDataItem->setAxesUnits("Degrees");
+        }
+
+    }
+
+    qDebug() << "JobItem::setResults()" << outputDataItem;
+
+    outputDataItem->setOutputData(simulation->getIntensityData());
 }
 
 
@@ -66,6 +143,26 @@ OutputDataItem *JobItem::getOutputDataItem(int n_item)
 }
 
 
+// FIXME Make it nicer
+void JobItem::setRunPolicy(const QString &run_policy)
+{
+    if(run_policy == QString("Immediately")) {
+        m_run_policy = RunImmediately;
+    } else if(run_policy == QString("In background")) {
+        m_run_policy = RunInBackground;
+    } else {
+        m_run_policy = SubmitOnly;
+    }
+//    if(run_policy )
+//    int index = m_run_policies.indexOf(run_policy);
+//    if(index != -1) {
+//        m_run_policy = (RunPolicy)index;
+//    } else {
+//        m_run_policy = SubmitOnly;
+//    }
+}
+
+
 void JobItem::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
@@ -74,6 +171,7 @@ void JobItem::writeTo(QXmlStreamWriter *writer)
     writer->writeAttribute(JobQueueXML::JobStatusAttribute, QString::number((int)getStatus()));
     writer->writeAttribute(JobQueueXML::JobBeginTimeAttribute, getBeginTime());
     writer->writeAttribute(JobQueueXML::JobEndTimeAttribute, getEndTime());
+    writer->writeAttribute(JobQueueXML::JobProgressAttribute, QString::number((int)getProgress()));
     writer->writeAttribute(JobQueueXML::JobCommentsAttribute, getComments());
     foreach(OutputDataItem *item, m_data_items) {
         item->writeTo(writer);
@@ -108,6 +206,8 @@ void JobItem::readFrom(QXmlStreamReader *reader)
             .value(JobQueueXML::JobStatusAttribute).toInt());
     setStatus(status);
 
+    setProgress(reader->attributes()
+                .value(JobQueueXML::JobProgressAttribute).toInt());
 
     while (!reader->atEnd()) {
         reader->readNext();

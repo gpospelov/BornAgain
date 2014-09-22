@@ -3,6 +3,7 @@
 #include "Instrument.h"
 #include "MultiLayer.h"
 #include "SampleModel.h"
+#include "MultiLayerItem.h"
 #include "InstrumentModel.h"
 #include "DomainObjectBuilder.h"
 #include "ParameterizedItem.h"
@@ -14,6 +15,7 @@
 #include <QStandardItemModel>
 
 
+//! Creates domain simulation from sample and instrument models for given names of MultiLayer and Instrument
 Simulation *QuickSimulationHelper::getSimulation(SampleModel *sampleModel, const QString &sample_name, InstrumentModel *instrumentModel, const QString &instrument_name)
 {
     qDebug() << "QuickSimulationHelper::getSimulation() " << sample_name << instrument_name;
@@ -36,48 +38,64 @@ Simulation *QuickSimulationHelper::getSimulation(SampleModel *sampleModel, const
 }
 
 
+//! Creates domain simulation from sample and instrument models. First sample and first instrument in models will be used, if there are more than one
+Simulation *QuickSimulationHelper::getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel)
+{
+    return getSimulation(sampleModel, QString(), instrumentModel, QString());
+}
+
+
+//! Creates domain instrument from InstrumentModel and given instrument name. If name is empty, then uses first instrument in the model.
 Instrument *QuickSimulationHelper::getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name)
 {
     qDebug() << "QuickSimulationHelper::getInstrument()";
-    Q_ASSERT(instrumentModel);
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < instrumentModel->rowCount( parentIndex); ++i_row) {
-        QModelIndex itemIndex = instrumentModel->index( i_row, 0, parentIndex );
 
-        if (ParameterizedItem *item = instrumentModel->itemForIndex(itemIndex)){
-            qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
-            if(item->modelType() == Constants::InstrumentType && item->itemName() == instrument_name) {
-                DomainObjectBuilder builder;
-                Instrument *instrument = builder.buildInstrument(*item);
-                //std::cout << *instrument << std::endl;
-                return instrument;
-            }
+    Instrument *result(0);
+
+    QMap<QString, ParameterizedItem *> instrumentMap = instrumentModel->getInstrumentMap();
+
+    if(instrumentMap.size()) {
+        ParameterizedItem *instrumentItem(0);
+        if(instrument_name.isEmpty()) {
+            instrumentItem = instrumentMap.first();
+        } else {
+            instrumentItem = instrumentMap[instrument_name];
         }
+
+        Q_ASSERT(instrumentItem);
+        DomainObjectBuilder builder;
+        result = builder.buildInstrument(*instrumentItem);
     }
 
-    return 0;
+    return result;
 }
 
 
+//! Creates domain MultiLayer from SampleModel and given MultiLayer name. If name is empty, then uses first MultiLayer in the model.
 MultiLayer *QuickSimulationHelper::getMultiLayer(SampleModel *sampleModel, const QString &sample_name)
 {
     qDebug() << "QuickSimulationHelper::getMultiLayer()";
-    Q_ASSERT(sampleModel);
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex); ++i_row) {
-        QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
 
-        if (ParameterizedItem *item = sampleModel->itemForIndex(itemIndex)){
-            if(item->modelType() == Constants::MultiLayerType && item->itemName() == sample_name) {
-                DomainObjectBuilder builder;
-                MultiLayer *multilayer = builder.buildMultiLayer(*item);
-                //multilayer->printSampleTree();
-                return multilayer;
-            }
+    MultiLayer *result(0);
+
+    QMap<QString, ParameterizedItem *> sampleMap = sampleModel->getSampleMap();
+
+    if(sampleMap.size()) {
+        ParameterizedItem *sampleItem(0);
+        if(sample_name.isEmpty()) {
+            sampleItem = sampleMap.first();
+        } else {
+            sampleItem = sampleMap[sample_name];
         }
+
+        Q_ASSERT(sampleItem);
+        DomainObjectBuilder builder;
+        result = builder.buildMultiLayer(*sampleItem);
     }
-    return 0;
+
+    return result;
 }
+
 
 QStandardItemModel *QuickSimulationHelper::createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel)
 {
@@ -99,19 +117,15 @@ QStandardItemModel *QuickSimulationHelper::createParameterModel(SampleModel *sam
         result->appendRow(sessionStandardItem);
     }
 
-
-
     QStandardItem *instrumentStandardItem = iterateInstrumentModel(instrumentModel);
     if(instrumentStandardItem)
     {
         result->appendRow(instrumentStandardItem);
     }
 
-
-
-
     return result;
 }
+
 
 QStandardItem *QuickSimulationHelper::iterateSessionModel(SampleModel *sampleModel, const QModelIndex &parentIndex, QStandardItem *parentItem)
 {

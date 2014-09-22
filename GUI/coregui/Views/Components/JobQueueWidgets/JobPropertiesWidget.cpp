@@ -4,6 +4,7 @@
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 #include <QVBoxLayout>
+#include <QTextEdit>
 #include <QDebug>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
@@ -31,6 +32,10 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_propertyBrowser);
+
+    m_commentsEditor = new QTextEdit();
+    mainLayout->addWidget(m_commentsEditor);
+
     setLayout(mainLayout);
 
 }
@@ -113,6 +118,8 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setValue(jobItem->getEndTime());
     property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
+
+    m_commentsEditor->setText(jobItem->getComments());
 
 }
 

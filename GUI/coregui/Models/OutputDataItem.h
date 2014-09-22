@@ -46,9 +46,13 @@ public:
 
     QString getYaxisTitle() const { return m_yaxis_title;}
 
+    QString getAxesUnits() const { return m_axes_units; }
+
+    bool axesInRadians() const;
 
 signals:
     void modified();
+    void intensityModified();
 
 public slots:
     void setName(QString name);
@@ -63,7 +67,7 @@ public slots:
     void setInterpolated(bool interp);
     void setXaxisTitle(QString xtitle);
     void setYaxisTitle(QString ytitle);
-
+    void setAxesUnits(const QString &units);
 
 private:
     OutputData<double> *m_data; //!< simulation results
@@ -78,7 +82,7 @@ private:
     bool m_is_interpolated; //!< true if data in interpolated
     QString m_xaxis_title;
     QString m_yaxis_title;
-
+    QString m_axes_units;
 };
 
 

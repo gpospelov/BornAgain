@@ -1,11 +1,13 @@
 #include "SimulationSetupWidget.h"
-
-#include "SimulationDataModel.h"
 #include "Simulation.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
 #include "JobQueueModel.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "JobItem.h"
+#include "QuickSimulationHelper.h"
+#include "SampleValidator.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -19,10 +21,11 @@
 #include <QtCore>
 #include <QMenu>
 
-SimulationSetupWidget::SimulationSetupWidget(SimulationDataModel *p_simulation_data_model, QWidget *parent)
+SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-    , mp_simulation_data_model(p_simulation_data_model)
     , m_jobQueueModel(0)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
@@ -39,7 +42,7 @@ SimulationSetupWidget::SimulationSetupWidget(SimulationDataModel *p_simulation_d
     dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
     dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
     inputDataGroup->setLayout(dataSelectionLayout);
-    updateViewElements();
+    //updateViewElements();
 
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
@@ -64,10 +67,7 @@ SimulationSetupWidget::SimulationSetupWidget(SimulationDataModel *p_simulation_d
     // run policy
     QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
     runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->addItem(tr("Immediately"));
-    runPolicySelectionBox->addItem(tr("In background"));
-    runPolicySelectionBox->addItem(tr("Submit only"));
-    runPolicySelectionBox->addItem(tr("Real time"));
+    runPolicySelectionBox->addItems(JobItem::getRunPolicies());
 
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
@@ -120,10 +120,32 @@ void SimulationSetupWidget::setJobQueueModel(JobQueueModel *model)
     }
 }
 
+
+void SimulationSetupWidget::setSampleModel(SampleModel *model)
+{
+    Q_ASSERT(model);
+    if(model != m_sampleModel) {
+        m_sampleModel = model;
+        updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
+    }
+}
+
+
+void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
+{
+    Q_ASSERT(model);
+    if(model != m_instrumentModel) {
+        m_instrumentModel = model;
+        updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
+    }
+}
+
+
 QString SimulationSetupWidget::getInstrumentSelection() const
 {
     return instrumentSelectionBox->currentText();
 }
+
 
 QString SimulationSetupWidget::getSampleSelection() const
 {
@@ -133,72 +155,67 @@ QString SimulationSetupWidget::getSampleSelection() const
 
 void SimulationSetupWidget::updateViewElements()
 {
-    updateSelectionBox(instrumentSelectionBox, mp_simulation_data_model->getInstrumentList().keys());
-    updateSelectionBox(sampleSelectionBox, mp_simulation_data_model->getSampleList().keys());
+    updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
+    updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
 }
+
 
 void SimulationSetupWidget::onRunSimulation()
 {
     qDebug() << "SimulationView::onRunSimulation()";
-    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
-                instrumentSelectionBox->currentText(), 0);
-    if (!p_instrument) {
+
+    InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
+    if(!jobInstrumentModel) {
         QMessageBox::warning(this, tr("No Instrument Selected"),
                              tr("You must select an instrument first."));
         return;
     }
-    ISample *p_sample = mp_simulation_data_model->getSampleList().value(
-                sampleSelectionBox->currentText(), 0);
-    if (!p_sample) {
+
+    SampleModel *jobSampleModel = getJobSampleModel();
+    if(!jobSampleModel) {
         QMessageBox::warning(this, tr("No Sample Selected"),
                              tr("You must select a sample first."));
         return;
     }
-    Simulation *p_sim = new Simulation;
-    p_sim->setSample(*p_sample);
-    p_sim->setInstrument(*p_instrument);
 
-    if(runPolicySelectionBox->currentText() == "Immediately") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
-    } else if(runPolicySelectionBox->currentText() == "In background") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
-    } else if(runPolicySelectionBox->currentText() == "Submit only") {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-    } else {
-        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
+    SampleValidator sampleValidator;
+    if(!sampleValidator.isVaildSampleModel(jobSampleModel)) {
+        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+                             sampleValidator.getValidationMessage());
+        return;
     }
+
+    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
+    m_jobQueueModel->addJob(jobItem);
 }
+
 
 void SimulationSetupWidget::onPythonJobLaunched()
 {
-    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
-                instrumentSelectionBox->currentText(), 0);
-    if (!p_instrument) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
-                            QDir::homePath(), tr("Python scripts (*.py)"),
-                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
-    if (file_name.isNull()) {
-        return;
-    }
-    PythonScriptSampleBuilder builder(file_name);
-    ISample *p_sample = builder.buildSample();
-    Simulation *p_sim = new Simulation;
-    p_sim->setSample(*p_sample);
-    p_sim->setInstrument(*p_instrument);
+//    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
+//                instrumentSelectionBox->currentText(), 0);
+//    if (!p_instrument) {
+//        QMessageBox::warning(this, tr("No Instrument Selected"),
+//                             tr("You must select an instrument first."));
+//        return;
+//    }
+//    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
+//                            QDir::homePath(), tr("Python scripts (*.py)"),
+//                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
+//    if (file_name.isNull()) {
+//        return;
+//    }
+//    PythonScriptSampleBuilder builder(file_name);
+//    ISample *p_sample = builder.buildSample();
+//    Simulation *p_sim = new Simulation;
+//    p_sim->setSample(*p_sample);
+//    p_sim->setInstrument(*p_instrument);
 
-    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
-    m_jobQueueModel->runJob(identifier);
+//    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
+//    m_jobQueueModel->runJob(identifier);
 }
 
-void SimulationSetupWidget::onJobFinished()
-{
-    QMessageBox::information(this, tr("Simulation Job Finished"),
-                             tr("A simulation job has finished."));
-}
+
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
 {
@@ -216,4 +233,30 @@ void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList 
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
 }
+
+
+//! Returns copy of InstrumentModel containing a single instrument according to the text selection
+InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
+{
+    InstrumentModel *result(0);
+    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
+    if(instruments[getInstrumentSelection()]) {
+        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
+    }
+    return result;
+}
+
+
+//! Returns copy of SampleModel containing a single MultiLayer according to the text selection
+SampleModel *SimulationSetupWidget::getJobSampleModel()
+{
+    SampleModel *result(0);
+    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
+    if(samples[getSampleSelection()]) {
+        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
+    }
+    return result;
+
+}
+
 

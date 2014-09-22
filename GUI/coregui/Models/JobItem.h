@@ -7,9 +7,12 @@
 #include <QString>
 #include <QStringList>
 
+class OutputDataItem;
+class SampleModel;
+class InstrumentModel;
 class QXmlStreamWriter;
 class QXmlStreamReader;
-class OutputDataItem;
+class Simulation;
 
 
 //! Class to hold all job settings
@@ -26,17 +29,20 @@ public:
         Idle,
         Running,
         Completed,
-        Canceled
+        Canceled,
+        Failed
     };
 
     enum RunPolicy
     {
-        SubmitOnly = 0x0001,
-        RunImmediately = 0x0002,
-        RunInBackground  = 0x0004
+        RunImmediately = 0x0001,
+        RunInBackground  = 0x0002,
+        SubmitOnly = 0x0004
     };
 
-    JobItem(QString name);
+    JobItem(const QString &name);
+    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy = QString());
+
     virtual ~JobItem();
 
     QString getName() const { return m_name; }
@@ -62,6 +68,17 @@ public:
 
     RunPolicy getRunPolicy() const { return m_run_policy; }
     void setRunPolicy(RunPolicy run_policy) { m_run_policy = run_policy; }
+    void setRunPolicy(const QString &run_policy);
+
+    SampleModel *getSampleModel() { return m_sampleModel; }
+
+    InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
+
+    static QStringList getRunPolicies() { return m_run_policies; }
+
+    void initOutputDataItem();
+
+    void setResults(const Simulation *simulation);
 
 signals:
     void modified(JobItem *);
@@ -87,8 +104,13 @@ private:
     int m_progress;
 
     QList<OutputDataItem *> m_data_items;
-    QStringList m_status_list;
     RunPolicy m_run_policy;
+
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+
+    static QStringList m_status_list;
+    static QStringList m_run_policies;
 };
 
 

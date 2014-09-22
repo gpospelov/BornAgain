@@ -18,7 +18,6 @@ class PyScriptView;
 class SimulationView;
 class JobView;
 class JobQueueView;
-class SimulationDataModel;
 class Instrument;
 class ISample;
 class ActionManager;
@@ -43,7 +42,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
     MaterialModel *getMaterialModel() { return m_materialModel; }
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
@@ -77,7 +75,6 @@ private:
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
     QSettings *m_settings; //!< application wide settings
 
-    SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
@@ -89,7 +86,6 @@ private:
     void initMaterialModel();
     void initSampleModel();
     void initJobQueueModel();
-    void initSimModel();
     void initInstrumentModel();
 
     void updateSimModel();

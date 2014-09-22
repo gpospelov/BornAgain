@@ -1,4 +1,5 @@
 #include "centralplot.h"
+#include "Units.h"
 #include <algorithm>
 #include <iostream>
 
@@ -254,8 +255,11 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
     m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-    m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
-
+    if(outputDataItem->axesInRadians()) {
+        m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
+    } else {
+        m_colorMap->data()->setRange(QCPRange(Units::rad2deg(axis_x->getMin()), Units::rad2deg(axis_x->getMax())), QCPRange(Units::rad2deg(axis_y->getMin()), Units::rad2deg(axis_y->getMax())));
+    }
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {

@@ -4,6 +4,7 @@
 #include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
+#include "QuickSimulationHelper.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -20,10 +21,8 @@ JobQueueData::JobQueueData() : m_job_index(0)
 
 }
 
-//JobQueueItem *JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
-//    JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
     QString identifier = generateJobIdentifier();
 
     if(jobName.isEmpty()) jobName = generateJobName();
@@ -31,6 +30,17 @@ QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem
     jobItem->setRunPolicy(run_policy);
     m_job_items[identifier] = jobItem;
     if(simulation) m_simulations[identifier] = simulation;
+    return identifier;
+}
+
+
+QString JobQueueData::createJob(JobItem *jobItem)
+{
+    QString identifier = generateJobIdentifier();
+    if(jobItem->getName().isEmpty())
+        jobItem->setName(generateJobName());
+
+    m_job_items[identifier] = jobItem;
     return identifier;
 }
 
@@ -103,6 +113,16 @@ void JobQueueData::runJob(QString identifier)
         qDebug() << "JobQueueData::runInThread() -> Thread is already running";
         return;
     }
+
+    // FIXME Simplify this part by getting rid from the method JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+    // to allow only JobItem's with initialized InstrumentModel and SampleModel
+    Simulation *simulation = getSimulation(identifier);
+    if(!simulation) {
+        JobItem *jobItem = getJobItem(identifier);
+        simulation = QuickSimulationHelper::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+        m_simulations[identifier] = simulation;
+    }
+    // endoffixme
 
     JobRunner *runner = new JobRunner(identifier, getSimulation(identifier));
     m_runners[identifier] = runner;
@@ -198,14 +218,19 @@ void JobQueueData::onFinishedJob()
     // propagating simulation results
     Simulation *simulation = getSimulation(runner->getIdentifier());
     if(simulation) {
-        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
+        jobItem->setResults(simulation);
+//        jobItem->init();
+//        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
     }
 
-    if(runner->isTerminated()) {
-        jobItem->setStatus(JobItem::Canceled);
-    } else {
-        jobItem->setStatus(JobItem::Completed);
-    }
+//    if(runner->isTerminated()) {
+//        jobItem->setStatus(JobItem::Canceled);
+//    } else {
+//        jobItem->setStatus(JobItem::Completed);
+//    }
+    jobItem->setStatus(runner->getStatus());
+    if(runner->getStatus() == JobItem::Failed)
+        jobItem->setComments(runner->getFailureMessage());
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
@@ -307,13 +332,22 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 //! generates job name
 QString JobQueueData::generateJobName()
 {
+    m_job_index = 0;
+    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
+        QString jobName = it.value()->getName();
+        if(jobName.startsWith("job")) {
+            int job_index = jobName.remove(0,3).toInt();
+            if(job_index > m_job_index) m_job_index = job_index;
+        }
+    }
+
     return QString("job")+QString::number(++m_job_index);
 }
 
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
-{
+{    
     return QUuid::createUuid().toString();
 }
 

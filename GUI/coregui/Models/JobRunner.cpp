@@ -51,7 +51,8 @@ void JobRunner::start()
 
         try {
             m_simulation->runSimulation();
-            m_job_status = JobItem::Completed;
+            if(m_job_status != JobItem::Canceled)
+                m_job_status = JobItem::Completed;
         }
         catch(const std::exception &ex)
         {

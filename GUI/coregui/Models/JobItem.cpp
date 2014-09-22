@@ -5,6 +5,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "GUIHelpers.h"
+#include "Simulation.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
 #include <QTimer>
@@ -32,7 +33,7 @@ JobItem::JobItem(const QString &name)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
-    init();
+//    initOutputDataItem();
 }
 
 JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy)
@@ -42,7 +43,7 @@ JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, con
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)
 {
-    init();
+//    initOutputDataItem();
     setRunPolicy(run_policy);
 }
 
@@ -62,11 +63,29 @@ void JobItem::clear()
 }
 
 
-void JobItem::init()
+void JobItem::initOutputDataItem()
 {
+    qDeleteAll(m_data_items);
+    m_data_items.clear();
     OutputDataItem *dataItem = new OutputDataItem();
     m_data_items.append(dataItem);
     connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+}
+
+
+void JobItem::setResults(const Simulation *simulation)
+{
+//    qDeleteAll(m_data_items);
+//    m_data_items.clear();
+    if(m_data_items.isEmpty()) {
+        OutputDataItem *dataItem = new OutputDataItem();
+        m_data_items.append(dataItem);
+        connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+    }
+
+    qDebug() << "JobItem::setResults()" << m_data_items.front();
+
+    m_data_items.front()->setOutputData(simulation->getIntensityData());
 }
 
 

@@ -218,7 +218,9 @@ void JobQueueData::onFinishedJob()
     // propagating simulation results
     Simulation *simulation = getSimulation(runner->getIdentifier());
     if(simulation) {
-        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
+        jobItem->setResults(simulation);
+//        jobItem->init();
+//        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
     }
 
 //    if(runner->isTerminated()) {

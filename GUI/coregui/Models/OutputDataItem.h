@@ -49,6 +49,7 @@ public:
 
 signals:
     void modified();
+    void intensityModified();
 
 public slots:
     void setName(QString name);

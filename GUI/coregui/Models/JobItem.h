@@ -12,6 +12,7 @@ class SampleModel;
 class InstrumentModel;
 class QXmlStreamWriter;
 class QXmlStreamReader;
+class Simulation;
 
 
 //! Class to hold all job settings
@@ -75,6 +76,10 @@ public:
 
     static QStringList getRunPolicies() { return m_run_policies; }
 
+    void initOutputDataItem();
+
+    void setResults(const Simulation *simulation);
+
 signals:
     void modified(JobItem *);
 
@@ -90,7 +95,6 @@ public slots:
 
 private:
     void clear();
-    void init();
 
     QString m_name;
     QString m_begin_time;

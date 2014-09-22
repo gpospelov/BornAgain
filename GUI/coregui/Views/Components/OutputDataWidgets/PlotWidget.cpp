@@ -219,6 +219,12 @@ void PlotWidget::updatePlot()
 
 }
 
+void PlotWidget::updateIntensity()
+{
+    qDebug() << "PlotWidget::updateIntensity()";
+    m_centralPlot->drawPlot(m_outputDataItem, m_gradient);
+}
+
 
 void PlotWidget::initContextMenu()
 {
@@ -385,6 +391,7 @@ void PlotWidget::connectSignals()
     connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
 
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
+    connect(m_outputDataItem, SIGNAL(intensityModified()), this, SLOT(updateIntensity()), Qt::UniqueConnection);
 }
 
 void PlotWidget::setPropertyWidgetVisibilityFlag(bool visible)

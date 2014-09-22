@@ -30,14 +30,16 @@ OutputDataItem::~OutputDataItem()
 
 void OutputDataItem::setOutputData(OutputData<double> *data)
 {
-    if(data != m_data) {
+//    if(data != m_data) {
         qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
         delete m_data;
         m_data = data;
         m_xaxis_title = QString(data->getAxis(0)->getName().c_str());
         m_yaxis_title = QString(data->getAxis(1)->getName().c_str());
-        emit modified();
-    }
+//        emit modified();
+        qDebug() << "OutputDataItem::setOutputData() -> emitting intensity modified";
+        emit intensityModified();
+//    }
 }
 
 

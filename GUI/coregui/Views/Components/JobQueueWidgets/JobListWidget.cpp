@@ -147,7 +147,7 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
     QModelIndex item_index = m_listView->indexAt(pnt);
     if(item_index.isValid()) {
         const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(item_index);
-        if(jobItem->getStatus() == JobItem::Idle) {
+        if(jobItem->getStatus() != JobItem::Completed && jobItem->getStatus() != JobItem::Failed) {
             menu.addAction(m_runJobAction);
         }
     }

@@ -4,8 +4,12 @@
 #include "OutputDataItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
+#include "InstrumentItem.h"
 #include "GUIHelpers.h"
 #include "Simulation.h"
+#include "AngleProperty.h"
+#include "DetectorItems.h"
+#include "InstrumentItem.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
 #include <QTimer>
@@ -81,11 +85,32 @@ void JobItem::setResults(const Simulation *simulation)
         OutputDataItem *dataItem = new OutputDataItem();
         m_data_items.append(dataItem);
         connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
+
     }
 
-    qDebug() << "JobItem::setResults()" << m_data_items.front();
+    OutputDataItem *outputDataItem = m_data_items.front();
 
-    m_data_items.front()->setOutputData(simulation->getIntensityData());
+    // propagatind angle units to OutputDataItem
+    if(m_instrumentModel) {
+        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(m_instrumentModel->getInstrumentMap().begin().value());
+        qDebug() << instrumentItem->modelType();
+        Q_ASSERT(instrumentItem);
+        DetectorItem *detectorItem = instrumentItem->getDetectorItem();
+        Q_ASSERT(detectorItem);
+        ParameterizedItem *subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+        Q_ASSERT(subDetector);
+
+        if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+            AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
+            if(angle_property.inDegrees())
+                outputDataItem->setAxesUnits("Degrees");
+        }
+
+    }
+
+    qDebug() << "JobItem::setResults()" << outputDataItem;
+
+    outputDataItem->setOutputData(simulation->getIntensityData());
 }
 
 

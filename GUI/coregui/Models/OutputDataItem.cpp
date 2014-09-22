@@ -18,6 +18,7 @@ OutputDataItem::OutputDataItem()
     , m_is_interpolated(true)
     , m_xaxis_title("x-axis")
     , m_yaxis_title("y-axis")
+    , m_axes_units("Radians")
 {
 
 }
@@ -34,12 +35,22 @@ void OutputDataItem::setOutputData(OutputData<double> *data)
         qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
         delete m_data;
         m_data = data;
-        m_xaxis_title = QString(data->getAxis(0)->getName().c_str());
-        m_yaxis_title = QString(data->getAxis(1)->getName().c_str());
+        if(axesInRadians()) {
+            m_xaxis_title = QString(data->getAxis(0)->getName().c_str())+QString(" [rad]");
+            m_yaxis_title = QString(data->getAxis(1)->getName().c_str())+QString(" [rad]");
+        } else {
+            m_xaxis_title = QString(data->getAxis(0)->getName().c_str())+QString(" [deg]");
+            m_yaxis_title = QString(data->getAxis(1)->getName().c_str())+QString(" [deg]");
+        }
 //        emit modified();
         qDebug() << "OutputDataItem::setOutputData() -> emitting intensity modified";
         emit intensityModified();
-//    }
+        //    }
+}
+
+bool OutputDataItem::axesInRadians() const
+{
+    return m_axes_units == QString("Radians");
 }
 
 
@@ -142,7 +153,10 @@ void OutputDataItem::setYaxisTitle(QString ytitle)
     }
 }
 
-
+void OutputDataItem::setAxesUnits(const QString &units)
+{
+    m_axes_units = units;
+}
 
 void OutputDataItem::writeTo(QXmlStreamWriter *writer)
 {

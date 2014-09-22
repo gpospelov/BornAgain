@@ -28,7 +28,6 @@ public:
 public slots:
     void onRunSimulation();
     void onPythonJobLaunched();
-    void onJobFinished();
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);

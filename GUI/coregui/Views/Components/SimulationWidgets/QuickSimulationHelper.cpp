@@ -3,6 +3,7 @@
 #include "Instrument.h"
 #include "MultiLayer.h"
 #include "SampleModel.h"
+#include "MultiLayerItem.h"
 #include "InstrumentModel.h"
 #include "DomainObjectBuilder.h"
 #include "ParameterizedItem.h"

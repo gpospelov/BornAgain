@@ -62,6 +62,7 @@ void JobRunner::start()
         }
 
         if(m_terminate_request_flag) m_progress=-1;
+
         emit progressUpdate();
         emit finished();
     } else {

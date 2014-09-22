@@ -7,6 +7,7 @@
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "QuickSimulationHelper.h"
+#include "SampleValidator.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -177,22 +178,13 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-//    Simulation *p_sim = QuickSimulationHelper::getSimulation(jobSampleModel, jobInstrumentModel);
-//    if(runPolicySelectionBox->currentText() == "Immediately") {
-////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
-//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunImmediately);
-//    } else if(runPolicySelectionBox->currentText() == "In background") {
-////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
-//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::RunInBackground);
-//    } else if(runPolicySelectionBox->currentText() == "Submit only") {
-////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
-//    } else {
-////        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
-//        m_jobQueueModel->addJob("xxx", p_sim, JobItem::SubmitOnly);
-//    }
+    SampleValidator sampleValidator;
+    if(!sampleValidator.isVaildSampleModel(jobSampleModel)) {
+        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+                             sampleValidator.getValidationMessage());
+        return;
+    }
 
-    qDebug() << "runPolicySelectionBox->currentText()" << runPolicySelectionBox->currentText();
     JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
     m_jobQueueModel->addJob(jobItem);
 }
@@ -223,12 +215,6 @@ void SimulationSetupWidget::onPythonJobLaunched()
 //    m_jobQueueModel->runJob(identifier);
 }
 
-
-void SimulationSetupWidget::onJobFinished()
-{
-    QMessageBox::information(this, tr("Simulation Job Finished"),
-                             tr("A simulation job has finished."));
-}
 
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)

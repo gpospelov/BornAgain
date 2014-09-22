@@ -127,6 +127,7 @@ void JobItem::writeTo(QXmlStreamWriter *writer)
     writer->writeAttribute(JobQueueXML::JobStatusAttribute, QString::number((int)getStatus()));
     writer->writeAttribute(JobQueueXML::JobBeginTimeAttribute, getBeginTime());
     writer->writeAttribute(JobQueueXML::JobEndTimeAttribute, getEndTime());
+    writer->writeAttribute(JobQueueXML::JobProgressAttribute, QString::number((int)getProgress()));
     writer->writeAttribute(JobQueueXML::JobCommentsAttribute, getComments());
     foreach(OutputDataItem *item, m_data_items) {
         item->writeTo(writer);
@@ -161,6 +162,8 @@ void JobItem::readFrom(QXmlStreamReader *reader)
             .value(JobQueueXML::JobStatusAttribute).toInt());
     setStatus(status);
 
+    setProgress(reader->attributes()
+                .value(JobQueueXML::JobProgressAttribute).toInt());
 
     while (!reader->atEnd()) {
         reader->readNext();

@@ -29,6 +29,7 @@ namespace JobQueueXML
     const QString JobEndTimeAttribute("EndTime");
     const QString JobCommentsAttribute("Comments");
     const QString JobStatusAttribute("Status");
+    const QString JobProgressAttribute("Progress");
     const QString OutputDataTag("OutputData");
     const QString OutputDataNameAttribute("Name");
     const QString OutputDataXminAttribute("Xmin");

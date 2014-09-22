@@ -330,13 +330,22 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 //! generates job name
 QString JobQueueData::generateJobName()
 {
+    m_job_index = 0;
+    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
+        QString jobName = it.value()->getName();
+        if(jobName.startsWith("job")) {
+            int job_index = jobName.remove(0,3).toInt();
+            if(job_index > m_job_index) m_job_index = job_index;
+        }
+    }
+
     return QString("job")+QString::number(++m_job_index);
 }
 
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
-{
+{    
     return QUuid::createUuid().toString();
 }
 

@@ -205,7 +205,9 @@ void JobOutputDataWidget::onJobItemDelete(JobItem *item)
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget ) {
-        throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
+        // this is the case when user removes failed job without the widget
+        //throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
+        return;
     }
 
     QMap<JobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();

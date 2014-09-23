@@ -17,8 +17,24 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
+set(source_files
+    main.cpp
+)
+
+set(include_files)
+
+    message("XXXXX ${BORNAGAIN_CRASHHADLER}")
+# MH: disabled crashhandler
+#if(BORNAGAIN_CRASHHADLER)
+#    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
+#    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
+#    list(APPEND source_files stacktracesetup.cpp)
+#    list(APPEND include_files stacktracesetup.h)
+#endif()
+
+
 if(APPLE AND CREATE_BUNDLE)
-  add_executable(${executable_name} MACOSX_BUNDLE main.cpp)
+  add_executable(${executable_name} MACOSX_BUNDLE ${source_files} ${include_files})
   get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
   add_library(Python SHARED IMPORTED)
   set_property(TARGET Python PROPERTY IMPORTED_LOCATION ${PYTHON_REAL_LIBRARY})
@@ -35,7 +51,7 @@ if(APPLE AND CREATE_BUNDLE)
     Python
   )
 else()
-  add_executable(${executable_name} main.cpp)
+  add_executable(${executable_name} ${source_files} ${include_files})
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}
@@ -86,6 +102,7 @@ IF(APPLE AND CREATE_BUNDLE)
     "$ENV{QTDIR}"
     "$ENV{QTDIR}/plugins"
   )
+
 
   install (TARGETS ${executable_name}
     BUNDLE DESTINATION  . COMPONENT Applications

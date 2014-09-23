@@ -55,7 +55,8 @@ void CrashHandlerDialog::onCopyButtonClicked()
 
 void CrashHandlerDialog::onReportButtonClicked()
 {
-
+    QUrl url(tr("http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues/new"));
+    QDesktopServices::openUrl(url);
 }
 
 void CrashHandlerDialog::onCloseButtonClicked()

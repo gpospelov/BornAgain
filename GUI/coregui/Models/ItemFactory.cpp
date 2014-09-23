@@ -34,6 +34,7 @@
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
+#include "FitParameterItem.h"
 #include <QDebug>
 
 namespace {
@@ -108,6 +109,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
+
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
 
     return result;
 }

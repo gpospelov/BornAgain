@@ -29,6 +29,7 @@ class MaterialEditor;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
+class FitModel;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -81,12 +82,14 @@ private:
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
+    FitModel *m_fitModel;
 
     void initModels();
     void initMaterialModel();
     void initSampleModel();
     void initJobQueueModel();
     void initInstrumentModel();
+    void initFitModel();
 
     void updateSimModel();
     void updateSamples();

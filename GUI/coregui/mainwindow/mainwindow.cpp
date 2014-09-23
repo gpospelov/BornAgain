@@ -40,6 +40,9 @@
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
 #include "JobView.h"
+#include "FitModel.h"
+#include "FitParameterItem.h"
+//#include "TestView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -68,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_fitModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -233,6 +237,8 @@ void MainWindow::initModels()
     initJobQueueModel();
 
     initInstrumentModel();
+
+    initFitModel();
 }
 
 
@@ -298,6 +304,23 @@ void MainWindow::initInstrumentModel()
 //    qDebug() << tt->m_data;
 
     //m_instrumentModel->save("instrument.xml");
+}
+
+void MainWindow::initFitModel()
+{
+    m_fitModel = new FitModel;
+
+    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
+    item1->setItemName("par1");
+    item1->setRegisteredProperty(FitParameterItem::P_MIN, 3.0);
+
+    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    item2->setItemName("par2");
+
+    m_fitModel->save("fitmodel.xml");
+
+
+    ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }
 
 

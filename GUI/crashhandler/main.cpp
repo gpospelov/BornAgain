@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
 
-    CrashHandlerDialog dialog;
+    CrashHandlerDialog dialog("This is the error!!!");
     dialog.show();
 
     return app.exec();

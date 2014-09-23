@@ -1,6 +1,6 @@
-#include "crashhandlersetup.h"
+
 #include "mainwindow.h"
-#include "stacktracesetup.h"
+
 #include <QApplication>
 #include <QDebug>
 #include <iostream>
@@ -11,8 +11,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 
-
-    setupCrashHandler();
 
 
     MainWindow w;
@@ -32,6 +30,5 @@ int main(int argc, char *argv[])
 
     const int r = a.exec();
 
-    cleanupCrashHandler();
     return r;
 }

@@ -20,14 +20,14 @@ file(GLOB include_files
     "*.h"
 )
 
-set(ui_files
-    crashhandlerdialog.ui
-)
+#set(ui_files
+#    crashhandlerdialog.ui
+#)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-qt5_wrap_ui(UI_HDRS ${ui_files})
+#qt5_wrap_ui(UI_HDRS ${ui_files})
 
 
 add_executable(${executable_name} ${source_files} ${include_files} ${UI_HDRS})

@@ -24,13 +24,13 @@ set(source_files
 set(include_files)
 
     message("XXXXX ${BORNAGAIN_CRASHHADLER}")
-
-if(BORNAGAIN_CRASHHADLER)
-    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
-    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
-    list(APPEND source_files stacktracesetup.cpp)
-    list(APPEND include_files stacktracesetup.h)
-endif()
+# MH: disabled crashhandler
+#if(BORNAGAIN_CRASHHADLER)
+#    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
+#    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
+#    list(APPEND source_files stacktracesetup.cpp)
+#    list(APPEND include_files stacktracesetup.h)
+#endif()
 
 
 if(APPLE AND CREATE_BUNDLE)

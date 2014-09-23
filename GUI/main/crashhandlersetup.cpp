@@ -49,7 +49,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <sys/prctl.h>
+//#include <sys/prctl.h>
 
 // Enable compilation with older header that doesn't contain this constant
 // for running on newer libraries that do support it
@@ -80,7 +80,7 @@ extern "C" void signalHandler(int signal)
         execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), (char *) 0);
         _exit(EXIT_FAILURE);
     default: // parent
-        prctl(PR_SET_PTRACER, pid, 0, 0, 0);
+//        prctl(PR_SET_PTRACER, pid, 0, 0, 0);
         waitpid(pid, 0, 0);
         _exit(EXIT_FAILURE);
         break;

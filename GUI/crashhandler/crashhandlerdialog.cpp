@@ -1,186 +1,442 @@
-/**************************************************************************
-**
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
-**
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 2.1 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL included in the
-** packaging of this file.  Please review the following information to
-** ensure the GNU Lesser General Public License version 2.1 requirements
-** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
-**
-** In addition, as a special exception, Digia gives you certain additional
-** rights.  These rights are described in the Digia Qt LGPL Exception
-** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
-**
-****************************************************************************/
-
 #include "crashhandlerdialog.h"
-#include "crashhandler.h"
-#include "ui_crashhandlerdialog.h"
-#include "utils.h"
+#include <QtWidgets>
 
-//#include <app/app_version.h>
-//#include <utils/checkablemessagebox.h>
 
-#include <QClipboard>
-#include <QIcon>
-#include <QSettings>
-#include <QDebug>
+#define MESSAGE \
+    CrashHandlerDialog::tr("<p>Message boxes have a caption, a text, " \
+               "and any number of buttons, each with standard or custom texts." \
+               "<p>Click a button to close the message box. Pressing the Esc button " \
+               "will activate the detected escape button (if any).")
+#define MESSAGE_DETAILS \
+    CrashHandlerDialog::tr("If a message box has detailed text, the user can reveal it " \
+               "by pressing the Show Details... button.")
 
-static const char SettingsApplication[] = "BornAgain";
-static const char SettingsKeySkipWarningAbortingBacktrace[]
-    = "CrashHandler/SkipWarningAbortingBacktrace";
-
-CrashHandlerDialog::CrashHandlerDialog(CrashHandler *handler, const QString &signalName,
-                                       QWidget *parent) :
-    QDialog(parent),
-    m_crashHandler(handler),
-    m_ui(new Ui::CrashHandlerDialog)
+class DialogOptionsWidget : public QGroupBox
 {
-    m_ui->setupUi(this);
-    m_ui->introLabel->setTextFormat(Qt::RichText);
-    m_ui->introLabel->setOpenExternalLinks(true);
-    m_ui->debugInfoEdit->setReadOnly(true);
-    m_ui->progressBar->setMinimum(0);
-    m_ui->progressBar->setMaximum(0);
+public:
+    explicit DialogOptionsWidget(QWidget *parent = 0);
 
-    const QStyle * const style = QApplication::style();
-    m_ui->closeButton->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
+    void addCheckBox(const QString &text, int value);
+    void addSpacer();
+    int value() const;
 
-    const int iconSize = style->pixelMetric(QStyle::PM_MessageBoxIconSize, 0);
-    QIcon icon = style->standardIcon(QStyle::SP_MessageBoxCritical);
-    m_ui->iconLabel->setPixmap(icon.pixmap(iconSize, iconSize));
+private:
+    typedef QPair<QCheckBox *, int> CheckBoxEntry;
+    QVBoxLayout *layout;
+    QList<CheckBoxEntry> checkBoxEntries;
+};
 
-    connect(m_ui->copyToClipBoardButton, SIGNAL(clicked()), this, SLOT(copyToClipboardClicked()));
-    connect(m_ui->reportBugButton, SIGNAL(clicked()), m_crashHandler, SLOT(openBugTracker()));
-    connect(m_ui->debugAppButton, SIGNAL(clicked()), m_crashHandler, SLOT(debugApplication()));
-    connect(m_ui->closeButton, SIGNAL(clicked()), this, SLOT(close()));
-
-    setApplicationInfo(signalName);
+DialogOptionsWidget::DialogOptionsWidget(QWidget *parent) :
+    QGroupBox(parent) , layout(new QVBoxLayout)
+{
+    setTitle(CrashHandlerDialog::tr("Options"));
+    setLayout(layout);
 }
 
-CrashHandlerDialog::~CrashHandlerDialog()
+void DialogOptionsWidget::addCheckBox(const QString &text, int value)
 {
-    delete m_ui;
+    QCheckBox *checkBox = new QCheckBox(text);
+    layout->addWidget(checkBox);
+    checkBoxEntries.append(CheckBoxEntry(checkBox, value));
 }
 
-bool CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished()
+void DialogOptionsWidget::addSpacer()
 {
-    /*
-    // Check settings.
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
-        QLatin1String(Core::Constants::IDE_SETTINGSVARIANT_STR),
-        QLatin1String(SettingsApplication));
-    if (settings.value(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), false).toBool())
-        return true;
-
-    // Ask user.
-    const QString title = tr("Run Debugger And Abort Collecting Backtrace?");
-    const QString message = tr(
-        "<html><head/><body>"
-          "<p><b>Run the debugger and abort collecting backtrace?</b></p>"
-          "<p>You have requested to run the debugger while collecting the backtrace was not "
-          "finished.</p>"
-        "</body></html>");
-    const QString checkBoxText = tr("Do not &ask again.");
-    bool checkBoxSetting = false;
-    const QDialogButtonBox::StandardButton button = Utils::CheckableMessageBox::question(this,
-        title, message, checkBoxText, &checkBoxSetting,
-        QDialogButtonBox::Yes|QDialogButtonBox::No, QDialogButtonBox::No);
-    if (checkBoxSetting)
-        settings.setValue(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), checkBoxSetting);
-
-    return button == QDialogButtonBox::Yes;
-    */
-    qDebug() << "CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished() -> XXX";
-    return true;
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding));
 }
 
-void CrashHandlerDialog::setToFinalState()
+int DialogOptionsWidget::value() const
 {
-    m_ui->progressBar->hide();
-    m_ui->copyToClipBoardButton->setEnabled(true);
-    m_ui->reportBugButton->setEnabled(true);
+    int result = 0;
+    foreach (const CheckBoxEntry &checkboxEntry, checkBoxEntries)
+        if (checkboxEntry.first->isChecked())
+            result |= checkboxEntry.second;
+    return result;
 }
 
-void CrashHandlerDialog::disableRestartAppCheckBox()
+CrashHandlerDialog::CrashHandlerDialog(QWidget *parent)
+    : QWidget(parent)
 {
-    m_ui->restartAppCheckBox->setDisabled(true);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    QToolBox *toolbox = new QToolBox;
+    mainLayout->addWidget(toolbox);
+
+    errorMessageDialog = new QErrorMessage(this);
+
+    int frameStyle = QFrame::Sunken | QFrame::Panel;
+
+    integerLabel = new QLabel;
+    integerLabel->setFrameStyle(frameStyle);
+    QPushButton *integerButton =
+            new QPushButton(tr("QInputDialog::get&Int()"));
+
+    doubleLabel = new QLabel;
+    doubleLabel->setFrameStyle(frameStyle);
+    QPushButton *doubleButton =
+            new QPushButton(tr("QInputDialog::get&Double()"));
+
+    itemLabel = new QLabel;
+    itemLabel->setFrameStyle(frameStyle);
+    QPushButton *itemButton = new QPushButton(tr("QInputDialog::getIte&m()"));
+
+    textLabel = new QLabel;
+    textLabel->setFrameStyle(frameStyle);
+    QPushButton *textButton = new QPushButton(tr("QInputDialog::get&Text()"));
+
+    multiLineTextLabel = new QLabel;
+    multiLineTextLabel->setFrameStyle(frameStyle);
+    QPushButton *multiLineTextButton = new QPushButton(tr("QInputDialog::get&MultiLineText()"));
+
+    colorLabel = new QLabel;
+    colorLabel->setFrameStyle(frameStyle);
+    QPushButton *colorButton = new QPushButton(tr("QColorDialog::get&Color()"));
+
+    fontLabel = new QLabel;
+    fontLabel->setFrameStyle(frameStyle);
+    QPushButton *fontButton = new QPushButton(tr("QFontDialog::get&Font()"));
+
+    directoryLabel = new QLabel;
+    directoryLabel->setFrameStyle(frameStyle);
+    QPushButton *directoryButton =
+            new QPushButton(tr("QFileDialog::getE&xistingDirectory()"));
+
+    openFileNameLabel = new QLabel;
+    openFileNameLabel->setFrameStyle(frameStyle);
+    QPushButton *openFileNameButton =
+            new QPushButton(tr("QFileDialog::get&OpenFileName()"));
+
+    openFileNamesLabel = new QLabel;
+    openFileNamesLabel->setFrameStyle(frameStyle);
+    QPushButton *openFileNamesButton =
+            new QPushButton(tr("QFileDialog::&getOpenFileNames()"));
+
+    saveFileNameLabel = new QLabel;
+    saveFileNameLabel->setFrameStyle(frameStyle);
+    QPushButton *saveFileNameButton =
+            new QPushButton(tr("QFileDialog::get&SaveFileName()"));
+
+    criticalLabel = new QLabel;
+    criticalLabel->setFrameStyle(frameStyle);
+    QPushButton *criticalButton =
+            new QPushButton(tr("QMessageBox::critica&l()"));
+
+    informationLabel = new QLabel;
+    informationLabel->setFrameStyle(frameStyle);
+    QPushButton *informationButton =
+            new QPushButton(tr("QMessageBox::i&nformation()"));
+
+    questionLabel = new QLabel;
+    questionLabel->setFrameStyle(frameStyle);
+    QPushButton *questionButton =
+            new QPushButton(tr("QMessageBox::&question()"));
+
+    warningLabel = new QLabel;
+    warningLabel->setFrameStyle(frameStyle);
+    QPushButton *warningButton = new QPushButton(tr("QMessageBox::&warning()"));
+
+    errorLabel = new QLabel;
+    errorLabel->setFrameStyle(frameStyle);
+    QPushButton *errorButton =
+            new QPushButton(tr("QErrorMessage::showM&essage()"));
+
+    connect(integerButton, SIGNAL(clicked()), this, SLOT(setInteger()));
+    connect(doubleButton, SIGNAL(clicked()), this, SLOT(setDouble()));
+    connect(itemButton, SIGNAL(clicked()), this, SLOT(setItem()));
+    connect(textButton, SIGNAL(clicked()), this, SLOT(setText()));
+    connect(multiLineTextButton, SIGNAL(clicked()), this, SLOT(setMultiLineText()));
+    connect(colorButton, SIGNAL(clicked()), this, SLOT(setColor()));
+    connect(fontButton, SIGNAL(clicked()), this, SLOT(setFont()));
+    connect(directoryButton, SIGNAL(clicked()),
+            this, SLOT(setExistingDirectory()));
+    connect(openFileNameButton, SIGNAL(clicked()),
+            this, SLOT(setOpenFileName()));
+    connect(openFileNamesButton, SIGNAL(clicked()),
+            this, SLOT(setOpenFileNames()));
+    connect(saveFileNameButton, SIGNAL(clicked()),
+            this, SLOT(setSaveFileName()));
+    connect(criticalButton, SIGNAL(clicked()), this, SLOT(criticalMessage()));
+    connect(informationButton, SIGNAL(clicked()),
+            this, SLOT(informationMessage()));
+    connect(questionButton, SIGNAL(clicked()), this, SLOT(questionMessage()));
+    connect(warningButton, SIGNAL(clicked()), this, SLOT(warningMessage()));
+    connect(errorButton, SIGNAL(clicked()), this, SLOT(errorMessage()));
+
+    QWidget *page = new QWidget;
+    QGridLayout *layout = new QGridLayout(page);
+    layout->setColumnStretch(1, 1);
+    layout->setColumnMinimumWidth(1, 250);
+    layout->addWidget(integerButton, 0, 0);
+    layout->addWidget(integerLabel, 0, 1);
+    layout->addWidget(doubleButton, 1, 0);
+    layout->addWidget(doubleLabel, 1, 1);
+    layout->addWidget(itemButton, 2, 0);
+    layout->addWidget(itemLabel, 2, 1);
+    layout->addWidget(textButton, 3, 0);
+    layout->addWidget(textLabel, 3, 1);
+    layout->addWidget(multiLineTextButton, 4, 0);
+    layout->addWidget(multiLineTextLabel, 4, 1);
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding), 5, 0);
+    toolbox->addItem(page, tr("Input Dialogs"));
+
+    const QString doNotUseNativeDialog = tr("Do not use native dialog");
+
+    page = new QWidget;
+    layout = new QGridLayout(page);
+    layout->setColumnStretch(1, 1);
+    layout->addWidget(colorButton, 0, 0);
+    layout->addWidget(colorLabel, 0, 1);
+    colorDialogOptionsWidget = new DialogOptionsWidget;
+    colorDialogOptionsWidget->addCheckBox(doNotUseNativeDialog, QColorDialog::DontUseNativeDialog);
+    colorDialogOptionsWidget->addCheckBox(tr("Show alpha channel") , QColorDialog::ShowAlphaChannel);
+    colorDialogOptionsWidget->addCheckBox(tr("No buttons") , QColorDialog::NoButtons);
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding), 1, 0);
+    layout->addWidget(colorDialogOptionsWidget, 2, 0, 1 ,2);
+
+    toolbox->addItem(page, tr("Color Dialog"));
+
+    page = new QWidget;
+    layout = new QGridLayout(page);
+    layout->setColumnStretch(1, 1);
+    layout->addWidget(fontButton, 0, 0);
+    layout->addWidget(fontLabel, 0, 1);
+    fontDialogOptionsWidget = new DialogOptionsWidget;
+    fontDialogOptionsWidget->addCheckBox(doNotUseNativeDialog, QFontDialog::DontUseNativeDialog);
+    fontDialogOptionsWidget->addCheckBox(tr("No buttons") , QFontDialog::NoButtons);
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding), 1, 0);
+    layout->addWidget(fontDialogOptionsWidget, 2, 0, 1 ,2);
+    toolbox->addItem(page, tr("Font Dialog"));
+
+    page = new QWidget;
+    layout = new QGridLayout(page);
+    layout->setColumnStretch(1, 1);
+    layout->addWidget(directoryButton, 0, 0);
+    layout->addWidget(directoryLabel, 0, 1);
+    layout->addWidget(openFileNameButton, 1, 0);
+    layout->addWidget(openFileNameLabel, 1, 1);
+    layout->addWidget(openFileNamesButton, 2, 0);
+    layout->addWidget(openFileNamesLabel, 2, 1);
+    layout->addWidget(saveFileNameButton, 3, 0);
+    layout->addWidget(saveFileNameLabel, 3, 1);
+    fileDialogOptionsWidget = new DialogOptionsWidget;
+    fileDialogOptionsWidget->addCheckBox(doNotUseNativeDialog, QFileDialog::DontUseNativeDialog);
+    fileDialogOptionsWidget->addCheckBox(tr("Show directories only"), QFileDialog::ShowDirsOnly);
+    fileDialogOptionsWidget->addCheckBox(tr("Do not resolve symlinks"), QFileDialog::DontResolveSymlinks);
+    fileDialogOptionsWidget->addCheckBox(tr("Do not confirm overwrite"), QFileDialog::DontConfirmOverwrite);
+    fileDialogOptionsWidget->addCheckBox(tr("Do not use sheet"), QFileDialog::DontUseSheet);
+    fileDialogOptionsWidget->addCheckBox(tr("Readonly"), QFileDialog::ReadOnly);
+    fileDialogOptionsWidget->addCheckBox(tr("Hide name filter details"), QFileDialog::HideNameFilterDetails);
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding), 4, 0);
+    layout->addWidget(fileDialogOptionsWidget, 5, 0, 1 ,2);
+    toolbox->addItem(page, tr("File Dialogs"));
+
+    page = new QWidget;
+    layout = new QGridLayout(page);
+    layout->setColumnStretch(1, 1);
+    layout->addWidget(criticalButton, 0, 0);
+    layout->addWidget(criticalLabel, 0, 1);
+    layout->addWidget(informationButton, 1, 0);
+    layout->addWidget(informationLabel, 1, 1);
+    layout->addWidget(questionButton, 2, 0);
+    layout->addWidget(questionLabel, 2, 1);
+    layout->addWidget(warningButton, 3, 0);
+    layout->addWidget(warningLabel, 3, 1);
+    layout->addWidget(errorButton, 4, 0);
+    layout->addWidget(errorLabel, 4, 1);
+    layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding), 5, 0);
+    toolbox->addItem(page, tr("Message Boxes"));
+
+    setWindowTitle(tr("Standard Dialogs"));
 }
 
-void CrashHandlerDialog::disableDebugAppButton()
+void CrashHandlerDialog::setInteger()
 {
-    m_ui->debugAppButton->setDisabled(true);
+    bool ok;
+    int i = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
+                                 tr("Percentage:"), 25, 0, 100, 1, &ok);
+    if (ok)
+        integerLabel->setText(tr("%1%").arg(i));
 }
 
-void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
+void CrashHandlerDialog::setDouble()
 {
-    const QString ideName = QLatin1String("BornAgain");
-    const QString title = tr("%1 has closed unexpectedly (Signal \"%2\")").arg(ideName, signalName);
-    const QString introLabelContents = tr(
-        "<p><b>%1.</b></p>"
-        "<p>Please file a <a href='%2'>bug report</a> with the debug information provided below.</p>")
-        .arg(title, QLatin1String(URL_BUGTRACKER));
-    m_ui->introLabel->setText(introLabelContents);
-    setWindowTitle(title);
-
-    QString revision;
-#ifdef IDE_REVISION
-     revision = QLatin1Char(' ') + tr("from revision %1").arg(QString::fromLatin1(Core::Constants::IDE_REVISION_STR).left(10));
-#endif
-//    const QString versionInformation = tr(
-//        "%1 %2%3, built on %4 at %5, based on Qt %6 (%7 bit)\n")
-//            .arg(ideName, QLatin1String(Core::Constants::IDE_VERSION_LONG), revision,
-//                 QLatin1String(__DATE__), QLatin1String(__TIME__), QLatin1String(QT_VERSION_STR),
-//                 QString::number(QSysInfo::WordSize));
-     const QString versionInformation = "XXX_versionInformation";
-    m_ui->debugInfoEdit->append(versionInformation);
+    bool ok;
+    double d = QInputDialog::getDouble(this, tr("QInputDialog::getDouble()"),
+                                       tr("Amount:"), 37.56, -10000, 10000, 2, &ok);
+    if (ok)
+        doubleLabel->setText(QString("$%1").arg(d));
 }
 
-void CrashHandlerDialog::appendDebugInfo(const QString &chunk)
+void CrashHandlerDialog::setItem()
 {
-    m_ui->debugInfoEdit->append(chunk);
+    QStringList items;
+    items << tr("Spring") << tr("Summer") << tr("Fall") << tr("Winter");
+
+    bool ok;
+    QString item = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),
+                                         tr("Season:"), items, 0, false, &ok);
+    if (ok && !item.isEmpty())
+        itemLabel->setText(item);
 }
 
-void CrashHandlerDialog::selectLineWithContents(const QString &text)
+void CrashHandlerDialog::setText()
 {
-    // The selected line will be the first line visible.
-
-    // Go to end.
-    QTextCursor cursor = m_ui->debugInfoEdit->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->debugInfoEdit->setTextCursor(cursor);
-
-    // Find text by searching backwards.
-    m_ui->debugInfoEdit->find(text, QTextDocument::FindCaseSensitively | QTextDocument::FindBackward);
-
-    // Highlight whole line.
-    cursor = m_ui->debugInfoEdit->textCursor();
-    cursor.select(QTextCursor::LineUnderCursor);
-    m_ui->debugInfoEdit->setTextCursor(cursor);
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                         tr("User name:"), QLineEdit::Normal,
+                                         QDir::home().dirName(), &ok);
+    if (ok && !text.isEmpty())
+        textLabel->setText(text);
 }
 
-void CrashHandlerDialog::copyToClipboardClicked()
+void CrashHandlerDialog::setMultiLineText()
 {
-    QApplication::clipboard()->setText(m_ui->debugInfoEdit->toPlainText());
+    bool ok;
+    QString text = QInputDialog::getMultiLineText(this, tr("QInputDialog::getMultiLineText()"),
+                                                  tr("Address:"), "John Doe\nFreedom Street", &ok);
+    if (ok && !text.isEmpty())
+        multiLineTextLabel->setText(text);
 }
 
-void CrashHandlerDialog::close()
+void CrashHandlerDialog::setColor()
 {
-    if (m_ui->restartAppCheckBox->isEnabled() && m_ui->restartAppCheckBox->isChecked())
-        m_crashHandler->restartApplication();
-    qApp->quit();
+    const QColorDialog::ColorDialogOptions options = QFlag(colorDialogOptionsWidget->value());
+    const QColor color = QColorDialog::getColor(Qt::green, this, "Select Color", options);
+
+    if (color.isValid()) {
+        colorLabel->setText(color.name());
+        colorLabel->setPalette(QPalette(color));
+        colorLabel->setAutoFillBackground(true);
+    }
+}
+
+void CrashHandlerDialog::setFont()
+{
+    const QFontDialog::FontDialogOptions options = QFlag(fontDialogOptionsWidget->value());
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, QFont(fontLabel->text()), this, "Select Font", options);
+    if (ok) {
+        fontLabel->setText(font.key());
+        fontLabel->setFont(font);
+    }
+}
+
+void CrashHandlerDialog::setExistingDirectory()
+{
+    QFileDialog::Options options = QFlag(fileDialogOptionsWidget->value());
+    options |= QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this,
+                                tr("QFileDialog::getExistingDirectory()"),
+                                directoryLabel->text(),
+                                options);
+    if (!directory.isEmpty())
+        directoryLabel->setText(directory);
+}
+
+void CrashHandlerDialog::setOpenFileName()
+{
+    const QFileDialog::Options options = QFlag(fileDialogOptionsWidget->value());
+    QString selectedFilter;
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                tr("QFileDialog::getOpenFileName()"),
+                                openFileNameLabel->text(),
+                                tr("All Files (*);;Text Files (*.txt)"),
+                                &selectedFilter,
+                                options);
+    if (!fileName.isEmpty())
+        openFileNameLabel->setText(fileName);
+}
+
+void CrashHandlerDialog::setOpenFileNames()
+{
+    const QFileDialog::Options options = QFlag(fileDialogOptionsWidget->value());
+    QString selectedFilter;
+    QStringList files = QFileDialog::getOpenFileNames(
+                                this, tr("QFileDialog::getOpenFileNames()"),
+                                openFilesPath,
+                                tr("All Files (*);;Text Files (*.txt)"),
+                                &selectedFilter,
+                                options);
+    if (files.count()) {
+        openFilesPath = files[0];
+        openFileNamesLabel->setText(QString("[%1]").arg(files.join(", ")));
+    }
+}
+
+void CrashHandlerDialog::setSaveFileName()
+{
+    const QFileDialog::Options options = QFlag(fileDialogOptionsWidget->value());
+    QString selectedFilter;
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                tr("QFileDialog::getSaveFileName()"),
+                                saveFileNameLabel->text(),
+                                tr("All Files (*);;Text Files (*.txt)"),
+                                &selectedFilter,
+                                options);
+    if (!fileName.isEmpty())
+        saveFileNameLabel->setText(fileName);
+}
+
+void CrashHandlerDialog::criticalMessage()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::critical(this, tr("QMessageBox::critical()"),
+                                    MESSAGE,
+                                    QMessageBox::Abort | QMessageBox::Retry | QMessageBox::Ignore);
+    if (reply == QMessageBox::Abort)
+        criticalLabel->setText(tr("Abort"));
+    else if (reply == QMessageBox::Retry)
+        criticalLabel->setText(tr("Retry"));
+    else
+        criticalLabel->setText(tr("Ignore"));
+}
+
+void CrashHandlerDialog::informationMessage()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::information(this, tr("QMessageBox::information()"), MESSAGE);
+    if (reply == QMessageBox::Ok)
+        informationLabel->setText(tr("OK"));
+    else
+        informationLabel->setText(tr("Escape"));
+}
+
+void CrashHandlerDialog::questionMessage()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, tr("QMessageBox::question()"),
+                                    MESSAGE,
+                                    QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if (reply == QMessageBox::Yes)
+        questionLabel->setText(tr("Yes"));
+    else if (reply == QMessageBox::No)
+        questionLabel->setText(tr("No"));
+    else
+        questionLabel->setText(tr("Cancel"));
+}
+
+void CrashHandlerDialog::warningMessage()
+{
+    QMessageBox msgBox(QMessageBox::Warning, tr("QMessageBox::warning()"),
+                       MESSAGE, 0, this);
+    msgBox.setDetailedText(MESSAGE_DETAILS);
+    msgBox.addButton(tr("Save &Again"), QMessageBox::AcceptRole);
+    msgBox.addButton(tr("&Continue"), QMessageBox::RejectRole);
+    if (msgBox.exec() == QMessageBox::AcceptRole)
+        warningLabel->setText(tr("Save Again"));
+    else
+        warningLabel->setText(tr("Continue"));
+
+}
+
+void CrashHandlerDialog::errorMessage()
+{
+    errorMessageDialog->showMessage(
+            tr("This dialog shows and remembers error messages. "
+               "If the checkbox is checked (as it is by default), "
+               "the shown message will be shown again, "
+               "but if the user unchecks the box the message "
+               "will not appear again if QErrorMessage::showMessage() "
+               "is called with the same message."));
+    errorLabel->setText(tr("If the box is unchecked, the message "
+                           "won't appear again."));
 }

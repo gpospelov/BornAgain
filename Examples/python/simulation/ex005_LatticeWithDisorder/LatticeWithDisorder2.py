@@ -19,8 +19,8 @@ def get_sample():
 
     # collection of particles
     lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
+    lattice_params.m_length_1 = 25.0*nanometer
+    lattice_params.m_length_2 = 25.0*nanometer
     lattice_params.m_angle = 90.0*degree
     lattice_params.m_xi = 0.0*degree
     interference = InterferenceFunction2DLattice(lattice_params)
@@ -30,12 +30,12 @@ def get_sample():
     particle_layout = ParticleLayout()
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     # particle 2
-    position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
+    position_2 = kvector_t(12.5*nanometer, 12.5*nanometer, 0.0)
     particle_info.setPosition(position_2)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)

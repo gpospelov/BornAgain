@@ -19,8 +19,8 @@ def get_sample():
 
     # collection of particles
     lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
+    lattice_params.m_length_1 = 25.0*nanometer
+    lattice_params.m_length_2 = 25.0*nanometer
     lattice_params.m_angle = 90.0*degree
     lattice_params.m_xi = 30.0*degree
     interference = InterferenceFunction2DLattice(lattice_params)
@@ -28,7 +28,7 @@ def get_sample():
     pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
 
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_layout = ParticleLayout()

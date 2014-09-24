@@ -20,8 +20,8 @@ def get_sample(xi_value):
     substrate_layer = Layer(m_substrate)
 
     lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
+    lattice_params.m_length_1 = 25.0*nanometer
+    lattice_params.m_length_2 = 25.0*nanometer
     lattice_params.m_angle = 90.0*degree
     lattice_params.m_xi = xi_value
     p_interference_function = InterferenceFunction2DLattice(lattice_params)
@@ -30,7 +30,7 @@ def get_sample(xi_value):
 
     particle_layout = ParticleLayout()
     # particle
-    ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
+    ff_cyl = FormFactorCylinder(3.0*nanometer, 3.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
     particle_info = PositionParticleInfo(cylinder, position, 1.0)

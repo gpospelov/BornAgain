@@ -19,7 +19,8 @@
 #include <cassert>
 
 
-LocalMonodisperseApproximationStrategy::LocalMonodisperseApproximationStrategy(SimulationParameters sim_params)
+LocalMonodisperseApproximationStrategy::LocalMonodisperseApproximationStrategy(
+        SimulationParameters sim_params)
 : IInterferenceFunctionStrategy(sim_params)
 {
 }
@@ -30,7 +31,8 @@ void LocalMonodisperseApproximationStrategy::init(
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {
-        throw ClassInitializationException("Wrong number of formfactors or interference functions for Local Monodisperse Approximation.");
+        throw ClassInitializationException("Wrong number of formfactors or"
+            " interference functions for Local Monodisperse Approximation.");
     }
 }
 

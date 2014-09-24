@@ -124,9 +124,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     simulation->setSimulationParameters(sim_params);
 
     simulation->setSample(*multi_layer);

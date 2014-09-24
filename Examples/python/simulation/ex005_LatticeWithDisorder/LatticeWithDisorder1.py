@@ -53,9 +53,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     sim_params= SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
-    sim_params.me_lattice_type = SimulationParameters.LATTICE
     simulation.setSimulationParameters(sim_params)
     return simulation
 

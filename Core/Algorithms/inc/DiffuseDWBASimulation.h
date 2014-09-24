@@ -26,8 +26,9 @@
 class BA_CORE_API_ DiffuseDWBASimulation: public LayerDWBASimulation
 {
 public:
-    DiffuseDWBASimulation()
-        : m_surface_density(1.0) {}
+    DiffuseDWBASimulation(const Layer *p_layer)
+        : LayerDWBASimulation(p_layer)
+        , m_surface_density(1.0) {}
 
     virtual ~DiffuseDWBASimulation() {}
 

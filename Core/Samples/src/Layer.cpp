@@ -139,7 +139,7 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
 {
     if(!mp_layout) return 0;
 
-    DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
+    DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation(this);
     size_t nbr_particles = mp_layout->getNumberOfParticles();
     double particle_density = mp_layout->getTotalParticleSurfaceDensity();
     const IMaterial *p_layer_material = getMaterial();

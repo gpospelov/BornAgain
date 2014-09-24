@@ -14,17 +14,20 @@
 // ************************************************************************** //
 
 #include "LayerDWBASimulation.h"
+#include "Layer.h"
 
 #include <cassert>
 #include <boost/scoped_ptr.hpp>
 
-LayerDWBASimulation::LayerDWBASimulation()
+LayerDWBASimulation::LayerDWBASimulation(const Layer *p_layer)
 : mp_specular_info(0)
 {
+    mp_layer = p_layer->clone();
 }
 
 LayerDWBASimulation::~LayerDWBASimulation()
 {
+    delete mp_layer;
     delete mp_specular_info;
 }
 

@@ -156,12 +156,8 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     // formfactor
     IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
     IFormFactor *p_ff_framework(p_ff_particle);
-    switch (m_sim_params.me_framework)
-    {
-    case SimulationParameters::BA:    // Born Approximation
-        break;
-    case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
-    {
+    size_t n_layers = mp_layer->getNumberOfLayers();
+    if (n_layers>1) {
         double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
@@ -171,10 +167,6 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
                     p_ff_particle, depth);
         }
-        break;
-    }
-    default:
-        throw Exceptions::RuntimeErrorException("Framework must be BA or DWBA");
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance

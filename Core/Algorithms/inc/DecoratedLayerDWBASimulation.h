@@ -42,7 +42,6 @@ public:
 
     virtual void run();
 protected:
-    Layer *mp_layer;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
 private:

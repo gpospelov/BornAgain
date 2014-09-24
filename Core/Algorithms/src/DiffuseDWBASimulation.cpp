@@ -19,6 +19,7 @@
 #include "FormFactorTools.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
+#include "Layer.h"
 
 //! Carry out one simulation thread.
 
@@ -46,8 +47,8 @@ void DiffuseDWBASimulation::run()
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            if (m_sim_params.me_framework==SimulationParameters::DWBA &&
-                    alpha_f<0) {
+            size_t n_layers = mp_layer->getNumberOfLayers();
+            if (n_layers>1 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }

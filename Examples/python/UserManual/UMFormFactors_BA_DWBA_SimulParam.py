@@ -42,10 +42,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree)
     simulation.setBeamParameters(wlgth, alphai, phii)
-    sim_params= SimulationParameters()
-    # Choice between BA and DWBA
-    sim_params.me_framework = SimulationParameters.DWBA
-    simulation.setSimulationParameters(sim_params)
     return simulation
 
 

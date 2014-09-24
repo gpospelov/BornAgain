@@ -13,6 +13,7 @@ SimulationToolBar::SimulationToolBar(QWidget *parent)
     : QToolBar(parent)
 {
     setMovable(false);
+    setMinimumSize(128, 25);
 
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     setIconSize(QSize(size, size));

@@ -3,6 +3,7 @@
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
 #include "JobQueueModel.h"
+#include "JobRealTimeWidget.h"
 #include "mainwindow.h"
 #include "progressbar.h"
 #include <QFrame>
@@ -18,6 +19,7 @@ struct JobViewPrivate
     JobQueueModel *m_jobQueueModel;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
+    JobRealTimeWidget *m_jobRealTimeWidget;
     Manhattan::ProgressBar *m_progressBar; //!< general progress bar
 };
 
@@ -124,6 +126,8 @@ void JobView::resetToDefaultLayout()
         dockWidget->show();
 
     setTrackingEnabled(true);
+
+    onJobViewActivityRequest();
 }
 
 
@@ -150,15 +154,14 @@ void JobView::initWindows()
     m_d->m_jobSelector = new JobSelectorWidget(m_d->m_jobQueueModel, this);
     m_d->m_subWindows[JobListDock] = m_d->m_jobSelector;
 
-    TestView *realTimeWidget = new TestView(this);
-    realTimeWidget->setWindowTitle("RealTimeWidget");
-    realTimeWidget->setObjectName("RealTimeWidget");
-    m_d->m_subWindows[RealTimeDock] = realTimeWidget;
+    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->m_jobQueueModel, this);
+    m_d->m_subWindows[RealTimeDock] = m_d->m_jobRealTimeWidget;
 }
 
 
 void JobView::connectSignals()
 {
+    connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
     connect(m_d->m_jobQueueModel->getJobQueueData(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
     connect(m_d->m_jobQueueModel->getJobQueueData(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest()), this, SLOT(onJobViewActivityRequest()));

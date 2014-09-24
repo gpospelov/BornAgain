@@ -40,7 +40,7 @@
 #include "FancyGroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
-//#include "TestView.h"
+#include "JobView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -58,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_scriptView(0)
     , m_simulationView(0)
     , m_jobQueueView(0)
+    , m_jobView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
@@ -96,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
+    m_jobView = new JobView();
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -104,6 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
+    m_tabWidget->insertTab(JobTabAdv, m_jobView, QIcon(":/images/main_jobqueue.png"), "JobsAdv");
 
 
     m_tabWidget->setCurrentIndex(InstrumentTab);

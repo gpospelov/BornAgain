@@ -37,7 +37,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
     
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, TestViewTab};
+    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, JobTabAdv, TestViewTab};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -69,7 +69,8 @@ private:
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
     JobQueueView * m_jobQueueView;
-    Manhattan::ProgressBar *m_progressBar;
+    JobView *m_jobView;
+    Manhattan::ProgressBar *m_progressBar;    
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects

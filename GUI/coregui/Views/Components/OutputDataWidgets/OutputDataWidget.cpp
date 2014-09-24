@@ -29,9 +29,6 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
     m_isProjectionsVisible = true;
 
 
-
-
-
     m_plotWidget = new PlotWidget();
     connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
     connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));

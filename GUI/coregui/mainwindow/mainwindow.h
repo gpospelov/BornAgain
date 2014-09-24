@@ -17,7 +17,6 @@ class SampleView;
 class PyScriptView;
 class SimulationView;
 class JobView;
-class JobQueueView;
 class Instrument;
 class ISample;
 class ActionManager;
@@ -37,7 +36,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
     
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, JobTabAdv, TestViewTab};
+    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, TestViewTab};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -68,7 +67,6 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
-    JobQueueView * m_jobQueueView;
     JobView *m_jobView;
     Manhattan::ProgressBar *m_progressBar;    
 

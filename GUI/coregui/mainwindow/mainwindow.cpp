@@ -7,7 +7,6 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "JobQueueView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "JobQueueModel.h"
@@ -57,7 +56,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_jobQueueView(0)
     , m_jobView(0)
     , m_progressBar(0)
     , m_actionManager(0)
@@ -95,7 +93,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
-    m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel);
 
@@ -104,9 +101,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
-    m_tabWidget->insertTab(JobTabAdv, m_jobView, QIcon(":/images/main_jobqueue.png"), "JobsAdv");
 
 
     m_tabWidget->setCurrentIndex(InstrumentTab);
@@ -114,7 +110,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
     m_progressBar->hide();
-    m_jobQueueView->setProgressBar(m_progressBar);
+    m_jobView->setProgressBar(m_progressBar);
 
     setCentralWidget(m_tabWidget);
 
@@ -123,7 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
-    connect(m_jobQueueView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
+    connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
 
     //just for test

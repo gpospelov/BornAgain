@@ -59,7 +59,6 @@ def RunSimulation():
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
-    sim_params.me_lattice_type = SimulationParameters.LATTICE
     simulation.setSimulationParameters(sim_params)
 
     # run simulation

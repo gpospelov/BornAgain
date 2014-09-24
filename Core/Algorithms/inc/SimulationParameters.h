@@ -31,7 +31,6 @@ public:
     SimulationParameters();
     enum EFramework { DWBA, BA } me_framework;
     enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR } me_if_approx;
-    enum ELatticeType { NONE, LATTICE, PARA1D, PARA1DFINITE } me_lattice_type;
     bool m_mc_integration;
     size_t m_mc_points;
 };
@@ -39,7 +38,6 @@ public:
 inline SimulationParameters::SimulationParameters()
 : me_framework(DWBA)
 , me_if_approx(DA)
-, me_lattice_type(NONE)
 , m_mc_integration(false)
 , m_mc_points(1)
 {

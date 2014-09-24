@@ -161,7 +161,6 @@ Simulation *StandardSimulations::IsGISAXS06L1()
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
@@ -184,7 +183,6 @@ Simulation *StandardSimulations::IsGISAXS06L2()
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
@@ -207,7 +205,6 @@ Simulation *StandardSimulations::IsGISAXS06L3()
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
@@ -230,7 +227,6 @@ Simulation *StandardSimulations::IsGISAXS06L4()
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
@@ -586,7 +582,6 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );

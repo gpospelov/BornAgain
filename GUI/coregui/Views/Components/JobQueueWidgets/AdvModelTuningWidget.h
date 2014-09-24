@@ -4,6 +4,8 @@
 #include <QWidget>
 class QLabel;
 class JobItem;
+class QuickSimulationSettings;
+class QTreeView;
 
 class AdvModelTuningWidget : public QWidget
 {
@@ -17,8 +19,9 @@ public:
     void setCurrentItem(JobItem *item);
 
 private:
-    QLabel *m_label;
     JobItem *m_currentJobItem;
+    QuickSimulationSettings *m_quickSimulationSettings;
+    QTreeView *m_treeView;
 };
 
 

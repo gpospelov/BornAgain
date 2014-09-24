@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
-    m_jobView = new JobView();
+    m_jobView = new JobView(m_jobQueueModel);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");

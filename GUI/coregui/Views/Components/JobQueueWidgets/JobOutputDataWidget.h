@@ -10,29 +10,39 @@ class JobQueueModel;
 class QStackedWidget;
 class QModelIndex;
 class JobItem;
+class JobOutputDataToolBar;
+
 
 class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobQueueModel *model, QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, QWidget *parent = 0);
 
-    void setModel(JobQueueModel *model);
+    void setJobQueueModel(JobQueueModel *jobQueueModel);
+
+signals:
+    void jobViewActivityRequest();
+    void realTimeActivityRequest();
 
 public slots:
     void itemClicked(JobItem *item);
-    void dataChanged(const QModelIndex &, const QModelIndex &);
     void onJobItemDelete(JobItem *item);
     void onJobItemFinished(const QString &identifier);
+    void togglePropertyPanel();
+    void toggleProjections();
+    void resetTriggered();
+    void savePlot();
 
 private:
+    void connectSignals();
+    OutputDataWidget *getCurrentOutputDataWidget();
+
     JobQueueModel *m_jobQueueModel;
     JobItem *m_currentJobItem;
-
-
     QStackedWidget *m_stack;
     QMap<JobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
-
+    JobOutputDataToolBar *m_toolBar;
 };
 
 

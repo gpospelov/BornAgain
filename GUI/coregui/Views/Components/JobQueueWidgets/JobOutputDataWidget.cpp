@@ -1,6 +1,7 @@
 #include "JobOutputDataWidget.h"
 #include "JobQueueModel.h"
 #include "OutputDataWidget.h"
+#include "JobOutputDataToolBar.h"
 #include "styledbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -8,49 +9,41 @@
 #include <QDebug>
 #include "GUIHelpers.h"
 
-JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *model,QWidget *parent)
+
+JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
     , m_stack(new QStackedWidget(this))
-//    , m_outputDataWidget(new OutputDataWidget(model, this))
+    , m_toolBar(new JobOutputDataToolBar())
 {
-    setModel(model);
+    setJobQueueModel(jobQueueModel);
 
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     setWindowTitle(QLatin1String("Job OutputData"));
     setObjectName(QLatin1String("Job OutputData"));
-//    setStyleSheet("background-color:blue;");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    //Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-    //mainLayout->addWidget(bar);
-//    mainLayout->addWidget(m_outputDataWidget);
+    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_stack);
-
-
-    //m_plotPages->addWidget(new OutputDataWidget(m_jobQueueModel, this));
-    //m_plotPages->addWidget(new OutputDataWidget(m_jobQueueModel, this));
-
     m_stack->setMinimumSize(600, 600);
     m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-
     setLayout(mainLayout);
 
-
+    connectSignals();
 }
 
 
-void JobOutputDataWidget::setModel(JobQueueModel *model)
+void JobOutputDataWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
 {
-    Q_ASSERT(model);
-    if(model != m_jobQueueModel) {
-        m_jobQueueModel = model;
+    Q_ASSERT(jobQueueModel);
+    if(jobQueueModel != m_jobQueueModel) {
+        m_jobQueueModel = jobQueueModel;
 
         connect(m_jobQueueModel,
             SIGNAL( selectionChanged(JobItem *) ),
@@ -58,74 +51,13 @@ void JobOutputDataWidget::setModel(JobQueueModel *model)
             SLOT( itemClicked(JobItem *) )
             );
 
-//        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
-//                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
         connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
                 , this, SLOT(onJobItemFinished(QString)));
 
         connect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
                 , this, SLOT(onJobItemDelete(JobItem*)));
-
     }
 }
-
-
-
-/*void JobOutputDataWidget::itemClicked(JobItem * item)
-{
-    qDebug() << "JobOutputDataWidget::itemClicked()";
-
-    OutputDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget ) {
-        qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new OutputDataWidget(this,true, false);
-        widget->setCurrentItem(item);
-        m_stack->addWidget(widget);
-        m_jobItemToPlotWidget[item] = widget;
-
-    }
-
-    m_stack->setCurrentWidget(widget);
-}
-
-
-void JobOutputDataWidget::dataChanged(const QModelIndex &, const QModelIndex &)
-{
-    //qDebug() << "JobOutputDataWidget::dataChanged()";
-}*/
-
-/*void OutputDataWidget::onModifiedItem(JobItem *jobItem)
-{
-    qDebug() << "OutputDataWidget::onModifiedItem(JobItem *jobItem)";
-    Q_ASSERT(m_currentJobItem == jobItem);
-    setCurrentItem(jobItem);
-}*/
-
-/*void OutputDataWidget::setCurrentItem(JobItem *jobItem)
-{
-    if(m_currentJobItem != jobItem) {
-        m_currentJobItem = jobItem;
-        disconnect();
-        connect(m_currentJobItem, SIGNAL(modified(JobItem*)), this, SLOT(onModifiedItem(JobItem *)));
-    }
-
-    m_outputDataItem = jobItem->getOutputDataItem();
-
-    if(jobItem->getStatus() != JobItem::Completed || !m_outputDataItem || !m_outputDataItem->getOutputData()) {
-        connectPropertyWidgetSignals(false);
-
-
-        return;
-    }
-
-    m_plotWidget->drawPlot(m_outputDataItem);
-    m_propertyWidget->setupPropertyWidget(m_outputDataItem, m_gradient);
-    if(isPropertyWidgetVisible)
-    {
-        connectPropertyWidgetSignals(true);
-    }
-
-}*/
 
 
 void JobOutputDataWidget::itemClicked(JobItem * item)
@@ -140,7 +72,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new OutputDataWidget(this, true, true);
+        widget = new OutputDataWidget(this, false, false);
         widget->setCurrentItem(item->getOutputDataItem());
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
@@ -169,21 +101,6 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
 }
 
 
-void JobOutputDataWidget::dataChanged(const QModelIndex &, const QModelIndex &)
-{
-    /*qDebug() << "JobOutputDataWidget::dataChanged()";
-    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-
-    if(jobItem == m_currentJobItem)
-    {
-        if(jobItem->getStatus() == JobItem::Completed && jobItem->getOutputDataItem())
-        {
-            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-            itemClicked(jobItem);
-        }
-    }*/
-
-}
 void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
 {
     qDebug() << "JobOutputDataWidget::onJobItemFinished()";
@@ -200,12 +117,59 @@ void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
 }
 
 
+void JobOutputDataWidget::togglePropertyPanel()
+{
+    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    if(widget) widget->togglePropertyPanel();
+}
+
+
+void JobOutputDataWidget::toggleProjections()
+{
+    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    if(widget) widget->toggleProjections();
+}
+
+
+void JobOutputDataWidget::resetTriggered()
+{
+    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    if(widget) widget->resetTriggered();
+}
+
+
+void JobOutputDataWidget::savePlot()
+{
+    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    if(widget) widget->savePlot();
+}
+
+
+void JobOutputDataWidget::connectSignals()
+{
+    connect(m_toolBar, SIGNAL(jobViewActivityRequest()), this, SIGNAL(jobViewActivityRequest()));
+    connect(m_toolBar, SIGNAL(realTimeActivityRequest()), this, SIGNAL(realTimeActivityRequest()));
+    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
+    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
+    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(resetTriggered()));
+    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
+}
+
+
+OutputDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
+{
+    OutputDataWidget *result = dynamic_cast<OutputDataWidget *>(m_stack->currentWidget());
+    if(result && result->isHidden()) result = 0;
+    return result;
+}
+
+
 void JobOutputDataWidget::onJobItemDelete(JobItem *item)
 {
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget ) {
-        // this is the case when user removes failed job without the widget
+        // this is the case when user removes failed job which doesn't have propper widget
         //throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
         return;
     }

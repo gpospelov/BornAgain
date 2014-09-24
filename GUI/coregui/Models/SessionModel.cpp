@@ -409,6 +409,7 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
 SessionModel *SessionModel::createCopy(ParameterizedItem *parent)
 {
+    (void)parent;
     throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
 }
 

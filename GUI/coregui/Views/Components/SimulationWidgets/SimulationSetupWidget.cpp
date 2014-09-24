@@ -46,24 +46,12 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
-       // framework (DWBA - BA)
-    QLabel *frameworkLabel = new QLabel(tr("Framework:"));
-    QComboBox *frameworkSelectionBox = new QComboBox;
-    frameworkSelectionBox->addItem(tr("DWBA"));
-    frameworkSelectionBox->addItem(tr("BA"));
       // interference function (DA - LMA - SSCA - ISGISAXSMOR)
     QLabel *interferenceLabel = new QLabel(tr("Interference Function Approximation:"));
     QComboBox *interferenceFunctionSelectionBox = new QComboBox;
-    interferenceFunctionSelectionBox->addItem(tr("DA"));
-    interferenceFunctionSelectionBox->addItem(tr("LMA"));
-    interferenceFunctionSelectionBox->addItem(tr("SSCA"));
-      // lattice type (None - Lattice - Para1D - Para1DFinite)
-    QLabel *latticeTypeLabel = new QLabel(tr("Lattice Type:"));
-    QComboBox *latticeTypeSelectionBox = new QComboBox;
-    latticeTypeSelectionBox->addItem(tr("None"));
-    latticeTypeSelectionBox->addItem(tr("Lattice"));
-    latticeTypeSelectionBox->addItem(tr("Para1D"));
-    latticeTypeSelectionBox->addItem(tr("Para1DFinite"));
+    interferenceFunctionSelectionBox->addItem(tr("Decoupling Approximation"));
+    interferenceFunctionSelectionBox->addItem(tr("Local Monodisperse Approximation"));
+    interferenceFunctionSelectionBox->addItem(tr("Size Spacing Coupling Approximation"));
     // run policy
     QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
     runPolicySelectionBox = new QComboBox;
@@ -71,12 +59,8 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(frameworkLabel, 0, 0);
-    simulationParametersLayout->addWidget(frameworkSelectionBox, 0, 1);
     simulationParametersLayout->addWidget(interferenceLabel, 1, 0);
     simulationParametersLayout->addWidget(interferenceFunctionSelectionBox, 1, 1);
-    simulationParametersLayout->addWidget(latticeTypeLabel, 2, 0);
-    simulationParametersLayout->addWidget(latticeTypeSelectionBox, 2, 1);
     simulationParametersLayout->addWidget(runPolicyLabel, 3, 0);
     simulationParametersLayout->addWidget(runPolicySelectionBox, 3, 1);
     simulationParametersGroup->setLayout(simulationParametersLayout);

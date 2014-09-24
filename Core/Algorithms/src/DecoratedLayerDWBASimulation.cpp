@@ -22,15 +22,13 @@
 #include <boost/scoped_ptr.hpp>
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
-    const Layer *p_layer)
+    const Layer *p_layer) : LayerDWBASimulation(p_layer)
 {
-    mp_layer = p_layer->clone();
     mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation();
 }
 
 DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
-    delete mp_layer;
     delete mp_diffuseDWBA;
 }
 
@@ -85,8 +83,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            if (m_sim_params.me_framework==SimulationParameters::DWBA &&
-                    alpha_f<0) {
+            size_t n_layers = mp_layer->getNumberOfLayers();
+            if (n_layers>1 && alpha_f<0) {
                 ++it;
                 continue;
             }

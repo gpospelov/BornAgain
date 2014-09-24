@@ -29,17 +29,15 @@ class BA_CORE_API_ SimulationParameters
 {
 public:
     SimulationParameters();
-    enum EFramework { DWBA, BA } me_framework;
     enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR } me_if_approx;
     bool m_mc_integration;
     size_t m_mc_points;
 };
 
 inline SimulationParameters::SimulationParameters()
-: me_framework(DWBA)
-, me_if_approx(DA)
-, m_mc_integration(false)
-, m_mc_points(1)
+    : me_if_approx(DA)
+    , m_mc_integration(false)
+    , m_mc_points(1)
 {
 }
 

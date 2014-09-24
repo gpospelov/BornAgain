@@ -53,7 +53,6 @@ def RunSimulation_lattice():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     simulation.setSimulationParameters(sim_params)
 
@@ -106,7 +105,6 @@ def RunSimulation_centered():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     simulation.setSimulationParameters(sim_params)
 
@@ -154,7 +152,6 @@ def RunSimulation_rotated():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params = SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     simulation.setSimulationParameters(sim_params)
 
@@ -174,7 +171,6 @@ def RunSimulation_variants():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     
     sim_params = SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     simulation.setSimulationParameters(sim_params)
 

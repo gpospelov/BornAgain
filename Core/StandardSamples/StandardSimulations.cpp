@@ -159,7 +159,6 @@ Simulation *StandardSimulations::IsGISAXS06L1()
                 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     result->setSimulationParameters(sim_params);
 
@@ -181,7 +180,6 @@ Simulation *StandardSimulations::IsGISAXS06L2()
                 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     result->setSimulationParameters(sim_params);
 
@@ -203,7 +201,6 @@ Simulation *StandardSimulations::IsGISAXS06L3()
                 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     result->setSimulationParameters(sim_params);
 
@@ -225,7 +222,6 @@ Simulation *StandardSimulations::IsGISAXS06L4()
                 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     result->setSimulationParameters(sim_params);
 
@@ -580,7 +576,6 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
                 0.0*Units::degree);
 
     SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     result->setSimulationParameters(sim_params);
 

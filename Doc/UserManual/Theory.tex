@@ -711,21 +711,7 @@ def get_sample():
 
 \FloatBarrier 
 
-\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more than the air layer. The user can nevertheless select between BA or DWBA using \Code{SimulationParameters()} when defining the characteristics of the simulation (it is also the function, with which we can choose between DA, LMA and SSCA).  For example, one could refer to /Examples/Python/UserManual/UM\_FormFactors\_BA\_DWBA\_SimulParam.py for a full implementation:}
-
-\vspace{12pt}
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-  simulation = Simulation()
-  ....
-  sim_params = SimulationParameters()
- # choice between BA and DWBA
-  sim_params.me_framework = SimulationParameters.DWBA
-  ....
-  simulation.setSimulationParameters(sim_params)
-\end{lstlisting}
-
-
+\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more than the air layer.}
 
 \subsubsection{Buried particles} 
 

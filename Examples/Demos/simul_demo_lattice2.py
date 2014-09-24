@@ -61,7 +61,6 @@ def RunSimulation():
 
     # simulation parameters
     sim_params= SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     simulation.setSimulationParameters(sim_params)
 

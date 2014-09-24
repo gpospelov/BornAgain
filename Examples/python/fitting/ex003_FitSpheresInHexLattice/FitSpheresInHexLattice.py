@@ -40,6 +40,8 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     interference.setProbabilityDistribution(pdf)
 
     particle_layout.addInterferenceFunction(interference)
+    particle_layout.setApproximation(ILayout.LMA)
+
     air_layer = Layer(m_air)
     air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
@@ -57,9 +59,6 @@ def get_simulation():
     simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
-    sim_params = SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
     return simulation;
 
 

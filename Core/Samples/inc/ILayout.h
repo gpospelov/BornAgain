@@ -31,7 +31,10 @@ class IInterferenceFunction;
 class BA_CORE_API_ ILayout : public ICompositeSample
 {
 public:
-    ILayout() : m_total_particle_surface_density(1.0) {}
+    enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR };
+
+    ILayout() : m_total_particle_surface_density(1.0)
+              , me_approx(DA) {}
     virtual ~ILayout() {}
 
     virtual ILayout *clone() const=0;
@@ -66,9 +69,21 @@ public:
     void setTotalParticleSurfaceDensity(double surface_density)
     { m_total_particle_surface_density = surface_density; }
 
+    //! Gets the used approximation for particles and interference functions
+    EInterferenceApproximation getApproximation() const {
+        return me_approx;
+    }
+
+    //! Sets the used approximation for particles and interference functions
+    void setApproximation(EInterferenceApproximation approximation) {
+        me_approx = approximation;
+    }
+
 private:
     ///< To guarantee that fractions sum up to 1
     double m_total_particle_surface_density;
+    ///< Approximation used for combining particles and interference functions
+    EInterferenceApproximation me_approx;
 };
 
 #endif /* ILAYOUT_H_ */

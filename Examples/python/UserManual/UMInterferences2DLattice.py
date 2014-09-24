@@ -34,6 +34,9 @@ def get_sample():
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
 
+    # interference approx chosen between: DA (default), LMA and SSCA
+    particle_layout.setApproximation(ILayout.LMA)
+
     # assembling the sample
     air_layer = Layer(m_ambience)
     air_layer.setLayout(particle_layout)
@@ -53,10 +56,6 @@ def get_simulation():
     simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree)
     simulation.setBeamParameters(wlgth, alphai, phii)
     
-    sim_params= SimulationParameters()
-    # Simulation using Local Monodisperse Approximation
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
     return simulation
 
 

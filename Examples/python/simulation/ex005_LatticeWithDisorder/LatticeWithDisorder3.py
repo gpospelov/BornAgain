@@ -35,6 +35,7 @@ def get_sample():
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)
+    particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(m_ambience)
     air_layer.setLayout(particle_layout)
@@ -53,9 +54,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    sim_params = SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
 
     return simulation
 

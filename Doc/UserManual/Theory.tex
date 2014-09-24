@@ -136,14 +136,12 @@ This section describes the implementation of the interference functions in \Born
 
 \subsubsection{Size-distribution models}
 The decoupled approximation, local monodisperse approximation and size spacing correlation approximation can be used in \BornAgain.
-The selection is made using\\ \Code{SimulationParameters()} when defining the characteristics of the simulation.  For example,
+The selection is made using\\ \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    simulation = Simulation()
+    particle_layout = ParticleLayout()
    ....
-    sim_params = SimulationParameters()
 # interference approx chosen between: DA (default), LMA and SSCA
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
+    particle_layout.setApproximation(ILayout.LMA)
 \end{lstlisting}
 
 %The users can refer to Script~\ref{lst:2dlatticeinterf} for a more detailed implementation. By default, the decoupled approximation (DA) is used.
@@ -422,6 +420,9 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
     particle_layout = ParticleLayout()
     particle_layout.addParticle(sphere, 0.0, 1.0)
     |particle_layout.addInterferenceFunction(interference)|
+
+    # interference approx chosen between: DA (default), LMA and SSCA
+    |particle_layout.setApproximation(ILayout.LMA)|
 \end{lstlisting}
  
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
@@ -432,9 +433,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    |sim_params= SimulationParameters()|
-    |sim_params.me_if_approx = SimulationParameters.LMA|
-    |simulation.setSimulationParameters(sim_params)|
     return simulation
 \end{lstlisting}
 

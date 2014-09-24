@@ -63,6 +63,7 @@ ParticleLayout* ParticleLayout::clone() const
 
     p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setApproximation(getApproximation());
 
     return p_new;
 }
@@ -81,6 +82,7 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
     p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setApproximation(getApproximation());
 
     return p_new;
 }

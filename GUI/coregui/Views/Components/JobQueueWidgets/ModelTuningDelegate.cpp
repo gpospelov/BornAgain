@@ -22,7 +22,7 @@
 ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
     , m_valueColumn(1)
-    , m_sliderRangeFactor(10.0)
+    , m_sliderRangeFactor(100.0)
     , m_multiplyFactor(100)
 
 {

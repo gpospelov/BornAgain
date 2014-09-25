@@ -21,8 +21,10 @@ signals:
     void toggleProjections();
     void resetView();
     void savePlot();
-    void jobViewActivityRequest();
-    void realTimeActivityRequest();
+    void jobViewActivityRequest(int);
+
+public slots:
+    void onActivityChanged(int);
 
 private slots:
     void onActivityChangeRequest(const QString &name);

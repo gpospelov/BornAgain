@@ -21,9 +21,10 @@ public:
 
     void setJobQueueModel(JobQueueModel *jobQueueModel);
 
+    JobOutputDataToolBar *getToolBar() { return m_toolBar; }
+
 signals:
-    void jobViewActivityRequest();
-    void realTimeActivityRequest();
+    void jobViewActivityRequest(int activity);
 
 public slots:
     void itemClicked(JobItem *item);
@@ -33,6 +34,7 @@ public slots:
     void toggleProjections();
     void resetTriggered();
     void savePlot();
+    void onActivityChanged(int);
 
 private:
     void connectSignals();

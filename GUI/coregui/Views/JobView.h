@@ -26,6 +26,12 @@ public:
         NumberOfDocks
     };
 
+    enum Activities
+    {
+        JobViewActivity,
+        RealTimeActivity
+    };
+
     JobView(JobQueueModel *jobQueueModel, QWidget *parent = 0);
     virtual ~JobView();
 
@@ -33,13 +39,13 @@ public:
 
 signals:
     void focusRequest(int);
+    void activityChanged(int activity);
 
 public slots:
     void updateGlobalProgressBar(int);
     void onFocusRequest(JobItem *);
     void resetToDefaultLayout();
-    void onJobViewActivityRequest();
-    void onRealTimeActivityRequest();
+    void setActivity(int activity);
 
 private:
     void initWindows();

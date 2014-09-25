@@ -67,7 +67,6 @@ JobView::JobView(JobQueueModel *jobQueueModel, QWidget *parent)
 
     connectSignals();
 
-    onJobViewActivityRequest();
 }
 
 
@@ -127,21 +126,21 @@ void JobView::resetToDefaultLayout()
 
     setTrackingEnabled(true);
 
-    //onJobViewActivityRequest();
+    setActivity(JobViewActivity);
 }
 
 
-void JobView::onJobViewActivityRequest()
+void JobView::setActivity(int activity)
 {
-//    m_d->m_dockWidgets[JobListDock]->show();
-//    m_d->m_dockWidgets[RealTimeDock]->hide();
-}
-
-
-void JobView::onRealTimeActivityRequest()
-{
-//    m_d->m_dockWidgets[JobListDock]->hide();
-//    m_d->m_dockWidgets[RealTimeDock]->show();
+    if(activity == JobViewActivity) {
+        m_d->m_dockWidgets[JobListDock]->show();
+        m_d->m_dockWidgets[RealTimeDock]->hide();
+        emit activityChanged(activity);
+    } else if(activity == RealTimeActivity) {
+        m_d->m_dockWidgets[JobListDock]->hide();
+        m_d->m_dockWidgets[RealTimeDock]->show();
+        emit activityChanged(activity);
+    }
 }
 
 
@@ -164,8 +163,8 @@ void JobView::connectSignals()
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
     connect(m_d->m_jobQueueModel->getJobQueueData(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
     connect(m_d->m_jobQueueModel->getJobQueueData(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
-    connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest()), this, SLOT(onJobViewActivityRequest()));
-    connect(m_d->m_jobOutputDataWidget, SIGNAL(realTimeActivityRequest()), this, SLOT(onRealTimeActivityRequest()));
+    connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
+    connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
 }
 
 

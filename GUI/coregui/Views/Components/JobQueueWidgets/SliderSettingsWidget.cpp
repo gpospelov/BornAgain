@@ -5,44 +5,45 @@
 #include <QRadioButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLabel>
 
 
 SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)
-    :QWidget(parent)
+    : QWidget(parent)
+    , m_currentSliderRange(100.0)
 {
-    m_currentSliderRange = 10.0;
+    QString tooltip("Allows to tune sample parameters within +/- of given range \nwith the help of the slider.");
 
-    QGroupBox *groupBox = new QGroupBox(tr("Slider Range:"), this);
+    QLabel *label = new QLabel("Tuning:");
+    label->setToolTip(tooltip);
+
     m_radio1 = new QRadioButton(tr("10%"));
-    m_radio1->setChecked(true);
-    connect(m_radio1,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
     m_radio1->setAutoExclusive(true);
+    m_radio1->setToolTip(tooltip);
+    connect(m_radio1,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
 
     m_radio2 = new QRadioButton(tr("100%"));
-    connect(m_radio2,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
+    m_radio2->setChecked(true);
     m_radio2->setAutoExclusive(true);
+    m_radio2->setToolTip(tooltip);
+    connect(m_radio2,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
 
     m_radio3 = new QRadioButton(tr("1000%"));
-    connect(m_radio3,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
     m_radio3->setAutoExclusive(true);
-
-
-    groupBox->setAlignment(Qt::Horizontal);
+    m_radio3->setToolTip(tooltip);
+    connect(m_radio3,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
 
     QHBoxLayout *hbox = new QHBoxLayout;
+
+    hbox->addWidget(label);
     hbox->addWidget(m_radio1);
     hbox->addWidget(m_radio2);
     hbox->addWidget(m_radio3);
     hbox->addStretch(1);
-    groupBox->setLayout(hbox);
-    //setLayout(hbox);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(groupBox);
-
-    setLayout(mainLayout);
-
+    setLayout(hbox);
 }
+
 
 void SliderSettingsWidget::rangeChanged()
 {
@@ -58,6 +59,5 @@ void SliderSettingsWidget::rangeChanged()
     {
         m_currentSliderRange = 1000.0;
     }
-    //qDebug() << "QuickSimulationSettings::rangeChanged()" << m_currentSliderRange;
     emit sliderRangeFactorChanged(m_currentSliderRange);
 }

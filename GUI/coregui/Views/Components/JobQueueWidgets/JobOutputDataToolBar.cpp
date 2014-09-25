@@ -1,4 +1,5 @@
 #include "JobOutputDataToolBar.h"
+#include "JobView.h"
 #include <QIcon>
 #include <QComboBox>
 #include <QToolButton>
@@ -10,8 +11,8 @@
 
 namespace
 {
-const QString JobViewActivityName = "Job View";
-const QString RealTimeActivityName = "Real Time";
+const QString JobViewActivityName = "Job View Activity";
+const QString RealTimeActivityName = "Real Time Activity";
 }
 
 //! main tool bar on top of SampleView window
@@ -98,13 +99,17 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_activityCombo->addItem(RealTimeActivityName);
     connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 
-    // FIXME: color of text in drop-down should be black
+    // attempts to tune style of activity combo
 //    QString stylesheet = QString::fromUtf8(
-//        "QComboBox:!on\n"
-//        "{\n"
-//        "   color: rgba(201,218,255,255); \n"
-//        "   padding: 0px 0px 0px 0px;\n" // Qt bug we need padding to make color work
-//        "}\n\n"
+//                "QComboBox:!on\n"
+//                "{\n"
+//                "   color: rgba(201,218,255,255); \n"
+//                "   padding: 0px 0px 0px 0px;\n" // Qt bug we need padding to make color work
+//                "}\n\n"
+//                "QComboBox:on\n"
+//                "{\n"
+//                "   color: black; \n"
+//                "}\n\n"
 //        "QComboBox QListView\n"
 //        "{\n"
 //                "   color: black;\n"
@@ -120,8 +125,17 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
 void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
 {
     if(name == JobViewActivityName) {
-        emit jobViewActivityRequest();
+        emit jobViewActivityRequest(JobView::JobViewActivity);
     } else if(name == RealTimeActivityName) {
-        emit realTimeActivityRequest();
+        emit jobViewActivityRequest(JobView::RealTimeActivity);
     }
+}
+
+void JobOutputDataToolBar::onActivityChanged(int activity)
+{
+    disconnect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
+
+    m_activityCombo->setCurrentIndex(activity);
+
+    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 }

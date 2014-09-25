@@ -2,6 +2,7 @@
 #include "JobQueueModel.h"
 #include "OutputDataWidget.h"
 #include "JobOutputDataToolBar.h"
+#include "JobView.h"
 #include "styledbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -36,6 +37,7 @@ JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, QWidget *
     setLayout(mainLayout);
 
     connectSignals();
+
 }
 
 
@@ -145,10 +147,22 @@ void JobOutputDataWidget::savePlot()
 }
 
 
+void JobOutputDataWidget::onActivityChanged(int activity)
+{
+    m_toolBar->onActivityChanged(activity);
+    if(activity == JobView::RealTimeActivity) {
+        OutputDataWidget *widget = getCurrentOutputDataWidget();
+        if(widget) {
+            widget->setPropertyPanelVisible(false);
+            //widget->setProjectionsVisible(false);
+        }
+    }
+}
+
+
 void JobOutputDataWidget::connectSignals()
 {
-    connect(m_toolBar, SIGNAL(jobViewActivityRequest()), this, SIGNAL(jobViewActivityRequest()));
-    connect(m_toolBar, SIGNAL(realTimeActivityRequest()), this, SIGNAL(realTimeActivityRequest()));
+    connect(m_toolBar, SIGNAL(jobViewActivityRequest(int)), this, SIGNAL(jobViewActivityRequest(int)));
     connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
     connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
     connect(m_toolBar, SIGNAL(resetView()), this, SLOT(resetTriggered()));

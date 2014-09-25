@@ -560,7 +560,7 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
 Simulation *StandardSimulations::gui_IsGISAXS07()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs07");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
 
     Simulation *result = new Simulation();
 

@@ -134,7 +134,6 @@ private slots:
     void onCurrentIndexChanged(QString current_value);
 
 private:
-    QLabel *m_textLabel;
     QComboBox *m_comboBox;
     ComboProperty m_combo_property;
 };

@@ -37,7 +37,6 @@ public:
         return *this;
     }
 
-
     QVariant getVariant() const {
         QVariant result;
         result.setValue(*this);

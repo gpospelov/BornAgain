@@ -42,7 +42,7 @@
 #include "JobView.h"
 #include "FitModel.h"
 #include "FitParameterItem.h"
-//#include "TestView.h"
+#include "FitView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_scriptView(0)
     , m_simulationView(0)
     , m_jobView(0)
+    , m_fitView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
@@ -103,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
+    m_fitView = new FitView(m_fitModel, this);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -111,8 +113,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
+    m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
-
+    
     m_tabWidget->setCurrentIndex(WelcomeTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
@@ -312,7 +315,7 @@ void MainWindow::initFitModel()
 
     ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
     item1->setItemName("par1");
-    item1->setRegisteredProperty(FitParameterItem::P_MIN, 3.0);
+    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
 
     FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item2->setItemName("par2");
@@ -320,7 +323,7 @@ void MainWindow::initFitModel()
     m_fitModel->save("fitmodel.xml");
 
 
-    ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
+    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }
 
 

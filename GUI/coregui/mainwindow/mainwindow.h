@@ -30,6 +30,7 @@ class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
 class FitModel;
+class FitView;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -37,7 +38,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
     
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, TestViewTab};
+    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, FitViewTab};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -69,8 +70,11 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
-    JobView *m_jobView;
-    Manhattan::ProgressBar *m_progressBar;    
+
+    JobView *m_jobView;   
+    FitView *m_fitView;
+
+    Manhattan::ProgressBar *m_progressBar;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects

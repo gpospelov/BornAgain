@@ -9,6 +9,9 @@ class BA_CORE_API_ FitParameterItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_MIN;
+    static const QString P_MAX;
+    static const QString P_VALUE;
+    static const QString P_USE;
     explicit FitParameterItem(ParameterizedItem *parent=0);
     ~FitParameterItem(){}
 private:

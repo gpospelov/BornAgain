@@ -59,15 +59,15 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     collectInterferenceFunctions();
     size_t n_ifs = m_ifs.size();
     IInterferenceFunctionStrategy *p_result(0);
-    switch (m_sim_params.me_if_approx)
+    switch (mp_layer->getLayout()->getApproximation())
     {
-    case SimulationParameters::DA:
+    case ILayout::DA:
         p_result = new DecouplingApproximationStrategy(m_sim_params);
         break;
-    case SimulationParameters::LMA:
+    case ILayout::LMA:
         p_result = new LocalMonodisperseApproximationStrategy(m_sim_params);
         break;
-    case SimulationParameters::SSCA:
+    case ILayout::SSCA:
     {
         if (n_ifs<1) {
             throw Exceptions::ClassInitializationException(
@@ -82,7 +82,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
             m_sim_params, kappa);
         break;
     }
-    case SimulationParameters::ISGISAXSMOR:
+    case ILayout::ISGISAXSMOR:
         p_result = new IsGISAXSMorphologyFileStrategy(m_sim_params);
         break;
     default:

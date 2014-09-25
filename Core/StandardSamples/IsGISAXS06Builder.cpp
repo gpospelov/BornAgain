@@ -61,6 +61,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
                 new Particle(particle_material, ff_cyl), 0.0, 1.0);
 
     particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.setApproximation(ILayout::LMA);
 
     air_layer.setLayout(particle_layout);
 
@@ -110,6 +111,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.setApproximation(ILayout::LMA);
 
     air_layer.setLayout(particle_layout);
 
@@ -157,6 +159,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);
+    particle_layout.setApproximation(ILayout::LMA);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -215,6 +218,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.setApproximation(ILayout::LMA);
 
     air_layer.setLayout(particle_layout);
 

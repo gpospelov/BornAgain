@@ -231,6 +231,13 @@ void register_ILayout_class(){
         typedef bp::class_< ILayout_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > ILayout_exposer_t;
         ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", bp::init< >() );
         bp::scope ILayout_scope( ILayout_exposer );
+        bp::enum_< ILayout::EInterferenceApproximation>("EInterferenceApproximation")
+            .value("DA", ILayout::DA)
+            .value("LMA", ILayout::LMA)
+            .value("SSCA", ILayout::SSCA)
+            .value("ISGISAXSMOR", ILayout::ISGISAXSMOR)
+            .export_values()
+            ;
         { //::ILayout::accept
         
             typedef void ( ::ILayout::*accept_function_type)( ::ISampleVisitor * ) const;
@@ -269,6 +276,15 @@ void register_ILayout_class(){
                 "getAbundanceFractionOfParticle"
                 , bp::pure_virtual( getAbundanceFractionOfParticle_function_type(&::ILayout::getAbundanceFractionOfParticle) )
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::ILayout::getApproximation
+        
+            typedef ::ILayout::EInterferenceApproximation ( ::ILayout::*getApproximation_function_type)(  ) const;
+            
+            ILayout_exposer.def( 
+                "getApproximation"
+                , getApproximation_function_type( &::ILayout::getApproximation ) );
         
         }
         { //::ILayout::getInterferenceFunctions
@@ -318,6 +334,16 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
                 , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity ) );
+        
+        }
+        { //::ILayout::setApproximation
+        
+            typedef void ( ::ILayout::*setApproximation_function_type)( ::ILayout::EInterferenceApproximation ) ;
+            
+            ILayout_exposer.def( 
+                "setApproximation"
+                , setApproximation_function_type( &::ILayout::setApproximation )
+                , ( bp::arg("approximation") ) );
         
         }
         { //::ILayout::setTotalParticleSurfaceDensity

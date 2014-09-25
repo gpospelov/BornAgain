@@ -35,6 +35,7 @@
 #include "AngleProperty.h"
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
+#include "ParticleLayoutItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -85,6 +86,18 @@ ParticleLayout *TransformToDomain::createParticleLayout(
 {
     (void)item;
     ParticleLayout *result = new ParticleLayout();
+    QVariant var = item.getRegisteredProperty(ParticleLayoutItem::P_APPROX);
+    ComboProperty prop = var.value<ComboProperty>();
+    QString approximation = prop.getValue();
+    if (approximation == QString("Decoupling Approximation")) {
+        result->setApproximation(ILayout::DA);
+    }
+    else if (approximation == QString("Local Monodisperse Approximation")) {
+        result->setApproximation(ILayout::LMA);
+    }
+    else if (approximation == QString("Size Space Coupling Approximation")) {
+        result->setApproximation(ILayout::SSCA);
+    }
     return result;
 }
 

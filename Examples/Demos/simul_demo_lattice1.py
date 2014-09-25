@@ -37,6 +37,7 @@ def RunSimulation():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
+    particle_layout.setApproximation(ILayout.LMA)
 
     # top air layer
     air_layer = Layer(mAmbience)
@@ -54,11 +55,6 @@ def RunSimulation():
     simulation = Simulation()
     simulation.setDetectorParameters(100, -2.0*degree, 2.0*degree, 100, 0.0*degree, 4.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
-    # simulation parameters
-    sim_params= SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
 
     # run simulation
     simulation.setSample(multi_layer)

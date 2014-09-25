@@ -20,16 +20,8 @@ void register_SimulationParameters_class(){
         typedef bp::class_< SimulationParameters > SimulationParameters_exposer_t;
         SimulationParameters_exposer_t SimulationParameters_exposer = SimulationParameters_exposer_t( "SimulationParameters", bp::init< >() );
         bp::scope SimulationParameters_scope( SimulationParameters_exposer );
-        bp::enum_< SimulationParameters::EInterferenceApproximation>("EInterferenceApproximation")
-            .value("DA", SimulationParameters::DA)
-            .value("LMA", SimulationParameters::LMA)
-            .value("SSCA", SimulationParameters::SSCA)
-            .value("ISGISAXSMOR", SimulationParameters::ISGISAXSMOR)
-            .export_values()
-            ;
         SimulationParameters_exposer.def_readwrite( "m_mc_integration", &SimulationParameters::m_mc_integration );
         SimulationParameters_exposer.def_readwrite( "m_mc_points", &SimulationParameters::m_mc_points );
-        SimulationParameters_exposer.def_readwrite( "me_if_approx", &SimulationParameters::me_if_approx );
     }
 
 }

@@ -108,6 +108,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.setApproximation(ILayout::LMA);
 
 
     Layer air_layer(air_material);
@@ -122,10 +123,6 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     Simulation *simulation = new Simulation();
     simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-
-    SimulationParameters sim_params;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    simulation->setSimulationParameters(sim_params);
 
     simulation->setSample(*multi_layer);
 

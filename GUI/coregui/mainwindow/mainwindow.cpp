@@ -262,14 +262,6 @@ void MainWindow::initJobQueueModel()
 {
     delete m_jobQueueModel;
     m_jobQueueModel = new JobQueueModel(this);
-    SimulationRegistry registry;
-    m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
-    //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
-    m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
-    m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
-    m_jobQueueModel->addJob("isgisaxs11",registry.createItem("isgisaxs11"));
-    m_jobQueueModel->addJob("LayerWithRoughness",registry.createItem("LayerWithRoughness"));
-    //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 
 

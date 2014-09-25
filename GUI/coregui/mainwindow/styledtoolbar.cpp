@@ -1,15 +1,9 @@
-#include "SimulationToolBar.h"
-#include "styledbar.h"
-
+#include "styledtoolbar.h"
 #include <QIcon>
-#include <QAction>
-#include <QToolButton>
-#include <QToolBar>
 #include <QStyle>
-#include <iostream>
 
 
-SimulationToolBar::SimulationToolBar(QWidget *parent)
+StyledToolBar::StyledToolBar(QWidget *parent)
     : QToolBar(parent)
 {
     setMovable(false);
@@ -20,7 +14,5 @@ SimulationToolBar::SimulationToolBar(QWidget *parent)
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
     setContentsMargins(0,0,0,0);
-
-    this->addAction(new QAction(0));
 
 }

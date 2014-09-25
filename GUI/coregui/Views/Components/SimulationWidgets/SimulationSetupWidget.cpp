@@ -6,7 +6,6 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
-#include "QuickSimulationHelper.h"
 #include "SampleValidator.h"
 
 #include <QGroupBox>

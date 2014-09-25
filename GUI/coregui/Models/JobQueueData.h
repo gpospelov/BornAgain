@@ -49,7 +49,6 @@ public slots:
     void cancelJob(const QString &identifier);
     void removeJob(const QString &identifier);
 
-    friend class QuickSimulationRunner;
 private:
     void assignForDeletion(QThread *thread);
     void assignForDeletion(JobRunner *runner);

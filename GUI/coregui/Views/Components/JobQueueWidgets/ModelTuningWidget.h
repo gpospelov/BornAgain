@@ -1,25 +1,25 @@
-#ifndef ADVMODELTUNINGWIDGET_H
-#define ADVMODELTUNINGWIDGET_H
+#ifndef MODELTUNINGWIDGET_H
+#define MODELTUNINGWIDGET_H
 
 #include "ItemLink.h"
 #include <QWidget>
 
 class JobItem;
-class QuickSimulationSettings;
+class SliderSettingsWidget;
 class ModelTuningDelegate;
 class JobQueueData;
 class QTreeView;
 class QStandardItemModel;
 
 
-class AdvModelTuningWidget : public QWidget
+class ModelTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    AdvModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
-    virtual ~AdvModelTuningWidget();
+    ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
+    virtual ~ModelTuningWidget();
 
     void setCurrentItem(JobItem *item);
 
@@ -32,7 +32,7 @@ private:
 
     JobQueueData *m_jobQueueData;
     JobItem *m_currentJobItem;
-    QuickSimulationSettings *m_quickSimulationSettings;
+    SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
     QStandardItemModel *m_parameterModel;
     ModelTuningDelegate *m_delegate;

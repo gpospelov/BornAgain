@@ -9,8 +9,8 @@ class JobQueueModel;
 class QStackedWidget;
 class QModelIndex;
 class JobItem;
-class AdvModelTuningWidget;
-class SimulationToolBar;
+class ModelTuningWidget;
+class StyledToolBar;
 
 //! The JobRealTimeWidget provides tuning of sample parameters and run of the simulation in real time.
 //! Located on the right side of JobView and is visible when realtime activity is selected.
@@ -28,13 +28,11 @@ public slots:
     void onJobItemFinished(const QString &identifier);
 
 private:
-    void connectSignals();
-
     JobQueueModel *m_jobQueueModel;
     JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
-    QMap<JobItem *, AdvModelTuningWidget *> m_jobItemToTuningWidget;
-    SimulationToolBar *m_toolBar;
+    QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
+    StyledToolBar *m_toolBar;
 };
 
 

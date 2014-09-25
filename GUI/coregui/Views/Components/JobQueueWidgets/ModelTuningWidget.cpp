@@ -1,7 +1,7 @@
-#include "AdvModelTuningWidget.h"
+#include "ModelTuningWidget.h"
 #include "JobItem.h"
-#include "QuickSimulationSettings.h"
-#include "QuickSimulationHelper.h"
+#include "SliderSettingsWidget.h"
+#include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
 #include "ModelTuningDelegate.h"
 #include "JobQueueData.h"
@@ -11,11 +11,12 @@
 #include <QStandardItemModel>
 #include <QDebug>
 
-AdvModelTuningWidget::AdvModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
+
+ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
     : QWidget(parent)
     , m_jobQueueData(jobQueueData)
     , m_currentJobItem(0)
-    , m_quickSimulationSettings(0)
+    , m_sliderSettingsWidget(0)
     , m_parameterModel(0)
     , m_delegate(new ModelTuningDelegate)
 {
@@ -27,8 +28,8 @@ AdvModelTuningWidget::AdvModelTuningWidget(JobQueueData *jobQueueData, QWidget *
 //    palette.setColor(QPalette::Background, bgColor);
 //    setAutoFillBackground(true);
 
-    m_quickSimulationSettings = new QuickSimulationSettings();
-    connect(m_quickSimulationSettings, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(onSliderValueChanged(double)));
+    m_sliderSettingsWidget = new SliderSettingsWidget();
+    connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(onSliderValueChanged(double)));
 
     m_treeView = new QTreeView();
     m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
@@ -39,21 +40,21 @@ AdvModelTuningWidget::AdvModelTuningWidget(JobQueueData *jobQueueData, QWidget *
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_quickSimulationSettings);
+    mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
-    mainLayout->addStretch();
 
     setLayout(mainLayout);
 
 }
 
-AdvModelTuningWidget::~AdvModelTuningWidget()
+
+ModelTuningWidget::~ModelTuningWidget()
 {
     delete m_parameterModel;
 }
 
 
-void AdvModelTuningWidget::setCurrentItem(JobItem *item)
+void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
     qDebug() << "AdvModelTuningWidget::setCurrentItem" << item;
     if(m_currentJobItem != item) {
@@ -62,38 +63,32 @@ void AdvModelTuningWidget::setCurrentItem(JobItem *item)
     }
 }
 
-void AdvModelTuningWidget::onCurrentLinkChanged(ItemLink link)
+
+void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 {
     qDebug() << "AdvModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
 
-    if(m_currentJobItem->isRunning()) {
-        qDebug() << "AdvModelTuningWidget::onCurrentLinkChanged(ItemLink link) -> Running...";
+    if(m_currentJobItem->isRunning())
         return;
-    }
 
-    if(link.getItem())
-    {
+    if(link.getItem()) {
         qDebug() << "AdvModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
 
         link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
 
         m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
     }
-
-
-
-
-
 }
 
-void AdvModelTuningWidget::onSliderValueChanged(double value)
+
+void ModelTuningWidget::onSliderValueChanged(double value)
 {
     m_delegate->setSliderRangeFactor(value);
 }
 
 
-void AdvModelTuningWidget::updateParameterModel()
+void ModelTuningWidget::updateParameterModel()
 {
     qDebug() << "AdvModelTuningWidget::updateParameterModel()";
     if(m_parameterModel) {
@@ -107,11 +102,10 @@ void AdvModelTuningWidget::updateParameterModel()
     if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
         throw GUIHelpers::Error("AdvModelTuningWidget::updateParameterModel() -> Error. JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = QuickSimulationHelper::createParameterModel(m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
+    m_parameterModel = ParameterModelBuilder::createParameterModel(m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
 
     m_treeView->setModel(m_parameterModel);
 //    m_treeView->setFixedHeight(height);
-    m_treeView->setColumnWidth(0,170);
+    m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
-
 }

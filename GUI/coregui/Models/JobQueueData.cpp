@@ -4,7 +4,7 @@
 #include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
-#include "QuickSimulationHelper.h"
+#include "DomainSimulationBuilder.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -118,7 +118,7 @@ void JobQueueData::runJob(const QString &identifier)
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
     JobItem *jobItem = getJobItem(identifier);
-    Simulation *simulation = QuickSimulationHelper::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+    Simulation *simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

@@ -1,4 +1,4 @@
-#include "QuickSimulationSettings.h"
+#include "SliderSettingsWidget.h"
 
 #include <QDebug>
 #include <QGroupBox>
@@ -7,7 +7,7 @@
 #include <QVBoxLayout>
 
 
-QuickSimulationSettings::QuickSimulationSettings(QWidget *parent)
+SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)
     :QWidget(parent)
 {
     m_currentSliderRange = 10.0;
@@ -44,7 +44,7 @@ QuickSimulationSettings::QuickSimulationSettings(QWidget *parent)
 
 }
 
-void QuickSimulationSettings::rangeChanged()
+void SliderSettingsWidget::rangeChanged()
 {
     if(m_radio1->isChecked())
     {

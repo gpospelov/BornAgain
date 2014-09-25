@@ -1,8 +1,7 @@
 #include "JobRealTimeWidget.h"
 #include "JobQueueModel.h"
-#include "AdvModelTuningWidget.h"
-#include "SimulationToolBar.h"
-#include <QToolBar>
+#include "ModelTuningWidget.h"
+#include "styledtoolbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
@@ -16,7 +15,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *pare
     : QWidget(parent)
     , m_jobQueueModel(0)
     , m_stack(new QStackedWidget(this))
-    , m_toolBar(new SimulationToolBar)
+    , m_toolBar(new StyledToolBar)
 {
     setJobQueueModel(jobQueueModel);
 
@@ -37,8 +36,6 @@ JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *pare
     mainLayout->addWidget(m_stack);
 
     setLayout(mainLayout);
-
-    connectSignals();
 }
 
 
@@ -71,11 +68,11 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
 
     m_currentJobItem = item;
 
-    AdvModelTuningWidget *widget = m_jobItemToTuningWidget[item];
+    ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new AdvModelTuningWidget(m_jobQueueModel->getJobQueueData());
+        widget = new ModelTuningWidget(m_jobQueueModel->getJobQueueData());
         widget->setCurrentItem(item);
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;
@@ -120,23 +117,16 @@ void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
 }
 
 
-
-void JobRealTimeWidget::connectSignals()
-{
-}
-
-
-
 void JobRealTimeWidget::onJobItemDelete(JobItem *item)
 {
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
-    AdvModelTuningWidget *widget = m_jobItemToTuningWidget[item];
+    ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget ) {
         // this is the case when user removes failed job which doesn't have propper widget
         return;
     }
 
-    QMap<JobItem *, AdvModelTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
+    QMap<JobItem *, ModelTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
     while(it!=m_jobItemToTuningWidget.end()) {
         if(it.value() == widget) {
             it = m_jobItemToTuningWidget.erase(it);

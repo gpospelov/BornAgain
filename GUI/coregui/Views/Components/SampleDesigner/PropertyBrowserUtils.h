@@ -6,6 +6,7 @@
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "FancyGroupProperty.h"
+#include "ComboProperty.h"
 
 class QLabel;
 class QIcon;
@@ -61,7 +62,6 @@ private:
 //};
 
 
-
 class BA_CORE_API_ FancyGroupPropertyEdit : public QWidget
 {
     Q_OBJECT
@@ -88,7 +88,6 @@ private:
     QLabel *m_label;
     FancyGroupProperty *m_groupProperty;
 };
-
 
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
@@ -141,5 +140,31 @@ private:
     QDoubleValidator *m_validator;
     ScientificDoubleProperty m_scientificDoubleProperty;
 };
+
+
+//! The ComboPropertyEdit class provides PropertyVariantFactory with editing
+//! widget for ComboProperty
+class BA_CORE_API_ ComboPropertyEdit : public QWidget
+{
+    Q_OBJECT
+public:
+    ComboPropertyEdit(QWidget *parent = 0);
+
+    void setComboProperty(const ComboProperty &combo_property);
+    ComboProperty getComboProperty() const {return m_combo_property; }
+
+    QString comboValueText();
+
+signals:
+    void comboPropertyChanged(const ComboProperty &combo_property);
+private slots:
+    void onCurrentIndexChanged(QString current_value);
+
+private:
+    QLabel *m_textLabel;
+    QComboBox *m_comboBox;
+    ComboProperty m_combo_property;
+};
+
 
 #endif // PROPERTYBROWSERUTILS_H

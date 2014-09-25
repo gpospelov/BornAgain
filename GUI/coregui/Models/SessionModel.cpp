@@ -691,7 +691,6 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.value<ComboProperty>().getValue());
-
         }
         else if (type_name == QString("ScientificDoubleProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,

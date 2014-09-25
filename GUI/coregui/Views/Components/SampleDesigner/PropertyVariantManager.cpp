@@ -40,17 +40,23 @@ int PropertyVariantManager::fancyGroupTypeId()
     return result;
 }
 
+int PropertyVariantManager::comboPropertyTypeId()
+{
+    int result = qMetaTypeId<ComboProperty>();
+    return result;
+}
+
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return true;
-//    if (propertyType == groupTypeId())
-//        return true;
     if (propertyType == colorPropertyTypeId())
         return true;
     if (propertyType == scientificDoubleTypeId())
         return true;
     if (propertyType == fancyGroupTypeId())
+        return true;
+    if (propertyType == comboPropertyTypeId())
         return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
@@ -60,14 +66,14 @@ int PropertyVariantManager::valueType(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return materialTypeId();
-//    if (propertyType == groupTypeId())
-//        return groupTypeId();
     if (propertyType == colorPropertyTypeId())
         return colorPropertyTypeId();
     if (propertyType == scientificDoubleTypeId())
         return scientificDoubleTypeId();
     if (propertyType == fancyGroupTypeId())
         return fancyGroupTypeId();
+    if (propertyType == comboPropertyTypeId())
+        return comboPropertyTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
@@ -79,11 +85,6 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
         v.setValue(m_theMaterialValues[property]);
         return v;
     }
-//    if (m_theGroupValues.contains(property)) {
-//        QVariant v;
-//        v.setValue(m_theGroupValues[property]);
-//        return v;
-//    }
     if(m_theColorValues.contains(property)) {
         QVariant v;
         v.setValue(m_theColorValues[property]);
@@ -99,6 +100,11 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
         v.setValue(m_theFancyGroupValues[property]);
         return v;
     }
+    if(m_theComboValues.contains(property)) {
+        QVariant v;
+        v.setValue(m_theComboValues[property]);
+        return v;
+    }
 
     return QtVariantPropertyManager::value(property);
 }
@@ -109,9 +115,6 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
     if (m_theMaterialValues.contains(property)) {
         return m_theMaterialValues[property].getName();
     }
-//    if (m_theGroupValues.contains(property)) {
-//        return m_theGroupValues[property].getText();
-//    }
     if (m_theColorValues.contains(property)) {
         return m_theColorValues[property].getText();
     }
@@ -120,6 +123,9 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
     }
     if (m_theFancyGroupValues.contains(property)) {
         return m_theFancyGroupValues[property]->getValueLabel();
+    }
+    if (m_theComboValues.contains(property)) {
+        return m_theComboValues[property].getValue();
     }
     return QtVariantPropertyManager::valueText(property);
 }
@@ -149,16 +155,6 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
-//    if (m_theGroupValues.contains(property)) {
-//        if( val.userType() != groupTypeId() ) return;
-//        GroupProperty group_prop = val.value<GroupProperty>();
-//        m_theGroupValues[property] = group_prop;
-//        QVariant v2;
-//        v2.setValue(group_prop);
-//        emit propertyChanged(property);
-//        emit valueChanged(property, v2);
-//        return;
-//    }
     if (m_theColorValues.contains(property)) {
         if( val.userType() != colorPropertyTypeId() ) return;
         ColorProperty mat = val.value<ColorProperty>();
@@ -189,6 +185,16 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
+    if (m_theComboValues.contains(property)) {
+        if( val.userType() != comboPropertyTypeId() ) return;
+        ComboProperty comboprop = val.value<ComboProperty>();
+        m_theComboValues[property] = comboprop;
+        QVariant v2;
+        v2.setValue(comboprop);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+        return;
+    }
 
     QtVariantPropertyManager::setValue(property, val);
 }
@@ -200,10 +206,6 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         MaterialProperty m;
         m_theMaterialValues[property] = m;
     }
-//    if (propertyType(property) == groupTypeId()) {
-//        GroupProperty m;
-//        m_theGroupValues[property] = m;
-//    }
     if (propertyType(property) == colorPropertyTypeId()) {
         ColorProperty m;
         m_theColorValues[property] = m;
@@ -212,9 +214,12 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         ScientificDoubleProperty m;
         m_theScientificDoubleValues[property] = m;
     }
-    // ???
     if (propertyType(property) == fancyGroupTypeId()) {
         m_theFancyGroupValues[property] = 0;
+    }
+    if (propertyType(property) == comboPropertyTypeId()) {
+        ComboProperty m;
+        m_theComboValues[property] = m;
     }
 
     QtVariantPropertyManager::initializeProperty(property);
@@ -228,6 +233,7 @@ void PropertyVariantManager::uninitializeProperty(QtProperty *property)
     m_theColorValues.remove(property);
     m_theScientificDoubleValues.remove(property);
     m_theFancyGroupValues.remove(property);
+    m_theComboValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

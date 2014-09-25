@@ -15,12 +15,21 @@
 
 #include "ParticleLayoutItem.h"
 #include "ParticleCoreShellItem.h"
+#include "ComboProperty.h"
+
+const QString ParticleLayoutItem::P_APPROX = "Approximation";
 
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
     setItemName(Constants::ParticleLayoutType);
     setItemPort(ParameterizedItem::PortInfo::Port0);
+
+    ComboProperty approx;
+    approx << "Decoupling Approximation" << "Local Monodisperse Approximation"
+           << "Size Space Coupling Approximation";
+    registerProperty(P_APPROX, approx.getVariant());
+
     addToValidChildren(Constants::ParticleType, PortInfo::Port0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
     addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::Port1, 1);
@@ -28,10 +37,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::Port1, 1);
 }
 
-
 ParticleLayoutItem::~ParticleLayoutItem()
 {
 }
-
-
 

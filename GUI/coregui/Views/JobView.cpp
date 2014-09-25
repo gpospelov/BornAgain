@@ -127,21 +127,21 @@ void JobView::resetToDefaultLayout()
 
     setTrackingEnabled(true);
 
-    onJobViewActivityRequest();
+    //onJobViewActivityRequest();
 }
 
 
 void JobView::onJobViewActivityRequest()
 {
-    m_d->m_dockWidgets[JobListDock]->show();
-    m_d->m_dockWidgets[RealTimeDock]->hide();
+//    m_d->m_dockWidgets[JobListDock]->show();
+//    m_d->m_dockWidgets[RealTimeDock]->hide();
 }
 
 
 void JobView::onRealTimeActivityRequest()
 {
-    m_d->m_dockWidgets[JobListDock]->hide();
-    m_d->m_dockWidgets[RealTimeDock]->show();
+//    m_d->m_dockWidgets[JobListDock]->hide();
+//    m_d->m_dockWidgets[RealTimeDock]->show();
 }
 
 

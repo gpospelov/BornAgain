@@ -75,7 +75,7 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
     if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new AdvModelTuningWidget();
+        widget = new AdvModelTuningWidget(m_jobQueueModel->getJobQueueData());
         widget->setCurrentItem(item);
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;

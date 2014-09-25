@@ -79,6 +79,9 @@ void JobItem::initOutputDataItem()
 
 void JobItem::setResults(const Simulation *simulation)
 {
+    if(!simulation)
+        throw GUIHelpers::Error("JobItem::setResults() -> Error. Null simulation.");
+
 //    qDeleteAll(m_data_items);
 //    m_data_items.clear();
     if(m_data_items.isEmpty()) {

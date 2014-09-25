@@ -19,7 +19,7 @@ ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *
     : QWidget(parent)
     , m_parameterModel(0)
     , m_treeView(0)
-    , m_delegate(new ModelTuningDelegate(1))
+    , m_delegate(new ModelTuningDelegate)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_simulationRunner(0)

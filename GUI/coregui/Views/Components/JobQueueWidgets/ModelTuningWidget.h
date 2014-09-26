@@ -10,6 +10,8 @@ class ModelTuningDelegate;
 class JobQueueData;
 class QTreeView;
 class QStandardItemModel;
+class SampleModel;
+class InstrumentModel;
 
 
 class ModelTuningWidget : public QWidget
@@ -26,9 +28,11 @@ public:
 public slots:
     void onCurrentLinkChanged(ItemLink link);
     void onSliderValueChanged(double value);
+    void restoreModelsOfCurrentJobItem();
 
 private:
     void updateParameterModel();
+    void backupModels();
 
     JobQueueData *m_jobQueueData;
     JobItem *m_currentJobItem;
@@ -36,6 +40,8 @@ private:
     QTreeView *m_treeView;
     QStandardItemModel *m_parameterModel;
     ModelTuningDelegate *m_delegate;
+    SampleModel *m_sampleModelBackup;
+    InstrumentModel *m_instrumentModelBackup;
 };
 
 

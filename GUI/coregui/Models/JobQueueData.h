@@ -33,6 +33,8 @@ public:
 
     QString getIdentifierForJobItem(const JobItem *);
 
+    bool hasUnfinishedJobs();
+
 signals:
     void globalProgress(int);
     void focusRequest(JobItem *item);

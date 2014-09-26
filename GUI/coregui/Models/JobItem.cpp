@@ -113,6 +113,7 @@ void JobItem::setResults(const Simulation *simulation)
 
     qDebug() << "JobItem::setResults()" << outputDataItem;
 
+    outputDataItem->setName(QString("data_%1_%2.int").arg(m_name, QString::number(0)));
     outputDataItem->setOutputData(simulation->getIntensityData());
 }
 
@@ -163,6 +164,31 @@ void JobItem::setRunPolicy(const QString &run_policy)
 //    } else {
 //        m_run_policy = SubmitOnly;
 //    }
+}
+
+SampleModel *JobItem::getSampleModel()
+{
+    return m_sampleModel;
+}
+
+
+void JobItem::setSampleModel(SampleModel *sampleModel)
+{
+    delete m_sampleModel;
+    m_sampleModel = sampleModel;
+}
+
+
+InstrumentModel *JobItem::getInstrumentModel()
+{
+    return m_instrumentModel;
+}
+
+
+void JobItem::setInstrumentModel(InstrumentModel *instrumentModel)
+{
+    delete m_instrumentModel;
+    m_instrumentModel = instrumentModel;
 }
 
 

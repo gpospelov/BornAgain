@@ -69,6 +69,13 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 }
 
 
+void ProjectDocument::onJobQueueModelChanged(const QString &)
+{
+    m_modified = true;
+    emit modified();
+}
+
+
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
     if(materialModel != m_materialModel) {
@@ -101,9 +108,14 @@ void ProjectDocument::setSampleModel(SampleModel *model)
 void ProjectDocument::setJobQueueModel(JobQueueModel *model)
 {
     if(model != m_jobQueueModel) {
-        if(m_jobQueueModel) disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        if(m_jobQueueModel) {
+            //disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+            disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
+        }
         m_jobQueueModel = model;
-        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+
+//        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
     }
 }
 
@@ -175,7 +187,8 @@ bool ProjectDocument::readFrom(QIODevice *device)
     disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     Q_ASSERT(m_jobQueueModel);
-    disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    //disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
 
     QXmlStreamReader reader(device);
 
@@ -210,7 +223,8 @@ bool ProjectDocument::readFrom(QIODevice *device)
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-    connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    //connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
 
     return true;
 

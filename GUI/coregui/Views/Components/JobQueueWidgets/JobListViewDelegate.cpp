@@ -15,6 +15,11 @@ JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)
 {
     m_buttonState =  QStyle::State_Enabled;
+    m_status_to_color[JobItem::Idle] = QColor(255, 286, 12);
+    m_status_to_color[JobItem::Running] = QColor(5, 150, 230);
+    m_status_to_color[JobItem::Completed] = QColor(5, 150, 230);
+    m_status_to_color[JobItem::Failed] = QColor(186, 0, 0);
+    m_status_to_color[JobItem::Canceled] = QColor(255, 186, 12);
 }
 
 
@@ -40,21 +45,23 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     //textRect.setHeight( 10);
     painter->drawText(textRect,text);
 
-    QStyleOptionProgressBar progressBarOption;
-    progressBarOption.state = QStyle::State_Enabled;
-    progressBarOption.direction = QApplication::layoutDirection();
-    progressBarOption.rect = getProgressBarRect(option.rect);
-    //progressBarOption.rect = option.rect;
-    //progressBarOption.fontMetrics = QApplication::fontMetrics();
-    progressBarOption.minimum = 0;
-    progressBarOption.maximum = 100;
-    //progressBarOption.textAlignment = Qt::AlignCenter;
-    progressBarOption.textVisible = false;
+//    QStyleOptionProgressBar progressBarOption;
+//    progressBarOption.state = QStyle::State_Enabled;
+//    progressBarOption.direction = QApplication::layoutDirection();
+//    progressBarOption.rect = getProgressBarRect(option.rect);
+//    //progressBarOption.rect = option.rect;
+//    //progressBarOption.fontMetrics = QApplication::fontMetrics();
+//    progressBarOption.minimum = 0;
+//    progressBarOption.maximum = 100;
+//    //progressBarOption.textAlignment = Qt::AlignCenter;
+//    progressBarOption.textVisible = false;
 
-    // Set the progress and text values of the style option.
-    int progress = item->getProgress();
-    progressBarOption.progress = progress < 0 ? 0 : progress;
-    QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+//    // Set the progress and text values of the style option.
+//    int progress = item->getProgress();
+//    progressBarOption.progress = progress < 0 ? 0 : progress;
+//    QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+
+    drawCustomProjectBar(item, painter, option);
 
     if(item->isRunning()) {
         QStyleOptionButton button;
@@ -108,6 +115,32 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
         emit cancelButtonClicked( index);
     }
     return true;
+}
+
+
+void JobListViewDelegate::drawCustomProjectBar(const JobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
+{
+    int progress = item->getProgress();
+    QRect rect = getProgressBarRect(option.rect);
+
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setBrush(QColor(204, 223, 230));
+    painter->setPen(QColor("transparent"));
+    QRect rect2(rect.x(), rect.y(), rect.width(),
+                rect.height());
+    painter->drawRoundedRect(rect2, 2, 2);
+    painter->restore();
+
+    int progBarWidth = float((rect.width() * progress) / 100);
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setPen(QColor("transparent"));
+    painter->setBrush(m_status_to_color[item->getStatus()]);
+    QRect rect5(rect.x(), rect.y(), progBarWidth,
+                    rect.height());
+    painter->drawRoundedRect(rect5, 2, 2);
+    painter->restore();
 }
 
 

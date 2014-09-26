@@ -105,6 +105,11 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
     throw GUIHelpers::Error("JobQueueData::getIdentifierForJobItem() -> Error! Can't find item.");
 }
 
+bool JobQueueData::hasUnfinishedJobs()
+{
+    return m_simulations.size();
+}
+
 
 //! submit job and run it in a thread
 void JobQueueData::runJob(const QString &identifier)
@@ -225,6 +230,8 @@ void JobQueueData::onFinishedJob()
     assignForDeletion(runner);
 //    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
+    if(!hasUnfinishedJobs())
+        emit globalProgress(100);
 }
 
 

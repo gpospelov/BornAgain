@@ -66,7 +66,6 @@ JobView::JobView(JobQueueModel *jobQueueModel, QWidget *parent)
     resetToDefaultLayout();
 
     connectSignals();
-
 }
 
 

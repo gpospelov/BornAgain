@@ -1,10 +1,14 @@
 #include "JobPropertiesWidget.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 #include <QVBoxLayout>
+#include <QTabBar>
 #include <QTextEdit>
+#include <QTabWidget>
 #include <QDebug>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
@@ -13,6 +17,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
     , m_currentItem(0)
+    , m_tabWidget(new QTabWidget)
 {
 //    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -21,6 +26,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
 //    setStyleSheet("background-color:white;");
 
     m_variantManager = new QtVariantPropertyManager(this);
+    m_readonlyManager = new QtVariantPropertyManager(this);
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 
@@ -31,10 +37,19 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_propertyBrowser);
-
     m_commentsEditor = new QTextEdit();
-    mainLayout->addWidget(m_commentsEditor);
+
+    QWidget *commentsWidget = new QWidget();
+    QVBoxLayout * vlayout = new QVBoxLayout;
+    vlayout->setMargin(8);
+    vlayout->addWidget(m_commentsEditor);
+    commentsWidget->setLayout(vlayout);
+
+    m_tabWidget->setTabPosition(QTabWidget::South);
+    m_tabWidget->insertTab(JobPropertiesTab, m_propertyBrowser, "Job Properties");
+    m_tabWidget->insertTab(JobCommentsTab, commentsWidget, "Details");
+
+    mainLayout->addWidget(m_tabWidget);
 
     setLayout(mainLayout);
 
@@ -104,21 +119,31 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setValue(jobItem->getName());
     addProperty(property, JobQueueXML::JobNameAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("Status"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Sample"));
+    if(jobItem->getSampleModel()) property->setValue(jobItem->getSampleModel()->getSampleMap().firstKey());
+    addProperty(property, "Sample");
+
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Instrument"));
+    if(jobItem->getInstrumentModel()) property->setValue(jobItem->getInstrumentModel()->getInstrumentMap().firstKey());
+    addProperty(property, "Instrument");
+
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Status"));
     property->setValue(jobItem->getStatusString());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobStatusAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("Begin Time"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Begin Time"));
     property->setValue(jobItem->getBeginTime());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobBeginTimeAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("End Time"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("End Time"));
     property->setValue(jobItem->getEndTime());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
+    if(jobItem->getStatus() == JobItem::Failed) {
+        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::red);
+    } else {
+        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::black);
+    }
     m_commentsEditor->setText(jobItem->getComments());
 
 }

@@ -1,7 +1,7 @@
 #include "JobRealTimeWidget.h"
 #include "JobQueueModel.h"
 #include "ModelTuningWidget.h"
-#include "styledtoolbar.h"
+#include "JobRealTimeToolBar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
@@ -15,7 +15,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *pare
     : QWidget(parent)
     , m_jobQueueModel(0)
     , m_stack(new QStackedWidget(this))
-    , m_toolBar(new StyledToolBar)
+    , m_toolBar(new JobRealTimeToolBar)
 {
     setJobQueueModel(jobQueueModel);
 
@@ -36,6 +36,9 @@ JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *pare
     mainLayout->addWidget(m_stack);
 
     setLayout(mainLayout);
+
+    connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
+    //connect(m_toolBar, SIGNAL(exportParameters()), this, SLOT(onExportParameters()));
 }
 
 
@@ -43,6 +46,20 @@ void JobRealTimeWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
 {
     Q_ASSERT(jobQueueModel);
     if(jobQueueModel != m_jobQueueModel) {
+        if(m_jobQueueModel) {
+            disconnect(m_jobQueueModel,
+                SIGNAL( selectionChanged(JobItem *) ),
+                this,
+                SLOT( itemClicked(JobItem *) )
+                );
+
+            disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+                    , this, SLOT(onJobItemFinished(QString)));
+
+            disconnect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
+                    , this, SLOT(onJobItemDelete(JobItem*)));
+        }
+
         m_jobQueueModel = jobQueueModel;
 
         connect(m_jobQueueModel,
@@ -63,13 +80,10 @@ void JobRealTimeWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
 void JobRealTimeWidget::itemClicked(JobItem * item)
 {
     qDebug() << "JobOutputDataWidget::itemClicked()";
-
-
-
     m_currentJobItem = item;
 
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
-    if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
+    if( !widget && isValidJobItem(item)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new ModelTuningWidget(m_jobQueueModel->getJobQueueData());
@@ -77,22 +91,14 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;
 
-    }
-    else
-    {
-        if( m_stack->currentWidget())
-        {
+    } else {
+        if( m_stack->currentWidget()) {
             m_stack->currentWidget()->hide();
         }
     }
 
-
-    if(widget)
-    {
-        qDebug() << "JobOutputDataWidget::itemClicked() -> setCurrentWidget";
-
-        if(widget->isHidden())
-        {
+    if(widget) {
+        if(widget->isHidden()) {
             widget->show();
         }
 
@@ -106,14 +112,39 @@ void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
     qDebug() << "JobOutputDataWidget::onJobItemFinished()";
     JobItem *jobItem = m_jobQueueModel->getJobQueueData()->getJobItem(identifier);
 
-    if(jobItem == m_currentJobItem)
-    {
-        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem())
-        {
+    if(jobItem == m_currentJobItem) {
+        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem()) {
             qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
             itemClicked(jobItem);
         }
     }
+}
+
+void JobRealTimeWidget::onResetParameters()
+{
+    ModelTuningWidget *widget = getCurrentModelTuningWidget();
+    if(widget)
+        widget->restoreModelsOfCurrentJobItem();
+}
+
+//void JobRealTimeWidget::onExportParameters()
+//{
+
+//}
+
+
+ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
+{
+    ModelTuningWidget *result = dynamic_cast<ModelTuningWidget *>(m_stack->currentWidget());
+    if(result && result->isHidden()) result = 0;
+    return result;
+}
+
+//! Returns true if JobItem is valid for real time simulation, i.e.
+//! it is not already running and it has valid models
+bool JobRealTimeWidget::isValidJobItem(JobItem *item)
+{
+ return (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled) && item->getSampleModel() && item->getInstrumentModel();
 }
 
 

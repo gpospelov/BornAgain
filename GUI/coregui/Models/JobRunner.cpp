@@ -61,7 +61,7 @@ void JobRunner::start()
             m_failure_message = QString(ex.what());
         }
 
-        if(m_terminate_request_flag) m_progress=-1;
+        //if(m_terminate_request_flag) m_progress=-1;
 
         emit progressUpdate();
         emit finished();

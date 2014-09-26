@@ -4,7 +4,9 @@
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 #include <QVBoxLayout>
+#include <QTabBar>
 #include <QTextEdit>
+#include <QTabWidget>
 #include <QDebug>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
@@ -13,6 +15,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
     , m_currentItem(0)
+    , m_tabWidget(new QTabWidget)
 {
 //    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -31,10 +34,19 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_propertyBrowser);
-
     m_commentsEditor = new QTextEdit();
-    mainLayout->addWidget(m_commentsEditor);
+
+    QWidget *commentsWidget = new QWidget();
+    QVBoxLayout * vlayout = new QVBoxLayout;
+    vlayout->setMargin(8);
+    vlayout->addWidget(m_commentsEditor);
+    commentsWidget->setLayout(vlayout);
+
+    m_tabWidget->setTabPosition(QTabWidget::South);
+    m_tabWidget->insertTab(JobPropertiesTab, m_propertyBrowser, "Job Properties");
+    m_tabWidget->insertTab(JobCommentsTab, commentsWidget, "Details");
+
+    mainLayout->addWidget(m_tabWidget);
 
     setLayout(mainLayout);
 
@@ -119,6 +131,11 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
+    if(jobItem->getStatus() == JobItem::Failed) {
+        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::red);
+    } else {
+        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::black);
+    }
     m_commentsEditor->setText(jobItem->getComments());
 
 }

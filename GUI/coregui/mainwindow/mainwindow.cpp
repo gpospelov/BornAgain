@@ -46,6 +46,7 @@
 #include <QStatusBar>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QMessageBox>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -199,7 +200,12 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-
+    if(m_jobQueueModel->getJobQueueData()->hasUnfinishedJobs()) {
+        QMessageBox::warning(this, tr("Can't quite the application."),
+                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed");
+        event->ignore();
+        return;
+    }
 
     if(m_projectManager->closeCurrentProject())
     {
@@ -210,10 +216,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         event->ignore();
     }
-
-
-
-
 }
 
 void MainWindow::initModels()

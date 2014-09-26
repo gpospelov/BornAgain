@@ -105,6 +105,11 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
     throw GUIHelpers::Error("JobQueueData::getIdentifierForJobItem() -> Error! Can't find item.");
 }
 
+bool JobQueueData::hasUnfinishedJobs()
+{
+    return m_threads.size();
+}
+
 
 //! submit job and run it in a thread
 void JobQueueData::runJob(const QString &identifier)

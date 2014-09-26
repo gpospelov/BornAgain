@@ -165,6 +165,31 @@ void JobItem::setRunPolicy(const QString &run_policy)
 //    }
 }
 
+SampleModel *JobItem::getSampleModel()
+{
+    return m_sampleModel;
+}
+
+
+void JobItem::setSampleModel(SampleModel *sampleModel)
+{
+    delete m_sampleModel;
+    m_sampleModel = sampleModel;
+}
+
+
+InstrumentModel *JobItem::getInstrumentModel()
+{
+    return m_instrumentModel;
+}
+
+
+void JobItem::setInstrumentModel(InstrumentModel *instrumentModel)
+{
+    delete m_instrumentModel;
+    m_instrumentModel = instrumentModel;
+}
+
 
 void JobItem::writeTo(QXmlStreamWriter *writer)
 {

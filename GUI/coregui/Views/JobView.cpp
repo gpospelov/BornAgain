@@ -66,7 +66,6 @@ JobView::JobView(JobQueueModel *jobQueueModel, QWidget *parent)
     resetToDefaultLayout();
 
     connectSignals();
-
 }
 
 
@@ -126,7 +125,7 @@ void JobView::resetToDefaultLayout()
 
     setTrackingEnabled(true);
 
-    setActivity(JobViewActivity);
+    //setActivity(JobViewActivity);
 }
 
 

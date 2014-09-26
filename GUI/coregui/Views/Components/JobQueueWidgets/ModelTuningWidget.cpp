@@ -5,6 +5,8 @@
 #include "GUIHelpers.h"
 #include "ModelTuningDelegate.h"
 #include "JobQueueData.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -19,6 +21,8 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     , m_sliderSettingsWidget(0)
     , m_parameterModel(0)
     , m_delegate(new ModelTuningDelegate)
+    , m_sampleModelBackup(0)
+    , m_instrumentModelBackup(0)
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -51,15 +55,18 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
 ModelTuningWidget::~ModelTuningWidget()
 {
     delete m_parameterModel;
+    delete m_sampleModelBackup;
+    delete m_instrumentModelBackup;
 }
 
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
-    qDebug() << "AdvModelTuningWidget::setCurrentItem" << item;
+    qDebug() << "ModelTuningWidget::setCurrentItem" << item;
     if(m_currentJobItem != item) {
         m_currentJobItem = item;
         updateParameterModel();
+        backupModels();
     }
 }
 
@@ -109,3 +116,41 @@ void ModelTuningWidget::updateParameterModel()
     m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
 }
+
+
+//! Creates backup copies of JobItem's sample and instrument models
+void ModelTuningWidget::backupModels()
+{
+    qDebug() << "ModelTuningWidget::backupModels()";
+    if(!m_currentJobItem) return;
+
+    if(!m_sampleModelBackup)
+        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
+
+    if(!m_instrumentModelBackup)
+        m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
+
+}
+
+
+void ModelTuningWidget::restoreModelsOfCurrentJobItem()
+{
+    if(m_currentJobItem->isRunning())
+        return;
+
+    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
+    Q_ASSERT(m_sampleModelBackup);
+    Q_ASSERT(m_instrumentModelBackup);
+    Q_ASSERT(m_currentJobItem);
+
+    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current" << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
+                << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
+
+    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
+    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
+    updateParameterModel();
+
+    m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
+}
+
+

@@ -70,9 +70,11 @@ public:
     void setRunPolicy(RunPolicy run_policy) { m_run_policy = run_policy; }
     void setRunPolicy(const QString &run_policy);
 
-    SampleModel *getSampleModel() { return m_sampleModel; }
+    SampleModel *getSampleModel();
+    void setSampleModel(SampleModel *sampleModel);
 
-    InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
+    InstrumentModel *getInstrumentModel();
+    void setInstrumentModel(InstrumentModel *instrumentModel);
 
     static QStringList getRunPolicies() { return m_run_policies; }
 

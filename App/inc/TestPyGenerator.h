@@ -14,7 +14,9 @@ public:
 
 private:
     PyGenVisitor visitor;
+    Simulation *makeSimulation();
     MultiLayer *makeSample();
+    Simulation *m_simulation;
     MultiLayer *m_sample;
 
 

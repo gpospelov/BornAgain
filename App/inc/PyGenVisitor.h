@@ -13,7 +13,7 @@ public:
 
     using ISampleVisitor::visit;
 
-    void genPyScript();
+    void genPyScript(const Simulation *simulation);
     std::string printDouble(double input);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);
@@ -56,8 +56,6 @@ public:
 
 private:
     LabelSample *m_label;
-    Simulation *m_simulation;
-    Simulation *makeSimulation();
     std::set<std::string> visitedMaterials;
 };
 

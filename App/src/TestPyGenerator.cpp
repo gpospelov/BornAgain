@@ -5,6 +5,7 @@
 #include "FormFactors.h"
 #include "ICompositeSample.h"
 #include "INamed.h"
+#include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
 #include "InterferenceFunctionNone.h"
@@ -27,14 +28,15 @@ void TestPyGenerator::execute()
 {
     std::cout << "\n\n\n\n";
 
-    //Simulation *sm = makeSimulation();
-    MultiLayer *ml = makeSample();
-    ml->printSampleTree();
+    Simulation *simulation = makeSimulation();
+    ISample *iSample = simulation->getSample();
+    MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
+    //multiLayer->printSampleTree();
 
-    std::cout << "\n\n\n\n";
+    //std::cout << "\n\n\n\n";
 
-    VisitSampleTree(*ml, visitor);
-    visitor.genPyScript();
+    VisitSampleTree(*multiLayer, visitor);
+    visitor.genPyScript(simulation);
 }
 
 MultiLayer *TestPyGenerator::makeSample()
@@ -68,3 +70,13 @@ MultiLayer *TestPyGenerator::makeSample()
     return multi_layer;
 }
 
+Simulation *TestPyGenerator::makeSimulation()
+{
+    m_simulation = new Simulation();
+    m_simulation->setDetectorParameters(400,-1.0*Units::degree, 1.0*Units::degree, 400,0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(2.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    MultiLayer *multiLayer = makeSample();
+    m_simulation->setSample(*multiLayer);
+    return m_simulation;
+
+}

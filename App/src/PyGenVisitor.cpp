@@ -28,7 +28,7 @@ PyGenVisitor::PyGenVisitor()
 
 }
 
-void PyGenVisitor::genPyScript()
+void PyGenVisitor::genPyScript(const Simulation *simulation)
 {
     std::ofstream myfile;
     myfile.open ("PythonScript.py");
@@ -642,7 +642,6 @@ void PyGenVisitor::genPyScript()
     myfile << "\t# Defining Beam and Detector Parameters\n";
     myfile << "\tsimulation = Simulation()\n";
     myfile << "\tsimulation.setDetectorParameters(" ;
-    const Simulation *simulation = makeSimulation();
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
     size_t index = 0;
     while (index != numberOfDetectorDimensions)
@@ -678,15 +677,6 @@ void PyGenVisitor::genPyScript()
     myfile << "]) \n\tpylab.colorbar(im) \n\tpylab.show() \n\n";
     myfile << "if __name__ == '__main__': \n\trunSimulation()";
     myfile.close();
-
-}
-
-Simulation *PyGenVisitor::makeSimulation()
-{
-    m_simulation = new Simulation();
-    m_simulation->setDetectorParameters(400,-1.0*Units::degree, 1.0*Units::degree, 400,0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(2.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-    return m_simulation;
 
 }
 

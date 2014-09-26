@@ -17,7 +17,6 @@ class SampleView;
 class PyScriptView;
 class SimulationView;
 class JobView;
-class JobQueueView;
 class Instrument;
 class ISample;
 class ActionManager;
@@ -68,8 +67,8 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
-    JobQueueView * m_jobQueueView;
-    Manhattan::ProgressBar *m_progressBar;
+    JobView *m_jobView;
+    Manhattan::ProgressBar *m_progressBar;    
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects

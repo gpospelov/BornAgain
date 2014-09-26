@@ -8,7 +8,6 @@
 
 class PlotWidget;
 class PropertyWidget;
-//class QSplitter;
 class OutputDataToolBar;
 
 
@@ -16,10 +15,9 @@ class BA_CORE_API_ OutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = true, bool isCreatePropertyWidget = true);
+    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = false, bool isCreatePropertyWidget = false);
 
     void setCurrentItem(OutputDataItem *item);
-
 
 public slots:
 
@@ -29,7 +27,6 @@ public slots:
     void toggleProjections();
     void projectionsChanged(bool projection);
     void gradientChanged(QCPColorGradient gradient);
-    //void onPropertySplitterMoved(int pos, int index);
     void setPropertyPanelVisible(bool visible);
 
 private:
@@ -39,7 +36,6 @@ private:
     const OutputData<double > *m_data;
 
     PropertyWidget *m_propertyWidget;
-    //QSplitter *m_splitter;
     OutputDataToolBar *m_toolBar;
     QCPColorGradient m_gradient;
     OutputDataItem *m_currentOutputDataItem;
@@ -47,9 +43,7 @@ private:
     QHBoxLayout *m_layout;
 
     bool m_isProjectionsVisible;
-    //int m_currentPropertyWidgetWidth;
     void connectToobarSignals();
-
 };
 
 

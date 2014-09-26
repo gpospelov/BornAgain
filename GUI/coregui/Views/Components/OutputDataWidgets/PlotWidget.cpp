@@ -88,6 +88,8 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
 
     initContextMenu();
 
+//    projectionsChanged(false);
+
 }
 
 

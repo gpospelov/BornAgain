@@ -7,7 +7,6 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "JobQueueView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "JobQueueModel.h"
@@ -40,7 +39,7 @@
 #include "FancyGroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
-//#include "TestView.h"
+#include "JobView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -57,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_jobQueueView(0)
+    , m_jobView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
@@ -94,15 +93,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
-    m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
+    m_jobView = new JobView(m_jobQueueModel);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
@@ -111,7 +110,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
     m_progressBar->hide();
-    m_jobQueueView->setProgressBar(m_progressBar);
+    m_jobView->setProgressBar(m_progressBar);
 
     setCentralWidget(m_tabWidget);
 
@@ -120,7 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
-    connect(m_jobQueueView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
+    connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
 
     //just for test
@@ -263,14 +262,6 @@ void MainWindow::initJobQueueModel()
 {
     delete m_jobQueueModel;
     m_jobQueueModel = new JobQueueModel(this);
-    SimulationRegistry registry;
-    m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
-    //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
-    m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
-    m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
-    m_jobQueueModel->addJob("isgisaxs11",registry.createItem("isgisaxs11"));
-    m_jobQueueModel->addJob("LayerWithRoughness",registry.createItem("LayerWithRoughness"));
-    //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 
 

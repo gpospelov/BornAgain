@@ -2,7 +2,7 @@
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
-#include "styledbar.h"
+#include "styledtoolbar.h"
 #include <QPushButton>
 #include <QListView>
 #include <QMenu>
@@ -39,7 +39,8 @@ JobListWidget::JobListWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    Manhattan::StyledBar *bar = new Manhattan::StyledBar;
+//    Manhattan::StyledBar *bar = new Manhattan::StyledBar;
+    StyledToolBar *bar = new StyledToolBar;
     mainLayout->addWidget(bar);
 
 //    QHBoxLayout *buttonsLayout = new QHBoxLayout;

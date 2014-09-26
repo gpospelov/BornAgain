@@ -23,7 +23,6 @@ set(source_files
 
 set(include_files)
 
-    message("XXXXX ${BORNAGAIN_CRASHHADLER}")
 # MH: disabled crashhandler
 #if(BORNAGAIN_CRASHHADLER)
 #    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)

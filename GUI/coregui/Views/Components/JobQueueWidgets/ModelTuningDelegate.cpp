@@ -19,12 +19,14 @@
 
 
 
-ModelTuningDelegate::ModelTuningDelegate(int valueColumn, QObject *parent)
+ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
+    , m_valueColumn(1)
+    , m_sliderRangeFactor(100.0)
+    , m_multiplyFactor(100)
+
 {
-    m_valueColumn = valueColumn;
-    m_multiplyFactor = 100;
-    m_sliderRangeFactor = 10.0;
+
 }
 
 void ModelTuningDelegate::paint(QPainter *painter,

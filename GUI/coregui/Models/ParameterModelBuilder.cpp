@@ -1,103 +1,14 @@
-#include "QuickSimulationHelper.h"
-#include "Simulation.h"
-#include "Instrument.h"
-#include "MultiLayer.h"
+#include "ParameterModelBuilder.h"
 #include "SampleModel.h"
-#include "MultiLayerItem.h"
 #include "InstrumentModel.h"
-#include "DomainObjectBuilder.h"
-#include "ParameterizedItem.h"
 #include "BeamItem.h"
 #include "ItemLink.h"
-#include <QDebug>
-#include <iostream>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QDebug>
 
 
-//! Creates domain simulation from sample and instrument models for given names of MultiLayer and Instrument
-Simulation *QuickSimulationHelper::getSimulation(SampleModel *sampleModel, const QString &sample_name, InstrumentModel *instrumentModel, const QString &instrument_name)
-{
-    qDebug() << "QuickSimulationHelper::getSimulation() " << sample_name << instrument_name;
-
-    Simulation *result = new Simulation;
-
-    MultiLayer *multilayer = getMultiLayer(sampleModel, sample_name);
-    Q_ASSERT(multilayer);
-
-    Instrument *instrument = getInstrument(instrumentModel, instrument_name);
-    Q_ASSERT(instrument);
-
-    result->setSample(*multilayer);
-    result->setInstrument(*instrument);
-
-    delete multilayer;
-    delete instrument;
-
-    return result;
-}
-
-
-//! Creates domain simulation from sample and instrument models. First sample and first instrument in models will be used, if there are more than one
-Simulation *QuickSimulationHelper::getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel)
-{
-    return getSimulation(sampleModel, QString(), instrumentModel, QString());
-}
-
-
-//! Creates domain instrument from InstrumentModel and given instrument name. If name is empty, then uses first instrument in the model.
-Instrument *QuickSimulationHelper::getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name)
-{
-    qDebug() << "QuickSimulationHelper::getInstrument()";
-
-    Instrument *result(0);
-
-    QMap<QString, ParameterizedItem *> instrumentMap = instrumentModel->getInstrumentMap();
-
-    if(instrumentMap.size()) {
-        ParameterizedItem *instrumentItem(0);
-        if(instrument_name.isEmpty()) {
-            instrumentItem = instrumentMap.first();
-        } else {
-            instrumentItem = instrumentMap[instrument_name];
-        }
-
-        Q_ASSERT(instrumentItem);
-        DomainObjectBuilder builder;
-        result = builder.buildInstrument(*instrumentItem);
-    }
-
-    return result;
-}
-
-
-//! Creates domain MultiLayer from SampleModel and given MultiLayer name. If name is empty, then uses first MultiLayer in the model.
-MultiLayer *QuickSimulationHelper::getMultiLayer(SampleModel *sampleModel, const QString &sample_name)
-{
-    qDebug() << "QuickSimulationHelper::getMultiLayer()";
-
-    MultiLayer *result(0);
-
-    QMap<QString, ParameterizedItem *> sampleMap = sampleModel->getSampleMap();
-
-    if(sampleMap.size()) {
-        ParameterizedItem *sampleItem(0);
-        if(sample_name.isEmpty()) {
-            sampleItem = sampleMap.first();
-        } else {
-            sampleItem = sampleMap[sample_name];
-        }
-
-        Q_ASSERT(sampleItem);
-        DomainObjectBuilder builder;
-        result = builder.buildMultiLayer(*sampleItem);
-    }
-
-    return result;
-}
-
-
-QStandardItemModel *QuickSimulationHelper::createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel)
+QStandardItemModel *ParameterModelBuilder::createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel)
 {
     QStandardItemModel *result(0);
     result = new QStandardItemModel();
@@ -127,7 +38,7 @@ QStandardItemModel *QuickSimulationHelper::createParameterModel(SampleModel *sam
 }
 
 
-QStandardItem *QuickSimulationHelper::iterateSessionModel(SampleModel *sampleModel, const QModelIndex &parentIndex, QStandardItem *parentItem)
+QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleModel, const QModelIndex &parentIndex, QStandardItem *parentItem)
 {
     Q_ASSERT(sampleModel);
 
@@ -227,7 +138,7 @@ QStandardItem *QuickSimulationHelper::iterateSessionModel(SampleModel *sampleMod
     return parentItem;
 }
 
-QStandardItem *QuickSimulationHelper::iterateInstrumentModel(InstrumentModel *instrumentModel)
+QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *instrumentModel)
 {
     QStandardItem *standardItem(0);
 
@@ -258,7 +169,7 @@ QStandardItem *QuickSimulationHelper::iterateInstrumentModel(InstrumentModel *in
     return standardItem;
 }
 
-void QuickSimulationHelper::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
+void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
 {
     if(childValueItem == NULL)
     {
@@ -270,7 +181,7 @@ void QuickSimulationHelper::insertRowIntoItem(QStandardItem *parentItem, QStanda
 
 }
 
-void QuickSimulationHelper::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
+void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
 {
     ItemLink itemLink(title, parameterizedItem);
     QVariant itemLinkData;
@@ -285,3 +196,4 @@ void QuickSimulationHelper::insertRowIntoItem(QStandardItem *parentItem, QString
     insertRowIntoItem(parentItem, titleItem, valueItem);
 
 }
+

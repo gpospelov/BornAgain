@@ -4,7 +4,7 @@
 #include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
-#include "QuickSimulationHelper.h"
+#include "DomainSimulationBuilder.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -107,24 +107,21 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 
 
 //! submit job and run it in a thread
-void JobQueueData::runJob(QString identifier)
+void JobQueueData::runJob(const QString &identifier)
 {
     if(getThread(identifier)) {
         qDebug() << "JobQueueData::runInThread() -> Thread is already running";
         return;
     }
 
-    // FIXME Simplify this part by getting rid from the method JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
-    // to allow only JobItem's with initialized InstrumentModel and SampleModel
-    Simulation *simulation = getSimulation(identifier);
-    if(!simulation) {
-        JobItem *jobItem = getJobItem(identifier);
-        simulation = QuickSimulationHelper::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
-        m_simulations[identifier] = simulation;
-    }
-    // endoffixme
+    if(getSimulation(identifier))
+        throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
-    JobRunner *runner = new JobRunner(identifier, getSimulation(identifier));
+    JobItem *jobItem = getJobItem(identifier);
+    Simulation *simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+    m_simulations[identifier] = simulation;
+
+    JobRunner *runner = new JobRunner(identifier, simulation);
     m_runners[identifier] = runner;
 
     QThread *thread = new QThread();
@@ -153,7 +150,7 @@ void JobQueueData::runJob(QString identifier)
 
 
 //! cancels running job
-void JobQueueData::cancelJob(QString identifier)
+void JobQueueData::cancelJob(const QString &identifier)
 {
     //qDebug() << "JobQueueData::cancelJob()";
     if(getThread(identifier)) {
@@ -166,7 +163,7 @@ void JobQueueData::cancelJob(QString identifier)
 
 
 //! remove job from list completely
-void JobQueueData::removeJob(QString identifier)
+void JobQueueData::removeJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::removeJob" << identifier;
     cancelJob(identifier);
@@ -179,15 +176,7 @@ void JobQueueData::removeJob(QString identifier)
             break;
         }
     }
-    // removing simulations
-    for(QMap<QString, Simulation *>::iterator it=m_simulations.begin(); it!=m_simulations.end(); ++it) {
-        if(it.key() == identifier) {
-            delete it.value();
-            qDebug() << "       JobQueueData::removeJob   removing simulation" << identifier;
-            m_simulations.erase(it);
-            break;
-        }
-    }
+    clearSimulation(identifier);
 }
 
 
@@ -217,17 +206,9 @@ void JobQueueData::onFinishedJob()
 
     // propagating simulation results
     Simulation *simulation = getSimulation(runner->getIdentifier());
-    if(simulation) {
-        jobItem->setResults(simulation);
-//        jobItem->init();
-//        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
-    }
+    jobItem->setResults(simulation);
 
-//    if(runner->isTerminated()) {
-//        jobItem->setStatus(JobItem::Canceled);
-//    } else {
-//        jobItem->setStatus(JobItem::Completed);
-//    }
+    // propagating status of runner
     jobItem->setStatus(runner->getStatus());
     if(runner->getStatus() == JobItem::Failed)
         jobItem->setComments(runner->getFailureMessage());
@@ -238,10 +219,9 @@ void JobQueueData::onFinishedJob()
     if(jobItem->getRunPolicy() & JobItem::RunImmediately)
         emit focusRequest(jobItem);
 
-//    qDebug() << "     JobQueueData::onFinishedJob() -> before emiting jobIsFinished()";
     emit jobIsFinished(runner->getIdentifier());
-//    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), before asigning runner for deletion";
 
+    clearSimulation(runner->getIdentifier());
     assignForDeletion(runner);
 //    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
@@ -326,6 +306,14 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
         }
     }
     throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find the runner.");
+}
+
+
+void JobQueueData::clearSimulation(const QString &identifier)
+{
+    Simulation *simulation = getSimulation(identifier);
+    m_simulations.remove(identifier);
+    delete simulation;
 }
 
 

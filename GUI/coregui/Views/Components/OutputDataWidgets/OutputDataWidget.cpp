@@ -5,14 +5,18 @@
 #include <QVBoxLayout>
 #include <QModelIndex>
 #include <QMouseEvent>
-//#include <QSplitter>
 
 
-//OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
 OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget)
     : QWidget(parent)
     , m_plotWidget(0)
     , m_data(0)
+    , m_propertyWidget(0)
+    , m_toolBar(0)
+    , m_gradient(QCPColorGradient::gpPolar)
+    , m_currentOutputDataItem(0)
+    , m_isProjectionsVisible(true)
+
 {
     qDebug() << " ";
     qDebug() << "OutputDataWidget::OutputDataWidget() -> c-tor";
@@ -23,12 +27,6 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
     setWindowTitle(QLatin1String("Job Properties"));
     setObjectName(QLatin1String("Job Properties"));
 //    setStyleSheet("background-color:white;");
-
-
-    m_gradient = QCPColorGradient::gpPolar;
-    m_isProjectionsVisible = true;
-
-
 
 
 
@@ -124,6 +122,7 @@ void OutputDataWidget::setPropertyPanelVisible(bool visible)
     m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
 
 }
+
 
 /*void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
 {

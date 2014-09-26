@@ -12,7 +12,7 @@ class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
-    ModelTuningDelegate(int valueColumn, QObject *parent = 0);
+    ModelTuningDelegate(QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {
@@ -28,6 +28,8 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model,
                       const QModelIndex &index) const;
     void setSliderRangeFactor(double value);
+
+    void setValueColumn(int valueColumn) { m_valueColumn = valueColumn; }
 
 signals:
     void currentLinkChanged(ItemLink link);

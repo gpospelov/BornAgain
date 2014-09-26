@@ -73,14 +73,14 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 
 void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 {
-    qDebug() << "AdvModelTuningWidget::onCurrentLinkChanged";
+    qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
 
     if(m_currentJobItem->isRunning())
         return;
 
     if(link.getItem()) {
-        qDebug() << "AdvModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
 
         link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
 
@@ -97,7 +97,7 @@ void ModelTuningWidget::onSliderValueChanged(double value)
 
 void ModelTuningWidget::updateParameterModel()
 {
-    qDebug() << "AdvModelTuningWidget::updateParameterModel()";
+    qDebug() << "ModelTuningWidget::updateParameterModel()";
     if(m_parameterModel) {
         m_treeView->setModel(0);
         delete m_parameterModel;
@@ -107,7 +107,7 @@ void ModelTuningWidget::updateParameterModel()
     if(!m_currentJobItem) return;
 
     if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
-        throw GUIHelpers::Error("AdvModelTuningWidget::updateParameterModel() -> Error. JobItem doesn't have sample or instrument model.");
+        throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error. JobItem doesn't have sample or instrument model.");
 
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
 

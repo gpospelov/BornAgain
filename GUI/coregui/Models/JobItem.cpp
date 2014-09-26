@@ -113,6 +113,7 @@ void JobItem::setResults(const Simulation *simulation)
 
     qDebug() << "JobItem::setResults()" << outputDataItem;
 
+    outputDataItem->setName(QString("data_%1_%2.int").arg(m_name, QString::number(0)));
     outputDataItem->setOutputData(simulation->getIntensityData());
 }
 

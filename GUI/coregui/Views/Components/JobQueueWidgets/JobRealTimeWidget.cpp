@@ -83,7 +83,7 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
     m_currentJobItem = item;
 
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
-    if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
+    if( !widget && isValidJobItem(item)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new ModelTuningWidget(m_jobQueueModel->getJobQueueData());
@@ -138,6 +138,13 @@ ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
     ModelTuningWidget *result = dynamic_cast<ModelTuningWidget *>(m_stack->currentWidget());
     if(result && result->isHidden()) result = 0;
     return result;
+}
+
+//! Returns true if JobItem is valid for real time simulation, i.e.
+//! it is not already running and it has valid models
+bool JobRealTimeWidget::isValidJobItem(JobItem *item)
+{
+ return (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled) && item->getSampleModel() && item->getInstrumentModel();
 }
 
 

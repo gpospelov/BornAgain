@@ -31,6 +31,7 @@ public slots:
 
 private:
     ModelTuningWidget *getCurrentModelTuningWidget();
+    bool isValidJobItem(JobItem *item);
 
     JobQueueModel *m_jobQueueModel;
     JobItem *m_currentJobItem;

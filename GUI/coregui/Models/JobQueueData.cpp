@@ -107,7 +107,7 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 
 bool JobQueueData::hasUnfinishedJobs()
 {
-    return m_threads.size();
+    return m_simulations.size();
 }
 
 
@@ -230,6 +230,8 @@ void JobQueueData::onFinishedJob()
     assignForDeletion(runner);
 //    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
+    if(!hasUnfinishedJobs())
+        emit globalProgress(100);
 }
 
 

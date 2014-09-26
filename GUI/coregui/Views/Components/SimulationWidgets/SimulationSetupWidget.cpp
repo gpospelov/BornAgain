@@ -45,12 +45,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
-      // interference function (DA - LMA - SSCA - ISGISAXSMOR)
-    QLabel *interferenceLabel = new QLabel(tr("Interference Function Approximation:"));
-    QComboBox *interferenceFunctionSelectionBox = new QComboBox;
-    interferenceFunctionSelectionBox->addItem(tr("Decoupling Approximation"));
-    interferenceFunctionSelectionBox->addItem(tr("Local Monodisperse Approximation"));
-    interferenceFunctionSelectionBox->addItem(tr("Size Spacing Coupling Approximation"));
     // run policy
     QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
     runPolicySelectionBox = new QComboBox;
@@ -58,8 +52,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(interferenceLabel, 1, 0);
-    simulationParametersLayout->addWidget(interferenceFunctionSelectionBox, 1, 1);
     simulationParametersLayout->addWidget(runPolicyLabel, 3, 0);
     simulationParametersLayout->addWidget(runPolicySelectionBox, 3, 1);
     simulationParametersGroup->setLayout(simulationParametersLayout);

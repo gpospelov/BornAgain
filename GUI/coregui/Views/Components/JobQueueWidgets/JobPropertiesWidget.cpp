@@ -1,6 +1,8 @@
 #include "JobPropertiesWidget.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 #include <QVBoxLayout>
@@ -24,6 +26,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
 //    setStyleSheet("background-color:white;");
 
     m_variantManager = new QtVariantPropertyManager(this);
+    m_readonlyManager = new QtVariantPropertyManager(this);
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 
@@ -116,19 +119,24 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setValue(jobItem->getName());
     addProperty(property, JobQueueXML::JobNameAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("Status"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Sample"));
+    if(jobItem->getSampleModel()) property->setValue(jobItem->getSampleModel()->getSampleMap().firstKey());
+    addProperty(property, "Sample");
+
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Instrument"));
+    if(jobItem->getInstrumentModel()) property->setValue(jobItem->getInstrumentModel()->getInstrumentMap().firstKey());
+    addProperty(property, "Instrument");
+
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Status"));
     property->setValue(jobItem->getStatusString());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobStatusAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("Begin Time"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("Begin Time"));
     property->setValue(jobItem->getBeginTime());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobBeginTimeAttribute);
 
-    property = m_variantManager->addProperty(QVariant::String, tr("End Time"));
+    property = m_readonlyManager->addProperty(QVariant::String, tr("End Time"));
     property->setValue(jobItem->getEndTime());
-    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
     if(jobItem->getStatus() == JobItem::Failed) {

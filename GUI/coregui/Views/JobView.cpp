@@ -125,7 +125,7 @@ void JobView::resetToDefaultLayout()
 
     setTrackingEnabled(true);
 
-    //setActivity(JobViewActivity);
+    setActivity(JobViewActivity);
 }
 
 

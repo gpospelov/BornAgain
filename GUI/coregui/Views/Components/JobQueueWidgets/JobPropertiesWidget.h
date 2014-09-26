@@ -39,6 +39,7 @@ private:
 
     JobQueueModel *m_jobQueueModel;
     class QtVariantPropertyManager *m_variantManager;
+    class QtVariantPropertyManager *m_readonlyManager;
     class QtTreePropertyBrowser *m_propertyBrowser;
     QMap<QtProperty *, QString> propertyToId;
     QMap<QString, QtVariantProperty *> idToProperty;

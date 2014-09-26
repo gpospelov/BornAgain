@@ -63,6 +63,7 @@ signals:
 
 public slots:
     void onDataChanged(const QModelIndex &, const QModelIndex &);
+    void onJobQueueModelChanged(const QString &);
 
 private:
     bool writeTo(QIODevice *device);

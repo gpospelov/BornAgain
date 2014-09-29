@@ -88,8 +88,15 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 #    #endif()
 
 
-    find_package(PythonInterp 2.7 REQUIRED)
-    find_package(PythonLibs 2.7 REQUIRED)
+    if(APPLE)
+        find_package(PythonLibsNew REQUIRED)
+    elseif(WIN32)
+        find_package(PythonLibs REQUIRED)
+    else()
+        find_package(PythonInterp 2.7 REQUIRED)
+        find_package(PythonLibs 2.7 REQUIRED)
+    endif()
+
 
     message(STATUS "--> PYTHON_INCLUDE_DIRS: ${PYTHON_INCLUDE_DIRS}")
 

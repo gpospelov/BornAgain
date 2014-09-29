@@ -102,9 +102,9 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
         message(FATAL_ERROR "No python libraries have been found")
     endif()
 
-    if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
-        message(WARNING "Seems that Python interpreter version ${PYTHON_VERSION_STRING} doesn't match version of Python library ${PYTHONLIBS_VERSION_STRING}")
-    endif()
+    #if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
+    #    message(WARNING "Seems that Python interpreter version ${PYTHON_VERSION_STRING} doesn't match version of Python library ${PYTHONLIBS_VERSION_STRING}")
+    #endif()
 
     if(NOT WIN32)
         GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)

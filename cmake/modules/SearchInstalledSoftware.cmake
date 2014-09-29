@@ -64,26 +64,32 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp REQUIRED)
 
-    # TODO refactor this
-    if(APPLE)
-        find_package(PythonLibsNew REQUIRED)
-    elseif(WIN32)
-        find_package(PythonLibs REQUIRED)
-    else()
-        set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-        find_package(PythonLibs REQUIRED)
-    endif()
+#    find_package(PythonInterp REQUIRED)
 
-    # important to find interpreter and libraries from same python version
-    #if(NOT PYTHONLIBS_FOUND)
-    #    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH})
-    #    find_package(PythonLibs REQUIRED)
-    #endif()
-    #if(NOT PYTHONLIBS_FOUND)
-    #    message(SEND_ERROR "No python libraries have been found")
-    #endif()
+#    # TODO refactor this
+#    if(APPLE)
+#        find_package(PythonLibsNew REQUIRED)
+#    elseif(WIN32)
+#        find_package(PythonLibs REQUIRED)
+#    else()
+#        message("XXX ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+#        #set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
+#        find_package(PythonLibs REQUIRED)
+#    endif()
+
+#    # important to find interpreter and libraries from same python version
+#    #if(NOT PYTHONLIBS_FOUND)
+#    #    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH})
+#    #    find_package(PythonLibs REQUIRED)
+#    #endif()
+#    #if(NOT PYTHONLIBS_FOUND)
+#    #    message(SEND_ERROR "No python libraries have been found")
+#    #endif()
+
+
+    find_package(PythonInterp 2.7 REQUIRED)
+    find_package(PythonLibs 2.7 REQUIRED)
 
     if(NOT WIN32)
         GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)

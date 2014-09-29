@@ -4,9 +4,6 @@
 # To run the tests for Google Test itself on Linux, use 'make test' or
 # ctest.  You can select which tests to run using 'ctest -R regex'.
 # For more options, run 'ctest --help'.
-if(POLICY CMP0042)
-cmake_policy(SET CMP0042 NEW)
-endif()
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
@@ -44,6 +41,9 @@ endif()
 # Language "C" is required for find_package(Threads).
 project(gtest CXX C)
 cmake_minimum_required(VERSION 2.6.2)
+if(POLICY CMP0042)
+cmake_policy(SET CMP0042 NEW)
+endif()
 
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()

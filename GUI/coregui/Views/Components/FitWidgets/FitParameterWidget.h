@@ -19,9 +19,12 @@ public:
 
 private:
     FitModel *m_fitModel;
+    QStandardItemModel *m_parameterModel;
+    QTreeView *m_treeView;
 
-
-    void createParameterModel();
+    QStandardItemModel *createParameterModel(FitModel *fitModel);
+    QStandardItemModel *iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItemModel *parentItem = 0);
+    void insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse);
 };
 
 #endif

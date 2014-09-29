@@ -24,11 +24,10 @@ option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
 
 
-# --- Path for additional cmake modules ---
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
-
 #--- Including macros ---
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(BornAgainMacros)
+#AssureOutOfSourceBuilds()
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)

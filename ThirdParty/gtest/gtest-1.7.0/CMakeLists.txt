@@ -4,6 +4,9 @@
 # To run the tests for Google Test itself on Linux, use 'make test' or
 # ctest.  You can select which tests to run using 'ctest -R regex'.
 # For more options, run 'ctest --help'.
+if(POLICY CMP0042)
+cmake_policy(SET CMP0042 NEW)
+endif()
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.

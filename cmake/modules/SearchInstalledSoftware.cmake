@@ -88,17 +88,23 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 #    #endif()
 
 
-    if(APPLE)
-        find_package(PythonLibsNew REQUIRED)
-    elseif(WIN32)
-        find_package(PythonLibs REQUIRED)
-    else()
-        find_package(PythonInterp 2.7 REQUIRED)
-        find_package(PythonLibs 2.7 REQUIRED)
+    find_package(PythonInterp 2.7 REQUIRED)
+    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
+
+    find_package(PythonLibs 2.7)
+    # trick to bypass weired search of libraries on somy systems
+    if(NOT PYTHONLIBS_FOUND)
+        find_package(PythonLibs)
     endif()
 
+    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}, PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
+    if(NOT PYTHONLIBS_FOUND)
+        message(FATAL_ERROR "No python libraries have been found")
+    endif()
 
-    message(STATUS "--> PYTHON_INCLUDE_DIRS: ${PYTHON_INCLUDE_DIRS}")
+    if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
+        message(SEND_ERROR "Python interpreter version ${PYTHON_VERSION_STRING} doesn't match ${PYTHONLIBS_VERSION_STRING}")
+    endif()
 
     if(NOT WIN32)
         GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)

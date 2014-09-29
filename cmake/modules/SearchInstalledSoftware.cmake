@@ -103,7 +103,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
 
     if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
-        message(SEND_ERROR "Python interpreter version ${PYTHON_VERSION_STRING} doesn't match ${PYTHONLIBS_VERSION_STRING}")
+        message(WARNING "Seems that Python interpreter version ${PYTHON_VERSION_STRING} doesn't match version of Python library ${PYTHONLIBS_VERSION_STRING}")
     endif()
 
     if(NOT WIN32)

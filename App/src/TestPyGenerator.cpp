@@ -37,6 +37,9 @@ void TestPyGenerator::execute()
 
     VisitSampleTree(*multiLayer, visitor);
     visitor.genPyScript(simulation);
+
+    std::string command = "python PythonScript.py";
+    system(command.c_str());
 }
 
 MultiLayer *TestPyGenerator::makeSample()

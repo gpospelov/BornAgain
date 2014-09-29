@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LabelSample.h"
+#include "ParticleCoreShell.h"
 
 LabelSample::LabelSample()
 {
@@ -38,7 +39,10 @@ std::string LabelSample::getLabel(const MultiLayer *sample)
 
 std::string LabelSample::getLabel(const Particle *sample)
 {
-    return m_particleLabel[sample];
+    if (const ParticleCoreShell *pcs = dynamic_cast<const ParticleCoreShell *>(sample))
+        return m_particleCoreShellLabel[pcs];
+    else
+        return m_particleLabel[sample];
 }
 
 std::string LabelSample::getLabel(const ParticleCoreShell *sample)

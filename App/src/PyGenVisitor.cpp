@@ -32,6 +32,7 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
 {
     std::ofstream myfile;
     myfile.open ("PythonScript.py");
+    myfile << "import sys \nimport os \nsys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..','..','..','lib')))\n";
     myfile << "import numpy \nimport matplotlib \nimport pylab \nfrom libBornAgainCore import *\n\n";
     myfile << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     myfile << "def getSample():\n\t# Defining Materials\n";
@@ -45,7 +46,7 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
             complex_t ri = material->getRefractiveIndex();
             double delta = 1-real(ri);
             double beta = imag(ri);
-            myfile << "\t" << m_label->getLabel(material) << " = HomogenousMaterial(\"" << material->getName();
+            myfile << "\t" << m_label->getLabel(material) << " = HomogeneousMaterial(\"" << material->getName();
             myfile << "\"," << printDouble(delta) << "," << printDouble(beta) << ")\n";
         }
         it1++;
@@ -292,13 +293,13 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
 
         if (const InterferenceFunctionNone *none = dynamic_cast<const InterferenceFunctionNone *>(iInterferenceFunction))
         {
-            myfile << " = InterFerenceFunctionNone()\n";
+            myfile << " = InterferenceFunctionNone()\n";
         }
 
         else if (const InterferenceFunction1DLattice *oneDLattice = dynamic_cast<const InterferenceFunction1DLattice *>(iInterferenceFunction))
         {
             const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
-            myfile << " = InterFerenceFunction1DLattice(" << printDouble(latticeParameters.m_length) << "," << printDouble(latticeParameters.m_xi) << ")\n";
+            myfile << " = InterferenceFunction1DLattice(" << printDouble(latticeParameters.m_length) << "," << printDouble(latticeParameters.m_xi) << ")\n";
 
             const IFTDistribution1D *pdf =  oneDLattice->getProbabilityDistribution();
 
@@ -341,7 +342,7 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
 
         else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal = dynamic_cast<const InterferenceFunction1DParaCrystal *>(iInterferenceFunction))
         {
-            myfile << " = InterFerenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
+            myfile << " = InterferenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
             << "*nanometer," << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
             if (oneDParaCrystal->getKappa() != 0.0)
             {
@@ -395,7 +396,7 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
         else if (const InterferenceFunction2DLattice *twoDLattice = dynamic_cast<const InterferenceFunction2DLattice *>(iInterferenceFunction))
         {
             const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
-            myfile << " = InterFerenceFunction2DLattice(" << printDouble(latticeParameters.m_length_1) << "*nanometer,"
+            myfile << " = InterferenceFunction2DLattice(" << printDouble(latticeParameters.m_length_1) << "*nanometer,"
             << printDouble(latticeParameters.m_length_2) << "*nanometer," << printDouble(latticeParameters.m_angle) << ","
             << printDouble(latticeParameters.m_xi) << ")\n";
 
@@ -455,7 +456,7 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
 
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(iInterferenceFunction))
         {
-            myfile << " = InterFerenceFunction2DParaCrystal(" <<twoDParaCrystal->getLatticeLengths()[0]
+            myfile << " = InterferenceFunction2DParaCrystal(" <<twoDParaCrystal->getLatticeLengths()[0]
             << "*nanometer," << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer," <<
             twoDParaCrystal->getAlphaLattice() << "*nanometer," << twoDParaCrystal->getLatticeOrientation()
             << "*nanometer," << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
@@ -572,12 +573,12 @@ void PyGenVisitor::genPyScript(const Simulation *simulation)
                 particleIndex++;
             }
             size_t numberOfInterferenceFunctions = particleLayout->getNumberOfInterferenceFunctions();
-            size_t interferenceFunctionsIndex = 0;
-            while (interferenceFunctionsIndex != numberOfInterferenceFunctions)
+            size_t InterferenceFunctionsIndex = 0;
+            while (InterferenceFunctionsIndex != numberOfInterferenceFunctions)
             {
                 myfile << "\t" << it6->second << ".addInterferenceFunction("
-                << m_label->getLabel(particleLayout->getInterferenceFunction(interferenceFunctionsIndex)) << ")\n";
-                interferenceFunctionsIndex++;
+                << m_label->getLabel(particleLayout->getInterferenceFunction(InterferenceFunctionsIndex)) << ")\n";
+                InterferenceFunctionsIndex++;
             }
         }
         it6++;

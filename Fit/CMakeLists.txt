@@ -2,6 +2,9 @@
 # CMakeLists.txt file for building libBornAgainFit library
 ############################################################################
 set(library_name BornAgainFit)
+if(POLICY CMP0042)
+cmake_policy(SET CMP0042 NEW)
+endif()
 
 # source and include files
 set(include_dirs 

@@ -45,12 +45,7 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     m_parameterModel = createParameterModel(m_fitModel);
     //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
-    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
-    for (int i=0; i<m_parameterModel->rowCount(); i++){
-    if (m_parameterModel->item(i,0)->hasChildren()){
-            m_treeView->setFirstColumnSpanned(i, idx, true);
-        }
-    }
+
 
 
     int height = this->height();
@@ -65,6 +60,16 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     vlayout->addWidget(m_treeView);
     vlayout->addStretch();
     this->setLayout(vlayout);
+
+
+    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
+    for (int i=0; i<m_parameterModel->rowCount(); i++){
+    if (m_parameterModel->item(i,0)->hasChildren()){
+
+            m_treeView->setFirstColumnSpanned(0, m_parameterModel->item(i,0)->index(), true);
+            m_treeView->setFirstColumnSpanned(1, m_parameterModel->item(i,0)->index(), true);
+        }
+    }
 
 
 }
@@ -139,9 +144,9 @@ void FitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QStri
     maxItem->setEditable(true);
 
 
-    QStandardItem *subItem1 = new QStandardItem("this is the description 1");
-    QStandardItem *subItem2 = new QStandardItem("this is the description 2");
-    titleItem->appendRow(subItem1);
+    QStandardItem *subItem1 = new QStandardItem("this is the description 1 this is the description 1 this is the description 1");
+    QStandardItem *subItem2 = new QStandardItem("this is the description 2 this is the description 2 this is the description 2");
+    titleItem->appendRow(QList<QStandardItem *>() << subItem1 << new QStandardItem << new QStandardItem <<new QStandardItem <<new QStandardItem);
     titleItem->appendRow(subItem2);
 
     parentItem->appendRow(QList<QStandardItem *>()  << titleItem << useItem << valueItem << minItem << maxItem);

@@ -91,6 +91,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp 2.7 REQUIRED)
     find_package(PythonLibs 2.7 REQUIRED)
 
+    message(STATUS "--> PYTHON_INCLUDE_DIRS: ${PYTHON_INCLUDE_DIRS}")
+
     if(NOT WIN32)
         GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
         if(${PyLibExtension}  STREQUAL ".a")

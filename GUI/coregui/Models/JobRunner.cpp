@@ -63,11 +63,15 @@ void JobRunner::start()
 
         //if(m_terminate_request_flag) m_progress=-1;
 
-        emit progressUpdate();
-        emit finished();
+//        emit progressUpdate();
+//        emit finished();
     } else {
-        runFakeSimulation();
+        m_job_status = JobItem::Failed;
+        m_progress=100;
+        m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
+    emit progressUpdate();
+    emit finished();
 }
 
 

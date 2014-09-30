@@ -123,7 +123,21 @@ void JobQueueData::runJob(const QString &identifier)
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
     JobItem *jobItem = getJobItem(identifier);
-    Simulation *simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+    Simulation *simulation(0);
+    try{
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+    } catch(const std::exception &ex) {
+        jobItem->setStatus(JobItem::Failed);
+        jobItem->setProgress(100);
+        QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
+                        "has failed with following error message.\n");
+        message += QString(ex.what());
+        jobItem->setComments(message);
+        emit focusRequest(jobItem);
+        emit jobIsFinished(identifier);
+        return;
+    }
+
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

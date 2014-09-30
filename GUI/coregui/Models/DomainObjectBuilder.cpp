@@ -230,7 +230,7 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
         }
     }
     if(!coreParticle || !shellParticle)
-        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error in p2.");
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Either core or shell particle is undefined.");
 
     ParticleCoreShell *result = TransformToDomain::createParticleCoreShell(item, *coreParticle, *shellParticle, depth, abundance);
     delete coreParticle;

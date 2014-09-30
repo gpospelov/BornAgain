@@ -22,6 +22,7 @@ private:
 
     QString validateMultiLayerItem(ParameterizedItem *item);
     QString validateParticleLayoutItem(ParameterizedItem *item);
+    QString validateParticleCoreShellItem(ParameterizedItem *item);
 
     bool m_valid_sample;
     QString m_validation_message;

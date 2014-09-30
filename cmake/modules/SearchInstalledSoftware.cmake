@@ -97,15 +97,6 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 #    #endif()
 
 
-#    find_package(PythonInterp 2.7 REQUIRED)
-#    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
-
-#    find_package(PythonLibs 2.7)
-#    # trick to bypass weired search of libraries on somy systems
-#    if(NOT PYTHONLIBS_FOUND)
-#        find_package(PythonLibs)
-#    endif()
-
 #    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}, PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 #    if(NOT PYTHONLIBS_FOUND)
 #        message(FATAL_ERROR "No python libraries have been found")

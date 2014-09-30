@@ -19,10 +19,13 @@ void SampleValidator::iterateSampleModel(SampleModel *sampleModel, const QModelI
             qDebug() << item->modelType();
             QString diagnosis;
             if(item->modelType() == Constants::MultiLayerType) {
-                diagnosis = validateMultiLayerItem(item) ;
+                diagnosis = validateMultiLayerItem(item);
             }
             else if(item->modelType() == Constants::ParticleLayoutType) {
-                diagnosis = validateParticleLayoutItem(item) ;
+                diagnosis = validateParticleLayoutItem(item);
+            }
+            else if(item->modelType() == Constants::ParticleCoreShellType) {
+                diagnosis = validateParticleCoreShellItem(item);
             }
 
             if(!diagnosis.isEmpty()) {
@@ -56,12 +59,21 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
     bool particles_found(false);
     QList<ParameterizedItem *> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
+        if (children[i]->modelType() == Constants::ParticleType || children[i]->modelType() == Constants::ParticleCoreShellType) {
             particles_found = true;
         }
     }
     if(!particles_found) {
         result = QString("ParticleLayout doesn't contain any particles.");
+    }
+    return result;
+}
+
+QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
+{
+    QString result;
+    if(item->childItems().size() != 2) {
+        result = QString("ParticleCoreShell doesn't have either core or shell defined.");
     }
     return result;
 }

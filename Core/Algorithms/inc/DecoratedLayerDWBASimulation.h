@@ -43,6 +43,7 @@ public:
     virtual void run();
 protected:
     DiffuseDWBASimulation *mp_diffuseDWBA;
+    virtual void runProtected();
 
 private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;

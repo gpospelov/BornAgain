@@ -43,7 +43,20 @@ void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 
 void DecoratedLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::run()";
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void DecoratedLayerDWBASimulation::runProtected()
+{
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::runProtected()";
     boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(
             createAndInitStrategy());
 

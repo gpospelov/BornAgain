@@ -29,13 +29,14 @@ class BA_CORE_API_ Error : public std::exception
 {
 public:
     explicit Error(const QString &message) throw()
-        : message(message.toUtf8()) {}
+        : message(message) {}
     ~Error() throw() {}
 
-    const char *what() const throw() { return message; }
+    const char *what() const throw() { return message.toStdString().c_str(); }
 
 private:
-    const char *message;
+//    const char *message;
+    QString message;
 };
 
 BA_CORE_API_ void information(QWidget *parent, const QString &title,

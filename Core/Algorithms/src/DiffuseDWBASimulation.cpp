@@ -25,6 +25,19 @@
 
 void DiffuseDWBASimulation::run()
 {
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void DiffuseDWBASimulation::runProtected()
+{
     msglog(MSG::DEBUG2) << "DiffuseDWBASimulation::run()";
     // Set diffuse terms.
     SafePointerVector<DiffuseFormFactorTerm> diffuse_terms;
@@ -132,6 +145,7 @@ void DiffuseDWBASimulation::run()
     }
     m_progress.finished();
 }
+
 
 void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
 {

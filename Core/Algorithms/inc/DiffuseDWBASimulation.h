@@ -50,6 +50,9 @@ public:
             m_np_infos[np_index]->scaleAbundance(factor);
     }
 
+protected:
+    virtual void runProtected();
+
 private:
     double m_surface_density;
     SafePointerVector<DiffuseParticleInfo> m_np_infos;

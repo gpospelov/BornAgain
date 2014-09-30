@@ -37,6 +37,19 @@ MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void MultiLayerRoughnessDWBASimulation::runProtected()
+{
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2*M_PI/m_ki_real.mag();
 

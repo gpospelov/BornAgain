@@ -84,7 +84,20 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> Running thread "
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void MultiLayerDWBASimulation::runProtected()
+{
+    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected() -> Running thread "
                        << m_thread_info.current_thread;
     m_dwba_intensity.setAllTo(0.0);
     if (mp_polarization_output) {

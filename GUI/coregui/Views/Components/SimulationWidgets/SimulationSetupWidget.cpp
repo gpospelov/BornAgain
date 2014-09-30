@@ -153,12 +153,12 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    SampleValidator sampleValidator;
-    if(!sampleValidator.isVaildSampleModel(jobSampleModel)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
-        return;
-    }
+//    SampleValidator sampleValidator;
+//    if(!sampleValidator.isVaildSampleModel(jobSampleModel)) {
+//        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+//                             sampleValidator.getValidationMessage());
+//        return;
+//    }
 
     JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
     m_jobQueueModel->addJob(jobItem);

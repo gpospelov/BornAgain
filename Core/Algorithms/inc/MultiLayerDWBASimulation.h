@@ -50,6 +50,8 @@ public:
     virtual void run();
 
 protected:
+    virtual void runProtected();
+
     //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();

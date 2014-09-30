@@ -65,9 +65,18 @@ find_package(GSL REQUIRED)
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
-#    find_package(PythonInterp REQUIRED)
+    find_package(PythonInterp 2.7 REQUIRED)
+    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
-#    # TODO refactor this
+    if(WIN32)
+        find_package(PythonLibs REQUIRED)
+    else()
+       find_package(PythonLibsNew REQUIRED)
+    endif()
+
+    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}")
+
+    # TODO refactor this
 #    if(APPLE)
 #        find_package(PythonLibsNew REQUIRED)
 #    elseif(WIN32)
@@ -88,23 +97,14 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 #    #endif()
 
 
-    find_package(PythonInterp 2.7 REQUIRED)
-    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
+#    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}, PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
+#    if(NOT PYTHONLIBS_FOUND)
+#        message(FATAL_ERROR "No python libraries have been found")
+#    endif()
 
-    find_package(PythonLibs 2.7)
-    # trick to bypass weired search of libraries on somy systems
-    if(NOT PYTHONLIBS_FOUND)
-        find_package(PythonLibs)
-    endif()
-
-    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}, PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
-    if(NOT PYTHONLIBS_FOUND)
-        message(FATAL_ERROR "No python libraries have been found")
-    endif()
-
-    #if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
-    #    message(WARNING "Seems that Python interpreter version ${PYTHON_VERSION_STRING} doesn't match version of Python library ${PYTHONLIBS_VERSION_STRING}")
-    #endif()
+#    if(NOT ${PYTHON_VERSION_STRING} STREQUAL ${PYTHONLIBS_VERSION_STRING})
+#        message(WARNING "Seems that Python interpreter version ${PYTHON_VERSION_STRING} doesn't match version of Python library ${PYTHONLIBS_VERSION_STRING}")
+#    endif()
 
     if(NOT WIN32)
         GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
@@ -115,9 +115,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
             set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
         endif()
     endif()
-    
-    #message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
-    
+        
     find_package(Numpy REQUIRED)
 endif()
 

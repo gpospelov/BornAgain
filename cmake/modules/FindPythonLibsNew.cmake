@@ -187,12 +187,12 @@ SET(PYTHON_DEBUG_LIBRARIES "${PYTHON_DEBUG_LIBRARY}")
 # Don't know how to get to this directory, just doing something simple :P
 #INCLUDE(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 #FIND_PACKAGE_HANDLE_STANDARD_ARGS(PythonLibs DEFAULT_MSG PYTHON_LIBRARIES PYTHON_INCLUDE_DIRS)
-find_package_message(PYTHON
-    "Found PythonLibs: ${PYTHON_LIBRARY}"
-    "${PYTHON_EXECUTABLE}${PYTHON_VERSION}")
+#find_package_message(PYTHON
+#    "Found PythonLibs xxx: ${PYTHON_LIBRARY}"
+#    "${PYTHON_EXECUTABLE}${PYTHON_VERSION}")
 
 
-# PYTHON_ADD_MODULE(<name> src1 src2 ... srcN) is used to build modules for python.
+#PYTHON_ADD_MODULE(<name> src1 src2 ... srcN) is used to build modules for python.
 FUNCTION(PYTHON_ADD_MODULE _NAME )
   GET_PROPERTY(_TARGET_SUPPORTS_SHARED_LIBS
     GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)

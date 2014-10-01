@@ -2,7 +2,7 @@
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
-#include "styledtoolbar.h"
+#include "JobListToolBar.h"
 #include <QPushButton>
 #include <QListView>
 #include <QMenu>
@@ -18,6 +18,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     , m_listView(new QListView(this))
     , m_runJobAction(0)
     , m_removeJobAction(0)
+    , m_toolBar(new JobListToolBar)
 //    , m_submitButton(new QPushButton("Submit"))
 //    , m_runButton(new QPushButton("Run"))
 //    , m_saveButton(new QPushButton("Save"))
@@ -39,23 +40,15 @@ JobListWidget::JobListWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-//    Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-    StyledToolBar *bar = new StyledToolBar;
-    mainLayout->addWidget(bar);
-
-//    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-//    buttonsLayout->addWidget(m_submitButton);
-//    buttonsLayout->addWidget(m_runButton);
-//    buttonsLayout->addWidget(m_saveButton);
-//    buttonsLayout->addStretch(1);
+    connect(m_toolBar, SIGNAL(runJob()), this, SLOT(runJob()));
+    connect(m_toolBar, SIGNAL(removeJob()), this, SLOT(removeJob()));
+    mainLayout->addWidget(m_toolBar);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setMargin(10);
     vlayout->setSpacing(10);
 
-//    vlayout->addLayout(buttonsLayout);
     vlayout->addWidget(m_listView);
-
     mainLayout->addLayout(vlayout);
 
     setLayout(mainLayout);
@@ -96,18 +89,12 @@ void JobListWidget::save()
 
 }
 
-
-//void JobListWidget::submit()
-//{
-//    m_jobQueueModel->addJob(0);
-//}
-
-
 void JobListWidget::runJob()
 {
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
-    if(!indexList.empty()) {
-        m_jobQueueModel->runJob(indexList.front());
+    foreach(QModelIndex index, indexList) {
+        if(jobItemCanBeRun(index))
+            m_jobQueueModel->runJob(index);
     }
 }
 
@@ -123,12 +110,25 @@ void JobListWidget::setupContextMenuActions()
 }
 
 
+bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
+{
+    if(!index.isValid()) return false;
+
+    const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
+    if(jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Failed) return false;
+
+    return true;
+}
+
+
 //! remove job from the list
 void JobListWidget::removeJob()
 {
     qDebug() << "JobListWidget::removeJob() ";
-    QModelIndex index = m_listView->selectionModel()->currentIndex();
-    m_jobQueueModel->removeJob(index);
+    QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
+    foreach(QModelIndex index, indexList) {
+        m_jobQueueModel->removeJob(index);
+    }
 }
 
 
@@ -145,15 +145,22 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
 
     QMenu menu;
 
-    QModelIndex item_index = m_listView->indexAt(pnt);
-    if(item_index.isValid()) {
-        const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(item_index);
-        if(jobItem->getStatus() != JobItem::Completed && jobItem->getStatus() != JobItem::Failed) {
-            menu.addAction(m_runJobAction);
-        }
-    }
-
+    menu.addAction(m_runJobAction);
     menu.addAction(m_removeJobAction);
+
+    QModelIndex item_index = m_listView->indexAt(pnt);
+
+    if(item_index.isValid()) {
+        if(jobItemCanBeRun(item_index)) {
+            m_runJobAction->setDisabled(false);
+        } else {
+            m_runJobAction->setDisabled(true);
+        }
+        m_removeJobAction->setDisabled(false);
+    } else {
+        m_runJobAction->setDisabled(true);
+        m_removeJobAction->setDisabled(true);
+    }
 
     menu.exec(m_listView->mapToGlobal(pnt));
 }

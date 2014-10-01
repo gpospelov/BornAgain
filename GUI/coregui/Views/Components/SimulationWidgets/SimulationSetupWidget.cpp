@@ -76,6 +76,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
     runSimulationButton->setMinimumWidth(100);
     runSimulationButton->setMinimumHeight(50);
+    runSimulationButton->setToolTip("Run the simulation using settings above.\n Global shortcut ctrl-r can be used to run from sample view.");
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);
@@ -177,7 +178,6 @@ void SimulationSetupWidget::onRunSimulation()
     JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
     jobItem->setNumberOfThreads(getNumberOfThreads());
     m_jobQueueModel->addJob(jobItem);
-
 }
 
 

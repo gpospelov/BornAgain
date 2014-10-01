@@ -10,6 +10,7 @@ class JobListViewDelegate;
 class QListView;
 class QPushButton;
 class QAction;
+class JobListToolBar;
 
 
 //! Widget to select JobQueueItem in a list
@@ -37,15 +38,14 @@ private slots:
 
 private:
     void setupContextMenuActions();
+    bool jobItemCanBeRun(const QModelIndex &index);
 
     JobQueueModel *m_jobQueueModel;
     JobListViewDelegate *m_listViewDelegate;
     QListView *m_listView;
     QAction *m_runJobAction;
     QAction *m_removeJobAction;
-//    QPushButton *m_submitButton;
-//    QPushButton *m_runButton;
-//    QPushButton *m_saveButton;
+    JobListToolBar *m_toolBar;
 };
 
 

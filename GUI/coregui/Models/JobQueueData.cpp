@@ -127,9 +127,6 @@ void JobQueueData::runJob(const QString &identifier)
     Simulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
-        ThreadInfo info;
-        info.n_threads = jobItem->getNumberOfThreads();
-        simulation->setThreadInfo(info);
 
     } catch(const std::exception &ex) {
         jobItem->setStatus(JobItem::Failed);
@@ -143,6 +140,9 @@ void JobQueueData::runJob(const QString &identifier)
         return;
     }
 
+    ThreadInfo info;
+    info.n_threads = jobItem->getNumberOfThreads();
+    simulation->setThreadInfo(info);
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

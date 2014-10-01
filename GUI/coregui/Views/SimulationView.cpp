@@ -41,3 +41,10 @@ void SimulationView::updateSimulationViewElements()
     qDebug() << "SimulationView::updateSimulationViewElements()" << m_sampleModel << m_instrumentModel;
     m_simulationSetupWidget->updateViewElements();
 }
+
+
+void SimulationView::onRunSimulationShortcut()
+{
+    qDebug() << "SimulationView::onRunSimulationShortcut()";
+    m_simulationSetupWidget->onRunSimulation();
+}

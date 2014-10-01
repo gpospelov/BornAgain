@@ -232,7 +232,7 @@ QStringList SimulationSetupWidget::getCPUUsageOptions()
     int nthreads = Utils::System::getThreadHardwareConcurrency();
     for(int i = nthreads; i>0; i--){
         if(i == nthreads) {
-            result.append(QString("max (%1 threads)").arg(QString::number(i)));
+            result.append(QString("Max (%1 threads)").arg(QString::number(i)));
         } else if(i == 1) {
             result.append(QString("%1 thread").arg(QString::number(i)));
         } else {

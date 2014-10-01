@@ -56,6 +56,7 @@ public slots:
     void openRecentProject();
     void readSettings();
     void writeSettings();
+    void onRunSimulationShortcut();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

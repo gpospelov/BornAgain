@@ -21,6 +21,9 @@ public:
 
     void updateSimulationViewElements();
 
+public slots:
+    void onRunSimulationShortcut();
+
 private:
     JobQueueModel *m_jobQueueModel;
     SampleModel *m_sampleModel;

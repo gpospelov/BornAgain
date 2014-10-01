@@ -90,6 +90,7 @@ include_classes = [
     "FormFactorSphereLogNormalRadius",
     "FormFactorSphereUniformRadius",
     "FormFactorTetrahedron",
+    "FormFactorTrivial",
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "FormFactorWeighted",

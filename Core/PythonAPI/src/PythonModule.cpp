@@ -39,6 +39,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
 #include "Particle.pypp.h"
+#include "FormFactorTrivial.pypp.h"
 #include "ConstKBinAxis.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "FormFactorCrystal.pypp.h"
@@ -211,6 +212,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorSphereLogNormalRadius_class();
     register_FormFactorSphereUniformRadius_class();
     register_FormFactorTetrahedron_class();
+    register_FormFactorTrivial_class();
     register_FormFactorTruncatedSphere_class();
     register_FormFactorTruncatedSpheroid_class();
     register_FormFactorWeighted_class();

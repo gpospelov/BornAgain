@@ -7,7 +7,7 @@
 #include <QMouseEvent>
 
 
-OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget)
+OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget, bool isProjections)
     : QWidget(parent)
     , m_plotWidget(0)
     , m_data(0)
@@ -15,7 +15,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
     , m_toolBar(0)
     , m_gradient(QCPColorGradient::gpPolar)
     , m_currentOutputDataItem(0)
-    , m_isProjectionsVisible(true)
+    , m_isProjectionsVisible(isProjections)
 
 {
     qDebug() << " ";
@@ -30,7 +30,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 
 
 
-    m_plotWidget = new PlotWidget();
+    m_plotWidget = new PlotWidget(0, true, m_isProjectionsVisible);
     connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
     connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
 
@@ -39,7 +39,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 //    m_splitter->setStyleSheet("background-color:white;");
 //    m_splitter->addWidget(m_plotWidget);
 
-    m_propertyWidget = new PropertyWidget(this);
+    m_propertyWidget = new PropertyWidget(this, m_isProjectionsVisible);
     connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
     connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
 

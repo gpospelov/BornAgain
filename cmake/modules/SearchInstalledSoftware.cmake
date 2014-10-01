@@ -68,13 +68,11 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp 2.7 REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
-#    if(WIN32)
-#        find_package(PythonLibs REQUIRED)
-#    else()
-#       find_package(PythonLibsNew REQUIRED)
-#    endif()
-
-       find_package(PythonLibs 2.7 REQUIRED)
+    if(WIN32)
+        find_package(PythonLibs REQUIRED)
+    else()
+       find_package(PythonLibsNew REQUIRED)
+    endif()
 
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}")
 

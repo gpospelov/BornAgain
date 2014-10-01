@@ -47,8 +47,13 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
     // run policy
     QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
+    runPolicyLabel->setToolTip("Defines run policy for the simulation");
     runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->addItems(JobItem::getRunPolicies());
+    runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
+    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
+    int index(0);
+    foreach(QString descr, JobItem::getRunPolicies().values())
+        runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
 
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;

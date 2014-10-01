@@ -76,7 +76,7 @@ public:
     InstrumentModel *getInstrumentModel();
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
-    static QStringList getRunPolicies() { return m_run_policies; }
+    static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     void initOutputDataItem();
 
@@ -112,7 +112,7 @@ private:
     InstrumentModel *m_instrumentModel;
 
     static QStringList m_status_list;
-    static QStringList m_run_policies;
+    static QMap<QString, QString> m_run_policies; // run policy, policy description
 };
 
 

@@ -74,7 +74,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new OutputDataWidget(this, false, false);
+        widget = new OutputDataWidget(this, false, false, false);
         widget->setCurrentItem(item->getOutputDataItem());
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;

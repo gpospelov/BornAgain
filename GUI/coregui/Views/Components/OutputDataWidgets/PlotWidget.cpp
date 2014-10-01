@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 
 
-PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
+PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjectionsEnabled)
     : QWidget(parent)
     , m_splitter(new QSplitter(this))
     , m_centralPlot(new CentralPlot())
@@ -13,14 +13,13 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
     , m_outputDataItem(0)
     , m_block_plot_update(true)
+    , m_isContextMenuEnabled(isContextMenuEnabled)
+    , m_isProjectionsEnabled(isProjectionsEnabled)
 {
     this->setObjectName(QStringLiteral("plotWidget"));
 
     m_gradient = QCPColorGradient::gpPolar;
-
     m_isPropertyWidgetVisible = true;
-    m_isProjectionsEnabled = true;
-    m_isContextMenuEnabled = isContextMenuEnabled;
     histogramSize = 150;
     //int horizontalHeight = histogramSize-15;
 
@@ -88,8 +87,10 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
 
     initContextMenu();
 
-//    projectionsChanged(false);
-
+    if(m_isProjectionsEnabled == false)
+    {
+        showProjectsions(m_isProjectionsEnabled);
+    }
 }
 
 
@@ -339,9 +340,16 @@ void PlotWidget::projectionsChanged(bool projection)
 
     m_isProjectionsEnabled = projection;
 
+    showProjectsions(projection);
+
+    emit projectionsVisibilityChanged(projection);
+}
+
+void PlotWidget::showProjectsions(bool visible)
+{
     int width;
 
-    if(projection)
+    if(visible)
     {
         width = this->histogramSize;
     }
@@ -360,8 +368,7 @@ void PlotWidget::projectionsChanged(bool projection)
     v_sizes.append(this->m_splitterTop->width()-width);
     this->m_splitterTop->setSizes(v_sizes);
 
-    m_centralPlot->showLinesOverMap(projection);
-    emit projectionsVisibilityChanged(projection);
+    m_centralPlot->showLinesOverMap(visible);
 }
 
 void PlotWidget::gradientChanged(QCPColorGradient gradient)

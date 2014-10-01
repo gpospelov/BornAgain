@@ -9,6 +9,7 @@ class QMenu;
 class QAction;
 class QMenuBar;
 class MainWindow;
+class QShortcut;
 
 
 //! Class to handle MainWindow's menu and corresponding actions
@@ -36,8 +37,11 @@ private:
     QMenu *m_recentProjectsMenu;
     QMenu *m_helpMenu;
 
+    QShortcut *m_runSimulationShortcut;
+
     void createActions();
     void createMenus();
+    void createGlobalShortcuts();
 
 };
 

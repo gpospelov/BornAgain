@@ -141,12 +141,18 @@ private:
     container_t m_value_map;
 };
 
+class BA_CORE_API_ System
+{
+public:
+    static int getThreadHardwareConcurrency();
+};
 
 //! enables exception throw in the case of NaN, Inf
 BA_CORE_API_ void EnableFloatingPointExceptions();
 
 
 }
+
 
 #endif // UTILS_H
 

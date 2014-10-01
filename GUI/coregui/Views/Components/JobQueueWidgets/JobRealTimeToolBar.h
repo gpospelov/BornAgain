@@ -7,7 +7,7 @@
 class QToolButton;
 
 
-//! The ModelTuningToolBar contains buttons needed for ModelTuningWidget
+//! The JobRealTimeToolBar contains buttons needed for JobRealTimeWidget
 class BA_CORE_API_ JobRealTimeToolBar : public QToolBar
 {
     Q_OBJECT

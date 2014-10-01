@@ -5,6 +5,7 @@
 #include "JobItem.h"
 #include "JobRunner.h"
 #include "DomainSimulationBuilder.h"
+#include "ThreadInfo.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -126,6 +127,7 @@ void JobQueueData::runJob(const QString &identifier)
     Simulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+
     } catch(const std::exception &ex) {
         jobItem->setStatus(JobItem::Failed);
         jobItem->setProgress(100);
@@ -138,6 +140,9 @@ void JobQueueData::runJob(const QString &identifier)
         return;
     }
 
+    ThreadInfo info;
+    info.n_threads = jobItem->getNumberOfThreads();
+    simulation->setThreadInfo(info);
     m_simulations[identifier] = simulation;
 
     JobRunner *runner = new JobRunner(identifier, simulation);

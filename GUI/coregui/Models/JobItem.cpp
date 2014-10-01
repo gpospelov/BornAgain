@@ -16,6 +16,19 @@
 #include <QThread>
 
 
+namespace
+{
+QMap<QString, QString> initializeRunPolicies()
+{
+    QMap<QString, QString> result;
+    result["Immediately"] = QString("Start simulation immediately, switch to Jobs view automatically when completed");
+    result["In background"] = QString("Start simulation immediately, do not switch to Jobs view when completed");
+    result["Submit only"] = QString("Only submit simulation for consequent execution, has to be started from Jobs view explicitely");
+    return result;
+}
+
+}
+
 QStringList JobItem::m_status_list = QStringList()
         << QString("Idle")
         << QString("Running")
@@ -23,16 +36,13 @@ QStringList JobItem::m_status_list = QStringList()
         << QString("Canceled")
         << QString("Failed");
 
-QStringList JobItem::m_run_policies = QStringList()
-        << QString("Immediately")
-        << QString("In background")
-        << QString("Submit only");
-
+QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
 
 JobItem::JobItem(const QString &name)
     : m_name(name)
     , m_status(Idle)
     , m_progress(0)
+    , m_nthreads(0)
     , m_run_policy(SubmitOnly)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -43,6 +53,7 @@ JobItem::JobItem(const QString &name)
 JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy)
     : m_status(Idle)
     , m_progress(0)
+    , m_nthreads(0)
     , m_run_policy(SubmitOnly)
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)

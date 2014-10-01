@@ -5,8 +5,10 @@
 #include "projectmanager.h"
 #include "stringutils.h"
 #include <QMenuBar>
+#include <QShortcut>
 #include <QSettings>
 #include <QFileInfo>
+#include <QKeySequence>
 #include <QDebug>
 #include <QDir>
 #include <iostream>
@@ -19,11 +21,12 @@ ActionManager::ActionManager(MainWindow *parent)
     , m_menuBar(0)
     , m_fileMenu(0)
     , m_helpMenu(0)
-
+    , m_runSimulationShortcut(0)
 {
     setParent(parent);
     createActions();
     createMenus();
+    createGlobalShortcuts();
 }
 
 
@@ -90,6 +93,14 @@ void ActionManager::createMenus()
 }
 
 
+void ActionManager::createGlobalShortcuts()
+{
+    m_runSimulationShortcut =  new QShortcut(QKeySequence(tr("Ctrl+r")), m_mainWindow);
+    m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
+    connect(m_runSimulationShortcut, SIGNAL(activated()), m_mainWindow, SLOT(onRunSimulationShortcut()));
+}
+
+
 void ActionManager::aboutToShowRecentProjects()
 {
     qDebug() << "ActionManager::aboutToShowRecentProjects() ->" << m_mainWindow->getProjectManager()->getRecentProjects();
@@ -114,6 +125,7 @@ void ActionManager::aboutToShowRecentProjects()
     }
 
 }
+
 
 
 

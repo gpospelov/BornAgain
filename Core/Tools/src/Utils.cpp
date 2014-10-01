@@ -22,6 +22,12 @@
 #include <boost/algorithm/string.hpp>
 #include <string>
 
+#include "Macros.h"
+GCC_DIAG_OFF(strict-aliasing);
+#include <boost/thread.hpp>
+GCC_DIAG_ON(strict-aliasing);
+
+
 #ifdef DEBUG_FPE
 #include <fenv.h>
 #ifdef Q_OS_MAC
@@ -122,6 +128,10 @@ void Utils::String::replaceItemsFromString(std::string &text, const std::vector<
 }
 
 
+int Utils::System::getThreadHardwareConcurrency()
+{
+    return (int)boost::thread::hardware_concurrency();
+}
 
 
 //! enables exception throw in the case of NaN, Inf
@@ -139,3 +149,5 @@ void Utils::EnableFloatingPointExceptions()
               << std::endl;
 #endif
 }
+
+

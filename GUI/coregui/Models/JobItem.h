@@ -76,11 +76,14 @@ public:
     InstrumentModel *getInstrumentModel();
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
-    static QStringList getRunPolicies() { return m_run_policies; }
+    static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     void initOutputDataItem();
 
     void setResults(const Simulation *simulation);
+
+    int getNumberOfThreads() const { return m_nthreads; }
+    void setNumberOfThreads(int nthreads) { m_nthreads = nthreads; }
 
 signals:
     void modified(JobItem *);
@@ -104,6 +107,7 @@ private:
     QString m_comments;
     JobStatus m_status;
     int m_progress;
+    int m_nthreads;
 
     QList<OutputDataItem *> m_data_items;
     RunPolicy m_run_policy;
@@ -112,7 +116,7 @@ private:
     InstrumentModel *m_instrumentModel;
 
     static QStringList m_status_list;
-    static QStringList m_run_policies;
+    static QMap<QString, QString> m_run_policies; // run policy, policy description
 };
 
 

@@ -161,6 +161,11 @@ void MainWindow::writeSettings()
     m_settings->sync();
 }
 
+void MainWindow::onRunSimulationShortcut()
+{
+    m_simulationView->onRunSimulationShortcut();
+}
+
 
 void MainWindow::openRecentProject()
 {

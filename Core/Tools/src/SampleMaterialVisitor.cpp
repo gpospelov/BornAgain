@@ -235,6 +235,10 @@ void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
 {
 }
 
+void SampleMaterialVisitor::visit(const FormFactorTrivial *)
+{
+}
+
 void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
 {
 }

@@ -51,6 +51,7 @@
 #include "FormFactorSphereGaussianRadius.h"
 #include "FormFactorSphereLogNormalRadius.h"
 #include "FormFactorTetrahedron.h"
+#include "FormFactorTrivial.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
 #include "FormFactorWeighted.h"

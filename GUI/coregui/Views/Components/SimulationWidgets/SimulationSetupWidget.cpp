@@ -7,7 +7,7 @@
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "SampleValidator.h"
-
+#include "Utils.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -55,10 +55,19 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     foreach(QString descr, JobItem::getRunPolicies().values())
         runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
 
+    // selection of number of threads
+    QLabel *cpuUsageLabel = new QLabel(tr("CPU Usage:"));
+    cpuUsageLabel->setToolTip("Defines number of threads to use for the simulation.");
+    cpuUsageSelectionBox = new QComboBox;
+    cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
+    cpuUsageSelectionBox->addItems(getCPUUsageOptions());
+
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(runPolicyLabel, 3, 0);
-    simulationParametersLayout->addWidget(runPolicySelectionBox, 3, 1);
+    simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
+    simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
+    simulationParametersLayout->addWidget(cpuUsageLabel, 1, 0);
+    simulationParametersLayout->addWidget(cpuUsageSelectionBox, 1, 1);
     simulationParametersGroup->setLayout(simulationParametersLayout);
 
     QHBoxLayout *simButtonLayout = new QHBoxLayout;
@@ -166,7 +175,9 @@ void SimulationSetupWidget::onRunSimulation()
     }
 
     JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
+    jobItem->setNumberOfThreads(getNumberOfThreads());
     m_jobQueueModel->addJob(jobItem);
+
 }
 
 
@@ -212,6 +223,32 @@ void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList 
         if(itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
+}
+
+//! returns list with number of threads to select
+QStringList SimulationSetupWidget::getCPUUsageOptions()
+{
+    QStringList result;
+    int nthreads = Utils::System::getThreadHardwareConcurrency();
+    for(int i = nthreads; i>0; i--){
+        if(i == nthreads) {
+            result.append(QString("max (%1 threads)").arg(QString::number(i)));
+        } else if(i == 1) {
+            result.append(QString("%1 thread").arg(QString::number(i)));
+        } else {
+            result.append(QString("%1 threads").arg(QString::number(i)));
+        }
+    }
+    return result;
+}
+
+
+int SimulationSetupWidget::getNumberOfThreads()
+{
+    foreach(QChar ch, cpuUsageSelectionBox->currentText()) {
+        if(ch.isDigit()) return ch.digitValue();
+    }
+    return 0;
 }
 
 

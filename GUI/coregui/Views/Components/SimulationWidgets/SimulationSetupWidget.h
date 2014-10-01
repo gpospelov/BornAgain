@@ -31,6 +31,8 @@ public slots:
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
+    QStringList getCPUUsageOptions();
+    int getNumberOfThreads();
 
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
@@ -42,6 +44,7 @@ private:
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
     QComboBox *runPolicySelectionBox;
+    QComboBox *cpuUsageSelectionBox;
     //QPushButton *runPyScriptSimulation;
 };
 

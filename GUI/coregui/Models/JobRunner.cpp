@@ -43,9 +43,6 @@ void JobRunner::start()
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
-        //ThreadInfo info;
-        //info.n_threads = 8;
-        //m_simulation->setThreadInfo(info);
 
         m_job_status = JobItem::Running;
 

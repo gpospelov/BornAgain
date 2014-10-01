@@ -82,6 +82,9 @@ public:
 
     void setResults(const Simulation *simulation);
 
+    int getNumberOfThreads() const { return m_nthreads; }
+    void setNumberOfThreads(int nthreads) { m_nthreads = nthreads; }
+
 signals:
     void modified(JobItem *);
 
@@ -104,6 +107,7 @@ private:
     QString m_comments;
     JobStatus m_status;
     int m_progress;
+    int m_nthreads;
 
     QList<OutputDataItem *> m_data_items;
     RunPolicy m_run_policy;

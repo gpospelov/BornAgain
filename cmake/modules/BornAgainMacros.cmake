@@ -196,17 +196,34 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
         message(STATUS "----> ALT_PYTHON_MODULE_EXTENSION:${ALT_PYTHON_MODULE_EXTENSION} ALT_PYTHON_IS_DEBUG:${ALT_PYTHON_IS_DEBUG} ALT_PYTHON_SIZEOF_VOID_P:${ALT_PYTHON_SIZEOF_VOID_P} ALT_PYTHON_LIBRARY_SUFFIX:${ALT_PYTHON_LIBRARY_SUFFIX}")
 
         if(NOT ${PYTHON_INCLUDE_DIRS} STREQUAL ${ALT_PYTHON_INCLUDE_DIRS})
-            message(STATUS "----> Python interpreter reports PYTHON_INCLUDE_DIRS:${ALT_PYTHON_INCLUDE_DIRS} which differs from what we have learned before. Will use that one.")
+            message(STATUS "----> Python interpreter reports include directory (see ALT_PYTHON_INCLUDE_DIRS) which differs from what we have learned before (see PYTHON_INCLUDE_DIRS).")
+            message(STATUS "----> Setting PYTHON_INCLUDE_DIRS=${ALT_PYTHON_INCLUDE_DIRS}")
             set(PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
         endif()
 
-        set(ALT_PYTHONLIBS_FOUND TRUE)
+        if(NOT PYTHONLIBS_FOUND)
+            if(APPLE)
+                message(STATUS "----> There was a complain that no suitable Python library has been found. This is APPLE of course... investigating... ")
+                set(ALT_PYTHON_LIBRARIES "${ALT_PYTHON_PREFIX}/lib/libpython${ALT_PYTHON_LIBRARY_SUFFIX}.dylib")
+                if(${PYTHON_LIBRARIES} STREQUAL ${ALT_PYTHON_LIBRARIES})
+                    message(STATUS "----> ... we found that the library is OK. Ignoring complain.")
+                    set(PYTHON_LIBS_FOUND TRUE PARENT_SCOPE)
+                else()
+                    if(EXISTS ${ALT_PYTHON_LIBRARIES})
+                        message(STATUS "----> ... there is another one which seems to be OK ${ALT_PYTHON_LIBRARIES}.")
+                        set(PYTHON_LIBS_FOUND TRUE PARENT_SCOPE)
+                        set(PYTHON_LIBRARIES ${ALT_PYTHON_LIBRARIES} PARENT_SCOPE)
+                    endif()
+                endif()
+            endif()
+        endif()
+
 
     endif()
 
-    set(ALT_PYTHONLIBS_FOUND ${ALT_PYTHONLIBS_FOUND} PARENT_SCOPE)
-    set(ALT_PYTHON_VERSION_STRING ${ALT_PYTHON_VERSION_STRING} PARENT_SCOPE)
-    set(ALT_PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
+#    set(ALT_PYTHONLIBS_FOUND ${ALT_PYTHONLIBS_FOUND} PARENT_SCOPE)
+#    set(ALT_PYTHON_VERSION_STRING ${ALT_PYTHON_VERSION_STRING} PARENT_SCOPE)
+#    set(ALT_PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
 endfunction()
 
 

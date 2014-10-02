@@ -68,13 +68,27 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp 2.7 REQUIRED)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
-    if(WIN32)
-        find_package(PythonLibs REQUIRED)
-    else()
-       find_package(PythonLibsNew REQUIRED)
+    find_package(PythonLibs 2.7)
+
+    if(NOT PYTHONLIBS_FOUND)
+        message(STATUS "--> First attempt to find Python libraries failed, trying another way")
+        find_package(PythonLibsNew)
     endif()
 
-    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}")
+    if(NOT PYTHONLIBS_FOUND)
+        message(FATAL_ERROR "No python libraries have been found")
+    endif()
+
+    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
+
+
+#    if(WIN32)
+#        find_package(PythonLibs REQUIRED)
+#    else()
+#       find_package(PythonLibsNew REQUIRED)
+#    endif()
+
+#    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS}")
 
     # TODO refactor this
 #    if(APPLE)

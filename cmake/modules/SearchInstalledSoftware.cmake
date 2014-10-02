@@ -85,6 +85,14 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
 
 
+#    set(AAA "aaa;bbb")
+#    set(BBB "bbb")
+#    if(NOT "${AAA}" STREQUAL "${BBB}")
+#        message("AAA not equal")
+#    else()
+#        message("AAA equal")
+#    endif()
+
 
 #    if(WIN32)
 #        find_package(PythonLibs REQUIRED)

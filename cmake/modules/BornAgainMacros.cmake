@@ -200,7 +200,7 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
         message(STATUS "----> ALT_PYTHON_SIZEOF_VOID_P:${ALT_PYTHON_SIZEOF_VOID_P} ")
         message(STATUS "----> ALT_PYTHON_LIBRARY_SUFFIX:${ALT_PYTHON_LIBRARY_SUFFIX}")
 
-        if(NOT ${PYTHON_INCLUDE_DIRS} STREQUAL ${ALT_PYTHON_INCLUDE_DIRS})
+        if(NOT PYTHON_INCLUDE_DIRS STREQUAL ALT_PYTHON_INCLUDE_DIRS)
             message(STATUS "----> Python interpreter reports include directory (see ALT_PYTHON_INCLUDE_DIRS) which differs from what we have learned before (see PYTHON_INCLUDE_DIRS).")
             message(STATUS "----> Setting PYTHON_INCLUDE_DIRS=${ALT_PYTHON_INCLUDE_DIRS}")
             set(PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)

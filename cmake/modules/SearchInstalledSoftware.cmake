@@ -9,11 +9,8 @@ endif()
 
 
 # --- Eigen3 ---
-find_package(Eigen3 3.1.0)
-if(NOT EIGEN3_FOUND) 
-    set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
-    message(STATUS "--> Build in version of Eigen3 will be used")
-endif()
+set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
+message(STATUS "Build in version of Eigen3 will be used")
 
 # --- FFTW3 ---
 find_package(FFTW REQUIRED)

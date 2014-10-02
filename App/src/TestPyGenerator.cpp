@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <set>
 #include <typeinfo>
 #include <exception>
@@ -14,6 +15,7 @@
 #include "Materials.h"
 #include "Samples.h"
 #include "Simulation.h"
+#include "SimulationRegistry.h"
 #include "TestPyGenerator.h"
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
@@ -24,23 +26,38 @@ TestPyGenerator::TestPyGenerator()
 
 }
 
-void TestPyGenerator::execute()
+bool TestPyGenerator::testPythonScript(Simulation *simulation)
 {
-    std::cout << "\n\n\n\n";
-
-    Simulation *simulation = makeSimulation();
+    simulation->runSimulation();
     ISample *iSample = simulation->getSample();
     MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
     //multiLayer->printSampleTree();
-
-    //std::cout << "\n\n\n\n";
-
     VisitSampleTree(*multiLayer, visitor);
-    visitor.genPyScript(simulation);
-
+    std::ofstream pythonFile;
+    pythonFile.open("PythonScript.py");
+    pythonFile << visitor.genPyScript(simulation, "output");
+    pythonFile.close();
     std::string command = "python PythonScript.py";
     system(command.c_str());
+    m_reference_data = simulation->getOutputData();
+    m_simulated_data = IntensityDataIOFactory::readIntensityData("output.int");
+    double diff = IntensityDataFunctions::getRelativeDifference(*m_simulated_data,*m_reference_data);
+    std::cout << "diff = " << diff << std::endl;
+    if (diff == 0)
+        return 1;
+    else
+        return 0;
 }
+
+void TestPyGenerator::execute()
+{
+    std::cout << "\n\n\n\n";
+    SimulationRegistry simulationRegistry;
+    //Simulation *simulation = makeSimulation();
+    Simulation *simulation = simulationRegistry.createSimulation("isgisaxs01");
+    testPythonScript(simulation);
+}
+
 
 MultiLayer *TestPyGenerator::makeSample()
 {

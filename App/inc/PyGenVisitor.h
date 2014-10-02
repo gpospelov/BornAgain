@@ -13,7 +13,7 @@ public:
 
     using ISampleVisitor::visit;
 
-    void genPyScript(const Simulation *simulation);
+    std::string genPyScript(const Simulation *simulation, std::string fileName);
     std::string printDouble(double input);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);

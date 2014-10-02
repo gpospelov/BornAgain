@@ -76,6 +76,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
         message(FATAL_ERROR "No Python library has been found")
     endif()
 
+    find_package(Numpy REQUIRED)
+
 endif()
 
 

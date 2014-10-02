@@ -208,10 +208,10 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
 
         if(PYTHONLIBS_FOUND)
             if(NOT PYTHON_VERSION_STRING STREQUAL PYTHONLIBS_VERSION_STRING)
-                message(STATUS "---> PYTHON_VERSION_STRING ${PYTHON_VERSION_STRING} differs from ${PYTHONLIBS_VERSION_STRING}")
+                message(STATUS "---> PYTHON_VERSION_STRING ${PYTHON_VERSION_STRING} differs from PYTHONLIBS_VERSION_STRING ${PYTHONLIBS_VERSION_STRING}")
                 if(APPLE)
                     set(ALT_PYTHON_LIBRARIES "${ALT_PYTHON_PREFIX}/lib/libpython${ALT_PYTHON_LIBRARY_SUFFIX}.dylib")
-                    message(STATUS "----> Will user library from ${ALT_PYTHON_LIBRARIES} instead")
+                    message(STATUS "----> Will use library from ${ALT_PYTHON_LIBRARIES} instead")
                     set(PYTHON_LIBRARIES ${ALT_PYTHON_LIBRARIES} PARENT_SCOPE)
                 else()
                     message(WARNING "---> There is inconcistency between versions of interpreter and library. Don't know how to handle, compilation might fail.")

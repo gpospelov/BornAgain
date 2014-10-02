@@ -1,5 +1,7 @@
 # Search for installed software required by BornAgain
 
+
+
 if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
     find_package(MPI REQUIRED)
@@ -69,17 +71,19 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
 
     find_package(PythonLibs 2.7)
-
-    if(NOT PYTHONLIBS_FOUND)
-        message(STATUS "--> First attempt to find Python libraries failed, trying another way")
-        find_package(PythonLibsNew)
-    endif()
-
-    if(NOT PYTHONLIBS_FOUND)
-        message(FATAL_ERROR "No python libraries have been found")
-    endif()
-
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
+
+    ValidatePythonIntstallation()
+
+#    if(NOT PYTHONLIBS_FOUND)
+#        message(STATUS "--> First attempt to find Python libraries failed, trying another way")
+#        find_package(PythonLibsNew)
+#    endif()
+
+    if(NOT PYTHONLIBS_FOUND)
+        message(FATAL_ERROR "No Python library has been found")
+    endif()
+
 
 
 #    if(WIN32)

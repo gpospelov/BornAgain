@@ -148,3 +148,70 @@ endfunction ()
 #  endif()
 #endfunction()
 
+
+
+function(ValidatePythonIntstallation)
+    message(STATUS "--> Validating Python installation corresponding to the interpreter ${PYTHON_EXECUTABLE}")
+
+execute_process(COMMAND "${PYTHON_EXECUTABLE}" "-c"
+    "from distutils import sysconfig as s;import sys;import struct;
+print('.'.join(str(v) for v in sys.version_info));
+print(sys.prefix);
+print(s.get_python_inc(plat_specific=True));
+print(s.get_python_lib(plat_specific=True));
+print(s.get_config_var('SO'));
+print(hasattr(sys, 'gettotalrefcount')+0);
+print(struct.calcsize('@P'));
+print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
+"
+    RESULT_VARIABLE _PYTHON_SUCCESS
+    OUTPUT_VARIABLE _PYTHON_VALUES
+    ERROR_VARIABLE _PYTHON_ERROR_VALUE
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    if(NOT _PYTHON_SUCCESS MATCHES 0)
+        set(ALT_PYTHONLIBS_FOUND FALSE)
+    else()
+
+        # Convert the process output into a list
+        string(REGEX REPLACE ";" "\\\\;" _PYTHON_VALUES ${_PYTHON_VALUES})
+        string(REGEX REPLACE "\n" ";" _PYTHON_VALUES ${_PYTHON_VALUES})
+        list(GET _PYTHON_VALUES 0 _PYTHON_VERSION_LIST)
+        list(GET _PYTHON_VALUES 1 ALT_PYTHON_PREFIX)
+        list(GET _PYTHON_VALUES 2 ALT_PYTHON_INCLUDE_DIRS)
+        list(GET _PYTHON_VALUES 3 ALT_PYTHON_SITE_PACKAGES)
+        list(GET _PYTHON_VALUES 4 ALT_PYTHON_MODULE_EXTENSION)
+        list(GET _PYTHON_VALUES 5 ALT_PYTHON_IS_DEBUG)
+        list(GET _PYTHON_VALUES 6 ALT_PYTHON_SIZEOF_VOID_P)
+        list(GET _PYTHON_VALUES 7 ALT_PYTHON_LIBRARY_SUFFIX)
+
+        string(REGEX REPLACE "\\." ";" _PYTHON_VERSION_LIST ${_PYTHON_VERSION_LIST})
+        list(GET _PYTHON_VERSION_LIST 0 ALT_PYTHON_VERSION_MAJOR)
+        list(GET _PYTHON_VERSION_LIST 1 ALT_PYTHON_VERSION_MINOR)
+        list(GET _PYTHON_VERSION_LIST 2 ALT_PYTHON_VERSION_PATCH)
+
+        set(ALT_PYTHON_VERSION_STRING ${ALT_PYTHON_VERSION_MAJOR}.${ALT_PYTHON_VERSION_MINOR}.${ALT_PYTHON_VERSION_PATCH})
+
+        message(STATUS "----> ALT_PYTHON_PREFIX:${ALT_PYTHON_PREFIX} ALT_PYTHON_INCLUDE_DIRS:${ALT_PYTHON_INCLUDE_DIRS} ALT_PYTHON_SITE_PACKAGES:${ALT_PYTHON_SITE_PACKAGES}")
+        message(STATUS "----> ALT_PYTHON_MODULE_EXTENSION:${ALT_PYTHON_MODULE_EXTENSION} ALT_PYTHON_IS_DEBUG:${ALT_PYTHON_IS_DEBUG} ALT_PYTHON_SIZEOF_VOID_P:${ALT_PYTHON_SIZEOF_VOID_P} ALT_PYTHON_LIBRARY_SUFFIX:${ALT_PYTHON_LIBRARY_SUFFIX}")
+
+        if(NOT ${PYTHON_INCLUDE_DIRS} STREQUAL ${ALT_PYTHON_INCLUDE_DIRS})
+            message(STATUS "----> Python interpreter reports PYTHON_INCLUDE_DIRS:${ALT_PYTHON_INCLUDE_DIRS} which differs from what we have learned before. Will use that one.")
+            set(PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
+        endif()
+
+        set(ALT_PYTHONLIBS_FOUND TRUE)
+
+    endif()
+
+    set(ALT_PYTHONLIBS_FOUND ${ALT_PYTHONLIBS_FOUND} PARENT_SCOPE)
+    set(ALT_PYTHON_VERSION_STRING ${ALT_PYTHON_VERSION_STRING} PARENT_SCOPE)
+    set(ALT_PYTHON_INCLUDE_DIRS ${ALT_PYTHON_INCLUDE_DIRS} PARENT_SCOPE)
+endfunction()
+
+
+
+
+
+
+

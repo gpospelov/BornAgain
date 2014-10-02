@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ToolTipsData version="1.0">
     <context name="SampleView">
-        
+
+
+        <category name="Layer">
+            <property name="Title">
+                <tooltip>A Layer with thickness and material</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Thickness">
+                <tooltip>Thickness of layer in nm</tooltip>
+            </property>
+        </category>
+
+        <category name="AnisoPyramid">
+            <property name="Description">
+                <tooltip>Aniso pyramid it's kind of pyramid</tooltip>
+            </property>
+            <property name="Length">
+                <tooltip>The length of bla-bla</tooltip>
+            </property>
+        </category>
+
         <category name="InterferenceFunction1DParaCrystal">
             <property name="PeakDistance">
                 <tooltip>The distance to the peak</tooltip>                
@@ -25,13 +47,5 @@
         
     </context>
     
-    <context name="Widgetbox">
-        <category name="Widgetbox">
-            <property name="FormFactorAnisoPyramid">
-                <tooltip>Truncated pyramid with rectangular base</tooltip>                
-            </property>
-        </category>
-    </context>
-
 </ToolTipsData>
 

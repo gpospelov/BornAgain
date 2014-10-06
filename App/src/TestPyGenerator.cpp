@@ -20,6 +20,25 @@
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
 #include "ParticleCoreShell.h"
+#include "OutputData.h"
+#include "Simulation.h"
+#include "ISample.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
+#include "FormFactorCylinder.h"
+#include "FormFactorPrism3.h"
+#include "Units.h"
+#include "InterferenceFunctionNone.h"
+
+#include "TCanvas.h"
+#include "TH1D.h"
+#include "TH2D.h"
+#include "TH3D.h"
+#include "TStyle.h"
+#include "TLine.h"
+#include "TROOT.h"
+#include "TApplication.h"
 
 TestPyGenerator::TestPyGenerator()
 {
@@ -31,22 +50,57 @@ bool TestPyGenerator::testPythonScript(Simulation *simulation)
     simulation->runSimulation();
     ISample *iSample = simulation->getSample();
     MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
-    //multiLayer->printSampleTree();
+    multiLayer->printSampleTree();
     VisitSampleTree(*multiLayer, visitor);
     std::ofstream pythonFile;
     pythonFile.open("PythonScript.py");
-    pythonFile << visitor.genPyScript(simulation, "output");
+    pythonFile << visitor.genPyScript(simulation,"output");
     pythonFile.close();
     std::string command = "python PythonScript.py";
     system(command.c_str());
-    m_reference_data = simulation->getOutputData();
+    m_reference_data = simulation->getIntensityData();
     m_simulated_data = IntensityDataIOFactory::readIntensityData("output.int");
+/*    const IAxis *axisPhi = m_reference_data->getAxis(0);
+        const IAxis *axisAlpha = m_reference_data->getAxis(1);
+
+        size_t nPhibins = axisPhi->getSize();
+        size_t nAlphabins = axisAlpha->getSize();
+
+        TH2D *hist = new TH2D("Cylinders and prisms", "Cylinders and prisms",
+                              (int)nPhibins, axisPhi->getMin()/Units::degree, axisPhi->getMax()/Units::degree,
+                              (int)nAlphabins, axisAlpha->getMin()/Units::degree, axisAlpha->getMax()/Units::degree);
+
+        hist->GetXaxis()->SetTitle( axisPhi->getName().c_str() );
+        hist->GetYaxis()->SetTitle( axisAlpha->getName().c_str() );
+
+        OutputData<double>::const_iterator it = m_reference_data->begin();
+        while (it != m_reference_data->end())
+        {
+            double x = m_reference_data->getValueOfAxis( axisPhi->getName(), it.getIndex() );
+            double y = m_reference_data->getValueOfAxis( axisAlpha->getName(), it.getIndex() );
+            double value = *it++;
+            hist->Fill(x/Units::degree, y/Units::degree, value);
+        }
+
+        hist->SetContour(50);
+        hist->SetStats(0);
+        hist->GetYaxis()->SetTitleOffset(1.1);
+
+        gStyle->SetPalette(1);
+        gStyle->SetOptStat(0);
+
+        TCanvas *c1 = new TCanvas("Cylinders and prisms", "Cylinders and prisms", 980, 800);
+        c1->cd();
+        c1->SetLogz();
+        hist->SetMinimum(1.0);
+        hist->DrawCopy("colz");
+        c1->Update(); */
     double diff = IntensityDataFunctions::getRelativeDifference(*m_simulated_data,*m_reference_data);
     std::cout << "diff = " << diff << std::endl;
     if (diff == 0)
-        return 1;
+        return true;
     else
-        return 0;
+        return false;
 }
 
 void TestPyGenerator::execute()
@@ -54,7 +108,7 @@ void TestPyGenerator::execute()
     std::cout << "\n\n\n\n";
     SimulationRegistry simulationRegistry;
     //Simulation *simulation = makeSimulation();
-    Simulation *simulation = simulationRegistry.createSimulation("isgisaxs01");
+    Simulation *simulation = simulationRegistry.createSimulation("gui_isgisaxs01");
     testPythonScript(simulation);
 }
 

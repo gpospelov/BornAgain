@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <map>
 #include <set>
 #include <utility>
@@ -69,7 +70,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         result << "\n\t# Defining Form Factors and Particles\n";
     }
 
-    int formFactorNotFound =0;
+    int formFactorNotFound = 0;
     std::map<const IFormFactor *,std::string>::iterator it3 = m_label->getFormFactorMap()->begin();
     while (it3 != m_label->getFormFactorMap()->end())
     {
@@ -235,9 +236,9 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         else
         {
             // I should give proper Exception here
-            std::cout << "\n" << formFactorNotFound << ": " << iFormFactor->getName()
-            << "Not Casted To Any FormFactor\n";
             formFactorNotFound++;
+            std::cout << "\n" << formFactorNotFound << ": " << iFormFactor->getName()
+            << " :: Not Casted To Any FormFactor\n";
         }
         it3++;
     }
@@ -282,7 +283,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         result << "\n\t# Defining Interference functions\n";
     }
 
-    int interfernceFunctionNotFound =0;
+    int interfernceFunctionNotFound = 0;
+    int probabilityDistributionFunctionNotFound = 0;
     std::map<const IInterferenceFunction *,std::string>::iterator it = m_label->getInterferenceFunctionMap()->begin();
     while (it != m_label->getInterferenceFunctionMap()->end())
     {
@@ -332,6 +334,14 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle = dynamic_cast<const FTDistribution1DTriangle *>(pdf))
                 {
                     result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                }
+
+                else
+                {
+                    // I should give proper Exception here
+                    probabilityDistributionFunctionNotFound++;
+                    std::cout << "\n" << probabilityDistributionFunctionNotFound << ": " << pdf->getName()
+                    << " :: Not Casted To Any Probability Distribution Function\n";
                 }
 
                 result << "\t" << it->second << ".setProbabilityDistribution(" << it->second << "_pdf)\n\n";
@@ -387,6 +397,14 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                     result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
+                else
+                {
+                    // I should give proper Exception here
+                    probabilityDistributionFunctionNotFound++;
+                    std::cout << "\n" << probabilityDistributionFunctionNotFound << ": " << pdf->getName()
+                    << " :: Not Casted To Any Probability Distribution Function\n";
+                }
+
                 result << "\t" << it->second << ".setProbabilityDistribution(" << it->second << "_pdf)\n\n";
             }
         }
@@ -410,7 +428,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                 }
             }
 
-            if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf))
+            else if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf))
             {
                 result << "\t" << it->second << "_pdf  = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DCone->getCoherenceLengthY()) << "*nanometer" << ")\n";
@@ -420,7 +438,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                 }
             }
 
-            if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf))
+            else if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf))
             {
                 result << "\t" << it->second << "_pdf  = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
@@ -430,7 +448,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                 }
             }
 
-            if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
+            else if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
             {
                 result << "\t" << it->second << "_pdf  = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
@@ -440,7 +458,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                 }
             }
 
-            if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf))
+            else if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf))
             {
                 result << "\t" << it->second << "_pdf  = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DVoigt->getCoherenceLengthY()) << "*nanometer" << "," << printDouble(fTD2DVoigt->getEta()) << ")\n";
@@ -449,6 +467,16 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                     result << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
+
+            else
+            {
+                // I should give proper Exception here
+                probabilityDistributionFunctionNotFound++;
+                std::cout << "\n" << probabilityDistributionFunctionNotFound << ": " << pdf->getName()
+                << " :: Not Casted To Any Probability Distribution Function\n";
+            }
+
+            result << "\t" << it->second << ".setProbabilityDistribution(" << it->second << "_pdf)\n\n";
 
         }
 
@@ -459,64 +487,136 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
             twoDParaCrystal->getAlphaLattice() << "*nanometer," << twoDParaCrystal->getLatticeOrientation()
             << "*nanometer," << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
-  /*          const IFTDistribution2D *pdf =  twoDParaCrystal->getProbabilityDistributions();
+            std::vector<const IFTDistribution2D*> pdf_vector =  twoDParaCrystal->getProbabilityDistributions();
+            const IFTDistribution2D *pdf_1 = pdf_vector[0];
 
-            if (const FTDistribution2DCauchy *fTD2DCauchy = dynamic_cast<const FTDistribution2DCauchy *>(pdf))
+            if (const FTDistribution2DCauchy *fTD2DCauchy = dynamic_cast<const FTDistribution2DCauchy *>(pdf_1))
             {
-                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCauchy(" << printDouble(fTD2DCauchy->getCoherenceLengthX())
+                result << "\t" << it->second << "_pdf_1  = FTDistribution2DCauchy(" << printDouble(fTD2DCauchy->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DCauchy->getCoherenceLengthY()) << "*nanometer" << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0)
                 {
-                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                    result << "\t" << it->second << "_pdf_1" << ".setGamma(" << printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
-            if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf))
+            else if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf_1))
             {
-                myfile << "\t" << it->second << "_pdf  = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
+                result << "\t" << it->second << "_pdf_1  = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
                 << "*nanometer," << printDouble(fTD2DCone->getCoherenceLengthY()) << "*nanometer" << ")\n";
                 if (fTD2DCone->getGamma() != 0.0)
                 {
-                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DCone->getGamma()) << ")\n";
+                    result << "\t" << it->second << "_pdf_1" << ".setGamma(" << printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
-            if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf))
-            {
-                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
-                << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
-                if (fTD2DGate->getGamma() != 0.0)
+            else if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf_1))
                 {
-                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGate->getGamma()) << ")\n";
+                    result << "\t" << it->second << "_pdf_1  = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
+                    << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                    if (fTD2DGate->getGamma() != 0.0)
+                    {
+                        result << "\t" << it->second << "_pdf_1" << ".setGamma(" << printDouble(fTD2DGate->getGamma()) << ")\n";
+                    }
                 }
-            }
 
-            if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
-            {
-                myfile << "\t" << it->second << "_pdf  = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
-                << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
-                if (fTD2DGauss->getGamma() != 0.0)
+            else if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf_1))
                 {
-                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                    result << "\t" << it->second << "_pdf_1  = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
+                    << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                    if (fTD2DGauss->getGamma() != 0.0)
+                    {
+                        result << "\t" << it->second << "_pdf_1" << ".setGamma(" << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                    }
                 }
-            }
 
-            if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf))
+            else if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf_1))
             {
-                myfile << "\t" << it->second << "_pdf  = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX()) << "*nanometer,"
+                result << "\t" << it->second << "_pdf_1  = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX()) << "*nanometer,"
                 << printDouble(fTD2DVoigt->getCoherenceLengthY()) << "*nanometer" << "," << printDouble(fTD2DVoigt->getEta()) << ")\n";
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
-                    myfile << "\t" << it->second << "_pdf" << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
-                }  */
+                    result << "\t" << it->second << "_pdf_1" << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                }
+            }
+
+            else
+            {
+                // I should give proper Exception here
+                probabilityDistributionFunctionNotFound++;
+                std::cout << "\n" << probabilityDistributionFunctionNotFound << ": " << pdf_1->getName()
+                << " :: Not Casted To Any Probability Distribution Function\n";
+            }
+
+            const IFTDistribution2D *pdf_2 = pdf_vector[1];
+
+            if (const FTDistribution2DCauchy *fTD2DCauchy = dynamic_cast<const FTDistribution2DCauchy *>(pdf_2))
+            {
+                result << "\t" << it->second << "_pdf_2   = FTDistribution2DCauchy(" << printDouble(fTD2DCauchy->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCauchy->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCauchy->getGamma() != 0.0)
+                {
+                    result << "\t" << it->second << "_pdf_2 " << ".setGamma(" << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                }
+            }
+
+            else if (const FTDistribution2DCone *fTD2DCone = dynamic_cast<const FTDistribution2DCone *>(pdf_2 ))
+            {
+                result << "\t" << it->second << "_pdf_2   = FTDistribution2DCone(" << printDouble(fTD2DCone->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DCone->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DCone->getGamma() != 0.0)
+                {
+                    result << "\t" << it->second << "_pdf_2 " << ".setGamma(" << printDouble(fTD2DCone->getGamma()) << ")\n";
+                }
+            }
+
+            else if (const FTDistribution2DGate *fTD2DGate = dynamic_cast<const FTDistribution2DGate *>(pdf_2 ))
+            {
+                result << "\t" << it->second << "_pdf_2   = FTDistribution2DGate(" << printDouble(fTD2DGate->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGate->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGate->getGamma() != 0.0)
+                {
+                    result << "\t" << it->second << "_pdf_2 " << ".setGamma(" << printDouble(fTD2DGate->getGamma()) << ")\n";
+                }
+            }
+
+            else if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf_2 ))
+            {
+                result << "\t" << it->second << "_pdf_2   = FTDistribution2DGauss(" << printDouble(fTD2DGauss->getCoherenceLengthX())
+                << "*nanometer," << printDouble(fTD2DGauss->getCoherenceLengthY()) << "*nanometer" << ")\n";
+                if (fTD2DGauss->getGamma() != 0.0)
+                {
+                    result << "\t" << it->second << "_pdf_2 " << ".setGamma(" << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                }
+            }
+
+            else if (const FTDistribution2DVoigt *fTD2DVoigt = dynamic_cast<const FTDistribution2DVoigt *>(pdf_2 ))
+            {
+                result << "\t" << it->second << "_pdf_2   = FTDistribution2DVoigt(" << printDouble(fTD2DVoigt->getCoherenceLengthX()) << "*nanometer,"
+                << printDouble(fTD2DVoigt->getCoherenceLengthY()) << "*nanometer" << "," << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                if (fTD2DVoigt->getGamma() != 0.0)
+                {
+                    result << "\t" << it->second << "_pdf_2 " << ".setGamma(" << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                }
+            }
+
+            else
+            {
+                // I should give proper Exception here
+                probabilityDistributionFunctionNotFound++;
+                std::cout << "\n" << probabilityDistributionFunctionNotFound << ": " << pdf_2->getName()
+                << " :: Not Casted To Any Probability Distribution Function\n";
+            }
+
+            result << "\t" << it->second << ".setProbabilityDistributions(" << it->second << "_pdf_1," << it->second << "_pdf_2)\n\n";
         }
 
         else
         {
             // I should Give Proper Exception Here
             std::cout << "\n" << interfernceFunctionNotFound << ": " << iInterferenceFunction->getName()
-            << "Not Casted To Any Interference Function\n";
-            formFactorNotFound++;
+            << " :: Not Casted To Any Interference Function\n";
+            interfernceFunctionNotFound++;
         }
 
         it++;
@@ -646,7 +746,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
     while (index != numberOfDetectorDimensions)
     {
         if (index != 0) {result << ",";}
-        result << simulation->getInstrument().getDetectorAxis(index).getSize() << "," <<
+        result << std::setprecision(16) << simulation->getInstrument().getDetectorAxis(index).getSize() << "," <<
         simulation->getInstrument().getDetectorAxis(index).getMin() << "," <<
         simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
@@ -662,8 +762,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
     result << "\tsample = getSample()\n";
     result << "\tsimulation = getSimulation()\n";
     result << "\tsimulation.setSample(sample)\n";
+    result << "\tsimulation.runSimulation()\n";
     result << "\tif filename == '':\n";
-    result << "\t\tsimulation.runSimulation()\n";
     result << "\t\tresult = simulation.getIntensityData().getArray() + 1 # +1 for log scale\n";
     result << "\t\tim = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[";
     index = 0;
@@ -867,5 +967,5 @@ void PyGenVisitor::visit(const ParticleCoreShell *sample)
 void PyGenVisitor::visit(const ParticleLayout *sample)
 {
     m_label->setLabel(sample);
-//     myfile << sample->getName() << std::endl;
+//     result << sample->getName() << std::endl;
 }

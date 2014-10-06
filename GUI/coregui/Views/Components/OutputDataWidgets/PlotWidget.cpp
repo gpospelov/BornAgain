@@ -1,7 +1,9 @@
 #include "PlotWidget.h"
 #include "histogramplot.h"
 #include "OutputData.h"
+#include "projectmanager.h"
 #include "minisplitter.h"
+#include "projectdocument.h"
 #include <QVBoxLayout>
 
 
@@ -102,9 +104,22 @@ void PlotWidget::savePlot()
         m_centralPlot->showLinesOverMap(false);
     }
 
+
+
+
     QString filters("*.png;;*.jpg;;*.pdf");
     QString defaultFilter("*.png");
-    QString defaultName = qApp->applicationDirPath().append("/untitled");
+    QString defaultName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation).append("/untitled");
+
+    if(m_projectManager)
+    {
+        ProjectDocument *document  = m_projectManager->getDocument();
+
+        if(document->hasValidNameAndPath())
+        {
+            defaultName = document->getProjectPath().append("/").append(document->getProjectName()).append("/untitled");
+        }
+    }
 
     /* Static method approach */
     QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
@@ -144,6 +159,11 @@ void PlotWidget::savePlot()
 
     m_centralPlot->showLinesOverMap(m_isProjectionsEnabled);
 
+}
+
+void PlotWidget::setProjectManager(ProjectManager *projectManager)
+{
+    m_projectManager = projectManager;
 }
 
 

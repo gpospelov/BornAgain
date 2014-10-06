@@ -4,6 +4,7 @@
 #include "JobOutputDataWidget.h"
 #include "JobQueueModel.h"
 #include "JobRealTimeWidget.h"
+#include "projectmanager.h"
 #include "mainwindow.h"
 #include "progressbar.h"
 #include <QFrame>
@@ -13,7 +14,7 @@
 
 struct JobViewPrivate
 {
-    JobViewPrivate(JobQueueModel *jobQueueModel);
+    JobViewPrivate(JobQueueModel *jobQueueModel, ProjectManager *projectManager);
     QWidget *m_subWindows[JobView::NumberOfDocks];
     QDockWidget *m_dockWidgets[JobView::NumberOfDocks];
     JobQueueModel *m_jobQueueModel;
@@ -21,14 +22,16 @@ struct JobViewPrivate
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
     Manhattan::ProgressBar *m_progressBar; //!< general progress bar
+    ProjectManager *m_projectManager;
 };
 
 
-JobViewPrivate::JobViewPrivate(JobQueueModel *jobQueueModel)
+JobViewPrivate::JobViewPrivate(JobQueueModel *jobQueueModel, ProjectManager *projectManager)
     : m_jobQueueModel(jobQueueModel)
     , m_jobSelector(0)
     , m_jobOutputDataWidget(0)
     , m_progressBar(0)
+    , m_projectManager(projectManager)
 {
     qFill(m_subWindows, m_subWindows + JobView::NumberOfDocks,
           static_cast<QWidget*>(0));
@@ -37,9 +40,9 @@ JobViewPrivate::JobViewPrivate(JobQueueModel *jobQueueModel)
 }
 
 
-JobView::JobView(JobQueueModel *jobQueueModel, QWidget *parent)
+JobView::JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_d(new JobViewPrivate(jobQueueModel))
+    , m_d(new JobViewPrivate(jobQueueModel, projectManager))
 {
     setObjectName("JobView");
 
@@ -146,7 +149,7 @@ void JobView::setActivity(int activity)
 void JobView::initWindows()
 {
     // central widget
-    m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->m_jobQueueModel, this);
+    m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->m_jobQueueModel, m_d->m_projectManager, this);
     setCentralWidget(m_d->m_jobOutputDataWidget);
 
     m_d->m_jobSelector = new JobSelectorWidget(m_d->m_jobQueueModel, this);

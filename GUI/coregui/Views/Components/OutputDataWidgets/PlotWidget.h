@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 
 class HistogramPlot;
+class ProjectManager;
 
 class BA_CORE_API_ PlotWidget : public QWidget
 {
@@ -22,6 +23,7 @@ public:
     int histogramSize;
     void drawPlot(OutputDataItem *outputDataItem);
     void setPropertyWidgetVisibilityFlag(bool visible);
+    void setProjectManager(ProjectManager *projectManager);
 
 signals:
     void projectionsVisibilityChanged(bool visible);
@@ -48,6 +50,7 @@ private:
     void connectSignals();
     void showProjectsions(bool visible);
 
+
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;
     QSplitter *m_splitterBottom;
@@ -63,6 +66,7 @@ private:
     QAction *m_resetAction;
     QAction *m_saveAction;
     QMenu *m_contextMenu;
+    ProjectManager *m_projectManager;
 
     bool m_block_plot_update;
     bool m_isProjectionsEnabled;

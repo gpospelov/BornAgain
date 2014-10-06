@@ -3,6 +3,7 @@
 #include "OutputDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
+#include "projectmanager.h"
 #include "styledbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -11,9 +12,10 @@
 #include "GUIHelpers.h"
 
 
-JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, QWidget *parent)
+JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
+    , m_projectManager(projectManager)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobOutputDataToolBar())
 {
@@ -76,6 +78,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new OutputDataWidget(this, false, false, false);
         widget->setCurrentItem(item->getOutputDataItem());
+        widget->setProjectManager(m_projectManager);
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
 

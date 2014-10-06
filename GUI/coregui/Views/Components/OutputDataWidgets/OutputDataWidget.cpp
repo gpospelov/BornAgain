@@ -2,6 +2,7 @@
 #include "PlotWidget.h"
 #include "PropertyWidget.h"
 #include "OutputDataToolBar.h"
+#include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QModelIndex>
 #include <QMouseEvent>
@@ -86,6 +87,19 @@ void OutputDataWidget::setCurrentItem(OutputDataItem *item)
 
 
     //connectPropertyWidgetSignals(isPropertyWidgetVisible);
+
+}
+
+void OutputDataWidget::setProjectManager(ProjectManager *projectManager)
+{
+    if(m_projectManager == projectManager)
+        return;
+
+    m_projectManager = projectManager;
+    if(m_plotWidget)
+    {
+        m_plotWidget->setProjectManager(projectManager);
+    }
 
 }
 

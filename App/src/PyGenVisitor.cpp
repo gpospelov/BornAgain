@@ -34,7 +34,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
     std::ostringstream result;
     result << "import numpy \nimport matplotlib \nimport pylab \nfrom libBornAgainCore import *\n\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
-    result << "def getSample():\n\t# Defining Materials\n";
+    result << std::setprecision(16) << "def getSample():\n\t# Defining Materials\n";
+
     std::map<const IMaterial *,std::string>::iterator it1 = m_label->getMaterialMap()->begin();
     while (it1 != m_label->getMaterialMap()->end())
     {
@@ -253,15 +254,15 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
             particle->getPTransform3D()->calculateEulerAngles(&alpha, &beta, &gamma);
             switch (particle->getPTransform3D()->getRotationType()) {
             case 1:
-                result << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateX("
+                result << "\t" << it4->second << "_rotation = Transform3D.createRotateX("
                 << beta << ")\n";
                 break;
             case 2:
-                result << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateY("
+                result << "\t" << it4->second << "_rotation = Transform3D.createRotateY("
                 << gamma << ")\n";
                 break;
             case 3:
-                result << "\tGeometry::Transform3D " << it4->second << "_rotation = Geometry::Transform3D::createRotateZ("
+                result << "\t" << it4->second << "_rotation = Transform3D.createRotateZ("
                 << alpha << ")\n";
                 break;
             default:
@@ -288,24 +289,28 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
     std::map<const IInterferenceFunction *,std::string>::iterator it = m_label->getInterferenceFunctionMap()->begin();
     while (it != m_label->getInterferenceFunctionMap()->end())
     {
-        result << "\t" << it->second;
         const IInterferenceFunction *iInterferenceFunction = it->first;
 
         if (const InterferenceFunctionNone *none = dynamic_cast<const InterferenceFunctionNone *>(iInterferenceFunction))
         {
-            result << " = InterferenceFunctionNone()\n";
+            result << "\t" << it->second << " = InterferenceFunctionNone()\n";
         }
 
         else if (const InterferenceFunction1DLattice *oneDLattice = dynamic_cast<const InterferenceFunction1DLattice *>(iInterferenceFunction))
         {
             const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
-            result << " = InterferenceFunction1DLattice(" << printDouble(latticeParameters.m_length) << "," << printDouble(latticeParameters.m_xi) << ")\n";
+            result << "\t" << it->second << "_latticeParameters = Lattice1DIFParameters()\n";
+            if (latticeParameters.m_length != 0)
+            result << "\t" << it->second << "_latticeParameters.m_length = " << latticeParameters.m_length << "*nanometer\n" ;
+            if (latticeParameters.m_xi != 0)
+            result << "\t" << it->second << "_latticeParameters.m_xi" << latticeParameters.m_xi << "*\n" ;;
+            result << "\t" << it->second << " = InterferenceFunction1DLattice(" <<  it->second << "_latticeParameters)\n";
 
             const IFTDistribution1D *pdf =  oneDLattice->getProbabilityDistribution();
 
             if (const FTDistribution1DVoigt *fTD1DVoigt = dynamic_cast<const FTDistribution1DVoigt *>(pdf))
             {
-                result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DVoigt->getOmega())
+                result << "\t" << it->second << "_pdf  = FTDistribution1DVoigt(" << printDouble(fTD1DVoigt->getOmega())
                 << "," << printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
@@ -318,22 +323,22 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
                 else if (const FTDistribution1DCosine *fTD1DCosine = dynamic_cast<const FTDistribution1DCosine *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DCosine(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate = dynamic_cast<const FTDistribution1DGate *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGate->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DGate(" << printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss = dynamic_cast<const FTDistribution1DGauss *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DGauss(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle = dynamic_cast<const FTDistribution1DTriangle *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DTriangle(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -350,7 +355,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
         else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal = dynamic_cast<const InterferenceFunction1DParaCrystal *>(iInterferenceFunction))
         {
-            result << " = InterferenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
+            result << "\t" << it->second << " = InterferenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
             << "*nanometer," << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
             if (oneDParaCrystal->getKappa() != 0.0)
             {
@@ -366,7 +371,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
             if (const FTDistribution1DVoigt *fTD1DVoigt = dynamic_cast<const FTDistribution1DVoigt *>(pdf))
             {
-                result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DVoigt->getOmega())
+                result << "\t" << it->second << "_pdf  = FTDistribution1DVoigt(" << printDouble(fTD1DVoigt->getOmega())
                 << "," << printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
@@ -379,22 +384,22 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
                 else if (const FTDistribution1DCosine *fTD1DCosine = dynamic_cast<const FTDistribution1DCosine *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DCosine(" << printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate = dynamic_cast<const FTDistribution1DGate *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGate->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DGate(" << printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss = dynamic_cast<const FTDistribution1DGauss *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DGauss(" << printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle = dynamic_cast<const FTDistribution1DTriangle *>(pdf))
                 {
-                    result << "\t" << it->second << "_pdf  = FTDistribution1DCauchy(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                    result << "\t" << it->second << "_pdf  = FTDistribution1DTriangle(" << printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -410,11 +415,18 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         }
 
         else if (const InterferenceFunction2DLattice *twoDLattice = dynamic_cast<const InterferenceFunction2DLattice *>(iInterferenceFunction))
-        {
+        { 
             const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
-            result << " = InterferenceFunction2DLattice(" << printDouble(latticeParameters.m_length_1) << "*nanometer,"
-            << printDouble(latticeParameters.m_length_2) << "*nanometer," << printDouble(latticeParameters.m_angle) << ","
-            << printDouble(latticeParameters.m_xi) << ")\n";
+            result << "\t" << it->second << "_latticeParameters = Lattice2DIFParameters()\n";
+            if (latticeParameters.m_length_1 != 0)
+            result << "\t" << it->second << "_latticeParameters.m_length_1 = " << latticeParameters.m_length_1 << "*nanometer\n" ;
+            if (latticeParameters.m_length_2 != 0)
+            result << "\t" << it->second << "_latticeParameters.m_length_2 = " << latticeParameters.m_length_2 << "*nanometer\n" ;
+            if (latticeParameters.m_angle != 0)
+            result << "\t" << it->second << "_latticeParameters.m_angle = " << latticeParameters.m_angle << "\n" ;
+            if (latticeParameters.m_xi != 0)
+            result << "\t" << it->second << "_latticeParameters.m_xi" << latticeParameters.m_xi << "*\n" ;;
+            result << "\t" << it->second << " = InterferenceFunction2DLattice(" <<  it->second << "_latticeParameters)\n";
 
             const IFTDistribution2D *pdf =  twoDLattice->getProbabilityDistribution();
 
@@ -482,10 +494,22 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(iInterferenceFunction))
         {
-            result << " = InterferenceFunction2DParaCrystal(" <<twoDParaCrystal->getLatticeLengths()[0]
-            << "*nanometer," << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer," <<
-            twoDParaCrystal->getAlphaLattice() << "*nanometer," << twoDParaCrystal->getLatticeOrientation()
-            << "*nanometer," << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
+            result << "\t" << it->second << " = InterferenceFunction2DParaCrystal(" <<twoDParaCrystal->getLatticeLengths()[0]
+            << "*nanometer," << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
+            << twoDParaCrystal->getAlphaLattice() << "," << printDouble(twoDParaCrystal->getLatticeOrientation())
+            << "," << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
+
+            std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
+            if (domainSize[0] != 0 || domainSize[1] != 0)
+            {
+                result << "\t" << it->second << ".setDomainSizes(" << domainSize[0] <<
+                "*nanometer," << domainSize[1] << "*nanometer)\n";
+            }
+
+            if(twoDParaCrystal->getIntegrationOverXi() == true)
+            {
+                result << "\t" << it->second << ".setIntegrationOverXi(True)\n";
+            }
 
             std::vector<const IFTDistribution2D*> pdf_vector =  twoDParaCrystal->getProbabilityDistributions();
             const IFTDistribution2D *pdf_1 = pdf_vector[0];
@@ -659,8 +683,9 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
                     result << "\t# Defining " << m_label->getLabel(particleInfo->getParticle());
                     result << "\n\t" << m_label->getLabel(particleInfo->getParticle()) << "_position = kvector_t(" << positionParticleInfo->getPosition().x() << "*nanometer,"
                     << positionParticleInfo->getPosition().y() << "*nanometer," << positionParticleInfo->getPosition().z() << "*nanometer)\n";
-                    result << "\t" << it6->second << ".addParticle(" << m_label->getLabel(particleInfo->getParticle()) << ","
+                    result << "\t" << m_label->getLabel(particleInfo->getParticle()) << "_positionInfo = PositionParticleInfo(" << m_label->getLabel(particleInfo->getParticle()) << ","
                     << m_label->getLabel(particleInfo->getParticle()) << "_position," << printDouble(particleInfo->getAbundance()) << ")\n";
+                    result << "\t" << it6->second << ".addParticleInfo(" << m_label->getLabel(particleInfo->getParticle()) << "_positionInfo)\n";
                 }
                 else
                 {
@@ -746,7 +771,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
     while (index != numberOfDetectorDimensions)
     {
         if (index != 0) {result << ",";}
-        result << std::setprecision(16) << simulation->getInstrument().getDetectorAxis(index).getSize() << "," <<
+        result << simulation->getInstrument().getDetectorAxis(index).getSize() << "," <<
         simulation->getInstrument().getDetectorAxis(index).getMin() << "," <<
         simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
@@ -786,6 +811,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 std::string PyGenVisitor::printDouble(double input)
 {
     std::ostringstream inter;
+    inter << std::setprecision(16);
     if((input-floor(input)) == 0.0)
     {
         inter << input << ".0";

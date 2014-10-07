@@ -30,7 +30,7 @@ endif()
 
 if (NUMPY_FOUND)
     if (NOT Numpy_FIND_QUIETLY)
-        message (STATUS "Numpy headers found")
+        message (STATUS "Numpy headers found at ${NUMPY_INCLUDE_DIR}")
     endif()
 else()
     if (Numpy_FIND_REQUIRED)

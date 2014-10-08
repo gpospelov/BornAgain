@@ -49,7 +49,8 @@ bool TestPyGenerator::testPythonScript(Simulation *simulation)
     if (diff < 5e-10)
         return true;
     else
-        std::cout << "Relative Difference between python script and reference sample: = " << diff << std::endl;
+        std::cout << "Relative Difference between python script and"
+                     " reference sample: = " << diff << std::endl;
         return false;
 }
 
@@ -57,7 +58,8 @@ void TestPyGenerator::execute()
 {
     std::cout << "\n\n\n\n";
     SimulationRegistry simulationRegistry;
-    for (std::list<std::string>::iterator it = testSamples.begin(); it != testSamples.end(); it++)
+    for (std::list<std::string>::iterator it = testSamples.begin();
+         it != testSamples.end(); it++)
     {
         Simulation *simulation = simulationRegistry.createSimulation(*it);
         bool test = testPythonScript(simulation);

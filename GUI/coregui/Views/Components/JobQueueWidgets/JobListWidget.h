@@ -23,7 +23,9 @@ public:
     explicit JobListWidget(QWidget *parent = 0);
 
     void setModel(JobQueueModel *model);
-//    QSize sizeHint() const { return QSize(128, 128); }
+
+    QSize sizeHint() const { return QSize(64, 768); }
+    QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:
     void makeJobItemSelected(const QModelIndex &index);

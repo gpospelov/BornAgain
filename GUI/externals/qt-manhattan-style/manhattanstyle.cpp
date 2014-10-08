@@ -60,6 +60,7 @@
 #include <QTreeView>
 #include <QToolButton>
 #include <QAbstractItemView>
+#include <QDebug>
 
 using namespace Manhattan;
 
@@ -419,11 +420,18 @@ void ManhattanStyle::drawPrimitive(PrimitiveElement element, const QStyleOption 
         // Determine the animated transition
         bool doTransition = ((state & State_On)         != (oldState & State_On)     ||
                              (state & State_MouseOver)  != (oldState & State_MouseOver));
+
+#ifndef Q_OS_MAC
         if (oldRect != newRect)
         {
             doTransition = false;
             d->animator.stopAnimation(widget);
         }
+#else
+        doTransition = false;
+        d->animator.stopAnimation(widget);
+#endif
+
 
         if (doTransition) {
             QImage startImage(option->rect.size(), QImage::Format_ARGB32_Premultiplied);
@@ -502,9 +510,14 @@ void ManhattanStyle::drawPrimitive(PrimitiveElement element, const QStyleOption 
                 anim->paint(painter, option);
             } else {
                 bool pressed = option->state & State_Sunken || option->state & State_On;
+#ifndef Q_OS_MAC
                 QColor shadow(0, 0, 0, 30);
                 painter->setPen(shadow);
+#else
+                painter->setPen(QColor(255, 255, 255));
+#endif
                 if (pressed) {
+                    painter->setPen(QColor(0, 0, 0, 30)); // g.p.
                     QColor shade(0, 0, 0, 40);
                     painter->fillRect(rect, shade);
                     painter->drawLine(rect.topLeft() + QPoint(1, 0), rect.topRight() - QPoint(1, 0));

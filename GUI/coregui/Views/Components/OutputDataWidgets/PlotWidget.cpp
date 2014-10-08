@@ -15,8 +15,8 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
     , m_outputDataItem(0)
     , m_block_plot_update(true)
-    , m_isContextMenuEnabled(isContextMenuEnabled)
     , m_isProjectionsEnabled(isProjectionsEnabled)
+    , m_isContextMenuEnabled(isContextMenuEnabled)
 {
     this->setObjectName(QStringLiteral("plotWidget"));
 

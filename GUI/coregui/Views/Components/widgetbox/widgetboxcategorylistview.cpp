@@ -167,7 +167,7 @@ private:
 
     QRegExp m_classNameRegExp;
 //    QDesignerFormEditorInterface *m_core;
-    SampleDesignerInterface *m_core;
+    //SampleDesignerInterface *m_core;
     WidgetBoxCategoryEntrys m_items;
     QListView::ViewMode m_viewMode;
 };
@@ -181,10 +181,11 @@ WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface *core, QO
     m_classNameRegExp( QString("<widget +class *= *\"([^\"]+)\"") ),
 #endif
 
-    m_core(core),
+//    m_core(core),
     m_viewMode(QListView::ListMode)
 {
     Q_ASSERT(m_classNameRegExp.isValid());
+    Q_UNUSED(core);
 }
 
 QListView::ViewMode WidgetBoxCategoryModel::viewMode() const

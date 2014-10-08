@@ -163,11 +163,11 @@ QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const
     int height = optionRect.height()*0.6;
     int x = optionRect.x() + optionRect.width()*0.5;
     int y = optionRect.y() + (optionRect.height() - height)/2.;
-    if( Utils::HostOsInfo::isMacHost() ) {
-        // for Mac the height of progress bar can't be made smaller
-        y = optionRect.y();
-        height = optionRect.height()*0.5;
-    }
+//    if( Utils::HostOsInfo::isMacHost() ) {
+//        // for Mac the height of progress bar can't be made smaller
+//        y = optionRect.y();
+//        height = optionRect.height()*0.5;
+//    }
 
     QRect result(x,y,width,height);
     return result;

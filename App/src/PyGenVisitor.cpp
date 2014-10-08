@@ -284,19 +284,20 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         result << "\n\t# Defining Interference functions\n";
     }
 
-    int interfernceFunctionNotFound = 0;
+    int interferenceFunctionNotFound = 0;
     int probabilityDistributionFunctionNotFound = 0;
     std::map<const IInterferenceFunction *,std::string>::iterator it = m_label->getInterferenceFunctionMap()->begin();
     while (it != m_label->getInterferenceFunctionMap()->end())
     {
-        const IInterferenceFunction *iInterferenceFunction = it->first;
+        const IInterferenceFunction *interferenceFunction = it->first;
 
-        if (const InterferenceFunctionNone *none = dynamic_cast<const InterferenceFunctionNone *>(iInterferenceFunction))
+        if (const InterferenceFunctionNone *none = dynamic_cast<const InterferenceFunctionNone *>(interferenceFunction))
         {
+            (void)none;
             result << "\t" << it->second << " = InterferenceFunctionNone()\n";
         }
 
-        else if (const InterferenceFunction1DLattice *oneDLattice = dynamic_cast<const InterferenceFunction1DLattice *>(iInterferenceFunction))
+        else if (const InterferenceFunction1DLattice *oneDLattice = dynamic_cast<const InterferenceFunction1DLattice *>(interferenceFunction))
         {
             const Lattice1DIFParameters latticeParameters = oneDLattice->getLatticeParameters();
             result << "\t" << it->second << "_latticeParameters = Lattice1DIFParameters()\n";
@@ -353,7 +354,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
             }
         }
 
-        else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal = dynamic_cast<const InterferenceFunction1DParaCrystal *>(iInterferenceFunction))
+        else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal = dynamic_cast<const InterferenceFunction1DParaCrystal *>(interferenceFunction))
         {
             result << "\t" << it->second << " = InterferenceFunction1DParaCrystal(" << oneDParaCrystal->getPeakDistance()
             << "*nanometer," << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
@@ -414,8 +415,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
             }
         }
 
-        else if (const InterferenceFunction2DLattice *twoDLattice = dynamic_cast<const InterferenceFunction2DLattice *>(iInterferenceFunction))
-        { 
+        else if (const InterferenceFunction2DLattice *twoDLattice = dynamic_cast<const InterferenceFunction2DLattice *>(interferenceFunction))
+        {
             const Lattice2DIFParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << "\t" << it->second << "_latticeParameters = Lattice2DIFParameters()\n";
             if (latticeParameters.m_length_1 != 0)
@@ -492,7 +493,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
 
         }
 
-        else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(iInterferenceFunction))
+        else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(interferenceFunction))
         {
             result << "\t" << it->second << " = InterferenceFunction2DParaCrystal(" <<twoDParaCrystal->getLatticeLengths()[0]
             << "*nanometer," << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
@@ -638,9 +639,9 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         else
         {
             // I should Give Proper Exception Here
-            std::cout << "\n" << interfernceFunctionNotFound << ": " << iInterferenceFunction->getName()
+            std::cout << "\n" << interferenceFunctionNotFound << ": " << interferenceFunction->getName()
             << " :: Not Casted To Any Interference Function\n";
-            interfernceFunctionNotFound++;
+            interferenceFunctionNotFound++;
         }
 
         it++;

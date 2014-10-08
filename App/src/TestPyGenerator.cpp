@@ -41,7 +41,8 @@ bool TestPyGenerator::testPythonScript(Simulation *simulation)
     pythonFile << visitor.genPyScript(simulation,"output");
     pythonFile.close();
     std::string command = "python PythonScript.py";
-    system(command.c_str());
+    int return_code = std::system(command.c_str());
+    (void)return_code;
     m_reference_data = simulation->getIntensityData();
     m_simulated_data = IntensityDataIOFactory::readIntensityData("output.int");
     double diff = IntensityDataFunctions::getRelativeDifference(*m_simulated_data,*m_reference_data);

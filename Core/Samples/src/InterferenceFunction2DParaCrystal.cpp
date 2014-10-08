@@ -240,7 +240,7 @@ std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
     return result;
 }
 
-std::vector<const IFTDistribution2D *> InterferenceFunction2DParaCrystal::getPropabilityDistributions() const
+std::vector<const IFTDistribution2D *> InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
 {
     std::vector<const IFTDistribution2D *>  result;
     result.resize(2);

@@ -1,5 +1,6 @@
 #include "FitParameterWidget.h"
 #include "FitParameterItem.h"
+#include "FitProxyModel.h"
 #include <QDebug>
 #include <QVBoxLayout>
 
@@ -46,6 +47,9 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
 
+
+    FitProxyModel *fitProxyModel = new FitProxyModel;
+    qDebug() << fitProxyModel;
 
 
     int height = this->height();

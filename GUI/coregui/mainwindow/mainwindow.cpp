@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
-    m_tabWidget->setCurrentIndex(InstrumentTab);
+    m_tabWidget->setCurrentIndex(WelcomeTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //just for test
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }

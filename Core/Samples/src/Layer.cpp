@@ -118,20 +118,22 @@ void Layer::print(std::ostream& ostr) const
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 
-LayerDWBASimulation *Layer::createDWBASimulation() const
+LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
 {
-    if(getNumberOfLayouts()>0) {
-        return new DecoratedLayerDWBASimulation(this);
+    if(getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
+        return 0;
     }
-    return 0;
+    return new DecoratedLayerDWBASimulation(this, layout_index);
 }
 
-DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
+DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation(
+        size_t layout_index) const
 {
     if(getNumberOfLayouts()==0) return 0;
+    if(layout_index>=getNumberOfLayouts()) return 0;
 
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation(this);
-    const ILayout *p_layout = getLayout(0);
+    const ILayout *p_layout = getLayout(layout_index);
     size_t nbr_particles = p_layout->getNumberOfParticles();
     double particle_density = p_layout->getTotalParticleSurfaceDensity();
     const IMaterial *p_layer_material = getMaterial();

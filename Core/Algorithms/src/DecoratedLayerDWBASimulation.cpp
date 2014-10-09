@@ -22,9 +22,11 @@
 #include <boost/scoped_ptr.hpp>
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
-    const Layer *p_layer) : LayerDWBASimulation(p_layer)
+    const Layer *p_layer, size_t layout_index)
+    : LayerDWBASimulation(p_layer)
+    , m_layout_index(layout_index)
 {
-    mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation();
+    mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation(m_layout_index);
 }
 
 DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()

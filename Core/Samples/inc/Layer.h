@@ -87,10 +87,11 @@ public:
         return (m_layouts.size()>0);
     }
 
-    //! creates and return LayerDWBASimulation in the case of present decoration
-    virtual LayerDWBASimulation *createDWBASimulation() const;
+    //! creates and returns a LayerDWBASimulation for the given layout
+    LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
 
-    virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
+    virtual DiffuseDWBASimulation *createDiffuseDWBASimulation(
+            size_t layout_index=0) const;
 
     virtual double getTotalParticleSurfaceDensity() const;
 

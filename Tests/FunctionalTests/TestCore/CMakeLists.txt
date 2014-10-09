@@ -31,6 +31,12 @@ set(list_of_tests
     "LayerRoughness"
     "Ripple2"
     "Ripple1"
+    "PyScript_isgisaxs01"
+    "PyScript_isgisaxs04_1DDL"
+    "PyScript_isgisaxs04_2DDL"
+    "PyScript_isgisaxs06a"
+    "PyScript_isgisaxs07"
+    "PyScript_isgisaxs11"
     "BatchSimulation"
 )
 

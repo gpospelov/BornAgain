@@ -20,7 +20,7 @@
 #include "PositionParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
-#include "TestPyGenerator.h"
+#include "PyScriptTools.h"
 #include "Transform3D.h"
 
 PyGenVisitor::PyGenVisitor()
@@ -29,11 +29,11 @@ PyGenVisitor::PyGenVisitor()
 
 }
 
-std::string PyGenVisitor::genPyScript(const Simulation *simulation,
-                                      std::string fileName = "")
+std::string PyGenVisitor::writePyScript(const Simulation *simulation,
+                                      std::string fileName)
 {
     std::ostringstream result;
-    result << std::setprecision(16) <<"import numpy \nimport matplotlib";
+    result << std::setprecision(12) <<"import numpy \nimport matplotlib";
     result << "\nimport pylab \nfrom libBornAgainCore import *\n\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     result <<  "def getSample():\n\t# Defining Materials\n";
@@ -51,8 +51,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
             double beta = imag(ri);
             result << "\t" << m_label->getLabel(material)
                    << " = HomogeneousMaterial(\"" << material->getName();
-            result << "\"," << printDouble(delta) << ","
-                   << printDouble(beta) << ")\n";
+            result << "\"," << PyScriptTools::printDouble(delta) << ","
+                   << PyScriptTools::printDouble(beta) << ")\n";
         }
         it1++;
     }
@@ -410,8 +410,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << printDouble(fTD1DVoigt->getOmega()) << ","
-                       << printDouble(fTD1DVoigt->getEta()) << ")\n";
+                       << PyScriptTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyScriptTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0)
@@ -421,7 +421,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -429,7 +429,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -437,7 +437,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -445,7 +445,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -453,7 +453,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -483,14 +483,14 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << ".setKappa("
-                       << printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << PyScriptTools::printDouble(oneDParaCrystal->getKappa()) << ")\n";
             }
 
             if (oneDParaCrystal->getDomainSize() != 0.0)
             {
                 result << "\t" << it->second
                        << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->getDomainSize()) <<")\n";
+                       << PyScriptTools::printDouble(oneDParaCrystal->getDomainSize()) <<")\n";
             }
 
             const IFTDistribution1D *pdf =
@@ -501,8 +501,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << printDouble(fTD1DVoigt->getOmega()) << ","
-                       << printDouble(fTD1DVoigt->getEta()) << ")\n";
+                       << PyScriptTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyScriptTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0)
@@ -512,7 +512,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -520,7 +520,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -528,7 +528,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -536,7 +536,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -544,7 +544,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyScriptTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -610,15 +610,15 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DCauchy("
-                       << printDouble(fTD2DCauchy->getCoherenceLengthX())
+                       << PyScriptTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
                        << "*nanometer,"
-                       << printDouble(fTD2DCauchy->getCoherenceLengthY())
+                       << PyScriptTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
                        << "*nanometer" << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -635,7 +635,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -652,7 +652,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -668,7 +668,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -679,13 +679,13 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                        << "_pdf  = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -711,8 +711,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                    << " = InterferenceFunction2DParaCrystal("
                    << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
                    << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
-                   << printDouble(twoDParaCrystal->getAlphaLattice()) << ","
-                   << printDouble(twoDParaCrystal->getLatticeOrientation()) << ","
+                   << PyScriptTools::printDouble(twoDParaCrystal->getAlphaLattice()) << ","
+                   << PyScriptTools::printDouble(twoDParaCrystal->getLatticeOrientation()) << ","
                    << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
@@ -747,7 +747,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -763,7 +763,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -779,7 +779,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -795,7 +795,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -806,13 +806,13 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                        << "_pdf_1  = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -839,7 +839,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -855,7 +855,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -871,7 +871,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -887,7 +887,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -898,13 +898,13 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                        << "_pdf_2 = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -1002,7 +1002,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                            << ","
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position,"
-                           << printDouble(particleInfo->getAbundance())
+                           << PyScriptTools::printDouble(particleInfo->getAbundance())
                            << ")\n";
 
                     result << "\t" << it6->second
@@ -1020,8 +1020,8 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
                            << ".addParticle("
                            << m_label->getLabel(particleInfo->getParticle())
                            << ","
-                           << printDouble(particleInfo->getDepth()) << ","
-                           << printDouble(particleInfo->getAbundance()) <<")\n";
+                           << PyScriptTools::printDouble(particleInfo->getDepth()) << ","
+                           << PyScriptTools::printDouble(particleInfo->getAbundance()) <<")\n";
                 }
 
                 particleIndex++;
@@ -1186,21 +1186,6 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation,
 
     result << "')";
     return result.str();
-}
-
-std::string PyGenVisitor::printDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(16);
-    if((input-floor(input)) == 0.0)
-    {
-        inter << input << ".0";
-    }
-    else
-    {
-        inter << input;
-    }
-    return inter.str();
 }
 
 void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)

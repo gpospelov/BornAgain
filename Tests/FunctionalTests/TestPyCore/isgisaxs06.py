@@ -43,7 +43,7 @@ def RunSimulation_lattice():
     particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -92,7 +92,7 @@ def RunSimulation_centered():
     particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -136,7 +136,7 @@ def RunSimulation_rotated():
     particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -208,7 +208,7 @@ def buildSample(xi_value):
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(p_interference_function)
     
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

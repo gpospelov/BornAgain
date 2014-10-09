@@ -38,7 +38,7 @@ def get_sample(xi_value):
     particle_layout.addInterferenceFunction(p_interference_function)
     particle_layout.setApproximation(ILayout.LMA)
 
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

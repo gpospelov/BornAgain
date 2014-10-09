@@ -714,7 +714,7 @@ std::string PyGenVisitor::genPyScript(const Simulation *simulation, std::string 
         const Layer *layer = it2->first;
         if (layer->hasDWBASimulation())
         {
-            result << "\n\t" << it2->second << ".setLayout(" << m_label->getLabel(layer->getLayout())<< ")\n";
+            result << "\n\t" << it2->second << ".addLayout(" << m_label->getLabel(layer->getLayout(0))<< ")\n";
         }
         it2++;
     }

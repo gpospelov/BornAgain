@@ -119,7 +119,7 @@ ISample* MesoCrystal01Builder::buildSample() const
     particle_layout.setTotalParticleSurfaceDensity(surface_density);
     particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setLayout(particle_layout);
+    avg_layer.addLayout(particle_layout);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

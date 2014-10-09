@@ -88,7 +88,7 @@ ISample *IsGISAXS02Builder::buildSample() const
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
 

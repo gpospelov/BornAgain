@@ -34,7 +34,7 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 , m_sim_params(sim_params)
 , mp_specular_info(0)
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -59,7 +59,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     collectInterferenceFunctions();
     size_t n_ifs = m_ifs.size();
     IInterferenceFunctionStrategy *p_result(0);
-    switch (mp_layer->getLayout()->getApproximation())
+    switch (mp_layer->getLayout(0)->getApproximation())
     {
     case ILayout::DA:
         p_result = new DecouplingApproximationStrategy(m_sim_params);
@@ -105,9 +105,9 @@ bool LayerStrategyBuilder::requiresMatrixFFs() const
 
 void LayerStrategyBuilder::collectFormFactorInfos()
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_decoration = mp_layer->getLayout();
+    const ILayout *p_decoration = mp_layer->getLayout(0);
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -128,10 +128,10 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 
 void LayerStrategyBuilder::collectInterferenceFunctions()
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
     m_ifs.clear();
-    if (mp_layer->getLayout()->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer->getLayout()->getInterferenceFunctions();
+    if (mp_layer->getLayout(0)->getNumberOfInterferenceFunctions()) {
+        m_ifs = mp_layer->getLayout(0)->getInterferenceFunctions();
     }
     else m_ifs.push_back(new InterferenceFunctionNone);
 }

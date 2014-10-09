@@ -39,7 +39,7 @@ def RunSimulation():
     particle_layout.setApproximation(ILayout.SSCA)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
 

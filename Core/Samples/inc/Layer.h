@@ -21,6 +21,7 @@
 #include "ICompositeSample.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleLayout.h"
+#include "SafePointerVector.h"
 
 //! @class Layer
 //! @ingroup samples
@@ -66,14 +67,24 @@ public:
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle layout
-    virtual void setLayout(const ILayout &decoration);
+    virtual void addLayout(const ILayout &decoration);
+
+    //! gets number of layouts present
+    size_t getNumberOfLayouts() const {
+        return m_layouts.size();
+    }
 
     //! returns particle decoration
-    virtual const ILayout* getLayout() const { return mp_layout; }
+    virtual const ILayout* getLayout(size_t i) const {
+        if (i>=m_layouts.size()) {
+            return 0;
+        }
+        return m_layouts[i];
+    }
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const {
-        return (mp_layout ? true : false);
+        return (m_layouts.size()>0);
     }
 
     //! creates and return LayerDWBASimulation in the case of present decoration
@@ -98,12 +109,12 @@ protected:
 
     void print(std::ostream& ostr) const;
 
-    //! sets particle layout (separate pointer version due to python-bindings)
-    virtual void setLayoutPtr(ILayout *layout);
+    //! adds particle layout (separate pointer version due to python-bindings)
+    virtual void addLayoutPtr(ILayout *layout);
 
     double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material
-    ILayout *mp_layout;       //!< particle layout
+    SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 };
 
@@ -116,8 +127,8 @@ inline complex_t Layer::getRefractiveIndex() const
 
 inline double Layer::getTotalParticleSurfaceDensity() const
 {
-    if (mp_layout) {
-        return mp_layout->getTotalParticleSurfaceDensity();
+    if (getNumberOfLayouts()>0) {
+        return getLayout(0)->getTotalParticleSurfaceDensity();
     }
     return 0.0;
 }

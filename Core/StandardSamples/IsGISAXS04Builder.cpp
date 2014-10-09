@@ -65,7 +65,7 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
             particle_material, ff_cylinder ) );
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -124,7 +124,7 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

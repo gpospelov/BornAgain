@@ -143,7 +143,7 @@ void TestFittingModule4::initializeSample()
     ParticleLayout particle_layout( new Particle(particle_material,
             FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     mp_sample = p_multi_layer;

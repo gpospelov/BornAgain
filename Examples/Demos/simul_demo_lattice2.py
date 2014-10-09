@@ -45,7 +45,7 @@ def RunSimulation():
 
     # top air layer
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     # substrate layer
     substrate_layer = Layer(mSubstrate, 0)

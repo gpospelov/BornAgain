@@ -28,7 +28,7 @@ def RunSimulationDWBA():
     particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
@@ -63,7 +63,7 @@ def RunSimulationBA():
     particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
@@ -108,7 +108,7 @@ def RunSimulationBA_Size():
     particle_layout.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     
     multi_layer.addLayer(air_layer)
 

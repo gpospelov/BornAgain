@@ -6,10 +6,10 @@
 #include "IntensityDataIOFactory.h"
 #include "ISample.h"
 #include "MultiLayer.h"
-#include "PyScriptTools.h"
+#include "PyGenTools.h"
 #include "Simulation.h"
 
-void PyScriptTools::genPyScript(Simulation *simulation,
+void PyGenTools::genPyScript(Simulation *simulation,
                                 std::string pyScriptName,
                                 std::string outputDataFileName = "")
 {
@@ -24,7 +24,7 @@ void PyScriptTools::genPyScript(Simulation *simulation,
     pythonFile.close();
 }
 
-std::string PyScriptTools::printDouble(double input)
+std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
@@ -39,12 +39,23 @@ std::string PyScriptTools::printDouble(double input)
     return inter.str();
 }
 
-bool PyScriptTools::testPyScript(Simulation *simulation)
+bool PyGenTools::testPyScript(Simulation *simulation)
 {
     genPyScript(simulation, "PythonScript.py", "output");
     std::string command = "python PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
+    /*
+    PyObject *pModule = PyImport_AddModule("PythonScript.py");
+    PyObject *pDict = PyModule_GetDict(pModule);
+    PyObject *pRunSimulation = PyDict_GetItemString(pDict, "runSimulation");
+    PyObject *pResult = PyObject_CallObject(pRunSimulation, NULL);
+    Simulation *pSimulation = boost::python::extract<Simulation *>(pResult);
+
+    boost::scoped_ptr<const OutputData<double> > reference_data(
+                simulation->getIntensityData());
+    boost::scoped_ptr<const OutputData<double> > simulated_data(
+                pSimulation->getIntensityData()); */
     boost::scoped_ptr<const OutputData<double> > reference_data(
                 simulation->getIntensityData());
     boost::scoped_ptr<const OutputData<double> > simulated_data(

@@ -4,7 +4,7 @@
 #include "PyGenVisitor.h"
 
 
-namespace PyScriptTools {
+namespace PyGenTools {
     void genPyScript(Simulation *simulation, std::string pyScriptName,
                      std::string outputDataFileName);
     std::string printDouble(double input);

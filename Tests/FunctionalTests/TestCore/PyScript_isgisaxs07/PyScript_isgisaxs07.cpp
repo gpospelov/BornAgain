@@ -1,4 +1,4 @@
-#include "PyScriptTools.h"
+#include "PyGenTools.h"
 #include "SimulationRegistry.h"
 
 int main()
@@ -6,7 +6,7 @@ int main()
     SimulationRegistry simulationRegistry;
     Simulation *simulation =
             simulationRegistry.createSimulation("gui_isgisaxs07");
-    bool test = PyScriptTools::testPyScript(simulation);
+    bool test = PyGenTools::testPyScript(simulation);
     std::cout << "Python Script Generation Test for isgisaxs07"
               << "(Mixture of different particles a la IsGISAXS morphology file):"
               << (test? "[OK]" : "[FAILED]") << std::endl;

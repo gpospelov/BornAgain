@@ -20,7 +20,7 @@
 #include "PositionParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
-#include "PyScriptTools.h"
+#include "PyGenTools.h"
 #include "Transform3D.h"
 
 PyGenVisitor::PyGenVisitor()
@@ -51,8 +51,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
             double beta = imag(ri);
             result << "\t" << m_label->getLabel(material)
                    << " = HomogeneousMaterial(\"" << material->getName();
-            result << "\"," << PyScriptTools::printDouble(delta) << ","
-                   << PyScriptTools::printDouble(beta) << ")\n";
+            result << "\"," << PyGenTools::printDouble(delta) << ","
+                   << PyGenTools::printDouble(beta) << ")\n";
         }
         it1++;
     }
@@ -410,8 +410,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << PyScriptTools::printDouble(fTD1DVoigt->getOmega()) << ","
-                       << PyScriptTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
+                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0)
@@ -421,7 +421,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << PyScriptTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -429,7 +429,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << PyScriptTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -437,7 +437,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << PyScriptTools::printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -445,7 +445,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << PyScriptTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -453,7 +453,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << PyScriptTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -483,14 +483,14 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << ".setKappa("
-                       << PyScriptTools::printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << PyGenTools::printDouble(oneDParaCrystal->getKappa()) << ")\n";
             }
 
             if (oneDParaCrystal->getDomainSize() != 0.0)
             {
                 result << "\t" << it->second
                        << ".setDomainSize("
-                       << PyScriptTools::printDouble(oneDParaCrystal->getDomainSize()) <<")\n";
+                       << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) <<")\n";
             }
 
             const IFTDistribution1D *pdf =
@@ -501,8 +501,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << PyScriptTools::printDouble(fTD1DVoigt->getOmega()) << ","
-                       << PyScriptTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
+                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
             if (pdf->getOmega() != 0.0)
@@ -512,7 +512,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << PyScriptTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -520,7 +520,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << PyScriptTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -528,7 +528,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << PyScriptTools::printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -536,7 +536,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << PyScriptTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -544,7 +544,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << PyScriptTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
                 }
 
                 else
@@ -610,15 +610,15 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DCauchy("
-                       << PyScriptTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
+                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
                        << "*nanometer,"
-                       << PyScriptTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
+                       << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
                        << "*nanometer" << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -635,7 +635,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -652,7 +652,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -668,7 +668,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -679,13 +679,13 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                        << "_pdf  = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -711,8 +711,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                    << " = InterferenceFunction2DParaCrystal("
                    << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
                    << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
-                   << PyScriptTools::printDouble(twoDParaCrystal->getAlphaLattice()) << ","
-                   << PyScriptTools::printDouble(twoDParaCrystal->getLatticeOrientation()) << ","
+                   << PyGenTools::printDouble(twoDParaCrystal->getAlphaLattice()) << ","
+                   << PyGenTools::printDouble(twoDParaCrystal->getLatticeOrientation()) << ","
                    << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
@@ -747,7 +747,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -763,7 +763,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -779,7 +779,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -795,7 +795,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -806,13 +806,13 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                        << "_pdf_1  = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf_1.setGamma("
-                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -839,7 +839,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << PyScriptTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
                 }
             }
 
@@ -855,7 +855,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << PyScriptTools::printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCone->getGamma()) << ")\n";
                 }
             }
 
@@ -871,7 +871,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << PyScriptTools::printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGate->getGamma()) << ")\n";
                 }
             }
 
@@ -887,7 +887,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << PyScriptTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
                 }
             }
 
@@ -898,13 +898,13 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                        << "_pdf_2 = FTDistribution2DVoigt("
                        << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
                        << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
-                       << PyScriptTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
+                       << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
                 {
                     result << "\t" << it->second
                            << "_pdf_2.setGamma("
-                           << PyScriptTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
                 }
             }
 
@@ -1002,7 +1002,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                            << ","
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position,"
-                           << PyScriptTools::printDouble(particleInfo->getAbundance())
+                           << PyGenTools::printDouble(particleInfo->getAbundance())
                            << ")\n";
 
                     result << "\t" << it6->second
@@ -1020,8 +1020,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                            << ".addParticle("
                            << m_label->getLabel(particleInfo->getParticle())
                            << ","
-                           << PyScriptTools::printDouble(particleInfo->getDepth()) << ","
-                           << PyScriptTools::printDouble(particleInfo->getAbundance()) <<")\n";
+                           << PyGenTools::printDouble(particleInfo->getDepth()) << ","
+                           << PyGenTools::printDouble(particleInfo->getAbundance()) <<")\n";
                 }
 
                 particleIndex++;
@@ -1038,6 +1038,23 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
                        << ")\n";
                 interferenceIndex++;
             }
+
+            switch (particleLayout->getApproximation()) {
+            case 0:
+                break;
+            case 1:
+                result << "\t" << it6->second << ".setApproximation(ILayout.";
+                result << "LMA)\n";
+                break;
+            case 2:
+                result << "\t" << it6->second << ".setApproximation(ILayout.";
+                result << "SSCA)\n";
+                break;
+            case 3:
+                result << "\t" << it6->second << ".setApproximation(ILayout.";
+                result << "ISGISAXSMOR)\n";
+                break;
+                }
         }
 
         it6++;
@@ -1176,7 +1193,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
 
     result << "]) \n\t\tpylab.colorbar(im) \n\t\tpylab.show() \n\telse:\n";
     result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
-           << "getIntensityData(), filename + '.int')\n\n";
+           << "getIntensityData(), filename + '.int')\n";
+    result << "\treturn simulation\n\n";
     result << "if __name__ == '__main__': \n\trunSimulation('";
 
     if (fileName != "")

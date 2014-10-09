@@ -16,7 +16,7 @@
 #include "Simulation.h"
 #include "SimulationRegistry.h"
 #include "TestPyGenerator.h"
-#include "PyScriptTools.h"
+#include "PyGenTools.h"
 
 TestPyGenerator::TestPyGenerator()
 {
@@ -36,7 +36,7 @@ void TestPyGenerator::execute()
          it != testSamples.end(); it++)
     {
         Simulation *simulation = simulationRegistry.createSimulation(*it);
-        bool test = PyScriptTools::testPyScript(simulation);
+        bool test = PyGenTools::testPyScript(simulation);
         std::cout << *it << " Python Script Generation Test: ";
         if (test == true)
             std::cout << "Passed\n";

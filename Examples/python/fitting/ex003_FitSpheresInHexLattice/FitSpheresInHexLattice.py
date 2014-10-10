@@ -40,7 +40,6 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     interference.setProbabilityDistribution(pdf)
 
     particle_layout.addInterferenceFunction(interference)
-    particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(m_air)
     air_layer.addLayout(particle_layout)

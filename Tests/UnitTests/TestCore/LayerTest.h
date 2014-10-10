@@ -25,7 +25,7 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(0, layer.getThickness());
     EXPECT_FALSE(layer.hasDWBASimulation());
     EXPECT_EQ(complex_t(1.0, 0.0), layer.getRefractiveIndex());
-    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity());
+    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(NULL, layer.createDWBASimulation());
     EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
@@ -36,7 +36,7 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(0, new_layer->getThickness());
     EXPECT_FALSE(new_layer->hasDWBASimulation());
     EXPECT_EQ(complex_t(1.0, 0.0), new_layer->getRefractiveIndex());
-    EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity());
+    EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
     EXPECT_EQ(NULL, new_layer->createDWBASimulation());
     EXPECT_EQ(NULL, new_layer->createDiffuseDWBASimulation());
@@ -56,7 +56,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(10, layer.getThickness());
     EXPECT_FALSE(layer.hasDWBASimulation());
     EXPECT_EQ(complex_t(1,0), layer.getRefractiveIndex());
-    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity());
+    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(NULL, layer.createDWBASimulation());
     EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
@@ -75,7 +75,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(20, new_layer->getThickness());
     EXPECT_FALSE(new_layer->hasDWBASimulation());
     EXPECT_EQ(complex_t(1,0.5), new_layer->getRefractiveIndex());
-    EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity());
+    EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("NONAME", new_layer->getName());
     EXPECT_EQ(NULL, new_layer->createDWBASimulation());
     EXPECT_EQ(NULL, new_layer->createDiffuseDWBASimulation());

@@ -61,7 +61,6 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
                 new Particle(particle_material, ff_cyl), 0.0, 1.0);
 
     particle_layout.addInterferenceFunction(p_interference_function);
-    particle_layout.setApproximation(ILayout::LMA);
 
     air_layer.addLayout(particle_layout);
 
@@ -92,28 +91,28 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
 
-    InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+    InterferenceFunction2DLattice interference_function(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
                                100.0*Units::nanometer/2.0/M_PI);
-    p_interference_function->setProbabilityDistribution(pdf);
+    interference_function.setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_layout;
+    ParticleLayout particle_layout1;
     // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl), position, 1.0);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout1.addParticleInfo(particle_info);
+    particle_layout1.addInterferenceFunction(interference_function);
+    ParticleLayout particle_layout2;
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     particle_info.setPosition(position_2);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout2.addParticleInfo(particle_info);
+    particle_layout2.addInterferenceFunction(interference_function);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
-    particle_layout.setApproximation(ILayout::LMA);
-
-    air_layer.addLayout(particle_layout);
+    air_layer.addLayout(particle_layout1);
+    air_layer.addLayout(particle_layout2);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -159,7 +158,6 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);
-    particle_layout.setApproximation(ILayout::LMA);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -218,7 +216,6 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);
-    particle_layout.setApproximation(ILayout::LMA);
 
     air_layer.addLayout(particle_layout);
 

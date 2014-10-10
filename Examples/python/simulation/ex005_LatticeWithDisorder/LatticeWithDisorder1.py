@@ -34,7 +34,6 @@ def get_sample():
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)
-    particle_layout.setApproximation(ILayout.LMA)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)

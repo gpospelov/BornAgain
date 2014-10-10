@@ -28,11 +28,12 @@
 
 LayerStrategyBuilder::LayerStrategyBuilder(
         const Layer& decorated_layer, const Simulation& simulation,
-        const SimulationParameters& sim_params)
+        const SimulationParameters& sim_params, size_t layout_index)
 : mp_layer(decorated_layer.clone())
 , mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
 , mp_specular_info(0)
+, m_layout_index(layout_index)
 {
     assert(mp_layer->getNumberOfLayouts()>0);
 }
@@ -59,13 +60,10 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     collectInterferenceFunctions();
     size_t n_ifs = m_ifs.size();
     IInterferenceFunctionStrategy *p_result(0);
-    switch (mp_layer->getLayout(0)->getApproximation())
+    switch (mp_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
         p_result = new DecouplingApproximationStrategy(m_sim_params);
-        break;
-    case ILayout::LMA:
-        p_result = new LocalMonodisperseApproximationStrategy(m_sim_params);
         break;
     case ILayout::SSCA:
     {
@@ -107,7 +105,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mp_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_decoration = mp_layer->getLayout(0);
+    const ILayout *p_decoration = mp_layer->getLayout(m_layout_index);
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -130,8 +128,8 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
 {
     assert(mp_layer->getNumberOfLayouts()>0);
     m_ifs.clear();
-    if (mp_layer->getLayout(0)->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer->getLayout(0)->getInterferenceFunctions();
+    if (mp_layer->getLayout(m_layout_index)->getNumberOfInterferenceFunctions()) {
+        m_ifs = mp_layer->getLayout(m_layout_index)->getInterferenceFunctions();
     }
     else m_ifs.push_back(new InterferenceFunctionNone);
 }

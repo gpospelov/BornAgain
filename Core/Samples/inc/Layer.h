@@ -93,7 +93,7 @@ public:
     virtual DiffuseDWBASimulation *createDiffuseDWBASimulation(
             size_t layout_index=0) const;
 
-    virtual double getTotalParticleSurfaceDensity() const;
+    double getTotalParticleSurfaceDensity(size_t layout_index) const;
 
     void setNumberOfLayers(size_t n_layers) {
         mn_layers = n_layers;
@@ -126,12 +126,12 @@ inline complex_t Layer::getRefractiveIndex() const
                         : complex_t(1.0,0.0));
 }
 
-inline double Layer::getTotalParticleSurfaceDensity() const
+inline double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
 {
-    if (getNumberOfLayouts()>0) {
-        return getLayout(0)->getTotalParticleSurfaceDensity();
+    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
+        return 0.0;
     }
-    return 0.0;
+    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
 

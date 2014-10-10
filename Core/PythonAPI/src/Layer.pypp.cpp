@@ -123,18 +123,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::getThickness( );
     }
 
-    virtual double getTotalParticleSurfaceDensity(  ) const  {
-        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
-            return func_getTotalParticleSurfaceDensity(  );
-        else{
-            return this->Layer::getTotalParticleSurfaceDensity(  );
-        }
-    }
-    
-    double default_getTotalParticleSurfaceDensity(  ) const  {
-        return Layer::getTotalParticleSurfaceDensity( );
-    }
-
     virtual void setMaterial( ::IMaterial const & material ) {
         if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
             func_setMaterial( boost::ref(material) );
@@ -368,6 +356,17 @@ void register_Layer_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Layer::createLayoutSimulation
+        
+            typedef ::LayerDWBASimulation * ( ::Layer::*createLayoutSimulation_function_type)( ::std::size_t ) const;
+            
+            Layer_exposer.def( 
+                "createLayoutSimulation"
+                , createLayoutSimulation_function_type( &::Layer::createLayoutSimulation )
+                , ( bp::arg("layout_index") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Layer::getLayout
         
             typedef ::ILayout const * ( ::Layer::*getLayout_function_type)( ::std::size_t ) const;
@@ -435,13 +434,12 @@ void register_Layer_class(){
         }
         { //::Layer::getTotalParticleSurfaceDensity
         
-            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)(  ) const;
-            typedef double ( Layer_wrapper::*default_getTotalParticleSurfaceDensity_function_type)(  ) const;
+            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type(&::Layer::getTotalParticleSurfaceDensity)
-                , default_getTotalParticleSurfaceDensity_function_type(&Layer_wrapper::default_getTotalParticleSurfaceDensity) );
+                , getTotalParticleSurfaceDensity_function_type( &::Layer::getTotalParticleSurfaceDensity )
+                , ( bp::arg("layout_index") ) );
         
         }
         { //::Layer::setMaterial

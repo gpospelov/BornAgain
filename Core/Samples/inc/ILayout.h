@@ -31,7 +31,7 @@ class IInterferenceFunction;
 class BA_CORE_API_ ILayout : public ICompositeSample
 {
 public:
-    enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR };
+    enum EInterferenceApproximation { DA, SSCA, ISGISAXSMOR };
 
     ILayout() : m_total_particle_surface_density(1.0)
               , me_approx(DA) {}

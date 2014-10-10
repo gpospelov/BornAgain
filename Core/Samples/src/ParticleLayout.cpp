@@ -16,7 +16,6 @@
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
-#include "LocalMonodisperseApproximationStrategy.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "MessageService.h"

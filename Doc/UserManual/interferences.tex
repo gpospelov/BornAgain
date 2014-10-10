@@ -98,13 +98,13 @@ The Cauchy distribution corresponds to $\exp(-r)$ in real space and the Voigt on
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation in \BornAgain}
 \subsection{Size-distribution models}
-The decoupled approximation, local monodisperse approximation and size spacing correlation approximation can be used in \BornAgain.
-The selection is made using\\ \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
+The decoupling approximation, local monodisperse approximation and size spacing correlation approximation can be used in \BornAgain.
+The selection is made using\\ \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer or by adding multiple ParticleLayout objects in a single layer (for the Local Monodisperse Approximation).  For example,
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
     particle_layout = ParticleLayout()
    ....
-# interference approx chosen between: DA (default), LMA and SSCA
-    particle_layout.setApproximation(ILayout.LMA)
+# interference approx chosen between: DA (default) and SSCA
+    particle_layout.setApproximation(ILayout.DA)
 \end{lstlisting}
 
 The users can refer to Script~\ref{lst:2dlatticeinterf} for a more detailed implementation. By default, the decoupled approximation (DA) is used.
@@ -334,7 +334,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\mathbf{a}\equiv \mathbf{b}$ and the probability distribution function is Gaussian. We also use the Local Monodisperse Approximation. 
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Local Monodisperse Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in red italic font.},label={lst:2dlatticeinterf}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Decoupling Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in red italic font.},label={lst:2dlatticeinterf}]
     # lattice parameters
     |lattice_params = Lattice2DIFParameters()|
     |lattice_params.m_length_1 = 20.0*nanometer|
@@ -352,8 +352,8 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
     particle_layout.addParticle(sphere, 0.0, 1.0)
     |particle_layout.addInterferenceFunction(interference)|
 
-    # interference approx chosen between: DA (default), LMA and SSCA
-    |particle_layout.setApproximation(ILayout.LMA)|
+    # interference approx chosen between: DA (default) and SSCA
+    |particle_layout.setApproximation(ILayout.DA)|
 \end{lstlisting}
  
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]

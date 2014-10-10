@@ -70,7 +70,7 @@ IInterferenceFunctionStrategy
     *DecoratedLayerDWBASimulation::createAndInitStrategy() const
 {
     LayerStrategyBuilder builder(
-        *mp_layer, *mp_simulation, m_sim_params);
+        *mp_layer, *mp_simulation, m_sim_params, m_layout_index);
     assert(mp_specular_info);
     builder.setRTInfo(*mp_specular_info);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
@@ -83,7 +83,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double wavelength = getWaveLength();
     double total_surface_density =
-        mp_layer->getTotalParticleSurfaceDensity();
+        mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     if (checkPolarizationPresent()) {
         // matrix dwba calculation

@@ -27,22 +27,24 @@ def get_sample():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    particle_layout = ParticleLayout()
+    particle_layout1 = ParticleLayout()
+    particle_layout2 = ParticleLayout()
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
-    particle_layout.addParticleInfo(particle_info)
+    particle_layout1.addParticleInfo(particle_info)
+    particle_layout1.addInterferenceFunction(interference)
     # particle 2
     position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     particle_info.setPosition(position_2)
-    particle_layout.addParticleInfo(particle_info)
-    particle_layout.addInterferenceFunction(interference)
-    particle_layout.setApproximation(ILayout.LMA)
+    particle_layout2.addParticleInfo(particle_info)
+    particle_layout2.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(particle_layout1)
+    air_layer.addLayout(particle_layout2)
 
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()

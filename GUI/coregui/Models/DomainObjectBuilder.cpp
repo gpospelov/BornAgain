@@ -93,7 +93,7 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
             boost::scoped_ptr<ParticleLayout>
                     P_layout(buildParticleLayout(*children[i]));
             if (P_layout.get()) {
-                result->setLayout(*P_layout);
+                result->addLayout(*P_layout);
             }
         }
     }

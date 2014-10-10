@@ -126,9 +126,6 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     case ILayout::DA:
         approx_prop.setValue("Decoupling Approximation");
         break;
-    case ILayout::LMA:
-        approx_prop.setValue("Local Monodisperse Approximation");
-        break;
     case ILayout::SSCA:
         approx_prop.setValue("Size Space Coupling Approximation");
         break;

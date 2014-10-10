@@ -108,11 +108,10 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
-    particle_layout.setApproximation(ILayout::LMA);
 
 
     Layer air_layer(air_material);
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     Layer substrate_layer(substrate_material, 0);
 
@@ -529,7 +528,7 @@ void TestMiscellaneous::test_SampleGeometry()
         (new Particle(particle_material, FormFactorFullSphere
                       (5*Units::nanometer)));
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer.addLayer(air_layer);
 

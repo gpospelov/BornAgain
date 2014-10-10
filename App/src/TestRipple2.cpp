@@ -200,7 +200,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
     particle_layout.addInterferenceFunction(p_interference_function);
 
     // making layer holding all whose nano particles
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

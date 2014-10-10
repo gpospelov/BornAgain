@@ -34,7 +34,7 @@ def RunSimulation():
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)
     intermediate_layer = Layer(mLayer)
-    intermediate_layer.setLayout(particle_layout)
+    intermediate_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

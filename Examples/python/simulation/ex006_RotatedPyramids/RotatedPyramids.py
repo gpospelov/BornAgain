@@ -26,7 +26,7 @@ def get_sample():
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
 

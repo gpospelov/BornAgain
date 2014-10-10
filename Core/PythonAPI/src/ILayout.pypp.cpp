@@ -233,7 +233,6 @@ void register_ILayout_class(){
         bp::scope ILayout_scope( ILayout_exposer );
         bp::enum_< ILayout::EInterferenceApproximation>("EInterferenceApproximation")
             .value("DA", ILayout::DA)
-            .value("LMA", ILayout::LMA)
             .value("SSCA", ILayout::SSCA)
             .value("ISGISAXSMOR", ILayout::ISGISAXSMOR)
             .export_values()

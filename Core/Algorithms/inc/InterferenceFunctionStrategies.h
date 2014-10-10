@@ -19,7 +19,6 @@
 #include "IInterferenceFunctionStrategy.h"
 #include "DecouplingApproximationStrategy.h"
 #include "IsGISAXSMorphologyFileStrategy.h"
-#include "LocalMonodisperseApproximationStrategy.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 
 #endif /* INTERFERENCEFUNCTIONSTRATEGIES_H_ */

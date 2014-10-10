@@ -521,7 +521,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
     builder.plantParticles(particle_layout);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

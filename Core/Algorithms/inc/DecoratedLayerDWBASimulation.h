@@ -29,7 +29,7 @@ class Layer;
 class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
 public:
-    DecoratedLayerDWBASimulation(const Layer *p_layer);
+    DecoratedLayerDWBASimulation(const Layer *p_layer, size_t layout_index=0);
     virtual ~DecoratedLayerDWBASimulation();
 
     DecoratedLayerDWBASimulation *clone() const
@@ -49,6 +49,7 @@ private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();
+    size_t m_layout_index;
 
 };
 

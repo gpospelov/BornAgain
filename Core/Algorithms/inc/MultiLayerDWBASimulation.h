@@ -17,6 +17,7 @@
 #define MULTILAYERDWBASIMULATION_H_
 
 #include "LayerDWBASimulation.h"
+#include "SafePointerVector.h"
 
 #include <set>
 #include <map>
@@ -57,7 +58,7 @@ protected:
     void collectRTCoefficientsMatrix();
     bool requiresMatrixRTCoefficients() const;
 
-    std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
+    std::map<size_t, SafePointerVector<LayerDWBASimulation> > m_layer_dwba_simulations_map;
     MultiLayer *mp_multi_layer;
     MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;
 };

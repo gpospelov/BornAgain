@@ -26,8 +26,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::Port0);
 
     ComboProperty approx;
-    approx << "Decoupling Approximation" << "Local Monodisperse Approximation"
-           << "Size Space Coupling Approximation";
+    approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0);

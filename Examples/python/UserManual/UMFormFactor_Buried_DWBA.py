@@ -27,7 +27,7 @@ def get_sample():
     # assembling the sample 
     air_layer = Layer(m_ambience)
     intermediate_layer = Layer(m_interm_layer, 30.*nanometer)
-    intermediate_layer.setLayout(particle_layout)
+    intermediate_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
    
     multi_layer = MultiLayer()

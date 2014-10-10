@@ -92,9 +92,6 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     if (approximation == QString("Decoupling Approximation")) {
         result->setApproximation(ILayout::DA);
     }
-    else if (approximation == QString("Local Monodisperse Approximation")) {
-        result->setApproximation(ILayout::LMA);
-    }
     else if (approximation == QString("Size Space Coupling Approximation")) {
         result->setApproximation(ILayout::SSCA);
     }

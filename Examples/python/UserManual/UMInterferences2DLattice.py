@@ -34,12 +34,12 @@ def get_sample():
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
 
-    # interference approx chosen between: DA (default), LMA and SSCA
-    particle_layout.setApproximation(ILayout.LMA)
+    # interference approx chosen between: DA (default) and SSCA
+    particle_layout.setApproximation(ILayout.DA)
 
     # assembling the sample
     air_layer = Layer(m_ambience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()

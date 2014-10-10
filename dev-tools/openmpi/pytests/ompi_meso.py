@@ -124,7 +124,7 @@ class MesoSampleBuilder(ISampleBuilder):
 
         particle_decoration.setTotalParticleSurfaceDensity(surface_density)
 
-        avg_layer.setLayout(particle_decoration)
+        avg_layer.addLayout(particle_decoration)
 
         roughness = LayerRoughness(self.m_roughness.value, 0.3, 500.0 * nanometer)
 

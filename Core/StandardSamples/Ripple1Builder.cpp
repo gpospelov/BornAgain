@@ -64,7 +64,7 @@ ISample *Ripple1Builder::buildSample() const
     p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

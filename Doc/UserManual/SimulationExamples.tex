@@ -145,7 +145,7 @@ imposed when we add the particles in a given layer by parameter \Code{depth}, as
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 # air layer with particles and substrate form multi layer  @\label{sampleassembling}@
     air_layer = Layer(m_air) @\label{airlayer}@
-    air_layer.setLayout(particle_layout) @\label{airlayerdecorator}@
+    air_layer.addLayout(particle_layout) @\label{airlayerdecorator}@
     substrate_layer = Layer(m_substrate, 0)  @\label{substratelayer}@
     multi_layer = MultiLayer() @\label{multilayercanvas}@
     multi_layer.addLayer(air_layer) @\label{layerairdecor}@

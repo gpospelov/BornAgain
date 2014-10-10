@@ -123,7 +123,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     particle_layout.setTotalParticleSurfaceDensity(surface_density);
     particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

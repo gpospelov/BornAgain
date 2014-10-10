@@ -37,11 +37,10 @@ def RunSimulation():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
-    particle_layout.setApproximation(ILayout.LMA)
 
     # top air layer
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     # substrate layer
     substrate_layer = Layer(mSubstrate, 0)

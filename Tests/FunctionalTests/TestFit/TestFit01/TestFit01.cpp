@@ -121,7 +121,7 @@ ISample *TestFit01::buildSample()
     ParticleLayout particle_layout( new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

@@ -38,7 +38,7 @@ def RunSimulation():
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -47,7 +47,6 @@ def RunSimulation():
 
     # build and run experiment
     simulation = Simulation()
-    simulation.setSimulationParameters(sim_params)
     simulation.setDetectorParameters(100, -4.0 * degree, 4.0 * degree, 100, 0.0 * degree, 8.0 * degree)
     simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
     simulation.setSample(multi_layer)

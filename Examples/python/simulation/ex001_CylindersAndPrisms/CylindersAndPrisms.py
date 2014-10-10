@@ -28,7 +28,7 @@ def get_sample():
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_air)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

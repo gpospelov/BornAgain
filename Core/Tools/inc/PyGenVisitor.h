@@ -14,7 +14,7 @@ public:
 
     using ISampleVisitor::visit;
 
-    std::string writePyScript(const Simulation *simulation, std::string fileName);
+    std::string writePyScript(const Simulation *simulation);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);
     void visit(const FormFactorCone *sample);

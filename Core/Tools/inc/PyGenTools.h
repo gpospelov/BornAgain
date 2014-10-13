@@ -5,8 +5,7 @@
 
 
 namespace PyGenTools {
-    void genPyScript(Simulation *simulation, std::string pyScriptName,
-                     std::string outputDataFileName);
+    void genPyScript(Simulation *simulation, std::string pyScriptName);
     std::string printDouble(double input);
     bool isSquare();
     bool isHexagonal();

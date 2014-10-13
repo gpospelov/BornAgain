@@ -29,8 +29,7 @@ PyGenVisitor::PyGenVisitor()
 
 }
 
-std::string PyGenVisitor::writePyScript(const Simulation *simulation,
-                                      std::string fileName)
+std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 {
     std::ostringstream result;
     result << std::setprecision(12) <<"import numpy \nimport matplotlib";
@@ -1165,13 +1164,16 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
            << simulation->getInstrument().getBeam().getAlpha()<< ","
            << simulation->getInstrument().getBeam().getPhi() << ")\n";
     result << "\treturn simulation\n\n";
-    result << "def runSimulation(filename = ''):\n";
+    result << "def runSimulation(filename = '', plotResults = \"false\"):\n";
     result << "\t# Run Simulation and plot results\n";
     result << "\tsample = getSample()\n";
     result << "\tsimulation = getSimulation()\n";
     result << "\tsimulation.setSample(sample)\n";
     result << "\tsimulation.runSimulation()\n";
-    result << "\tif filename == '':\n";
+    result << "\tif filename != '':\n";
+    result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
+           << "getIntensityData(), filename + '.int')\n";
+    result << "\tif plotResults == \"true\":\n";
     result << "\t\tresult = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
     result << "\t\tim = pylab.imshow(numpy.rot90(result, 1),"
@@ -1191,18 +1193,10 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation,
         index++;
     }
 
-    result << "]) \n\t\tpylab.colorbar(im) \n\t\tpylab.show() \n\telse:\n";
-    result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
-           << "getIntensityData(), filename + '.int')\n";
+    result << "]) \n\t\tpylab.colorbar(im) \n\t\tpylab.show() \n";
+
     result << "\treturn simulation\n\n";
-    result << "if __name__ == '__main__': \n\trunSimulation('";
-
-    if (fileName != "")
-    {
-        result << fileName;
-    }
-
-    result << "')";
+    result << "if __name__ == '__main__': \n\trunSimulation('output')";
     return result.str();
 }
 

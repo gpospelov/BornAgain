@@ -1,7 +1,10 @@
 #include <boost/scoped_ptr.hpp>
+#include <cstring>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <Python.h>
+#include <boost/python.hpp>
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "ISample.h"
@@ -10,8 +13,7 @@
 #include "Simulation.h"
 
 void PyGenTools::genPyScript(Simulation *simulation,
-                                std::string pyScriptName,
-                                std::string outputDataFileName = "")
+                                std::string pyScriptName)
 {
     simulation->runSimulation();
     ISample *iSample = simulation->getSample();
@@ -20,7 +22,7 @@ void PyGenTools::genPyScript(Simulation *simulation,
     VisitSampleTree(*multiLayer, visitor);
     std::ofstream pythonFile;
     pythonFile.open(pyScriptName.c_str());
-    pythonFile << visitor.writePyScript(simulation, outputDataFileName);
+    pythonFile << visitor.writePyScript(simulation);
     pythonFile.close();
 }
 
@@ -41,21 +43,28 @@ std::string PyGenTools::printDouble(double input)
 
 bool PyGenTools::testPyScript(Simulation *simulation)
 {
-    genPyScript(simulation, "PythonScript.py", "output");
+    genPyScript(simulation, "PythonScript.py");
+//    Py_Initialize();
+//    std::string path("sys.path.append('");
+//    path.append("/home/abhishekskhanna/BornAgain-Build");
+//    path.append("')");
+//    PyRun_SimpleString("import sys");
+//    PyRun_SimpleString(path.c_str());
+//    PyObject *pName = PyString_FromString("PythonScript");
+//    PyObject *pModule = PyImport_Import(pName);
+//    PyObject *pDict = PyModule_GetDict(pModule);
+//    PyObject *pRunSimulation = PyDict_GetItemString(pDict, "runSimulation");
+//    PyObject *pResult = PyObject_CallObject(pRunSimulation, NULL);
+//    Simulation *pSimulation = boost::python::extract<Simulation *>(pResult);
+//    Py_Finalize();
+//    boost::scoped_ptr<const OutputData<double> > reference_data(
+//                simulation->getIntensityData());
+//    boost::scoped_ptr<const OutputData<double> > simulated_data(
+//                    pSimulation->getIntensityData());
     std::string command = "python PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
-    /*
-    PyObject *pModule = PyImport_AddModule("PythonScript.py");
-    PyObject *pDict = PyModule_GetDict(pModule);
-    PyObject *pRunSimulation = PyDict_GetItemString(pDict, "runSimulation");
-    PyObject *pResult = PyObject_CallObject(pRunSimulation, NULL);
-    Simulation *pSimulation = boost::python::extract<Simulation *>(pResult);
 
-    boost::scoped_ptr<const OutputData<double> > reference_data(
-                simulation->getIntensityData());
-    boost::scoped_ptr<const OutputData<double> > simulated_data(
-                pSimulation->getIntensityData()); */
     boost::scoped_ptr<const OutputData<double> > reference_data(
                 simulation->getIntensityData());
     boost::scoped_ptr<const OutputData<double> > simulated_data(

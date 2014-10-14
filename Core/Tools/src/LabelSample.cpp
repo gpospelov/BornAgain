@@ -57,7 +57,7 @@ std::string LabelSample::getLabel(const ParticleInfo *sample)
 
 std::string LabelSample::getLabel(const ILayout *sample)
 {
-    return m_particleLayoutLabel[sample];
+    return m_ILayoutLabel[sample];
 }
 
 std::map<const IFormFactor *,std::string>* LabelSample::getFormFactorMap()
@@ -107,7 +107,7 @@ std::map<const ParticleInfo *,std::string>* LabelSample::getParticleInfoMap()
 
 std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
 {
-    return &m_particleLayoutLabel;
+    return &m_ILayoutLabel;
 }
 
 void LabelSample::insertMaterial(const IMaterial *sample)
@@ -149,8 +149,8 @@ void LabelSample::setLabel(const IInterferenceFunction *sample)
 void LabelSample::setLabel(const ILayout *sample)
 {
     std::ostringstream inter;
-    inter << "ParticleLayout_" << m_particleLayoutLabel.size()+1;
-    m_particleLayoutLabel[sample] = inter.str();;
+    inter << "Layout_" << m_ILayoutLabel.size()+1;
+    m_ILayoutLabel[sample] = inter.str();;
 }
 
 

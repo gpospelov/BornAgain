@@ -33,9 +33,17 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 {
     std::ostringstream result;
     result << std::setprecision(12) <<"import numpy \nimport matplotlib";
-    result << "\nimport pylab \nfrom libBornAgainCore import *\n\n";
+    result << "\nimport pylab \nfrom libBornAgainCore import *\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
-    result <<  "def getSample():\n\t# Defining Materials\n";
+    result << "#NOTE: Running this Script by default will write output data"
+           << "to \"output.int\" file\n";
+    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
+           << "given to runSimulation in _main_\n";
+    result << "#NOTE: To plot data, pass plotResults = True as argument to"
+           << "runSimulation in _main_\n";
+    result << "#NOTE: To read data from a file use the command:"
+           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
+    result << "def getSample():\n\t# Defining Materials\n";
 
     std::map<const IMaterial *,std::string>::iterator it1 =
             m_label->getMaterialMap()->begin();
@@ -417,7 +425,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCauchy->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -425,7 +434,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCosine->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -433,7 +443,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGate->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -441,7 +452,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGauss->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -449,7 +461,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DTriangle->getOmega())
+                           << ")\n";
                 }
 
                 else
@@ -479,14 +492,16 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             {
                 result << "\t" << it->second
                        << ".setKappa("
-                       << PyGenTools::printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << PyGenTools::printDouble(oneDParaCrystal->getKappa())
+                       << ")\n";
             }
 
             if (oneDParaCrystal->getDomainSize() != 0.0)
             {
                 result << "\t" << it->second
                        << ".setDomainSize("
-                       << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) <<")\n";
+                       << PyGenTools::printDouble(oneDParaCrystal->getDomainSize())
+                       <<")\n";
             }
 
             const IFTDistribution1D *pdf =
@@ -508,7 +523,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCauchy("
-                           << PyGenTools::printDouble(fTD1DCauchy->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCauchy->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DCosine *fTD1DCosine =
@@ -516,7 +532,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DCosine("
-                           << PyGenTools::printDouble(fTD1DCosine->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DCosine->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DGate *fTD1DGate =
@@ -524,7 +541,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGate("
-                           << PyGenTools::printDouble(fTD1DGate->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGate->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DGauss *fTD1DGauss =
@@ -532,7 +550,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DGauss("
-                           << PyGenTools::printDouble(fTD1DGauss->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DGauss->getOmega())
+                           << ")\n";
                 }
 
                 else if (const FTDistribution1DTriangle *fTD1DTriangle =
@@ -540,7 +559,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf  = FTDistribution1DTriangle("
-                           << PyGenTools::printDouble(fTD1DTriangle->getOmega()) << ")\n";
+                           << PyGenTools::printDouble(fTD1DTriangle->getOmega())
+                           << ")\n";
                 }
 
                 else
@@ -614,7 +634,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyGenTools::printDouble(fTD2DCauchy->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCauchy->getGamma())
+                           << ")\n";
                 }
             }
 
@@ -631,7 +652,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyGenTools::printDouble(fTD2DCone->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DCone->getGamma())
+                           << ")\n";
                 }
             }
 
@@ -648,11 +670,13 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyGenTools::printDouble(fTD2DGate->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGate->getGamma())
+                           << ")\n";
                 }
             }
 
-            else if (const FTDistribution2DGauss *fTD2DGauss = dynamic_cast<const FTDistribution2DGauss *>(pdf))
+            else if (const FTDistribution2DGauss *fTD2DGauss
+                     = dynamic_cast<const FTDistribution2DGauss *>(pdf))
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DGauss("
@@ -664,7 +688,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyGenTools::printDouble(fTD2DGauss->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DGauss->getGamma())
+                           << ")\n";
                 }
             }
 
@@ -681,7 +706,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 {
                     result << "\t" << it->second
                            << "_pdf" << ".setGamma("
-                           << PyGenTools::printDouble(fTD2DVoigt->getGamma()) << ")\n";
+                           << PyGenTools::printDouble(fTD2DVoigt->getGamma())
+                           << ")\n";
                 }
             }
 

@@ -26,6 +26,23 @@ void PyGenTools::genPyScript(Simulation *simulation,
     pythonFile.close();
 }
 
+bool PyGenTools::isSquare(double length1, double length2, double angle)
+{
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, M_PI/2.0)) {
+        return true;
+    }
+    return false;
+}
+
+
+bool PyGenTools::isHexagonal(double length1, double length2, double angle)
+{
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*M_PI/3.0)) {
+        return true;
+    }
+    return false;
+}
+
 std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
@@ -51,10 +68,21 @@ bool PyGenTools::testPyScript(Simulation *simulation)
 //    PyRun_SimpleString("import sys");
 //    PyRun_SimpleString(path.c_str());
 //    PyObject *pName = PyString_FromString("PythonScript");
+//    if (!pName)
+//        throw std::runtime_error("PyGenTools::testPyScript -> pName is NULL");
 //    PyObject *pModule = PyImport_Import(pName);
+//    if (!pModule)
+//        throw std::runtime_error("PyGenTools::testPyScript -> pModule is NULL");
 //    PyObject *pDict = PyModule_GetDict(pModule);
+//    if (!pDict)
+//        throw std::runtime_error("PyGenTools::testPyScript -> pDict is NULL");
 //    PyObject *pRunSimulation = PyDict_GetItemString(pDict, "runSimulation");
+//    if (!pRunSimulation)
+//        throw std::runtime_error(
+//                "PyGenTools::testPyScript -> pRunSimulation is NULL");
 //    PyObject *pResult = PyObject_CallObject(pRunSimulation, NULL);
+//    if (!pResult)
+//        throw std::runtime_error("PyGenTools::testPyScript -> pResult is NULL");
 //    Simulation *pSimulation = boost::python::extract<Simulation *>(pResult);
 //    Py_Finalize();
 //    boost::scoped_ptr<const OutputData<double> > reference_data(

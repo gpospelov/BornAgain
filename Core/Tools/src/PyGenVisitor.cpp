@@ -77,7 +77,6 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
         result << "\n\t# Defining Form Factors and Particles\n";
     }
 
-    int formFactorNotFound = 0;
     std::map<const IFormFactor *,std::string>::iterator it3 =
             m_label->getFormFactorMap()->begin();
     while (it3 != m_label->getFormFactorMap()->end())
@@ -303,11 +302,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
         else
         {
-            // I should give proper Exception here
-            formFactorNotFound++;
-            std::cout << "\n" << formFactorNotFound
-                      << ": " << iFormFac->getName()
-                      << " :: Not Casted To Any FormFactor\n";
+            std::ostringstream formFactorException;
+            formFactorException << "\n" << iFormFac->getName()
+                         << " :: Not Casted To Any "
+                         << "Interference Function\n";
+            throw NotImplementedException(formFactorException.str());
         }
         it3++;
     }
@@ -361,8 +360,6 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
         result << "\n\t# Defining Interference functions\n";
     }
 
-    int interferenceFunctionNotFound = 0;
-    int probabilityDistributionFunctionNotFound = 0;
     std::map<const IInterferenceFunction *,std::string>::iterator it =
             m_label->getInterferenceFunctionMap()->begin();
     while (it != m_label->getInterferenceFunctionMap()->end())
@@ -457,11 +454,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
                 else
                 {
-                    // I should give proper Exception here
-                    probabilityDistributionFunctionNotFound++;
-                    std::cout << "\n" << probabilityDistributionFunctionNotFound
-                              << ": " << pdf->getName() << " :: Not Casted To "
-                              << "Any Probability Distribution Function\n";
+                    std::ostringstream pdfException;
+                    pdfException << "\n" << pdf->getName()
+                                 << " :: Not Casted To Any "
+                                 << "Probability Distribution Function\n";
+                    throw NotImplementedException(pdfException.str());
                 }
 
                 result << "\t" << it->second
@@ -548,11 +545,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
                 else
                 {
-                    // I should give proper Exception here
-                    probabilityDistributionFunctionNotFound++;
-                    std::cout << "\n" << probabilityDistributionFunctionNotFound
-                              << ": " << pdf->getName() << " :: Not Casted To"
-                              << "Any Probability Distribution Function\n";
+                    std::ostringstream pdfException;
+                    pdfException << "\n" << pdf->getName()
+                                 << " :: Not Casted To Any "
+                                 << "Probability Distribution Function\n";
+                    throw NotImplementedException(pdfException.str());
                 }
 
                 result << "\t" << it->second
@@ -690,11 +687,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
             else
             {
-                // I should give proper Exception here
-                probabilityDistributionFunctionNotFound++;
-                std::cout << "\n" << probabilityDistributionFunctionNotFound
-                          << ": " << pdf->getName() << " :: Not Casted To Any "
-                          << "Probability Distribution Function\n";
+                std::ostringstream pdfException;
+                pdfException << "\n" << pdf->getName()
+                             << " :: Not Casted To Any "
+                             << "Probability Distribution Function\n";
+                throw NotImplementedException(pdfException.str());
             }
 
             result << "\t" << it->second
@@ -706,28 +703,59 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
         else if (const InterferenceFunction2DParaCrystal *twoDParaCrystal =
                  dynamic_cast<const InterferenceFunction2DParaCrystal *>(interference))
         {
-            result << "\t" << it->second
-                   << " = InterferenceFunction2DParaCrystal("
-                   << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
-                   << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
-                   << PyGenTools::printDouble(twoDParaCrystal->getAlphaLattice()) << ","
-                   << PyGenTools::printDouble(twoDParaCrystal->getLatticeOrientation()) << ","
-                   << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
-
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-
-            if (domainSize[0] != 0 || domainSize[1] != 0)
+            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeLengths()[0],
+                                     twoDParaCrystal->getLatticeLengths()[1],
+                                     twoDParaCrystal->getAlphaLattice()))
             {
                 result << "\t" << it->second
-                       << ".setDomainSizes("
+                       << " = InterferenceFunction2DParaCrystal.createSquare("
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
+                       << twoDParaCrystal->getDampingLength() << "*nanometer,"
                        << domainSize[0] << "*nanometer,"
                        << domainSize[1] << "*nanometer)\n";
             }
 
-            if(twoDParaCrystal->getIntegrationOverXi() == true)
+            else if(PyGenTools::isHexagonal
+                    (twoDParaCrystal->getLatticeLengths()[0],
+                     twoDParaCrystal->getLatticeLengths()[1],
+                     twoDParaCrystal->getAlphaLattice()))
             {
                 result << "\t" << it->second
-                       << ".setIntegrationOverXi(True)\n";
+                       << " = InterferenceFunction2DParaCrystal.createHexagonal("
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
+                       << twoDParaCrystal->getDampingLength() << "*nanometer,"
+                       << domainSize[0] << "*nanometer,"
+                       << domainSize[1] << "*nanometer)\n";
+            }
+
+            else
+            {
+                result << "\t" << it->second
+                       << " = InterferenceFunction2DParaCrystal"
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
+                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
+                       << PyGenTools::printDouble(
+                              twoDParaCrystal->getAlphaLattice()) << ","
+                       << PyGenTools::printDouble(
+                              twoDParaCrystal->getLatticeOrientation()) << ","
+                       << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
+
+
+
+                if (domainSize[0] != 0 || domainSize[1] != 0)
+                {
+                    result << "\t" << it->second
+                           << ".setDomainSizes("
+                           << domainSize[0] << "*nanometer,"
+                           << domainSize[1] << "*nanometer)\n";
+                }
+
+                if(twoDParaCrystal->getIntegrationOverXi() == true)
+                {
+                    result << "\t" << it->second
+                           << ".setIntegrationOverXi(True)\n";
+                }
             }
 
             std::vector<const IFTDistribution2D*> pdf_vector =
@@ -817,11 +845,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
             else
             {
-                // I should give proper Exception here
-                probabilityDistributionFunctionNotFound++;
-                std::cout << "\n" << probabilityDistributionFunctionNotFound
-                          << ": " << pdf_1->getName() << " :: Not Casted To Any"
-                          << " Probability Distribution Function\n";
+                std::ostringstream pdfException;
+                pdfException << "\n" << pdf_1->getName()
+                             << " :: Not Casted To Any "
+                             << "Probability Distribution Function\n";
+                throw NotImplementedException(pdfException.str());
             }
 
             const IFTDistribution2D *pdf_2 = pdf_vector[1];
@@ -909,11 +937,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
             else
             {
-                // I should give proper Exception here
-                probabilityDistributionFunctionNotFound++;
-                std::cout << "\n" << probabilityDistributionFunctionNotFound
-                          << ": " << pdf_2->getName() << " :: Not Casted To Any"
-                          << " Probability Distribution Function\n";
+                std::ostringstream pdfException;
+                pdfException << "\n" << pdf_2->getName()
+                             << " :: Not Casted To Any "
+                             << "Probability Distribution Function\n";
+                throw NotImplementedException(pdfException.str());
             }
 
             result << "\t" << it->second
@@ -923,11 +951,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
         else
         {
-            // I should Give Proper Exception Here
-            interferenceFunctionNotFound++;
-            std::cout << "\n" << interferenceFunctionNotFound
-                      << ": " << interference->getName()
-                      << " :: Not Casted To Any Interference Function\n";
+            std::ostringstream interferenceException;
+            interferenceException << "\n" << interference->getName()
+                         << " :: Not Casted To Any "
+                         << "Interference Function\n";
+            throw NotImplementedException(interferenceException.str());
         }
 
         it++;
@@ -1043,13 +1071,9 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                 break;
             case 1:
                 result << "\t" << it6->second << ".setApproximation(ILayout.";
-                result << "LMA)\n";
-                break;
-            case 2:
-                result << "\t" << it6->second << ".setApproximation(ILayout.";
                 result << "SSCA)\n";
                 break;
-            case 3:
+            case 2:
                 result << "\t" << it6->second << ".setApproximation(ILayout.";
                 result << "ISGISAXSMOR)\n";
                 break;
@@ -1065,13 +1089,15 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
     {
         const Layer *layer = it2->first;
 
-        if (layer->hasDWBASimulation())
+        size_t numberOfLayouts = layer->getNumberOfLayouts();
+        size_t i = 0;
+        while(i != numberOfLayouts)
         {
             result << "\n\t" << it2->second
-                   << ".setLayout("
-                   << m_label->getLabel(layer->getLayout()) << ")\n";
+                   << ".addLayout("
+                   << m_label->getLabel(layer->getLayout(i)) << ")\n";
+            i++;
         }
-
         it2++;
     }
 
@@ -1164,7 +1190,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
            << simulation->getInstrument().getBeam().getAlpha()<< ","
            << simulation->getInstrument().getBeam().getPhi() << ")\n";
     result << "\treturn simulation\n\n";
-    result << "def runSimulation(filename = '', plotResults = \"false\"):\n";
+    result << "def runSimulation(filename = '', plotResults = False):\n";
     result << "\t# Run Simulation and plot results\n";
     result << "\tsample = getSample()\n";
     result << "\tsimulation = getSimulation()\n";
@@ -1173,7 +1199,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
     result << "\tif filename != '':\n";
     result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
            << "getIntensityData(), filename + '.int')\n";
-    result << "\tif plotResults == \"true\":\n";
+    result << "\tif plotResults == True:\n";
     result << "\t\tresult = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
     result << "\t\tim = pylab.imshow(numpy.rot90(result, 1),"

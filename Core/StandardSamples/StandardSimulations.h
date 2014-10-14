@@ -54,6 +54,7 @@ Simulation *gui_IsGISAXS042DDL();
 Simulation *gui_IsGISAXS11();
 Simulation *gui_IsGISAXS06L1();
 Simulation *gui_IsGISAXS07();
+Simulation *gui_MultipleLayouts();
 }
 
 

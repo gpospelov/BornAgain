@@ -26,6 +26,7 @@ TestPyGenerator::TestPyGenerator()
     testSamples.push_back("gui_isgisaxs11");
     testSamples.push_back("gui_isgisaxs06a");
     testSamples.push_back("gui_isgisaxs07");
+    testSamples.push_back("gui_multiple_layouts");
 }
 
 void TestPyGenerator::execute()

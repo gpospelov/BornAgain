@@ -38,6 +38,7 @@ set(list_of_tests
     "PyScript_isgisaxs07"
     "PyScript_isgisaxs11"
     "BatchSimulation"
+    "PyScript_multiplelayoutbuilder"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

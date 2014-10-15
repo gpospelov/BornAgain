@@ -1,14 +1,13 @@
 #include "FitParameterWidget.h"
 #include "FitParameterItem.h"
-#include "FitProxyModel.h"
 #include <QDebug>
 #include <QVBoxLayout>
 
 
 
-FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
+FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *parent)
     : QWidget(parent)
-    , m_fitModel(fitModel)
+    , m_fitProxyModel(fitProxyModel)
     , m_treeView(0)
 {
 
@@ -18,6 +17,10 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
+
+    initFitModel();
+
+    m_fitProxyModel->setFitModel(m_fitModel);
 
     if(m_fitModel)
     {
@@ -48,8 +51,8 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
 
 
 
-    FitProxyModel *fitProxyModel = new FitProxyModel;
-    qDebug() << fitProxyModel;
+//    FitProxyModel *fitProxyModel = new FitProxyModel;
+//    qDebug() << fitProxyModel;
 
 
     int height = this->height();
@@ -155,4 +158,21 @@ void FitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QStri
 
     parentItem->appendRow(QList<QStandardItem *>()  << titleItem << useItem << valueItem << minItem << maxItem);
 
+}
+
+void FitParameterWidget::initFitModel()
+{
+    m_fitModel = new FitModel;
+
+    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
+    item1->setItemName("par1");
+    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+
+    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    item2->setItemName("par2");
+
+    m_fitModel->save("fitmodel.xml");
+
+
+    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }

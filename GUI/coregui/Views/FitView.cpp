@@ -9,13 +9,13 @@
 #include <QVBoxLayout>
 
 
-FitView::FitView(FitModel *fitModel, MainWindow *mainWindow)
+FitView::FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_fitModel(fitModel)
+    , m_fitProxyModel(fitProxyModel)
 {
 
     m_realDataWidget = new RealDataWidget();
-    m_fitParameterWidget = new FitParameterWidget(m_fitModel);
+    m_fitParameterWidget = new FitParameterWidget(m_fitProxyModel);
     m_runFitWidget = new RunFitWidget();
 
     m_tabWidget = new QTabWidget();

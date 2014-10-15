@@ -29,7 +29,7 @@ class MaterialEditor;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
-class FitModel;
+class FitProxyModel;
 class FitView;
 
 
@@ -86,7 +86,7 @@ private:
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
-    FitModel *m_fitModel;
+    FitProxyModel *m_fitProxyModel;
 
     void initModels();
     void initMaterialModel();

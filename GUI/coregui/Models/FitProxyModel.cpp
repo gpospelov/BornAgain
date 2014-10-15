@@ -68,3 +68,5 @@ QModelIndex FitProxyModel::parent(const QModelIndex &child) const
     return QModelIndex();
 }
 
+
+

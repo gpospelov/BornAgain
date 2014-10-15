@@ -1,7 +1,7 @@
 #ifndef FITVIEW_H
 #define FITVIEW_H
 
-#include "FitModel.h"
+#include "FitProxyModel.h"
 #include "WinDllMacros.h"
 #include <QWidget>
 
@@ -19,7 +19,7 @@ class BA_CORE_API_ FitView : public QWidget
 
 public:
     enum TabViewId { RealDataTab, FitParameterTab, RunFitTab};
-    FitView(FitModel *fitModel, MainWindow *mainWindow);
+    FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow);
 
 
 public slots:
@@ -33,7 +33,7 @@ private:
     RunFitWidget *m_runFitWidget;
     FitToolBar *m_toolBar;
 
-    FitModel *m_fitModel;
+    FitProxyModel *m_fitProxyModel;
 
 };
 

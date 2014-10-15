@@ -41,6 +41,7 @@
 #include "SampleModel.h"
 #include "JobView.h"
 #include "FitModel.h"
+#include "FitProxyModel.h"
 #include "FitParameterItem.h"
 #include "FitView.h"
 #include <boost/scoped_ptr.hpp>
@@ -72,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
-    , m_fitModel(0)
+    , m_fitProxyModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -102,9 +103,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
+
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
     m_fitView = new FitView(m_fitModel, this);
+
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -311,16 +314,16 @@ void MainWindow::initInstrumentModel()
 
 void MainWindow::initFitModel()
 {
-    m_fitModel = new FitModel;
+    m_fitProxyModel = new FitProxyModel;
 
-    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-    item1->setItemName("par1");
-    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+//    ParameterizedItem *item1 = m_fitProxyModel->insertNewItem(Constants::FitParameterType);
+//    item1->setItemName("par1");
+//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
 
-    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item2->setItemName("par2");
+//    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+//    item2->setItemName("par2");
 
-    m_fitModel->save("fitmodel.xml");
+    //m_fitProxyModel->save("fitmodel.xml");
 
 
     //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));

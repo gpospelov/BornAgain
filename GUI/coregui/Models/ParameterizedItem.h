@@ -94,6 +94,8 @@ public:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 
+    bool hasRegisteredProperty(const QString &name);
+
     ParameterizedItem *registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
@@ -102,8 +104,6 @@ public:
     QVariant getRegisteredProperty(const QString &name) const;
     void removeRegisteredProperty(const QString &name);
 
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
-    void setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance);
     PropertyAttribute getPropertyAttribute(const QString &name) const;
 
     void print() const;
@@ -124,6 +124,8 @@ public:
 
     virtual QString getItemLabel() const { return QString("no label"); }
 
+    void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
+
 public slots:
     void onPropertyItemChanged(const QString &propertyName);
 
@@ -133,6 +135,7 @@ signals:
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     QStringList m_registered_properties;
 

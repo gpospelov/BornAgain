@@ -18,16 +18,16 @@ public:
         DisabledProperty = 0x0002
     };
 
-    PropertyAttribute(Appearance appearance=VisibleProperty, const QString &label = QString())
+    explicit PropertyAttribute(Appearance appearance=VisibleProperty, const QString &label = QString())
         : m_appearance(appearance)
         , m_label(label)
         , m_limits(AttLimits::limitless()){ }
-    PropertyAttribute(const QString &label)
-        : m_appearance(VisibleProperty)
-        , m_label(label)
-        , m_limits(AttLimits::limitless()){ }
+//    PropertyAttribute(const QString &label)
+//        : m_appearance(VisibleProperty)
+//        , m_label(label)
+//        , m_limits(AttLimits::limitless()){ }
 
-    PropertyAttribute(AttLimits limits)
+    explicit PropertyAttribute(AttLimits limits)
         : m_appearance(VisibleProperty)
         , m_label(QString())
         , m_limits(limits){ }

@@ -143,6 +143,13 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
 
         variant_property->setValue(property_value);
 
+        PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+            variant_property->setEnabled(false);
+        } else {
+            variant_property->setEnabled(true);
+        }
+
         connect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
         connect(m_item, SIGNAL(propertyItemChanged(QString)),

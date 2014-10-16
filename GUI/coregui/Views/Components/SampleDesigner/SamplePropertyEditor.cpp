@@ -223,6 +223,13 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
 
             subProperty->setValue(prop_value);
 
+            if(type == QVariant::Double) {
+                subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+                 AttLimits limits = prop_attribute.getLimits();
+                 if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
+                 if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+            }
+
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 

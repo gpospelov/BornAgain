@@ -15,7 +15,7 @@ BeamItem::BeamItem(ParameterizedItem *parent)
 {
     setItemName(Constants::BeamType);
     registerProperty(P_INTENSITY, 1e+08);
-    registerProperty(P_WAVELENGTH, 0.1);
+    registerProperty(P_WAVELENGTH, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-10)));
     registerProperty(P_AZIMUTHAL_ANGLE, AngleProperty::Degrees(0.0));
     registerProperty(P_INCLINATION_ANGLE, AngleProperty::Degrees(0.2));
 }

@@ -11,13 +11,14 @@ class QStackedWidget;
 class QModelIndex;
 class JobItem;
 class JobOutputDataToolBar;
+class ProjectManager;
 
 
 class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
 
     void setJobQueueModel(JobQueueModel *jobQueueModel);
 
@@ -41,6 +42,7 @@ private:
     OutputDataWidget *getCurrentOutputDataWidget();
 
     JobQueueModel *m_jobQueueModel;
+    ProjectManager *m_projectManager;
     JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
     QMap<JobItem *, OutputDataWidget *> m_jobItemToPlotWidget;

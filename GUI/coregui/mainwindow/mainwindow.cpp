@@ -95,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
     //m_testView = new TestView(m_sampleModel, this);
-    m_jobView = new JobView(m_jobQueueModel);
+    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
-    m_tabWidget->setCurrentIndex(InstrumentTab);
+    m_tabWidget->setCurrentIndex(WelcomeTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //just for test
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }

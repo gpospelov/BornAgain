@@ -7,6 +7,7 @@
 struct JobViewPrivate;
 class JobQueueModel;
 class JobItem;
+class ProjectManager;
 
 namespace Manhattan {
     class ProgressBar;
@@ -32,7 +33,7 @@ public:
         RealTimeActivity
     };
 
-    JobView(JobQueueModel *jobQueueModel, QWidget *parent = 0);
+    JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);

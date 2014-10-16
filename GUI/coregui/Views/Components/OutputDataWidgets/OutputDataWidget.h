@@ -9,15 +9,17 @@
 class PlotWidget;
 class PropertyWidget;
 class OutputDataToolBar;
+class ProjectManager;
 
 
 class BA_CORE_API_ OutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = false, bool isCreatePropertyWidget = false);
+    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = false, bool isCreatePropertyWidget = false, bool isProjections = false);
 
     void setCurrentItem(OutputDataItem *item);
+    void setProjectManager(ProjectManager *projectManager);
 
 public slots:
 
@@ -34,6 +36,7 @@ private:
 
     PlotWidget *m_plotWidget;
     const OutputData<double > *m_data;
+    ProjectManager *m_projectManager;
 
     PropertyWidget *m_propertyWidget;
     OutputDataToolBar *m_toolBar;

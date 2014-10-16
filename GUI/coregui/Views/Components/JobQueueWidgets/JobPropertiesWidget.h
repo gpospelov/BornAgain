@@ -23,7 +23,7 @@ public:
 
     void setModel(JobQueueModel *model);
 
-    QSize sizeHint() const { return QSize(64, 64); }
+    QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:

@@ -14,7 +14,7 @@ class BA_CORE_API_ PropertyWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit PropertyWidget(QWidget *parent);
+    explicit PropertyWidget(QWidget *parent, bool isProjection);
     virtual ~PropertyWidget(){}
 
     QSize minimumSizeHint() const { return QSize(230, 800); }

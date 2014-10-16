@@ -18,7 +18,7 @@ public:
         DisabledProperty = 0x0002
     };
 
-    explicit PropertyAttribute(Appearance appearance=VisibleProperty, const AttLimits &limits=AttLimits::lowerLimited(0.0), int decimals=3, const QString &label = QString())
+    explicit PropertyAttribute(Appearance appearance=VisibleProperty, const AttLimits &limits=AttLimits::lowerLimited(0.0), int decimals=2, const QString &label = QString())
         : m_appearance(appearance)
         , m_label(label)
         , m_limits(limits)

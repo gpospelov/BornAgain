@@ -141,6 +141,7 @@ void JobView::setActivity(int activity)
     } else if(activity == RealTimeActivity) {
         m_d->m_dockWidgets[JobListDock]->hide();
         m_d->m_dockWidgets[RealTimeDock]->show();
+        m_d->m_jobRealTimeWidget->updateCurrentItem();
         emit activityChanged(activity);
     }
 }

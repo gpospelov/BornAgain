@@ -14,6 +14,7 @@
 JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
+    , m_currentJobItem(0)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobRealTimeToolBar)
 {
@@ -131,6 +132,7 @@ void JobRealTimeWidget::onResetParameters()
 
 void JobRealTimeWidget::updateCurrentItem()
 {
+    if(!m_currentJobItem) return;
     itemClicked(m_currentJobItem);
 }
 

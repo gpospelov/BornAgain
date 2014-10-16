@@ -94,7 +94,7 @@ public:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 
-    bool hasRegisteredProperty(const QString &name);
+    bool isRegisteredProperty(const QString &name);
 
     ParameterizedItem *registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);

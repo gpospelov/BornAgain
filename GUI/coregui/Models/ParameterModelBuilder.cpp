@@ -99,7 +99,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                         for (int j = 0; j < childPropertyList.length(); ++j) {
                             QString childPropertyName = QString(childPropertyList[j]);
 
-                            PropertyAttribute prop_attribute = item->getPropertyAttribute(childPropertyName);
+                            PropertyAttribute prop_attribute = subItem->getPropertyAttribute(childPropertyName);
                             if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
                             QVariant childPropertyValue = subItem->property(childPropertyName.toUtf8().data());

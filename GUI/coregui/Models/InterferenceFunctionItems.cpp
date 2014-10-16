@@ -68,7 +68,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
 
 void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name)
 {
-    if(name == P_XI_INTEGRATION && hasRegisteredProperty(P_ROTATION_ANGLE)) {
+    if(name == P_XI_INTEGRATION && isRegisteredProperty(P_ROTATION_ANGLE)) {
         if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
             setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::DisabledProperty);
         } else {

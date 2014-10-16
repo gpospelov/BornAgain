@@ -43,7 +43,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
 }
 
 
-bool ParameterizedItem::hasRegisteredProperty(const QString &name)
+bool ParameterizedItem::isRegisteredProperty(const QString &name)
 {
     return m_registered_properties.contains(name);
 }
@@ -213,6 +213,9 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
+    if(m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing attribute "+name);
+
     m_registered_properties << name;
     m_property_attribute[name] = attribute;
 
@@ -284,7 +287,7 @@ void ParameterizedItem::setPropertyAppearance(const QString &name, const Propert
 PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
     if(!m_registered_properties.contains(name))
-        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property "+name);
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property "+name+" " + modelType());
 
     if(!m_property_attribute.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "+name);

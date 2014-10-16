@@ -23,6 +23,6 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setPropertyAttribute(ParticleItem::P_ABUNDANCE, PropertyAttribute::DisabledProperty);
-    item->setPropertyAttribute(ParticleItem::P_DEPTH, PropertyAttribute::DisabledProperty);
+    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DisabledProperty);
+    item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DisabledProperty);
 }

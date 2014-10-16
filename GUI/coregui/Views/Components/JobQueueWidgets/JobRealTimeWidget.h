@@ -27,7 +27,7 @@ public slots:
     void onJobItemDelete(JobItem *item);
     void onJobItemFinished(const QString &identifier);
     void onResetParameters();
-    //void onExportParameters();
+    void updateCurrentItem();
 
 private:
     ModelTuningWidget *getCurrentModelTuningWidget();

@@ -37,9 +37,15 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->insertChildItem(-1, this);
     }
 
-    registerProperty(P_NAME, QString(), PropertyAttribute::HiddenProperty);
-    registerProperty(P_PORT, -1, PropertyAttribute::HiddenProperty);
+    registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HiddenProperty));
     setItemName(m_model_type);
+}
+
+
+bool ParameterizedItem::isRegisteredProperty(const QString &name)
+{
+    return m_registered_properties.contains(name);
 }
 
 ParameterizedItem::~ParameterizedItem()
@@ -207,6 +213,9 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
+    if(m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing attribute "+name);
+
     m_registered_properties << name;
     m_property_attribute[name] = attribute;
 
@@ -253,22 +262,36 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
 
 void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute &attribute)
 {
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAttribute() -> Error. Unknown property "+name);
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAttribute() -> Error. Unknown property attribute "+name);
+
     m_property_attribute[name] = attribute;
 }
 
 
-void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance)
+void ParameterizedItem::setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance)
 {
-    if(m_property_attribute.contains(name)) {
-        m_property_attribute[name].setAppearance(appearance);
-    } else {
-        m_property_attribute[name] = PropertyAttribute(appearance);
-    }
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAppearance() -> Error. Unknown property "+name);
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAppearance() -> Error. Unknown property attribute "+name);
+
+    m_property_attribute[name].setAppearance(appearance);
 }
 
 
 PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property "+name+" " + modelType());
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "+name);
+
     return m_property_attribute[name];
 }
 

@@ -18,19 +18,17 @@ public:
         DisabledProperty = 0x0002
     };
 
-    PropertyAttribute(Appearance appearance=VisibleProperty, const QString &label = QString())
+    explicit PropertyAttribute(Appearance appearance=VisibleProperty, const AttLimits &limits=AttLimits::lowerLimited(0.0), int decimals=3, const QString &label = QString())
         : m_appearance(appearance)
         , m_label(label)
-        , m_limits(AttLimits::limitless()){ }
-    PropertyAttribute(const QString &label)
-        : m_appearance(VisibleProperty)
-        , m_label(label)
-        , m_limits(AttLimits::limitless()){ }
+        , m_limits(limits)
+        , m_decimals(decimals){ }
 
-    PropertyAttribute(AttLimits limits)
+    explicit PropertyAttribute(const AttLimits &limits, int decimals=2)
         : m_appearance(VisibleProperty)
         , m_label(QString())
-        , m_limits(limits){ }
+        , m_limits(limits)
+        , m_decimals(decimals){ }
 
     static PropertyAttribute visibleProperty() { return PropertyAttribute(VisibleProperty); }
     static PropertyAttribute hiddenProperty() { return PropertyAttribute(HiddenProperty); }
@@ -38,19 +36,21 @@ public:
 
     Appearance getAppearance() const { return m_appearance; }
     void setAppearance(Appearance appearance) { m_appearance = appearance; }
+
     QString getLabel() const { return m_label; }
     void setLabel(const QString &label) { m_label = label; }
-
 
     AttLimits getLimits() const {return m_limits;}
     void setLimits(AttLimits limits) {m_limits = limits;}
 
-//    bool isHiddenProperty();
+    int getDecimals() const { return m_decimals; }
+    void setDecimals(int decimals) { m_decimals = decimals; }
 
 private:
     Appearance m_appearance;
     QString m_label;
     AttLimits m_limits;
+    int m_decimals; // number of digits
 };
 
 

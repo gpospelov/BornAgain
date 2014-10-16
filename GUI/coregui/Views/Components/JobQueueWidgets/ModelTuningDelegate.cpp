@@ -105,13 +105,15 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         }
 
         m_valueBox = new QDoubleSpinBox();
+        m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
         m_valueBox->setMinimum(m_lowerLimit);
         m_valueBox->setMaximum(m_upperLimit);
+        m_valueBox->setDecimals(attribute.getDecimals());
+        m_valueBox->setSingleStep(1./std::pow(10,attribute.getDecimals()-1));
 
         m_valueBox->setValue(value);
         connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
-
 
         m_slider = new QSlider(Qt::Horizontal);
         m_slider->setFocusPolicy(Qt::StrongFocus);
@@ -195,6 +197,7 @@ void ModelTuningDelegate::sliderValueChanged(int position)
     emitSignals(value);
 }
 
+
 void ModelTuningDelegate::editorValueChanged(double value)
 {
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
@@ -209,6 +212,9 @@ void ModelTuningDelegate::editorValueChanged(double value)
 
     emitSignals(value);
 }
+
+
+
 
 void ModelTuningDelegate::setEditorData(QWidget *editor,
                                         const QModelIndex &index) const

@@ -61,23 +61,23 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_XI_INTEGRATION, true);
-    registerProperty(P_ROTATION_ANGLE, 0.0);
+    registerProperty(P_ROTATION_ANGLE, 0.0, PropertyAttribute(PropertyAttribute::DisabledProperty));
     registerGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     registerGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 }
 
 void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name)
 {
-    if(name == P_XI_INTEGRATION) {
+    if(name == P_XI_INTEGRATION && isRegisteredProperty(P_ROTATION_ANGLE)) {
         if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
-            setPropertyAttribute(P_ROTATION_ANGLE, PropertyAttribute::DisabledProperty);
+            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::DisabledProperty);
         } else {
-            setPropertyAttribute(P_ROTATION_ANGLE, PropertyAttribute::VisibleProperty);
+            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::VisibleProperty);
         }
         ParameterizedItem::onPropertyChange(P_ROTATION_ANGLE);
-    } else {
-        ParameterizedItem::onPropertyChange(name);
     }
+    ParameterizedItem::onPropertyChange(name);
+
 }
 
 

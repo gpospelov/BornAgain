@@ -82,6 +82,8 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
     qDebug() << "JobOutputDataWidget::itemClicked()";
     m_currentJobItem = item;
 
+    if(!isVisible()) return;
+
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget && isValidJobItem(item)) {
 
@@ -125,6 +127,11 @@ void JobRealTimeWidget::onResetParameters()
     ModelTuningWidget *widget = getCurrentModelTuningWidget();
     if(widget)
         widget->restoreModelsOfCurrentJobItem();
+}
+
+void JobRealTimeWidget::updateCurrentItem()
+{
+    itemClicked(m_currentJobItem);
 }
 
 //void JobRealTimeWidget::onExportParameters()

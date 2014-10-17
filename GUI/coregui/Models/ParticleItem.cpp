@@ -36,5 +36,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerProperty(P_ABUNDANCE, 1.0, PropertyAttribute(AttLimits::limited(0.0, 1.0)));
 
     addToValidChildren(Constants::TransformationType, PortInfo::Port0, 1);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
 }
 

@@ -1,4 +1,5 @@
 #include "InstrumentModel.h"
+#include "InstrumentItem.h"
 
 InstrumentModel::InstrumentModel(QObject *parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)
@@ -28,6 +29,18 @@ QMap<QString, ParameterizedItem *> InstrumentModel::getInstrumentMap() const
                  result[item->itemName()] = item;
              }
          }
+    }
+    return result;
+}
+
+
+InstrumentItem *InstrumentModel::getInstrumentItem()
+{
+    InstrumentItem *result(0);
+
+    QMap<QString, ParameterizedItem *> instrumentMap = getInstrumentMap();
+    if(instrumentMap.size()) {
+        result = dynamic_cast<InstrumentItem *>(instrumentMap.values().at(0));
     }
     return result;
 }

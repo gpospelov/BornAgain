@@ -122,9 +122,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-
-    //just for test
-    //testGUIObjectBuilder();
+    testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }
@@ -258,9 +256,11 @@ void MainWindow::initSampleModel()
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    ParameterizedItem *layer0 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+//    layer0->setItemName("layer0");
+//    ParameterizedItem *layer1 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+//    layer1->setItemName("layer1");
 }
 
 

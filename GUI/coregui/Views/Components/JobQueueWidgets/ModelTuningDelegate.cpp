@@ -110,7 +110,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_valueBox->setMinimum(m_lowerLimit);
         m_valueBox->setMaximum(m_upperLimit);
         m_valueBox->setDecimals(attribute.getDecimals());
-        m_valueBox->setSingleStep(1./std::pow(10,attribute.getDecimals()-1));
+        m_valueBox->setSingleStep(1./std::pow(10.,attribute.getDecimals()-1));
 
         m_valueBox->setValue(value);
         connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));

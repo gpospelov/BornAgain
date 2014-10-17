@@ -70,7 +70,7 @@ IFormFactor *BoxItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString ConeItem::P_RADIUS = "Length";
+const QString ConeItem::P_RADIUS = "Radius";
 const QString ConeItem::P_HEIGHT = "Width";
 const QString ConeItem::P_ALPHA = "Height";
 
@@ -94,7 +94,7 @@ IFormFactor *ConeItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Cone6Item::P_RADIUS = "Length";
+const QString Cone6Item::P_RADIUS = "Radius";
 const QString Cone6Item::P_HEIGHT = "Width";
 const QString Cone6Item::P_ALPHA = "Height";
 

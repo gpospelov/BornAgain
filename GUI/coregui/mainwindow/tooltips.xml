@@ -2,6 +2,18 @@
 <ToolTipsData version="1.0">
     <context name="SampleView">
 
+        <category name="MultiLayer">
+            <property name="Title">
+                <tooltip>A Multi-Layer with cross correlation length</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Cross Correlation Length">
+                <tooltip>Cross Correlation Length for roughness between interfaces in nm</tooltip>
+            </property>
+        </category>
+
 
         <category name="Layer">
             <property name="Title">
@@ -11,41 +23,454 @@
                 <tooltip>Some lengthy description here if necessary</tooltip>
             </property>
             <property name="Thickness">
-                <tooltip>Thickness of layer in nm</tooltip>
+                <tooltip>Thickness of Layer in nm</tooltip>
+            </property>
+            <property name="Top roughness">
+                <tooltip>Is the top interface of the Layer rough or not?</tooltip>
             </property>
         </category>
 
-        <category name="AnisoPyramid">
-            <property name="Description">
-                <tooltip>Aniso pyramid it's kind of pyramid</tooltip>
+
+        <category name="ParticleLayout">
+            <property name="Title">
+                <tooltip>A Layout of particles </tooltip>
             </property>
-            <property name="Length">
-                <tooltip>The length of bla-bla</tooltip>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Approximation">
+                <tooltip> Approximation used to distribute the particles: Decoupling, Local Monodisperse or Size Space Coupling</tooltip>
             </property>
         </category>
+
 
         <category name="InterferenceFunction1DParaCrystal">
-            <property name="PeakDistance">
-                <tooltip>The distance to the peak</tooltip>                
+            <property name="Title">
+                <tooltip>Interference 1D Paracrystal</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Peak_distance">
+                <tooltip>Distance to the first neighbor peak in nm</tooltip>
+            </property>
+            <property name="Damping_length">
+                <tooltip>Damping length in nm (finite size effects). If non-zero, PDF multiplied by exp(-Peak_distance/Damping_length)</tooltip>
+            </property>
+            <property name="Domain_size">
+                <tooltip>Coherent domain size along the lattice main axis</tooltip>
+            </property>
+            <property name="Size_space_coupling">
+                <tooltip>Size spacing coupling parameter of the Size Spacing Correlation Approximation</tooltip>
+            </property>
+            <property name="PDF">
+                <tooltip> 1D Probability Distribution Function</tooltip>
             </property>
         </category>
+
 
         <category name="InterferenceFunction2DParaCrystal">
-            <property name="Domain_size_1">
-                <tooltip>Dimension of coherent domains of the paracrystal along the main X axis.</tooltip>                
+            <property name="Title">
+                <tooltip>Interference 2D Paracrystal</tooltip>
             </property>
-            <property name="Domain_size_2">
-                <tooltip>Dimension of coherent domains of the paracrystal along the main Y axis.</tooltip>                
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Lattice_type">
+                <tooltip>Lattice type: Basic, Hexagonal or Square</tooltip>
+            </property>
+            <property name="Rotation_angle">
+                <tooltip>Angle between the first basis vector and the x-axis of the incoming beam, in degrees</tooltip>
+            </property>
+            <property name="Damping_length">
+                <tooltip>Damping length in nm (finite size effects)</tooltip>
+            </property>
+            <property name="Domain_size1">
+                <tooltip>Dimension of the coherent domain along the first basis vector</tooltip>
+            </property>
+            <property name="Domain_size2">
+                <tooltip>Dimension of the coherent domain along the second basis vector</tooltip>
+            </property>
+            <property name="Integration_over_xi">
+                <tooltip>Averaging over the Rotation_angle</tooltip>
+            </property>
+            <property name="PDF1">
+                <tooltip>2D Probability Distribution Function in the first basis direction</tooltip>
+            </property>
+            <property name="PDF2">
+                <tooltip>2D Probability Distribution Function in the second basis direction</tooltip>
             </property>
         </category>
-        
-        <category name="Layer">
-            <property name="Thickness">
-                <tooltip>Thickness of the layer in nm</tooltip>                
-            </property>
-        </category>
-        
-    </context>
-    
-</ToolTipsData>
 
+
+        <category name="InterferenceFunction2DLattice">
+            <property name="Title">
+                <tooltip>Interference 2D lattice </tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+            <property name="Lattice_type">
+                <tooltip>Type of lattice: Basic, Hexagonal or Square</tooltip>
+            </property>
+            <property name="Rotation_angle">
+                <tooltip>Angle between the first basis vector and the x-axis of the incoming beam in degrees</tooltip>
+            </property>
+            <property name="PDF">
+                <tooltip>Probability Distribution Function</tooltip>
+            </property>
+        </category>
+
+
+        <category name="AnisoPyramid">
+            <property name="Title">
+                <tooltip>Pyramid with a rectangular base </tooltip>
+            </property>
+            <property name="Description">
+                <tooltip> to be completed</tooltip>
+            </property>
+            <property name="Length">
+                <tooltip>Length of the rectangular base in nm</tooltip>
+            </property>
+            <property name="Width">
+                <tooltip>Width of the rectangular base in nm</tooltip>
+            </property>
+            <property name="Height">
+                <tooltip>Height of the Anisotropic Pyramid in nm</tooltip>
+            </property>
+            <property name="Alpha">
+                <tooltip>Angle between the base and the middle of side faces in degrees</tooltip>
+            </property>
+        </category>
+
+
+        <category name="Box">
+            <property name="Title">
+                <tooltip>Rectangular cuboid </tooltip>
+            </property>
+            <property name="Description">
+               <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Length">
+                <tooltip>Length of the base in nm</tooltip>
+            </property>
+            <property name="Width">
+                <tooltip>Width of the base in nm</tooltip>
+            </property>
+            <property name="Height">
+                <tooltip>Height of the Box in nm</tooltip>
+            </property>
+        </category>
+
+
+        <category name="Cone">
+            <property name="Title">
+                <tooltip> Truncated cone </tooltip>
+            </property>
+            <property name="Description">
+                <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Radius">
+                <tooltip>Radius of the base in nm</tooltip>
+            </property>
+            <property name="Height">
+                <tooltip>Height of the Cone in nm</tooltip>
+            </property>
+            <property name="Alpha">
+                <tooltip>Angle between the base and the side face in degrees</tooltip>
+            </property>
+        </category>
+
+
+        <category name="Cone6">
+            <property name="Title">
+                <tooltip>Truncated hexagonal pyramid </tooltip>
+            </property>
+            <property name="Description">
+               <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Radius">
+                <tooltip>Radius of the regular hexagonal base in nm</tooltip>
+            </property>
+            <property name="Height">
+                <tooltip>Height of the Cone6 in nm</tooltip>
+            </property>
+            <property name="Alpha">
+                <tooltip>Angle between the base and the middle of side faces in degrees</tooltip>
+            </property>
+        </category>
+
+
+        <category name="Cuboctahedron">
+            <property name="Title">
+                <tooltip> Combination of two Pyramids of different heights, sharing a common face</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Length">
+                <tooltip>Side length of the common square base in nm</tooltip>
+            </property>
+            <property name="Height">
+                <tooltip>Height of the lower Pyramid in nm</tooltip>
+            </property>
+            <property name="HeightRatio">
+                <tooltip>Height ratio of the upper Pyramid to the lower</tooltip>
+            </property>
+            <property name="Alpha">
+                <tooltip>Angle between the base and the middle of side faces in degrees</tooltip>
+            </property>
+        </category>
+
+
+        <category name="Cylinder">
+            <property name="Title">
+               <tooltip> Cylinder with a circular base</tooltip>
+            </property>
+            <property name="Description">
+               <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Radius">
+               <tooltip>Radius of the base in nm</tooltip>
+            </property>
+            <property name="Height">
+               <tooltip>Height of the Cylinder in nm</tooltip>
+            </property>
+        </category>
+
+
+        <category name="EllipsoidalCylinder">
+            <property name="Title">
+               <tooltip> Cylinder with an ellipse cross section</tooltip>
+            </property>
+            <property name="Description">
+               <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Radius_a">
+               <tooltip>Half length of the ellipse base, in the x-direction, in nm</tooltip>
+            </property>
+               <property name="Radius_b">
+            <tooltip>Half length of the ellipse base, in the y-direction, in nm</tooltip>
+            </property>
+            <property name="Height">
+               <tooltip>Height of the Ellipsoidal Cylindral in nm</tooltip>
+            </property>
+        </category>
+
+
+        <category name="FullSphere">
+            <property name="Title">
+               <tooltip> Full Sphere</tooltip>
+            </property>
+            <property name="Description">
+               <tooltip> to be completed </tooltip>
+            </property>
+            <property name="Radius">
+              <tooltip>Radius of the Full Sphere in nm</tooltip>
+            </property>
+        </category>
+
+
+        <category name="FullSpheroid">
+           <property name="Title">
+               <tooltip> Ellipsoid of revolution </tooltip>
+            </property>
+           <property name="Description">
+              <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Radius">
+               <tooltip>Radius of the circular cross section in nm</tooltip>
+           </property>
+           <property name="Height">
+              <tooltip>Height of the Full Spheroid in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="HemiEllipsoid">
+           <property name="Title">
+               <tooltip> Hemi Ellipsoid </tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Radius_a">
+               <tooltip>Half length of the ellipse base, in the x-direction, in nm</tooltip>
+           </property>
+           <property name="Radius_b">
+               <tooltip>Half length of the ellipse base, in the x-direction, in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Hemi Ellipsoid in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="Prism3">
+           <property name="Title">
+               <tooltip> Prism with an equilaterial triangle base</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> To be completed </tooltip>
+           </property>
+           <property name="Length">
+               <tooltip>Side length of the triangular base in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Prism3 in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="Prism6">
+           <property name="Title">
+               <tooltip> Prism with a regular hexagonal base </tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Radius">
+               <tooltip>Side length of the hexagonal base in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Prism6 in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="Pyramid">
+           <property name="Title">
+               <tooltip> Truncated pyramid with a square base </tooltip>
+           </property>
+           <property name="Length">
+               <tooltip>Length of the square base in nm</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> To be completed </tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Pyramid in nm</tooltip>
+           </property>
+           <property name="Alpha">
+               <tooltip>Angle between the base and the middle of the lateral faces in degrees</tooltip>
+           </property>
+        </category>
+
+        <category name="Ripple1">
+           <property name="Title">
+               <tooltip> Particle with a cosine profile and a rectangular base </tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> To be completed </tooltip>
+           </property>
+           <property name="Length">
+               <tooltip>Length of the rectangular base in nm</tooltip>
+           </property>
+           <property name="Width">
+               <tooltip>Width of the rectangular base in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Ripple1 in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="Ripple2">
+           <property name="Title">
+               <tooltip> Particle with an asymmetric triangle profile and a rectangular base </tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> To be completed </tooltip>
+           </property>
+           <property name="Length">
+               <tooltip>Length of the rectangular base in nm</tooltip>
+           </property>
+            <property name="Width">
+               <tooltip>Width of the rectangular base in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Ripple2 in nm</tooltip>
+           </property>
+           <property name="Asymmetry">
+               <tooltip>Asymmetry length of the triangular profile in nm</tooltip>
+           </property>
+        </category>
+
+        <category name="Tetrahedron">
+           <property name="Title">
+               <tooltip> Truncated polyhedron with equilateral triangle base and cropped side faces</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Length">
+               <tooltip>Side length of the base in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Tetrahedron in nm</tooltip>
+           </property>
+           <property name="Alpha">
+               <tooltip>Angle between the base and the middle of the side faces in degrees</tooltip>
+           </property>
+        </category>
+
+
+        <category name="TruncatedSphere">
+           <property name="Title">
+               <tooltip> Spherical dome</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Radius">
+               <tooltip>Radius of the Truncated Sphere in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Truncated Sphere in nm</tooltip>
+           </property>
+        </category>
+
+
+        <category name="TruncatedSpheroid">
+           <property name="Title">
+               <tooltip> Spheroidal dome </tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Radius">
+               <tooltip>Radius of the Truncated Spheroid in nm</tooltip>
+           </property>
+           <property name="Height">
+               <tooltip>Height of the Truncated Spheroid in nm</tooltip>
+           </property>
+           <property name="Hfc">
+               <tooltip>Ratio of the height of the corresponding full spheroid to its diameter</tooltip>
+           </property>
+        </category>
+
+        <category name="Transformation">
+           <property name="Title">
+               <tooltip> Transformation</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Position">
+               <tooltip>Position of the particle initializing a layer</tooltip>
+           </property>
+           <property name="Rotation">
+               <tooltip>Rotation applied to the particles</tooltip>
+           </property>
+        </category>
+
+        <category name="ParticleCoreShell">
+           <property name="Title">
+               <tooltip> Core Shell particle</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Core Position">
+               <tooltip> Position of the core particle with respect to the shell (measured from the centrest of base faces)</tooltip>
+           </property>
+        </category>
+
+    </context>
+
+</ToolTipsData>

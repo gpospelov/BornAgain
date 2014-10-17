@@ -440,6 +440,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     GUIExamplesFactory::createInstrumentItems(mimeData->getClassName(), m_instrumentModel);
                 }
             }
+            adjustSceneRect();
         }
     }
 }
@@ -468,6 +469,18 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
     }
     return false;
 }
+
+
+void DesignerScene::adjustSceneRect()
+{
+    QRectF boundingRect = itemsBoundingRect();
+    if(sceneRect().contains(boundingRect))
+        return;
+
+    boundingRect.adjust(20.0, 20.0, 20.0, 20.0);
+    setSceneRect(sceneRect().united(boundingRect));
+}
+
 
 void DesignerScene::onSmartAlign()
 {

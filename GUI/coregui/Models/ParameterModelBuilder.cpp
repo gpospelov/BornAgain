@@ -167,6 +167,7 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStanda
     {
         childValueItem = new QStandardItem();
         childValueItem->setEditable(false);
+        childTitleItem->setEditable(false);
     }
 
     parentItem->appendRow(QList<QStandardItem *>()  << childTitleItem << childValueItem);
@@ -180,6 +181,7 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString
     itemLinkData.setValue(itemLink);
 
     QStandardItem *titleItem = new QStandardItem(title);
+    titleItem->setEditable(false);
     QStandardItem *valueItem = new QStandardItem();
 
     valueItem->setData(itemLinkData, Qt::UserRole);

@@ -3,7 +3,7 @@
 
 #include <ParameterizedItem.h>
 #include <QMetaType>
-
+#include <QVariant>
 
 class BA_CORE_API_ ItemLink
 {
@@ -17,10 +17,13 @@ public:
     ParameterizedItem *getItem() const { return m_item; }
     void setItem(QString name, ParameterizedItem *item);
 
-    double getValue() const;
     void setValue(double value);
 
+    void updateItem();
+
 private:
+    double getValue() const;
+    QVariant getVariant();
     QString m_name;
     ParameterizedItem *m_item;
     double m_value;

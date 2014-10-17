@@ -4,6 +4,7 @@
 #include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "ItemLink.h"
+#include "AngleProperty.h"
 #include "GUIHelpers.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -131,25 +132,9 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
     return parentItem;
 }
 
+
 QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *instrumentModel)
 {
-//    QStandardItem *standardItem(0);
-
-//    QModelIndex itemIndex = instrumentModel->index(0,0,QModelIndex());
-//    ParameterizedItem *instrument = instrumentModel->itemForIndex(itemIndex);
-
-//    ParameterizedItem *beamParameterizedItem;
-
-//    BeamItem *beamItem(0);
-//    foreach(ParameterizedItem *item, instrument->childItems()) {
-//        item->print();
-//        if(item->modelType() == Constants::BeamType) {
-//            beamItem = dynamic_cast<BeamItem *>(item);
-//            beamParameterizedItem = item;
-//            break;
-//        }
-//    }
-
     QStandardItem *standardItem(0);
 
     InstrumentItem *instrument = instrumentModel->getInstrumentItem();
@@ -158,21 +143,16 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
         if(beamItem) {
             standardItem = new QStandardItem(instrument->itemName());
             insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamItem);
+
+            double v = beamItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>().getValue();
+            QVariant variant(v);
+            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant, beamItem);
         }
     }
 
-
-//    if(beamItem)
-//    {
-//        standardItem = new QStandardItem(instrument->itemName());
-
-//        insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamParameterizedItem);
-
-//    }
-
-
     return standardItem;
 }
+
 
 void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
 {
@@ -184,12 +164,13 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStanda
     }
 
     parentItem->appendRow(QList<QStandardItem *>()  << childTitleItem << childValueItem);
-
 }
+
 
 void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
 {
     ItemLink itemLink(title, parameterizedItem);
+
     QVariant itemLinkData;
     itemLinkData.setValue(itemLink);
 
@@ -201,6 +182,5 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString
     valueItem->setData(value, Qt::EditRole);
     valueItem->setEditable(true);
     insertRowIntoItem(parentItem, titleItem, valueItem);
-
 }
 

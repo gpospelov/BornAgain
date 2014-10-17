@@ -222,7 +222,9 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
         if(link.getItem() != NULL)
         {
             qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
-            link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
+            //link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
+            link.setValue(m_valueBox->value());
+            link.updateItem();
         }
 
     } else {

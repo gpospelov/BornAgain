@@ -3,6 +3,7 @@
 
 #include <QItemDelegate>
 #include "ItemLink.h"
+#include "AttLimits.h"
 
 class QDoubleSpinBox;
 class QHBoxLayout;
@@ -12,6 +13,22 @@ class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
+    class SliderData {
+    public:
+        SliderData();
+        void setRangeFactor(double range_factor);
+        void setItemLimits(const AttLimits &item_limits);
+        int value_to_slider(double value);
+        double slider_to_value(int slider);
+        int m_smin;
+        int m_smax;
+        double m_rmin;
+        double m_rmax;
+        double m_range_factor;
+        AttLimits m_item_limits;
+    };
+
+
     ModelTuningDelegate(QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
@@ -39,19 +56,16 @@ private slots:
     void editorValueChanged(double value);
 
 private:
+    void updateSlider(double value) const;
+    void emitSignals(double value);
+
     int m_valueColumn;
-    double m_sliderRangeFactor; //percentage of orginal value
-    double m_multiplyFactor;
     mutable QSlider *m_slider;
     mutable QDoubleSpinBox *m_valueBox;
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ItemLink m_current_link;
-    mutable double m_lowerLimit;
-    mutable double m_upperLimit;
-
-    void updateSlider(double value) const;
-    void emitSignals(double value);
+    mutable SliderData m_slider_data;
 };
 
 #endif //SAMPLETUNINGDELEGATE_H

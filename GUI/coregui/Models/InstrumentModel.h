@@ -4,6 +4,8 @@
 #include "SessionModel.h"
 #include <QStringList>
 
+class InstrumentItem;
+
 class BA_CORE_API_ InstrumentModel : public SessionModel
 {
     Q_OBJECT
@@ -15,6 +17,8 @@ public:
     virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
 
     QMap<QString, ParameterizedItem *> getInstrumentMap() const;
+
+    InstrumentItem *getInstrumentItem();
 
 };
 

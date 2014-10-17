@@ -1,6 +1,7 @@
 #include "ParameterModelBuilder.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
+#include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "ItemLink.h"
 #include "GUIHelpers.h"
@@ -132,30 +133,42 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
 
 QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *instrumentModel)
 {
+//    QStandardItem *standardItem(0);
+
+//    QModelIndex itemIndex = instrumentModel->index(0,0,QModelIndex());
+//    ParameterizedItem *instrument = instrumentModel->itemForIndex(itemIndex);
+
+//    ParameterizedItem *beamParameterizedItem;
+
+//    BeamItem *beamItem(0);
+//    foreach(ParameterizedItem *item, instrument->childItems()) {
+//        item->print();
+//        if(item->modelType() == Constants::BeamType) {
+//            beamItem = dynamic_cast<BeamItem *>(item);
+//            beamParameterizedItem = item;
+//            break;
+//        }
+//    }
+
     QStandardItem *standardItem(0);
 
-    QModelIndex itemIndex = instrumentModel->index(0,0,QModelIndex());
-    ParameterizedItem *instrument = instrumentModel->itemForIndex(itemIndex);
-
-    ParameterizedItem *beamParameterizedItem;
-
-    BeamItem *beamItem(0);
-    foreach(ParameterizedItem *item, instrument->childItems()) {
-        item->print();
-        if(item->modelType() == Constants::BeamType) {
-            beamItem = dynamic_cast<BeamItem *>(item);
-            beamParameterizedItem = item;
-            break;
+    InstrumentItem *instrument = instrumentModel->getInstrumentItem();
+    if(instrument) {
+        BeamItem *beamItem = instrument->getBeamItem();
+        if(beamItem) {
+            standardItem = new QStandardItem(instrument->itemName());
+            insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamItem);
         }
     }
 
-    if(beamItem)
-    {
-        standardItem = new QStandardItem(instrument->itemName());
 
-        insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamParameterizedItem);
+//    if(beamItem)
+//    {
+//        standardItem = new QStandardItem(instrument->itemName());
 
-    }
+//        insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamParameterizedItem);
+
+//    }
 
 
     return standardItem;

@@ -258,9 +258,11 @@ void MainWindow::initSampleModel()
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    ParameterizedItem *layer0 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+    layer0->setItemName("layer0");
+    ParameterizedItem *layer1 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+    layer1->setItemName("layer1");
 }
 
 

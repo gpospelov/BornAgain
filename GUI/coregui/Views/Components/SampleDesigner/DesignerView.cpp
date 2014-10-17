@@ -2,6 +2,7 @@
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
+#include "DesignerHelper.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -76,6 +77,7 @@ void DesignerView::onChangeScale(double new_scale)
     resetMatrix();
     translate(oldMatrix.dx(), oldMatrix.dy());
     scale(new_scale, new_scale);
+    DesignerHelper::setZoomLevel(new_scale);
 }
 
 

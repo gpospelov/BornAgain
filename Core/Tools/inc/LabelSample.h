@@ -54,7 +54,7 @@ private:
     std::map<const Particle *,std::string> m_particleLabel;
     std::map<const ParticleCoreShell *, std::string> m_particleCoreShellLabel;
     std::map<const ParticleInfo *,std::string> m_particleInfoLabel;
-    std::map<const ILayout *,std::string> m_particleLayoutLabel;
+    std::map<const ILayout *,std::string> m_ILayoutLabel;
 };
 
 #endif // LABELSAMPLE_H

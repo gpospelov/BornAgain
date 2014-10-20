@@ -573,3 +573,20 @@ Simulation *StandardSimulations::gui_IsGISAXS07()
 
     return result;
 }
+
+Simulation *StandardSimulations::gui_MultipleLayouts()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("multiple_layouts");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

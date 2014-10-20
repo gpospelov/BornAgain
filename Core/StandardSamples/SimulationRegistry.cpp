@@ -134,6 +134,9 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "gui_isgisaxs07", StandardSimulations::gui_IsGISAXS07,
         "GUI: Mixture of fixed particles");
+    registerItem(
+        "gui_multiple_layouts", StandardSimulations::gui_MultipleLayouts,
+        "GUI: Mixture of Cylinders and Prisms using Multiple Layouts");
 }
 
 

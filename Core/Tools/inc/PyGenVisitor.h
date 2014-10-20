@@ -1,6 +1,7 @@
 #ifndef _PYGENVISITOR_H
 #define _PYGENVISITOR_H
 #include "ISampleVisitor.h"
+#include <set>
 
 class IMaterial;
 class LabelSample;
@@ -13,8 +14,7 @@ public:
 
     using ISampleVisitor::visit;
 
-    std::string genPyScript(const Simulation *simulation, std::string fileName);
-    std::string printDouble(double input);
+    std::string writePyScript(const Simulation *simulation);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);
     void visit(const FormFactorCone *sample);

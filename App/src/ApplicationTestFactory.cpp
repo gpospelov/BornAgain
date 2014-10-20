@@ -51,7 +51,6 @@
 #include "TestInfLongRipple1.h"
 #include "TestInfLongRipple2.h"
 #include "TestPyGenerator.h"
-
 #include "TBenchmark.h"
 
 

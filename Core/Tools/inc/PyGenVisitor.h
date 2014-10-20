@@ -1,13 +1,15 @@
 #ifndef _PYGENVISITOR_H
 #define _PYGENVISITOR_H
 #include "ISampleVisitor.h"
+#include "WinDllMacros.h"
+
 #include <set>
 
 class IMaterial;
 class LabelSample;
 class Simulation;
 
-class PyGenVisitor : public ISampleVisitor
+class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
 public:
     PyGenVisitor();

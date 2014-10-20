@@ -31,6 +31,12 @@ set(include_files)
 #    list(APPEND include_files stacktracesetup.h)
 #endif()
 
+# Application icon
+
+if(WIN32)
+    set(RC_FILE bornagain.rc)
+endif()
+
 
 if(APPLE AND CREATE_BUNDLE)
   add_executable(${executable_name} MACOSX_BUNDLE ${source_files} ${include_files})
@@ -50,7 +56,7 @@ if(APPLE AND CREATE_BUNDLE)
     Python
   )
 else()
-  add_executable(${executable_name} ${source_files} ${include_files})
+  add_executable(${executable_name} ${source_files} ${include_files} ${RC_FILE})
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}

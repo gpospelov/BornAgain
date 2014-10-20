@@ -35,6 +35,11 @@ set(include_files)
 
 if(WIN32)
     set(RC_FILE bornagain.rc)
+   if ( CONSOLE )
+     set ( WIN_CONSOLE )
+   else ()
+     set( WIN_CONSOLE WIN32 )
+   endif( CONSOLE )
 endif()
 
 
@@ -56,7 +61,7 @@ if(APPLE AND CREATE_BUNDLE)
     Python
   )
 else()
-  add_executable(${executable_name} ${source_files} ${include_files} ${RC_FILE})
+  add_executable(${executable_name} ${WIN_CONSOLE} ${source_files} ${include_files} ${RC_FILE})
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}
@@ -69,6 +74,15 @@ else()
     ${BornAgainGUI_LIBRARY}
   )
 endif(APPLE AND CREATE_BUNDLE)
+
+
+# Entry point flag for Windows to ensure we always link to standard main
+if( WIN32 )
+    set_target_properties( ${executable_name} PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup" )
+    if ( CONSOLE )
+        set_target_properties( ${executable_name} PROPERTIES COMPILE_DEFINITIONS "_CONSOLE" )
+    endif ( CONSOLE )
+endif( WIN32 )
 
 #target_link_libraries(${executable_name}
 #    ${ManhattanStyle_LIBRARY}

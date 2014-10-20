@@ -6,6 +6,9 @@ set(CPACK_GENERATOR "NSIS")
 set( CPACK_NSIS_INSTALL_ROOT "C:")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 
+set( CPACK_NSIS_MENU_LINKS "bin\\\\BornAgain.exe" "BornAgain")
+
+
 set( CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )
 set( CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )
 set( CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )

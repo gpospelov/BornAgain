@@ -64,7 +64,7 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     pythonFile << "import os\n";
     pythonFile << "sys.path.append(os.path.abspath("
                << "os.path.join(os.path.split(__file__)[0],"
-               << "'..', 'lib')))\n\n";
+               << "'..', '..', '..', 'lib')))\n\n";
     pythonFile << genPyScript(simulation);
     pythonFile.close();
 

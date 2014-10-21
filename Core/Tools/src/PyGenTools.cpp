@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <cstdio>
 #include <Python.h>
 #include <boost/python.hpp>
 #include "IntensityDataFunctions.h"
@@ -99,12 +100,20 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     std::string command = "python PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
+    if (std::remove("PythonScript.py") != 0) {
+        throw RuntimeErrorException("PyGenTools::testPyScript: "
+            "PythonScript.py could not be removed from filesystem");
+    }
 
     simulation->runSimulation();
     boost::scoped_ptr<const OutputData<double> > reference_data(
                 simulation->getIntensityData());
     boost::scoped_ptr<const OutputData<double> > simulated_data(
                 IntensityDataIOFactory::readIntensityData("output.int"));
+    if (std::remove("output.int") != 0) {
+        throw RuntimeErrorException("PyGenTools::testPyScript: "
+            "output.int could not be removed from filesystem");
+    }
     double diff = IntensityDataFunctions::getRelativeDifference(
                 *simulated_data,*reference_data);
     if (diff < 5e-10)

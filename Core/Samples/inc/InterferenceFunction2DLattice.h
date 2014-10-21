@@ -30,12 +30,18 @@ public:
 
     //! @brief contructor
     //! @param lattice_params Lattice parameters
-    InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
+    InterferenceFunction2DLattice(double length_1, double length_2,
+                                  double angle, double xi=0.0);
     virtual ~InterferenceFunction2DLattice();
 
     virtual InterferenceFunction2DLattice *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
+    static InterferenceFunction2DLattice *createSquare(double lattice_length,
+                                                       double xi = 0.0);
+    static InterferenceFunction2DLattice *createHexagonal(double lattice_length,
+                                                       double xi = 0.0);
 
     void setProbabilityDistribution(const IFTDistribution2D& pdf);
 
@@ -65,6 +71,8 @@ protected:
     IFTDistribution2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 private:
+    InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
+
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

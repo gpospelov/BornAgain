@@ -17,13 +17,16 @@
 #include <cassert>
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-        const Lattice2DIFParameters& lattice_params)
-: m_lattice_params(lattice_params)
-, mp_pdf(0)
+    double length_1, double length_2, double angle, double xi)
+: mp_pdf(0)
 , m_prefactor(1.0)
 , m_na(0)
 , m_nb(0)
 {
+    m_lattice_params.m_length_1 = length_1;
+    m_lattice_params.m_length_2 = length_2;
+    m_lattice_params.m_angle = angle;
+    m_lattice_params.m_xi = xi;
     setName("InterferenceFunction2DLattice");
     init_parameters();
     initialize_rec_vectors();
@@ -39,6 +42,28 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
     if(mp_pdf) result->setProbabilityDistribution(*mp_pdf);
     result->setName(getName());
     return result;
+}
+
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(
+        double lattice_length, double xi)
+{
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = lattice_length;
+    lattice_params.m_length_2 = lattice_length;
+    lattice_params.m_angle = M_PI/2.0;
+    lattice_params.m_xi = xi;
+    return new InterferenceFunction2DLattice(lattice_params);
+}
+
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(
+        double lattice_length, double xi)
+{
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = lattice_length;
+    lattice_params.m_length_2 = lattice_length;
+    lattice_params.m_angle = 2.0*M_PI/3.0;
+    lattice_params.m_xi = xi;
+    return new InterferenceFunction2DLattice(lattice_params);
 }
 
 
@@ -110,6 +135,18 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
 
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(
+        const Lattice2DIFParameters& lattice_params)
+: m_lattice_params(lattice_params)
+, mp_pdf(0)
+, m_prefactor(1.0)
+, m_na(0)
+, m_nb(0)
+{
+    setName("InterferenceFunction2DLattice");
+    init_parameters();
+    initialize_rec_vectors();
+}
 
 void InterferenceFunction2DLattice::init_parameters()
 {

@@ -30,15 +30,8 @@ def RunSimulation():
     particle_layout2 = ParticleLayout()
     particle_layout2.addParticleInfo(particle_info)
 
-    # set lattice parameters
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-
     # interference function
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout1.addInterferenceFunction(interference)

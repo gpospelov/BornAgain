@@ -16,14 +16,7 @@ def get_sample():
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 25.0*nanometer
-    lattice_params.m_length_2 = 25.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 

@@ -36,7 +36,6 @@
 #include "Materials.h"
 #include "BornAgainNamespace.h"
 #include "FunctionalTestRegistry.h"
-#include "Lattice2DIFParameters.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Units.h"
 #include "Types.h"

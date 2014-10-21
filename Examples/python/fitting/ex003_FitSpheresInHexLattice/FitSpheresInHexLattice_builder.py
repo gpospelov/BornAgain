@@ -45,13 +45,7 @@ class MySampleBuilder(ISampleBuilder):
         particle_layout = ParticleLayout()
         particle_layout.addParticle(sphere)
 
-        lattice_params = Lattice2DIFParameters()
-        lattice_params.m_length_1 = self.lattice_constant.value
-        lattice_params.m_length_2 = self.lattice_constant.value
-        lattice_params.m_angle = 2*numpy.pi/3.
-        lattice_params.m_xi = 0.0*degree
-
-        interference = InterferenceFunction2DLattice(lattice_params)
+        interference = InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
         pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
         interference.setProbabilityDistribution(pdf)
 

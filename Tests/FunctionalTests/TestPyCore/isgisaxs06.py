@@ -23,13 +23,7 @@ def RunSimulation_lattice():
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     
     # collection of particles
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
@@ -71,7 +65,7 @@ def RunSimulation_centered():
     lattice_params.m_length_2 = 10.0*nanometer
     lattice_params.m_angle = 90.0*degree
     lattice_params.m_xi = 0.0*degree
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice(10.0*nanometer, 10.0*nanometer, 0.0*degree)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
@@ -116,12 +110,7 @@ def RunSimulation_rotated():
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 30.0*degree
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer, 30.0*degree)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
@@ -189,12 +178,7 @@ def buildSample(xi_value):
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
     
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = xi_value
-    p_interference_function = InterferenceFunction2DLattice(lattice_params)
+    p_interference_function = InterferenceFunction2DLattice.createSquare(10.0*nanometer, xi_value)
     pdf = FTDistribution2DCauchy (300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
 

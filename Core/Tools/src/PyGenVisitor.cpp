@@ -313,7 +313,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             std::ostringstream formFactorException;
             formFactorException << "\n" << iFormFac->getName()
                          << " :: Not Casted To Any "
-                         << "Interference Function\n";
+                         << "Form Factor\n";
             throw NotImplementedException(formFactorException.str());
         }
         it3++;
@@ -584,39 +584,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             const Lattice2DIFParameters latticeParameters =
                     twoDLattice->getLatticeParameters();
             result << "\t" << it->second
-                   << "_latticeParameters = Lattice2DIFParameters()\n";
-
-            if (latticeParameters.m_length_1 != 0)
-            {
-                result << "\t" << it->second
-                       << "_latticeParameters.m_length_1 = "
-                       << latticeParameters.m_length_1 << "*nanometer\n" ;
-            }
-
-            if (latticeParameters.m_length_2 != 0)
-            {
-                result << "\t" << it->second
-                       << "_latticeParameters.m_length_2 = "
-                       << latticeParameters.m_length_2 << "*nanometer\n" ;
-            }
-
-            if (latticeParameters.m_angle != 0)
-            {
-                result << "\t" << it->second
-                       << "_latticeParameters.m_angle = "
-                       << latticeParameters.m_angle << "\n" ;
-            }
-
-            if (latticeParameters.m_xi != 0)
-            {
-                result << "\t" << it->second
-                       << "_latticeParameters.m_xi"
-                       << latticeParameters.m_xi << "*\n" ;;
-            }
-
-            result << "\t" << it->second
                    << " = InterferenceFunction2DLattice("
-                   <<  it->second << "_latticeParameters)\n";
+                   << latticeParameters.m_length_1 << "*nanometer, "
+                   << latticeParameters.m_length_2 << "*nanometer, "
+                   << latticeParameters.m_angle << ", "
+                   << PyGenTools::printDouble(latticeParameters.m_xi) << ")\n";
 
             const IFTDistribution2D *pdf =
                     twoDLattice->getProbabilityDistribution();
@@ -989,7 +961,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
     if (m_label->getParticleCoreShellMap()->size() != 0)
     {
-        result << "\n\t# Defining Particle Core Shells\n";
+        result << "\t# Defining Particle Core Shells\n";
     }
 
     std::map<const ParticleCoreShell *,std::string>::iterator it5 =
@@ -1013,7 +985,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 
     if (m_label->getParticleLayoutMap()->size() > 0)
     {
-        result << "\n\t# Defining Particle layouts and adding Particles\n";
+        result << "\t# Defining Particle layouts and adding Particles\n";
     }
 
     std::map<const ILayout *,std::string>::iterator it6 =

@@ -22,7 +22,7 @@
 //! @ingroup samples
 //! @brief Additional parameters for 2D lattice
 
-class BA_CORE_API_ Lattice2DIFParameters
+class Lattice2DIFParameters
 {
 public:
     Lattice2DIFParameters() : m_length_1(0), m_length_2(0), m_angle(0),

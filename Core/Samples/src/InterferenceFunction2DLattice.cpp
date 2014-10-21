@@ -17,13 +17,16 @@
 #include <cassert>
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-        const Lattice2DIFParameters& lattice_params)
-: m_lattice_params(lattice_params)
-, mp_pdf(0)
+    double length_1, double length_2, double angle, double xi)
+: mp_pdf(0)
 , m_prefactor(1.0)
 , m_na(0)
 , m_nb(0)
 {
+    m_lattice_params.m_length_1 = length_1;
+    m_lattice_params.m_length_2 = length_2;
+    m_lattice_params.m_angle = angle;
+    m_lattice_params.m_xi = xi;
     setName("InterferenceFunction2DLattice");
     init_parameters();
     initialize_rec_vectors();
@@ -132,6 +135,18 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
 
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(
+        const Lattice2DIFParameters& lattice_params)
+: m_lattice_params(lattice_params)
+, mp_pdf(0)
+, m_prefactor(1.0)
+, m_na(0)
+, m_nb(0)
+{
+    setName("InterferenceFunction2DLattice");
+    init_parameters();
+    initialize_rec_vectors();
+}
 
 void InterferenceFunction2DLattice::init_parameters()
 {

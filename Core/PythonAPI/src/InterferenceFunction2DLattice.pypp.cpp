@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp::wrapper< InterferenceFunction2DLattice > {
 
-    InterferenceFunction2DLattice_wrapper(::Lattice2DIFParameters const & lattice_params )
-    : InterferenceFunction2DLattice( boost::ref(lattice_params) )
+    InterferenceFunction2DLattice_wrapper(double length_1, double length_2, double angle, double xi=0.0 )
+    : InterferenceFunction2DLattice( length_1, length_2, angle, xi )
       , bp::wrapper< InterferenceFunction2DLattice >(){
         // constructor
     
@@ -218,7 +218,7 @@ void register_InterferenceFunction2DLattice_class(){
 
     { //::InterferenceFunction2DLattice
         typedef bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable > InterferenceFunction2DLattice_exposer_t;
-        InterferenceFunction2DLattice_exposer_t InterferenceFunction2DLattice_exposer = InterferenceFunction2DLattice_exposer_t( "InterferenceFunction2DLattice", bp::init< Lattice2DIFParameters const & >(( bp::arg("lattice_params") )) );
+        InterferenceFunction2DLattice_exposer_t InterferenceFunction2DLattice_exposer = InterferenceFunction2DLattice_exposer_t( "InterferenceFunction2DLattice", bp::init< double, double, double, bp::optional< double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("angle"), bp::arg("xi")=0.0 )) );
         bp::scope InterferenceFunction2DLattice_scope( InterferenceFunction2DLattice_exposer );
         { //::InterferenceFunction2DLattice::clone
         

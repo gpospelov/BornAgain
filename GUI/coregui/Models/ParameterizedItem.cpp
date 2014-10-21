@@ -51,6 +51,7 @@ bool ParameterizedItem::isRegisteredProperty(const QString &name)
 ParameterizedItem::~ParameterizedItem()
 {
     qDeleteAll(m_children);
+    qDeleteAll(m_sub_items);
 }
 
 QString ParameterizedItem::itemName() const

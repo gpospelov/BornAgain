@@ -32,15 +32,15 @@ PyGenVisitor::PyGenVisitor()
 std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 {
     std::ostringstream result;
-    result << std::setprecision(12) <<"import numpy \nimport matplotlib";
-    result << "\nimport pylab \nfrom libBornAgainCore import *\n";
+    result << std::setprecision(12) <<"import numpy\n";
+    result << "from libBornAgainCore import *\n";
+    result << "#NOTE: Uncomment the next import statements for plotting\n";
+    result << "#import matplotlib, pylab\n\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     result << "#NOTE: Running this Script by default will write output data"
            << "to \"output.int\" file\n";
     result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
            << "given to runSimulation in _main_\n";
-    result << "#NOTE: To plot data, pass plotResults = True as argument to"
-           << "runSimulation in _main_\n";
     result << "#NOTE: To read data from a file use the command:"
            << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
     result << "def getSample():\n\t# Defining Materials\n";
@@ -1216,22 +1216,15 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
            << simulation->getInstrument().getBeam().getAlpha()<< ","
            << simulation->getInstrument().getBeam().getPhi() << ")\n";
     result << "\treturn simulation\n\n";
-    result << "def runSimulation(filename = '', plotResults = False):\n";
-    result << "\t# Run Simulation and plot results\n";
-    result << "\tsample = getSample()\n";
-    result << "\tsimulation = getSimulation()\n";
-    result << "\tsimulation.setSample(sample)\n";
-    result << "\tsimulation.runSimulation()\n";
-    result << "\tif filename != '':\n";
-    result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
-           << "getIntensityData(), filename + '.int')\n";
-    result << "\tif plotResults == True:\n";
-    result << "\t\tresult = simulation.getIntensityData().getArray()"
+
+    result << "#NOTE: Uncomment the next function for plotting\n";
+    result << "#NOTE: This requires the presence of matplotlib library\n";
+    result << "#def plotSimulation(simulation):\n";
+    result << "#\tresult = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
-    result << "\t\tim = pylab.imshow(numpy.rot90(result, 1),"
+    result << "#\tim = pylab.imshow(numpy.rot90(result, 1),"
            << "norm=matplotlib.colors.LogNorm(), extent=[";
     index = 0;
-
     while (index != numberOfDetectorDimensions)
     {
         if (index != 0)
@@ -1244,10 +1237,21 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                << simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
     }
+    result << "]) \n";
+    result << "#\tpylab.colorbar(im)\n";
+    result << "#\tpylab.show()\n\n";
 
-    result << "]) \n\t\tpylab.colorbar(im) \n\t\tpylab.show() \n";
-
+    result << "def runSimulation(filename = ''):\n";
+    result << "\t# Run Simulation\n";
+    result << "\tsample = getSample()\n";
+    result << "\tsimulation = getSimulation()\n";
+    result << "\tsimulation.setSample(sample)\n";
+    result << "\tsimulation.runSimulation()\n";
+    result << "\tif filename != '':\n";
+    result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
+           << "getIntensityData(), filename + '.int')\n";
     result << "\treturn simulation\n\n";
+
     result << "if __name__ == '__main__': \n\trunSimulation('output')";
     return result.str();
 }

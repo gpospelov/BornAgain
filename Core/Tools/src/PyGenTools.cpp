@@ -1,8 +1,8 @@
 #include <boost/scoped_ptr.hpp>
-#include <cstring>
+#include <sstream>
+#include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <fstream>
 #include <Python.h>
 #include <boost/python.hpp>
 #include "IntensityDataFunctions.h"
@@ -12,18 +12,16 @@
 #include "PyGenTools.h"
 #include "Simulation.h"
 
-void PyGenTools::genPyScript(Simulation *simulation,
-                                std::string pyScriptName)
+std::string PyGenTools::genPyScript(Simulation *simulation)
 {
-    simulation->runSimulation();
+    simulation->prepareSimulation();
     ISample *iSample = simulation->getSample();
     MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
     PyGenVisitor visitor;
     VisitSampleTree(*multiLayer, visitor);
-    std::ofstream pythonFile;
-    pythonFile.open(pyScriptName.c_str());
-    pythonFile << visitor.writePyScript(simulation);
-    pythonFile.close();
+    std::ostringstream result;
+    result << visitor.writePyScript(simulation);
+    return result.str();
 }
 
 bool PyGenTools::isSquare(double length1, double length2, double angle)
@@ -60,7 +58,16 @@ std::string PyGenTools::printDouble(double input)
 
 bool PyGenTools::testPyScript(Simulation *simulation)
 {
-    genPyScript(simulation, "PythonScript.py");
+    std::ofstream pythonFile;
+    pythonFile.open("PythonScript.py");
+    pythonFile << "import sys\n";
+    pythonFile << "import os\n";
+    pythonFile << "sys.path.append(os.path.abspath("
+               << "os.path.join(os.path.split(__file__)[0],"
+               << "'..', 'lib')))\n\n";
+    pythonFile << genPyScript(simulation);
+    pythonFile.close();
+
 //    Py_Initialize();
 //    std::string path("sys.path.append('");
 //    path.append("/home/abhishekskhanna/BornAgain-Build");
@@ -93,6 +100,7 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     int return_code = std::system(command.c_str());
     (void)return_code;
 
+    simulation->runSimulation();
     boost::scoped_ptr<const OutputData<double> > reference_data(
                 simulation->getIntensityData());
     boost::scoped_ptr<const OutputData<double> > simulated_data(

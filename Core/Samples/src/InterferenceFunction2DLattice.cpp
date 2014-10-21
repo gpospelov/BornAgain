@@ -41,6 +41,28 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
     return result;
 }
 
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(
+        double lattice_length, double xi)
+{
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = lattice_length;
+    lattice_params.m_length_2 = lattice_length;
+    lattice_params.m_angle = M_PI/2.0;
+    lattice_params.m_xi = xi;
+    return new InterferenceFunction2DLattice(lattice_params);
+}
+
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(
+        double lattice_length, double xi)
+{
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = lattice_length;
+    lattice_params.m_length_2 = lattice_length;
+    lattice_params.m_angle = 2.0*M_PI/3.0;
+    lattice_params.m_xi = xi;
+    return new InterferenceFunction2DLattice(lattice_params);
+}
+
 
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)

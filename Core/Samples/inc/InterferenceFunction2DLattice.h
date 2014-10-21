@@ -37,6 +37,11 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
+    static InterferenceFunction2DLattice *createSquare(double lattice_length,
+                                                       double xi = 0.0);
+    static InterferenceFunction2DLattice *createHexagonal(double lattice_length,
+                                                       double xi = 0.0);
+
     void setProbabilityDistribution(const IFTDistribution2D& pdf);
 
     const IFTDistribution2D *getProbabilityDistribution() const {

@@ -232,6 +232,28 @@ void register_InterferenceFunction2DLattice_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::InterferenceFunction2DLattice::createHexagonal
+        
+            typedef ::InterferenceFunction2DLattice * ( *createHexagonal_function_type )( double,double );
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "createHexagonal"
+                , createHexagonal_function_type( &::InterferenceFunction2DLattice::createHexagonal )
+                , ( bp::arg("lattice_length"), bp::arg("xi")=0.0 )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::InterferenceFunction2DLattice::createSquare
+        
+            typedef ::InterferenceFunction2DLattice * ( *createSquare_function_type )( double,double );
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "createSquare"
+                , createSquare_function_type( &::InterferenceFunction2DLattice::createSquare )
+                , ( bp::arg("lattice_length"), bp::arg("xi")=0.0 )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::InterferenceFunction2DLattice::evaluate
         
             typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type)( ::cvector_t const & ) const;
@@ -420,6 +442,8 @@ void register_InterferenceFunction2DLattice_class(){
                 , default_setParametersAreChanged_function_type(&InterferenceFunction2DLattice_wrapper::default_setParametersAreChanged) );
         
         }
+        InterferenceFunction2DLattice_exposer.staticmethod( "createHexagonal" );
+        InterferenceFunction2DLattice_exposer.staticmethod( "createSquare" );
     }
 
 }

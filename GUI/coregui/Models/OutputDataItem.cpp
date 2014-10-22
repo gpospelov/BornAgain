@@ -26,6 +26,7 @@ OutputDataItem::OutputDataItem()
 OutputDataItem::~OutputDataItem()
 {
     qDebug() << "OutputDataItem::~OutputDataItem()" << this;
+    delete m_data;
 }
 
 

@@ -4,7 +4,7 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include <QtVariantEditorFactory>
-
+#include "FancyGroupProperty.h"
 class MaterialPropertyEdit;
 class MaterialProperty;
 class ColorPropertyEdit;
@@ -12,7 +12,7 @@ class ColorProperty;
 class ScientificDoublePropertyEdit;
 class ScientificDoubleProperty;
 class FancyGroupPropertyEdit;
-class FancyGroupProperty;
+//class FancyGroupProperty_t;
 class ComboPropertyEdit;
 class ComboProperty;
 
@@ -38,7 +38,7 @@ private slots:
     void slotSetValue(const MaterialProperty &value);
     void slotSetValue(const ColorProperty &value);
     void slotSetValue(const ScientificDoubleProperty &value);
-    void slotSetValue(FancyGroupProperty *value);
+    void slotSetValue(const FancyGroupProperty_t &value);
     void slotSetValue(const ComboProperty &value);
     void slotEditorDestroyed(QObject *object);
     void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);

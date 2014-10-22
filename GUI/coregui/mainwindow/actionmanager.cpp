@@ -14,7 +14,8 @@
 #include <iostream>
 
 ActionManager::ActionManager(MainWindow *parent)
-    : m_mainWindow(parent)
+    : QObject(parent)
+    , m_mainWindow(parent)
     , m_newAction(0)
     , m_openAction(0)
     , m_saveAction(0)
@@ -71,7 +72,7 @@ void ActionManager::createMenus()
 {
     m_menuBar = new QMenuBar; // No parent (System menu bar on Mac OS X)
 
-    if (!Utils::HostOsInfo::isMacHost()) // System menu bar on Mac
+    if (!Utils::HostOsInfo::isMacHost())
         m_mainWindow->setMenuBar(m_menuBar);
 
     // File Menu

@@ -48,13 +48,9 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    qDebug() << "MaterialPropertyEdit::buttonClicked()" << m_materialProperty.getIdentifier();
     MaterialProperty mat = MaterialEditor::selectMaterialProperty();
-    qDebug() << "MaterialPropertyEdit::buttonClicked() -> receive" << mat.getIdentifier();
-    //if(mat != m_materialProperty && mat.isDefined() ) {
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
-        qDebug() << "MaterialPropertyEdit::buttonClicked() -> emitting signal";
         emit materialPropertyChanged(m_materialProperty);
     }
 }
@@ -87,7 +83,7 @@ FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
 }
 
 void FancyGroupPropertyEdit::setFancyGroupProperty(
-        FancyGroupProperty *groupProperty)
+        FancyGroupProperty_t groupProperty)
 {
     qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue()  << groupProperty->getValueLabel();
     if(groupProperty) {

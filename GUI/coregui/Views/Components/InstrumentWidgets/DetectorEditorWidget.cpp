@@ -115,11 +115,10 @@ void DetectorEditorWidget::updateWidgets()
 
     m_block_signals = true;
     m_detectorTypeCombo->clear();
-    FancyGroupProperty *detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<FancyGroupProperty *>();
+    FancyGroupProperty_t detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<FancyGroupProperty_t>();
 
     m_detectorTypeCombo->addItems(detector_property->getValueLabels());
     m_detectorTypeCombo->setCurrentIndex(detector_property->toIndex(detector_property->getValue()));
-
 
     ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);

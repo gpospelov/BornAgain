@@ -29,15 +29,17 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
 
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
 
-    QGraphicsTextItem *label = new QGraphicsTextItem(this);
-    label->setPlainText(m_name);
-    QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
-    label->setFont(serifFont);
+    if(!m_name.isEmpty()) {
+        QGraphicsTextItem *label = new QGraphicsTextItem(this);
+        label->setPlainText(m_name);
+        QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
+        label->setFont(serifFont);
 
-    if(isOutput()) {
-        label->setPos(-m_radius - m_margin - label->boundingRect().width(), -label->boundingRect().height()/2);
-    } else {
-        label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
+        if(isOutput()) {
+            label->setPos(-m_radius - m_margin - label->boundingRect().width(), -label->boundingRect().height()/2);
+        } else {
+            label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
+        }
     }
 }
 

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMap>
 #include <QMetaType>
+#include <QSharedPointer>
 #include <QVariant>
 
 class ParameterizedItem;
@@ -43,8 +44,6 @@ public:
     virtual int toIndex(const QString &value) const;
     virtual QString toString(int index) const;
 
-    QVariant getVariant();
-
     friend class GroupPropertyRegistry;
 
 protected:
@@ -59,10 +58,9 @@ protected:
     QMap<QString, QString > m_group_map;
 };
 
-Q_DECLARE_METATYPE(FancyGroupProperty *)
+typedef QSharedPointer<FancyGroupProperty> FancyGroupProperty_t;
 
-
-
+Q_DECLARE_METATYPE(FancyGroupProperty_t)
 
 
 #endif

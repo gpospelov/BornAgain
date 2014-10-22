@@ -42,8 +42,8 @@ public:
     FancyGroupPropertyEdit(QWidget *parent = 0);
     ~FancyGroupPropertyEdit();
 
-    void setFancyGroupProperty(FancyGroupProperty *groupProperty);
-    FancyGroupProperty *getFancyGroupProperty() const {
+    void setFancyGroupProperty(FancyGroupProperty_t groupProperty);
+    FancyGroupProperty_t getFancyGroupProperty() const {
         return m_groupProperty;
     }
 
@@ -51,7 +51,7 @@ public:
     QSize minimumSizeHint() const;
 
 signals:
-    void fancyGroupPropertyChanged(FancyGroupProperty *group_property);
+    void fancyGroupPropertyChanged(const FancyGroupProperty_t &group_property);
 private slots:
     void indexChanged(int index);
 private:
@@ -59,7 +59,7 @@ private:
     void processSelectableGroup();
     QComboBox *m_box;
     QLabel *m_label;
-    FancyGroupProperty *m_groupProperty;
+    FancyGroupProperty_t m_groupProperty;
 };
 
 

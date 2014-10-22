@@ -16,12 +16,6 @@ int PropertyVariantManager::materialTypeId()
     return result;
 }
 
-//int PropertyVariantManager::groupTypeId()
-//{
-//    int result = qMetaTypeId<GroupProperty>();
-//    return result;
-//}
-
 int PropertyVariantManager::colorPropertyTypeId()
 {
     int result = qMetaTypeId<ColorProperty>();
@@ -36,7 +30,7 @@ int PropertyVariantManager::scientificDoubleTypeId()
 
 int PropertyVariantManager::fancyGroupTypeId()
 {
-    int result = qMetaTypeId<FancyGroupProperty *>();
+    int result = qMetaTypeId<FancyGroupProperty_t>();
     return result;
 }
 
@@ -177,7 +171,7 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
     }
     if (m_theFancyGroupValues.contains(property)) {
         if( val.userType() != fancyGroupTypeId() ) return;
-        FancyGroupProperty *group_prop = val.value<FancyGroupProperty *>();
+        FancyGroupProperty_t group_prop = val.value<FancyGroupProperty_t>();
         m_theFancyGroupValues[property] = group_prop;
         QVariant v2;
         v2.setValue(group_prop);
@@ -215,7 +209,8 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         m_theScientificDoubleValues[property] = m;
     }
     if (propertyType(property) == fancyGroupTypeId()) {
-        m_theFancyGroupValues[property] = 0;
+        FancyGroupProperty_t m;
+        m_theFancyGroupValues[property] = m;
     }
     if (propertyType(property) == comboPropertyTypeId()) {
         ComboProperty m;
@@ -229,7 +224,6 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 void PropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
     m_theMaterialValues.remove(property);
-//    m_theGroupValues.remove(property);
     m_theColorValues.remove(property);
     m_theScientificDoubleValues.remove(property);
     m_theFancyGroupValues.remove(property);

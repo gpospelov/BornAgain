@@ -18,7 +18,7 @@ LayerView::LayerView(QGraphicsItem *parent)
     //setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
     setToolTip(ToolTipDataBase::getSampleViewDesignerToolTip(Constants::LayerType));
     setAcceptDrops(false);
-    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleLayout);
+    addPort(QString(), NodeEditorPort::Input, NodeEditorPort::ParticleLayout);
 }
 
 

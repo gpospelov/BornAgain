@@ -20,7 +20,6 @@ public:
     //! correspondance of group name to ParameterizedItem's types to labels
     typedef QMap<QString, QMap<QString, QString> > SelectableGroupMap_t;
 
-//    static FancyGroupProperty_t *createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
     static FancyGroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
 
 private:

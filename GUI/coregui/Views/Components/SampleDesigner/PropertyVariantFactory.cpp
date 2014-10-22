@@ -110,16 +110,12 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
             PropertyVariantManager::fancyGroupTypeId()) {
         FancyGroupPropertyEdit *editor = new FancyGroupPropertyEdit(parent);
         QVariant var = manager->value(property);
-//        FancyGroupProperty_t *ff = var.value<FancyGroupProperty_t *>();
         FancyGroupProperty_t ff = var.value<FancyGroupProperty_t>();
         editor->setFancyGroupProperty(ff);
 
         m_property_to_fancygroup_editors[property].append(editor);
         m_fancygroup_editor_to_property[editor] = property;
 
-//        connect(editor,
-//                SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty_t *)),
-//                this, SLOT(slotSetValue(FancyGroupProperty_t *)));
         connect(editor,
                 SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty_t)),
                 this, SLOT(slotSetValue(FancyGroupProperty_t)));
@@ -198,7 +194,6 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_fancygroup_editors[property];
         QListIterator<FancyGroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-//            FancyGroupProperty_t *mat = value.value<FancyGroupProperty_t *>();
             FancyGroupProperty_t mat = value.value<FancyGroupProperty_t>();
             itEditor.next()->setFancyGroupProperty(mat);
         }

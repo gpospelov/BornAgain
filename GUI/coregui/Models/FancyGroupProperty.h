@@ -44,8 +44,6 @@ public:
     virtual int toIndex(const QString &value) const;
     virtual QString toString(int index) const;
 
-//    QVariant getVariant();
-
     friend class GroupPropertyRegistry;
 
 protected:
@@ -62,24 +60,7 @@ protected:
 
 typedef QSharedPointer<FancyGroupProperty> FancyGroupProperty_t;
 
-//Q_DECLARE_METATYPE(FancyGroupProperty_t *)
 Q_DECLARE_METATYPE(FancyGroupProperty_t)
-
-
-
-//class TestProperty
-//{
-//public:
-//    int m_data;
-//    QVariant getVariant()
-//    {
-
-//    }
-
-//};
-//typedef QSharedPointer<TestProperty> TestProperty_t;
-//Q_DECLARE_METATYPE(TestProperty_t)
-
 
 
 #endif

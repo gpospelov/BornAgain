@@ -38,7 +38,6 @@ private slots:
     void slotSetValue(const MaterialProperty &value);
     void slotSetValue(const ColorProperty &value);
     void slotSetValue(const ScientificDoubleProperty &value);
-//    void slotSetValue(FancyGroupProperty_t *value);
     void slotSetValue(const FancyGroupProperty_t &value);
     void slotSetValue(const ComboProperty &value);
     void slotEditorDestroyed(QObject *object);

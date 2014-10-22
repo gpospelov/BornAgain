@@ -102,12 +102,6 @@ QString FancyGroupProperty::toString(int index) const
     return name_list[index];
 }
 
-//QVariant FancyGroupProperty::getVariant() {
-//    QVariant result;
-//    result.setValue(this);
-//    return result;
-//}
-
 
 void FancyGroupProperty::setGroupMap(const QMap<QString, QString> &group_map)
 {

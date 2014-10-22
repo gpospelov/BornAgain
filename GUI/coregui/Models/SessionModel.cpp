@@ -554,7 +554,6 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
 
-//        FancyGroupProperty_t *group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t *>();
         FancyGroupProperty_t group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t>();
         group_property->setValue(parameter_value);
     }

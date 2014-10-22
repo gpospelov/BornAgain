@@ -147,7 +147,6 @@ void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
     ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
     for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
         if(it.value() == propertyItem) {
-//            FancyGroupProperty_t *group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty_t *>();
             FancyGroupProperty_t group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
             return;
@@ -194,7 +193,6 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
     qDebug() << "registerFancyGroupProperty "
              << modelType() << group_name;
 
-//    FancyGroupProperty_t *group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     FancyGroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     QVariant variant;
     variant.setValue(group_property);
@@ -207,7 +205,6 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
 ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
     qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
-//    FancyGroupProperty_t *group_property = getRegisteredProperty(name).value<FancyGroupProperty_t *>();
     FancyGroupProperty_t group_property = getRegisteredProperty(name).value<FancyGroupProperty_t>();
     group_property->setValue(value);
     return m_sub_items[name];

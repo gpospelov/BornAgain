@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_actionManager = new ActionManager(this);
     readSettings();
 
-    m_tabWidget = new Manhattan::FancyTabWidget();
+    m_tabWidget = new Manhattan::FancyTabWidget(this);
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);

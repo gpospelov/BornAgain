@@ -549,12 +549,13 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         v.setValue(scdouble_property);
         item->setRegisteredProperty(parameter_name, v);
     }
-    else if (parameter_type == "FancyGroupProperty*") {
+    else if (parameter_type == "FancyGroupProperty_t") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
 
-        FancyGroupProperty *group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty *>();
+//        FancyGroupProperty_t *group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t *>();
+        FancyGroupProperty_t group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty_t>();
         group_property->setValue(parameter_value);
     }
     else if (parameter_type == "ColorProperty") {
@@ -653,9 +654,9 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
                                 variant.value<ScientificDoubleProperty>().getText());
 
         }
-        else if (type_name == QString("FancyGroupProperty*")) {
+        else if (type_name == QString("FancyGroupProperty_t")) {
             QString ff_name =
-                    variant.value<FancyGroupProperty *>()->getValue();
+                    variant.value<FancyGroupProperty_t>()->getValue();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 ff_name);
         }

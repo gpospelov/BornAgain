@@ -28,7 +28,8 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
 
     QCOMPARE(item.getSubItems()[InterferenceFunction1DParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
 
-    FancyGroupProperty *group_property = item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PDF).value<FancyGroupProperty *>();
+//    FancyGroupProperty_t *group_property = item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PDF).value<FancyGroupProperty_t *>();
+    FancyGroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PDF).value<FancyGroupProperty_t>();
     QCOMPARE(group_property->type(), FancyGroupProperty::SelectableGroupType);
 
 }

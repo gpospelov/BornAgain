@@ -125,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-    testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }
@@ -281,12 +281,21 @@ void MainWindow::initInstrumentModel()
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 
+//    TestProperty_t property(new TestProperty());
+//    property->m_data = 99.0;
+//    QVariant variant;
+//    variant.setValue(property);
+
 //    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument1->setItemName("Default GISAS");
-//    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-//    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-//    Q_UNUSED(detector1);
-//    Q_UNUSED(beam1);
+//    instrument1->registerProperty("XXX", variant);
+////    instrument1->setItemName("Default GISAS");
+////    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+////    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
+////    Q_UNUSED(detector1);
+////    Q_UNUSED(beam1);
+
+//    TestProperty_t tt = variant.value<TestProperty_t>();
+//    qDebug() << tt->m_data;
 
     //m_instrumentModel->save("instrument.xml");
 }

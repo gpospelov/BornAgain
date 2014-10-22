@@ -36,7 +36,8 @@ int PropertyVariantManager::scientificDoubleTypeId()
 
 int PropertyVariantManager::fancyGroupTypeId()
 {
-    int result = qMetaTypeId<FancyGroupProperty *>();
+//    int result = qMetaTypeId<FancyGroupProperty_t *>();
+    int result = qMetaTypeId<FancyGroupProperty_t>();
     return result;
 }
 
@@ -177,7 +178,8 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
     }
     if (m_theFancyGroupValues.contains(property)) {
         if( val.userType() != fancyGroupTypeId() ) return;
-        FancyGroupProperty *group_prop = val.value<FancyGroupProperty *>();
+//        FancyGroupProperty_t *group_prop = val.value<FancyGroupProperty_t *>();
+        FancyGroupProperty_t group_prop = val.value<FancyGroupProperty_t>();
         m_theFancyGroupValues[property] = group_prop;
         QVariant v2;
         v2.setValue(group_prop);
@@ -215,7 +217,8 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         m_theScientificDoubleValues[property] = m;
     }
     if (propertyType(property) == fancyGroupTypeId()) {
-        m_theFancyGroupValues[property] = 0;
+        FancyGroupProperty_t m;
+        m_theFancyGroupValues[property] = m;
     }
     if (propertyType(property) == comboPropertyTypeId()) {
         ComboProperty m;

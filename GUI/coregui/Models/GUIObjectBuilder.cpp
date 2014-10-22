@@ -118,8 +118,8 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     item->setItemName(sample->getName().c_str());
 
     ComboProperty approx_prop;
-    approx_prop << "Decoupling Approximation" << "Local Monodisperse Approximation"
-           << "Size Space Coupling Approximation";
+    approx_prop << "Decoupling Approximation"
+                << "Size Space Coupling Approximation";
     ILayout::EInterferenceApproximation approx = sample->getApproximation();
     switch(approx)
     {

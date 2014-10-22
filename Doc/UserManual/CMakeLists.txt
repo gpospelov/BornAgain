@@ -7,6 +7,9 @@ set(UM_VERSION_MAJOR 0)
 set(UM_VERSION_MINOR 2)
 set(UM_VERSION_PATCH 6)
 
+if(POLICY CMP0046)
+cmake_policy(SET CMP0046 NEW)
+endif()
 
 set(LATEX_COMPILER_FLAGS
 "-interaction=nonstopmode --enable-write18"
@@ -139,8 +142,8 @@ set(UM_IMAGES
     Figures/figure_ex003BA.eps
     Figures/figure_ex003BASize.eps
     Figures/figure_ex003DWBA.eps
-    Figures/figure_ex0041DDL.eps
-    Figures/figure_ex0042DDL.eps
+    #Figures/figure_ex0041DDL.eps
+    #Figures/figure_ex0042DDL.eps
     Figures/figure_ex005Disorder1.eps
     Figures/figure_ex005Disorder2.eps
     Figures/figure_ex005Disorder3.eps
@@ -149,12 +152,12 @@ set(UM_IMAGES
     Figures/figure_ex006RotatedPyramids.eps
     Figures/figure_ex007CoreShell.eps
     Figures/figure_ex008CorrelatedRough.eps
-    Figures/figure_ex009CosRipple2DLat.eps
-    Figures/figure_ex009CosRippleNoInterf.eps
-    Figures/figure_ex009TriRipple2DLat.eps
-    Figures/figure_ex009TriRippleNoInterf.eps
+    #Figures/figure_ex009CosRipple2DLat.eps
+    #Figures/figure_ex009CosRippleNoInterf.eps
+    #Figures/figure_ex009TriRipple2DLat.eps
+    #Figures/figure_ex009TriRippleNoInterf.eps
     Figures/figure_ex010Beamdiv.eps
-    Figures/BAgeometry_wide.jpg
+    #Figures/BAgeometry_wide.jpg
     Figures/fig_ex001.jpg	
     Figures/fig_ex002.jpg		
     Figures/fig_ex003BA.jpg	
@@ -168,13 +171,15 @@ set(UM_IMAGES
     Figures/fig_ex006RotatedPyramids.jpg
     Figures/fig_ex007Core.jpg
     Figures/fig_ex008Rough.jpg
-    Figures/fig_ex009Cos.jpg
-    Figures/fig_ex009Tri.jpg
+    #Figures/fig_ex009Cos.jpg
+    #Figures/fig_ex009Tri.jpg
     Figures/fig_ex010BeamDiv.jpg
 )
 
 
 file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)
+#file(GLOB tex_inputs "*.tex")
+message("XXX ${tex_inputs}")
 
 ADD_LATEX_DOCUMENT(UserManual.tex
     INPUTS ${tex_inputs}

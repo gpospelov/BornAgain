@@ -8,6 +8,7 @@ import pylab
 from math import degrees
 from libBornAgainCore import *
 
+M_PI= numpy.pi
 
 def plot_with_pylab(data):
     result = data.getArray() + 1  # for log scale
@@ -38,8 +39,15 @@ def get_sample():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(ripple, 0.0, 1.0)
 
-    interference = InterferenceFunction1DParaCrystal (1e7*nanometer, 4*nanometer)
-    pdf = FTDistribution1DGauss(20 * nanometer)
+    #lattice params
+    lattice_params = Lattice2DIFParameters()
+    lattice_params.m_length_1 = 200.0*nanometer
+    lattice_params.m_length_2 = 50.0*nanometer
+    lattice_params.m_angle = 90.0*degree
+    lattice_params.m_xi = 0.0*degree
+
+    interference = InterferenceFunction2DLattice(lattice_params)
+    pdf = FTDistribution2DGauss(1000.*nanometer/2./M_PI,100.*nanometer/2./M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
 

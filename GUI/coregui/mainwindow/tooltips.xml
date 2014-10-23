@@ -471,6 +471,24 @@
            </property>
         </category>
 
+        <category name="EulerRotation">
+           <property name="Title">
+               <tooltip> Rotation applied to the particle</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+           <property name="Alpha">
+               <tooltip> First Euler angle in degrees</tooltip>
+           </property>
+           <property name="Beta">
+               <tooltip> Second Euler angle in degrees</tooltip>
+           </property>
+           <property name="Gamma">
+               <tooltip> Third Euler angle in degrees</tooltip>
+           </property>
+        </category>
+
     </context>
 
 </ToolTipsData>

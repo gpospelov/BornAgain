@@ -5,7 +5,7 @@ project(UserManual NONE)
 # user manual version number will be automatically propagated into tes
 set(UM_VERSION_MAJOR 0)
 set(UM_VERSION_MINOR 2)
-set(UM_VERSION_PATCH 6)
+set(UM_VERSION_PATCH 5)
 
 
 set(LATEX_COMPILER_FLAGS
@@ -171,6 +171,9 @@ set(UM_IMAGES
     Figures/fig_ex009Cos.jpg
     Figures/fig_ex009Tri.jpg
     Figures/fig_ex010BeamDiv.jpg
+    Figures/g_r_1dpara.eps
+    Figures/g_r_2dpara.jpg
+
 )
 
 

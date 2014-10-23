@@ -129,7 +129,7 @@ CuboctahedronItem::CuboctahedronItem(ParameterizedItem *parent)
     setItemName(Constants::CuboctahedronType);
     registerProperty(P_LENGTH, 20.0);
     registerProperty(P_HEIGHT, 13.0);
-    registerProperty(P_HEIGHT_RATIO, 0.7);
+    registerProperty(P_HEIGHT_RATIO, 0.7,PropertyAttribute(AttLimits::lowerLimited(0.)));
     registerProperty(P_ALPHA, 60.0);
 }
 

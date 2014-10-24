@@ -250,8 +250,8 @@ def get_sample():
 
 \newpage %{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_parameters)}} 
-where  \Code{lattice\_parameters}=(lattice\_length, $\xi$) with lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the "GISAS experiment" referential as shown in fig.~\ref{fig:1dgrating}.
+\subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
+where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the "GISAS experiment" referential as shown in fig.~\ref{fig:1dgrating}.
 
 \begin{figure}[h]
 \begin{center}
@@ -267,7 +267,7 @@ where  \Code{lattice\_parameters}=(lattice\_length, $\xi$) with lattice\_length 
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}. 
 
 \paragraph{Example:} Script~\ref{lst:1dlattinterf} details how to build in  \BornAgain a sample using\\ \Code{InterferenceFunction1DLattice} as the interference function. As mentioned previously, this interference function can only be used with infinitely wide or long particles.\\ Here the sample is made of infinitely long boxes deposited on a substrate (these particles are characterized by their widths and heights). They are also rotated by $90^{\circ}$  in the sample surface in order to have their long axis perpendicular to the input beam, which is along the $x$-axis.\\
- The lattice parameters (the lattice lengths and angle between the lattice main axis and the $x$-axis) are specified using \Code{Lattice1DIFParameters()}. They are then used as input parameters of the interference function.
+ The lattice parameters (the lattice length and angle between the lattice main axis and the $x$-axis) are passed into the constructor of the interference function.
 
 \newpage
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample made of infinitely long boxes deposited on a substrate layer with the 1DLatticeInterference function. The part specific to the interferences is marked in red italic font.},label={lst:1dlattinterf}]
@@ -287,13 +287,8 @@ def get_sample():
     transform = Transform3D.createRotateZ(90.0*degree)
     particle_layout.addParticle(box, transform)
 
-    # lattice parameters
-    |lattice_params = Lattice1DIFParameters()|
-    |lattice_params.m_length = 30.0*nanometer|
-    |lattice_params.m_xi = 0.0*degree|
-
     # interference function
-    |interference = InterferenceFunction1DLattice(lattice_params)|
+    |interference = InterferenceFunction1DLattice(30.0*nanometer, 0.0*degree)|
     |pdf = FTDistribution1DCauchy(200./2./M_PI*nanometer)|
     |interference.setProbabilityDistribution(pdf)|
     |particle_layout.addInterferenceFunction(interference)|
@@ -383,8 +378,8 @@ To illustrate the 1D paracrystal interference function, we use the same sample a
 
 \newpage%{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\ding{253}  \Code{InterferenceFunction2DLattice(lattice\_parameters)}} 
-where \Code{lattice\_parameters} corresponds to ($L_1$, $L_2$, $\alpha$, $\xi$)  (see illustration in figure~\ref{fig:2dlattice}) with 
+\subsubsection{\ding{253}  \Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
+where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice}) with 
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell, 
 \item[]$\alpha$ the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
@@ -404,17 +399,10 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 \paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\mathbf{a}\equiv \mathbf{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation. 
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Decoupling Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in red italic font.},label={lst:2dlatticeinterf}]
-    # lattice parameters
-    |lattice_params = Lattice2DIFParameters()|
-    |lattice_params.m_length_1 = 20.0*nanometer|
-    |lattice_params.m_length_2 = 20.0*nanometer|
-    |lattice_params.m_angle = 90.0*degree|
-    |lattice_params.m_xi = 0.0*degree|
-
     #collection of particles
     sphere_ff = FormFactorTruncatedSphere(5*nanometer, 5*nanometer)
     sphere = Particle(m_particle, sphere_ff)
-    |interference = InterferenceFunction2DLattice(lattice_params)|
+    |interference = InterferenceFunction2DLattice(20.0*nanometer, 20.0*nanometer, 90.0*degree, 0.0*degree)|
     |pdf = FTDistribution2DGauss(200.0*nanometer/2.0/M_PI, 75.0*nanometer/2.0/M_PI)|
     |interference.setProbabilityDistribution(pdf)|
     particle_layout = ParticleLayout()

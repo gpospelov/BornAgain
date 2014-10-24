@@ -82,13 +82,6 @@ MultiLayer* TestPolarizedMeso::createSample() const
         m_surface_filling_ratio/m_meso_width/m_meso_width;
     kvector_t magnetic_field(3.4, 3.4, 3.4);
     HomogeneousMagneticMaterial particle_material("nanoparticle",2.84e-5, 4.7e-7, magnetic_field);
-//    const IMaterial *p_particle_material =
-//            MaterialManager::getHomogeneousMaterial("nanoparticle",
-//                    2.84e-5, 4.7e-7);
-//    FormFactorDecoratorDebyeWaller
-//        ff_meso(ff_cyl.clone(),
-//                m_sigma_meso_height*m_sigma_meso_height/2.0,
-//                m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();

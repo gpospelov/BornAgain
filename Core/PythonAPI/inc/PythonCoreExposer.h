@@ -29,20 +29,16 @@
 namespace pyplusplus {
     namespace aliases {
         using namespace Geometry;
-        //typedef Geometry::BasicVector3D<double > kvector_t;
         typedef BasicVector3D<double > kvector_t;
         typedef std::vector<kvector_t > vector_kvector_t;
         typedef BasicVector3D<std::complex<double> > cvector_t;
         typedef std::vector<cvector_t > vector_cvector_t;
         typedef std::vector<DiffuseParticleInfo *> vector_DiffuseParticleInfoPtr_t;
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
-        //typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
         typedef StochasticParameter<double> StochasticParameter_t;
         typedef OutputData<double > IntensityData;
         typedef std::vector<int > vector_integer_t;
         typedef std::vector<unsigned long int > vector_longinteger_t;
-        //typedef std::vector<std::string > vector_string_t;
-        //typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
     }
 }
 

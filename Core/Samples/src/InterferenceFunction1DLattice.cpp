@@ -16,13 +16,14 @@
 #include "InterferenceFunction1DLattice.h"
 #include <cassert>
 
-InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-        const Lattice1DIFParameters& lattice_params)
-: m_lattice_params(lattice_params)
-, mp_pdf(0)
+InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length,
+                                                             double xi)
+: mp_pdf(0)
 , m_prefactor(1.0)
 , m_na(0)
 {
+    m_lattice_params.m_length = length;
+    m_lattice_params.m_xi = xi;
     setName("InterferenceFunction1DLattice");
     init_parameters();
 }
@@ -33,7 +34,8 @@ InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
 }
 
 InterferenceFunction1DLattice *InterferenceFunction1DLattice::clone() const {
-    InterferenceFunction1DLattice *result = new InterferenceFunction1DLattice(m_lattice_params);
+    InterferenceFunction1DLattice *result =
+            new InterferenceFunction1DLattice(m_lattice_params);
     if(mp_pdf) result->setProbabilityDistribution(*mp_pdf);
     result->setName(getName());
     return result;
@@ -75,13 +77,23 @@ double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
     qx_frac = qx_prime - qa_int*a_rec;
 
     for (int i=-m_na-1; i<m_na+2; ++i)
-    {        
+    {
         double qx = qx_frac + i*a_rec;
         result += mp_pdf->evaluate(qx);
     }
     return m_prefactor*result;
 }
 
+InterferenceFunction1DLattice::InterferenceFunction1DLattice(
+        const Lattice1DIFParameters& lattice_params)
+: m_lattice_params(lattice_params)
+, mp_pdf(0)
+, m_prefactor(1.0)
+, m_na(0)
+{
+    setName("InterferenceFunction1DLattice");
+    init_parameters();
+}
 
 void InterferenceFunction1DLattice::init_parameters()
 {

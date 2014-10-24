@@ -30,7 +30,9 @@ public:
 
     //! @brief constructor
     //! @param lattice_params Lattice parameters
-    InterferenceFunction1DLattice(const Lattice1DIFParameters& lattice_params);
+    //! @param length Lattice length
+    //! @param xi rotation of lattice with respect to x-axis
+    InterferenceFunction1DLattice(double length, double xi);
     virtual ~InterferenceFunction1DLattice();
 
     virtual InterferenceFunction1DLattice *clone() const;
@@ -51,6 +53,7 @@ protected:
     IFTDistribution1D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 private:
+    InterferenceFunction1DLattice(const Lattice1DIFParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

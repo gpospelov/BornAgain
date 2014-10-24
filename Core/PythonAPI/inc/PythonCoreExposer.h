@@ -60,8 +60,6 @@ namespace pyplusplus {
     inline size_t pyplusplus_boost_vector_integer() { return sizeof(pyplusplus::aliases::vector_integer_t); }
     inline size_t pyplusplus_boost_vector_longinteger() { return sizeof(pyplusplus::aliases::vector_longinteger_t); }
     inline size_t pyplusplus_boost_intensity_data() { return sizeof(pyplusplus::aliases::IntensityData); }
-    //inline size_t pyplusplus_boost_sample_builder() { return sizeof(pyplusplus::aliases::SampleBuilder_t); }
-    //inline size_t pyplusplus_boost_vector_string() { return sizeof(pyplusplus::aliases::vector_string_t); }
 }
 
 #endif // PYTHONCOREEXPOSER_H

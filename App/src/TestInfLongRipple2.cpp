@@ -95,7 +95,7 @@ void TestInfLongRipple2::drawff()
     FormFactorInfLongRipple2 *ff = new FormFactorInfLongRipple2(100.0*Units::nanometer, 50.0*Units::nanometer, 0.0);
     size_t pfbins = 400;
     size_t afbins = 400;
-	
+
     double afmin = -2.0;
     double afmax = 2.0;
     double pfmin = -2.0;
@@ -136,8 +136,8 @@ void TestInfLongRipple2::drawff()
             double value = std::pow(std::abs(ff->evaluate(k_i, k_f_bin, alpha_f_bin)),2);
 
             hist->Fill(pf, af, value + 1);
-			//std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
-		}
+            //std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
+        }
     }
 
     hist->SetContour(50);
@@ -162,8 +162,8 @@ void TestInfLongRipple2::drawff()
 void TestInfLongRipple2::initializeSimulation()
 {
   //  mp_sample_builder = new SampleBuilder();
-    
-	delete mp_simulation;
+
+    delete mp_simulation;
 //    mp_simulation = new Simulation(mp_options);
 //    mp_simulation->setSampleBuilder(mp_sample_builder);
 //    mp_simulation->setDetectorParameters(400, -1.0*Units::degree, 1.0*Units::degree, 400, 0.0*Units::degree, 5.2*Units::degree, true);
@@ -223,10 +223,8 @@ ISample *TestInfLongRipple2::TestSampleBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ibox,transform);
-    Lattice1DIFParameters lattice_params;
-    lattice_params.m_length=m_lattice_length;
-    lattice_params.m_xi = m_xi;
-    InterferenceFunction1DLattice *p_interference_function = new InterferenceFunction1DLattice(lattice_params);
+    InterferenceFunction1DLattice *p_interference_function =
+            new InterferenceFunction1DLattice(m_lattice_length, m_xi);
     FTDistribution1DCauchy pdf(10e6*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
 
@@ -260,7 +258,7 @@ ISample *TestInfLongRipple2::TestSampleBuilder::buildSample() const
 
 void TestInfLongRipple2::plot_results()
 {
-	OutputData<double> *m_result = mp_simulation->getIntensityData();
+    OutputData<double> *m_result = mp_simulation->getIntensityData();
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 

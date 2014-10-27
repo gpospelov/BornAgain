@@ -295,7 +295,7 @@ IFormFactor *Prism6Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString PyramidItem::P_LENGTH = "Radius";
+const QString PyramidItem::P_LENGTH = "Length";
 const QString PyramidItem::P_HEIGHT = "Height";
 const QString PyramidItem::P_ALPHA = "Alpha";
 

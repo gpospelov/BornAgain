@@ -17,7 +17,8 @@ def get_sample():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
 
-    interference = InterferenceFunction2DParaCrystal.createHexagonal(20.0*nanometer,
+    #interference = InterferenceFunction2DParaCrystal.createHexagonal(20.0*nanometer,
+    interference = InterferenceFunction2DParaCrystal.createSquare(20.0*nanometer,
                                                                      0.0, 20.0*micrometer, 20.0*micrometer)
     pdf = FTDistribution2DCauchy(1.0*nanometer, 1.0*nanometer)
     interference.setProbabilityDistributions(pdf, pdf)

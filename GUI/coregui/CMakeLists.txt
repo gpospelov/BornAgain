@@ -138,7 +138,7 @@ target_link_libraries(${library_name}
 # --- Installation ---
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 if(APPLE AND CREATE_BUNDLE)
-  set(source_files ${source_files} ${CMAKE_SOURCE_DIR}/Images/BAicon.icns)
+  set(source_files ${source_files} ${CMAKE_SOURCE_DIR}/GUI/main/BornAgainApp.icns)
 endif(APPLE AND CREATE_BUNDLE)
 # system libraries: ROOT installation
 if(WIN32)

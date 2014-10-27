@@ -37,7 +37,6 @@
         <file>images/toolbar_save.png</file>
         <file>images/toolbar_refresh.png</file>
         <file>images/toolbar_parameter_export.png</file>
-        <file>images/bornagain_icon.ico</file>
-        <file>images/bornagain_icon.png</file>
+        <file>images/BornAgainApp.ico</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@ BornAgain-0.9.9, released 2014.10.29
   > Summary: 
     1) Further GUI development: QuickSimulationView, exception catching, property limits
     2) Few bugfixes, support for multiple layout objects per layer, python script generation, minor refactoring in UserAPI.
-    #) User Manual: new appendix with python examples
+    3) User Manual: new appendix with python examples
   > Details:
   * Bug #776: GUI: InterferenceFunction2DParaCrystal rotation angle activation
   * Bug #780: Windows: pixmap of item being dragged is not displayed on DesignerScene

@@ -9,9 +9,9 @@ set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 set( CPACK_NSIS_MENU_LINKS "bin\\\\BornAgain.exe" "BornAgain")
 
 
-set( CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )
-set( CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )
-set( CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\bornagain_icon.ico" )
+set( CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\BornAgain.ico" )
+set( CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\BornAgain.ico" )
+set( CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\BornAgain.ico" )
 
 set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   Push \\\"PATH\\\" 

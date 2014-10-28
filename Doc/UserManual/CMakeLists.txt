@@ -142,8 +142,8 @@ set(UM_IMAGES
     Figures/figure_ex003BA.eps
     Figures/figure_ex003BASize.eps
     Figures/figure_ex003DWBA.eps
-    #Figures/figure_ex0041DDL.eps
-    #Figures/figure_ex0042DDL.eps
+    Figures/figure_ex0041DDL.eps
+    Figures/figure_ex0042DDLsq.eps
     Figures/figure_ex005Disorder1.eps
     Figures/figure_ex005Disorder2.eps
     Figures/figure_ex005Disorder3.eps
@@ -152,12 +152,12 @@ set(UM_IMAGES
     Figures/figure_ex006RotatedPyramids.eps
     Figures/figure_ex007CoreShell.eps
     Figures/figure_ex008CorrelatedRough.eps
-    #Figures/figure_ex009CosRipple2DLat.eps
-    #Figures/figure_ex009CosRippleNoInterf.eps
-    #Figures/figure_ex009TriRipple2DLat.eps
-    #Figures/figure_ex009TriRippleNoInterf.eps
+    Figures/figure_ex009CosRipple2DLat.eps
+    Figures/figure_ex009CosRippleNoInterf.eps
+    Figures/figure_ex009TriRipple2DLat.eps
+    Figures/figure_ex009TriRippleNoInterf.eps
     Figures/figure_ex010Beamdiv.eps
-    #Figures/BAgeometry_wide.jpg
+    Figures/BAgeometry_wide.jpg
     Figures/fig_ex001.jpg	
     Figures/fig_ex002.jpg		
     Figures/fig_ex003BA.jpg	
@@ -166,16 +166,18 @@ set(UM_IMAGES
     Figures/fig_ex005Dis1.jpg
     Figures/fig_ex005Dis2.jpg
     Figures/fig_ex005Dis3.jpg
-    Figures/fig_ex005Dis4.jpg
+    Figures/fig_ex005Dis4rand.jpg
     Figures/fig_ex006Pyramids.jpg
     Figures/fig_ex006RotatedPyramids.jpg
     Figures/fig_ex007Core.jpg
     Figures/fig_ex008Rough.jpg
-    #Figures/fig_ex009Cos.jpg
-    #Figures/fig_ex009Tri.jpg
+    Figures/fig_ex009Cos.jpg
+    Figures/fig_ex009Tri.jpg
     Figures/fig_ex010BeamDiv.jpg
-    Figures/g_r_1dpara.eps
-    Figures/g_r_2dpara.jpg
+    #Figures/g_r_1dpara.eps
+    #Figures/g_r_2dpara.jpg
+    Figures/g_r_2dparasq.jpg
+    Figures/UserAPI_IntensityDataLayout.eps
 
 )
 

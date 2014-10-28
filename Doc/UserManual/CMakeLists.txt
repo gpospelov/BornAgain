@@ -50,15 +50,15 @@ set(UM_IMAGES
     Figures/Box2dxy.eps
     Figures/Box2dxz.eps
     Figures/Box3d.png
-    Figures/Cone2dxy.eps		
-    Figures/Cone2dxz.eps		
+    Figures/Cone2dxy.eps
+    Figures/Cone2dxz.eps
     Figures/Cone3d.png
     Figures/Sphere2dxy.eps
     Figures/Sphere2dxz.eps
     Figures/Sphere3d.png
     Figures/Spheroid2dxy.eps
     Figures/Spheroid2dxz.eps
-    Figures/Spheroid3d.png		
+    Figures/Spheroid3d.png
     Figures/Cone62dxy.eps
     Figures/Cone62dxz.eps
     Figures/Cone63d.png
@@ -67,30 +67,30 @@ set(UM_IMAGES
     Figures/Cuboctahedron3d.png
     Figures/Cylinder2dxy.eps
     Figures/Cylinder2dxz.eps
-    Figures/Cylinder3d.png			
-    Figures/EllipsoidalCylinder2dxy.eps	
-    Figures/EllipsoidalCylinder2dxz.eps	
+    Figures/Cylinder3d.png
+    Figures/EllipsoidalCylinder2dxy.eps
+    Figures/EllipsoidalCylinder2dxz.eps
     Figures/EllipsoidalCylinder3d.png
-    Figures/FullSphere2dxy.eps		    
+    Figures/FullSphere2dxy.eps
     Figures/FullSphere2dxz.eps
-    Figures/FullSphere3d.png	
+    Figures/FullSphere3d.png
     Figures/FullSpheroid2dxy.eps
-    Figures/FullSpheroid2dxz.eps		
-    Figures/FullSpheroid3d.png		
-    Figures/HemiEllipsoid2dxy.eps		
-    Figures/HemiEllipsoid2dxz.eps		
-    Figures/HemiEllipsoid3d.png				            
-    Figures/Prism32dxy.eps		
-    Figures/Prism32dxz.eps		
-    Figures/Prism33d.png		
-    Figures/Prism62dxy.eps	
+    Figures/FullSpheroid2dxz.eps
+    Figures/FullSpheroid3d.png
+    Figures/HemiEllipsoid2dxy.eps
+    Figures/HemiEllipsoid2dxz.eps
+    Figures/HemiEllipsoid3d.png
+    Figures/Prism32dxy.eps
+    Figures/Prism32dxz.eps
+    Figures/Prism33d.png
+    Figures/Prism62dxy.eps
     Figures/Prism62dxz.eps
     Figures/Prism63d.png
     Figures/Pyramid2dxy.eps
     Figures/Pyramid2dxz.eps
-    Figures/Pyramid3d.png		
+    Figures/Pyramid3d.png
     Figures/Ripple12dxy.eps
-    Figures/Ripple12dyz.eps	
+    Figures/Ripple12dyz.eps
     Figures/Ripple13d.png
     Figures/Ripple22dxy.eps
     Figures/Ripple22dyz.eps
@@ -156,11 +156,11 @@ set(UM_IMAGES
     Figures/figure_ex009CosRippleNoInterf.eps
     Figures/figure_ex009TriRipple2DLat.eps
     Figures/figure_ex009TriRippleNoInterf.eps
-    Figures/figure_ex010Beamdiv.eps
+    Figures/figure_ex010BeamDiv.eps
     Figures/BAgeometry_wide.jpg
-    Figures/fig_ex001.jpg	
-    Figures/fig_ex002.jpg		
-    Figures/fig_ex003BA.jpg	
+    Figures/fig_ex001.jpg
+    Figures/fig_ex002.jpg
+    Figures/fig_ex003BA.jpg
     Figures/fig_ex003BASize.jpg
     Figures/fig_ex003DWBA.jpg
     Figures/fig_ex005Dis1.jpg
@@ -188,7 +188,7 @@ message("XXX ${tex_inputs}")
 
 ADD_LATEX_DOCUMENT(UserManual.tex
     INPUTS ${tex_inputs}
-    BIBFILES jw7.bib 
+    BIBFILES jw7.bib
     IMAGES ${UM_IMAGES}
     DEFAULT_SAFEPDF
 )

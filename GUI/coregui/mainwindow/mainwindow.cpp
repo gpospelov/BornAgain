@@ -76,7 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
     initModels();
 
     if (!Utils::HostOsInfo::isMacHost())
-        QApplication::setWindowIcon(QIcon(":/images/BornAgainApp.ico"));
+        QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));

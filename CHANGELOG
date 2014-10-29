@@ -1,3 +1,44 @@
+BornAgain-0.9.9, released 2014.10.29
+  > Summary: 
+    1) Further GUI development: QuickSimulationView, exception catching, property limits
+    2) Few bugfixes, support for multiple layout objects per layer, python script generation, minor refactoring in UserAPI.
+    3) User Manual: new appendix with python examples
+  > Details:
+  * Bug #776: GUI: InterferenceFunction2DParaCrystal rotation angle activation
+  * Bug #780: Windows: pixmap of item being dragged is not displayed on DesignerScene
+  * Bug #791: LLDataTest.DataAssignment Unittest failure
+  * Bug #821: Remove interference function approximations from GUI
+  * Bug #826: cmake fails under Debian/testing; problem with Python
+  * Bug #829: CMake is not able to find right Python version when there is a Python2 and Python3 on the system
+  * Bug #833: Duplicate transformation in Real Time Activity view
+  * Bug #835: In Real Time Activity view, setting wavelength to zero causes a crash
+  * Bug #843: Fix nightly build (python script generation functional tests failing)
+  * Feature #393: Create Mac installer
+  * Feature #677: Provide validation of GUI sample for corectness and corresponding info widget
+  * Feature #680: Provide ParameterizedItem's property with tooltips.
+  * Feature #768: Integrate QuickSimulationView into JobView
+  * Feature #769: Remove SimulationDataModel
+  * Feature #778: Windows installer: implement add/remove BornAgain desktop icon
+  * Feature #784: Revise workspace behaviour in DesignerScene
+  * Feature #803: Implement correct handling of simulation failure in JobItem
+  * Feature #805: Implement simple crash handler widget to report bugs
+  * Feature #814: Implement exceptions catching in the Core to report exception from a thread to main thread
+  * Feature #819: Move DA, LMA, SSCA to ParticleLayout and propagate to GUI
+  * Feature #820: Implement reset of JobItem's sample and instrument models to the original.
+  * Feature #822: Revise submit job logic
+  * Feature #823: Allow multiple ILayout objects per layer
+  * Feature #825: Update default behaviour of OutputDataWidget
+  * Feature #828: Trivial form factor for demonstration purposes
+  * Feature #837: Provide all item's properties with correct limits
+  * Feature #838: Merge python script generation branch of Abhishek
+  * Feature #845: API: remove Lattice2DIFParameters from InterferenceFunction2DLattice constructor and implement static creators for square and hexagonal lattice IF's
+  * Feature #856: Modify Python Example005 Disorder2 to match description in User Manual
+  * Feature #857: Include GUI into Linux 'make install' command
+  * Documentation #429: Write Appendix which lists all implemented examples from Examples section
+  * Documentation #846: Adapt manual to new constructor for InterferenceFunction2DLattice
+  * Refactoring #786: Remove unnecessary calls to getOutCoefficients
+  * Refactoring #818: Review SimulationParameters
+  
 BornAgain-0.9.8, released 2014.08.28
   > Summary: 
     1) Further GUI development toward first beta scheduled for October, 2014.

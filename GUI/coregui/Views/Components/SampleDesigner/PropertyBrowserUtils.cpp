@@ -48,13 +48,9 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    qDebug() << "MaterialPropertyEdit::buttonClicked()" << m_materialProperty.getIdentifier();
     MaterialProperty mat = MaterialEditor::selectMaterialProperty();
-    qDebug() << "MaterialPropertyEdit::buttonClicked() -> receive" << mat.getIdentifier();
-    //if(mat != m_materialProperty && mat.isDefined() ) {
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
-        qDebug() << "MaterialPropertyEdit::buttonClicked() -> emitting signal";
         emit materialPropertyChanged(m_materialProperty);
     }
 }
@@ -68,78 +64,6 @@ void MaterialPropertyEdit::setMaterialProperty(
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
 }
 
-// -----------------------------------------------------------------------------
-// GroupPropertyEdit
-// -----------------------------------------------------------------------------
-
-//GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
-//    : QWidget(parent)
-//    , m_box(0)
-//    , m_label(0)
-//{
-//}
-
-//void GroupPropertyEdit::setGroupProperty(
-//        const GroupProperty &groupProperty)
-//{
-//    if(groupProperty.getGroupType() == GroupProperty::ComboGroup) {
-//        if(!m_box) {
-//            m_box = new QComboBox(this);
-
-//            connect(m_box, SIGNAL(currentTextChanged(QString)),
-//                    this, SLOT(textChanged(QString)));
-
-//        }
-//        if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
-
-//        m_groupProperty = groupProperty;
-//        m_box->setCurrentText(m_groupProperty.getValue());
-//    }
-//    else if(groupProperty.getGroupType() == GroupProperty::FixedGroup) {
-//        if(!m_label) {
-//            m_label = new QLabel(this);
-//        }
-//        m_groupProperty = groupProperty;
-//        m_label->setText(m_groupProperty.getValue());
-
-//    }
-//    else {
-//        throw GUIHelpers::Error("GroupPropertyEdit::setGroupProperty() -> Error. Unknown group type.");
-
-//    }
-//}
-
-
-//void GroupPropertyEdit::textChanged(QString text)
-//{
-//    GroupProperty ff(m_groupProperty.getGroupName(), text);
-//    if (ff != m_groupProperty && ff.isDefined()) {
-//        setGroupProperty(ff);
-//        emit groupPropertyChanged(m_groupProperty);
-//    }
-//}
-
-//QSize GroupPropertyEdit::sizeHint() const
-//{
-//    if(m_box) {
-//        return m_box->sizeHint();
-//    }
-//    if(m_label) {
-//        return m_label->sizeHint();
-//    }
-//    return QSize(10,10);
-//}
-
-//QSize GroupPropertyEdit::minimumSizeHint() const
-//{
-//    if(m_box) {
-//        return m_box->minimumSizeHint();
-//    }
-//    if(m_label) {
-//        return m_label->minimumSizeHint();
-//    }
-//    return QSize(10,10);
-//}
 
 // -----------------------------------------------------------------------------
 // FancyGroupPropertyEdit
@@ -159,7 +83,7 @@ FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
 }
 
 void FancyGroupPropertyEdit::setFancyGroupProperty(
-        FancyGroupProperty *groupProperty)
+        FancyGroupProperty_t groupProperty)
 {
     qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue()  << groupProperty->getValueLabel();
     if(groupProperty) {
@@ -296,7 +220,7 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 
 
 // -----------------------------------------------------------------------------
-// ColorPropertyEdit
+// ScientificDoublePropertyEdit
 // -----------------------------------------------------------------------------
 
 
@@ -339,3 +263,44 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 {
     return m_lineEdit->minimumSizeHint();
 }
+
+// -----------------------------------------------------------------------------
+// ComboPropertyEdit
+// -----------------------------------------------------------------------------
+
+ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
+    : QWidget(parent)
+    , m_comboBox(0)
+{
+}
+
+void ComboPropertyEdit::setComboProperty(
+        const ComboProperty &combo_property)
+{
+    m_combo_property = combo_property;
+    if (!m_comboBox) m_comboBox = new QComboBox(this);
+
+    disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(onCurrentIndexChanged(QString)));
+
+    m_comboBox->clear();
+    QStringList value_list = m_combo_property.getValues();
+    m_comboBox->addItems(value_list);
+    m_comboBox->setCurrentText(comboValueText());
+
+    connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(onCurrentIndexChanged(QString)));
+}
+
+QString ComboPropertyEdit::comboValueText()
+{
+    return m_combo_property.getValue();
+}
+
+void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
+{
+    m_combo_property.setValue(current_value);
+    emit comboPropertyChanged(m_combo_property);
+}
+
+

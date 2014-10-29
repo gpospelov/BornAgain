@@ -48,7 +48,6 @@
 //#include "Layer.h"
 //#include "LayerDecorator.h"
 //#include "LayerRoughness.h"
-//#include "MaterialManager.h"
 //#include "MesoCrystal.h"
 //#include "MultiLayer.h"
 //#include "Particle.h"

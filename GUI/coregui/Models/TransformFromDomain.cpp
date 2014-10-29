@@ -155,7 +155,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                 sample->getIntegrationOverXi());
 
     std::vector<const IFTDistribution2D *> pdfs =
-            sample->getPropabilityDistributions();
+            sample->getProbabilityDistributions();
 
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1

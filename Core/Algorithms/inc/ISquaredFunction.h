@@ -164,7 +164,7 @@ public:
     virtual double calculateSquaredError(double real_value, double simulated_value) const
     {
         (void)simulated_value;
-        return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
+        return std::max(std::abs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
     }
 
 private:

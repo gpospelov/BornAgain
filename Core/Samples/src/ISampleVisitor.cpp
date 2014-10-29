@@ -303,6 +303,11 @@ void ISampleVisitor::visit(const FormFactorTetrahedron *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorTrivial *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorTrivial *) -> Error. Not implemented.");
+}
+
 void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorTruncatedSphere *) -> Error. Not implemented.");

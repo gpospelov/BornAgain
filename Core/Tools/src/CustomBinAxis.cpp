@@ -43,7 +43,7 @@ Bin1D CustomBinAxis::getBin(size_t index) const
     if(index >= m_nbins)
         throw Exceptions::OutOfBoundsException("CustomBinAxis::getBin() -> Error. Wrong index.");
 
-    Bin1D result = { m_bin_centers[index], m_bin_centers[index] };
+    Bin1D result(m_bin_centers[index], m_bin_centers[index]);
     return result;
 }
 

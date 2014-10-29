@@ -16,6 +16,7 @@
 #include "Layer.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
+#include "MultiLayer.h"
 
 #include <iomanip>
 
@@ -23,29 +24,14 @@
 Layer::Layer()
     : m_thickness(0)
     , mp_material(0)
-    , mp_layout(0)
 {
     setName("Layer");
     init_parameters();
 }
 
-//Layer::Layer(const IMaterial* material, double thickness, ILayout *decoration)
-//    : m_thickness(0)
-//    , mp_decoration(0)
-//{
-//    if (thickness < 0.)
-//        throw DomainErrorException("Layer thickness cannot be negative");
-//    m_thickness = thickness;
-//    setName("Layer");
-//    setDecorationPtr(decoration);
-//    setMaterial(material);
-//    init_parameters();
-//}
-
 Layer::Layer(const IMaterial &material, double thickness)
     : m_thickness(thickness)
     , mp_material(0)
-    , mp_layout(0)
 {
     setName("Layer");
     setMaterial(material);
@@ -54,34 +40,33 @@ Layer::Layer(const IMaterial &material, double thickness)
 
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
+    m_thickness = other.m_thickness;
     mp_material = 0;
     if(other.mp_material) mp_material = other.mp_material->clone();
-    mp_layout = 0;
-    if(other.getLayout()) {
-        setLayoutPtr(other.getLayout()->clone());
+    for (size_t i=0; i<other.getNumberOfLayouts();++i) {
+        addLayoutPtr(other.getLayout(i)->clone());
     }
-    m_thickness = other.m_thickness;
     setName(other.getName());
+    setNumberOfLayers(other.getNumberOfLayers());
     init_parameters();
 }
 
 Layer::~Layer()
 {
     delete mp_material;
-    delete mp_layout;
 }
 
 Layer* Layer::cloneInvertB() const
 {
     Layer *p_clone = new Layer();
     p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
-    p_clone->mp_layout = 0;
-    if(this->getLayout()) {
-        p_clone->setLayoutPtr(this->getLayout()->cloneInvertB());
+    for (size_t i=0; i<getNumberOfLayouts(); ++i) {
+        p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
     }
     p_clone->m_thickness = this->m_thickness;
     std::string clone_name = this->getName() + "_inv";
     p_clone->setName(clone_name);
+    p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
 }
@@ -113,21 +98,17 @@ void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
     setThickness(thickness);
 }
 
-void Layer::setLayoutPtr(ILayout *layout)
+void Layer::addLayoutPtr(ILayout *layout)
 {
     if( !layout ) return;
 
-    if(mp_layout) {
-        deregisterChild(mp_layout);
-        delete mp_layout;
-    }
-    mp_layout = layout;
-    registerChild(mp_layout);
+    m_layouts.push_back(layout);
+    registerChild(layout);
 }
 
-void Layer::setLayout(const ILayout &decoration)
+void Layer::addLayout(const ILayout &decoration)
 {
-    setLayoutPtr(decoration.clone());
+    addLayoutPtr(decoration.clone());
 }
 
 //! Prints description.
@@ -137,24 +118,27 @@ void Layer::print(std::ostream& ostr) const
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 
-LayerDWBASimulation *Layer::createDWBASimulation() const
+LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
 {
-    if(mp_layout) {
-        return new DecoratedLayerDWBASimulation(this);
+    if(getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
+        return 0;
     }
-    return 0;
+    return new DecoratedLayerDWBASimulation(this, layout_index);
 }
 
-DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
+DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation(
+        size_t layout_index) const
 {
-    if(!mp_layout) return 0;
+    if(getNumberOfLayouts()==0) return 0;
+    if(layout_index>=getNumberOfLayouts()) return 0;
 
-    DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
-    size_t nbr_particles = mp_layout->getNumberOfParticles();
-    double particle_density = mp_layout->getTotalParticleSurfaceDensity();
+    DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation(this);
+    const ILayout *p_layout = getLayout(layout_index);
+    size_t nbr_particles = p_layout->getNumberOfParticles();
+    double particle_density = p_layout->getTotalParticleSurfaceDensity();
     const IMaterial *p_layer_material = getMaterial();
     for (size_t i=0; i<nbr_particles; ++i) {
-        const ParticleInfo *p_info = mp_layout->getParticleInfo(i);
+        const ParticleInfo *p_info = p_layout->getParticleInfo(i);
         std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
                 p_info->getParticle()->createDiffuseParticleInfo(*p_info);
         if (p_diffuse_nps) {
@@ -178,3 +162,4 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
     delete p_sim;
     return 0;
 }
+

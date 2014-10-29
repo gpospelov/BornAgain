@@ -90,9 +90,12 @@ public:
     static int getLabelFontSize();
     static int getPortFontSize();
 
+    static void setZoomLevel(double value);
+
 private:
     static int m_default_layer_height;
     static int m_default_layer_width;
+    static double m_current_zoom_level;
 };
 
 #include <complex>

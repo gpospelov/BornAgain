@@ -16,7 +16,6 @@
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
-#include "LocalMonodisperseApproximationStrategy.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "MessageService.h"
@@ -63,6 +62,7 @@ ParticleLayout* ParticleLayout::clone() const
 
     p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setApproximation(getApproximation());
 
     return p_new;
 }
@@ -81,6 +81,7 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
     p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setApproximation(getApproximation());
 
     return p_new;
 }

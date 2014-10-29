@@ -70,7 +70,7 @@ IFormFactor *BoxItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString ConeItem::P_RADIUS = "Length";
+const QString ConeItem::P_RADIUS = "Radius";
 const QString ConeItem::P_HEIGHT = "Width";
 const QString ConeItem::P_ALPHA = "Height";
 
@@ -94,7 +94,7 @@ IFormFactor *ConeItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Cone6Item::P_RADIUS = "Length";
+const QString Cone6Item::P_RADIUS = "Radius";
 const QString Cone6Item::P_HEIGHT = "Width";
 const QString Cone6Item::P_ALPHA = "Height";
 
@@ -129,7 +129,7 @@ CuboctahedronItem::CuboctahedronItem(ParameterizedItem *parent)
     setItemName(Constants::CuboctahedronType);
     registerProperty(P_LENGTH, 20.0);
     registerProperty(P_HEIGHT, 13.0);
-    registerProperty(P_HEIGHT_RATIO, 0.7);
+    registerProperty(P_HEIGHT_RATIO, 0.7,PropertyAttribute(AttLimits::lowerLimited(0.)));
     registerProperty(P_ALPHA, 60.0);
 }
 
@@ -295,7 +295,7 @@ IFormFactor *Prism6Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString PyramidItem::P_LENGTH = "Radius";
+const QString PyramidItem::P_LENGTH = "Length";
 const QString PyramidItem::P_HEIGHT = "Height";
 const QString PyramidItem::P_ALPHA = "Alpha";
 

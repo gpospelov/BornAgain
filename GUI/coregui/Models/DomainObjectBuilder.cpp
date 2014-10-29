@@ -93,7 +93,7 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
             boost::scoped_ptr<ParticleLayout>
                     P_layout(buildParticleLayout(*children[i]));
             if (P_layout.get()) {
-                result->setLayout(*P_layout);
+                result->addLayout(*P_layout);
             }
         }
     }
@@ -230,7 +230,7 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
         }
     }
     if(!coreParticle || !shellParticle)
-        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error in p2.");
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Either core or shell particle is undefined.");
 
     ParticleCoreShell *result = TransformToDomain::createParticleCoreShell(item, *coreParticle, *shellParticle, depth, abundance);
     delete coreParticle;

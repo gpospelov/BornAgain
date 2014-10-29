@@ -399,3 +399,18 @@
 
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
 | 2014-08-28 13:15:59 | jcnsopc126 | linuxx8664gcc | 0  | 26.373   | 1.316        | 2.104        | 1.420        | 0.800        | 6.685        | 3.848        | 0.487        | 7.860        | 1.852        |
+
+# Before Walter's refactoring of SpecularInfo
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2014-09-18 11:40:26 | jcnsopc126 | linuxx8664gcc | 0  | 24.029   | 1.272        | 2.001        | 1.235        | 0.665        | 6.023        | 2.747        | 0.495        | 7.842        | 1.751        |
+| 2014-09-18 11:41:47 | jcnsopc126 | linuxx8664gcc | 0  | 23.950   | 1.159        | 1.904        | 1.261        | 0.664        | 6.029        | 2.806        | 0.506        | 7.861        | 1.760        |
+
+# After Walter's refactoring
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2014-09-18 12:16:34 | jcnsopc126 | linuxx8664gcc | 0  | 21.466   | 0.993        | 1.883        | 1.255        | 0.659        | 5.132        | 1.609        | 0.494        | 7.765        | 1.674        |
+| 2014-09-18 12:16:59 | jcnsopc126 | linuxx8664gcc | 0  | 21.574   | 1.022        | 1.895        | 1.232        | 0.673        | 5.180        | 1.611        | 0.490        | 7.792        | 1.679        |
+
+# Release 0.9.9
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2014-10-29 11:23:54 | jcnsopc63  | linuxx8664gcc | 0  | 18.662   | 0.277        | 2.183        | 1.502        | 0.589        | 2.106        | 1.687        | 0.495        | 8.053        | 1.770        |

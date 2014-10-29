@@ -46,7 +46,7 @@ void CylindersAndPrismsExample::setSample()
                 0.0, 0.5);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     m_sample->addLayer(air_layer);
     m_sample->addLayer(substrate_layer);

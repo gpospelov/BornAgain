@@ -15,13 +15,6 @@ def get_sample():
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # lattice parameters
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 20.0*nanometer
-    lattice_params.m_length_2 = 20.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-
     #collection of particles
     sphere_ff = FormFactorTruncatedSphere(5*nanometer, 5*nanometer)
     sphere = Particle(m_particle, sphere_ff)
@@ -29,14 +22,17 @@ def get_sample():
     particle_layout.addParticle(sphere, 0.0, 1.0)
 
     # interferences
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(20.0*nanometer)
     pdf = FTDistribution2DGauss(200.0*nanometer/2.0/M_PI, 75.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
 
+    # interference approx chosen between: DA (default) and SSCA
+    particle_layout.setApproximation(ILayout.DA)
+
     # assembling the sample
     air_layer = Layer(m_ambience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
@@ -53,10 +49,6 @@ def get_simulation():
     simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree)
     simulation.setBeamParameters(wlgth, alphai, phii)
     
-    sim_params= SimulationParameters()
-    # Simulation using Local Monodisperse Approximation
-    sim_params.me_if_approx = SimulationParameters.LMA
-    simulation.setSimulationParameters(sim_params)
     return simulation
 
 

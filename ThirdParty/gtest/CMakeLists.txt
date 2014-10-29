@@ -2,6 +2,9 @@
 # CMakeLists.txt file for building gtest library
 ############################################################################
 
+if(POLICY CMP0042)
+cmake_policy(SET CMP0042 NEW)
+endif()
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_VARIADIC_MAX=10")

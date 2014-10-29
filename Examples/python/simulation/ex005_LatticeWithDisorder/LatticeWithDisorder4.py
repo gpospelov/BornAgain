@@ -19,25 +19,20 @@ def get_sample(xi_value):
     air_layer = Layer(m_ambience)
     substrate_layer = Layer(m_substrate)
 
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = xi_value
-    p_interference_function = InterferenceFunction2DLattice(lattice_params)
+    p_interference_function = InterferenceFunction2DLattice.createSquare(25.0*nanometer, xi_value)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
 
     particle_layout = ParticleLayout()
     # particle
-    ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
+    ff_cyl = FormFactorCylinder(3.0*nanometer, 3.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(p_interference_function)
 
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -52,11 +47,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    sim_params = SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
-    sim_params.me_if_approx = SimulationParameters.LMA
-    sim_params.me_lattice_type = SimulationParameters.LATTICE
-    simulation.setSimulationParameters(sim_params)
     return simulation
 
 

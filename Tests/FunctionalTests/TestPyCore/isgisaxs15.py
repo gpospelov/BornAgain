@@ -36,9 +36,10 @@ def RunSimulation():
     nbr_replacements = p_parameters.fixRatioBetweenParameters("height", "radius", 1.0)
     #print "Number of replacements: ", nbr_replacements
     particle_layout.addInterferenceFunction(interference)
+    particle_layout.setApproximation(ILayout.SSCA)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
 
@@ -46,10 +47,6 @@ def RunSimulation():
     simulation = Simulation()
     simulation.setDetectorParameters(150, 0.05 * degree, 1.5 * degree, 150, 0.05 * degree, 1.5 * degree, True)
     simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
-
-    sim_params = SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.SSCA
-    simulation.setSimulationParameters(sim_params)
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()

@@ -58,7 +58,7 @@ ISample *IsGISAXS10Builder::buildSample() const
     ParticleLayout particle_layout(new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

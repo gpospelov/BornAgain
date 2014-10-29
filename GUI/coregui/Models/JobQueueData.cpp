@@ -4,6 +4,8 @@
 #include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
+#include "DomainSimulationBuilder.h"
+#include "ThreadInfo.h"
 #include "GUIHelpers.h"
 #include <QUuid>
 #include <QThread>
@@ -20,10 +22,8 @@ JobQueueData::JobQueueData() : m_job_index(0)
 
 }
 
-//JobQueueItem *JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
-//    JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
     QString identifier = generateJobIdentifier();
 
     if(jobName.isEmpty()) jobName = generateJobName();
@@ -31,6 +31,17 @@ QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem
     jobItem->setRunPolicy(run_policy);
     m_job_items[identifier] = jobItem;
     if(simulation) m_simulations[identifier] = simulation;
+    return identifier;
+}
+
+
+QString JobQueueData::createJob(JobItem *jobItem)
+{
+    QString identifier = generateJobIdentifier();
+    if(jobItem->getName().isEmpty())
+        jobItem->setName(generateJobName());
+
+    m_job_items[identifier] = jobItem;
     return identifier;
 }
 
@@ -95,16 +106,46 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
     throw GUIHelpers::Error("JobQueueData::getIdentifierForJobItem() -> Error! Can't find item.");
 }
 
+bool JobQueueData::hasUnfinishedJobs()
+{
+    return m_simulations.size();
+}
+
 
 //! submit job and run it in a thread
-void JobQueueData::runJob(QString identifier)
+void JobQueueData::runJob(const QString &identifier)
 {
     if(getThread(identifier)) {
         qDebug() << "JobQueueData::runInThread() -> Thread is already running";
         return;
     }
 
-    JobRunner *runner = new JobRunner(identifier, getSimulation(identifier));
+    if(getSimulation(identifier))
+        throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
+
+    JobItem *jobItem = getJobItem(identifier);
+    Simulation *simulation(0);
+    try{
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
+
+    } catch(const std::exception &ex) {
+        jobItem->setStatus(JobItem::Failed);
+        jobItem->setProgress(100);
+        QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
+                        "has failed with following error message.\n");
+        message += QString(ex.what());
+        jobItem->setComments(message);
+        emit focusRequest(jobItem);
+        emit jobIsFinished(identifier);
+        return;
+    }
+
+    ThreadInfo info;
+    info.n_threads = jobItem->getNumberOfThreads();
+    simulation->setThreadInfo(info);
+    m_simulations[identifier] = simulation;
+
+    JobRunner *runner = new JobRunner(identifier, simulation);
     m_runners[identifier] = runner;
 
     QThread *thread = new QThread();
@@ -133,7 +174,7 @@ void JobQueueData::runJob(QString identifier)
 
 
 //! cancels running job
-void JobQueueData::cancelJob(QString identifier)
+void JobQueueData::cancelJob(const QString &identifier)
 {
     //qDebug() << "JobQueueData::cancelJob()";
     if(getThread(identifier)) {
@@ -146,7 +187,7 @@ void JobQueueData::cancelJob(QString identifier)
 
 
 //! remove job from list completely
-void JobQueueData::removeJob(QString identifier)
+void JobQueueData::removeJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::removeJob" << identifier;
     cancelJob(identifier);
@@ -159,15 +200,7 @@ void JobQueueData::removeJob(QString identifier)
             break;
         }
     }
-    // removing simulations
-    for(QMap<QString, Simulation *>::iterator it=m_simulations.begin(); it!=m_simulations.end(); ++it) {
-        if(it.key() == identifier) {
-            delete it.value();
-            qDebug() << "       JobQueueData::removeJob   removing simulation" << identifier;
-            m_simulations.erase(it);
-            break;
-        }
-    }
+    clearSimulation(identifier);
 }
 
 
@@ -197,15 +230,12 @@ void JobQueueData::onFinishedJob()
 
     // propagating simulation results
     Simulation *simulation = getSimulation(runner->getIdentifier());
-    if(simulation) {
-        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
-    }
+    jobItem->setResults(simulation);
 
-    if(runner->isTerminated()) {
-        jobItem->setStatus(JobItem::Canceled);
-    } else {
-        jobItem->setStatus(JobItem::Completed);
-    }
+    // propagating status of runner
+    jobItem->setStatus(runner->getStatus());
+    if(runner->getStatus() == JobItem::Failed)
+        jobItem->setComments(runner->getFailureMessage());
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
@@ -213,13 +243,14 @@ void JobQueueData::onFinishedJob()
     if(jobItem->getRunPolicy() & JobItem::RunImmediately)
         emit focusRequest(jobItem);
 
-//    qDebug() << "     JobQueueData::onFinishedJob() -> before emiting jobIsFinished()";
     emit jobIsFinished(runner->getIdentifier());
-//    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), before asigning runner for deletion";
 
+    clearSimulation(runner->getIdentifier());
     assignForDeletion(runner);
 //    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
+    if(!hasUnfinishedJobs())
+        emit globalProgress(100);
 }
 
 
@@ -304,16 +335,33 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 }
 
 
+void JobQueueData::clearSimulation(const QString &identifier)
+{
+    Simulation *simulation = getSimulation(identifier);
+    m_simulations.remove(identifier);
+    delete simulation;
+}
+
+
 //! generates job name
 QString JobQueueData::generateJobName()
 {
+    m_job_index = 0;
+    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
+        QString jobName = it.value()->getName();
+        if(jobName.startsWith("job")) {
+            int job_index = jobName.remove(0,3).toInt();
+            if(job_index > m_job_index) m_job_index = job_index;
+        }
+    }
+
     return QString("job")+QString::number(++m_job_index);
 }
 
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
-{
+{    
     return QUuid::createUuid().toString();
 }
 

@@ -14,7 +14,7 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
-void register_IntensityDataFunctions_class() {
+void register_IntensityDataFunctions_class(){
 
     { //::IntensityDataFunctions
         typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
@@ -40,8 +40,8 @@ void register_IntensityDataFunctions_class() {
                 , getRelativeDifference_function_type( &::IntensityDataFunctions::getRelativeDifference )
                 , ( bp::arg("result"), bp::arg("reference") ) );
         
-         }
-        {  //::IntensityDataFunctions::setEllipticMask
+        }
+        { //::IntensityDataFunctions::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
             
@@ -64,7 +64,7 @@ void register_IntensityDataFunctions_class() {
         IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
         IntensityDataFunctions_exposer.staticmethod( "getRelativeDifference" );
         IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );
-        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );;
+        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );
     }
 
 }

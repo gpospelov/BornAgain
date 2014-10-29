@@ -49,7 +49,7 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t& k_i,
 {
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
         && (alpha_f_bin.getBinSize()!=0.0 || phi_f_bin.getBinSize()!=0.0) ) {
-        return MCIntegratedEvaluate(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluate(k_i, alpha_f_bin, phi_f_bin);
     }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
     return evaluateForList(k_i, k_f_bin, m_ff00);
@@ -60,7 +60,7 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::evaluatePol(
         Bin1D phi_f_bin) const
 {
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluatePol(k_i, alpha_f_bin, phi_f_bin);
     }
     Eigen::Matrix2d result;
     calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
@@ -71,45 +71,19 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::evaluatePol(
     return result;
 }
 
-complex_t IInterferenceFunctionStrategy::meanFormFactor(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-        bool use_position) const
-{
-    complex_t result;
-    for (SafePointerVector<FormFactorInfo>::const_iterator
-             it=m_ff_infos.begin();
-         it != m_ff_infos.end(); ++it) {
-        complex_t ff_value =
-            (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
-        if (use_position) {
-            cvector_t q = getQ(k_i, k_f_bin);
-            complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
-            ff_value *= std::exp(complex_t(0.0, 1.0)*phase);
-        }
-        result += ff_value;
-    }
-    return result;
-}
-
-double IInterferenceFunctionStrategy::meanSquaredFormFactor(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
-{
-    double result=0.0;
-    for (SafePointerVector<FormFactorInfo>::const_iterator it =
-            m_ff_infos.begin(); it != m_ff_infos.end(); ++it) {
-        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
-        result += std::norm(ff_value);
-    }
-    return result;
-}
-
 void IInterferenceFunctionStrategy::calculateFormFactorList(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     clearFormFactorLists();
+    const ILayerRTCoefficients *p_in_coeffs =
+            mp_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+            mp_specular_info->getOutCoefficients(
+                    alpha_f_bin.getMidPoint(), 0.0) );
     SafePointerVector<FormFactorInfo>::const_iterator it =
             m_ff_infos.begin();
     while(it != m_ff_infos.end()) {
+        (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
         m_ff00.push_back(ff_mat);
         ++it;
@@ -121,9 +95,15 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
         Bin1D phi_f_bin) const
 {
     clearFormFactorLists();
+    const ILayerRTCoefficients *p_in_coeffs =
+            mp_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+            mp_specular_info->getOutCoefficients(
+                    alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint()) );
     SafePointerVector<FormFactorInfo>::const_iterator it =
             m_ff_infos.begin();
     while(it != m_ff_infos.end()) {
+        (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin,
                 alpha_f_bin, phi_f_bin);
         m_ff00.push_back((complex_t)ff_mat(0,0));
@@ -143,9 +123,9 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
-        const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
-    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
+    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i,
         alpha_f_bin, phi_f_bin);
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function
         p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles;
@@ -166,14 +146,13 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
 }
 
 Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
-        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-        Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const cvector_t &k_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     Eigen::Matrix2d result;
-    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
+    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i,
         alpha_f_bin, phi_f_bin);
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function
-        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol;
+        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
         mc_integrator(p_function, this, 2);
     double min_array[] = { 0.0, 0.0 };
@@ -196,26 +175,12 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
 
 IInterferenceFunctionStrategy::IntegrationParamsAlpha
 IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i,
-    const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+    Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     kvector_t real_ki(k_i.x().real(), k_i.y().real(), k_i.z().real());
 
-    cvector_t k_f_00 = k_f_bin.m_q_lower;
-    cvector_t k_f_11 = k_f_bin.m_q_upper;
-    complex_t xy_length0 = k_f_00.magxy();
-    complex_t xy_length1 = k_f_11.magxy();
-    cvector_t k_f_01(k_f_11.x()*xy_length0/xy_length1,
-                     k_f_11.y()*xy_length0/xy_length1,
-                     k_f_00.z());
-    cvector_t k_f_10(k_f_00.x()*xy_length1/xy_length0,
-                     k_f_00.y()*xy_length1/xy_length0,
-                     k_f_11.z());
     IntegrationParamsAlpha result;
     result.k_i = k_i;
-    result.k_f00 = k_f_00;
-    result.k_f01 = k_f_01;
-    result.k_f10 = k_f_10;
-    result.k_f11 = k_f_11;
     result.wavelength = 2.0*M_PI/real_ki.mag();
     result.alpha_bin = alpha_f_bin;
     result.phi_bin = phi_f_bin;
@@ -242,11 +207,12 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     k_f.setZ(out_coeff->getScalarKz());
 
     Bin1DCVector k_f_bin(k_f, k_f);
-    calculateFormFactorList(k_i, k_f_bin, pars->alpha_bin);
+    Bin1D alpha_bin(alpha, alpha);
+    calculateFormFactorList(k_i, k_f_bin, alpha_bin);
     return std::cos(alpha)*evaluateForList(k_i, k_f_bin, m_ff00);
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
         double *fractions, size_t dim, void *params) const
 {
     (void)dim;
@@ -255,12 +221,20 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(
 
     IntegrationParamsAlpha* pars = static_cast<IntegrationParamsAlpha*>(params);
     cvector_t k_i = pars->k_i;
-    cvector_t k_f0 = pars->k_f00 + par0*(pars->k_f10 - pars->k_f00);
-    cvector_t k_f1 = pars->k_f01 + par0*(pars->k_f11 - pars->k_f01);
-    cvector_t k_f = k_f0 + par1*(k_f1 - k_f0);
+    cvector_t k_f;
+    double alpha = pars->alpha_bin.m_lower
+            + par0*(pars->alpha_bin.m_upper - pars->alpha_bin.m_lower);
+    double phi = pars->phi_bin.m_lower
+            + par1*(pars->phi_bin.m_upper - pars->phi_bin.m_lower);
+    k_f.setLambdaAlphaPhi(pars->wavelength, alpha, phi);
+    boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
+                mp_specular_info->getOutCoefficients(alpha, phi));
+    k_f.setZ(out_coeff->getScalarKz());
 
     Bin1DCVector k_f_bin(k_f, k_f);
-    calculateFormFactorLists(k_i, k_f_bin, pars->alpha_bin, pars->phi_bin);
+    Bin1D alpha_bin(alpha, alpha);
+    Bin1D phi_bin(phi, phi);
+    calculateFormFactorLists(k_i, k_f_bin, alpha_bin, phi_bin);
 
     double result = 0.0;
     switch (pars->index)
@@ -278,5 +252,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(
         result = evaluateForList(k_i, k_f_bin, m_ff11);
         break;
     }
-    return result;
+    return std::cos(alpha)*result;
 }

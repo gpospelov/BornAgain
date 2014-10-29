@@ -5,25 +5,29 @@
 #include "projectmanager.h"
 #include "stringutils.h"
 #include <QMenuBar>
+#include <QShortcut>
 #include <QSettings>
 #include <QFileInfo>
+#include <QKeySequence>
 #include <QDebug>
 #include <QDir>
 #include <iostream>
 
 ActionManager::ActionManager(MainWindow *parent)
-    : m_mainWindow(parent)
+    : QObject(parent)
+    , m_mainWindow(parent)
     , m_newAction(0)
     , m_openAction(0)
     , m_saveAction(0)
     , m_menuBar(0)
     , m_fileMenu(0)
     , m_helpMenu(0)
-
+    , m_runSimulationShortcut(0)
 {
     setParent(parent);
     createActions();
     createMenus();
+    createGlobalShortcuts();
 }
 
 
@@ -68,7 +72,7 @@ void ActionManager::createMenus()
 {
     m_menuBar = new QMenuBar; // No parent (System menu bar on Mac OS X)
 
-    if (!Utils::HostOsInfo::isMacHost()) // System menu bar on Mac
+    if (!Utils::HostOsInfo::isMacHost())
         m_mainWindow->setMenuBar(m_menuBar);
 
     // File Menu
@@ -87,6 +91,14 @@ void ActionManager::createMenus()
 
     // Help Menu
     m_helpMenu = m_menuBar->addMenu(tr("&Help"));
+}
+
+
+void ActionManager::createGlobalShortcuts()
+{
+    m_runSimulationShortcut =  new QShortcut(QKeySequence(tr("Ctrl+r")), m_mainWindow);
+    m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
+    connect(m_runSimulationShortcut, SIGNAL(activated()), m_mainWindow, SLOT(onRunSimulationShortcut()));
 }
 
 
@@ -114,6 +126,7 @@ void ActionManager::aboutToShowRecentProjects()
     }
 
 }
+
 
 
 

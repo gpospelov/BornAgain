@@ -52,6 +52,8 @@ public:
                             double alpha_i, double alpha_f);
 
 protected:
+    virtual void runProtected();
+
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum4terms(size_t ilayer,
                             const cvector_t& k_i, const cvector_t& k_f,

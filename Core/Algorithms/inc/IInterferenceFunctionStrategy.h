@@ -63,22 +63,11 @@ protected:
 private:
     struct IntegrationParamsAlpha {
         cvector_t k_i;
-        cvector_t k_f00;
-        cvector_t k_f01;
-        cvector_t k_f10;
-        cvector_t k_f11;
         double wavelength;
         Bin1D alpha_bin;
         Bin1D phi_bin;
         int index;
     };
-    //! Returns mean form factor, possibly including their position information
-    complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin, bool use_position=false) const;
-
-    //! Returns mean squared form factor
-    double meanSquaredFormFactor(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
     //! Constructs one list of evaluated form factors to be used in subsequent
     //! calculations
@@ -96,22 +85,22 @@ private:
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
     double MCIntegratedEvaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
     Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region
     IntegrationParamsAlpha getIntegrationParams(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Evaluate for fixed angles
     double evaluate_for_fixed_angles(double *fractions, size_t dim, void* params) const;
 
     //! Evaluate polarized for fixed angles
-    double evaluate_for_fixed_kf_pol(double *fractions, size_t dim, void* params) const;
+    double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;

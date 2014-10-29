@@ -8,6 +8,7 @@
 
 int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
+double DesignerHelper::m_current_zoom_level = 1.0;
 
 
 QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRectF &rect)
@@ -185,13 +186,15 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
 
 QPixmap DesignerHelper::getMimePixmap(const QString &name)
 {
-    QRectF rect = getDefaultBoundingRect(name);
-    QPixmap pixmap(rect.width()+1, rect.height()+1);
+    QRectF default_rect = getDefaultBoundingRect(name);
+    QRectF mime_rect(0,0,default_rect.width()*m_current_zoom_level, default_rect.height()*m_current_zoom_level);
+
+    QPixmap pixmap(mime_rect.width()+1, mime_rect.height()+1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(getDefaultColor(name), rect));
-    painter.drawRoundedRect(rect, 1, 1);
+    painter.setBrush(DesignerHelper::getDecorationGradient(getDefaultColor(name), mime_rect));
+    painter.drawRoundedRect(mime_rect, 1, 1);
     return pixmap;
 }
 
@@ -228,6 +231,11 @@ int DesignerHelper::getPortFontSize()
 #else
     return 8;
 #endif
+}
+
+void DesignerHelper::setZoomLevel(double value)
+{
+    m_current_zoom_level = value;
 }
 
 

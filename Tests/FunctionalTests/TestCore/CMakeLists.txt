@@ -13,7 +13,7 @@ set(list_of_tests
     "IsGISAXS041DDL"
     "IsGISAXS042DDL"
     "IsGISAXS06L1"
-    "IsGISAXS06L2"
+#    "IsGISAXS06L2"
     "IsGISAXS06L3"
     "IsGISAXS06L4"
     "IsGISAXS07"

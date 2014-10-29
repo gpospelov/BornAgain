@@ -423,7 +423,7 @@ void TestRootTree::initializeMesoCrystal(
     particle_layout.setTotalParticleSurfaceDensity(surface_density);
     particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setLayout(particle_layout);
+    avg_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(avg_layer);

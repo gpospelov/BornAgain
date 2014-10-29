@@ -18,30 +18,22 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 10.0*nanometer
-    lattice_params.m_length_2 = 10.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-    interference = InterferenceFunction2DLattice(lattice_params)
+    interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
     particle_layout = ParticleLayout()
-    position = kvector_t(0.0, 0.0, 0.0)
-    # particle 1
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    position1 = kvector_t(0.0, 0.0, 0.0)
+    position2 = kvector_t(12.5*nanometer, 12.5*nanometer, 0.0)
+    cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    particle_info = PositionParticleInfo(cylinder, position, 1.0)
-    particle_layout.addParticleInfo(particle_info)
-    # particle 2
-    position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
-    particle_info.setPosition(position_2)
-    particle_layout.addParticleInfo(particle_info)
+    basis = LatticeBasis()
+    basis.addParticle(cylinder, [position1, position2])
+    particle_layout.addParticle(basis)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
@@ -57,11 +49,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    sim_params = SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
-    sim_params.me_if_approx = SimulationParameters.LMA
-    sim_params.me_lattice_type = SimulationParameters.LATTICE
-    simulation.setSimulationParameters(sim_params)
 
     return simulation
 

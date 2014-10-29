@@ -6,6 +6,7 @@
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "FancyGroupProperty.h"
+#include "ComboProperty.h"
 
 class QLabel;
 class QIcon;
@@ -34,34 +35,6 @@ private:
 };
 
 
-//! The GroupPropertyEdit class provides PropertyVariantFactory with editing
-//! widget for GroupProperty
-//class GroupPropertyEdit : public QWidget
-//{
-//    Q_OBJECT
-//public:
-//    GroupPropertyEdit(QWidget *parent = 0);
-
-//    void setGroupProperty(const GroupProperty &groupProperty);
-//    GroupProperty getGroupProperty() const {
-//        return m_groupProperty;
-//    }
-
-//    QSize sizeHint() const;
-//    QSize minimumSizeHint() const;
-
-//signals:
-//    void groupPropertyChanged(const GroupProperty &material);
-//private slots:
-//    void textChanged(QString text);
-//private:
-//    QComboBox *m_box;
-//    QLabel *m_label;
-//    GroupProperty m_groupProperty;
-//};
-
-
-
 class BA_CORE_API_ FancyGroupPropertyEdit : public QWidget
 {
     Q_OBJECT
@@ -69,8 +42,8 @@ public:
     FancyGroupPropertyEdit(QWidget *parent = 0);
     ~FancyGroupPropertyEdit();
 
-    void setFancyGroupProperty(FancyGroupProperty *groupProperty);
-    FancyGroupProperty *getFancyGroupProperty() const {
+    void setFancyGroupProperty(FancyGroupProperty_t groupProperty);
+    FancyGroupProperty_t getFancyGroupProperty() const {
         return m_groupProperty;
     }
 
@@ -78,7 +51,7 @@ public:
     QSize minimumSizeHint() const;
 
 signals:
-    void fancyGroupPropertyChanged(FancyGroupProperty *group_property);
+    void fancyGroupPropertyChanged(const FancyGroupProperty_t &group_property);
 private slots:
     void indexChanged(int index);
 private:
@@ -86,9 +59,8 @@ private:
     void processSelectableGroup();
     QComboBox *m_box;
     QLabel *m_label;
-    FancyGroupProperty *m_groupProperty;
+    FancyGroupProperty_t m_groupProperty;
 };
-
 
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
@@ -141,5 +113,30 @@ private:
     QDoubleValidator *m_validator;
     ScientificDoubleProperty m_scientificDoubleProperty;
 };
+
+
+//! The ComboPropertyEdit class provides PropertyVariantFactory with editing
+//! widget for ComboProperty
+class BA_CORE_API_ ComboPropertyEdit : public QWidget
+{
+    Q_OBJECT
+public:
+    ComboPropertyEdit(QWidget *parent = 0);
+
+    void setComboProperty(const ComboProperty &combo_property);
+    ComboProperty getComboProperty() const {return m_combo_property; }
+
+    QString comboValueText();
+
+signals:
+    void comboPropertyChanged(const ComboProperty &combo_property);
+private slots:
+    void onCurrentIndexChanged(QString current_value);
+
+private:
+    QComboBox *m_comboBox;
+    ComboProperty m_combo_property;
+};
+
 
 #endif // PROPERTYBROWSERUTILS_H

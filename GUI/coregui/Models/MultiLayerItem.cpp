@@ -28,7 +28,7 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     addToValidChildren(Constants::LayerType);
     addToValidChildren(Constants::MultiLayerType);
 
-    setPropertyAttribute(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
 
 }
 
@@ -50,9 +50,9 @@ void MultiLayerItem::updateLayers()
 {
     for(int i = 0; i<childItemCount(); ++i) {
         if(i == 0) {
-            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::DisabledProperty);
+            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::DisabledProperty);
         } else {
-            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::VisibleProperty);
+            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VisibleProperty);
         }
     }
 }

@@ -9,8 +9,15 @@ endif()
 if(POLICY CMP0043)
 cmake_policy(SET CMP0043 NEW)
 endif()
+if(POLICY CMP0042)
+cmake_policy(SET CMP0042 NEW)
+endif()
 
 set(library_name BornAgainGUI)
+
+if(BORNAGAIN_CRASHHADLER)
+    add_definitions(-DBORNAGAIN_CRASHHANDLER)
+endif()
 
 # --- source and include files ---
 set(include_dirs
@@ -130,7 +137,9 @@ target_link_libraries(${library_name}
 
 # --- Installation ---
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-
+if(APPLE AND CREATE_BUNDLE)
+  set(source_files ${source_files} ${CMAKE_SOURCE_DIR}/GUI/main/BornAgainApp.icns)
+endif(APPLE AND CREATE_BUNDLE)
 # system libraries: ROOT installation
 if(WIN32)
 #     install(FILES 

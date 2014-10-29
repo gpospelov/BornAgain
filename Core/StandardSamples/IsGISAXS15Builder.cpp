@@ -61,8 +61,9 @@ ISample *IsGISAXS15Builder::buildSample() const
     p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
 
     particle_layout.addInterferenceFunction(p_interference_function);
+    particle_layout.setApproximation(ILayout::SSCA);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

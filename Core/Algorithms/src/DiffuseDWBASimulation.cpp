@@ -19,10 +19,24 @@
 #include "FormFactorTools.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
+#include "Layer.h"
 
 //! Carry out one simulation thread.
 
 void DiffuseDWBASimulation::run()
+{
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void DiffuseDWBASimulation::runProtected()
 {
     msglog(MSG::DEBUG2) << "DiffuseDWBASimulation::run()";
     // Set diffuse terms.
@@ -46,13 +60,19 @@ void DiffuseDWBASimulation::run()
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            if (m_sim_params.me_framework==SimulationParameters::DWBA &&
-                    alpha_f<0) {
+            size_t n_layers = mp_layer->getNumberOfLayers();
+            if (n_layers>1 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }
-            Bin1DCVector k_f_bin = getKfBin1_matrix(getWaveLength(), alpha_bin,
+            Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin,
                     phi_bin);
+
+            const ILayerRTCoefficients *p_in_coeffs =
+                    mp_specular_info->getInCoefficients();
+            boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+                    mp_specular_info->getOutCoefficients(
+                            alpha_f, phi_bin.getMidPoint()) );
 
             Eigen::Matrix2d total_intensity = Eigen::Matrix2d::Zero();
             for (size_t i=0; i<diffuse_terms.size(); ++i) {
@@ -60,6 +80,8 @@ void DiffuseDWBASimulation::run()
                 Eigen::Matrix2cd amplitude = Eigen::Matrix2cd::Zero();
                 Eigen::Matrix2d intensity = Eigen::Matrix2d::Zero();
                 for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                    p_diffuse_term->m_form_factors[j]
+                            ->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
                     Eigen::Matrix2cd amp =
                         p_diffuse_term->m_form_factors[j]->evaluatePol(
                             m_ki, k_f_bin, alpha_bin, phi_bin);
@@ -95,12 +117,19 @@ void DiffuseDWBASimulation::run()
             }
             Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin, phi_bin);
 
+            const ILayerRTCoefficients *p_in_coeffs =
+                    mp_specular_info->getInCoefficients();
+            boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+                    mp_specular_info->getOutCoefficients(alpha_f, 0.0) );
+
             double total_intensity = 0;
             for (size_t i=0; i<diffuse_terms.size(); ++i) {
                 DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
                 complex_t amplitude(0., 0.);
                 double intensity = 0;
                 for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                    p_diffuse_term->m_form_factors[j]
+                            ->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
                     complex_t amp =
                         p_diffuse_term->m_form_factors[j]->evaluate(
                             k_ij, k_f_bin, alpha_bin);
@@ -116,6 +145,7 @@ void DiffuseDWBASimulation::run()
     }
     m_progress.finished();
 }
+
 
 void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
 {
@@ -166,11 +196,11 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 IFormFactor *p_dwba_ff(p_ff_particle);
                 if (checkPolarizationPresent()) {
                     p_dwba_ff = FormFactorTools::createDWBAMatrixFormFactor(
-                            p_ff_particle, *mp_specular_info, depth);
+                            p_ff_particle, depth);
                 }
                 else {
                     p_dwba_ff = FormFactorTools::createDWBAScalarFormFactor(
-                            p_ff_particle, *mp_specular_info, depth);
+                            p_ff_particle, depth);
                 }
                 p_diffuse_term->m_form_factors.push_back(p_dwba_ff);
             }

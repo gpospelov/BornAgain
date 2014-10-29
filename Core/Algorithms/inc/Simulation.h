@@ -175,6 +175,8 @@ protected:
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
 
+    void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     SampleBuilder_t mp_sample_builder;

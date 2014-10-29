@@ -27,13 +27,12 @@ set(destination_bin bin)
 set(destination_lib lib)
 set(destination_include include/BornAgain)
 set(destination_examples share/BornAgain/Examples)
+set(destination_images share/BornAgain/Images)
 if(WIN32)
     set(destination_lib bin)
     set(destination_include include)
     set(destination_examples Examples)
 endif()
-
-
 
 # --- configure user setup script
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.sh" @ONLY)
@@ -65,3 +64,6 @@ if(NOT WIN32)
             DESTINATION bin)
 endif()
 
+if(APPLE AND CREATE_BUNDLE)
+  include(DarwinSetup)
+endif(APPLE AND CREATE_BUNDLE)

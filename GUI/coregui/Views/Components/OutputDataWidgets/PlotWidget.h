@@ -8,13 +8,14 @@
 #include <QMouseEvent>
 
 class HistogramPlot;
+class ProjectManager;
 
 class BA_CORE_API_ PlotWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit PlotWidget(QWidget *parent=0, bool isContextMenuEnabled = true);
+    explicit PlotWidget(QWidget *parent=0, bool isContextMenuEnabled = true, bool isProjectionsEnabled = true);
     virtual ~PlotWidget(){}
 
     QSize minimumSizeHint() const { return QSize(800, 800); }
@@ -22,6 +23,7 @@ public:
     int histogramSize;
     void drawPlot(OutputDataItem *outputDataItem);
     void setPropertyWidgetVisibilityFlag(bool visible);
+    void setProjectManager(ProjectManager *projectManager);
 
 signals:
     void projectionsVisibilityChanged(bool visible);
@@ -30,6 +32,7 @@ signals:
 public slots:
     void onZaxisRangeChanged(QCPRange newRange);
     void updatePlot();
+    void updateIntensity();
 
     void resetTriggered();
     void savePlot();
@@ -44,6 +47,10 @@ private slots:
 
 private:
     void initContextMenu();
+    void connectSignals();
+    void showProjectsions(bool visible);
+
+
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;
     QSplitter *m_splitterBottom;
@@ -53,16 +60,15 @@ private:
     QLabel *m_statusLabel;
     OutputDataItem *m_outputDataItem;
     QCPColorGradient m_gradient;
-    bool m_block_plot_update;
+
     QAction *m_propertyPanelAction;
     QAction *m_projectionsAction;
     QAction *m_resetAction;
     QAction *m_saveAction;
     QMenu *m_contextMenu;
+    ProjectManager *m_projectManager;
 
-    void connectSignals();
-
-
+    bool m_block_plot_update;
     bool m_isProjectionsEnabled;
     bool m_isContextMenuEnabled;
     bool m_isPropertyWidgetVisible;

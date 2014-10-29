@@ -1,5 +1,6 @@
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
+#include "item_constants.h"
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QDebug>
@@ -30,10 +31,26 @@ QString ToolTipDataBase::getSampleViewToolTip(const QString &className, const QS
     return m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, className, propertyName);
 }
 
-QString ToolTipDataBase::getWidgetboxToolTip(const QString &propertyName)
+QString ToolTipDataBase::getSampleViewWidgetboxToolTip(const QString &className)
 {
     Q_ASSERT(m_instance);
-    return m_instance->this_getToolTip(ToolTipsXML::widgetboxContext, ToolTipsXML::widgetboxContext, propertyName);
+    QString modelName(className);
+    modelName.remove(Constants::FormFactorType);
+    return m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, modelName, ToolTipsXML::titleProperty);
+}
+
+QString ToolTipDataBase::getSampleViewDesignerToolTip(const QString &className)
+{
+    Q_ASSERT(m_instance);
+    QString title = m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, className,  ToolTipsXML::titleProperty);
+    QString descr = m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, className,  ToolTipsXML::descriptionProperty);
+    QString result;
+    if(!descr.isEmpty()) {
+        result = QString("%1\n%2\n%3").arg(className, title, descr);
+    } else {
+        result = QString("%1\n%2").arg(className, title);
+    }
+    return result;
 }
 
 
@@ -99,16 +116,17 @@ QString ToolTipDataBase::getTag(const QString &contextName, const QString &categ
 void ToolTipDataBase::addToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName, const QString &tooltip)
 {
     if(!tooltip.isEmpty()) {
-        QString formattedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
-        formattedToolTip += tooltip;
-        formattedToolTip += QString("</FONT>");
+//        QString formattedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
+//        formattedToolTip += tooltip;
+//        formattedToolTip += QString("</FONT>");
+        QString formattedToolTip = tooltip;
         m_tagToToolTip[getTag(contextName, categoryName, propertyName)] = formattedToolTip;
     }
 }
 
 
-QString ToolTipDataBase::this_getToolTip(const QString &contextName, const QString &className, const QString &propertyName)
+QString ToolTipDataBase::this_getToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName)
 {
-    return m_tagToToolTip[getTag(contextName, className, propertyName)];
+    return m_tagToToolTip[getTag(contextName, categoryName, propertyName)];
 }
 

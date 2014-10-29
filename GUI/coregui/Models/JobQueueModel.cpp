@@ -113,6 +113,26 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
 }
 
 
+QString JobQueueModel::addJob(JobItem *jobItem)
+{
+    Q_ASSERT(jobItem);
+    qDebug() << "JobQueueModel::addJob(JobItem *jobItem)" << jobItem->getRunPolicy();
+    int position = m_jobs.size();
+    beginInsertRows(QModelIndex(), position, position);
+    QString identifier = m_queue_data->createJob(jobItem);
+    JobQueueItem *queue_item = new JobQueueItem(identifier);
+    m_jobs.append(queue_item);
+    endInsertRows();
+
+    connect(jobItem, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+
+    if( jobItem->getRunPolicy() & (JobItem::RunImmediately | JobItem::RunInBackground)  && jobItem->getStatus()!=JobItem::Completed)
+        runJob(queue_item->getIdentifier());
+
+    return queue_item->getIdentifier();
+}
+
+
 bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* parent */)
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
@@ -270,8 +290,11 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
         reader->readNext();
         if (reader->isStartElement()) {
             if (reader->name() == JobQueueXML::JobTag) {
-                QString identifier = addJob(0);
-                m_queue_data->getJobItem(identifier)->readFrom(reader);
+                //QString identifier = addJob(0);
+                //m_queue_data->getJobItem(identifier)->readFrom(reader);
+                JobItem *jobItem = new JobItem(QString());
+                jobItem->readFrom(reader);
+                addJob(jobItem);
             } else {
                 throw GUIHelpers::Error("JobQueueModel::readFrom() -> Format error in p2");
             }

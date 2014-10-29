@@ -399,7 +399,7 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
         0.0, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

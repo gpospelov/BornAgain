@@ -42,14 +42,8 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    Lattice2DIFParameters lattice_params;
-    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
-    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
-    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
-    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-
     InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
@@ -62,7 +56,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -85,33 +79,29 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    Lattice2DIFParameters lattice_params;
-    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
-    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
-    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
-    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-
-    InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+    InterferenceFunction2DLattice interference_function(10.0*Units::nanometer,
+            10.0*Units::nanometer, M_PI/2.0);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
                                100.0*Units::nanometer/2.0/M_PI);
-    p_interference_function->setProbabilityDistribution(pdf);
+    interference_function.setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_layout;
+    ParticleLayout particle_layout1;
     // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl), position, 1.0);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout1.addParticleInfo(particle_info);
+    particle_layout1.addInterferenceFunction(interference_function);
+    ParticleLayout particle_layout2;
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     particle_info.setPosition(position_2);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout2.addParticleInfo(particle_info);
+    particle_layout2.addInterferenceFunction(interference_function);
 
-    particle_layout.addInterferenceFunction(p_interference_function);
-
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout1);
+    air_layer.addLayout(particle_layout2);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -134,14 +124,9 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    Lattice2DIFParameters lattice_params;
-    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
-    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
-    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
-    lattice_params.m_xi = 30.0*Units::degree; // lattice orientation
-
     InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
+                                                    30.0*Units::degree);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
                                100.0*Units::nanometer/2.0/M_PI);
     pdf.setGamma(30.0*Units::degree);
@@ -156,7 +141,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     particle_layout.addParticleInfo(particle_info);
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -192,14 +177,9 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    Lattice2DIFParameters lattice_params;
-    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
-    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
-    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
-    lattice_params.m_xi = m_xi; // lattice orientation
-
     InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+        InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
+                                                    m_xi);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
@@ -216,7 +196,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
 
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

@@ -50,8 +50,7 @@
 #include "TestInfLongBox.h"
 #include "TestInfLongRipple1.h"
 #include "TestInfLongRipple2.h"
-
-
+#include "TestPyGenerator.h"
 #include "TBenchmark.h"
 
 
@@ -147,6 +146,10 @@ void ApplicationTestFactory::print_testnames()
 
 void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
 {
+    p_test_factory->registerItem(
+        "pygen",
+        IFactoryCreateFunction<TestPyGenerator, IApplicationTest>,
+        "Generates a python script");
     p_test_factory->registerItem(
         "roughness",
         IFactoryCreateFunction<TestRoughness, IApplicationTest>,

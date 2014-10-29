@@ -33,8 +33,10 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
     registerProperty(P_DEPTH, 0.0);
-    registerProperty(P_ABUNDANCE, 1.0);
+    registerProperty(P_ABUNDANCE, 1.0, PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
 
     addToValidChildren(Constants::TransformationType, PortInfo::Port0, 1);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
 }
 

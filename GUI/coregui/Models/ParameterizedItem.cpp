@@ -37,14 +37,21 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->insertChildItem(-1, this);
     }
 
-    registerProperty(P_NAME, QString(), PropertyAttribute::HiddenProperty);
-    registerProperty(P_PORT, -1, PropertyAttribute::HiddenProperty);
+    registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HiddenProperty));
     setItemName(m_model_type);
+}
+
+
+bool ParameterizedItem::isRegisteredProperty(const QString &name)
+{
+    return m_registered_properties.contains(name);
 }
 
 ParameterizedItem::~ParameterizedItem()
 {
     qDeleteAll(m_children);
+    qDeleteAll(m_sub_items);
 }
 
 QString ParameterizedItem::itemName() const
@@ -140,7 +147,7 @@ void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
     ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
     for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
         if(it.value() == propertyItem) {
-            FancyGroupProperty *group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty *>();
+            FancyGroupProperty_t group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
             return;
         }
@@ -186,8 +193,10 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
     qDebug() << "registerFancyGroupProperty "
              << modelType() << group_name;
 
-    FancyGroupProperty *group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
-    registerProperty(group_name, group_property->getVariant());
+    FancyGroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
+    QVariant variant;
+    variant.setValue(group_property);
+    registerProperty(group_name, variant);
     group_property->setParent(this);
     return m_sub_items[group_name];
 }
@@ -196,7 +205,7 @@ ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group
 ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
     qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
-    FancyGroupProperty *group_property = getRegisteredProperty(name).value<FancyGroupProperty *>();
+    FancyGroupProperty_t group_property = getRegisteredProperty(name).value<FancyGroupProperty_t>();
     group_property->setValue(value);
     return m_sub_items[name];
 }
@@ -206,6 +215,9 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
 {
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
+
+    if(m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing attribute "+name);
 
     m_registered_properties << name;
     m_property_attribute[name] = attribute;
@@ -253,22 +265,36 @@ void ParameterizedItem::removeRegisteredProperty(const QString &name)
 
 void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute &attribute)
 {
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAttribute() -> Error. Unknown property "+name);
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAttribute() -> Error. Unknown property attribute "+name);
+
     m_property_attribute[name] = attribute;
 }
 
 
-void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance)
+void ParameterizedItem::setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance)
 {
-    if(m_property_attribute.contains(name)) {
-        m_property_attribute[name].setAppearance(appearance);
-    } else {
-        m_property_attribute[name] = PropertyAttribute(appearance);
-    }
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAppearance() -> Error. Unknown property "+name);
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setPropertyAppearance() -> Error. Unknown property attribute "+name);
+
+    m_property_attribute[name].setAppearance(appearance);
 }
 
 
 PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
+    if(!m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property "+name+" " + modelType());
+
+    if(!m_property_attribute.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::getPropertyAttribute() -> Error. Unknown property attribute "+name);
+
     return m_property_attribute[name];
 }
 

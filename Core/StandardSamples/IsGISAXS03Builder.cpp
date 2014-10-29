@@ -60,7 +60,7 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -103,7 +103,7 @@ ISample *IsGISAXS03BABuilder::buildSample() const
     ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);
 
     return multi_layer;
@@ -152,7 +152,7 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     builder.plantParticles(particle_layout);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
 

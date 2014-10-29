@@ -27,7 +27,7 @@ OutputData<double> *run_simulation(IFormFactor *form_factor)
     ParticleLayout particle_layout( new Particle(particle_material,
                                                          *form_factor));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
     multi_layer.addLayer(air_layer);
 
     // building simulation

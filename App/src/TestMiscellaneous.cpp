@@ -36,7 +36,6 @@
 #include "Materials.h"
 #include "BornAgainNamespace.h"
 #include "FunctionalTestRegistry.h"
-#include "Lattice2DIFParameters.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Units.h"
 #include "Types.h"
@@ -97,21 +96,15 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     ParticleLayout particle_layout;
     particle_layout.addParticle(particle);
 
-    Lattice2DIFParameters lattice_params;
-    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
-    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
-    lattice_params.m_angle = 2.0*M_PI/3.; // lattice angle
-    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-
     InterferenceFunction2DLattice *p_interference_function =
-        new InterferenceFunction2DLattice(lattice_params);
+        InterferenceFunction2DLattice::createHexagonal(10.0*Units::nanometer);
     FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
 
 
     Layer air_layer(air_material);
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     Layer substrate_layer(substrate_material, 0);
 
@@ -120,14 +113,11 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
 
 
     Simulation *simulation = new Simulation();
-    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    simulation->setSimulationParameters(sim_params);
+    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                                      100, 0.0*Units::degree, 2.0*Units::degree,
+                                      true);
+    simulation->setBeamParameters(1.0*Units::angstrom,
+                                  0.2*Units::degree, 0.0*Units::degree);
 
     simulation->setSample(*multi_layer);
 
@@ -138,7 +128,8 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
         double amplitude = (*real_data)[i];
         double sigma = noise_factor*std::sqrt(amplitude);
-        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude, sigma);
+        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude,
+                                                                     sigma);
         if(noisy_amplitude < 0) noisy_amplitude = 0.0;
         (*real_data)[i] = noisy_amplitude;
     }
@@ -146,10 +137,11 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FitSuite *fit_suite = new FitSuite();
     fit_suite->addSimulationAndRealData(*simulation, *real_data);
     fit_suite->initPrint(10);
-//    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
-//    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
-    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
-    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer,
+        0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->addFitParameter("*/FormFactorFullSphere/radius",
+        8.0*Units::nanometer, 0.01*Units::nanometer,
+        AttLimits::limited(4., 12.));
     fit_suite->runFit();
 
 
@@ -167,16 +159,19 @@ void TestMiscellaneous::test_PrintVisitor()
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
 
-    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end();
+        ++it) {
         ISample *sample = factory.createSample((*it).first);
         std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
         sample->printSampleTree();
         delete sample;
     }
 
-    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end();
+        ++it) {
         ISample *sample = factory.createSample((*it).first);
-        std::cout << "xxxxx " << (*it).first << " " << sample->containsMagneticMaterial() << std::endl;
+        std::cout << "xxxxx " << (*it).first << " "
+                  << sample->containsMagneticMaterial() << std::endl;
         delete sample;
     }
 
@@ -232,16 +227,20 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(BornAgain::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis(BornAgain::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis(BornAgain::PHI_AXIS_NAME, axis0_size, 0.0,
+                      double(axis0_size));
+    p_output->addAxis(BornAgain::ALPHA_AXIS_NAME, axis1_size, 0.0,
+                      double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis(BornAgain::PHI_AXIS_NAME, it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis(BornAgain::PHI_AXIS_NAME,
+                                                 it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME,
+                                                 it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
@@ -268,7 +267,8 @@ void TestMiscellaneous::test_OutputDataIOFactory()
 {
     std::string file_name = Utils::FileSystem::GetHomePath()
       +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data = IntensityDataIOFactory::readIntensityData(file_name);
+    OutputData<double > *data =
+            IntensityDataIOFactory::readIntensityData(file_name);
 
     TCanvas *c1 = new TCanvas("c1","c1",800, 800);
     c1->cd(); gPad->SetRightMargin(0.14);
@@ -295,7 +295,8 @@ void TestMiscellaneous::test_FastSin()
         complex_t cx(x, x/2.);
         complex_t cs1 = std::sin(cx);
         complex_t cs2 = MathFunctions::FastSin(cx);
-        std::cout << "xx:" << cx << " std::sin " << cs1 << " sine:" << cs2 << " diff:" << cs1-cs2 << std::endl;
+        std::cout << "xx:" << cx << " std::sin " << cs1 << " sine:" << cs2
+                  << " diff:" << cs1-cs2 << std::endl;
     }
 }
 
@@ -381,7 +382,7 @@ void TestMiscellaneous::test_FormFactor()
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin = { 0.0, 0.0 };
+        Bin1D zero_bin;
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
@@ -494,7 +495,7 @@ void TestMiscellaneous::test_FormFactor1()
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
-        Bin1D zero_bin = { 0.0, 0.0 };
+        Bin1D zero_bin;
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
         //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));
@@ -534,7 +535,7 @@ void TestMiscellaneous::test_SampleGeometry()
         (new Particle(particle_material, FormFactorFullSphere
                       (5*Units::nanometer)));
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     multi_layer.addLayer(air_layer);
 

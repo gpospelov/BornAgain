@@ -74,7 +74,7 @@ public:
     double getAlphaLattice() const { return m_alpha_lattice; }
     double getLatticeOrientation() const { return m_xi; }
     std::vector<double> getDomainSizes() const;
-    std::vector<const IFTDistribution2D *> getPropabilityDistributions() const;
+    std::vector<const IFTDistribution2D *> getProbabilityDistributions() const;
     bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_damping_length;}
 

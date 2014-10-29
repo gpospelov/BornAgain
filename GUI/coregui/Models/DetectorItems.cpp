@@ -37,7 +37,6 @@ PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
     registerProperty(P_NALPHA, 100);
     registerProperty(P_ALPHA_MIN, AngleProperty::Degrees(0.0));
     registerProperty(P_ALPHA_MAX,  AngleProperty::Degrees(2.0));
-
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees());
 }
 

@@ -9,6 +9,8 @@ class JobQueueModel;
 class JobListViewDelegate;
 class QListView;
 class QPushButton;
+class QAction;
+class JobListToolBar;
 
 
 //! Widget to select JobQueueItem in a list
@@ -21,26 +23,31 @@ public:
     explicit JobListWidget(QWidget *parent = 0);
 
     void setModel(JobQueueModel *model);
-//    QSize sizeHint() const { return QSize(128, 128); }
+
+    QSize sizeHint() const { return QSize(64, 768); }
+    QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:
     void makeJobItemSelected(const QModelIndex &index);
 
+protected slots:
+    void showContextMenu(const QPoint &pnt);
+
 private slots:
     void save();
-    void submit();
     void runJob();
     void removeJob();
 
 private:
-    void setupContextMenu();
+    void setupContextMenuActions();
+    bool jobItemCanBeRun(const QModelIndex &index);
 
     JobQueueModel *m_jobQueueModel;
     JobListViewDelegate *m_listViewDelegate;
     QListView *m_listView;
-//    QPushButton *m_submitButton;
-//    QPushButton *m_runButton;
-//    QPushButton *m_saveButton;
+    QAction *m_runJobAction;
+    QAction *m_removeJobAction;
+    JobListToolBar *m_toolBar;
 };
 
 

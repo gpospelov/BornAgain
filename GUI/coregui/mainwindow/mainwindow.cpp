@@ -7,10 +7,8 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "JobQueueView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
-#include "SimulationDataModel.h"
 #include "JobQueueModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
@@ -41,13 +39,14 @@
 #include "FancyGroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
-//#include "TestView.h"
+#include "JobView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
 #include <QStatusBar>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QMessageBox>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -58,12 +57,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_jobQueueView(0)
+    , m_jobView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
-    , mp_sim_data_model(0)
     , m_jobQueueModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -76,6 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
     initModels();
+
+    if (!Utils::HostOsInfo::isMacHost())
+        QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -90,30 +91,30 @@ MainWindow::MainWindow(QWidget *parent)
     m_actionManager = new ActionManager(this);
     readSettings();
 
-    m_tabWidget = new Manhattan::FancyTabWidget();
+    m_tabWidget = new Manhattan::FancyTabWidget(this);
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
-    m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
+    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
-    m_tabWidget->setCurrentIndex(InstrumentTab);
+    m_tabWidget->setCurrentIndex(WelcomeTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
     m_progressBar->hide();
-    m_jobQueueView->setProgressBar(m_progressBar);
+    m_jobView->setProgressBar(m_progressBar);
 
     setCentralWidget(m_tabWidget);
 
@@ -122,11 +123,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
-    connect(m_jobQueueView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
+    connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-
-    //just for test
-    testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }
@@ -135,7 +134,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete m_materialEditor;
-    delete mp_sim_data_model;
 }
 
 
@@ -164,6 +162,11 @@ void MainWindow::writeSettings()
     m_settings->sync();
 }
 
+void MainWindow::onRunSimulationShortcut()
+{
+    m_simulationView->onRunSimulationShortcut();
+}
+
 
 void MainWindow::openRecentProject()
 {
@@ -189,7 +192,6 @@ void MainWindow::onChangeTabWidget(int index)
         m_instrumentView->updateView();
     }
     else if(index == SimulationTab) {
-        updateSimModel();
         m_simulationView->updateSimulationViewElements();
     }
 }
@@ -204,7 +206,12 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-
+    if(m_jobQueueModel->getJobQueueData()->hasUnfinishedJobs()) {
+        QMessageBox::warning(this, tr("Can't quite the application."),
+                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed");
+        event->ignore();
+        return;
+    }
 
     if(m_projectManager->closeCurrentProject())
     {
@@ -215,10 +222,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         event->ignore();
     }
-
-
-
-
 }
 
 void MainWindow::initModels()
@@ -230,8 +233,6 @@ void MainWindow::initModels()
     initJobQueueModel();
 
     initInstrumentModel();
-
-    initSimModel();
 }
 
 
@@ -258,9 +259,11 @@ void MainWindow::initSampleModel()
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    ParameterizedItem *layer0 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+//    layer0->setItemName("layer0");
+//    ParameterizedItem *layer1 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
+//    layer1->setItemName("layer1");
 }
 
 
@@ -269,14 +272,6 @@ void MainWindow::initJobQueueModel()
 {
     delete m_jobQueueModel;
     m_jobQueueModel = new JobQueueModel(this);
-    SimulationRegistry registry;
-    m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
-    //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
-    m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
-    m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
-    m_jobQueueModel->addJob("isgisaxs11",registry.createItem("isgisaxs11"));
-    m_jobQueueModel->addJob("LayerWithRoughness",registry.createItem("LayerWithRoughness"));
-    //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 
 
@@ -286,77 +281,23 @@ void MainWindow::initInstrumentModel()
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 
+//    TestProperty_t property(new TestProperty());
+//    property->m_data = 99.0;
+//    QVariant variant;
+//    variant.setValue(property);
+
 //    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument1->setItemName("Default GISAS");
-//    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-//    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-//    Q_UNUSED(detector1);
-//    Q_UNUSED(beam1);
+//    instrument1->registerProperty("XXX", variant);
+////    instrument1->setItemName("Default GISAS");
+////    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+////    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
+////    Q_UNUSED(detector1);
+////    Q_UNUSED(beam1);
+
+//    TestProperty_t tt = variant.value<TestProperty_t>();
+//    qDebug() << tt->m_data;
 
     //m_instrumentModel->save("instrument.xml");
-}
-
-
-void MainWindow::initSimModel()
-{
-    if (mp_sim_data_model) delete mp_sim_data_model;
-    mp_sim_data_model = new SimulationDataModel;
-}
-
-
-void MainWindow::updateSimModel()
-{
-    Q_ASSERT(mp_sim_data_model);
-    Q_ASSERT(m_sampleModel);
-    Q_ASSERT(m_instrumentModel);
-    qDebug() << " ";
-    qDebug() << "MainWindow::updateSimModel()" << m_sampleModel->rowCount( QModelIndex() );
-    mp_sim_data_model->clear();
-    updateSamples();
-    updateInstruments();
-}
-
-
-void MainWindow::updateSamples()
-{
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_sampleModel->rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = m_sampleModel->index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
-             qDebug() << item->itemName() << item->modelType();
-             if(item->modelType() == Constants::MultiLayerType) {
-                 DomainObjectBuilder builder;
-                 MultiLayer *multilayer = builder.buildMultiLayer(*item);
-                 multilayer->printSampleTree();
-                 if(multilayer) {
-                     mp_sim_data_model->addSample(item->itemName(), multilayer);
-                 }
-             }
-         }
-    }
-}
-
-
-void MainWindow::updateInstruments()
-{
-    qDebug() << "MainWindow::updateInstruments()";
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
-             qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
-             if(item->modelType() == Constants::InstrumentType) {
-                 DomainObjectBuilder builder;
-                 Instrument *instrument = builder.buildInstrument(*item);
-                 std::cout << *instrument << std::endl;
-                 if(instrument) {
-                     mp_sim_data_model->addInstrument(item->itemName(), instrument);
-                 }
-             }
-         }
-    }
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "SessionModel.h"
 #include "MaterialProperty.h"
+#include <QStringList>
 
 class BA_CORE_API_ SampleModel : public SessionModel
 {
@@ -11,6 +12,10 @@ class BA_CORE_API_ SampleModel : public SessionModel
 public:
     explicit SampleModel(QObject *parent = 0);
     ~SampleModel(){}
+
+    SampleModel *createCopy(ParameterizedItem *parent = 0);
+
+    QMap<QString, ParameterizedItem *> getSampleMap() const;
 
 public slots:
     void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);

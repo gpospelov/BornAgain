@@ -96,9 +96,11 @@ def RunSimulation():
     particle_info10 = PositionParticleInfo(particle10, pos10, 0.5)
     particle_layout.addParticleInfo(particle_info10)
 
+    particle_layout.setApproximation(ILayout.ISGISAXSMOR)
+
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -108,10 +110,6 @@ def RunSimulation():
     simulation.setDetectorParameters(100,0.0*degree, 1.0*degree, 100, 0.0*degree, 1.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.0*degree, 0.0*degree)
 
-    sim_params = SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.ISGISAXSMOR
-    simulation.setSimulationParameters(sim_params)
- 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data

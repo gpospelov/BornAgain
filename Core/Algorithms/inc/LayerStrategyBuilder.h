@@ -43,7 +43,8 @@ public:
     LayerStrategyBuilder(
         const Layer& decorated_layer,
         const Simulation& simulation,
-        const SimulationParameters& sim_params);
+        const SimulationParameters& sim_params,
+        size_t layout_index);
 
     virtual ~LayerStrategyBuilder();
 
@@ -58,6 +59,7 @@ protected:
     Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
+    size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
     //! determines if the form factors need to be matrix valued

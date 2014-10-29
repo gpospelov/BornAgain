@@ -82,12 +82,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map = initializeSelectableGroupMap();
 
 
-FancyGroupProperty *GroupPropertyRegistry::createGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
+FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
 {
     Constants::ModelType groupModelType = group_model;
     if(groupModelType.isEmpty()) groupModelType = group_name;
 
-    FancyGroupProperty *result = new FancyGroupProperty(group_name);
+    FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
         result->setGroupType(FancyGroupProperty::SelectableGroupType);

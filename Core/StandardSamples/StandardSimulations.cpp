@@ -158,12 +158,6 @@ Simulation *StandardSimulations::IsGISAXS06L1()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    result->setSimulationParameters(sim_params);
-
     result->setSampleBuilder( builder );
 
     return result;
@@ -180,12 +174,6 @@ Simulation *StandardSimulations::IsGISAXS06L2()
                 100, 0.0*Units::degree, 2.0*Units::degree, true);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
-
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
 
@@ -204,12 +192,6 @@ Simulation *StandardSimulations::IsGISAXS06L3()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    result->setSimulationParameters(sim_params);
-
     result->setSampleBuilder( builder );
 
     return result;
@@ -227,12 +209,6 @@ Simulation *StandardSimulations::IsGISAXS06L4()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    result->setSimulationParameters(sim_params);
-
     result->setSampleBuilder( builder );
 
     return result;
@@ -248,10 +224,6 @@ Simulation *StandardSimulations::IsGISAXS07()
     result->setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
                 100, 0.0*Units::degree, 1.0*Units::degree, true);
     result->setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
-
-    SimulationParameters sim_params;
-    sim_params.me_if_approx = SimulationParameters::ISGISAXSMOR;
-    result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
 
@@ -373,9 +345,6 @@ Simulation *StandardSimulations::IsGISAXS15()
             150, 0.05*Units::degree, 1.5*Units::degree, true);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
-    SimulationParameters sim_params;
-    sim_params.me_if_approx = SimulationParameters::SSCA;
-    result->setSimulationParameters(sim_params);
 
     result->setSampleBuilder( builder );
 
@@ -583,12 +552,6 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
-    SimulationParameters sim_params;
-    sim_params.me_framework = SimulationParameters::DWBA;
-    sim_params.me_if_approx = SimulationParameters::LMA;
-    sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    result->setSimulationParameters(sim_params);
-
     result->setSampleBuilder( builder );
 
     return result;
@@ -597,7 +560,24 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
 Simulation *StandardSimulations::gui_IsGISAXS07()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs07");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::gui_MultipleLayouts()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("multiple_layouts");
 
     Simulation *result = new Simulation();
 

@@ -20,6 +20,7 @@
 #include "ParticleCoreShellItem.h"
 #include "LayerRoughnessItems.h"
 #include "VectorItem.h"
+#include "ParticleLayoutItem.h"
 #include "AngleProperty.h"
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
@@ -115,6 +116,24 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
         item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType);
     }
     item->setItemName(sample->getName().c_str());
+
+    ComboProperty approx_prop;
+    approx_prop << "Decoupling Approximation"
+                << "Size Space Coupling Approximation";
+    ILayout::EInterferenceApproximation approx = sample->getApproximation();
+    switch(approx)
+    {
+    case ILayout::DA:
+        approx_prop.setValue("Decoupling Approximation");
+        break;
+    case ILayout::SSCA:
+        approx_prop.setValue("Size Space Coupling Approximation");
+        break;
+    default:
+        approx_prop.setValue("Decoupling Approximation");
+        break;
+    }
+    item->setRegisteredProperty(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
     m_levelToParentItem[getLevel()] = item;
 }
 

@@ -26,8 +26,9 @@
 class BA_CORE_API_ DiffuseDWBASimulation: public LayerDWBASimulation
 {
 public:
-    DiffuseDWBASimulation()
-        : m_surface_density(1.0) {}
+    DiffuseDWBASimulation(const Layer *p_layer)
+        : LayerDWBASimulation(p_layer)
+        , m_surface_density(1.0) {}
 
     virtual ~DiffuseDWBASimulation() {}
 
@@ -48,6 +49,9 @@ public:
         for (size_t np_index=0; np_index<m_np_infos.size(); ++np_index)
             m_np_infos[np_index]->scaleAbundance(factor);
     }
+
+protected:
+    virtual void runProtected();
 
 private:
     double m_surface_density;

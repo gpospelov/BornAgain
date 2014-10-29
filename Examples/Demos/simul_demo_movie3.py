@@ -37,19 +37,17 @@ def RunSimulation():
     # set coupling between size and space
     interference.setKappa(kappa)
     particle_layout.addInterferenceFunction(interference)
+    particle_layout.setApproximation(ILayout.SSCA)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     roughness = LayerRoughness(10 * nanometer, 3, 20 * nanometer)
     multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
-    # simulation parameters
-    sim_params = SimulationParameters()
-    sim_params.me_if_approx = SimulationParameters.SSCA
     # build and run experiment
     simulation = Simulation()
     simulation.setSimulationParameters(sim_params)

@@ -74,7 +74,7 @@ void TestDetectorResolution::initializeSample()
                                             5*Units::nanometer)));
     particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

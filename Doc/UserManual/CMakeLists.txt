@@ -7,6 +7,9 @@ set(UM_VERSION_MAJOR 0)
 set(UM_VERSION_MINOR 2)
 set(UM_VERSION_PATCH 6)
 
+if(POLICY CMP0046)
+cmake_policy(SET CMP0046 NEW)
+endif()
 
 set(LATEX_COMPILER_FLAGS
 "-interaction=nonstopmode --enable-write18"
@@ -47,15 +50,15 @@ set(UM_IMAGES
     Figures/Box2dxy.eps
     Figures/Box2dxz.eps
     Figures/Box3d.png
-    Figures/Cone2dxy.eps		
-    Figures/Cone2dxz.eps		
+    Figures/Cone2dxy.eps
+    Figures/Cone2dxz.eps
     Figures/Cone3d.png
     Figures/Sphere2dxy.eps
     Figures/Sphere2dxz.eps
     Figures/Sphere3d.png
     Figures/Spheroid2dxy.eps
     Figures/Spheroid2dxz.eps
-    Figures/Spheroid3d.png		
+    Figures/Spheroid3d.png
     Figures/Cone62dxy.eps
     Figures/Cone62dxz.eps
     Figures/Cone63d.png
@@ -64,30 +67,30 @@ set(UM_IMAGES
     Figures/Cuboctahedron3d.png
     Figures/Cylinder2dxy.eps
     Figures/Cylinder2dxz.eps
-    Figures/Cylinder3d.png			
-    Figures/EllipsoidalCylinder2dxy.eps	
-    Figures/EllipsoidalCylinder2dxz.eps	
+    Figures/Cylinder3d.png
+    Figures/EllipsoidalCylinder2dxy.eps
+    Figures/EllipsoidalCylinder2dxz.eps
     Figures/EllipsoidalCylinder3d.png
-    Figures/FullSphere2dxy.eps		    
+    Figures/FullSphere2dxy.eps
     Figures/FullSphere2dxz.eps
-    Figures/FullSphere3d.png	
+    Figures/FullSphere3d.png
     Figures/FullSpheroid2dxy.eps
-    Figures/FullSpheroid2dxz.eps		
-    Figures/FullSpheroid3d.png		
-    Figures/HemiEllipsoid2dxy.eps		
-    Figures/HemiEllipsoid2dxz.eps		
-    Figures/HemiEllipsoid3d.png				            
-    Figures/Prism32dxy.eps		
-    Figures/Prism32dxz.eps		
-    Figures/Prism33d.png		
-    Figures/Prism62dxy.eps	
+    Figures/FullSpheroid2dxz.eps
+    Figures/FullSpheroid3d.png
+    Figures/HemiEllipsoid2dxy.eps
+    Figures/HemiEllipsoid2dxz.eps
+    Figures/HemiEllipsoid3d.png
+    Figures/Prism32dxy.eps
+    Figures/Prism32dxz.eps
+    Figures/Prism33d.png
+    Figures/Prism62dxy.eps
     Figures/Prism62dxz.eps
     Figures/Prism63d.png
     Figures/Pyramid2dxy.eps
     Figures/Pyramid2dxz.eps
-    Figures/Pyramid3d.png		
+    Figures/Pyramid3d.png
     Figures/Ripple12dxy.eps
-    Figures/Ripple12dyz.eps	
+    Figures/Ripple12dyz.eps
     Figures/Ripple13d.png
     Figures/Ripple22dxy.eps
     Figures/Ripple22dyz.eps
@@ -134,14 +137,58 @@ set(UM_IMAGES
     Figures/drawingDA.eps
     Figures/drawing2Dparacrystal.eps
     Figures/S_q_1Dparacrystal.eps
+    Figures/figure_ex001.eps
+    Figures/figure_ex002.eps
+    Figures/figure_ex003BA.eps
+    Figures/figure_ex003BASize.eps
+    Figures/figure_ex003DWBA.eps
+    Figures/figure_ex0041DDL.eps
+    Figures/figure_ex0042DDLsq.eps
+    Figures/figure_ex005Disorder1.eps
+    Figures/figure_ex005Disorder2.eps
+    Figures/figure_ex005Disorder3.eps
+    Figures/figure_ex005Disorder4.eps
+    Figures/figure_ex006Pyramids.eps
+    Figures/figure_ex006RotatedPyramids.eps
+    Figures/figure_ex007CoreShell.eps
+    Figures/figure_ex008CorrelatedRough.eps
+    Figures/figure_ex009CosRipple2DLat.eps
+    Figures/figure_ex009CosRippleNoInterf.eps
+    Figures/figure_ex009TriRipple2DLat.eps
+    Figures/figure_ex009TriRippleNoInterf.eps
+    Figures/figure_ex010BeamDiv.eps
+    Figures/BAgeometry_wide.jpg
+    Figures/fig_ex001.jpg
+    Figures/fig_ex002.jpg
+    Figures/fig_ex003BA.jpg
+    Figures/fig_ex003BASize.jpg
+    Figures/fig_ex003DWBA.jpg
+    Figures/fig_ex005Dis1.jpg
+    Figures/fig_ex005Dis2.jpg
+    Figures/fig_ex005Dis3.jpg
+    Figures/fig_ex005Dis4rand.jpg
+    Figures/fig_ex006Pyramids.jpg
+    Figures/fig_ex006RotatedPyramids.jpg
+    Figures/fig_ex007Core.jpg
+    Figures/fig_ex008Rough.jpg
+    Figures/fig_ex009Cos.jpg
+    Figures/fig_ex009Tri.jpg
+    Figures/fig_ex010BeamDiv.jpg
+    #Figures/g_r_1dpara.eps
+    #Figures/g_r_2dpara.jpg
+    Figures/g_r_2dparasq.jpg
+    Figures/UserAPI_IntensityDataLayout.eps
+
 )
 
 
 file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)
+#file(GLOB tex_inputs "*.tex")
+message("XXX ${tex_inputs}")
 
 ADD_LATEX_DOCUMENT(UserManual.tex
     INPUTS ${tex_inputs}
-    BIBFILES jw7.bib 
+    BIBFILES jw7.bib
     IMAGES ${UM_IMAGES}
     DEFAULT_SAFEPDF
 )

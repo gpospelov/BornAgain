@@ -124,8 +124,8 @@ void InstrumentView::onRemoveInstrument()
     qDebug() << "InstrumentView::onRemoveInstrument()";
     QModelIndex currentIndex = m_instrumentSelector->getSelectionModel()->currentIndex();
     qDebug() << "InstrumentView::onRemoveInstrument()" <<  currentIndex;
-    m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
-
+    if(currentIndex.isValid())
+        m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
 }
 
 

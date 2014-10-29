@@ -22,6 +22,7 @@ public:
     JobQueueData();
 
     QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString createJob(JobItem *jobItem);
 
     const JobItem *getJobItem(QString identifier) const;
     JobItem *getJobItem(QString identifier);
@@ -31,6 +32,8 @@ public:
     Simulation *getSimulation(QString identifier);
 
     QString getIdentifierForJobItem(const JobItem *);
+
+    bool hasUnfinishedJobs();
 
 signals:
     void globalProgress(int);
@@ -44,14 +47,15 @@ public slots:
     void onFinishedThread();
     void onCancelAllJobs();
 
-    void runJob(QString identifier);
-    void cancelJob(QString identifier);
-    void removeJob(QString identifier);
+    void runJob(const QString &identifier);
+    void cancelJob(const QString &identifier);
+    void removeJob(const QString &identifier);
 
-    friend class QuickSimulationRunner;
 private:
     void assignForDeletion(QThread *thread);
     void assignForDeletion(JobRunner *runner);
+    void clearSimulation(const QString &identifier);
+
     void updateGlobalProgress();
 
     QString generateJobName();

@@ -48,7 +48,7 @@ Bin1D VariableBinAxis::getBin(size_t index) const
     if(index >= m_nbins)
         throw Exceptions::OutOfBoundsException("VariableBinAxis::getBin() -> Error. Wrong index.");
 
-    Bin1D result = { m_bin_boundaries[index], m_bin_boundaries[index+1] };
+    Bin1D result(m_bin_boundaries[index], m_bin_boundaries[index+1]);
     return result;
 }
 

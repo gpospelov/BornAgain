@@ -2,6 +2,7 @@
 #include "ParticleLayoutView.h"
 #include "ParameterizedItem.h"
 #include "MaterialProperty.h"
+#include "tooltipdatabase.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
@@ -14,9 +15,10 @@ LayerView::LayerView(QGraphicsItem *parent)
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setName(Constants::LayerType);
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::LayerType));
-    setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
+    //setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
+    setToolTip(ToolTipDataBase::getSampleViewDesignerToolTip(Constants::LayerType));
     setAcceptDrops(false);
-    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleLayout);
+    addPort(QString(), NodeEditorPort::Input, NodeEditorPort::ParticleLayout);
 }
 
 

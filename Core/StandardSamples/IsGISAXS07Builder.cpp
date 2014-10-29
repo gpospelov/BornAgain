@@ -131,8 +131,9 @@ ISample *IsGISAXS07Builder::buildSample() const
     PositionParticleInfo particle_info10(
             new Particle(particle_material, ff10, m10), pos10, 0.5);
     particle_layout.addParticleInfo(particle_info10);
+    particle_layout.setApproximation(ILayout::ISGISAXSMOR);
 
-    air_layer.setLayout(particle_layout);
+    air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);
 
     return multi_layer;

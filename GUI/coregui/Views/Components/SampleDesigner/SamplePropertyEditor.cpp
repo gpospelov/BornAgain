@@ -143,6 +143,13 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
 
         variant_property->setValue(property_value);
 
+        PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+            variant_property->setEnabled(false);
+        } else {
+            variant_property->setEnabled(true);
+        }
+
         connect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
         connect(m_item, SIGNAL(propertyItemChanged(QString)),
@@ -215,6 +222,13 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             }
 
             subProperty->setValue(prop_value);
+
+            if(type == QVariant::Double) {
+                subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+                 AttLimits limits = prop_attribute.getLimits();
+                 if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
+                 if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+            }
 
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);

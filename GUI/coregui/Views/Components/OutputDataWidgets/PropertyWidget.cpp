@@ -4,17 +4,17 @@
 #include "qttreepropertybrowser.h"
 
 
-PropertyWidget::PropertyWidget(QWidget *parent)
+PropertyWidget::PropertyWidget(QWidget *parent, bool isProjection)
     : QWidget(parent)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
     , m_outputDataItem(0)
+    , m_isProjection(isProjection)
 {
     m_maxWidth = 230;
     this->setMaximumWidth(m_maxWidth);
     this->setMinimumHeight(800);
 
-    m_isProjection = true;
     initGradientVector();
 
     m_variantManager = new QtVariantPropertyManager(this);

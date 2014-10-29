@@ -11,6 +11,8 @@
 class JobItem;
 class JobQueueItem;
 class Simulation;
+class SampleModel;
+class SimulationModel;
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QItemSelection;
@@ -27,6 +29,7 @@ namespace JobQueueXML
     const QString JobEndTimeAttribute("EndTime");
     const QString JobCommentsAttribute("Comments");
     const QString JobStatusAttribute("Status");
+    const QString JobProgressAttribute("Progress");
     const QString OutputDataTag("OutputData");
     const QString OutputDataNameAttribute("Name");
     const QString OutputDataXminAttribute("Xmin");
@@ -68,6 +71,7 @@ public:
                       int row, int column, const QModelIndex &parent);
 
     QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString addJob(JobItem *jobItem);
 
     void clear();
 

@@ -31,7 +31,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
     std::vector<double> vref = boost::assign::list_of(0.0)(1.0)(3.0)(4.0)(6.0)(7.0)(9.0)(10.0);
-    EXPECT_EQ(clip->getAllocatedSize(), 8);
+    EXPECT_EQ(clip->getAllocatedSize(), size_t(8));
     int index(0);
     for(size_t i=0; i<clip->getAllocatedSize(); ++i) {
         EXPECT_EQ(vref[index++], (*clip)[i]);
@@ -57,7 +57,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
     std::vector<double> vref = boost::assign::list_of(6.0)(7.0)(10.0)(11.0);
-    EXPECT_EQ(clip->getAllocatedSize(), 4);
+    EXPECT_EQ(clip->getAllocatedSize(), size_t(4));
     int index(0);
     for(size_t i=0; i<clip->getAllocatedSize(); ++i) {
         EXPECT_EQ(vref[index++], (*clip)[i]);

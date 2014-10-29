@@ -9,7 +9,7 @@ project(BornAgain)
 # --- The version number ---
 set(BornAgain_VERSION_MAJOR 0)
 set(BornAgain_VERSION_MINOR 9)
-set(BornAgain_VERSION_PATCH 8)
+set(BornAgain_VERSION_PATCH 9)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
@@ -17,16 +17,17 @@ option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)
+option(CREATE_BUNDLE "Create a Mac OS X bundle" OFF)
 option(ROOT_SUPPORT "Build with dependencies from ROOT" ON)
 option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
+option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
 
-
-# --- Path for additional cmake modules ---
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 #--- Including macros ---
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(BornAgainMacros)
+#AssureOutOfSourceBuilds()
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)

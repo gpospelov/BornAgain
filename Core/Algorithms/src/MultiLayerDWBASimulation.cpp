@@ -37,12 +37,6 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 {
     delete mp_multi_layer;
-    for(std::map<size_t, LayerDWBASimulation*>::iterator it =
-            m_layer_dwba_simulation_map.begin();
-        it!=m_layer_dwba_simulation_map.end(); ++it)
-    {
-        delete (*it).second;
-    }
     delete mp_roughness_dwba_simulation;
 }
 
@@ -51,12 +45,20 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::init()";
     DWBASimulation::init(simulation);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        LayerDWBASimulation *p_layer_dwba_sim =
-            mp_multi_layer->getLayer(i)->createDWBASimulation();
-        if (p_layer_dwba_sim) {
-            m_layer_dwba_simulation_map[i] = p_layer_dwba_sim;
-            p_layer_dwba_sim->init(simulation);
+        for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
+            LayerDWBASimulation *p_layer_dwba_sim =
+                mp_multi_layer->getLayer(i)->createLayoutSimulation(j);
+            if (p_layer_dwba_sim) {
+                if (m_layer_dwba_simulations_map.find(i)
+                    == m_layer_dwba_simulations_map.end()) {
+                    m_layer_dwba_simulations_map[i] =
+                            SafePointerVector<LayerDWBASimulation>();
+                }
+                m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
+                p_layer_dwba_sim->init(simulation);
+            }
         }
+
     }
     // scattering from rough surfaces in DWBA
     for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
@@ -72,10 +74,12 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
 void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 {
     DWBASimulation::setThreadInfo(thread_info);
-    for (std::map<size_t, LayerDWBASimulation*>::iterator it =
-             m_layer_dwba_simulation_map.begin();
-         it != m_layer_dwba_simulation_map.end(); ++it) {
-        it->second->setThreadInfo(thread_info);
+    for (std::map<size_t, SafePointerVector<LayerDWBASimulation> >::iterator it =
+             m_layer_dwba_simulations_map.begin();
+         it != m_layer_dwba_simulations_map.end(); ++it) {
+        for (size_t i=0; i < it->second.size(); ++i) {
+            it->second[i]->setThreadInfo(thread_info);
+        }
     }
     if (mp_roughness_dwba_simulation) {
         mp_roughness_dwba_simulation->setThreadInfo(thread_info);
@@ -84,7 +88,20 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> Running thread "
+    setStatus(Running);
+    try {
+        runProtected();
+        setStatus(Completed);
+    }
+    catch(const std::exception &ex) {
+        setRunMessage(std::string(ex.what()));
+        setStatus(Failed);
+    }
+}
+
+void MultiLayerDWBASimulation::runProtected()
+{
+    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected() -> Running thread "
                        << m_thread_info.current_thread;
     m_dwba_intensity.setAllTo(0.0);
     if (mp_polarization_output) {
@@ -99,18 +116,20 @@ void MultiLayerDWBASimulation::run()
     }
 
     // run through layers and run layer simulations
-    for (std::map<size_t, LayerDWBASimulation*>::const_iterator it =
-            m_layer_dwba_simulation_map.begin();
-            it != m_layer_dwba_simulation_map.end(); ++it)
+    for (std::map<size_t, SafePointerVector<LayerDWBASimulation> >::
+         iterator it = m_layer_dwba_simulations_map.begin();
+            it != m_layer_dwba_simulations_map.end(); ++it)
     {
-        LayerDWBASimulation *p_layer_dwba_sim = it->second;
-        p_layer_dwba_sim->run();
-        if (mp_polarization_output) {
-            addPolarizedDWBAIntensity(
-                p_layer_dwba_sim->getPolarizedDWBAIntensity() );
-        }
-        else {
-            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
+        for (size_t i=0; i<it->second.size(); ++i) {
+            LayerDWBASimulation *p_layer_dwba_sim = it->second[i];
+            p_layer_dwba_sim->run();
+            if (mp_polarization_output) {
+                addPolarizedDWBAIntensity(
+                    p_layer_dwba_sim->getPolarizedDWBAIntensity() );
+            }
+            else {
+                addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
+            }
         }
     }
 
@@ -147,11 +166,13 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
                 coeffs[i_layer]));
 
         // layer DWBA simulation
-        std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
-            m_layer_dwba_simulation_map.find(i_layer);
-        if(pos != m_layer_dwba_simulation_map.end() ) {
-            LayerDWBASimulation *p_layer_dwba_sim = pos->second;
-            p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
+        std::map<size_t, SafePointerVector<LayerDWBASimulation> >
+                ::iterator pos = m_layer_dwba_simulations_map.find(i_layer);
+        if(pos != m_layer_dwba_simulations_map.end() ) {
+            for (size_t i=0; i<pos->second.size();++i) {
+                LayerDWBASimulation *p_layer_dwba_sim = pos->second[i];
+                p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
+            }
         }
 
         // layer roughness DWBA
@@ -189,11 +210,13 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
                 coeffs[i_layer]));
 
         // layer DWBA simulation
-        std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
-            m_layer_dwba_simulation_map.find(i_layer);
-        if(pos != m_layer_dwba_simulation_map.end() ) {
-            LayerDWBASimulation *p_layer_dwba_sim = pos->second;
-            p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
+        std::map<size_t, SafePointerVector<LayerDWBASimulation> >
+             ::iterator pos = m_layer_dwba_simulations_map.find(i_layer);
+        if(pos != m_layer_dwba_simulations_map.end() ) {
+            for (size_t i=0; i<pos->second.size();++i) {
+                LayerDWBASimulation *p_layer_dwba_sim = pos->second[i];
+                p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
+            }
         }
     } // i_layer
 }

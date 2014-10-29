@@ -29,7 +29,7 @@ def get_sample():
     particle_layout.addParticle(cylinder)
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     return multi_layer

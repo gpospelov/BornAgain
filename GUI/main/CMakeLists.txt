@@ -17,9 +17,39 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-add_executable(${executable_name} main.cpp)
+set(source_files
+    main.cpp
+)
 
-target_link_libraries(${executable_name}
+set(include_files)
+
+# MH: disabled crashhandler
+#if(BORNAGAIN_CRASHHADLER)
+#    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
+#    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
+#    list(APPEND source_files stacktracesetup.cpp)
+#    list(APPEND include_files stacktracesetup.h)
+#endif()
+
+# Application icon
+
+if(WIN32)
+    set(RC_FILE bornagain.rc)
+   if ( CONSOLE )
+     set ( WIN_CONSOLE )
+   else ()
+     set( WIN_CONSOLE WIN32 )
+   endif( CONSOLE )
+endif()
+
+
+if(APPLE AND CREATE_BUNDLE)
+  add_executable(${executable_name} MACOSX_BUNDLE ${source_files} ${include_files})
+  get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
+  add_library(Python SHARED IMPORTED)
+  set_property(TARGET Python PROPERTY IMPORTED_LOCATION ${PYTHON_REAL_LIBRARY})
+
+  target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
@@ -28,8 +58,100 @@ target_link_libraries(${executable_name}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${BornAgainGUI_LIBRARY}
-)
+    Python
+  )
+else()
+  add_executable(${executable_name} ${WIN_CONSOLE} ${source_files} ${include_files} ${RC_FILE})
+
+  target_link_libraries(${executable_name}
+    ${ManhattanStyle_LIBRARY}
+    ${qcustomplot_LIBRARY}
+    ${qtpropertybrowser_LIBRARY}
+    ${PYTHON_LIBRARY}
+    ${Boost_LIBRARIES}
+    ${BornAgainCore_LIBRARY}
+    ${BornAgainFit_LIBRARY}
+    ${BornAgainGUI_LIBRARY}
+  )
+endif(APPLE AND CREATE_BUNDLE)
+
+
+# Entry point flag for Windows to ensure we always link to standard main
+if( WIN32 )
+    set_target_properties( ${executable_name} PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup" )
+    if ( CONSOLE )
+        set_target_properties( ${executable_name} PROPERTIES COMPILE_DEFINITIONS "_CONSOLE" )
+    endif ( CONSOLE )
+endif( WIN32 )
+
+#target_link_libraries(${executable_name}
+#    ${ManhattanStyle_LIBRARY}
+#    ${qcustomplot_LIBRARY}
+#    ${qtpropertybrowser_LIBRARY}
+#    ${PYTHON_LIBRARY}
+#    ${Boost_LIBRARIES}
+#    ${BornAgainCore_LIBRARY}
+#    ${BornAgainFit_LIBRARY}
+#    ${BornAgainGUI_LIBRARY}
+#)
 
 # --- Installation ---
-install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
+IF(APPLE AND CREATE_BUNDLE)
+  set(plugin_dest_dir ${INBUNDLE}/Contents/PlugIns)
+  set(qtconf_dest_dir ${INBUNDLE}/Contents/Resources)
+  set(APPS "\${CMAKE_INSTALL_PREFIX}/${INBUNDLE}")
+
+#  message("PYTHON_LIBRARY: ${PYTHON_LIBRARY}")
+
+  get_filename_component(ManhattanStyle_LIBRARY_DIR "${ManhattanStyle_LIBRARY}" REALPATH)
+  get_filename_component(qcustomplot_LIBRARY_DIR "${qcustomplot_LIBRARY}" REALPATH)
+  get_filename_component(qtpropertybrowser_LIBRARY_DIR "${qtpropertybrowser_LIBRARY}" REALPATH)
+  get_filename_component(Boost_Real_LIBRARY_DIR "${Boost_LIBRARY_DIR}" REALPATH)
+  get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_REAL_LIBRARY}" PATH)
+
+#  message("PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}")
+
+  set(DIRS
+    ${ManhattanStyle_LIBRARY_DIR}
+    ${qcustomplot_LIBRARY_DIR}
+    ${qtpropertybrowser_LIBRARY_DIR}
+    ${PYTHON_LIBRARY_DIR}
+    ${Boost_Real_LIBRARY_DIR}
+    "${CMAKE_BINARY_DIR}/lib"
+    "$ENV{QTDIR}"
+    "$ENV{QTDIR}/plugins"
+  )
+
+
+  install (TARGETS ${executable_name}
+    BUNDLE DESTINATION  . COMPONENT Applications
+    RUNTIME DESTINATION ${destination_bin} COMPONENT Runtime)
+
+  install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
+
+  set(qtconf_text "
+[Paths]
+Plugins = PlugIns
+  ")
+
+  install(CODE "
+    file(WRITE \"\${CMAKE_INSTALL_PREFIX}/${qtconf_dest_dir}/qt.conf\" \"${qtconf_text}\")
+    " COMPONENT Runtime)
+
+  install(CODE "
+    file(GLOB_RECURSE QTPLUGINS
+      \"\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+    set(BU_CHMOD_BUNDLE_ITEMS True)
+    set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+    include(${CMAKE_MODULE_PATH}/BABundleUtilities.cmake)
+    fixup_bundle(\"${APPS}\" \"\${QTPLUGINS}\" \"${DIRS}\")
+    " COMPONENT Runtime)
+
+else()
+  install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
+
+    set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
+    install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
+
+endif(APPLE AND CREATE_BUNDLE)
 

@@ -79,6 +79,22 @@
 \usepackage{longtable,tabulary,tabularx}
 \usepackage{pdflscape}
 
+\usepackage{multirow}
+
+
+\usetikzlibrary{matrix,positioning,decorations.pathreplacing,calc}
+
+\newcommand{\ntikzmark}[2]{#2\thinspace\tikz[overlay,remember picture,baseline=(#1.base)]{\node[inner sep=0pt] (#1) {};}}
+
+\newcommand{\makebrace}[3]{%
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw [decoration={brace,amplitude=0.6em},decorate]
+        let \p1=(#1), \p2=(#2) in
+        ({max(\x1,\x2)}, {\y1+1.5em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
+    \end{tikzpicture}
+}
+
+
 %-------------------------------------------------------------------------------
 %	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
 %-------------------------------------------------------------------------------
@@ -211,7 +227,7 @@ Forschungszentrum J\"ulich GmbH
 }
 
 \date{{}}
-
+\setlength{\headheight}{15pt}
 %------------------------------------------------------------------------------
 %	DOCUMENT
 %------------------------------------------------------------------------------
@@ -241,9 +257,9 @@ Forschungszentrum J\"ulich GmbH
 \input{AppendixListings}
 \input{theoryapp}
 \input{ff}
-%\input{interferences}
-%benchmarking - comparison with Isgisaxs
-%\input{AppendixPhysics}
+\input{UserAPI}
+\input{AppendixPythonEx}
+
 
 \bibliographystyle{switch}
 \bibliography{jw7}

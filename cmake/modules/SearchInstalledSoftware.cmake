@@ -1,5 +1,7 @@
 # Search for installed software required by BornAgain
 
+
+
 if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
     find_package(MPI REQUIRED)
@@ -7,11 +9,8 @@ endif()
 
 
 # --- Eigen3 ---
-find_package(Eigen3 3.1.0)
-if(NOT EIGEN3_FOUND) 
-    set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
-    message(STATUS "--> Build in version of Eigen3 will be used")
-endif()
+set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
+message(STATUS "Build in version of Eigen3 will be used")
 
 # --- FFTW3 ---
 find_package(FFTW REQUIRED)
@@ -64,40 +63,21 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp REQUIRED)
 
-    # TODO refactor this
-    if(APPLE)
-        find_package(PythonLibsNew REQUIRED)
-    elseif(WIN32)
-        find_package(PythonLibs REQUIRED)
-    else()
-        set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-        find_package(PythonLibs REQUIRED)
+    find_package(PythonInterp 2.7 REQUIRED)
+    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
+
+    find_package(PythonLibs 2.7)
+    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
+
+    ValidatePythonIntstallation()
+
+    if(NOT PYTHONLIBS_FOUND)
+        message(FATAL_ERROR "No Python library has been found")
     endif()
 
-    # important to find interpreter and libraries from same python version
-    #if(NOT PYTHONLIBS_FOUND)
-    #    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH})
-    #    find_package(PythonLibs REQUIRED)
-    #endif()
-    #if(NOT PYTHONLIBS_FOUND)
-    #    message(SEND_ERROR "No python libraries have been found")
-    #endif()
-
-    if(NOT WIN32)
-        GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
-        if(${PyLibExtension}  STREQUAL ".a")
-            find_package( Threads )
-            set(syslibs "-lm -ldl -lutil ${CMAKE_THREAD_LIBS_INIT} -rdynamic")
-            message(STATUS "--> Static python library detected, adding ${syslibs}")
-            set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
-        endif()
-    endif()
-    
-    #message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
-    
     find_package(Numpy REQUIRED)
+
 endif()
 
 

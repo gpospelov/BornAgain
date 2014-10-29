@@ -26,7 +26,7 @@ def get_sample():
 
     # assembling the sample
     air_layer = Layer(m_ambience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
 
     multi_layer = MultiLayer()
@@ -42,10 +42,6 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(nx, phifmin*degree, phifmax*degree, ny, alphafmin*degree, alphafmax*degree)
     simulation.setBeamParameters(wlgth, alphai, phii)
-    sim_params= SimulationParameters()
-    # Choice between BA and DWBA
-    sim_params.me_framework = SimulationParameters.DWBA
-    simulation.setSimulationParameters(sim_params)
     return simulation
 
 

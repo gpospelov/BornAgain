@@ -31,7 +31,7 @@ def RunSimulation1():
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(mSubstrate, 0)
 
@@ -71,7 +71,7 @@ def RunSimulation2():
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
 
     substrate_layer = Layer(mSubstrate, 0)
 

@@ -361,14 +361,18 @@ void Simulation::runSingleSimulation()
         // Single thread.
         DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
-        if (!p_dwba_simulation)
-            throw NullPointerException(
-                "Simulation::runSimulation() -> No dwba simulation");
+        verifyDWBASimulation(p_dwba_simulation);
         p_dwba_simulation->init(*this);
         p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
-        addToIntensityMaps(p_dwba_simulation);
-        delete p_dwba_simulation;
+        if(p_dwba_simulation->isCompleted()) {
+            addToIntensityMaps(p_dwba_simulation);
+            delete p_dwba_simulation;
+        } else {
+            std::string message = p_dwba_simulation->getRunMessage();
+            delete p_dwba_simulation;
+            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+message);
+        }
     } else {
         // Multithreading.
         if(m_thread_info.n_threads == 0 )  {
@@ -394,8 +398,7 @@ void Simulation::runSingleSimulation()
         for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
             DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
-            if (!p_dwba_simulation) throw NullPointerException(
-                "Simulation::runSimulation() -> No dwba simulation");
+            verifyDWBASimulation(p_dwba_simulation);
             p_dwba_simulation->init(*this);
             m_thread_info.current_thread = i_thread;
             p_dwba_simulation->setThreadInfo(m_thread_info);
@@ -415,10 +418,20 @@ void Simulation::runSingleSimulation()
         }
 
         // Merge simulated data.
-        for(size_t i=0; i<simulations.size(); ++i) {
-            addToIntensityMaps(simulations[i]);
+        bool isSuccess(true);
+        std::string failure_message;
+        for(size_t i=0; i<simulations.size(); ++i) {            
+            if(simulations[i]->isCompleted()) {
+                addToIntensityMaps(simulations[i]);
+            } else {
+                isSuccess = false;
+                failure_message = simulations[i]->getRunMessage();
+            }
             delete simulations[i];
             delete threads[i];
+        }
+        if(!isSuccess) {
+            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
         }
     }
     if( mp_sample->containsMagneticMaterial() ) {
@@ -429,6 +442,16 @@ void Simulation::runSingleSimulation()
         m_instrument.applyDetectorResolution(&m_intensity_map);
     }
 
+}
+
+
+void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
+{
+    if (!dwbaSimulation)
+        throw RuntimeErrorException(
+            "Simulation::runSimulation() -> Can't create the simulation for given sample."
+            "It should be either the MultiLayer with more than one layer (with or without particles),"
+            "or MultiLayer with single Layer containing particles.");
 }
 
 

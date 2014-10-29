@@ -2,6 +2,7 @@
 #define JOBRUNNER_H
 
 #include "WinDllMacros.h"
+#include "JobItem.h"
 #include <QObject>
 #include <QString>
 
@@ -23,7 +24,12 @@ public:
 
     bool similationProgressCallback(int);
 
-    bool isTerminated() { return m_terminate_flag; }
+    bool isTerminated() { return m_terminate_request_flag; }
+
+    JobItem::JobStatus getStatus() const { return m_job_status; }
+
+    QString getFailureMessage() const { return m_failure_message; }
+
 signals:
     void started();
     void finished();
@@ -40,7 +46,10 @@ private:
     QString m_identifier;
     Simulation *m_simulation;
     int m_progress;
-    int m_terminate_flag;
+    JobItem::JobStatus m_job_status;
+
+    bool m_terminate_request_flag;
+    QString m_failure_message;
 };
 
 

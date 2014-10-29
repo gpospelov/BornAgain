@@ -26,6 +26,7 @@
 #include "IsGISAXS11Builder.h"
 #include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
+#include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
 #include "LayerRoughnessBuilder.h"
 #include "Ripple2Builder.h"
@@ -140,6 +141,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayerWithRoughness",
         IFactoryCreateFunction<LayerRoughnessBuilder, ISampleBuilder>,
         "Layer with correlated roughness");
+
+    registerItem(
+       "multiple_layouts",
+       IFactoryCreateFunction<MultipleLayoutBuilder, ISampleBuilder>,
+      "cylinder and prisms using multiple layouts");
 
     registerItem(
         "ripple2",

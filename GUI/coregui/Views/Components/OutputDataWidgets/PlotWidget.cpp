@@ -1,11 +1,13 @@
 #include "PlotWidget.h"
 #include "histogramplot.h"
 #include "OutputData.h"
+#include "projectmanager.h"
 #include "minisplitter.h"
+#include "projectdocument.h"
 #include <QVBoxLayout>
 
 
-PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
+PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjectionsEnabled)
     : QWidget(parent)
     , m_splitter(new QSplitter(this))
     , m_centralPlot(new CentralPlot())
@@ -13,14 +15,13 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
     , m_outputDataItem(0)
     , m_block_plot_update(true)
+    , m_isProjectionsEnabled(isProjectionsEnabled)
+    , m_isContextMenuEnabled(isContextMenuEnabled)
 {
     this->setObjectName(QStringLiteral("plotWidget"));
 
     m_gradient = QCPColorGradient::gpPolar;
-
     m_isPropertyWidgetVisible = true;
-    m_isProjectionsEnabled = true;
-    m_isContextMenuEnabled = isContextMenuEnabled;
     histogramSize = 150;
     //int horizontalHeight = histogramSize-15;
 
@@ -88,6 +89,10 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
 
     initContextMenu();
 
+    if(m_isProjectionsEnabled == false)
+    {
+        showProjectsions(m_isProjectionsEnabled);
+    }
 }
 
 
@@ -99,9 +104,22 @@ void PlotWidget::savePlot()
         m_centralPlot->showLinesOverMap(false);
     }
 
+
+
+
     QString filters("*.png;;*.jpg;;*.pdf");
     QString defaultFilter("*.png");
-    QString defaultName = qApp->applicationDirPath().append("/untitled");
+    QString defaultName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation).append("/untitled");
+
+    if(m_projectManager)
+    {
+        ProjectDocument *document  = m_projectManager->getDocument();
+
+        if(document->hasValidNameAndPath())
+        {
+            defaultName = document->getProjectPath().append("/").append(document->getProjectName()).append("/untitled");
+        }
+    }
 
     /* Static method approach */
     QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
@@ -141,6 +159,11 @@ void PlotWidget::savePlot()
 
     m_centralPlot->showLinesOverMap(m_isProjectionsEnabled);
 
+}
+
+void PlotWidget::setProjectManager(ProjectManager *projectManager)
+{
+    m_projectManager = projectManager;
 }
 
 
@@ -217,6 +240,12 @@ void PlotWidget::updatePlot()
     m_centralPlot->setXaxisTitle(m_outputDataItem->getXaxisTitle());
     m_centralPlot->setYaxisTitle(m_outputDataItem->getYaxisTitle());
 
+}
+
+void PlotWidget::updateIntensity()
+{
+    qDebug() << "PlotWidget::updateIntensity()";
+    m_centralPlot->drawPlot(m_outputDataItem, m_gradient);
 }
 
 
@@ -331,9 +360,16 @@ void PlotWidget::projectionsChanged(bool projection)
 
     m_isProjectionsEnabled = projection;
 
+    showProjectsions(projection);
+
+    emit projectionsVisibilityChanged(projection);
+}
+
+void PlotWidget::showProjectsions(bool visible)
+{
     int width;
 
-    if(projection)
+    if(visible)
     {
         width = this->histogramSize;
     }
@@ -352,8 +388,7 @@ void PlotWidget::projectionsChanged(bool projection)
     v_sizes.append(this->m_splitterTop->width()-width);
     this->m_splitterTop->setSizes(v_sizes);
 
-    m_centralPlot->showLinesOverMap(projection);
-    emit projectionsVisibilityChanged(projection);
+    m_centralPlot->showLinesOverMap(visible);
 }
 
 void PlotWidget::gradientChanged(QCPColorGradient gradient)
@@ -385,6 +420,7 @@ void PlotWidget::connectSignals()
     connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
 
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
+    connect(m_outputDataItem, SIGNAL(intensityModified()), this, SLOT(updateIntensity()), Qt::UniqueConnection);
 }
 
 void PlotWidget::setPropertyWidgetVisibilityFlag(bool visible)

@@ -28,13 +28,14 @@
 
 LayerStrategyBuilder::LayerStrategyBuilder(
         const Layer& decorated_layer, const Simulation& simulation,
-        const SimulationParameters& sim_params)
+        const SimulationParameters& sim_params, size_t layout_index)
 : mp_layer(decorated_layer.clone())
 , mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
 , mp_specular_info(0)
+, m_layout_index(layout_index)
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -59,15 +60,12 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     collectInterferenceFunctions();
     size_t n_ifs = m_ifs.size();
     IInterferenceFunctionStrategy *p_result(0);
-    switch (m_sim_params.me_if_approx)
+    switch (mp_layer->getLayout(m_layout_index)->getApproximation())
     {
-    case SimulationParameters::DA:
+    case ILayout::DA:
         p_result = new DecouplingApproximationStrategy(m_sim_params);
         break;
-    case SimulationParameters::LMA:
-        p_result = new LocalMonodisperseApproximationStrategy(m_sim_params);
-        break;
-    case SimulationParameters::SSCA:
+    case ILayout::SSCA:
     {
         if (n_ifs<1) {
             throw Exceptions::ClassInitializationException(
@@ -82,7 +80,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
             m_sim_params, kappa);
         break;
     }
-    case SimulationParameters::ISGISAXSMOR:
+    case ILayout::ISGISAXSMOR:
         p_result = new IsGISAXSMorphologyFileStrategy(m_sim_params);
         break;
     default:
@@ -105,9 +103,9 @@ bool LayerStrategyBuilder::requiresMatrixFFs() const
 
 void LayerStrategyBuilder::collectFormFactorInfos()
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_decoration = mp_layer->getLayout();
+    const ILayout *p_decoration = mp_layer->getLayout(m_layout_index);
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -128,10 +126,10 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 
 void LayerStrategyBuilder::collectInterferenceFunctions()
 {
-    assert(mp_layer->getLayout());
+    assert(mp_layer->getNumberOfLayouts()>0);
     m_ifs.clear();
-    if (mp_layer->getLayout()->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer->getLayout()->getInterferenceFunctions();
+    if (mp_layer->getLayout(m_layout_index)->getNumberOfInterferenceFunctions()) {
+        m_ifs = mp_layer->getLayout(m_layout_index)->getInterferenceFunctions();
     }
     else m_ifs.push_back(new InterferenceFunctionNone);
 }
@@ -156,26 +154,17 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     // formfactor
     IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
     IFormFactor *p_ff_framework(p_ff_particle);
-    switch (m_sim_params.me_framework)
-    {
-    case SimulationParameters::BA:    // Born Approximation
-        break;
-    case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
-    {
-        assert(mp_specular_info);
+    size_t n_layers = mp_layer->getNumberOfLayers();
+    if (n_layers>1) {
         double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle, *mp_specular_info, depth);
+                    p_ff_particle, depth);
         }
         else {
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle, *mp_specular_info, depth);
+                    p_ff_particle, depth);
         }
-        break;
-    }
-    default:
-        throw Exceptions::RuntimeErrorException("Framework must be BA or DWBA");
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance

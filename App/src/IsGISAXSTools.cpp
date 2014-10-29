@@ -411,7 +411,7 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left,
     {
         double x = *it++;
         if(x!=0) {
-            x = log10(fabs(x));
+            x = log10(abs(x));
         } else {
             // allows to put the cases when the difference is exactly 0
             // to underflow bin

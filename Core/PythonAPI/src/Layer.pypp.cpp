@@ -39,6 +39,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
+    virtual void addLayout( ::ILayout const & decoration ) {
+        if( bp::override func_addLayout = this->get_override( "addLayout" ) )
+            func_addLayout( boost::ref(decoration) );
+        else{
+            this->Layer::addLayout( boost::ref(decoration) );
+        }
+    }
+    
+    void default_addLayout( ::ILayout const & decoration ) {
+        Layer::addLayout( boost::ref(decoration) );
+    }
+
     virtual ::Layer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -63,16 +75,16 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::cloneInvertB( );
     }
 
-    virtual ::ILayout const * getLayout(  ) const  {
+    virtual ::ILayout const * getLayout( ::std::size_t i ) const  {
         if( bp::override func_getLayout = this->get_override( "getLayout" ) )
-            return func_getLayout(  );
+            return func_getLayout( i );
         else{
-            return this->Layer::getLayout(  );
+            return this->Layer::getLayout( i );
         }
     }
     
-    ::ILayout const * default_getLayout(  ) const  {
-        return Layer::getLayout( );
+    ::ILayout const * default_getLayout( ::std::size_t i ) const  {
+        return Layer::getLayout( i );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
@@ -109,30 +121,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     double default_getThickness(  ) const  {
         return Layer::getThickness( );
-    }
-
-    virtual double getTotalParticleSurfaceDensity(  ) const  {
-        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
-            return func_getTotalParticleSurfaceDensity(  );
-        else{
-            return this->Layer::getTotalParticleSurfaceDensity(  );
-        }
-    }
-    
-    double default_getTotalParticleSurfaceDensity(  ) const  {
-        return Layer::getTotalParticleSurfaceDensity( );
-    }
-
-    virtual void setLayout( ::ILayout const & decoration ) {
-        if( bp::override func_setLayout = this->get_override( "setLayout" ) )
-            func_setLayout( boost::ref(decoration) );
-        else{
-            this->Layer::setLayout( boost::ref(decoration) );
-        }
-    }
-    
-    void default_setLayout( ::ILayout const & decoration ) {
-        Layer::setLayout( boost::ref(decoration) );
     }
 
     virtual void setMaterial( ::IMaterial const & material ) {
@@ -332,6 +320,18 @@ void register_Layer_class(){
         bp::scope Layer_scope( Layer_exposer );
         Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
         Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
+        { //::Layer::addLayout
+        
+            typedef void ( ::Layer::*addLayout_function_type)( ::ILayout const & ) ;
+            typedef void ( Layer_wrapper::*default_addLayout_function_type)( ::ILayout const & ) ;
+            
+            Layer_exposer.def( 
+                "addLayout"
+                , addLayout_function_type(&::Layer::addLayout)
+                , default_addLayout_function_type(&Layer_wrapper::default_addLayout)
+                , ( bp::arg("decoration") ) );
+        
+        }
         { //::Layer::clone
         
             typedef ::Layer * ( ::Layer::*clone_function_type)(  ) const;
@@ -356,15 +356,27 @@ void register_Layer_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Layer::createLayoutSimulation
+        
+            typedef ::LayerDWBASimulation * ( ::Layer::*createLayoutSimulation_function_type)( ::std::size_t ) const;
+            
+            Layer_exposer.def( 
+                "createLayoutSimulation"
+                , createLayoutSimulation_function_type( &::Layer::createLayoutSimulation )
+                , ( bp::arg("layout_index") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Layer::getLayout
         
-            typedef ::ILayout const * ( ::Layer::*getLayout_function_type)(  ) const;
-            typedef ::ILayout const * ( Layer_wrapper::*default_getLayout_function_type)(  ) const;
+            typedef ::ILayout const * ( ::Layer::*getLayout_function_type)( ::std::size_t ) const;
+            typedef ::ILayout const * ( Layer_wrapper::*default_getLayout_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "getLayout"
                 , getLayout_function_type(&::Layer::getLayout)
                 , default_getLayout_function_type(&Layer_wrapper::default_getLayout)
+                , ( bp::arg("i") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -378,6 +390,24 @@ void register_Layer_class(){
                 , getMaterial_function_type(&::Layer::getMaterial)
                 , default_getMaterial_function_type(&Layer_wrapper::default_getMaterial)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Layer::getNumberOfLayers
+        
+            typedef ::std::size_t ( ::Layer::*getNumberOfLayers_function_type)(  ) const;
+            
+            Layer_exposer.def( 
+                "getNumberOfLayers"
+                , getNumberOfLayers_function_type( &::Layer::getNumberOfLayers ) );
+        
+        }
+        { //::Layer::getNumberOfLayouts
+        
+            typedef ::std::size_t ( ::Layer::*getNumberOfLayouts_function_type)(  ) const;
+            
+            Layer_exposer.def( 
+                "getNumberOfLayouts"
+                , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts ) );
         
         }
         { //::Layer::getRefractiveIndex
@@ -404,25 +434,12 @@ void register_Layer_class(){
         }
         { //::Layer::getTotalParticleSurfaceDensity
         
-            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)(  ) const;
-            typedef double ( Layer_wrapper::*default_getTotalParticleSurfaceDensity_function_type)(  ) const;
+            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type(&::Layer::getTotalParticleSurfaceDensity)
-                , default_getTotalParticleSurfaceDensity_function_type(&Layer_wrapper::default_getTotalParticleSurfaceDensity) );
-        
-        }
-        { //::Layer::setLayout
-        
-            typedef void ( ::Layer::*setLayout_function_type)( ::ILayout const & ) ;
-            typedef void ( Layer_wrapper::*default_setLayout_function_type)( ::ILayout const & ) ;
-            
-            Layer_exposer.def( 
-                "setLayout"
-                , setLayout_function_type(&::Layer::setLayout)
-                , default_setLayout_function_type(&Layer_wrapper::default_setLayout)
-                , ( bp::arg("decoration") ) );
+                , getTotalParticleSurfaceDensity_function_type( &::Layer::getTotalParticleSurfaceDensity )
+                , ( bp::arg("layout_index") ) );
         
         }
         { //::Layer::setMaterial
@@ -447,6 +464,16 @@ void register_Layer_class(){
                 , setMaterialAndThickness_function_type(&::Layer::setMaterialAndThickness)
                 , default_setMaterialAndThickness_function_type(&Layer_wrapper::default_setMaterialAndThickness)
                 , ( bp::arg("material"), bp::arg("thickness") ) );
+        
+        }
+        { //::Layer::setNumberOfLayers
+        
+            typedef void ( ::Layer::*setNumberOfLayers_function_type)( ::std::size_t ) ;
+            
+            Layer_exposer.def( 
+                "setNumberOfLayers"
+                , setNumberOfLayers_function_type( &::Layer::setNumberOfLayers )
+                , ( bp::arg("n_layers") ) );
         
         }
         { //::Layer::setThickness

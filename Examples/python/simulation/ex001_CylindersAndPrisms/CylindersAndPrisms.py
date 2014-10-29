@@ -28,7 +28,7 @@ def get_sample():
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_air)
-    air_layer.setLayout(particle_layout)
+    air_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -56,7 +56,8 @@ def run_simulation():
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray() + 1  # for log scale
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                      extent=[-1.0, 1.0, 0, 2.0])
+            extent=[-1.0, 1.0, 0, 2.0])
+
     pylab.colorbar(im)
     pylab.show()
 

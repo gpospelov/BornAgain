@@ -20,7 +20,7 @@ def finalize_git():
     run_command(cmd)
 
     # master branch
-    cmd = "cd %s; git checkout master" % get_source_dir()
+    cmd = "cd %s; git checkout master; git pull" % get_source_dir()
     run_command(cmd)
 
     cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
@@ -33,7 +33,7 @@ def finalize_git():
     run_command(cmd)
 
     # develop branch
-    cmd = "cd %s; git checkout develop" % get_source_dir()
+    cmd = "cd %s; git checkout develop; git pull" % get_source_dir()
     run_command(cmd)
 
     cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())

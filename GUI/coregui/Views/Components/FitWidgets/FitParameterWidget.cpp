@@ -21,15 +21,16 @@ FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *pa
     initFitModel();
 
     m_fitProxyModel->setFitModel(m_fitModel);
+    m_fitProxyModel->setHeaderData(0, Qt::Horizontal,"Title");
 
-    if(m_fitModel)
+    /*if(m_fitModel)
     {
-        /*ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
+        ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
         item1->setItemName("par1");
         item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
 
         FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-        item2->setItemName("par2");*/
+        item2->setItemName("par2");
 
 //        ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 //        qDebug() << "FitModel: " << old_item->getRegisteredProperty(FitParameterItem::P_MIN);
@@ -39,14 +40,14 @@ FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *pa
 
 
 
-    }
+    }*/
 
 
     m_treeView = new QTreeView();
     m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
 
 
-    m_parameterModel = createParameterModel(m_fitModel);
+    //m_parameterModel = createParameterModel(m_fitModel);
     //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
 
@@ -56,10 +57,11 @@ FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *pa
 
 
     int height = this->height();
-    m_treeView->setModel(m_parameterModel);
+    m_treeView->setModel(m_fitProxyModel);
     m_treeView->setFixedHeight(height);
     m_treeView->setColumnWidth(0,170);
     m_treeView->expandAll();
+
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
@@ -69,14 +71,14 @@ FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *pa
     this->setLayout(vlayout);
 
 
-    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
-    for (int i=0; i<m_parameterModel->rowCount(); i++){
-    if (m_parameterModel->item(i,0)->hasChildren()){
+//    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
+//    for (int i=0; i<m_parameterModel->rowCount(); i++){
+//    if (m_parameterModel->item(i,0)->hasChildren()){
 
-            m_treeView->setFirstColumnSpanned(0, m_parameterModel->item(i,0)->index(), true);
-            m_treeView->setFirstColumnSpanned(1, m_parameterModel->item(i,0)->index(), true);
-        }
-    }
+//            m_treeView->setFirstColumnSpanned(0, m_parameterModel->item(i,0)->index(), true);
+//            m_treeView->setFirstColumnSpanned(1, m_parameterModel->item(i,0)->index(), true);
+//        }
+//    }
 
 
 }
@@ -165,11 +167,22 @@ void FitParameterWidget::initFitModel()
     m_fitModel = new FitModel;
 
     ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-    item1->setItemName("par1");
+    item1->setItemName("Par1");
+    item1->setRegisteredProperty(FitParameterItem::P_USE, true);
+    item1->setRegisteredProperty(FitParameterItem::P_VALUE, 3.0);
     item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
+    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
+
+
+
 
     FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item2->setItemName("par2");
+    item2->setItemName("Par2");
+
+    FitParameterItem *item3 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+    item3->setItemName("Par3");
+
 
     m_fitModel->save("fitmodel.xml");
 

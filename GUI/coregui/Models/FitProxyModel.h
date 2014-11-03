@@ -21,12 +21,15 @@ public:
     int columnCount(const QModelIndex &parentIndex) const;
     QModelIndex index(int row, int column, const QModelIndex &parentIndex) const;
     QModelIndex parent(const QModelIndex &child) const;
-
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
     //end if overriden methods
 
     void setFitModel(FitModel *fitModel);
     FitModel *getFitModel()
         { return m_fitModel; }
+
+    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
 
 private:

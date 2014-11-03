@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
-    m_fitView = new FitView(m_fitModel, this);
+    m_fitView = new FitView(m_fitProxyModel, this);
 
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");

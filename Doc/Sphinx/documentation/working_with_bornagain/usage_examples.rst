@@ -1,3 +1,3 @@
 
-Usage examples
-=========================
+Examples of BornAgain usage
+=============================

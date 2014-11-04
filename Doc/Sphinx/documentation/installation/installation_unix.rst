@@ -1,6 +1,6 @@
 .. _installation_unix:
 
-Installation on Unix platforms
+Installation on Unix
 ----------------------------------------------------
 
 This section describes how to build and install BornAgain libraries

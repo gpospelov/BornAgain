@@ -3,11 +3,11 @@ Using Graphical User Interface
 =================================
 
 
-The current beta version of BornAgain GUI allows to the user
-to create basic multi-layer samples, populate it with particles, run 
-scattering simulation and save results in the publication ready form.
+The current beta version of BornAgain GUI allows the user
+to create multi-layered samples, populate them with particles, run 
+scattering simulations and save the results in a publication quality form.
 
-Following video tutorial  will present users with a guide on using BornAgain graphical user interface
+The following video presents how to use BornAgain graphical user interface
 
 .. raw:: html
 
@@ -21,29 +21,29 @@ Following video tutorial  will present users with a guide on using BornAgain gra
         height="385"></embed></object>
         
 
-Basic features of interface are explained below.
+The basic features of interface are explained below.
         
 Welcome view
 -------------------
 
 
-When you start BornAgain, it opens in Welcome view, where you can
+When you start BornAgain GUI, you will be presented with the Welcome View, where you can
 
 * Create new projects
 * Open recent projects
 
 
-.. image:: ../../_static/gui_welcomeview_800.png
+.. image:: ../../_static/gui_welcomeview_l800.png
    :align: center
-   :target: ../../_static/gui_welcomeview.png
+   :target: ../../_static/gui_welcomeview_l.png
     
 
-You can use view selector located on the left vertical panel (1) to change to another view:
+You can use the view selector located on the left vertical panel (1) to change to one of the following views :
 
-* |InstrumentIcon| Instrument view is used to change setting of scattering instrument
-* |SampleIcon| Sample view is used to construct samples
-* |SimulationIcon| Simulation view is used to run the simulation
-* |JobsIcon| Jobs mode represents results of the simulation    
+* |InstrumentIcon| The :ref:`instrument_view_label` is used to change the settings of the scattering instrument 
+* |SampleIcon| The :ref:`sample_view_label` is used to construct the samples
+* |SimulationIcon| The :ref:`simulation_view_label` is used to run the simulation
+* |JobsIcon| The :ref:`jobs_view_label` represents the results of the simulation    
 
 .. |InstrumentIcon| image:: ../../_static/icon_instrument.png
           :align: bottom
@@ -57,149 +57,178 @@ You can use view selector located on the left vertical panel (1) to change to an
 .. |JobsIcon| image:: ../../_static/icon_jobs.png
           :align: bottom
           
+
           
-Instrument view
+          
+.. _instrument_view_label:  
+
+Instrument View
 -------------------
 
-Instrument view is used to create new scattering instruments and adjust they setting. The view consist from instrument selector located on the left (1)
-and instrument settings window located on the right (2).
+The Instrument View is used to create new scattering instruments and adjust their settings. The view consists in the instrument selector located on the left (1)
+and the instrument settings window located on the right (2).
 
-.. image:: ../../_static/gui_instrumentview_800.png
+.. image:: ../../_static/gui_instrumentview_l800.png
    :align: center
-   :target: ../../_static/gui_instrumentview.png
+   :target: ../../_static/gui_instrumentview_l.png
 
-On instrument setting window (2) you can adjust settings of currently selected instrument:
+On the instrument settings window (2) you can modify the settings of the currently selected instrument:
 
-* The name of the Instrument
-* Beam parameters
-* Detector parameters
+* The name of the instrument
+* The beam parameters
+* The detector parameters
    
 
-Sample view
+
+   
+.. _sample_view_label:  
+   
+Sample View
 -------------------
 
-Sample view allows you to visually design the sample in a drag-and-drop interface. There are four main parts in this view
+The Sample View allows you to design the sample via a drag-and-drop interface. It consists in a 4 main parts
 
-* Item toolbox (1) contains a variety of items to build scattering sample
-* Sample canvas (2) is used to put sample items together
-* Sample tree view (3) represent hierarchy of objects composing the sample
-* Property editor (4) can be used to edit parameters of currently selected ittem
+* The item toolbox (1) contains a variety of items to build the sample
+* The sample canvas (2) is used to assemble the sample
+* The sample tree view (3) represents the hierarchy of the objects composing the sample
+* The property editor (4) can be used to edit the parameters of the currently selected item
 
 
-.. image:: ../../_static/gui_sampleview_800.png
+.. image:: ../../_static/gui_sampleview_l800.png
    :align: center
-   :target: ../../_static/gui_sampleview.png
+   :target: ../../_static/gui_sampleview_l.png
 
-User constructs the sample by dragging items from item toolbox (1), dropping them on sample canvas (2), connecting items of appropriate types together and adjusting they properties, 
-if necessary, using property editor (4). 
+The sample constructed in this figure comprises a substrate on which are deposited, in equal proportion, cylinders and prisms. The interference between scattered waves is provided
+via two-dimensional paracrystal interference function.   
+
+The sample is constructed by dragging items from the item toolbox (1), dropping them on the sample canvas (2), connecting the items of the appropriate types together and adjusting their properties, 
+if necessary, using the property editor (4). 
+
+In given figure, the property editor shows the parameters of currently selected cylindrical particles (radius and height of cylinders, their material, particles depth and abundance).
 
 .. note::
 
-    The sample represented on this plot was constructed via following
-    sequence of actions:
+    The sample shown on this plot was constructed using the following steps:
 
-    * Multilayer item was taken from item toolbox and placed on sample canvas
-    * Two layer items were taken from item toolbox and placed on top of multi layer
+    * The multilayer item was taken from the item toolbox and placed on the sample canvas
+    * Two layer items were taken from the item toolbox and placed on top of the multilayer
   
-      * Materials of top and buttom layers were changed from default one with the help of property editor
+      * The materials of the top and buttom layers were changed from the default one using the property editor
 
     * ParticleLayout item was taken from item toolbox, placed on sample canvas and connected with the top layer
 
-    * Cylinders and prisms were dropped on sample canvas and connected with ParticleLayout
+    * Cylinders and prisms were dropped on the sample canvas and connected with the ParticleLayout
 
-      * Materials of particles were changed from default one with the help of property editor
+      * The materials of particles were changed from the default one using the property editor
 
-    * Interference function representing 2D paracrystal was placed on sample canvas and connected with ParticleLayout
+    * The interference function representing a 2D paracrystal was placed on the sample canvas and connected with the ParticleLayout item
 
 .. note::
-    User can have as many objects on sample canvas as he likes. But only multi-layers (with at least one layer inside) will be available
-    for consequent simulation.
+    * The sample canvas can have any number of multilayers. If this is the case, during the configuration of the simulation user will have to choose which multilayer to simulate.
+    * The multilayer is considered as valid for the simulation, if it contains at least one layer
+    
+    
     
 
-Simulation view
+..    User can have as many objects on sample canvas as he likes. But only multi-layers (with at least one layer inside) will be available for consequent simulation.
+    
+    
+    
+.. _simulation_view_label:  
+
+Simulation View
 -------------------
 
-Simulation view contains three important elements
+The Simulation View contains three important elements
 
-* Group box for selecting instrument and sample to simulate (1)
-* Group box for changing main simulation parameters (2)
-* Run simulation button (3)
+* The data selection box for selecting the instrument and the sample to simulate (1)
+* Simulation Parameters box for changing main simulation parameters (2)
+* The Run Simulation button (3)
 
-.. image:: ../../_static/gui_simulationview_800.png
+.. image:: ../../_static/gui_simulationview_l800.png
    :align: center
-   :target: ../../_static/gui_simulationview.png
+   :target: ../../_static/gui_simulationview_l.png
 
-If user has constructed already one instrument and one sample, they names will be displayed in group box (1).
-In the case of multiple samples and multiple instruments defined, the user can select desired combination to run the simulation.
+The names of the defined instruments and samples are displayed in Data Selection box (1). From where the user can select a combination to run the simulation.
 
-Simulation starts as soon as Run Simulation button (3) is pressed. As soon as simulation is completed, the current view will be automatically switched to the Jobs View to present simulation results.
-Given behaviour can be changed by changing run policy in (2).
+Clicking on the Run Simulation button (3) immideately starts the simulation. When completed, the current view is automatically switched to the Jobs View showing the simulation results.
+This behaviour can be modified by changing Run Policy in (2).
 
-Jobs view
+
+.. _jobs_view_label:  
+
+Jobs View
 -------------------
 
-Jobs view displays results of the simulation. It has two different presentations called
+The Jobs View displays results of the simulation. It has two different presentations called
 
 .. contents::
    :depth: 1
    :local:
    :backlinks: none
    
-Job View Activity is always shown by default.
+Job View Activity is shown by default.
 
 Job View Activity
 """"""""""""""""""""""""""""
 
-The layout of Job View Activity consists of 3 elements
+The layout of the Job View Activity consists of three elements
 
-* Jobs selector widget (1) for selecting specific job to look at
-* Job properties widget (2) contains basic information about currently selected job
-* Intensity data widget (3) shows intensity data of currently selected job.
+* The jobs selector widget (1) for selecting the specific job to be displayed
+* The job properties widget (2) contains basic information about the currently selected job
+* The intensity data widget (3) shows the intensity data of the currently selected job
 
-.. image:: ../../_static/gui_jobview_800.png
+The toolbar (4) contains set of control elements for job selector and intensity data widgets. The right corner of toolbar is occupied by the Jobs Activity selector.
+
+.. image:: ../../_static/gui_jobview_l800.png
    :align: center
-   :target: ../../_static/gui_jobview.png
+   :target: ../../_static/gui_jobview_l.png
 
-On current image two completed jobs can be seen in job selector widget (1), with job2 currently selected and shown. 
+The two completed jobs can be seen in the job selector widget (1), with job2 currently selected and dislayed. 
 
 .. note::
 
-    Intensity image in widget (3) allows certain level of interaction:
+    The intensity image in widget (3) offers several ways of interaction:
 
-    * Using mouse wheel user can zoom an image in and out
-    * By dragging color palette on the right of the image min, max range of z-axis can be changed
-    * Tool bar (4) on top of Jobs view gives access to more options via Plot Properties and Projections buttons
+    * Using the mouse wheel to zoom in and out
+    * Dragging the color palette on the right of the image to change the min, max range of z-axis
+    * The toolbar (4) on top of intensity data widget gives access to more options via Plot Properties and Projections buttons
    
-.. image:: ../../_static/gui_jobview_proj_800.png
+.. image:: ../../_static/gui_jobview_proj_l800.png
    :align: center
-   :target: ../../_static/gui_jobview_proj.png
+   :target: ../../_static/gui_jobview_proj_l.png
    
-Image represents results of same job2 with Projections and Plot Properties widgets switched On. The type of gradient is changed from default Polar to Spectrum.
+The image represents the results of job2 with the Projections (1) and Plot Properties (2) widgets switched On. The type of colorbar gradient is changed from the default Polar to Spectrum.
 
 Real Time Activity
 """"""""""""""""""""""""""""
 
-The second layout of Job View is called Real Time Activity. It can be switched on by selecting appropriate item in combo box located in the right corner of tool bar (1) of Intensity Data widget.
+The second layout of Job View is called the Real Time Activity. It can be switched on by selecting the appropriate item in the box located in the right corner of tool bar (1).
 
-.. image:: ../../_static/gui_jobview_realtime_800.png
+.. image:: ../../_static/gui_jobview_realtime_l800.png
    :align: center
-   :target: ../../_static/gui_jobview_realtime.png
+   :target: ../../_static/gui_jobview_realtime_l.png
 
-In this case, the layout of Job View consist of same Intensity Data widget on the left, and additional parameter tree located on the right (2).
-Job selector and job properties widgets remain hidden.
+The layout of Job View consist of Intensity Data widget on the left (2), and additional parameter tree located on the right (3).
 
 
-The parameter tree represents all parameters which have been used during the construction of scattering instrument and the sample. User can click on
-parameter of his choise and adjust its value using the slider. The simulation will run in the background and IntensityData widget will be constantly updating
-reflecting the influence of given parameter on simulation results.
+The parameter tree represents all parameters which have been used during the construction of scattering instrument and the sample. 
+Each displayed parameter value can be adjusted using the slider.
+The simulation will run in the background and the Intensity Data widget will be constantly updated
+reflecting the influence of this given parameter on the simulation results.
 
 .. note::
 
-    * This functionality works smoothly only for simple geometries, when the simulation requires fraction of seconds to run.
-      For complex geometries demanding lots of CPU, the user will mostly see the progress bar and movements of the slider will not have any influence on Intensity Data widget.
+    Real Time View works smoothly only for simple geometries, when the simulation requires fractions of a second to run.
+    For more complex geometries, demanding lots of CPU, the user will see a progress bar and any movements of the slider will not have any influence on the Intensity Data widget.
+    In this case the user may try to speed up the simulation by decreasing the number of detector channels in the Instrument View and submit new job by running the simulation from Simulation View.
 
-    * In this case user may want to try to speed up his simulation by decreasing number of detector channels in Instrument View.
+.. note::
 
+    It is important to mention, that jobs in Jobs View are completely isolated from the rest of the program. Any adjustments of sample parameters in Sample View or 
+    instrument parameters in Instrument View 
+    won't have any influence on jobs already existing/running in Jobs View. Similarly, any parameter adjustments made in the parameter tree
+    will not be propagated back into Sample or Instrument Views.
    
 
    

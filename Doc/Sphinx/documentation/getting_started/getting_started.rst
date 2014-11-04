@@ -31,7 +31,7 @@ There are installation instructions for following environments:
 * :ref:`installation_macos`
 * :ref:`installation_unix`
 
-First steps after
+First steps
 ^^^^^^^^^^^^^^^^^^^^^^^^
 Read following tutorial explaining what to do
 

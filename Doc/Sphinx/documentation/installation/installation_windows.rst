@@ -1,5 +1,5 @@
 .. _installation_windows:
 
 
-Installation on Windows platform
+Installation on Windows
 ----------------------------------------------------

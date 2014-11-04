@@ -90,7 +90,8 @@ Sample view allows you to visually design the sample in a drag-and-drop interfac
    :align: center
    :target: ../../_static/gui_sampleview.png
 
-User constructs the sample by dragging items from item toolbox (1), dropping them on sample canvas (2) and adjusting they properties, if necessary, using property editor (4). 
+User constructs the sample by dragging items from item toolbox (1), dropping them on sample canvas (2), connecting items of appropriate types together and adjusting they properties, 
+if necessary, using property editor (4). 
 
 .. note::
 
@@ -189,13 +190,13 @@ Job selector and job properties widgets remain hidden.
 
 
 The parameter tree represents all parameters which have been used during the construction of scattering instrument and the sample. User can click on
-parameter of his choise and adjust its value using the slider. The simulatation will run in the background and IntensityData widget will be constantly updating
+parameter of his choise and adjust its value using the slider. The simulation will run in the background and IntensityData widget will be constantly updating
 reflecting the influence of given parameter on simulation results.
 
 .. note::
 
     * This functionality works smoothly only for simple geometries, when the simulation requires fraction of seconds to run.
-      For complex geometries demanding lots of CPU, the user will mostly see the progress bar and movements of the slider will not have any influence of Intensity Data widget.
+      For complex geometries demanding lots of CPU, the user will mostly see the progress bar and movements of the slider will not have any influence on Intensity Data widget.
 
     * In this case user may want to try to speed up his simulation by decreasing number of detector channels in Instrument View.
 

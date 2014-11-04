@@ -4,7 +4,7 @@ Installation on Unix platforms
 ----------------------------------------------------
 
 This section describes how to build and install BornAgain libraries
-from source on Unix Platforms. 
+from source on Unix Platforms (MacOS included). 
 
 .. toctree::
    :maxdepth: 3
@@ -13,12 +13,12 @@ from source on Unix Platforms.
    installation_unix_detailed.rst
 
 
-This advanced section explains in detail how to build BornAgain's Graphical User Interface
+This advanced section explains in details how to build BornAgain's Graphical User Interface
 
 .. toctree::
    :maxdepth: 3
 
-   installation_unix_gui
+   installation_unix_gui.rst
    
 
    

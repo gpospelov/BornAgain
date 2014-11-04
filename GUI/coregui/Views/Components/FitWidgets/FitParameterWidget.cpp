@@ -166,26 +166,34 @@ void FitParameterWidget::initFitModel()
 {
     m_fitModel = new FitModel;
 
-    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
+//    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
+//    item1->setItemName("Par1");
+//    item1->setRegisteredProperty(FitParameterItem::P_USE, true);
+//    item1->setRegisteredProperty(FitParameterItem::P_VALUE, 3.0);
+//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+//    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
+//    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
+
+    FitParameterItem *item1 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item1->setItemName("Par1");
-    item1->setRegisteredProperty(FitParameterItem::P_USE, true);
-    item1->setRegisteredProperty(FitParameterItem::P_VALUE, 3.0);
-    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
-    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
-    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
-
-
-
+    QStringList descList1;
+    descList1 << "This is description 1" << "This is description 2" << "This is description 3";
+    item1->setParNames(descList1);
 
     FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item2->setItemName("Par2");
+    QStringList descList2;
+    descList2 << "This is description 1" << "This is description 2" << "This is description 3";
+    item2->setParNames(descList2);
 
     FitParameterItem *item3 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
     item3->setItemName("Par3");
+    QStringList descList3;
+    descList3 << "This is description 1" << "This is description 2" << "This is description 3";
+    item3->setParNames(descList3);
 
 
     m_fitModel->save("fitmodel.xml");
-
 
     //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }

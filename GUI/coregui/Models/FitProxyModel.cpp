@@ -34,6 +34,7 @@ QVariant FitProxyModel::data(const QModelIndex &index, int role) const
 //    }
     if (ParameterizedItem *item = itemForIndex(index)) {
 
+
         if(role == Qt::DisplayRole || role == Qt::EditRole) {
 
             switch (index.column()) {

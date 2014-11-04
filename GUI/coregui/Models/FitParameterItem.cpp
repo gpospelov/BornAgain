@@ -15,4 +15,14 @@ FitParameterItem::FitParameterItem(ParameterizedItem *parent)
     registerProperty(P_USE, true);
 }
 
+void FitParameterItem::setParNames(QStringList par_names)
+{
+    m_par_names = par_names;
+}
+
+QStringList FitParameterItem::getParNames()
+{
+    return m_par_names;
+}
+
 

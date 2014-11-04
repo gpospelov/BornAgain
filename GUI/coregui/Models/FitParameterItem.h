@@ -14,6 +14,9 @@ public:
     static const QString P_USE;
     explicit FitParameterItem(ParameterizedItem *parent=0);
     ~FitParameterItem(){}
+
+    void setParNames(QStringList par_names);
+    QStringList getParNames();
 private:
     QStringList m_par_names;
 };

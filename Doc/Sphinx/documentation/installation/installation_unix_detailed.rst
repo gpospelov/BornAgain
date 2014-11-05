@@ -1,7 +1,10 @@
+.. _detailed_installation_instruction_label: 
+
 Detailed installation instruction
 --------------------------------------
 
-
+This section describes in details how to build and install BornAgain core libraries
+from source on Unix Platforms (MacOS included). 
 
 BornAgain uses ``CMake`` to configure a build system for compiling and installing the framework. 
 There are three major steps to building BornAgain
@@ -180,7 +183,7 @@ to be installed, and ``<build_dir>`` is the directory where building will occur.
 
   
 Compilation process invoked by the command ``make`` lasts about 10 min for an average laptop of 2012 edition. On multi-core machines the compilation can be 
-decreased by invoking command make with the parameter ''make -j[N]'', where N is the number of cores.
+decreased by invoking command make with the parameter ``make -j[N]``, where N is the number of cores.
 
 Running functional tests is an optional but recommended step. Command ``make check``
 will compile several additional tests and run them one by one. Every tests contains
@@ -198,10 +201,6 @@ is correct.
 The last command ``make install`` copies compiled libraries and some usage examples
 into  installation directory.
 
-.. code-block:: bash
-  
-  make install
-
 After installation is completed, the location of BornAgain libraries needs to be included into
 ``LD_LIBRARY_PATH`` and ``PYTHONPATH`` environment variables.
 This can be done by running BornAgain setup script in the terminal session
@@ -212,4 +211,28 @@ This can be done by running BornAgain setup script in the terminal session
 
 Conveniently, given call can be placed in your ``.bashrc`` file.
 
+
+Running the first simulation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In your installation directory you will find:
+
++----------------------------------------------------+----------------------------------------------------------------------+
+| <install_dir>/share/BornAgain/Examples             |    directory with examples                                           |
++----------------------------------------------------+----------------------------------------------------------------------+
+| <install_dir>/lib                                  |    libraries to import into python or link with your C++ program     |
++----------------------------------------------------+----------------------------------------------------------------------+
+| <install_dir>/include                              |    C++ headers to dive into the development                          |
++----------------------------------------------------+----------------------------------------------------------------------+
+
+Run your first example and enjoy the first BornAgain simulation plot.
+
+.. code-block:: bash
+
+    python <install_dir>/share/BornAgain/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+
+
+.. seealso::
+
+    :ref:`building_gui_label`
     

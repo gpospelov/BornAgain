@@ -8,7 +8,9 @@ Install the third party software
 * boost library (>= 1.48)
 * GNU scientific library (>= 1.15)
 * fftw3 library (>= 3.3.1)
-* Python-2.7, python-devel, python-numpy-devel
+* python-2.7, python-devel, python-numpy-devel
+
+
 
 Get the source
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -21,8 +23,10 @@ or use following git repository
     $ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 
 
-Build and install the framework
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Build and install the framework 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Without Graphical User Interface**
 
 .. code-block:: bash
 
@@ -32,3 +36,11 @@ Build and install the framework
     $ make check
     $ make install
 
+**With Graphical User Interface**
+
+* Install additionally Qt5 libraries
+* Use additional key ``-DBORNAGAIN_GUI=ON`` during CMake configuration
+
+.. code-block:: bash
+
+    $ cmake -DBORNAGAIN_GUI=ON -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>

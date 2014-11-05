@@ -1,3 +1,4 @@
+.. _using_gui_label: 
 
 Using Graphical User Interface
 =================================
@@ -221,13 +222,13 @@ reflecting the influence of this given parameter on the simulation results.
 
     Real Time View works smoothly only for simple geometries, when the simulation requires fractions of a second to run.
     For more complex geometries, demanding lots of CPU, the user will see a progress bar and any movements of the slider will not have any influence on the Intensity Data widget.
-    In this case the user may try to speed up the simulation by decreasing the number of detector channels in the Instrument View and submit new job by running the simulation from Simulation View.
+    In this case the user may try to speed up the simulation by decreasing the number of detector channels in the Instrument View and submitting new job by running the simulation from Simulation View.
 
-.. note::
+.. important::
 
-    It is important to mention, that jobs in Jobs View are completely isolated from the rest of the program. Any adjustments of sample parameters in Sample View or 
+    The jobs in Jobs View are completely isolated from the rest of the program. Any adjustments of sample parameters in Sample View or 
     instrument parameters in Instrument View 
-    won't have any influence on jobs already existing/running in Jobs View. Similarly, any parameter adjustments made in the parameter tree
+    won't have any influence on jobs already existing/running in Jobs View. Similarly, any parameter adjustments made in the parameter tree (3)
     will not be propagated back into Sample or Instrument Views.
    
 

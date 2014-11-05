@@ -19,6 +19,6 @@ This advanced section explains in details how to build BornAgain's Graphical Use
    :maxdepth: 3
 
    installation_unix_gui.rst
-   
 
+   
    

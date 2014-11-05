@@ -129,15 +129,23 @@ Finally, compile and install the graphical users interface
 Run BornAgain GUI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After installation is complete, run BornAgain GUI from command line
+After installation is complete the new ``BornAgain`` executable will appear in ``<install_dir>/bin`` directory.
+Make sure that BornAgain core libraries are in your PATH by running
 
 .. code-block:: bash
 
   source <install_dir>/bin/thisbornagain.sh
+
+and launch GUI  
+  
+
+.. code-block:: bash
+
   <install_dir>/bin/BornAgain
 
 
 .. seealso::
 
-    :ref:`building_gui_label`
+    :ref:`using_gui_label`
     
+    :ref:`troubleshooting_label`

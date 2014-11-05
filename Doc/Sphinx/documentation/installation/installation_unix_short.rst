@@ -1,6 +1,8 @@
 Installation instruction (short version)
 -----------------------
 
+This page shortly explains how to build and install BornAgain framework from source on Unix platforms.
+
 Install the third party software
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -44,3 +46,10 @@ Build and install the framework
 .. code-block:: bash
 
     $ cmake -DBORNAGAIN_GUI=ON -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
+
+.. seealso::
+
+    :ref:`detailed_installation_instruction_label`
+
+    
+    

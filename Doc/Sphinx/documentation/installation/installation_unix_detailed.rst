@@ -236,3 +236,4 @@ Run your first example and enjoy the first BornAgain simulation plot.
 
     :ref:`building_gui_label`
     
+    :ref:`troubleshooting_label`

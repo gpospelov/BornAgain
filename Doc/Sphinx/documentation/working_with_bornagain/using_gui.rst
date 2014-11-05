@@ -228,7 +228,7 @@ reflecting the influence of this given parameter on the simulation results.
 
     The jobs in Jobs View are completely isolated from the rest of the program. Any adjustments of sample parameters in Sample View or 
     instrument parameters in Instrument View 
-    won't have any influence on jobs already existing/running in Jobs View. Similarly, any parameter adjustments made in the parameter tree (3)
+    won't have any influence on jobs already completed or still running in Jobs View. Similarly, any parameter adjustments made in the parameter tree (3)
     will not be propagated back into Sample or Instrument Views.
    
 

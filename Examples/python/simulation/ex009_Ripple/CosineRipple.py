@@ -35,14 +35,8 @@ def get_sample():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(ripple, 0.0, 1.0)
 
-    #lattice params
-    lattice_params = Lattice2DIFParameters()
-    lattice_params.m_length_1 = 200.0*nanometer
-    lattice_params.m_length_2 = 50.0*nanometer
-    lattice_params.m_angle = 90.0*degree
-    lattice_params.m_xi = 0.0*degree
-    
-    interference = InterferenceFunction2DLattice(lattice_params)
+   
+    interference = InterferenceFunction2DLattice(200.0*nanometer,50.0*nanometer,90.0*degree, 0.0*degree)
     pdf = FTDistribution2DCauchy(1000.*nanometer/2./M_PI,100.*nanometer/2./M_PI)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)

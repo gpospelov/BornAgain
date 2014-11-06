@@ -17,7 +17,7 @@ find_package(FFTW REQUIRED)
 
 # --- BOOST ---
 set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON) 
+set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 #add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation auto-linked libraries
@@ -71,6 +71,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
 
     ValidatePythonIntstallation()
+
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAPython.h.in" "${CMAKE_BINARY_DIR}/BAPython.h" @ONLY)
 
     if(NOT PYTHONLIBS_FOUND)
         message(FATAL_ERROR "No Python library has been found")

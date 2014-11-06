@@ -64,7 +64,6 @@ void TestMiscellaneous::execute()
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
-    //test_OutputDataIOFactory();
     //test_FastSin();
     //test_FormFactor1();
     //test_FormFactor();
@@ -259,26 +258,6 @@ void TestMiscellaneous::test_KVectorContainer()
         cc.print();
     }
 }
-
-/* ************************************************************************* */
-// test of reading of OutputData from ASCII file
-/* ************************************************************************* */
-void TestMiscellaneous::test_OutputDataIOFactory()
-{
-    std::string file_name = Utils::FileSystem::GetHomePath()
-      +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data =
-            IntensityDataIOFactory::readIntensityData(file_name);
-
-    TCanvas *c1 = new TCanvas("c1","c1",800, 800);
-    c1->cd(); gPad->SetRightMargin(0.14);
-    gPad->SetLogz();
-
-    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "xxx");
-    h2->SetMinimum(100.);
-    h2->Draw("CONT4 Z");
-}
-
 
 /* ************************************************************************* */
 // test of fast sin function approximation

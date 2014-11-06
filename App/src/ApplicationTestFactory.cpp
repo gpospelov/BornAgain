@@ -30,7 +30,6 @@
 #include "TestIsGISAXS13.h"
 #include "TestIsGISAXS5.h"
 #include "TestMesoCrystal1.h"
-#include "TestMesoCrystal2.h"
 #include "TestMiscellaneous.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestPerformance.h"
@@ -188,10 +187,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "mesocrystal1",
         IFactoryCreateFunction<TestMesoCrystal1, IApplicationTest>,
         "functional test: mesocrystal");
-    p_test_factory->registerItem(
-        "mesocrystal2",
-        IFactoryCreateFunction<TestMesoCrystal2, IApplicationTest>,
-        "functional test: mesocrystal fit");
     p_test_factory->registerItem(
         "roottree",
         IFactoryCreateFunction<TestRootTree, IApplicationTest>,

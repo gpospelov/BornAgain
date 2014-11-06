@@ -22,16 +22,16 @@ file(GLOB source_files
     "FormFactors/src/*.cpp"
     "Geometry/src/*.cpp"
     "Samples/src/*.cpp"
-    "StandardSamples/*.cpp" 
+    "StandardSamples/*.cpp"
     "Tools/src/*.cpp"
 )
 
-file(GLOB include_files 
+file(GLOB include_files
     "Algorithms/inc/*.h"
     "FormFactors/inc/*.h"
     "Geometry/inc/*.h"
     "Samples/inc/*.h"
-    "StandardSamples/*.h" 
+    "StandardSamples/*.h"
     "Tools/inc/*.h"
 )
 
@@ -111,7 +111,6 @@ endif()
 # installation
 # -----------------------------------------------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "refdata*.txt" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
 # the line below copies the contains ${CMAKE_SOURCE_DIR}/bin to the bin folder of the final package
@@ -139,7 +138,7 @@ install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Hea
 if(WIN32)
     if(MSVC)
         set(boost_suffix "-vc110-mt-1_55.dll")
-        install(FILES 
+        install(FILES
         ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
         ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
         ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}

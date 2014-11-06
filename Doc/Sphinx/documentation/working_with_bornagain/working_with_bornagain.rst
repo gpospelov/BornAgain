@@ -1,3 +1,5 @@
+.. _working_with_bornagain_label:
+
 
 Working with BornAgain
 ####################################

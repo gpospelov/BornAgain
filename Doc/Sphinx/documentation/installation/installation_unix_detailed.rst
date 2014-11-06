@@ -7,7 +7,7 @@ This section describes in details how to build and install BornAgain core librar
 from source on Unix Platforms (MacOS included). 
 
 BornAgain uses ``CMake`` to configure a build system for compiling and installing the framework. 
-There are three major steps to building BornAgain
+There are following major steps to get BornAgain running
 
 .. contents::
    :depth: 1
@@ -234,6 +234,8 @@ Run your first example and enjoy the first BornAgain simulation plot.
 
 .. seealso::
 
+    :ref:`working_from_python_label`
+    
     :ref:`building_gui_label`
     
     :ref:`troubleshooting_label`

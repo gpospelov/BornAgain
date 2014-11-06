@@ -12,6 +12,7 @@
 #include "MultiLayer.h"
 #include "PyGenTools.h"
 #include "Simulation.h"
+#include "BAPython.h"
 
 std::string PyGenTools::genPyScript(Simulation *simulation)
 {
@@ -97,7 +98,7 @@ bool PyGenTools::testPyScript(Simulation *simulation)
 //                simulation->getIntensityData());
 //    boost::scoped_ptr<const OutputData<double> > simulated_data(
 //                    pSimulation->getIntensityData());
-    std::string command = "python PythonScript.py";
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
     if (std::remove("PythonScript.py") != 0) {

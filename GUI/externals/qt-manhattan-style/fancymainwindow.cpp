@@ -106,7 +106,8 @@ QDockWidget *FancyMainWindow::addDockForWidget(QWidget *widget)
     // Set an object name to be used in settings, derive from widget name
     const QString objectName = widget->objectName();
     if (objectName.isEmpty()) {
-        dockWidget->setObjectName(QLatin1String("dockWidget") + QString::number(dockWidgets().size() + 1));
+        dockWidget->setObjectName(QLatin1String("dockWidget")
+                                  + QString::number(dockWidgets().size() + 1));
     } else {
         dockWidget->setObjectName(objectName + QLatin1String("DockWidget"));
     }
@@ -124,9 +125,12 @@ QDockWidget *FancyMainWindow::addDockForWidget(QWidget *widget)
 void FancyMainWindow::updateDockWidget(QDockWidget *dockWidget)
 {
     const QDockWidget::DockWidgetFeatures features =
-            (d->m_locked) ? QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable
-                       : QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable;
-    if (dockWidget->property("managed_dockwidget").isNull()) { // for the debugger tool bar
+            (d->m_locked) ?
+            QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable :
+            QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetClosable
+                | QDockWidget::DockWidgetFloatable;
+    // for the debugger tool bar
+    if (dockWidget->property("managed_dockwidget").isNull()) {
         QWidget *titleBarWidget = dockWidget->titleBarWidget();
         if (d->m_locked && !titleBarWidget && !dockWidget->isFloating())
             titleBarWidget = new QWidget(dockWidget);
@@ -164,7 +168,8 @@ void FancyMainWindow::setTrackingEnabled(bool enabled)
     if (enabled) {
         d->m_handleDockVisibilityChanges = true;
         foreach (QDockWidget *dockWidget, dockWidgets())
-            dockWidget->setProperty(dockWidgetActiveState, dockWidget->isVisible());
+            dockWidget->setProperty(dockWidgetActiveState,
+                                    dockWidget->isVisible());
     } else {
         d->m_handleDockVisibilityChanges = false;
     }
@@ -243,7 +248,8 @@ QHash<QString, QVariant> FancyMainWindow::saveSettings() const
 
 void FancyMainWindow::restoreSettings(const QHash<QString, QVariant> &settings)
 {
-    QByteArray ba = settings.value(QLatin1String(stateKeyC), QByteArray()).toByteArray();
+    QByteArray ba = settings.value(QLatin1String(stateKeyC),
+                                   QByteArray()).toByteArray();
     if (!ba.isEmpty())
         restoreState(ba, settingsVersion);
     d->m_locked = settings.value(QLatin1String("Locked"), true).toBool();

@@ -28,6 +28,7 @@ For Linux users run an executable located in BornAgain installation directory fr
    :align: center
    :target: ../../_static/gui_quickstart1.png
 
+When you start BornAgain GUI, you will be presented with the Welcome View as shown  on the plot.
 Switch to the Sample View by clicking on the pictogram marked on the left panel.
 
 
@@ -38,13 +39,13 @@ Switch to the Sample View by clicking on the pictogram marked on the left panel.
    :target: ../../_static/gui_quickstart2.png
 
 
-Drag predefined standard sample with the name Example#1  from item toolbox and drop it on canvas.
+Drag predefined standard sample with the name Example#1  from item toolbox and drop it on the canvas.
 
 .. image:: ../../_static/gui_quickstart2b_700.png
    :align: center
    :target: ../../_static/gui_quickstart2b.png
 
-You will get a sample representing a multilayer with two types of particles on top of substrate   
+You will get the sample representing the multilayer with two types of particles on top of substrate   
    
 **4. Run the simulation**
 

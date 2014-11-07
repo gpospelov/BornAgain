@@ -24,10 +24,9 @@ the easiest way to install it, is to download one of free Python distributions, 
 The list of possible options is given on SciPy installation `site <http://www.scipy.org/install.html>`_.
 
 We have tested  `Anaconda Python Distribution <https://store.continuum.io/cshop/anaconda>`_  and suggest to use it if you do not have any other preferences.
-The user has to download and install the package before proceeding to
-the installation of BornAgain.
 
-* Download and install Anaconda *Windows 32-bit — Python 2.7 — Graphical Installer* from `link <http://continuum.io/downloads>`_ 
+* Download and install Anaconda *Windows 32-bit — Python 2.7 — Graphical Installer* from `link <http://continuum.io/downloads>`_  before proceeding to
+  the installation of BornAgain.
 
 
 

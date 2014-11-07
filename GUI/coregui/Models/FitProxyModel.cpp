@@ -32,18 +32,38 @@ QVariant FitProxyModel::data(const QModelIndex &index, int role) const
 
 //        return QVariant();
 //    }
-    if (ParameterizedItem *item = itemForIndex(index)) {
+
+    if(!index.isValid())
+    {
+        return QVariant();
+    }
 
 
-        if(role == Qt::DisplayRole || role == Qt::EditRole) {
+    if(index.isValid() && !index.parent().isValid())
+    {
+        //ParameterizedItem
+        if (ParameterizedItem *item = itemForIndex(index)) {
 
-            switch (index.column()) {
-            case 0: return item->itemName();
-            case 1: return item->getRegisteredProperty(FitParameterItem::P_USE);
-            case 2: return item->getRegisteredProperty(FitParameterItem::P_VALUE);
-            case 3: return item->getRegisteredProperty(FitParameterItem::P_MIN);
-            case 4: return item->getRegisteredProperty(FitParameterItem::P_MAX);
-            default: return QVariant();
+            if(role == Qt::DisplayRole || role == Qt::EditRole) {
+                switch (index.column()) {
+                case 0: return item->itemName();
+                case 1: return item->getRegisteredProperty(FitParameterItem::P_USE);
+                case 2: return item->getRegisteredProperty(FitParameterItem::P_VALUE);
+                case 3: return item->getRegisteredProperty(FitParameterItem::P_MIN);
+                case 4: return item->getRegisteredProperty(FitParameterItem::P_MAX);
+                default: return QVariant();
+                }
+            }
+        }
+    }
+
+    if(index.isValid() && index.parent().isValid())
+    {
+        //description
+        if (FitParameterItem *item = dynamic_cast<FitParameterItem *>(itemForIndex(index.parent()))) {
+            if(item->getParNames().size() >0)
+            {
+                return QVariant(item->getParNames().at(0));
             }
         }
     }
@@ -57,6 +77,16 @@ int FitProxyModel::rowCount(const QModelIndex &parentIndex) const
     {
         return 0;
     }
+
+    if(parentIndex.isValid() && parentIndex.parent().isValid())
+    {
+//        if (FitParameterItem *item = dynamic_cast<FitParameterItem *>(itemForIndex(index.parent()))) {
+//            return item->getParNames().size();
+//        }
+
+        return 1;
+    }
+
 
     int counter = 0;
 
@@ -80,6 +110,11 @@ int FitProxyModel::columnCount(const QModelIndex &parentIndex) const
     if(!parentIndex.isValid())
     {
         return 5;
+    }
+
+    if(parentIndex.isValid() && !parentIndex.parent().isValid())
+    {
+        return 1;
     }
 
     return 0;
@@ -128,6 +163,7 @@ bool FitProxyModel::setData(const QModelIndex &index,
                            const QVariant &value, int role)
 {
     if (!index.isValid()) return false;
+
 
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role==Qt::EditRole) {

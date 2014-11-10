@@ -30,6 +30,7 @@ private:
     QAction *m_openAction;
     QAction *m_saveAction;
     QAction *m_exitAction;
+    QAction *m_aboutAction;
     QList<QAction *> m_recentProjectActions;
 
     QMenuBar *m_menuBar;

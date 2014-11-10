@@ -152,7 +152,6 @@ def run_fitting():
     strategy1 = FitStrategyAdjustMinimizer()
     strategy1.setMinimizer(MinimizerFactory.createMinimizer("Genetic"))
     strategy1.getMinimizer().getOptions().setMaxIterations(5)
-    strategy1.getMinimizer().getOptions().setValue("Steps", 5)
     fit_suite.addFitStrategy(strategy1)
 
     # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.

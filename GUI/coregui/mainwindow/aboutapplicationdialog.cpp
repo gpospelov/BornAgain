@@ -1,5 +1,5 @@
 #include "aboutapplicationdialog.h"
-#include "mainwindow_constants.h"
+#include "BAVersion.h"
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -17,7 +17,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
-    setFixedSize(450, 230);
+    setFixedSize(550, 250);
     setWindowTitle("About BornAgain");
 
     //setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
@@ -25,12 +25,12 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
 
     QFont titleFont;
-    titleFont.setPointSize(18);
+    titleFont.setPointSize(14);
     titleFont.setBold(true);
 
     QFont normalFont;
-    titleFont.setPointSize(14);
-    titleFont.setBold(false);
+    normalFont.setPointSize(11);
+    normalFont.setBold(false);
 
 
     QPixmap logo(":/images/BornAgain.ico");
@@ -38,8 +38,15 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
 
-    QLabel *aboutTitleLabel = new QLabel(QString(Constants::APPLICATION_NAME).append(" ").append(Constants::APPLICATION_VERSION));
+    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
     aboutTitleLabel->setFont(titleFont);
+    aboutTitleLabel->setContentsMargins(0,0,0,15);
+
+    QString copyright = "Copyright 2010-2014 MLZ Garching. All rights reserved.";
+    QLabel *copyrightLabel = new QLabel(copyright);
+    copyrightLabel->setFont(normalFont);
+    //copyrightLabel->setWordWrap(true);
+    copyrightLabel->setContentsMargins(0,0,0,15);
 
     QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS), using distorted-wave Born approximation (DWBA). The software equally supports neutron and x-ray scattering (GISANS and GISAXS).";
     QLabel *descriptionLabel = new QLabel(description);
@@ -49,13 +56,14 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     QVBoxLayout *logoLayout = new QVBoxLayout;
     logoLayout->addWidget(logoLabel);
     logoLayout->addStretch(1);
-    logoLayout->setContentsMargins(15,15,15,15);
+    logoLayout->setContentsMargins(5,5,5,5);
 
     QVBoxLayout *textLayout = new QVBoxLayout;
     textLayout->addWidget(aboutTitleLabel);
+    textLayout->addWidget(copyrightLabel);
     textLayout->addWidget(descriptionLabel);
     textLayout->addStretch(1);
-    textLayout->setContentsMargins(0,15,5,5);
+    textLayout->setContentsMargins(0,5,5,5);
 
 
     QHBoxLayout *detailsLayout = new QHBoxLayout;

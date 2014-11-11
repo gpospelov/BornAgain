@@ -1,10 +1,10 @@
 
 #include "mainwindow.h"
+#include "SplashScreen.h"
 
 #include <QApplication>
 #include <QDebug>
 #include <iostream>
-#include <QSplashScreen>
 #include <QTime>
 
 int main(int argc, char *argv[])
@@ -12,21 +12,23 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    QPixmap pixmap(":/images/BornAgain.ico");
-    QSplashScreen splash(pixmap.scaled(500,500,Qt::KeepAspectRatio));
-    splash.show();
-    a.processEvents();
+    SplashScreen *splash = new SplashScreen(&a);
+    splash->show();
 
 
-    QTime dieTime = QTime::currentTime().addMSecs( 1500 );
+    int time = 1000;
+    QTime dieTime = QTime::currentTime().addMSecs(1000);
+    QTime timer;
+    timer.start();
     while( QTime::currentTime() < dieTime )
     {
+        splash->setProgress(timer.elapsed()/(time/100));
         QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
     }
 
     MainWindow w;
     w.show();
-    splash.finish(&w);
+    splash->finish(&w);
 
 //#ifdef BORNAGAIN_CRASHHANDLER
 //    std::cout << "BORNAGAIN_CRASHHANDLER" << std::endl;

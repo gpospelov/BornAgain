@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <iostream>
 #include <QSplashScreen>
+#include <QTime>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,12 @@ int main(int argc, char *argv[])
     splash.show();
     a.processEvents();
 
+
+    QTime dieTime = QTime::currentTime().addMSecs( 1500 );
+    while( QTime::currentTime() < dieTime )
+    {
+        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+    }
 
     MainWindow w;
     w.show();

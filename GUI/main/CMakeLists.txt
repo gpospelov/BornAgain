@@ -45,9 +45,9 @@ endif()
 
 if(APPLE AND CREATE_BUNDLE)
   add_executable(${executable_name} MACOSX_BUNDLE ${source_files} ${include_files})
-  get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
-  add_library(Python SHARED IMPORTED)
-  set_property(TARGET Python PROPERTY IMPORTED_LOCATION ${PYTHON_REAL_LIBRARY})
+#  get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
+#  add_library(Python SHARED IMPORTED)
+#  set_property(TARGET Python PROPERTY IMPORTED_LOCATION ${PYTHON_REAL_LIBRARY})
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}
@@ -58,7 +58,7 @@ if(APPLE AND CREATE_BUNDLE)
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${BornAgainGUI_LIBRARY}
-    Python
+#    Python
   )
 else()
   add_executable(${executable_name} ${WIN_CONSOLE} ${source_files} ${include_files} ${RC_FILE})
@@ -107,7 +107,7 @@ IF(APPLE AND CREATE_BUNDLE)
   get_filename_component(qcustomplot_LIBRARY_DIR "${qcustomplot_LIBRARY}" REALPATH)
   get_filename_component(qtpropertybrowser_LIBRARY_DIR "${qtpropertybrowser_LIBRARY}" REALPATH)
   get_filename_component(Boost_Real_LIBRARY_DIR "${Boost_LIBRARY_DIR}" REALPATH)
-  get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_REAL_LIBRARY}" PATH)
+#  get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_REAL_LIBRARY}" PATH)
 
 #  message("PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}")
 
@@ -115,7 +115,7 @@ IF(APPLE AND CREATE_BUNDLE)
     ${ManhattanStyle_LIBRARY_DIR}
     ${qcustomplot_LIBRARY_DIR}
     ${qtpropertybrowser_LIBRARY_DIR}
-    ${PYTHON_LIBRARY_DIR}
+#    ${PYTHON_LIBRARY_DIR}
     ${Boost_Real_LIBRARY_DIR}
     "${CMAKE_BINARY_DIR}/lib"
     "$ENV{QTDIR}"

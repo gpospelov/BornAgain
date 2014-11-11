@@ -107,15 +107,18 @@ IF(APPLE AND CREATE_BUNDLE)
   get_filename_component(qcustomplot_LIBRARY_DIR "${qcustomplot_LIBRARY}" REALPATH)
   get_filename_component(qtpropertybrowser_LIBRARY_DIR "${qtpropertybrowser_LIBRARY}" REALPATH)
   get_filename_component(Boost_Real_LIBRARY_DIR "${Boost_LIBRARY_DIR}" REALPATH)
-#  get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_REAL_LIBRARY}" PATH)
+#  get_filename_component(PYTHON_LIBRARY_DIR "${PYTHON_LIBRARIES}" REALPATH)
+  get_filename_component(PYTHON_REAL_LIBRARY_DIR "${PYTHON_LIBRARY}" REALPATH)
 
-#  message("PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}")
+  message("OOO PYTHON_LIBRARY_DIR: ${PYTHON_LIBRARY_DIR}  PYTHON_LIBRARY:${PYTHON_LIBRARY}  PYTHON_LIBRARIES:${PYTHON_LIBRARIES}")
+  message("OOO2 PYTHON_REAL_LIBRARY_DIR:${PYTHON_REAL_LIBRARY_DIR}")
+  message("OOO3 CMAKE_LIBRARY_OUTPUT_DIRECTORY:${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CMAKE_LIBRARY_PATH:${CMAKE_LIBRARY_PATH}")
 
   set(DIRS
-    ${ManhattanStyle_LIBRARY_DIR}
-    ${qcustomplot_LIBRARY_DIR}
-    ${qtpropertybrowser_LIBRARY_DIR}
-#    ${PYTHON_LIBRARY_DIR}
+#    ${ManhattanStyle_LIBRARY_DIR}
+#    ${qcustomplot_LIBRARY_DIR}
+#    ${qtpropertybrowser_LIBRARY_DIR}
+    ${PYTHON_REAL_LIBRARY_DIR}
     ${Boost_Real_LIBRARY_DIR}
     "${CMAKE_BINARY_DIR}/lib"
     "$ENV{QTDIR}"
@@ -127,25 +130,36 @@ IF(APPLE AND CREATE_BUNDLE)
     BUNDLE DESTINATION  . COMPONENT Applications
     RUNTIME DESTINATION ${destination_bin} COMPONENT Runtime)
 
-  install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
 
-  set(qtconf_text "
-[Paths]
-Plugins = PlugIns
-  ")
+#  install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
 
-  install(CODE "
-    file(WRITE \"\${CMAKE_INSTALL_PREFIX}/${qtconf_dest_dir}/qt.conf\" \"${qtconf_text}\")
-    " COMPONENT Runtime)
+#  set(qtconf_text "
+#[Paths]
+#Plugins = PlugIns
+#  ")
 
-  install(CODE "
-    file(GLOB_RECURSE QTPLUGINS
-      \"\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
-    set(BU_CHMOD_BUNDLE_ITEMS True)
-    set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
-    include(${CMAKE_MODULE_PATH}/BABundleUtilities.cmake)
-    fixup_bundle(\"${APPS}\" \"\${QTPLUGINS}\" \"${DIRS}\")
-    " COMPONENT Runtime)
+#  install(CODE "
+#    file(WRITE \"\${CMAKE_INSTALL_PREFIX}/${qtconf_dest_dir}/qt.conf\" \"${qtconf_text}\")
+#    " COMPONENT Runtime)
+
+#  install(CODE "
+#    file(GLOB_RECURSE QTPLUGINS
+#      \"\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+#    set(BU_CHMOD_BUNDLE_ITEMS True)
+#    set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+#    include(${CMAKE_MODULE_PATH}/BABundleUtilities.cmake)
+#    fixup_bundle(\"${APPS}\" \"\${QTPLUGINS}\" \"${DIRS}\")
+#    " COMPONENT Runtime)
+
+#    configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/bundle.cmake.in ${CMAKE_BINARY_DIR}/bundle.cmake @ONLY)
+#    install(SCRIPT ${CMAKE_BINARY_DIR}/bundle.cmake COMPONENT Runtime)
+
+    set(fixup_path @rpath)
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixBundle.cmake.in ${CMAKE_BINARY_DIR}/FixBundle.cmake @ONLY)
+    install(SCRIPT ${CMAKE_BINARY_DIR}/FixBundle.cmake COMPONENT Runtime)
+
+#    include(BundleUtilities)
+#    fixup_bundle(${CMAKE_INSTALL_PREFIX}/BornAgain.app "" "")
 
 else()
   install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)

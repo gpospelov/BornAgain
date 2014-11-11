@@ -1,0 +1,109 @@
+
+set ( bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
+
+message("AAAAA @CMAKE_SOURCE_DIR@")
+
+file ( GLOB pyqt_libs ${bundle}/Contents/MacOS/PyQt4/*.so )
+file ( GLOB mantid_plugins ${bundle}/plugins/*.dylib )
+file ( GLOB_RECURSE qtplugins ${bundle}/Contents/Frameworks/plugins/*.dylib )
+file ( GLOB_RECURSE mtdqtplugins ${bundle}/plugins/*.dylib )
+file ( GLOB_RECURSE pvplugins ${bundle}/pvplugins/*.dylib )
+file ( GLOB vatesplugins ${bundle}/pvplugins/*.dylib ) # Find just the top level Vates plugins
+
+# gp_resolved_file_type_override
+#   Sets the type of the dependency. The options are: system, local, embedded, other
+#   For OS X, system & embedded dependencies are NOT copied in to the bundle
+function(gp_resolved_file_type_override resolved_file type_var)
+
+    if(file MATCHES "Qt")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+    elseif(file MATCHES "Python.framework")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+    else()
+        message("XXX  resolving file as _system   : ${file}")
+        set(${type_var} system PARENT_SCOPE)
+    endif()
+
+
+#  if(resolved_file MATCHES "^/usr(|/local)/lib")
+#    message(STATUS "resolving ${file} as system")
+#    set(${type_var} system PARENT_SCOPE)
+#  endif()
+#  # Copy Qt dependencies to bundle
+#  if(file MATCHES "libQt")
+#    message("resolving ${file} as embedded")
+#    set(${type_var} embedded PARENT_SCOPE)
+#  endif()
+#  # Don't copy ParaView into the bundle
+#  if(resolved_file MATCHES "^@ParaView_DIR@")
+#    message(STATUS "resolving ParaView dependency ${file} as system")
+#    set(${type_var} system PARENT_SCOPE)
+#  endif()
+endfunction()
+
+# gp_item_default_embedded_path_override item default_embedded_path_var
+#
+# Return the path that others should refer to the item by when the item
+# is embedded inside a bundle.
+#
+# This is a project-specific override of BundleUtilities.cmake's
+# gp_item_default_embedded_path
+#
+function(gp_item_default_embedded_path_override item default_embedded_path_var)
+
+    # By default, embed items as set by gp_item_default_embedded_path:
+    set(path "${${default_embedded_path_var}}")
+
+    if(item MATCHES "[^/]+\\.framework/")
+        set(path "@fixup_path@/Frameworks")
+    endif()
+
+
+#    if(item MATCHES "Python.framework")
+##        set( path "@rpath" )
+#        set(path "@fixup_path@")
+##        set( overridden 1 PARENT_SCOPE )
+#        message("YYY 1.1 path_override to ${path} item:${item}")
+#    else()
+#        set( path "@executable_path/../MacOS" )
+#        message("YYY  1.2 path_override to ${path} item:${item}")
+#    endif()
+
+  set(${default_embedded_path_var} "${path}" PARENT_SCOPE)
+
+endfunction(gp_item_default_embedded_path_override)
+
+
+set(BU_CHMOD_BUNDLE_ITEMS True)
+set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+
+#include (BundleUtilities)
+include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
+
+#set ( mantidpydir ${bundle}/Contents/MacOS/mantid )
+#set ( mantidpylibs ${mantidpydir}/kernel/_kernel.so
+#                   ${mantidpydir}/geometry/_geometry.so
+#                   ${mantidpydir}/api/_api.so )
+
+#set ( other_libs ${bundle}/Contents/MacOS/mantidqtpython.so
+#		 ${mantid_plugins}
+#                 ${pyqt_libs} ${qtplugins} ${pvplugins}
+#                 ${mantidpylibs} ${mtdqtplugins} )
+
+#set ( dirs "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@" "@CMAKE_LIBRARY_PATH@" /Library/Frameworks /opt/intel/lib )
+
+fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
+
+####################################################
+# Functions to change the dependency references
+####################################################
+function( change_bundle_id new_id sharedlib )
+  execute_process(COMMAND install_name_tool -id ${new_id} ${sharedlib})
+endfunction()
+
+function( change_bundle_dep old_dep new_dep sharedlib )
+  execute_process(COMMAND install_name_tool -change ${old_dep} ${new_dep} ${sharedlib})
+endfunction()
+

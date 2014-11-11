@@ -24,6 +24,7 @@ option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
 
 
+
 #--- Including macros ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(BornAgainMacros)
@@ -37,6 +38,8 @@ include(BornAgainConfiguration)
 if(BORNAGAIN_MAN)
     add_subdirectory(Doc/UserManual)
 endif()
+
+set(CMAKE_MACOSX_RPATH 1)
 
 add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)

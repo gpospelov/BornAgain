@@ -1,0 +1,21 @@
+
+
+
+
+message(STATUS "aaaa @INBUNDLE@")
+
+set(BU_CHMOD_BUNDLE_ITEMS True)
+set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+
+set(plugin_dest_dir @INBUNDLE@/Contents/PlugIns)
+set(qtconf_dest_dir @INBUNDLE@/Contents/Resources)
+set(APPS @CMAKE_INSTALL_PREFIX@/@INBUNDLE@)
+
+
+file(GLOB_RECURSE QTPLUGINS "@CMAKE_INSTALL_PREFIX@/${plugin_dest_dir}/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+message("AAAAA QTPLUGINS ${QTPLUGINS}")
+message("AAAAA QTPLUGINS ${QTPLUGINS}")
+
+include(BundleUtilities)
+fixup_bundle(${APPS} "${QTPLUGINS}" "@DIRS@")
+

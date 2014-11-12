@@ -1,7 +1,15 @@
 
 set ( bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
 
-message("AAAAA @CMAKE_SOURCE_DIR@")
+#set(GP_RPATH_DIR ${bundle}/Contents)
+set(BU_CHMOD_BUNDLE_ITEMS True)
+set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
+
+#set(GP_RPATH_DIR "@loader_path/../")
+#include (BundleUtilities)
+include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
+
+#message("AAAAA @CMAKE_SOURCE_DIR@  ${GP_RPATH_DIR}")
 
 file ( GLOB pyqt_libs ${bundle}/Contents/MacOS/PyQt4/*.so )
 file ( GLOB mantid_plugins ${bundle}/plugins/*.dylib )
@@ -18,9 +26,35 @@ function(gp_resolved_file_type_override resolved_file type_var)
     if(file MATCHES "Qt")
         message("XXX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
-    elseif(file MATCHES "Python.framework")
+
+    elseif(item MATCHES "PlugIns/platforms")
         message("XXX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
+
+    elseif(file MATCHES "Python.framework/Resources")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} system PARENT_SCOPE)
+
+    elseif(file MATCHES "Python.framework/Versions")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+
+    elseif(file MATCHES "/opt")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+
+    elseif(file MATCHES "libBornAgain")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+
+    elseif(file MATCHES "libManhattanStyle")
+        message("XXX  resolving file as _embedded : ${file}")
+        set(${type_var} embedded PARENT_SCOPE)
+
+#    elseif(file MATCHES "Python.framework")
+#            message("XXX  resolving file as _embedded : ${file}")
+#            set(${type_var} embedded PARENT_SCOPE)
+
     else()
         message("XXX  resolving file as _system   : ${file}")
         set(${type_var} system PARENT_SCOPE)
@@ -58,8 +92,20 @@ function(gp_item_default_embedded_path_override item default_embedded_path_var)
 
     if(item MATCHES "[^/]+\\.framework/")
         set(path "@fixup_path@/Frameworks")
-    endif()
 
+    elseif(item MATCHES "PlugIns/platforms")
+        set(path "@fixup_path@/PlugIns/platforms")
+
+    elseif(item MATCHES "libBornAgain")
+        set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
+
+    elseif(item MATCHES "libManhattanStyle")
+        set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
+
+    elseif(item MATCHES "\\.(dylib|so)$")
+        set(path "@fixup_path@/lib/ThirdParty")
+
+    endif()
 
 #    if(item MATCHES "Python.framework")
 ##        set( path "@rpath" )
@@ -76,12 +122,6 @@ function(gp_item_default_embedded_path_override item default_embedded_path_var)
 endfunction(gp_item_default_embedded_path_override)
 
 
-set(BU_CHMOD_BUNDLE_ITEMS True)
-set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
-
-#include (BundleUtilities)
-include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
-
 #set ( mantidpydir ${bundle}/Contents/MacOS/mantid )
 #set ( mantidpylibs ${mantidpydir}/kernel/_kernel.so
 #                   ${mantidpydir}/geometry/_geometry.so
@@ -93,6 +133,33 @@ include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 #                 ${mantidpylibs} ${mtdqtplugins} )
 
 #set ( dirs "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@" "@CMAKE_LIBRARY_PATH@" /Library/Frameworks /opt/intel/lib )
+
+
+file(GLOB_RECURSE QTPLUGINS
+      "@CMAKE_INSTALL_PREFIX@/@plugin_dest_dir@/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+
+message("QQQQ QTPLUGINS ${QTPLUGINS}")
+
+  set(qtconf_text "
+[Paths]
+Plugins = PlugIns
+  ")
+
+file(WRITE "@CMAKE_INSTALL_PREFIX@/@qtconf_dest_dir@/qt.conf" "${qtconf_text}")
+
+
+  set(dirs
+    "@CMAKE_BINARY_DIR@/lib"
+    "$ENV{QTDIR}"
+    "$ENV{QTDIR}/plugins"
+  )
+
+set(other_libs
+${QTPLUGINS}
+)
+
+message("QQQQ QTPLUGINS ${QTPLUGINS} dirs ${dirs}")
+
 
 fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
 

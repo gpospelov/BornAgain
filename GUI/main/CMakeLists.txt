@@ -23,16 +23,7 @@ set(source_files
 
 set(include_files)
 
-# MH: disabled crashhandler
-#if(BORNAGAIN_CRASHHADLER)
-#    list(APPEND source_files crashhandlersetup.cpp stacktracesetup.cpp)
-#    list(APPEND include_files crashhandlersetup.h stacktracesetup.h)
-#    list(APPEND source_files stacktracesetup.cpp)
-#    list(APPEND include_files stacktracesetup.h)
-#endif()
-
 # Application icon
-
 if(WIN32)
     set(RC_FILE bornagain.rc)
    if ( CONSOLE )
@@ -44,6 +35,7 @@ endif()
 
 
 if(APPLE AND CREATE_BUNDLE)
+#  set(CMAKE_MACOSX_RPATH 0)
   add_executable(${executable_name} MACOSX_BUNDLE ${source_files} ${include_files})
 #  get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
 #  add_library(Python SHARED IMPORTED)
@@ -97,6 +89,17 @@ endif( WIN32 )
 
 # --- Installation ---
 IF(APPLE AND CREATE_BUNDLE)
+
+    set(link_flags "-Wl,-rpath,@loader_path/../")
+    set_target_properties(${executable_name}
+        PROPERTIES
+#        INSTALL_RPATH "@loader_path/.."
+        LINK_FLAGS ${link_flags}
+    )
+
+#    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+#    set(CMAKE_INSTALL_RPATH "@loader_path/..")
+
   set(plugin_dest_dir ${INBUNDLE}/Contents/PlugIns)
   set(qtconf_dest_dir ${INBUNDLE}/Contents/Resources)
   set(APPS "\${CMAKE_INSTALL_PREFIX}/${INBUNDLE}")
@@ -130,8 +133,9 @@ IF(APPLE AND CREATE_BUNDLE)
     BUNDLE DESTINATION  . COMPONENT Applications
     RUNTIME DESTINATION ${destination_bin} COMPONENT Runtime)
 
+#    set_target_properties(${executable_name} PROPERTIES INSTALL_RPATH "@loader_path/../" MACOSX_RPATH 1)
 
-#  install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
+  install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
 
 #  set(qtconf_text "
 #[Paths]
@@ -158,8 +162,6 @@ IF(APPLE AND CREATE_BUNDLE)
     configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixBundle.cmake.in ${CMAKE_BINARY_DIR}/FixBundle.cmake @ONLY)
     install(SCRIPT ${CMAKE_BINARY_DIR}/FixBundle.cmake COMPONENT Runtime)
 
-#    include(BundleUtilities)
-#    fixup_bundle(${CMAKE_INSTALL_PREFIX}/BornAgain.app "" "")
 
 else()
   install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)

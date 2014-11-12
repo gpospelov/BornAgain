@@ -7,7 +7,7 @@ set ( INBUNDLE BornAgain.app )
 
 
 set(destination_bin ${INBUNDLE}/Contents/MacOs)
-set(destination_lib ${INBUNDLE}/Contents/MacOs)
+set(destination_lib ${INBUNDLE}/Contents/lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
 set(destination_include ${INBUNDLE}/Contents/Resources/Headers)
 set(destination_examples ${INBUNDLE}/Contents/SharedSupport/Examples)
 

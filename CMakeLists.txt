@@ -39,7 +39,7 @@ if(BORNAGAIN_MAN)
     add_subdirectory(Doc/UserManual)
 endif()
 
-set(CMAKE_MACOSX_RPATH 1)
+#set(CMAKE_MACOSX_RPATH 0)
 
 add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)

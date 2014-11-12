@@ -135,6 +135,7 @@ IF(APPLE AND CREATE_BUNDLE)
 
 #    set_target_properties(${executable_name} PROPERTIES INSTALL_RPATH "@loader_path/../" MACOSX_RPATH 1)
 
+  message("WWWWWWW ${plugin_dest_dir}")
   install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
 
 #  set(qtconf_text "

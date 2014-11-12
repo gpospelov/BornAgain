@@ -9,7 +9,7 @@ set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
 #include (BundleUtilities)
 include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 
-#message("AAAAA @CMAKE_SOURCE_DIR@  ${GP_RPATH_DIR}")
+message("AAAAA>>> CMAKE_INSTALL_PREFIX:${CMAKE_INSTALL_PREFIX} bundle:${bundle}")
 
 file ( GLOB pyqt_libs ${bundle}/Contents/MacOS/PyQt4/*.so )
 file ( GLOB mantid_plugins ${bundle}/plugins/*.dylib )
@@ -136,16 +136,16 @@ endfunction(gp_item_default_embedded_path_override)
 
 
 file(GLOB_RECURSE QTPLUGINS
-      "@CMAKE_INSTALL_PREFIX@/@plugin_dest_dir@/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+      "${bundle}/Contents/PlugIns/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
 
-message("QQQQ QTPLUGINS ${QTPLUGINS}")
+message("QQQQ QTPLUGINS ${QTPLUGINS}  bundle:${bundle}$ path:${bundle}/Contents/PlugIns")
 
   set(qtconf_text "
 [Paths]
 Plugins = PlugIns
   ")
 
-file(WRITE "@CMAKE_INSTALL_PREFIX@/@qtconf_dest_dir@/qt.conf" "${qtconf_text}")
+file(WRITE "${bundle}/Contents/Resources/qt.conf" "${qtconf_text}")
 
 
   set(dirs

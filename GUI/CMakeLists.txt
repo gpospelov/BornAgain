@@ -8,9 +8,6 @@ endif()
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
-#if(POLICY CMP0042)
-#    cmake_policy(SET CMP0042 OLD)
-#endif()
 
 message(STATUS "Configuring BornAgain GUI")
 

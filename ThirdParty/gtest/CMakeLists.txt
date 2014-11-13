@@ -2,7 +2,7 @@
 # CMakeLists.txt file for building gtest library
 ############################################################################
 if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 OLD)
+    cmake_policy(SET CMP0042 NEW)
 endif()
 
 if(MSVC)

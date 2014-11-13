@@ -113,7 +113,6 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
-#qt5_use_modules(${library_name} Widgets Core Gui Script Designer PrintSupport)
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
     ${qtpropertybrowser_INCLUDE_DIRS}

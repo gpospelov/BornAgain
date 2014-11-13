@@ -14,8 +14,6 @@ endif()
 
 message(STATUS "Configuring BornAgain GUI")
 
-#Widgets Core Gui Script Designer PrintSupport
-
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5GUI REQUIRED)

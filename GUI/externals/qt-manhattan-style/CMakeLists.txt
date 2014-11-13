@@ -71,13 +71,14 @@ set(UI_FILES
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
+qt5_wrap_ui(UI_HDRS ${UI_FILES})
 
 # --- definitions ---------
 add_definitions(-DQTMANHATTANSTYLE_LIBRARY)
 
 
 # --- library ---------
-add_library(${library_name} STATIC ${SRCS} ${UI_FILES} ${RCS})
+add_library(${library_name} STATIC ${SRCS} ${UI_HDRS} ${RCS})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 

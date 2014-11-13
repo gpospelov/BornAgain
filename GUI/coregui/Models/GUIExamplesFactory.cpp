@@ -40,7 +40,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
     QString exampleName = m_name_to_registry[name];
 
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toAscii().data()));
+    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toLatin1().data()));
     Q_ASSERT(simulation.get());
 
     boost::scoped_ptr<ISample> sample(simulation->getSampleBuilder()->buildSample());
@@ -66,7 +66,7 @@ ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name
     qDebug() << " GUIExamplesFactory::createInstrumentItems()" << name << exampleName;
 
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toAscii().data()));
+    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toLatin1().data()));
     Q_ASSERT(simulation.get());
 
     boost::scoped_ptr<Instrument> instrument(new Instrument(simulation.get()->getInstrument()));

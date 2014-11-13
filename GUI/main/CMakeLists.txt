@@ -1,12 +1,12 @@
-cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
 endif()
 if(POLICY CMP0043)
-cmake_policy(SET CMP0043 NEW)
+    cmake_policy(SET CMP0043 NEW)
 endif()
 if(POLICY CMP0028)
-cmake_policy(SET CMP0028 OLD)
+    cmake_policy(SET CMP0028 NEW)
 endif()
 
 set(executable_name BornAgain)
@@ -54,6 +54,7 @@ if(APPLE AND CREATE_BUNDLE)
   )
 else()
   add_executable(${executable_name} ${WIN_CONSOLE} ${source_files} ${include_files} ${RC_FILE})
+#  qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
 
   target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}

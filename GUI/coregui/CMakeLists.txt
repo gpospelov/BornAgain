@@ -1,23 +1,21 @@
 ############################################################################
-# CMakeLists.txt file for building coregui
+# CMakeLists.txt file for building libBornAgainGUI library
 ############################################################################
-
-cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 if(POLICY CMP0020)
-cmake_policy(SET CMP0020 NEW)
+    cmake_policy(SET CMP0020 NEW)
 endif()
 if(POLICY CMP0043)
-cmake_policy(SET CMP0043 NEW)
+    cmake_policy(SET CMP0043 NEW)
 endif()
 if(POLICY CMP0042)
-cmake_policy(SET CMP0042 NEW)
+    cmake_policy(SET CMP0042 NEW)
 endif()
-
+if(POLICY CMP0028)
+    cmake_policy(SET CMP0028 NEW)
+endif()
 set(library_name BornAgainGUI)
 
-if(BORNAGAIN_CRASHHADLER)
-    add_definitions(-DBORNAGAIN_CRASHHANDLER)
-endif()
 
 # --- source and include files ---
 set(include_dirs
@@ -78,7 +76,6 @@ set(include_widgetbox
 )
 list(APPEND include_files ${include_widgetbox})
 
-
 set(resource_files
     "coregui.qrc"
 #    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
@@ -86,21 +83,27 @@ set(resource_files
     "Views/Components/widgetbox/widgetbox.qrc"
 )
 
+
+# --- Qt configuration ---------
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-qt5_add_resources(RC_SRCS ${resource_files})
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
+
+
+# --- definitions ------
+if(BORNAGAIN_CRASHHADLER)
+    add_definitions(-DBORNAGAIN_CRASHHANDLER)
+endif()
 
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
-#add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
-# --- making library ---
+# --- making library ---------
 add_library(
     ${library_name}
     SHARED
-    ${source_files} ${RC_SRCS} ${include_files}
+    ${source_files} ${resource_files} ${include_files}
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
@@ -109,9 +112,8 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
-qt5_use_modules(${library_name} Widgets Core Gui Script Designer PrintSupport)
-
-# --- dependencies ---
+# --- dependencies ---------
+#qt5_use_modules(${library_name} Widgets Core Gui Script Designer PrintSupport)
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
     ${qtpropertybrowser_INCLUDE_DIRS}
@@ -124,7 +126,6 @@ include_directories(
     ${PYTHON_INCLUDE_DIRS}
 )
 
-
 target_link_libraries(${library_name}
     ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
@@ -135,73 +136,22 @@ target_link_libraries(${library_name}
     ${BornAgainFit_LIBRARY}
 )
 
-# --- Installation ---
-install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-if(APPLE AND CREATE_BUNDLE)
-  set(source_files ${source_files} ${CMAKE_SOURCE_DIR}/GUI/main/BornAgainApp.icns)
-endif(APPLE AND CREATE_BUNDLE)
-# system libraries: ROOT installation
-if(WIN32)
-#     install(FILES 
-#     ${ROOTSYS}/bin/libGpad.dll
-#     ${ROOTSYS}/bin/libHist.dll
-#     ${ROOTSYS}/bin/libGraf.dll
-#     ${ROOTSYS}/bin/libGraf3d.dll
-#     ${ROOTSYS}/bin/libTree.dll
-#     ${ROOTSYS}/bin/libRint.dll
-#     ${ROOTSYS}/bin/libPostscript.dll
-#     ${ROOTSYS}/bin/libMatrix.dll
-#     ${ROOTSYS}/bin/libMathCore.dll
-#     ${ROOTSYS}/bin/libThread.dll
-#     ${ROOTSYS}/bin/libCore.dll
-#     ${ROOTSYS}/bin/libCint.dll
-#     ${ROOTSYS}/bin/libRIO.dll
-#     ${ROOTSYS}/bin/liblzma.dll
-#     ${ROOTSYS}/bin/libNet.dll
-#     ${ROOTSYS}/bin/libGui.dll
-#     ${ROOTSYS}/bin/libHistPainter.dll
-#     ${ROOTSYS}/bin/gdk-1.3.dll
-#     ${ROOTSYS}/bin/glib-1.3.dll
-#     ${ROOTSYS}/bin/iconv-1.3.dll
-#     ${ROOTSYS}/bin/libWin32gdk.dll
-#     ${ROOTSYS}/bin/libAsImage.dll
-#     DESTINATION ${destination_lib} COMPONENT Libraries)
-#     
-#     install(FILES
-#     ${ROOTSYS}/fonts/FreeSans.otf
-#     ${ROOTSYS}/fonts/FreeSansBold.otf
-#     ${ROOTSYS}/fonts/symbol.ttf
-#     DESTINATION fonts COMPONENT Libraries)
-#     
-#     install(FILES
-#     ${ROOTSYS}/icons/arrow.xpm
-#     ${ROOTSYS}/icons/arrow_down.xpm
-#     ${ROOTSYS}/icons/arrow_left.xpm
-#     ${ROOTSYS}/icons/arrow_right.xpm
-#     ${ROOTSYS}/icons/arrow_right2.xpm
-#     ${ROOTSYS}/icons/arrow_up.xpm
-#     DESTINATION icons COMPONENT Libraries)
-#     
-#     install(FILES
-#     ${ROOTSYS}/etc/system.rootrc
-#     ${ROOTSYS}/etc/root.mimes
-#     DESTINATION etc COMPONENT Libraries)
-#     
-#     install(DIRECTORY
-#     ${ROOTSYS}/etc/plugins/TGuiFactory
-#     ${ROOTSYS}/etc/plugins/TImage
-#     ${ROOTSYS}/etc/plugins/TView
-#     ${ROOTSYS}/etc/plugins/TVirtualGraphPainter
-#     ${ROOTSYS}/etc/plugins/TVirtualHistPainter
-#     ${ROOTSYS}/etc/plugins/TVirtualPadPainter
-#     ${ROOTSYS}/etc/plugins/TVirtualPS
-#     ${ROOTSYS}/etc/plugins/TVirtualStreamerInfo
-#     ${ROOTSYS}/etc/plugins/TVirtualX
-#     DESTINATION etc/plugins COMPONENT Libraries)
-# 
-     # --- Qt ---
-     STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\Qt\ to C:/Qt/
+target_link_libraries(${library_name}
+    Qt5::Widgets
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Script
+    Qt5::Designer
+    Qt5::PrintSupport
+)
 
+
+# --- Installation ---------
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
+
+if(WIN32)
+    # --- Qt ---
+    STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\Qt\ to C:/Qt/
     install(FILES
     ${QTDIR}/bin/Qt5Widgets.DLL
     ${QTDIR}/bin/Qt5Core.dll
@@ -232,6 +182,5 @@ if(WIN32)
     ${QTDIR}/plugins/platforms/qwindows.dll
     DESTINATION bin/platforms COMPONENT Libraries)
 
-    
 endif()
 

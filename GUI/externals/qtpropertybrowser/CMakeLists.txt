@@ -1,7 +1,7 @@
 ############################################################################
 # CMakeLists.txt file for building static qtpropertybrowser library from qtsolutions
 ############################################################################
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 2.8.11)
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
@@ -20,28 +20,34 @@ set(include_dirs
 
 include_directories(${include_dirs})
 
-if(NOT WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
-endif()
-
 set(resource_files
     "qtpropertybrowser.qrc"
 )
 
-set(CMAKE_AUTOMOC ON)
-qt5_add_resources(RC_SRCS ${resource_files})
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
+# --- definitions ---------
+if(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
+endif()
+
+
+# --- Qt configuration ---------
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+
+
+# --- library ---------
 add_library(
     ${library_name}
     STATIC
-    ${source_files} ${include_files} ${RC_SRCS} ${mocfiles}
+    ${source_files} ${include_files} ${resource_files} ${mocfiles}
 )
 set(${library_name}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 
-qt5_use_modules(${library_name} Widgets)
+# --- dependencies ---------
+target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
+target_link_libraries(${library_name} Qt5::Widgets)
 
 

@@ -1,19 +1,17 @@
 ############################################################################
 # CMakeLists.txt file for building libManhattanStyle
 ############################################################################
-
 cmake_minimum_required(VERSION 2.8.9)
 if(POLICY CMP0020)
-cmake_policy(SET CMP0020 NEW)
+    cmake_policy(SET CMP0020 NEW)
 endif()
 if(POLICY CMP0043)
-cmake_policy(SET CMP0043 NEW)
+    cmake_policy(SET CMP0043 NEW)
 endif()
 if(POLICY CMP0042)
-cmake_policy(SET CMP0042 NEW)
+    cmake_policy(SET CMP0042 NEW)
 endif()
 
-#project(qt-manhattan-style)
 set(library_name ManhattanStyle)
 
 set(SRCS
@@ -72,7 +70,6 @@ set(UI_FILES
 # Qt5
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-#find_package(Qt5Widgets)
 
 # Run uic on ui files
 qt5_wrap_ui(UI_HDRS ${UI_FILES})
@@ -86,7 +83,7 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
 # Create the target
 add_definitions(-DQTMANHATTANSTYLE_LIBRARY)
-add_library(${library_name} SHARED ${SRCS} ${UI_HDRS} ${RC_SRCS})
+add_library(${library_name} STATIC ${SRCS} ${UI_HDRS} ${RC_SRCS})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
@@ -96,7 +93,4 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 
 qt5_use_modules(${library_name} Widgets)
-
-# --- installation ---
-install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 

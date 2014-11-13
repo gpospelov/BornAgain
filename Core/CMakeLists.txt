@@ -6,7 +6,7 @@ if(POLICY CMP0042)
 cmake_policy(SET CMP0042 NEW)
 endif()
 
-# --- source and include files ---
+# --- source and include files ---------
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
@@ -17,7 +17,7 @@ set(include_dirs
 )
 include_directories(${include_dirs})
 
-file(GLOB source_files
+file(GLOB core_source_files
     "Algorithms/src/*.cpp"
     "FormFactors/src/*.cpp"
     "Geometry/src/*.cpp"
@@ -26,7 +26,7 @@ file(GLOB source_files
     "Tools/src/*.cpp"
 )
 
-file(GLOB include_files
+file(GLOB core_include_files
     "Algorithms/inc/*.h"
     "FormFactors/inc/*.h"
     "Geometry/inc/*.h"
@@ -34,6 +34,9 @@ file(GLOB include_files
     "StandardSamples/*.h"
     "Tools/inc/*.h"
 )
+
+set(source_files ${core_source_files})
+set(include_files ${core_inculde_files})
 
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi_source "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
@@ -45,6 +48,8 @@ if(BORNAGAIN_PYTHON)
     )
 endif()
 
+
+#--- definitions ---------
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
@@ -58,7 +63,7 @@ if(BORNAGAIN_OPENMPI)
 endif()
 
 
-# --- making library ---
+# --- making library ---------
 add_library(
     ${library_name}
     SHARED
@@ -71,7 +76,7 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
-# --- external dependencies ---
+# --- external dependencies ---------
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
@@ -95,67 +100,50 @@ if(BORNAGAIN_PYTHON)
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 endif()
 
-# --- custom actions ---
-# python in windows required .pyd extention for the library name
-if(WIN32 AND BORNAGAIN_PYTHON)
-    ADD_CUSTOM_COMMAND(
-        TARGET ${library_name}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
-        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
-    )
-endif()
 
-# -----------------------------------------------
-# installation
-# -----------------------------------------------
+# --- installation ---------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
-# the line below copies the contains ${CMAKE_SOURCE_DIR}/bin to the bin folder of the final package
-# install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin DESTINATION . COMPONENT Libraries)
-
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
+install (FILES ${core_include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
-if(WIN32 AND BORNAGAIN_PYTHON)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
-endif()
-
-# list of headers to install
-file(GLOB include_files
-    "Algorithms/inc/*.h"
-    "FormFactors/inc/*.h"
-    "Geometry/inc/*.h"
-    "Samples/inc/*.h"
-    "Tools/inc/*.h"
-    "StandardSamples/*.h"
-)
-install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
-
-# system libraries
 if(WIN32)
-    if(MSVC)
-        set(boost_suffix "-vc110-mt-1_55.dll")
-        install(FILES
-        ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_zlib${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_bzip2${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-        DESTINATION ${destination_lib} COMPONENT Libraries)
-    else()
-        install (FILES ${Boost_LIBRARIES} DESTINATION ${destination_lib} COMPONENT Libraries)
-        install (FILES ${FFTW_LIBRARY} DESTINATION ${destination_lib} COMPONENT Libraries)
-        install (FILES ${GSL_LIBRARIES} DESTINATION ${destination_lib} COMPONENT Libraries)
+    # python in windows required .pyd extention for the library name
+    if(BORNAGAIN_PYTHON)
+        ADD_CUSTOM_COMMAND(
+            TARGET ${library_name}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
+        )
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
     endif()
+
+    # system libraries
+    set(boost_suffix "-vc110-mt-1_55.dll")
+    install(FILES
+    ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_zlib${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_bzip2${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
+    ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+    DESTINATION ${destination_lib} COMPONENT Libraries)
+
+else()
+    install(FILES ${destination_runtime_configs}/thisbornagain.sh
+            ${destination_runtime_configs}/thisbornagain.csh
+            PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+            GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
+            DESTINATION ${destination_libexec})
 endif()
 

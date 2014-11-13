@@ -9,7 +9,7 @@ if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
 if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
+    cmake_policy(SET CMP0042 OLD)
 endif()
 if(POLICY CMP0028)
     cmake_policy(SET CMP0028 NEW)
@@ -87,7 +87,7 @@ set(resource_files
 # --- Qt configuration ---------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-
+qt5_add_resources(RC_SRCS ${resource_files})
 
 # --- definitions ------
 if(BORNAGAIN_CRASHHADLER)
@@ -103,7 +103,7 @@ endif()
 add_library(
     ${library_name}
     SHARED
-    ${source_files} ${resource_files} ${include_files}
+    ${source_files} ${RC_SRCS} ${include_files}
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)

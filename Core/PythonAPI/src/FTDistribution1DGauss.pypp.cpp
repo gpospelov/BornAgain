@@ -22,14 +22,14 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
     : FTDistribution1DGauss( arg )
       , bp::wrapper< FTDistribution1DGauss >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DGauss_wrapper(double omega )
     : FTDistribution1DGauss( omega )
       , bp::wrapper< FTDistribution1DGauss >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DGauss * clone(  ) const  {
@@ -147,12 +147,14 @@ struct FTDistribution1DGauss_wrapper : FTDistribution1DGauss, bp::wrapper< FTDis
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DGauss_class(){
 
     { //::FTDistribution1DGauss
-        typedef bp::class_< FTDistribution1DGauss_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DGauss_exposer_t;
+        typedef bp::class_< FTDistribution1DGauss_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DGauss_wrapper > > FTDistribution1DGauss_exposer_t;
         FTDistribution1DGauss_exposer_t FTDistribution1DGauss_exposer = FTDistribution1DGauss_exposer_t( "FTDistribution1DGauss", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DGauss_scope( FTDistribution1DGauss_exposer );
         { //::FTDistribution1DGauss::clone

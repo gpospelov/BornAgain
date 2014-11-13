@@ -22,7 +22,7 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     : MesoCrystal( boost::ref(particle_structure), boost::ref(form_factor) )
       , bp::wrapper< MesoCrystal >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -248,12 +248,38 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_MesoCrystal_class(){
 
     { //::MesoCrystal
-        typedef bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable > MesoCrystal_exposer_t;
+        typedef bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, std::auto_ptr< MesoCrystal_wrapper >, boost::noncopyable > MesoCrystal_exposer_t;
         MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
         { //::Particle::applyTransformation
@@ -459,6 +485,17 @@ void register_MesoCrystal_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&MesoCrystal_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( MesoCrystal_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            MesoCrystal_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&MesoCrystal_wrapper::default_transferToCPP) );
         
         }
     }

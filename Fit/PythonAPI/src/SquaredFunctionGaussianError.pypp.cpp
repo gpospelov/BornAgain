@@ -20,7 +20,7 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
     : SquaredFunctionGaussianError( sigma )
       , bp::wrapper< SquaredFunctionGaussianError >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
@@ -59,12 +59,14 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
         return SquaredFunctionGaussianError::clone( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_SquaredFunctionGaussianError_class(){
 
     { //::SquaredFunctionGaussianError
-        typedef bp::class_< SquaredFunctionGaussianError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionGaussianError_exposer_t;
+        typedef bp::class_< SquaredFunctionGaussianError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionGaussianError_wrapper >, boost::noncopyable > SquaredFunctionGaussianError_exposer_t;
         SquaredFunctionGaussianError_exposer_t SquaredFunctionGaussianError_exposer = SquaredFunctionGaussianError_exposer_t( "SquaredFunctionGaussianError", bp::init< bp::optional< double > >(( bp::arg("sigma")=1.00000000000000002081668171172168513294309377670288085938e-2 )) );
         bp::scope SquaredFunctionGaussianError_scope( SquaredFunctionGaussianError_exposer );
         { //::SquaredFunctionGaussianError::calculateSquaredDifference

@@ -22,7 +22,7 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     : FormFactorTruncatedSpheroid( radius, height, height_flattening )
       , bp::wrapper< FormFactorTruncatedSpheroid >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorTruncatedSpheroid * clone(  ) const  {
@@ -308,12 +308,38 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorTruncatedSpheroid_class(){
 
     { //::FormFactorTruncatedSpheroid
-        typedef bp::class_< FormFactorTruncatedSpheroid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorTruncatedSpheroid_exposer_t;
+        typedef bp::class_< FormFactorTruncatedSpheroid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTruncatedSpheroid_wrapper >, boost::noncopyable > FormFactorTruncatedSpheroid_exposer_t;
         FormFactorTruncatedSpheroid_exposer_t FormFactorTruncatedSpheroid_exposer = FormFactorTruncatedSpheroid_exposer_t( "FormFactorTruncatedSpheroid", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("height_flattening") )) );
         bp::scope FormFactorTruncatedSpheroid_scope( FormFactorTruncatedSpheroid_exposer );
         { //::FormFactorTruncatedSpheroid::clone
@@ -576,6 +602,17 @@ void register_FormFactorTruncatedSpheroid_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorTruncatedSpheroid_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorTruncatedSpheroid_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorTruncatedSpheroid_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorTruncatedSpheroid_wrapper::default_transferToCPP) );
         
         }
     }

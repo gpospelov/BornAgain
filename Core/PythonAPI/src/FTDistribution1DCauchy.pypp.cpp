@@ -22,14 +22,14 @@ struct FTDistribution1DCauchy_wrapper : FTDistribution1DCauchy, bp::wrapper< FTD
     : FTDistribution1DCauchy( arg )
       , bp::wrapper< FTDistribution1DCauchy >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DCauchy_wrapper(double omega )
     : FTDistribution1DCauchy( omega )
       , bp::wrapper< FTDistribution1DCauchy >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DCauchy * clone(  ) const  {
@@ -147,12 +147,14 @@ struct FTDistribution1DCauchy_wrapper : FTDistribution1DCauchy, bp::wrapper< FTD
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DCauchy_class(){
 
     { //::FTDistribution1DCauchy
-        typedef bp::class_< FTDistribution1DCauchy_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DCauchy_exposer_t;
+        typedef bp::class_< FTDistribution1DCauchy_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DCauchy_wrapper > > FTDistribution1DCauchy_exposer_t;
         FTDistribution1DCauchy_exposer_t FTDistribution1DCauchy_exposer = FTDistribution1DCauchy_exposer_t( "FTDistribution1DCauchy", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DCauchy_scope( FTDistribution1DCauchy_exposer );
         { //::FTDistribution1DCauchy::clone

@@ -22,7 +22,7 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
     : FormFactorInfLongBox( width, height )
       , bp::wrapper< FormFactorInfLongBox >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorInfLongBox * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorInfLongBox_class(){
 
     { //::FormFactorInfLongBox
-        typedef bp::class_< FormFactorInfLongBox_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorInfLongBox_exposer_t;
+        typedef bp::class_< FormFactorInfLongBox_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorInfLongBox_wrapper >, boost::noncopyable > FormFactorInfLongBox_exposer_t;
         FormFactorInfLongBox_exposer_t FormFactorInfLongBox_exposer = FormFactorInfLongBox_exposer_t( "FormFactorInfLongBox", bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
         bp::scope FormFactorInfLongBox_scope( FormFactorInfLongBox_exposer );
         { //::FormFactorInfLongBox::clone
@@ -539,6 +565,17 @@ void register_FormFactorInfLongBox_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorInfLongBox_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorInfLongBox_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorInfLongBox_wrapper::default_transferToCPP) );
         
         }
     }

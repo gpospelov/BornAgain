@@ -22,14 +22,14 @@ struct FTDistribution2DCone_wrapper : FTDistribution2DCone, bp::wrapper< FTDistr
     : FTDistribution2DCone( arg )
       , bp::wrapper< FTDistribution2DCone >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution2DCone_wrapper(double coherence_length_x, double coherence_length_y )
     : FTDistribution2DCone( coherence_length_x, coherence_length_y )
       , bp::wrapper< FTDistribution2DCone >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution2DCone * clone(  ) const  {
@@ -159,12 +159,14 @@ struct FTDistribution2DCone_wrapper : FTDistribution2DCone, bp::wrapper< FTDistr
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution2DCone_class(){
 
     { //::FTDistribution2DCone
-        typedef bp::class_< FTDistribution2DCone_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DCone_exposer_t;
+        typedef bp::class_< FTDistribution2DCone_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DCone_wrapper > > FTDistribution2DCone_exposer_t;
         FTDistribution2DCone_exposer_t FTDistribution2DCone_exposer = FTDistribution2DCone_exposer_t( "FTDistribution2DCone", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DCone_scope( FTDistribution2DCone_exposer );
         { //::FTDistribution2DCone::clone

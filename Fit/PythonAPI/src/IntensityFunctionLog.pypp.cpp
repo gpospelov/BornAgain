@@ -20,14 +20,14 @@ struct IntensityFunctionLog_wrapper : IntensityFunctionLog, bp::wrapper< Intensi
     : IntensityFunctionLog( arg )
       , bp::wrapper< IntensityFunctionLog >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     IntensityFunctionLog_wrapper()
     : IntensityFunctionLog()
       , bp::wrapper< IntensityFunctionLog >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IntensityFunctionLog * clone(  ) const  {
@@ -54,12 +54,14 @@ struct IntensityFunctionLog_wrapper : IntensityFunctionLog, bp::wrapper< Intensi
         return IntensityFunctionLog::evaluate( value );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IntensityFunctionLog_class(){
 
     { //::IntensityFunctionLog
-        typedef bp::class_< IntensityFunctionLog_wrapper, bp::bases< IIntensityFunction > > IntensityFunctionLog_exposer_t;
+        typedef bp::class_< IntensityFunctionLog_wrapper, bp::bases< IIntensityFunction >, std::auto_ptr< IntensityFunctionLog_wrapper > > IntensityFunctionLog_exposer_t;
         IntensityFunctionLog_exposer_t IntensityFunctionLog_exposer = IntensityFunctionLog_exposer_t( "IntensityFunctionLog" );
         bp::scope IntensityFunctionLog_scope( IntensityFunctionLog_exposer );
         { //::IntensityFunctionLog::clone

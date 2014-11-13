@@ -20,7 +20,7 @@ struct SquaredFunctionSimError_wrapper : SquaredFunctionSimError, bp::wrapper< S
     : SquaredFunctionSimError( )
       , bp::wrapper< SquaredFunctionSimError >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
@@ -59,12 +59,14 @@ struct SquaredFunctionSimError_wrapper : SquaredFunctionSimError, bp::wrapper< S
         return SquaredFunctionSimError::clone( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_SquaredFunctionSimError_class(){
 
     { //::SquaredFunctionSimError
-        typedef bp::class_< SquaredFunctionSimError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionSimError_exposer_t;
+        typedef bp::class_< SquaredFunctionSimError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionSimError_wrapper >, boost::noncopyable > SquaredFunctionSimError_exposer_t;
         SquaredFunctionSimError_exposer_t SquaredFunctionSimError_exposer = SquaredFunctionSimError_exposer_t( "SquaredFunctionSimError", bp::init< >() );
         bp::scope SquaredFunctionSimError_scope( SquaredFunctionSimError_exposer );
         { //::SquaredFunctionSimError::calculateSquaredDifference

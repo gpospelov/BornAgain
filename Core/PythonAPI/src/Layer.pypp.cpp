@@ -22,21 +22,21 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     : Layer( )
       , bp::wrapper< Layer >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     Layer_wrapper(::IMaterial const & material, double thickness=0 )
     : Layer( boost::ref(material), thickness )
       , bp::wrapper< Layer >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Layer_wrapper(::Layer const & other )
     : Layer( boost::ref(other) )
       , bp::wrapper< Layer >(){
         // copy constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void addLayout( ::ILayout const & decoration ) {
@@ -310,12 +310,38 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_Layer_class(){
 
     { //::Layer
-        typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Layer_exposer_t;
+        typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< Layer_wrapper >, boost::noncopyable > Layer_exposer_t;
         Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
         bp::scope Layer_scope( Layer_exposer );
         Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
@@ -621,6 +647,17 @@ void register_Layer_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&Layer_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( Layer_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            Layer_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&Layer_wrapper::default_transferToCPP) );
         
         }
     }

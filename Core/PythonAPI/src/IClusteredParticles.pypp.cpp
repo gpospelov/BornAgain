@@ -22,7 +22,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     : IClusteredParticles( )
       , bp::wrapper< IClusteredParticles >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void accept( ::ISampleVisitor * visitor ) const {
@@ -232,12 +232,38 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_IClusteredParticles_class(){
 
     { //::IClusteredParticles
-        typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IClusteredParticles_exposer_t;
+        typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IClusteredParticles_wrapper >, boost::noncopyable > IClusteredParticles_exposer_t;
         IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", bp::init< >() );
         bp::scope IClusteredParticles_scope( IClusteredParticles_exposer );
         { //::IClusteredParticles::accept
@@ -450,6 +476,17 @@ void register_IClusteredParticles_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&IClusteredParticles_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( IClusteredParticles_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            IClusteredParticles_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&IClusteredParticles_wrapper::default_transferToCPP) );
         
         }
     }

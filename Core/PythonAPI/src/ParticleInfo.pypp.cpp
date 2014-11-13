@@ -22,7 +22,7 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     : ParticleInfo( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ParticleInfo * clone(  ) const  {
@@ -200,12 +200,38 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ParticleInfo_class(){
 
     { //::ParticleInfo
-        typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > ParticleInfo_exposer_t;
+        typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ParticleInfo_wrapper >, boost::noncopyable > ParticleInfo_exposer_t;
         ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
         { //::ParticleInfo::clone
@@ -413,6 +439,17 @@ void register_ParticleInfo_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&ParticleInfo_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ParticleInfo_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ParticleInfo_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ParticleInfo_wrapper::default_transferToCPP) );
         
         }
     }

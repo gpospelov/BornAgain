@@ -22,7 +22,7 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     : IFTDistribution2D( coherence_length_x, coherence_length_y )
       , bp::wrapper< IFTDistribution2D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IFTDistribution2D * clone(  ) const {
@@ -138,12 +138,14 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IFTDistribution2D_class(){
 
     { //::IFTDistribution2D
-        typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IFTDistribution2D_exposer_t;
+        typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution2D_wrapper >, boost::noncopyable > IFTDistribution2D_exposer_t;
         IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone

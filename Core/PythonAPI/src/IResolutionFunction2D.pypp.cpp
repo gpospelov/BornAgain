@@ -22,7 +22,7 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     : IResolutionFunction2D()
       , bp::wrapper< IResolutionFunction2D >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IResolutionFunction2D * clone(  ) const {
@@ -126,12 +126,14 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IResolutionFunction2D_class(){
 
     { //::IResolutionFunction2D
-        typedef bp::class_< IResolutionFunction2D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IResolutionFunction2D_exposer_t;
+        typedef bp::class_< IResolutionFunction2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IResolutionFunction2D_wrapper >, boost::noncopyable > IResolutionFunction2D_exposer_t;
         IResolutionFunction2D_exposer_t IResolutionFunction2D_exposer = IResolutionFunction2D_exposer_t( "IResolutionFunction2D" );
         bp::scope IResolutionFunction2D_scope( IResolutionFunction2D_exposer );
         { //::IResolutionFunction2D::clone

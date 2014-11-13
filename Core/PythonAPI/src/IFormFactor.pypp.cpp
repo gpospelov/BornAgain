@@ -22,7 +22,7 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     : IFormFactor( )
       , bp::wrapper< IFormFactor >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IFormFactor * clone(  ) const {
@@ -258,12 +258,38 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_IFormFactor_class(){
 
     { //::IFormFactor
-        typedef bp::class_< IFormFactor_wrapper, bp::bases< ISample >, boost::noncopyable > IFormFactor_exposer_t;
+        typedef bp::class_< IFormFactor_wrapper, bp::bases< ISample >, std::auto_ptr< IFormFactor_wrapper >, boost::noncopyable > IFormFactor_exposer_t;
         IFormFactor_exposer_t IFormFactor_exposer = IFormFactor_exposer_t( "IFormFactor", bp::init< >() );
         bp::scope IFormFactor_scope( IFormFactor_exposer );
         { //::IFormFactor::clone
@@ -488,6 +514,17 @@ void register_IFormFactor_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&IFormFactor_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( IFormFactor_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            IFormFactor_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&IFormFactor_wrapper::default_transferToCPP) );
         
         }
     }

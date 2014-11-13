@@ -20,7 +20,7 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
     : SquaredFunctionSystematicError( epsilon )
       , bp::wrapper< SquaredFunctionSystematicError >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
@@ -59,12 +59,14 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
         return SquaredFunctionSystematicError::clone( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_SquaredFunctionSystematicError_class(){
 
     { //::SquaredFunctionSystematicError
-        typedef bp::class_< SquaredFunctionSystematicError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionSystematicError_exposer_t;
+        typedef bp::class_< SquaredFunctionSystematicError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionSystematicError_wrapper >, boost::noncopyable > SquaredFunctionSystematicError_exposer_t;
         SquaredFunctionSystematicError_exposer_t SquaredFunctionSystematicError_exposer = SquaredFunctionSystematicError_exposer_t( "SquaredFunctionSystematicError", bp::init< bp::optional< double > >(( bp::arg("epsilon")=8.000000000000000166533453693773481063544750213623046875e-2 )) );
         bp::scope SquaredFunctionSystematicError_scope( SquaredFunctionSystematicError_exposer );
         { //::SquaredFunctionSystematicError::calculateSquaredDifference

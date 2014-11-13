@@ -22,7 +22,7 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     : IFTDistribution1D( omega )
       , bp::wrapper< IFTDistribution1D >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IFTDistribution1D * clone(  ) const {
@@ -126,12 +126,14 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IFTDistribution1D_class(){
 
     { //::IFTDistribution1D
-        typedef bp::class_< IFTDistribution1D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IFTDistribution1D_exposer_t;
+        typedef bp::class_< IFTDistribution1D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution1D_wrapper >, boost::noncopyable > IFTDistribution1D_exposer_t;
         IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", bp::init< double >(( bp::arg("omega") )) );
         bp::scope IFTDistribution1D_scope( IFTDistribution1D_exposer );
         { //::IFTDistribution1D::clone

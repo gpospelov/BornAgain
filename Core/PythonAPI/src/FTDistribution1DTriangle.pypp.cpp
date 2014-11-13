@@ -22,14 +22,14 @@ struct FTDistribution1DTriangle_wrapper : FTDistribution1DTriangle, bp::wrapper<
     : FTDistribution1DTriangle( arg )
       , bp::wrapper< FTDistribution1DTriangle >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DTriangle_wrapper(double omega )
     : FTDistribution1DTriangle( omega )
       , bp::wrapper< FTDistribution1DTriangle >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DTriangle * clone(  ) const  {
@@ -147,12 +147,14 @@ struct FTDistribution1DTriangle_wrapper : FTDistribution1DTriangle, bp::wrapper<
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DTriangle_class(){
 
     { //::FTDistribution1DTriangle
-        typedef bp::class_< FTDistribution1DTriangle_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DTriangle_exposer_t;
+        typedef bp::class_< FTDistribution1DTriangle_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DTriangle_wrapper > > FTDistribution1DTriangle_exposer_t;
         FTDistribution1DTriangle_exposer_t FTDistribution1DTriangle_exposer = FTDistribution1DTriangle_exposer_t( "FTDistribution1DTriangle", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DTriangle_scope( FTDistribution1DTriangle_exposer );
         { //::FTDistribution1DTriangle::clone

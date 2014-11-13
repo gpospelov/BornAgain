@@ -22,7 +22,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
       , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorDecoratorDebyeWaller * clone(  ) const  {
@@ -272,12 +272,38 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorDecoratorDebyeWaller_class(){
 
     { //::FormFactorDecoratorDebyeWaller
-        typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
+        typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, std::auto_ptr< FormFactorDecoratorDebyeWaller_wrapper >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
         FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) );
         bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
         { //::FormFactorDecoratorDebyeWaller::clone
@@ -506,6 +532,17 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_transferToCPP) );
         
         }
     }

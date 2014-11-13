@@ -22,14 +22,14 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
     : FormFactorGauss( volume )
       , bp::wrapper< FormFactorGauss >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     FormFactorGauss_wrapper(double width, double height )
     : FormFactorGauss( width, height )
       , bp::wrapper< FormFactorGauss >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorGauss * clone(  ) const  {
@@ -291,12 +291,38 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorGauss_class(){
 
     { //::FormFactorGauss
-        typedef bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorGauss_exposer_t;
+        typedef bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorGauss_wrapper >, boost::noncopyable > FormFactorGauss_exposer_t;
         FormFactorGauss_exposer_t FormFactorGauss_exposer = FormFactorGauss_exposer_t( "FormFactorGauss", bp::init< double >(( bp::arg("volume") )) );
         bp::scope FormFactorGauss_scope( FormFactorGauss_exposer );
         FormFactorGauss_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
@@ -538,6 +564,17 @@ void register_FormFactorGauss_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorGauss_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorGauss_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorGauss_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorGauss_wrapper::default_transferToCPP) );
         
         }
     }

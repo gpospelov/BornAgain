@@ -20,7 +20,7 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     : IAxis( name )
       , bp::wrapper< IAxis >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IAxis * clone(  ) const {
@@ -123,12 +123,14 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         func_print( boost::ref(ostr) );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IAxis_class(){
 
     { //::IAxis
-        typedef bp::class_< IAxis_wrapper, boost::noncopyable > IAxis_exposer_t;
+        typedef bp::class_< IAxis_wrapper, std::auto_ptr< IAxis_wrapper >, boost::noncopyable > IAxis_exposer_t;
         IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone

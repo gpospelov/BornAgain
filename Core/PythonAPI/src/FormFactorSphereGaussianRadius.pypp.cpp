@@ -22,7 +22,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
     : FormFactorSphereGaussianRadius( mean, sigma )
       , bp::wrapper< FormFactorSphereGaussianRadius >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorSphereGaussianRadius * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorSphereGaussianRadius_class(){
 
     { //::FormFactorSphereGaussianRadius
-        typedef bp::class_< FormFactorSphereGaussianRadius_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorSphereGaussianRadius_exposer_t;
+        typedef bp::class_< FormFactorSphereGaussianRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereGaussianRadius_wrapper >, boost::noncopyable > FormFactorSphereGaussianRadius_exposer_t;
         FormFactorSphereGaussianRadius_exposer_t FormFactorSphereGaussianRadius_exposer = FormFactorSphereGaussianRadius_exposer_t( "FormFactorSphereGaussianRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) );
         bp::scope FormFactorSphereGaussianRadius_scope( FormFactorSphereGaussianRadius_exposer );
         { //::FormFactorSphereGaussianRadius::clone
@@ -530,6 +556,17 @@ void register_FormFactorSphereGaussianRadius_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorSphereGaussianRadius_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorSphereGaussianRadius_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorSphereGaussianRadius_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorSphereGaussianRadius_wrapper::default_transferToCPP) );
         
         }
     }

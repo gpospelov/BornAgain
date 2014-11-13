@@ -22,7 +22,7 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     : FormFactorAnisoPyramid( length, width, height, alpha )
       , bp::wrapper< FormFactorAnisoPyramid >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorAnisoPyramid * clone(  ) const  {
@@ -368,12 +368,38 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorAnisoPyramid_class(){
 
     { //::FormFactorAnisoPyramid
-        typedef bp::class_< FormFactorAnisoPyramid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorAnisoPyramid_exposer_t;
+        typedef bp::class_< FormFactorAnisoPyramid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorAnisoPyramid_wrapper >, boost::noncopyable > FormFactorAnisoPyramid_exposer_t;
         FormFactorAnisoPyramid_exposer_t FormFactorAnisoPyramid_exposer = FormFactorAnisoPyramid_exposer_t( "FormFactorAnisoPyramid", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("alpha") )) );
         bp::scope FormFactorAnisoPyramid_scope( FormFactorAnisoPyramid_exposer );
         { //::FormFactorAnisoPyramid::clone
@@ -695,6 +721,17 @@ void register_FormFactorAnisoPyramid_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorAnisoPyramid_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorAnisoPyramid_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorAnisoPyramid_wrapper::default_transferToCPP) );
         
         }
     }

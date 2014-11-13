@@ -20,14 +20,14 @@ struct IntensityScaleAndShiftNormalizer_wrapper : IntensityScaleAndShiftNormaliz
     : IntensityScaleAndShiftNormalizer( arg )
       , bp::wrapper< IntensityScaleAndShiftNormalizer >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     IntensityScaleAndShiftNormalizer_wrapper(double scale=1.0e+0, double shift=0.0 )
     : IntensityScaleAndShiftNormalizer( scale, shift )
       , bp::wrapper< IntensityScaleAndShiftNormalizer >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IntensityScaleAndShiftNormalizer * clone(  ) const  {
@@ -138,12 +138,14 @@ struct IntensityScaleAndShiftNormalizer_wrapper : IntensityScaleAndShiftNormaliz
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IntensityScaleAndShiftNormalizer_class(){
 
     { //::IntensityScaleAndShiftNormalizer
-        typedef bp::class_< IntensityScaleAndShiftNormalizer_wrapper, bp::bases< IntensityNormalizer > > IntensityScaleAndShiftNormalizer_exposer_t;
+        typedef bp::class_< IntensityScaleAndShiftNormalizer_wrapper, bp::bases< IntensityNormalizer >, std::auto_ptr< IntensityScaleAndShiftNormalizer_wrapper > > IntensityScaleAndShiftNormalizer_exposer_t;
         IntensityScaleAndShiftNormalizer_exposer_t IntensityScaleAndShiftNormalizer_exposer = IntensityScaleAndShiftNormalizer_exposer_t( "IntensityScaleAndShiftNormalizer", bp::init< bp::optional< double, double > >(( bp::arg("scale")=1.0e+0, bp::arg("shift")=0.0 )) );
         bp::scope IntensityScaleAndShiftNormalizer_scope( IntensityScaleAndShiftNormalizer_exposer );
         { //::IntensityScaleAndShiftNormalizer::clone

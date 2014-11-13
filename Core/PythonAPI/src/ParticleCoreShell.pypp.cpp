@@ -22,7 +22,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     : ParticleCoreShell( boost::ref(shell), boost::ref(core), relative_core_position )
       , bp::wrapper< ParticleCoreShell >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -248,12 +248,38 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ParticleCoreShell_class(){
 
     { //::ParticleCoreShell
-        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable > ParticleCoreShell_exposer_t;
+        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
         ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
         { //::Particle::applyTransformation
@@ -459,6 +485,17 @@ void register_ParticleCoreShell_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&ParticleCoreShell_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ParticleCoreShell_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ParticleCoreShell_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ParticleCoreShell_wrapper::default_transferToCPP) );
         
         }
     }

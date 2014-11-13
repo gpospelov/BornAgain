@@ -22,7 +22,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< Crystal >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -236,12 +236,38 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_Crystal_class(){
 
     { //::Crystal
-        typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable > Crystal_exposer_t;
+        typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
         Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
@@ -467,6 +493,17 @@ void register_Crystal_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&Crystal_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( Crystal_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            Crystal_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&Crystal_wrapper::default_transferToCPP) );
         
         }
     }

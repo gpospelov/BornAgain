@@ -22,7 +22,7 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     : FormFactorCrystal( boost::ref(p_crystal), boost::ref(meso_crystal_form_factor), boost::ref(p_material), wavevector_scattering_factor )
       , bp::wrapper< FormFactorCrystal >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorCrystal * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorCrystal_class(){
 
     { //::FormFactorCrystal
-        typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCrystal_exposer_t;
+        typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCrystal_wrapper >, boost::noncopyable > FormFactorCrystal_exposer_t;
         FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") )) );
         bp::scope FormFactorCrystal_scope( FormFactorCrystal_exposer );
         { //::FormFactorCrystal::clone
@@ -530,6 +556,17 @@ void register_FormFactorCrystal_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorCrystal_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorCrystal_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorCrystal_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorCrystal_wrapper::default_transferToCPP) );
         
         }
     }

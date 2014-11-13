@@ -20,14 +20,14 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
     : FitStrategyDefault( arg )
       , bp::wrapper< FitStrategyDefault >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FitStrategyDefault_wrapper( )
     : FitStrategyDefault( )
       , bp::wrapper< FitStrategyDefault >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IFitStrategy * clone(  ) const  {
@@ -54,12 +54,14 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
         FitStrategyDefault::execute( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FitStrategyDefault_class(){
 
     { //::FitStrategyDefault
-        typedef bp::class_< FitStrategyDefault_wrapper, bp::bases< IFitStrategy > > FitStrategyDefault_exposer_t;
+        typedef bp::class_< FitStrategyDefault_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyDefault_wrapper > > FitStrategyDefault_exposer_t;
         FitStrategyDefault_exposer_t FitStrategyDefault_exposer = FitStrategyDefault_exposer_t( "FitStrategyDefault", bp::init< >() );
         bp::scope FitStrategyDefault_scope( FitStrategyDefault_exposer );
         { //::FitStrategyDefault::clone

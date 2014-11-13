@@ -22,14 +22,14 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
     : DistributionLogNormal( arg )
       , bp::wrapper< DistributionLogNormal >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     DistributionLogNormal_wrapper(double median, double scale_param )
     : DistributionLogNormal( median, scale_param )
       , bp::wrapper< DistributionLogNormal >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::DistributionLogNormal * clone(  ) const  {
@@ -171,12 +171,14 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_DistributionLogNormal_class(){
 
     { //::DistributionLogNormal
-        typedef bp::class_< DistributionLogNormal_wrapper, bp::bases< IDistribution1D > > DistributionLogNormal_exposer_t;
+        typedef bp::class_< DistributionLogNormal_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionLogNormal_wrapper > > DistributionLogNormal_exposer_t;
         DistributionLogNormal_exposer_t DistributionLogNormal_exposer = DistributionLogNormal_exposer_t( "DistributionLogNormal", bp::init< double, double >(( bp::arg("median"), bp::arg("scale_param") )) );
         bp::scope DistributionLogNormal_scope( DistributionLogNormal_exposer );
         { //::DistributionLogNormal::clone

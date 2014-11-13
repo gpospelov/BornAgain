@@ -22,14 +22,14 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
     : FTDistribution2DCauchy( arg )
       , bp::wrapper< FTDistribution2DCauchy >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution2DCauchy_wrapper(double coherence_length_x, double coherence_length_y )
     : FTDistribution2DCauchy( coherence_length_x, coherence_length_y )
       , bp::wrapper< FTDistribution2DCauchy >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution2DCauchy * clone(  ) const  {
@@ -159,12 +159,14 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution2DCauchy_class(){
 
     { //::FTDistribution2DCauchy
-        typedef bp::class_< FTDistribution2DCauchy_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DCauchy_exposer_t;
+        typedef bp::class_< FTDistribution2DCauchy_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DCauchy_wrapper > > FTDistribution2DCauchy_exposer_t;
         FTDistribution2DCauchy_exposer_t FTDistribution2DCauchy_exposer = FTDistribution2DCauchy_exposer_t( "FTDistribution2DCauchy", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DCauchy_scope( FTDistribution2DCauchy_exposer );
         { //::FTDistribution2DCauchy::clone

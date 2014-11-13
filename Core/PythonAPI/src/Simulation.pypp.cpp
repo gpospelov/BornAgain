@@ -22,7 +22,7 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     : Simulation( )
       , bp::wrapper< Simulation >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::Simulation * clone(  ) const  {
@@ -128,12 +128,38 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_Simulation_class(){
 
     { //::Simulation
-        typedef bp::class_< Simulation_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > Simulation_exposer_t;
+        typedef bp::class_< Simulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< Simulation_wrapper >, boost::noncopyable > Simulation_exposer_t;
         Simulation_exposer_t Simulation_exposer = Simulation_exposer_t( "Simulation", bp::init< >() );
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
@@ -439,6 +465,17 @@ void register_Simulation_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&Simulation_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( Simulation_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&Simulation_wrapper::default_transferToCPP) );
         
         }
     }

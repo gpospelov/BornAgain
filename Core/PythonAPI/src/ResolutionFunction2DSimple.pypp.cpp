@@ -22,7 +22,7 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     : ResolutionFunction2DSimple( sigma_x, sigma_y )
       , bp::wrapper< ResolutionFunction2DSimple >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ResolutionFunction2DSimple * clone(  ) const  {
@@ -140,12 +140,14 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_ResolutionFunction2DSimple_class(){
 
     { //::ResolutionFunction2DSimple
-        typedef bp::class_< ResolutionFunction2DSimple_wrapper, bp::bases< IResolutionFunction2D >, boost::noncopyable > ResolutionFunction2DSimple_exposer_t;
+        typedef bp::class_< ResolutionFunction2DSimple_wrapper, bp::bases< IResolutionFunction2D >, std::auto_ptr< ResolutionFunction2DSimple_wrapper >, boost::noncopyable > ResolutionFunction2DSimple_exposer_t;
         ResolutionFunction2DSimple_exposer_t ResolutionFunction2DSimple_exposer = ResolutionFunction2DSimple_exposer_t( "ResolutionFunction2DSimple", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) );
         bp::scope ResolutionFunction2DSimple_scope( ResolutionFunction2DSimple_exposer );
         { //::ResolutionFunction2DSimple::clone

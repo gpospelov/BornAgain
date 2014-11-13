@@ -22,7 +22,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     : InterferenceFunction1DParaCrystal( peak_distance, damping_length )
       , bp::wrapper< InterferenceFunction1DParaCrystal >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::InterferenceFunction1DParaCrystal * clone(  ) const  {
@@ -212,12 +212,38 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_InterferenceFunction1DParaCrystal_class(){
 
     { //::InterferenceFunction1DParaCrystal
-        typedef bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable > InterferenceFunction1DParaCrystal_exposer_t;
+        typedef bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction1DParaCrystal_wrapper >, boost::noncopyable > InterferenceFunction1DParaCrystal_exposer_t;
         InterferenceFunction1DParaCrystal_exposer_t InterferenceFunction1DParaCrystal_exposer = InterferenceFunction1DParaCrystal_exposer_t( "InterferenceFunction1DParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 )) );
         bp::scope InterferenceFunction1DParaCrystal_scope( InterferenceFunction1DParaCrystal_exposer );
         { //::InterferenceFunction1DParaCrystal::FTPDF
@@ -466,6 +492,17 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_transferToCPP) );
         
         }
     }

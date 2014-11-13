@@ -20,7 +20,7 @@ struct ISquaredFunction_wrapper : ISquaredFunction, bp::wrapper< ISquaredFunctio
     : ISquaredFunction( )
       , bp::wrapper< ISquaredFunction >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const {
@@ -38,12 +38,14 @@ struct ISquaredFunction_wrapper : ISquaredFunction, bp::wrapper< ISquaredFunctio
         return func_clone(  );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_ISquaredFunction_class(){
 
     { //::ISquaredFunction
-        typedef bp::class_< ISquaredFunction_wrapper, boost::noncopyable > ISquaredFunction_exposer_t;
+        typedef bp::class_< ISquaredFunction_wrapper, std::auto_ptr< ISquaredFunction_wrapper >, boost::noncopyable > ISquaredFunction_exposer_t;
         ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", bp::init< >() );
         bp::scope ISquaredFunction_scope( ISquaredFunction_exposer );
         { //::ISquaredFunction::calculateSquaredDifference

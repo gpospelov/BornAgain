@@ -20,7 +20,7 @@ struct ICloneable_wrapper : ICloneable, bp::wrapper< ICloneable > {
     : ICloneable( )
       , bp::wrapper< ICloneable >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ICloneable * clone(  ) const {
@@ -28,12 +28,38 @@ struct ICloneable_wrapper : ICloneable, bp::wrapper< ICloneable > {
         return func_clone(  );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ICloneable_class(){
 
     { //::ICloneable
-        typedef bp::class_< ICloneable_wrapper, boost::noncopyable > ICloneable_exposer_t;
+        typedef bp::class_< ICloneable_wrapper, std::auto_ptr< ICloneable_wrapper >, boost::noncopyable > ICloneable_exposer_t;
         ICloneable_exposer_t ICloneable_exposer = ICloneable_exposer_t( "ICloneable", bp::init< >() );
         bp::scope ICloneable_scope( ICloneable_exposer );
         { //::ICloneable::clone
@@ -44,6 +70,17 @@ void register_ICloneable_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ICloneable::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ICloneable_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ICloneable_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ICloneable_wrapper::default_transferToCPP) );
         
         }
     }

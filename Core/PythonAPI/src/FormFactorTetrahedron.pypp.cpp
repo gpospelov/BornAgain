@@ -22,7 +22,7 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
     : FormFactorTetrahedron( length, height, alpha )
       , bp::wrapper< FormFactorTetrahedron >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorTetrahedron * clone(  ) const  {
@@ -344,12 +344,38 @@ struct FormFactorTetrahedron_wrapper : FormFactorTetrahedron, bp::wrapper< FormF
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorTetrahedron_class(){
 
     { //::FormFactorTetrahedron
-        typedef bp::class_< FormFactorTetrahedron_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorTetrahedron_exposer_t;
+        typedef bp::class_< FormFactorTetrahedron_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTetrahedron_wrapper >, boost::noncopyable > FormFactorTetrahedron_exposer_t;
         FormFactorTetrahedron_exposer_t FormFactorTetrahedron_exposer = FormFactorTetrahedron_exposer_t( "FormFactorTetrahedron", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") )) );
         bp::scope FormFactorTetrahedron_scope( FormFactorTetrahedron_exposer );
         { //::FormFactorTetrahedron::clone
@@ -648,6 +674,17 @@ void register_FormFactorTetrahedron_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorTetrahedron_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorTetrahedron_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorTetrahedron_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorTetrahedron_wrapper::default_transferToCPP) );
         
         }
     }

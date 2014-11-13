@@ -3,8 +3,9 @@
 ############################################################################
 set(library_name BornAgainCore)
 if(POLICY CMP0042)
-cmake_policy(SET CMP0042 NEW)
+    cmake_policy(SET CMP0042 NEW)
 endif()
+
 
 # --- source and include files ---------
 set(include_dirs

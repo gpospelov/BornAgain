@@ -22,7 +22,7 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
     : FormFactorPrism6( radius, height )
       , bp::wrapper< FormFactorPrism6 >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorPrism6 * clone(  ) const  {
@@ -308,12 +308,38 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorPrism6_class(){
 
     { //::FormFactorPrism6
-        typedef bp::class_< FormFactorPrism6_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorPrism6_exposer_t;
+        typedef bp::class_< FormFactorPrism6_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorPrism6_wrapper >, boost::noncopyable > FormFactorPrism6_exposer_t;
         FormFactorPrism6_exposer_t FormFactorPrism6_exposer = FormFactorPrism6_exposer_t( "FormFactorPrism6", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
         bp::scope FormFactorPrism6_scope( FormFactorPrism6_exposer );
         { //::FormFactorPrism6::clone
@@ -578,6 +604,17 @@ void register_FormFactorPrism6_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorPrism6_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorPrism6_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorPrism6_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorPrism6_wrapper::default_transferToCPP) );
         
         }
     }

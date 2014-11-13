@@ -20,14 +20,14 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
     : SimpleSelectionRule( arg )
       , bp::wrapper< SimpleSelectionRule >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     SimpleSelectionRule_wrapper(int a, int b, int c, int modulus )
     : SimpleSelectionRule( a, b, c, modulus )
       , bp::wrapper< SimpleSelectionRule >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::SimpleSelectionRule * clone(  ) const  {
@@ -54,12 +54,14 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
         return SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_SimpleSelectionRule_class(){
 
     { //::SimpleSelectionRule
-        typedef bp::class_< SimpleSelectionRule_wrapper, bp::bases< ISelectionRule > > SimpleSelectionRule_exposer_t;
+        typedef bp::class_< SimpleSelectionRule_wrapper, bp::bases< ISelectionRule >, std::auto_ptr< SimpleSelectionRule_wrapper > > SimpleSelectionRule_exposer_t;
         SimpleSelectionRule_exposer_t SimpleSelectionRule_exposer = SimpleSelectionRule_exposer_t( "SimpleSelectionRule", bp::init< int, int, int, int >(( bp::arg("a"), bp::arg("b"), bp::arg("c"), bp::arg("modulus") )) );
         bp::scope SimpleSelectionRule_scope( SimpleSelectionRule_exposer );
         { //::SimpleSelectionRule::clone

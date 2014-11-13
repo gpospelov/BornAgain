@@ -22,14 +22,14 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     : ParticleLayout( )
       , bp::wrapper< ParticleLayout >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     ParticleLayout_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
     : ParticleLayout( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleLayout >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ParticleLayout * clone(  ) const  {
@@ -267,12 +267,38 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ParticleLayout_class(){
 
     { //::ParticleLayout
-        typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, boost::noncopyable > ParticleLayout_exposer_t;
+        typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
         ParticleLayout_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
@@ -542,6 +568,17 @@ void register_ParticleLayout_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&ParticleLayout_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ParticleLayout_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ParticleLayout_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ParticleLayout_wrapper::default_transferToCPP) );
         
         }
     }

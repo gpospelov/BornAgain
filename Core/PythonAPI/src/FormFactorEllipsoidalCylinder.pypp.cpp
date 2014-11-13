@@ -22,7 +22,7 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
     : FormFactorEllipsoidalCylinder( radius_a, radius_b, height )
       , bp::wrapper< FormFactorEllipsoidalCylinder >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorEllipsoidalCylinder * clone(  ) const  {
@@ -332,12 +332,38 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorEllipsoidalCylinder_class(){
 
     { //::FormFactorEllipsoidalCylinder
-        typedef bp::class_< FormFactorEllipsoidalCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorEllipsoidalCylinder_exposer_t;
+        typedef bp::class_< FormFactorEllipsoidalCylinder_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorEllipsoidalCylinder_wrapper >, boost::noncopyable > FormFactorEllipsoidalCylinder_exposer_t;
         FormFactorEllipsoidalCylinder_exposer_t FormFactorEllipsoidalCylinder_exposer = FormFactorEllipsoidalCylinder_exposer_t( "FormFactorEllipsoidalCylinder", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
         bp::scope FormFactorEllipsoidalCylinder_scope( FormFactorEllipsoidalCylinder_exposer );
         { //::FormFactorEllipsoidalCylinder::clone
@@ -634,6 +660,17 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorEllipsoidalCylinder_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_transferToCPP) );
         
         }
     }

@@ -22,14 +22,14 @@ struct FTDistribution1DVoigt_wrapper : FTDistribution1DVoigt, bp::wrapper< FTDis
     : FTDistribution1DVoigt( arg )
       , bp::wrapper< FTDistribution1DVoigt >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DVoigt_wrapper(double omega, double eta )
     : FTDistribution1DVoigt( omega, eta )
       , bp::wrapper< FTDistribution1DVoigt >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DVoigt * clone(  ) const  {
@@ -159,12 +159,14 @@ struct FTDistribution1DVoigt_wrapper : FTDistribution1DVoigt, bp::wrapper< FTDis
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DVoigt_class(){
 
     { //::FTDistribution1DVoigt
-        typedef bp::class_< FTDistribution1DVoigt_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DVoigt_exposer_t;
+        typedef bp::class_< FTDistribution1DVoigt_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DVoigt_wrapper > > FTDistribution1DVoigt_exposer_t;
         FTDistribution1DVoigt_exposer_t FTDistribution1DVoigt_exposer = FTDistribution1DVoigt_exposer_t( "FTDistribution1DVoigt", bp::init< double, double >(( bp::arg("omega"), bp::arg("eta") )) );
         bp::scope FTDistribution1DVoigt_scope( FTDistribution1DVoigt_exposer );
         { //::FTDistribution1DVoigt::clone

@@ -22,7 +22,7 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     : FormFactorCuboctahedron( length, height, height_ratio, alpha )
       , bp::wrapper< FormFactorCuboctahedron >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorCuboctahedron * clone(  ) const  {
@@ -368,12 +368,38 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorCuboctahedron_class(){
 
     { //::FormFactorCuboctahedron
-        typedef bp::class_< FormFactorCuboctahedron_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCuboctahedron_exposer_t;
+        typedef bp::class_< FormFactorCuboctahedron_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCuboctahedron_wrapper >, boost::noncopyable > FormFactorCuboctahedron_exposer_t;
         FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
         bp::scope FormFactorCuboctahedron_scope( FormFactorCuboctahedron_exposer );
         { //::FormFactorCuboctahedron::clone
@@ -695,6 +721,17 @@ void register_FormFactorCuboctahedron_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorCuboctahedron_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorCuboctahedron_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorCuboctahedron_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorCuboctahedron_wrapper::default_transferToCPP) );
         
         }
     }

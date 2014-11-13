@@ -20,21 +20,21 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     : FitStrategyFixParameters( arg )
       , bp::wrapper< FitStrategyFixParameters >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FitStrategyFixParameters_wrapper( )
     : FitStrategyFixParameters( )
       , bp::wrapper< FitStrategyFixParameters >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     FitStrategyFixParameters_wrapper(::std::vector< std::string > const & pars )
     : FitStrategyFixParameters( boost::ref(pars) )
       , bp::wrapper< FitStrategyFixParameters >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void clear(  ) {
@@ -97,12 +97,14 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FitStrategyFixParameters_class(){
 
     { //::FitStrategyFixParameters
-        typedef bp::class_< FitStrategyFixParameters_wrapper, bp::bases< FitStrategyAdjustParameters > > FitStrategyFixParameters_exposer_t;
+        typedef bp::class_< FitStrategyFixParameters_wrapper, bp::bases< FitStrategyAdjustParameters >, std::auto_ptr< FitStrategyFixParameters_wrapper > > FitStrategyFixParameters_exposer_t;
         FitStrategyFixParameters_exposer_t FitStrategyFixParameters_exposer = FitStrategyFixParameters_exposer_t( "FitStrategyFixParameters", bp::init< >() );
         bp::scope FitStrategyFixParameters_scope( FitStrategyFixParameters_exposer );
         FitStrategyFixParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );

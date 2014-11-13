@@ -22,14 +22,14 @@ struct FTDistribution1DCosine_wrapper : FTDistribution1DCosine, bp::wrapper< FTD
     : FTDistribution1DCosine( arg )
       , bp::wrapper< FTDistribution1DCosine >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DCosine_wrapper(double omega )
     : FTDistribution1DCosine( omega )
       , bp::wrapper< FTDistribution1DCosine >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DCosine * clone(  ) const  {
@@ -147,12 +147,14 @@ struct FTDistribution1DCosine_wrapper : FTDistribution1DCosine, bp::wrapper< FTD
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DCosine_class(){
 
     { //::FTDistribution1DCosine
-        typedef bp::class_< FTDistribution1DCosine_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DCosine_exposer_t;
+        typedef bp::class_< FTDistribution1DCosine_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DCosine_wrapper > > FTDistribution1DCosine_exposer_t;
         FTDistribution1DCosine_exposer_t FTDistribution1DCosine_exposer = FTDistribution1DCosine_exposer_t( "FTDistribution1DCosine", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DCosine_scope( FTDistribution1DCosine_exposer );
         { //::FTDistribution1DCosine::clone

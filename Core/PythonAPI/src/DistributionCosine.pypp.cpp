@@ -22,14 +22,14 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
     : DistributionCosine( arg )
       , bp::wrapper< DistributionCosine >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     DistributionCosine_wrapper(double mean, double sigma )
     : DistributionCosine( mean, sigma )
       , bp::wrapper< DistributionCosine >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::DistributionCosine * clone(  ) const  {
@@ -171,12 +171,14 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_DistributionCosine_class(){
 
     { //::DistributionCosine
-        typedef bp::class_< DistributionCosine_wrapper, bp::bases< IDistribution1D > > DistributionCosine_exposer_t;
+        typedef bp::class_< DistributionCosine_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionCosine_wrapper > > DistributionCosine_exposer_t;
         DistributionCosine_exposer_t DistributionCosine_exposer = DistributionCosine_exposer_t( "DistributionCosine", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) );
         bp::scope DistributionCosine_scope( DistributionCosine_exposer );
         { //::DistributionCosine::clone

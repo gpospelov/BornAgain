@@ -20,7 +20,7 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
     : StochasticDoubleGate( min, max )
       , bp::wrapper< StochasticDoubleGate >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::StochasticDoubleGate * clone(  ) const  {
@@ -95,12 +95,38 @@ struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< Stochas
         StochasticParameter< double >::setToAverage( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_StochasticDoubleGate_class(){
 
     { //::StochasticDoubleGate
-        typedef bp::class_< StochasticDoubleGate_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable > StochasticDoubleGate_exposer_t;
+        typedef bp::class_< StochasticDoubleGate_wrapper, bp::bases< StochasticParameter< double > >, std::auto_ptr< StochasticDoubleGate_wrapper >, boost::noncopyable > StochasticDoubleGate_exposer_t;
         StochasticDoubleGate_exposer_t StochasticDoubleGate_exposer = StochasticDoubleGate_exposer_t( "StochasticDoubleGate", bp::init< double, double >(( bp::arg("min"), bp::arg("max") )) );
         bp::scope StochasticDoubleGate_scope( StochasticDoubleGate_exposer );
         { //::StochasticDoubleGate::clone
@@ -180,6 +206,17 @@ void register_StochasticDoubleGate_class(){
                 "setToAverage"
                 , setToAverage_function_type(&::StochasticParameter< double >::setToAverage)
                 , default_setToAverage_function_type(&StochasticDoubleGate_wrapper::default_setToAverage) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( StochasticDoubleGate_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            StochasticDoubleGate_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&StochasticDoubleGate_wrapper::default_transferToCPP) );
         
         }
     }

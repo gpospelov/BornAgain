@@ -22,7 +22,7 @@ struct FormFactorTrivial_wrapper : FormFactorTrivial, bp::wrapper< FormFactorTri
     : FormFactorTrivial( )
       , bp::wrapper< FormFactorTrivial >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorTrivial * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorTrivial_wrapper : FormFactorTrivial, bp::wrapper< FormFactorTri
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorTrivial_class(){
 
     { //::FormFactorTrivial
-        typedef bp::class_< FormFactorTrivial_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorTrivial_exposer_t;
+        typedef bp::class_< FormFactorTrivial_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTrivial_wrapper >, boost::noncopyable > FormFactorTrivial_exposer_t;
         FormFactorTrivial_exposer_t FormFactorTrivial_exposer = FormFactorTrivial_exposer_t( "FormFactorTrivial", bp::init< >() );
         bp::scope FormFactorTrivial_scope( FormFactorTrivial_exposer );
         { //::FormFactorTrivial::clone
@@ -530,6 +556,17 @@ void register_FormFactorTrivial_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorTrivial_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorTrivial_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorTrivial_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorTrivial_wrapper::default_transferToCPP) );
         
         }
     }

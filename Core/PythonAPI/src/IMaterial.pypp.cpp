@@ -20,14 +20,14 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     : IMaterial( arg )
       , bp::wrapper< IMaterial >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     IMaterial_wrapper(::std::string const & name )
     : IMaterial( name )
       , bp::wrapper< IMaterial >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IMaterial * clone(  ) const  {
@@ -78,12 +78,14 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
         return IMaterial::isScalarMaterial( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IMaterial_class(){
 
     { //::IMaterial
-        typedef bp::class_< IMaterial_wrapper > IMaterial_exposer_t;
+        typedef bp::class_< IMaterial_wrapper, std::auto_ptr< IMaterial_wrapper > > IMaterial_exposer_t;
         IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IMaterial_scope( IMaterial_exposer );
         { //::IMaterial::clone

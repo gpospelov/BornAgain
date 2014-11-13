@@ -20,14 +20,14 @@ struct IFitStrategy_wrapper : IFitStrategy, bp::wrapper< IFitStrategy > {
     : IFitStrategy( )
       , bp::wrapper< IFitStrategy >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     IFitStrategy_wrapper(::std::string const & name )
     : IFitStrategy( name )
       , bp::wrapper< IFitStrategy >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IFitStrategy * clone(  ) const {
@@ -40,12 +40,14 @@ struct IFitStrategy_wrapper : IFitStrategy, bp::wrapper< IFitStrategy > {
         func_execute(  );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IFitStrategy_class(){
 
     { //::IFitStrategy
-        typedef bp::class_< IFitStrategy_wrapper, bp::bases< INamed >, boost::noncopyable > IFitStrategy_exposer_t;
+        typedef bp::class_< IFitStrategy_wrapper, bp::bases< INamed >, std::auto_ptr< IFitStrategy_wrapper >, boost::noncopyable > IFitStrategy_exposer_t;
         IFitStrategy_exposer_t IFitStrategy_exposer = IFitStrategy_exposer_t( "IFitStrategy", bp::init< >() );
         bp::scope IFitStrategy_scope( IFitStrategy_exposer );
         IFitStrategy_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );

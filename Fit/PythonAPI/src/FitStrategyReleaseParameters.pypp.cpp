@@ -20,21 +20,21 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     : FitStrategyReleaseParameters( arg )
       , bp::wrapper< FitStrategyReleaseParameters >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FitStrategyReleaseParameters_wrapper( )
     : FitStrategyReleaseParameters( )
       , bp::wrapper< FitStrategyReleaseParameters >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     FitStrategyReleaseParameters_wrapper(::std::vector< std::string > const & pars )
     : FitStrategyReleaseParameters( boost::ref(pars) )
       , bp::wrapper< FitStrategyReleaseParameters >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void clear(  ) {
@@ -97,12 +97,14 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FitStrategyReleaseParameters_class(){
 
     { //::FitStrategyReleaseParameters
-        typedef bp::class_< FitStrategyReleaseParameters_wrapper, bp::bases< FitStrategyAdjustParameters > > FitStrategyReleaseParameters_exposer_t;
+        typedef bp::class_< FitStrategyReleaseParameters_wrapper, bp::bases< FitStrategyAdjustParameters >, std::auto_ptr< FitStrategyReleaseParameters_wrapper > > FitStrategyReleaseParameters_exposer_t;
         FitStrategyReleaseParameters_exposer_t FitStrategyReleaseParameters_exposer = FitStrategyReleaseParameters_exposer_t( "FitStrategyReleaseParameters", bp::init< >() );
         bp::scope FitStrategyReleaseParameters_scope( FitStrategyReleaseParameters_exposer );
         FitStrategyReleaseParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );

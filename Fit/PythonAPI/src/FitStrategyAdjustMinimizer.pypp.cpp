@@ -20,14 +20,14 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     : FitStrategyAdjustMinimizer( arg )
       , bp::wrapper< FitStrategyAdjustMinimizer >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FitStrategyAdjustMinimizer_wrapper( )
     : FitStrategyAdjustMinimizer( )
       , bp::wrapper< FitStrategyAdjustMinimizer >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FitStrategyAdjustMinimizer * clone(  ) const  {
@@ -54,12 +54,14 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
         FitStrategyAdjustMinimizer::execute( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FitStrategyAdjustMinimizer_class(){
 
     { //::FitStrategyAdjustMinimizer
-        typedef bp::class_< FitStrategyAdjustMinimizer_wrapper, bp::bases< IFitStrategy > > FitStrategyAdjustMinimizer_exposer_t;
+        typedef bp::class_< FitStrategyAdjustMinimizer_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyAdjustMinimizer_wrapper > > FitStrategyAdjustMinimizer_exposer_t;
         FitStrategyAdjustMinimizer_exposer_t FitStrategyAdjustMinimizer_exposer = FitStrategyAdjustMinimizer_exposer_t( "FitStrategyAdjustMinimizer", bp::init< >() );
         bp::scope FitStrategyAdjustMinimizer_scope( FitStrategyAdjustMinimizer_exposer );
         { //::FitStrategyAdjustMinimizer::clone

@@ -22,7 +22,7 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     : IDistribution1D( )
       , bp::wrapper< IDistribution1D >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::IDistribution1D * clone(  ) const  {
@@ -143,12 +143,14 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IDistribution1D_class(){
 
     { //::IDistribution1D
-        typedef bp::class_< IDistribution1D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IDistribution1D_exposer_t;
+        typedef bp::class_< IDistribution1D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IDistribution1D_wrapper >, boost::noncopyable > IDistribution1D_exposer_t;
         IDistribution1D_exposer_t IDistribution1D_exposer = IDistribution1D_exposer_t( "IDistribution1D", bp::init< >() );
         bp::scope IDistribution1D_scope( IDistribution1D_exposer );
         { //::IDistribution1D::clone

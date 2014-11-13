@@ -22,14 +22,14 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     : LayerRoughness( )
       , bp::wrapper< LayerRoughness >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     LayerRoughness_wrapper(double sigma, double hurstParameter, double latteralCorrLength )
     : LayerRoughness( sigma, hurstParameter, latteralCorrLength )
       , bp::wrapper< LayerRoughness >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::LayerRoughness * clone(  ) const  {
@@ -195,12 +195,38 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_LayerRoughness_class(){
 
     { //::LayerRoughness
-        typedef bp::class_< LayerRoughness_wrapper, boost::noncopyable > LayerRoughness_exposer_t;
+        typedef bp::class_< LayerRoughness_wrapper, std::auto_ptr< LayerRoughness_wrapper >, boost::noncopyable > LayerRoughness_exposer_t;
         LayerRoughness_exposer_t LayerRoughness_exposer = LayerRoughness_exposer_t( "LayerRoughness", bp::init< >() );
         bp::scope LayerRoughness_scope( LayerRoughness_exposer );
         LayerRoughness_exposer.def( bp::init< double, double, double >(( bp::arg("sigma"), bp::arg("hurstParameter"), bp::arg("latteralCorrLength") )) );
@@ -427,6 +453,17 @@ void register_LayerRoughness_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&LayerRoughness_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( LayerRoughness_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            LayerRoughness_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&LayerRoughness_wrapper::default_transferToCPP) );
         
         }
     }

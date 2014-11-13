@@ -20,7 +20,7 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     : IChiSquaredModule( )
       , bp::wrapper< IChiSquaredModule >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateChiSquared(  ){
@@ -134,12 +134,14 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         IChiSquaredModule::setIntensityNormalizer( boost::ref(data_normalizer) );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IChiSquaredModule_class(){
 
     { //::IChiSquaredModule
-        typedef bp::class_< IChiSquaredModule_wrapper, boost::noncopyable > IChiSquaredModule_exposer_t;
+        typedef bp::class_< IChiSquaredModule_wrapper, std::auto_ptr< IChiSquaredModule_wrapper >, boost::noncopyable > IChiSquaredModule_exposer_t;
         IChiSquaredModule_exposer_t IChiSquaredModule_exposer = IChiSquaredModule_exposer_t( "IChiSquaredModule", bp::init< >() );
         bp::scope IChiSquaredModule_scope( IChiSquaredModule_exposer );
         { //::IChiSquaredModule::calculateChiSquared

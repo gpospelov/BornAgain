@@ -20,14 +20,14 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     : StochasticSampledParameter( boost::ref(par), nbins, xmin, xmax )
       , bp::wrapper< StochasticSampledParameter >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     StochasticSampledParameter_wrapper(::StochasticParameter< double > const & par, ::std::size_t nbins, int nfwhm=3 )
     : StochasticSampledParameter( boost::ref(par), nbins, nfwhm )
       , bp::wrapper< StochasticSampledParameter >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::StochasticSampledParameter * clone(  ) const  {
@@ -102,12 +102,38 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
         StochasticParameter< double >::setToAverage( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_StochasticSampledParameter_class(){
 
     { //::StochasticSampledParameter
-        typedef bp::class_< StochasticSampledParameter_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable > StochasticSampledParameter_exposer_t;
+        typedef bp::class_< StochasticSampledParameter_wrapper, bp::bases< StochasticParameter< double > >, std::auto_ptr< StochasticSampledParameter_wrapper >, boost::noncopyable > StochasticSampledParameter_exposer_t;
         StochasticSampledParameter_exposer_t StochasticSampledParameter_exposer = StochasticSampledParameter_exposer_t( "StochasticSampledParameter", bp::init< StochasticParameter< double > const &, std::size_t, double, double >(( bp::arg("par"), bp::arg("nbins"), bp::arg("xmin"), bp::arg("xmax") )) );
         bp::scope StochasticSampledParameter_scope( StochasticSampledParameter_exposer );
         StochasticSampledParameter_exposer.def( bp::init< StochasticParameter< double > const &, std::size_t, bp::optional< int > >(( bp::arg("par"), bp::arg("nbins"), bp::arg("nfwhm")=(int)(3) )) );
@@ -219,6 +245,17 @@ void register_StochasticSampledParameter_class(){
                 "setToAverage"
                 , setToAverage_function_type(&::StochasticParameter< double >::setToAverage)
                 , default_setToAverage_function_type(&StochasticSampledParameter_wrapper::default_setToAverage) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( StochasticSampledParameter_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            StochasticSampledParameter_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&StochasticSampledParameter_wrapper::default_transferToCPP) );
         
         }
     }

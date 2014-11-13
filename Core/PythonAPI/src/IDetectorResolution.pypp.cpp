@@ -22,7 +22,7 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     : IDetectorResolution()
       , bp::wrapper< IDetectorResolution >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual void applyDetectorResolution( ::OutputData< double > * p_intensity_map ) const {
@@ -126,12 +126,38 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_IDetectorResolution_class(){
 
     { //::IDetectorResolution
-        typedef bp::class_< IDetectorResolution_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > IDetectorResolution_exposer_t;
+        typedef bp::class_< IDetectorResolution_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< IDetectorResolution_wrapper >, boost::noncopyable > IDetectorResolution_exposer_t;
         IDetectorResolution_exposer_t IDetectorResolution_exposer = IDetectorResolution_exposer_t( "IDetectorResolution" );
         bp::scope IDetectorResolution_scope( IDetectorResolution_exposer );
         { //::IDetectorResolution::applyDetectorResolution
@@ -230,6 +256,17 @@ void register_IDetectorResolution_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&IDetectorResolution_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( IDetectorResolution_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            IDetectorResolution_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&IDetectorResolution_wrapper::default_transferToCPP) );
         
         }
     }

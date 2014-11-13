@@ -20,7 +20,7 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
     : ParameterPool( )
       , bp::wrapper< ParameterPool >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ParameterPool * clone(  ) const  {
@@ -35,12 +35,38 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
         return ParameterPool::clone( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ParameterPool_class(){
 
     { //::ParameterPool
-        typedef bp::class_< ParameterPool_wrapper, bp::bases< ICloneable >, boost::noncopyable > ParameterPool_exposer_t;
+        typedef bp::class_< ParameterPool_wrapper, bp::bases< ICloneable >, std::auto_ptr< ParameterPool_wrapper >, boost::noncopyable > ParameterPool_exposer_t;
         ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
         { //::ParameterPool::addParameter
@@ -132,6 +158,17 @@ void register_ParameterPool_class(){
             ParameterPool_exposer.def( 
                 "size"
                 , size_function_type( &::ParameterPool::size ) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ParameterPool_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ParameterPool_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ParameterPool_wrapper::default_transferToCPP) );
         
         }
     }

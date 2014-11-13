@@ -256,12 +256,38 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_IFormFactorDecorator_class(){
 
     { //::IFormFactorDecorator
-        typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable > IFormFactorDecorator_exposer_t;
+        typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, std::auto_ptr< IFormFactorDecorator_wrapper >, boost::noncopyable > IFormFactorDecorator_exposer_t;
         IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", bp::no_init );
         bp::scope IFormFactorDecorator_scope( IFormFactorDecorator_exposer );
         { //::IFormFactorDecorator::accept
@@ -496,6 +522,17 @@ void register_IFormFactorDecorator_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&IFormFactorDecorator_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( IFormFactorDecorator_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            IFormFactorDecorator_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&IFormFactorDecorator_wrapper::default_transferToCPP) );
         
         }
     }

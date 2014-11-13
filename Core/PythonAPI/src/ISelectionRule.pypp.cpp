@@ -20,7 +20,7 @@ struct ISelectionRule_wrapper : ISelectionRule, bp::wrapper< ISelectionRule > {
     : ISelectionRule()
       , bp::wrapper< ISelectionRule >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::ISelectionRule * clone(  ) const {
@@ -33,12 +33,14 @@ struct ISelectionRule_wrapper : ISelectionRule, bp::wrapper< ISelectionRule > {
         return func_coordinateSelected( boost::ref(coordinate) );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_ISelectionRule_class(){
 
     { //::ISelectionRule
-        typedef bp::class_< ISelectionRule_wrapper, boost::noncopyable > ISelectionRule_exposer_t;
+        typedef bp::class_< ISelectionRule_wrapper, std::auto_ptr< ISelectionRule_wrapper >, boost::noncopyable > ISelectionRule_exposer_t;
         ISelectionRule_exposer_t ISelectionRule_exposer = ISelectionRule_exposer_t( "ISelectionRule" );
         bp::scope ISelectionRule_scope( ISelectionRule_exposer );
         { //::ISelectionRule::clone

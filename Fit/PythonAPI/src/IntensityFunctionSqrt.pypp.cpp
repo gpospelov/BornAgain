@@ -20,14 +20,14 @@ struct IntensityFunctionSqrt_wrapper : IntensityFunctionSqrt, bp::wrapper< Inten
     : IntensityFunctionSqrt( arg )
       , bp::wrapper< IntensityFunctionSqrt >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     IntensityFunctionSqrt_wrapper()
     : IntensityFunctionSqrt()
       , bp::wrapper< IntensityFunctionSqrt >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IntensityFunctionSqrt * clone(  ) const  {
@@ -54,12 +54,14 @@ struct IntensityFunctionSqrt_wrapper : IntensityFunctionSqrt, bp::wrapper< Inten
         return IntensityFunctionSqrt::evaluate( value );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IntensityFunctionSqrt_class(){
 
     { //::IntensityFunctionSqrt
-        typedef bp::class_< IntensityFunctionSqrt_wrapper, bp::bases< IIntensityFunction > > IntensityFunctionSqrt_exposer_t;
+        typedef bp::class_< IntensityFunctionSqrt_wrapper, bp::bases< IIntensityFunction >, std::auto_ptr< IntensityFunctionSqrt_wrapper > > IntensityFunctionSqrt_exposer_t;
         IntensityFunctionSqrt_exposer_t IntensityFunctionSqrt_exposer = IntensityFunctionSqrt_exposer_t( "IntensityFunctionSqrt" );
         bp::scope IntensityFunctionSqrt_scope( IntensityFunctionSqrt_exposer );
         { //::IntensityFunctionSqrt::clone

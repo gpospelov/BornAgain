@@ -20,7 +20,7 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     : StochasticDoubleGaussian( average, std_dev )
       , bp::wrapper< StochasticDoubleGaussian >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::StochasticDoubleGaussian * clone(  ) const  {
@@ -95,12 +95,38 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
         StochasticParameter< double >::setToAverage( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_StochasticDoubleGaussian_class(){
 
     { //::StochasticDoubleGaussian
-        typedef bp::class_< StochasticDoubleGaussian_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable > StochasticDoubleGaussian_exposer_t;
+        typedef bp::class_< StochasticDoubleGaussian_wrapper, bp::bases< StochasticParameter< double > >, std::auto_ptr< StochasticDoubleGaussian_wrapper >, boost::noncopyable > StochasticDoubleGaussian_exposer_t;
         StochasticDoubleGaussian_exposer_t StochasticDoubleGaussian_exposer = StochasticDoubleGaussian_exposer_t( "StochasticDoubleGaussian", bp::init< double, double >(( bp::arg("average"), bp::arg("std_dev") )) );
         bp::scope StochasticDoubleGaussian_scope( StochasticDoubleGaussian_exposer );
         { //::StochasticDoubleGaussian::clone
@@ -180,6 +206,17 @@ void register_StochasticDoubleGaussian_class(){
                 "setToAverage"
                 , setToAverage_function_type(&::StochasticParameter< double >::setToAverage)
                 , default_setToAverage_function_type(&StochasticDoubleGaussian_wrapper::default_setToAverage) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( StochasticDoubleGaussian_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            StochasticDoubleGaussian_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&StochasticDoubleGaussian_wrapper::default_transferToCPP) );
         
         }
     }

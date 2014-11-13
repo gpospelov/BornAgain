@@ -20,21 +20,21 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     : HomogeneousMagneticMaterial( arg )
       , bp::wrapper< HomogeneousMagneticMaterial >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     HomogeneousMagneticMaterial_wrapper(::std::string const & name, ::complex_t const & refractive_index, ::kvector_t const & magnetic_field )
     : HomogeneousMagneticMaterial( name, boost::ref(refractive_index), boost::ref(magnetic_field) )
       , bp::wrapper< HomogeneousMagneticMaterial >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     HomogeneousMagneticMaterial_wrapper(::std::string const & name, double refractive_index_delta, double refractive_index_beta, ::kvector_t const & magnetic_field )
     : HomogeneousMagneticMaterial( name, refractive_index_delta, refractive_index_beta, boost::ref(magnetic_field) )
       , bp::wrapper< HomogeneousMagneticMaterial >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::HomogeneousMagneticMaterial * clone(  ) const  {
@@ -85,12 +85,14 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
         return HomogeneousMaterial::getRefractiveIndex( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_HomogeneousMagneticMaterial_class(){
 
     { //::HomogeneousMagneticMaterial
-        typedef bp::class_< HomogeneousMagneticMaterial_wrapper, bp::bases< HomogeneousMaterial > > HomogeneousMagneticMaterial_exposer_t;
+        typedef bp::class_< HomogeneousMagneticMaterial_wrapper, bp::bases< HomogeneousMaterial >, std::auto_ptr< HomogeneousMagneticMaterial_wrapper > > HomogeneousMagneticMaterial_exposer_t;
         HomogeneousMagneticMaterial_exposer_t HomogeneousMagneticMaterial_exposer = HomogeneousMagneticMaterial_exposer_t( "HomogeneousMagneticMaterial", bp::init< std::string const &, complex_t const &, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index"), bp::arg("magnetic_field") )) );
         bp::scope HomogeneousMagneticMaterial_scope( HomogeneousMagneticMaterial_exposer );
         HomogeneousMagneticMaterial_exposer.def( bp::init< std::string const &, double, double, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta"), bp::arg("magnetic_field") )) );

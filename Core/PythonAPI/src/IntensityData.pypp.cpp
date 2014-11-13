@@ -14,10 +14,23 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
+struct OutputData_less__double__greater__wrapper : OutputData< double >, bp::wrapper< OutputData< double > > {
+
+    OutputData_less__double__greater__wrapper( )
+    : OutputData<double>( )
+      , bp::wrapper< OutputData< double > >(){
+        // null constructor
+    m_pyobj = 0;
+    }
+
+    PyObject* m_pyobj;
+
+};
+
 void register_IntensityData_class(){
 
     { //::OutputData< double >
-        typedef bp::class_< OutputData< double >, boost::noncopyable > IntensityData_exposer_t;
+        typedef bp::class_< OutputData_less__double__greater__wrapper, std::auto_ptr< OutputData_less__double__greater__wrapper >, boost::noncopyable > IntensityData_exposer_t;
         IntensityData_exposer_t IntensityData_exposer = IntensityData_exposer_t( "IntensityData", bp::init< >() );
         bp::scope IntensityData_scope( IntensityData_exposer );
         { //::OutputData< double >::addAxis

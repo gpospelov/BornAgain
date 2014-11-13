@@ -22,7 +22,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     : ICompositeSample( )
       , bp::wrapper< ICompositeSample >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ICompositeSample * clone(  ) const {
@@ -193,12 +193,38 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_ICompositeSample_class(){
 
     { //::ICompositeSample
-        typedef bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable > ICompositeSample_exposer_t;
+        typedef bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, std::auto_ptr< ICompositeSample_wrapper >, boost::noncopyable > ICompositeSample_exposer_t;
         ICompositeSample_exposer_t ICompositeSample_exposer = ICompositeSample_exposer_t( "ICompositeSample", bp::init< >() );
         bp::scope ICompositeSample_scope( ICompositeSample_exposer );
         { //::ICompositeSample::clone
@@ -356,6 +382,17 @@ void register_ICompositeSample_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&ICompositeSample_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( ICompositeSample_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            ICompositeSample_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&ICompositeSample_wrapper::default_transferToCPP) );
         
         }
     }

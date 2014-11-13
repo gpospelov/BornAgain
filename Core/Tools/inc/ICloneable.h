@@ -34,6 +34,9 @@ public:
     virtual ~ICloneable() {}
     virtual ICloneable *clone() const = 0;
 
+    //! Used for Python overriding of clone
+    virtual void transferToCPP() {}
+
 private:
     ICloneable(const ICloneable& ) {
         throw NotImplementedException(

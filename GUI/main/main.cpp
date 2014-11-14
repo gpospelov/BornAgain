@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    SplashScreen *splash = new SplashScreen(&a);
+    SplashScreen *splash = new SplashScreen();
     splash->show();
 
 

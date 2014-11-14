@@ -1,8 +1,8 @@
 #include "SplashScreen.h"
 #include <QStyleOptionProgressBarV2>
 
-SplashScreen::SplashScreen(QApplication *aApp, QWidget *parent) :
-    QSplashScreen(parent), app(aApp), m_progress(0)
+SplashScreen::SplashScreen(QWidget *parent) :
+    QSplashScreen(parent),m_progress(0)
 
 {
     m_width = 500;

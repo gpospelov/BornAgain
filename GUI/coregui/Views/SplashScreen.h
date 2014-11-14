@@ -2,15 +2,13 @@
 #define SPLASHSCREEN_H
 
 #include <QSplashScreen>
-#include <QApplication>
 
 class SplashScreen : public QSplashScreen
 {
     Q_OBJECT
 public:
-    explicit SplashScreen(QApplication *app, QWidget *parent = 0);
-    int m_progress;
-    QApplication *app;
+    explicit SplashScreen(QWidget *parent = 0);
+
 
 public slots:
     void setProgress(int value)
@@ -27,6 +25,7 @@ protected:
     void drawContents(QPainter *painter);
 private:
     int m_width, m_height;
+    int m_progress;
 
 };
 

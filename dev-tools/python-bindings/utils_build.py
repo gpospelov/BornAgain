@@ -21,6 +21,15 @@ multiple_files_t.HEADER_EXT = '.pypp.h'
 multiple_files_t.SOURCE_EXT = '.pypp.cpp'
 
 
+incref_code = \
+"""
+if( !this->m_pyobj) {
+    this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+    Py_INCREF(this->m_pyobj);
+}
+"""
+
+
 def ExcludeConstructorsArgPtr(mb):
     '''Excludes constructors which have pointers in argument list.'''
     for cl in mb.classes():
@@ -60,7 +69,7 @@ def IncludeClasses(mb, include_classes):
         if not any( name == cl.name or name == cl.alias
                     for cl in mb.classes() ):
             not_found_classes.append(name)
-    if len(not_found_classes): 
+    if len(not_found_classes):
         print( "Error! Can't find classes with requested names " % (not_found_classes) )
         exit()
     mb.classes( lambda cls: cls.name in include_classes ).include()
@@ -111,8 +120,19 @@ def ManageNewReturnPolicy(mb):
             call_policies.return_value_policy( call_policies.manage_new_object )
 
 
+def ManageTransferOwnership(mb):
+    '''Increases reference count during transfer of ownership.'''
+    for clone_fun in mb.member_functions('clone'):
+        cl = clone_fun.parent
+        cl.add_wrapper_code('PyObject* m_pyobj;')
+        cl.set_constructors_body('m_pyobj = 0;')
+        cl.member_functions('transferToCPP', allow_empty=True).add_override_precall_code(incref_code)
+        cl.member_functions('transferToCPP', allow_empty=True).add_default_precall_code(incref_code)
+        cl.held_type = 'std::auto_ptr< %s >' % cl.wrapper_alias
+
+
 def DefaultReturnPolicy(mb):
-    '''Sets the default return policies (for references/pointers) on classes 
+    '''Sets the default return policies (for references/pointers) on classes
        if it wasn't already been done for. Should be called last.'''
     mem_funs = mb.calldefs()
     for mem_fun in mem_funs:
@@ -244,11 +264,13 @@ def MakePythonAPI(prj):
 
     ManageNewReturnPolicy(mb)
 
+    ManageTransferOwnership(mb)
+
     # execute project-specific rules
 
     prj.ManualExcludeMemberFunctions(mb)
 
-    prj.ManualClassTunings(mb) 
+    prj.ManualClassTunings(mb)
 
     # default policies for what remained unchanged
 
@@ -287,6 +309,6 @@ def MakePythonAPI(prj):
 
     mb.build_code_creator( module_name="PythonInterface" )
     mb.code_creator.license = prj.license
-    
+
     mb.code_creator.user_defined_directories.append(os.path.abspath('./'))
     mb.split_module(prj.temp_dir)

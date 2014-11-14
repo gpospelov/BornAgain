@@ -20,7 +20,7 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
     : SquaredFunctionDefault( )
       , bp::wrapper< SquaredFunctionDefault >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
@@ -59,12 +59,14 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
         return SquaredFunctionDefault::clone( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_SquaredFunctionDefault_class(){
 
     { //::SquaredFunctionDefault
-        typedef bp::class_< SquaredFunctionDefault_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionDefault_exposer_t;
+        typedef bp::class_< SquaredFunctionDefault_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionDefault_wrapper >, boost::noncopyable > SquaredFunctionDefault_exposer_t;
         SquaredFunctionDefault_exposer_t SquaredFunctionDefault_exposer = SquaredFunctionDefault_exposer_t( "SquaredFunctionDefault", bp::init< >() );
         bp::scope SquaredFunctionDefault_scope( SquaredFunctionDefault_exposer );
         { //::SquaredFunctionDefault::calculateSquaredDifference

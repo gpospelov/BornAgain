@@ -20,7 +20,7 @@ struct IIntensityNormalizer_wrapper : IIntensityNormalizer, bp::wrapper< IIntens
     : IIntensityNormalizer()
       , bp::wrapper< IIntensityNormalizer >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IIntensityNormalizer * clone(  ) const {
@@ -110,12 +110,14 @@ struct IIntensityNormalizer_wrapper : IIntensityNormalizer, bp::wrapper< IIntens
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IIntensityNormalizer_class(){
 
     { //::IIntensityNormalizer
-        typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, boost::noncopyable > IIntensityNormalizer_exposer_t;
+        typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, std::auto_ptr< IIntensityNormalizer_wrapper >, boost::noncopyable > IIntensityNormalizer_exposer_t;
         IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer" );
         bp::scope IIntensityNormalizer_scope( IIntensityNormalizer_exposer );
         { //::IIntensityNormalizer::clone

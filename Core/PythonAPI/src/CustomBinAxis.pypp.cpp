@@ -20,7 +20,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
     : CustomBinAxis( name, nbins, start, end )
       , bp::wrapper< CustomBinAxis >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::CustomBinAxis * clone(  ) const  {
@@ -155,12 +155,14 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return VariableBinAxis::getSize( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_CustomBinAxis_class(){
 
     { //::CustomBinAxis
-        typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis >, boost::noncopyable > CustomBinAxis_exposer_t;
+        typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis >, std::auto_ptr< CustomBinAxis_wrapper >, boost::noncopyable > CustomBinAxis_exposer_t;
         CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
         { //::CustomBinAxis::clone

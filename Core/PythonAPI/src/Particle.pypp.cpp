@@ -22,28 +22,28 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     : Particle( )
       , bp::wrapper< Particle >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     Particle_wrapper(::IMaterial const & p_material )
     : Particle( boost::ref(p_material) )
       , bp::wrapper< Particle >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor )
     : Particle( boost::ref(p_material), boost::ref(form_factor) )
       , bp::wrapper< Particle >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor, ::Geometry::Transform3D const & transform )
     : Particle( boost::ref(p_material), boost::ref(form_factor), boost::ref(transform) )
       , bp::wrapper< Particle >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -317,12 +317,38 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_Particle_class(){
 
     { //::Particle
-        typedef bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Particle_exposer_t;
+        typedef bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< Particle_wrapper >, boost::noncopyable > Particle_exposer_t;
         Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
         bp::scope Particle_scope( Particle_exposer );
         Particle_exposer.def( bp::init< IMaterial const & >(( bp::arg("p_material") )) );
@@ -590,6 +616,17 @@ void register_Particle_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&Particle_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( Particle_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            Particle_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&Particle_wrapper::default_transferToCPP) );
         
         }
     }

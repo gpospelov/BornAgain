@@ -22,14 +22,14 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
     : FTDistribution2DVoigt( arg )
       , bp::wrapper< FTDistribution2DVoigt >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution2DVoigt_wrapper(double coherence_length_x, double coherence_length_y, double eta )
     : FTDistribution2DVoigt( coherence_length_x, coherence_length_y, eta )
       , bp::wrapper< FTDistribution2DVoigt >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution2DVoigt * clone(  ) const  {
@@ -171,12 +171,14 @@ struct FTDistribution2DVoigt_wrapper : FTDistribution2DVoigt, bp::wrapper< FTDis
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution2DVoigt_class(){
 
     { //::FTDistribution2DVoigt
-        typedef bp::class_< FTDistribution2DVoigt_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DVoigt_exposer_t;
+        typedef bp::class_< FTDistribution2DVoigt_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DVoigt_wrapper > > FTDistribution2DVoigt_exposer_t;
         FTDistribution2DVoigt_exposer_t FTDistribution2DVoigt_exposer = FTDistribution2DVoigt_exposer_t( "FTDistribution2DVoigt", bp::init< double, double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y"), bp::arg("eta") )) );
         bp::scope FTDistribution2DVoigt_scope( FTDistribution2DVoigt_exposer );
         { //::FTDistribution2DVoigt::clone

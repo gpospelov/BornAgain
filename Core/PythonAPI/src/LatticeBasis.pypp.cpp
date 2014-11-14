@@ -22,7 +22,7 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     : LatticeBasis( )
       , bp::wrapper< LatticeBasis >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -260,12 +260,38 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_LatticeBasis_class(){
 
     { //::LatticeBasis
-        typedef bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable > LatticeBasis_exposer_t;
+        typedef bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, std::auto_ptr< LatticeBasis_wrapper >, boost::noncopyable > LatticeBasis_exposer_t;
         LatticeBasis_exposer_t LatticeBasis_exposer = LatticeBasis_exposer_t( "LatticeBasis", bp::init< >() );
         bp::scope LatticeBasis_scope( LatticeBasis_exposer );
         { //::LatticeBasis::addParticle
@@ -493,6 +519,17 @@ void register_LatticeBasis_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&LatticeBasis_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( LatticeBasis_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            LatticeBasis_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&LatticeBasis_wrapper::default_transferToCPP) );
         
         }
     }

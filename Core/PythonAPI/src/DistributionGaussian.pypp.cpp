@@ -22,14 +22,14 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     : DistributionGaussian( arg )
       , bp::wrapper< DistributionGaussian >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     DistributionGaussian_wrapper(double mean, double std_dev )
     : DistributionGaussian( mean, std_dev )
       , bp::wrapper< DistributionGaussian >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::DistributionGaussian * clone(  ) const  {
@@ -171,12 +171,14 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_DistributionGaussian_class(){
 
     { //::DistributionGaussian
-        typedef bp::class_< DistributionGaussian_wrapper, bp::bases< IDistribution1D > > DistributionGaussian_exposer_t;
+        typedef bp::class_< DistributionGaussian_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGaussian_wrapper > > DistributionGaussian_exposer_t;
         DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
         bp::scope DistributionGaussian_scope( DistributionGaussian_exposer );
         { //::DistributionGaussian::clone

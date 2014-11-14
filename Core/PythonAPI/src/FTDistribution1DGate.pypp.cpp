@@ -22,14 +22,14 @@ struct FTDistribution1DGate_wrapper : FTDistribution1DGate, bp::wrapper< FTDistr
     : FTDistribution1DGate( arg )
       , bp::wrapper< FTDistribution1DGate >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution1DGate_wrapper(double omega )
     : FTDistribution1DGate( omega )
       , bp::wrapper< FTDistribution1DGate >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution1DGate * clone(  ) const  {
@@ -147,12 +147,14 @@ struct FTDistribution1DGate_wrapper : FTDistribution1DGate, bp::wrapper< FTDistr
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution1DGate_class(){
 
     { //::FTDistribution1DGate
-        typedef bp::class_< FTDistribution1DGate_wrapper, bp::bases< IFTDistribution1D > > FTDistribution1DGate_exposer_t;
+        typedef bp::class_< FTDistribution1DGate_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DGate_wrapper > > FTDistribution1DGate_exposer_t;
         FTDistribution1DGate_exposer_t FTDistribution1DGate_exposer = FTDistribution1DGate_exposer_t( "FTDistribution1DGate", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DGate_scope( FTDistribution1DGate_exposer );
         { //::FTDistribution1DGate::clone

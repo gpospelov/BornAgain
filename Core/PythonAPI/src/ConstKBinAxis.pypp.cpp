@@ -20,7 +20,7 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     : ConstKBinAxis( name, nbins, start, end )
       , bp::wrapper< ConstKBinAxis >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::ConstKBinAxis * clone(  ) const  {
@@ -155,12 +155,14 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
         return VariableBinAxis::getSize( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_ConstKBinAxis_class(){
 
     { //::ConstKBinAxis
-        typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis >, boost::noncopyable > ConstKBinAxis_exposer_t;
+        typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis >, std::auto_ptr< ConstKBinAxis_wrapper >, boost::noncopyable > ConstKBinAxis_exposer_t;
         ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope ConstKBinAxis_scope( ConstKBinAxis_exposer );
         { //::ConstKBinAxis::clone

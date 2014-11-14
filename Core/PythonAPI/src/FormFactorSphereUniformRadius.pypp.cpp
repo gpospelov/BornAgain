@@ -22,7 +22,7 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
     : FormFactorSphereUniformRadius( mean, full_width )
       , bp::wrapper< FormFactorSphereUniformRadius >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorSphereUniformRadius * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorSphereUniformRadius_class(){
 
     { //::FormFactorSphereUniformRadius
-        typedef bp::class_< FormFactorSphereUniformRadius_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorSphereUniformRadius_exposer_t;
+        typedef bp::class_< FormFactorSphereUniformRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereUniformRadius_wrapper >, boost::noncopyable > FormFactorSphereUniformRadius_exposer_t;
         FormFactorSphereUniformRadius_exposer_t FormFactorSphereUniformRadius_exposer = FormFactorSphereUniformRadius_exposer_t( "FormFactorSphereUniformRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("full_width") )) );
         bp::scope FormFactorSphereUniformRadius_scope( FormFactorSphereUniformRadius_exposer );
         { //::FormFactorSphereUniformRadius::clone
@@ -530,6 +556,17 @@ void register_FormFactorSphereUniformRadius_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorSphereUniformRadius_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorSphereUniformRadius_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorSphereUniformRadius_wrapper::default_transferToCPP) );
         
         }
     }

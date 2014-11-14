@@ -22,7 +22,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     : InterferenceFunction2DLattice( length_1, length_2, angle, xi )
       , bp::wrapper< InterferenceFunction2DLattice >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::InterferenceFunction2DLattice * clone(  ) const  {
@@ -212,12 +212,38 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_InterferenceFunction2DLattice_class(){
 
     { //::InterferenceFunction2DLattice
-        typedef bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable > InterferenceFunction2DLattice_exposer_t;
+        typedef bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction2DLattice_wrapper >, boost::noncopyable > InterferenceFunction2DLattice_exposer_t;
         InterferenceFunction2DLattice_exposer_t InterferenceFunction2DLattice_exposer = InterferenceFunction2DLattice_exposer_t( "InterferenceFunction2DLattice", bp::init< double, double, double, bp::optional< double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("angle"), bp::arg("xi")=0.0 )) );
         bp::scope InterferenceFunction2DLattice_scope( InterferenceFunction2DLattice_exposer );
         { //::InterferenceFunction2DLattice::clone
@@ -440,6 +466,17 @@ void register_InterferenceFunction2DLattice_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&InterferenceFunction2DLattice_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DLattice_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&InterferenceFunction2DLattice_wrapper::default_transferToCPP) );
         
         }
         InterferenceFunction2DLattice_exposer.staticmethod( "createHexagonal" );

@@ -22,7 +22,7 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     : MultiLayer( )
       , bp::wrapper< MultiLayer >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::MultiLayer * clone(  ) const  {
@@ -200,12 +200,38 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_MultiLayer_class(){
 
     { //::MultiLayer
-        typedef bp::class_< MultiLayer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > MultiLayer_exposer_t;
+        typedef bp::class_< MultiLayer_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< MultiLayer_wrapper >, boost::noncopyable > MultiLayer_exposer_t;
         MultiLayer_exposer_t MultiLayer_exposer = MultiLayer_exposer_t( "MultiLayer", bp::init< >() );
         bp::scope MultiLayer_scope( MultiLayer_exposer );
         { //::MultiLayer::addLayer
@@ -515,6 +541,17 @@ void register_MultiLayer_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&MultiLayer_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( MultiLayer_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            MultiLayer_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&MultiLayer_wrapper::default_transferToCPP) );
         
         }
     }

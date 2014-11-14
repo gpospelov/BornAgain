@@ -22,7 +22,7 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
     : FormFactorFullSpheroid( radius, height )
       , bp::wrapper< FormFactorFullSpheroid >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorFullSpheroid * clone(  ) const  {
@@ -284,12 +284,38 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorFullSpheroid_class(){
 
     { //::FormFactorFullSpheroid
-        typedef bp::class_< FormFactorFullSpheroid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorFullSpheroid_exposer_t;
+        typedef bp::class_< FormFactorFullSpheroid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorFullSpheroid_wrapper >, boost::noncopyable > FormFactorFullSpheroid_exposer_t;
         FormFactorFullSpheroid_exposer_t FormFactorFullSpheroid_exposer = FormFactorFullSpheroid_exposer_t( "FormFactorFullSpheroid", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
         bp::scope FormFactorFullSpheroid_scope( FormFactorFullSpheroid_exposer );
         { //::FormFactorFullSpheroid::clone
@@ -530,6 +556,17 @@ void register_FormFactorFullSpheroid_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorFullSpheroid_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorFullSpheroid_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorFullSpheroid_wrapper::default_transferToCPP) );
         
         }
     }

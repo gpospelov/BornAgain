@@ -22,7 +22,7 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     : PositionParticleInfo( boost::ref(particle), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::PositionParticleInfo * clone(  ) const  {
@@ -200,12 +200,38 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
         return ICompositeSample::size( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_PositionParticleInfo_class(){
 
     { //::PositionParticleInfo
-        typedef bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable > PositionParticleInfo_exposer_t;
+        typedef bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, std::auto_ptr< PositionParticleInfo_wrapper >, boost::noncopyable > PositionParticleInfo_exposer_t;
         PositionParticleInfo_exposer_t PositionParticleInfo_exposer = PositionParticleInfo_exposer_t( "PositionParticleInfo", bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
         bp::scope PositionParticleInfo_scope( PositionParticleInfo_exposer );
         { //::PositionParticleInfo::clone
@@ -394,6 +420,17 @@ void register_PositionParticleInfo_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&PositionParticleInfo_wrapper::default_size) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( PositionParticleInfo_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            PositionParticleInfo_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&PositionParticleInfo_wrapper::default_transferToCPP) );
         
         }
     }

@@ -20,21 +20,21 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
     : HomogeneousMaterial( arg )
       , bp::wrapper< HomogeneousMaterial >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     HomogeneousMaterial_wrapper(::std::string const & name, ::complex_t const & refractive_index )
     : HomogeneousMaterial( name, boost::ref(refractive_index) )
       , bp::wrapper< HomogeneousMaterial >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     HomogeneousMaterial_wrapper(::std::string const & name, double refractive_index_delta, double refractive_index_beta )
     : HomogeneousMaterial( name, refractive_index_delta, refractive_index_beta )
       , bp::wrapper< HomogeneousMaterial >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::HomogeneousMaterial * clone(  ) const  {
@@ -85,12 +85,14 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
         return IMaterial::isScalarMaterial( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_HomogeneousMaterial_class(){
 
     { //::HomogeneousMaterial
-        typedef bp::class_< HomogeneousMaterial_wrapper, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
+        typedef bp::class_< HomogeneousMaterial_wrapper, bp::bases< IMaterial >, std::auto_ptr< HomogeneousMaterial_wrapper > > HomogeneousMaterial_exposer_t;
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) );
         bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
         HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") )) );

@@ -22,14 +22,14 @@ struct FTDistribution2DGate_wrapper : FTDistribution2DGate, bp::wrapper< FTDistr
     : FTDistribution2DGate( arg )
       , bp::wrapper< FTDistribution2DGate >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution2DGate_wrapper(double coherence_length_x, double coherence_length_y )
     : FTDistribution2DGate( coherence_length_x, coherence_length_y )
       , bp::wrapper< FTDistribution2DGate >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution2DGate * clone(  ) const  {
@@ -159,12 +159,14 @@ struct FTDistribution2DGate_wrapper : FTDistribution2DGate, bp::wrapper< FTDistr
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution2DGate_class(){
 
     { //::FTDistribution2DGate
-        typedef bp::class_< FTDistribution2DGate_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DGate_exposer_t;
+        typedef bp::class_< FTDistribution2DGate_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DGate_wrapper > > FTDistribution2DGate_exposer_t;
         FTDistribution2DGate_exposer_t FTDistribution2DGate_exposer = FTDistribution2DGate_exposer_t( "FTDistribution2DGate", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DGate_scope( FTDistribution2DGate_exposer );
         { //::FTDistribution2DGate::clone

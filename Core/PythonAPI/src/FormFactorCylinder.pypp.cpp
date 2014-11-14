@@ -22,7 +22,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     : FormFactorCylinder( radius, height )
       , bp::wrapper< FormFactorCylinder >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorCylinder * clone(  ) const  {
@@ -308,12 +308,38 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorCylinder_class(){
 
     { //::FormFactorCylinder
-        typedef bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCylinder_exposer_t;
+        typedef bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCylinder_wrapper >, boost::noncopyable > FormFactorCylinder_exposer_t;
         FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
         bp::scope FormFactorCylinder_scope( FormFactorCylinder_exposer );
         { //::FormFactorCylinder::clone
@@ -578,6 +604,17 @@ void register_FormFactorCylinder_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorCylinder_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorCylinder_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorCylinder_wrapper::default_transferToCPP) );
         
         }
     }

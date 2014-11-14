@@ -22,7 +22,7 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
     : FormFactorHemiEllipsoid( radius_a, radius_b, height )
       , bp::wrapper< FormFactorHemiEllipsoid >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorHemiEllipsoid * clone(  ) const  {
@@ -308,12 +308,38 @@ struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< F
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorHemiEllipsoid_class(){
 
     { //::FormFactorHemiEllipsoid
-        typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
+        typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorHemiEllipsoid_wrapper >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
         FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
         bp::scope FormFactorHemiEllipsoid_scope( FormFactorHemiEllipsoid_exposer );
         { //::FormFactorHemiEllipsoid::clone
@@ -576,6 +602,17 @@ void register_FormFactorHemiEllipsoid_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorHemiEllipsoid_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorHemiEllipsoid_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorHemiEllipsoid_wrapper::default_transferToCPP) );
         
         }
     }

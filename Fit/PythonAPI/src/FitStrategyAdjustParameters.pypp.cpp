@@ -20,14 +20,14 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
     : FitStrategyAdjustParameters( name )
       , bp::wrapper< FitStrategyAdjustParameters >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     FitStrategyAdjustParameters_wrapper( )
     : FitStrategyAdjustParameters( )
       , bp::wrapper< FitStrategyAdjustParameters >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual void clear(  ) {
@@ -78,12 +78,14 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FitStrategyAdjustParameters_class(){
 
     { //::FitStrategyAdjustParameters
-        typedef bp::class_< FitStrategyAdjustParameters_wrapper, bp::bases< IFitStrategy >, boost::noncopyable > FitStrategyAdjustParameters_exposer_t;
+        typedef bp::class_< FitStrategyAdjustParameters_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyAdjustParameters_wrapper >, boost::noncopyable > FitStrategyAdjustParameters_exposer_t;
         FitStrategyAdjustParameters_exposer_t FitStrategyAdjustParameters_exposer = FitStrategyAdjustParameters_exposer_t( "FitStrategyAdjustParameters", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope FitStrategyAdjustParameters_scope( FitStrategyAdjustParameters_exposer );
         FitStrategyAdjustParameters_exposer.def( bp::init< >() );

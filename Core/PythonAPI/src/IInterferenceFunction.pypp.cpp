@@ -22,7 +22,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     : IInterferenceFunction()
       , bp::wrapper< IInterferenceFunction >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IInterferenceFunction * clone(  ) const {
@@ -198,12 +198,38 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_IInterferenceFunction_class(){
 
     { //::IInterferenceFunction
-        typedef bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable > IInterferenceFunction_exposer_t;
+        typedef bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, std::auto_ptr< IInterferenceFunction_wrapper >, boost::noncopyable > IInterferenceFunction_exposer_t;
         IInterferenceFunction_exposer_t IInterferenceFunction_exposer = IInterferenceFunction_exposer_t( "IInterferenceFunction" );
         bp::scope IInterferenceFunction_scope( IInterferenceFunction_exposer );
         { //::IInterferenceFunction::clone
@@ -371,6 +397,17 @@ void register_IInterferenceFunction_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&IInterferenceFunction_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( IInterferenceFunction_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            IInterferenceFunction_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&IInterferenceFunction_wrapper::default_transferToCPP) );
         
         }
     }

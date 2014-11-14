@@ -20,7 +20,7 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     : StochasticParameter<double>( average )
       , bp::wrapper< StochasticParameter< double > >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::StochasticParameter< double > * clone(  ) const {
@@ -74,12 +74,38 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
         func_setToRandom(  );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_StochasticParameter_t_class(){
 
     { //::StochasticParameter< double >
-        typedef bp::class_< StochasticParameter_less__double__greater__wrapper, boost::noncopyable > StochasticParameter_t_exposer_t;
+        typedef bp::class_< StochasticParameter_less__double__greater__wrapper, std::auto_ptr< StochasticParameter_less__double__greater__wrapper >, boost::noncopyable > StochasticParameter_t_exposer_t;
         StochasticParameter_t_exposer_t StochasticParameter_t_exposer = StochasticParameter_t_exposer_t( "StochasticParameter_t", bp::init< double >(( bp::arg("average") )) );
         bp::scope StochasticParameter_t_scope( StochasticParameter_t_exposer );
         { //::StochasticParameter< double >::clone
@@ -167,6 +193,17 @@ void register_StochasticParameter_t_class(){
             StochasticParameter_t_exposer.def( 
                 "setToRandom"
                 , bp::pure_virtual( setToRandom_function_type(&::IStochasticParameter::setToRandom) ) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( StochasticParameter_less__double__greater__wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            StochasticParameter_t_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&StochasticParameter_less__double__greater__wrapper::default_transferToCPP) );
         
         }
     }

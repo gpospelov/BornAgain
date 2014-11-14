@@ -22,7 +22,7 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
     : FormFactorWeighted( )
       , bp::wrapper< FormFactorWeighted >(){
         // null constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorWeighted * clone(  ) const  {
@@ -272,12 +272,38 @@ struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorW
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorWeighted_class(){
 
     { //::FormFactorWeighted
-        typedef bp::class_< FormFactorWeighted_wrapper, bp::bases< IFormFactor >, boost::noncopyable > FormFactorWeighted_exposer_t;
+        typedef bp::class_< FormFactorWeighted_wrapper, bp::bases< IFormFactor >, std::auto_ptr< FormFactorWeighted_wrapper >, boost::noncopyable > FormFactorWeighted_exposer_t;
         FormFactorWeighted_exposer_t FormFactorWeighted_exposer = FormFactorWeighted_exposer_t( "FormFactorWeighted", bp::init< >() );
         bp::scope FormFactorWeighted_scope( FormFactorWeighted_exposer );
         { //::FormFactorWeighted::addFormFactor
@@ -516,6 +542,17 @@ void register_FormFactorWeighted_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorWeighted_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorWeighted_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorWeighted_wrapper::default_transferToCPP) );
         
         }
     }

@@ -22,7 +22,7 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
     : FormFactorRipple1( length, width, height )
       , bp::wrapper< FormFactorRipple1 >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FormFactorRipple1 * clone(  ) const  {
@@ -308,12 +308,38 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        if( bp::override func_transferToCPP = this->get_override( "transferToCPP" ) )
+            func_transferToCPP(  );
+        else{
+            this->ICloneable::transferToCPP(  );
+        }
+    }
+    
+    void default_transferToCPP(  ) {
+        
+        if( !this->m_pyobj) {
+            this->m_pyobj = boost::python::detail::wrapper_base_::get_owner(*this);
+            Py_INCREF(this->m_pyobj);
+        }
+        
+        ICloneable::transferToCPP( );
+    }
+
+    PyObject* m_pyobj;
+
 };
 
 void register_FormFactorRipple1_class(){
 
     { //::FormFactorRipple1
-        typedef bp::class_< FormFactorRipple1_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorRipple1_exposer_t;
+        typedef bp::class_< FormFactorRipple1_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorRipple1_wrapper >, boost::noncopyable > FormFactorRipple1_exposer_t;
         FormFactorRipple1_exposer_t FormFactorRipple1_exposer = FormFactorRipple1_exposer_t( "FormFactorRipple1", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") )) );
         bp::scope FormFactorRipple1_scope( FormFactorRipple1_exposer );
         { //::FormFactorRipple1::clone
@@ -576,6 +602,17 @@ void register_FormFactorRipple1_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&FormFactorRipple1_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICloneable::transferToCPP
+        
+            typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
+            typedef void ( FormFactorRipple1_wrapper::*default_transferToCPP_function_type)(  ) ;
+            
+            FormFactorRipple1_exposer.def( 
+                "transferToCPP"
+                , transferToCPP_function_type(&::ICloneable::transferToCPP)
+                , default_transferToCPP_function_type(&FormFactorRipple1_wrapper::default_transferToCPP) );
         
         }
     }

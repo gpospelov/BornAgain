@@ -14,10 +14,30 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
+struct Transform3D_wrapper : Geometry::Transform3D, bp::wrapper< Geometry::Transform3D > {
+
+    Transform3D_wrapper( )
+    : Geometry::Transform3D( )
+      , bp::wrapper< Geometry::Transform3D >(){
+        // null constructor
+    m_pyobj = 0;
+    }
+
+    Transform3D_wrapper(::Geometry::Transform3D const & other )
+    : Geometry::Transform3D( boost::ref(other) )
+      , bp::wrapper< Geometry::Transform3D >(){
+        // copy constructor
+    m_pyobj = 0;
+    }
+
+    PyObject* m_pyobj;
+
+};
+
 void register_Transform3D_class(){
 
     { //::Geometry::Transform3D
-        typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
+        typedef bp::class_< Transform3D_wrapper, std::auto_ptr< Transform3D_wrapper > > Transform3D_exposer_t;
         Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
         bp::scope Transform3D_scope( Transform3D_exposer );
         bp::enum_< Geometry::Transform3D::RotationType>("RotationType")

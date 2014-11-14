@@ -20,7 +20,7 @@ struct IIntensityFunction_wrapper : IIntensityFunction, bp::wrapper< IIntensityF
     : IIntensityFunction()
       , bp::wrapper< IIntensityFunction >(){
         // null constructor
-        
+        m_pyobj = 0;
     }
 
     virtual ::IIntensityFunction * clone(  ) const {
@@ -33,12 +33,14 @@ struct IIntensityFunction_wrapper : IIntensityFunction, bp::wrapper< IIntensityF
         return func_evaluate( value );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_IIntensityFunction_class(){
 
     { //::IIntensityFunction
-        typedef bp::class_< IIntensityFunction_wrapper, boost::noncopyable > IIntensityFunction_exposer_t;
+        typedef bp::class_< IIntensityFunction_wrapper, std::auto_ptr< IIntensityFunction_wrapper >, boost::noncopyable > IIntensityFunction_exposer_t;
         IIntensityFunction_exposer_t IIntensityFunction_exposer = IIntensityFunction_exposer_t( "IIntensityFunction" );
         bp::scope IIntensityFunction_scope( IIntensityFunction_exposer );
         { //::IIntensityFunction::clone

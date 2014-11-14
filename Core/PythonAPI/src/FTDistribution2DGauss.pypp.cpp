@@ -22,14 +22,14 @@ struct FTDistribution2DGauss_wrapper : FTDistribution2DGauss, bp::wrapper< FTDis
     : FTDistribution2DGauss( arg )
       , bp::wrapper< FTDistribution2DGauss >(){
         // copy constructor
-        
+        m_pyobj = 0;
     }
 
     FTDistribution2DGauss_wrapper(double coherence_length_x, double coherence_length_y )
     : FTDistribution2DGauss( coherence_length_x, coherence_length_y )
       , bp::wrapper< FTDistribution2DGauss >(){
         // constructor
-    
+    m_pyobj = 0;
     }
 
     virtual ::FTDistribution2DGauss * clone(  ) const  {
@@ -159,12 +159,14 @@ struct FTDistribution2DGauss_wrapper : FTDistribution2DGauss, bp::wrapper< FTDis
         IParameterized::setParametersAreChanged( );
     }
 
+    PyObject* m_pyobj;
+
 };
 
 void register_FTDistribution2DGauss_class(){
 
     { //::FTDistribution2DGauss
-        typedef bp::class_< FTDistribution2DGauss_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DGauss_exposer_t;
+        typedef bp::class_< FTDistribution2DGauss_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DGauss_wrapper > > FTDistribution2DGauss_exposer_t;
         FTDistribution2DGauss_exposer_t FTDistribution2DGauss_exposer = FTDistribution2DGauss_exposer_t( "FTDistribution2DGauss", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DGauss_scope( FTDistribution2DGauss_exposer );
         { //::FTDistribution2DGauss::clone

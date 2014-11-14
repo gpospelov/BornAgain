@@ -7,10 +7,20 @@
 #include <iostream>
 #include <QTime>
 
+void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
+{
+     Q_UNUSED(type);
+     Q_UNUSED(msg);
+}
+
 int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
+
+    if(!a.arguments().contains(QLatin1String("--with-debug"))) {
+        qInstallMessageHandler(messageHandler);
+    }
 
     SplashScreen *splash = new SplashScreen();
     splash->show();

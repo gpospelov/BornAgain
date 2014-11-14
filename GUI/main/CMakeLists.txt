@@ -32,19 +32,26 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 
-# Application icon
+# --- system dependent exe options ---------
 if(WIN32)
-    set(WIN_RC_FILE bornagain.rc)
-   if ( CONSOLE )
-     set ( WIN_CONSOLE )
-   else ()
-     set( WIN_CONSOLE WIN32 )
-   endif( CONSOLE )
+    #set(win32_console 1)
+    if(NOT win32_console)
+        set(executable_options WIN32)
+    endif()
+
+elseif(APPLE)
+    set(executable_options MACOSX_BUNDLE)
+endif()
+
+
+# --- system dependent files ---------
+if(WIN32)
+    set(system_addons bornagain.rc)
 endif()
 
 
 # --- executable ---------
-add_executable(${executable_name} ${WIN_CONSOLE} ${source_files} ${include_files} ${WIN_RC_FILE})
+add_executable(${executable_name} ${executable_options} ${source_files} ${include_files} ${system_addons})
 
 
 # --- dependencies ---------
@@ -70,18 +77,57 @@ target_link_libraries(${executable_name}
 
 
 # --- extra properties ---------
-if( WIN32 )
+if(WIN32)
     set_target_properties( ${executable_name} PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup" )
-    if ( CONSOLE )
+    if(win32_console)
         set_target_properties( ${executable_name} PROPERTIES COMPILE_DEFINITIONS "_CONSOLE" )
-    endif ( CONSOLE )
-endif( WIN32 )
+    endif()
 
+elseif(APPLE)
+    set (MACOSX_BUNDLE_ICON_FILE BornAgain.icns)
+    set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
+    SET_SOURCE_FILES_PROPERTIES(${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/MacOSXBundleInfo.plist.in" "${destination_runtime_configs}/Info.plist" @ONLY)
+
+    set_target_properties( ${executable_name}
+        PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST ${destination_runtime_configs}/Info.plist
+    )
+
+#install ( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
+#          DESTINATION ${INBUNDLE}/Contents/Resources/
+#)
+
+##set ( CPACK_DMG_BACKGROUND_IMAGE ${CMAKE_SOURCE_DIR}/Images/osx-bundle-background.png )
+##set ( CPACK_DMG_DS_STORE ${CMAKE_SOURCE_DIR}/Installers/MacInstaller/osx_DS_Store)
+#set ( MACOSX_BUNDLE_ICON_FILE BornAgain.icns )
+#SET_SOURCE_FILES_PROPERTIES(${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+
+
+endif()
 
 # --- installation ---------
-install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
+#install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
+install (TARGETS ${executable_name} BUNDLE DESTINATION . RUNTIME DESTINATION ${destination_gui} COMPONENT Applications)
+
+#  install (TARGETS ${executable_name}
+#    BUNDLE DESTINATION  . COMPONENT Applications
+#    RUNTIME DESTINATION ${destination_bin} COMPONENT Runtime)
+
+
 set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
+
+
+if(WIN32)
+
+elseif(APPLE)
+    install( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
+          DESTINATION ${destination_bundle}/Contents/Resources/
+    )
+
+
+endif()
 
 
 #if(APPLE AND CREATE_BUNDLE)

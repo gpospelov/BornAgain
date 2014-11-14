@@ -41,7 +41,8 @@ elseif(APPLE)
 
     set(destination_bin ${destination_prefix}/bin)
     set(destination_libexec ${destination_prefix}/libexec/${destination_suffix})
-    set(destination_gui ${destination_prefix}/MacOs)
+#    set(destination_gui ${destination_prefix}/MacOs)
+    set(destination_gui "./") # will be installed via bundle
     set(destination_lib ${destination_prefix}/lib/${destination_suffix})
     set(destination_include ${destination_prefix}/include/${destination_suffix})
     set(destination_examples ${destination_prefix}/share/${destination_suffix}/Examples)

@@ -141,10 +141,28 @@ if(WIN32)
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()
-    install(FILES ${destination_runtime_configs}/thisbornagain.sh
-            ${destination_runtime_configs}/thisbornagain.csh
+    # installing thisbornagain.sh and corresponding links
+    install(FILES ${destination_runtime_configs}/frombin_setup_paths.sh
+            ${destination_runtime_configs}/frombin_setup_paths.csh
             PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
             GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
             DESTINATION ${destination_libexec})
+
+    install(CODE "
+        FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
+
+    install(CODE "
+    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+    \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
+    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
+
+    install(CODE "
+    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+    \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
+    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
+
 endif()
 

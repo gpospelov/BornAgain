@@ -79,7 +79,7 @@ endif( WIN32 )
 
 
 # --- installation ---------
-install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
+install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
 set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
 

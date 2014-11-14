@@ -39,9 +39,10 @@ elseif(APPLE)
     set(destination_prefix ${destination_bundle}/Contents)
     set(destination_suffix BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
 
-    set(destination_bin ${destination_prefix}/MacOs)
-    set(destination_lib ${destination_prefix}/lib/${destination_suffix})
+    set(destination_bin ${destination_prefix}/bin)
     set(destination_libexec ${destination_prefix}/libexec/${destination_suffix})
+    set(destination_gui ${destination_prefix}/MacOs)
+    set(destination_lib ${destination_prefix}/lib/${destination_suffix})
     set(destination_include ${destination_prefix}/include/${destination_suffix})
     set(destination_examples ${destination_prefix}/share/${destination_suffix}/Examples)
     set(destination_images ${destination_prefix}/share/${destination_suffix}/Images)
@@ -52,8 +53,9 @@ else()
     set(destination_suffix BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
 
     set(destination_bin ${destination_prefix}/bin)
-    set(destination_lib ${destination_prefix}/lib/${destination_suffix})
     set(destination_libexec ${destination_prefix}/libexec/${destination_suffix})
+    set(destination_gui ${destination_libexec})
+    set(destination_lib ${destination_prefix}/lib/${destination_suffix})
     set(destination_include ${destination_prefix}/include/${destination_suffix})
     set(destination_examples ${destination_prefix}/share/${destination_suffix}/Examples)
     set(destination_images ${destination_prefix}/share/${destination_suffix}/Images)
@@ -61,8 +63,6 @@ endif()
 
 
 # --- configure files  ---------
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/thisbornagain.sh" @ONLY)
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/thisbornagain.csh" @ONLY)
 
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
@@ -76,42 +76,16 @@ if(BORNAGAIN_RELEASE)
 endif()
 
 
+# --- configure BornAgain scripts ---------
+set(this_bindir $BORNAGAINSYS/bin)
+set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/frombin_setup_paths.sh" @ONLY)
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/frombin_setup_paths.csh" @ONLY)
+
+
 # --- configure C++ source code ---------
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${destination_runtime_configs}/BAConfigure.h" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAPython.h.in" "${destination_runtime_configs}/BAPython.h" @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${destination_runtime_configs}")
 
 
-# --- installation of scripts, icons, etc ---------
-function(install_thisbornagain_script)
-    install(FILES ${destination_runtime_configs}/thisbornagain.sh
-            ${destination_runtime_configs}/thisbornagain.csh
-            PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
-            GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
-            DESTINATION ${destination_libexec})
-endfunction()
-
-if(WIN32)
-
-elseif(APPLE)
-    install_thisbornagain_script()
-
-#install ( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
-#          DESTINATION ${INBUNDLE}/Contents/Resources/)
-
-##set ( CPACK_DMG_BACKGROUND_IMAGE ${CMAKE_SOURCE_DIR}/Images/osx-bundle-background.png )
-##set ( CPACK_DMG_DS_STORE ${CMAKE_SOURCE_DIR}/Installers/MacInstaller/osx_DS_Store)
-#set ( MACOSX_BUNDLE_ICON_FILE BornAgain.icns )
-#SET_SOURCE_FILES_PROPERTIES(${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-
-
-else()
-    install_thisbornagain_script()
-
-endif()
-
-
-
-#if(APPLE AND CREATE_BUNDLE)
-#  include(DarwinSetup)
-#endif(APPLE AND CREATE_BUNDLE)

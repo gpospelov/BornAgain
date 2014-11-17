@@ -1,55 +1,47 @@
 set(bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
 set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
-set(thirdparty_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
+set(thirdparty_libs ${bundle}/Contents/lib/ThirdParty)
 
 set(BU_CHMOD_BUNDLE_ITEMS True)
 set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
-
 include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 
-message("AAAAA>>> CMAKE_INSTALL_PREFIX:${CMAKE_INSTALL_PREFIX} bundle:${bundle}")
 
+####################################################
 # gp_resolved_file_type_override
-#   Sets the type of the dependency. The options are: system, local, embedded, other
-#   For OS X, system & embedded dependencies are NOT copied in to the bundle
+####################################################
 function(gp_resolved_file_type_override resolved_file type_var)
 
     if(file MATCHES "Qt")
-        message("XXX  resolving file as _embedded : ${file}")
+        #message("resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(item MATCHES "PlugIns/platforms")
-        message("XXX3  resolving file as _embedded : ${file}")
+        #message("XXX3  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(file MATCHES "Python.framework")
-        message("XXX  resolving file as system : ${file}")
+        #message("XXX  resolving file as system : ${file}")
         set(${type_var} system PARENT_SCOPE)
 
     elseif(file MATCHES "/opt")
-        message("XXX  resolving file as _embedded : ${file}")
+        #message("XXX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(file MATCHES "libBornAgain")
-        message("XXX  resolving file as _embedded : ${file}")
+        #message("XXX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
     else()
-        message("XXX  resolving file as _system   : ${file}")
+        #message("XXX  resolving file as _system   : ${file}")
         set(${type_var} system PARENT_SCOPE)
     endif()
-
-
 endfunction()
 
+
+####################################################
 # gp_item_default_embedded_path_override item default_embedded_path_var
-#
-# Return the path that others should refer to the item by when the item
-# is embedded inside a bundle.
-#
-# This is a project-specific override of BundleUtilities.cmake's
-# gp_item_default_embedded_path
-#
+####################################################
 function(gp_item_default_embedded_path_override item default_embedded_path_var)
 
     # By default, embed items as set by gp_item_default_embedded_path:
@@ -70,37 +62,7 @@ function(gp_item_default_embedded_path_override item default_embedded_path_var)
     endif()
 
   set(${default_embedded_path_var} "${path}" PARENT_SCOPE)
-
 endfunction(gp_item_default_embedded_path_override)
-
-
-file(GLOB_RECURSE QTPLUGINS
-      "${bundle}/Contents/PlugIns/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
-
-message("QQQQ QTPLUGINS ${QTPLUGINS}  bundle:${bundle}$ path:${bundle}/Contents/PlugIns")
-
-  set(qtconf_text "
-[Paths]
-Plugins = PlugIns
-  ")
-
-file(WRITE "${bundle}/Contents/Resources/qt.conf" "${qtconf_text}")
-
-
-  set(dirs
-    "@CMAKE_BINARY_DIR@/lib"
-    "$ENV{QTDIR}"
-    "$ENV{QTDIR}/plugins"
-  )
-
-set(other_libs
-${QTPLUGINS}
-)
-
-message("QQQQ QTPLUGINS ${QTPLUGINS} dirs ${dirs}")
-
-
-fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
 
 
 ####################################################
@@ -133,19 +95,40 @@ function(fix_python_framework items_to_fix)
 endfunction()
 
 
+# --- installing Qt plugins
+file(GLOB_RECURSE QTPLUGINS
+      "${bundle}/Contents/PlugIns/*@CMAKE_SHARED_LIBRARY_SUFFIX@")
+
+  set(qtconf_text "
+[Paths]
+Plugins = PlugIns
+  ")
+
+file(WRITE "${bundle}/Contents/Resources/qt.conf" "${qtconf_text}")
+
+
+set(dirs
+    "@CMAKE_BINARY_DIR@/lib"
+    "$ENV{QTDIR}"
+    "$ENV{QTDIR}/plugins"
+ )
+
+set(other_libs ${QTPLUGINS})
+
+fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
+
+
 # --- fixing dependencies from Python libraries ---------
 set(items_to_fix "${bundle}/Contents/MacOs/BornAgain")
 file (GLOB items ${bornagain_libs}/*.so)
 list(APPEND items_to_fix ${items})
-file (GLOB items ${bundle}/Contents/lib/ThirdParty/*.dylib)
+file (GLOB items ${thirdparty_libs}/*.dylib)
 list(APPEND items_to_fix ${items})
-
-message("AAA ${items_to_fix}")
 
 fix_python_framework("${items_to_fix}")
 
-# copying python library
-#execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/ThirdParty/libpython2.7.dylib")
+
+# --- copying python library ------
 FILE(MAKE_DIRECTORY "${bundle}/Contents/lib/LibPython")
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/LibPython/libpython2.7.dylib")
 

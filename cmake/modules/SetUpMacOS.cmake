@@ -1,14 +1,6 @@
 set(BORNAGAIN_ARCHITECTURE macosx)
 set(BORNAGAIN_PLATFORM macosx)
 
-#set(SYSLIBS "-lm ${EXTRA_LDFLAGS} ${FINK_LDFLAGS} ${CMAKE_THREAD_LIBS_INIT} -ldl")
-#set(XLIBS "${XPMLIBDIR} ${XPMLIB} ${X11LIBDIR} -lXext -lX11")
-#set(CILIBS "-lm ${EXTRA_LDFLAGS} ${FINK_LDFLAGS} -ldl")
-##set(CRYPTLIBS "-lcrypt")
-#set(CMAKE_M_LIBS -lm)
-
-#---This is needed to help CMake to locate the X11 headers in the correct place and not under /usr/include
-#set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} /usr/X11R6)
 #---------------------------------------------------------------------------------------------------------
 
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)
@@ -114,9 +106,6 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
     MESSAGE(FATAL_ERROR "There is no setup for this compiler up to now. Don't know waht to do. Stop cmake at this point.")
   endif()
   
-  #---Set Linker flags----------------------------------------------------------------------
-#  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,@loader_path/../lib")
-
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -include WinDllMacros.h")
 
 else (CMAKE_SYSTEM_NAME MATCHES Darwin)

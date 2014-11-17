@@ -102,7 +102,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 
-if(BORNAGAIN_APPLE_BUNDLE)
+if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../..")
     set_target_properties(${library_name}
         PROPERTIES
@@ -158,40 +158,24 @@ else()
             DESTINATION ${destination_libexec})
 
     # creating bin directory for links
-#    install(CODE "
-#        FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-#    " COMPONENT Runtime)
+    if(NOT BORNAGAIN_APPLE_BUNDLE)
+        install(CODE "
+            FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+        " COMPONENT Runtime)
 
-#    # making links
-#    install(CODE "
-#    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-#    \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
-#    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-#    " COMPONENT Runtime)
+        # making links
+        install(CODE "
+        execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+        \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
+        WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+        " COMPONENT Runtime)
 
-#    install(CODE "
-#    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-#    \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
-#    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-#    " COMPONENT Runtime)
-
-
-    install(CODE "
-        FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-    " COMPONENT Runtime)
-
-    # making links
-    install(CODE "
-    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-    \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
-    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-    " COMPONENT Runtime)
-
-    install(CODE "
-    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-    \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
-    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-    " COMPONENT Runtime)
+        install(CODE "
+        execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+        \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
+        WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+        " COMPONENT Runtime)
+    endif()
 
 
 endif()

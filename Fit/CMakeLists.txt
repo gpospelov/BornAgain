@@ -107,7 +107,7 @@ if(WIN32 AND BORNAGAIN_PYTHON)
 endif()
 
 
-if(BORNAGAIN_APPLE_BUNDLE)
+if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../..")
     set_target_properties(${library_name}
         PROPERTIES

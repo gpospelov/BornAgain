@@ -102,6 +102,15 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 
+if(BORNAGAIN_APPLE_BUNDLE)
+    set(link_flags "-Wl,-rpath,@loader_path/../..")
+    set_target_properties(${library_name}
+        PROPERTIES
+        LINK_FLAGS ${link_flags}
+    )
+endif()
+
+
 # --- installation ---------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")

@@ -1,25 +1,13 @@
-
 set(bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
 set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
 set(thirdparty_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
 
-
-#set(GP_RPATH_DIR ${bundle}/Contents)
 set(BU_CHMOD_BUNDLE_ITEMS True)
 set(BU_COPY_FULL_FRAMEWORK_CONTENTS False)
 
-#set(GP_RPATH_DIR "@loader_path/../")
-#include (BundleUtilities)
 include (@CMAKE_SOURCE_DIR@/cmake/modules/BundleUtilitiesWithRPath.cmake)
 
 message("AAAAA>>> CMAKE_INSTALL_PREFIX:${CMAKE_INSTALL_PREFIX} bundle:${bundle}")
-
-file ( GLOB pyqt_libs ${bundle}/Contents/MacOS/PyQt4/*.so )
-file ( GLOB mantid_plugins ${bundle}/plugins/*.dylib )
-file ( GLOB_RECURSE qtplugins ${bundle}/Contents/Frameworks/plugins/*.dylib )
-file ( GLOB_RECURSE mtdqtplugins ${bundle}/plugins/*.dylib )
-file ( GLOB_RECURSE pvplugins ${bundle}/pvplugins/*.dylib )
-file ( GLOB vatesplugins ${bundle}/pvplugins/*.dylib ) # Find just the top level Vates plugins
 
 # gp_resolved_file_type_override
 #   Sets the type of the dependency. The options are: system, local, embedded, other
@@ -46,34 +34,12 @@ function(gp_resolved_file_type_override resolved_file type_var)
         message("XXX  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
-    elseif(file MATCHES "libManhattanStyle")
-        message("XXX  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
-
-#    elseif(file MATCHES "Python.framework")
-#            message("XXX  resolving file as _embedded : ${file}")
-#            set(${type_var} embedded PARENT_SCOPE)
-
     else()
         message("XXX  resolving file as _system   : ${file}")
         set(${type_var} system PARENT_SCOPE)
     endif()
 
 
-#  if(resolved_file MATCHES "^/usr(|/local)/lib")
-#    message(STATUS "resolving ${file} as system")
-#    set(${type_var} system PARENT_SCOPE)
-#  endif()
-#  # Copy Qt dependencies to bundle
-#  if(file MATCHES "libQt")
-#    message("resolving ${file} as embedded")
-#    set(${type_var} embedded PARENT_SCOPE)
-#  endif()
-#  # Don't copy ParaView into the bundle
-#  if(resolved_file MATCHES "^@ParaView_DIR@")
-#    message(STATUS "resolving ParaView dependency ${file} as system")
-#    set(${type_var} system PARENT_SCOPE)
-#  endif()
 endfunction()
 
 # gp_item_default_embedded_path_override item default_embedded_path_var
@@ -98,40 +64,14 @@ function(gp_item_default_embedded_path_override item default_embedded_path_var)
     elseif(item MATCHES "libBornAgain")
         set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
 
-    elseif(item MATCHES "libManhattanStyle")
-        set(path "@fixup_path@/lib/BornAgain-@BornAgain_VERSION_MAJOR@.@BornAgain_VERSION_MINOR@")
-
     elseif(item MATCHES "\\.(dylib|so)$")
         set(path "@fixup_path@/lib/ThirdParty")
 
     endif()
 
-#    if(item MATCHES "Python.framework")
-##        set( path "@rpath" )
-#        set(path "@fixup_path@")
-##        set( overridden 1 PARENT_SCOPE )
-#        message("YYY 1.1 path_override to ${path} item:${item}")
-#    else()
-#        set( path "@executable_path/../MacOS" )
-#        message("YYY  1.2 path_override to ${path} item:${item}")
-#    endif()
-
   set(${default_embedded_path_var} "${path}" PARENT_SCOPE)
 
 endfunction(gp_item_default_embedded_path_override)
-
-
-#set ( mantidpydir ${bundle}/Contents/MacOS/mantid )
-#set ( mantidpylibs ${mantidpydir}/kernel/_kernel.so
-#                   ${mantidpydir}/geometry/_geometry.so
-#                   ${mantidpydir}/api/_api.so )
-
-#set ( other_libs ${bundle}/Contents/MacOS/mantidqtpython.so
-#		 ${mantid_plugins}
-#                 ${pyqt_libs} ${qtplugins} ${pvplugins}
-#                 ${mantidpylibs} ${mtdqtplugins} )
-
-#set ( dirs "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@" "@CMAKE_LIBRARY_PATH@" /Library/Frameworks /opt/intel/lib )
 
 
 file(GLOB_RECURSE QTPLUGINS
@@ -175,20 +115,25 @@ function( change_bundle_dep old_dep new_dep sharedlib )
 endfunction()
 
 
+####################################################
+# Function to tweak Python dependencies
+####################################################
 function(fix_python_framework items_to_fix)
+    message(STATUS "Tweaking Python library dependencies")
     foreach(item ${items_to_fix})
-        message("XXXXXXXX -> fixing item ${item}")
+        message(STATUS "   -> fixing item ${item}")
         get_prerequisites(${item} prereqs 0 0 "" "")
         foreach(pr ${prereqs})
             if(pr MATCHES "Python.framework")
-                message("XXXXXXXX ${pr}")
-                change_bundle_dep( ${pr} "@rpath/lib/ThirdParty/libpython2.7.dylib" ${item})
+#            change_bundle_dep( ${pr} "@rpath/lib/ThirdParty/libpython2.7.dylib" ${item})
+            change_bundle_dep( ${pr} "@rpath/libpython2.7.dylib" ${item})
             endif()
         endforeach()
     endforeach()
 endfunction()
 
 
+# --- fixing dependencies from Python libraries ---------
 set(items_to_fix "${bundle}/Contents/MacOs/BornAgain")
 file (GLOB items ${bornagain_libs}/*.so)
 list(APPEND items_to_fix ${items})
@@ -199,5 +144,20 @@ message("AAA ${items_to_fix}")
 
 fix_python_framework("${items_to_fix}")
 
-message("Copying library @PYTHON_LIBRARIES@")
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/ThirdParty/libpython2.7.dylib")
+# copying python library
+#execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/ThirdParty/libpython2.7.dylib")
+FILE(MAKE_DIRECTORY "${bundle}/Contents/lib/LibPython")
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/LibPython/libpython2.7.dylib")
+
+
+# --- fixing bin directory with thisbornagain.sh links ---------
+FILE(MAKE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+
+execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+"../libexec/@destination_suffix@/frombin_setup_paths.sh" "thisbornagain.sh"
+WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+
+execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+"../libexec/@destination_suffix@/frombin_setup_paths.csh" "thisbornagain.csh"
+WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/@destination_bin@")
+

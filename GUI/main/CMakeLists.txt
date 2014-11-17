@@ -94,7 +94,9 @@ elseif(APPLE)
             MACOSX_BUNDLE_INFO_PLIST ${destination_runtime_configs}/Info.plist
     )
 
-    set(link_flags "-Wl,-rpath,@loader_path/../")
+#    set(link_flags "-Wl,-rpath,@loader_path/../")
+#    set(link_flags "-Wl,-rpath,@loader_path/../\;@loader_path/../lib/LibPython/")
+    set(link_flags "-Wl,-rpath,@loader_path/../ -Wl,-rpath,@loader_path/../lib/LibPython/")
     set_target_properties(${executable_name}
         PROPERTIES
         LINK_FLAGS ${link_flags}

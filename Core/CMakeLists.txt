@@ -166,22 +166,23 @@ else()
 #    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
 #    " COMPONENT Runtime)
 
-#    install(CODE "
-#        FILE(MAKE_DIRECTORY \"${destination_bin}\")
-#    " COMPONENT Runtime)
 
-#    # making links
-#    install(CODE "
-#    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-#    \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
-#    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-#    " COMPONENT Runtime)
+    install(CODE "
+        FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
 
-#    install(CODE "
-#    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-#    \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
-#    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-#    " COMPONENT Runtime)
+    # making links
+    install(CODE "
+    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+    \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
+    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
+
+    install(CODE "
+    execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
+    \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
+    WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
+    " COMPONENT Runtime)
 
 
 endif()

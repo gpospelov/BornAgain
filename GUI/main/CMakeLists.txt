@@ -105,7 +105,7 @@ endif()
 
 # --- system dependent installation options ---------
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(executable_destination BUNDLE DESTINATION .)
+    set(executable_destination BUNDLE DESTINATION "." RUNTIME DESTINATION "./")
 else()
     set(executable_destination DESTINATION ${destination_gui})
 endif()
@@ -114,7 +114,7 @@ endif()
 # --- common installation section ---------
 message("XXX ${executable_destination}")
 install (TARGETS ${executable_name} ${executable_destination} COMPONENT Applications)
-#install (TARGETS ${executable_name} ${executable_destination} COMPONENT Applications)
+#install (TARGETS ${executable_name} BUNDLE DESTINATION "." COMPONENT Applications)
 set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
 

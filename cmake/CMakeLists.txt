@@ -11,7 +11,7 @@ if(NOT WIN32 AND NOT BORNAGAIN_APPLE_BUNDLE)
 set(after_install_text "
 Installation done. Please read below.
 -------------------------------------------------------------------------------
-To be able to use BornAgain you have to add BornAgain installation directory, 
+To be able to use BornAgain you have to add BornAgain libraries installation directory,
 namely ${CMAKE_INSTALL_PREFIX}/${destination_lib}
 into your ${ld_library_variable} and PYTHONPATH.
 You can do it by running the command 'source ${CMAKE_INSTALL_PREFIX}/${destination_bin}/thisbornagain.sh'

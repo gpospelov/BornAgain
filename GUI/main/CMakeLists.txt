@@ -59,7 +59,7 @@ target_link_libraries(${executable_name}
     ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
-    ${PYTHON_LIBRARY}
+    ${PYTHON_LIBRARIES}
     ${Boost_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
@@ -94,21 +94,17 @@ elseif(APPLE)
             MACOSX_BUNDLE_INFO_PLIST ${destination_runtime_configs}/Info.plist
     )
 
-#install ( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
-#          DESTINATION ${INBUNDLE}/Contents/Resources/
-#)
-
-##set ( CPACK_DMG_BACKGROUND_IMAGE ${CMAKE_SOURCE_DIR}/Images/osx-bundle-background.png )
-##set ( CPACK_DMG_DS_STORE ${CMAKE_SOURCE_DIR}/Installers/MacInstaller/osx_DS_Store)
-#set ( MACOSX_BUNDLE_ICON_FILE BornAgain.icns )
-#SET_SOURCE_FILES_PROPERTIES(${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-
+    set(link_flags "-Wl,-rpath,@loader_path/../")
+    set_target_properties(${executable_name}
+        PROPERTIES
+        LINK_FLAGS ${link_flags}
+    )
 
 endif()
 
 # --- installation ---------
 #install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
-install (TARGETS ${executable_name} BUNDLE DESTINATION . RUNTIME DESTINATION ${destination_gui} COMPONENT Applications)
+install (TARGETS ${executable_name} BUNDLE DESTINATION . COMPONENT Applications)
 
 #  install (TARGETS ${executable_name}
 #    BUNDLE DESTINATION  . COMPONENT Applications
@@ -119,12 +115,25 @@ set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/G
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
 
 
+# --- system dependent installation ---------
 if(WIN32)
 
-elseif(APPLE)
+elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     install( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
           DESTINATION ${destination_bundle}/Contents/Resources/
     )
+
+    set(plugin_dest_dir ${destination_bundle}/Contents/PlugIns)
+    install(DIRECTORY "$ENV{QTDIR}/plugins/platforms" DESTINATION ${plugin_dest_dir} COMPONENT Runtime)
+
+    set(fixup_path @rpath)
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
+    install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
+
+#  get_filename_component(PYTHON_REAL_LIBRARY "${PYTHON_LIBRARY}" REALPATH)
+#  add_library(Python SHARED IMPORTED)
+#  set_property(TARGET Python PROPERTY IMPORTED_LOCATION ${PYTHON_LIBRARY})
+#    message("XXXXXX PYTHON_LIBRARY:${PYTHON_LIBRARY} PYTHON_REAL_LIBRARY:${PYTHON_REAL_LIBRARY}  PYTHON_LIBRARIES:${PYTHON_LIBRARIES}")
 
 
 endif()

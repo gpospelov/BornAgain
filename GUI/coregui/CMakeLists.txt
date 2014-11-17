@@ -129,7 +129,7 @@ target_link_libraries(${library_name}
     ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
-    ${PYTHON_LIBRARY} 
+    ${PYTHON_LIBRARIES}
     ${Boost_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}

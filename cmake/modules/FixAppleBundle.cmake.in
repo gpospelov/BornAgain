@@ -1,5 +1,8 @@
 
-set ( bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
+set(bundle ${CMAKE_INSTALL_PREFIX}/BornAgain.app )
+set(bornagain_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
+set(thirdparty_libs ${CMAKE_INSTALL_PREFIX}/@destination_lib@)
+
 
 #set(GP_RPATH_DIR ${bundle}/Contents)
 set(BU_CHMOD_BUNDLE_ITEMS True)
@@ -28,16 +31,12 @@ function(gp_resolved_file_type_override resolved_file type_var)
         set(${type_var} embedded PARENT_SCOPE)
 
     elseif(item MATCHES "PlugIns/platforms")
-        message("XXX  resolving file as _embedded : ${file}")
+        message("XXX3  resolving file as _embedded : ${file}")
         set(${type_var} embedded PARENT_SCOPE)
 
-    elseif(file MATCHES "Python.framework/Resources")
-        message("XXX  resolving file as _embedded : ${file}")
+    elseif(file MATCHES "Python.framework")
+        message("XXX  resolving file as system : ${file}")
         set(${type_var} system PARENT_SCOPE)
-
-    elseif(file MATCHES "Python.framework/Versions")
-        message("XXX  resolving file as _embedded : ${file}")
-        set(${type_var} embedded PARENT_SCOPE)
 
     elseif(file MATCHES "/opt")
         message("XXX  resolving file as _embedded : ${file}")
@@ -163,6 +162,7 @@ message("QQQQ QTPLUGINS ${QTPLUGINS} dirs ${dirs}")
 
 fixup_bundle ( "${bundle}" "${other_libs}" "${dirs}" ) # This will fix up the dependencies for the hard dependencies: MantidKernel etc
 
+
 ####################################################
 # Functions to change the dependency references
 ####################################################
@@ -174,3 +174,30 @@ function( change_bundle_dep old_dep new_dep sharedlib )
   execute_process(COMMAND install_name_tool -change ${old_dep} ${new_dep} ${sharedlib})
 endfunction()
 
+
+function(fix_python_framework items_to_fix)
+    foreach(item ${items_to_fix})
+        message("XXXXXXXX -> fixing item ${item}")
+        get_prerequisites(${item} prereqs 0 0 "" "")
+        foreach(pr ${prereqs})
+            if(pr MATCHES "Python.framework")
+                message("XXXXXXXX ${pr}")
+                change_bundle_dep( ${pr} "@rpath/lib/ThirdParty/libpython2.7.dylib" ${item})
+            endif()
+        endforeach()
+    endforeach()
+endfunction()
+
+
+set(items_to_fix "${bundle}/Contents/MacOs/BornAgain")
+file (GLOB items ${bornagain_libs}/*.so)
+list(APPEND items_to_fix ${items})
+file (GLOB items ${bundle}/Contents/lib/ThirdParty/*.dylib)
+list(APPEND items_to_fix ${items})
+
+message("AAA ${items_to_fix}")
+
+fix_python_framework("${items_to_fix}")
+
+message("Copying library @PYTHON_LIBRARIES@")
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy "@PYTHON_LIBRARIES@" "${bundle}/Contents/lib/ThirdParty/libpython2.7.dylib")

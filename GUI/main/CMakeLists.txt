@@ -39,7 +39,7 @@ if(WIN32)
         set(executable_options WIN32)
     endif()
 
-elseif(APPLE AND CREATE_APPLE_BUNDLE)
+elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(executable_options MACOSX_BUNDLE)
 endif()
 
@@ -103,20 +103,24 @@ elseif(APPLE)
 endif()
 
 
-# --- system dependent installation options ---------
+# --- installation section ---------
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(executable_destination BUNDLE DESTINATION "." RUNTIME DESTINATION "./")
+    set(executable_destination BUNDLE DESTINATION  ".")
 else()
     set(executable_destination DESTINATION ${destination_gui})
 endif()
-
-
-# --- common installation section ---------
-message("XXX ${executable_destination}")
 install (TARGETS ${executable_name} ${executable_destination} COMPONENT Applications)
-#install (TARGETS ${executable_name} BUNDLE DESTINATION "." COMPONENT Applications)
 set(image_files ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.ico ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_48x48.png  ${CMAKE_SOURCE_DIR}/GUI/coregui/images/BornAgain_64x64.png)
 install (FILES ${image_files} DESTINATION ${destination_images} COMPONENT Applications)
+
+#if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
+#    install (TARGETS ${executable_name} BUNDLE DESTINATION . COMPONENT Applications)
+#else()
+#    install (TARGETS ${executable_name} DESTINATION ${destination_gui} COMPONENT Applications)
+#endif()
+
+
+
 
 
 # --- system dependent installation ---------
@@ -133,6 +137,7 @@ if(UNIX)
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
     else()
+        # creating link to BornAgain gui in bin directory
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
         \"../libexec/${destination_suffix}/BornAgain\" \"BornAgain\"

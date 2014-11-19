@@ -1,7 +1,5 @@
 # --- Collection of scripts for BornAgain CMake infrastructure
 
-#cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-
 
 
 # --- end of the version setting ---

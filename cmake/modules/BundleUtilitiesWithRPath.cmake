@@ -1,207 +1,154 @@
-#.rst:
-# BundleUtilities
-# ---------------
-#
-# Functions to help assemble a standalone bundle application.
-#
+# - Functions to help assemble a standalone bundle application.
 # A collection of CMake utility functions useful for dealing with .app
 # bundles on the Mac and bundle-like directories on any OS.
 #
 # The following functions are provided by this module:
-#
-# ::
-#
-#    fixup_bundle
-#    copy_and_fixup_bundle
-#    verify_app
-#    get_bundle_main_executable
-#    get_dotapp_dir
-#    get_bundle_and_executable
-#    get_bundle_all_executables
-#    get_item_key
-#    clear_bundle_keys
-#    set_bundle_key_values
-#    get_bundle_keys
-#    copy_resolved_item_into_bundle
-#    copy_resolved_framework_into_bundle
-#    fixup_bundle_item
-#    verify_bundle_prerequisites
-#    verify_bundle_symlinks
-#
+#   fixup_bundle
+#   copy_and_fixup_bundle
+#   verify_app
+#   get_bundle_main_executable
+#   get_dotapp_dir
+#   get_bundle_and_executable
+#   get_bundle_all_executables
+#   get_item_key
+#   clear_bundle_keys
+#   set_bundle_key_values
+#   get_bundle_keys
+#   copy_resolved_item_into_bundle
+#   copy_resolved_framework_into_bundle
+#   is_resolved_item_embedded
+#   fixup_bundle_item
+#   verify_bundle_prerequisites
+#   verify_bundle_symlinks
 # Requires CMake 2.6 or greater because it uses function, break and
-# PARENT_SCOPE.  Also depends on GetPrerequisites.cmake.
+# PARENT_SCOPE. Also depends on GetPrerequisites.cmake.
 #
-# ::
-#
-#   FIXUP_BUNDLE(<app> <libs> <dirs>)
-#
+#  FIXUP_BUNDLE(<app> <libs> <dirs>)
 # Fix up a bundle in-place and make it standalone, such that it can be
-# drag-n-drop copied to another machine and run on that machine as long
-# as all of the system libraries are compatible.
+# drag-n-drop copied to another machine and run on that machine as long as all
+# of the system libraries are compatible.
 #
-# If you pass plugins to fixup_bundle as the libs parameter, you should
-# install them or copy them into the bundle before calling fixup_bundle.
-# The "libs" parameter is a list of libraries that must be fixed up, but
-# that cannot be determined by otool output analysis.  (i.e., plugins)
+# If you pass plugins to fixup_bundle as the libs parameter, you should install
+# them or copy them into the bundle before calling fixup_bundle. The "libs"
+# parameter is a list of libraries that must be fixed up, but that cannot be
+# determined by otool output analysis. (i.e., plugins)
 #
-# Gather all the keys for all the executables and libraries in a bundle,
-# and then, for each key, copy each prerequisite into the bundle.  Then
-# fix each one up according to its own list of prerequisites.
+# Gather all the keys for all the executables and libraries in a bundle, and
+# then, for each key, copy each prerequisite into the bundle. Then fix each one
+# up according to its own list of prerequisites.
 #
-# Then clear all the keys and call verify_app on the final bundle to
-# ensure that it is truly standalone.
+# Then clear all the keys and call verify_app on the final bundle to ensure
+# that it is truly standalone.
 #
-# ::
+#  COPY_AND_FIXUP_BUNDLE(<src> <dst> <libs> <dirs>)
+# Makes a copy of the bundle <src> at location <dst> and then fixes up the
+# new copied bundle in-place at <dst>...
 #
-#   COPY_AND_FIXUP_BUNDLE(<src> <dst> <libs> <dirs>)
+#  VERIFY_APP(<app>)
+# Verifies that an application <app> appears valid based on running analysis
+# tools on it. Calls "message(FATAL_ERROR" if the application is not verified.
 #
-# Makes a copy of the bundle <src> at location <dst> and then fixes up
-# the new copied bundle in-place at <dst>...
+#  GET_BUNDLE_MAIN_EXECUTABLE(<bundle> <result_var>)
+# The result will be the full path name of the bundle's main executable file
+# or an "error:" prefixed string if it could not be determined.
 #
-# ::
-#
-#   VERIFY_APP(<app>)
-#
-# Verifies that an application <app> appears valid based on running
-# analysis tools on it.  Calls "message(FATAL_ERROR" if the application
-# is not verified.
-#
-# ::
-#
-#   GET_BUNDLE_MAIN_EXECUTABLE(<bundle> <result_var>)
-#
-# The result will be the full path name of the bundle's main executable
-# file or an "error:" prefixed string if it could not be determined.
-#
-# ::
-#
-#   GET_DOTAPP_DIR(<exe> <dotapp_dir_var>)
-#
-# Returns the nearest parent dir whose name ends with ".app" given the
-# full path to an executable.  If there is no such parent dir, then
-# simply return the dir containing the executable.
+#  GET_DOTAPP_DIR(<exe> <dotapp_dir_var>)
+# Returns the nearest parent dir whose name ends with ".app" given the full
+# path to an executable. If there is no such parent dir, then simply return
+# the dir containing the executable.
 #
 # The returned directory may or may not exist.
 #
-# ::
-#
-#   GET_BUNDLE_AND_EXECUTABLE(<app> <bundle_var> <executable_var> <valid_var>)
-#
+#  GET_BUNDLE_AND_EXECUTABLE(<app> <bundle_var> <executable_var> <valid_var>)
 # Takes either a ".app" directory name or the name of an executable
 # nested inside a ".app" directory and returns the path to the ".app"
 # directory in <bundle_var> and the path to its main executable in
 # <executable_var>
 #
-# ::
+#  GET_BUNDLE_ALL_EXECUTABLES(<bundle> <exes_var>)
+# Scans the given bundle recursively for all executable files and accumulates
+# them into a variable.
 #
-#   GET_BUNDLE_ALL_EXECUTABLES(<bundle> <exes_var>)
+#  GET_ITEM_KEY(<item> <key_var>)
+# Given a file (item) name, generate a key that should be unique considering
+# the set of libraries that need copying or fixing up to make a bundle
+# standalone. This is essentially the file name including extension with "."
+# replaced by "_"
 #
-# Scans the given bundle recursively for all executable files and
-# accumulates them into a variable.
+# This key is used as a prefix for CMake variables so that we can associate a
+# set of variables with a given item based on its key.
 #
-# ::
+#  CLEAR_BUNDLE_KEYS(<keys_var>)
+# Loop over the list of keys, clearing all the variables associated with each
+# key. After the loop, clear the list of keys itself.
 #
-#   GET_ITEM_KEY(<item> <key_var>)
+# Caller of get_bundle_keys should call clear_bundle_keys when done with list
+# of keys.
 #
-# Given a file (item) name, generate a key that should be unique
-# considering the set of libraries that need copying or fixing up to
-# make a bundle standalone.  This is essentially the file name including
-# extension with "." replaced by "_"
-#
-# This key is used as a prefix for CMake variables so that we can
-# associate a set of variables with a given item based on its key.
-#
-# ::
-#
-#   CLEAR_BUNDLE_KEYS(<keys_var>)
-#
-# Loop over the list of keys, clearing all the variables associated with
-# each key.  After the loop, clear the list of keys itself.
-#
-# Caller of get_bundle_keys should call clear_bundle_keys when done with
-# list of keys.
-#
-# ::
-#
-#   SET_BUNDLE_KEY_VALUES(<keys_var> <context> <item> <exepath> <dirs>
-#                         <copyflag>)
-#
-# Add a key to the list (if necessary) for the given item.  If added,
+#  SET_BUNDLE_KEY_VALUES(<keys_var> <context> <item> <exepath> <dirs>
+#                        <copyflag>)
+# Add a key to the list (if necessary) for the given item. If added,
 # also set all the variables associated with that key.
 #
-# ::
+#  GET_BUNDLE_KEYS(<app> <libs> <dirs> <keys_var>)
+# Loop over all the executable and library files within the bundle (and given
+# as extra <libs>) and accumulate a list of keys representing them. Set
+# values associated with each key such that we can loop over all of them and
+# copy prerequisite libs into the bundle and then do appropriate
+# install_name_tool fixups.
 #
-#   GET_BUNDLE_KEYS(<app> <libs> <dirs> <keys_var>)
+#  COPY_RESOLVED_ITEM_INTO_BUNDLE(<resolved_item> <resolved_embedded_item>)
+# Copy a resolved item into the bundle if necessary. Copy is not necessary if
+# the resolved_item is "the same as" the resolved_embedded_item.
 #
-# Loop over all the executable and library files within the bundle (and
-# given as extra <libs>) and accumulate a list of keys representing
-# them.  Set values associated with each key such that we can loop over
-# all of them and copy prerequisite libs into the bundle and then do
-# appropriate install_name_tool fixups.
+#  COPY_RESOLVED_FRAMEWORK_INTO_BUNDLE(<resolved_item> <resolved_embedded_item>)
+# Copy a resolved framework into the bundle if necessary. Copy is not necessary
+# if the resolved_item is "the same as" the resolved_embedded_item.
 #
-# ::
+# By default, BU_COPY_FULL_FRAMEWORK_CONTENTS is not set. If you want full
+# frameworks embedded in your bundles, set BU_COPY_FULL_FRAMEWORK_CONTENTS to
+# ON before calling fixup_bundle. By default,
+# COPY_RESOLVED_FRAMEWORK_INTO_BUNDLE copies the framework dylib itself plus
+# the framework Resources directory.
 #
-#   COPY_RESOLVED_ITEM_INTO_BUNDLE(<resolved_item> <resolved_embedded_item>)
+#  IS_RESOLVED_ITEM_EMBEDDED(<resolved_item> <exepath> <verbose> <is_embedded_var>)
+# Set variable <is_embedded_var> to True if the resolved item is
+# embedded into the bundle. The function does NOT check for the existence of the
+# item, instead if checks if the provided path would correspond to an embeddable
+# item. If <verbose> is True, extra information will be displayed in case the item
+# is not embedded.
 #
-# Copy a resolved item into the bundle if necessary.  Copy is not
-# necessary if the resolved_item is "the same as" the
-# resolved_embedded_item.
+#  FIXUP_BUNDLE_ITEM(<resolved_embedded_item> <exepath> <dirs>)
+# Get the direct/non-system prerequisites of the resolved embedded item. For
+# each prerequisite, change the way it is referenced to the value of the
+# _EMBEDDED_ITEM keyed variable for that prerequisite. (Most likely changing to
+# an "@executable_path" style reference.)
 #
-# ::
+# This function requires that the resolved_embedded_item be "inside" the bundle
+# already. In other words, if you pass plugins to fixup_bundle as the libs
+# parameter, you should install them or copy them into the bundle before
+# calling fixup_bundle. The "libs" parameter is a list of libraries that must
+# be fixed up, but that cannot be determined by otool output analysis. (i.e.,
+# plugins)
 #
-#   COPY_RESOLVED_FRAMEWORK_INTO_BUNDLE(<resolved_item> <resolved_embedded_item>)
-#
-# Copy a resolved framework into the bundle if necessary.  Copy is not
-# necessary if the resolved_item is "the same as" the
-# resolved_embedded_item.
-#
-# By default, BU_COPY_FULL_FRAMEWORK_CONTENTS is not set.  If you want
-# full frameworks embedded in your bundles, set
-# BU_COPY_FULL_FRAMEWORK_CONTENTS to ON before calling fixup_bundle.  By
-# default, COPY_RESOLVED_FRAMEWORK_INTO_BUNDLE copies the framework
-# dylib itself plus the framework Resources directory.
-#
-# ::
-#
-#   FIXUP_BUNDLE_ITEM(<resolved_embedded_item> <exepath> <dirs>)
-#
-# Get the direct/non-system prerequisites of the resolved embedded item.
-# For each prerequisite, change the way it is referenced to the value of
-# the _EMBEDDED_ITEM keyed variable for that prerequisite.  (Most likely
-# changing to an "@executable_path" style reference.)
-#
-# This function requires that the resolved_embedded_item be "inside" the
-# bundle already.  In other words, if you pass plugins to fixup_bundle
-# as the libs parameter, you should install them or copy them into the
-# bundle before calling fixup_bundle.  The "libs" parameter is a list of
-# libraries that must be fixed up, but that cannot be determined by
-# otool output analysis.  (i.e., plugins)
-#
-# Also, change the id of the item being fixed up to its own
-# _EMBEDDED_ITEM value.
+# Also, change the id of the item being fixed up to its own _EMBEDDED_ITEM
+# value.
 #
 # Accumulate changes in a local variable and make *one* call to
-# install_name_tool at the end of the function with all the changes at
-# once.
+# install_name_tool at the end of the function with all the changes at once.
 #
 # If the BU_CHMOD_BUNDLE_ITEMS variable is set then bundle items will be
 # marked writable before install_name_tool tries to change them.
 #
-# ::
+#  VERIFY_BUNDLE_PREREQUISITES(<bundle> <result_var> <info_var>)
+# Verifies that the sum of all prerequisites of all files inside the bundle
+# are contained within the bundle or are "system" libraries, presumed to exist
+# everywhere.
 #
-#   VERIFY_BUNDLE_PREREQUISITES(<bundle> <result_var> <info_var>)
-#
-# Verifies that the sum of all prerequisites of all files inside the
-# bundle are contained within the bundle or are "system" libraries,
-# presumed to exist everywhere.
-#
-# ::
-#
-#   VERIFY_BUNDLE_SYMLINKS(<bundle> <result_var> <info_var>)
-#
-# Verifies that any symlinks found in the bundle point to other files
-# that are already also in the bundle...  Anything that points to an
-# external file causes this function to fail the verification.
+#  VERIFY_BUNDLE_SYMLINKS(<bundle> <result_var> <info_var>)
+# Verifies that any symlinks found in the bundle point to other files that are
+# already also in the bundle... Anything that points to an external file causes
+# this function to fail the verification.
 
 #=============================================================================
 # Copyright 2008-2009 Kitware, Inc.
@@ -220,7 +167,7 @@
 # (and possibly others) found in:
 #
 get_filename_component(BundleUtilities_cmake_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
-include("${BundleUtilities_cmake_dir}/GetPrerequisites.cmake")
+include("${BundleUtilities_cmake_dir}/GetPrerequisitesWithRPath.cmake")
 
 
 function(get_bundle_main_executable bundle result_var)
@@ -436,22 +383,52 @@ function(set_bundle_key_values keys_var context item exepath dirs copyflag)
       # embedded path:
       #
       set(embedded_item "${default_embedded_path}/${item_name}")
+
+      if(APPLE)
+        # For executables inside the bundle, extract the expected path.
+        # This remove the hack introduced in commit 6f8bdd27 consisting in
+        # reseting the value of 'resolved_embedded_item' with 'resolved_item'.
+        get_dotapp_dir("${exepath}" exe_dotapp_dir)
+        if(NOT DEFINED gp_bundle_executables)
+          get_bundle_all_executables("${exe_dotapp_dir}" gp_bundle_executables)
+        endif()
+        foreach(exe ${gp_bundle_executables})
+          get_item_key("${exe}" exe_key)
+          list(APPEND exe_keys ${exe_key})
+        endforeach()
+        list(FIND exe_keys ${key} is_executable)
+        if(NOT is_executable EQUAL "-1")
+          get_filename_component(resolved_item_path ${resolved_item} PATH)
+          file(RELATIVE_PATH exe_relative_path_from_dir ${exe_dotapp_dir} ${resolved_item_path})
+          # For example, if input variables are:
+          #   resolved_item:       /path/to/MyApp.app/Contents/bin/myapp
+          #   exe_dotapp_dir:      /path/to/MyApp.app
+          # Computed variables will be:
+          #   resolved_item_path:         /path/to/MyApp.app/Contents/bin
+          #   exe_relative_path_from_dir: Contents/bin
+          set(embedded_item "@executable_path/../../${exe_relative_path_from_dir}/${item_name}")
+          set(show_status 0)
+          if(show_status)
+            message(STATUS "resolved_item='${resolved_item}'")
+            message(STATUS "exe_dotapp_dir='${exe_dotapp_dir}'")
+            message(STATUS "exe_relative_path_from_dir='${exe_relative_path_from_dir}'")
+            message(STATUS "item_name='${item_name}'")
+            message(STATUS "embedded_item='${embedded_item}'")
+            message(STATUS "")
+          endif()
+        endif()
+      endif()
     endif()
 
-    # Replace @executable_path and resolve ".." references:
-    #
-    string(REPLACE "@executable_path" "${exepath}" resolved_embedded_item "${embedded_item}")
+    gp_resolve_embedded_item("${context}" "${embedded_item}" "${exepath}" resolved_embedded_item)
     get_filename_component(resolved_embedded_item "${resolved_embedded_item}" ABSOLUTE)
 
-    # *But* -- if we are not copying, then force resolved_embedded_item to be
-    # the same as resolved_item. In the case of multiple executables in the
-    # original bundle, using the default_embedded_path results in looking for
-    # the resolved executable next to the main bundle executable. This is here
-    # so that exes in the other sibling directories (like "bin") get fixed up
-    # properly...
-    #
-    if(NOT copyflag)
-      set(resolved_embedded_item "${resolved_item}")
+    # Do not copy already embedded item
+    set(verbose 0)
+    is_resolved_item_embedded("${resolved_embedded_item}" "${exepath}" "${verbose}" is_embedded)
+    if(EXISTS "${resolved_embedded_item}" AND is_embedded)
+      set(copyflag 0)
+      set(resolved_item "${resolved_embedded_item}")
     endif()
 
     set(${keys_var} ${${keys_var}} PARENT_SCOPE)
@@ -479,7 +456,7 @@ function(get_bundle_keys app libs dirs keys_var)
 
     # But do fixups on all executables in the bundle:
     #
-    get_bundle_all_executables("${bundle}" exes)
+    get_bundle_all_executables("${bundle}" gp_bundle_executables)
 
     # For each extra lib, accumulate a key as well and then also accumulate
     # any of its prerequisites. (Extra libs are typically dynamically loaded
@@ -500,7 +477,7 @@ function(get_bundle_keys app libs dirs keys_var)
     # The list of keys should be complete when all prerequisites of all
     # binaries in the bundle have been analyzed.
     #
-    foreach(exe ${exes})
+    foreach(exe ${gp_bundle_executables})
       # Add the exe itself to the keys:
       #
       set_bundle_key_values(${keys_var} "${exe}" "${exe}" "${exepath}" "${dirs}" 0)
@@ -593,6 +570,29 @@ function(copy_resolved_framework_into_bundle resolved_item resolved_embedded_ite
 
 endfunction()
 
+function(is_resolved_item_embedded resolved_item exepath verbose is_embedded_var)
+  get_dotapp_dir("${exepath}" exe_dotapp_dir)
+  string(LENGTH "${exe_dotapp_dir}/" exe_dotapp_dir_length)
+  string(LENGTH "${resolved_item}" resolved_item_length)
+  set(path_too_short 0)
+  set(is_embedded 0)
+  if(${resolved_item_length} LESS ${exe_dotapp_dir_length})
+    set(path_too_short 1)
+  endif()
+  if(NOT path_too_short)
+    string(SUBSTRING "${resolved_item}" 0 ${exe_dotapp_dir_length} item_substring)
+    if("${exe_dotapp_dir}/" STREQUAL "${item_substring}")
+      set(is_embedded 1)
+    endif()
+  endif()
+  if(verbose AND NOT is_embedded)
+    message("  exe_dotapp_dir/='${exe_dotapp_dir}/'")
+    message("  item_substring='${item_substring}'")
+    message("  resolved_item='${resolved_item}'")
+    message("")
+  endif()
+  set(${is_embedded_var} ${is_embedded} PARENT_SCOPE)
+endfunction()
 
 function(fixup_bundle_item resolved_embedded_item exepath dirs)
   # This item's key is "ikey":
@@ -604,25 +604,9 @@ function(fixup_bundle_item resolved_embedded_item exepath dirs)
   # tree, or in other varied locations around the file system, with our call to
   # install_name_tool. Make sure that doesn't happen here:
   #
-  get_dotapp_dir("${exepath}" exe_dotapp_dir)
-  string(LENGTH "${exe_dotapp_dir}/" exe_dotapp_dir_length)
-  string(LENGTH "${resolved_embedded_item}" resolved_embedded_item_length)
-  set(path_too_short 0)
-  set(is_embedded 0)
-  if(${resolved_embedded_item_length} LESS ${exe_dotapp_dir_length})
-    set(path_too_short 1)
-  endif()
-  if(NOT path_too_short)
-    string(SUBSTRING "${resolved_embedded_item}" 0 ${exe_dotapp_dir_length} item_substring)
-    if("${exe_dotapp_dir}/" STREQUAL "${item_substring}")
-      set(is_embedded 1)
-    endif()
-  endif()
+  set(verbose 1)
+  is_resolved_item_embedded("${resolved_embedded_item}" "${exepath}" "${verbose}" is_embedded)
   if(NOT is_embedded)
-    message("  exe_dotapp_dir/='${exe_dotapp_dir}/'")
-    message("  item_substring='${item_substring}'")
-    message("  resolved_embedded_item='${resolved_embedded_item}'")
-    message("")
     message("Install or copy the item into the bundle before calling fixup_bundle.")
     message("Or maybe there's a typo or incorrect path in one of the args to fixup_bundle?")
     message("")
@@ -658,48 +642,6 @@ function(fixup_bundle_item resolved_embedded_item exepath dirs)
   )
 endfunction()
 
-function(fixup_python_framework exepath dirs)
-  if(APPLE)
-        message(STATUS "Begin fixup python framework")
-        file(GLOB_RECURSE file_list "${exepath}/../Frameworks/Python.framework/*Python")
-        set(depends "")
-        set(file_need_fix "")
-        foreach(file ${file_list})
-               set(prereqs "")
-               get_prerequisites("${file}" prereqs 1 1 "${exepath}" "${dirs}")
-               if(prereqs)
-                        gp_append_unique(file_need_fix  "${file}")
-                        foreach(pr ${prereqs})
-                                gp_append_unique(depends  "${pr}")
-                        endforeach(pr)
-               endif(prereqs)
-        endforeach(file)
-        set(embed_deps "")
-        foreach(dep ${depends})
-                GET_FILENAME_COMPONENT(dep_name "${dep}" NAME)
-                if(NOT EXISTS "${exepath}/../MacOS/${dep_name}")        
-                        execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${dep}" "${exepath}/../MacOS")
-                        gp_append_unique(embed_deps  "${exepath}/../MacOS/${dep_name}")
-                endif(NOT EXISTS "${exepath}/../MacOS/${dep_name}")
-        endforeach(dep)
-        set(file_list ${file_need_fix} ${embed_deps})
-        foreach(f ${file_list})
-                GET_FILENAME_COMPONENT(fname "${f}" NAME)
-                set(prereqs "")
-                get_prerequisites("${f}" prereqs 1 0 "${exepath}" "${dirs}")
-                set(changes "")
-                foreach(pr ${prereqs})
-                        GET_FILENAME_COMPONENT(pfname "${pr}" NAME)
-                        set(changes ${changes} "-change" "${pr}" "@executable_path/../MacOS/${pfname}")
-                endforeach(pr)
-                execute_process(COMMAND chmod u+w "${f}")
-                execute_process(COMMAND install_name_tool
-                ${changes} -id "@executable_path/../MacOS/${fname}" "${f}")
-        endforeach(f)
-        message(STATUS "end fixup python framework")
-  endif(APPLE)
-endfunction(fixup_python_framework)
-
 
 function(fixup_bundle app libs dirs)
   message(STATUS "fixup_bundle")
@@ -708,8 +650,16 @@ function(fixup_bundle app libs dirs)
   message(STATUS "  dirs='${dirs}'")
 
   get_bundle_and_executable("${app}" bundle executable valid)
+  message(STATUS "  bundle='${bundle}'")
+  message(STATUS "  executable='${executable}'")
   if(valid)
     get_filename_component(exepath "${executable}" PATH)
+
+    # TODO: Extract list of rpath dirs automatically. On MacOSX, the following could be
+    #       done: otool -l path/to/executable | grep -A 3 LC_RPATH | grep path
+    #       See http://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html#comment-87ea054b4839586412727dcfc94c79d2
+    set(GP_RPATH_DIR ${bundle}/Contents)
+    message(STATUS "  GP_RPATH_DIR='${GP_RPATH_DIR}'")
 
     message(STATUS "fixup_bundle: preparing...")
     get_bundle_keys("${app}" "${libs}" "${dirs}" keys)
@@ -764,8 +714,6 @@ function(fixup_bundle app libs dirs)
 
     message(STATUS "fixup_bundle: cleaning up...")
     clear_bundle_keys(keys)
-
-    fixup_python_framework("${exepath}" "${dirs}")
 
     message(STATUS "fixup_bundle: verifying...")
     verify_app("${app}")

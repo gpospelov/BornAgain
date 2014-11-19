@@ -175,6 +175,11 @@ else()
         \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
+    else()
+
+    install(FILES ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain_python_install.py
+            DESTINATION ${destination_libexec})
+
     endif()
 
 

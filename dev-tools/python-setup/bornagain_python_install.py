@@ -132,7 +132,8 @@ setup(name='bornagain',
     license='GPL',
     packages=['bornagain'],
     data_files = datafiles,
-    zip_safe=False)    
+    zip_safe=False,
+    )
 '''.format(BORNAGAIN_VERSION)
     with open(os.path.join(destination_dir, "setup.py"), "w") as fout:
         fout.write(text)

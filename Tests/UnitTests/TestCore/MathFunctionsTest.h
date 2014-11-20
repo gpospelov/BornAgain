@@ -11,6 +11,8 @@ protected:
     virtual ~MathFunctionsTest(){}
 
     Eigen::Matrix2cd matrix_2cd;
+public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 MathFunctionsTest::MathFunctionsTest(){
@@ -41,7 +43,7 @@ TEST_F(MathFunctionsTest, Abs)
 
 TEST_F(MathFunctionsTest, ProductByElement)
 {
-    Eigen::Matrix2cd matrix_2cd2;// = Eigen::Matrix2cd::Identity();
+    Eigen::Matrix2cd matrix_2cd2;
     matrix_2cd2(0,0) = complex_t(2.0, 1.0);
     matrix_2cd2(0,1) = complex_t(3.0, 1.0);
     matrix_2cd2(1,0) = complex_t(4.0, 1.0);

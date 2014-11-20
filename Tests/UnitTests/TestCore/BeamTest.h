@@ -48,7 +48,6 @@ TEST_F(BeamTest, BeamInitialState)
 
 TEST_F(BeamTest, BeamAssignment)
 {
-
     Eigen::Matrix2cd polarization;
     polarization.setZero();
     polarization(0,0) = 0.6;
@@ -71,15 +70,12 @@ TEST_F(BeamTest, BeamAssignment)
     EXPECT_EQ(complex_t(0.4,0.0), assignedBeam.getPolarization()(1,1));
     EXPECT_TRUE(assignedBeam.checkPolarization(assignedBeam.getPolarization()));
 
-
     assignedBeam.SetSpinUpFraction(0.3);
     EXPECT_EQ(complex_t(0.3,0.0), assignedBeam.getPolarization()(0,0));
     EXPECT_EQ(complex_t(0.7,0.0), assignedBeam.getPolarization()(1,1));
 
     delete originalBeam;
 }
-
-
 
 
 #endif // BEAMTEST_H

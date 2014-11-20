@@ -22,6 +22,8 @@
 #include "ScalarRTCoefficients.h"
 #include "EigenCore.h"
 
+#include <Eigen/StdVector>
+
 
 //! @class SpecularMatrix
 //! @ingroup algorithms_internal
@@ -53,7 +55,8 @@ public:
    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
-   std::vector<Eigen::Matrix2cd> m_roughness_pmatrices;
+   std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
+       m_roughness_pmatrices;
 
    void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
            MultiLayerCoeff_t& coeff) const;

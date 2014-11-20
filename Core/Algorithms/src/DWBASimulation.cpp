@@ -65,7 +65,7 @@ void DWBASimulation::init(const Simulation& simulation)
         if (simulation.getOutputData()->getMask()) {
             mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
         }
-		mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
+        mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     }
 
     // initialising call backs

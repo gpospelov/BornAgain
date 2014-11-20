@@ -27,11 +27,9 @@
 class BA_CORE_API_ Beam : public IParameterized
 {
 public:
-//#ifndef GCCXML_SKIP_THIS
-//    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-//#endif
-//    // see http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
-
+#ifndef GCCXML_SKIP_THIS
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+#endif
     Beam();
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);

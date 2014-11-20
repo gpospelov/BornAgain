@@ -28,6 +28,7 @@
 class BA_CORE_API_ ScalarRTCoefficients : public ILayerRTCoefficients
 {
 public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     ScalarRTCoefficients();
     virtual ~ScalarRTCoefficients() {}
 

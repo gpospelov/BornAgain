@@ -20,8 +20,7 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticGaussian.h"
+#include "Distributions.h"
 #include "ParticleBuilder.h"
 
 
@@ -144,11 +143,11 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     FormFactorCylinder p_ff_cylinder( m_radius, m_height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
-    int nbins(100), nfwhm(2);
-    StochasticDoubleGaussian double_gaussian(m_radius, sigma);
-    StochasticSampledParameter par(double_gaussian, nbins, nfwhm);
+    int n_samples(100), nfwhm(2);
+    DistributionGaussian gauss(m_radius, sigma);
     ParticleBuilder builder;
-    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
+    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius",
+                         gauss, n_samples, nfwhm);
     builder.plantParticles(particle_layout);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

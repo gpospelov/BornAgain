@@ -17,7 +17,7 @@
 #define PARTICLEBUILDER_H
 
 #include "Particle.h"
-#include "IStochasticParameter.h"
+#include "Distributions.h"
 #include "ParticleLayout.h"
 
 //! @class ParticleBuilder
@@ -35,16 +35,21 @@ public:
     //! @param name       parameter name in the parameter pool of given prototype
     //! @param parameter  variation type
     //! @param scale      global scale factor for probabilities
-    void setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale=1.0);
+    void setPrototype(const Particle& particle, std::string name,
+                      const IDistribution1D& param, size_t nbr_samples,
+                      double sigma_factor=0.0, double scale=1.0);
 
     //! plant particles in given decoration
-    void plantParticles(ParticleLayout& decor);
+    void plantParticles(ParticleLayout& layout);
 
 private:
-    Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it
-    std::string m_parameter_name; //!< name of parameter to variate
-    StochasticParameter<double > *m_parameter;
-    double m_scale; //!< global scale factor for probabilities
+    //! prototype of the particle, all particles will be cloned from it
+    Particle *mp_prototype;
+    std::string m_parameter_name;  //!< name of parameter to vary
+    IDistribution1D *mp_distribution;  //!< distribution for the parameter
+    size_t m_nbr_samples;  //!< number of particles to be created
+    double m_sigma_factor;  //!< range of parameter in FWHM
+    double m_scale;  //!< global scale factor for probabilities
 };
 
 #endif // PARTICLEBUILDER_H

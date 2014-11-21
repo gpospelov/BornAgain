@@ -35,8 +35,6 @@
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
 
@@ -206,9 +204,9 @@ void TestIsGISAXS5::run_isgisaxs_fit()
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
         if(i_set==0) {
-			leg1->AddEntry(hreal,"BornAgain data","lp");
-			leg1->AddEntry(hsimul,"BornAgain simul","lp");
-		}
+            leg1->AddEntry(hreal,"BornAgain data","lp");
+            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        }
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -292,8 +290,7 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     int nbins=20;
     double sigma = m_particle_radius*m_dispersion_radius;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg(m_particle_radius, sigma);
-    StochasticSampledParameter stochastic_parameter(sg, nbins, nfwhm);
+    DistributionGaussian gauss(m_particle_radius, sigma);
 
     ParticleLayout particle_layout;
     InterferenceFunction1DParaCrystal *p_interference_function =
@@ -305,7 +302,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
 
     // building nano particles
     ParticleBuilder builder;
-    builder.setPrototype(cylinder,"/Particle/FormFactorCylinder/radius", stochastic_parameter);
+    builder.setPrototype(cylinder,"/Particle/FormFactorCylinder/radius", gauss,
+                         nbins, nfwhm);
     builder.plantParticles(particle_layout);
 
     // making layer holding all whose nano particles

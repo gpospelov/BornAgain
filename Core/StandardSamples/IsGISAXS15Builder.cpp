@@ -20,8 +20,6 @@
 #include "Units.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
 #include "ParticleBuilder.h"
 
 
@@ -49,11 +47,10 @@ ISample *IsGISAXS15Builder::buildSample() const
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
     Particle particle_prototype(particle_material, ff_cylinder);
 
-    StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
-    StochasticSampledParameter stochastic_radius(sg,30, 2);
+    DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
     ParticleBuilder particle_builder;
     particle_builder.setPrototype(particle_prototype,
-            "/Particle/FormFactorCylinder/radius", stochastic_radius);
+            "/Particle/FormFactorCylinder/radius", gauss, 30, 2.0);
     particle_builder.plantParticles(particle_layout);
 
     // Set height of each particle to its radius (H/R fixed)

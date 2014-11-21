@@ -11,6 +11,7 @@ if(${SYSCTL_OUTPUT} MATCHES x86_64)
 else()
     message(STATUS "Found a 32bit system")
     set(BIT_ENVIRONMENT "-m32")
+    add_definitions(-DEIGEN_DONT_ALIGN_STATICALLY=1)
 endif()
 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")

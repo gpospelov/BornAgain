@@ -26,7 +26,6 @@
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {
 public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     FormFactorDWBAPol(IFormFactor *p_form_factor);
     virtual ~FormFactorDWBAPol();
 

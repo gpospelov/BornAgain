@@ -28,7 +28,6 @@
 class BA_CORE_API_ MatrixRTCoefficients : public ILayerRTCoefficients
 {
 public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     MatrixRTCoefficients() : m_kt(0.0) {}
     virtual ~MatrixRTCoefficients() {}
 

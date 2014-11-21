@@ -17,7 +17,6 @@
 #define FORMFACTORPRISM3_H_
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorPrism3
 //! @ingroup formfactors

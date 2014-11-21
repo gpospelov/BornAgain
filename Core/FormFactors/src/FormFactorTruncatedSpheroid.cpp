@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSpheroid.h"
-#include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "MemberFunctionIntegrator.h"

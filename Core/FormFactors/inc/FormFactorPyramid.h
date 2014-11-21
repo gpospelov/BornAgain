@@ -17,7 +17,6 @@
 #define FORMFACTORPYRAMID_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorPyramid
 //! @ingroup formfactors

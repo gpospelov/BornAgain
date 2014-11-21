@@ -35,8 +35,6 @@
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
 #include "TestIsGISAXS5.h"
 #include "Units.h"
 #include "Utils.h"
@@ -59,7 +57,7 @@ TestIsGISAXS13::TestIsGISAXS13()
 , mp_simulation(0)
 , mp_sample_builder(new TestIsGISAXS5::SampleBuilder())
 , mp_fitSuite(0)
-{    
+{
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-13/" ));
 }
 
@@ -171,9 +169,9 @@ void TestIsGISAXS13::run_isgisaxs_fit()
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
         if(i_set==0) {
-			leg1->AddEntry(hreal,"BornAgain data","lp");
-			leg1->AddEntry(hsimul,"BornAgain simul","lp");
-		}
+            leg1->AddEntry(hreal,"BornAgain data","lp");
+            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        }
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();

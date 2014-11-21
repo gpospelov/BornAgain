@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorHemiEllipsoid.h"
-#include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include <cmath>

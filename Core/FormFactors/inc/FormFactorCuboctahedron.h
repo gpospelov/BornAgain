@@ -17,7 +17,6 @@
 #define FORMFACTORCUBOCTAHEDRON_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorCuboctahedron
 //! @ingroup formfactors

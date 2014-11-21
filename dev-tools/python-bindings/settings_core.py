@@ -132,10 +132,8 @@ include_classes = [
     "Lattice2DIFParameters",
     "LatticeBasis",
     "Layer",
-    #"LayerDecorator",
     "LayerInterface",
     "LayerRoughness",
-    #"MaterialManager",
     "MesoCrystal",
     "MultiLayer",
     "OffSpecSimulation",
@@ -153,10 +151,6 @@ include_classes = [
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
-    "StochasticDoubleGate",
-    "StochasticDoubleGaussian",
-    "StochasticParameter<double>",
-    "StochasticSampledParameter",
     "ThreadInfo",
     "cvector_t",
     "kvector_t",
@@ -181,16 +175,16 @@ def ManualClassTunings(mb):
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
     # ISample
-    cl = mb.class_('ISample') 
+    cl = mb.class_('ISample')
     cl.member_function("accept").include()
     cl.member_function("printSampleTree").include()
-    
+
     # ICompositeSample
     cl = mb.class_('ICompositeSample')
     for f in cl.member_functions():
         if "shallow" in f.name:
             f.exclude()
-    
+
     # BasicVector3D
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
@@ -216,7 +210,7 @@ def ManualClassTunings(mb):
     cl.member_functions().exclude()
     cl.member_function("addParticle").include()
     #
-    cl = mb.class_('RealParameterWrapper') 
+    cl = mb.class_('RealParameterWrapper')
     cl.member_functions().exclude()
     cl.member_function("setValue").include()
     cl.member_function("getValue").include()

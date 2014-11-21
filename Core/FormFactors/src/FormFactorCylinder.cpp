@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorCylinder.h"
-#include "StochasticDiracDelta.h"
 
 #include "MathFunctions.h"
 #include "Numeric.h"

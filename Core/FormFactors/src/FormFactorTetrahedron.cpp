@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorTetrahedron.h"
-#include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
 // Integration

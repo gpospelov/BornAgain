@@ -27,17 +27,17 @@ void register_ParticleBuilder_class(){
             ParticleBuilder_exposer.def( 
                 "plantParticles"
                 , plantParticles_function_type( &::ParticleBuilder::plantParticles )
-                , ( bp::arg("decor") ) );
+                , ( bp::arg("layout") ) );
         
         }
         { //::ParticleBuilder::setPrototype
         
-            typedef void ( ::ParticleBuilder::*setPrototype_function_type)( ::Particle const &,::std::string,::StochasticParameter< double > const &,double ) ;
+            typedef void ( ::ParticleBuilder::*setPrototype_function_type)( ::Particle const &,::std::string,::IDistribution1D const &,::std::size_t,double,double ) ;
             
             ParticleBuilder_exposer.def( 
                 "setPrototype"
                 , setPrototype_function_type( &::ParticleBuilder::setPrototype )
-                , ( bp::arg("particle"), bp::arg("name"), bp::arg("param"), bp::arg("scale")=1.0e+0 ) );
+                , ( bp::arg("particle"), bp::arg("name"), bp::arg("param"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("scale")=1.0e+0 ) );
         
         }
     }

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorInfLongRipple1.h"
-#include "StochasticDiracDelta.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include <cmath>
@@ -64,7 +63,7 @@ complex_t FormFactorInfLongRipple1::Integrand(double Z, void* params) const
 //! Complex formfactor.
 
 complex_t FormFactorInfLongRipple1::evaluate_for_q(const cvector_t& q) const
-{   
+{
     (const cvector_t) q;  // to avoid unused-variable warning
     throw NotImplementedException(
         "FormFactorInfLongRipple1::evaluate_for_q(q) -> Error: not implemented exception.");

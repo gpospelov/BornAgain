@@ -15,7 +15,6 @@
 
 #include "FormFactorCuboctahedron.h"
 #include "FormFactorPyramid.h"
-#include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(

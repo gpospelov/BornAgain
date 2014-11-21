@@ -17,7 +17,6 @@
 #define FORMFACTORFULLSPHERE_H_
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @ingroup formfactors
 //! @class FormFactorFullSphere

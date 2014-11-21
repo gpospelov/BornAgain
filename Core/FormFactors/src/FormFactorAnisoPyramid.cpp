@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
-#include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(

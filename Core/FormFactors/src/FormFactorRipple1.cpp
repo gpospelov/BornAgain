@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
-#include "StochasticDiracDelta.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include <cmath>
@@ -67,8 +66,8 @@ complex_t FormFactorRipple1::Integrand(double Z, void* params) const
 //! Complex formfactor.
 
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
-{   
-	m_q = q;
+{
+    m_q = q;
     complex_t factor = m_length*MathFunctions::Sinc(m_q.x()*m_length*0.5)*m_width/M_PI;
     complex_t aaa = m_q.y()*m_width/(2*M_PI);
     complex_t aaa2 = aaa*aaa;

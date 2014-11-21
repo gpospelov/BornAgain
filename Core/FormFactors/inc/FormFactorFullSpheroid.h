@@ -17,7 +17,6 @@
 #define FORMFACTORFULLSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
 //! @class FormFactorFullSpheroid

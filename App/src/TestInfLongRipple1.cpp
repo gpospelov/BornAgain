@@ -31,8 +31,6 @@
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
 #include "OffSpecSimulation.h"

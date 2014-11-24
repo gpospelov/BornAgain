@@ -143,11 +143,13 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     FormFactorCylinder p_ff_cylinder( m_radius, m_height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
-    int n_samples(100), nfwhm(2);
+    int n_samples(100);
+    // to get radius_min = average - 2.0*FWHM:
+    double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
     DistributionGaussian gauss(m_radius, sigma);
     ParticleBuilder builder;
     builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius",
-                         gauss, n_samples, nfwhm);
+                         gauss, n_samples, n_sigma);
     builder.plantParticles(particle_layout);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

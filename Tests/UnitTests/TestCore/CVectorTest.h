@@ -2,7 +2,6 @@
 #define CVECTORTEST_H
 
 
-
 #include "Types.h"
 #include <cmath>
 
@@ -30,10 +29,7 @@ TEST_F(CVectorTest, BasicArithmetics)
 
     // Dot product with "Eigen" library
     Eigen::Vector3cd va(complex_t(1.,0.), complex_t(2.,0.), complex_t(3.,0.));
-    //Eigen::Vector3cd vb(complex_t(2.,0.), complex_t(3.,0.), complex_t(4.,0.));
     Eigen::Vector3cd vc(complex_t(1.,1.), complex_t(2.,-5.), complex_t(3.,4.));
-
-
     EXPECT_TRUE(va.dot(vc) == complex_t(14.,3.));
 
     // Dot product defined in BasicVector3D
@@ -53,7 +49,6 @@ TEST_F(CVectorTest, BasicArithmetics)
                                                    complex_t(2.,6),
                                                    complex_t(3,7)) );
 }
-
 
 
 #endif // CVECTORTEST_H

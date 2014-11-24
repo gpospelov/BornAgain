@@ -97,12 +97,12 @@ def RunSimulationBA_Size():
     nano_particle = Particle(mParticle, cylinder_ff)
     # radius of nanoparticles will be sampled with gaussian probability
     nbins = 100
-    nfwhm = 2
-    stochastic_gaussian = StochasticDoubleGaussian(radius, sigma)
-    par = StochasticSampledParameter(stochastic_gaussian, nbins, nfwhm)
+    n_sigma = 4.0*numpy.sqrt(2.0*numpy.log(2.0))
+    gauss = DistributionGaussian(radius, sigma)
 
     builder = ParticleBuilder()
-    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par)
+    builder.setPrototype(nano_particle, "/Particle/FormFactorCylinder/radius",
+                         gauss, nbins, n_sigma)
     builder.plantParticles(particle_layout)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)    

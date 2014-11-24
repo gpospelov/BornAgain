@@ -26,10 +26,11 @@ def RunSimulation():
     interference.setKappa(4.02698)
     particle_layout = ParticleLayout()
     particle_prototype = Particle(mParticle, cylinder_ff)
-    stochastic_radius = StochasticSampledParameter(StochasticDoubleGaussian(5.0 * nanometer, 1.25 * nanometer), 30, 2)
+    radius_distr = DistributionGaussian(5.0*nanometer, 1.25*nanometer)
 
     particle_builder = ParticleBuilder()
-    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius)
+    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius",
+                                  radius_distr, 30, 3.0)
     particle_builder.plantParticles(particle_layout)
     # Set height of each particle to its radius (H/R fixed)
     p_parameters = particle_layout.createParameterTree()

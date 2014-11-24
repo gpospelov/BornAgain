@@ -69,18 +69,19 @@ ISample *IsGISAXS02Builder::buildSample() const
     int nbins=150;
     double sigma1 = m_radius1*m_sigma1_ratio;
     double sigma2 = m_radius2*m_sigma2_ratio;
-    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
+    // to have xmin=average-3*sigma
+    double n_sigma = 3.0;
     DistributionGaussian gauss1(m_radius1, sigma1);
     DistributionGaussian gauss2(m_radius2, sigma2);
 
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", gauss1,
-                         nbins, nfwhm, 0.95);
+                         nbins, n_sigma, 0.95);
     builder.plantParticles(particle_layout);
 
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", gauss2,
-                         nbins, nfwhm, 0.05);
+                         nbins, n_sigma, 0.05);
     builder.plantParticles(particle_layout);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());

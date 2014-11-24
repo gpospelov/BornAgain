@@ -38,14 +38,14 @@ ParticleBuilder::~ParticleBuilder()
 //! Sets prototype for particle production
 
 void ParticleBuilder::setPrototype(const Particle &particle, std::string name,
-    const IDistribution1D &param, size_t nbr_samples, double sigma_factor,
+    const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor,
     double scale)
 {
     delete mp_prototype;
     mp_prototype = particle.clone();
     m_parameter_name = name;
     delete mp_distribution;
-    mp_distribution = param.clone();
+    mp_distribution = distribution.clone();
     m_nbr_samples = nbr_samples;
     m_sigma_factor = sigma_factor;
     m_scale = scale;

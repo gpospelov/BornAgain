@@ -50,7 +50,7 @@ ISample *IsGISAXS15Builder::buildSample() const
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
     ParticleBuilder particle_builder;
     particle_builder.setPrototype(particle_prototype,
-            "/Particle/FormFactorCylinder/radius", gauss, 30, 2.0);
+            "/Particle/FormFactorCylinder/radius", gauss, 30, 3.0);
     particle_builder.plantParticles(particle_layout);
 
     // Set height of each particle to its radius (H/R fixed)

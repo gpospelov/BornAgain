@@ -36,7 +36,7 @@ public:
     //! @param parameter  variation type
     //! @param scale      global scale factor for probabilities
     void setPrototype(const Particle& particle, std::string name,
-                      const IDistribution1D& param, size_t nbr_samples,
+                      const IDistribution1D& distribution, size_t nbr_samples,
                       double sigma_factor=0.0, double scale=1.0);
 
     //! plant particles in given decoration

@@ -38,5 +38,7 @@
         <file>images/toolbar_refresh.png</file>
         <file>images/toolbar_parameter_export.png</file>
         <file>images/BornAgain.ico</file>
+        <file>images/collapse_arrow.png</file>
+        <file>images/expand_arrow.png</file>
     </qresource>
 </RCC>

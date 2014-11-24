@@ -5,6 +5,7 @@
 #include "Units.h"
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
+#include "GroupBox.h"
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QDoubleValidator>
@@ -15,6 +16,7 @@
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QDebug>
+
 
 BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     : QWidget(parent)
@@ -57,6 +59,27 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     beamParamsLayout->addWidget(m_azimuthalAngleSpinBox, 4, 1);
     beamParamsLayout->addWidget(new QLabel("Beam Type"), 5, 0);
     beamParamsLayout->addWidget(m_beamTypeCombo, 5, 1);
+
+
+
+
+    GroupBox *settingsGroupBox = new GroupBox("Beam Type Settings");
+    QVBoxLayout *beamTypeSettingsGroupLayout2 = new QVBoxLayout;
+    settingsGroupBox->setLayout(beamTypeSettingsGroupLayout2);
+
+    QGridLayout *beamTypeLayout2 = new QGridLayout;
+    beamTypeLayout2->addWidget(new QLabel("Param 1"), 0, 0);
+    beamTypeLayout2->addWidget(new QLineEdit, 0, 1);
+    beamTypeLayout2->addWidget(new QLabel("Param 2"), 1, 0);
+    beamTypeLayout2->addWidget(new QLineEdit, 1, 1);
+
+    beamTypeSettingsGroupLayout2->addLayout(beamTypeLayout2);
+
+    beamParamsLayout->addWidget(settingsGroupBox, 6,1,1,1);
+
+
+
+
 
     beamGroupLayout->addLayout(beamParamsLayout);
 
@@ -185,4 +208,3 @@ void BeamEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const AngleProperty
         editor->setValue(units.getValue());
     }
 }
-

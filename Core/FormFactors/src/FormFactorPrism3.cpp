@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism3.h"
-#include "StochasticDiracDelta.h"
 
 #include "MathFunctions.h"
 

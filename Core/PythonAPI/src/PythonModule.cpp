@@ -60,13 +60,11 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorLorentz.pypp.h"
 #include "ISelectionRule.pypp.h"
 #include "FormFactorRipple2.pypp.h"
-#include "StochasticDoubleGate.pypp.h"
 #include "LayerRoughness.pypp.h"
 #include "Bin1DCVector.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
 #include "ParameterPool.pypp.h"
 #include "FormFactorPrism3.pypp.h"
-#include "StochasticDoubleGaussian.pypp.h"
 #include "IMaterial.pypp.h"
 #include "FTDistribution1DVoigt.pypp.h"
 #include "ResolutionFunction2DSimple.pypp.h"
@@ -81,7 +79,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IntensityDataIOFactory.pypp.h"
 #include "Layer.pypp.h"
 #include "FormFactorPyramid.pypp.h"
-#include "StochasticSampledParameter.pypp.h"
 #include "CustomBinAxis.pypp.h"
 #include "FTDistribution2DCone.pypp.h"
 #include "IFTDistribution1D.pypp.h"
@@ -98,7 +95,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "vector_IFormFactorPtr_t.pypp.h"
 #include "FormFactorFullSphere.pypp.h"
 #include "ParticleLayout.pypp.h"
-#include "StochasticParameter_t.pypp.h"
 #include "FormFactorBox.pypp.h"
 #include "IParameterized.pypp.h"
 #include "Lattice2DIFParameters.pypp.h"
@@ -261,10 +257,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_SimpleSelectionRule_class();
     register_Simulation_class();
     register_SimulationParameters_class();
-    register_StochasticParameter_t_class();
-    register_StochasticDoubleGate_class();
-    register_StochasticDoubleGaussian_class();
-    register_StochasticSampledParameter_class();
     register_ThreadInfo_class();
     register_global_variables();
     register_free_functions();

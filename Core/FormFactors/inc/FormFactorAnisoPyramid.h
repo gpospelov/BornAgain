@@ -17,7 +17,6 @@
 #define FORMFACTORANISOPYRAMID_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorAnisoPyramid
 //! @ingroup formfactors

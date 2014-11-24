@@ -17,7 +17,6 @@
 #define FORMFACTORINFLONGBOX_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorInfLongBox
 //! @ingroup formfactors

@@ -145,24 +145,26 @@ def RunSimulation_variants():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     
     # running simulation and copying data
-    OutputData_total = simulation.getIntensityData()
+    outputdata_total = simulation.getIntensityData()
     nbins = 3
-    xi_min = 0.0*degree
-    xi_max = 240.0*degree
-    xi= StochasticSampledParameter(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max)
-    #for size_t i in range(xi.getNbins()) :
-    for i in range(xi.getNbins()):
-        xi_value = xi.getBinValue(i)
-        probability = xi.getNormalizedProbability(i)
-        p_sample =  buildSample(xi_value)
+    xi_mean = 120.0*degree
+    xi_hw = 120.0*degree
+    xi_distr = DistributionGate(xi_mean, xi_hw)
+    xi_samples = xi_distr.generateValueList(nbins, 0.0)
+    total_weight = 0.0
+    for i in range(len(xi_samples)):
+        xi_value = xi_samples[i]
+        probability = xi_distr.probabilityDensity(xi_value)
+        total_weight += probability
+        p_sample = buildSample(xi_value)
         simulation.setSample(p_sample)
         simulation.runSimulation()
 
         single_output = simulation.getIntensityData()
         single_output.scaleAll(probability)
-        OutputData_total += single_output
-
-    return OutputData_total
+        outputdata_total += single_output
+    outputdata_total.scaleAll(1.0/total_weight)
+    return outputdata_total
 
 
 # IsGISAXS6 functional test sample builder for varying xi angle
@@ -174,7 +176,7 @@ def buildSample(xi_value):
     substrate_layer = Layer(mSubstrate)
     
     p_interference_function = InterferenceFunction2DLattice.createSquare(10.0*nanometer, xi_value)
-    pdf = FTDistribution2DCauchy (300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
+    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
 
     particle_layout = ParticleLayout()
@@ -218,7 +220,7 @@ def runTest():
     diff /=3
 
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)):
+    if diff > 2e-10 or numpy.isnan(diff):
         status = "FAILED"
 
     return "IsGISAXS06", "2D lattice with different disorder", diff, status
@@ -230,7 +232,7 @@ def runTest():
 if __name__ == '__main__':
     name, description, diff, status = runTest()
     print name, description, diff, status
-    if("FAILED" in status):
+    if "FAILED" in status:
         exit(1)
 
 

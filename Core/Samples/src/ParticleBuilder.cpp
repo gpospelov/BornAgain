@@ -16,67 +16,78 @@
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "Numeric.h"
-#include "StochasticSampledParameter.h"
 
 #include <numeric>
 #include <algorithm>
 
-ParticleBuilder::ParticleBuilder() :
-    m_prototype(0), m_parameter(0), m_scale(0)
+ParticleBuilder::ParticleBuilder()
+    : mp_prototype(0)
+    , mp_distribution(0)
+    , m_nbr_samples(0)
+    , m_sigma_factor(0.0)
+    , m_scale(0)
 {
 }
 
 ParticleBuilder::~ParticleBuilder()
 {
-    delete m_prototype;
-    delete m_parameter;
+    delete mp_prototype;
+    delete mp_distribution;
 }
 
 //! Sets prototype for particle production
 
-void ParticleBuilder::setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale)
+void ParticleBuilder::setPrototype(const Particle &particle, std::string name,
+    const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor,
+    double scale)
 {
-    delete m_prototype;
-    m_prototype = particle.clone();
+    delete mp_prototype;
+    mp_prototype = particle.clone();
     m_parameter_name = name;
-    delete m_parameter;
-    m_parameter = param.clone();
+    delete mp_distribution;
+    mp_distribution = distribution.clone();
+    m_nbr_samples = nbr_samples;
+    m_sigma_factor = sigma_factor;
     m_scale = scale;
 }
 
 //! plant particles in given decoration
 
-void ParticleBuilder::plantParticles(ParticleLayout& decor)
+void ParticleBuilder::plantParticles(ParticleLayout& layout)
 {
-    if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
+    if( !mp_prototype ) throw NullPointerException(
+        "ParticleBuilder::plantParticle() -> Error. No prototype is defined");
 
-    if( !m_parameter ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No parameter is defined");
+    if( !mp_distribution ) throw NullPointerException(
+        "ParticleBuilder::plantParticle() -> Error. No distribution is defined");
 
-    ParameterPool *pool = m_prototype->createParameterTree();
+    ParameterPool *pool = mp_prototype->createParameterTree();
 
-    StochasticSampledParameter *sampled_parameter = dynamic_cast<StochasticSampledParameter *>(m_parameter);
-    if( !sampled_parameter) {
-        throw LogicErrorException("ParticleBuilder::plantParticle() -> Error. Not supported parameter type");
+    // generate parameter samples
+    std::vector<ParameterSample> samples =
+            mp_distribution->generateSamples(m_nbr_samples, m_sigma_factor);
+
+    // find maximum weight
+    double max_weight = 0.0;
+    for(std::vector<ParameterSample>::const_iterator it = samples.begin();
+        it != samples.end(); ++it) {
+        max_weight = std::max(max_weight, it->weight);
     }
 
-    // calculating sum of all weights, and maximum value
-    std::vector<double> weights;
-    for(size_t i=0; i<sampled_parameter->getNbins(); ++i) weights.push_back(sampled_parameter->probabilityBinDensity(i));
-    double maximum_value = *std::max_element(weights.begin(), weights.end());
-    double sum_of_weights = std::accumulate(weights.begin(), weights.end(), 0.0);
 
     // loop over sampled parameter values
-    for(size_t i=0; i<sampled_parameter->getNbins(); ++i) {
+    for(std::vector<ParameterSample>::const_iterator it = samples.begin();
+        it != samples.end(); ++it) {
 
-        double weight = sampled_parameter->probabilityBinDensity(i);
-        double value = sampled_parameter->getBinValue(i);
+        double weight = it->weight;
+        double value = it->value;
 
         // changing value of the particle's parameter and making clone
         pool->setParameterValue(m_parameter_name, value);
-        Particle *particle = m_prototype->clone();
+        Particle *particle = mp_prototype->clone();
 
-        if(weight/maximum_value > Numeric::probthreshold)  { // isgisaxs way
-            decor.addParticle(*particle, 0.0, weight/sum_of_weights*m_scale);
+        if(weight/max_weight > Numeric::probthreshold)  { // isgisaxs way
+            layout.addParticle(*particle, 0.0, weight*m_scale);
         }
 
         delete particle;

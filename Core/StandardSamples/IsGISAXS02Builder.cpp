@@ -18,11 +18,8 @@
 #include "ParticleLayout.h"
 #include "Materials.h"
 #include "FormFactorCylinder.h"
-//#include "FormFactorPrism3.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticGaussian.h"
 #include "ParticleBuilder.h"
 
 
@@ -72,18 +69,19 @@ ISample *IsGISAXS02Builder::buildSample() const
     int nbins=150;
     double sigma1 = m_radius1*m_sigma1_ratio;
     double sigma2 = m_radius2*m_sigma2_ratio;
-    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg1(m_radius1, sigma1);
-    StochasticDoubleGaussian sg2(m_radius2, sigma2);
-    StochasticSampledParameter par1(sg1, nbins, nfwhm);
-    StochasticSampledParameter par2(sg2, nbins, nfwhm);
+    // to have xmin=average-3*sigma
+    double n_sigma = 3.0;
+    DistributionGaussian gauss1(m_radius1, sigma1);
+    DistributionGaussian gauss2(m_radius2, sigma2);
 
     // building nano particles
     ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
+    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", gauss1,
+                         nbins, n_sigma, 0.95);
     builder.plantParticles(particle_layout);
 
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05);
+    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", gauss2,
+                         nbins, n_sigma, 0.05);
     builder.plantParticles(particle_layout);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());

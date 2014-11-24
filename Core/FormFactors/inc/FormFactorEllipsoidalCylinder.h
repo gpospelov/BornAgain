@@ -17,7 +17,6 @@
 #define FORMFACTORELLIPSOIDALCYLINDER_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorEllipsoidalCylinder
 //! @ingroup formfactors

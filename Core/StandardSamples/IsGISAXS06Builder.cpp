@@ -23,8 +23,6 @@
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
 #include "IntensityDataIOFactory.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticDoubleGate.h"
 #include "Utils.h"
 
 
@@ -164,7 +162,6 @@ void IsGISAXS06Lattice4Builder::init_parameters()
     clearParameterPool();
     registerParameter("xi", &m_xi);
 }
-
 
 ISample *IsGISAXS06Lattice4Builder::buildSample() const
 {

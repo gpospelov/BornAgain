@@ -36,8 +36,6 @@
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
 #include "FileSystem.h"
@@ -260,9 +258,9 @@ void TestIsGISAXS12::run_isgisaxs_fit()
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
         if(i_set==0) {
-			leg1->AddEntry(hreal,"BornAgain data","lp");
-			leg1->AddEntry(hsimul,"BornAgain simul","lp");
-		}
+            leg1->AddEntry(hreal,"BornAgain data","lp");
+            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        }
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -501,10 +499,8 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double sigma1 = radius1*m_dispersion_radius1;
     double sigma2 = radius2*m_dispersion_radius2;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg1(radius1, sigma1);
-    StochasticDoubleGaussian sg2(radius2, sigma2);
-    StochasticSampledParameter par1(sg1, nbins, nfwhm);
-    StochasticSampledParameter par2(sg2, nbins, nfwhm);
+    DistributionGaussian gauss1(radius1, sigma1);
+    DistributionGaussian gauss2(radius2, sigma2);
 
     ParticleLayout particle_layout;
     InterferenceFunction1DParaCrystal *p_interference_function =
@@ -516,9 +512,11 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 
     // building nano particles
     ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, particle_probability1);
+    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", gauss1,
+                         nbins, nfwhm, particle_probability1);
     builder.plantParticles(particle_layout);
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
+    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", gauss2,
+                         nbins, nfwhm, particle_probability2);
     builder.plantParticles(particle_layout);
 
     air_layer.addLayout(particle_layout);

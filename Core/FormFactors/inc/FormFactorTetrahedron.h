@@ -17,8 +17,6 @@
 #define FORMFACTORTETRAHEDRON_H
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
-// addition integration
 #include "MemberComplexFunctionIntegrator.h"
 
 //! @class FormFactorTetrahedron

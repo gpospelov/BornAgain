@@ -17,7 +17,6 @@
 #define FORMFACTORLORENTZ_H_
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 //! @class FormFactorLorentz
 //! @ingroup formfactors

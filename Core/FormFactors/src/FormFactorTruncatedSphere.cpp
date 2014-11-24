@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
-#include "StochasticDiracDelta.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include <cmath>

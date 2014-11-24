@@ -40,6 +40,7 @@
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
 #include "JobView.h"
+#include "aboutapplicationdialog.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -310,5 +311,11 @@ void MainWindow::testGUIObjectBuilder()
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
+}
+
+void MainWindow::onAboutApplication()
+{
+    AboutApplicationDialog dialog(this);
+    dialog.exec();
 }
 

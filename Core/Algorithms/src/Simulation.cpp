@@ -142,6 +142,7 @@ void Simulation::runSimulation()
     if (param_combinations == 1) {
         ParameterPool *p_param_pool = createParameterTree();
         m_distribution_handler.setParameterValues(p_param_pool, 0);
+        updateSample();
         runSingleSimulation();
         //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
         return;
@@ -158,6 +159,7 @@ void Simulation::runSimulation()
     for (size_t index=0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(
                 p_param_pool, index);
+        updateSample();
         runSingleSimulation();
         m_intensity_map.scaleAll(weight);
         m_polarization_output.scaleAll(Eigen::Matrix2d::Identity()*weight);

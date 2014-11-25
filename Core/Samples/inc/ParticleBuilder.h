@@ -48,7 +48,7 @@ private:
     std::string m_parameter_name;  //!< name of parameter to vary
     IDistribution1D *mp_distribution;  //!< distribution for the parameter
     size_t m_nbr_samples;  //!< number of particles to be created
-    double m_sigma_factor;  //!< range of parameter in FWHM
+    double m_sigma_factor;  //!< range of parameter in sigma or HWHM
     double m_scale;  //!< global scale factor for probabilities
 };
 

@@ -37,7 +37,7 @@ file(GLOB core_include_files
 )
 
 set(source_files ${core_source_files})
-set(include_files ${core_inculde_files})
+set(include_files ${core_include_files})
 
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi_source "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")

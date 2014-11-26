@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    MainWindow w;
+
     SplashScreen *splash(0);
     if(!a.arguments().contains(QLatin1String("--no-splash"))) {
         splash = new SplashScreen();
@@ -46,7 +48,6 @@ int main(int argc, char *argv[])
     }
 
 
-    MainWindow w;
     w.show();
 
     if(splash)

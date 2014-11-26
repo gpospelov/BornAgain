@@ -1,4 +1,4 @@
-'''
+"""
 Installs BornAgain libraries into user Python (Mac only).
 
 Usage: python bornagain_python_install.py
@@ -6,16 +6,18 @@ Usage: python bornagain_python_install.py
 The script generates BornAgain python package in temporary directory and then 
 installs it into user's Python site_packages.
 
+Requirements: BornAgain.app has to be installed on the system using .dmg installer.
+
 During generation of Python package
 1) The script copies BornAgain libraries from the GUI installation directory (normally 
    it is /Applications/BornAgain.app) into temporary bundle directory
 2) Adjusts libraries using Mac's install_name_tool to rely on Python's own libpython2.7.dylib.
-   The exact library location is deduced from the interpreter itself.
+   The exact site-packages library location is deduced from the interpreter itself.
 3) Generates other files necessary for Python packaging (setup.py, __init__.py)
 
 During installation of Python package
 1) The script just runs standard 'python setup.py install' command from the temporary bundle directory
-'''
+"""
 
 import os
 import sys
@@ -38,9 +40,9 @@ def run_command(cmd):
 
 
 def get_python_shared_library():
-    '''
+    """
     Returns full path to the python shared library on which current interpreter is relying
-    '''
+    """
     prefix = sys.prefix
     suffix = sysconfig.get_config_var('LDVERSION') or sysconfig.get_config_var('VERSION')
     result = sys.prefix+"/lib/libpython"+suffix+".dylib"
@@ -48,16 +50,16 @@ def get_python_shared_library():
 
 
 def get_script_path():
-    '''
+    """
     Returns the full path to the directory where given scripts resides
-    '''
+    """
     return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 
 def get_application_dir():
-    '''
+    """
     Returns BornAgain.app directory location, determines BornAgain version number
-    '''
+    """
     global BORNAGAIN_VERSION
     app_dir = ""
     if len(sys.argv) == 2:
@@ -76,9 +78,9 @@ def get_application_dir():
 
     
 def create_bundle_temp_dir():
-    '''
+    """
     Creates temporary directory for BornAgain package bundle
-    '''
+    """
     tmpdir = os.path.join(tempfile.gettempdir(), "bornagain_bundle")
     if os.path.exists(tmpdir):
         shutil.rmtree(tmpdir)
@@ -87,27 +89,27 @@ def create_bundle_temp_dir():
 
 
 def create_package_dir(destination_dir):
-    '''
+    """
     Create package directory in bundle directory
-    '''
+    """
     packagedir = os.path.join(destination_dir, "bornagain")
     os.makedirs(packagedir)
     return packagedir
 
 
 def create_library_dir(destination_dir):
-    '''
+    """
     Create library directory in bundle directory
-    '''
+    """
     librarydir = os.path.join(destination_dir, "lib")
     os.makedirs(librarydir)
     return librarydir
 
 
 def generate_setup_py(destination_dir):
-    '''
+    """
     Generates setup.py file in BornAgain's bundle directory
-    '''
+    """
     text = '''\
 # BornAgain setup.py to install BornAgain libraries into Python's site-packages             
 # Usage: python setup.py install
@@ -142,9 +144,9 @@ setup(name='bornagain',
 
 
 def generate_init_py(destination_dir):
-    '''
+    """
     Generates __init__.py file in BornAgain's Python package directory
-    '''
+    """
     text = '''\
 import sys
 import os
@@ -164,9 +166,9 @@ from libBornAgainFit import *
 
 
 def copy_libraries(app_dir, destination_dir):
-    '''
+    """
     Coopy libraries from BornAgain.app into corresponding BornAgain Python package directory
-    '''
+    """
     print "--> Copying libraries from '{0}'".format(app_dir)
     source_dir = os.path.join(app_dir, "Contents", "lib")
     app_bornagainlib_dir = os.path.join(source_dir, "BornAgain-"+BORNAGAIN_VERSION)
@@ -183,9 +185,9 @@ def copy_libraries(app_dir, destination_dir):
 
 
 def patch_libraries(dir_name):
-    '''
+    """
     Patches libraries depending on Python to point on the same shared libpython2.7.dylib which current interpreter is using
-    '''
+    """
     print "--> Patching libraries to rely on '{0}'".format(get_python_shared_library())
     #libfiles = [(dir_name, [f for f in glob.glob(os.path.join(dir_name, '*/libBornAgainCore*'))])]
     libfiles = glob.glob(os.path.join(dir_name, '*/libBornAgain*'))
@@ -198,9 +200,9 @@ def patch_libraries(dir_name):
 
     
 def create_bundle(app_dir):
-    '''
+    """
     Creates ready to install BornAgain Python bundle package
-    '''
+    """
     bundle_dir = create_bundle_temp_dir()
     print '-'*80
     print "Generating Python bundle in temporary '{0}'".format(bundle_dir)
@@ -218,15 +220,15 @@ def create_bundle(app_dir):
     
     patch_libraries(library_dir)
     
-    print "\nBornAgain Python bundle is succesfully created in temporary directory '{0}'".format(bundle_dir)
+    print "\nBornAgain Python bundle is successfully created in temporary directory '{0}'".format(bundle_dir)
     print "Run 'python setup.py install' from there to install it into your Python's site-packages"
     return bundle_dir
         
 
 def install_bundle(dir_name):
-    '''
+    """
     Installs BornAgain Python bundle previously generated in the directory dir_name
-    '''
+    """
     print '-'*80
     print "Installing bundle in Python site-packages '{0}'".format(get_python_lib())
     print '-'*80
@@ -234,7 +236,7 @@ def install_bundle(dir_name):
     os.chdir(bundle_dir)
     sys.argv = ['setup.py', 'install']
     execfile('setup.py')
-    print "\nBornAgain Python bundle is succesfully installed in '{0}'".format(get_python_lib())
+    print "\nBornAgain Python bundle is successfully installed in '{0}'".format(get_python_lib())
     print "Congratulations!"
     
     
@@ -255,7 +257,7 @@ if __name__ == '__main__':
     print "[1] - Generate bundle and install it into site-packages of your Python."
     print "[2] - Exit"
     
-    var = int(raw_input("Enter your choise [1]: ") or "1")
+    var = int(raw_input("Enter your choice [1]: ") or "1")
             
     if var == 0:
         create_bundle(app_dir)

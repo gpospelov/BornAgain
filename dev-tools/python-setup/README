@@ -1,4 +1,9 @@
+Python utilities to setup BornAgain libraries
 
-Python utilities to setup pre-compiled BornAgain core libraries into site-packages of users Python
+1) bornagain_python_install.py
+Script to install BornAgain libraries into site-packages of user Python on MacOs systems.
+Requires that BornAgain.app has to be installed on the system.
+
+
 
 

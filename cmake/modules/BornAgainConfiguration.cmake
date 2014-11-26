@@ -13,7 +13,7 @@ set(destination_runtime_configs ${CMAKE_BINARY_DIR}/runtime_configs)
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${destination_runtime_configs})
 
 # creating bornagain/__init__.py in runtime lib directory
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/bornagain)
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 
 

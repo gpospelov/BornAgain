@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDate>
 
 #include <iostream>
 
@@ -33,7 +34,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     normalFont.setBold(false);
 
 
-    QPixmap logo(":/images/BornAgain.ico");
+    QPixmap logo(":/images/about_icon.png");
     QLabel *logoLabel = new QLabel;
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
@@ -42,16 +43,26 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0,0,0,15);
 
-    QString copyright = "Copyright: Forschungszentrum Jülich GmbH 2014.";
+    QDate date = QDate::currentDate();
+
+    QString copyright = QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
     QLabel *copyrightLabel = new QLabel(copyright);
     copyrightLabel->setFont(normalFont);
     //copyrightLabel->setWordWrap(true);
     copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS) using distorted-wave Born approximation (DWBA).";
+    QString description = "A software to simulate and fit grazing incidence small angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
     QLabel *descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);
+
+
+    QLabel *linkLabel = new QLabel();
+    linkLabel->setTextFormat(Qt::RichText);
+    linkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    linkLabel->setText("<a href=\"http://www.bornagainproject.org\">www.bornagainproject.org</a>");
+    linkLabel->setOpenExternalLinks(true);
+
 
     QVBoxLayout *logoLayout = new QVBoxLayout;
     logoLayout->addWidget(logoLabel);
@@ -61,7 +72,9 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     QVBoxLayout *textLayout = new QVBoxLayout;
     textLayout->addWidget(aboutTitleLabel);
     textLayout->addWidget(descriptionLabel);
+    textLayout->addStretch(1);
     textLayout->addWidget(copyrightLabel);
+    textLayout->addWidget(linkLabel);
     textLayout->addStretch(1);
     textLayout->setContentsMargins(0,5,5,5);
 

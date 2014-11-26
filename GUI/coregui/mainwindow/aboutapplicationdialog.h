@@ -22,7 +22,6 @@ public:
 
 private:
     QPushButton *m_closeButton;
-
 };
 
 

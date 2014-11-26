@@ -40,5 +40,7 @@
         <file>images/BornAgain.ico</file>
         <file>images/collapse_arrow.png</file>
         <file>images/expand_arrow.png</file>
+        <file>images/splashscreen.png</file>
+        <file>images/about_icon.png</file>
     </qresource>
 </RCC>

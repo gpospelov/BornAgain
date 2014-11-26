@@ -1,9 +1,11 @@
 #include "aboutapplicationdialog.h"
 #include "BAVersion.h"
+#include "DesignerHelper.h"
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDate>
 
 #include <iostream>
 
@@ -25,33 +27,43 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
 
     QFont titleFont;
-    titleFont.setPointSize(14);
+    titleFont.setPointSize(DesignerHelper::getLabelFontSize() + 2);
     titleFont.setBold(true);
 
     QFont normalFont;
-    normalFont.setPointSize(11);
+    normalFont.setPointSize(DesignerHelper::getLabelFontSize());
     normalFont.setBold(false);
 
 
-    QPixmap logo(":/images/BornAgain.ico");
+    QPixmap logo(":/images/about_icon.png");
     QLabel *logoLabel = new QLabel;
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
 
-    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
+    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ver. ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0,0,0,15);
 
-    QString copyright = "Copyright 2010-2014 MLZ Garching. All rights reserved.";
+    QDate date = QDate::currentDate();
+
+    QString copyright = QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
     QLabel *copyrightLabel = new QLabel(copyright);
     copyrightLabel->setFont(normalFont);
     //copyrightLabel->setWordWrap(true);
     copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS), using distorted-wave Born approximation (DWBA). The software equally supports neutron and x-ray scattering (GISANS and GISAXS).";
+    QString description = "A software to simulate and fit grazing incidence small angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
     QLabel *descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);
+
+
+    QLabel *linkLabel = new QLabel();
+    linkLabel->setTextFormat(Qt::RichText);
+    linkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    linkLabel->setText("<a href=\"http://www.bornagainproject.org\">www.bornagainproject.org</a>");
+    linkLabel->setOpenExternalLinks(true);
+
 
     QVBoxLayout *logoLayout = new QVBoxLayout;
     logoLayout->addWidget(logoLabel);
@@ -60,8 +72,10 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
     QVBoxLayout *textLayout = new QVBoxLayout;
     textLayout->addWidget(aboutTitleLabel);
-    textLayout->addWidget(copyrightLabel);
     textLayout->addWidget(descriptionLabel);
+    textLayout->addStretch(1);
+    textLayout->addWidget(copyrightLabel);
+    textLayout->addWidget(linkLabel);
     textLayout->addStretch(1);
     textLayout->setContentsMargins(0,5,5,5);
 

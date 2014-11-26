@@ -185,7 +185,7 @@ WidgetBoxCategoryListView *WidgetBoxTreeWidget::categoryViewAt(int idx) const
 
 void WidgetBoxTreeWidget::saveExpandedState() const
 {
-    std::cout << "WidgetBoxTreeWidget::saveExpandedState() -> XXX Not implemented." << std::endl;
+    qDebug() << "WidgetBoxTreeWidget::saveExpandedState() -> XXX Not implemented.";
     return;
 
 //    QStringList closedCategories;

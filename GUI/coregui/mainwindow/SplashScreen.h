@@ -12,15 +12,7 @@ public:
 
 
 public slots:
-    void setProgress(int value)
-    {
-      m_progress = value;
-      if (m_progress > 100)
-        m_progress = 100;
-      if (m_progress < 0)
-        m_progress = 0;
-      update();
-    }
+    void setProgress(int value);
 
 protected:
     void drawContents(QPainter *painter);

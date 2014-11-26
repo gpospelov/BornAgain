@@ -118,6 +118,9 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_ex
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${core_include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
+# installing bornagain/__init.py
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
+
 if(WIN32)
     # python in windows required .pyd extention for the library name
     if(BORNAGAIN_PYTHON)

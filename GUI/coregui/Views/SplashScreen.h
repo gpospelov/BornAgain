@@ -2,8 +2,9 @@
 #define SPLASHSCREEN_H
 
 #include <QSplashScreen>
+#include "WinDllMacros.h"
 
-class SplashScreen : public QSplashScreen
+class BA_CORE_API_ SplashScreen : public QSplashScreen
 {
     Q_OBJECT
 public:

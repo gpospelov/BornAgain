@@ -38,17 +38,17 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
 
-    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
+    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ver. ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0,0,0,15);
 
-    QString copyright = "Copyright 2010-2014 MLZ Garching. All rights reserved.";
+    QString copyright = "Copyright: Forschungszentrum Jülich GmbH 2014.";
     QLabel *copyrightLabel = new QLabel(copyright);
     copyrightLabel->setFont(normalFont);
     //copyrightLabel->setWordWrap(true);
     copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS), using distorted-wave Born approximation (DWBA). The software equally supports neutron and x-ray scattering (GISANS and GISAXS).";
+    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS) using distorted-wave Born approximation (DWBA).";
     QLabel *descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);
@@ -60,8 +60,8 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
     QVBoxLayout *textLayout = new QVBoxLayout;
     textLayout->addWidget(aboutTitleLabel);
-    textLayout->addWidget(copyrightLabel);
     textLayout->addWidget(descriptionLabel);
+    textLayout->addWidget(copyrightLabel);
     textLayout->addStretch(1);
     textLayout->setContentsMargins(0,5,5,5);
 

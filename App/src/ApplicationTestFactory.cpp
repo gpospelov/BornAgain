@@ -41,7 +41,6 @@
 #include "TestSpecularMagnetic.h"
 #include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
-#include "TestToyFitting.h"
 #include "TestFunctionalTests.h"
 #include "TestRipple2.h"
 #include "TestRipple1.h"
@@ -262,40 +261,29 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
          IFactoryCreateFunction<TestPolarizedMeso, IApplicationTest>,
          "functional test: polarized mesocrystals");
     p_test_factory->registerItem(
-        "toyfit",
-        IFactoryCreateFunction<TestToyFitting, IApplicationTest>,
-        "functional test: produces plots used in manual");
-
-    p_test_factory->registerItem(
         "functest",
         IFactoryCreateFunction<TestFunctionalTests, IApplicationTest>,
         "Represents functional test results in graphics form");
-
     p_test_factory->registerItem(
         "ripple2",
         IFactoryCreateFunction<TestRipple2, IApplicationTest>,
         "test the new ripple2 formfactor");
-
     p_test_factory->registerItem(
         "ripple1",
         IFactoryCreateFunction<TestRipple1, IApplicationTest>,
         "test the new ripple1 formfactor");
-
     p_test_factory->registerItem(
         "bessel",
         IFactoryCreateFunction<TestBessel, IApplicationTest>,
         "test complex bessel functions");
-
     p_test_factory->registerItem(
         "ibox",
         IFactoryCreateFunction<TestInfLongBox, IApplicationTest>,
         "test the new infinite box formfactor");
-
     p_test_factory->registerItem(
         "iripple1",
         IFactoryCreateFunction<TestInfLongRipple1, IApplicationTest>,
         "test the new infinite ripple1 formfactor");
-
     p_test_factory->registerItem(
         "iripple2",
         IFactoryCreateFunction<TestInfLongRipple2, IApplicationTest>,

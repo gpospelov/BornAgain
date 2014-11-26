@@ -57,8 +57,9 @@ void SplashScreen::drawContents(QPainter *painter)
 
 //    QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
 //    painter->setFont(serifFont);
+    //    painter->drawText(textRect, Qt::AlignCenter, "ver 0.9.9");
+
     QRect textRect( 15.0, m_height-40, 100, 30);
-//    painter->drawText(textRect, Qt::AlignCenter, "ver 0.9.9");
 
     QString versionText = QString::fromStdString("version ").append(QString::fromStdString(BornAgain::GetVersionNumber()));
     style()->drawItemText(painter, textRect, 0, this->palette(), true, versionText);

@@ -1,5 +1,6 @@
 #include "aboutapplicationdialog.h"
 #include "BAVersion.h"
+#include "DesignerHelper.h"
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -26,11 +27,11 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
 
 
     QFont titleFont;
-    titleFont.setPointSize(14);
+    titleFont.setPointSize(DesignerHelper::getLabelFontSize() + 2);
     titleFont.setBold(true);
 
     QFont normalFont;
-    normalFont.setPointSize(11);
+    normalFont.setPointSize(DesignerHelper::getLabelFontSize());
     normalFont.setBold(false);
 
 

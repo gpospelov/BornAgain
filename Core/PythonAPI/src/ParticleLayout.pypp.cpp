@@ -319,7 +319,7 @@ void register_ParticleLayout_class(){
             ParticleLayout_exposer.def( 
                 "addParticle"
                 , addParticle_function_type( &::ParticleLayout::addParticle )
-                , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) );
+                , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
         
         }
         { //::ParticleLayout::addParticle

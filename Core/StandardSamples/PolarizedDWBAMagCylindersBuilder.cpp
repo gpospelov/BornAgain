@@ -45,7 +45,7 @@ void PolarizedDWBAMagCylinders1Builder::init_parameters()
 
 ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 {
-	MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer *multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -57,9 +57,8 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -103,8 +102,8 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout(
-            new Particle(particle_material,ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

@@ -49,8 +49,8 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     // particles
     ParticleLayout particle_layout;
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
-    particle_layout.addParticle(
-                new Particle(particle_material, ff_cyl), 0.0, 1.0);
+    Particle particle(particle_material, ff_cyl);
+    particle_layout.addParticle(particle, 0.0, 1.0);
 
     particle_layout.addInterferenceFunction(p_interference_function);
 

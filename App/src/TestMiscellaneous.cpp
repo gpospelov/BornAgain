@@ -510,9 +510,9 @@ void TestMiscellaneous::test_SampleGeometry()
     HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
-    ParticleLayout particle_layout
-        (new Particle(particle_material, FormFactorFullSphere
-                      (5*Units::nanometer)));
+    Particle particle(particle_material, FormFactorFullSphere(
+                          5*Units::nanometer) );
+    ParticleLayout particle_layout(particle);
 
     air_layer.addLayout(particle_layout);
 

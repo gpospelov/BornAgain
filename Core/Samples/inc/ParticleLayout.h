@@ -30,8 +30,6 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 public:
     ParticleLayout();
     ParticleLayout(
-        Particle* p_particle, double depth=0., double abundance=1.);
-    ParticleLayout(
         const Particle& p_particle, double depth=0., double abundance=1.);
 
     virtual ~ParticleLayout();
@@ -46,18 +44,12 @@ public:
 
     //! Adds generic particle
     void addParticle(
-        Particle *p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
-
-    void addParticle(
         const Particle& p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
+        double depth=0.0, double abundance=1.0);
 
     //! Adds particle without rotation
-    void addParticle(Particle *p_particle, double depth=0.0, double abundance=1.0);
-
-    //! Adds particle without rotation
-    void addParticle(const Particle& particle, double depth=0.0, double abundance=1.0);
+    void addParticle(const Particle& particle, double depth=0.0,
+                     double abundance=1.0);
 
     //! Adds particle info
     void addParticleInfo(const ParticleInfo& info);

@@ -24,8 +24,8 @@ OutputData<double> *run_simulation(IFormFactor *form_factor)
     Layer air_layer;
     air_layer.setMaterial(air_material);
 
-    ParticleLayout particle_layout( new Particle(particle_material,
-                                                         *form_factor));
+    Particle particle(particle_material, *form_factor);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.addLayout(particle_layout);
     multi_layer.addLayer(air_layer);

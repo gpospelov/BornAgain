@@ -46,7 +46,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
     HomogeneousMaterial mat("Stone",0,0);
-    Particle * particle = new Particle(mat);
+    Particle particle(mat);
 
     ParticleLayout particleDecoration(particle, 3.0, -2.0);
 
@@ -102,13 +102,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -165,13 +165,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -209,13 +209,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2 ("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -304,13 +304,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);

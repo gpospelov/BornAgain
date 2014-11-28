@@ -6,6 +6,7 @@
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
 #include "GroupBox.h"
+#include "ComboWidget.h"
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QDoubleValidator>
@@ -63,6 +64,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
 
 
 
+    //GroupBox Test
     GroupBox *settingsGroupBox = new GroupBox("Beam Type Settings");
     QVBoxLayout *beamTypeSettingsGroupLayout2 = new QVBoxLayout;
     settingsGroupBox->setLayout(beamTypeSettingsGroupLayout2);
@@ -76,7 +78,23 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     beamTypeSettingsGroupLayout2->addLayout(beamTypeLayout2);
 
     beamParamsLayout->addWidget(settingsGroupBox, 6,1,1,1);
+    //end of GroupBox Test
 
+
+
+    //ComboWidget Test
+    QGridLayout *comboLayout = new QGridLayout;
+    comboLayout->addWidget(new QLabel("Param 1"), 0, 0);
+    comboLayout->addWidget(new QLineEdit, 0, 1);
+    comboLayout->addWidget(new QLabel("Param 2"), 1, 0);
+    comboLayout->addWidget(new QLineEdit, 1, 1);
+
+    ComboWidget *comboWidget = new ComboWidget("Monochromatic", comboLayout, this);
+    beamParamsLayout->addWidget(new QLabel("Beam Type"), 7, 0);
+    beamParamsLayout->addWidget(comboWidget, 7,1,1,2);
+
+    comboWidget->addItem("Dichromatic");
+    //end of ComboWidget Test
 
 
 

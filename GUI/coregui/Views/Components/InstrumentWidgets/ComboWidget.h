@@ -9,14 +9,27 @@ class QLabel;
 class QSpinBox;
 class QDoubleSpinBox;
 class QGridLayout;
+class QPushButton;
 
 class BA_CORE_API_ ComboWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ComboWidget(QString title, QGridLayout *layout = 0, QWidget *parent = 0);
+    ComboWidget(QString item, QGridLayout *layout = 0, QWidget *parent = 0);
+    void addItem(QString item);
 
+public slots:
+    void onDetailsButtonClicked();
+
+private:
+    bool m_collapsed;
+    QGridLayout *m_detailsLayout;
+    QComboBox *m_mainComboBox;
+    QPushButton *m_detailsButton;
+    QIcon *m_icon_collapse, *m_icon_expand;
+
+    void setCollapse(bool);
 };
 
 #endif

@@ -57,8 +57,9 @@ def run_simulation():
     result = simulation.getIntensityData().getArray() + 1  # for log scale
 
     # showing the result
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
     pylab.xlabel(r'$\phi_f$', fontsize=16)
     pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()

@@ -17,7 +17,7 @@
 #include <iostream>
 
 PositionParticleInfo::PositionParticleInfo(
-    Particle* p_particle, kvector_t position, double abundance)
+    IParticle* p_particle, kvector_t position, double abundance)
     : ParticleInfo(p_particle, position.z(), abundance)
     , m_pos_x(position.x())
     , m_pos_y(position.y())
@@ -27,7 +27,7 @@ PositionParticleInfo::PositionParticleInfo(
 }
 
 PositionParticleInfo::PositionParticleInfo(
-    const Particle& particle, kvector_t position, double abundance)
+    const IParticle& particle, kvector_t position, double abundance)
     : ParticleInfo(particle.clone(), position.z(), abundance)
     , m_pos_x(position.x())
     , m_pos_y(position.y())
@@ -40,7 +40,7 @@ PositionParticleInfo* PositionParticleInfo::clone() const
 {
     kvector_t position(m_pos_x, m_pos_y, -m_depth);
     return new PositionParticleInfo(
-        mp_particle->clone(), position, m_abundance);
+        mP_particle->clone(), position, m_abundance);
 }
 
 void PositionParticleInfo::setPosition(kvector_t position)

@@ -85,6 +85,7 @@
 #include "OutputDataFunctions.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
+#include "IParticle.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"

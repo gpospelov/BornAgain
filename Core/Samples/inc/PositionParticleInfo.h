@@ -29,10 +29,10 @@ class BA_CORE_API_ PositionParticleInfo : public ParticleInfo
 {
 public:
     PositionParticleInfo(
-        Particle *p_particle, kvector_t position, double abundance=0);
+        IParticle *p_particle, kvector_t position, double abundance=0);
 
     PositionParticleInfo(
-        const Particle& particle, kvector_t position, double abundance=0);
+        const IParticle& particle, kvector_t position, double abundance=0);
 
     virtual ~PositionParticleInfo() {}
 
@@ -40,9 +40,6 @@ public:
 
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    //! Returns particle.
-    const Particle *getParticle() const { return mp_particle; }
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const

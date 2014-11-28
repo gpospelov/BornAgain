@@ -59,11 +59,7 @@ private:
     struct DiffuseFormFactorTerm {
         DiffuseFormFactorTerm()
             : m_form_factors(), m_probabilities(), m_factor(0.) {}
-        ~DiffuseFormFactorTerm()
-        {
-            for (size_t i=0; i<m_form_factors.size(); ++i)
-                delete m_form_factors[i];
-        }
+        ~DiffuseFormFactorTerm();
         std::vector<IFormFactor*> m_form_factors;
         std::vector<double> m_probabilities;
         double m_factor;

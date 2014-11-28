@@ -175,7 +175,7 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
     msglog(MSG::DEBUG2) << "DiffuseDWBASimulation::init...()";
     for (size_t i=0; i<m_np_infos.size(); ++i) {
         DiffuseParticleInfo *p_diff_info = m_np_infos[i];
-        Particle *p_particle = p_diff_info->getParticle()->clone();
+        IParticle *p_particle = p_diff_info->getParticle()->clone();
         double total_particle_density = p_diff_info->getNumberPerMeso();
         double density_per_height_per_particle =
             total_particle_density/nbr_heights;
@@ -210,3 +210,8 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
     }
 }
 
+DiffuseDWBASimulation::DiffuseFormFactorTerm::~DiffuseFormFactorTerm()
+{
+    for (size_t i=0; i<m_form_factors.size(); ++i)
+        delete m_form_factors[i];
+}

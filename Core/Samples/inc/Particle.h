@@ -16,7 +16,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "ICompositeSample.h"
+#include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "IMaterial.h"
@@ -28,7 +28,7 @@ class DiffuseParticleInfo;
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
 
-class BA_CORE_API_ Particle : public ICompositeSample
+class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
@@ -67,7 +67,7 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets _material_ and _thickness_.
+    //! Sets _material_.
     virtual void setMaterial(const IMaterial* p_material) {
         if(p_material) {
             delete mp_material;
@@ -84,16 +84,6 @@ public:
         return (mp_material ? mp_material->getRefractiveIndex()
                             : complex_t(0,0));
     }
-
-    //! Returns transformation.
-    const Geometry::Transform3D *getPTransform3D() const
-    { return mP_transform.get(); }
-
-    //! Sets transformation.
-    virtual void setTransformation(const Geometry::Transform3D& transform);
-
-    //! Applies transformation by composing it with the existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const {
@@ -123,8 +113,6 @@ protected:
     IMaterial* mp_material;
     IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
-    std::auto_ptr<Geometry::Transform3D> mP_transform;
-    //!< pointer to the form factor
 };
 
 #endif // PARTICLE_H

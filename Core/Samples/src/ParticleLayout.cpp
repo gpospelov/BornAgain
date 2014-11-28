@@ -29,11 +29,11 @@ ParticleLayout::ParticleLayout()
 }
 
 ParticleLayout::ParticleLayout(
-        const Particle& p_particle, double depth, double abundance)
+        const IParticle& particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
     setName("ParticleLayout");
-    addParticle(p_particle, depth, abundance);
+    addParticle(particle, depth, abundance);
 }
 
 ParticleLayout::~ParticleLayout()
@@ -80,14 +80,14 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
 //! Adds generic particle, &-version.
 void ParticleLayout::addParticle(
-    const Particle& p_particle, const Geometry::Transform3D& transform,
+    const IParticle& p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
     if(!abundance) {
         throw LogicErrorException("ParticleLayout::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
-    Particle *p_particle_clone = p_particle.clone();
+    IParticle *p_particle_clone = p_particle.clone();
     p_particle_clone->setTransformation(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle_clone, depth, abundance));
@@ -95,10 +95,10 @@ void ParticleLayout::addParticle(
 
 //! Adds particle without rotation, &-version.
 void ParticleLayout::addParticle(
-    const Particle& p_particle,
+    const IParticle& p_particle,
     double depth, double abundance)
 {
-    Particle *p_particle_clone = p_particle.clone();
+    IParticle *p_particle_clone = p_particle.clone();
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle_clone, depth, abundance));
 }

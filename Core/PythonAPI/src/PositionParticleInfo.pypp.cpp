@@ -18,7 +18,7 @@ namespace bp = boost::python;
 
 struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< PositionParticleInfo > {
 
-    PositionParticleInfo_wrapper(::Particle const & particle, ::kvector_t position, double abundance=0 )
+    PositionParticleInfo_wrapper(::IParticle const & particle, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
@@ -232,7 +232,7 @@ void register_PositionParticleInfo_class(){
 
     { //::PositionParticleInfo
         typedef bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, std::auto_ptr< PositionParticleInfo_wrapper >, boost::noncopyable > PositionParticleInfo_exposer_t;
-        PositionParticleInfo_exposer_t PositionParticleInfo_exposer = PositionParticleInfo_exposer_t( "PositionParticleInfo", bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
+        PositionParticleInfo_exposer_t PositionParticleInfo_exposer = PositionParticleInfo_exposer_t( "PositionParticleInfo", bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
         bp::scope PositionParticleInfo_scope( PositionParticleInfo_exposer );
         { //::PositionParticleInfo::clone
         
@@ -244,16 +244,6 @@ void register_PositionParticleInfo_class(){
                 , clone_function_type(&::PositionParticleInfo::clone)
                 , default_clone_function_type(&PositionParticleInfo_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::PositionParticleInfo::getParticle
-        
-            typedef ::Particle const * ( ::PositionParticleInfo::*getParticle_function_type)(  ) const;
-            
-            PositionParticleInfo_exposer.def( 
-                "getParticle"
-                , getParticle_function_type( &::PositionParticleInfo::getParticle )
-                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::PositionParticleInfo::getPosition

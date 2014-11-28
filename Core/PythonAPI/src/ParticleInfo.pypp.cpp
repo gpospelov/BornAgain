@@ -18,7 +18,7 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::Particle const & p_particle, double depth=0, double abundance=0 )
+    ParticleInfo_wrapper(::IParticle const & p_particle, double depth=0, double abundance=0 )
     : ParticleInfo( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
@@ -232,7 +232,7 @@ void register_ParticleInfo_class(){
 
     { //::ParticleInfo
         typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ParticleInfo_wrapper >, boost::noncopyable > ParticleInfo_exposer_t;
-        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
+        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
         { //::ParticleInfo::clone
         
@@ -278,7 +278,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::getParticle
         
-            typedef ::Particle const * ( ::ParticleInfo::*getParticle_function_type)(  ) const;
+            typedef ::IParticle const * ( ::ParticleInfo::*getParticle_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "getParticle"

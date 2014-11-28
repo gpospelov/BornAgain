@@ -38,6 +38,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
+#include "IParticle.pypp.h"
 #include "Particle.pypp.h"
 #include "FormFactorTrivial.pypp.h"
 #include "ConstKBinAxis.pypp.h"
@@ -72,6 +73,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorPrism6.pypp.h"
 #include "IClusteredParticles.pypp.h"
 #include "VariableBinAxis.pypp.h"
+#include "IParticle.pypp.h"
 #include "DistributionCosine.pypp.h"
 #include "FormFactorHemiEllipsoid.pypp.h"
 #include "IAxis.pypp.h"
@@ -223,6 +225,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ILayout_class();
     register_IObservable_class();
     register_IObserver_class();
+    register_IParticle_class();
     register_IResolutionFunction2D_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();

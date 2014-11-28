@@ -25,6 +25,13 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
         m_pyobj = 0;
     }
 
+    DistributionGaussian_wrapper( )
+    : DistributionGaussian( )
+      , bp::wrapper< DistributionGaussian >(){
+        // null constructor
+    m_pyobj = 0;
+    }
+
     DistributionGaussian_wrapper(double mean, double std_dev )
     : DistributionGaussian( mean, std_dev )
       , bp::wrapper< DistributionGaussian >(){
@@ -179,8 +186,9 @@ void register_DistributionGaussian_class(){
 
     { //::DistributionGaussian
         typedef bp::class_< DistributionGaussian_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGaussian_wrapper > > DistributionGaussian_exposer_t;
-        DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
+        DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", bp::init< >() );
         bp::scope DistributionGaussian_scope( DistributionGaussian_exposer );
+        DistributionGaussian_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
         { //::DistributionGaussian::clone
         
             typedef ::DistributionGaussian * ( ::DistributionGaussian::*clone_function_type)(  ) const;

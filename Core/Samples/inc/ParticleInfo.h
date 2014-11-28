@@ -17,7 +17,7 @@
 #define PARTICLEINFO_H
 
 #include "ICompositeSample.h"
-#include "Particle.h"
+#include "IParticle.h"
 
 //! @class ParticleInfo
 //! @ingroup samples
@@ -28,31 +28,31 @@
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
 public:
-    ParticleInfo(Particle *p_particle,
+    ParticleInfo(IParticle *p_particle,
                  double depth=0, double abundance=0);
-    ParticleInfo(const Particle& p_particle,
+    ParticleInfo(const IParticle& p_particle,
                  double depth=0, double abundance=0);
 
-    virtual ~ParticleInfo() { delete mp_particle; }
+    virtual ~ParticleInfo() {}
 
     virtual ParticleInfo *clone() const
     {
         return new ParticleInfo(
-            mp_particle->clone(), m_depth, m_abundance);
+            mP_particle->clone(), m_depth, m_abundance);
     }
 
     //! Returns a clone with inverted magnetic fields
     virtual ParticleInfo *cloneInvertB() const
     {
         return new ParticleInfo(
-            mp_particle->cloneInvertB(), m_depth, m_abundance);
+            mP_particle->cloneInvertB(), m_depth, m_abundance);
     }
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns particle.
-    const Particle *getParticle() const { return mp_particle; }
+    const IParticle *getParticle() const { return mP_particle.get(); }
 
     //! Returns depth.
     double getDepth() const { return m_depth; }
@@ -68,7 +68,7 @@ public:
 
     //! Sets the ambient material
     void setAmbientMaterial(const IMaterial *p_material) {
-        mp_particle->setAmbientMaterial(p_material);
+        mP_particle->setAmbientMaterial(p_material);
     }
 
 protected:
@@ -76,7 +76,7 @@ protected:
 
     virtual void print(std::ostream& ostr) const;
 
-    Particle *mp_particle;
+    std::auto_ptr<IParticle> mP_particle;
     double m_depth;
     double m_abundance;
 };

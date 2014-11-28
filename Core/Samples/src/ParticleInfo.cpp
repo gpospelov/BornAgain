@@ -17,28 +17,28 @@
 
 
 ParticleInfo::ParticleInfo(
-    Particle *p_particle,
+    IParticle *p_particle,
     double depth,
     double abundance)
-    : mp_particle(p_particle)
+    : mP_particle(p_particle)
     , m_depth(depth)
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
-    registerChild(mp_particle);
+    registerChild(mP_particle.get());
     init_parameters();
 }
 
 ParticleInfo::ParticleInfo(
-    const Particle& p_particle,
+    const IParticle& p_particle,
     double depth,
     double abundance)
-    : mp_particle(p_particle.clone())
+    : mP_particle(p_particle.clone())
     , m_depth(depth)
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
-    registerChild(mp_particle);
+    registerChild(mP_particle.get());
     init_parameters();
 }
 

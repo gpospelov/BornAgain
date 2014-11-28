@@ -26,7 +26,7 @@ class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {
 public:
     DiffuseParticleInfo(
-        Particle *p_particle,
+        IParticle *p_particle,
         double depth=0, double abundance=0)
         : ParticleInfo(p_particle, depth, abundance)
         , m_number_per_meso(0.0)

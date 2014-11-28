@@ -25,8 +25,8 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
-    ParticleLayout_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
-    : ParticleLayout( boost::ref(p_particle), depth, abundance )
+    ParticleLayout_wrapper(::IParticle const & particle, double depth=0.0, double abundance=1.0e+0 )
+    : ParticleLayout( boost::ref(particle), depth, abundance )
       , bp::wrapper< ParticleLayout >(){
         // constructor
     m_pyobj = 0;
@@ -301,7 +301,7 @@ void register_ParticleLayout_class(){
         typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
-        ParticleLayout_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
+        ParticleLayout_exposer.def( bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleLayout::addInterferenceFunction
         
             typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type)( ::IInterferenceFunction const & ) ;
@@ -314,17 +314,17 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::Particle const &,::Geometry::Transform3D const &,double,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,::Geometry::Transform3D const &,double,double ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"
                 , addParticle_function_type( &::ParticleLayout::addParticle )
-                , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
+                , ( bp::arg("particle"), bp::arg("transform"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
         
         }
         { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::Particle const &,double,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double,double ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"

@@ -6,7 +6,7 @@ import matplotlib
 import pylab
 from bornagain import *
 
-phi_min, phi_max = -2.0, 2.0
+phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
@@ -23,15 +23,15 @@ def get_sample():
     lattice_length = 30.0*nanometer
     lattice_rotation_angle = 0.0*degree
     interference = InterferenceFunction1DLattice(lattice_length, lattice_rotation_angle)
-    pdf = FTDistribution1DCauchy(200./2./numpy.pi*nanometer)
+    pdf = FTDistribution1DCauchy(20./2./numpy.pi*nanometer)
     interference.setProbabilityDistribution(pdf)
 
     infbox_ff = FormFactorInfLongBox(10*nanometer, 15.0*nanometer)
     infbox = Particle(m_particle, infbox_ff)
-    # transform = Transform3D.createRotateZ(90.0*degree)
+    transform = Transform3D.createRotateZ(10.0*degree)
     particle_layout = ParticleLayout()
-    # particle_layout.addParticle(infbox, transform)
-    particle_layout.addParticle(infbox)
+    particle_layout.addParticle(infbox, transform)
+    #particle_layout.addParticle(infbox)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

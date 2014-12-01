@@ -38,7 +38,7 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam (+ divergence) and detector defined
+    Create and return GISAXS simulation with detector resolution function defined
     """
     simulation = Simulation()
     simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)

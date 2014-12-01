@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
+    Build and return the sample representing cylinders and prisms on top of
     substrate without interference.
     """
     # defining materials

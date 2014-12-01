@@ -14,7 +14,7 @@ alpha_i_min, alpha_i_max = 0.0, 10.0  # incoming beam
 
 def get_sample():
     """
-    Build and return the sample representing 2D lattice with different disorder
+    Build and return the sample infinitely long boxes at 1D lattice
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -48,11 +48,11 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Create and return off-specular simulation with beam and detector defined
     """
     simulation = OffSpecSimulation()
     simulation.setDetectorParameters(20, phi_f_min*degree, phi_f_max*degree, 200, alpha_f_min*degree, alpha_f_max*degree)
-
+    # defining the beam  with incidence alpha_i varied between alpha_i_min and alpha_i_max
     alpha_i_axis = FixedBinAxis("alpha_i", 200, alpha_i_min*degree, alpha_i_max*degree)
     simulation.setBeamParameters(1.0*angstrom, alpha_i_axis, 0.0*degree)
     simulation.setBeamIntensity(1e9)

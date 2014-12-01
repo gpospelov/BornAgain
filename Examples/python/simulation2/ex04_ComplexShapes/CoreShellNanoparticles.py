@@ -12,8 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Build and return the sample representing core shell nano particles
     """
     # defining materials
     m_air = HomogeneousMaterial("Air", 0.0, 0.0 )

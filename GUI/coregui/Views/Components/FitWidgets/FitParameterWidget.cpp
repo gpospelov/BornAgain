@@ -7,8 +7,8 @@
 
 FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *parent)
     : QWidget(parent)
-    , m_fitProxyModel(fitProxyModel)
     , m_treeView(0)
+    , m_fitProxyModel(fitProxyModel)
 {
 
     QColor bgColor(255,255,255,255);

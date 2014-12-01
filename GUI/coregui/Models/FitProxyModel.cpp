@@ -96,7 +96,7 @@ int FitProxyModel::rowCount(const QModelIndex &parentIndex) const
             QModelIndex itemIndex = m_fitModel->index( i_row, 0, parentIndex );
 
             if (ParameterizedItem *item = m_fitModel->itemForIndex(itemIndex)){
-
+                Q_UNUSED(item);
                 counter++;
             }
         }
@@ -130,7 +130,7 @@ QModelIndex FitProxyModel::index(int row, int column,
     return QModelIndex();
 }
 
-QModelIndex FitProxyModel::parent(const QModelIndex &child) const
+QModelIndex FitProxyModel::parent(const QModelIndex &/*child*/) const
 {
     /*if (!child.isValid()) return QModelIndex();
     if (ParameterizedItem *child_item = itemForIndex(child)) {

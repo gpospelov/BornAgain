@@ -38,7 +38,7 @@ FitView::FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow)
 }
 
 
-void FitView::onChangeTabWidget(int index)
+void FitView::onChangeTabWidget(int /*index*/)
 {
 
 }

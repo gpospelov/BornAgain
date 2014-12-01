@@ -42,7 +42,7 @@ void GroupBox::paintEvent( QPaintEvent * )
                 Qt::AlignTop | Qt::AlignRight,
                 QPixmap( m_collapsed ?
                              ":/images/expand_arrow.png" :
-                             ":/images/collapse_arrow.png" ).scaled(24, 24, Qt::KeepAspectRatio) );
+                             ":/images/collapse_arrow.png" ).scaled(16, 16, Qt::KeepAspectRatio) );
 }
 
 void GroupBox::setCollapse( bool collapse )

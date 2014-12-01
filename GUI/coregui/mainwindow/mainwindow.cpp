@@ -41,6 +41,9 @@
 #include "SampleModel.h"
 #include "JobView.h"
 #include "aboutapplicationdialog.h"
+#include "FitModel.h"
+#include "FitProxyModel.h"
+#include "FitView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -59,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_scriptView(0)
     , m_simulationView(0)
     , m_jobView(0)
+    , m_fitView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
@@ -69,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_fitProxyModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -98,8 +103,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
+
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
+    //m_fitView = new FitView(m_fitProxyModel, this);
+
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -108,8 +116,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
+    //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
-
+    
     m_tabWidget->setCurrentIndex(WelcomeTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
@@ -234,6 +243,8 @@ void MainWindow::initModels()
     initJobQueueModel();
 
     initInstrumentModel();
+
+    //initFitModel();
 }
 
 
@@ -299,6 +310,23 @@ void MainWindow::initInstrumentModel()
 //    qDebug() << tt->m_data;
 
     //m_instrumentModel->save("instrument.xml");
+}
+
+void MainWindow::initFitModel()
+{
+    m_fitProxyModel = new FitProxyModel;
+
+//    ParameterizedItem *item1 = m_fitProxyModel->insertNewItem(Constants::FitParameterType);
+//    item1->setItemName("par1");
+//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+
+//    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+//    item2->setItemName("par2");
+
+    //m_fitProxyModel->save("fitmodel.xml");
+
+
+    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }
 
 

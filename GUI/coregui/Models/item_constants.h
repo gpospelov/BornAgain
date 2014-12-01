@@ -80,6 +80,8 @@ const ModelType RefractiveIndexType = "RefractiveIndex";
 
 const ModelType MagneticFieldType = "MagneticField";
 
+const ModelType FitParameterType = "FitParameter";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

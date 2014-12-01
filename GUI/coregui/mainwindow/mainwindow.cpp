@@ -43,7 +43,6 @@
 #include "aboutapplicationdialog.h"
 #include "FitModel.h"
 #include "FitProxyModel.h"
-#include "FitParameterItem.h"
 #include "FitView.h"
 #include <boost/scoped_ptr.hpp>
 
@@ -107,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
-    m_fitView = new FitView(m_fitProxyModel, this);
+    //m_fitView = new FitView(m_fitProxyModel, this);
 
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -117,7 +116,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
-    m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
+    //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
     
     m_tabWidget->setCurrentIndex(WelcomeTab);
@@ -245,7 +244,7 @@ void MainWindow::initModels()
 
     initInstrumentModel();
 
-    initFitModel();
+    //initFitModel();
 }
 
 

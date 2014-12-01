@@ -62,7 +62,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     beamParamsLayout->addWidget(m_beamTypeCombo, 5, 1);
 
 
-
+    /* Code of Mahadi, will be used in the future for beam divergence
 
     //GroupBox Test
     GroupBox *settingsGroupBox = new GroupBox("Beam Type Settings");
@@ -96,6 +96,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     comboWidget->addItem("Dichromatic");
     //end of ComboWidget Test
 
+    */
 
 
 

@@ -20,17 +20,18 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    lattice_length = 950.0*nanometer
-    lattice_rotation_angle = 90.0*degree
+    lattice_length = 30.0*nanometer
+    lattice_rotation_angle = 0.0*degree
     interference = InterferenceFunction1DLattice(lattice_length, lattice_rotation_angle)
-    pdf = FTDistribution1DCauchy(200./2./numpy.pi)
+    pdf = FTDistribution1DCauchy(200./2./numpy.pi*nanometer)
     interference.setProbabilityDistribution(pdf)
 
-    infbox_ff = FormFactorInfLongBox(10*nanometer, 16.0*nanometer)
+    infbox_ff = FormFactorInfLongBox(10*nanometer, 15.0*nanometer)
     infbox = Particle(m_particle, infbox_ff)
     transform = Transform3D.createRotateZ(90.0*degree)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(infbox, transform)
+    #particle_layout.addParticle(infbox)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

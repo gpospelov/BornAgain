@@ -183,7 +183,7 @@ void ParticleLayout::replaceParticleCollection(size_t index)
     const ParticleCollection *p_particle_coll =
                     dynamic_cast<const ParticleCollection *>(
                         m_particles[index]->getParticle());
-    std::vector<IParticle *> particles =
+    std::vector<ParticleInfo *> particles =
             p_particle_coll->generateDistributedParticles();
     ParticleInfo *p_original = m_particles[index];
     // TODO: add all particles with the same type of particleinfo

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleCollection.h"
+#include "ParticleInfo.h"
 
 
 ParticleCollection::ParticleCollection(const IParticle &prototype,

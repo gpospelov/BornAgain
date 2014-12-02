@@ -179,14 +179,20 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 
 void ParticleLayout::replaceParticleCollection(size_t index)
 {
+    ParticleInfo *p_particle_info = m_particles[index];
     const ParticleCollection *p_particle_coll =
                     dynamic_cast<const ParticleCollection *>(
-                        m_particles[index]->getParticle());
+                        p_particle_info->getParticle());
     std::vector<ParticleInfo *> particles =
-            p_particle_coll->generateParticleInfos();
-    ParticleInfo *p_original = m_particles[index];
-    // TODO: add all particles with the same type of particleinfo
-    // and remove the original one
+        p_particle_coll->generateParticleInfos(
+            p_particle_info->getPosition(), p_particle_info->getAbundance());
+    // TODO: remove the original one
+    for (size_t i=0; i<particles.size(); ++i) {
+        addAndRegisterParticleInfo(particles[i]);
+    }
+    m_total_abundance -= p_particle_info->getAbundance();
+    deregisterChild(p_particle_info);
+    m_particles.deleteElement(p_particle_info);
 }
 
 void ParticleLayout::print(std::ostream& ostr) const

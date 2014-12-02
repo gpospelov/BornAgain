@@ -17,6 +17,8 @@
 #define SAFEPOINTERVECTOR_H_
 
 #include <vector>
+#include <algorithm>
+
 using std::size_t;
 
 //! @class SafePointerVector
@@ -46,6 +48,8 @@ public:
     const_iterator end() const { return m_pointers.end(); }
 
     std::vector<T *> getSTLVector() const { return m_pointers; }
+
+    bool deleteElement(T* pointer);
 
     T *back() { return m_pointers.back(); }
     const T *back() const { return m_pointers.back(); }
@@ -111,6 +115,17 @@ template<class T>
 inline const T* SafePointerVector<T>::operator[](size_t index) const
 {
     return m_pointers[index];
+}
+
+template<class T>
+inline bool SafePointerVector<T>::deleteElement(T *pointer)
+{
+    typename std::vector<T *>::iterator it = std::find(m_pointers.begin(),
+                                              m_pointers.end(), pointer);
+    if (it == m_pointers.end()) return false;
+    m_pointers.erase(it);
+    delete pointer;
+    return true;
 }
 
 template<class T> void SafePointerVector<T>::clear()

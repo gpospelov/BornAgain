@@ -73,6 +73,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IClusteredParticles.pypp.h"
 #include "VariableBinAxis.pypp.h"
 #include "IParticle.pypp.h"
+#include "vector_less__ParticleInfo_ptr___greater_.pypp.h"
 #include "DistributionCosine.pypp.h"
 #include "FormFactorHemiEllipsoid.pypp.h"
 #include "IAxis.pypp.h"
@@ -128,6 +129,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "LatticeBasis.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "Bin1D.pypp.h"
+#include "ParticleCollection.pypp.h"
 #include "DistributionLogNormal.pypp.h"
 #include "IFTDistribution2D.pypp.h"
 #include "__call_policies.pypp.hpp"
@@ -143,6 +145,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_longinteger_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
+    register_vector_less__ParticleInfo_ptr___greater__class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_IParameterized_class();
@@ -249,6 +252,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IntensityData_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
+    register_ParticleCollection_class();
     register_ParticleCoreShell_class();
     register_ParticleInfo_class();
     register_ParticleLayout_class();

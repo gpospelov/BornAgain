@@ -140,6 +140,7 @@ include_classes = [
     "IntensityDataIOFactory",
     "ParameterPool",
     "Particle",
+    "ParticleCollection",
     "ParticleCoreShell",
     "ParticleBuilder",
     "ParticleLayout",

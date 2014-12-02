@@ -23,7 +23,6 @@
 #include "InterferenceFunctions.h"
 #include "ParticleInfo.h"
 #include "LayerInterface.h"
-#include "PositionParticleInfo.h"
 #include <iostream>
 #include "MesoCrystal.h"
 
@@ -140,12 +139,6 @@ void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
 {
     throw NotImplementedException("SamplePrintVisitor::"
         "visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
-}
-
-
-void SamplePrintVisitor::visit(const PositionParticleInfo *sample)
-{
-    print_default(sample);
 }
 
 

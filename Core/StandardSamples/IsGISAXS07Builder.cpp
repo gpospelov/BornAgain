@@ -20,7 +20,6 @@
 #include "FormFactorBox.h"
 #include "Simulation.h"
 #include "IntensityDataIOFactory.h"
-#include "PositionParticleInfo.h"
 #include "Utils.h"
 #include "Units.h"
 #include "MathFunctions.h"

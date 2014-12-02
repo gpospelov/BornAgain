@@ -91,7 +91,6 @@
 #include "ParticleCoreShell.h"
 #include "ParticleLayout.h"
 #include "ParticleInfo.h"
-#include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
 #include "RealParameterWrapper.h"
 #include "ResolutionFunction2DSimple.h"

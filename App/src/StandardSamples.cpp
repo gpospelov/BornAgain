@@ -31,7 +31,6 @@
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "Particle.h"
-#include "PositionParticleInfo.h"
 
 //! 10 nm of ambience on top of substrate.
 

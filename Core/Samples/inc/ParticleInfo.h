@@ -32,21 +32,15 @@ public:
                  double depth=0, double abundance=0);
     ParticleInfo(const IParticle& p_particle,
                  double depth=0, double abundance=0);
+    ParticleInfo(const IParticle& p_particle,
+                 kvector_t position, double abundance=0);
 
     virtual ~ParticleInfo() {}
 
-    virtual ParticleInfo *clone() const
-    {
-        return new ParticleInfo(
-            mP_particle->clone(), getDepth(), m_abundance);
-    }
+    virtual ParticleInfo *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleInfo *cloneInvertB() const
-    {
-        return new ParticleInfo(
-            mP_particle->cloneInvertB(), getDepth(), m_abundance);
-    }
+    virtual ParticleInfo *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -55,10 +49,16 @@ public:
     const IParticle *getParticle() const { return mP_particle.get(); }
 
     //! Returns depth.
-    double getDepth() const { return -m_position.z(); }
+    double getDepth() const { return m_depth; }
 
     //! Sets depth.
-    void setDepth(double depth) { m_position.setZ(-depth); }
+    void setDepth(double depth) { m_depth = depth; }
+
+    //! Returns particle position, including depth.
+    kvector_t getPosition() const { return kvector_t(m_x, m_y, -m_depth); }
+
+    //! Sets particle position, including depth.
+    void setPosition(kvector_t position);
 
     //! Returns abundance.
     double getAbundance() const { return m_abundance; }
@@ -77,7 +77,9 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
     std::auto_ptr<IParticle> mP_particle;
-    kvector_t m_position;
+    double m_x;
+    double m_y;
+    double m_depth;
     double m_abundance;
 };
 

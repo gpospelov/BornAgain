@@ -85,7 +85,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
-#include "PositionParticleInfo.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
 #include "cvector_t.pypp.h"
@@ -253,7 +252,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleCoreShell_class();
     register_ParticleInfo_class();
     register_ParticleLayout_class();
-    register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DSimple_class();
     register_SimpleSelectionRule_class();

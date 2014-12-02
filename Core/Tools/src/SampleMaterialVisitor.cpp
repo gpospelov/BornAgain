@@ -115,10 +115,6 @@ void SampleMaterialVisitor::visit(const DiffuseParticleInfo *)
 {
 }
 
-void SampleMaterialVisitor::visit(const PositionParticleInfo *)
-{
-}
-
 void SampleMaterialVisitor::visit(const IFormFactor *)
 {
 }

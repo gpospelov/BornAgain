@@ -24,7 +24,6 @@
 #include "AngleProperty.h"
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
-#include "PositionParticleInfo.h"
 #include "RotationItems.h"
 #include <QDebug>
 
@@ -299,21 +298,13 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     Q_ASSERT(parent);
     m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
-    m_levelToParentItem[getLevel()] = parent;
-}
-
-void GUIObjectBuilder::visit(const PositionParticleInfo *sample)
-{
-    qDebug() << "GUIObjectBuilder::visit(const PositionParticleInfo *)" << getLevel();
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
-    Q_ASSERT(parent);
-    m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
-    m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
     kvector_t position = sample->getPosition();
-    m_sample_encountered[Constants::TransformationType] = true;
-    m_propertyToValue[VectorItem::P_X] = position.x();
-    m_propertyToValue[VectorItem::P_Y] = position.y();
-    m_propertyToValue[VectorItem::P_Z] = position.z();
+    if (position.x()!=0.0 || position.y()!=0.0){
+        m_sample_encountered[Constants::TransformationType] = true;
+        m_propertyToValue[VectorItem::P_X] = position.x();
+        m_propertyToValue[VectorItem::P_Y] = position.y();
+        m_propertyToValue[VectorItem::P_Z] = position.z();
+    }
     m_levelToParentItem[getLevel()] = parent;
 }
 

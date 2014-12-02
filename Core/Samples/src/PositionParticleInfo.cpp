@@ -38,7 +38,7 @@ PositionParticleInfo::PositionParticleInfo(
 
 PositionParticleInfo* PositionParticleInfo::clone() const
 {
-    kvector_t position(m_pos_x, m_pos_y, m_position.z());
+    kvector_t position(m_pos_x, m_pos_y, -m_depth);
     return new PositionParticleInfo(
         mP_particle->clone(), position, m_abundance);
 }
@@ -47,7 +47,7 @@ void PositionParticleInfo::setPosition(kvector_t position)
 {
     m_pos_x = position.x();
     m_pos_y = position.y();
-    m_position.setZ(position.z());
+    m_depth = -position.z();
 }
 
 void PositionParticleInfo::init_parameters()

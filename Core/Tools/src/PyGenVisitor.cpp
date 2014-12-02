@@ -17,7 +17,6 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleInfo.h"
-#include "PositionParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
@@ -1004,8 +1003,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             {
                 const ParticleInfo *particleInfo =
                         particleLayout->getParticleInfo(particleIndex);
-                if (const PositionParticleInfo *positionParticleInfo =
-                       dynamic_cast<const PositionParticleInfo *>(particleInfo))
+                kvector_t pos = particleInfo->getPosition();
+                if (pos.x()!=0.0 || pos.y()!=0.0)
                 {
                     result << "\t# Defining "
                            << m_label->getLabel(particleInfo->getParticle());
@@ -1013,16 +1012,16 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                     result << "\n\t"
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position = kvector_t("
-                           << positionParticleInfo->getPosition().x()
+                           << pos.x()
                            << "*nanometer,"
-                           << positionParticleInfo->getPosition().y()
+                           << pos.y()
                            << "*nanometer,"
-                           << positionParticleInfo->getPosition().z()
+                           << pos.z()
                            << "*nanometer)\n";
 
                     result << "\t"
                            << m_label->getLabel(particleInfo->getParticle())
-                           << "_positionInfo = PositionParticleInfo("
+                           << "_positionInfo = ParticleInfo("
                            << m_label->getLabel(particleInfo->getParticle())
                            << ","
                            << m_label->getLabel(particleInfo->getParticle())
@@ -1035,7 +1034,6 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_positionInfo)\n";
                 }
-
                 else
                 {
                     result << "\t# Defining "

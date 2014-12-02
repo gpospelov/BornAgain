@@ -25,8 +25,8 @@
 class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {
 public:
-    DiffuseParticleInfo(const IParticle& particle, double depth=0,
-                        double abundance=0)
+    DiffuseParticleInfo(const IParticle& particle, double depth=0.0,
+                        double abundance=1.0)
         : ParticleInfo(particle, depth, abundance)
         , m_number_per_meso(0.0)
         , m_height_range(0.0) {}

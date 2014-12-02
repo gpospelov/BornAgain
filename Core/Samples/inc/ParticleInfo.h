@@ -29,9 +29,9 @@ class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
 public:
     ParticleInfo(const IParticle& p_particle,
-                 double depth=0, double abundance=0);
+                 double depth=0.0, double abundance=1.0);
     ParticleInfo(const IParticle& p_particle,
-                 kvector_t position, double abundance=0);
+                 kvector_t position, double abundance=1.0);
 
     virtual ~ParticleInfo() {}
 

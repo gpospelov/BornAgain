@@ -79,7 +79,8 @@ public:
     virtual const IFormFactor *getSimpleFormFactor() const;
 
     //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateDistributedParticles() const;
+    std::vector<ParticleInfo *> generateParticleInfos(kvector_t position,
+                                                      double abundance) const;
 protected:
     std::auto_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;

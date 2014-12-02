@@ -18,14 +18,14 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::IParticle const & p_particle, double depth=0, double abundance=0 )
+    ParticleInfo_wrapper(::IParticle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
     : ParticleInfo( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
     m_pyobj = 0;
     }
 
-    ParticleInfo_wrapper(::IParticle const & p_particle, ::kvector_t position, double abundance=0 )
+    ParticleInfo_wrapper(::IParticle const & p_particle, ::kvector_t position, double abundance=1.0e+0 )
     : ParticleInfo( boost::ref(p_particle), position, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
@@ -251,9 +251,9 @@ void register_ParticleInfo_class(){
 
     { //::ParticleInfo
         typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ParticleInfo_wrapper >, boost::noncopyable > ParticleInfo_exposer_t;
-        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
+        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
-        ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
+        ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleInfo::clone
         
             typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type)(  ) const;

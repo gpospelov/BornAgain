@@ -77,6 +77,8 @@ void ParticleInfo::setPosition(kvector_t position)
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();
+    registerParameter("x_position", &m_x);
+    registerParameter("y_position", &m_y);
     registerParameter("depth", &m_depth);
     registerParameter("abundance", &m_abundance);
 }

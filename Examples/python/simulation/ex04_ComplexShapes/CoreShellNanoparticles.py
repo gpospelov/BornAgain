@@ -1,15 +1,18 @@
-# IsGISAXS011 example: Core shell nanoparticles
-
+"""
+Core shell nanoparticles
+"""
 import numpy
 import matplotlib
 import pylab
-from libBornAgainCore import *
+from bornagain import *
+
+phi_min, phi_max = -1.0, 1.0
+alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Build and return the sample representing core shell nano particles
     """
     # defining materials
     m_air = HomogeneousMaterial("Air", 0.0, 0.0 )
@@ -24,7 +27,7 @@ def get_sample():
     core_position = kvector_t(0.0, 0.0, 0.0)
 
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_layout= ParticleLayout()
+    particle_layout = ParticleLayout()
     particle_layout.addParticle(particle)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
@@ -43,9 +46,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
     return simulation
 
 
@@ -53,15 +55,21 @@ def run_simulation():
     """
     Run simulation and plot results
     """
-
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray() + 1  # for log scale
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
 
 
 if __name__ == '__main__':
     run_simulation()
+

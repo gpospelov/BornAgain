@@ -1,16 +1,18 @@
-# 2D lattice with different disorder (IsGISAXS example #6), centered lattice
+"""
+Cylinder formfactor in DWBA (IsGISAXS example #3)
+"""
 import numpy
 import matplotlib
 import pylab
-from libBornAgainCore import *
+from bornagain import *
 
-M_PI = numpy.pi
+phi_min, phi_max = -2.0, 2.0
+alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
     """
-    Build and return the sample representing 2D lattice with different disorder
-    centered lattice
+    Build and return the sample to calculate cylinder formfactor in Distorted Wave Born Approximation.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -18,24 +20,15 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer)
-    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
-    interference.setProbabilityDistribution(pdf)
-
-    particle_layout = ParticleLayout()
-    position1 = kvector_t(0.0, 0.0, 0.0)
-    position2 = kvector_t(12.5*nanometer, 12.5*nanometer, 0.0)
-    cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
+    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    basis = LatticeBasis()
-    basis.addParticle(cylinder, [position1, position2])
-    particle_layout.addParticle(basis)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
+    substrate_layer = Layer(m_substrate)
 
-    substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
@@ -47,9 +40,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
     return simulation
 
 
@@ -62,9 +54,17 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray() + 1  # for log scale
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
 
 
 if __name__ == '__main__':
     run_simulation()
+
+

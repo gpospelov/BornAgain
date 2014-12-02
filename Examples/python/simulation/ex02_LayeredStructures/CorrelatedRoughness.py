@@ -1,22 +1,13 @@
+"""
+MultiLayer with correlated roughness
+"""
 import numpy
 import matplotlib
 import pylab
-from math import degrees
-from libBornAgainCore import *
+from bornagain import *
 
-
-def plot_with_pylab(data):
-    result = data.getArray() + 1  # for log scale
-    axis_phi = data.getAxis(0)
-    axis_alpha = data.getAxis(1)
-
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-                 extent=[degrees(axis_phi.getMin()), degrees(axis_phi.getMax()), degrees(axis_alpha.getMin()), degrees(axis_alpha.getMax())])
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.colorbar(im)
-
-    pylab.show()
+phi_min, phi_max = -0.5, 0.5
+alpha_min, alpha_max = 0.0, 1.0
 
 
 def get_sample():
@@ -28,15 +19,15 @@ def get_sample():
     m_part_b = HomogeneousMaterial("PartB", 10e-6, 0.0)
     m_substrate = HomogeneousMaterial("substrate", 15e-6, 0.0)
 
-    l_ambience = Layer(m_ambience, 0)
+    l_ambience = Layer(m_ambience)
     l_part_a = Layer(m_part_a, 2.5*nanometer)
     l_part_b = Layer(m_part_b, 5.0*nanometer)
-    l_substrate = Layer(m_substrate, 0)
+    l_substrate = Layer(m_substrate)
 
     roughness = LayerRoughness()
     roughness.setSigma(1.0*nanometer)
     roughness.setHurstParameter(0.3)
-    roughness.setLatteralCorrLength(5*nanometer)
+    roughness.setLatteralCorrLength(5.0*nanometer)
 
     my_sample = MultiLayer()
 
@@ -59,9 +50,8 @@ def get_simulation():
     characterizing the input beam and output detector
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(200, -0.5*degree, 0.5*degree, 200, 0.0*degree, 1.0*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-
     return simulation
 
 
@@ -70,11 +60,17 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-    return result
+    result = simulation.getIntensityData().getArray() + 1  # for log scale
+
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    pylab.show()
 
 
 if __name__ == '__main__':
-    data = run_simulation()
-    plot_with_pylab(data)
+    run_simulation()
 

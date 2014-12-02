@@ -1,13 +1,14 @@
 """
 Custom form factor in DWBA.
 """
-
-
 import numpy
 import matplotlib
 import pylab
 import cmath
-from libBornAgainCore import *
+from bornagain import *
+
+phi_min, phi_max = -1.0, 1.0
+alpha_min, alpha_max = 0.0, 2.0
 
 
 class CustomFormFactor(IFormFactorBorn):
@@ -53,13 +54,14 @@ def get_sample():
     particle_layout.addParticle(particle, 0.0, 1.0)
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate, 0)
+    substrate_layer = Layer(m_substrate)
 
     # assemble multilayer
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
+
 
 def get_simulation():
     """
@@ -71,7 +73,7 @@ def get_simulation():
     thread_info = ThreadInfo()
     thread_info.n_threads = -1
     simulation.setThreadInfo(thread_info)
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -85,9 +87,15 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray()
-    pylab.imshow(numpy.rot90(result + 1, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
-    pylab.colorbar()
+
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result + 1, 1), norm=matplotlib.colors.LogNorm(),
+                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
+
 
 if __name__ == '__main__':
     run_simulation()

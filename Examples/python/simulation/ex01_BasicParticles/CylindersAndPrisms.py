@@ -1,13 +1,18 @@
-# Mixture of cylinders and prisms without interference (IsGISAXS example ex-1)
+"""
+Mixture of cylinders and prisms without interference (IsGISAXS example ex-1)
+"""
 import numpy
 import matplotlib
 import pylab
 from bornagain import *
 
+phi_min, phi_max = -1.0, 1.0
+alpha_min, alpha_max = 0.0, 2.0
+
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and pyramids on top of
+    Build and return the sample representing cylinders and prisms on top of
     substrate without interference.
     """
     # defining materials
@@ -23,8 +28,6 @@ def get_sample():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder, 0.0, 0.5)
     particle_layout.addParticle(prism, 0.0, 0.5)
-    interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_air)
@@ -41,7 +44,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -55,10 +58,13 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray() + 1  # for log scale
-    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-            extent=[-1.0, 1.0, 0, 2.0])
 
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+                      extent=[phi_min, phi_max, alpha_min, alpha_max])
     pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
 
 

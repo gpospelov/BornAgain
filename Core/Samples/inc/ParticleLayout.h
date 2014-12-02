@@ -79,12 +79,17 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
+    virtual bool preprocess();
+
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+
+    //! Replace ParticleCollection with all the particles it represents
+    void replaceParticleCollection(size_t index);
 
     void print(std::ostream& ostr) const;
 

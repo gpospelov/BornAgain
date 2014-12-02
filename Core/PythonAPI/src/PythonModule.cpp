@@ -38,7 +38,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
-#include "IParticle.pypp.h"
 #include "Particle.pypp.h"
 #include "FormFactorTrivial.pypp.h"
 #include "ConstKBinAxis.pypp.h"

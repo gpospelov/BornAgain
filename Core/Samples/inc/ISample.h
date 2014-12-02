@@ -63,6 +63,10 @@ public:
 
     virtual bool containsMagneticMaterial() const;
 
+    virtual bool preprocess() {
+        return false;
+    }
+
 //protected:
 //    virtual void print(std::ostream& ostr) const;
 };

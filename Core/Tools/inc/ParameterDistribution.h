@@ -51,6 +51,11 @@ public:
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples() const;
+
+    //! get list of linked parameter names
+    std::vector<std::string> getLinkedParameterNames() const {
+        return m_linked_par_names;
+    }
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();

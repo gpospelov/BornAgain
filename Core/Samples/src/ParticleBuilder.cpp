@@ -74,7 +74,6 @@ void ParticleBuilder::plantParticles(ParticleLayout& layout)
         max_weight = std::max(max_weight, it->weight);
     }
 
-
     // loop over sampled parameter values
     for(std::vector<ParameterSample>::const_iterator it = samples.begin();
         it != samples.end(); ++it) {

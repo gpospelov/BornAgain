@@ -19,6 +19,8 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "MessageService.h"
+#include "ParticleCollection.h"
+
 #include <iomanip>
 
 
@@ -144,7 +146,19 @@ const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
         return m_interference_functions[index];
     throw OutOfBoundsException(
         "ParticleLayout::getInterferenceFunction() ->"
-        "Not so many interference functions in this decoration.");
+                "Not so many interference functions in this decoration.");
+}
+
+bool ParticleLayout::preprocess()
+{
+    for (size_t i=0; i<m_particles.size(); ++i) {
+        if (dynamic_cast<const ParticleCollection *>(
+                    m_particles[i]->getParticle())) {
+            replaceParticleCollection(i);
+            return true;
+        }
+    }
+    return false;
 }
 
 //! Adds particle information with simultaneous registration in parent class.
@@ -162,6 +176,18 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 {
     m_interference_functions.push_back(child);
     registerChild(child);
+}
+
+void ParticleLayout::replaceParticleCollection(size_t index)
+{
+    const ParticleCollection *p_particle_coll =
+                    dynamic_cast<const ParticleCollection *>(
+                        m_particles[index]->getParticle());
+    std::vector<IParticle *> particles =
+            p_particle_coll->generateDistributedParticles();
+    ParticleInfo *p_original = m_particles[index];
+    // TODO: add all particles with the same type of particleinfo
+    // and remove the original one
 }
 
 void ParticleLayout::print(std::ostream& ostr) const

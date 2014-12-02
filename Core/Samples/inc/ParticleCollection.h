@@ -32,7 +32,6 @@ public:
     ParticleCollection(const IParticle& prototype,
                        const ParameterDistribution& par_distr);
 
-
     virtual ~ParticleCollection() {}
     virtual ParticleCollection *clone() const;
 
@@ -79,7 +78,8 @@ public:
     //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const;
 
-
+    //! Returns list of new particles generated according to a distribution
+    std::vector<IParticle *> generateDistributedParticles() const;
 protected:
     std::auto_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;

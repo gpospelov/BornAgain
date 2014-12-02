@@ -97,14 +97,6 @@ public:
         return false;
     }
 
-    virtual std::vector<ParticleInfo *> createDistributedParticles(
-            size_t samples_per_particle, double factor) const {
-        (void)samples_per_particle;
-        (void)factor;
-        std::vector<ParticleInfo *> result;
-        return result;
-    }
-
 protected:
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform)=0;

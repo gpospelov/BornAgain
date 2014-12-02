@@ -24,9 +24,7 @@ TEST_F(ParticleTest, ParticleInitialState)
     EXPECT_EQ(NULL, particle.getSimpleFormFactor());
     EXPECT_FALSE(particle.hasDistributedFormFactor());
     EXPECT_EQ(NULL, particle.createFormFactor(1.0));
-    ASSERT_THROW(particle.createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle.getName());
-
 }
 
 TEST_F(ParticleTest, ParticleClone)
@@ -38,16 +36,15 @@ TEST_F(ParticleTest, ParticleClone)
     EXPECT_EQ(NULL, particle2->getSimpleFormFactor());
     EXPECT_FALSE(particle2->hasDistributedFormFactor());
     EXPECT_EQ(NULL, particle2->createFormFactor(1.0));
-    ASSERT_THROW(particle2->createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle2->getName());
     delete particle2;
 }
+
 TEST_F(ParticleTest, ParticleCloneInvertB)
 {
     Particle particle;
     ASSERT_THROW(particle.cloneInvertB(), NullPointerException);
 }
-
 
 TEST_F(ParticleTest, ParticleConstructors)
 {
@@ -59,7 +56,6 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_EQ(NULL, p1->getSimpleFormFactor());
     EXPECT_FALSE(p1->hasDistributedFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
-    ASSERT_THROW(p1->createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ( NULL, p1->getPTransform3D());
 
     delete p1;
@@ -107,9 +103,7 @@ TEST_F(ParticleTest, ParticleTransform)
     const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
     EXPECT_TRUE(NULL!=rZ3D2);
 
-
     delete particle;
-
 }
 
 TEST_F(ParticleTest, SetParam)
@@ -140,8 +134,6 @@ TEST_F(ParticleTest, SetParam)
     const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
     EXPECT_TRUE(NULL!=rY3D2);
 
-
-
     Particle *particle2 = particle.clone();
     EXPECT_EQ("Particle", particle2->getName());
     EXPECT_EQ("Air", particle2->getMaterial()->getName());
@@ -152,9 +144,6 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_TRUE(NULL != particle2->getPTransform3D());
 
     delete particle2;
-
-
 }
-
 
 #endif // PARTICLETEST_H

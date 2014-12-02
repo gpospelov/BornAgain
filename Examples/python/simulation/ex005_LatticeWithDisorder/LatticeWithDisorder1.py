@@ -24,7 +24,7 @@ def get_sample():
     cylinder = Particle(m_particle, cylinder_ff.clone())
     position = kvector_t(0.0, 0.0, 0.0)
     particle_layout = ParticleLayout()
-    particle_info =  PositionParticleInfo(cylinder, position, 1.0)
+    particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)
 

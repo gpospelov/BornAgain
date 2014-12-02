@@ -102,9 +102,6 @@ public:
     //! form factors according to a certain distribution
     virtual bool hasDistributedFormFactor() const;
 
-    virtual std::vector<ParticleInfo *> createDistributedParticles(
-            size_t samples_per_particle, double factor) const;
-
 protected:
     IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles

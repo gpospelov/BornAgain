@@ -38,14 +38,14 @@ public:
     virtual ParticleInfo *clone() const
     {
         return new ParticleInfo(
-            mP_particle->clone(), m_depth, m_abundance);
+            mP_particle->clone(), getDepth(), m_abundance);
     }
 
     //! Returns a clone with inverted magnetic fields
     virtual ParticleInfo *cloneInvertB() const
     {
         return new ParticleInfo(
-            mP_particle->cloneInvertB(), m_depth, m_abundance);
+            mP_particle->cloneInvertB(), getDepth(), m_abundance);
     }
 
     //! calls the ISampleVisitor's visit method
@@ -55,10 +55,10 @@ public:
     const IParticle *getParticle() const { return mP_particle.get(); }
 
     //! Returns depth.
-    double getDepth() const { return m_depth; }
+    double getDepth() const { return -m_position.z(); }
 
     //! Sets depth.
-    void setDepth(double depth) { m_depth = depth; }
+    void setDepth(double depth) { m_position.setZ(-depth); }
 
     //! Returns abundance.
     double getAbundance() const { return m_abundance; }
@@ -77,7 +77,7 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
     std::auto_ptr<IParticle> mP_particle;
-    double m_depth;
+    kvector_t m_position;
     double m_abundance;
 };
 

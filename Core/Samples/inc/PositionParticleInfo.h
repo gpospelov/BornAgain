@@ -43,7 +43,7 @@ public:
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const
-    { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
+    { return kvector_t(m_pos_x, m_pos_y, m_position.z()); }
 
     //! Sets particle position, including depth.
     void setPosition(kvector_t position);

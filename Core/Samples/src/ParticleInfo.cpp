@@ -21,11 +21,11 @@ ParticleInfo::ParticleInfo(
     double depth,
     double abundance)
     : mP_particle(p_particle)
-    , m_depth(depth)
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
     registerChild(mP_particle.get());
+    m_position = kvector_t(0.0, 0.0, -depth);
     init_parameters();
 }
 
@@ -34,26 +34,24 @@ ParticleInfo::ParticleInfo(
     double depth,
     double abundance)
     : mP_particle(p_particle.clone())
-    , m_depth(depth)
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
     registerChild(mP_particle.get());
+    m_position = kvector_t(0.0, 0.0, -depth);
     init_parameters();
 }
 
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();
-    registerParameter("depth", &m_depth);
     registerParameter("abundance", &m_abundance);
 }
-
 
 void ParticleInfo::print(std::ostream& ostr) const
 {
     ostr << "ParticleInfo:" << getName() << "<" << this << "> : {" <<
-        " depth=" << m_depth <<
+        " position=" << m_position <<
         ", abundance=" << m_abundance;
     ostr << " }";
 }

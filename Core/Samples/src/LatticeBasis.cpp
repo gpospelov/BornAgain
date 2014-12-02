@@ -120,7 +120,7 @@ LatticeBasis::createDiffuseParticleInfos() const
         const Particle *p_particle = getParticle(index);
         if (p_particle->hasDistributedFormFactor()) {
             DiffuseParticleInfo *p_new_info = new DiffuseParticleInfo(
-                    p_particle->clone());
+                    *p_particle);
             p_new_info->setNumberPerMeso(
                     (double)getNbrPositionsForParticle(index));
             result.push_back(p_new_info);

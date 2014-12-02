@@ -16,19 +16,6 @@
 #include "ParticleInfo.h"
 
 
-ParticleInfo::ParticleInfo(IParticle *p_particle, double depth,
-                           double abundance)
-    : mP_particle(p_particle)
-    , m_x(0.0)
-    , m_y(0.0)
-    , m_depth(depth)
-    , m_abundance(abundance)
-{
-    setName("ParticleInfo");
-    registerChild(mP_particle.get());
-    init_parameters();
-}
-
 ParticleInfo::ParticleInfo(const IParticle& p_particle, double depth,
                            double abundance)
     : mP_particle(p_particle.clone())

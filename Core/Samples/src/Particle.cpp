@@ -59,18 +59,6 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
 }
 
 
-Particle::Particle(IMaterial *p_material, IFormFactor *form_factor,
-        Geometry::Transform3D *transform)
-    : mp_material(p_material)
-    , mp_ambient_material(0)
-    , mp_form_factor(form_factor)
-{
-    setName("Particle");
-    mP_transform.reset(transform);
-    registerChild(mp_form_factor);
-}
-
-
 Particle::~Particle()
 {
     delete mp_material;

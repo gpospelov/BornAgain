@@ -28,8 +28,6 @@
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
 public:
-    ParticleInfo(IParticle *p_particle,
-                 double depth=0, double abundance=0);
     ParticleInfo(const IParticle& p_particle,
                  double depth=0, double abundance=0);
     ParticleInfo(const IParticle& p_particle,

@@ -63,7 +63,8 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
     Particle particle;
     Particle *pClone = particle.clone();
 
-    ParticleInfo particleInfo(pClone,2.0,3.0);
+    ParticleInfo particleInfo(*pClone,2.0,3.0);
+    delete pClone;
 
     EXPECT_EQ(2.0, particleInfo.getDepth());
     EXPECT_EQ(3.0, particleInfo.getAbundance());

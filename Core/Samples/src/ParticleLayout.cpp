@@ -89,20 +89,19 @@ void ParticleLayout::addParticle(
         throw LogicErrorException("ParticleLayout::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
-    IParticle *p_particle_clone = p_particle.clone();
-    p_particle_clone->setTransformation(transform);
+    boost::scoped_ptr<IParticle> P_particle_clone(p_particle.clone());
+    P_particle_clone->setTransformation(transform);
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle_clone, depth, abundance));
+        new ParticleInfo(*P_particle_clone, depth, abundance));
 }
 
 //! Adds particle without rotation, &-version.
 void ParticleLayout::addParticle(
-    const IParticle& p_particle,
+    const IParticle& particle,
     double depth, double abundance)
 {
-    IParticle *p_particle_clone = p_particle.clone();
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle_clone, depth, abundance));
+        new ParticleInfo(particle, depth, abundance));
 }
 
 //! Adds particle info.

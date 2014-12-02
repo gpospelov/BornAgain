@@ -116,6 +116,18 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticleInfo( index );
     }
 
+    virtual bool preprocess(  ) {
+        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
+            return func_preprocess(  );
+        else{
+            return this->ParticleLayout::preprocess(  );
+        }
+    }
+    
+    bool default_preprocess(  ) {
+        return ParticleLayout::preprocess( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -433,6 +445,17 @@ void register_ParticleLayout_class(){
                 , default_getParticleInfo_function_type(&ParticleLayout_wrapper::default_getParticleInfo)
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ParticleLayout::preprocess
+        
+            typedef bool ( ::ParticleLayout::*preprocess_function_type)(  ) ;
+            typedef bool ( ParticleLayout_wrapper::*default_preprocess_function_type)(  ) ;
+            
+            ParticleLayout_exposer.def( 
+                "preprocess"
+                , preprocess_function_type(&::ParticleLayout::preprocess)
+                , default_preprocess_function_type(&ParticleLayout_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::areParametersChanged

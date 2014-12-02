@@ -144,7 +144,6 @@ include_classes = [
     "ParticleBuilder",
     "ParticleLayout",
     "ParticleInfo",
-    "PositionParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DSimple",
     "Simulation",

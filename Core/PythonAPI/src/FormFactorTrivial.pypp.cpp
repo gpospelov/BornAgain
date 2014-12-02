@@ -217,6 +217,18 @@ struct FormFactorTrivial_wrapper : FormFactorTrivial, bp::wrapper< FormFactorTri
         return IFormFactor::isDistributedFormFactor( );
     }
 
+    virtual bool preprocess(  ) {
+        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
+            return func_preprocess(  );
+        else{
+            return this->ISample::preprocess(  );
+        }
+    }
+    
+    bool default_preprocess(  ) {
+        return ISample::preprocess( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -501,6 +513,17 @@ void register_FormFactorTrivial_class(){
                 "isDistributedFormFactor"
                 , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
                 , default_isDistributedFormFactor_function_type(&FormFactorTrivial_wrapper::default_isDistributedFormFactor) );
+        
+        }
+        { //::ISample::preprocess
+        
+            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
+            typedef bool ( FormFactorTrivial_wrapper::*default_preprocess_function_type)(  ) ;
+            
+            FormFactorTrivial_exposer.def( 
+                "preprocess"
+                , preprocess_function_type(&::ISample::preprocess)
+                , default_preprocess_function_type(&FormFactorTrivial_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

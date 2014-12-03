@@ -35,7 +35,7 @@
 #include "OutputDataFunctions.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 
 #include "TROOT.h"
@@ -260,7 +260,7 @@ void TestFittingModule2::fit_example_mask()
     initializeSimulation();
     initializeRealData();
     mp_simulation->setDetectorResolutionFunction(
-        new ResolutionFunction2DSimple(0.0002, 0.0002));
+        new ResolutionFunction2DGaussian(0.0002, 0.0002));
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas(
         "c1_test_meso_crystal", "mesocrystal");

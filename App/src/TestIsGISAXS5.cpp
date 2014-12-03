@@ -35,7 +35,7 @@
 #include "Distributions.h"
 #include "ParticleCollection.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "Utils.h"
 

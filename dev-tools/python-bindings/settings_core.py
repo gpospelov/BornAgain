@@ -146,7 +146,7 @@ include_classes = [
     "ParticleLayout",
     "ParticleInfo",
     "RealParameterWrapper",
-    "ResolutionFunction2DSimple",
+    "ResolutionFunction2DGaussian",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",

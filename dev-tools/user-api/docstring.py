@@ -64,7 +64,7 @@ user_api = [
     "ParticleDecoration.addParticleInfo",
     "ParticleDecoration.setTotalParticleSurfaceDensity",
     "PositionParticleInfo",
-    "ResolutionFunction2DSimple",
+    "ResolutionFunction2DGaussian",
     "Simulation",
     "Simulation.getIntensityData",
     "Simulation.runSimulation",

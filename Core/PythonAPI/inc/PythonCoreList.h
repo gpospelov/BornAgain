@@ -94,7 +94,7 @@
 #include "ParticleInfo.h"
 #include "PythonOutputData.h"
 #include "RealParameterWrapper.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "ThreadInfo.h"

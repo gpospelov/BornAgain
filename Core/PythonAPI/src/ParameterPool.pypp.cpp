@@ -111,16 +111,6 @@ void register_ParameterPool_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParameterPool::fixRatioBetweenParameters
-        
-            typedef int ( ::ParameterPool::*fixRatioBetweenParameters_function_type)( ::std::string const &,::std::string const &,double ) ;
-            
-            ParameterPool_exposer.def( 
-                "fixRatioBetweenParameters"
-                , fixRatioBetweenParameters_function_type( &::ParameterPool::fixRatioBetweenParameters )
-                , ( bp::arg("to_change"), bp::arg("source"), bp::arg("ratio") ) );
-        
-        }
         { //::ParameterPool::getParameter
         
             typedef ::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type)( ::std::string const & ) const;

@@ -139,25 +139,6 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards,
     return npars;
 }
 
-int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
-        const std::string& source, double ratio)
-{
-    int npars(0);
-    std::string wildcard = (to_change[0] == '*' ? to_change : "*" + to_change);
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
-        if( Utils::String::MatchPattern( (*it).first, wildcard ) ) {
-            std::string parametername = it->first;
-            boost::algorithm::replace_last(parametername, to_change, source);
-            try {
-                parameter_t source = getParameter(parametername);
-                (*it).second.setValue(source.getValue()*ratio);
-                npars++;
-            } catch (Exceptions::LogicErrorException& e) { (void)e;}
-        }
-    }
-    return npars;
-}
-
 //! Prints content on the screen.
 
 void ParameterPool::print(std::ostream& ostr) const

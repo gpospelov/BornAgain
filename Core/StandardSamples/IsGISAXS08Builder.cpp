@@ -20,7 +20,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
-#include "ParticleBuilder.h"
 
 IsGISAXS08ABuilder::IsGISAXS08ABuilder()
 {

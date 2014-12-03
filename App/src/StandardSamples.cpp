@@ -28,7 +28,6 @@
 #include "InterferenceFunctions.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "Particle.h"
 

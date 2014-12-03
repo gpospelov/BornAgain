@@ -10,7 +10,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #include "numpy/arrayobject.h"
-#include "ParticleBuilder.pypp.h"
 #include "FormFactorFullSpheroid.pypp.h"
 #include "DistributionGate.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
@@ -251,7 +250,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IntensityData_class();
     register_ParameterDistribution_class();
     register_ParameterPool_class();
-    register_ParticleBuilder_class();
     register_ParticleCollection_class();
     register_ParticleCoreShell_class();
     register_ParticleInfo_class();

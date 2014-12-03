@@ -12,7 +12,6 @@
 #include "Layer.h"
 #include "LabelSample.h"
 #include "LayerInterface.h"
-#include "ParticleBuilder.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"

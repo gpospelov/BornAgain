@@ -20,7 +20,8 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleBuilder.h"
+#include "ParticleCollection.h"
+#include "Distributions.h"
 
 
 IsGISAXS02Builder::IsGISAXS02Builder()
@@ -74,15 +75,13 @@ ISample *IsGISAXS02Builder::buildSample() const
     DistributionGaussian gauss1(m_radius1, sigma1);
     DistributionGaussian gauss2(m_radius2, sigma2);
 
-    // building nano particles
-    ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", gauss1,
-                         nbins, n_sigma, 0.95);
-    builder.plantParticles(particle_layout);
-
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", gauss2,
-                         nbins, n_sigma, 0.05);
-    builder.plantParticles(particle_layout);
+    // building distribution of nano particles
+    ParameterDistribution par_distr1("*/radius", gauss1, nbins, n_sigma);
+    ParticleCollection particle_collection1(cylinder1, par_distr1);
+    particle_layout.addParticle(particle_collection1, 0.0, 0.95);
+    ParameterDistribution par_distr2("*/radius", gauss2, nbins, n_sigma);
+    ParticleCollection particle_collection2(cylinder2, par_distr2);
+    particle_layout.addParticle(particle_collection2, 0.0, 0.05);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

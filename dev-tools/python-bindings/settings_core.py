@@ -143,7 +143,6 @@ include_classes = [
     "Particle",
     "ParticleCollection",
     "ParticleCoreShell",
-    "ParticleBuilder",
     "ParticleLayout",
     "ParticleInfo",
     "RealParameterWrapper",

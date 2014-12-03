@@ -20,7 +20,8 @@
 #include "Units.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "ParticleBuilder.h"
+#include "Distributions.h"
+#include "ParticleCollection.h"
 
 
 IsGISAXS15Builder::IsGISAXS15Builder()
@@ -48,14 +49,10 @@ ISample *IsGISAXS15Builder::buildSample() const
     Particle particle_prototype(particle_material, ff_cylinder);
 
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
-    ParticleBuilder particle_builder;
-    particle_builder.setPrototype(particle_prototype,
-            "/Particle/FormFactorCylinder/radius", gauss, 30, 3.0);
-    particle_builder.plantParticles(particle_layout);
-
-    // Set height of each particle to its radius (H/R fixed)
-    ParameterPool *p_parameters = particle_layout.createParameterTree();
-    p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
+    ParameterDistribution par_distr("*/radius", gauss, 30, 3.0);
+    par_distr.linkParameter("*/height");
+    ParticleCollection particle_collection(particle_prototype, par_distr);
+    particle_layout.addParticle(particle_collection);
 
     particle_layout.addInterferenceFunction(p_interference_function);
     particle_layout.setApproximation(ILayout::SSCA);

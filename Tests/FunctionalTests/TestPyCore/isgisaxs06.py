@@ -60,7 +60,7 @@ def RunSimulation_centered():
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    interference = InterferenceFunction2DLattice(10.0*nanometer, 10.0*nanometer, 0.0*degree)
+    interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
@@ -82,7 +82,7 @@ def RunSimulation_centered():
     air_layer = Layer(mAmbience)
     air_layer.addLayout(particle_layout1)
     air_layer.addLayout(particle_layout2)
-    substrate_layer = Layer(mSubstrate, 0)
+    substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)

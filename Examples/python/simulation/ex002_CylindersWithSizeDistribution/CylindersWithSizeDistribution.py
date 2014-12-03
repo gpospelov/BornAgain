@@ -27,21 +27,19 @@ def get_sample():
     sigma2 = radius2*0.02
 
     nfwhm = 3
-    #to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM
-    #(nfwhm = xR/2, where xR is what is defined in IsGISAXS *.inp file)
-    stochastic_gaussian1 = StochasticDoubleGaussian(radius1, sigma1)
-    stochastic_gaussian2 = StochasticDoubleGaussian(radius2, sigma2)
-    par1 = StochasticSampledParameter(stochastic_gaussian1, nbins, nfwhm)
-    par2 = StochasticSampledParameter(stochastic_gaussian2, nbins, nfwhm)
+    gauss_distr1 = DistributionGaussian(radius1, sigma1)
+    gauss_distr2 = DistributionGaussian(radius2, sigma2)
 
     #Building nano particles
     particle_layout = ParticleLayout()
 
     builder = ParticleBuilder()
-    builder.setPrototype(cylinder1, "/Particle/FormFactorCylinder/radius", par1, 0.95)
+    builder.setPrototype(cylinder1, "/Particle/FormFactorCylinder/radius", gauss_distr1, nbins, nfwhm, 0.95)
     builder.plantParticles(particle_layout)
-    builder.setPrototype(cylinder2, "/Particle/FormFactorCylinder/radius", par2, 0.05)
+    builder.setPrototype(cylinder2, "/Particle/FormFactorCylinder/radius", gauss_distr2, nbins, nfwhm, 0.05)
     builder.plantParticles(particle_layout)
+
+    print cylinder1.createParameterTree()
 
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)

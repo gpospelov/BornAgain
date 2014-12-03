@@ -74,9 +74,11 @@ ParticleCollection::generateParticleInfos(kvector_t position,
         linked_par_ratio_map[linked_par_names[i]] = linked_ratio;
     }
     for (size_t i=0; i<main_par_samples.size(); ++i) {
-        boost::scoped_ptr<IParticle> P_prototype(mP_particle->clone());
-        ParameterPool *new_pool = P_prototype->createParameterTree();
         ParameterSample main_sample = main_par_samples[i];
+        double particle_abundance = abundance*main_sample.weight;
+        ParticleInfo *p_particle_info = new ParticleInfo(*mP_particle, position,
+                                                         particle_abundance);
+        ParameterPool *new_pool = p_particle_info->createParameterTree();
         new_pool->setParameterValue(main_par_name, main_sample.value);
         for (std::map<std::string, double>::const_iterator it =
              linked_par_ratio_map.begin(); it != linked_par_ratio_map.end();
@@ -84,9 +86,6 @@ ParticleCollection::generateParticleInfos(kvector_t position,
             double new_linked_value = main_sample.value * it->second;
             new_pool->setParameterValue(it->first, new_linked_value);
         }
-        double particle_abundance = abundance*main_sample.weight;
-        ParticleInfo *p_particle_info = new ParticleInfo(*P_prototype, position,
-                                                         particle_abundance);
         result.push_back(p_particle_info);
     }
     return result;

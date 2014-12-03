@@ -379,16 +379,6 @@ void register_ParticleCollection_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ParticleCollection::generateParticleInfos
-        
-            typedef ::std::vector< ParticleInfo* > ( ::ParticleCollection::*generateParticleInfos_function_type)( ::kvector_t,double ) const;
-            
-            ParticleCollection_exposer.def( 
-                "generateParticleInfos"
-                , generateParticleInfos_function_type( &::ParticleCollection::generateParticleInfos )
-                , ( bp::arg("position"), bp::arg("abundance") ) );
-        
-        }
         { //::ParticleCollection::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::ParticleCollection::*getAmbientMaterial_function_type)(  ) const;

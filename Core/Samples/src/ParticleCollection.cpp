@@ -23,6 +23,7 @@ ParticleCollection::ParticleCollection(const IParticle &prototype,
 {
     mP_particle.reset(prototype.clone());
     setName("ParticleCollection");
+    registerChild(mP_particle.get());
 }
 
 ParticleCollection *ParticleCollection::clone() const
@@ -58,7 +59,15 @@ ParticleCollection::generateParticleInfos(kvector_t position,
     ParameterPool *pool = mP_particle->createParameterTree();
     std::string main_par_name =
             m_par_distribution.getMainParameterName();
-    ParameterPool::parameter_t main_par = pool->getParameter(main_par_name);
+    std::vector<ParameterPool::parameter_t > main_par_matches =
+            pool->getMatchedParameters(main_par_name);
+    if (main_par_matches.size() != 1) {
+        throw Exceptions::RuntimeErrorException(
+                    "ParticleCollection::generateParticleInfos: "
+                    "main parameter name matches nothing or more than "
+                    "one parameter");
+    }
+    ParameterPool::parameter_t main_par = main_par_matches[0];
     double main_par_value = main_par.getValue();
     std::vector<ParameterSample> main_par_samples =
             m_par_distribution.generateSamples();
@@ -66,8 +75,15 @@ ParticleCollection::generateParticleInfos(kvector_t position,
             m_par_distribution.getLinkedParameterNames();
     std::map<std::string, double> linked_par_ratio_map;
     for (size_t i=0; i<linked_par_names.size(); ++i) {
-        ParameterPool::parameter_t linked_par =
-                pool->getParameter(linked_par_names[i]);
+        std::vector<ParameterPool::parameter_t > linked_par_matches =
+                pool->getMatchedParameters(linked_par_names[i]);
+        if (linked_par_matches.size() != 1) {
+            throw Exceptions::RuntimeErrorException(
+                        "ParticleCollection::generateParticleInfos: "
+                        "linked parameter name matches nothing or more than "
+                        "one parameter");
+        }
+        ParameterPool::parameter_t linked_par = linked_par_matches[0];
         double linked_par_value = linked_par.getValue();
         double linked_ratio = main_par_value==0 ? 1.0
                               : linked_par_value/main_par_value;
@@ -79,12 +95,25 @@ ParticleCollection::generateParticleInfos(kvector_t position,
         ParticleInfo *p_particle_info = new ParticleInfo(*mP_particle, position,
                                                          particle_abundance);
         ParameterPool *new_pool = p_particle_info->createParameterTree();
-        new_pool->setParameterValue(main_par_name, main_sample.value);
+        int changed = new_pool->setMatchedParametersValue(
+                    main_par_name, main_sample.value);
+        if (changed != 1) {
+            throw Exceptions::RuntimeErrorException(
+                    "ParticleCollection::generateParticleInfos: "
+                    "main parameter name matches nothing or more than "
+                    "one parameter");
+        }
         for (std::map<std::string, double>::const_iterator it =
              linked_par_ratio_map.begin(); it != linked_par_ratio_map.end();
              ++it) {
             double new_linked_value = main_sample.value * it->second;
-            new_pool->setParameterValue(it->first, new_linked_value);
+            changed = new_pool->setMatchedParametersValue(it->first, new_linked_value);
+            if (changed != 1) {
+                throw Exceptions::RuntimeErrorException(
+                        "ParticleCollection::generateParticleInfos: "
+                        "linked parameter name matches nothing or more than "
+                        "one parameter");
+            }
         }
         result.push_back(p_particle_info);
     }

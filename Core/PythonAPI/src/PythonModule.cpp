@@ -78,6 +78,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IAxis.pypp.h"
 #include "vector_integer_t.pypp.h"
 #include "IntensityDataIOFactory.pypp.h"
+#include "ParameterDistribution.pypp.h"
 #include "Layer.pypp.h"
 #include "FormFactorPyramid.pypp.h"
 #include "CustomBinAxis.pypp.h"
@@ -248,6 +249,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayer_class();
     register_OffSpecSimulation_class();
     register_IntensityData_class();
+    register_ParameterDistribution_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCollection_class();

@@ -83,6 +83,7 @@
 #include "OutputData.h"
 #include "IntensityDataIOFactory.h"
 #include "OutputDataFunctions.h"
+#include "ParameterDistribution.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "IParticle.h"

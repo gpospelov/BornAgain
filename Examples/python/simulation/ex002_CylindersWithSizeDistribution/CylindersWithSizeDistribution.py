@@ -30,16 +30,15 @@ def get_sample():
     gauss_distr1 = DistributionGaussian(radius1, sigma1)
     gauss_distr2 = DistributionGaussian(radius2, sigma2)
 
+    par_distr1 = ParameterDistribution("*/radius", gauss_distr1, nbins, nfwhm)
+    part_coll1 = ParticleCollection(cylinder1, par_distr1)
+    par_distr2 = ParameterDistribution("*/radius", gauss_distr2, nbins, nfwhm)
+    part_coll2 = ParticleCollection(cylinder2, par_distr2)
+
     #Building nano particles
     particle_layout = ParticleLayout()
-
-    builder = ParticleBuilder()
-    builder.setPrototype(cylinder1, "/Particle/FormFactorCylinder/radius", gauss_distr1, nbins, nfwhm, 0.95)
-    builder.plantParticles(particle_layout)
-    builder.setPrototype(cylinder2, "/Particle/FormFactorCylinder/radius", gauss_distr2, nbins, nfwhm, 0.05)
-    builder.plantParticles(particle_layout)
-
-    print cylinder1.createParameterTree()
+    particle_layout.addParticle(part_coll1, 0.0, 0.95)
+    particle_layout.addParticle(part_coll2, 0.0, 0.05)
 
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)

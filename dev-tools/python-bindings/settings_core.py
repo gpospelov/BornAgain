@@ -138,6 +138,7 @@ include_classes = [
     "OffSpecSimulation",
     "OutputData<double>",
     "IntensityDataIOFactory",
+    "ParameterDistribution",
     "ParameterPool",
     "Particle",
     "ParticleCollection",
@@ -287,6 +288,10 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
+    #
+    cl = mb.class_("ParameterDistribution")
+    cl.member_function("generateSamples").exclude()
+    cl.member_function("getLinkedParameterNames").exclude()
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))

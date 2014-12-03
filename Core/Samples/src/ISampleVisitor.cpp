@@ -101,6 +101,11 @@ void ISampleVisitor::visit(const Particle *)
     throw NotImplementedException("ISampleVisitor::visit(const Particle *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const ParticleCollection *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleCollection *) -> Error. Not implemented.");
+}
+
 
 void ISampleVisitor::visit(const LatticeBasis *)
 {

@@ -19,6 +19,7 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Particle.h"
+#include "ParticleCollection.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
 #include "ParticleInfo.h"
@@ -93,7 +94,6 @@ void SamplePrintVisitor::visit(const MultiLayer *sample)
     print_default(sample);
 }
 
-
 void SamplePrintVisitor::visit(const Particle *sample)
 {
     assert(sample);
@@ -102,6 +102,13 @@ void SamplePrintVisitor::visit(const Particle *sample)
                          sample->getMaterial()->getName() :
                          "0_MATERIAL")
               << " " << sample->getRefractiveIndex()
+              << std::endl;
+}
+
+void SamplePrintVisitor::visit(const ParticleCollection *sample)
+{
+    assert(sample);
+    std::cout << get_indent() << sample->getName()
               << std::endl;
 }
 

@@ -63,7 +63,7 @@ double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
                     "DistributionWeighter::setParameterValues: "
-                    " parameter name matches nothing or more than "
+                    "parameter name matches nothing or more than "
                     "one parameter");
         }
         weight *= m_cached_samples[param_index][remainder].weight;

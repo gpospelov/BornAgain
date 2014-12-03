@@ -12,9 +12,29 @@ import matplotlib
 matplotlib.use('Agg')
 import pylab
 import shutil
+import glob
+import subprocess
 
 
-def check_example(dirname, filename):
+def run_command(cmd):
+    returncode = os.system(cmd)
+    if returncode:
+        exit("Error while running command '"+cmd+"'")
+
+
+def FilesAreDifferent(file1, file2):
+    '''Returns True if files are different or absent.'''
+
+    if not os.path.exists(file1) or not os.path.exists(file2):
+        return True
+    proc = subprocess.Popen(["diff "+file1+" "+file2], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    if len(out) or err!=None:
+        return True
+    return False
+
+
+def generate_example_plot(dirname, filename):
     """
     Tries to run python example and produce a *.png image
     """
@@ -37,23 +57,25 @@ def check_example(dirname, filename):
         status = "FAILED"
 
     print status
-    return os.path.join(dirname, filename), status
+    return os.path.join(dirname, filename), status, ""
 
 
-def walk_through(rootdir):
+def validate_examples(examples_dir):
     """
     Walks through directory tree and checks every python example found
     """
     history = []
-    for subdir, dirs, files in os.walk(rootdir):
+    for subdir, dirs, files in os.walk(examples_dir):
         for file in files:
             if os.path.splitext(file)[1] == ".py":
-                results = check_example(subdir, file)
-                history.append(results)
+                # results = generate_example_plot(subdir, file)
+                # history.append(results)
+                name, status, webstatus = generate_example_plot(subdir, file)
+                history.append([name, status, webstatus])
     return history
 
 
-def create_working_directory():
+def create_directories():
     """
     Creates working directory where all *.png images will be generated
     """
@@ -62,6 +84,24 @@ def create_working_directory():
         shutil.rmtree(tempdir)
     os.makedirs(tempdir)
     return tempdir
+
+
+def validate_drupal(history):
+    """
+    Validate examples in drupal directory
+    """
+    cmd = "scp -r apps@apps.jcns.fz-juelich.de:/www/apps/drupal/sites/default/files/python_examples/scripts ."
+    run_command(cmd)
+    drupal_scripts = glob.glob(os.path.join("scripts", "*.py"))
+    for h in history:
+        example_name = os.path.basename(h[0])
+        for s in drupal_scripts:
+            script_name = os.path.basename(s)
+            if  script_name == example_name:
+                if FilesAreDifferent(h[0], s):
+                    h[2] = "[website differs]"
+                else:
+                    h[2] = "[website OK]"
 
 
 def print_summary(rootdir, history):
@@ -76,23 +116,26 @@ def print_summary(rootdir, history):
     for h in history:
         filename = h[0]
         shortname = filename.split(rootdir)[1]
-        print "{:65s} {:10s}".format(shortname, h[1])
+        print "{:65s} {:10s} {:10s}".format(shortname, h[1], h[2])
 
 
 if __name__ == '__main__':
 
-    rootdir = "./"
+    examples_dir = "./"
 
     if len(sys.argv) == 2:
-        rootdir = sys.argv[1]
+        examples_dir = sys.argv[1]
 
-    print "Analysing examples in '{0}' directory.".format(rootdir)
+    print "Analysing examples in '{0}' directory.".format(examples_dir)
 
-    tempdir = create_working_directory()
+    tempdir = create_directories()
     os.chdir(tempdir)
 
-    history = walk_through(rootdir)
+    history = validate_examples(examples_dir)
 
-    print_summary(rootdir, history)
+
+    validate_drupal(history)
+
+    print_summary(examples_dir, history)
 
     # check_example("/home/pospelov/development/BornAgain/source/Examples/python/simulation/ex01_BasicParticles", "CylindersAndPrisms.py")

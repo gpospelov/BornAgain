@@ -21,7 +21,6 @@
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
 #include "FormFactorTools.h"
-#include "PositionParticleInfo.h"
 
 #include <cmath>
 #include <boost/scoped_ptr.hpp>
@@ -147,7 +146,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
+    boost::scoped_ptr<IParticle> P_particle_clone(p_particle_info->
             getParticle()->clone());
     P_particle_clone->setAmbientMaterial(p_ambient_material);
 
@@ -167,14 +166,10 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         }
     }
     p_result->mp_ff = p_ff_framework;
-    // Other info (position and abundance
-    const PositionParticleInfo *p_pos_particle_info =
-        dynamic_cast<const PositionParticleInfo *>(p_particle_info);
-    if (p_pos_particle_info) {
-        kvector_t position = p_pos_particle_info->getPosition();
-        p_result->m_pos_x = position.x();
-        p_result->m_pos_y = position.y();
-    }
+    // Other info (position and abundance)
+    kvector_t position = p_particle_info->getPosition();
+    p_result->m_pos_x = position.x();
+    p_result->m_pos_y = position.y();
     p_result->m_abundance = p_particle_info->getAbundance();
     return p_result;
 }

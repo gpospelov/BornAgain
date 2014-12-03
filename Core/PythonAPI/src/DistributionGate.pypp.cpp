@@ -25,6 +25,13 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
         m_pyobj = 0;
     }
 
+    DistributionGate_wrapper( )
+    : DistributionGate( )
+      , bp::wrapper< DistributionGate >(){
+        // null constructor
+    m_pyobj = 0;
+    }
+
     DistributionGate_wrapper(double mean, double hwhm )
     : DistributionGate( mean, hwhm )
       , bp::wrapper< DistributionGate >(){
@@ -179,8 +186,9 @@ void register_DistributionGate_class(){
 
     { //::DistributionGate
         typedef bp::class_< DistributionGate_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGate_wrapper > > DistributionGate_exposer_t;
-        DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
+        DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", bp::init< >() );
         bp::scope DistributionGate_scope( DistributionGate_exposer );
+        DistributionGate_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
         { //::DistributionGate::clone
         
             typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type)(  ) const;

@@ -95,6 +95,10 @@ void SampleMaterialVisitor::visit(const Particle *sample)
     addMaterial(sample->getAmbientMaterial());
 }
 
+void SampleMaterialVisitor::visit(const ParticleCollection *)
+{
+}
+
 void SampleMaterialVisitor::visit(const LatticeBasis *)
 {
 }
@@ -112,10 +116,6 @@ void SampleMaterialVisitor::visit(const ParticleInfo *)
 }
 
 void SampleMaterialVisitor::visit(const DiffuseParticleInfo *)
-{
-}
-
-void SampleMaterialVisitor::visit(const PositionParticleInfo *)
 {
 }
 

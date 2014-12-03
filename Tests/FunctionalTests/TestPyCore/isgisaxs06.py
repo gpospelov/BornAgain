@@ -31,7 +31,7 @@ def RunSimulation_lattice():
     cylinder = Particle(mParticle, cylinder_ff.clone())
     position = kvector_t(0.0, 0.0, 0.0)
     particle_layout = ParticleLayout()
-    particle_info =  PositionParticleInfo(cylinder, position, 1.0)
+    particle_info = ParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)
 
@@ -69,7 +69,7 @@ def RunSimulation_centered():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
-    particle_info = PositionParticleInfo(cylinder, position, 1.0)
+    particle_info = ParticleInfo(cylinder, position, 1.0)
     particle_layout1.addParticleInfo(particle_info)
     particle_layout1.addInterferenceFunction(interference)
     # particle 2
@@ -114,7 +114,7 @@ def RunSimulation_rotated():
     cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_layout = ParticleLayout()
-    particle_info =  PositionParticleInfo(cylinder, position, 1.0)
+    particle_info = ParticleInfo(cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(interference)
 
@@ -184,7 +184,7 @@ def buildSample(xi_value):
     ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(mParticle, ff_cyl.clone())
-    particle_info = PositionParticleInfo( cylinder, position, 1.0)
+    particle_info = ParticleInfo( cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(p_interference_function)
     

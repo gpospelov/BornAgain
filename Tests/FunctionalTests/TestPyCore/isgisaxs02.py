@@ -39,13 +39,12 @@ def RunSimulation():
     #Building nano particles
     particle_layout = ParticleLayout()
 
-    builder = ParticleBuilder()
-    builder.setPrototype(cylinder1, "/Particle/FormFactorCylinder/radius", gauss1,
-                         nbins, n_sigma, 0.95)
-    builder.plantParticles(particle_layout)
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius",  gauss2,
-                         nbins, n_sigma, 0.05)
-    builder.plantParticles(particle_layout)
+    par_distr1 = ParameterDistribution("*/radius", gauss1, nbins, n_sigma)
+    part_coll1 = ParticleCollection(cylinder1, par_distr1)
+    particle_layout.addParticle(part_coll1, 0.0, 0.95)
+    par_distr2 = ParameterDistribution("*/radius", gauss2, nbins, n_sigma)
+    part_coll2 = ParticleCollection(cylinder2, par_distr2)
+    particle_layout.addParticle(part_coll2, 0.0, 0.05)
 
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)

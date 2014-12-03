@@ -350,12 +350,6 @@ void Simulation::runSingleSimulation()
         }
     }
 
-//    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-//            m_thread_info.n_batches <<
-//            ", current batch = " << m_thread_info.current_batch <<
-//            ", n_threads = " << m_thread_info.n_threads <<
-//            ", sample: " << *mp_sample;
-
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
         // Single thread.

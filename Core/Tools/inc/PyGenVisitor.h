@@ -53,7 +53,6 @@ public:
     void visit(const ParticleCoreShell *sample);
     void visit(const ParticleInfo *){}
     void visit(const ParticleLayout *sample);
-    void visit(const PositionParticleInfo *){}
 
 
 private:

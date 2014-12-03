@@ -49,7 +49,7 @@ ISample *IsGISAXS11Builder::buildSample() const
 
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
-    ParticleLayout particle_layout(particle.clone());
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

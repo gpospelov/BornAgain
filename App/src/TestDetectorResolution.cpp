@@ -68,10 +68,9 @@ void TestDetectorResolution::initializeSample()
             1e7*Units::nanometer);
     FTDistribution1DGauss pdf(7*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
-    ParticleLayout particle_layout(
-        new Particle(particle_material,
-                     FormFactorCylinder(5*Units::nanometer,
-                                            5*Units::nanometer)));
+    Particle particle(particle_material, FormFactorCylinder(5*Units::nanometer,
+                                                            5*Units::nanometer));
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);

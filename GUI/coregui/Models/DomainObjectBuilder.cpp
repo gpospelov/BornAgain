@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "ParticleCoreShellItem.h"
 #include "Samples.h"
-#include "PositionParticleInfo.h"
 #include "Instrument.h"
 #include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
@@ -264,7 +263,7 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
                         VectorItem::P_Z).toDouble();
             if (pos_x!=0.0 || pos_y!=0.0 || pos_z!=0.0) {
                 kvector_t position(pos_x, pos_y, pos_z);
-                PositionParticleInfo particle_info(
+                ParticleInfo particle_info(
                             particle, position, abundance);
                 result->addParticleInfo(particle_info);
             } else {

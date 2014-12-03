@@ -32,7 +32,8 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
+#include "Distributions.h"
+#include "ParticleCollection.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
@@ -301,12 +302,11 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
-    ParticleBuilder builder;
-    builder.setPrototype(cylinder,"/Particle/FormFactorCylinder/radius", gauss,
-                         nbins, nfwhm);
-    builder.plantParticles(particle_layout);
+    ParameterDistribution par_distr("*/radius", gauss, nbins, nfwhm);
+    ParticleCollection particle_collection(cylinder, par_distr);
+    particle_layout.addParticle(particle_collection);
 
-    // making layer holding all whose nano particles
+    // add layout to layer
     air_layer.addLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);

@@ -30,9 +30,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 public:
     ParticleLayout();
     ParticleLayout(
-        Particle* p_particle, double depth=0., double abundance=1.);
-    ParticleLayout(
-        const Particle& p_particle, double depth=0., double abundance=1.);
+        const IParticle& particle, double depth=0., double abundance=1.);
 
     virtual ~ParticleLayout();
 
@@ -46,18 +44,12 @@ public:
 
     //! Adds generic particle
     void addParticle(
-        Particle *p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
-
-    void addParticle(
-        const Particle& p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
+        const IParticle& particle, const Geometry::Transform3D& transform,
+        double depth=0.0, double abundance=1.0);
 
     //! Adds particle without rotation
-    void addParticle(Particle *p_particle, double depth=0.0, double abundance=1.0);
-
-    //! Adds particle without rotation
-    void addParticle(const Particle& particle, double depth=0.0, double abundance=1.0);
+    void addParticle(const IParticle& particle, double depth=0.0,
+                     double abundance=1.0);
 
     //! Adds particle info
     void addParticleInfo(const ParticleInfo& info);
@@ -87,12 +79,17 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
+    virtual bool preprocess();
+
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+
+    //! Replace ParticleCollection with all the particles it represents
+    void replaceParticleCollection(size_t index);
 
     void print(std::ostream& ostr) const;
 

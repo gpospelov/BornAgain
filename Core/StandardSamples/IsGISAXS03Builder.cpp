@@ -21,7 +21,7 @@
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 #include "Distributions.h"
-#include "ParticleBuilder.h"
+#include "ParticleCollection.h"
 
 
 // -----------------------------------------------------------------------------
@@ -56,7 +56,8 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
 
-    ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
@@ -147,10 +148,9 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     // to get radius_min = average - 2.0*FWHM:
     double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
     DistributionGaussian gauss(m_radius, sigma);
-    ParticleBuilder builder;
-    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius",
-                         gauss, n_samples, n_sigma);
-    builder.plantParticles(particle_layout);
+    ParameterDistribution par_distr("*/radius", gauss, n_samples, n_sigma);
+    ParticleCollection particle_collection(nano_particle, par_distr);
+    particle_layout.addParticle(particle_collection);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

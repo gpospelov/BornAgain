@@ -3,7 +3,7 @@
 #include <map>
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "Particle.h"
+#include "IParticle.h"
 #include "ParticleLayout.h"
 
 //static std::map<const Layer *,std::string> m_layerLabel;
@@ -28,7 +28,7 @@ public:
     std::string getLabel(const Layer *sample);
     std::string getLabel(const LayerRoughness *sample);
     std::string getLabel(const MultiLayer *sample);
-    std::string getLabel(const Particle *sample);
+    std::string getLabel(const IParticle *sample);
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ParticleInfo *sample);
     std::string getLabel(const ILayout *sample);

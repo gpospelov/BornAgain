@@ -10,7 +10,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #include "numpy/arrayobject.h"
-#include "ParticleBuilder.pypp.h"
 #include "FormFactorFullSpheroid.pypp.h"
 #include "DistributionGate.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
@@ -72,11 +71,13 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorPrism6.pypp.h"
 #include "IClusteredParticles.pypp.h"
 #include "VariableBinAxis.pypp.h"
+#include "IParticle.pypp.h"
 #include "DistributionCosine.pypp.h"
 #include "FormFactorHemiEllipsoid.pypp.h"
 #include "IAxis.pypp.h"
 #include "vector_integer_t.pypp.h"
 #include "IntensityDataIOFactory.pypp.h"
+#include "ParameterDistribution.pypp.h"
 #include "Layer.pypp.h"
 #include "FormFactorPyramid.pypp.h"
 #include "CustomBinAxis.pypp.h"
@@ -84,7 +85,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
-#include "PositionParticleInfo.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
 #include "cvector_t.pypp.h"
@@ -128,6 +128,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "LatticeBasis.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "Bin1D.pypp.h"
+#include "ParticleCollection.pypp.h"
 #include "DistributionLogNormal.pypp.h"
 #include "IFTDistribution2D.pypp.h"
 #include "__call_policies.pypp.hpp"
@@ -223,6 +224,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ILayout_class();
     register_IObservable_class();
     register_IObserver_class();
+    register_IParticle_class();
     register_IResolutionFunction2D_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
@@ -246,12 +248,12 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayer_class();
     register_OffSpecSimulation_class();
     register_IntensityData_class();
+    register_ParameterDistribution_class();
     register_ParameterPool_class();
-    register_ParticleBuilder_class();
+    register_ParticleCollection_class();
     register_ParticleCoreShell_class();
     register_ParticleInfo_class();
     register_ParticleLayout_class();
-    register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DSimple_class();
     register_SimpleSelectionRule_class();

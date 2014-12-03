@@ -55,9 +55,18 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 }
 
 //! DistributionGate
+DistributionGate::DistributionGate()
+    : m_mean(0.0)
+    , m_hwhm(1.0)
+    {
+        setName("DistributionGate");
+        checkInitialization();
+        init_parameters();
+    }
+
 DistributionGate::DistributionGate(double mean, double hwhm)
-: m_mean(mean)
-, m_hwhm(hwhm)
+    : m_mean(mean)
+    , m_hwhm(hwhm)
 {
     setName("DistributionGate");
     checkInitialization();
@@ -105,9 +114,18 @@ bool DistributionGate::checkInitialization() const
 }
 
 //! DistributionLorenz
+DistributionLorentz::DistributionLorentz()
+    : m_mean(0.0)
+    , m_hwhm(1.0)
+    {
+        setName("DistributionLorentz");
+        checkInitialization();
+        init_parameters();
+    }
+
 DistributionLorentz::DistributionLorentz(double mean, double hwhm)
-: m_mean(mean)
-, m_hwhm(hwhm)
+    : m_mean(mean)
+    , m_hwhm(hwhm)
 {
     setName("DistributionLorentz");
     checkInitialization();
@@ -154,9 +172,18 @@ bool DistributionLorentz::checkInitialization() const
 }
 
 //! DistributionGaussian
+DistributionGaussian::DistributionGaussian()
+    : m_mean(0.0)
+    , m_std_dev(1.0)
+{
+    setName("DistributionGaussian");
+    checkInitialization();
+    init_parameters();
+}
+
 DistributionGaussian::DistributionGaussian(double mean, double std_dev)
-: m_mean(mean)
-, m_std_dev(std_dev)
+    : m_mean(mean)
+    , m_std_dev(std_dev)
 {
     setName("DistributionGaussian");
     checkInitialization();
@@ -205,9 +232,18 @@ bool DistributionGaussian::checkInitialization() const
 }
 
 //! DistributionLogNormal
+DistributionLogNormal::DistributionLogNormal(double scale_param)
+    : m_median(1.0)
+    , m_scale_param(scale_param)
+{
+    setName("DistributionLogNormal");
+    checkInitialization();
+    init_parameters();
+}
+
 DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
-: m_median(median)
-, m_scale_param(scale_param)
+    : m_median(median)
+    , m_scale_param(scale_param)
 {
     setName("DistributionLogNormal");
     checkInitialization();
@@ -262,9 +298,18 @@ bool DistributionLogNormal::checkInitialization() const
 }
 
 //! DistributionCosine
+DistributionCosine::DistributionCosine()
+    : m_mean(0.0)
+    , m_sigma(1.0)
+{
+    setName("DistributionCosine");
+    checkInitialization();
+    init_parameters();
+}
+
 DistributionCosine::DistributionCosine(double mean, double sigma)
-: m_mean(mean)
-, m_sigma(sigma)
+    : m_mean(mean)
+    , m_sigma(sigma)
 {
     setName("DistributionCosine");
     checkInitialization();
@@ -273,6 +318,7 @@ DistributionCosine::DistributionCosine(double mean, double sigma)
 
 double DistributionCosine::probabilityDensity(double x) const
 {
+    if (std::abs(x-m_mean)>M_PI*m_sigma) return 0.0;
     return (1.0 + std::cos((x-m_mean)/m_sigma))/(m_sigma*2.0*M_PI);
 }
 

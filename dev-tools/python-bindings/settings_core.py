@@ -113,12 +113,11 @@ include_classes = [
     "IObserver",
     "IObservable",
     "IParameterized",
+    "IParticle",
     "IResolutionFunction2D",
     "IntensityDataFunctions",
     "ISample",
     "ISampleBuilder",
-    #"SampleBuilder_t",
-    #"ISampleVisitor",
     "ISelectionRule",
     "Transform3D",
     "Instrument",
@@ -139,13 +138,13 @@ include_classes = [
     "OffSpecSimulation",
     "OutputData<double>",
     "IntensityDataIOFactory",
+    "ParameterDistribution",
     "ParameterPool",
     "Particle",
+    "ParticleCollection",
     "ParticleCoreShell",
-    "ParticleBuilder",
     "ParticleLayout",
     "ParticleInfo",
-    "PositionParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DSimple",
     "Simulation",
@@ -276,7 +275,6 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Particle")
     cl.member_function("createDiffuseParticleInfo").exclude()
-    cl.member_function("createDistributedParticles").exclude()
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
@@ -284,8 +282,15 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
+    cl = mb.class_("ParticleCollection")
+    cl.member_function("generateParticleInfos").exclude()
+    #
     cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
+    #
+    cl = mb.class_("ParameterDistribution")
+    cl.member_function("generateSamples").exclude()
+    cl.member_function("getLinkedParameterNames").exclude()
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
@@ -349,10 +354,11 @@ def ManualClassTunings(mb):
 def ManualExcludeMemberFunctions(mb):
     # with given name in function name
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
-    to_exclude_exact=['createDiffuseParticleInfo', 'createDistributedParticles',
-        'inverse', 'transformed', 'getNearestLatticeVectorCoordinates', 'getNearestReciprocalLatticeVectorCoordinates',
-        'collectBraggAngles', 'getKVectorContainer',
-        'begin', 'end', 'getBinOfAxis', 'addMask', 'getMask', 'setMask',
+    to_exclude_exact=['createDiffuseParticleInfo', 'inverse', 'transformed',
+        'getNearestLatticeVectorCoordinates',
+        'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
+        'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',
+        'getMask', 'setMask',
     ]
     for f in mb.member_functions():
         for x in to_exclude:

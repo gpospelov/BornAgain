@@ -28,14 +28,12 @@ def RunSimulation():
     particle_prototype = Particle(mParticle, cylinder_ff)
     radius_distr = DistributionGaussian(5.0*nanometer, 1.25*nanometer)
 
-    particle_builder = ParticleBuilder()
-    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius",
-                                  radius_distr, 30, 3.0)
-    particle_builder.plantParticles(particle_layout)
-    # Set height of each particle to its radius (H/R fixed)
-    p_parameters = particle_layout.createParameterTree()
-    nbr_replacements = p_parameters.fixRatioBetweenParameters("height", "radius", 1.0)
-    #print "Number of replacements: ", nbr_replacements
+    par_distr = ParameterDistribution("*/radius", radius_distr, 30, 3.0)
+    # link height linearly with distribution of radius:
+    par_distr.linkParameter("*/height")
+    part_coll = ParticleCollection(particle_prototype, par_distr)
+    particle_layout.addParticle(part_coll)
+
     particle_layout.addInterferenceFunction(interference)
     particle_layout.setApproximation(ILayout.SSCA)
 

@@ -125,8 +125,9 @@ void TestFittingModule1::initializeSample1()
 
     Layer air_layer;
     air_layer.setMaterial(air_material);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    Particle particle(particle_material, FormFactorCylinder(
+                          5*Units::nanometer, 5*Units::nanometer));
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
@@ -170,8 +171,12 @@ void TestFittingModule1::initializeSample2()
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
     ParticleLayout particle_layout;
-    particle_layout.addParticle(new Particle(particle_material, FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
-    particle_layout.addParticle(new Particle(particle_material, FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
+    Particle particle1(particle_material, FormFactorCylinder(
+                           cylinder_radius, cylinder_height) );
+    Particle particle2(particle_material, FormFactorPrism3(
+                           prism3_length, prism3_height) );
+    particle_layout.addParticle(particle1, 0.0, 0.2);
+    particle_layout.addParticle(particle2, 0.0, 0.8);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

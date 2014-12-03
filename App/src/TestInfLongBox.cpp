@@ -28,7 +28,6 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"

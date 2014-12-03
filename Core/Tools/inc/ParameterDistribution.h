@@ -28,38 +28,43 @@ class IDistribution1D;
 class BA_CORE_API_ ParameterDistribution : public IParameterized
 {
 public:
-	ParameterDistribution(const std::string &name);
-	ParameterDistribution(const ParameterDistribution &other);
-	~ParameterDistribution();
+    ParameterDistribution(const std::string &par_name,
+                          const IDistribution1D &distribution,
+                          size_t nbr_samples, double sigma_factor=0.0);
+    ParameterDistribution(const ParameterDistribution &other);
+    ~ParameterDistribution();
 
-	//! Overload assignment operator
-	ParameterDistribution& operator=(const ParameterDistribution &other);
+    //! Overload assignment operator
+    ParameterDistribution& operator=(const ParameterDistribution &other);
 
-	//! set the distribution type, number of samples and
-	//! the range of sample values
-	void setDistribution(const IDistribution1D &distribution,
-			size_t nbr_samples, double sigma_factor=0.0);
+    ParameterDistribution& linkParameter(std::string par_name);
 
-	//! get the parameter's name
-	std::string getParameterName() const {
-		return m_name;
-	}
+    //! get the main parameter's name
+    std::string getMainParameterName() const {
+        return m_name;
+    }
 
-	//! get number of samples for this distribution
-	size_t getNbrSamples() const {
-		return m_nbr_samples;
-	}
+    //! get number of samples for this distribution
+    size_t getNbrSamples() const {
+        return m_nbr_samples;
+    }
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples() const;
+
+    //! get list of linked parameter names
+    std::vector<std::string> getLinkedParameterNames() const {
+        return m_linked_par_names;
+    }
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 private:
-	std::string m_name;
-	size_t m_nbr_samples;
-	double m_sigma_factor;
-	std::auto_ptr<IDistribution1D> mP_distribution;
+    std::string m_name;
+    std::auto_ptr<IDistribution1D> mP_distribution;
+    size_t m_nbr_samples;
+    double m_sigma_factor;
+    std::vector<std::string> m_linked_par_names;
 };
 
 

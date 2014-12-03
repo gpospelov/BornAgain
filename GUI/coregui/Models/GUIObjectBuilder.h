@@ -52,7 +52,6 @@ public:
     void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
-    void visit(const PositionParticleInfo *);
 
     void visit(const FormFactorAnisoPyramid *);
     void visit(const FormFactorBox *);

@@ -90,10 +90,20 @@ void ISampleVisitor::visit(const MultiLayer *)
     throw NotImplementedException("ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const IParticle *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const IParticle *) -> Error. Not implemented.");
+}
+
 
 void ISampleVisitor::visit(const Particle *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const Particle *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const ParticleCollection *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleCollection *) -> Error. Not implemented.");
 }
 
 
@@ -124,12 +134,6 @@ void ISampleVisitor::visit(const ParticleInfo *)
 void ISampleVisitor::visit(const DiffuseParticleInfo *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
-}
-
-
-void ISampleVisitor::visit(const PositionParticleInfo *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const PositionParticleInfo *) -> Error. Not implemented.");
 }
 
 

@@ -25,6 +25,13 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         m_pyobj = 0;
     }
 
+    DistributionLorentz_wrapper( )
+    : DistributionLorentz( )
+      , bp::wrapper< DistributionLorentz >(){
+        // null constructor
+    m_pyobj = 0;
+    }
+
     DistributionLorentz_wrapper(double mean, double hwhm )
     : DistributionLorentz( mean, hwhm )
       , bp::wrapper< DistributionLorentz >(){
@@ -179,8 +186,9 @@ void register_DistributionLorentz_class(){
 
     { //::DistributionLorentz
         typedef bp::class_< DistributionLorentz_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionLorentz_wrapper > > DistributionLorentz_exposer_t;
-        DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
+        DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", bp::init< >() );
         bp::scope DistributionLorentz_scope( DistributionLorentz_exposer );
+        DistributionLorentz_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
         { //::DistributionLorentz::clone
         
             typedef ::DistributionLorentz * ( ::DistributionLorentz::*clone_function_type)(  ) const;

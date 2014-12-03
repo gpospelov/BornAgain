@@ -118,7 +118,8 @@ ISample *TestFit01::buildSample()
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout( new Particle(particle_material, ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

@@ -186,7 +186,6 @@ void ParticleLayout::replaceParticleCollection(size_t index)
     std::vector<ParticleInfo *> particles =
         p_particle_coll->generateParticleInfos(
             p_particle_info->getPosition(), p_particle_info->getAbundance());
-    // TODO: remove the original one
     for (size_t i=0; i<particles.size(); ++i) {
         addAndRegisterParticleInfo(particles[i]);
     }

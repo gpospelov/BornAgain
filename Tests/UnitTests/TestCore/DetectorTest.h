@@ -7,7 +7,7 @@
 #include "OutputData.h"
 #include "FixedBinAxis.h"
 #include "ConvolutionDetectorResolution.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 
 #include "gtest/gtest.h"
 
@@ -32,7 +32,7 @@ DetectorTest::DetectorTest()
     originalDetector->addAxis(axis0);
     originalDetector->addAxis(axis1);
     originalDetector->setDetectorResolution(new ConvolutionDetectorResolution(
-            new ResolutionFunction2DSimple(1,1)));
+            new ResolutionFunction2DGaussian(1,1)));
 }
 
 DetectorTest::~DetectorTest()

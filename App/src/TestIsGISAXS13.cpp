@@ -33,7 +33,7 @@
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "TestIsGISAXS5.h"
 #include "Units.h"
 #include "Utils.h"

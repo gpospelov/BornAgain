@@ -12,41 +12,41 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "ResolutionFunction2DSimple.pypp.h"
+#include "ResolutionFunction2DGaussian.pypp.h"
 
 namespace bp = boost::python;
 
-struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrapper< ResolutionFunction2DSimple > {
+struct ResolutionFunction2DGaussian_wrapper : ResolutionFunction2DGaussian, bp::wrapper< ResolutionFunction2DGaussian > {
 
-    ResolutionFunction2DSimple_wrapper(double sigma_x, double sigma_y )
-    : ResolutionFunction2DSimple( sigma_x, sigma_y )
-      , bp::wrapper< ResolutionFunction2DSimple >(){
+    ResolutionFunction2DGaussian_wrapper(double sigma_x, double sigma_y )
+    : ResolutionFunction2DGaussian( sigma_x, sigma_y )
+      , bp::wrapper< ResolutionFunction2DGaussian >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual ::ResolutionFunction2DSimple * clone(  ) const  {
+    virtual ::ResolutionFunction2DGaussian * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->ResolutionFunction2DSimple::clone(  );
+            return this->ResolutionFunction2DGaussian::clone(  );
         }
     }
     
-    ::ResolutionFunction2DSimple * default_clone(  ) const  {
-        return ResolutionFunction2DSimple::clone( );
+    ::ResolutionFunction2DGaussian * default_clone(  ) const  {
+        return ResolutionFunction2DGaussian::clone( );
     }
 
     virtual double evaluateCDF( double x, double y ) const  {
         if( bp::override func_evaluateCDF = this->get_override( "evaluateCDF" ) )
             return func_evaluateCDF( x, y );
         else{
-            return this->ResolutionFunction2DSimple::evaluateCDF( x, y );
+            return this->ResolutionFunction2DGaussian::evaluateCDF( x, y );
         }
     }
     
     double default_evaluateCDF( double x, double y ) const  {
-        return ResolutionFunction2DSimple::evaluateCDF( x, y );
+        return ResolutionFunction2DGaussian::evaluateCDF( x, y );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -108,7 +108,7 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< ResolutionFunction2DSimple_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ResolutionFunction2DGaussian_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -144,112 +144,112 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
 
 };
 
-void register_ResolutionFunction2DSimple_class(){
+void register_ResolutionFunction2DGaussian_class(){
 
-    { //::ResolutionFunction2DSimple
-        typedef bp::class_< ResolutionFunction2DSimple_wrapper, bp::bases< IResolutionFunction2D >, std::auto_ptr< ResolutionFunction2DSimple_wrapper >, boost::noncopyable > ResolutionFunction2DSimple_exposer_t;
-        ResolutionFunction2DSimple_exposer_t ResolutionFunction2DSimple_exposer = ResolutionFunction2DSimple_exposer_t( "ResolutionFunction2DSimple", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) );
-        bp::scope ResolutionFunction2DSimple_scope( ResolutionFunction2DSimple_exposer );
-        { //::ResolutionFunction2DSimple::clone
+    { //::ResolutionFunction2DGaussian
+        typedef bp::class_< ResolutionFunction2DGaussian_wrapper, bp::bases< IResolutionFunction2D >, std::auto_ptr< ResolutionFunction2DGaussian_wrapper >, boost::noncopyable > ResolutionFunction2DGaussian_exposer_t;
+        ResolutionFunction2DGaussian_exposer_t ResolutionFunction2DGaussian_exposer = ResolutionFunction2DGaussian_exposer_t( "ResolutionFunction2DGaussian", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) );
+        bp::scope ResolutionFunction2DGaussian_scope( ResolutionFunction2DGaussian_exposer );
+        { //::ResolutionFunction2DGaussian::clone
         
-            typedef ::ResolutionFunction2DSimple * ( ::ResolutionFunction2DSimple::*clone_function_type)(  ) const;
-            typedef ::ResolutionFunction2DSimple * ( ResolutionFunction2DSimple_wrapper::*default_clone_function_type)(  ) const;
+            typedef ::ResolutionFunction2DGaussian * ( ::ResolutionFunction2DGaussian::*clone_function_type)(  ) const;
+            typedef ::ResolutionFunction2DGaussian * ( ResolutionFunction2DGaussian_wrapper::*default_clone_function_type)(  ) const;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "clone"
-                , clone_function_type(&::ResolutionFunction2DSimple::clone)
-                , default_clone_function_type(&ResolutionFunction2DSimple_wrapper::default_clone)
+                , clone_function_type(&::ResolutionFunction2DGaussian::clone)
+                , default_clone_function_type(&ResolutionFunction2DGaussian_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ResolutionFunction2DSimple::evaluateCDF
+        { //::ResolutionFunction2DGaussian::evaluateCDF
         
-            typedef double ( ::ResolutionFunction2DSimple::*evaluateCDF_function_type)( double,double ) const;
-            typedef double ( ResolutionFunction2DSimple_wrapper::*default_evaluateCDF_function_type)( double,double ) const;
+            typedef double ( ::ResolutionFunction2DGaussian::*evaluateCDF_function_type)( double,double ) const;
+            typedef double ( ResolutionFunction2DGaussian_wrapper::*default_evaluateCDF_function_type)( double,double ) const;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "evaluateCDF"
-                , evaluateCDF_function_type(&::ResolutionFunction2DSimple::evaluateCDF)
-                , default_evaluateCDF_function_type(&ResolutionFunction2DSimple_wrapper::default_evaluateCDF)
+                , evaluateCDF_function_type(&::ResolutionFunction2DGaussian::evaluateCDF)
+                , default_evaluateCDF_function_type(&ResolutionFunction2DGaussian_wrapper::default_evaluateCDF)
                 , ( bp::arg("x"), bp::arg("y") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( ResolutionFunction2DGaussian_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ResolutionFunction2DSimple_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&ResolutionFunction2DGaussian_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( ResolutionFunction2DGaussian_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&ResolutionFunction2DSimple_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&ResolutionFunction2DGaussian_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( ResolutionFunction2DSimple_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ResolutionFunction2DGaussian_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ResolutionFunction2DSimple_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&ResolutionFunction2DGaussian_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( ResolutionFunction2DGaussian_wrapper::*default_printParameters_function_type)(  ) const;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ResolutionFunction2DSimple_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&ResolutionFunction2DGaussian_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &ResolutionFunction2DSimple_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &ResolutionFunction2DGaussian_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ResolutionFunction2DGaussian_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&ResolutionFunction2DSimple_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&ResolutionFunction2DGaussian_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ResolutionFunction2DGaussian_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            ResolutionFunction2DSimple_exposer.def( 
+            ResolutionFunction2DGaussian_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ResolutionFunction2DSimple_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&ResolutionFunction2DGaussian_wrapper::default_setParametersAreChanged) );
         
         }
     }

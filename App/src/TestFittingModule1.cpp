@@ -31,7 +31,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "ROOTMinimizer.h"
 

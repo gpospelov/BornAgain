@@ -22,7 +22,7 @@
 #include "MultiLayer.h"
 #include "Materials.h"
 #include "MathFunctions.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 
 
 void TestDetectorResolution::execute()
@@ -35,7 +35,7 @@ void TestDetectorResolution::execute()
         (100, 0.0*Units::degree, 2.0*Units::degree,
          100, 0.0*Units::degree, 2.0*Units::degree);
     IResolutionFunction2D *p_resolution_function =
-        new ResolutionFunction2DSimple(0.001, 0.001);
+        new ResolutionFunction2DGaussian(0.001, 0.001);
     simulation.setDetectorResolutionFunction(p_resolution_function);
     simulation.setBeamParameters
         (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);

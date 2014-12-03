@@ -16,7 +16,7 @@
 #include "StandardSimulations.h"
 #include "SampleBuilderFactory.h"
 #include "Simulation.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
@@ -368,7 +368,7 @@ Simulation *StandardSimulations::MesoCrystal01()
     delete reference;
 
 //    result->setDetectorResolutionFunction(
-//            new ResolutionFunction2DSimple(0.0002, 0.0002));
+//            new ResolutionFunction2DGaussian(0.0002, 0.0002));
 
     result->setSampleBuilder( builder );
 

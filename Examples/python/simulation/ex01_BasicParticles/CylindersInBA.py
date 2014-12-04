@@ -1,5 +1,5 @@
 """
-Cylinder formfactor in Born approximation (IsGISAXS example #3)
+Cylinder formfactor in Born approximation
 """
 import numpy
 import matplotlib
@@ -14,6 +14,7 @@ def get_sample():
     """
     Build and return the sample to calculate cylinder formfactor in Born approximation.
     """
+    # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 

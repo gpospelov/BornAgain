@@ -1,5 +1,5 @@
 """
-Cylinder formfactor in DWBA (IsGISAXS example #3)
+Cylinder formfactor in DWBA
 """
 import numpy
 import matplotlib

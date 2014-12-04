@@ -1,8 +1,13 @@
-# Mixture cylinder particles with different size distribution (IsGISAXS example ex-2)
+"""
+Mixture cylinder particles with different size distribution (IsGISAXS example ex-2)
+"""
 import numpy
 import matplotlib
 import pylab
-from libBornAgainCore import *
+from bornagain import *
+
+phi_min, phi_max = 0.0, 2.0
+alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
@@ -13,35 +18,39 @@ def get_sample():
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
+    nparticles = 150
+    nfwhm = 3.0
+
+    # collection of particles #1
     radius1 = 5.0*nanometer
-    radius2 = 10.0*nanometer
     height1 = radius1
-    height2 = radius2
+    sigma1 = radius1*0.2
+
     cylinder_ff1 = FormFactorCylinder(radius1, height1)
     cylinder1 = Particle(m_particle, cylinder_ff1)
-    cylinder_ff2 = FormFactorCylinder(radius2, height2)
-    cylinder2 = Particle(m_particle, cylinder_ff2)
-    nbins = 150
-    sigma1 = radius1*0.2
+
+    gauss_distr1 = DistributionGaussian(radius1, sigma1)
+
+    par_distr1 = ParameterDistribution("*/radius", gauss_distr1, nparticles, nfwhm)
+    part_coll1 = ParticleCollection(cylinder1, par_distr1)
+
+    # collection of particles #2
+    radius2 = 10.0*nanometer
+    height2 = radius2
     sigma2 = radius2*0.02
 
-    nfwhm = 3
-    gauss_distr1 = DistributionGaussian(radius1, sigma1)
+    cylinder_ff2 = FormFactorCylinder(radius2, height2)
+    cylinder2 = Particle(m_particle, cylinder_ff2)
+
     gauss_distr2 = DistributionGaussian(radius2, sigma2)
 
-    par_distr1 = ParameterDistribution("*/radius", gauss_distr1, nbins, nfwhm)
-    part_coll1 = ParticleCollection(cylinder1, par_distr1)
-    par_distr2 = ParameterDistribution("*/radius", gauss_distr2, nbins, nfwhm)
+    par_distr2 = ParameterDistribution("*/radius", gauss_distr2, nparticles, nfwhm)
     part_coll2 = ParticleCollection(cylinder2, par_distr2)
 
-    #Building nano particles
+    # assembling the sample
     particle_layout = ParticleLayout()
     particle_layout.addParticle(part_coll1, 0.0, 0.95)
     particle_layout.addParticle(part_coll2, 0.0, 0.05)
-
-    interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_air)
     air_layer.addLayout(particle_layout)
@@ -56,7 +65,7 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -70,7 +79,13 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData().getArray() + 1  # for log scale
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+
+    # showing the result
+    im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
+                 extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
+    pylab.colorbar(im)
+    pylab.xlabel(r'$\phi_f$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
 
 

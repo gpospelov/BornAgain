@@ -24,13 +24,11 @@ namespace FormFactorTools {
 
 //! Decorates the given formfactor with a scalar dwba formfactor and returns
 //! this form factor
-IFormFactor* createDWBAScalarFormFactor(IFormFactor* p_form_factor,
-        double depth=0.0);
+IFormFactor* createDWBAScalarFormFactor(IFormFactor* p_form_factor);
 
 //! Decorates the given formfactor with a matrix dwba formfactor and returns
 //! this form factor
-IFormFactor* createDWBAMatrixFormFactor(IFormFactor* p_form_factor,
-        double depth=0.0);
+IFormFactor* createDWBAMatrixFormFactor(IFormFactor* p_form_factor);
 }
 
 

@@ -127,10 +127,6 @@ void SampleMaterialVisitor::visit(const FormFactorDWBAPol *)
 {
 }
 
-void SampleMaterialVisitor::visit(const FormFactorDWBAPolConstZ *)
-{
-}
-
 void SampleMaterialVisitor::visit(const FormFactorWeighted *)
 {
 }
@@ -256,10 +252,6 @@ void SampleMaterialVisitor::visit(const IFormFactorDecorator *)
 }
 
 void SampleMaterialVisitor::visit(const FormFactorDWBA *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorDWBAConstZ *)
 {
 }
 

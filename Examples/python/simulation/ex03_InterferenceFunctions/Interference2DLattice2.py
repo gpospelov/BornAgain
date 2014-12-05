@@ -1,5 +1,5 @@
 """
-2D lattice with disorder, centered lattice (IsGISAXS example #6)
+2D lattice with disorder, centered square lattice
 """
 import numpy
 import matplotlib
@@ -12,8 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing 2D lattice with different disorder
-    centered lattice
+    Build and return the sample representing 2D centered square lattice
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -48,7 +47,7 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Create and return GISAS simulation with beam and detector defined
     """
     simulation = Simulation()
     simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)

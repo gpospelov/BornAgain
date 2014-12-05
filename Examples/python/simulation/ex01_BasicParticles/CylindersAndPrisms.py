@@ -1,5 +1,5 @@
 """
-Mixture of cylinders and prisms without interference (IsGISAXS example ex-1)
+Mixture of cylinders and prisms without interference
 """
 import numpy
 import matplotlib

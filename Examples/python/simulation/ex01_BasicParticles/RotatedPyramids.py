@@ -1,5 +1,5 @@
 """
-Rotated pyramids on top of substrate (IsGISAXS example #9)
+Rotated pyramids on top of substrate
 """
 import numpy
 import matplotlib

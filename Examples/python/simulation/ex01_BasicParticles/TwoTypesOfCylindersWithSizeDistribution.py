@@ -1,5 +1,5 @@
 """
-Mixture cylinder particles with different size distribution (IsGISAXS example ex-2)
+Mixture cylinder particles with different size distribution 
 """
 import numpy
 import matplotlib

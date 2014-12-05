@@ -61,7 +61,6 @@ public:
     virtual void visit(const IFormFactor *sample);
 
     virtual void visit(const FormFactorDWBAPol *sample);
-    virtual void visit(const FormFactorDWBAPolConstZ *sample);
 
     virtual void visit(const FormFactorWeighted *sample);
 
@@ -100,7 +99,6 @@ public:
     virtual void visit(const IFormFactorDecorator *sample);
 
     virtual void visit(const FormFactorDWBA *sample);
-    virtual void visit(const FormFactorDWBAConstZ *sample);
     virtual void visit(const FormFactorDecoratorDebyeWaller *sample);
     virtual void visit(const FormFactorDecoratorFactor *sample);
     virtual void visit(const FormFactorDecoratorMaterial *sample);

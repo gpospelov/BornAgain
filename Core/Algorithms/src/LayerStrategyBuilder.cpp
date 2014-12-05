@@ -153,8 +153,6 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     // formfactor
     IFormFactor *p_ff_particle=0;
     kvector_t position = p_particle_info->getPosition();
-    // TODO: remove this later:
-    position.setZ(0.0);
     if (position==kvector_t(0.0, 0.0, 0.0)) {
         p_ff_particle = P_particle_clone->createFormFactor(factor);
     }
@@ -167,14 +165,13 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
-        double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle, depth);
+                    p_ff_particle);
         }
         else {
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle, depth);
+                    p_ff_particle);
         }
     }
     p_result->mp_ff = p_ff_framework;

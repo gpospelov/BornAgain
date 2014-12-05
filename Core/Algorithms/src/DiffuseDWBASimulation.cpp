@@ -14,11 +14,11 @@
 // ************************************************************************** //
 
 #include "DiffuseDWBASimulation.h"
-#include "FormFactorDWBAConstZ.h"
 #include "MessageService.h"
 #include "FormFactorTools.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorDecoratorPositionFactor.h"
 #include "Layer.h"
 
 //! Carry out one simulation thread.
@@ -165,7 +165,7 @@ void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
 //! Collect one entry (p_diffuse_term) per particle type and layer[?].
 //! For each entry, set
 //! - m_factor
-//! - m_form_factors <- vector<FormFactorDWBAConstZ*>
+//! - m_form_factors <- vector<IFormFactor*>
 //!
 void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
         SafePointerVector<DiffuseFormFactorTerm>& terms,
@@ -182,8 +182,9 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
         for (size_t j=0; j<nbr_heights; ++j) {
             DiffuseFormFactorTerm *p_diffuse_term = new DiffuseFormFactorTerm;
             p_diffuse_term->m_factor = density_per_height_per_particle;
-            double depth = p_diff_info->getDepth() -
-                j*p_diff_info->getHeightRange()/(nbr_heights-1.0);
+            kvector_t position(0.0, 0.0, 0.0);
+            position.setZ(- p_diff_info->getDepth() +
+                          j*p_diff_info->getHeightRange()/(nbr_heights-1.0));
             std::vector<IFormFactor*> form_factors;
             p_diff_info->getParticle()->getSimpleFormFactor()
                 ->createDistributedFormFactors(
@@ -191,16 +192,17 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                     samples_per_particle);
             for (size_t ff_index=0; ff_index<form_factors.size(); ++ff_index) {
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
-                IFormFactor *p_ff_particle = p_particle->createFormFactor(
-                        wavevector_scattering_factor);
+                boost::scoped_ptr<IFormFactor> p_clone(
+                   p_particle->createFormFactor(wavevector_scattering_factor) );
+                IFormFactor *p_ff_particle = new FormFactorDecoratorPositionFactor(*p_clone, position);
                 IFormFactor *p_dwba_ff(p_ff_particle);
                 if (checkPolarizationPresent()) {
                     p_dwba_ff = FormFactorTools::createDWBAMatrixFormFactor(
-                            p_ff_particle, depth);
+                            p_ff_particle);
                 }
                 else {
                     p_dwba_ff = FormFactorTools::createDWBAScalarFormFactor(
-                            p_ff_particle, depth);
+                            p_ff_particle);
                 }
                 p_diffuse_term->m_form_factors.push_back(p_dwba_ff);
             }

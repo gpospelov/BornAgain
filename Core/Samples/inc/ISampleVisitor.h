@@ -47,7 +47,6 @@ class DiffuseParticleInfo;
 class IFormFactor;
 // -
 class FormFactorDWBAPol;
-class FormFactorDWBAPolConstZ;
 // -
 class FormFactorWeighted;
 // -
@@ -85,7 +84,6 @@ class IFormFactorBornSeparable;
 class IFormFactorDecorator;
 // -
 class FormFactorDWBA;
-class FormFactorDWBAConstZ;
 class FormFactorDecoratorDebyeWaller;
 class FormFactorDecoratorFactor;
 class FormFactorDecoratorMaterial;
@@ -146,7 +144,6 @@ public:
     virtual void visit(const IFormFactor *);
 
     virtual void visit(const FormFactorDWBAPol *);
-    virtual void visit(const FormFactorDWBAPolConstZ *);
 
     virtual void visit(const FormFactorWeighted *);
 
@@ -184,7 +181,6 @@ public:
     virtual void visit(const IFormFactorDecorator *);
 
     virtual void visit(const FormFactorDWBA *);
-    virtual void visit(const FormFactorDWBAConstZ *);
     virtual void visit(const FormFactorDecoratorDebyeWaller *);
     virtual void visit(const FormFactorDecoratorFactor *);
     virtual void visit(const FormFactorDecoratorMaterial *);

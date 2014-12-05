@@ -149,12 +149,6 @@ void ISampleVisitor::visit(const FormFactorDWBAPol *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorDWBAPolConstZ *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBAPolConstZ *) -> Error. Not implemented.");
-}
-
-
 void ISampleVisitor::visit(const FormFactorWeighted *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorWeighted *) -> Error. Not implemented.");
@@ -339,12 +333,6 @@ void ISampleVisitor::visit(const IFormFactorDecorator *)
 void ISampleVisitor::visit(const FormFactorDWBA *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBA *) -> Error. Not implemented.");
-}
-
-
-void ISampleVisitor::visit(const FormFactorDWBAConstZ *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBAConstZ *) -> Error. Not implemented.");
 }
 
 

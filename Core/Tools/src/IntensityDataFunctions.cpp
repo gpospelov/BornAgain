@@ -18,7 +18,8 @@ void IntensityDataFunctions::setEllipticMask(OutputData<double>& data,
     data.setMask(*mask1);
 }
 
-double IntensityDataFunctions::getRelativeDifference(const OutputData<double> &result, const OutputData<double> &reference)
+double IntensityDataFunctions::getRelativeDifference(
+        const OutputData<double> &result, const OutputData<double> &reference)
 {
     OutputData<double> *c_result = result.clone();
 
@@ -41,7 +42,9 @@ double IntensityDataFunctions::getRelativeDifference(const OutputData<double> &r
 }
 
 
-OutputData<double> *IntensityDataFunctions::createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2)
+OutputData<double> *IntensityDataFunctions::createClippedDataSet(
+        const OutputData<double> &origin, double x1, double y1,
+        double x2, double y2)
 {
     if (origin.getRank() != 2) {
         throw LogicErrorException("IntensityDataFunctions::createClippedData()"

@@ -22,6 +22,8 @@
 #include <memory>
 #include <boost/scoped_ptr.hpp>
 
+class ParticleInfo;
+
 //! @class IParticle
 //! @ingroup samples
 //! @brief Interface for a generic particle
@@ -86,8 +88,7 @@ public:
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const {
-        (void)parent_info;
+            const ParticleInfo& /*parent_info*/) const {
         return 0;
     }
 

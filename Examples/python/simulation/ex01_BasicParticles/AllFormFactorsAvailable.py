@@ -1,5 +1,5 @@
 """
-All formfactors available in BornAgain in DWBA
+All formfactors available in BornAgain in Born Approximation
 """
 import numpy
 import matplotlib
@@ -65,7 +65,7 @@ def get_simulation():
 
 def run_simulation():
     """
-    Run simulation and plot results
+    Run simulation one by one for every formfactor from the list and plot results on single canvas
     """
 
     dpi = 72.
@@ -77,7 +77,7 @@ def run_simulation():
     for ff in formfactors:
         name = ff.__class__.__name__
         name = name.replace("FormFactor", "")
-        print "Generating intensity map in BA for ", name
+        print "Generating intensity map in BA for '{0}'".format(name)
 
         sample = get_sample(ff)
         simulation = get_simulation()
@@ -92,8 +92,6 @@ def run_simulation():
 
         im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-        # pylab.xlabel(r'$\phi_f$', fontsize=16)
-        # pylab.ylabel(r'$\alpha_f$', fontsize=16)
         pylab.tick_params(axis='both', which='major', labelsize=8)
         pylab.tick_params(axis='both', which='minor', labelsize=6)
         pylab.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))

@@ -34,14 +34,31 @@ def FilesAreDifferent(file1, file2):
     return False
 
 
+def get_figure(filename):
+    """
+    Returns pylab figure of appropriate size
+    """
+    if "AllFormFactorsAvailable" in filename:
+        xsize = 1024
+        ysize = 768
+    else:
+        xsize = 640
+        ysize = 480
+
+    dpi = 72.
+    xinch = xsize / dpi
+    yinch = ysize / dpi
+    return pylab.figure(figsize=(xinch, yinch))
+
+
 def generate_example_plot(dirname, filename):
     """
     Tries to run python example and produce a *.png image
     """
     print "Analysing {:40s}".format(filename),
 
+    fig = get_figure(filename)
     try:
-        fig = pylab.figure()
         d = dict(locals(), **globals())
         execfile(os.path.join(dirname, filename), d, d)
         plot_file_name = os.path.splitext(filename)[0] + ".png"
@@ -126,6 +143,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         examples_dir = sys.argv[1]
 
+    examples_dir = os.path.abspath(examples_dir)
     print "Analysing examples in '{0}' directory.".format(examples_dir)
 
     tempdir = create_directories()

@@ -14,11 +14,13 @@ def get_sample():
     """
     Build and return the sample representing the layers with correlated roughness.
     """
+    # defining materials
     m_ambience = HomogeneousMaterial("ambience", 0.0, 0.0)
     m_part_a = HomogeneousMaterial("PartA", 5e-6, 0.0)
     m_part_b = HomogeneousMaterial("PartB", 10e-6, 0.0)
     m_substrate = HomogeneousMaterial("substrate", 15e-6, 0.0)
 
+    # defining layers
     l_ambience = Layer(m_ambience)
     l_part_a = Layer(m_part_a, 2.5*nanometer)
     l_part_b = Layer(m_part_b, 5.0*nanometer)
@@ -47,7 +49,7 @@ def get_sample():
 
 def get_simulation():
     """
-    characterizing the input beam and output detector
+    Characterizing the input beam and output detector
     """
     simulation = Simulation()
     simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
@@ -56,6 +58,9 @@ def get_simulation():
 
 
 def run_simulation():
+    """
+    Run simulation and plot results
+    """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)

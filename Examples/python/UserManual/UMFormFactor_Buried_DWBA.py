@@ -18,7 +18,7 @@ def get_sample():
     ff = FormFactorFullSphere(10.2*nanometer)
     particleshape = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particleshape,20.1,1.0)
+    particle_layout.addParticle(particleshape,25.2,1.0)
 
     # interferences 
     interference = InterferenceFunctionNone()

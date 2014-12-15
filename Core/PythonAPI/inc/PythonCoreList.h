@@ -95,6 +95,7 @@
 #include "PythonOutputData.h"
 #include "RealParameterWrapper.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "SpecularSimulation.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "ThreadInfo.h"

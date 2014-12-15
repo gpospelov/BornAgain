@@ -148,6 +148,7 @@ include_classes = [
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "Simulation",
+    "SpecularSimulation",
     "SimulationParameters",
     "SimpleSelectionRule",
     "ThreadInfo",

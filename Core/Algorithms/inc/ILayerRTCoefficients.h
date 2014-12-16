@@ -44,6 +44,7 @@ public:
     virtual Eigen::Vector2cd getKz() const=0;
     //! Scalar value getters; these throw errors by default as they should only
     //! be used when the derived object is really scalar
+#endif
     virtual complex_t getScalarT() const {
         throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarT(): coefficients are not scalar.");
@@ -56,7 +57,6 @@ public:
         throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarKz(): coefficients are not scalar.");
     }
-#endif
 };
 
 

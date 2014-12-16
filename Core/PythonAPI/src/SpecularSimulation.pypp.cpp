@@ -219,6 +219,16 @@ void register_SpecularSimulation_class(){
                 , getSampleBuilder_function_type( &::SpecularSimulation::getSampleBuilder ) );
         
         }
+        { //::SpecularSimulation::getScalarKz
+        
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarKz_function_type)( int ) const;
+            
+            SpecularSimulation_exposer.def( 
+                "getScalarKz"
+                , getScalarKz_function_type( &::SpecularSimulation::getScalarKz )
+                , ( bp::arg("i_layer")=(int)(0) ) );
+        
+        }
         { //::SpecularSimulation::getScalarR
         
             typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarR_function_type)( int ) const;
@@ -265,6 +275,16 @@ void register_SpecularSimulation_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::SpecularSimulation::setBeamParameters )
                 , ( bp::arg("lambda"), bp::arg("alpha_axis") ) );
+        
+        }
+        { //::SpecularSimulation::setBeamParameters
+        
+            typedef void ( ::SpecularSimulation::*setBeamParameters_function_type)( double,int,double,double ) ;
+            
+            SpecularSimulation_exposer.def( 
+                "setBeamParameters"
+                , setBeamParameters_function_type( &::SpecularSimulation::setBeamParameters )
+                , ( bp::arg("lambda"), bp::arg("nbins"), bp::arg("alpha_i_min"), bp::arg("alpha_i_max") ) );
         
         }
         { //::SpecularSimulation::setSample

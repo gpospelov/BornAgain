@@ -33,6 +33,9 @@
 class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
 {
 public:
+    typedef boost::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients;
+    typedef std::vector<LayerRTCoefficients> MultiLayerRTCoefficients;
+
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
     SpecularSimulation(SampleBuilder_t sample_builder);
@@ -58,8 +61,9 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const;
 
-    //! Sets beam parameters from
+    //! Sets beam parameters with alpha_i of the beam defined in the range
     void setBeamParameters(double lambda, const IAxis &alpha_axis);
+    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
 
     //! returns alpha_i axis
     const IAxis *getAlphaAxis() const;
@@ -67,8 +71,13 @@ public:
     //! returns vector containing reflection coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarR(int i_layer = 0) const;
 
-    //! returns vector containing reflection coefficients for all alpha_i angles for given layer index
+    //! returns vector containing transmission coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarT(int i_layer = 0) const;
+
+    //! returns vector containing Kz coefficients for all alpha_i angles for given layer index
+    std::vector<complex_t > getScalarKz(int i_layer = 0) const;
+
+//    const ILayerRTCoefficients *getLayerRTCoefficients(int i_alpha, int i_layer) const;
 
 protected:
     SpecularSimulation(const SpecularSimulation& other);
@@ -79,17 +88,21 @@ protected:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! calculates RT coefficients
-    void collectRTCoefficientsScalar();
+    //! calculates RT coefficients for multilayer without magnetic materials
+    void collectRTCoefficientsScalar(const MultiLayer *multilayer);
+
+    //! calculates RT coefficients for multilayer with magnetic materials
+    void collectRTCoefficientsMatrix(const MultiLayer *multilayer);
 
     ISample *m_sample;
     SampleBuilder_t m_sample_builder;
     IAxis *m_alpha_i_axis;
     double m_lambda;
 
-//    OutputData<MultiLayerRTCoefficients> m_data;
 #ifndef GCCXML_SKIP_THIS
     OutputData<SpecularMatrix::MultiLayerCoeff_t> *m_scalar_data;
+
+//    OutputData<MultiLayerRTCoefficients> m_data;
 #endif
 };
 

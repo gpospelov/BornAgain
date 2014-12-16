@@ -122,8 +122,11 @@ public:
     //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
-    //! returns lyaer index
+    //! returns layer index
     int getIndexOfLayer(const Layer *layer) const;
+
+    //! returns true if contains magnetic materials and matrix calculations are required
+    bool requiresMatrixRTCoefficients() const;
 
 protected:
     //! Registers some class members for later access via parameter pool

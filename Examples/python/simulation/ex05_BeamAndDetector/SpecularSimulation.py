@@ -53,8 +53,8 @@ def get_simulation():
     simulation = SpecularSimulation()
     # simulation.setDetectorParameters(20, phi_f_min*degree, phi_f_max*degree, 200, alpha_f_min*degree, alpha_f_max*degree)
     # defining the beam  with incidence alpha_i varied between alpha_i_min and alpha_i_max
-    alpha_i_axis = FixedBinAxis("alpha_i", 1000, alpha_i_min*degree, alpha_i_max*degree)
-    simulation.setBeamParameters(1.54*angstrom, alpha_i_axis)
+    # alpha_i_axis = FixedBinAxis("alpha_i", 1000, alpha_i_min*degree, alpha_i_max*degree)
+    simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
     # simulation.setBeamIntensity(1e9)
     return simulation
 
@@ -66,35 +66,48 @@ def run_simulation():
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
-    print "aaa"
     simulation.runSimulation()
-    print "aaa2"
 
-    coeff_r = []
-    for r in simulation.getScalarR(0):
-        coeff_r.append(numpy.abs(r))
+    # plotting results for several selected layers
+    selected_layers = [0, 1, 20, 21]
+    alpha_angles = simulation.getAlphaAxis().getBinCenters()
 
-    coeff_t = []
-    for t in simulation.getScalarT(0):
-        coeff_t.append(numpy.abs(t))
+    dpi = 72.
+    xinch = 1024 / dpi
+    yinch = 768 / dpi
+    fig = pylab.figure(figsize=(xinch, yinch))
 
-    alpha = simulation.getAlphaAxis().getBinCenters()
+    nplot = 1
+    for layer_index in selected_layers:
+
+        R = []
+        for coeff in simulation.getScalarR(layer_index):
+            R.append(numpy.abs(coeff))
+
+        T = []
+        for coeff in simulation.getScalarT(layer_index):
+            T.append(numpy.abs(coeff))
+
+        pylab.subplot(2, 2, nplot)
+        pylab.ylim(ymax=50.0, ymin=1e-06)
+        pylab.semilogy(alpha_angles, R)
+        pylab.semilogy(alpha_angles, T)
+        pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
+        nplot = nplot + 1
+
+    # special plot fo validation |R_top| + |T_bottom| sum
+    # R_top = simulation.getScalarR(0)
+    # T_bottom = simulation.getScalarT(sample.getNumberOfLayers()-1)
+    # R_plus_T = []
+    # for i in range(0, len(R_top)):
+    #     R_plus_T.append(numpy.abs(R_top[i])+numpy.abs(T_bottom[i]))
+    #
+    # pylab.subplot(2, 2, 4)
+    # pylab.ylim(ymax=50.0, ymin=1e-06)
+    # pylab.semilogy(alpha_angles, R_plus_T)
+    # pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='lower right')
 
 
-    fig = pylab.figure()
-    pylab.ylim(ymax=10.0, ymin=1e-06)
-    pylab.semilogy(alpha, coeff_r)
-    pylab.semilogy(alpha, coeff_t)
-    pylab.legend(['|R|', '|T|'], loc='upper right')
-
-    # result = simulation.getIntensityData().getArray() + 1  # for log scale
-
-    # showing the result
-    # im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
-    #                   extent=[alpha_i_min, alpha_i_max, alpha_f_min, alpha_f_max], aspect='auto')
-    # pylab.colorbar(im)
-    # pylab.xlabel(r'$\alpha_i$', fontsize=16)
-    # pylab.ylabel(r'$\alpha_f$', fontsize=16)
     pylab.show()
 
 

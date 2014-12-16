@@ -269,3 +269,13 @@ void MultiLayer::setNLayersInLayers() const
 }
 
 
+bool MultiLayer::requiresMatrixRTCoefficients() const
+{
+    for (size_t i=0; i<this->getNumberOfLayers(); ++i) {
+        const Layer *p_layer = this->getLayer(i);
+        const IMaterial *p_material = p_layer->getMaterial();
+        if (!p_material->isScalarMaterial()) return true;
+    }
+    return false;
+}
+

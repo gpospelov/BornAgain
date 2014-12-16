@@ -400,6 +400,15 @@ void register_MultiLayer_class(){
                 , getNumberOfLayers_function_type( &::MultiLayer::getNumberOfLayers ) );
         
         }
+        { //::MultiLayer::requiresMatrixRTCoefficients
+        
+            typedef bool ( ::MultiLayer::*requiresMatrixRTCoefficients_function_type)(  ) const;
+            
+            MultiLayer_exposer.def( 
+                "requiresMatrixRTCoefficients"
+                , requiresMatrixRTCoefficients_function_type( &::MultiLayer::requiresMatrixRTCoefficients ) );
+        
+        }
         { //::MultiLayer::setCrossCorrLength
         
             typedef void ( ::MultiLayer::*setCrossCorrLength_function_type)( double ) ;

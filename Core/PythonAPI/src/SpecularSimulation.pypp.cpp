@@ -200,6 +200,16 @@ void register_SpecularSimulation_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::SpecularSimulation::getLayerRTCoefficients
+        
+            typedef ::boost::shared_ptr< const ILayerRTCoefficients > ( ::SpecularSimulation::*getLayerRTCoefficients_function_type)( int,int ) const;
+            
+            SpecularSimulation_exposer.def( 
+                "getLayerRTCoefficients"
+                , getLayerRTCoefficients_function_type( &::SpecularSimulation::getLayerRTCoefficients )
+                , ( bp::arg("i_alpha"), bp::arg("i_layer") ) );
+        
+        }
         { //::SpecularSimulation::getSample
         
             typedef ::ISample * ( ::SpecularSimulation::*getSample_function_type)(  ) const;

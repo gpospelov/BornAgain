@@ -33,8 +33,8 @@
 class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
 {
 public:
-    typedef boost::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients;
-    typedef std::vector<LayerRTCoefficients> MultiLayerRTCoefficients;
+    typedef boost::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
+    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
 
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
@@ -77,7 +77,7 @@ public:
     //! returns vector containing Kz coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarKz(int i_layer = 0) const;
 
-//    const ILayerRTCoefficients *getLayerRTCoefficients(int i_alpha, int i_layer) const;
+    LayerRTCoefficients_t getLayerRTCoefficients(int i_alpha, int i_layer) const;
 
 protected:
     SpecularSimulation(const SpecularSimulation& other);
@@ -100,9 +100,9 @@ protected:
     double m_lambda;
 
 #ifndef GCCXML_SKIP_THIS
-    OutputData<SpecularMatrix::MultiLayerCoeff_t> *m_scalar_data;
+//    OutputData<SpecularMatrix::MultiLayerCoeff_t> *m_scalar_data;
 
-//    OutputData<MultiLayerRTCoefficients> m_data;
+    OutputData<MultiLayerRTCoefficients_t> m_data;
 #endif
 };
 

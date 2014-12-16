@@ -1,5 +1,5 @@
 """
-R and T coefficients in multilayer, Specular simulation
+R and T coefficients in multilayer, Specular simulation.
 """
 import numpy
 import matplotlib
@@ -51,11 +51,7 @@ def get_simulation():
     Create and return off-specular simulation with beam and detector defined
     """
     simulation = SpecularSimulation()
-    # simulation.setDetectorParameters(20, phi_f_min*degree, phi_f_max*degree, 200, alpha_f_min*degree, alpha_f_max*degree)
-    # defining the beam  with incidence alpha_i varied between alpha_i_min and alpha_i_max
-    # alpha_i_axis = FixedBinAxis("alpha_i", 1000, alpha_i_min*degree, alpha_i_max*degree)
     simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
-    # simulation.setBeamIntensity(1e9)
     return simulation
 
 
@@ -94,18 +90,6 @@ def run_simulation():
         pylab.semilogy(alpha_angles, T)
         pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
         nplot = nplot + 1
-
-    # special plot fo validation |R_top| + |T_bottom| sum
-    # R_top = simulation.getScalarR(0)
-    # T_bottom = simulation.getScalarT(sample.getNumberOfLayers()-1)
-    # R_plus_T = []
-    # for i in range(0, len(R_top)):
-    #     R_plus_T.append(numpy.abs(R_top[i])+numpy.abs(T_bottom[i]))
-    #
-    # pylab.subplot(2, 2, 4)
-    # pylab.ylim(ymax=50.0, ymin=1e-06)
-    # pylab.semilogy(alpha_angles, R_plus_T)
-    # pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='lower right')
 
 
     pylab.show()

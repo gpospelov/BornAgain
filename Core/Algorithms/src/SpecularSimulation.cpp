@@ -23,7 +23,7 @@ SpecularSimulation::SpecularSimulation()
     , m_sample(0)
     , m_alpha_i_axis(0)
     , m_lambda(0.0)
-    , m_scalar_data(0)
+//    , m_scalar_data(0)
 {
     init_parameters();
 }
@@ -34,7 +34,7 @@ SpecularSimulation::SpecularSimulation(const ISample& sample)
     , m_sample(sample.clone())
     , m_alpha_i_axis(0)
     , m_lambda(0.0)
-    , m_scalar_data(0)
+//    , m_scalar_data(0)
 {
     init_parameters();
 }
@@ -46,7 +46,7 @@ SpecularSimulation::SpecularSimulation(SampleBuilder_t sample_builder)
     , m_sample_builder(sample_builder)
     , m_alpha_i_axis(0)
     , m_lambda(0.0)
-    , m_scalar_data(0)
+//    , m_scalar_data(0)
 {
     init_parameters();
 }
@@ -60,7 +60,8 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
 {
     if(other.m_sample) m_sample = other.m_sample->clone();
     if(other.m_alpha_i_axis) m_alpha_i_axis = other.m_alpha_i_axis->clone();
-    if(other.m_scalar_data) m_scalar_data = other.m_scalar_data->clone();
+//    if(other.m_scalar_data) m_scalar_data = other.m_scalar_data->clone();
+    m_data.copyFrom(other.m_data);
 
     init_parameters();
 }
@@ -70,7 +71,7 @@ SpecularSimulation::~SpecularSimulation()
 {
     delete m_sample;
     delete m_alpha_i_axis;
-    delete m_scalar_data;
+//    delete m_scalar_data;
 }
 
 
@@ -171,15 +172,54 @@ const IAxis *SpecularSimulation::getAlphaAxis() const
 }
 
 
+//std::vector<complex_t > SpecularSimulation::getScalarR(int i_layer) const
+//{
+//    if(!m_scalar_data)
+//        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
+
+//    std::vector<complex_t > result;
+//    result.resize(m_alpha_i_axis->getSize());
+//    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
+//        result[i] = (*m_scalar_data)[i][i_layer].getScalarR();
+//    }
+//    return result;
+//}
+
+
+//std::vector<complex_t > SpecularSimulation::getScalarT(int i_layer) const
+//{
+//    if(!m_scalar_data)
+//        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
+
+//    std::vector<complex_t > result;
+//    result.resize(m_alpha_i_axis->getSize());
+//    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
+//        result[i] = (*m_scalar_data)[i][i_layer].getScalarT();
+//    }
+//    return result;
+//}
+
+
+//std::vector<complex_t> SpecularSimulation::getScalarKz(int i_layer) const
+//{
+//    if(!m_scalar_data)
+//        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
+
+//    std::vector<complex_t > result;
+//    result.resize(m_alpha_i_axis->getSize());
+//    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
+//        result[i] = (*m_scalar_data)[i][i_layer].getScalarKz();
+//    }
+//    return result;
+//}
+
+
 std::vector<complex_t > SpecularSimulation::getScalarR(int i_layer) const
 {
-    if(!m_scalar_data)
-        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
-
     std::vector<complex_t > result;
     result.resize(m_alpha_i_axis->getSize());
-    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
-        result[i] = (*m_scalar_data)[i][i_layer].getScalarR();
+    for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
+        result[i] = m_data[i][i_layer]->getScalarR();
     }
     return result;
 }
@@ -187,13 +227,10 @@ std::vector<complex_t > SpecularSimulation::getScalarR(int i_layer) const
 
 std::vector<complex_t > SpecularSimulation::getScalarT(int i_layer) const
 {
-    if(!m_scalar_data)
-        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
-
     std::vector<complex_t > result;
     result.resize(m_alpha_i_axis->getSize());
-    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
-        result[i] = (*m_scalar_data)[i][i_layer].getScalarT();
+    for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
+        result[i] = m_data[i][i_layer]->getScalarT();
     }
     return result;
 }
@@ -201,25 +238,27 @@ std::vector<complex_t > SpecularSimulation::getScalarT(int i_layer) const
 
 std::vector<complex_t> SpecularSimulation::getScalarKz(int i_layer) const
 {
-    if(!m_scalar_data)
-        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
-
     std::vector<complex_t > result;
     result.resize(m_alpha_i_axis->getSize());
-    for(size_t i=0; i<m_scalar_data->getAllocatedSize(); ++i) {
-        result[i] = (*m_scalar_data)[i][i_layer].getScalarKz();
+    for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
+        result[i] = m_data[i][i_layer]->getScalarKz();
     }
     return result;
 }
 
 
-//const ILayerRTCoefficients *SpecularSimulation::getLayerRTCoefficients(int i_alpha, int i_layer) const
-//{
-//    if(!m_scalar_data)
-//        throw RuntimeErrorException("SpecularSimulation::getScalarR() -> Error. No scalar coefficients.");
+SpecularSimulation::LayerRTCoefficients_t SpecularSimulation::getLayerRTCoefficients(int i_alpha, int i_layer) const
+{
+    if((size_t)i_alpha >= m_data.getAllocatedSize())
+        throw RuntimeErrorException("SpecularSimulation::getLayerRTCoefficients() -> Error. Wrong i_alpha.");
 
-//    return  &(*m_scalar_data)[i_alpha][i_layer];
-//}
+    if((size_t)i_layer >= m_data[i_alpha].size())
+        throw RuntimeErrorException("SpecularSimulation::getLayerRTCoefficients() -> Error. Wrong i_layer.");
+
+    return m_data[i_alpha][i_layer];
+}
+
+
 
 
 void SpecularSimulation::init_parameters()
@@ -246,38 +285,14 @@ void SpecularSimulation::updateSample()
 }
 
 
-void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilayer)
-{
-    delete m_scalar_data;
-    m_scalar_data = new OutputData<SpecularMatrix::MultiLayerCoeff_t>();
-
-    m_scalar_data->addAxis(*m_alpha_i_axis);
-
-    OutputData<SpecularMatrix::MultiLayerCoeff_t>::iterator it = m_scalar_data->begin();
-//    OutputData<MultiLayerRTCoefficients>::iterator it = m_data.begin();
-    while (it != m_scalar_data->end()) {
-        double alpha_i = m_scalar_data->getValueOfAxis(0,it.getIndex());
-        kvector_t kvec;
-        kvec.setLambdaAlphaPhi(m_lambda, -alpha_i, 0.0);
-
-        SpecularMatrix::MultiLayerCoeff_t coeffs;
-        SpecularMatrix matrixCalculator;
-        matrixCalculator.execute(*multilayer, kvec, coeffs);
-
-        *it = coeffs;
-        ++it;
-
-    } // alpha_i
-
-}
-
-
 //void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilayer)
 //{
-//    m_data.clear();
-//    m_data.addAxis(*m_alpha_i_axis);
+//    delete m_scalar_data;
+//    m_scalar_data = new OutputData<SpecularMatrix::MultiLayerCoeff_t>();
 
-//    OutputData<MultiLayerRTCoefficients>::iterator it = m_data.begin();
+//    m_scalar_data->addAxis(*m_alpha_i_axis);
+
+//    OutputData<SpecularMatrix::MultiLayerCoeff_t>::iterator it = m_scalar_data->begin();
 //    while (it != m_scalar_data->end()) {
 //        double alpha_i = m_scalar_data->getValueOfAxis(0,it.getIndex());
 //        kvector_t kvec;
@@ -291,11 +306,38 @@ void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilaye
 //        ++it;
 
 //    } // alpha_i
-
 //}
 
 
-void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer *multilayer)
+void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilayer)
+{
+    m_data.clear();
+    m_data.addAxis(*m_alpha_i_axis);
+
+    OutputData<MultiLayerRTCoefficients_t>::iterator it = m_data.begin();
+    while (it != m_data.end()) {
+        double alpha_i = m_data.getValueOfAxis(0,it.getIndex());
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(m_lambda, -alpha_i, 0.0);
+
+        SpecularMatrix::MultiLayerCoeff_t coeffs;
+        SpecularMatrix matrixCalculator;
+        matrixCalculator.execute(*multilayer, kvec, coeffs);
+
+        MultiLayerRTCoefficients_t ml_coeffs;
+        ml_coeffs.resize(coeffs.size());
+        for(size_t i_layer=0; i_layer<coeffs.size(); ++i_layer) {
+            ml_coeffs[i_layer] = LayerRTCoefficients_t(new ScalarRTCoefficients(coeffs[i_layer]));
+        }
+
+        *it = ml_coeffs;
+        ++it;
+
+    } // alpha_i
+}
+
+
+void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer * /*multilayer*/)
 {
     throw NotImplementedException("SpecularSimulation::collectRTCoefficientsMatrix() -> Error. Not implemented.");
 }

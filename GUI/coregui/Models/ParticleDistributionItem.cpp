@@ -33,14 +33,11 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     par_name << "Radius" << "Height";
     registerProperty(P_DISTRIBUTED_PARAMETER, par_name.getVariant());
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
-    registerProperty(P_SAMPLE_NUMBER, 5.0);
+    registerProperty(P_SAMPLE_NUMBER, 5);
     registerProperty(P_SIGMA_FACTOR, 2.0);
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
-
-    setPropertyAppearance(ParameterizedItem::P_NAME,
-                          PropertyAttribute::VisibleProperty);
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()

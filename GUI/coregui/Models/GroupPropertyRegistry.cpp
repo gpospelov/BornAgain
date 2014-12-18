@@ -50,6 +50,14 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     detectors[Constants::PhiAlphaDetectorType] = "[Phi, Alpha] plane";
     result[Constants::DetectorGroup] = detectors;
 
+    QMap<QString, QString> distributions;
+    distributions[Constants::DistributionGateType] = "Gate distribution";
+    distributions[Constants::DistributionLorentzType] = "Lorentz distribution";
+    distributions[Constants::DistributionGaussianType] = "Gaussian distribution";
+    distributions[Constants::DistributionLogNormalType] = "Log Normal distribution";
+    distributions[Constants::DistributionCosineType] = "Cosine distribution";
+    result[Constants::DistributionGroup] = distributions;
+
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";

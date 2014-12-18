@@ -22,6 +22,7 @@
 #include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
+#include "DistributionItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
@@ -88,6 +89,12 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
+
+    result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
+    result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
+    result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
+    result[Constants::DistributionLogNormalType] = &createInstance<DistributionLogNormalItem>;
+    result[Constants::DistributionCosineType] = &createInstance<DistributionCosineItem>;
 
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;

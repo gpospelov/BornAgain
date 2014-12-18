@@ -11,8 +11,7 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleDistributionType));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
-    addPort("core", NodeEditorPort::Input, NodeEditorPort::FormFactor);
-    addPort("shell", NodeEditorPort::Input, NodeEditorPort::FormFactor);
+    addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     m_roundpar = 5;
     m_label_vspace = 45;
 }

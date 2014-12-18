@@ -146,7 +146,10 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     else  if (name==Constants::TransformationType) {
         return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
     }
-    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
+    else  if (name.startsWith(Constants::FormFactorType)
+              || name==Constants::ParticleType
+              || name==Constants::ParticleCoreShellType
+              || name==Constants::ParticleDistributionType) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
     }
     else  if (name.startsWith("InterferenceFunction")) {

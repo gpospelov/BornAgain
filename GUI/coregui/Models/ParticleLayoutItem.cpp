@@ -15,6 +15,7 @@
 
 #include "ParticleLayoutItem.h"
 #include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
@@ -31,6 +32,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
+    addToValidChildren(Constants::ParticleDistributionType, PortInfo::Port0);
     addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::Port1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::Port1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::Port1, 1);

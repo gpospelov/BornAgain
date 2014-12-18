@@ -22,7 +22,10 @@ class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    static const QString P_PARAMETER_NAME;
+    static const QString P_DISTRIBUTED_PARAMETER;
+    static const QString P_DISTRIBUTION;
+    static const QString P_SAMPLE_NUMBER;
+    static const QString P_SIGMA_FACTOR;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
 };

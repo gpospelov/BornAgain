@@ -56,17 +56,17 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 
 //! DistributionGate
 DistributionGate::DistributionGate()
-    : m_mean(0.0)
-    , m_hwhm(1.0)
+    : m_min(0.0)
+    , m_max(1.0)
     {
         setName("DistributionGate");
         checkInitialization();
         init_parameters();
     }
 
-DistributionGate::DistributionGate(double mean, double hwhm)
-    : m_mean(mean)
-    , m_hwhm(hwhm)
+DistributionGate::DistributionGate(double min, double max)
+    : m_min(min)
+    , m_max(max)
 {
     setName("DistributionGate");
     checkInitialization();
@@ -75,8 +75,8 @@ DistributionGate::DistributionGate(double mean, double hwhm)
 
 double DistributionGate::probabilityDensity(double x) const
 {
-    if (std::abs(x - m_mean) > m_hwhm) return 0.0;
-    return 1.0/(2.0*m_hwhm);
+    if (x < m_min || x > m_max) return 0.0;
+    return 1.0/(m_max-m_min);
 }
 
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
@@ -85,14 +85,12 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
     (void)sigma_factor;
     std::vector<double> result;
     if (nbr_samples < 2) {
-        result.push_back(m_mean);
+        result.push_back(getMean());
     }
     else {
         result.resize(nbr_samples);
-        double xmin = m_mean - m_hwhm;
-        double xmax = m_mean + m_hwhm;
         for (size_t i=0; i<nbr_samples; ++i) {
-            result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
+            result[i] = m_min + i*(m_max-m_min)/(nbr_samples-1.0);
         }
     }
     return result;
@@ -101,14 +99,14 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 void DistributionGate::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean", &m_mean);
-    registerParameter("hwhm", &m_hwhm);
+    registerParameter("min", &m_min);
+    registerParameter("max", &m_max);
 }
 
 bool DistributionGate::checkInitialization() const
 {
     bool result = true;
-    if (m_hwhm <= 0.0) result = false;
+    if (m_max < m_min) result = false;
     if (!result) SignalBadInitialization("DistributionGate");
     return result;
 }

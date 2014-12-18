@@ -56,6 +56,13 @@ const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
+const ModelType DistributionType = "Distribution";
+const ModelType DistributionGateType = "DistributionGate";
+const ModelType DistributionLorentzType = "DistributionLorentz";
+const ModelType DistributionGaussianType = "DistributionGaussian";
+const ModelType DistributionLogNormalType = "DistributionLogNormal";
+const ModelType DistributionCosineType = "DistributionCosine";
+
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const ModelType FTDistribution1DGaussType = "FTDistribution1DGauss";
 const ModelType FTDistribution1DGateType = "FTDistribution1DGate";
@@ -89,6 +96,7 @@ const ModelType FormFactorGroup = "Form Factor";
 const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
+const ModelType DistributionGroup = "Distribution group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";

@@ -16,8 +16,12 @@
 #include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
 
-const QString ParticleDistributionItem::P_PARAMETER_NAME =
-        "Distributed parameter name";
+const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER =
+        "Distributed parameter";
+const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
+const QString ParticleDistributionItem::P_SAMPLE_NUMBER = "Number of samples";
+const QString ParticleDistributionItem::P_SIGMA_FACTOR = "Sigma factor";
+
 
 ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
@@ -27,10 +31,16 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
 
     ComboProperty par_name;
     par_name << "Radius" << "Height";
-    registerProperty(P_PARAMETER_NAME, par_name.getVariant());
+    registerProperty(P_DISTRIBUTED_PARAMETER, par_name.getVariant());
+    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
+    registerProperty(P_SAMPLE_NUMBER, 5.0);
+    registerProperty(P_SIGMA_FACTOR, 2.0);
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME,
+                          PropertyAttribute::VisibleProperty);
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()

@@ -232,6 +232,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Distributed particle" icon="images/ParticleCoreShell.png">
+            <widget class="ParticleDistribution">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
 
     <category name="Standard samples">

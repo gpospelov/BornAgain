@@ -29,6 +29,13 @@ DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     registerProperty(P_MAX, 1.0);
 }
 
+IDistribution1D *DistributionGateItem::createDistribution() const
+{
+    double min = getRegisteredProperty(P_MIN).toDouble();
+    double max = getRegisteredProperty(P_MAX).toDouble();
+    return new DistributionGate(min, max);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionLorentzItem::P_MEAN = "Mean";
@@ -40,6 +47,13 @@ DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionLorentzType);
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_HWHM, 1.0);
+}
+
+IDistribution1D *DistributionLorentzItem::createDistribution() const
+{
+    double mean = getRegisteredProperty(P_MEAN).toDouble();
+    double hwhm = getRegisteredProperty(P_HWHM).toDouble();
+    return new DistributionLorentz(mean, hwhm);
 }
 
 /* ------------------------------------------------ */
@@ -55,6 +69,13 @@ DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     registerProperty(P_STD_DEV, 1.0);
 }
 
+IDistribution1D *DistributionGaussianItem::createDistribution() const
+{
+    double mean = getRegisteredProperty(P_MEAN).toDouble();
+    double std_dev = getRegisteredProperty(P_STD_DEV).toDouble();
+    return new DistributionGaussian(mean, std_dev);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionLogNormalItem::P_MEDIAN = "Median";
@@ -68,6 +89,13 @@ DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
     registerProperty(P_SCALE_PAR, 1.0);
 }
 
+IDistribution1D *DistributionLogNormalItem::createDistribution() const
+{
+    double median = getRegisteredProperty(P_MEDIAN).toDouble();
+    double scale_par = getRegisteredProperty(P_SCALE_PAR).toDouble();
+    return new DistributionLogNormal(median, scale_par);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionCosineItem::P_MEAN = "Mean";
@@ -79,4 +107,11 @@ DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionCosineType);
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_SIGMA, 1.0);
+}
+
+IDistribution1D *DistributionCosineItem::createDistribution() const
+{
+    double mean = getRegisteredProperty(P_MEAN).toDouble();
+    double sigma = getRegisteredProperty(P_SIGMA).toDouble();
+    return new DistributionCosine(mean, sigma);
 }

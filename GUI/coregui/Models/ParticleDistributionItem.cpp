@@ -30,7 +30,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::Port0);
 
     ComboProperty par_name;
-    par_name << "Radius" << "Height";
+    par_name << "*/radius" << "*/height";
     registerProperty(P_DISTRIBUTED_PARAMETER, par_name.getVariant());
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
     registerProperty(P_SAMPLE_NUMBER, 5);

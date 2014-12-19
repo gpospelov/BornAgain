@@ -26,6 +26,7 @@ class Particle;
 class IInterferenceFunction;
 class Beam;
 class ParticleCoreShell;
+class ParticleCollection;
 class ParameterizedItem;
 class LayerRoughness;
 
@@ -48,6 +49,8 @@ private:
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
     Particle *buildParticle(const ParameterizedItem &item, double &depth,
                             double &abundance) const;
+    ParticleCollection *buildParticleCollection(
+            const ParameterizedItem &item) const;
     IInterferenceFunction *buildInterferenceFunction(
             const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;

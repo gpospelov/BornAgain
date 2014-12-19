@@ -81,6 +81,11 @@ public:
     //! Returns list of new particles generated according to a distribution
     std::vector<ParticleInfo *> generateParticleInfos(kvector_t position,
                                                       double abundance) const;
+
+    //! Returns the distributed parameter data
+    ParameterDistribution getParameterDistribution() const {
+        return m_par_distribution;
+    }
 protected:
     std::auto_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;

@@ -13,6 +13,7 @@ class LayerRoughness;
 class LayerInterface;
 class Layer;
 class Detector;
+class ParticleCollection;
 
 namespace TransformFromDomain
 {
@@ -28,10 +29,15 @@ BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction2DLattice *sample);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *layerItem, const Layer *layer, const LayerInterface *top_interface);
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *layerItem,
+                                    const Layer *layer,
+                                    const LayerInterface *top_interface);
 
-BA_CORE_API_ void setItemFromSample(ParameterizedItem *item , const LayerRoughness *sample);
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item ,
+                                    const LayerRoughness *sample);
 
+BA_CORE_API_ void setItemFromSample(ParameterizedItem *item ,
+                                    const ParticleCollection *sample);
 
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);

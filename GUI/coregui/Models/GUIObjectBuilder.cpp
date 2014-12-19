@@ -25,6 +25,8 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "RotationItems.h"
+#include "ParticleCollection.h"
+#include "ParticleDistributionItem.h"
 #include <QDebug>
 
 
@@ -254,11 +256,23 @@ void GUIObjectBuilder::visit(const Particle *sample)
     particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
     particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     particleItem->setItemName(sample->getName().c_str());
-//    particleItem->setMaterialProperty(createMaterialFromDomain(
-//                                          sample->getMaterial()));
     particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
     m_levelToParentItem[getLevel()] = particleItem;
+}
 
+void GUIObjectBuilder::visit(const ParticleCollection *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const ParticleCollection *)" << getLevel();
+
+    ParameterizedItem *layoutItem = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(layoutItem);
+    ParameterizedItem *item =
+            m_sampleModel->insertNewItem(Constants::ParticleDistributionType,
+                                        m_sampleModel->indexOfItem(layoutItem));
+    Q_ASSERT(item);
+    TransformFromDomain::setItemFromSample(item, sample);
+    m_levelToParentItem[getLevel()] = item;
+    m_itemToSample[item] = sample;
 }
 
 void GUIObjectBuilder::visit(const ParticleCoreShell *sample)

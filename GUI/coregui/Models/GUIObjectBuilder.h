@@ -49,6 +49,8 @@ public:
     void visit(const MultiLayer *);
 
     void visit(const Particle *);
+    void visit(const ParticleCollection *);
+
     void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);

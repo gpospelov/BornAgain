@@ -1,5 +1,5 @@
 """
-Cosine ripple at 2D lattice
+Cosine ripple on a 2D lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.5
 
 def get_sample():
     """
-    Build and return the sample representing the cosine ripple in the framework of the 1D Paracrystal.
+    Build and return the sample representing the cosine ripple in the framework of the 2D Lattice.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)

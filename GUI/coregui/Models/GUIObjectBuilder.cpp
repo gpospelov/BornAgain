@@ -35,7 +35,8 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, ISample *sample)
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(
+        SampleModel *sampleModel, ISample *sample)
 {
     Q_ASSERT(sampleModel);
     Q_ASSERT(sample);
@@ -52,7 +53,8 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     return m_levelToParentItem[0];
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel, Instrument *instrument)
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
+        InstrumentModel *instrumentModel, Instrument *instrument)
 {
     Q_UNUSED(instrumentModel);
     Q_UNUSED(instrument);
@@ -63,20 +65,21 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
 
     Beam beam = instrument->getBeam();
     ParameterizedItem *beamItem = instrumentModel->insertNewItem(
-                Constants::BeamType, instrumentModel->indexOfItem(instrumentItem));
+                Constants::BeamType,
+                instrumentModel->indexOfItem(instrumentItem));
     beamItem->setRegisteredProperty(BeamItem::P_INTENSITY,
                                     beam.getIntensity());
     beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
                                     beam.getWavelength());
 
     beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
+        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
     beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
+        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
 
     Detector detector = instrument->getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
-                Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
+        Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
     ParameterizedItem *detectorSubItem =
             detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorSubItem);
@@ -85,22 +88,30 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
     const IAxis &phi_axis = detector.getAxis(0);
     const IAxis &alpha_axis = detector.getAxis(1);
 
-    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
     binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
 
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NPHI,
-                                           (int)phi_axis.getSize());
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_NPHI, (int)phi_axis.getSize());
 
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN, AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX, AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_PHI_MIN,
+        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_PHI_MAX,
+        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
 
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA,
-                                           (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN,
-                                           AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX,
-                                           AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_ALPHA_MIN,
+        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
+    detectorSubItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_ALPHA_MAX,
+        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
 
     return instrumentItem;
 }
@@ -134,7 +145,8 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
         approx_prop.setValue("Decoupling Approximation");
         break;
     }
-    item->setRegisteredProperty(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
+    item->setRegisteredProperty(ParticleLayoutItem::P_APPROX,
+                                approx_prop.getVariant());
     m_levelToParentItem[getLevel()] = item;
 }
 
@@ -144,15 +156,18 @@ void GUIObjectBuilder::visit(const Layer *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    const MultiLayer *multilayer = dynamic_cast<const MultiLayer *>(m_itemToSample[parent]);
+    const MultiLayer *multilayer =
+            dynamic_cast<const MultiLayer *>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
     int layer_index = multilayer->getIndexOfLayer(sample);
     Q_ASSERT(layer_index != -1);
-    const LayerInterface *interface = multilayer->getLayerTopInterface(layer_index);
+    const LayerInterface *interface =
+            multilayer->getLayerTopInterface(layer_index);
 
-    ParameterizedItem *layerItem = m_sampleModel->insertNewItem(Constants::LayerType,
-                                         m_sampleModel->indexOfItem(parent));
-    layerItem->setRegisteredProperty(LayerItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
+    ParameterizedItem *layerItem = m_sampleModel->insertNewItem(
+        Constants::LayerType, m_sampleModel->indexOfItem(parent));
+    layerItem->setRegisteredProperty(LayerItem::P_MATERIAL,
+        createMaterialFromDomain(sample->getMaterial()).getVariant());
 
     TransformFromDomain::setItemFromSample(layerItem, sample, interface);
 
@@ -169,7 +184,8 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const MultiLayer *)" << getLevel();
 
-    ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    ParameterizedItem *item =
+            m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH,
                                 sample->getCrossCorrLength());
@@ -193,7 +209,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::Port0);
-            const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
+            const Geometry::Transform3D *p_transformation =
+                    sample->getPTransform3D();
             if (p_transformation) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
@@ -206,7 +223,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::Port1);
-            const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
+            const Geometry::Transform3D *p_transformation =
+                    sample->getPTransform3D();
             if (p_transformation) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
@@ -216,21 +234,23 @@ void GUIObjectBuilder::visit(const Particle *sample)
             }
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit"
-                "(const Particle *sample) -> Error. Logically should not be here");
+             "(const Particle *sample) -> Error. Logically should not be here");
         }
     }
-    else if(parent->modelType() == Constants::ParticleLayoutType){
+    else if(parent->modelType() == Constants::ParticleLayoutType
+         || parent->modelType() == Constants::ParticleDistributionType){
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
         bool has_position_info = m_sample_encountered[
                 Constants::TransformationType];
         const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
         if (has_position_info || p_transformation) {
-            ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
-                Constants::TransformationType, m_sampleModel->indexOfItem(particleItem));
+            ParameterizedItem *transformation_item =
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                    m_sampleModel->indexOfItem(particleItem));
             if (has_position_info) {
                 ParameterizedItem *p_position_item =
-                        transformation_item->getSubItems()[TransformationItem::P_POS];
+                  transformation_item->getSubItems()[TransformationItem::P_POS];
                 p_position_item->setRegisteredProperty(VectorItem::P_X,
                      m_propertyToValue[VectorItem::P_X]);
                 p_position_item->setRegisteredProperty(VectorItem::P_Y,
@@ -245,24 +265,31 @@ void GUIObjectBuilder::visit(const Particle *sample)
         }
     }
     else {
-        throw GUIHelpers::Error("GUIObjectBuilder::visit(const Particle *sample) -> Logic error.");
+        throw GUIHelpers::Error("GUIObjectBuilder::visit"
+          "(const Particle *sample) -> Logic error.");
     }
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
-        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No depth property.");
+        throw GUIHelpers::Error("GUIObjectBuilder::visit"
+          "(const ParticleCoreShell *sample) -> Error. No depth property.");
     if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
-        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No abundance property.");
+        throw GUIHelpers::Error("GUIObjectBuilder::visit"
+          "(const ParticleCoreShell *sample) -> Error. No abundance property.");
 
-    particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
-    particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
+    particleItem->setRegisteredProperty(ParticleItem::P_DEPTH,
+        m_propertyToValue[ParticleItem::P_DEPTH]);
+    particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+        m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     particleItem->setItemName(sample->getName().c_str());
-    particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
+    particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL,
+        createMaterialFromDomain(sample->getMaterial()).getVariant());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
 void GUIObjectBuilder::visit(const ParticleCollection *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleCollection *)" << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleCollection *)"
+             << getLevel();
 
     ParameterizedItem *layoutItem = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(layoutItem);
@@ -277,25 +304,32 @@ void GUIObjectBuilder::visit(const ParticleCollection *sample)
 
 void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)" << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)"
+             << getLevel();
 
-    ParameterizedItem *layoutItem = m_levelToParentItem[getLevel()-1];
-    Q_ASSERT(layoutItem);
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
 
-    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(Constants::ParticleCoreShellType,
-                                                           m_sampleModel->indexOfItem(layoutItem));
+    ParameterizedItem *coreshellItem =
+            m_sampleModel->insertNewItem(Constants::ParticleCoreShellType,
+                                         m_sampleModel->indexOfItem(parent));
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
-        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No depth property.");
+        throw GUIHelpers::Error("GUIObjectBuilder::visit"
+          "(const ParticleCoreShell *sample) -> Error. No depth property.");
     if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
-        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No abundance property.");
+        throw GUIHelpers::Error("GUIObjectBuilder::visit"
+          "(const ParticleCoreShell *sample) -> Error. No abundance property.");
 
-    coreshellItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
-    coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
+    coreshellItem->setRegisteredProperty(ParticleItem::P_DEPTH,
+                       m_propertyToValue[ParticleItem::P_DEPTH]);
+    coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+                       m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     coreshellItem->setItemName(sample->getName().c_str());
     kvector_t pos = sample->getRelativeCorePosition();
 
-    ParameterizedItem *vectorItem = coreshellItem->getSubItems()[ParticleCoreShellItem::P_CORE_POS];
+    ParameterizedItem *vectorItem =
+            coreshellItem->getSubItems()[ParticleCoreShellItem::P_CORE_POS];
 
     vectorItem->setRegisteredProperty(VectorItem::P_X, pos.x());
     vectorItem->setRegisteredProperty(VectorItem::P_Y, pos.y());
@@ -550,7 +584,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction1DParaCrystalType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction1DParaCrystalType,
+                m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -561,7 +596,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DParaCrystalType,
+                m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -572,7 +608,8 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DLatticeType,
+                m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -605,10 +642,12 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 
     if(material->isScalarMaterial()) {
       complex_t rindex = material->getRefractiveIndex();
-      MaterialItem *materialItem  = model->addMaterial(materialName, 1-rindex.real(),rindex.imag());
+      MaterialItem *materialItem  =
+              model->addMaterial(materialName, 1-rindex.real(),rindex.imag());
       return MaterialProperty(materialItem->getIdentifier());
     } else {
-        throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain() -> Not implemented.");
+        throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain()"
+                                " -> Not implemented.");
     }
 
     return MaterialProperty();

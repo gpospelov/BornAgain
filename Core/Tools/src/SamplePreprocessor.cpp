@@ -15,7 +15,7 @@
 
 #include "SamplePreprocessor.h"
 #include "ICompositeIterator.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 
 
 

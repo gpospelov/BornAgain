@@ -224,6 +224,15 @@ void register_DistributionCosine_class(){
                 , default_getMean_function_type(&DistributionCosine_wrapper::default_getMean) );
         
         }
+        { //::DistributionCosine::getSigma
+        
+            typedef double ( ::DistributionCosine::*getSigma_function_type)(  ) const;
+            
+            DistributionCosine_exposer.def( 
+                "getSigma"
+                , getSigma_function_type( &::DistributionCosine::getSigma ) );
+        
+        }
         { //::DistributionCosine::probabilityDensity
         
             typedef double ( ::DistributionCosine::*probabilityDensity_function_type)( double ) const;

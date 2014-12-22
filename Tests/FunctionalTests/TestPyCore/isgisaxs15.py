@@ -31,7 +31,7 @@ def RunSimulation():
     par_distr = ParameterDistribution("*/radius", radius_distr, 30, 3.0)
     # link height linearly with distribution of radius:
     par_distr.linkParameter("*/height")
-    part_coll = ParticleCollection(particle_prototype, par_distr)
+    part_coll = ParticleDistribution(particle_prototype, par_distr)
     particle_layout.addParticle(part_coll)
 
     particle_layout.addInterferenceFunction(interference)

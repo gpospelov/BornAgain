@@ -47,7 +47,7 @@ public:
     virtual void visit(const MultiLayer *sample);
 
     virtual void visit(const Particle *sample);
-    virtual void visit(const ParticleCollection *sample);
+    virtual void visit(const ParticleDistribution *sample);
     virtual void visit(const LatticeBasis *sample);
     virtual void visit(const MesoCrystal *sample);
     virtual void visit(const ParticleCoreShell *sample);

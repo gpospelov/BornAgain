@@ -27,8 +27,9 @@
 #include "VectorItem.h"
 #include "RotationItems.h"
 #include "ParticleDistributionItem.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "Distributions.h"
+#include "ComboProperty.h"
 
 #include <QDebug>
 
@@ -111,9 +112,9 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
     ParticleLayout *result = TransformToDomain::createParticleLayout(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
+        double depth(0.0), abundance(0.0);
         if (children[i]->modelType() == Constants::ParticleType) {
             ParameterizedItem *particle_item = children[i];
-            double depth(0.0), abundance(0.0);
             boost::scoped_ptr<Particle>
                     particle(buildParticle(*particle_item, depth, abundance));
             if (particle.get()) {
@@ -129,7 +130,6 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
             }
         }
         else if(children[i]->modelType() == Constants::ParticleCoreShellType) {
-            double depth(0.0), abundance(0.0);
             boost::scoped_ptr<ParticleCoreShell>
                     coreshell(buildParticleCoreShell(*children[i], depth, abundance));
             if (coreshell.get()) {
@@ -137,15 +137,16 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
             }
         }
         else if(children[i]->modelType() == Constants::ParticleDistributionType) {
-            double depth(0.0), abundance(0.0);
-            boost::scoped_ptr<ParticleCollection>
-                    part_distr(buildParticleCollection(*children[i]));
+            boost::scoped_ptr<ParticleDistribution>
+                    part_distr(buildParticleDistribution(*children[i], depth,
+                               abundance) );
             if (part_distr.get()) {
                 result->addParticle(*part_distr, depth, abundance);
             }
         }
         else {
-            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
+                                    " -> Error! Not implemented");
         }
     }
     return result;
@@ -185,17 +186,16 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item,
     return result;
 }
 
-ParticleCollection *DomainObjectBuilder::buildParticleCollection(
-        const ParameterizedItem &item) const
+ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(
+        const ParameterizedItem &item, double &depth, double &abundance) const
 {
-    ParticleCollection *p_result = 0;
+    ParticleDistribution *p_result = 0;
     QList<ParameterizedItem *> children = item.childItems();
     if (children.size()!=1) {
-        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCollection()"
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No particle defined");
     }
     boost::scoped_ptr<IParticle> P_particle;
-    double depth(0.0), abundance(0.0);
     if (children[0]->modelType() == Constants::ParticleType) {
         ParameterizedItem *particle_item = children[0];
         P_particle.reset(buildParticle(*particle_item, depth, abundance));
@@ -206,23 +206,25 @@ ParticleCollection *DomainObjectBuilder::buildParticleCollection(
                                                 abundance));
     }
     if (!P_particle.get()) {
-        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCollection()"
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
     }
     ParameterizedItem *distr_item =
             item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
-    Q_ASSERT(ffItem);
+    Q_ASSERT(distr_item);
     boost::scoped_ptr<IDistribution1D> distr(
                 TransformToDomain::createDistribution(*distr_item) );
-    QString par_name = item.getRegisteredProperty(
-                ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).toString();
+    QVariant par_name_var = item.getRegisteredProperty(
+                ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
+    ComboProperty prop = par_name_var.value<ComboProperty>();
+    QString par_name = prop.getValue();
     int nbr_samples = item.getRegisteredProperty(
                 ParticleDistributionItem::P_SAMPLE_NUMBER).toInt();
     double sigma_factor = item.getRegisteredProperty(
                 ParticleDistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(par_name.toStdString(), *distr,
                                     nbr_samples, sigma_factor);
-    p_result = new ParticleCollection(*P_particle, par_distr);
+    p_result = new ParticleDistribution(*P_particle, par_distr);
     return p_result;
 }
 

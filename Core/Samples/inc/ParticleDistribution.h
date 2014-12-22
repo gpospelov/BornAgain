@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/ParticleCollection.h
-//! @brief     Defines class ParticleCollection.
+//! @file      Samples/inc/ParticleDistribution.h
+//! @brief     Defines class ParticleDistribution.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECOLLECTION_H
-#define PARTICLECOLLECTION_H
+#ifndef PARTICLEDISTRIBUTION_H
+#define PARTICLEDISTRIBUTION_H
 
 #include "IParticle.h"
 #include "ParameterDistribution.h"
@@ -22,21 +22,21 @@
 class ParticleInfo;
 class DiffuseParticleInfo;
 
-//! @class ParticleCollection
+//! @class ParticleDistribution
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
 
-class BA_CORE_API_ ParticleCollection : public IParticle
+class BA_CORE_API_ ParticleDistribution : public IParticle
 {
 public:
-    ParticleCollection(const IParticle& prototype,
+    ParticleDistribution(const IParticle& prototype,
                        const ParameterDistribution& par_distr);
 
-    virtual ~ParticleCollection() {}
-    virtual ParticleCollection *clone() const;
+    virtual ~ParticleDistribution() {}
+    virtual ParticleDistribution *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleCollection *cloneInvertB() const;
+    virtual ParticleDistribution *cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -94,6 +94,6 @@ protected:
             const Geometry::Transform3D& transform);
 };
 
-#endif // PARTICLECOLLECTION_H
+#endif // PARTICLEDISTRIBUTION_H
 
 

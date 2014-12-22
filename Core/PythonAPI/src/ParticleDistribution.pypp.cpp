@@ -12,101 +12,101 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "ParticleCollection.pypp.h"
+#include "ParticleDistribution.pypp.h"
 
 namespace bp = boost::python;
 
-struct ParticleCollection_wrapper : ParticleCollection, bp::wrapper< ParticleCollection > {
+struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< ParticleDistribution > {
 
-    ParticleCollection_wrapper(::IParticle const & prototype, ::ParameterDistribution const & par_distr )
-    : ParticleCollection( boost::ref(prototype), boost::ref(par_distr) )
-      , bp::wrapper< ParticleCollection >(){
+    ParticleDistribution_wrapper(::IParticle const & prototype, ::ParameterDistribution const & par_distr )
+    : ParticleDistribution( boost::ref(prototype), boost::ref(par_distr) )
+      , bp::wrapper< ParticleDistribution >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual ::ParticleCollection * clone(  ) const  {
+    virtual ::ParticleDistribution * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->ParticleCollection::clone(  );
+            return this->ParticleDistribution::clone(  );
         }
     }
     
-    ::ParticleCollection * default_clone(  ) const  {
-        return ParticleCollection::clone( );
+    ::ParticleDistribution * default_clone(  ) const  {
+        return ParticleDistribution::clone( );
     }
 
-    virtual ::ParticleCollection * cloneInvertB(  ) const  {
+    virtual ::ParticleDistribution * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
         else{
-            return this->ParticleCollection::cloneInvertB(  );
+            return this->ParticleDistribution::cloneInvertB(  );
         }
     }
     
-    ::ParticleCollection * default_cloneInvertB(  ) const  {
-        return ParticleCollection::cloneInvertB( );
+    ::ParticleDistribution * default_cloneInvertB(  ) const  {
+        return ParticleDistribution::cloneInvertB( );
     }
 
     virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
         if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
             return func_createFormFactor( wavevector_scattering_factor );
         else{
-            return this->ParticleCollection::createFormFactor( wavevector_scattering_factor );
+            return this->ParticleDistribution::createFormFactor( wavevector_scattering_factor );
         }
     }
     
     ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return ParticleCollection::createFormFactor( wavevector_scattering_factor );
+        return ParticleDistribution::createFormFactor( wavevector_scattering_factor );
     }
 
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
         else{
-            return this->ParticleCollection::getAmbientMaterial(  );
+            return this->ParticleDistribution::getAmbientMaterial(  );
         }
     }
     
     ::IMaterial const * default_getAmbientMaterial(  ) const  {
-        return ParticleCollection::getAmbientMaterial( );
+        return ParticleDistribution::getAmbientMaterial( );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
         else{
-            return this->ParticleCollection::getMaterial(  );
+            return this->ParticleDistribution::getMaterial(  );
         }
     }
     
     ::IMaterial const * default_getMaterial(  ) const  {
-        return ParticleCollection::getMaterial( );
+        return ParticleDistribution::getMaterial( );
     }
 
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
         else{
-            return this->ParticleCollection::getRefractiveIndex(  );
+            return this->ParticleDistribution::getRefractiveIndex(  );
         }
     }
     
     ::complex_t default_getRefractiveIndex(  ) const  {
-        return ParticleCollection::getRefractiveIndex( );
+        return ParticleDistribution::getRefractiveIndex( );
     }
 
     virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
         if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
             return func_getSimpleFormFactor(  );
         else{
-            return this->ParticleCollection::getSimpleFormFactor(  );
+            return this->ParticleDistribution::getSimpleFormFactor(  );
         }
     }
     
     ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return ParticleCollection::getSimpleFormFactor( );
+        return ParticleDistribution::getSimpleFormFactor( );
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -252,7 +252,7 @@ struct ParticleCollection_wrapper : ParticleCollection, bp::wrapper< ParticleCol
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< ParticleCollection_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ParticleDistribution_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -336,286 +336,295 @@ struct ParticleCollection_wrapper : ParticleCollection, bp::wrapper< ParticleCol
 
 };
 
-void register_ParticleCollection_class(){
+void register_ParticleDistribution_class(){
 
-    { //::ParticleCollection
-        typedef bp::class_< ParticleCollection_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleCollection_wrapper >, boost::noncopyable > ParticleCollection_exposer_t;
-        ParticleCollection_exposer_t ParticleCollection_exposer = ParticleCollection_exposer_t( "ParticleCollection", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
-        bp::scope ParticleCollection_scope( ParticleCollection_exposer );
-        { //::ParticleCollection::clone
+    { //::ParticleDistribution
+        typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
+        ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
+        bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
+        { //::ParticleDistribution::clone
         
-            typedef ::ParticleCollection * ( ::ParticleCollection::*clone_function_type)(  ) const;
-            typedef ::ParticleCollection * ( ParticleCollection_wrapper::*default_clone_function_type)(  ) const;
+            typedef ::ParticleDistribution * ( ::ParticleDistribution::*clone_function_type)(  ) const;
+            typedef ::ParticleDistribution * ( ParticleDistribution_wrapper::*default_clone_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "clone"
-                , clone_function_type(&::ParticleCollection::clone)
-                , default_clone_function_type(&ParticleCollection_wrapper::default_clone)
+                , clone_function_type(&::ParticleDistribution::clone)
+                , default_clone_function_type(&ParticleDistribution_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ParticleCollection::cloneInvertB
+        { //::ParticleDistribution::cloneInvertB
         
-            typedef ::ParticleCollection * ( ::ParticleCollection::*cloneInvertB_function_type)(  ) const;
-            typedef ::ParticleCollection * ( ParticleCollection_wrapper::*default_cloneInvertB_function_type)(  ) const;
+            typedef ::ParticleDistribution * ( ::ParticleDistribution::*cloneInvertB_function_type)(  ) const;
+            typedef ::ParticleDistribution * ( ParticleDistribution_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "cloneInvertB"
-                , cloneInvertB_function_type(&::ParticleCollection::cloneInvertB)
-                , default_cloneInvertB_function_type(&ParticleCollection_wrapper::default_cloneInvertB)
+                , cloneInvertB_function_type(&::ParticleDistribution::cloneInvertB)
+                , default_cloneInvertB_function_type(&ParticleDistribution_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleCollection::createFormFactor
+        { //::ParticleDistribution::createFormFactor
         
-            typedef ::IFormFactor * ( ::ParticleCollection::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( ParticleCollection_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::IFormFactor * ( ::ParticleDistribution::*createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::IFormFactor * ( ParticleDistribution_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "createFormFactor"
-                , createFormFactor_function_type(&::ParticleCollection::createFormFactor)
-                , default_createFormFactor_function_type(&ParticleCollection_wrapper::default_createFormFactor)
+                , createFormFactor_function_type(&::ParticleDistribution::createFormFactor)
+                , default_createFormFactor_function_type(&ParticleDistribution_wrapper::default_createFormFactor)
                 , ( bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ParticleCollection::getAmbientMaterial
+        { //::ParticleDistribution::getAmbientMaterial
         
-            typedef ::IMaterial const * ( ::ParticleCollection::*getAmbientMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCollection_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( ::ParticleDistribution::*getAmbientMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( ParticleDistribution_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "getAmbientMaterial"
-                , getAmbientMaterial_function_type(&::ParticleCollection::getAmbientMaterial)
-                , default_getAmbientMaterial_function_type(&ParticleCollection_wrapper::default_getAmbientMaterial)
+                , getAmbientMaterial_function_type(&::ParticleDistribution::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&ParticleDistribution_wrapper::default_getAmbientMaterial)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleCollection::getMaterial
+        { //::ParticleDistribution::getMaterial
         
-            typedef ::IMaterial const * ( ::ParticleCollection::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCollection_wrapper::*default_getMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( ::ParticleDistribution::*getMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( ParticleDistribution_wrapper::*default_getMaterial_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "getMaterial"
-                , getMaterial_function_type(&::ParticleCollection::getMaterial)
-                , default_getMaterial_function_type(&ParticleCollection_wrapper::default_getMaterial)
+                , getMaterial_function_type(&::ParticleDistribution::getMaterial)
+                , default_getMaterial_function_type(&ParticleDistribution_wrapper::default_getMaterial)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleCollection::getRefractiveIndex
+        { //::ParticleDistribution::getParameterDistribution
         
-            typedef ::complex_t ( ::ParticleCollection::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleCollection_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
+            typedef ::ParameterDistribution ( ::ParticleDistribution::*getParameterDistribution_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::ParticleCollection::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleCollection_wrapper::default_getRefractiveIndex) );
+            ParticleDistribution_exposer.def( 
+                "getParameterDistribution"
+                , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
         
         }
-        { //::ParticleCollection::getSimpleFormFactor
+        { //::ParticleDistribution::getRefractiveIndex
         
-            typedef ::IFormFactor const * ( ::ParticleCollection::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( ParticleCollection_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
+            typedef ::complex_t ( ::ParticleDistribution::*getRefractiveIndex_function_type)(  ) const;
+            typedef ::complex_t ( ParticleDistribution_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
+                "getRefractiveIndex"
+                , getRefractiveIndex_function_type(&::ParticleDistribution::getRefractiveIndex)
+                , default_getRefractiveIndex_function_type(&ParticleDistribution_wrapper::default_getRefractiveIndex) );
+        
+        }
+        { //::ParticleDistribution::getSimpleFormFactor
+        
+            typedef ::IFormFactor const * ( ::ParticleDistribution::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( ParticleDistribution_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
+            
+            ParticleDistribution_exposer.def( 
                 "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::ParticleCollection::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&ParticleCollection_wrapper::default_getSimpleFormFactor)
+                , getSimpleFormFactor_function_type(&::ParticleDistribution::getSimpleFormFactor)
+                , default_getSimpleFormFactor_function_type(&ParticleDistribution_wrapper::default_getSimpleFormFactor)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParticle::applyTransformation
         
             typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleCollection_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&ParticleCollection_wrapper::default_applyTransformation)
+                , default_applyTransformation_function_type(&ParticleDistribution_wrapper::default_applyTransformation)
                 , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( ParticleCollection_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( ParticleDistribution_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ParticleCollection_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&ParticleDistribution_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( ParticleCollection_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&ParticleCollection_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&ParticleDistribution_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
-            typedef bool ( ParticleCollection_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( ParticleDistribution_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&ParticleCollection_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&ParticleDistribution_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( ParticleCollection_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ParticleDistribution_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ParticleCollection_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&ParticleDistribution_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( ParticleCollection_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( ParticleDistribution_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleCollection_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleDistribution_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( ParticleCollection_wrapper::*default_getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( ParticleDistribution_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleCollection_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleDistribution_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParticle::hasDistributedFormFactor
         
             typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( ParticleCollection_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( ParticleDistribution_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "hasDistributedFormFactor"
                 , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&ParticleCollection_wrapper::default_hasDistributedFormFactor) );
+                , default_hasDistributedFormFactor_function_type(&ParticleDistribution_wrapper::default_hasDistributedFormFactor) );
         
         }
         { //::ISample::preprocess
         
             typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ParticleCollection_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef bool ( ParticleDistribution_wrapper::*default_preprocess_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "preprocess"
                 , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ParticleCollection_wrapper::default_preprocess) );
+                , default_preprocess_function_type(&ParticleDistribution_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( ParticleCollection_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( ParticleDistribution_wrapper::*default_printParameters_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ParticleCollection_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&ParticleDistribution_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
-            typedef void ( ParticleCollection_wrapper::*default_printSampleTree_function_type)(  ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_printSampleTree_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&ParticleCollection_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&ParticleDistribution_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &ParticleCollection_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &ParticleDistribution_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( ParticleCollection_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ParticleDistribution_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&ParticleCollection_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&ParticleDistribution_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( ParticleCollection_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ParticleCollection_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&ParticleDistribution_wrapper::default_setParametersAreChanged) );
         
         }
         { //::IParticle::setTransformation
         
             typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleCollection_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "setTransformation"
                 , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&ParticleCollection_wrapper::default_setTransformation)
+                , default_setTransformation_function_type(&ParticleDistribution_wrapper::default_setTransformation)
                 , ( bp::arg("transform") ) );
         
         }
         { //::ICompositeSample::size
         
             typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleCollection_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ParticleDistribution_wrapper::*default_size_function_type)(  ) const;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&ParticleCollection_wrapper::default_size) );
+                , default_size_function_type(&ParticleDistribution_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
-            typedef void ( ParticleCollection_wrapper::*default_transferToCPP_function_type)(  ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_transferToCPP_function_type)(  ) ;
             
-            ParticleCollection_exposer.def( 
+            ParticleDistribution_exposer.def( 
                 "transferToCPP"
                 , transferToCPP_function_type(&::ICloneable::transferToCPP)
-                , default_transferToCPP_function_type(&ParticleCollection_wrapper::default_transferToCPP) );
+                , default_transferToCPP_function_type(&ParticleDistribution_wrapper::default_transferToCPP) );
         
         }
     }

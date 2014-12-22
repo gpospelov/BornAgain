@@ -40,10 +40,10 @@ def RunSimulation():
     particle_layout = ParticleLayout()
 
     par_distr1 = ParameterDistribution("*/radius", gauss1, nbins, n_sigma)
-    part_coll1 = ParticleCollection(cylinder1, par_distr1)
+    part_coll1 = ParticleDistribution(cylinder1, par_distr1)
     particle_layout.addParticle(part_coll1, 0.0, 0.95)
     par_distr2 = ParameterDistribution("*/radius", gauss2, nbins, n_sigma)
-    part_coll2 = ParticleCollection(cylinder2, par_distr2)
+    part_coll2 = ParticleDistribution(cylinder2, par_distr2)
     particle_layout.addParticle(part_coll2, 0.0, 0.05)
 
     interference = InterferenceFunctionNone()

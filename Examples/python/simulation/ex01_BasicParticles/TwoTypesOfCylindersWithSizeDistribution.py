@@ -32,7 +32,7 @@ def get_sample():
     gauss_distr1 = DistributionGaussian(radius1, sigma1)
 
     par_distr1 = ParameterDistribution("*/radius", gauss_distr1, nparticles, nfwhm)
-    part_coll1 = ParticleCollection(cylinder1, par_distr1)
+    part_coll1 = ParticleDistribution(cylinder1, par_distr1)
 
     # collection of particles #2
     radius2 = 10.0*nanometer
@@ -45,7 +45,7 @@ def get_sample():
     gauss_distr2 = DistributionGaussian(radius2, sigma2)
 
     par_distr2 = ParameterDistribution("*/radius", gauss_distr2, nparticles, nfwhm)
-    part_coll2 = ParticleCollection(cylinder2, par_distr2)
+    part_coll2 = ParticleDistribution(cylinder2, par_distr2)
 
     # assembling the sample
     particle_layout = ParticleLayout()

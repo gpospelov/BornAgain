@@ -95,7 +95,7 @@ void SampleMaterialVisitor::visit(const Particle *sample)
     addMaterial(sample->getAmbientMaterial());
 }
 
-void SampleMaterialVisitor::visit(const ParticleCollection *)
+void SampleMaterialVisitor::visit(const ParticleDistribution *)
 {
 }
 

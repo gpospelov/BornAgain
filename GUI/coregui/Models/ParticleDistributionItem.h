@@ -18,6 +18,8 @@
 
 #include "ParameterizedGraphicsItem.h"
 
+#include <QStringList>
+
 class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
@@ -28,6 +30,8 @@ public:
     static const QString P_SIGMA_FACTOR;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
+private:
+    QStringList getChildParameterNames() const;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

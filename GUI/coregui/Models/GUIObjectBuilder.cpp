@@ -25,7 +25,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "RotationItems.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
 #include <QDebug>
 
@@ -286,9 +286,9 @@ void GUIObjectBuilder::visit(const Particle *sample)
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
-void GUIObjectBuilder::visit(const ParticleCollection *sample)
+void GUIObjectBuilder::visit(const ParticleDistribution *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleCollection *)"
+    qDebug() << "GUIObjectBuilder::visit(const ParticleDistribution *)"
              << getLevel();
 
     ParameterizedItem *layoutItem = m_levelToParentItem[getLevel()-1];

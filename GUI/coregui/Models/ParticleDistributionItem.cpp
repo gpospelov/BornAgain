@@ -44,3 +44,14 @@ ParticleDistributionItem::~ParticleDistributionItem()
 {
 }
 
+QStringList ParticleDistributionItem::getChildParameterNames() const
+{
+    QStringList result;
+    if (hasChildItems()) {
+        for (QList::iterator it = m_children.begin();
+             it != m_children.end(); ++it) {
+            //TODO: add parameters to result
+        }
+    }
+}
+

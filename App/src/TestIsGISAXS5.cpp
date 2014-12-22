@@ -33,7 +33,7 @@
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "Distributions.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "ParticleLayout.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
@@ -303,7 +303,7 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
 
     // building nano particles
     ParameterDistribution par_distr("*/radius", gauss, nbins, nfwhm);
-    ParticleCollection particle_collection(cylinder, par_distr);
+    ParticleDistribution particle_collection(cylinder, par_distr);
     particle_layout.addParticle(particle_collection);
 
     // add layout to layer

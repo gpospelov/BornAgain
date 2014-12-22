@@ -213,6 +213,15 @@ void register_DistributionLorentz_class(){
                 , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }
+        { //::DistributionLorentz::getHWHM
+        
+            typedef double ( ::DistributionLorentz::*getHWHM_function_type)(  ) const;
+            
+            DistributionLorentz_exposer.def( 
+                "getHWHM"
+                , getHWHM_function_type( &::DistributionLorentz::getHWHM ) );
+        
+        }
         { //::DistributionLorentz::getMean
         
             typedef double ( ::DistributionLorentz::*getMean_function_type)(  ) const;

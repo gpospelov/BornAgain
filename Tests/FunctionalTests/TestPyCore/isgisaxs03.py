@@ -101,7 +101,7 @@ def RunSimulationBA_Size():
     gauss = DistributionGaussian(radius, sigma)
 
     par_distr = ParameterDistribution("*/radius", gauss, nbins, n_sigma)
-    part_coll = ParticleCollection(nano_particle, par_distr)
+    part_coll = ParticleDistribution(nano_particle, par_distr)
     particle_layout.addParticle(part_coll)
 
     interference = InterferenceFunctionNone()

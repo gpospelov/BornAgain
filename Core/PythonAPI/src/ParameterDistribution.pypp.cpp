@@ -132,6 +132,16 @@ void register_ParameterDistribution_class(){
         ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 )) );
         bp::scope ParameterDistribution_scope( ParameterDistribution_exposer );
         ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") )) );
+        { //::ParameterDistribution::getDistribution
+        
+            typedef ::IDistribution1D const * ( ::ParameterDistribution::*getDistribution_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getDistribution"
+                , getDistribution_function_type( &::ParameterDistribution::getDistribution )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::ParameterDistribution::getMainParameterName
         
             typedef ::std::string ( ::ParameterDistribution::*getMainParameterName_function_type)(  ) const;
@@ -148,6 +158,15 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getNbrSamples"
                 , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples ) );
+        
+        }
+        { //::ParameterDistribution::getSigmaFactor
+        
+            typedef double ( ::ParameterDistribution::*getSigmaFactor_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getSigmaFactor"
+                , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor ) );
         
         }
         { //::ParameterDistribution::linkParameter

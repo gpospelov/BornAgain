@@ -20,7 +20,7 @@
 #include "CustomBinAxis.h"
 #include "Detector.h"
 #include "ParticleDistributionItem.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "Distributions.h"
 #include "DistributionItem.h"
 #include <QString>
@@ -413,7 +413,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
-                                            const ParticleCollection *sample)
+                                            const ParticleDistribution *sample)
 {
     ParameterDistribution par_distr = sample->getParameterDistribution();
     item->setRegisteredProperty(

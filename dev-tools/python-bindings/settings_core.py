@@ -141,7 +141,7 @@ include_classes = [
     "ParameterDistribution",
     "ParameterPool",
     "Particle",
-    "ParticleCollection",
+    "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
     "ParticleInfo",
@@ -283,7 +283,7 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
-    cl = mb.class_("ParticleCollection")
+    cl = mb.class_("ParticleDistribution")
     cl.member_function("generateParticleInfos").exclude()
     #
     cl = mb.class_("ParticleLayout")

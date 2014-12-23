@@ -286,6 +286,43 @@ void ParameterizedItem::setPropertyAppearance(const QString &name, const Propert
     m_property_attribute[name].setAppearance(appearance);
 }
 
+QStringList ParameterizedItem::getParameterTreeList() const
+{
+    QStringList result;
+    // add child parameters:
+    if (hasChildItems()) {
+        for (QList<ParameterizedItem *>::const_iterator it = m_children.begin();
+             it != m_children.end(); ++it) {
+            QString child_name = (*it)->itemName();
+            QStringList child_list = (*it)->getParameterTreeList();
+            for (QStringList::const_iterator par_it = child_list.begin();
+                 par_it != child_list.end(); ++par_it) {
+                QString new_par_name = child_name + QString("/")
+                        + *par_it;
+                result << new_par_name;
+            }
+        }
+    }
+    // add subitem parameters:
+    if (m_sub_items.size()>0) {
+        for (QMap<QString, ParameterizedItem *>::const_iterator it =
+             m_sub_items.begin(); it != m_sub_items.end(); ++it) {
+            QString subitem_name = it.key();
+            ParameterizedItem *subitem = it.value();
+            QStringList subitem_list = subitem->getParameterTreeList();
+            for (QStringList::const_iterator par_it = subitem_list.begin();
+                 par_it != subitem_list.end(); ++par_it) {
+                QString new_par_name = subitem_name + QString("/")
+                        + *par_it;
+                result << new_par_name;
+            }
+        }
+    }
+    // add own parameters:
+    result << getParameterList();
+    return result;
+}
+
 
 PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
@@ -315,4 +352,24 @@ void ParameterizedItem::print() const
     }
     qDebug() << " ";
 
+}
+
+
+QStringList ParameterizedItem::getParameterList() const
+{
+    QStringList result;
+    QList<QByteArray> property_names = dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString prop_name = QString(property_names[i]);
+        PropertyAttribute prop_attribute = getPropertyAttribute(prop_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) {
+            continue;
+        }
+        QVariant variant = property(prop_name.toUtf8().constData());
+        int type = GUIHelpers::getVariantType(variant);
+        if (type == QVariant::Double) {
+            result << prop_name;
+        }
+    }
+    return result;
 }

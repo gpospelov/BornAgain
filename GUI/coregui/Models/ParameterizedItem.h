@@ -126,6 +126,8 @@ public:
 
     void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
 
+    QStringList getParameterTreeList() const;
+
 public slots:
     void onPropertyItemChanged(const QString &propertyName);
 
@@ -142,6 +144,7 @@ protected:
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QStringList getParameterList() const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 

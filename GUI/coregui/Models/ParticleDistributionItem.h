@@ -30,8 +30,6 @@ public:
     static const QString P_SIGMA_FACTOR;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
-private:
-    QStringList getChildParameterNames() const;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

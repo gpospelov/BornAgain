@@ -78,7 +78,6 @@ void ParticleDistributionItem::updateParameterList()
     QString selected_par = par_prop.value<ComboProperty>().getValue();
     QString cached_par =
             getRegisteredProperty(P_CACHED_SELECTED_PARAMETER).toString();
-    removeRegisteredProperty(P_DISTRIBUTED_PARAMETER);
     ComboProperty updated_prop;
     if (childItems().size()>0) {
         QStringList par_names = childItems()[0]->getParameterTreeList();
@@ -99,5 +98,5 @@ void ParticleDistributionItem::updateParameterList()
         setRegisteredProperty(P_CACHED_SELECTED_PARAMETER,
                               updated_prop.getValue());
     }
-    registerProperty(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
+    setRegisteredProperty(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
 }

@@ -28,12 +28,17 @@ public:
     static const QString P_DISTRIBUTION;
     static const QString P_SAMPLE_NUMBER;
     static const QString P_SIGMA_FACTOR;
+    static const QString P_CACHED_SELECTED_PARAMETER;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
+
+    void onPropertyChange(const QString &name);
 
     void onChildPropertyChange();
 public slots:
     void updateParameterList();
+private:
+    static const QString NO_SELECTION;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

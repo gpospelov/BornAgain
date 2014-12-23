@@ -69,12 +69,14 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
     if(row == -1) row = m_children.size();
     item->m_parent = this;
     m_children.insert(row, item);
+    onChildPropertyChange();
 }
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 {
     ParameterizedItem *item = m_children.takeAt(row);
     item->m_parent = 0;
+    onChildPropertyChange();
     return item;
 }
 
@@ -83,7 +85,7 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
     return m_valid_children.contains(child_name);
 }
 
-// emmits signal on property change
+// emits signal on property change
 bool ParameterizedItem::event(QEvent * e )
 {
     if(e->type() == QEvent::DynamicPropertyChange) {
@@ -103,6 +105,7 @@ bool ParameterizedItem::event(QEvent * e )
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
 //    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
+    if (m_parent) m_parent->onChildPropertyChange();
     emit propertyChanged(name);
 }
 
@@ -145,14 +148,18 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
 void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
 {
     ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
-    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
+    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin();
+        it!= m_sub_items.end(); ++it) {
         if(it.value() == propertyItem) {
-            FancyGroupProperty_t group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
+            FancyGroupProperty_t group_property =
+                    getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
+            if (m_parent) m_parent->onChildPropertyChange();
             return;
         }
     }
-    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
+    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() ->"
+                            " Error. No such propertyItem found");
 }
 
 
@@ -183,7 +190,7 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     m_sub_items[name] = item;
     item->m_parent = this;
     connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
-
+    onChildPropertyChange();
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
@@ -321,6 +328,11 @@ QStringList ParameterizedItem::getParameterTreeList() const
     // add own parameters:
     result << getParameterList();
     return result;
+}
+
+void ParameterizedItem::onChildPropertyChange()
+{
+    if (m_parent) m_parent->onChildPropertyChange();
 }
 
 

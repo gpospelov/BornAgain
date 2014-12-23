@@ -30,6 +30,8 @@ public:
     static const QString P_SIGMA_FACTOR;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
+
+    void onChildPropertyChange();
 public slots:
     void updateParameterList();
 };

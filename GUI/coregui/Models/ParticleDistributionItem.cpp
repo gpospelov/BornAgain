@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionItem.h"
+#include "ParticleItem.h"
 #include "ComboProperty.h"
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER =
@@ -45,8 +46,15 @@ ParticleDistributionItem::~ParticleDistributionItem()
 {
 }
 
+void ParticleDistributionItem::onChildPropertyChange()
+{
+    updateParameterList();
+    ParameterizedItem::onChildPropertyChange();
+}
+
 void ParticleDistributionItem::updateParameterList()
 {
+    if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER)) return;
     QVariant par_prop = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
     QString selected_par = par_prop.value<ComboProperty>().getValue();
     removeRegisteredProperty(P_DISTRIBUTED_PARAMETER);
@@ -54,6 +62,7 @@ void ParticleDistributionItem::updateParameterList()
     if (childItems().size()>0) {
         QStringList par_names = childItems()[0]->getParameterTreeList();
         par_names.prepend(QString("None"));
+        par_names.removeAll(ParticleItem::P_ABUNDANCE);
         updated_prop = ComboProperty(par_names);
     } else {
         updated_prop << "None";

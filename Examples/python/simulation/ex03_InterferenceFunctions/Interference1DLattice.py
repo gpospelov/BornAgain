@@ -1,5 +1,5 @@
 """
-Infinitely long boxes at 1D lattice
+Infinitely long boxes on a 1D lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing infinitely long boxes at 1D lattice
+    Build and return the sample representing infinitely long boxes on a 1D lattice
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -31,7 +31,6 @@ def get_sample():
     transform = Transform3D.createRotateZ(10.0*degree)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(infbox, transform)
-    #particle_layout.addParticle(infbox)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

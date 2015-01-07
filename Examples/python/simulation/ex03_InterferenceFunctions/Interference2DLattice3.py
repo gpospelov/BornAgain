@@ -1,5 +1,5 @@
 """
-2D lattice with  disorder , rotated lattice (IsGISAXS example #6).
+Cylinders on a rotated 2D lattice
 """
 import numpy
 import matplotlib
@@ -12,8 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing 2D lattice with different disorder
-    rotated lattice
+    Build and return the sample representing a rotated 2D lattice of cylinders
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)

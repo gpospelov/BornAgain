@@ -1,5 +1,5 @@
 """
-Spheres at hex lattice
+Spheres on a hexagonal lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 1.0
 
 def get_sample():
     """
-    Build and return the sample representing spheres at hex 2D lattice
+    Build and return the sample representing spheres on a hexagonal 2D lattice
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)

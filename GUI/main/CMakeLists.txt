@@ -42,7 +42,7 @@ if(WIN32)
 elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(executable_options MACOSX_BUNDLE)
 endif()
-
+ 
 
 # --- system dependent files ---------
 if(WIN32)
@@ -70,7 +70,7 @@ target_link_libraries(${executable_name}
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui
-    Qt5::Script
+#     Qt5::Script
     Qt5::Designer
     Qt5::PrintSupport
 )

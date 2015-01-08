@@ -8,13 +8,13 @@ endif()
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
-
+ 
 message(STATUS "Configuring BornAgain GUI")
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
-find_package(Qt5Script REQUIRED)
+#find_package(Qt5Script REQUIRED)
 find_package(Qt5Designer REQUIRED)
 find_package(Qt5PrintSupport REQUIRED)
 

@@ -45,7 +45,6 @@ target_link_libraries(${executable_name}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${ROOT_LIBRARIES}
-    ${ICU_LIBRARIES}
 )
 
 # --- Installation ---

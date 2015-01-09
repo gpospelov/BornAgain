@@ -22,7 +22,6 @@ target_link_libraries(TestCore
     ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
     ${GSL_LIBRARIES}
-    ${ICU_LIBRARIES}
 )
 
 if(BORNAGAIN_OPENMPI)

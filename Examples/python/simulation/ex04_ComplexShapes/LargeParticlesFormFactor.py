@@ -12,8 +12,6 @@ from bornagain import *
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
-scale = 1
-
 default_cylinder_radius = 10*nanometer
 default_cylinder_height = 20*nanometer
 

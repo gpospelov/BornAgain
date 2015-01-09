@@ -91,7 +91,7 @@ set(resource_files
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
-
+ 
 # --- definitions ------
 if(BORNAGAIN_CRASHHADLER)
     add_definitions(-DBORNAGAIN_CRASHHANDLER)
@@ -142,7 +142,7 @@ target_link_libraries(${library_name}
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui
-    Qt5::Script
+#     Qt5::Script
     Qt5::Designer
     Qt5::PrintSupport
 )

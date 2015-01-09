@@ -42,7 +42,7 @@ if(WIN32)
 elseif(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(executable_options MACOSX_BUNDLE)
 endif()
-
+ 
 
 # --- system dependent files ---------
 if(WIN32)
@@ -56,24 +56,24 @@ add_executable(${executable_name} ${executable_options} ${source_files} ${includ
 
 # --- dependencies ---------
 target_link_libraries(${executable_name}
-    ${ManhattanStyle_LIBRARY}
-    ${qcustomplot_LIBRARY}
-    ${qtpropertybrowser_LIBRARY}
-    ${PYTHON_LIBRARIES}
-    ${Boost_LIBRARIES}
-    ${BornAgainCore_LIBRARY}
-    ${BornAgainFit_LIBRARY}
+#    ${ManhattanStyle_LIBRARY}
+#    ${qcustomplot_LIBRARY}
+#    ${qtpropertybrowser_LIBRARY}
+#    ${PYTHON_LIBRARIES}
+#    ${Boost_LIBRARIES}
+#    ${BornAgainCore_LIBRARY}
+#    ${BornAgainFit_LIBRARY}
     ${BornAgainGUI_LIBRARY}
 )
 
-target_link_libraries(${executable_name}
-    Qt5::Widgets
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Script
-    Qt5::Designer
-    Qt5::PrintSupport
-)
+#target_link_libraries(${executable_name}
+#    Qt5::Widgets
+#    Qt5::Core
+#    Qt5::Gui
+##     Qt5::Script
+#    Qt5::Designer
+#    Qt5::PrintSupport
+#)
 
 
 # --- extra target properties ---------

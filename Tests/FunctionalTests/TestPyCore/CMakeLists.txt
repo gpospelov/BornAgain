@@ -27,6 +27,7 @@ set(list_of_tests
     "ripple2_asym.py"
     "ripple1.py"
     "customformfactor.py"
+    "montecarlo_integration.py"
 )
 
 set(list_of_cpp_python_tests

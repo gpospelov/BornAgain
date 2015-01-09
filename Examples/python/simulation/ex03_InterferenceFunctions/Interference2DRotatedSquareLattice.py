@@ -1,5 +1,5 @@
 """
-2D lattice with disorder (IsGISAXS example #6)
+Cylinders on a rotated 2D lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing 2D lattice with different disorder
+    Build and return the sample representing a rotated 2D lattice of cylinders
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -20,8 +20,9 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer)
+    interference = InterferenceFunction2DLattice.createSquare(25.0*nanometer, 30.0*degree)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
+    pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
 
     cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
@@ -33,8 +34,8 @@ def get_sample():
     # assembling the sample
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate)
 
+    substrate_layer = Layer(m_substrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
@@ -48,6 +49,7 @@ def get_simulation():
     simulation = Simulation()
     simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+
     return simulation
 
 
@@ -64,9 +66,10 @@ def run_simulation():
     # showing the result
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     pylab.show()
 
 

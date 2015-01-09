@@ -62,9 +62,10 @@ def run_simulation():
     # showing the result
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     pylab.show()
 
 

@@ -1,5 +1,5 @@
 """
-Infinitely long boxes at 1D lattice
+Infinitely long boxes on a 1D lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing infinitely long boxes at 1D lattice
+    Build and return the sample representing infinitely long boxes on a 1D lattice
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -28,10 +28,9 @@ def get_sample():
 
     infbox_ff = FormFactorInfLongBox(10*nanometer, 15.0*nanometer)
     infbox = Particle(m_particle, infbox_ff)
-    transform = Transform3D.createRotateZ(10.0*degree)
+    transform = Transform3D.createRotateZ(25.0*degree)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(infbox, transform)
-    #particle_layout.addParticle(infbox)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample
@@ -68,9 +67,10 @@ def run_simulation():
     # showing the result
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     pylab.show()
 
 

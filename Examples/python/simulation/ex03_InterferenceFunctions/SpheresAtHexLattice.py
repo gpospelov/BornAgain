@@ -1,5 +1,5 @@
 """
-Spheres at hex lattice
+Spheres on a hexagonal lattice
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 1.0
 
 def get_sample():
     """
-    Build and return the sample representing spheres at hex 2D lattice
+    Build and return the sample representing spheres on a hexagonal 2D lattice
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -61,9 +61,10 @@ def run_simulation():
     # showing the result
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     pylab.show()
 
 

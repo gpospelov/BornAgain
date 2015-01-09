@@ -35,7 +35,7 @@ def get_sample():
 
     pos0 = kvector_t(0.0, 0.0, 0.0)
     # pos1 = kvector_t(0.0, 0.0, radius)
-    pos1 = kvector_t(radius, radius, radius + numpy.sqrt(3.0)*radius)
+    pos1 = kvector_t(radius, radius, numpy.sqrt(3.0)*radius)
     basis = LatticeBasis()
     basis.addParticle(sphere, [pos0, pos1])
     particle_layout.addParticle(basis)
@@ -79,9 +79,10 @@ def run_simulation():
     # showing the result
     im = pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[phi_min, phi_max, alpha_min, alpha_max], aspect='auto')
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f$', fontsize=16)
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', fontsize=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     pylab.show()
 
 

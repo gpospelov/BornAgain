@@ -1,5 +1,5 @@
 """
-All formfactors available in BornAgain in Born Approximation
+All formfactors available in BornAgain in the Born Approximation
 """
 import numpy
 import matplotlib
@@ -34,7 +34,7 @@ formfactors = [
 
 def get_sample(formfactor):
     """
-    Build and return the sample to calculate cylinder formfactor in Born approximation.
+    Build and return the sample to calculate the contribution of each form factor in the Born approximation.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -65,7 +65,7 @@ def get_simulation():
 
 def run_simulation():
     """
-    Run simulation one by one for every formfactor from the list and plot results on single canvas
+    Run simulation one by one for every form factor from the list and plot results on a single canvas
     """
 
     dpi = 72.

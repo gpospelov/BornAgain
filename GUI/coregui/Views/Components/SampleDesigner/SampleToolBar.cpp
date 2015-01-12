@@ -39,8 +39,8 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     handPointerButton->setToolTip("Pan mode (space).");
 
     m_pointerModeGroup = new QButtonGroup(this);
-    m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RubberSelectionMode);
-    m_pointerModeGroup->addButton(handPointerButton, DesignerView::HandDragMode);
+    m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RUBBER_SELECTION);
+    m_pointerModeGroup->addButton(handPointerButton, DesignerView::HAND_DRAG);
     connect(m_pointerModeGroup, SIGNAL(buttonClicked(int)),
             this, SIGNAL(selectionMode(int)));
     addWidget(selectionPointerButton);
@@ -130,7 +130,7 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 void SampleToolBar::onViewSelectionMode(int mode)
 {
     qDebug() << "SampleToolBar::onViewSelectionMode" << mode;
-    if(mode == DesignerView::RubberSelectionMode || mode == DesignerView::HandDragMode)
+    if(mode == DesignerView::RUBBER_SELECTION || mode == DesignerView::HAND_DRAG)
         m_pointerModeGroup->button(mode)->setChecked(true);
 }
 

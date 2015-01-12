@@ -10,6 +10,6 @@ TransformationView::TransformationView(QGraphicsItem *parent)
     setLabel("Transformation");
     setColor(DesignerHelper::getDefaultTransformationColor());
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::GeometryTransformation);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION);
     m_roundpar = 3;
 }

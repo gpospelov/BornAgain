@@ -23,7 +23,7 @@ public:
     explicit DesignerView(QGraphicsScene *scene, QWidget *parent = 0);
     virtual ~DesignerView(){}
 
-    enum SelectionModes { SimpleSelectionMode, RubberSelectionMode, HandDragMode};
+    enum ESelectionModes { SIMPLE_SELECTION, RUBBER_SELECTION, HAND_DRAG};
     int getSelectionMode() const;
 
 signals:

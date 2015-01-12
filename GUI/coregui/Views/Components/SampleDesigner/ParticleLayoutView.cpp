@@ -13,9 +13,9 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
     setRectangle( DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleLayout);
-    addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
-    addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT);
+    addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("interference", NodeEditorPort::INPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
 

@@ -10,7 +10,7 @@ InterferenceFunction1DParaCrystalView::InterferenceFunction1DParaCrystalView(QGr
     setLabel("Interference \n1D paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::Interference);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
 
@@ -22,7 +22,7 @@ InterferenceFunction2DParaCrystalView::InterferenceFunction2DParaCrystalView(QGr
     setLabel("Interference \n2D paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::Interference);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
 
@@ -34,6 +34,6 @@ InterferenceFunction2DLatticeView::InterferenceFunction2DLatticeView(QGraphicsIt
     setLabel("Interference \n2D lattice");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::Interference);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }

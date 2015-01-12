@@ -29,7 +29,7 @@ public:
     virtual void setLabel(const QString &name);
 
     //! adds port to view
-    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
+    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::EPortDirection direction, NodeEditorPort::EPortType port_type);
 
     //! connects input port with given index with output port of other view
     void connectInputPort(ConnectableView *other, int port_number);

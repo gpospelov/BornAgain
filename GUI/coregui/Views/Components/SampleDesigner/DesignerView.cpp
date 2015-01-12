@@ -25,13 +25,13 @@ DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent)
 int DesignerView::getSelectionMode() const
 {
     if (dragMode() == QGraphicsView::NoDrag) {
-        return SimpleSelectionMode;
+        return SIMPLE_SELECTION;
     }
     else if(dragMode() == QGraphicsView::RubberBandDrag) {
-        return RubberSelectionMode;
+        return RUBBER_SELECTION;
     }
     else if(dragMode() == QGraphicsView::ScrollHandDrag) {
-        return HandDragMode;
+        return HAND_DRAG;
     }
     else {
         throw GUIHelpers::Error("DesignerView::getSelectionMode() -> Error.");
@@ -42,20 +42,20 @@ int DesignerView::getSelectionMode() const
 void DesignerView::onSelectionMode(int mode)
 {
     switch(mode) {
-    case SimpleSelectionMode:
+    case SIMPLE_SELECTION:
         setDragMode(QGraphicsView::NoDrag);
         setInteractive(true);
-        emit selectionModeChanged(SimpleSelectionMode);
+        emit selectionModeChanged(SIMPLE_SELECTION);
         break;
-    case RubberSelectionMode:
+    case RUBBER_SELECTION:
         setDragMode(QGraphicsView::RubberBandDrag);
         setInteractive(true);
-        emit selectionModeChanged(RubberSelectionMode);
+        emit selectionModeChanged(RUBBER_SELECTION);
         break;
-    case HandDragMode:
+    case HAND_DRAG:
         setDragMode(QGraphicsView::ScrollHandDrag);
         setInteractive(false);
-        emit selectionModeChanged(HandDragMode);
+        emit selectionModeChanged(HAND_DRAG);
         break;
      default:
         break;
@@ -124,8 +124,8 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:
         break;
     case Qt::Key_Space:
-        if( getSelectionMode() != HandDragMode && !event->isAutoRepeat()) {
-            onSelectionMode(HandDragMode);
+        if( getSelectionMode() != HAND_DRAG && !event->isAutoRepeat()) {
+            onSelectionMode(HAND_DRAG);
             qDebug() << "  space pressed" << event->isAutoRepeat();
         }
         break;
@@ -146,8 +146,8 @@ void DesignerView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
 
-        if( getSelectionMode() != RubberSelectionMode && !event->isAutoRepeat()) {
-            onSelectionMode(RubberSelectionMode);
+        if( getSelectionMode() != RUBBER_SELECTION && !event->isAutoRepeat()) {
+            onSelectionMode(RUBBER_SELECTION);
             qDebug() << "  space released" << event->isAutoRepeat();
         }
         break;

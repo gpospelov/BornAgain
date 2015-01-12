@@ -15,8 +15,8 @@ ParticleView::ParticleView(QGraphicsItem *parent)
     setLabel(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
-    addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION);
     m_roundpar = 5;
     m_label_vspace = 45;
 }

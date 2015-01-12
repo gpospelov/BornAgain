@@ -10,8 +10,8 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     setLabel("Distributed\nparticle");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleDistributionType));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
-    addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
     m_roundpar = 5;
     m_label_vspace = 45;
 }

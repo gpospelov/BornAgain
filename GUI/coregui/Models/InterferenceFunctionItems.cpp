@@ -39,7 +39,7 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
                                 parent)
 {
     setItemName(Constants::InterferenceFunction1DParaCrystalType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
@@ -54,7 +54,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
                                 parent)
 {
     setItemName(Constants::InterferenceFunction2DParaCrystalType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
     registerProperty(P_DAMPING_LENGTH, 0.0);
@@ -87,7 +87,7 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
                                 parent)
 {
     setItemName(Constants::InterferenceFunction2DLatticeType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
     registerProperty(P_ROTATION_ANGLE, 0.0);

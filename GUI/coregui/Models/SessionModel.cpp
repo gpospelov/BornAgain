@@ -249,7 +249,7 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                const QModelIndex &parent,
                                                int row,
-                                               ParameterizedItem::PortInfo::Keys port)
+                                               ParameterizedItem::PortInfo::EPorts port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -413,7 +413,7 @@ SessionModel *SessionModel::createCopy(ParameterizedItem *parent)
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
                                                int row,
-                                               ParameterizedItem::PortInfo::Keys port)
+                                               ParameterizedItem::PortInfo::EPorts port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -427,7 +427,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
 
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    if(port != ParameterizedItem::PortInfo::PortDef)
+    if(port != ParameterizedItem::PortInfo::DEFAULT)
         new_item->setItemPort(port);
 
     if(!new_item)

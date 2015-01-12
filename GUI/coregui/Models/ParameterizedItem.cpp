@@ -138,7 +138,7 @@ ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *
     return 0;
 }
 
-void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
+void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
 {
     setRegisteredProperty(P_PORT, nport);
 }
@@ -163,7 +163,7 @@ void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
 }
 
 
-void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::Keys nport, int nmax_items)
+void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::EPorts nport, int nmax_items)
 {
     m_valid_children.append(name);
 

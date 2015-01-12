@@ -30,14 +30,14 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
 {
     setItemName(Constants::ParticleDistributionType);
-    setItemPort(ParameterizedItem::PortInfo::Port0);
+    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
     registerProperty(P_SAMPLE_NUMBER, 5);
     registerProperty(P_SIGMA_FACTOR, 2.0);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::Port0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
 
     registerProperty(P_CACHED_SELECTED_PARAMETER, QString("None"),
                      PropertyAttribute::hiddenProperty());

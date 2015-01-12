@@ -24,18 +24,18 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
     setItemName(Constants::ParticleLayoutType);
-    setItemPort(ParameterizedItem::PortInfo::Port0);
+    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());
 
-    addToValidChildren(Constants::ParticleType, PortInfo::Port0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
-    addToValidChildren(Constants::ParticleDistributionType, PortInfo::Port0);
-    addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::Port1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::Port1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::Port1, 1);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
+    addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
 }
 
 ParticleLayoutItem::~ParticleLayoutItem()

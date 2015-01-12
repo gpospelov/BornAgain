@@ -33,7 +33,8 @@ public:
     };
 
     JobItem(const QString &name);
-    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy = QString());
+    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+            const QString &run_policy = QString());
 
     virtual ~JobItem();
 
@@ -82,13 +83,30 @@ signals:
 
 public slots:
     void setName(QString name);
-    void setBeginTime(QString begin_time) { m_begin_time = begin_time; emit modified(this);}
-    void setEndTime(QString end_time) { m_end_time = end_time; emit modified(this);}
-    void setComments(QString comments) { m_comments = comments; emit modified(this);}
-    void setStatus(EJobStatus status) { m_status = status; emit modified(this);}
-    void setProgress(int progress) { m_progress = progress; emit modified(this); }
+    void setBeginTime(QString begin_time) {
+        m_begin_time = begin_time;
+        emit modified(this);
+    }
+    void setEndTime(QString end_time) {
+        m_end_time = end_time;
+        emit modified(this);
+    }
+    void setComments(QString comments) {
+        m_comments = comments;
+        emit modified(this);
+    }
+    void setStatus(EJobStatus status) {
+        m_status = status;
+        emit modified(this);
+    }
+    void setProgress(int progress) {
+        m_progress = progress;
+        emit modified(this);
+    }
 
-    void onDataItemModified() { emit modified(this); }
+    void onDataItemModified() {
+        emit modified(this);
+    }
 
 private:
     void clear();

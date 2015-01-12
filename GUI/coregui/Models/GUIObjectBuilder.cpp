@@ -208,7 +208,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
         if(sample == coreshell->getCoreParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
-                ParameterizedItem::PortInfo::Port0);
+                ParameterizedItem::PortInfo::PORT_0);
             const Geometry::Transform3D *p_transformation =
                     sample->getPTransform3D();
             if (p_transformation) {
@@ -222,7 +222,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
         else if(sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
-                ParameterizedItem::PortInfo::Port1);
+                ParameterizedItem::PortInfo::PORT_1);
             const Geometry::Transform3D *p_transformation =
                     sample->getPTransform3D();
             if (p_transformation) {

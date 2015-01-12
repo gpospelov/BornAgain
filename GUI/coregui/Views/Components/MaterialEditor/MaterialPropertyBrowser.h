@@ -76,8 +76,8 @@ private:
     void removeSubProperties(QtProperty *property);
 //    void updateSubProperties(ParameterizedItem *material);
 
-    enum ExpandAction { SaveExpandState, RestoreExpandState};
-    void updateExpandState(ExpandAction action);
+    enum EExpandAction { SAVE_EXPAND_STATE, RESTORE_EXPAND_STATE };
+    void updateExpandState(EExpandAction action);
 
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;

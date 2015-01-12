@@ -1,7 +1,7 @@
 #include "histogramplot.h"
 
 
-HistogramPlot::HistogramPlot(PlotType type)
+HistogramPlot::HistogramPlot(EPlotType type)
     :QCustomPlot()
 {
     this->setObjectName(QStringLiteral("histogramPlot"));
@@ -53,7 +53,7 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
 
     qDebug() << "Min: " << min << " Max: " << max << log(max);
 
-    if(m_type == this->Vertical)
+    if(m_type == this->VERTICAL)
     {
 
         setupVerticalMap(centralPlot, min, max);

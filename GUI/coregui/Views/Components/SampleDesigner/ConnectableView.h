@@ -14,10 +14,10 @@ class NodeEditorPort;
 class BA_CORE_API_ ConnectableView : public IView
 {
 public:
-    enum { Type = DesignerHelper::ISampleRectType };
+    enum { TYPE = DesignerHelper::ISAMPLE_RECT };
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
-    int type() const { return Type; }
+    int type() const { return TYPE; }
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

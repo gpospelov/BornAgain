@@ -16,7 +16,7 @@ class ConnectableView;
 class BA_CORE_API_ NodeEditorConnection : public QGraphicsPathItem
 {
 public:
-    enum { Type = DesignerHelper::NodeEditorConnectionType };
+    enum { Type = DesignerHelper::NODE_EDITOR_CONNECTION };
 
     NodeEditorConnection(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
     virtual ~NodeEditorConnection();

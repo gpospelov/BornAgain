@@ -9,11 +9,11 @@ class BA_CORE_API_ ParticleCoreShellView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { Type = DesignerHelper::ParticleType };
+    enum { TYPE = DesignerHelper::PARTICLE };
 
     ParticleCoreShellView(QGraphicsItem *parent = 0);
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void addView(IView *childView, int row = 0);
 

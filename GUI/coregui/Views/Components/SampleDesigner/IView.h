@@ -11,7 +11,7 @@ class BA_CORE_API_ IView : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    enum { Type = DesignerHelper::IViewType };
+    enum { Type = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem *parent = 0);
     virtual ~IView(){}

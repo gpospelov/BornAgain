@@ -22,13 +22,13 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
 
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
-    if(childView->type() == DesignerHelper::ParticleType) {
+    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::PARTICLE;
+    if(childView->type() == DesignerHelper::PARTICLE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }
-    else if(childView->type() == DesignerHelper::InterferenceFunction1DParaType
-         || childView->type() == DesignerHelper::InterferenceFunction2DParaType
-         || childView->type() == DesignerHelper::InterferenceFunction2DLatticeType) {
+    else if(childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_1D_PARA
+         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_PARA
+         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_LATTICE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 1);
     }
     else {

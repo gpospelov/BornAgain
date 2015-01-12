@@ -18,7 +18,7 @@ class IView;
 class BA_CORE_API_ NodeEditorPort : public QGraphicsPathItem
 {
 public:
-    enum { Type = DesignerHelper::NodeEditorPortType };
+    enum { Type = DesignerHelper::NODE_EDITOR_PORT };
 
     //! type of ports, same type can be connected together
     enum PortType

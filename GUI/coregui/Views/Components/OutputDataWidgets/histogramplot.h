@@ -8,12 +8,10 @@ class BA_CORE_API_ HistogramPlot : public QCustomPlot
     Q_OBJECT
 
 public:
-    enum PlotType{
-        Vertical, Horizontal
-    };
+    enum EPlotType{ VERTICAL, HORIZONTAL };
 
     HistogramPlot(){}
-    HistogramPlot(PlotType type);
+    HistogramPlot(EPlotType type);
 
     //QSize sizeHint() const { return QSize(150, 600); }
 
@@ -26,7 +24,7 @@ public:
 private:
     void setupVerticalMap(CentralPlot *centralPlot, double min = 0, double max = 1);
     void setupHorizontalMap(CentralPlot *centralPlot, double min = 0, double max = 1);
-    PlotType m_type;
+    EPlotType m_type;
     double min, max;
     QCPAxis *m_dataScaleAxis;
     QCPAxis *m_keyAxis;

@@ -9,12 +9,12 @@ class BA_CORE_API_ LayerView : public ILayerView
 {
     Q_OBJECT
 public:
-    enum { Type = DesignerHelper::LayerType };
+    enum { TYPE = DesignerHelper::LAYER };
 
     LayerView(QGraphicsItem *parent = 0);
     ~LayerView() { }
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

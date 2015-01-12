@@ -28,7 +28,7 @@ namespace Geometry {
 
 class BA_CORE_API_ Transform3D {
 public:
-    enum RotationType { EULER, XAXIS, YAXIS, ZAXIS };
+    enum ERotationType { EULER, XAXIS, YAXIS, ZAXIS };
 
     //! Constructs unit transformation
     Transform3D();
@@ -85,7 +85,7 @@ public:
     Transform3D operator*(const Transform3D &other) const;
 
     //! Retrieve the rotation type (general, around x, y or z-axis)
-    RotationType getRotationType() const;
+    ERotationType getRotationType() const;
 
     //! Determine if the transformation is trivial (identity)
     bool isIdentity() const;

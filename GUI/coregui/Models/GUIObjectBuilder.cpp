@@ -657,7 +657,7 @@ void GUIObjectBuilder::addRotationItem(
         const Geometry::Transform3D *p_transformation,
         ParameterizedItem *transformation_item)
 {
-    Geometry::Transform3D::RotationType rot_type =
+    Geometry::Transform3D::ERotationType rot_type =
             p_transformation->getRotationType();
     double alpha, beta, gamma;
     p_transformation->calculateEulerAngles(&alpha, &beta, &gamma);

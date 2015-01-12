@@ -51,7 +51,7 @@ double MathFunctions::GenerateStandardNormalRandom()  // using GSL
 //! @brief simple (and unoptimized) wrapper function
 //!   for the discrete fast Fourier transformation library (fftw3)
 
-std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t >& data, MathFunctions::TransformCase ftCase)
+std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t >& data, MathFunctions::EFFTDirection ftCase)
 {
     double scale(1.);
     size_t npx = data.size();
@@ -69,10 +69,10 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
     fftw_plan plan;
     switch (ftCase)
     {
-        case MathFunctions::ForwardFFT:
+        case MathFunctions::FORWARD_FFT:
             plan = fftw_plan_dft_1d( (int)npx, ftData, ftResult, FFTW_FORWARD, FFTW_ESTIMATE );
             break;
-        case MathFunctions::BackwardFFT:
+        case MathFunctions::BACKWARD_FFT:
             plan = fftw_plan_dft_1d( (int)npx, ftData, ftResult, FFTW_BACKWARD, FFTW_ESTIMATE );
             scale = 1./double(npx);
             break;
@@ -100,7 +100,7 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
 //!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
-std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double >& data, MathFunctions::TransformCase ftCase)
+std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double >& data, MathFunctions::EFFTDirection ftCase)
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());
@@ -115,8 +115,8 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double>& sig
     if(signal.size() != resfunc.size() ) {
         throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for two vectors of equal size. Use Convolve class instead.");
     }
-    std::vector<complex_t > fft_signal = MathFunctions::FastFourierTransform(signal, MathFunctions::ForwardFFT);
-    std::vector<complex_t > fft_resfunc = MathFunctions::FastFourierTransform(resfunc, MathFunctions::ForwardFFT);
+    std::vector<complex_t > fft_signal = MathFunctions::FastFourierTransform(signal, MathFunctions::FORWARD_FFT);
+    std::vector<complex_t > fft_resfunc = MathFunctions::FastFourierTransform(resfunc, MathFunctions::FORWARD_FFT);
 
     std::vector<complex_t > fft_prod;
     fft_prod.resize(fft_signal.size());
@@ -124,7 +124,7 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double>& sig
         fft_prod[i] = fft_signal[i] * fft_resfunc[i];
     }
 
-    std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BackwardFFT);
+    std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BACKWARD_FFT);
     return result;
 }
 

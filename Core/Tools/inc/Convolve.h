@@ -52,7 +52,7 @@ public:
 
     //! convolution  modes
     //! use LINEAR_SAME or CIRCULAR_SAME_SHIFTED for maximum performance
-    enum Mode { FFTW_LINEAR_FULL, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_SAME, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SAME_SHIFTED, FFTW_UNDEFINED };
+    enum EConvolutionMode { FFTW_LINEAR_FULL, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_SAME, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SAME_SHIFTED, FFTW_UNDEFINED };
 
     //! convolution in 1D
     void fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result);
@@ -64,7 +64,7 @@ public:
     void init(int h_src, int w_src, int h_kernel, int w_kernel);
 
     //! Sets convolution mode
-    void setMode(Mode mode) { m_mode = mode; }
+    void setMode(EConvolutionMode mode) { m_mode = mode; }
 
 private:
     //! compute circual convolution of source and kernel using fast Fourier transformation
@@ -115,7 +115,7 @@ private:
     //! input and output data for fftw3
     Workspace ws;
     //! convolution mode
-    Mode m_mode;
+    EConvolutionMode m_mode;
     std::vector<size_t > m_implemented_factors; // favorite factorization terms of fftw3
 };
 

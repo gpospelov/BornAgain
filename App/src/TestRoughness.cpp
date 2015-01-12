@@ -226,8 +226,8 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     }
 
     // making Fourier transform of covariance and z values
-    std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
-    std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
+    std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::FORWARD_FFT);
+    std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::FORWARD_FFT);
 
     std::vector<complex_t > ft_result;
     ft_result.resize(npx);
@@ -236,7 +236,7 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     }
 
     // inverse transform to find correlated sequenced of random numbers
-    std::vector<complex_t > ift_result = MathFunctions::FastFourierTransform(ft_result, MathFunctions::BackwardFFT);
+    std::vector<complex_t > ift_result = MathFunctions::FastFourierTransform(ft_result, MathFunctions::BACKWARD_FFT);
 
     for(size_t i=0; i<npx; i++){
         m_vzcorr[i] = ift_result[i].real();

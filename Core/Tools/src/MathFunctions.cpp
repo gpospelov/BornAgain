@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>
+#include <gsl/gsl_randist.h>
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {
@@ -38,11 +39,13 @@ double MathFunctions::StandardNormal(double value)
     return std::exp(- value*value / 2.0) / std::sqrt(2*M_PI);
 }
 
-double MathFunctions::GenerateStandardNormalRandom()  // using Box-Muller transform
+double MathFunctions::GenerateStandardNormalRandom()  // using GSL
 {
-    double u1 = GenerateUniformRandom();
-    double u2 = GenerateUniformRandom();
-    return std::sqrt(-2.0*std::log(u1))*std::cos(2*M_PI*u2);
+    gsl_rng * r;
+    r = gsl_rng_alloc(gsl_rng_ranlxs2);
+    double result = gsl_ran_ugaussian(r);
+    gsl_rng_free(r);
+    return result;
 }
 
 //! @brief simple (and unoptimized) wrapper function

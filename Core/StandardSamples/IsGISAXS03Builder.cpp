@@ -21,7 +21,7 @@
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 #include "Distributions.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 
 
 // -----------------------------------------------------------------------------
@@ -149,7 +149,7 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
     DistributionGaussian gauss(m_radius, sigma);
     ParameterDistribution par_distr("*/radius", gauss, n_samples, n_sigma);
-    ParticleCollection particle_collection(nano_particle, par_distr);
+    ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

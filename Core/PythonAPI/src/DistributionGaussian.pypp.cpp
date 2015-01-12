@@ -224,6 +224,15 @@ void register_DistributionGaussian_class(){
                 , default_getMean_function_type(&DistributionGaussian_wrapper::default_getMean) );
         
         }
+        { //::DistributionGaussian::getStdDev
+        
+            typedef double ( ::DistributionGaussian::*getStdDev_function_type)(  ) const;
+            
+            DistributionGaussian_exposer.def( 
+                "getStdDev"
+                , getStdDev_function_type( &::DistributionGaussian::getStdDev ) );
+        
+        }
         { //::DistributionGaussian::probabilityDensity
         
             typedef double ( ::DistributionGaussian::*probabilityDensity_function_type)( double ) const;

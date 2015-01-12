@@ -60,12 +60,12 @@ class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
     DistributionGate();
-    DistributionGate(double mean, double hwhm);
+    DistributionGate(double min, double max);
     virtual ~DistributionGate() {}
 
     //! clone method
     virtual DistributionGate *clone() const {
-        return new DistributionGate(m_mean, m_hwhm);
+        return new DistributionGate(m_min, m_max);
     }
 
     //! get the probability density for value x
@@ -73,7 +73,17 @@ public:
 
     //! get the mean of the distribution
     virtual double getMean() const {
-        return m_mean;
+        return (m_min+m_max)/2.0;
+    }
+
+    //! get the minimum value of the distribution
+    double getMin() const {
+        return m_min;
+    }
+
+    //! get the maximum value of the distribution
+    double getMax() const {
+        return m_max;
     }
 
     //! generate list of sample values
@@ -87,8 +97,8 @@ protected:
 private:
     //! check initialization
     bool checkInitialization() const;
-    double m_mean;
-    double m_hwhm;
+    double m_min;
+    double m_max;
 };
 
 //! @class DistributionLorentz
@@ -112,6 +122,11 @@ public:
     //! get the mean of the distribution
     virtual double getMean() const {
         return m_mean;
+    }
+
+    //! get the half width at half maximum
+    double getHWHM() const {
+        return m_hwhm;
     }
 
     //! generate list of sample values
@@ -151,6 +166,11 @@ public:
         return m_mean;
     }
 
+    //! get the standard deviation
+    double getStdDev() const {
+        return m_std_dev;
+    }
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor) const;
@@ -185,6 +205,16 @@ public:
 
     //! get the mean of the distribution
     virtual double getMean() const;
+
+    //! get the median of the distribution
+    double getMedian() const {
+        return m_median;
+    }
+
+    //! get the scale parameter of the distribution
+    double getScalePar() const {
+        return m_scale_param;
+    }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
@@ -221,6 +251,11 @@ public:
     //! get the mean of the distribution
     virtual double getMean() const {
         return m_mean;
+    }
+
+    //! get the sigma parameter of the distribution
+    double getSigma() const {
+        return m_sigma;
     }
 
     //! generate list of sample values

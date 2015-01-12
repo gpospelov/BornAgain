@@ -19,7 +19,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "MessageService.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 
 #include <iomanip>
 
@@ -151,9 +151,9 @@ const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
 bool ParticleLayout::preprocess()
 {
     for (size_t i=0; i<m_particles.size(); ++i) {
-        if (dynamic_cast<const ParticleCollection *>(
+        if (dynamic_cast<const ParticleDistribution *>(
                     m_particles[i]->getParticle())) {
-            replaceParticleCollection(i);
+            replaceParticleDistribution(i);
             return true;
         }
     }
@@ -177,11 +177,11 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
     registerChild(child);
 }
 
-void ParticleLayout::replaceParticleCollection(size_t index)
+void ParticleLayout::replaceParticleDistribution(size_t index)
 {
     ParticleInfo *p_particle_info = m_particles[index];
-    const ParticleCollection *p_particle_coll =
-                    dynamic_cast<const ParticleCollection *>(
+    const ParticleDistribution *p_particle_coll =
+                    dynamic_cast<const ParticleDistribution *>(
                         p_particle_info->getParticle());
     std::vector<ParticleInfo *> particles =
         p_particle_coll->generateParticleInfos(

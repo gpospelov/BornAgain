@@ -36,7 +36,7 @@ class MultiLayer;
 // -
 class IParticle;
 class Particle;
-class ParticleCollection;
+class ParticleDistribution;
 class LatticeBasis;
 class MesoCrystal;
 class ParticleCoreShell;
@@ -133,7 +133,7 @@ public:
 
     virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
-    virtual void visit(const ParticleCollection *);
+    virtual void visit(const ParticleDistribution *);
     virtual void visit(const LatticeBasis *);
     virtual void visit(const MesoCrystal *);
     virtual void visit(const ParticleCoreShell *);

@@ -224,6 +224,24 @@ void register_DistributionLogNormal_class(){
                 , default_getMean_function_type(&DistributionLogNormal_wrapper::default_getMean) );
         
         }
+        { //::DistributionLogNormal::getMedian
+        
+            typedef double ( ::DistributionLogNormal::*getMedian_function_type)(  ) const;
+            
+            DistributionLogNormal_exposer.def( 
+                "getMedian"
+                , getMedian_function_type( &::DistributionLogNormal::getMedian ) );
+        
+        }
+        { //::DistributionLogNormal::getScalePar
+        
+            typedef double ( ::DistributionLogNormal::*getScalePar_function_type)(  ) const;
+            
+            DistributionLogNormal_exposer.def( 
+                "getScalePar"
+                , getScalePar_function_type( &::DistributionLogNormal::getScalePar ) );
+        
+        }
         { //::DistributionLogNormal::probabilityDensity
         
             typedef double ( ::DistributionLogNormal::*probabilityDensity_function_type)( double ) const;

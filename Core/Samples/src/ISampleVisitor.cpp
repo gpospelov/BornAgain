@@ -101,9 +101,9 @@ void ISampleVisitor::visit(const Particle *)
     throw NotImplementedException("ISampleVisitor::visit(const Particle *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const ParticleCollection *)
+void ISampleVisitor::visit(const ParticleDistribution *)
 {
-    throw NotImplementedException("ISampleVisitor::visit(const ParticleCollection *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleDistribution *) -> Error. Not implemented.");
 }
 
 

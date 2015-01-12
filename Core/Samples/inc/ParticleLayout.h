@@ -88,8 +88,8 @@ private:
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
 
-    //! Replace ParticleCollection with all the particles it represents
-    void replaceParticleCollection(size_t index);
+    //! Replace ParticleDistribution with all the particles it represents
+    void replaceParticleDistribution(size_t index);
 
     void print(std::ostream& ostr) const;
 

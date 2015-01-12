@@ -49,6 +49,15 @@ public:
         return m_nbr_samples;
     }
 
+    //! get the sigma factor
+    double getSigmaFactor() const {
+        return m_sigma_factor;
+    }
+
+    const IDistribution1D *getDistribution() const {
+        return mP_distribution.get();
+    }
+
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples() const;
 

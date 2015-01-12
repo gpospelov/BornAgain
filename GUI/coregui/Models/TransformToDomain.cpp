@@ -36,6 +36,7 @@
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
+#include "DistributionItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -121,6 +122,15 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
     const FormFactorItem *ffItem = dynamic_cast<const FormFactorItem *>(&item);
     Q_ASSERT(ffItem);
     return ffItem->createFormFactor();
+}
+
+IDistribution1D *TransformToDomain::createDistribution(
+        const ParameterizedItem &item)
+{
+    const DistributionItem *distr_item =
+            dynamic_cast<const DistributionItem *>(&item);
+    Q_ASSERT(distr_item);
+    return distr_item->createDistribution();
 }
 
 IInterferenceFunction *TransformToDomain::createInterferenceFunction(

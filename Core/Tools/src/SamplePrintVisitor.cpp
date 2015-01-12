@@ -19,7 +19,7 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Particle.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
 #include "ParticleInfo.h"
@@ -105,7 +105,7 @@ void SamplePrintVisitor::visit(const Particle *sample)
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const ParticleCollection *sample)
+void SamplePrintVisitor::visit(const ParticleDistribution *sample)
 {
     assert(sample);
     std::cout << get_indent() << sample->getName()

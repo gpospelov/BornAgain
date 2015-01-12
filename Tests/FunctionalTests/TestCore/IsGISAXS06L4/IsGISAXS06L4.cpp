@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 
     // running simulation and copying data
     int nbins = 3;
-    DistributionGate gate(120.0*Units::degree, 120.0*Units::degree);
+    DistributionGate gate(0.0*Units::degree, 240.0*Units::degree);
     simulation->addParameterDistribution("*/xi", gate, nbins);
     simulation->runSimulation();
     OutputData<double> *result = simulation->getIntensityData();

@@ -27,14 +27,21 @@ BA_CORE_API_ IMaterial *createDomainMaterial(const ParameterizedItem &item);
 BA_CORE_API_ MultiLayer *createMultiLayer(const ParameterizedItem &item);
 BA_CORE_API_ Layer *createLayer(const ParameterizedItem &item);
 BA_CORE_API_ ParticleLayout *createParticleLayout(const ParameterizedItem &item);
-BA_CORE_API_ Particle *createParticle(const ParameterizedItem &item, double &depth, double &abundance);
-BA_CORE_API_ ParticleCoreShell *createParticleCoreShell(const ParameterizedItem &item, const Particle &core, const Particle &shell, double &depth, double &abundance);
+BA_CORE_API_ Particle *createParticle(const ParameterizedItem &item,
+                                  double &depth, double &abundance);
+BA_CORE_API_ ParticleCoreShell *createParticleCoreShell(
+        const ParameterizedItem &item, const Particle &core,
+        const Particle &shell, double &depth, double &abundance);
 BA_CORE_API_ IFormFactor *createFormFactor(const ParameterizedItem &item);
-BA_CORE_API_ IInterferenceFunction *createInterferenceFunction(const ParameterizedItem &item);
+BA_CORE_API_ IDistribution1D * createDistribution(
+        const ParameterizedItem &item);
+BA_CORE_API_ IInterferenceFunction *createInterferenceFunction(
+        const ParameterizedItem &item);
 BA_CORE_API_ Instrument *createInstrument(const ParameterizedItem &item);
 BA_CORE_API_ Beam *createBeam(const ParameterizedItem &item);
 BA_CORE_API_ LayerRoughness *createLayerRoughness(const ParameterizedItem &item);
-BA_CORE_API_ void initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument);
+BA_CORE_API_ void initInstrumentFromDetectorItem(const ParameterizedItem &item,
+                                                 Instrument *instrument);
 }
 
 #endif // TRANSFORMTODOMAIN_H

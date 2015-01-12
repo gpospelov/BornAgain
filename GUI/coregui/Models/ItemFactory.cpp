@@ -21,6 +21,8 @@
 #include "TransformationItem.h"
 #include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
+#include "DistributionItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
@@ -49,6 +51,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
     result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
+    result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
     result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
@@ -87,6 +90,12 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
+    result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
+    result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
+    result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
+    result[Constants::DistributionLogNormalType] = &createInstance<DistributionLogNormalItem>;
+    result[Constants::DistributionCosineType] = &createInstance<DistributionCosineItem>;
+
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;
     result[Constants::FTDistribution1DGateType] = &createInstance<FTDistribution1DGateItem>;
@@ -123,6 +132,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleType
         << Constants::TransformationType
         << Constants::ParticleCoreShellType
+        << Constants::ParticleDistributionType
         << Constants::InterferenceFunction1DParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;

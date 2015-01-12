@@ -32,8 +32,8 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     m_pyobj = 0;
     }
 
-    DistributionGate_wrapper(double mean, double hwhm )
-    : DistributionGate( mean, hwhm )
+    DistributionGate_wrapper(double min, double max )
+    : DistributionGate( min, max )
       , bp::wrapper< DistributionGate >(){
         // constructor
     m_pyobj = 0;
@@ -188,7 +188,7 @@ void register_DistributionGate_class(){
         typedef bp::class_< DistributionGate_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGate_wrapper > > DistributionGate_exposer_t;
         DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", bp::init< >() );
         bp::scope DistributionGate_scope( DistributionGate_exposer );
-        DistributionGate_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
+        DistributionGate_exposer.def( bp::init< double, double >(( bp::arg("min"), bp::arg("max") )) );
         { //::DistributionGate::clone
         
             typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type)(  ) const;
@@ -213,6 +213,15 @@ void register_DistributionGate_class(){
                 , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }
+        { //::DistributionGate::getMax
+        
+            typedef double ( ::DistributionGate::*getMax_function_type)(  ) const;
+            
+            DistributionGate_exposer.def( 
+                "getMax"
+                , getMax_function_type( &::DistributionGate::getMax ) );
+        
+        }
         { //::DistributionGate::getMean
         
             typedef double ( ::DistributionGate::*getMean_function_type)(  ) const;
@@ -222,6 +231,15 @@ void register_DistributionGate_class(){
                 "getMean"
                 , getMean_function_type(&::DistributionGate::getMean)
                 , default_getMean_function_type(&DistributionGate_wrapper::default_getMean) );
+        
+        }
+        { //::DistributionGate::getMin
+        
+            typedef double ( ::DistributionGate::*getMin_function_type)(  ) const;
+            
+            DistributionGate_exposer.def( 
+                "getMin"
+                , getMin_function_type( &::DistributionGate::getMin ) );
         
         }
         { //::DistributionGate::probabilityDensity

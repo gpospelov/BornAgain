@@ -536,7 +536,9 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .toString();
 
         ComboProperty combo_property = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
-        combo_property.setValue(parameter_value);
+        if (combo_property.getValues().contains(parameter_value)) {
+            combo_property.setValue(parameter_value);
+        }
         item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     }
     else if (parameter_type == "ScientificDoubleProperty") {

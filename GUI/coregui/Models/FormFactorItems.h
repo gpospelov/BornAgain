@@ -23,7 +23,8 @@ class BA_CORE_API_ FormFactorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit FormFactorItem(const QString name, ParameterizedItem *parent) : ParameterizedItem(name, parent){}
+    explicit FormFactorItem(const QString name, ParameterizedItem *parent)
+        : ParameterizedItem(name, parent) {}
     virtual IFormFactor *createFormFactor() const{ return 0;}
     virtual ~FormFactorItem(){}
 };

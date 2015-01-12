@@ -14,7 +14,8 @@ class BA_CORE_API_ ComboProperty
 {
 public:
 
-    ComboProperty(const QStringList &values = QStringList(), const QString &current_value = QString("Undefined"));
+    ComboProperty(const QStringList &values = QStringList(),
+                  const QString &current_value = QString("Undefined"));
     virtual ~ComboProperty(){}
     QString getValue() const { return m_current_value; }
 

@@ -69,10 +69,6 @@ public:
     //! inserts a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);
 
-    //! swap two child items
-    void swapChildItems(int row_1, int row_2)
-        { m_children.swap(row_1, row_2); }
-
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);
 
@@ -126,6 +122,10 @@ public:
 
     void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
 
+    QStringList getParameterTreeList() const;
+
+    virtual void onChildPropertyChange();
+
 public slots:
     void onPropertyItemChanged(const QString &propertyName);
 
@@ -142,6 +142,7 @@ protected:
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QStringList getParameterList() const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 

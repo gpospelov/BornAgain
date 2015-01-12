@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/ParticleCollection.cpp
-//! @brief     Implements class ParticleCollection.
+//! @file      Samples/src/ParticleDistribution.cpp
+//! @brief     Implements class ParticleDistribution.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,46 +13,46 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "ParticleInfo.h"
 
 
-ParticleCollection::ParticleCollection(const IParticle &prototype,
+ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                        const ParameterDistribution &par_distr)
     : m_par_distribution(par_distr)
 {
     mP_particle.reset(prototype.clone());
-    setName("ParticleCollection");
+    setName("ParticleDistribution");
     registerChild(mP_particle.get());
 }
 
-ParticleCollection *ParticleCollection::clone() const
+ParticleDistribution *ParticleDistribution::clone() const
 {
-    ParticleCollection *p_result = new ParticleCollection(*mP_particle,
+    ParticleDistribution *p_result = new ParticleDistribution(*mP_particle,
                                                           m_par_distribution);
     return p_result;
 }
 
-ParticleCollection *ParticleCollection::cloneInvertB() const
+ParticleDistribution *ParticleDistribution::cloneInvertB() const
 {
-    throw Exceptions::NotImplementedException("ParticleCollection::"
+    throw Exceptions::NotImplementedException("ParticleDistribution::"
         "cloneInvertB: should never be called");
 }
 
-IFormFactor *ParticleCollection::createFormFactor(
+IFormFactor *ParticleDistribution::createFormFactor(
         complex_t wavevector_scattering_factor) const {
     (void)wavevector_scattering_factor;
-    throw Exceptions::NotImplementedException("ParticleCollection::"
+    throw Exceptions::NotImplementedException("ParticleDistribution::"
         "createFormFactor: should never be called");
 }
 
-const IFormFactor *ParticleCollection::getSimpleFormFactor() const {
-    throw Exceptions::NotImplementedException("ParticleCollection::"
+const IFormFactor *ParticleDistribution::getSimpleFormFactor() const {
+    throw Exceptions::NotImplementedException("ParticleDistribution::"
         "getSimpleFormFactor: should never be called");
 }
 
 std::vector<ParticleInfo *>
-ParticleCollection::generateParticleInfos(kvector_t position,
+ParticleDistribution::generateParticleInfos(kvector_t position,
                                           double abundance) const
 {
     std::vector<ParticleInfo *> result;
@@ -63,7 +63,7 @@ ParticleCollection::generateParticleInfos(kvector_t position,
             pool->getMatchedParameters(main_par_name);
     if (main_par_matches.size() != 1) {
         throw Exceptions::RuntimeErrorException(
-                    "ParticleCollection::generateParticleInfos: "
+                    "ParticleDistribution::generateParticleInfos: "
                     "main parameter name matches nothing or more than "
                     "one parameter");
     }
@@ -79,7 +79,7 @@ ParticleCollection::generateParticleInfos(kvector_t position,
                 pool->getMatchedParameters(linked_par_names[i]);
         if (linked_par_matches.size() != 1) {
             throw Exceptions::RuntimeErrorException(
-                        "ParticleCollection::generateParticleInfos: "
+                        "ParticleDistribution::generateParticleInfos: "
                         "linked parameter name matches nothing or more than "
                         "one parameter");
         }
@@ -99,7 +99,7 @@ ParticleCollection::generateParticleInfos(kvector_t position,
                     main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
-                    "ParticleCollection::generateParticleInfos: "
+                    "ParticleDistribution::generateParticleInfos: "
                     "main parameter name matches nothing or more than "
                     "one parameter");
         }
@@ -110,7 +110,7 @@ ParticleCollection::generateParticleInfos(kvector_t position,
             changed = new_pool->setMatchedParametersValue(it->first, new_linked_value);
             if (changed != 1) {
                 throw Exceptions::RuntimeErrorException(
-                        "ParticleCollection::generateParticleInfos: "
+                        "ParticleDistribution::generateParticleInfos: "
                         "linked parameter name matches nothing or more than "
                         "one parameter");
             }
@@ -120,7 +120,7 @@ ParticleCollection::generateParticleInfos(kvector_t position,
     return result;
 }
 
-void ParticleCollection::applyTransformationToSubParticles(
+void ParticleDistribution::applyTransformationToSubParticles(
         const Geometry::Transform3D& transform)
 {
     mP_particle->applyTransformation(transform);

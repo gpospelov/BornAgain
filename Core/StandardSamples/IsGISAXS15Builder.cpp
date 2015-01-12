@@ -21,7 +21,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Distributions.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 
 
 IsGISAXS15Builder::IsGISAXS15Builder()
@@ -51,7 +51,7 @@ ISample *IsGISAXS15Builder::buildSample() const
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
     ParameterDistribution par_distr("*/radius", gauss, 30, 3.0);
     par_distr.linkParameter("*/height");
-    ParticleCollection particle_collection(particle_prototype, par_distr);
+    ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);
 
     particle_layout.addInterferenceFunction(p_interference_function);

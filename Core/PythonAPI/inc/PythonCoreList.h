@@ -88,7 +88,7 @@
 #include "ParameterSample.h"
 #include "IParticle.h"
 #include "Particle.h"
-#include "ParticleCollection.h"
+#include "ParticleDistribution.h"
 #include "ParticleCoreShell.h"
 #include "ParticleLayout.h"
 #include "ParticleInfo.h"

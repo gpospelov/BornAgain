@@ -21,7 +21,7 @@ def run_simulation_lattice():
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
-    
+
     # collection of particles
     interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
@@ -105,7 +105,7 @@ def run_simulation_rotated():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
-    
+
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_layout = ParticleLayout()
@@ -137,13 +137,13 @@ def run_simulation_variants():
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    
+
     # running simulation and copying data
     outputdata_total = simulation.getIntensityData()
     nbins = 3
-    xi_mean = 120.0*degree
-    xi_hw = 120.0*degree
-    xi_distr = DistributionGate(xi_mean, xi_hw)
+    xi_min = 0.0*degree
+    xi_max = 240.0*degree
+    xi_distr = DistributionGate(xi_min, xi_max)
     xi_samples = xi_distr.generateValueList(nbins, 0.0)
     total_weight = 0.0
     for i in range(len(xi_samples)):
@@ -168,7 +168,7 @@ def build_sample(xi_value):
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
-    
+
     p_interference_function = InterferenceFunction2DLattice.createSquare(10.0*nanometer, xi_value)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
@@ -181,7 +181,7 @@ def build_sample(xi_value):
     particle_info = ParticleInfo( cylinder, position, 1.0)
     particle_layout.addParticleInfo(particle_info)
     particle_layout.addInterferenceFunction(p_interference_function)
-    
+
     air_layer.addLayout(particle_layout)
 
     multi_layer = MultiLayer()

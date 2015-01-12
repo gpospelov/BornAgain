@@ -110,17 +110,22 @@ public:
 
     class PortInfo {
     public:
-        enum Keys { PortDef=-1, Port0=0, Port1=1, Port2=2};
+        enum EPorts {
+            DEFAULT = -1,
+            PORT_0 = 0,
+            PORT_1 = 1,
+            PORT_2 = 2
+        };
         PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
         QStringList m_item_names;
         int m_item_max_number;
     };
 
-    void setItemPort(PortInfo::Keys nport);
+    void setItemPort(PortInfo::EPorts nport);
 
     virtual QString getItemLabel() const { return QString("no label"); }
 
-    void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
+    void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
 
     QStringList getParameterTreeList() const;
 
@@ -134,7 +139,7 @@ signals:
     void propertyItemChanged(const QString &propertyName);
 
 protected:
-    void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
+    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     QStringList m_registered_properties;

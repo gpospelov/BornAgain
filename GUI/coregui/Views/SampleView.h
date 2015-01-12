@@ -26,13 +26,13 @@ class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 
 public:
 
-    enum SubWindows
+    enum ESubWindows
     {
-        WidgetBoxSubWindow,         // drag & drop items
-        SampleTreeView,             // a tree view
-        PropertyEditorSubWindow,    // property editor
-        InfoSubWindow,              // status/info display
-        NumberOfSubWindows
+        WIDGET_BOX,         // drag & drop items
+        SAMPLE_TREE,             // a tree view
+        PROPERTY_EDITOR,    // property editor
+        INFO,              // status/info display
+        NUMBER_OF_SUB_WINDOWS
     };
 
     SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
@@ -63,8 +63,8 @@ private:
    // MaterialBrowser *m_materialBrowser;  // material editor
     SampleDesigner *m_sampleDesigner;    // main sample view
     SampleToolBar *m_toolBar;            // toolbar
-    QWidget *m_subWindows[NumberOfSubWindows];
-    QDockWidget *m_dockWidgets[NumberOfSubWindows];
+    QWidget *m_subWindows[NUMBER_OF_SUB_WINDOWS];
+    QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
 
     QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;

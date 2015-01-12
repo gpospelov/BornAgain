@@ -125,9 +125,9 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
 void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
 {
     if(name == JobViewActivityName) {
-        emit jobViewActivityRequest(JobView::JobViewActivity);
+        emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
     } else if(name == RealTimeActivityName) {
-        emit jobViewActivityRequest(JobView::RealTimeActivity);
+        emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
     }
 }
 

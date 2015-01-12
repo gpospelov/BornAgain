@@ -41,7 +41,7 @@ private:
     double fpeaks(double *x, double *par);
 
     //! typedef of pair for the description of convolution mode
-    typedef std::pair<std::string, MathFunctions::Convolve::Mode> mode_pair_t;
+    typedef std::pair<std::string, MathFunctions::Convolve::EConvolutionMode> mode_pair_t;
 
     //! vector of pairs defined above
     std::vector<mode_pair_t> m_modes;

@@ -20,18 +20,9 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 
 public:
 
-    enum SubWindows
-    {
-        JobListDock,
-        RealTimeDock,
-        NumberOfDocks
-    };
+    enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
 
-    enum Activities
-    {
-        JobViewActivity,
-        RealTimeActivity
-    };
+    enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
     JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();

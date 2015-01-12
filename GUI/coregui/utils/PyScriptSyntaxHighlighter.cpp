@@ -5,14 +5,14 @@ PyScriptSyntaxHighlighter::PyScriptSyntaxHighlighter(QTextDocument *document)
 {
     QTextCharFormat keywordFormat;
     keywordFormat.setForeground(Qt::darkRed);
-    setFormatForElementType(Keyword, keywordFormat);
+    setFormatForElementType(KEYWORD, keywordFormat);
 
     QTextCharFormat commentFormat;
     commentFormat.setForeground(Qt::blue);
-    setFormatForElementType(Comment, commentFormat);
+    setFormatForElementType(COMMENT, commentFormat);
 }
 
-void PyScriptSyntaxHighlighter::setFormatForElementType(ElementType element_type,
+void PyScriptSyntaxHighlighter::setFormatForElementType(EElementType element_type,
                                     const QTextCharFormat &format)
 {
     m_formats[element_type] = format;
@@ -29,10 +29,10 @@ void PyScriptSyntaxHighlighter::highlightBlock(const QString &text)
     {
         switch (state)
         {
-        case NormalState:
+        case NORMAL:
         default:
             if (text.at(pos) == '#') {
-                setFormat(pos, line_length - pos, formatFor(Comment));
+                setFormat(pos, line_length - pos, formatFor(COMMENT));
                 pos = line_length;
                 break;
             } else {

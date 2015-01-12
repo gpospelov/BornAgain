@@ -274,10 +274,10 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     for (int i=0; i<children.size(); ++i) {
         double tmp_depth(0), tmp_abundance(0);
         int port = children[i]->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if(port == ParameterizedItem::PortInfo::Port0) {
+        if(port == ParameterizedItem::PortInfo::PORT_0) {
             coreParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
         }
-        else if(port == ParameterizedItem::PortInfo::Port1) {
+        else if(port == ParameterizedItem::PortInfo::PORT_1) {
             shellParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
         }
         else {

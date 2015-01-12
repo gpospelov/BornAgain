@@ -9,7 +9,7 @@
 #include <iostream>
 
 
-NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
+NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeEditorPort::EPortDirection direction, NodeEditorPort::EPortType port_type)
     : QGraphicsPathItem(parent)
 //    : QGraphicsItem(parent)
     , m_name(name)
@@ -63,7 +63,7 @@ NodeEditorPort::~NodeEditorPort()
 
 bool NodeEditorPort::isOutput()
 {
-    return (m_direction == Output ? true : false);
+    return (m_direction == OUTPUT ? true : false);
 }
 
 bool NodeEditorPort::isInput()
@@ -102,23 +102,23 @@ QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant &v
 }
 
 
-QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::PortType port_type)
+QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type)
 {
     switch(port_type)
     {
-    case Default:
+    case DEFAULT:
        return QColor(Qt::gray);
        break;
-    case Interference:
+    case INTERFERENCE:
        return QColor(Qt::yellow);
        break;
-    case ParticleLayout:
+    case PARTICLE_LAYOUT:
        return QColor(Qt::green);
        break;
-    case FormFactor:
+    case FORM_FACTOR:
        return QColor(Qt::blue);
        break;
-    case GeometryTransformation:
+    case TRANSFORMATION:
        return QColor(Qt::magenta);
        break;
     default:

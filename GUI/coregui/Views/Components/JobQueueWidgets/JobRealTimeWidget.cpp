@@ -116,7 +116,7 @@ void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
     JobItem *jobItem = m_jobQueueModel->getJobQueueData()->getJobItem(identifier);
 
     if(jobItem == m_currentJobItem) {
-        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem()) {
+        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem()) {
             qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
             itemClicked(jobItem);
         }
@@ -153,7 +153,7 @@ ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 //! it is not already running and it has valid models
 bool JobRealTimeWidget::isValidJobItem(JobItem *item)
 {
- return (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled) && item->getSampleModel() && item->getInstrumentModel();
+ return (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED) && item->getSampleModel() && item->getInstrumentModel();
 }
 
 

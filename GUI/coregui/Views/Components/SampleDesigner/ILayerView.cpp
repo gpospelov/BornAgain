@@ -178,7 +178,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 
     QRectF layerRect = mapRectToScene(boundingRect());
     foreach(QGraphicsItem *item, scene()->items()) {
-        if(item->type() == DesignerHelper::MultiLayerType
+        if(item->type() == DesignerHelper::MULTILAYER
                 && item != this
                 && !childItems().contains(item)
                 )

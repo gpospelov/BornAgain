@@ -40,10 +40,10 @@ QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
 
 JobItem::JobItem(const QString &name)
     : m_name(name)
-    , m_status(Idle)
+    , m_status(IDLE)
     , m_progress(0)
     , m_nthreads(0)
-    , m_run_policy(SubmitOnly)
+    , m_run_policy(SUBMIT_ONLY)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
@@ -51,10 +51,10 @@ JobItem::JobItem(const QString &name)
 }
 
 JobItem::JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy)
-    : m_status(Idle)
+    : m_status(IDLE)
     , m_progress(0)
     , m_nthreads(0)
-    , m_run_policy(SubmitOnly)
+    , m_run_policy(SUBMIT_ONLY)
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)
 {
@@ -162,11 +162,11 @@ OutputDataItem *JobItem::getOutputDataItem(int n_item)
 void JobItem::setRunPolicy(const QString &run_policy)
 {
     if(run_policy == QString("Immediately")) {
-        m_run_policy = RunImmediately;
+        m_run_policy = RUN_IMMEDIATELY;
     } else if(run_policy == QString("In background")) {
-        m_run_policy = RunInBackground;
+        m_run_policy = RUN_IN_BACKGROUND;
     } else {
-        m_run_policy = SubmitOnly;
+        m_run_policy = SUBMIT_ONLY;
     }
 //    if(run_policy )
 //    int index = m_run_policies.indexOf(run_policy);
@@ -242,7 +242,7 @@ void JobItem::readFrom(QXmlStreamReader *reader)
     setComments(reader->attributes()
             .value(JobQueueXML::JobCommentsAttribute).toString());
 
-    JobStatus status = (JobStatus) (reader->attributes()
+    EJobStatus status = (EJobStatus) (reader->attributes()
             .value(JobQueueXML::JobStatusAttribute).toInt());
     setStatus(status);
 

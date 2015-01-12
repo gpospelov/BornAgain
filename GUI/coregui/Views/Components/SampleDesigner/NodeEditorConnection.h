@@ -16,24 +16,24 @@ class ConnectableView;
 class BA_CORE_API_ NodeEditorConnection : public QGraphicsPathItem
 {
 public:
-    enum { Type = DesignerHelper::NodeEditorConnectionType };
+    enum { TYPE = DesignerHelper::NODE_EDITOR_CONNECTION };
 
     NodeEditorConnection(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
     virtual ~NodeEditorConnection();
 
-	void setPos1(const QPointF &p);
-	void setPos2(const QPointF &p);
-	void setPort1(NodeEditorPort *p);
-	void setPort2(NodeEditorPort *p);
-	void updatePosFromPorts();
-	void updatePath();
-	NodeEditorPort* port1() const;
-	NodeEditorPort* port2() const;
+    void setPos1(const QPointF &p);
+    void setPos2(const QPointF &p);
+    void setPort1(NodeEditorPort *p);
+    void setPort2(NodeEditorPort *p);
+    void updatePosFromPorts();
+    void updatePath();
+    NodeEditorPort* port1() const;
+    NodeEditorPort* port2() const;
 
     NodeEditorPort *getInputPort();
     NodeEditorPort *getOutputPort();
 
-	int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -44,10 +44,10 @@ public:
     ConnectableView *getChildView();
 
 private:
-	QPointF pos1;
-	QPointF pos2;
-	NodeEditorPort *m_port1;
-	NodeEditorPort *m_port2;
+    QPointF pos1;
+    QPointF pos2;
+    NodeEditorPort *m_port1;
+    NodeEditorPort *m_port2;
 };
 
 #endif // NODEEDITORCONNECTION_H

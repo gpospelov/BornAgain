@@ -15,8 +15,8 @@
 struct JobViewPrivate
 {
     JobViewPrivate(JobQueueModel *jobQueueModel, ProjectManager *projectManager);
-    QWidget *m_subWindows[JobView::NumberOfDocks];
-    QDockWidget *m_dockWidgets[JobView::NumberOfDocks];
+    QWidget *m_subWindows[JobView::NUMBER_OF_DOCKS];
+    QDockWidget *m_dockWidgets[JobView::NUMBER_OF_DOCKS];
     JobQueueModel *m_jobQueueModel;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
@@ -33,9 +33,9 @@ JobViewPrivate::JobViewPrivate(JobQueueModel *jobQueueModel, ProjectManager *pro
     , m_progressBar(0)
     , m_projectManager(projectManager)
 {
-    qFill(m_subWindows, m_subWindows + JobView::NumberOfDocks,
+    qFill(m_subWindows, m_subWindows + JobView::NUMBER_OF_DOCKS,
           static_cast<QWidget*>(0));
-    qFill(m_dockWidgets, m_dockWidgets + JobView::NumberOfDocks,
+    qFill(m_dockWidgets, m_dockWidgets + JobView::NUMBER_OF_DOCKS,
           static_cast<QDockWidget*>(0));
 }
 
@@ -53,7 +53,7 @@ JobView::JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, Q
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
-    for (int i = 0; i < NumberOfDocks; i++) {
+    for (int i = 0; i < NUMBER_OF_DOCKS; i++) {
         QWidget *subWindow = m_d->m_subWindows[i];
         m_d->m_dockWidgets[i] = addDockForWidget(subWindow);
 
@@ -105,7 +105,7 @@ void JobView::updateGlobalProgressBar(int progress)
 void JobView::onFocusRequest(JobItem *item)
 {
     m_d->m_jobSelector->makeJobItemSelected(item);
-    emit focusRequest(MainWindow::JobTab);
+    emit focusRequest(MainWindow::JOB);
 }
 
 
@@ -119,28 +119,28 @@ void JobView::resetToDefaultLayout()
     }
 
     addDockWidget(Qt::LeftDockWidgetArea,
-                  m_d->m_dockWidgets[JobListDock]);
+                  m_d->m_dockWidgets[JOB_LIST_DOCK]);
     addDockWidget(Qt::RightDockWidgetArea,
-                  m_d->m_dockWidgets[RealTimeDock]);
+                  m_d->m_dockWidgets[REAL_TIME_DOCK]);
 
     foreach (QDockWidget *dockWidget, dockWidgetList)
         dockWidget->show();
 
     setTrackingEnabled(true);
 
-    setActivity(JobViewActivity);
+    setActivity(JOB_VIEW_ACTIVITY);
 }
 
 
 void JobView::setActivity(int activity)
 {
-    if(activity == JobViewActivity) {
-        m_d->m_dockWidgets[JobListDock]->show();
-        m_d->m_dockWidgets[RealTimeDock]->hide();
+    if(activity == JOB_VIEW_ACTIVITY) {
+        m_d->m_dockWidgets[JOB_LIST_DOCK]->show();
+        m_d->m_dockWidgets[REAL_TIME_DOCK]->hide();
         emit activityChanged(activity);
-    } else if(activity == RealTimeActivity) {
-        m_d->m_dockWidgets[JobListDock]->hide();
-        m_d->m_dockWidgets[RealTimeDock]->show();
+    } else if(activity == REAL_TIME_ACTIVITY) {
+        m_d->m_dockWidgets[JOB_LIST_DOCK]->hide();
+        m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
         m_d->m_jobRealTimeWidget->updateCurrentItem();
         emit activityChanged(activity);
     }
@@ -154,10 +154,10 @@ void JobView::initWindows()
     setCentralWidget(m_d->m_jobOutputDataWidget);
 
     m_d->m_jobSelector = new JobSelectorWidget(m_d->m_jobQueueModel, this);
-    m_d->m_subWindows[JobListDock] = m_d->m_jobSelector;
+    m_d->m_subWindows[JOB_LIST_DOCK] = m_d->m_jobSelector;
 
     m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->m_jobQueueModel, this);
-    m_d->m_subWindows[RealTimeDock] = m_d->m_jobRealTimeWidget;
+    m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 }
 
 

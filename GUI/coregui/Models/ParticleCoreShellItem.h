@@ -8,7 +8,7 @@ class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    enum CoreShell { Core, Shell};
+    enum ECoreShell { CORE, SHELL};
     static const QString P_CORE_POS;
     explicit ParticleCoreShellItem(ParameterizedItem *parent=0);
     ~ParticleCoreShellItem(){}

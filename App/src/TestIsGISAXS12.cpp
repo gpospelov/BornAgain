@@ -134,9 +134,9 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 
     // reading isgisaxs scans which actually have been used for a fit together with fit results (100 points/scan)
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     print_axes(isgi_scans);
     print_axes(isgi_scans_smoothed);
@@ -207,7 +207,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 {
     // reading 1D data scans defined in isgisaxs example
     IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
     // creating fit suite
     m_fitSuite = new FitSuite();
@@ -301,10 +301,10 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 void TestIsGISAXS12::run_test_chimodule()
 {
     IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
@@ -341,10 +341,10 @@ void TestIsGISAXS12::run_test_minimizer()
 {
     // reading isgisaxs real data
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
     // isgisaxs fit results
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     // Putting parameters found by isgisaxs into our sample and run FitSuite once with the help of TestMinimizer to see if
     // our simulation produces numerically same results

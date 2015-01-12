@@ -109,9 +109,9 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
 {
     // reading isgisaxs scans which actually have been used for a fit together with fit results (100 points/scan)
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 800, 500);
     c1->Divide(2,2);

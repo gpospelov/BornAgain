@@ -156,7 +156,7 @@ Geometry::Transform3D Geometry::Transform3D::operator*(
     return Geometry::Transform3D(product_matrix);
 }
 
-Geometry::Transform3D::RotationType Geometry::Transform3D::getRotationType()
+Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType()
         const
 {
     if (isXRotation()) return XAXIS;

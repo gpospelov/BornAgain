@@ -25,8 +25,8 @@
 class BA_CORE_API_  ISimulation : public ICloneable
 {
 public:
-    ISimulation() : m_status(Idle) {}
-    enum SimulationStatus {Idle, Running, Completed, Failed};
+    ISimulation() : m_status(IDLE) {}
+    enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
 
     virtual ~ISimulation() {}
     ISimulation *clone() const
@@ -36,16 +36,16 @@ public:
     }
     virtual void run() {}
 
-    bool isCompleted() const { return m_status == Completed;}
+    bool isCompleted() const { return m_status == COMPLETED;}
 
     std::string getRunMessage() const { return m_run_message; }
 
 protected:
     virtual void runProtected() {}
-    void setStatus(SimulationStatus status) { m_status = status; }
+    void setStatus(ESimulationStatus status) { m_status = status; }
     void setRunMessage(const std::string &message) { m_run_message = message; }
 
-    SimulationStatus m_status;
+    ESimulationStatus m_status;
     std::string m_run_message;
 };
 

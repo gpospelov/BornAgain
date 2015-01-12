@@ -68,7 +68,7 @@ public:
 class BA_CORE_API_ FunctionalTest : public IFunctionalTest
 {
 public:
-    enum TestResult { SUCCESS, FAILED};
+    enum ETestResult { SUCCESS, FAILED};
 
     FunctionalTest(const FunctionalTestInfo &info);
     ~FunctionalTest();

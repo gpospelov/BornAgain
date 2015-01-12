@@ -169,13 +169,13 @@ void MaterialPropertyBrowser::updateBrowser()
 
          }
     }
-    updateExpandState(RestoreExpandState);
+    updateExpandState(RESTORE_EXPAND_STATE);
 }
 
 
 void MaterialPropertyBrowser::clearBrowser()
 {
-    updateExpandState(SaveExpandState);
+    updateExpandState(SAVE_EXPAND_STATE);
     QMap<QtProperty *, SubItem>::iterator it = m_property_to_subitem.begin();
     while(it!=m_property_to_subitem.end()) {
         delete it.key();
@@ -243,7 +243,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
         QString prop_name = QString(property_names[i]);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
 
-        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
+        if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
@@ -262,7 +262,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
                 subProperty->setEnabled(false);
             }
 
@@ -309,7 +309,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
 //}
 
 
-void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
+void MaterialPropertyBrowser::updateExpandState(EExpandAction action)
 {
     QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
     while(it_prop!=m_property_to_subitem.end()) {
@@ -319,9 +319,9 @@ void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
         while (it_browser.hasNext()) {
             QtBrowserItem *item = it_browser.next();
             QtProperty *prop = item->property();
-            if(action == SaveExpandState) {
+            if(action == SAVE_EXPAND_STATE) {
                 m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
-            } else if (action == RestoreExpandState) {
+            } else if (action == RESTORE_EXPAND_STATE) {
                 m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
             }
         }

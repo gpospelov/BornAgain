@@ -18,7 +18,7 @@ class BA_CORE_API_ FitView : public QWidget
     Q_OBJECT
 
 public:
-    enum TabViewId { RealDataTab, FitParameterTab, RunFitTab};
+    enum ETabViewId { REAL_DATA, FIT_PARAMETER, RUN_FIT};
     FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow);
 
 

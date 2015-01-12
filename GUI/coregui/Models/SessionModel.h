@@ -90,7 +90,7 @@ public:
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
-                                     int row=-1, ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
+                                     int row=-1, ParameterizedItem::PortInfo::EPorts port = ParameterizedItem::PortInfo::DEFAULT);
 
     QString getModelTag() const { return m_model_tag; }
     QString getModelName() const { return m_name; }
@@ -138,7 +138,7 @@ private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
                                      int row=-1,
-                                     ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
+                                     ParameterizedItem::PortInfo::EPorts port = ParameterizedItem::PortInfo::DEFAULT);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);

@@ -40,7 +40,7 @@ void register_Transform3D_class(){
         typedef bp::class_< Transform3D_wrapper, std::auto_ptr< Transform3D_wrapper > > Transform3D_exposer_t;
         Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
         bp::scope Transform3D_scope( Transform3D_exposer );
-        bp::enum_< Geometry::Transform3D::RotationType>("RotationType")
+        bp::enum_< Geometry::Transform3D::ERotationType>("ERotationType")
             .value("EULER", Geometry::Transform3D::EULER)
             .value("XAXIS", Geometry::Transform3D::XAXIS)
             .value("YAXIS", Geometry::Transform3D::YAXIS)
@@ -124,7 +124,7 @@ void register_Transform3D_class(){
         }
         { //::Geometry::Transform3D::getRotationType
         
-            typedef ::Geometry::Transform3D::RotationType ( ::Geometry::Transform3D::*getRotationType_function_type)(  ) const;
+            typedef ::Geometry::Transform3D::ERotationType ( ::Geometry::Transform3D::*getRotationType_function_type)(  ) const;
             
             Transform3D_exposer.def( 
                 "getRotationType"

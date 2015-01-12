@@ -63,8 +63,8 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                 PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);
 
 
-                if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
-                if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) continue;
+                if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+                if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) continue;
 
                 //if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty) continue;
 
@@ -92,8 +92,8 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                             QString childPropertyName = QString(childPropertyList[j]);
 
                             PropertyAttribute prop_attribute = subItem->getPropertyAttribute(childPropertyName);
-                            if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
-                            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) continue;
+                            if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+                            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) continue;
 
                             QVariant childPropertyValue = subItem->property(childPropertyName.toUtf8().data());
                             int proValueType = GUIHelpers::getVariantType(childPropertyValue);

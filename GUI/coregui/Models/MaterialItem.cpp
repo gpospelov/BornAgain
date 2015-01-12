@@ -20,18 +20,18 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
 {
     setItemName(Constants::MaterialType);
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
 }
 

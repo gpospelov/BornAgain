@@ -115,7 +115,7 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
     if(!index.isValid()) return false;
 
     const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-    if(jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Failed) return false;
+    if(jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::FAILED) return false;
 
     return true;
 }

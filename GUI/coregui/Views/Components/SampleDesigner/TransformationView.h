@@ -9,11 +9,11 @@ class TransformationView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { Type = DesignerHelper::TransformationType };
+    enum { TYPE = DesignerHelper::TRANSFORMATION };
 
     TransformationView(QGraphicsItem *parent = 0);
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 };
 
 #endif // TRANSFORMATIONVIEW_H

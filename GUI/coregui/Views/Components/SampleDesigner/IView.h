@@ -11,12 +11,12 @@ class BA_CORE_API_ IView : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    enum { Type = DesignerHelper::IViewType };
+    enum { TYPE = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem *parent = 0);
     virtual ~IView(){}
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     virtual void setParameterizedItem(ParameterizedItem *item);
 

@@ -19,9 +19,9 @@ FitView::FitView(FitProxyModel *fitProxyModel, MainWindow *mainWindow)
     m_runFitWidget = new RunFitWidget();
 
     m_tabWidget = new QTabWidget();
-    m_tabWidget->insertTab(RealDataTab, m_realDataWidget, tr("Real Data"));
-    m_tabWidget->insertTab(FitParameterTab, m_fitParameterWidget, tr("Fit Parameters"));
-    m_tabWidget->insertTab(RunFitTab, m_runFitWidget, tr("Run Fit"));
+    m_tabWidget->insertTab(REAL_DATA, m_realDataWidget, tr("Real Data"));
+    m_tabWidget->insertTab(FIT_PARAMETER, m_fitParameterWidget, tr("Fit Parameters"));
+    m_tabWidget->insertTab(RUN_FIT, m_runFitWidget, tr("Run Fit"));
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
 

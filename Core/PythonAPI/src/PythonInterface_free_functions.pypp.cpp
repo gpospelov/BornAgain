@@ -90,7 +90,7 @@ void register_free_functions(){
 
     { //::MSG::SetLevel
     
-        typedef void ( *SetMessageLevel_function_type )( ::MSG::MessageLevel );
+        typedef void ( *SetMessageLevel_function_type )( ::MSG::EMessageLevel );
         
         bp::def( 
             "SetMessageLevel"

@@ -24,24 +24,17 @@ class BA_CORE_API_ JobItem : public QObject
     Q_OBJECT
 
 public:
-    enum JobStatus
-    {
-        Idle,
-        Running,
-        Completed,
-        Canceled,
-        Failed
-    };
+    enum EJobStatus { IDLE, RUNNING, COMPLETED, CANCELLED, FAILED };
 
-    enum RunPolicy
-    {
-        RunImmediately = 0x0001,
-        RunInBackground  = 0x0002,
-        SubmitOnly = 0x0004
+    enum ERunPolicy {
+        RUN_IMMEDIATELY = 0x0001,
+        RUN_IN_BACKGROUND  = 0x0002,
+        SUBMIT_ONLY = 0x0004
     };
 
     JobItem(const QString &name);
-    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy = QString());
+    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+            const QString &run_policy = QString());
 
     virtual ~JobItem();
 
@@ -53,7 +46,7 @@ public:
 
     QString getComments() const { return m_comments; }
 
-    JobStatus getStatus() const { return m_status; }
+    EJobStatus getStatus() const { return m_status; }
 
     QString getStatusString() const;
 
@@ -62,12 +55,12 @@ public:
     void writeTo(QXmlStreamWriter *writer);
     void readFrom(QXmlStreamReader *reader);
 
-    bool isRunning() const { return m_status == Running; }
+    bool isRunning() const { return m_status == RUNNING; }
 
     OutputDataItem *getOutputDataItem(int n_item = 0);
 
-    RunPolicy getRunPolicy() const { return m_run_policy; }
-    void setRunPolicy(RunPolicy run_policy) { m_run_policy = run_policy; }
+    ERunPolicy getRunPolicy() const { return m_run_policy; }
+    void setRunPolicy(ERunPolicy run_policy) { m_run_policy = run_policy; }
     void setRunPolicy(const QString &run_policy);
 
     SampleModel *getSampleModel();
@@ -90,13 +83,30 @@ signals:
 
 public slots:
     void setName(QString name);
-    void setBeginTime(QString begin_time) { m_begin_time = begin_time; emit modified(this);}
-    void setEndTime(QString end_time) { m_end_time = end_time; emit modified(this);}
-    void setComments(QString comments) { m_comments = comments; emit modified(this);}
-    void setStatus(JobStatus status) { m_status = status; emit modified(this);}
-    void setProgress(int progress) { m_progress = progress; emit modified(this); }
+    void setBeginTime(QString begin_time) {
+        m_begin_time = begin_time;
+        emit modified(this);
+    }
+    void setEndTime(QString end_time) {
+        m_end_time = end_time;
+        emit modified(this);
+    }
+    void setComments(QString comments) {
+        m_comments = comments;
+        emit modified(this);
+    }
+    void setStatus(EJobStatus status) {
+        m_status = status;
+        emit modified(this);
+    }
+    void setProgress(int progress) {
+        m_progress = progress;
+        emit modified(this);
+    }
 
-    void onDataItemModified() { emit modified(this); }
+    void onDataItemModified() {
+        emit modified(this);
+    }
 
 private:
     void clear();
@@ -105,12 +115,12 @@ private:
     QString m_begin_time;
     QString m_end_time;
     QString m_comments;
-    JobStatus m_status;
+    EJobStatus m_status;
     int m_progress;
     int m_nthreads;
 
     QList<OutputDataItem *> m_data_items;
-    RunPolicy m_run_policy;
+    ERunPolicy m_run_policy;
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

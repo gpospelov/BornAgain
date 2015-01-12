@@ -36,9 +36,9 @@ class FitView;
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
-    
+
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, FitViewTab};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT_VIEW};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -72,7 +72,7 @@ private:
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
 
-    JobView *m_jobView;   
+    JobView *m_jobView;
     FitView *m_fitView;
 
     Manhattan::ProgressBar *m_progressBar;

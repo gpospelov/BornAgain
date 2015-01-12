@@ -14,11 +14,11 @@ class BA_CORE_API_ MultiLayerView : public ILayerView
     Q_OBJECT
 
 public:
-    enum { Type = DesignerHelper::MultiLayerType };
+    enum { TYPE = DesignerHelper::MULTILAYER };
 
     MultiLayerView(QGraphicsItem *parent = 0);
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

@@ -15,9 +15,9 @@ class BA_CORE_API_ ILayerView : public ConnectableView
 public:
     ILayerView(QGraphicsItem *parent = 0);
 
-    enum { Type = DesignerHelper::LayerType };
+    enum { TYPE = DesignerHelper::LAYER };
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void setParameterizedItem(ParameterizedItem *item);
 

@@ -13,17 +13,12 @@ class ParameterizedItem;
 class BA_CORE_API_ FancyGroupProperty
 {
 public:
-    enum GroupType
-    {
-        UndefinedGroupType,
-        FixedGroupType,
-        SelectableGroupType
-    };
+    enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
 
     FancyGroupProperty(const QString &group_name);
     virtual ~FancyGroupProperty(){}
 
-    virtual GroupType type() const;
+    virtual EGroupType type() const;
 
     virtual void setParent(ParameterizedItem *parent);
 
@@ -48,10 +43,10 @@ public:
 
 protected:
     void setGroupMap(const QMap<QString, QString> &group_map);
-    void setGroupType(GroupType group_type);
+    void setGroupType(EGroupType group_type);
 
     QString m_group_name;
-    GroupType m_group_type;
+    EGroupType m_group_type;
     ParameterizedItem *m_parent;
     QString m_value;
 

@@ -28,7 +28,7 @@
 namespace MSG
 {
 
-enum MessageLevel { VERBOSE, DEBUG2, DEBUG, INFO, WARNING, ERROR, FATAL };
+enum EMessageLevel { VERBOSE, DEBUG2, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 //! @class Logger
 //! @ingroup tools_internal
@@ -37,7 +37,7 @@ enum MessageLevel { VERBOSE, DEBUG2, DEBUG, INFO, WARNING, ERROR, FATAL };
 class BA_CORE_API_ Logger
 {
 public:
-    Logger(MessageLevel level);
+    Logger(EMessageLevel level);
 
     template <typename T>
     Logger&  operator<<(T const&  value)
@@ -49,13 +49,13 @@ public:
     ~Logger();
 
     std::string NowTime();
-    const std::string& ToString(MessageLevel level);
-    static void SetLevel(MessageLevel level);
+    const std::string& ToString(EMessageLevel level);
+    static void SetLevel(EMessageLevel level);
     static void SetLevel(const std::string& levelname);
-    static MessageLevel GetLevel();
+    static EMessageLevel GetLevel();
 
 private:
-    static MessageLevel m_logLevel;
+    static EMessageLevel m_logLevel;
     static std::vector<std::string > m_level_names;
     std::ostringstream m_buffer;
 };
@@ -63,7 +63,7 @@ private:
 //inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
 //inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
 
-BA_CORE_API_ void SetLevel(MessageLevel level);
+BA_CORE_API_ void SetLevel(EMessageLevel level);
 BA_CORE_API_ void SetLevel(const std::string& levelname);
 
 }

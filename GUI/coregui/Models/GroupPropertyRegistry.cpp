@@ -98,11 +98,11 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
-        result->setGroupType(FancyGroupProperty::SelectableGroupType);
+        result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     }
     else {
-        result->setGroupType(FancyGroupProperty::FixedGroupType);
+        result->setGroupType(FancyGroupProperty::FIXED);
         //result->setValue(group_n);
         QMap<QString, QString> group_map;
         group_map[groupModelType] = "No label";

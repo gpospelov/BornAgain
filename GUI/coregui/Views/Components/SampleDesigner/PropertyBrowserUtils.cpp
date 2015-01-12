@@ -89,10 +89,10 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
     if(groupProperty) {
         m_groupProperty = groupProperty;
 
-        if(groupProperty->type() == FancyGroupProperty::FixedGroupType) {
+        if(groupProperty->type() == FancyGroupProperty::FIXED) {
             processFixedGroup();
         }
-        else if(groupProperty->type() == FancyGroupProperty::SelectableGroupType) {
+        else if(groupProperty->type() == FancyGroupProperty::SELECTABLE) {
             processSelectableGroup();
         }
         else {

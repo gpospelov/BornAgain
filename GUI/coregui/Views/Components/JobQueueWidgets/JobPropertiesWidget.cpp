@@ -139,7 +139,7 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setValue(jobItem->getEndTime());
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
-    if(jobItem->getStatus() == JobItem::Failed) {
+    if(jobItem->getStatus() == JobItem::FAILED) {
         m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::red);
     } else {
         m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::black);

@@ -73,7 +73,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     m_currentJobItem = item;
 
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
+    if( !widget && (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new OutputDataWidget(this, false, false, false);
@@ -113,7 +113,7 @@ void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
 
     if(jobItem == m_currentJobItem)
     {
-        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem())
+        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem())
         {
             qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
             itemClicked(jobItem);

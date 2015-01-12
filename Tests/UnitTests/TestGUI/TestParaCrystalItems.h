@@ -29,7 +29,7 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
     QCOMPARE(item.getSubItems()[InterferenceFunction1DParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
 
     FancyGroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PDF).value<FancyGroupProperty_t>();
-    QCOMPARE(group_property->type(), FancyGroupProperty::SelectableGroupType);
+    QCOMPARE(group_property->type(), FancyGroupProperty::SELECTABLE);
 
 }
 

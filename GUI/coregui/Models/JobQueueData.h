@@ -21,7 +21,7 @@ class BA_CORE_API_ JobQueueData : public QObject
 public:
     JobQueueData();
 
-    QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::ERunPolicy run_policy = JobItem::SUBMIT_ONLY);
     QString createJob(JobItem *jobItem);
 
     const JobItem *getJobItem(QString identifier) const;

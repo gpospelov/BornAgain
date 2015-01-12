@@ -70,7 +70,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::ERunPolicy run_policy = JobItem::SUBMIT_ONLY);
     QString addJob(JobItem *jobItem);
 
     void clear();

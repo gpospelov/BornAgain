@@ -52,7 +52,6 @@ void FitSuiteDrawObserver::update(IObservable *subject)
 
         // preparing data to draw
         const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
-//        enum EHistogramKeys {REAL, SIMUL, DIFF, CHI2};
         std::vector<OutputData<double > *> data2draw;
         data2draw.push_back( fitObject->getChiSquaredModule()->getRealData()->clone() );
         data2draw.push_back( fitObject->getChiSquaredModule()->getSimulationData()->clone() ); //chi module have normalized simulation

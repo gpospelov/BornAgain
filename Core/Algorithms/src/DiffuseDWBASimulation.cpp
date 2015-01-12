@@ -25,14 +25,14 @@
 
 void DiffuseDWBASimulation::run()
 {
-    setStatus(Running);
+    setStatus(RUNNING);
     try {
         runProtected();
-        setStatus(Completed);
+        setStatus(COMPLETED);
     }
     catch(const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
-        setStatus(Failed);
+        setStatus(FAILED);
     }
 }
 

@@ -16,7 +16,7 @@ class BA_CORE_API_ SimulationView : public QWidget
     Q_OBJECT
 
 public:
-    enum TabViewId { SimulationSetupTab, QuickSimulationTab};
+    enum ETabViewId { SIMULATION_SETUP, QUICK_SIMULATION};
     SimulationView(MainWindow *mainWindow);
 
     void updateSimulationViewElements();

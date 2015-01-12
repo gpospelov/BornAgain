@@ -11,7 +11,7 @@ class Simulation;
 class BA_CORE_API_ GUIFunctionalTest
 {
 public:
-    enum TestResult { SUCCESS, FAILED};
+    enum ETestResult { SUCCESS, FAILED};
     GUIFunctionalTest(const std::string &name);
     virtual ~GUIFunctionalTest();
     virtual void runTest();

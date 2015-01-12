@@ -109,17 +109,17 @@ MainWindow::MainWindow(QWidget *parent)
     //m_fitView = new FitView(m_fitProxyModel, this);
 
 
-    m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
-    m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
-    m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
+    m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
+    m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
+    m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
-    m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
+    m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
     
-    m_tabWidget->setCurrentIndex(WelcomeTab);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -194,14 +194,14 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
 
-    if(index == WelcomeTab)
+    if(index == WELCOME)
     {
         m_welcomeView->updateRecentProjectPanel();
     }
-    else if (index == InstrumentTab) {
+    else if (index == INSTRUMENT) {
         m_instrumentView->updateView();
     }
-    else if(index == SimulationTab) {
+    else if(index == SIMULATION) {
         m_simulationView->updateSimulationViewElements();
     }
 }

@@ -105,7 +105,7 @@ void JobView::updateGlobalProgressBar(int progress)
 void JobView::onFocusRequest(JobItem *item)
 {
     m_d->m_jobSelector->makeJobItemSelected(item);
-    emit focusRequest(MainWindow::JobTab);
+    emit focusRequest(MainWindow::JOB);
 }
 
 

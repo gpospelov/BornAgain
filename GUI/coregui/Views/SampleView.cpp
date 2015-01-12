@@ -43,7 +43,7 @@ SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentMode
     initSubWindows();
     initSelectionModel();
 
-    for (int i = 0; i < NumberOfSubWindows; i++) {
+    for (int i = 0; i < NUMBER_OF_SUB_WINDOWS; i++) {
         QWidget *subWindow = m_subWindows[i];
         //subWindow->setWindowTitle(subs[i]->windowTitle());
         m_dockWidgets[i] = addDockForWidget(subWindow);
@@ -78,16 +78,16 @@ SampleView::~SampleView()
 
 void SampleView::initSubWindows()
 {
-    qFill(m_subWindows, m_subWindows + NumberOfSubWindows,
+    qFill(m_subWindows, m_subWindows + NUMBER_OF_SUB_WINDOWS,
           static_cast<QWidget*>(0));
 
-    m_subWindows[WidgetBoxSubWindow] =
+    m_subWindows[WIDGET_BOX] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
     m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
-    m_subWindows[SampleTreeView] = m_tree_view;
+    m_subWindows[SAMPLE_TREE] = m_tree_view;
 
-    m_subWindows[PropertyEditorSubWindow] =
+    m_subWindows[PROPERTY_EDITOR] =
             SampleViewComponents::createPropertyEditor(
                 m_tree_view->selectionModel(), this);
 
@@ -95,7 +95,7 @@ void SampleView::initSubWindows()
             SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));
     ae->setObjectName(tr("InfoStream"));
-    m_subWindows[InfoSubWindow] = ae;
+    m_subWindows[INFO] = ae;
 
     m_sampleDesigner->setSampleModel(m_sampleModel);
     m_sampleDesigner->setInstrumentModel(m_instrumentModel);
@@ -129,13 +129,13 @@ void SampleView::resetToDefaultLayout()
     }
 
     addDockWidget(Qt::LeftDockWidgetArea,
-                  m_dockWidgets[WidgetBoxSubWindow]);
+                  m_dockWidgets[WIDGET_BOX]);
     addDockWidget(Qt::RightDockWidgetArea,
-                  m_dockWidgets[SampleTreeView]);
+                  m_dockWidgets[SAMPLE_TREE]);
     addDockWidget(Qt::RightDockWidgetArea,
-                  m_dockWidgets[PropertyEditorSubWindow]);
+                  m_dockWidgets[PROPERTY_EDITOR]);
     addDockWidget(Qt::BottomDockWidgetArea,
-                  m_dockWidgets[InfoSubWindow]);
+                  m_dockWidgets[INFO]);
 
 //    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
 //                     m_dockWidgets[PropertyEditorSubWindow]);

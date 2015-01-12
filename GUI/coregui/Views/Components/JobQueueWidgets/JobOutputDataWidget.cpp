@@ -153,7 +153,7 @@ void JobOutputDataWidget::savePlot()
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
     m_toolBar->onActivityChanged(activity);
-    if(activity == JobView::RealTimeActivity) {
+    if(activity == JobView::REAL_TIME_ACTIVITY) {
         OutputDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);

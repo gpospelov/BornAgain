@@ -69,7 +69,7 @@ class WidgetBoxCategoryListView : public QListView
     Q_OBJECT
 public:
     // Whether to access the filtered or unfiltered view
-    enum AccessMode { FilteredAccess, UnfilteredAccess };
+    enum EAccessMode { FILTERED, UNFILTERED };
 
 //    explicit WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent = 0);
     explicit WidgetBoxCategoryListView(SampleDesignerInterface *core, QWidget *parent = 0);
@@ -80,11 +80,11 @@ public:
     using QListView::contentsSize;
 
     // These methods operate on the filtered/unfiltered model according to accessmode
-    int count(AccessMode am) const;
-    QDesignerWidgetBoxInterface::Widget widgetAt(AccessMode am, const QModelIndex &index) const;
-    QDesignerWidgetBoxInterface::Widget widgetAt(AccessMode am, int row) const;
-    void removeRow(AccessMode am, int row);
-    void setCurrentItem(AccessMode am, int row);
+    int count(EAccessMode am) const;
+    QDesignerWidgetBoxInterface::Widget widgetAt(EAccessMode am, const QModelIndex &index) const;
+    QDesignerWidgetBoxInterface::Widget widgetAt(EAccessMode am, int row) const;
+    void removeRow(EAccessMode am, int row);
+    void setCurrentItem(EAccessMode am, int row);
 
     // These methods operate on the unfiltered model and are used for serialization
     void addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon, bool editable);

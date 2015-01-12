@@ -79,7 +79,7 @@ static const char *uiClosingTagC = "</ui>";
 
 QT_BEGIN_NAMESPACE
 
-enum { FilterRole = Qt::UserRole + 11 };
+enum { FILTER_ROLE = Qt::UserRole + 11 };
 
 static QString domToString(const QDomElement &elt)
 {
@@ -319,7 +319,7 @@ QVariant WidgetBoxCategoryModel::data(const QModelIndex &index, int role) const
     }
     case Qt::WhatsThisRole:
         return QVariant(item.whatsThis);
-    case FilterRole:
+    case FILTER_ROLE:
         return item.filter;
     }
     return QVariant();
@@ -440,7 +440,7 @@ WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface *co
     setEditTriggers(QAbstractItemView::AnyKeyPressed);
 
     m_proxyModel->setSourceModel(m_model);
-    m_proxyModel->setFilterRole(FilterRole);
+    m_proxyModel->setFilterRole(FILTER_ROLE);
     setModel(m_proxyModel);
     connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(scratchPadChanged()));
 }
@@ -451,9 +451,9 @@ void WidgetBoxCategoryListView::setViewMode(ViewMode vm)
     m_model->setViewMode(vm);
 }
 
-void WidgetBoxCategoryListView::setCurrentItem(AccessMode am, int row)
+void WidgetBoxCategoryListView::setCurrentItem(EAccessMode am, int row)
 {
-    const QModelIndex index = am == FilteredAccess ?
+    const QModelIndex index = am == FILTERED ?
         m_proxyModel->index(row, 0) :
         m_proxyModel->mapFromSource(m_model->index(row, 0));
 
@@ -491,9 +491,9 @@ void WidgetBoxCategoryListView::editCurrentItem()
         edit(index);
 }
 
-int WidgetBoxCategoryListView::count(AccessMode am) const
+int WidgetBoxCategoryListView::count(EAccessMode am) const
 {
-    return am == FilteredAccess ? m_proxyModel->rowCount() : m_model->rowCount();
+    return am == FILTERED ? m_proxyModel->rowCount() : m_model->rowCount();
 }
 
 int WidgetBoxCategoryListView::mapRowToSource(int filterRow) const
@@ -502,20 +502,20 @@ int WidgetBoxCategoryListView::mapRowToSource(int filterRow) const
     return m_proxyModel->mapToSource(filterIndex).row();
 }
 
-QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(AccessMode am, const QModelIndex & index) const
+QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(EAccessMode am, const QModelIndex & index) const
 {
-    const QModelIndex unfilteredIndex = am == FilteredAccess ? m_proxyModel->mapToSource(index) : index;
+    const QModelIndex unfilteredIndex = am == FILTERED ? m_proxyModel->mapToSource(index) : index;
     return m_model->widgetAt(unfilteredIndex);
 }
 
-QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(AccessMode am, int row) const
+QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(EAccessMode am, int row) const
 {
-    return m_model->widgetAt(am == UnfilteredAccess ? row : mapRowToSource(row));
+    return m_model->widgetAt(am == UNFILTERED ? row : mapRowToSource(row));
 }
 
-void WidgetBoxCategoryListView::removeRow(AccessMode am, int row)
+void WidgetBoxCategoryListView::removeRow(EAccessMode am, int row)
 {
-    m_model->removeRow(am == UnfilteredAccess ? row : mapRowToSource(row));
+    m_model->removeRow(am == UNFILTERED ? row : mapRowToSource(row));
 }
 
 bool WidgetBoxCategoryListView::containsWidget(const QString &name)

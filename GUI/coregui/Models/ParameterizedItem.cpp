@@ -300,7 +300,7 @@ QStringList ParameterizedItem::getParameterTreeList() const
     if (hasChildItems()) {
         for (QList<ParameterizedItem *>::const_iterator it = m_children.begin();
              it != m_children.end(); ++it) {
-            QString child_name = (*it)->itemName();
+            QString child_name = (*it)->modelType();
             QStringList child_list = (*it)->getParameterTreeList();
             for (QStringList::const_iterator par_it = child_list.begin();
                  par_it != child_list.end(); ++par_it) {

@@ -125,7 +125,7 @@ public:
 
     virtual QString getItemLabel() const { return QString("no label"); }
 
-    void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
+    void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
 
     QStringList getParameterTreeList() const;
 

@@ -18,7 +18,7 @@ class BA_CORE_API_ JobPropertiesWidget : public QWidget
 {
     Q_OBJECT
 public:
-    enum TabId { JobPropertiesTab, JobCommentsTab };
+    enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget *parent = 0);
 
     void setModel(JobQueueModel *model);

@@ -46,8 +46,8 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     commentsWidget->setLayout(vlayout);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
-    m_tabWidget->insertTab(JobPropertiesTab, m_propertyBrowser, "Job Properties");
-    m_tabWidget->insertTab(JobCommentsTab, commentsWidget, "Details");
+    m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyBrowser, "Job Properties");
+    m_tabWidget->insertTab(JOB_COMMENTS, commentsWidget, "Details");
 
     mainLayout->addWidget(m_tabWidget);
 
@@ -140,9 +140,9 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
     if(jobItem->getStatus() == JobItem::FAILED) {
-        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::red);
+        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
     } else {
-        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::black);
+        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);
     }
     m_commentsEditor->setText(jobItem->getComments());
 

@@ -37,8 +37,8 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->insertChildItem(-1, this);
     }
 
-    registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HiddenProperty));
-    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_PORT, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
     setItemName(m_model_type);
 }
 
@@ -282,7 +282,7 @@ void ParameterizedItem::setPropertyAttribute(const QString &name, const Property
 }
 
 
-void ParameterizedItem::setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance)
+void ParameterizedItem::setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance)
 {
     if(!m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::setPropertyAppearance() -> Error. Unknown property "+name);
@@ -374,7 +374,7 @@ QStringList ParameterizedItem::getParameterList() const
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
         PropertyAttribute prop_attribute = getPropertyAttribute(prop_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) {
+        if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) {
             continue;
         }
         QVariant variant = property(prop_name.toUtf8().constData());

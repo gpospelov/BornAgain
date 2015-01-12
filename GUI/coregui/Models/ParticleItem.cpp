@@ -39,6 +39,6 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
 
     setPropertyAppearance(ParameterizedItem::P_NAME,
-                          PropertyAttribute::VisibleProperty);
+                          PropertyAttribute::VISIBLE);
 }
 

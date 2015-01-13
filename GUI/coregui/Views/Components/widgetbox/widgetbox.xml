@@ -252,7 +252,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Example #2 (para 1D)" icon="images/sample_layers2.png">
+        <categoryentry name="Example #2 (para radial)" icon="images/sample_layers2.png">
             <widget class="example02">
                 <property name="objectName">
                     <string notr="true">somestring</string>

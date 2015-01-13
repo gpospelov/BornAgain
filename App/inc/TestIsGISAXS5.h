@@ -23,7 +23,7 @@
 class Simulation;
 class FitSuite;
 
-//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and 1D paracrystal interference function.
+//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and radial paracrystal interference function.
 
 class TestIsGISAXS5 : public IApplicationTest
 {

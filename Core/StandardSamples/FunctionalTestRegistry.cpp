@@ -43,7 +43,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "isgisaxs03_reference_BA_size.int.gz", 2e-10);
 
     add("isgisaxs04_1DDL",
-        "1D paracrystal",
+        "Radial paracrystal",
         "isgisaxs04_reference_1DDL.int.gz", 2e-10);
     add("isgisaxs04_2DDL",
         "2D paracrystal",

@@ -6,7 +6,7 @@ from libBornAgainCore import *
 
 def get_sample():
     """
-    Build and return the sample representing 1D paracrystal with truncated spheres
+    Build and return the sample representing radial paracrystal with truncated spheres
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)

@@ -1,5 +1,5 @@
 """
-1D paracrystal (IsGISAXS example ex-4)
+radial paracrystal (IsGISAXS example ex-4)
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing 1D paracrystal
+    Build and return the sample representing radial paracrystal
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)

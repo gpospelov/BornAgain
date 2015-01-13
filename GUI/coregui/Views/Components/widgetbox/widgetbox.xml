@@ -35,7 +35,7 @@
 
     <category name="Interference functions">
 
-        <categoryentry name="1D paracrystal" icon="images/ParaCrystal1D.png">
+        <categoryentry name="radial paracrystal" icon="images/ParaCrystal1D.png">
             <widget class="InterferenceFunctionRadialParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>

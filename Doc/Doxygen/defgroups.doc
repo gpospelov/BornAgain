@@ -106,7 +106,7 @@ where the angle between the base vectors of the lattice is set to \f$\pi\f$/2. I
 - \b createHexagonal (peak\_distance, correlation_length, domain\_size\_1, domain\_size\_2) 
 where the angle between the base vectors of the lattice is set to 2\f$\pi\f$/3, domain\_size1 and domain\_size2  are the dimensions of the paracrystal along the main axes, peak\_distance and correlation\_length are related to the probability distribution functions and are the same in both directions and \b a \f$\equiv\f$ \b x .
 
-Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent 1D paracrystals, we need two of these functions, using \b setProbabilityDistributions(pdf\_1, pdf\_2)
+Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent radial paracrystals, we need two of these functions, using \b setProbabilityDistributions(pdf\_1, pdf\_2)
 
 
 

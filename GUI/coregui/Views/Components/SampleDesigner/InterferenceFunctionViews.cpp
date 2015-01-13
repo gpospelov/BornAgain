@@ -7,7 +7,7 @@ InterferenceFunctionRadialParaCrystalView::InterferenceFunctionRadialParaCrystal
     : ConnectableView(parent)
 {
     setName(Constants::InterferenceFunctionRadialParaCrystalType);
-    setLabel("Interference \n1D paracrystal");
+    setLabel("Interference \nRadial paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);

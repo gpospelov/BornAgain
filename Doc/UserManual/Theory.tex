@@ -324,7 +324,7 @@ where $\omega\equiv$\Code{width}, $D\equiv$ \Code{peak\_distance}, and $q_{\para
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/1Dparacrystal}
 \end{center}
-\caption{Schematic representation of a 1D paracrystal in real space (side view). $D$ is the average spacing between the particles.}
+\caption{Schematic representation of a radial paracrystal in real space (side view). $D$ is the average spacing between the particles.}
 \label{fig:1dpara}
 \end{figure}
 
@@ -355,9 +355,9 @@ In \BornAgain\, the one-dimensional disorder linked with this interference funct
 }
 
 \paragraph{Example}
-To illustrate the 1D paracrystal interference function, we use the same sample as in the case without interference: half-spheres deposited on a substrate.
+To illustrate the radial paracrystal interference function, we use the same sample as in the case without interference: half-spheres deposited on a substrate.
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define the 1D paracrystal interference function between half-spheres, where \Code{trsphere} is of type \Code{Particle}.},label={lst:1dpara}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define the radial paracrystal interference function between half-spheres, where \Code{trsphere} is of type \Code{Particle}.},label={lst:1dpara}]
     particle_layout = ParticleLayout()
     particle_layout.addParticle(trsphere, 0.0, 1.0)
     interference = InterferenceFunctionRadialParaCrystal(25.0*nanometer, 7*nanometer, 1e3*nanometer)
@@ -455,7 +455,7 @@ where the angle between the base vectors of the lattice is set to $2\pi/3$ ,
 where
 \Code{domain\_size1, 2} are the dimensions of coherent domains of the paracrystal along the main axes,\\ \Code{peak\_distance} is the same in both directions and $\mathbf{a}\equiv \mathbf{x}$.\\
 
-Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent 1D paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} are related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
+Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent radial paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} are related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
 
 
 \begin{figure}[h]

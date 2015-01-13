@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestIsGISAXS13.h
@@ -25,7 +25,7 @@ class FitSuite;
 
 //! IsGISAXS ex#13: Simulating annealing.
 
-//! Cylinders with size distribution and 1D paracrystal interference function.
+//! Cylinders with size distribution and radial paracrystal interference function.
 //!
 class TestIsGISAXS13 : public IApplicationTest
 {

@@ -382,8 +382,8 @@ void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
     throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *){
-    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");
+void ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *){
+    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *) -> Error. Not implemented.");
 }
 
 

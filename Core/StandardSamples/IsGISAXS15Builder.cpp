@@ -18,7 +18,7 @@
 #include "ParticleLayout.h"
 #include "Materials.h"
 #include "Units.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Distributions.h"
 #include "ParticleDistribution.h"
@@ -37,8 +37,8 @@ ISample *IsGISAXS15Builder::buildSample() const
 
     Layer air_layer(air_material);
 
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(15.0*Units::nanometer,
                     1e3*Units::nanometer);
     FTDistribution1DGauss pdf(5*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);

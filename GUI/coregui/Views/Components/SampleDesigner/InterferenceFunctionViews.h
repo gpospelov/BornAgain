@@ -4,14 +4,14 @@
 
 #include "ConnectableView.h"
 
-class BA_CORE_API_ InterferenceFunction1DParaCrystalView : public ConnectableView
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalView : public ConnectableView
 {
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::INTERFERENCE_FUNCTION_1D_PARA };
+    enum { TYPE = DesignerHelper::INTERFERENCE_FUNCTION_RADIAL_PARA };
 
-    InterferenceFunction1DParaCrystalView(QGraphicsItem *parent = 0);
+    InterferenceFunctionRadialParaCrystalView(QGraphicsItem *parent = 0);
 
     int type() const { return TYPE; }
 };

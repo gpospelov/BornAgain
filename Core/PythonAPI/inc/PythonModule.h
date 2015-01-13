@@ -36,7 +36,7 @@
 //#include "IFormFactorDecorator.h"
 //#include "IInterferenceFunction.h"
 //#include "InterferenceFunctionNone.h"
-//#include "InterferenceFunction1DParaCrystal.h"
+//#include "InterferenceFunctionRadialParaCrystal.h"
 //#include "IMaterial.h"
 //#include "IParameterized.h"
 //#include "ISample.h"

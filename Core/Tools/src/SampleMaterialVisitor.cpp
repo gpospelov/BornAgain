@@ -287,7 +287,7 @@ void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *)
 {
 }
 
-void SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *)
+void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 {
 }
 

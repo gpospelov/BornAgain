@@ -4,7 +4,7 @@
 #include "ParameterizedGraphicsItem.h"
 
 
-class BA_CORE_API_ InterferenceFunction1DParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
@@ -13,8 +13,8 @@ public:
     static const QString P_DOMAIN_SIZE;
     static const QString P_KAPPA;
     static const QString P_PDF;
-    explicit InterferenceFunction1DParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction1DParaCrystalItem(){}
+    explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
+    ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
 

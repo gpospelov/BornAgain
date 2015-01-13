@@ -136,27 +136,27 @@ IDistribution1D *TransformToDomain::createDistribution(
 IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         const ParameterizedItem &item)
 {
-    if(item.modelType() == Constants::InterferenceFunction1DParaCrystalType) {
+    if(item.modelType() == Constants::InterferenceFunctionRadialParaCrystalType) {
         double peak_distance = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE)
+                    InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE)
                 .toDouble();
         double damping_length = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH)
+                    InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH)
                 .toDouble();
         double domain_size = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE)
+                    InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE)
                 .toDouble();
         double kappa = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_KAPPA)
+                    InterferenceFunctionRadialParaCrystalItem::P_KAPPA)
                 .toDouble();
 
-        InterferenceFunction1DParaCrystal *result =
-                new InterferenceFunction1DParaCrystal(peak_distance,
+        InterferenceFunctionRadialParaCrystal *result =
+                new InterferenceFunctionRadialParaCrystal(peak_distance,
                                                       damping_length);
         result->setDomainSize(domain_size);
         result->setKappa(kappa);
         ParameterizedItem *pdfItem = item.getSubItems()[
-                InterferenceFunction1DParaCrystalItem::P_PDF];
+                InterferenceFunctionRadialParaCrystalItem::P_PDF];
 
         Q_ASSERT(pdfItem);
         boost::scoped_ptr<IFTDistribution1D> pdf(

@@ -42,7 +42,7 @@ public:
     void visit(const FormFactorTruncatedSpheroid *sample);
     void visit(const InterferenceFunctionNone *);
     void visit(const InterferenceFunction1DLattice *);
-    void visit(const InterferenceFunction1DParaCrystal *);
+    void visit(const InterferenceFunctionRadialParaCrystal *);
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunction2DParaCrystal *);
     void visit(const Layer *sample);

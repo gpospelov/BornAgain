@@ -27,7 +27,7 @@ def RunSimulation():
     particle_layout.addParticle(cylinder1)
     particle_layout.addParticle(cylinder2)
     particle_layout.addParticle(cylinder3)
-    interference = InterferenceFunction1DParaCrystal(5 * nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(5 * nanometer)
     pdf = FTDistribution1DGauss(1 * nanometer)
     interference.setProbabilityDistribution(pdf)
     # set coupling between size and space

@@ -6,7 +6,7 @@
 #include "ICompositeSample.h"
 #include "INamed.h"
 #include "ISample.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "IMaterial.h"
 #include "InterferenceFunctionNone.h"
 #include "ISample.h"

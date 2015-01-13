@@ -579,12 +579,12 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
-void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
+void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction1DParaCrystalType,
+        Constants::InterferenceFunctionRadialParaCrystalType,
                 m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);

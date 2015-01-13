@@ -478,11 +478,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             }
         }
 
-        else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal =
-                 dynamic_cast<const InterferenceFunction1DParaCrystal *>(interference))
+        else if (const InterferenceFunctionRadialParaCrystal *oneDParaCrystal =
+                 dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(interference))
         {
             result << "\t" << it->second
-                   << " = InterferenceFunction1DParaCrystal("
+                   << " = InterferenceFunctionRadialParaCrystal("
                    << oneDParaCrystal->getPeakDistance() << "*nanometer,"
                    << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
 
@@ -1350,7 +1350,7 @@ void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
      m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
+void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
      m_label->setLabel(sample);
 }

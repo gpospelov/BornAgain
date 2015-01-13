@@ -66,7 +66,7 @@
 #include "ISingleton.h"
 #include "Instrument.h"
 #include "InterferenceFunction1DLattice.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionNone.h"

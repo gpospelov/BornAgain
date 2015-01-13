@@ -23,7 +23,7 @@ def RunSimulation():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder)
     particle_layout.addParticle(sphere)
-    interference = InterferenceFunction1DParaCrystal(20 * nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(20 * nanometer)
     pdf = FTDistribution1DGauss(2 * nanometer)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)

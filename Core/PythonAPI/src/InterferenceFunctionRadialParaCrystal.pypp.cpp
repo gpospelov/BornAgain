@@ -12,53 +12,53 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "InterferenceFunction1DParaCrystal.pypp.h"
+#include "InterferenceFunctionRadialParaCrystal.pypp.h"
 
 namespace bp = boost::python;
 
-struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
+struct InterferenceFunctionRadialParaCrystal_wrapper : InterferenceFunctionRadialParaCrystal, bp::wrapper< InterferenceFunctionRadialParaCrystal > {
 
-    InterferenceFunction1DParaCrystal_wrapper(double peak_distance, double damping_length=0.0 )
-    : InterferenceFunction1DParaCrystal( peak_distance, damping_length )
-      , bp::wrapper< InterferenceFunction1DParaCrystal >(){
+    InterferenceFunctionRadialParaCrystal_wrapper(double peak_distance, double damping_length=0.0 )
+    : InterferenceFunctionRadialParaCrystal( peak_distance, damping_length )
+      , bp::wrapper< InterferenceFunctionRadialParaCrystal >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual ::InterferenceFunction1DParaCrystal * clone(  ) const  {
+    virtual ::InterferenceFunctionRadialParaCrystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->InterferenceFunction1DParaCrystal::clone(  );
+            return this->InterferenceFunctionRadialParaCrystal::clone(  );
         }
     }
     
-    ::InterferenceFunction1DParaCrystal * default_clone(  ) const  {
-        return InterferenceFunction1DParaCrystal::clone( );
+    ::InterferenceFunctionRadialParaCrystal * default_clone(  ) const  {
+        return InterferenceFunctionRadialParaCrystal::clone( );
     }
 
     virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
-            return this->InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
+            return this->InterferenceFunctionRadialParaCrystal::evaluate( boost::ref(q) );
         }
     }
     
     double default_evaluate( ::cvector_t const & q ) const  {
-        return InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
+        return InterferenceFunctionRadialParaCrystal::evaluate( boost::ref(q) );
     }
 
     virtual double getKappa(  ) const  {
         if( bp::override func_getKappa = this->get_override( "getKappa" ) )
             return func_getKappa(  );
         else{
-            return this->InterferenceFunction1DParaCrystal::getKappa(  );
+            return this->InterferenceFunctionRadialParaCrystal::getKappa(  );
         }
     }
     
     double default_getKappa(  ) const  {
-        return InterferenceFunction1DParaCrystal::getKappa( );
+        return InterferenceFunctionRadialParaCrystal::getKappa( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -192,7 +192,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< InterferenceFunction1DParaCrystal_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< InterferenceFunctionRadialParaCrystal_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -252,280 +252,280 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
 
 };
 
-void register_InterferenceFunction1DParaCrystal_class(){
+void register_InterferenceFunctionRadialParaCrystal_class(){
 
-    { //::InterferenceFunction1DParaCrystal
-        typedef bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction1DParaCrystal_wrapper >, boost::noncopyable > InterferenceFunction1DParaCrystal_exposer_t;
-        InterferenceFunction1DParaCrystal_exposer_t InterferenceFunction1DParaCrystal_exposer = InterferenceFunction1DParaCrystal_exposer_t( "InterferenceFunction1DParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 )) );
-        bp::scope InterferenceFunction1DParaCrystal_scope( InterferenceFunction1DParaCrystal_exposer );
-        { //::InterferenceFunction1DParaCrystal::FTPDF
+    { //::InterferenceFunctionRadialParaCrystal
+        typedef bp::class_< InterferenceFunctionRadialParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunctionRadialParaCrystal_wrapper >, boost::noncopyable > InterferenceFunctionRadialParaCrystal_exposer_t;
+        InterferenceFunctionRadialParaCrystal_exposer_t InterferenceFunctionRadialParaCrystal_exposer = InterferenceFunctionRadialParaCrystal_exposer_t( "InterferenceFunctionRadialParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 )) );
+        bp::scope InterferenceFunctionRadialParaCrystal_scope( InterferenceFunctionRadialParaCrystal_exposer );
+        { //::InterferenceFunctionRadialParaCrystal::FTPDF
         
-            typedef ::complex_t ( ::InterferenceFunction1DParaCrystal::*FTPDF_function_type)( double ) const;
+            typedef ::complex_t ( ::InterferenceFunctionRadialParaCrystal::*FTPDF_function_type)( double ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "FTPDF"
-                , FTPDF_function_type( &::InterferenceFunction1DParaCrystal::FTPDF )
+                , FTPDF_function_type( &::InterferenceFunctionRadialParaCrystal::FTPDF )
                 , ( bp::arg("qpar") ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::clone
+        { //::InterferenceFunctionRadialParaCrystal::clone
         
-            typedef ::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::*clone_function_type)(  ) const;
-            typedef ::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::*default_clone_function_type)(  ) const;
+            typedef ::InterferenceFunctionRadialParaCrystal * ( ::InterferenceFunctionRadialParaCrystal::*clone_function_type)(  ) const;
+            typedef ::InterferenceFunctionRadialParaCrystal * ( InterferenceFunctionRadialParaCrystal_wrapper::*default_clone_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "clone"
-                , clone_function_type(&::InterferenceFunction1DParaCrystal::clone)
-                , default_clone_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
+                , clone_function_type(&::InterferenceFunctionRadialParaCrystal::clone)
+                , default_clone_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::InterferenceFunction1DParaCrystal::evaluate
+        { //::InterferenceFunctionRadialParaCrystal::evaluate
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*evaluate_function_type)( ::cvector_t const & ) const;
-            typedef double ( InterferenceFunction1DParaCrystal_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "evaluate"
-                , evaluate_function_type(&::InterferenceFunction1DParaCrystal::evaluate)
-                , default_evaluate_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
+                , evaluate_function_type(&::InterferenceFunctionRadialParaCrystal::evaluate)
+                , default_evaluate_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_evaluate)
                 , ( bp::arg("q") ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getDampingLength
+        { //::InterferenceFunctionRadialParaCrystal::getDampingLength
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getDampingLength_function_type)(  ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*getDampingLength_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDampingLength"
-                , getDampingLength_function_type( &::InterferenceFunction1DParaCrystal::getDampingLength ) );
+                , getDampingLength_function_type( &::InterferenceFunctionRadialParaCrystal::getDampingLength ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getDomainSize
+        { //::InterferenceFunctionRadialParaCrystal::getDomainSize
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getDomainSize_function_type)(  ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*getDomainSize_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDomainSize"
-                , getDomainSize_function_type( &::InterferenceFunction1DParaCrystal::getDomainSize ) );
+                , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getKappa
+        { //::InterferenceFunctionRadialParaCrystal::getKappa
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getKappa_function_type)(  ) const;
-            typedef double ( InterferenceFunction1DParaCrystal_wrapper::*default_getKappa_function_type)(  ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*getKappa_function_type)(  ) const;
+            typedef double ( InterferenceFunctionRadialParaCrystal_wrapper::*default_getKappa_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getKappa"
-                , getKappa_function_type(&::InterferenceFunction1DParaCrystal::getKappa)
-                , default_getKappa_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_getKappa) );
+                , getKappa_function_type(&::InterferenceFunctionRadialParaCrystal::getKappa)
+                , default_getKappa_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getKappa) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getPeakDistance
+        { //::InterferenceFunctionRadialParaCrystal::getPeakDistance
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getPeakDistance_function_type)(  ) const;
+            typedef double ( ::InterferenceFunctionRadialParaCrystal::*getPeakDistance_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getPeakDistance"
-                , getPeakDistance_function_type( &::InterferenceFunction1DParaCrystal::getPeakDistance ) );
+                , getPeakDistance_function_type( &::InterferenceFunctionRadialParaCrystal::getPeakDistance ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getPropabilityDistribution
+        { //::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution
         
-            typedef ::IFTDistribution1D const * ( ::InterferenceFunction1DParaCrystal::*getPropabilityDistribution_function_type)(  ) const;
+            typedef ::IFTDistribution1D const * ( ::InterferenceFunctionRadialParaCrystal::*getPropabilityDistribution_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getPropabilityDistribution"
-                , getPropabilityDistribution_function_type( &::InterferenceFunction1DParaCrystal::getPropabilityDistribution )
+                , getPropabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::InterferenceFunction1DParaCrystal::setDomainSize
+        { //::InterferenceFunctionRadialParaCrystal::setDomainSize
         
-            typedef void ( ::InterferenceFunction1DParaCrystal::*setDomainSize_function_type)( double ) ;
+            typedef void ( ::InterferenceFunctionRadialParaCrystal::*setDomainSize_function_type)( double ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setDomainSize"
-                , setDomainSize_function_type( &::InterferenceFunction1DParaCrystal::setDomainSize )
+                , setDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::setDomainSize )
                 , ( bp::arg("size") ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::setKappa
+        { //::InterferenceFunctionRadialParaCrystal::setKappa
         
-            typedef void ( ::InterferenceFunction1DParaCrystal::*setKappa_function_type)( double ) ;
+            typedef void ( ::InterferenceFunctionRadialParaCrystal::*setKappa_function_type)( double ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setKappa"
-                , setKappa_function_type( &::InterferenceFunction1DParaCrystal::setKappa )
+                , setKappa_function_type( &::InterferenceFunctionRadialParaCrystal::setKappa )
                 , ( bp::arg("kappa") ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::setProbabilityDistribution
+        { //::InterferenceFunctionRadialParaCrystal::setProbabilityDistribution
         
-            typedef void ( ::InterferenceFunction1DParaCrystal::*setProbabilityDistribution_function_type)( ::IFTDistribution1D const & ) ;
+            typedef void ( ::InterferenceFunctionRadialParaCrystal::*setProbabilityDistribution_function_type)( ::IFTDistribution1D const & ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setProbabilityDistribution"
-                , setProbabilityDistribution_function_type( &::InterferenceFunction1DParaCrystal::setProbabilityDistribution )
+                , setProbabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::setProbabilityDistribution )
                 , ( bp::arg("pdf") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( InterferenceFunction1DParaCrystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( InterferenceFunctionRadialParaCrystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( InterferenceFunctionRadialParaCrystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
-            typedef ::ISample * ( InterferenceFunction1DParaCrystal_wrapper::*default_cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( InterferenceFunctionRadialParaCrystal_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
-            typedef bool ( InterferenceFunction1DParaCrystal_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( InterferenceFunctionRadialParaCrystal_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( InterferenceFunction1DParaCrystal_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( InterferenceFunctionRadialParaCrystal_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( InterferenceFunction1DParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( InterferenceFunctionRadialParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( InterferenceFunction1DParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( InterferenceFunctionRadialParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::preprocess
         
             typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( InterferenceFunction1DParaCrystal_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef bool ( InterferenceFunctionRadialParaCrystal_wrapper::*default_preprocess_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "preprocess"
                 , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_preprocess) );
+                , default_preprocess_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( InterferenceFunctionRadialParaCrystal_wrapper::*default_printParameters_function_type)(  ) const;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
-            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_printSampleTree_function_type)(  ) ;
+            typedef void ( InterferenceFunctionRadialParaCrystal_wrapper::*default_printSampleTree_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &InterferenceFunction1DParaCrystal_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &InterferenceFunctionRadialParaCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( InterferenceFunction1DParaCrystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( InterferenceFunctionRadialParaCrystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( InterferenceFunctionRadialParaCrystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
-            typedef void ( InterferenceFunction1DParaCrystal_wrapper::*default_transferToCPP_function_type)(  ) ;
+            typedef void ( InterferenceFunctionRadialParaCrystal_wrapper::*default_transferToCPP_function_type)(  ) ;
             
-            InterferenceFunction1DParaCrystal_exposer.def( 
+            InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "transferToCPP"
                 , transferToCPP_function_type(&::ICloneable::transferToCPP)
-                , default_transferToCPP_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_transferToCPP) );
+                , default_transferToCPP_function_type(&InterferenceFunctionRadialParaCrystal_wrapper::default_transferToCPP) );
         
         }
     }

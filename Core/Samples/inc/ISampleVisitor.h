@@ -93,7 +93,7 @@ class FormFactorDecoratorTransformation;
 // -
 class IInterferenceFunction;
 class InterferenceFunction1DLattice;
-class InterferenceFunction1DParaCrystal;
+class InterferenceFunctionRadialParaCrystal;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
@@ -190,7 +190,7 @@ public:
 
     virtual void visit(const IInterferenceFunction *);
     virtual void visit(const InterferenceFunction1DLattice *);
-    virtual void visit(const InterferenceFunction1DParaCrystal *);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal *);
     virtual void visit(const InterferenceFunction2DLattice *);
     virtual void visit(const InterferenceFunction2DParaCrystal *);
     virtual void visit(const InterferenceFunctionNone *);

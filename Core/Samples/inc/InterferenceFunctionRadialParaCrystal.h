@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/InterferenceFunction1DParaCrystal.h
-//! @brief     Defines class InterferenceFunction1DParaCrystal.
+//! @file      Samples/inc/InterferenceFunctionRadialParaCrystal.h
+//! @brief     Defines class InterferenceFunctionRadialParaCrystal.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,30 +13,30 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION1DPARACRYSTAL_H_
-#define INTERFERENCEFUNCTION1DPARACRYSTAL_H_
+#ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_
+#define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
 
-//! @class InterferenceFunction1DParaCrystal
+//! @class InterferenceFunctionRadialParaCrystal
 //! @ingroup interference
-//! @brief Interference function of 1D paracrystal.
+//! @brief Interference function of radial paracrystal.
 
-class BA_CORE_API_ InterferenceFunction1DParaCrystal
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystal
         : public IInterferenceFunction
 {
 public:
 
-    //! @brief constructor of 1D paracrystal interference function
+    //! @brief constructor of radial paracrystal interference function
     //! @param peak_distance  The distance to the first neighbor peak.
     //! @param width Width parameter in the pair correlation function.
     //! @param m_corr_length Correlation length of paracrystal.
-    InterferenceFunction1DParaCrystal(
+    InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length=0.0);
 
-    virtual ~InterferenceFunction1DParaCrystal() {}
-    virtual InterferenceFunction1DParaCrystal *clone() const;
+    virtual ~InterferenceFunctionRadialParaCrystal() {}
+    virtual InterferenceFunctionRadialParaCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
@@ -89,6 +89,6 @@ private:
     virtual void init_parameters();
 };
 
-#endif /* INTERFERENCEFUNCTION1DPARACRYSTAL_H_ */
+#endif /* INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_ */
 
 

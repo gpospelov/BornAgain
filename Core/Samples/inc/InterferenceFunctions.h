@@ -17,7 +17,7 @@
 #define INTERFERENCEFUNCTIONS_H_
 
 #include "InterferenceFunctionNone.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"

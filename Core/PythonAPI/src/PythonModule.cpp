@@ -26,6 +26,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FTDistribution1DCosine.pypp.h"
 #include "FTDistribution1DTriangle.pypp.h"
 #include "FormFactorWeighted.pypp.h"
+#include "InterferenceFunctionRadialParaCrystal.pypp.h"
 #include "DistributionGaussian.pypp.h"
 #include "IDetectorResolution.pypp.h"
 #include "FormFactorCylinder.pypp.h"
@@ -55,7 +56,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorSphereUniformRadius.pypp.h"
 #include "OffSpecSimulation.pypp.h"
 #include "FormFactorRipple1.pypp.h"
-#include "InterferenceFunction1DParaCrystal.pypp.h"
 #include "Simulation.pypp.h"
 #include "IObservable.pypp.h"
 #include "FormFactorLorentz.pypp.h"
@@ -235,10 +235,10 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IntensityDataFunctions_class();
     register_IntensityDataIOFactory_class();
     register_InterferenceFunction1DLattice_class();
-    register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();
     register_InterferenceFunctionNone_class();
+    register_InterferenceFunctionRadialParaCrystal_class();
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();

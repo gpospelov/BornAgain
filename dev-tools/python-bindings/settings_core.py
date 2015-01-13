@@ -317,6 +317,11 @@ def ManualClassTunings(mb):
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
+    cl = mb.class_("SpecularSimulation")
+    cl.member_function("setSampleBuilder").include()
+    cl.member_function("getEvanescentWaveIntensity").call_policies = \
+    call_policies.return_value_policy(call_policies.manage_new_object)
+    #
     cl = mb.class_("OffSpecSimulation")
     cl.member_function("setSampleBuilder").include()
     cl.member_function("getOutputData").exclude()

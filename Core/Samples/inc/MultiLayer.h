@@ -128,6 +128,9 @@ public:
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;
 
+    //! returns layer index corresponding to given global z coordinate
+    size_t zToLayerIndex(double z_value);
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

@@ -16,7 +16,6 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "Simulation.h"
 //#include "MultiLayerRTCoefficients.h"
 #include "OutputData.h"
 
@@ -39,12 +38,9 @@ public:
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
     SpecularSimulation(SampleBuilder_t sample_builder);
-    ~SpecularSimulation();
+    virtual ~SpecularSimulation();
 
     SpecularSimulation *clone() const;
-
-    //! Put into a clean state for running a simulation
-    void prepareSimulation();
 
     //! Run a simulation with the current parameter settings
     void runSimulation();
@@ -65,19 +61,28 @@ public:
     void setBeamParameters(double lambda, const IAxis &alpha_axis);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
 
+    //! set axis for evanescent wave axis
+    void setEvanescentWaveAxis(const IAxis &z_axis);
+    void setEvanescentWaveAxis(int nbins, double z_min, double z_max);
+
     //! returns alpha_i axis
     const IAxis *getAlphaAxis() const;
 
     //! returns vector containing reflection coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t > getScalarR(int i_layer = 0) const;
+    std::vector<complex_t > getScalarR(size_t i_layer) const;
 
     //! returns vector containing transmission coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t > getScalarT(int i_layer = 0) const;
+    std::vector<complex_t > getScalarT(size_t i_layer) const;
 
     //! returns vector containing Kz coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t > getScalarKz(int i_layer = 0) const;
+    std::vector<complex_t > getScalarKz(size_t i_layer) const;
 
-    LayerRTCoefficients_t getLayerRTCoefficients(int i_alpha, int i_layer) const;
+    LayerRTCoefficients_t getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const;
+
+    //! Put into a clean state for running a simulation
+    void prepareSimulation();
+
+    OutputData<double>* getEvanescentWaveIntensity() const;
 
 protected:
     SpecularSimulation(const SpecularSimulation& other);
@@ -94,15 +99,26 @@ protected:
     //! calculates RT coefficients for multilayer with magnetic materials
     void collectRTCoefficientsMatrix(const MultiLayer *multilayer);
 
+    //! calculates the intensity of evanescent wave
+    void calculateEvanescentWaveIntensity();
+
+    //! check if simulation was run already and has valid coefficients
+    void checkCoefficients(size_t i_layer) const;
+
+    //! update data axes
+    void updateCoefficientDataAxes();
+
     ISample *m_sample;
     SampleBuilder_t m_sample_builder;
     IAxis *m_alpha_i_axis;
+    IAxis *m_z_axis;
     double m_lambda;
 
 #ifndef GCCXML_SKIP_THIS
 //    OutputData<SpecularMatrix::MultiLayerCoeff_t> *m_scalar_data;
 
     OutputData<MultiLayerRTCoefficients_t> m_data;
+    OutputData<double> m_ewave_intensity;
 #endif
 };
 

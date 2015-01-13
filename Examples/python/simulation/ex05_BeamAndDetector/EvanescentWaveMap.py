@@ -1,5 +1,6 @@
 """
-R and T coefficients in multilayer, Specular simulation.
+Demonstrates how to plot evanescent wave intensity as a function of z-coordinate for multilayer sample.
+Specular simulation geometry.
 """
 import numpy
 import pylab
@@ -49,7 +50,8 @@ def get_simulation():
     Create and return off-specular simulation with beam and detector defined
     """
     simulation = SpecularSimulation()
-    simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
+    simulation.setBeamParameters(1.54*angstrom, 10, alpha_i_min*degree, alpha_i_max*degree)
+    simulation.setEvanescentWaveAxis(10, -200., 0.0)
     return simulation
 
 
@@ -63,34 +65,35 @@ def run_simulation():
     simulation.runSimulation()
 
     # plotting results for several selected layers
-    selected_layers = [0, 1, 20, 21]
-    alpha_angles = simulation.getAlphaAxis().getBinCenters()
-
-    dpi = 72.
-    xinch = 1024 / dpi
-    yinch = 768 / dpi
-    fig = pylab.figure(figsize=(xinch, yinch))
-
-    nplot = 1
-    for layer_index in selected_layers:
-
-        R = []
-        for coeff in simulation.getScalarR(layer_index):
-            R.append(numpy.abs(coeff))
-
-        T = []
-        for coeff in simulation.getScalarT(layer_index):
-            T.append(numpy.abs(coeff))
-
-        pylab.subplot(2, 2, nplot)
-        pylab.ylim(ymax=50.0, ymin=1e-06)
-        pylab.semilogy(alpha_angles, R)
-        pylab.semilogy(alpha_angles, T)
-        pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
-        nplot = nplot + 1
+    # selected_layers = [0, 1, 20, 21]
+    # alpha_angles = simulation.getAlphaAxis().getBinCenters()
 
 
-    pylab.show()
+    # dpi = 72.
+    # xinch = 1024 / dpi
+    # yinch = 768 / dpi
+    # fig = pylab.figure(figsize=(xinch, yinch))
+    #
+    # nplot = 1
+    # for layer_index in selected_layers:
+    #
+    #     R = []
+    #     for coeff in simulation.getScalarR(layer_index):
+    #         R.append(numpy.abs(coeff))
+    #
+    #     T = []
+    #     for coeff in simulation.getScalarT(layer_index):
+    #         T.append(numpy.abs(coeff))
+    #
+    #     pylab.subplot(2, 2, nplot)
+    #     pylab.ylim(ymax=50.0, ymin=1e-06)
+    #     pylab.semilogy(alpha_angles, R)
+    #     pylab.semilogy(alpha_angles, T)
+    #     pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
+    #     nplot = nplot + 1
+    #
+    #
+    # pylab.show()
 
 
 if __name__ == '__main__':

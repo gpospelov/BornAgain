@@ -3,6 +3,7 @@ Demonstrates how to plot evanescent wave intensity as a function of z-coordinate
 Specular simulation geometry.
 """
 import numpy
+import matplotlib
 import pylab
 from bornagain import *
 
@@ -34,7 +35,7 @@ def get_sample():
     # adding layers
     my_sample.addLayer(l_ambience)
 
-    n_repetitions = 10
+    n_repetitions = 5
     for i in range(n_repetitions):
         my_sample.addLayerWithTopRoughness(l_part_a, roughness)
         my_sample.addLayerWithTopRoughness(l_part_b, roughness)
@@ -51,7 +52,7 @@ def get_simulation():
     """
     simulation = SpecularSimulation()
     simulation.setBeamParameters(1.54*angstrom, 10, alpha_i_min*degree, alpha_i_max*degree)
-    simulation.setEvanescentWaveAxis(10, -200., 0.0)
+    simulation.setEvanescentWaveAxis(32, -80., 0.0)
     return simulation
 
 
@@ -67,6 +68,20 @@ def run_simulation():
     # plotting results for several selected layers
     # selected_layers = [0, 1, 20, 21]
     # alpha_angles = simulation.getAlphaAxis().getBinCenters()
+
+    result = simulation.getEvanescentWaveIntensity()
+    print result.getArray()
+    print result.getAxis(0).getMin(), result.getAxis(0).getMax(), result.getAxis(1).getMin(), result.getAxis(1).getMax()
+
+
+
+    im = pylab.imshow(numpy.rot90(result.getArray(), 1), norm=matplotlib.colors.LogNorm(),
+                      extent=[result.getAxis(0).getMin(), result.getAxis(0).getMax(), result.getAxis(1).getMin(), result.getAxis(1).getMax()], aspect='auto')
+    # cb = pylab.colorbar(im)
+    # cb.set_label(r'Intensity (arb. u.)', size=16)
+    # pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    # pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    pylab.show()
 
 
     # dpi = 72.

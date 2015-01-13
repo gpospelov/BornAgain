@@ -25,7 +25,7 @@
 #include "Simulation.h"
 #include "IIntensityFunction.h"
 #include "IObserver.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "Materials.h"

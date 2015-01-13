@@ -19,7 +19,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
@@ -294,8 +294,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     DistributionGaussian gauss(m_particle_radius, sigma);
 
     ParticleLayout particle_layout;
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(m_interf_distance,
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length
     FTDistribution1DGauss pdf(m_interf_width);
     p_interference_function->setProbabilityDistribution(pdf);

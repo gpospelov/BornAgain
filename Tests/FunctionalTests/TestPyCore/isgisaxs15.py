@@ -20,7 +20,7 @@ def RunSimulation():
 
     # collection of particles
     cylinder_ff = FormFactorCylinder(5 * nanometer, 5 * nanometer)
-    interference = InterferenceFunction1DParaCrystal(15.0 * nanometer, 1e3 * nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(15.0 * nanometer, 1e3 * nanometer)
     pdf = FTDistribution1DGauss(5 * nanometer)
     interference.setProbabilityDistribution(pdf)
     interference.setKappa(4.02698)

@@ -52,7 +52,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
-    result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
+    result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
@@ -133,7 +133,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::TransformationType
         << Constants::ParticleCoreShellType
         << Constants::ParticleDistributionType
-        << Constants::InterferenceFunction1DParaCrystalType
+        << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;
 

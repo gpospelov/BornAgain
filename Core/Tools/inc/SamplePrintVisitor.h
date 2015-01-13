@@ -105,7 +105,7 @@ public:
 
     virtual void visit(const IInterferenceFunction *sample);
     virtual void visit(const InterferenceFunction1DLattice *sample);
-    virtual void visit(const InterferenceFunction1DParaCrystal *sample);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal *sample);
     virtual void visit(const InterferenceFunction2DLattice *sample);
     virtual void visit(const InterferenceFunction2DParaCrystal *sample);
     virtual void visit(const InterferenceFunctionNone *sample);

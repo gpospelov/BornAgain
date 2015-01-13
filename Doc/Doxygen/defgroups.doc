@@ -66,7 +66,7 @@ A probability distribution function (pdf) is required in order to apply some  mo
 
 
 
-InterferenceFunction1DParaCrystal (peak\_distance, width, corr\_length)
+InterferenceFunctionRadialParaCrystal (peak\_distance, width, corr\_length)
 
 where peak\_distance, width, corr\_length are the parameters characterizing the probability distribution function.
 

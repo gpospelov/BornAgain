@@ -28,7 +28,7 @@ def RunSimulation():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(ripple, 0.0, 1.0)
 
-    interference = InterferenceFunction1DParaCrystal(20 * nanometer, 1e7 * nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(20 * nanometer, 1e7 * nanometer)
     pdf = FTDistribution1DGauss(4 * nanometer)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)

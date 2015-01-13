@@ -122,7 +122,7 @@ include_classes = [
     "Transform3D",
     "Instrument",
     "InterferenceFunction1DLattice",
-    "InterferenceFunction1DParaCrystal",
+    "InterferenceFunctionRadialParaCrystal",
     "InterferenceFunction2DLattice",
     "InterferenceFunction2DParaCrystal",
     "InterferenceFunctionNone",

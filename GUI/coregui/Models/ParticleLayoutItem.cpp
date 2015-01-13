@@ -33,7 +33,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
     addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
 }

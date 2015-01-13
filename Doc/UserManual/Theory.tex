@@ -195,7 +195,7 @@ The interference function is specified when building the sample. It is linked wi
 \begin{itemize}
 \item \Code{InterferenceFunctionNone()}
 \item \Code{InterferenceFunction1DLattice(lattice\_parameters)}
-\item \Code{InterferenceFunction1DParaCrystal(peak\_distance, width,corr\_length)}
+\item \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, width,corr\_length)}
 \item \Code{InterferenceFunction2DLattice(lattice\_parameters)}
 \item \Code{InterferenceFunction2DParaCrystal(length\_1, length\_2, $\alpha$\_lattice, $\xi$, \\ damping\_length)}
 \end{itemize}
@@ -306,7 +306,7 @@ def get_sample():
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\ding{253} \Code{InterferenceFunction1DParaCrystal(peak\_distance, width, corr\_length)}}  
+\subsubsection{\ding{253} \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, width, corr\_length)}}  
 \begin{itemize}
 \item[where] \Code{peak\_distance} is the average distance to the first neighbor peak, 
 \item[]\Code{width} is the width parameter of the probability distribution,
@@ -360,7 +360,7 @@ To illustrate the 1D paracrystal interference function, we use the same sample a
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define the 1D paracrystal interference function between half-spheres, where \Code{trsphere} is of type \Code{Particle}.},label={lst:1dpara}]
     particle_layout = ParticleLayout()
     particle_layout.addParticle(trsphere, 0.0, 1.0)
-    interference = InterferenceFunction1DParaCrystal(25.0*nanometer, 7*nanometer, 1e3*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(25.0*nanometer, 7*nanometer, 1e3*nanometer)
     particle_layout.addInterferenceFunction(interference)
 \end{lstlisting}
 
@@ -500,7 +500,7 @@ Function  & Parameters & Comments\\
 \Code{InterferenceFunction1DLattice} & \Code{lattice\_length} & use only with infinitely long/wide particles \\
   & $\xi=\widehat{(\mathbf{x},\mathbf{a})}$ & pdf=(Cauchy, Gauss or Voigt)  to be defined\\
 \hline
- \Code{InterferenceFunction1DParaCrystal}  & peak\_distance of pdf & only Gaussian pdf implemented (no option)\\
+ \Code{InterferenceFunctionRadialParaCrystal}  & peak\_distance of pdf & only Gaussian pdf implemented (no option)\\
    & width of pdf &\\
 & corr\_length (optional) & \\
 \hline

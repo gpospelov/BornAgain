@@ -3,10 +3,10 @@
 #include "item_constants.h"
 
 
-InterferenceFunction1DParaCrystalView::InterferenceFunction1DParaCrystalView(QGraphicsItem *parent)
+InterferenceFunctionRadialParaCrystalView::InterferenceFunctionRadialParaCrystalView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
-    setName(Constants::InterferenceFunction1DParaCrystalType);
+    setName(Constants::InterferenceFunctionRadialParaCrystalType);
     setLabel("Interference \n1D paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );

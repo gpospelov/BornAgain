@@ -400,7 +400,7 @@ void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
+void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
     print_default(sample);
 

@@ -30,24 +30,24 @@
 
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
-                              const InterferenceFunction1DParaCrystal *sample)
+                              const InterferenceFunctionRadialParaCrystal *sample)
 {
     item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE,
+                InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
                 sample->getPeakDistance() );
     item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH,
+                InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
                 sample->getDampingLength() );
     item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE,
+                InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE,
                 sample->getDomainSize() );
     item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_KAPPA,
+                InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
                 sample->getKappa() );
 
     const IFTDistribution1D *ipdf = sample->getPropabilityDistribution();
 
-    QString group_name = InterferenceFunction1DParaCrystalItem::P_PDF;
+    QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
 
     qDebug() << "    group_name" << group_name;
     if(const FTDistribution1DCauchy *pdf =

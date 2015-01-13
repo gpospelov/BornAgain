@@ -20,7 +20,7 @@ def get_sample():
     particle_layout.addParticle(sphere, 0.0, 1.0)
 
     # interferences
-    interference = InterferenceFunction1DParaCrystal(25.0*nanometer, 1e3*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(25.0*nanometer, 1e3*nanometer)
     pdf = FTDistribution1DGauss(7 * nanometer)
     interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)

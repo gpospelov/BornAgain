@@ -17,7 +17,7 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
@@ -54,8 +54,8 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(
                     m_corr_peak_distance, m_corr_length);
     FTDistribution1DGauss pdf(m_corr_width);
     p_interference_function->setProbabilityDistribution(pdf);

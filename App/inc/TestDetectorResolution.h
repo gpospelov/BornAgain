@@ -20,7 +20,7 @@
 #include "OutputData.h"
 #include "FormFactors.h"
 #include "ISample.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 
 class TestDetectorResolution : public IApplicationTest

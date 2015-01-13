@@ -6,7 +6,7 @@
 
 class FormFactorAnisoPyramid;
 class ParameterizedItem;
-class InterferenceFunction1DParaCrystal;
+class InterferenceFunctionRadialParaCrystal;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunction2DLattice;
 class LayerRoughness;
@@ -21,7 +21,7 @@ BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const FormFactorAnisoPyramid *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
-                       const InterferenceFunction1DParaCrystal *sample);
+                       const InterferenceFunctionRadialParaCrystal *sample);
 
 BA_CORE_API_ void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction2DParaCrystal *sample);

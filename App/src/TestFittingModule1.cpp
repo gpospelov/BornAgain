@@ -22,7 +22,7 @@
 #include "FormFactors.h"
 #include "Simulation.h"
 #include "ISquaredFunction.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "Materials.h"

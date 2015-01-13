@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/InterferenceFunction1DParaCrystal.cpp
-//! @brief     Implements class InterferenceFunction1DParaCrystal.
+//! @file      Samples/src/InterferenceFunctionRadialParaCrystal.cpp
+//! @brief     Implements class InterferenceFunctionRadialParaCrystal.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "MathFunctions.h"
 
-InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(
+InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
     : m_peak_distance(peak_distance)
     , m_damping_length(damping_length)
@@ -25,14 +25,14 @@ InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(
     , m_kappa(0.0)
     , m_domain_size(0.0)
 {
-    setName("InterferenceFunction1DParaCrystal");
+    setName("InterferenceFunctionRadialParaCrystal");
     if (m_damping_length==0.0) {
         m_use_damping_length = false;
     }
     init_parameters();
 }
 
-void InterferenceFunction1DParaCrystal::init_parameters()
+void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
     clearParameterPool();
     registerParameter("peak_distance", &m_peak_distance);
@@ -42,9 +42,9 @@ void InterferenceFunction1DParaCrystal::init_parameters()
 }
 
 
-InterferenceFunction1DParaCrystal *InterferenceFunction1DParaCrystal::clone() const {
-    InterferenceFunction1DParaCrystal *result =
-        new InterferenceFunction1DParaCrystal(
+InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::clone() const {
+    InterferenceFunctionRadialParaCrystal *result =
+        new InterferenceFunctionRadialParaCrystal(
             m_peak_distance, m_damping_length);
     result->setName(getName());
     result->setDomainSize(getDomainSize());
@@ -56,10 +56,10 @@ InterferenceFunction1DParaCrystal *InterferenceFunction1DParaCrystal::clone() co
 }
 
 
-double InterferenceFunction1DParaCrystal::evaluate(const cvector_t& q) const
+double InterferenceFunctionRadialParaCrystal::evaluate(const cvector_t& q) const
 {
     if (!mp_pdf) {
-        throw NullPointerException("InterferenceFunction1DParaCrystal::"
+        throw NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");
     }
@@ -96,7 +96,7 @@ double InterferenceFunction1DParaCrystal::evaluate(const cvector_t& q) const
     return result;
 }
 
-complex_t InterferenceFunction1DParaCrystal::FTPDF(
+complex_t InterferenceFunctionRadialParaCrystal::FTPDF(
     double qpar) const
 {
     complex_t phase = std::exp(complex_t(0.0, 1.0)*qpar*m_peak_distance);
@@ -108,7 +108,7 @@ complex_t InterferenceFunction1DParaCrystal::FTPDF(
     return result;
 }
 
-void InterferenceFunction1DParaCrystal::setProbabilityDistribution(
+void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
         const IFTDistribution1D &pdf)
 {
     if (mp_pdf != &pdf) {
@@ -118,7 +118,7 @@ void InterferenceFunction1DParaCrystal::setProbabilityDistribution(
 }
 
 const IFTDistribution1D
-    *InterferenceFunction1DParaCrystal::getPropabilityDistribution() const
+    *InterferenceFunctionRadialParaCrystal::getPropabilityDistribution() const
 {
     return mp_pdf;
 }

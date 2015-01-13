@@ -30,7 +30,7 @@ def BuildSample(m_layer_thickness, m_cylinder_height, m_cylinder_radius):
     middle_layer = Layer(p_layer_material, m_layer_thickness)
     substrate_layer = Layer(p_substrate_material)
 
-    interference_funtion = InterferenceFunction1DParaCrystal(20.0*nanometer, 7*nanometer, 1e7*nanometer)
+    interference_funtion = InterferenceFunctionRadialParaCrystal(20.0*nanometer, 7*nanometer, 1e7*nanometer)
     ff_cylinder = FormFactorCylinder(m_cylinder_radius, m_cylinder_height)
     nano_particle = Particle(n_particle, ff_cylinder )
     particle_collection = ParticleDecoration()

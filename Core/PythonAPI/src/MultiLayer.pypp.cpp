@@ -429,6 +429,16 @@ void register_MultiLayer_class(){
                 , ( bp::arg("i_layer"), bp::arg("thickness") ) );
         
         }
+        { //::MultiLayer::zToLayerIndex
+        
+            typedef ::std::size_t ( ::MultiLayer::*zToLayerIndex_function_type)( double ) ;
+            
+            MultiLayer_exposer.def( 
+                "zToLayerIndex"
+                , zToLayerIndex_function_type( &::MultiLayer::zToLayerIndex )
+                , ( bp::arg("z_value") ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

@@ -86,6 +86,7 @@ def run_simulation():
 
         pylab.subplot(2, 2, nplot)
         pylab.ylim(ymax=50.0, ymin=1e-06)
+        pylab.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
         pylab.semilogy(alpha_angles, R)
         pylab.semilogy(alpha_angles, T)
         pylab.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')

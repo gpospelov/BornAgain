@@ -1,5 +1,5 @@
 """
-Spheres at hex lattice
+Spheres on two hexagonal close packed layers
 """
 import numpy
 import matplotlib
@@ -12,7 +12,7 @@ alpha_min, alpha_max = 0.0, 1.0
 
 def get_sample():
     """
-    Build and return the sample representing spheres at hex 2D lattice
+    Build and return the sample representing spheres on two hexagonal close packed layers
     """
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -23,23 +23,11 @@ def get_sample():
     sphere = Particle(m_particle, sphere_ff)
     particle_layout = ParticleLayout()
 
-
-    # pos0 = kvector_t(0.0, 0.0, 0.0)
-    # pos1 = kvector_t(radius, radius, radius + numpy.sqrt(3)*radius)
-    # # pos1 = kvector_t(0.0, 0.0, radius)
-    # particle_layout.addParticleInfo(PositionParticleInfo(sphere, pos0, 1.0))
-    # info1 = PositionParticleInfo(sphere, pos1, 1.0)
-    # # # info1.setDepth(numpy.sqrt(3)*radius)
-    # particle_layout.addParticleInfo(info1)
-
-
     pos0 = kvector_t(0.0, 0.0, 0.0)
-    # pos1 = kvector_t(0.0, 0.0, radius)
     pos1 = kvector_t(radius, radius, numpy.sqrt(3.0)*radius)
     basis = LatticeBasis()
     basis.addParticle(sphere, [pos0, pos1])
     particle_layout.addParticle(basis)
-
 
     interference = InterferenceFunction2DLattice.createHexagonal(radius*2.0)
     pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)

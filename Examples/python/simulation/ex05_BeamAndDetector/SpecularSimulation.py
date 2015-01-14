@@ -2,9 +2,7 @@
 R and T coefficients in multilayer, Specular simulation.
 """
 import numpy
-import matplotlib
 import pylab
-import cmath
 from bornagain import *
 
 

@@ -279,3 +279,11 @@ bool MultiLayer::requiresMatrixRTCoefficients() const
     return false;
 }
 
+size_t MultiLayer::zToLayerIndex(double z_value)
+{
+    if(z_value < m_layers_z.back()) return m_layers_z.size()-1;
+    std::vector<double>::reverse_iterator top_limit = std::upper_bound(m_layers_z.rbegin(), m_layers_z.rend(), z_value);
+    size_t nbin = m_layers_z.rend() - top_limit;
+    return nbin;
+}
+

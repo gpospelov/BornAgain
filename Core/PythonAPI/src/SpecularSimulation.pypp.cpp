@@ -202,7 +202,7 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getLayerRTCoefficients
         
-            typedef ::boost::shared_ptr< const ILayerRTCoefficients > ( ::SpecularSimulation::*getLayerRTCoefficients_function_type)( int,int ) const;
+            typedef ::boost::shared_ptr< const ILayerRTCoefficients > ( ::SpecularSimulation::*getLayerRTCoefficients_function_type)( ::std::size_t,::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getLayerRTCoefficients"
@@ -231,32 +231,32 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getScalarKz
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarKz_function_type)( int ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarKz_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarKz"
                 , getScalarKz_function_type( &::SpecularSimulation::getScalarKz )
-                , ( bp::arg("i_layer")=(int)(0) ) );
+                , ( bp::arg("i_layer") ) );
         
         }
         { //::SpecularSimulation::getScalarR
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarR_function_type)( int ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarR_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarR"
                 , getScalarR_function_type( &::SpecularSimulation::getScalarR )
-                , ( bp::arg("i_layer")=(int)(0) ) );
+                , ( bp::arg("i_layer") ) );
         
         }
         { //::SpecularSimulation::getScalarT
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarT_function_type)( int ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarT_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarT"
                 , getScalarT_function_type( &::SpecularSimulation::getScalarT )
-                , ( bp::arg("i_layer")=(int)(0) ) );
+                , ( bp::arg("i_layer") ) );
         
         }
         { //::SpecularSimulation::prepareSimulation
@@ -295,6 +295,26 @@ void register_SpecularSimulation_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::SpecularSimulation::setBeamParameters )
                 , ( bp::arg("lambda"), bp::arg("nbins"), bp::arg("alpha_i_min"), bp::arg("alpha_i_max") ) );
+        
+        }
+        { //::SpecularSimulation::setEvanescentWaveAxis
+        
+            typedef void ( ::SpecularSimulation::*setEvanescentWaveAxis_function_type)( ::IAxis const & ) ;
+            
+            SpecularSimulation_exposer.def( 
+                "setEvanescentWaveAxis"
+                , setEvanescentWaveAxis_function_type( &::SpecularSimulation::setEvanescentWaveAxis )
+                , ( bp::arg("z_axis") ) );
+        
+        }
+        { //::SpecularSimulation::setEvanescentWaveAxis
+        
+            typedef void ( ::SpecularSimulation::*setEvanescentWaveAxis_function_type)( int,double,double ) ;
+            
+            SpecularSimulation_exposer.def( 
+                "setEvanescentWaveAxis"
+                , setEvanescentWaveAxis_function_type( &::SpecularSimulation::setEvanescentWaveAxis )
+                , ( bp::arg("nbins"), bp::arg("z_min"), bp::arg("z_max") ) );
         
         }
         { //::SpecularSimulation::setSample

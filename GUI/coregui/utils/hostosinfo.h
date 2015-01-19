@@ -82,15 +82,15 @@ private:
 BA_CORE_API_ EOsType HostOsInfo::hostOs()
 {
 #if defined(Q_OS_WIN)
-    return OsTypeWindows;
+    return WINDOWS_OS;
 #elif defined(Q_OS_LINUX)
     return LINUX_OS;
 #elif defined(Q_OS_MAC)
-    return OsTypeMac;
+    return MAC_OS;
 #elif defined(Q_OS_UNIX)
-    return OsTypeOtherUnix;
+    return OTHER_UNIX_OS;
 #else
-    return OsTypeOther;
+    return OTHER_OS;
 #endif
 }
 

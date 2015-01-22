@@ -1,3 +1,0 @@
-
-Examples of BornAgain usage
-=============================

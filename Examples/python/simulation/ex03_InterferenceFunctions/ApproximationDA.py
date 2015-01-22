@@ -40,6 +40,7 @@ def get_sample():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder1, 0.0, 0.5)
     particle_layout.addParticle(cylinder2, 0.0, 0.5)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)

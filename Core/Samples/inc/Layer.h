@@ -95,6 +95,8 @@ public:
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 
+    double getTotalAbundance() const;
+
     void setNumberOfLayers(size_t n_layers) {
         mn_layers = n_layers;
     }

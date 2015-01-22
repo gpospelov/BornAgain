@@ -52,7 +52,10 @@ public:
     virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
 
     /// Get abundance fraction of particle with index
-    virtual double getAbundanceFractionOfParticle(size_t index) const=0;
+    virtual double getAbundanceOfParticle(size_t index) const=0;
+
+    /// Get total abundance of all particles
+    double getTotalAbundance() const;
 
     //! Returns number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
@@ -86,6 +89,14 @@ private:
     EInterferenceApproximation me_approx;
 };
 
+
+inline double ILayout::getTotalAbundance() const
+{
+    double total_abundance = 0.0;
+    for (size_t i=0; i<getNumberOfParticles(); ++i) {
+        total_abundance += getAbundanceOfParticle(i);
+    }
+    return total_abundance;
+}
+
 #endif /* ILAYOUT_H_ */
-
-

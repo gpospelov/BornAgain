@@ -25,14 +25,12 @@
 
 
 ParticleLayout::ParticleLayout()
-: m_total_abundance(0.0)
 {
     setName("ParticleLayout");
 }
 
 ParticleLayout::ParticleLayout(
         const IParticle& particle, double depth, double abundance)
-: m_total_abundance(0.0)
 {
     setName("ParticleLayout");
     addParticle(particle, depth, abundance);
@@ -54,7 +52,6 @@ ParticleLayout* ParticleLayout::clone() const
         p_new->addAndRegisterInterferenceFunction(
             m_interference_functions[i]->clone());
 
-    p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
 
@@ -73,7 +70,6 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
         p_new->addAndRegisterInterferenceFunction(
             m_interference_functions[i]->clone());
 
-    p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
 
@@ -120,9 +116,9 @@ const ParticleInfo* ParticleLayout::getParticleInfo(size_t index) const
         "Error! Not so many particles in this decoration.");
 }
 
-double ParticleLayout::getAbundanceFractionOfParticle(size_t index) const
+double ParticleLayout::getAbundanceOfParticle(size_t index) const
 {
-    return getParticleInfo(index)->getAbundance()/m_total_abundance;
+    return getParticleInfo(index)->getAbundance();
 }
 
 //! Adds interference functions
@@ -164,7 +160,6 @@ bool ParticleLayout::preprocess()
 void ParticleLayout::addAndRegisterParticleInfo(
     ParticleInfo *child)
 {
-    m_total_abundance += child->getAbundance();
     m_particles.push_back(child);
     registerChild(child);
 }
@@ -189,7 +184,6 @@ void ParticleLayout::replaceParticleDistribution(size_t index)
     for (size_t i=0; i<particles.size(); ++i) {
         addAndRegisterParticleInfo(particles[i]);
     }
-    m_total_abundance -= p_particle_info->getAbundance();
     deregisterChild(p_particle_info);
     m_particles.deleteElement(p_particle_info);
 }

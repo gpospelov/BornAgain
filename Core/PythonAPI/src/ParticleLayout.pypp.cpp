@@ -56,16 +56,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::cloneInvertB( );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const  {
-        if( bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" ) )
-            return func_getAbundanceFractionOfParticle( index );
+    virtual double getAbundanceOfParticle( ::std::size_t index ) const  {
+        if( bp::override func_getAbundanceOfParticle = this->get_override( "getAbundanceOfParticle" ) )
+            return func_getAbundanceOfParticle( index );
         else{
-            return this->ParticleLayout::getAbundanceFractionOfParticle( index );
+            return this->ParticleLayout::getAbundanceOfParticle( index );
         }
     }
     
-    double default_getAbundanceFractionOfParticle( ::std::size_t index ) const  {
-        return ParticleLayout::getAbundanceFractionOfParticle( index );
+    double default_getAbundanceOfParticle( ::std::size_t index ) const  {
+        return ParticleLayout::getAbundanceOfParticle( index );
     }
 
     virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
@@ -378,15 +378,15 @@ void register_ParticleLayout_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleLayout::getAbundanceFractionOfParticle
+        { //::ParticleLayout::getAbundanceOfParticle
         
-            typedef double ( ::ParticleLayout::*getAbundanceFractionOfParticle_function_type)( ::std::size_t ) const;
-            typedef double ( ParticleLayout_wrapper::*default_getAbundanceFractionOfParticle_function_type)( ::std::size_t ) const;
+            typedef double ( ::ParticleLayout::*getAbundanceOfParticle_function_type)( ::std::size_t ) const;
+            typedef double ( ParticleLayout_wrapper::*default_getAbundanceOfParticle_function_type)( ::std::size_t ) const;
             
             ParticleLayout_exposer.def( 
-                "getAbundanceFractionOfParticle"
-                , getAbundanceFractionOfParticle_function_type(&::ParticleLayout::getAbundanceFractionOfParticle)
-                , default_getAbundanceFractionOfParticle_function_type(&ParticleLayout_wrapper::default_getAbundanceFractionOfParticle)
+                "getAbundanceOfParticle"
+                , getAbundanceOfParticle_function_type(&::ParticleLayout::getAbundanceOfParticle)
+                , default_getAbundanceOfParticle_function_type(&ParticleLayout_wrapper::default_getAbundanceOfParticle)
                 , ( bp::arg("index") ) );
         
         }

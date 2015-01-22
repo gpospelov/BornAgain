@@ -104,20 +104,22 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mp_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_decoration = mp_layer->getLayout(m_layout_index);
+    const ILayout *p_layout = mp_layer->getLayout(m_layout_index);
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
+    double total_abundance = mp_layer->getTotalAbundance();
+    if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    size_t number_of_particles = p_decoration->getNumberOfParticles();
+    size_t number_of_particles = p_layout->getNumberOfParticles();
     for (size_t particle_index =
              0; particle_index<number_of_particles; ++particle_index) {
         const ParticleInfo *p_particle_info =
-            p_decoration->getParticleInfo(particle_index);
+            p_layout->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info;
         p_ff_info = createFormFactorInfo(p_particle_info, p_layer_material,
                 wavevector_scattering_factor);
         p_ff_info->m_abundance =
-            p_decoration->getAbundanceFractionOfParticle(particle_index);
+            p_layout->getAbundanceOfParticle(particle_index)/total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
     return;

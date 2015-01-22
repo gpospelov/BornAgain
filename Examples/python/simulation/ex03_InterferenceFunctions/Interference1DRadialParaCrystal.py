@@ -1,5 +1,5 @@
 """
-radial paracrystal (IsGISAXS example ex-4)
+radial paracrystal
 """
 import numpy
 import matplotlib

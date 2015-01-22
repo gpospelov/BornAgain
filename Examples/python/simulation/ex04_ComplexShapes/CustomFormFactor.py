@@ -10,32 +10,42 @@ from bornagain import *
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
+def sinc(x):
+    if abs(x) == 0.:
+        return 1.
+    else:
+        return cmath.sin(x)/x
 
 class CustomFormFactor(IFormFactorBorn):
     """
     A custom defined form factor
-    The form factor is V sech(q L) with
-    V volume of particle
-    L length scale which defines mean radius
+    The particle is a polyhedron, whose planar cross section is a "plus" shape
+    with a side length L.
+    H is the height of particle
     """
-    def __init__(self, V, L):
+    def __init__(self, L, H): 
         IFormFactorBorn.__init__(self)
         # parameters describing the form factor
-        self.V = V
         self.L = L
+        self.H = H
 
+  
     def clone(self):
         """
         IMPORTANT NOTE:
         The clone method needs to call transferToCPP() on the cloned object
         to transfer the ownership of the clone to the cpp code
         """
-        cloned_ff = CustomFormFactor(self.V, self.L)
+        cloned_ff = CustomFormFactor(self.L, self.H) 
         cloned_ff.transferToCPP()
         return cloned_ff
 
     def evaluate_for_q(self, q):
-        return self.V*1.0/cmath.cosh(q.mag()*self.L)
+        qzhH = 0.5*q.z()*self.H
+        qxhL = 0.5*q.x()*self.L
+        qyhL = 0.5*q.y()*self.L
+        return 0.5*self.H*self.L**2*cmath.exp(complex(0.,1.)*qzhH)*sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL) - 0.5*sinc(0.5*qxhL)) + sinc(0.5*qxhL)*sinc(qyhL))
+
 
 
 def get_sample():
@@ -48,7 +58,7 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff = CustomFormFactor(343.0*nanometer, 7.0*nanometer)
+    ff = CustomFormFactor(20.0*nanometer, 15.0*nanometer)
     particle = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(particle, 0.0, 1.0)

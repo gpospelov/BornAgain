@@ -1,5 +1,5 @@
 """
-2D paracrystal (IsGISAXS example ex-4)
+2D paracrystal
 """
 import numpy
 import matplotlib

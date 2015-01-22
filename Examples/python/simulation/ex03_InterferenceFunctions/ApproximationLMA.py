@@ -32,21 +32,21 @@ def get_sample():
     cylinder2 = Particle(m_particle, cylinder_ff2)
 
     # interference function1
-    interference1 = InterferenceFunctionRadialParaCrystal(16.0*nanometer, 1e3*nanometer)
+    interference1 = InterferenceFunctionRadialParaCrystal(16.8*nanometer, 1e3*nanometer)
     pdf = FTDistribution1DGauss(3 * nanometer)
     interference1.setProbabilityDistribution(pdf)
 
     # interference function2
-    interference2 = InterferenceFunctionRadialParaCrystal(20.0*nanometer, 1e3*nanometer)
+    interference2 = InterferenceFunctionRadialParaCrystal(22.8*nanometer, 1e3*nanometer)
     interference2.setProbabilityDistribution(pdf)
 
      # assembling the sample
     particle_layout1 = ParticleLayout()
-    particle_layout1.addParticle(cylinder1)
+    particle_layout1.addParticle(cylinder1, 0.0, 0.8)
     particle_layout1.addInterferenceFunction(interference1)
 
     particle_layout2 = ParticleLayout()
-    particle_layout2.addParticle(cylinder2)
+    particle_layout2.addParticle(cylinder2, 0.0, 0.2)
     particle_layout2.addInterferenceFunction(interference2)
 
     air_layer = Layer(m_ambience)

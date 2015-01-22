@@ -40,9 +40,9 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_cloneInvertB(  );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const {
-        bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" );
-        return func_getAbundanceFractionOfParticle( index );
+    virtual double getAbundanceOfParticle( ::std::size_t index ) const {
+        bp::override func_getAbundanceOfParticle = this->get_override( "getAbundanceOfParticle" );
+        return func_getAbundanceOfParticle( index );
     }
 
     virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
@@ -305,13 +305,13 @@ void register_ILayout_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ILayout::getAbundanceFractionOfParticle
+        { //::ILayout::getAbundanceOfParticle
         
-            typedef double ( ::ILayout::*getAbundanceFractionOfParticle_function_type)( ::std::size_t ) const;
+            typedef double ( ::ILayout::*getAbundanceOfParticle_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
-                "getAbundanceFractionOfParticle"
-                , bp::pure_virtual( getAbundanceFractionOfParticle_function_type(&::ILayout::getAbundanceFractionOfParticle) )
+                "getAbundanceOfParticle"
+                , bp::pure_virtual( getAbundanceOfParticle_function_type(&::ILayout::getAbundanceOfParticle) )
                 , ( bp::arg("index") ) );
         
         }
@@ -362,6 +362,15 @@ void register_ILayout_class(){
                 , bp::pure_virtual( getParticleInfo_function_type(&::ILayout::getParticleInfo) )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ILayout::getTotalAbundance
+        
+            typedef double ( ::ILayout::*getTotalAbundance_function_type)(  ) const;
+            
+            ILayout_exposer.def( 
+                "getTotalAbundance"
+                , getTotalAbundance_function_type( &::ILayout::getTotalAbundance ) );
         
         }
         { //::ILayout::getTotalParticleSurfaceDensity

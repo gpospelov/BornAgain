@@ -61,7 +61,7 @@ public:
     virtual const ParticleInfo *getParticleInfo(size_t index) const;
 
     //! Get abundance fraction of particle with index
-    double getAbundanceFractionOfParticle(size_t index) const;
+    double getAbundanceOfParticle(size_t index) const;
 
     //! Returns number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const
@@ -98,9 +98,6 @@ private:
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
-
-    //! Currently only a scalar interference function (instead of matrix)
-    double m_total_abundance;
 };
 
 #endif // PARTICLEDECORATION_H

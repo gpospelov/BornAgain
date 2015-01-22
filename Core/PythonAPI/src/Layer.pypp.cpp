@@ -470,6 +470,15 @@ void register_Layer_class(){
                 , default_getThickness_function_type(&Layer_wrapper::default_getThickness) );
         
         }
+        { //::Layer::getTotalAbundance
+        
+            typedef double ( ::Layer::*getTotalAbundance_function_type)(  ) const;
+            
+            Layer_exposer.def( 
+                "getTotalAbundance"
+                , getTotalAbundance_function_type( &::Layer::getTotalAbundance ) );
+        
+        }
         { //::Layer::getTotalParticleSurfaceDensity
         
             typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)( ::std::size_t ) const;

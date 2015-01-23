@@ -239,7 +239,7 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
     OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
 
-    std::cout << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max) << std::endl;
+    qDebug() << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max);
 
 
     this->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming

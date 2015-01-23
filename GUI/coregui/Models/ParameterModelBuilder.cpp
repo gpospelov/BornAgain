@@ -145,8 +145,12 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
             insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamItem);
 
             double v = beamItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>().getValue();
-            QVariant variant(v);
-            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant, beamItem);
+            QVariant variant_inclination(v);
+            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant_inclination, beamItem);
+
+            v = beamItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>().getValue();
+            insertRowIntoItem(standardItem, BeamItem::P_AZIMUTHAL_ANGLE, QVariant(v), beamItem);
+
         }
     }
 

@@ -47,7 +47,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
 
     Q_ASSERT(sample.get());
     sample->setName(name.toUtf8().constData());
-    sample->printSampleTree();
+    //sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;
     return guiBuilder.populateSampleModel(sampleModel, sample.get());

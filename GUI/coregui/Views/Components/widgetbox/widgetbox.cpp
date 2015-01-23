@@ -181,7 +181,7 @@ void WidgetBox::handleMousePress(const QString &name, const QString &xml, const 
     Q_UNUSED(global_mouse_pos);
     if (QApplication::mouseButtons() != Qt::LeftButton) return;
 
-    std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
+    //std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
     DesignerMimeData::execDrag(name, xml, this );
 }
 
@@ -259,7 +259,7 @@ bool WidgetBox::save()
 static const QDesignerMimeData *checkDragEvent(QDropEvent * event,
                                                bool acceptEventsFromWidgetBox)
 {
-    std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
+    //std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
     const QDesignerMimeData *mimeData = qobject_cast<const QDesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();

@@ -37,7 +37,8 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     m_intensityText->setValidator(m_intensityValidator);
 
     m_wavelengthSpinBox->setSingleStep(0.1);
-    m_wavelengthSpinBox->setDecimals(3);
+    m_wavelengthSpinBox->setDecimals(4);
+    m_wavelengthSpinBox->setMinimum(0.0001);
     m_wavelengthSpinBox->setMaximum(100.);
 
     m_beamTypeCombo->addItem("Monochromatic");

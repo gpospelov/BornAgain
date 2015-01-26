@@ -59,7 +59,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData().getArray()
+    result = simulation.getIntensityData()
 
     # showing the result (+1 is added to all intensities for log scale)
     data = result.getArray() + 1

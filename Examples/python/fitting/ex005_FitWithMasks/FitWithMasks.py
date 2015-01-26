@@ -133,11 +133,14 @@ def run_fitting():
 
     fit_suite = FitSuite()
 
-    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
-    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
-
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)  # x1,y1,x2,y2
+    # masking example: rwo excluded areas on the plot
     # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
+
+    # another mask example: one big square with two excluded areas in it
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)
+    # IntensityDataFunctions.addEllipticMask(real_data, 0.0*degree, 1.2*degree, 0.3*degree, 0.2*degree)
 
     fit_suite.addSimulationAndRealData(simulation, real_data)
 

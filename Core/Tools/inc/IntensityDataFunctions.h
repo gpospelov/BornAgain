@@ -48,6 +48,11 @@ public:
     static void setEllipticMask(OutputData<double>& data,
         double xc, double yc, double rx, double ry, bool invert_flag = false);
 
+    //! Adds elliptic mask to IntensityData to exclude all points outside the
+    //! mask from analysis
+    static void addEllipticMask(OutputData<double>& data,
+        double xc, double yc, double rx, double ry, bool invert_flag = false);
+
     //! Returns relative difference between two data sets
     //! sum(result[i] - reference[i])/reference[i])
     static double getRelativeDifference(const OutputData<double> &result,

@@ -86,7 +86,6 @@ TEST_F(IntensityDataFunctionsTest, AddRectangularMask)
     data.setAllTo(0.0);
     IntensityDataFunctions::addRectangularMask(data, -3.0, -0.5, 1.0, 1.49);
     IntensityDataFunctions::addRectangularMask(data, 1.5, 0.5, 3.5, 2.5);
-//    IntensityDataFunctions::addRectangularMask(data, 1.5, -0.5, 3.5, 0.5);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
         data[i] = i;
@@ -100,10 +99,9 @@ TEST_F(IntensityDataFunctionsTest, AddRectangularMask)
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
         double x = data.getValueOfAxis("x", it.getIndex());
         double y = data.getValueOfAxis("y", it.getIndex());
-//        EXPECT_EQ(x, xref[index]);
-//        EXPECT_EQ(y, yref[index]);
+        EXPECT_EQ(x, xref[index]);
+        EXPECT_EQ(y, yref[index]);
         EXPECT_EQ(*it, vref[index]);
-        std::cout << index << " " << *it << std::endl;
         ++index;
     }
     data.removeAllMasks();

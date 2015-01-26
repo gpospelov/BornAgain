@@ -20,8 +20,14 @@ void IntensityDataFunctions::addRectangularMask(OutputData<double> &data, double
 void IntensityDataFunctions::setEllipticMask(OutputData<double>& data,
     double xc, double yc, double rx, double ry, bool invert_flag)
 {
-    Mask *mask1 = OutputDataFunctions::CreateEllipticMask(data, xc, yc, rx, ry);
+    Mask *mask1 = OutputDataFunctions::CreateEllipticMask(data, xc, yc, rx, ry, invert_flag);
     data.setMask(*mask1);
+}
+
+void IntensityDataFunctions::addEllipticMask(OutputData<double> &data, double xc, double yc, double rx, double ry, bool invert_flag)
+{
+    Mask *mask1 = OutputDataFunctions::CreateEllipticMask(data, xc, yc, rx, ry, invert_flag);
+    data.addMask(*mask1);
 }
 
 double IntensityDataFunctions::getRelativeDifference(

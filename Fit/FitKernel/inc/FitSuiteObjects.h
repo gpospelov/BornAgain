@@ -101,6 +101,10 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     void setNfreeParameters(int nfree_parameters ) {
         m_nfree_parameters = nfree_parameters; }
 
+    //! Returns chi-squared map
+    OutputData<double> * getChiSquaredMap(size_t i_item = 0);
+
+
  protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}

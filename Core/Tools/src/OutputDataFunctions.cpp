@@ -398,7 +398,7 @@ void OutputDataFunctions::applyFunction(
 
 Mask* OutputDataFunctions::CreateRectangularMask(
     const OutputData<double>& data,
-    const double* minima, const double* maxima)
+    const double* minima, const double* maxima, bool invert_flag)
 {
     size_t rank = data.getRank();
     int *minima_i = new int[rank];
@@ -412,7 +412,7 @@ Mask* OutputDataFunctions::CreateRectangularMask(
     }
     MaskCoordinateRectangleFunction *p_rectangle_function =
             new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
-    p_rectangle_function->setInvertFlag(true);
+    p_rectangle_function->setInvertFlag(invert_flag);
     delete[] minima_i;
     delete[] maxima_i;
     MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
@@ -422,21 +422,20 @@ Mask* OutputDataFunctions::CreateRectangularMask(
 }
 
 
-Mask* OutputDataFunctions::CreateRectangularMask(
-    const OutputData<double>& data, double x1, double y1, double x2, double y2)
+Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data, double x1, double y1, double x2, double y2, bool invert_flag)
 {
     if(data.getRank() != 2) throw LogicErrorException(
             "OutputDataFunctions::CreateRectangularMask2D()"
             " -> Error! Number of dimensions should be 2");
     const double minima[2]={x1, y1};
     const double maxima[2]={x2, y2};
-    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
+    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima, invert_flag);
 }
 
 
 Mask* OutputDataFunctions::CreateEllipticMask(
     const OutputData<double>& data,
-    const double* center, const double* radii)
+    const double* center, const double* radii, bool invert_flag)
 {
     size_t rank = data.getRank();
     int *center_i = new int[rank];
@@ -447,12 +446,15 @@ Mask* OutputDataFunctions::CreateEllipticMask(
         center_i[i] = (int)p_axis->findClosestIndex(center[i]);
         int lower_index = (int)p_axis->findClosestIndex(
                 (*p_axis)[center_i[i]] - radii[i] );
+//        int lower_index = (int)p_axis->findClosestIndex(center[i] - radii[i]);
+
         radii_i[i] = center_i[i] - lower_index;
+        std::cout << "XXX " << i << " center:" << center[i] << " center_i" << center_i[i] << " lower_index:" << lower_index << " radii_i[i]:" << radii_i[i]<< std::endl;
         dims_i[i] = (int)p_axis->getSize();
     }
     MaskCoordinateEllipseFunction *p_ellipse_function =
             new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
-    p_ellipse_function->setInvertFlag(true);
+    p_ellipse_function->setInvertFlag(invert_flag);
     delete[] center_i;
     delete[] radii_i;
     MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
@@ -462,15 +464,14 @@ Mask* OutputDataFunctions::CreateEllipticMask(
 }
 
 
-Mask* OutputDataFunctions::CreateEllipticMask(
-    const OutputData<double>& data, double xc, double yc, double rx, double ry)
+Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data, double xc, double yc, double rx, double ry, bool invert_flag)
 {
     if(data.getRank() != 2) throw LogicErrorException(
             "OutputDataFunctions::CreateRectangularMask2D() -> Error! Number"
             " of dimensions should be 2");
     const double center[2]={xc, yc};
     const double radii[2]={rx, ry};
-    return OutputDataFunctions::CreateEllipticMask(data, center, radii);
+    return OutputDataFunctions::CreateEllipticMask(data, center, radii, invert_flag);
 }
 
 //double OutputDataFunctions::GetDifference(const OutputData<double> &result,

@@ -81,18 +81,18 @@ namespace OutputDataFunctions
     //! limits
     BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
-        const double *minima, const double *maxima);
+        const double *minima, const double *maxima, bool invert_flag = false);
     BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
-        double x1, double y1, double x2, double y2);
+        double x1, double y1, double x2, double y2, bool invert_flag = false);
 
     //! Creates a elliptic mask based on the given OutputData object and limits
     BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
-        const double *center, const double *radii);
+        const double *center, const double *radii, bool invert_flag = false);
     BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
-        double xc, double yc, double rx, double ry);
+        double xc, double yc, double rx, double ry, bool invert_flag = false);
 
     // compare result with reference and return the difference
 //    BA_CORE_API_ double GetDifference(const OutputData<double> &result,

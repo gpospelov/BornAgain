@@ -20,6 +20,26 @@ void register_IntensityDataFunctions_class(){
         typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
         IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions" );
         bp::scope IntensityDataFunctions_scope( IntensityDataFunctions_exposer );
+        { //::IntensityDataFunctions::addEllipticMask
+        
+            typedef void ( *addEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
+            
+            IntensityDataFunctions_exposer.def( 
+                "addEllipticMask"
+                , addEllipticMask_function_type( &::IntensityDataFunctions::addEllipticMask )
+                , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) ) );
+        
+        }
+        { //::IntensityDataFunctions::addRectangularMask
+        
+            typedef void ( *addRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
+            
+            IntensityDataFunctions_exposer.def( 
+                "addRectangularMask"
+                , addRectangularMask_function_type( &::IntensityDataFunctions::addRectangularMask )
+                , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) ) );
+        
+        }
         { //::IntensityDataFunctions::createClippedDataSet
         
             typedef ::OutputData< double > * ( *createClippedDataSet_function_type )( ::OutputData< double > const &,double,double,double,double );
@@ -43,24 +63,26 @@ void register_IntensityDataFunctions_class(){
         }
         { //::IntensityDataFunctions::setEllipticMask
         
-            typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
+            typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
             
             IntensityDataFunctions_exposer.def( 
                 "setEllipticMask"
                 , setEllipticMask_function_type( &::IntensityDataFunctions::setEllipticMask )
-                , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry") ) );
+                , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) ) );
         
         }
         { //::IntensityDataFunctions::setRectangularMask
         
-            typedef void ( *setRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double );
+            typedef void ( *setRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double,bool );
             
             IntensityDataFunctions_exposer.def( 
                 "setRectangularMask"
                 , setRectangularMask_function_type( &::IntensityDataFunctions::setRectangularMask )
-                , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") ) );
+                , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) ) );
         
         }
+        IntensityDataFunctions_exposer.staticmethod( "addEllipticMask" );
+        IntensityDataFunctions_exposer.staticmethod( "addRectangularMask" );
         IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
         IntensityDataFunctions_exposer.staticmethod( "getRelativeDifference" );
         IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );

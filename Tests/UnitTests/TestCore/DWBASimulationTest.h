@@ -83,7 +83,7 @@ TEST_F(DWBASimulationTest, MaskedThreadIterator)
         (*it) = double(index++);
     }
 
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(m_data, 1.99, 0.99, 7.01, 3.01);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(m_data, 1.99, 0.99, 7.01, 3.01, true);
     m_data.setMask(*mask1);
 
     m_sim.setDetectorParameters(m_data);

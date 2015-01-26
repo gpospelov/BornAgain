@@ -70,12 +70,18 @@ size_t VariableBinAxis::findClosestIndex(double value) const
     if(m_bin_boundaries.size()<2) {
         throw ClassInitializationException("VariableBinAxis::findClosestIndex() -> Error! VariableBinAxis not  correctly initialized");
     }
-    if (value < getMin() || value >= getMax()) {
-        std::ostringstream ostr;
-        ostr << "VariableBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-        throw OutOfBoundsException(ostr.str());
+//    if (value < getMin() || value >= getMax()) {
+//        std::ostringstream ostr;
+//        ostr << "VariableBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
+//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+//        throw OutOfBoundsException(ostr.str());
+//    }
+    if( value < getMin()) {
+        return 0;
+    } else if(value >= getMax()) {
+        return m_nbins-1;
     }
+
     std::vector<double>::const_iterator top_limit = std::lower_bound(m_bin_boundaries.begin(), m_bin_boundaries.end(), value);
     if( *top_limit != value ) --top_limit;
     size_t nbin = top_limit - m_bin_boundaries.begin();

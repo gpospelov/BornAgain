@@ -102,7 +102,8 @@ class DrawObserver(IObserver):
             pylab.colorbar(im)
             pylab.title('Simulated data')
             # plotting difference map
-            diff_map = (real_data - simulated_data)/(real_data + 1)
+            #diff_map = (real_data - simulated_data)/(real_data + 1)
+            diff_map= fit_suite.getFitObjects().getChiSquaredMap().getArray()
             pylab.subplot(2, 2, 3)
             im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
             pylab.colorbar(im)
@@ -118,6 +119,7 @@ class DrawObserver(IObserver):
                 pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
 
             pylab.draw()
+            pylab.pause(0.01)
 
 
 def run_fitting():
@@ -132,7 +134,15 @@ def run_fitting():
 
     fit_suite = FitSuite()
 
-    IntensityDataFunctions.setRectangularMask(real_data, -0.1*degree, 0.0*degree, 0.1*degree, 2.0*degree) # x1,y1,x2,y2
+    # masking example: two excluded rectangles on the plot
+    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
+    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
+
+    # another mask example: one big square with two excluded areas on it
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)
+    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)
+    # IntensityDataFunctions.addEllipticMask(real_data, 0.0*degree, 1.2*degree, 0.3*degree, 0.2*degree)
+
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
     fit_suite.initPrint(10)
@@ -141,8 +151,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/FormFactorCylinder/height", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*/FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter("*/FormFactorCylinder/height", 9.*nanometer, 0.01*nanometer, AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

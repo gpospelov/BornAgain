@@ -87,7 +87,8 @@ TEST_F(VariableBinAxisTest, FindClosestIndex)
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.6));
-    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+//    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+    EXPECT_EQ( size_t(1), v1.findClosestIndex(1.0));
 
     static const double arr2[] = {-1.5, -0.5, 0.5, 1.5};
     std::vector<double> values2 (arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
@@ -98,7 +99,8 @@ TEST_F(VariableBinAxisTest, FindClosestIndex)
     EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
-    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+//    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values3 (arr3, arr3 + sizeof(arr3) / sizeof(arr2[0]) );

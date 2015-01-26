@@ -4,15 +4,21 @@
 #include <boost/scoped_ptr.hpp>
 
 void IntensityDataFunctions::setRectangularMask(OutputData<double>& data,
-    double x1, double y1, double x2, double y2)
+    double x1, double y1, double x2, double y2, bool invert_flag)
 {
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(data, x1, y1, x2, y2);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(data, x1, y1, x2, y2, invert_flag);
     data.setMask(*mask1);
+}
+
+void IntensityDataFunctions::addRectangularMask(OutputData<double> &data, double x1, double y1, double x2, double y2, bool invert_flag)
+{
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(data, x1, y1, x2, y2, invert_flag);
+    data.addMask(*mask1);
 }
 
 
 void IntensityDataFunctions::setEllipticMask(OutputData<double>& data,
-    double xc, double yc, double rx, double ry)
+    double xc, double yc, double rx, double ry, bool invert_flag)
 {
     Mask *mask1 = OutputDataFunctions::CreateEllipticMask(data, xc, yc, rx, ry);
     data.setMask(*mask1);

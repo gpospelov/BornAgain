@@ -61,11 +61,16 @@ double FixedBinAxis::getMax() const
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {
-    if (value < getMin() || value >= getMax()) {
-        std::ostringstream ostr;
-        ostr << "FixedBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-        throw OutOfBoundsException(ostr.str());
+//    if (value < getMin() || value >= getMax()) {
+//        std::ostringstream ostr;
+//        ostr << "FixedBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
+//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+//        throw OutOfBoundsException(ostr.str());
+//    }
+    if( value < getMin()) {
+        return 0;
+    } else if(value >= getMax()) {
+        return m_nbins-1;
     }
 
     double step = (m_end - m_start)/m_nbins;

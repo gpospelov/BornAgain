@@ -67,4 +67,85 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 
 }
 
+
+//-------------------------------------------------  2.5
+// 2 ||  2  |  5  |  8  | 11  | 14 | 17 | 20 | 23 |
+//------------------------------------------------
+// 1 ||  1  |  4  |  7  | 10  | 13 | 16 | 19 | 22 |
+//------------------------------------------------
+// 0 ||  0  |  3  |  6  |  9  | 12 | 15 | 18 | 21 |
+//================================================== -0.5
+//   ||  0  |  1  |  2  |  3  |  4 |  5 |  6 |  7 |
+// -4.5                                         3.5
+
+TEST_F(IntensityDataFunctionsTest, AddRectangularMask)
+{
+    OutputData<double > data;
+    data.addAxis("x", 8, -4.5, 3.5);
+    data.addAxis("y", 3, -0.5, 2.5);
+    data.setAllTo(0.0);
+    IntensityDataFunctions::addRectangularMask(data, -3.0, -0.5, 1.0, 1.49);
+    IntensityDataFunctions::addRectangularMask(data, 1.5, 0.5, 3.5, 2.5);
+//    IntensityDataFunctions::addRectangularMask(data, 1.5, -0.5, 3.5, 0.5);
+
+    for(size_t i=0; i<data.getAllocatedSize(); ++i) {
+        data[i] = i;
+    }
+
+    int index(0);
+
+    std::vector<double> xref = boost::assign::list_of(-4.0)(-4.0)(-4.0)(-3.0)(-2.0)(-1.0)(0.0)(1.0)(2.0)(3.0);
+    std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(0.0);
+    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(21);
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        double x = data.getValueOfAxis("x", it.getIndex());
+        double y = data.getValueOfAxis("y", it.getIndex());
+//        EXPECT_EQ(x, xref[index]);
+//        EXPECT_EQ(y, yref[index]);
+        EXPECT_EQ(*it, vref[index]);
+        std::cout << index << " " << *it << std::endl;
+        ++index;
+    }
+    data.removeAllMasks();
+    index=0;
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        EXPECT_EQ( int(index++), int(it.getIndex()) );
+    }
+}
+
+
+//TEST_F(IntensityDataFunctionsTest, AddRectangularMask2)
+//{
+//    OutputData<double > data;
+//    data.addAxis("x", 8, -4.5, 3.5);
+//    data.addAxis("y", 3, -0.5, 2.5);
+//    data.setAllTo(0.0);
+//    IntensityDataFunctions::addRectangularMask(data, -3.0, -0.5, 1.0, 1.49, false);
+//    IntensityDataFunctions::addRectangularMask(data, 1.5, 0.5, 3.5, 2.5, false);
+
+//    for(size_t i=0; i<data.getAllocatedSize(); ++i) {
+//        data[i] = i;
+//    }
+
+//    int index(0);
+
+//    std::vector<double> xref = boost::assign::list_of(-4.0)(-4.0)(-4.0)(-3.0)(-2.0)(-1.0)(0.0)(1.0)(2.0)(3.0);
+//    std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(0.0);
+//    std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(21);
+//    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+//        double x = data.getValueOfAxis("x", it.getIndex());
+//        double y = data.getValueOfAxis("y", it.getIndex());
+//        EXPECT_EQ(x, xref[index]);
+//        EXPECT_EQ(y, yref[index]);
+//        EXPECT_EQ(*it, vref[index]);
+//        ++index;
+//    }
+//    data.removeAllMasks();
+//    index=0;
+//    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+//        EXPECT_EQ( int(index++), int(it.getIndex()) );
+//    }
+//}
+
+
 #endif

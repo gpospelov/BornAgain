@@ -398,7 +398,7 @@ void OutputDataFunctions::applyFunction(
 
 Mask* OutputDataFunctions::CreateRectangularMask(
     const OutputData<double>& data,
-    const double* minima, const double* maxima)
+    const double* minima, const double* maxima, bool invert_flag)
 {
     size_t rank = data.getRank();
     int *minima_i = new int[rank];
@@ -412,7 +412,7 @@ Mask* OutputDataFunctions::CreateRectangularMask(
     }
     MaskCoordinateRectangleFunction *p_rectangle_function =
             new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
-    p_rectangle_function->setInvertFlag(true);
+    p_rectangle_function->setInvertFlag(invert_flag);
     delete[] minima_i;
     delete[] maxima_i;
     MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
@@ -422,15 +422,14 @@ Mask* OutputDataFunctions::CreateRectangularMask(
 }
 
 
-Mask* OutputDataFunctions::CreateRectangularMask(
-    const OutputData<double>& data, double x1, double y1, double x2, double y2)
+Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data, double x1, double y1, double x2, double y2, bool invert_flag)
 {
     if(data.getRank() != 2) throw LogicErrorException(
             "OutputDataFunctions::CreateRectangularMask2D()"
             " -> Error! Number of dimensions should be 2");
     const double minima[2]={x1, y1};
     const double maxima[2]={x2, y2};
-    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
+    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima, invert_flag);
 }
 
 

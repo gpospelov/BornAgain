@@ -123,6 +123,7 @@ class DrawObserver(IObserver):
                 pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
 
             pylab.draw()
+            pylab.pause(0.01)
 
 
 def run_fitting():

@@ -152,3 +152,8 @@ std::string FitSuiteObjects::addParametersToExternalPool(
 
     return new_path;
 }
+
+OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item)
+{
+    return m_fit_objects[check_index(i_item)]->getChiSquaredModule()->createChi2DifferenceMap();
+}

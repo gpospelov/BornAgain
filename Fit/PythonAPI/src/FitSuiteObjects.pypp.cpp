@@ -131,6 +131,17 @@ void register_FitSuiteObjects_class(){
                 , clear_function_type( &::FitSuiteObjects::clear ) );
         
         }
+        { //::FitSuiteObjects::getChiSquaredMap
+        
+            typedef ::OutputData< double > * ( ::FitSuiteObjects::*getChiSquaredMap_function_type)( ::std::size_t ) ;
+            
+            FitSuiteObjects_exposer.def( 
+                "getChiSquaredMap"
+                , getChiSquaredMap_function_type( &::FitSuiteObjects::getChiSquaredMap )
+                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::FitSuiteObjects::getChiSquaredValue
         
             typedef double ( ::FitSuiteObjects::*getChiSquaredValue_function_type)(  ) const;

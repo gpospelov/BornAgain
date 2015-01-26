@@ -326,7 +326,6 @@ TEST_F(OutputDataTest, SetEllipticMask)
     std::vector<double> vref = boost::assign::list_of(0)(1)(2)(3)(4)(5)(6)(8)(9)(11)(15)(17)(18)(20)(21)(22)(23);
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
         EXPECT_EQ(*it, vref[index]);
-        std::cout << index << " " << *it << std::endl;
         ++index;
     }
     data.removeAllMasks();

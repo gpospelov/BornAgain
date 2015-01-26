@@ -172,6 +172,11 @@ def ManualClassTunings(mb):
         if "__gnu_cxx::__normal_iterator" in fun.decl_string:
             fun.exclude()
 
+    cl = mb.class_("FitSuiteObjects")
+    cl.member_function("getChiSquaredMap").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):

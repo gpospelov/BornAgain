@@ -102,7 +102,8 @@ class DrawObserver(IObserver):
             pylab.colorbar(im)
             pylab.title('Simulated data')
             # plotting difference map
-            diff_map = (real_data - simulated_data)/(real_data + 1)
+            #diff_map = (real_data - simulated_data)/(real_data + 1)
+            diff_map= fit_suite.getFitObjects().getChiSquaredMap().getArray()
             pylab.subplot(2, 2, 3)
             im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
             pylab.colorbar(im)
@@ -133,11 +134,11 @@ def run_fitting():
 
     fit_suite = FitSuite()
 
-    # masking example: rwo excluded areas on the plot
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
-    # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
+    # masking example: two excluded rectangles on the plot
+    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)  # x1,y1,x2,y2
+    IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 1.0*degree, 0.1*degree, 1.2*degree)  # x1,y1,x2,y2
 
-    # another mask example: one big square with two excluded areas in it
+    # another mask example: one big square with two excluded areas on it
     # IntensityDataFunctions.addRectangularMask(real_data, -0.6*degree, 0.0*degree, 0.6*degree, 1.5*degree, True)
     # IntensityDataFunctions.addRectangularMask(real_data, -0.1*degree, 0.1*degree, 0.1*degree, 0.2*degree)
     # IntensityDataFunctions.addEllipticMask(real_data, 0.0*degree, 1.2*degree, 0.3*degree, 0.2*degree)

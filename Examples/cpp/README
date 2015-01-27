@@ -2,9 +2,9 @@ BornAgain simulation example using C++ interface.
 
 This folder contains: 
 
---- ex001_CylindersAndPrisms ---
+--- ./CylindersAndPrisms ---
     Mixture of cylinders and prisms without interference.
-    Corresponds to IsGISAXS example #1.
+
 
 How to compile and run the example.
 -------------------------------------------------------------------------------

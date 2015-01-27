@@ -91,6 +91,10 @@ if(BORNAGAIN_RELEASE)
 
     # configure Doxyfile
     configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
+
+    # configure FindBornagain script
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/FindBornAgain.cmake.in"  "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
+
 endif()
 
 

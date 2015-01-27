@@ -7,7 +7,6 @@
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Units.h"
-#include "InterferenceFunctionNone.h"
 
 #include "TCanvas.h"
 #include "TH1D.h"
@@ -21,7 +20,7 @@
 #include "CylindersAndPrisms.h"
 
 
-void CylindersAndPrismsExample::setSample() 
+void CylindersAndPrismsExample::initSample() 
 {
     m_sample = new MultiLayer();
 
@@ -34,17 +33,11 @@ void CylindersAndPrismsExample::setSample()
     ParticleLayout particle_layout;
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    particle_layout.addParticle(
-                new Particle(particle_material,
-                             FormFactorCylinder(5*Units::nanometer,
-                                                    5*Units::nanometer)),
-                0.0, 0.5);
-    particle_layout.addParticle(
-                new Particle(particle_material,
-                             FormFactorPrism3(10*Units::nanometer,
-                                                  5*Units::nanometer)),
-                0.0, 0.5);
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+    Particle cylinder(particle_material, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer));
+    particle_layout.addParticle(cylinder, 0.0, 0.5);
+    
+    Particle prism(particle_material, FormFactorPrism3(10*Units::nanometer, 5*Units::nanometer));
+    particle_layout.addParticle(prism, 0.0, 0.5);
 
     air_layer.addLayout(particle_layout);
 
@@ -53,7 +46,7 @@ void CylindersAndPrismsExample::setSample()
 
 }
 
-void CylindersAndPrismsExample::setSimulation()  
+void CylindersAndPrismsExample::initSimulation()  
 {
     m_simulation = new Simulation();
 
@@ -66,10 +59,10 @@ void CylindersAndPrismsExample::setSimulation()
     m_simulation->setSample(*m_sample);
 }
 
-CylindersAndPrismsExample::CylindersAndPrismsExample() : m_result(0)
+CylindersAndPrismsExample::CylindersAndPrismsExample() : m_result(0), m_simulation(0), m_sample(0)
 {
-    setSample();
-    setSimulation();
+    initSample();
+    initSimulation();
 }
 
 void CylindersAndPrismsExample::runSimulation() 

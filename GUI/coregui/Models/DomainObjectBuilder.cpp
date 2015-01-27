@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/DomainObjectBuilder.cpp
-//! @brief     Implements class DomainObjectBuilder.
+//! @file      coregui/Models/DomainObjectBuilder.cpp
+//! @brief     Implements class DomainObjectBuilder
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching

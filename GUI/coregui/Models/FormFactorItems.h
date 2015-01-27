@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/FormFactorItems.h
-//! @brief     Defines FormFactorItem classes.
+//! @file      coregui/Models/FormFactorItems.h
+//! @brief     Defines FormFactorItems classes
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching

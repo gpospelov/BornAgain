@@ -3,36 +3,40 @@ BornAgain fitting examples.
 In this directory one can find examples of complete applications
 used for fitting.
 
---- ex001_SampleParametersIntro ---
+--- ex01_SampleParametersIntro ---
     This example shows how to create a sample with fixed parameters and then
     change this parameters on the fly during runtime.
     The example doesn't contain any fitting and serve as a gentle introduction
     to other fitting examples.
 
---- ex002_FitCylindersAndPrisms ---
+--- ex02_FitCylindersAndPrisms ---
     The model "mixture of cylinders and prisms without interference"
     will be used to fit real data.
     FitCylindersAndPrisms.py shows minimal fitting example
     FitCylindersAndPrisms_detailed.py is more detailed version + some graphical output
 
---- ex003_FitSpheresInHexLattice ---
+--- ex03_FitSpheresInHexLattice ---
     Two parameter fit of spheres in a hex lattice.
     FitSpheresInHexLattice.py - demonstrate standard approach
     FitSpheresInHexLattice_builder.py - shows advanced way using sample builder, which might be useful for complex
     samples
 
---- ex004_FitScaleAndShift ---
+--- ex04_FitScaleAndShift ---
     FitScaleAndShift.py - in this example we are trying to fit the data representing cylinders without interference
     on top of substrate. Real data contains some "unknown" background and scale factors.
     In four parameters fit we are looking for cylinder's height and radius and for background and scale factors.
 
---- ex005_FitWithMasks ---
+--- ex05_FitWithMasks ---
     FitWithMasks.py - two parameter fit of cylinders without interference.
-    Real data contains rectangular mask to simulate and fit only the area inside the mask.
+    Real data contains rectangular masks to simulate and fit only the area outside the masks.
 
---- ex006_FitStrategies ---
+--- ex06_FitStrategies ---
     FitStrategyAdjustMinimizer.py - in this example we are trying to find cylinder's height and radius using chain
     of minimizers. During the first fit round Genetic minimizer will be used. It will roughly look for possible
     global minimas. After it is done, the second Minuit2 minimizer will continue to find the precise location of local
     minima.
 
+--- ex07_ImportUserData
+    This directory contains examples for importing raw X,Y detector data into BornAgain's
+    IntensityData object (phi_f, alpha_f space)
+    ImportMariaData.py - in this example we load ASCII data from Maria reflectometer

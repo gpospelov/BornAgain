@@ -8,22 +8,27 @@ This folder contains:
 
 How to compile and run the example.
 -------------------------------------------------------------------------------
-1) Install third party software
+1.1) Install third party software
 -------------------------------------------------------------------------------
 Required:
 * compilers: clang  versions >=3.1 or GCC versions >=4.2
 * cmake >=2.8
 * boost library >=1.48
 * Eigen3 library >=3.1.0
-* BornAgain library
 * ROOT framework (to plot the result)
 
 -------------------------------------------------------------------------------
-2) Building with CMake
+1.2) Setup BornAgain library
+-------------------------------------------------------------------------------
+* install BornAgain library
+* add BornAgain libraries to path by running: source <BornAgain_install_dir>/bin/thisbornagain.sh
+
+-------------------------------------------------------------------------------
+2) Build given example with CMake
 -------------------------------------------------------------------------------
 mkdir <build_dir>
 cd <build_dir>
-cmake <source_dir> 
+cmake <exmaple_source_dir> 
 make
 
 -------------------------------------------------------------------------------

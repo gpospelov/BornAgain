@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/utils/GUIFunctionalTest.h
+//! @brief     Defines class GUIFunctionalTest
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef GUIFUNCTIONALTEST_H
 #define GUIFUNCTIONALTEST_H
 

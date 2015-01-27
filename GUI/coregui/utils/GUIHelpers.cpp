@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      utils/GUIHelpers.cpp
-//! @brief     Implements GUI helper functions.
+//! @file      coregui/utils/GUIHelpers.cpp
+//! @brief     Implements GUIHelpers functions
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching

@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/Instrument.cpp
 //! @brief     Implements class Instrument.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -167,4 +167,3 @@ void Instrument::print(std::ostream& ostr) const
     ostr << "    " << m_beam << std::endl;
     ostr << "    " << m_detector << std::endl;
 }
-

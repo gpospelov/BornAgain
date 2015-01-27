@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/Simulation.cpp
 //! @brief     Implements class Simulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -466,4 +466,3 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
         dwba_progress->setCallback(callback);
     }
 }
-

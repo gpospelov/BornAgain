@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/Detector.cpp
 //! @brief     Implements class Detector.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -200,6 +200,3 @@ void Detector::print(std::ostream& ostr) const
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }
 }
-
-
-

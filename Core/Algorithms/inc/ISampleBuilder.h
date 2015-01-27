@@ -5,7 +5,7 @@
 //! @file      Algorithms/inc/ISampleBuilder.h
 //! @brief     Defines class ISampleBuilder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -39,5 +39,3 @@ protected:
 typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
 
 #endif /* ISAMPLEBUILDER_H_ */
-
-

@@ -12,6 +12,7 @@
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #include "SampleMaterialVisitor.h"
 #include "IMaterial.h"
 #include "Layer.h"

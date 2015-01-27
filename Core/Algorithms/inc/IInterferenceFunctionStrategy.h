@@ -5,7 +5,7 @@
 //! @file      Algorithms/inc/IInterferenceFunctionStrategy.h
 //! @brief     Defines class IInterferenceFunctionStrategy.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -113,5 +113,3 @@ inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t& k_i,
 }
 
 #endif /* IINTERFERENCEFUNCTIONSTRATEGY_H_ */
-
-

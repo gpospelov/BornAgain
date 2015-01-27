@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp
 //! @brief     Implements class SizeSpacingCorrelationApproximationStrategy.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -158,4 +158,3 @@ void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
     }
     if (total_abundance>0.0) m_mean_radius /= total_abundance;
 }
-

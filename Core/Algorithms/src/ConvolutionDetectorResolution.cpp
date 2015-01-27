@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/ConvolutionDetectorResolution.cpp
 //! @brief     Implements class ConvolutionDetectorResolution.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -222,5 +222,3 @@ double ConvolutionDetectorResolution::getIntegratedPDF2d(double x,
             - mp_res_function_2d->evaluateCDF(xmin, ymax) + mp_res_function_2d->evaluateCDF(xmin, ymin);
     return result;
 }
-
-

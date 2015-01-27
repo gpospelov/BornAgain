@@ -5,7 +5,7 @@
 //! @file      Algorithms/inc/IFittingDataSelector.h
 //! @brief     Defines classes IFittingDataSelector and DefaultAllDataSelector.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -54,5 +54,3 @@ public:
 };
 
 #endif /* IFITTINGDATASELECTOR_H_ */
-
-

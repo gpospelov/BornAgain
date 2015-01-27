@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/ResolutionFunction2DGaussian.cpp
 //! @brief     Implements class ResolutionFunction2DGaussian.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -53,5 +53,3 @@ void ResolutionFunction2DGaussian::init_parameters()
     registerParameter("sigma_x", &m_sigma_x);
     registerParameter("sigma_y", &m_sigma_y);
 }
-
-

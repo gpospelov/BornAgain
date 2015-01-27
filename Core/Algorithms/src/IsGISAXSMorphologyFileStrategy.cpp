@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp
 //! @brief     Implements class IsGISAXSMorphologyFileStrategy.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -114,5 +114,3 @@ double IsGISAXSMorphologyFileStrategy::hannFunction(double x, double y) const
     double result = (M_PI*M_PI/4.0)*std::cos(M_PI*x/m_win_x)*std::cos(M_PI*y/m_win_y);
     return result;
 }
-
-

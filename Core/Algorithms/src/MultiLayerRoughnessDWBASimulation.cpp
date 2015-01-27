@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp
 //! @brief     Implements class MultiLayerRoughnessDWBASimulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -152,6 +152,3 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
 
     return term1 + term2 + term3 + term4;
 }
-
-
-

@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/Mask.cpp
 //! @brief     Implements classes Mask, MaskIndexModulus, MaskCoordinates.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -181,5 +181,3 @@ void MaskCoordinates::setCachedCoordinates(size_t index) const
         remainder = remainder / m_dims[i-1];
     }
 }
-
-

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/BornAgainNamespace.h
-//! @brief     Defines some complex and vector types.
+//! @brief     Defines BornAgain namespace
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

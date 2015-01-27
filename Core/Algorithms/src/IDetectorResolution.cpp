@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/IDetectorResolution.cpp
 //! @brief     Implements default behaviour of IDetectorResolution interface.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching

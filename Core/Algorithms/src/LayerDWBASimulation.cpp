@@ -5,7 +5,7 @@
 //! @file      Algorithms/src/LayerDWBASimulation.cpp
 //! @brief     Implements class LayerDWBASimulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -37,4 +37,3 @@ Bin1DCVector LayerDWBASimulation::getKfBin(double wavelength,
     Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);
     return k_f_bin;
 }
-

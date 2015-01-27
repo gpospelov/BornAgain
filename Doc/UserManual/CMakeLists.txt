@@ -42,7 +42,8 @@ set(UM_IMAGES
     Figures/toyfit_chi2_p23.eps
     Figures/minimization_workflow.eps
     Figures/Manual_ex1.eps
-    Figures/multilayer3d3.eps
+    #Figures/multilayer3d3.eps
+    Figures/setup_multilayer.jpg
     Figures/basic_architecture.eps
     Figures/AnisoPyramid2dxy.eps
     Figures/AnisoPyramid2dxz.eps
@@ -129,7 +130,7 @@ set(UM_IMAGES
     Figures/HSphere_1DDL.pdf
     Figures/1DGrating.eps
     Figures/2Dlattice.eps
-    Figures/1Dparacrystal.eps
+    #Figures/1Dparacrystal.eps
     Figures/HSphere_2Dlattice.pdf
     Figures/HSphere_2DDL.pdf
     Figures/drawingSSCA.eps
@@ -178,7 +179,7 @@ set(UM_IMAGES
     #Figures/g_r_2dpara.jpg
     Figures/g_r_2dparasq.jpg
     Figures/UserAPI_IntensityDataLayout.eps
-
+    
 )
 
 

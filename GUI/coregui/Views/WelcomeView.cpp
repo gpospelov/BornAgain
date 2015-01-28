@@ -217,7 +217,7 @@ void WelcomeView::onWebLinkClicked(const QUrl &url)
 
 void WelcomeView::onNewUser()
 {
-    QUrl url(tr("http://apps.jcns.fz-juelich.de/doku/sc/bornagain:start"));
+    QUrl url(tr("http://www.bornagainproject.org"));
     QDesktopServices::openUrl(url);
 }
 

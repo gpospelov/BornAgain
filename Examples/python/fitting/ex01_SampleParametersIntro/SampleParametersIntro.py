@@ -10,7 +10,7 @@ to other fitting examples.
 import numpy
 import matplotlib
 import pylab
-from libBornAgainCore import *
+from bornagain import *
 
 
 def get_sample():

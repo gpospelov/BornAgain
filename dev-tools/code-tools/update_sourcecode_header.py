@@ -5,8 +5,15 @@ import glob
 
 directories = [
     "Core/Algorithms",
+    "Core/FormFactors",
+    "Core/Geometry",
+    "Core/Samples",
+    "Core/StandardSamples",
+    "Core/Tools",
+    "Fit/FitKernel",
+    "GUI/coregui",
+    "GUI/main"
 ]
-
 
 header_top = [
     u"// ************************************************************************** //",

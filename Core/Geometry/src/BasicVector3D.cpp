@@ -5,12 +5,11 @@
 //! @file       Geometry/src/BasicVector3D.cpp
 //! @brief      Implements template class BasicVector3D.
 //!
-//! Using code from CLHEP/Geometry by E. Chernyaev, see BasicVector3D.h.
-//!
-//! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
-//! @license    GNU General Public License v3 or higher (see COPYING)
-//! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 

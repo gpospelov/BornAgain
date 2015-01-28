@@ -7,9 +7,9 @@
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -376,7 +376,7 @@ QString JobQueueData::generateJobName()
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
-{    
+{
     return QUuid::createUuid().toString();
 }
 

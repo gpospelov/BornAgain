@@ -12,8 +12,7 @@ import matplotlib
 import pylab
 import math
 import ctypes
-from libBornAgainCore import *
-from libBornAgainFit import *
+from bornagain import *
 
 pylab.ion()
 fig = pylab.figure(1)

@@ -10,9 +10,12 @@ In this example, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
-simulation. The \Python\ script specific to each stage will be given at
-the beginning of the description. But for the sake of completeness the full code is given
-in Appendix~\ref{PythonSimulationExampleScript}.
+simulation. The \Python\ code snippet specific to each stage will be given at
+the beginning of the description. 
+More examples can be found at our project web site \url{http://www.bornagainproject.org/documentation/python_examples}
+
+% But for the sake of completeness the full code is given
+% in Appendix~\ref{PythonSimulationExampleScript}.
 
 
 % -----------------------------------------------------------------------------
@@ -23,7 +26,7 @@ in Appendix~\ref{PythonSimulationExampleScript}.
 import numpy @\label{import_lib_beg}@
 import matplotlib
 import pylab @\label{import_lib_end}@
-from libBornAgainCore import * @\label{import_ba}@
+from bornagain import * @\label{import_ba}@
 \end{lstlisting}
 We start by importing different functions from external
 modules, for example \Code{NumPy} (lines~\ref{import_lib_beg}-\ref{import_lib_end}), which

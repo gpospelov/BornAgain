@@ -6,8 +6,20 @@ from pyplusplus.module_builder import call_policies
 import utils_build
 
 license = '''\
-// BornAgain: simulate and fit scattering at grazing incidence
-//! @brief Automatically generated boost::python code for PythonFitAPI
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Automatically generated boost::python code for BornAgain Python bindings
+//! @brief     Automatically generated boost::python code for BornAgain Python bindings
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Juelich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 '''
 
 lib_name = 'libBornAgainFit'

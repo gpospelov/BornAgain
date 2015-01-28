@@ -18,8 +18,7 @@ cylinder_radius = prism3_half_side = 6nm as initial fit parameter values.
 
 See example FitCylindersPrisms_detailed.py for more details & graphical output
 """
-from libBornAgainCore import *
-from libBornAgainFit import *
+from bornagain import *
 
 
 def get_sample():

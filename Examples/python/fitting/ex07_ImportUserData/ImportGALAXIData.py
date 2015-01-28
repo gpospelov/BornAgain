@@ -9,7 +9,7 @@ Detector z corresponds to alpha_f, detector y corresponds to phi_f.
 
 import sys, os, matplotlib, pylab
 import numpy as np
-import gdal
+from osgeo import gdal
 from math import *
 from bornagain import *
 

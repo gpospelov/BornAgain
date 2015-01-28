@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/MaterialEditor/MaterialPropertyBrowser.cpp
+//! @brief     Implements class MaterialPropertyBrowser
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "MaterialPropertyBrowser.h"
 #include "MaterialModel.h"
 #include "MaterialItem.h"
@@ -162,7 +177,7 @@ void MaterialPropertyBrowser::updateBrowser()
     for( int i_row = 0; i_row < m_materialModel->rowCount( parentIndex); ++i_row) {
          QModelIndex itemIndex = m_materialModel->index( i_row, 0, parentIndex );
 
-         if (MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(itemIndex))){             
+         if (MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(itemIndex))){
              addMaterialProperties(material);
              connect(material, SIGNAL(propertyChanged(QString)),
                     this, SLOT(onPropertyChanged(QString)));

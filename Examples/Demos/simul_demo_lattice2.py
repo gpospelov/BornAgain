@@ -21,7 +21,7 @@ def RunSimulation():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
-    particle_info = PositionParticleInfo(cylinder, position, 1.0)
+    particle_info = ParticleInfo(cylinder, position, 1.0)
     particle_layout1 = ParticleLayout()
     particle_layout1.addParticleInfo(particle_info)
     # particle 2

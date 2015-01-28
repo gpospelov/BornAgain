@@ -16,8 +16,8 @@ public:
     void drawResult();
 
 protected:
-    void setSample();
-    void setSimulation();
+    void initSample();
+    void initSimulation();
 
 private:
     OutputData<double> *m_result;

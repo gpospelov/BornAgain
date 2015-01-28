@@ -69,7 +69,7 @@ def get_manual_name():
             if "UM_VERSION" in line:
                 str = line.replace("(", "").replace(")", "")
                 numbers.append([int(s) for s in str.split() if s.isdigit()][0])
-    return "UserManual-%s.%s.%s.pdf" % (numbers[0], numbers[1], numbers[2])
+    return "BornAgainManual-%s.%s.%s.pdf" % (numbers[0], numbers[1], numbers[2])
 
 
 def run_command(cmd):

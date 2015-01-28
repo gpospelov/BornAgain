@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
-project(UserManual NONE)
+project(BornAgainManual NONE)
 
 # user manual version number will be automatically propagated into tes
 set(UM_VERSION_MAJOR 0)
@@ -187,7 +187,7 @@ file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)
 #file(GLOB tex_inputs "*.tex")
 message("XXX ${tex_inputs}")
 
-ADD_LATEX_DOCUMENT(UserManual.tex
+ADD_LATEX_DOCUMENT(BornAgainManual.tex
     INPUTS ${tex_inputs}
     BIBFILES jw7.bib
     IMAGES ${UM_IMAGES}

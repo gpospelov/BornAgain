@@ -88,7 +88,7 @@ def update_header_in_file(filename):
     Updates, if necessary, the header in given file
     """
     fin = open(filename, 'r')
-    lines = [line.rstrip('\n') for line in fin]
+    lines = [line.decode('utf8').rstrip('\n') for line in fin]
     fin.close()
 
     current_header = get_current_header(lines)
@@ -106,7 +106,6 @@ def update_header_in_file(filename):
 
     print "{:65s} {:10s}".format(filename, "OK")
 
-    exit(0)
 
 
 def update_directory(dirname):
@@ -120,6 +119,8 @@ def update_directory(dirname):
 
     for filename in list_of_files:
         update_header_in_file(filename)
+
+    # update_header_in_file("./GUI/coregui/mainwindow/aboutapplicationdialog.cpp")
 
 if __name__ == '__main__':
 

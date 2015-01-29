@@ -36,6 +36,7 @@ endif()
 
 
 set(UM_IMAGES
+    Figures/website.png
     Figures/toyfit_expdata.eps
     Figures/toyfit_simdata.eps
     Figures/toyfit_chi2_p12.eps

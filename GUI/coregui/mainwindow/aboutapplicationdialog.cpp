@@ -67,7 +67,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     //copyrightLabel->setWordWrap(true);
     copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing incidence small angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
+    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
     QLabel *descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);

@@ -1,3 +1,57 @@
+BornAgain-1.0.0, released 2015.01.29
+  > Summary:
+    1) Graphical User Interface officially included into the Release
+    2) Refactoring and extension in the collection of user Python examples
+    3) New website www.bornagainproject.org is online
+    4) R,T coefficients exposed to Python within new SpecularSimulation class
+    5) Minor changes in PythonAPI (particles with size distribution, LatticeBasis construction, InterferenceFunction1DParacrystal)
+  > Details of Sprint #25 (see http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues)
+  * Bug #788: Fix release script to process CHANGELOG correctly
+  * Bug #872: PyScript functional tests fail on iffds
+  * Bug #873: Replace IntensityDataIOFactory::writeIntensityData format from .txt to .int in all App cases
+  * Bug #874: Fix undefined reference
+  * Bug #876: Fix small release script issues
+  * Bug #935: It is not possible to change phi_f in InstrumentView
+  * Feature #544: Provide example with user's form factor extension from python
+  * Feature #737: Provide example demonstrating Monte-Carlo integration for big particles
+  * Feature #783: Design BornAgain main application icon
+  * Feature #787: Revise build instruction for Mac
+  * Feature #841: Implement 'About BornAgain' widget in Menu/Help
+  * Feature #851: GUI: disable qDebug() outputs for Release build
+  * Feature #854: Provide splash screen for starting GUI
+  * Feature #855: Check implementation of radial averaging for paracrystal
+  * Feature #866: Revise list of python examples going into release 1.0.0
+  * Feature #871: Revise deployment instruction for Mac
+  * Feature #885: Provide web statistics
+  * Feature #894: GUI: create collapsible group box
+  * Feature #898: Create setup.py for moving BornAgain libraries into users Python
+  * Feature #908: Create 3 user examples demonstrating DA, LMA and SCCA difference
+  * Feature #909: Expose MultiLayer's R,T coefficients into Python
+  * Feature #910: Implement automatic check of python examples from users examples directory
+  * Feature #911: Revise usage of PositionParticleInfo
+  * Feature #912: Create example of hexagonal lattice with basis
+  * Documentation #197: Unified header comment for all source files
+  * Documentation #781: Provide short description of GUI functionality
+  * Documentation #848: Create BornAgain documentation prototype using Sphinx
+  * Documentation #849: Replace old weblink with bornagainproject.org in user manual
+  * Documentation #860: Update installation section with how to compile graphical user interface
+  * Documentation #864: Provide Drupal site with minimum set of pages
+  * Documentation #865: Switch bornagainproject.org to new website
+  * Documentation #867: Update User Manual with examples description corresponding to release-1.0.0 list
+  * Documentation #877: Provide draft webpage
+  * Documentation #891: Check and fix examples
+  * Documentation #893: Check feasibility of custom form factor example in Python
+  * Documentation #901: Fill in Sphinx functionality overview section
+  * Documentation #902: Fill functionality overview section in Drupal
+  * Documentation #905: Clean up doxygen documentation
+  * Refactoring #242: use GSL for random number sampling
+  * Refactoring #258: Make enumerator look the same everywhere
+  * Refactoring #568: Refactor ParticleBuilder
+  * Refactoring #830: Check pass by value for Eigen matrices of fixed size
+  * Refactoring #889: Remove Stochastic parameters in favour of IDistribution classes
+  * Refactoring #913: Remove FormFactorDWBAConstZ
+  * Testing #795: Test dmg package  
+
 BornAgain-0.9.9, released 2014.10.29
   > Summary: 
     1) Further GUI development: QuickSimulationView, exception catching, property limits

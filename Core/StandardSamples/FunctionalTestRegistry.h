@@ -5,7 +5,7 @@
 //! @file      StandardSamples/FunctionalTestRegistry.h
 //! @brief     Defines class FunctionalTestRegistry.
 //!
-//! @homepage  http://bornagainproject.org
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching

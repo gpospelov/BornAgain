@@ -5,7 +5,7 @@
 //! @file      coregui/mainwindow/aboutapplicationdialog.cpp
 //! @brief     Implements class AboutApplicationDialog
 //!
-//! @homepage  http://bornagainproject.org
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -67,7 +67,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     //copyrightLabel->setWordWrap(true);
     copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing incidence small angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
+    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
     QLabel *descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);

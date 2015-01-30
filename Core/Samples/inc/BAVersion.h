@@ -5,7 +5,7 @@
 //! @file      Samples/inc/BAVersion.h
 //! @brief     Defines functions for access to the package version number.
 //!
-//! @homepage  http://www.bornagainproject.org
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching

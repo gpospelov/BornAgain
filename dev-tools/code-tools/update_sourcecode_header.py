@@ -1,18 +1,22 @@
+# Patches header in all source files
+#
+# Usage: cd <BornAgain_source>; python dev-tools/code-tools/update_sourcecode_header.py
+
 import os
 import sys
 import glob
 
 
 directories = [
-    # "Core/Algorithms",
-    # "Core/FormFactors",
-    # "Core/Geometry",
-    # "Core/Samples",
-    # "Core/StandardSamples",
-    # "Core/Tools",
-    # "Fit/FitKernel",
-    # "GUI/coregui",
-    # "GUI/main",
+    "Core/Algorithms",
+    "Core/FormFactors",
+    "Core/Geometry",
+    "Core/Samples",
+    "Core/StandardSamples",
+    "Core/Tools",
+    "Fit/FitKernel",
+    "GUI/coregui",
+    "GUI/main",
     "App"
 ]
 
@@ -28,7 +32,7 @@ header_center = [
     ]
 header_bottom = [
     u"//!                                                                             ",
-    u"//! @homepage  http://bornagainproject.org                                      ",
+    u"//! @homepage  http://www.bornagainproject.org                                  ",
     u"//! @license   GNU General Public License v3 or higher (see COPYING)            ",
     u"//! @copyright Forschungszentrum J\u00fclich GmbH 2015                          ",
     u"//! @authors   Scientific Computing Group at MLZ Garching                       ",

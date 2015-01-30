@@ -5,7 +5,7 @@
 //! @file      StandardSamples/IsGISAXS08Builder.h
 //! @brief     Defines classes IsGISAXS08ABuilder, IsGISAXS08BBuilder.
 //!
-//! @homepage  http://bornagainproject.org
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching

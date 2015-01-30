@@ -5,10 +5,11 @@
 //! @file       Geometry/inc/Transform3D.h
 //! @brief      Defines class Transform3D.
 //!
-//! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
-//! @license    GNU General Public License v3 or higher (see COPYING)
-//! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -28,7 +29,7 @@ namespace Geometry {
 
 class BA_CORE_API_ Transform3D {
 public:
-    enum RotationType { EULER, XAXIS, YAXIS, ZAXIS };
+    enum ERotationType { EULER, XAXIS, YAXIS, ZAXIS };
 
     //! Constructs unit transformation
     Transform3D();
@@ -85,7 +86,7 @@ public:
     Transform3D operator*(const Transform3D &other) const;
 
     //! Retrieve the rotation type (general, around x, y or z-axis)
-    RotationType getRotationType() const;
+    ERotationType getRotationType() const;
 
     //! Determine if the transformation is trivial (identity)
     bool isIdentity() const;

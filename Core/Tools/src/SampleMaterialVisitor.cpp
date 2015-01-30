@@ -5,13 +5,14 @@
 //! @file      Tools/src/SampleMaterialVisitor.cpp
 //! @brief     Implements class SampleMaterialVisitor.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #include "SampleMaterialVisitor.h"
 #include "IMaterial.h"
 #include "Layer.h"
@@ -95,6 +96,10 @@ void SampleMaterialVisitor::visit(const Particle *sample)
     addMaterial(sample->getAmbientMaterial());
 }
 
+void SampleMaterialVisitor::visit(const ParticleDistribution *)
+{
+}
+
 void SampleMaterialVisitor::visit(const LatticeBasis *)
 {
 }
@@ -115,19 +120,11 @@ void SampleMaterialVisitor::visit(const DiffuseParticleInfo *)
 {
 }
 
-void SampleMaterialVisitor::visit(const PositionParticleInfo *)
-{
-}
-
 void SampleMaterialVisitor::visit(const IFormFactor *)
 {
 }
 
 void SampleMaterialVisitor::visit(const FormFactorDWBAPol *)
-{
-}
-
-void SampleMaterialVisitor::visit(const FormFactorDWBAPolConstZ *)
 {
 }
 
@@ -259,10 +256,6 @@ void SampleMaterialVisitor::visit(const FormFactorDWBA *)
 {
 }
 
-void SampleMaterialVisitor::visit(const FormFactorDWBAConstZ *)
-{
-}
-
 void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *)
 {
 }
@@ -295,7 +288,7 @@ void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *)
 {
 }
 
-void SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *)
+void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 {
 }
 

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/JobRunner.h
+//! @brief     Defines class JobRunner
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef JOBRUNNER_H
 #define JOBRUNNER_H
 
@@ -26,7 +41,7 @@ public:
 
     bool isTerminated() { return m_terminate_request_flag; }
 
-    JobItem::JobStatus getStatus() const { return m_job_status; }
+    JobItem::EJobStatus getStatus() const { return m_job_status; }
 
     QString getFailureMessage() const { return m_failure_message; }
 
@@ -46,7 +61,7 @@ private:
     QString m_identifier;
     Simulation *m_simulation;
     int m_progress;
-    JobItem::JobStatus m_job_status;
+    JobItem::EJobStatus m_job_status;
 
     bool m_terminate_request_flag;
     QString m_failure_message;

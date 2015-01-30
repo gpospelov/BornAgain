@@ -12,6 +12,7 @@ protected:
 
 };
 
+
 TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
 {
     ParticleLayout particleDecoration;
@@ -20,6 +21,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfParticles());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
 }
+
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
@@ -43,10 +45,11 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 
 }
 
+
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
     HomogeneousMaterial mat("Stone",0,0);
-    Particle * particle = new Particle(mat);
+    Particle particle(mat);
 
     ParticleLayout particleDecoration(particle, 3.0, -2.0);
 
@@ -94,6 +97,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
     EXPECT_EQ(0.1, pInfo2->getAbundance());
 }
 
+
 TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 {
     ParticleLayout particleDecoration;
@@ -102,13 +106,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -165,13 +169,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -181,23 +185,16 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
 
 
     particleDecoration.addParticle(particle1);
-    EXPECT_EQ(1.0, particleDecoration.getAbundanceFractionOfParticle(size_t(0))); //1 / 1
+    EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
     particleDecoration.addParticle(particle2, 2.1, 2.0);
-    EXPECT_EQ(2.0/3.0, particleDecoration.getAbundanceFractionOfParticle(size_t(1))); //2 / 3
+    EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
 
     particleDecoration.addParticle(particle3, transform3);
-    EXPECT_EQ(0.25, particleDecoration.getAbundanceFractionOfParticle(size_t(2))); //1 / 4
+    EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
 
     particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
-    EXPECT_EQ(0.5, particleDecoration.getAbundanceFractionOfParticle(size_t(3))); // 4/ 8
-
-
-    EXPECT_EQ(0.125, particleDecoration.getAbundanceFractionOfParticle(size_t(0))); //1 / 8
-    EXPECT_EQ(0.25, particleDecoration.getAbundanceFractionOfParticle(size_t(1))); //2 / 8
-    EXPECT_EQ(0.125, particleDecoration.getAbundanceFractionOfParticle(size_t(2))); //1 / 8
-    EXPECT_EQ(0.5, particleDecoration.getAbundanceFractionOfParticle(size_t(3))); // 4/ 8
-
+    EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
 }
 
 
@@ -209,13 +206,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2 ("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -230,9 +227,9 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
 
 
-    HomogeneousMaterial mat5("core",0,0);
+    HomogeneousMaterial mat5("core", 0, 0);
     Particle particle5(mat5);
-    ParticleInfo particleInfo5(particle5, 0.0,0.0);
+    ParticleInfo particleInfo5(particle5, 0.0, 0.0);
     particleDecoration.addParticleInfo(particleInfo5);
 
 
@@ -282,11 +279,11 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     EXPECT_TRUE(NULL == pInfo2->getParticle()->getPTransform3D());
 
 
-    EXPECT_EQ(0.125, clone->getAbundanceFractionOfParticle(size_t(0)));
-    EXPECT_EQ(0.25, clone->getAbundanceFractionOfParticle(size_t(1)));
-    EXPECT_EQ(0.125, clone->getAbundanceFractionOfParticle(size_t(2)));
-    EXPECT_EQ(0.5, clone->getAbundanceFractionOfParticle(size_t(3)));
-    EXPECT_EQ(0.0, clone->getAbundanceFractionOfParticle(size_t(4)));
+    EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(0)));
+    EXPECT_EQ(2.0, clone->getAbundanceOfParticle(size_t(1)));
+    EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(2)));
+    EXPECT_EQ(4.0, clone->getAbundanceOfParticle(size_t(3)));
+    EXPECT_EQ(0.0, clone->getAbundanceOfParticle(size_t(4)));
 
     EXPECT_EQ(size_t(3), clone->getNumberOfInterferenceFunctions());
     EXPECT_EQ(size_t(3), clone->getInterferenceFunctions().size());
@@ -304,13 +301,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     Particle particle1(mat1);
 
     HomogeneousMaterial mat2("Stone",0,0);
-    Particle * particle2 = new Particle(mat2);
+    Particle particle2(mat2);
 
     HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
     HomogeneousMaterial mat4("silica",0,0);
-    Particle * particle4 = new Particle(mat4);
+    Particle particle4(mat4);
 
     Geometry::Transform3D transform3 =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -376,11 +373,11 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     EXPECT_TRUE(NULL == pInfo2->getParticle()->getPTransform3D());
 
 
-    EXPECT_EQ(0.125, clone->getAbundanceFractionOfParticle(size_t(0)));
-    EXPECT_EQ(0.25, clone->getAbundanceFractionOfParticle(size_t(1)));
-    EXPECT_EQ(0.125, clone->getAbundanceFractionOfParticle(size_t(2)));
-    EXPECT_EQ(0.5, clone->getAbundanceFractionOfParticle(size_t(3)));
-    EXPECT_EQ(0.0, clone->getAbundanceFractionOfParticle(size_t(4)));
+    EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(0)));
+    EXPECT_EQ(2.0, clone->getAbundanceOfParticle(size_t(1)));
+    EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(2)));
+    EXPECT_EQ(4.0, clone->getAbundanceOfParticle(size_t(3)));
+    EXPECT_EQ(0.0, clone->getAbundanceOfParticle(size_t(4)));
 
 
 
@@ -390,7 +387,6 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     EXPECT_TRUE(NULL!=clone->getInterferenceFunction(size_t(1)));
     EXPECT_TRUE(NULL!=clone->getInterferenceFunction(size_t(2)));
 }
-
 
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
@@ -406,9 +402,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
     EXPECT_TRUE(NULL!=particleDecoration.getInterferenceFunction(size_t(0)));
     EXPECT_TRUE(NULL!=particleDecoration.getInterferenceFunction(size_t(1)));
     EXPECT_TRUE(NULL!=particleDecoration.getInterferenceFunction(size_t(2)));
-
 }
-
 
 
 #endif // PARTICLELAYOUTTEST_H

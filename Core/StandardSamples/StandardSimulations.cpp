@@ -5,18 +5,18 @@
 //! @file      StandardSamples/StandardSimulations.cpp
 //! @brief     Implements functions for standard simulations.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #include "StandardSimulations.h"
 #include "SampleBuilderFactory.h"
 #include "Simulation.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
@@ -368,7 +368,7 @@ Simulation *StandardSimulations::MesoCrystal01()
     delete reference;
 
 //    result->setDetectorResolutionFunction(
-//            new ResolutionFunction2DSimple(0.0002, 0.0002));
+//            new ResolutionFunction2DGaussian(0.0002, 0.0002));
 
     result->setSampleBuilder( builder );
 

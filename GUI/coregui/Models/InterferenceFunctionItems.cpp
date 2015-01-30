@@ -1,16 +1,31 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/InterferenceFunctionItems.cpp
+//! @brief     Implements InterferenceFunctionItems's classes
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "InterferenceFunctionItems.h"
 #include "Units.h"
 #include <QDebug>
 
-const QString InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE =
+const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
         "Peak_distance";
-const QString InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH =
+const QString InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH =
         "Damping_length";
-const QString InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE =
+const QString InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE =
         "Domain_size";
-const QString InterferenceFunction1DParaCrystalItem::P_KAPPA =
+const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
         "Size_space_coupling";
-const QString InterferenceFunction1DParaCrystalItem::P_PDF = "PDF";
+const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
 const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE =
         "Lattice_type";
@@ -33,13 +48,13 @@ const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
         "Rotation_angle";
 const QString InterferenceFunction2DLatticeItem::P_PDF = "PDF";
 
-InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
+InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::InterferenceFunction1DParaCrystalType,
+    : ParameterizedGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType,
                                 parent)
 {
-    setItemName(Constants::InterferenceFunction1DParaCrystalType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemName(Constants::InterferenceFunctionRadialParaCrystalType);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
@@ -54,14 +69,14 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
                                 parent)
 {
     setItemName(Constants::InterferenceFunction2DParaCrystalType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_XI_INTEGRATION, true);
-    registerProperty(P_ROTATION_ANGLE, 0.0, PropertyAttribute(PropertyAttribute::DisabledProperty));
+    registerProperty(P_ROTATION_ANGLE, 0.0, PropertyAttribute(PropertyAttribute::DISABLED));
     registerGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     registerGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 }
@@ -70,9 +85,9 @@ void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name
 {
     if(name == P_XI_INTEGRATION && isRegisteredProperty(P_ROTATION_ANGLE)) {
         if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
-            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::DisabledProperty);
+            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::DISABLED);
         } else {
-            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::VisibleProperty);
+            setPropertyAppearance(P_ROTATION_ANGLE, PropertyAttribute::VISIBLE);
         }
         ParameterizedItem::onPropertyChange(P_ROTATION_ANGLE);
     }
@@ -87,7 +102,7 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
                                 parent)
 {
     setItemName(Constants::InterferenceFunction2DLatticeType);
-    setItemPort(ParameterizedItem::PortInfo::Port1);
+    setItemPort(ParameterizedItem::PortInfo::PORT_1);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
     registerProperty(P_ROTATION_ANGLE, 0.0);

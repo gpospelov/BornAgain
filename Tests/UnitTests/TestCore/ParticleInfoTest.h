@@ -11,8 +11,6 @@ class ParticleInfoTest : public ::testing::Test
 };
 
 
-
-
 TEST_F(ParticleInfoTest , ParticleInfoInitialState)
 {
 
@@ -22,7 +20,7 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialState)
     ParticleInfo particleInfo(particle);
 
     EXPECT_EQ(0.0, particleInfo.getDepth());
-    EXPECT_EQ(0.0, particleInfo.getAbundance());
+    EXPECT_EQ(1.0, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 
     //set new parameter
@@ -63,13 +61,13 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
     Particle particle;
     Particle *pClone = particle.clone();
 
-    ParticleInfo particleInfo(pClone,2.0,3.0);
+    ParticleInfo particleInfo(*pClone,2.0,3.0);
+    delete pClone;
 
     EXPECT_EQ(2.0, particleInfo.getDepth());
     EXPECT_EQ(3.0, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 }
-
 
 
 TEST_F(ParticleInfoTest , ParticleInfoClone)
@@ -88,7 +86,6 @@ TEST_F(ParticleInfoTest , ParticleInfoClone)
     delete clone;
 
 }
-
 
 
 TEST_F(ParticleInfoTest , ParticleInfoInvertClone)
@@ -112,6 +109,4 @@ TEST_F(ParticleInfoTest , ParticleInfoInvertClone)
 }
 
 
-
 #endif // PARTICLEINFOTEST_H
-

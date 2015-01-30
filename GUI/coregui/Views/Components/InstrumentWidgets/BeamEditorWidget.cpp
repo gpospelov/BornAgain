@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/InstrumentWidgets/BeamEditorWidget.cpp
+//! @brief     Implements class BeamEditorWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "BeamEditorWidget.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
@@ -5,6 +20,8 @@
 #include "Units.h"
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
+#include "GroupBox.h"
+#include "ComboWidget.h"
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QDoubleValidator>
@@ -15,6 +32,7 @@
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QDebug>
+
 
 BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     : QWidget(parent)
@@ -34,7 +52,8 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     m_intensityText->setValidator(m_intensityValidator);
 
     m_wavelengthSpinBox->setSingleStep(0.1);
-    m_wavelengthSpinBox->setDecimals(3);
+    m_wavelengthSpinBox->setDecimals(4);
+    m_wavelengthSpinBox->setMinimum(0.0001);
     m_wavelengthSpinBox->setMaximum(100.);
 
     m_beamTypeCombo->addItem("Monochromatic");
@@ -57,6 +76,45 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     beamParamsLayout->addWidget(m_azimuthalAngleSpinBox, 4, 1);
     beamParamsLayout->addWidget(new QLabel("Beam Type"), 5, 0);
     beamParamsLayout->addWidget(m_beamTypeCombo, 5, 1);
+
+
+    /* Code of Mahadi, will be used in the future for beam divergence
+
+    //GroupBox Test
+    GroupBox *settingsGroupBox = new GroupBox("Beam Type Settings");
+    QVBoxLayout *beamTypeSettingsGroupLayout2 = new QVBoxLayout;
+    settingsGroupBox->setLayout(beamTypeSettingsGroupLayout2);
+
+    QGridLayout *beamTypeLayout2 = new QGridLayout;
+    beamTypeLayout2->addWidget(new QLabel("Param 1"), 0, 0);
+    beamTypeLayout2->addWidget(new QLineEdit, 0, 1);
+    beamTypeLayout2->addWidget(new QLabel("Param 2"), 1, 0);
+    beamTypeLayout2->addWidget(new QLineEdit, 1, 1);
+
+    beamTypeSettingsGroupLayout2->addLayout(beamTypeLayout2);
+
+    beamParamsLayout->addWidget(settingsGroupBox, 6,1,1,1);
+    //end of GroupBox Test
+
+
+
+    //ComboWidget Test
+    QGridLayout *comboLayout = new QGridLayout;
+    comboLayout->addWidget(new QLabel("Param 1"), 0, 0);
+    comboLayout->addWidget(new QLineEdit, 0, 1);
+    comboLayout->addWidget(new QLabel("Param 2"), 1, 0);
+    comboLayout->addWidget(new QLineEdit, 1, 1);
+
+    ComboWidget *comboWidget = new ComboWidget("Monochromatic", comboLayout, this);
+    beamParamsLayout->addWidget(new QLabel("Beam Type"), 7, 0);
+    beamParamsLayout->addWidget(comboWidget, 7,1,1,2);
+
+    comboWidget->addItem("Dichromatic");
+    //end of ComboWidget Test
+
+    */
+
+
 
     beamGroupLayout->addLayout(beamParamsLayout);
 
@@ -185,4 +243,3 @@ void BeamEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const AngleProperty
         editor->setValue(units.getValue());
     }
 }
-

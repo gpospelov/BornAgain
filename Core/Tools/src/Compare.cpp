@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/Compare.cpp
+//! @brief     Implement class Compare.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "Compare.h"
 
 Compare::Compare()
@@ -401,7 +416,7 @@ bool Compare::compareMaterial(const IMaterial *a,const IMaterial *b)
         return 0;
 }
 
-bool Compare::compareParticle(const Particle *a,const Particle *b)
+bool Compare::compareParticle(const IParticle *a,const IParticle *b)
 {
     if (compareMaterial(a->getMaterial(),b->getMaterial()) == 1
             && compareFormFactor(a->getSimpleFormFactor(),b->getSimpleFormFactor()) == 1)

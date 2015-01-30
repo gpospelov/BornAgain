@@ -1,9 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/Compare.h
+//! @brief     Defines class Compare
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef COMPARE_H
 #define COMPARE_H
 #include<iostream>
 #include "FormFactors.h"
 #include "Materials.h"
-#include "Particle.h"
+#include "IParticle.h"
 #include "ParticleLayout.h"
 #include "ParticleInfo.h"
 
@@ -36,7 +51,7 @@ public:
     bool compareFormFactorTruncatedSphere(const FormFactorTruncatedSphere *a,const FormFactorTruncatedSphere *b);
     bool compareFormFactorTruncatedSpheroid(const FormFactorTruncatedSpheroid *a,const FormFactorTruncatedSpheroid *b);
     bool compareMaterial(const IMaterial *a,const IMaterial *b);
-    bool compareParticle(const Particle *a,const Particle *b);
+    bool compareParticle(const IParticle *a,const IParticle *b);
     bool compareParticleLayout(const ParticleLayout *a, const ParticleLayout *b);
 };
 

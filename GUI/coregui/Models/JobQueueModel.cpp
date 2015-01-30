@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/JobQueueModel.cpp
+//! @brief     Implements class JobQueueModel
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "JobQueueItem.h"
@@ -94,7 +109,7 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //! Creates and adds JobQueueItem in the list of jobs.
 //! Corresponding JobItem will be created too.
 //! Returns unique identifier of created job.
-QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::ERunPolicy run_policy)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
@@ -106,7 +121,7 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
 
-    if( item->getRunPolicy() & (JobItem::RunImmediately | JobItem::RunInBackground) )
+    if( item->getRunPolicy() & (JobItem::RUN_IMMEDIATELY | JobItem::RUN_IN_BACKGROUND) )
         runJob(queue_item->getIdentifier());
 
     return queue_item->getIdentifier();
@@ -126,7 +141,7 @@ QString JobQueueModel::addJob(JobItem *jobItem)
 
     connect(jobItem, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
 
-    if( jobItem->getRunPolicy() & (JobItem::RunImmediately | JobItem::RunInBackground)  && jobItem->getStatus()!=JobItem::Completed)
+    if( jobItem->getRunPolicy() & (JobItem::RUN_IMMEDIATELY | JobItem::RUN_IN_BACKGROUND)  && jobItem->getStatus()!=JobItem::COMPLETED)
         runJob(queue_item->getIdentifier());
 
     return queue_item->getIdentifier();

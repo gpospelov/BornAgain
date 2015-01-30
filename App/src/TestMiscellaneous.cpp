@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestMiscellaneous.cpp
 //! @brief     Implements class TestMiscellaneous.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -64,7 +64,6 @@ void TestMiscellaneous::execute()
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
-    //test_OutputDataIOFactory();
     //test_FastSin();
     //test_FormFactor1();
     //test_FormFactor();
@@ -259,26 +258,6 @@ void TestMiscellaneous::test_KVectorContainer()
         cc.print();
     }
 }
-
-/* ************************************************************************* */
-// test of reading of OutputData from ASCII file
-/* ************************************************************************* */
-void TestMiscellaneous::test_OutputDataIOFactory()
-{
-    std::string file_name = Utils::FileSystem::GetHomePath()
-      +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data =
-            IntensityDataIOFactory::readIntensityData(file_name);
-
-    TCanvas *c1 = new TCanvas("c1","c1",800, 800);
-    c1->cd(); gPad->SetRightMargin(0.14);
-    gPad->SetLogz();
-
-    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "xxx");
-    h2->SetMinimum(100.);
-    h2->Draw("CONT4 Z");
-}
-
 
 /* ************************************************************************* */
 // test of fast sin function approximation
@@ -531,9 +510,9 @@ void TestMiscellaneous::test_SampleGeometry()
     HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
-    ParticleLayout particle_layout
-        (new Particle(particle_material, FormFactorFullSphere
-                      (5*Units::nanometer)));
+    Particle particle(particle_material, FormFactorFullSphere(
+                          5*Units::nanometer) );
+    ParticleLayout particle_layout(particle);
 
     air_layer.addLayout(particle_layout);
 

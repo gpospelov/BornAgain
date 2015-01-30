@@ -20,7 +20,7 @@ def finalize_git():
     run_command(cmd)
 
     # master branch
-    cmd = "cd %s; git checkout master" % get_source_dir()
+    cmd = "cd %s; git checkout master; git pull" % get_source_dir()
     run_command(cmd)
 
     cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
@@ -33,7 +33,7 @@ def finalize_git():
     run_command(cmd)
 
     # develop branch
-    cmd = "cd %s; git checkout develop" % get_source_dir()
+    cmd = "cd %s; git checkout develop; git pull" % get_source_dir()
     run_command(cmd)
 
     cmd = "cd %s; git merge --no-ff %s -m \"Merge %s\"" % (get_source_dir(), get_branch_name(), get_version())
@@ -47,8 +47,7 @@ def finalize_git():
     cmd = "cd %s; git push origin --delete %s" % (get_source_dir(), get_branch_name())
     run_command(cmd)
 
-
-def finalize_release():
+def get_menu_option():
     print "\nFinalizing release %s in working directory '%s'." % (get_version(), get_working_dir())
 
     print "Please select what you want to do:"
@@ -58,6 +57,7 @@ def finalize_release():
     print "3. Check release"
     print "4. Quit"
 
+    choice = 0
     is_valid = 0
 
     while not is_valid:
@@ -66,14 +66,20 @@ def finalize_release():
             is_valid = 1
         except ValueError, e:
             print ("'%s' is not a valid integer." % e.args[0].split(": ")[1])
+    return choice
 
-    if choice == 1:
-        upload_release()
-    elif choice == 2:
-        finalize_git()
-    elif choice == 3:
-        check_release()
-    elif choice == 4:
-        exit("Good bye")
-    else:
-        print ("Invalid number. Try again...")
+def finalize_release():
+    choice = get_menu_option()
+
+    while choice != 4:
+        if choice == 1:
+            upload_release()
+        elif choice == 2:
+            finalize_git()
+        elif choice == 3:
+            check_release()
+        else:
+            print ("Invalid number. Try again...")
+        choice = get_menu_option()
+    exit("Good bye")
+

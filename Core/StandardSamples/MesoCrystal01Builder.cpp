@@ -5,11 +5,11 @@
 //! @file      StandardSamples/MesoCrystal01Builder.cpp
 //! @brief     Implements class MesoCrystal01Builder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -24,6 +24,7 @@
 #include "Units.h"
 #include "Materials.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include <boost/scoped_ptr.hpp>
 
 
 MesoCrystal01Builder::MesoCrystal01Builder()
@@ -108,11 +109,10 @@ ISample* MesoCrystal01Builder::buildSample() const
                 Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
 //            Geometry::Transform3D transform2 =
 //                Geometry::Transform3D::createRotateY(alpha_start + j*alpha_step);
-            particle_layout.addParticle(
-                createMesoCrystal(
-                    m_lattice_length_a, m_lattice_length_c,
-                    n_particle_adapted, &ff_meso),
-                transform, m_meso_height);
+            boost::scoped_ptr<MesoCrystal> meso(createMesoCrystal(
+                                    m_lattice_length_a, m_lattice_length_c,
+                                    n_particle_adapted, &ff_meso) );
+            particle_layout.addParticle(*meso, transform, m_meso_height);
         }
     }
 

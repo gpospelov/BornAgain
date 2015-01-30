@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/FitSuiteDrawObserver.cpp
+//! @brief     Implements class FitSuiteDrawObserver.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FitSuiteDrawObserver.h"
 #include "FitSuite.h"
 #include "BornAgainNamespace.h"
@@ -52,7 +67,6 @@ void FitSuiteDrawObserver::update(IObservable *subject)
 
         // preparing data to draw
         const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
-        enum hist_keys {kReal, kSimul, kDiff, kChi2};
         std::vector<OutputData<double > *> data2draw;
         data2draw.push_back( fitObject->getChiSquaredModule()->getRealData()->clone() );
         data2draw.push_back( fitObject->getChiSquaredModule()->getSimulationData()->clone() ); //chi module have normalized simulation
@@ -72,12 +86,10 @@ void FitSuiteDrawObserver::update(IObservable *subject)
             if( data->getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() != 1 && data->getAxis(BornAgain::PHI_AXIS_NAME)->getSize() != 1)
             {
                 TH2D *hist2 = IsGISAXSTools::getOutputDataTH2D( *data, hname[i_hist]);
-//                if( i_hist == kReal || i_hist == kSimul ) hist2->SetMinimum(1);
                 hist2->DrawCopy("COLZ");
                 delete hist2;
             } else if(data->getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() == 1 || data->getAxis(BornAgain::PHI_AXIS_NAME)->getSize() == 1){
                 TH1D *hist1 =  IsGISAXSTools::getOutputDataScanHist(*data, hname[i_hist]);
-//                if( i_hist == kReal || i_hist == kSimul ) hist1->SetMinimum(1);
                 hist1->DrawCopy();
                 delete hist1;
             }

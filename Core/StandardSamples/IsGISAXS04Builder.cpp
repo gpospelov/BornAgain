@@ -5,11 +5,11 @@
 //! @file      StandardSamples/IsGISAXS04Builder.cpp
 //! @brief     Implements class IsGISAXS04Builder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -17,7 +17,7 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
@@ -54,15 +54,15 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(
                     m_corr_peak_distance, m_corr_length);
     FTDistribution1DGauss pdf(m_corr_width);
     p_interference_function->setProbabilityDistribution(pdf);
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout( new Particle(
-            particle_material, ff_cylinder ) );
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);

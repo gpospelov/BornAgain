@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/utils/GUIFunctionalTest.h
+//! @brief     Defines class GUIFunctionalTest
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef GUIFUNCTIONALTEST_H
 #define GUIFUNCTIONALTEST_H
 
@@ -11,7 +26,7 @@ class Simulation;
 class BA_CORE_API_ GUIFunctionalTest
 {
 public:
-    enum TestResult { SUCCESS, FAILED};
+    enum ETestResult { SUCCESS, FAILED};
     GUIFunctionalTest(const std::string &name);
     virtual ~GUIFunctionalTest();
     virtual void runTest();

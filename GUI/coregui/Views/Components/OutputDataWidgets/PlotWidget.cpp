@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/OutputDataWidgets/PlotWidget.cpp
+//! @brief     Implements class PlotWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "PlotWidget.h"
 #include "histogramplot.h"
 #include "OutputData.h"
@@ -11,8 +26,8 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     : QWidget(parent)
     , m_splitter(new QSplitter(this))
     , m_centralPlot(new CentralPlot())
-    , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
-    , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
+    , m_verticalPlot(new HistogramPlot(HistogramPlot::VERTICAL))
+    , m_horizontalPlot(new HistogramPlot(HistogramPlot::HORIZONTAL))
     , m_outputDataItem(0)
     , m_block_plot_update(true)
     , m_isProjectionsEnabled(isProjectionsEnabled)

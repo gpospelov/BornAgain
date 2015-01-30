@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/SessionModel.h
-//! @brief     Defines class SessionModel.
+//! @file      coregui/Models/SessionModel.h
+//! @brief     Defines class SessionModel
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -28,6 +28,7 @@ const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
 const QString MaterialModelTag("MaterialModel");
+const QString FitModelTag("FitModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -89,7 +90,7 @@ public:
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
-                                     int row=-1, ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
+                                     int row=-1, ParameterizedItem::PortInfo::EPorts port = ParameterizedItem::PortInfo::DEFAULT);
 
     QString getModelTag() const { return m_model_tag; }
     QString getModelName() const { return m_name; }
@@ -105,7 +106,7 @@ public:
     void setDraggedItemType(const QString& type) {
         m_dragged_item_type = type;
     }
-    
+
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 
     void readFrom(QXmlStreamReader *reader);
@@ -137,7 +138,7 @@ private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
                                      int row=-1,
-                                     ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
+                                     ParameterizedItem::PortInfo::EPorts port = ParameterizedItem::PortInfo::DEFAULT);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);

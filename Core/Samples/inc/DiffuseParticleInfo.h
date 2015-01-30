@@ -5,11 +5,11 @@
 //! @file      Samples/inc/DiffuseParticleInfo.h
 //! @brief     Defines and implements class DiffuseParticleInfo.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -25,10 +25,9 @@
 class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {
 public:
-    DiffuseParticleInfo(
-        Particle *p_particle,
-        double depth=0, double abundance=0)
-        : ParticleInfo(p_particle, depth, abundance)
+    DiffuseParticleInfo(const IParticle& particle, double depth=0.0,
+                        double abundance=1.0)
+        : ParticleInfo(particle, depth, abundance)
         , m_number_per_meso(0.0)
         , m_height_range(0.0) {}
 

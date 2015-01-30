@@ -5,11 +5,11 @@
 //! @file      Samples/src/LatticeBasis.cpp
 //! @brief     Implements class LatticeBasis.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -120,7 +120,7 @@ LatticeBasis::createDiffuseParticleInfos() const
         const Particle *p_particle = getParticle(index);
         if (p_particle->hasDistributedFormFactor()) {
             DiffuseParticleInfo *p_new_info = new DiffuseParticleInfo(
-                    p_particle->clone());
+                    *p_particle);
             p_new_info->setNumberPerMeso(
                     (double)getNbrPositionsForParticle(index));
             result.push_back(p_new_info);

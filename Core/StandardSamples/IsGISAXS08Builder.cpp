@@ -5,11 +5,11 @@
 //! @file      StandardSamples/IsGISAXS08Builder.cpp
 //! @brief     Implements classes IsGISAXS08ABuilder, IsGISAXS08BBuilder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -20,7 +20,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
-#include "ParticleBuilder.h"
 
 IsGISAXS08ABuilder::IsGISAXS08ABuilder()
 {
@@ -48,7 +47,8 @@ ISample *IsGISAXS08ABuilder::buildSample() const
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
-    ParticleLayout particle_layout( new Particle(particle_material, ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);
@@ -90,7 +90,8 @@ ISample *IsGISAXS08BBuilder::buildSample() const
 
     FormFactorCylinder ff_cylinder(5*Units::nanometer, 5*Units::nanometer);
 
-    ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);

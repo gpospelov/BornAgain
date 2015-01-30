@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/mainwindow/actionmanager.cpp
+//! @brief     Implements class ActionManager
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "actionmanager.h"
 #include "hostosinfo.h"
 #include "mainwindow.h"
@@ -65,6 +80,13 @@ void ActionManager::createActions()
     m_exitAction->setStatusTip(tr("Exit the application"));
     connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
 
+    // about application action
+    icon = QIcon::fromTheme(QLatin1String("help-about"));
+    m_aboutAction = new QAction(icon, tr("About &BornAgain"), this);
+    //m_aboutAction->setShortcuts(QKeySequence::HelpContents);
+    m_aboutAction->setStatusTip(tr("About the application"));
+    connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
+
 }
 
 
@@ -91,6 +113,7 @@ void ActionManager::createMenus()
 
     // Help Menu
     m_helpMenu = m_menuBar->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAction);
 }
 
 

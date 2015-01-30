@@ -5,11 +5,11 @@
 //! @file      Samples/inc/MultiLayer.h
 //! @brief     Defines class MultiLayer.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -122,8 +122,14 @@ public:
     //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
-    //! returns lyaer index
+    //! returns layer index
     int getIndexOfLayer(const Layer *layer) const;
+
+    //! returns true if contains magnetic materials and matrix calculations are required
+    bool requiresMatrixRTCoefficients() const;
+
+    //! returns layer index corresponding to given global z coordinate
+    size_t zToLayerIndex(double z_value);
 
 protected:
     //! Registers some class members for later access via parameter pool

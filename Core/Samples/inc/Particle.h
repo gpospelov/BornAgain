@@ -5,18 +5,18 @@
 //! @file      Samples/inc/Particle.h
 //! @brief     Defines class Particle.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "ICompositeSample.h"
+#include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "IMaterial.h"
@@ -28,7 +28,7 @@ class DiffuseParticleInfo;
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
 
-class BA_CORE_API_ Particle : public ICompositeSample
+class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
@@ -36,8 +36,6 @@ public:
     Particle(const IMaterial &p_material, const IFormFactor &form_factor);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
             const Geometry::Transform3D &transform);
-    Particle(IMaterial *p_material, IFormFactor *form_factor=0,
-            Geometry::Transform3D *transform = 0);
 
     virtual ~Particle();
     virtual Particle *clone() const;
@@ -67,7 +65,7 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets _material_ and _thickness_.
+    //! Sets _material_.
     virtual void setMaterial(const IMaterial* p_material) {
         if(p_material) {
             delete mp_material;
@@ -84,16 +82,6 @@ public:
         return (mp_material ? mp_material->getRefractiveIndex()
                             : complex_t(0,0));
     }
-
-    //! Returns transformation.
-    const Geometry::Transform3D *getPTransform3D() const
-    { return mP_transform.get(); }
-
-    //! Sets transformation.
-    virtual void setTransformation(const Geometry::Transform3D& transform);
-
-    //! Applies transformation by composing it with the existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const {
@@ -112,9 +100,6 @@ public:
     //! form factors according to a certain distribution
     virtual bool hasDistributedFormFactor() const;
 
-    virtual std::vector<ParticleInfo *> createDistributedParticles(
-            size_t samples_per_particle, double factor) const;
-
 protected:
     IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles
@@ -123,8 +108,6 @@ protected:
     IMaterial* mp_material;
     IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
-    std::auto_ptr<Geometry::Transform3D> mP_transform;
-    //!< pointer to the form factor
 };
 
 #endif // PARTICLE_H

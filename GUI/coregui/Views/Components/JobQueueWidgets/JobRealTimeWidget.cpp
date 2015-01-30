@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/JobRealTimeWidget.cpp
+//! @brief     Implements class JobRealTimeWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobRealTimeWidget.h"
 #include "JobQueueModel.h"
 #include "ModelTuningWidget.h"
@@ -116,7 +131,7 @@ void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
     JobItem *jobItem = m_jobQueueModel->getJobQueueData()->getJobItem(identifier);
 
     if(jobItem == m_currentJobItem) {
-        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem()) {
+        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem()) {
             qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
             itemClicked(jobItem);
         }
@@ -153,7 +168,7 @@ ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 //! it is not already running and it has valid models
 bool JobRealTimeWidget::isValidJobItem(JobItem *item)
 {
- return (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled) && item->getSampleModel() && item->getInstrumentModel();
+ return (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED) && item->getSampleModel() && item->getInstrumentModel();
 }
 
 

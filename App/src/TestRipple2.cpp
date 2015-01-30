@@ -4,19 +4,19 @@
 //
 //! @file      App/src/TestRipple2.cpp
 //! @brief     Implements class TestRipple2.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #include "TestRipple2.h"
 #include "DrawHelper.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
@@ -28,11 +28,8 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "Utils.h"
 
@@ -65,9 +62,9 @@ void TestRipple2::execute()
 {
     // initializing simulation and sample builder
     initializeSimulation();
-	mp_simulation->runSimulation();
+    mp_simulation->runSimulation();
     //save_results();
-	plot_results();
+    plot_results();
 
     // plot the pure formfactor
     //drawff();
@@ -94,13 +91,13 @@ void TestRipple2::drawff()
     FormFactorRipple2 *ff = new FormFactorRipple2(100.0*Units::nanometer, 20.0*Units::nanometer, 4.0*Units::nanometer, 3.0*Units::nanometer);
     size_t qybins = 400;
     size_t qzbins = 400;
-	
-	double qymin = -2.0;
-	double qymax = 2.0;
-	double qzmin = -2.0;
-	double qzmax = 2.0;
-	double stepqy = (qymax - qymin)/qybins;
-	double stepqz = (qzmax - qzmin)/qzbins;
+
+    double qymin = -2.0;
+    double qymax = 2.0;
+    double qzmin = -2.0;
+    double qzmax = 2.0;
+    double stepqy = (qymax - qymin)/qybins;
+    double stepqz = (qzmax - qzmin)/qzbins;
 
     TH2D *hist = new TH2D("Ripple2", "Ripple2",
                           (int)qybins, -2.0, 2.0,
@@ -108,17 +105,17 @@ void TestRipple2::drawff()
 
     hist->GetXaxis()->SetTitle( "Qy" );
     hist->GetYaxis()->SetTitle( "Qz" );
-	
-	cvector_t qq;
+
+    cvector_t qq;
     for (size_t iqz=0; iqz < qzbins; iqz++) {
-		for (size_t iqy=0; iqy < qybins; iqy++) {
-			double qy = qymin + iqy*stepqy + stepqy/2.;
-			double qz = qzmin + iqz*stepqz + stepqz/2.;
-			qq.setXYZ(0.0, qy, qz);
-			double value = std::abs(ff->evaluate_for_q(qq));
-			hist->Fill(qy, qz, value*value + 1);
-			//std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
-		}
+        for (size_t iqy=0; iqy < qybins; iqy++) {
+            double qy = qymin + iqy*stepqy + stepqy/2.;
+            double qz = qzmin + iqz*stepqz + stepqz/2.;
+            qq.setXYZ(0.0, qy, qz);
+            double value = std::abs(ff->evaluate_for_q(qq));
+            hist->Fill(qy, qz, value*value + 1);
+            //std::cout << "qy=" << qy << " qz=" << qz << " I=" << value*value << std::endl;
+        }
     }
 
     hist->SetContour(50);
@@ -143,8 +140,8 @@ void TestRipple2::drawff()
 void TestRipple2::initializeSimulation()
 {
   //  mp_sample_builder = new SampleBuilder();
-    
-	delete mp_simulation;
+
+    delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree, true);
@@ -191,9 +188,9 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
 
 
     ParticleLayout particle_layout;
-	particle_layout.addParticle(ripple,0.0,1.0);
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(m_interf_distance,
+    particle_layout.addParticle(ripple,0.0,1.0);
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length
     FTDistribution1DGauss pdf(m_interf_width);
     p_interference_function->setProbabilityDistribution(pdf);
@@ -213,7 +210,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
 
 void TestRipple2::plot_results()
 {
-	OutputData<double> *m_result = mp_simulation->getIntensityData();
+    OutputData<double> *m_result = mp_simulation->getIntensityData();
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 

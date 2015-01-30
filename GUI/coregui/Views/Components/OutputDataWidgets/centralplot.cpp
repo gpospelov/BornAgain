@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/OutputDataWidgets/centralplot.cpp
+//! @brief     Implements class CentralPlot
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "centralplot.h"
 #include "Units.h"
 #include <algorithm>
@@ -239,7 +254,7 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
     OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
 
-    std::cout << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max) << std::endl;
+    qDebug() << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max);
 
 
     this->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming

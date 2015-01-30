@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/MultiLayerView.h
+//! @brief     Defines class MultiLayerView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MULTILAYERVIEW_H
 #define MULTILAYERVIEW_H
 
@@ -14,11 +29,11 @@ class BA_CORE_API_ MultiLayerView : public ILayerView
     Q_OBJECT
 
 public:
-    enum { Type = DesignerHelper::MultiLayerType };
+    enum { TYPE = DesignerHelper::MULTILAYER };
 
     MultiLayerView(QGraphicsItem *parent = 0);
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

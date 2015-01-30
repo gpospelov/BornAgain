@@ -5,11 +5,11 @@
 //! @file      Tools/inc/EigenCore.h
 //! @brief     Include to deal with Eigen alignment centrally
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -20,13 +20,6 @@
 // see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
 
 #ifndef GCCXML_SKIP_THIS
-//#ifdef _WIN32
-// Currently all keys from here are handled by SetUpWindows.cmake
-//#define EIGEN_DONT_ALIGN_STATICALLY 1
-//#define EIGEN_DONT_ALIGN 1
-//#define EIGEN_DONT_VECTORIZE 1
-//#define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT 1
-//#endif
 #ifndef _WIN32
 #include <unistd.h>
 #endif

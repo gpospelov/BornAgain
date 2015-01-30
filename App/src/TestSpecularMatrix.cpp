@@ -5,11 +5,11 @@
 //! @file      App/src/TestSpecularMatrix.cpp
 //! @brief     Implements class TestSpecularMatrix.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -91,7 +91,7 @@ void TestSpecularMatrix::draw_standard_samples()
 
     // graphics for R,T coefficients in layers as a function of alpha_i
     size_t ncoeffs = 2;
-    enum key_coeffs { kCoeffR, kCoeffT};
+    enum EKeyCoeffs { COEFF_R, COEFF_T };
     const char *coeffs_title[]={" |R| "," |T| "};
     int coeffs_color[] = {kBlue, kRed};
 
@@ -114,10 +114,10 @@ void TestSpecularMatrix::draw_standard_samples()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR]->SetPoint(i_point,
+            gr_coeff[i_layer][COEFF_R]->SetPoint(i_point,
                     Units::rad2deg(alpha_i),
                     std::abs(coeffs[i_layer].getScalarR()) );
-            gr_coeff[i_layer][kCoeffT]->SetPoint(i_point,
+            gr_coeff[i_layer][COEFF_T]->SetPoint(i_point,
                     Units::rad2deg(alpha_i),
                     std::abs(coeffs[i_layer].getScalarT()) );
         }
@@ -162,7 +162,7 @@ void TestSpecularMatrix::draw_standard_samples()
         double xmin(0), ymin(0), xmax(0), ymax(0);
         for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++){
             double x1(0), y1(0), x2(0), y2(0);
-            gr_coeff[i_layer][kCoeffT]->ComputeRange(x1, y1, x2, y2);
+            gr_coeff[i_layer][COEFF_T]->ComputeRange(x1, y1, x2, y2);
             if(x1 < xmin ) xmin= x1;
             if(x2 > xmax ) xmax = x2;
             if(y1 < ymin ) ymin = y1;
@@ -255,7 +255,7 @@ void TestSpecularMatrix::draw_roughness_set()
 
     // graphics for R,T coefficients in layers as a function of alpha_i
     size_t ncoeffs = 2;
-    enum key_coeffs { kCoeffR, kCoeffT};
+    enum EKeyCoeffs { COEFF_R, COEFF_T };
 
     const IAxis *p_rough = mp_coeffs->getAxis("roughness");
     size_t nroughness = p_rough->getSize();
@@ -284,10 +284,10 @@ void TestSpecularMatrix::draw_roughness_set()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha,
+            gr_coeff[i_layer][COEFF_R][i_rough]->SetPoint((int)i_alpha,
                     Units::rad2deg(alpha_i),
                     std::abs(coeffs[i_layer].getScalarR()) );
-            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha,
+            gr_coeff[i_layer][COEFF_T][i_rough]->SetPoint((int)i_alpha,
                     Units::rad2deg(alpha_i),
                     std::abs(coeffs[i_layer].getScalarT()) );
         }
@@ -308,7 +308,7 @@ void TestSpecularMatrix::draw_roughness_set()
     if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
     c1->Divide(ndiv,ndiv);
 
-    int i_coeff_sel = kCoeffR;
+    int i_coeff_sel = COEFF_R;
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
         c1->cd((int)i_layer+1);
         gPad->SetLogy();

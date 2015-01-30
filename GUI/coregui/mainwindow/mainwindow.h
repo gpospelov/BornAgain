@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/mainwindow/mainwindow.h
+//! @brief     Defines class MainWindow
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -29,14 +44,16 @@ class MaterialEditor;
 class ToolTipDataBase;
 class MaterialModel;
 class SampleModel;
+class FitProxyModel;
+class FitView;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
-    
+
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, TestViewTab};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT_VIEW};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -57,6 +74,7 @@ public slots:
     void readSettings();
     void writeSettings();
     void onRunSimulationShortcut();
+    void onAboutApplication();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
@@ -68,8 +86,11 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
+
     JobView *m_jobView;
-    Manhattan::ProgressBar *m_progressBar;    
+    FitView *m_fitView;
+
+    Manhattan::ProgressBar *m_progressBar;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
@@ -81,12 +102,14 @@ private:
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
+    FitProxyModel *m_fitProxyModel;
 
     void initModels();
     void initMaterialModel();
     void initSampleModel();
     void initJobQueueModel();
     void initInstrumentModel();
+    void initFitModel();
 
     void updateSimModel();
     void updateSamples();

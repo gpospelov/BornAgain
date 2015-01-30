@@ -5,11 +5,11 @@
 //! @file      Samples/src/MultiLayer.cpp
 //! @brief     Implements class MultiLayer.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -268,4 +268,22 @@ void MultiLayer::setNLayersInLayers() const
     }
 }
 
+
+bool MultiLayer::requiresMatrixRTCoefficients() const
+{
+    for (size_t i=0; i<this->getNumberOfLayers(); ++i) {
+        const Layer *p_layer = this->getLayer(i);
+        const IMaterial *p_material = p_layer->getMaterial();
+        if (!p_material->isScalarMaterial()) return true;
+    }
+    return false;
+}
+
+size_t MultiLayer::zToLayerIndex(double z_value)
+{
+    if(z_value < m_layers_z.back()) return m_layers_z.size()-1;
+    std::vector<double>::reverse_iterator top_limit = std::upper_bound(m_layers_z.rbegin(), m_layers_z.rend(), z_value);
+    size_t nbin = m_layers_z.rend() - top_limit;
+    return nbin;
+}
 

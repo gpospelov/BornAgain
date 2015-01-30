@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestIsGISAXS12.cpp
 //! @brief     Implements class TestIsGISAXS12.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -19,7 +19,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
@@ -33,11 +33,10 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
+#include "Distributions.h"
+#include "ParticleDistribution.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "Utils.h"
 #include "FileSystem.h"
@@ -135,9 +134,9 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 
     // reading isgisaxs scans which actually have been used for a fit together with fit results (100 points/scan)
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     print_axes(isgi_scans);
     print_axes(isgi_scans_smoothed);
@@ -208,7 +207,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 {
     // reading 1D data scans defined in isgisaxs example
     IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
     // creating fit suite
     m_fitSuite = new FitSuite();
@@ -260,9 +259,9 @@ void TestIsGISAXS12::run_isgisaxs_fit()
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
         if(i_set==0) {
-			leg1->AddEntry(hreal,"BornAgain data","lp");
-			leg1->AddEntry(hsimul,"BornAgain simul","lp");
-		}
+            leg1->AddEntry(hreal,"BornAgain data","lp");
+            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        }
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -302,10 +301,10 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 void TestIsGISAXS12::run_test_chimodule()
 {
     IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::DATA_TO_FIT);
 
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
@@ -342,10 +341,10 @@ void TestIsGISAXS12::run_test_minimizer()
 {
     // reading isgisaxs real data
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::DATA_TO_FIT);
     // isgisaxs fit results
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::SIM_RESULT);
 
     // Putting parameters found by isgisaxs into our sample and run FitSuite once with the help of TestMinimizer to see if
     // our simulation produces numerically same results
@@ -501,25 +500,24 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double sigma1 = radius1*m_dispersion_radius1;
     double sigma2 = radius2*m_dispersion_radius2;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg1(radius1, sigma1);
-    StochasticDoubleGaussian sg2(radius2, sigma2);
-    StochasticSampledParameter par1(sg1, nbins, nfwhm);
-    StochasticSampledParameter par2(sg2, nbins, nfwhm);
+    DistributionGaussian gauss1(radius1, sigma1);
+    DistributionGaussian gauss2(radius2, sigma2);
 
     ParticleLayout particle_layout;
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(m_interf_distance,
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length
     FTDistribution1DGauss pdf(m_interf_width);
     p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
-    ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, particle_probability1);
-    builder.plantParticles(particle_layout);
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
-    builder.plantParticles(particle_layout);
+    ParameterDistribution par_distr1("*/radius", gauss1, nbins, nfwhm);
+    ParticleDistribution particle_collection1(cylinder1, par_distr1);
+    particle_layout.addParticle(particle_collection1, 0.0, particle_probability1);
+    ParameterDistribution par_distr2("*/radius", gauss2, nbins, nfwhm);
+    ParticleDistribution particle_collection2(cylinder2, par_distr2);
+    particle_layout.addParticle(particle_collection2, 0.0, particle_probability2);
 
     air_layer.addLayout(particle_layout);
 

@@ -5,11 +5,11 @@
 //! @file      PythonAPI/inc/PythonModule.h
 //! @brief     Empty (everything outcommented).
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -36,7 +36,7 @@
 //#include "IFormFactorDecorator.h"
 //#include "IInterferenceFunction.h"
 //#include "InterferenceFunctionNone.h"
-//#include "InterferenceFunction1DParaCrystal.h"
+//#include "InterferenceFunctionRadialParaCrystal.h"
 //#include "IMaterial.h"
 //#include "IParameterized.h"
 //#include "ISample.h"

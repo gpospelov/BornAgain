@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/SessionModel.cpp
-//! @brief     Implements class SessionModel.
+//! @file      coregui/Models/SessionModel.cpp
+//! @brief     Implements class SessionModel
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -31,10 +31,10 @@
 
 namespace {
 const int MaxCompression = 9;
-enum Column {
-    ItemName,
-    ModelType,
-    MaxColumns
+enum EColumn {
+    ITEM_NAME,
+    MODEL_TYPE,
+    MAX_COLUMNS
 };
 }
 
@@ -73,14 +73,14 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
 QVariant SessionModel::data(const QModelIndex &index, int role) const
 {
     if (!m_root_item || !index.isValid() || index.column() < 0
-            || index.column() >= MaxColumns) {
+            || index.column() >= MAX_COLUMNS) {
         return QVariant();
     }
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             switch (index.column()) {
-            case ItemName: return item->itemName();
-            case ModelType: return item->modelType();
+            case ITEM_NAME: return item->itemName();
+            case MODEL_TYPE: return item->modelType();
             default: return QVariant();
             }
         }
@@ -96,8 +96,8 @@ QVariant SessionModel::headerData(int section, Qt::Orientation orientation,
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-        case ItemName: return tr("Name");
-        case ModelType: return tr("Model Type");
+        case ITEM_NAME: return tr("Name");
+        case MODEL_TYPE: return tr("Model Type");
         }
     }
     return QVariant();
@@ -113,13 +113,13 @@ int SessionModel::rowCount(const QModelIndex &parent) const
 int SessionModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0) return 0;
-    return MaxColumns;
+    return MAX_COLUMNS;
 }
 
 QModelIndex SessionModel::index(int row, int column,
                                 const QModelIndex &parent) const
 {
-    if (!m_root_item || row < 0 || column < 0 || column >= MaxColumns
+    if (!m_root_item || row < 0 || column < 0 || column >= MAX_COLUMNS
             || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
     ParameterizedItem *parent_item = itemForIndex(parent);
@@ -148,7 +148,7 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
 bool SessionModel::setData(const QModelIndex &index,
                            const QVariant &value, int role)
 {
-    if (!index.isValid() || index.column()!=ItemName) return false;
+    if (!index.isValid() || index.column()!=ITEM_NAME) return false;
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role==Qt::EditRole) {
             qDebug() << "SessionModel::setData ";
@@ -249,7 +249,7 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                const QModelIndex &parent,
                                                int row,
-                                               ParameterizedItem::PortInfo::Keys port)
+                                               ParameterizedItem::PortInfo::EPorts port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -413,7 +413,7 @@ SessionModel *SessionModel::createCopy(ParameterizedItem *parent)
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
                                                int row,
-                                               ParameterizedItem::PortInfo::Keys port)
+                                               ParameterizedItem::PortInfo::EPorts port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -427,7 +427,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
 
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    if(port != ParameterizedItem::PortInfo::PortDef)
+    if(port != ParameterizedItem::PortInfo::DEFAULT)
         new_item->setItemPort(port);
 
     if(!new_item)
@@ -536,7 +536,9 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .toString();
 
         ComboProperty combo_property = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
-        combo_property.setValue(parameter_value);
+        if (combo_property.getValues().contains(parameter_value)) {
+            combo_property.setValue(parameter_value);
+        }
         item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     }
     else if (parameter_type == "ScientificDoubleProperty") {

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/WelcomeView.cpp
+//! @brief     Implements class WelcomeView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "WelcomeView.h"
 #include "DesignerHelper.h"
 #include "mainwindow_constants.h"
@@ -202,7 +217,7 @@ void WelcomeView::onWebLinkClicked(const QUrl &url)
 
 void WelcomeView::onNewUser()
 {
-    QUrl url(tr("http://apps.jcns.fz-juelich.de/doku/sc/bornagain:start"));
+    QUrl url(tr("http://www.bornagainproject.org"));
     QDesktopServices::openUrl(url);
 }
 

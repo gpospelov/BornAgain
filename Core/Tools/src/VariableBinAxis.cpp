@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/VariableBinAxis.cpp
+//! @brief     Implements VariableBinAxis class.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "VariableBinAxis.h"
 #include "Exceptions.h"
 #include <iostream>
@@ -70,12 +85,18 @@ size_t VariableBinAxis::findClosestIndex(double value) const
     if(m_bin_boundaries.size()<2) {
         throw ClassInitializationException("VariableBinAxis::findClosestIndex() -> Error! VariableBinAxis not  correctly initialized");
     }
-    if (value < getMin() || value >= getMax()) {
-        std::ostringstream ostr;
-        ostr << "VariableBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-        throw OutOfBoundsException(ostr.str());
+//    if (value < getMin() || value >= getMax()) {
+//        std::ostringstream ostr;
+//        ostr << "VariableBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
+//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+//        throw OutOfBoundsException(ostr.str());
+//    }
+    if( value < getMin()) {
+        return 0;
+    } else if(value >= getMax()) {
+        return m_nbins-1;
     }
+
     std::vector<double>::const_iterator top_limit = std::lower_bound(m_bin_boundaries.begin(), m_bin_boundaries.end(), value);
     if( *top_limit != value ) --top_limit;
     size_t nbin = top_limit - m_bin_boundaries.begin();

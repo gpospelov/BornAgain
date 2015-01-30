@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/JobOutputDataToolBar.cpp
+//! @brief     Implements class JobOutputDataToolBar
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
 #include <QIcon>
@@ -125,9 +140,9 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
 void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
 {
     if(name == JobViewActivityName) {
-        emit jobViewActivityRequest(JobView::JobViewActivity);
+        emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
     } else if(name == RealTimeActivityName) {
-        emit jobViewActivityRequest(JobView::RealTimeActivity);
+        emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
     }
 }
 

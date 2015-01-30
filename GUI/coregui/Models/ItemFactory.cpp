@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/ItemFactory.cpp
-//! @brief     Implements class ItemFactory.
+//! @file      coregui/Models/ItemFactory.cpp
+//! @brief     Implements class ItemFactory
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -21,6 +21,8 @@
 #include "TransformationItem.h"
 #include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
+#include "DistributionItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
@@ -34,6 +36,7 @@
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
+#include "FitParameterItem.h"
 #include <QDebug>
 
 namespace {
@@ -48,7 +51,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
     result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
-    result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
+    result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
+    result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
@@ -86,6 +90,12 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
+    result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
+    result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
+    result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
+    result[Constants::DistributionLogNormalType] = &createInstance<DistributionLogNormalItem>;
+    result[Constants::DistributionCosineType] = &createInstance<DistributionCosineItem>;
+
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;
     result[Constants::FTDistribution1DGateType] = &createInstance<FTDistribution1DGateItem>;
@@ -109,6 +119,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+
     return result;
 }
 }
@@ -120,7 +132,8 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleType
         << Constants::TransformationType
         << Constants::ParticleCoreShellType
-        << Constants::InterferenceFunction1DParaCrystalType
+        << Constants::ParticleDistributionType
+        << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;
 

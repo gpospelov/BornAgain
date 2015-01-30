@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      ParameterizedItem.h
-//! @brief     Defines class ParameterizedItem.
+//! @file      coregui/Models/ParameterizedItem.h
+//! @brief     Defines class ParameterizedItem
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -69,10 +69,6 @@ public:
     //! inserts a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);
 
-    //! swap two child items
-    void swapChildItems(int row_1, int row_2)
-        { m_children.swap(row_1, row_2); }
-
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);
 
@@ -114,17 +110,26 @@ public:
 
     class PortInfo {
     public:
-        enum Keys { PortDef=-1, Port0=0, Port1=1, Port2=2};
+        enum EPorts {
+            DEFAULT = -1,
+            PORT_0 = 0,
+            PORT_1 = 1,
+            PORT_2 = 2
+        };
         PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
         QStringList m_item_names;
         int m_item_max_number;
     };
 
-    void setItemPort(PortInfo::Keys nport);
+    void setItemPort(PortInfo::EPorts nport);
 
     virtual QString getItemLabel() const { return QString("no label"); }
 
-    void setPropertyAppearance(const QString &name, const PropertyAttribute::Appearance &appearance);
+    void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
+
+    QStringList getParameterTreeList() const;
+
+    virtual void onChildPropertyChange();
 
 public slots:
     void onPropertyItemChanged(const QString &propertyName);
@@ -134,7 +139,7 @@ signals:
     void propertyItemChanged(const QString &propertyName);
 
 protected:
-    void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
+    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);
     void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     QStringList m_registered_properties;
@@ -142,6 +147,7 @@ protected:
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QStringList getParameterList() const;
     QList<QString> m_valid_children;
     QMap<int, PortInfo> m_port_info;
 

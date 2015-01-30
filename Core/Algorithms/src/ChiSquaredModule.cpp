@@ -5,11 +5,11 @@
 //! @file      Algorithms/src/ChiSquaredModule.cpp
 //! @brief     Implements class ChiSquaredModule.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -115,10 +115,7 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
                 value_real, value_simu);
         *it_diff = squared_difference;
         ++it_diff;
-    }    
+    }
 
     return p_difference;
 }
-
-
-

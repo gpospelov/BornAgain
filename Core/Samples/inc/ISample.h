@@ -5,11 +5,11 @@
 //! @file      Samples/inc/ISample.h
 //! @brief     Defines interface class ISample.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -62,6 +62,10 @@ public:
     { m.print(ostr); return ostr; }
 
     virtual bool containsMagneticMaterial() const;
+
+    virtual bool preprocess() {
+        return false;
+    }
 
 //protected:
 //    virtual void print(std::ostream& ostr) const;

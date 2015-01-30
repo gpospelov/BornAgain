@@ -6,8 +6,20 @@ from pyplusplus.module_builder import call_policies
 import utils_build
 
 license = '''\
-// BornAgain: simulate and fit scattering at grazing incidence
-//! @brief Automatically generated boost::python code for PythonFitAPI
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Automatically generated boost::python code for BornAgain Python bindings
+//! @brief     Automatically generated boost::python code for BornAgain Python bindings
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Juelich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 '''
 
 lib_name = 'libBornAgainFit'
@@ -171,6 +183,11 @@ def ManualClassTunings(mb):
     for fun in cl.member_functions():
         if "__gnu_cxx::__normal_iterator" in fun.decl_string:
             fun.exclude()
+
+    cl = mb.class_("FitSuiteObjects")
+    cl.member_function("getChiSquaredMap").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+
 
 
 # excluding specific member functions

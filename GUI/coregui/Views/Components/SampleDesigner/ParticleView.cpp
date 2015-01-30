@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/ParticleView.cpp
+//! @brief     Implements class ParticleView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ParticleView.h"
 #include "ParticleItem.h"
 #include "FancyGroupProperty.h"
@@ -15,8 +30,8 @@ ParticleView::ParticleView(QGraphicsItem *parent)
     setLabel(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
-    addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION);
     m_roundpar = 5;
     m_label_vspace = 45;
 }
@@ -73,8 +88,8 @@ void ParticleView::onPropertyChange(const QString &propertyName)
 
 void ParticleView::addView(IView *childView, int /*row*/)
 {
-    qDebug() << "ParticleView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
-    if(childView->type() == DesignerHelper::TransformationType) {
+    qDebug() << "ParticleView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::PARTICLE;
+    if(childView->type() == DesignerHelper::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }
     else {

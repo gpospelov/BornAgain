@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/TransformToDomain.cpp
-//! @brief     Implements functions to transform items to domain objects.
+//! @file      coregui/Models/TransformToDomain.cpp
+//! @brief     Implements class TransformToDomain
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -36,6 +36,7 @@
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
+#include "DistributionItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -123,30 +124,39 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
     return ffItem->createFormFactor();
 }
 
+IDistribution1D *TransformToDomain::createDistribution(
+        const ParameterizedItem &item)
+{
+    const DistributionItem *distr_item =
+            dynamic_cast<const DistributionItem *>(&item);
+    Q_ASSERT(distr_item);
+    return distr_item->createDistribution();
+}
+
 IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         const ParameterizedItem &item)
 {
-    if(item.modelType() == Constants::InterferenceFunction1DParaCrystalType) {
+    if(item.modelType() == Constants::InterferenceFunctionRadialParaCrystalType) {
         double peak_distance = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE)
+                    InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE)
                 .toDouble();
         double damping_length = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH)
+                    InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH)
                 .toDouble();
         double domain_size = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE)
+                    InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE)
                 .toDouble();
         double kappa = item.getRegisteredProperty(
-                    InterferenceFunction1DParaCrystalItem::P_KAPPA)
+                    InterferenceFunctionRadialParaCrystalItem::P_KAPPA)
                 .toDouble();
 
-        InterferenceFunction1DParaCrystal *result =
-                new InterferenceFunction1DParaCrystal(peak_distance,
+        InterferenceFunctionRadialParaCrystal *result =
+                new InterferenceFunctionRadialParaCrystal(peak_distance,
                                                       damping_length);
         result->setDomainSize(domain_size);
         result->setKappa(kappa);
         ParameterizedItem *pdfItem = item.getSubItems()[
-                InterferenceFunction1DParaCrystalItem::P_PDF];
+                InterferenceFunctionRadialParaCrystalItem::P_PDF];
 
         Q_ASSERT(pdfItem);
         boost::scoped_ptr<IFTDistribution1D> pdf(

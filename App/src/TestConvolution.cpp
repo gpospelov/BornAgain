@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestConvolution.cpp
 //! @brief     Implements class TestConvolution.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -159,7 +159,7 @@ void TestConvolution::test_convolve1d()
     TBenchmark benchmark;
     for(size_t i_mode=0; i_mode<m_modes.size(); i_mode++) {
         std::string sname = m_modes[i_mode].first;
-        MathFunctions::Convolve::Mode mode = m_modes[i_mode].second;
+        MathFunctions::Convolve::EConvolutionMode mode = m_modes[i_mode].second;
 
         // result
         TGraph *gr_result = new TGraph((int)npoints);
@@ -295,7 +295,7 @@ void TestConvolution::test_convolve2d()
     TBenchmark benchmark;
     for(size_t i_mode=0; i_mode<m_modes.size(); i_mode++) {
         std::string sname = m_modes[i_mode].first;
-        MathFunctions::Convolve::Mode mode = m_modes[i_mode].second;
+        MathFunctions::Convolve::EConvolutionMode mode = m_modes[i_mode].second;
 
         // running convolution several times to get statistics for benchmarking
         benchmark.Start(sname.c_str());

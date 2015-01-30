@@ -5,11 +5,11 @@
 //! @file      Samples/inc/ISampleVisitor.h
 //! @brief     Defines interface class ISampleVisitor.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -34,19 +34,19 @@ class LayerInterface;
 // -
 class MultiLayer;
 // -
+class IParticle;
 class Particle;
+class ParticleDistribution;
 class LatticeBasis;
 class MesoCrystal;
 class ParticleCoreShell;
 // -
 class ParticleInfo;
 class DiffuseParticleInfo;
-class PositionParticleInfo;
 // -
 class IFormFactor;
 // -
 class FormFactorDWBAPol;
-class FormFactorDWBAPolConstZ;
 // -
 class FormFactorWeighted;
 // -
@@ -84,7 +84,6 @@ class IFormFactorBornSeparable;
 class IFormFactorDecorator;
 // -
 class FormFactorDWBA;
-class FormFactorDWBAConstZ;
 class FormFactorDecoratorDebyeWaller;
 class FormFactorDecoratorFactor;
 class FormFactorDecoratorMaterial;
@@ -94,7 +93,7 @@ class FormFactorDecoratorTransformation;
 // -
 class IInterferenceFunction;
 class InterferenceFunction1DLattice;
-class InterferenceFunction1DParaCrystal;
+class InterferenceFunctionRadialParaCrystal;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
@@ -132,19 +131,19 @@ public:
 
     virtual void visit(const MultiLayer *);
 
+    virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
+    virtual void visit(const ParticleDistribution *);
     virtual void visit(const LatticeBasis *);
     virtual void visit(const MesoCrystal *);
     virtual void visit(const ParticleCoreShell *);
 
     virtual void visit(const ParticleInfo *);
     virtual void visit(const DiffuseParticleInfo *);
-    virtual void visit(const PositionParticleInfo *);
 
     virtual void visit(const IFormFactor *);
 
     virtual void visit(const FormFactorDWBAPol *);
-    virtual void visit(const FormFactorDWBAPolConstZ *);
 
     virtual void visit(const FormFactorWeighted *);
 
@@ -182,7 +181,6 @@ public:
     virtual void visit(const IFormFactorDecorator *);
 
     virtual void visit(const FormFactorDWBA *);
-    virtual void visit(const FormFactorDWBAConstZ *);
     virtual void visit(const FormFactorDecoratorDebyeWaller *);
     virtual void visit(const FormFactorDecoratorFactor *);
     virtual void visit(const FormFactorDecoratorMaterial *);
@@ -192,7 +190,7 @@ public:
 
     virtual void visit(const IInterferenceFunction *);
     virtual void visit(const InterferenceFunction1DLattice *);
-    virtual void visit(const InterferenceFunction1DParaCrystal *);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal *);
     virtual void visit(const InterferenceFunction2DLattice *);
     virtual void visit(const InterferenceFunction2DParaCrystal *);
     virtual void visit(const InterferenceFunctionNone *);

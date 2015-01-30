@@ -35,8 +35,8 @@
 
     <category name="Interference functions">
 
-        <categoryentry name="1D paracrystal" icon="images/ParaCrystal1D.png">
-            <widget class="InterferenceFunction1DParaCrystal">
+        <categoryentry name="radial paracrystal" icon="images/ParaCrystal1D.png">
+            <widget class="InterferenceFunctionRadialParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
@@ -232,6 +232,14 @@
             </widget>
         </categoryentry>
 
+<!--        <categoryentry name="Distributed particle" icon="images/ParticleCoreShell.png">
+            <widget class="ParticleDistribution">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>-->
+
     </category>
 
     <category name="Standard samples">
@@ -244,7 +252,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Example #2 (para 1D)" icon="images/sample_layers2.png">
+        <categoryentry name="Example #2 (para radial)" icon="images/sample_layers2.png">
             <widget class="example02">
                 <property name="objectName">
                     <string notr="true">somestring</string>

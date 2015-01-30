@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/FancyGroupProperty.h
+//! @brief     Defines class FancyGroupProperty
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FANCYGROUPPROPERTY_H
 #define FANCYGROUPPROPERTY_H
 
@@ -13,17 +28,12 @@ class ParameterizedItem;
 class BA_CORE_API_ FancyGroupProperty
 {
 public:
-    enum GroupType
-    {
-        UndefinedGroupType,
-        FixedGroupType,
-        SelectableGroupType
-    };
+    enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
 
     FancyGroupProperty(const QString &group_name);
     virtual ~FancyGroupProperty(){}
 
-    virtual GroupType type() const;
+    virtual EGroupType type() const;
 
     virtual void setParent(ParameterizedItem *parent);
 
@@ -48,10 +58,10 @@ public:
 
 protected:
     void setGroupMap(const QMap<QString, QString> &group_map);
-    void setGroupType(GroupType group_type);
+    void setGroupType(EGroupType group_type);
 
     QString m_group_name;
-    GroupType m_group_type;
+    EGroupType m_group_type;
     ParameterizedItem *m_parent;
     QString m_value;
 

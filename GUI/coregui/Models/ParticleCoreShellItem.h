@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/ParticleCoreShellItem.h
+//! @brief     Defines class ParticleCoreShellItem
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef PARTICLECORESHELLITEM_H
 #define PARTICLECORESHELLITEM_H
 
@@ -8,7 +23,7 @@ class BA_CORE_API_ ParticleCoreShellItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    enum CoreShell { Core, Shell};
+    enum ECoreShell { CORE, SHELL};
     static const QString P_CORE_POS;
     explicit ParticleCoreShellItem(ParameterizedItem *parent=0);
     ~ParticleCoreShellItem(){}

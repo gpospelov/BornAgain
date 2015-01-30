@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
-project(UserManual NONE)
+project(BornAgainManual NONE)
 
 # user manual version number will be automatically propagated into tes
 set(UM_VERSION_MAJOR 0)
-set(UM_VERSION_MINOR 2)
-set(UM_VERSION_PATCH 6)
+set(UM_VERSION_MINOR 3)
+set(UM_VERSION_PATCH 1)
 
 if(POLICY CMP0046)
 cmake_policy(SET CMP0046 NEW)
@@ -36,13 +36,15 @@ endif()
 
 
 set(UM_IMAGES
+    Figures/website.png
     Figures/toyfit_expdata.eps
     Figures/toyfit_simdata.eps
     Figures/toyfit_chi2_p12.eps
     Figures/toyfit_chi2_p23.eps
     Figures/minimization_workflow.eps
     Figures/Manual_ex1.eps
-    Figures/multilayer3d3.eps
+    #Figures/multilayer3d3.eps
+    Figures/setup_multilayer.jpg
     Figures/basic_architecture.eps
     Figures/AnisoPyramid2dxy.eps
     Figures/AnisoPyramid2dxz.eps
@@ -121,7 +123,7 @@ set(UM_IMAGES
     Figures/ffspheroidBA.pdf
     Figures/ffspheroidDWBA.pdf
     Figures/drawingDepthParticle.eps
-    Figures/figIntBuriedPart.pdf
+    Figures/figIntBuriedPart.eps
     Figures/CoreShellParallPyr.pdf
     Figures/CoreShellParallPyrxy.eps
     Figures/CoreShellParallPyrxz.eps
@@ -129,7 +131,7 @@ set(UM_IMAGES
     Figures/HSphere_1DDL.pdf
     Figures/1DGrating.eps
     Figures/2Dlattice.eps
-    Figures/1Dparacrystal.eps
+    #Figures/1Dparacrystal.eps
     Figures/HSphere_2Dlattice.pdf
     Figures/HSphere_2DDL.pdf
     Figures/drawingSSCA.eps
@@ -178,7 +180,7 @@ set(UM_IMAGES
     #Figures/g_r_2dpara.jpg
     Figures/g_r_2dparasq.jpg
     Figures/UserAPI_IntensityDataLayout.eps
-
+    
 )
 
 
@@ -186,7 +188,7 @@ file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)
 #file(GLOB tex_inputs "*.tex")
 message("XXX ${tex_inputs}")
 
-ADD_LATEX_DOCUMENT(UserManual.tex
+ADD_LATEX_DOCUMENT(BornAgainManual.tex
     INPUTS ${tex_inputs}
     BIBFILES jw7.bib
     IMAGES ${UM_IMAGES}

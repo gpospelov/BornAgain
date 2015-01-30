@@ -162,7 +162,7 @@ def get_simulation():
     sim_params.m_mc_points = 100
     simulation.setSimulationParameters(sim_params)
 
-    #simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.00025, 0.00025))
+    #simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.00025, 0.00025))
 
     #wavelength_distr = DistributionLogNormal(1.77*angstrom, 0.01)
     #wavelength_distr = DistributionGaussian(1.77*angstrom, 0.02*angstrom)

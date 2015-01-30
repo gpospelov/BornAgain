@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/DesignerHelper.cpp
+//! @brief     Implements class DesignerHelper
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "DesignerHelper.h"
 #include "item_constants.h"
 #include <QPainter>
@@ -146,7 +161,10 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     else  if (name==Constants::TransformationType) {
         return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
     }
-    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
+    else  if (name.startsWith(Constants::FormFactorType)
+              || name==Constants::ParticleType
+              || name==Constants::ParticleCoreShellType
+              || name==Constants::ParticleDistributionType) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
     }
     else  if (name.startsWith("InterferenceFunction")) {

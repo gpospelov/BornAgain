@@ -6,11 +6,11 @@
 //! @brief     Define many functions in namespace MathFunctions,
 //!              and provide inline implementation for most of them
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -78,10 +78,10 @@ BA_CORE_API_ complex_t Sinc(const complex_t &value);
 
 BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
-enum TransformCase { ForwardFFT, BackwardFFT };
-BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
+enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, EFFTDirection tcase);
 
-BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, EFFTDirection tcase);
 
 BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
@@ -121,18 +121,18 @@ BA_CORE_API_ Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
 BA_CORE_API_ inline bool isnan(double x)
 {
 #ifdef _MSC_VER
-	return _isnan(x);
+    return _isnan(x);
 #else
-	return std::isnan(x);
+    return std::isnan(x);
 #endif
 }
 
 BA_CORE_API_ inline bool isinf(double x)
 {
 #ifdef _MSC_VER
-	return !_finite(x);
+    return !_finite(x);
 #else
-	return std::isinf(x);
+    return std::isinf(x);
 #endif
 }
 

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/SampleValidator.cpp
+//! @brief     Implements class SampleValidator
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "SampleValidator.h"
 #include "MultiLayerItem.h"
 #include "SampleModel.h"
@@ -59,7 +74,9 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
     bool particles_found(false);
     QList<ParameterizedItem *> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType || children[i]->modelType() == Constants::ParticleCoreShellType) {
+        if (children[i]->modelType() == Constants::ParticleType
+         || children[i]->modelType() == Constants::ParticleCoreShellType
+         || children[i]->modelType() == Constants::ParticleDistributionType) {
             particles_found = true;
         }
     }

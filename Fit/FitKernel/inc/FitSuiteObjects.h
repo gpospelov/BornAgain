@@ -5,11 +5,11 @@
 //! @file      FitKernel/inc/FitSuiteObjects.h
 //! @brief     Defines class FitSuiteObjects.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -101,6 +101,10 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     void setNfreeParameters(int nfree_parameters ) {
         m_nfree_parameters = nfree_parameters; }
 
+    //! Returns chi-squared map
+    OutputData<double> * getChiSquaredMap(size_t i_item = 0);
+
+
  protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}
@@ -125,7 +129,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
                                        "Index outside of range"); }
 
     //! Set of simulations and corresponding real data.
-    FitObjects_t m_fit_objects; 
+    FitObjects_t m_fit_objects;
 
     //! Sum of weights of fit sets.
     double m_total_weight;
@@ -134,7 +138,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
 
     //! number of free fit parameters for normalization
     int m_nfree_parameters;
- 
+
     double m_chi_squared_value;
 };
 

@@ -49,7 +49,8 @@ TEST_F(FixedBinAxisTest, FindClosestIndex)
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.6));
-    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+//    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+    EXPECT_EQ( size_t(1), v1.findClosestIndex(1.0));
 
     FixedBinAxis v2("name", 3, -1.5, 1.5);
     EXPECT_EQ(size_t(0), v2.findClosestIndex(-1.5));
@@ -58,7 +59,8 @@ TEST_F(FixedBinAxisTest, FindClosestIndex)
     EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
-    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+//    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 }
 
 TEST_F(FixedBinAxisTest, CheckBin)

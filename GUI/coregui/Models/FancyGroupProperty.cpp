@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/FancyGroupProperty.cpp
+//! @brief     Implements class FancyGroupProperty
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FancyGroupProperty.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
@@ -5,13 +20,13 @@
 
 FancyGroupProperty::FancyGroupProperty(const QString &group_name)
     : m_group_name(group_name)
-    , m_group_type(UndefinedGroupType)
+    , m_group_type(UNDEFINED)
     , m_parent(0)
 {
 
 }
 
-FancyGroupProperty::GroupType FancyGroupProperty::type() const
+FancyGroupProperty::EGroupType FancyGroupProperty::type() const
 {
     return m_group_type;
 }
@@ -26,7 +41,7 @@ void FancyGroupProperty::setParent(ParameterizedItem *parent)
 ParameterizedItem *FancyGroupProperty::createCorrespondingItem()
 {
     ParameterizedItem *result = ItemFactory::createItem(getValue());
-    if(type() == FixedGroupType)
+    if(type() == FIXED)
         setValueLabel(result->getItemLabel());
     return result;
 }
@@ -60,7 +75,7 @@ QString FancyGroupProperty::getValueLabel() const
 
 void FancyGroupProperty::setValueLabel(const QString &value_label)
 {
-    if(type() == FixedGroupType) {
+    if(type() == FIXED) {
         m_group_map[m_value] = value_label;
         if(m_parent) emit m_parent->propertyChanged(getGroupName());
     }
@@ -109,7 +124,7 @@ void FancyGroupProperty::setGroupMap(const QMap<QString, QString> &group_map)
     setValue(m_group_map.begin().key());
 }
 
-void FancyGroupProperty::setGroupType(FancyGroupProperty::GroupType group_type)
+void FancyGroupProperty::setGroupType(FancyGroupProperty::EGroupType group_type)
 {
     m_group_type = group_type;
 }

@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestFittingModule3.cpp
 //! @brief     Implements class TestFittingModule3.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -22,7 +22,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "Materials.h"
@@ -31,7 +31,7 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "Particle.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 
 #include "TROOT.h"
@@ -125,9 +125,13 @@ void TestFittingModule3::initializeSample()
     air_layer.setMaterial(air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
+    Particle particle1(particle_material, FormFactorCylinder(
+                           cylinder_radius, cylinder_height) );
+    Particle particle2(particle_material, FormFactorPrism3(
+                           prism3_length, prism3_height) );
     ParticleLayout particle_layout;
-    particle_layout.addParticle(new Particle(particle_material, FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
-    particle_layout.addParticle(new Particle(particle_material, FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
+    particle_layout.addParticle(particle1,0.0, 0.2);
+    particle_layout.addParticle(particle2, 0.0, 0.8);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

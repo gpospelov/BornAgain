@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/item_constants.h
+//! @brief     Defines item constants
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ITEMCONSTANTS_H
 #define ITEMCONSTANTS_H
 
@@ -14,8 +29,9 @@ const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
+const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType TransformationType = "Transformation";
-const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
+const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
 const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
 const ModelType InstrumentType = "Instrument";
@@ -55,6 +71,13 @@ const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
+const ModelType DistributionType = "Distribution";
+const ModelType DistributionGateType = "DistributionGate";
+const ModelType DistributionLorentzType = "DistributionLorentz";
+const ModelType DistributionGaussianType = "DistributionGaussian";
+const ModelType DistributionLogNormalType = "DistributionLogNormal";
+const ModelType DistributionCosineType = "DistributionCosine";
+
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const ModelType FTDistribution1DGaussType = "FTDistribution1DGauss";
 const ModelType FTDistribution1DGateType = "FTDistribution1DGate";
@@ -80,12 +103,15 @@ const ModelType RefractiveIndexType = "RefractiveIndex";
 
 const ModelType MagneticFieldType = "MagneticField";
 
+const ModelType FitParameterType = "FitParameter";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
 const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
+const ModelType DistributionGroup = "Distribution group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";

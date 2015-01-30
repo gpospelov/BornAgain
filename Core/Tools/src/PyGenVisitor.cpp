@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/PyGenVisitor.cpp
+//! @brief     Implements standard mix-in PyGenVisitor.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -12,12 +27,10 @@
 #include "Layer.h"
 #include "LabelSample.h"
 #include "LayerInterface.h"
-#include "ParticleBuilder.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleInfo.h"
-#include "PositionParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
@@ -480,11 +493,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             }
         }
 
-        else if (const InterferenceFunction1DParaCrystal *oneDParaCrystal =
-                 dynamic_cast<const InterferenceFunction1DParaCrystal *>(interference))
+        else if (const InterferenceFunctionRadialParaCrystal *oneDParaCrystal =
+                 dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(interference))
         {
             result << "\t" << it->second
-                   << " = InterferenceFunction1DParaCrystal("
+                   << " = InterferenceFunctionRadialParaCrystal("
                    << oneDParaCrystal->getPeakDistance() << "*nanometer,"
                    << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
 
@@ -1004,8 +1017,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
             {
                 const ParticleInfo *particleInfo =
                         particleLayout->getParticleInfo(particleIndex);
-                if (const PositionParticleInfo *positionParticleInfo =
-                       dynamic_cast<const PositionParticleInfo *>(particleInfo))
+                kvector_t pos = particleInfo->getPosition();
+                if (pos.x()!=0.0 || pos.y()!=0.0)
                 {
                     result << "\t# Defining "
                            << m_label->getLabel(particleInfo->getParticle());
@@ -1013,16 +1026,16 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                     result << "\n\t"
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position = kvector_t("
-                           << positionParticleInfo->getPosition().x()
+                           << pos.x()
                            << "*nanometer,"
-                           << positionParticleInfo->getPosition().y()
+                           << pos.y()
                            << "*nanometer,"
-                           << positionParticleInfo->getPosition().z()
+                           << pos.z()
                            << "*nanometer)\n";
 
                     result << "\t"
                            << m_label->getLabel(particleInfo->getParticle())
-                           << "_positionInfo = PositionParticleInfo("
+                           << "_positionInfo = ParticleInfo("
                            << m_label->getLabel(particleInfo->getParticle())
                            << ","
                            << m_label->getLabel(particleInfo->getParticle())
@@ -1035,7 +1048,6 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_positionInfo)\n";
                 }
-
                 else
                 {
                     result << "\t# Defining "
@@ -1353,7 +1365,7 @@ void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
      m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
+void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
      m_label->setLabel(sample);
 }

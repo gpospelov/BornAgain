@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestIsGISAXS13.cpp
 //! @brief     Implements class TestIsGISAXS13.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -18,7 +18,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
@@ -32,11 +32,8 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "TestIsGISAXS5.h"
 #include "Units.h"
 #include "Utils.h"
@@ -59,7 +56,7 @@ TestIsGISAXS13::TestIsGISAXS13()
 , mp_simulation(0)
 , mp_sample_builder(new TestIsGISAXS5::SampleBuilder())
 , mp_fitSuite(0)
-{    
+{
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-13/" ));
 }
 
@@ -171,9 +168,9 @@ void TestIsGISAXS13::run_isgisaxs_fit()
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
         if(i_set==0) {
-			leg1->AddEntry(hreal,"BornAgain data","lp");
-			leg1->AddEntry(hsimul,"BornAgain simul","lp");
-		}
+            leg1->AddEntry(hreal,"BornAgain data","lp");
+            leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        }
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();

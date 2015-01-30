@@ -4,12 +4,12 @@
 //
 //! @file      App/src/StandardSamples.cpp
 //! @brief     Implements class StandardSamples.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -26,14 +26,10 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunctions.h"
-#include "StochasticGaussian.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "ParticleBuilder.h"
-#include "StochasticSampledParameter.h"
 #include "ParticleCoreShell.h"
 #include "Particle.h"
-#include "PositionParticleInfo.h"
 
 //! 10 nm of ambience on top of substrate.
 

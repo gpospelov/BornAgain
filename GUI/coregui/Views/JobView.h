@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/JobView.h
+//! @brief     Defines class JobView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef JOBVIEW_H
 #define JOBVIEW_H
 
@@ -20,18 +35,9 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 
 public:
 
-    enum SubWindows
-    {
-        JobListDock,
-        RealTimeDock,
-        NumberOfDocks
-    };
+    enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
 
-    enum Activities
-    {
-        JobViewActivity,
-        RealTimeActivity
-    };
+    enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
     JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();

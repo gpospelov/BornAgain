@@ -5,11 +5,11 @@
 //! @file      FormFactors/inc/FormFactorPrism6.h
 //! @brief     Defines class FormFactorPrism6.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -43,7 +43,7 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-protected:  
+protected:
     virtual void init_parameters();
 
 private:

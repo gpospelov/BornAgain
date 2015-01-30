@@ -5,11 +5,11 @@
 //! @file      Algorithms/inc/DiffuseDWBASimulation.h
 //! @brief     Defines class DiffuseDWBASimulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -59,11 +59,7 @@ private:
     struct DiffuseFormFactorTerm {
         DiffuseFormFactorTerm()
             : m_form_factors(), m_probabilities(), m_factor(0.) {}
-        ~DiffuseFormFactorTerm()
-        {
-            for (size_t i=0; i<m_form_factors.size(); ++i)
-                delete m_form_factors[i];
-        }
+        ~DiffuseFormFactorTerm();
         std::vector<IFormFactor*> m_form_factors;
         std::vector<double> m_probabilities;
         double m_factor;
@@ -75,5 +71,3 @@ private:
 };
 
 #endif /* DIFFUSEDWBASIMULATION_H_ */
-
-

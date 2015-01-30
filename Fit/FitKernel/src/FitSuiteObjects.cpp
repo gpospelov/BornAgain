@@ -5,11 +5,11 @@
 //! @file      FitKernel/src/FitSuiteObjects.cpp
 //! @brief     Implements class FitSuiteObjects.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -151,4 +151,9 @@ std::string FitSuiteObjects::addParametersToExternalPool(
     }
 
     return new_path;
+}
+
+OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item)
+{
+    return m_fit_objects[check_index(i_item)]->getChiSquaredModule()->createChi2DifferenceMap();
 }

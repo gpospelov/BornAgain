@@ -5,11 +5,11 @@
 //! @file      Samples/src/Layer.cpp
 //! @brief     Implements class Layer.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -161,5 +161,14 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation(
     }
     delete p_sim;
     return 0;
+}
+
+double Layer::getTotalAbundance() const
+{
+    double total_abundance = 0.0;
+    for (size_t i=0; i<getNumberOfLayouts(); ++i) {
+        total_abundance += getLayout(i)->getTotalAbundance();
+    }
+    return total_abundance;
 }
 

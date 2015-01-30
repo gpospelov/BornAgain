@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/ComboProperty.h
+//! @brief     Defines class ComboProperty
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef COMBO_PROPERTY_H
 #define COMBO_PROPERTY_H
 
@@ -14,7 +29,8 @@ class BA_CORE_API_ ComboProperty
 {
 public:
 
-    ComboProperty(const QStringList &values = QStringList(), const QString &current_value = QString("Undefined"));
+    ComboProperty(const QStringList &values = QStringList(),
+                  const QString &current_value = QString("Undefined"));
     virtual ~ComboProperty(){}
     QString getValue() const { return m_current_value; }
 

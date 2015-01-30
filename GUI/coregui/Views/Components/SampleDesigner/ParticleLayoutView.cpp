@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/ParticleLayoutView.cpp
+//! @brief     Implements class ParticleLayoutView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "DesignerHelper.h"
@@ -13,22 +28,22 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
     setRectangle( DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleLayout);
-    addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
-    addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT);
+    addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("interference", NodeEditorPort::INPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
 
 
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
-    if(childView->type() == DesignerHelper::ParticleType) {
+    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::PARTICLE;
+    if(childView->type() == DesignerHelper::PARTICLE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }
-    else if(childView->type() == DesignerHelper::InterferenceFunction1DParaType
-         || childView->type() == DesignerHelper::InterferenceFunction2DParaType
-         || childView->type() == DesignerHelper::InterferenceFunction2DLatticeType) {
+    else if(childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_RADIAL_PARA
+         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_PARA
+         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_LATTICE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 1);
     }
     else {

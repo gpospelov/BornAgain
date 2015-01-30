@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/MultiLayerItem.cpp
-//! @brief     Implements class MultiLayerItem.
+//! @file      coregui/Models/MultiLayerItem.cpp
+//! @brief     Implements class MultiLayerItem
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -28,7 +28,7 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     addToValidChildren(Constants::LayerType);
     addToValidChildren(Constants::MultiLayerType);
 
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
 }
 
@@ -50,9 +50,9 @@ void MultiLayerItem::updateLayers()
 {
     for(int i = 0; i<childItemCount(); ++i) {
         if(i == 0) {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::DisabledProperty);
+            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::DISABLED);
         } else {
-            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VisibleProperty);
+            childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VISIBLE);
         }
     }
 }

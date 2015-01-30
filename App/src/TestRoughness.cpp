@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestRoughness.cpp
 //! @brief     Implements class TestRoughness.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -226,8 +226,8 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     }
 
     // making Fourier transform of covariance and z values
-    std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
-    std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
+    std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::FORWARD_FFT);
+    std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::FORWARD_FFT);
 
     std::vector<complex_t > ft_result;
     ft_result.resize(npx);
@@ -236,7 +236,7 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     }
 
     // inverse transform to find correlated sequenced of random numbers
-    std::vector<complex_t > ift_result = MathFunctions::FastFourierTransform(ft_result, MathFunctions::BackwardFFT);
+    std::vector<complex_t > ift_result = MathFunctions::FastFourierTransform(ft_result, MathFunctions::BACKWARD_FFT);
 
     for(size_t i=0; i<npx; i++){
         m_vzcorr[i] = ift_result[i].real();

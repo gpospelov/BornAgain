@@ -53,8 +53,10 @@ ISample *SampleBuilder::buildSample() const
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
     FormFactorPrism3 ff_prism3(m_prism3_length, m_prism3_height);
 
-    particle_layout.addParticle(new Particle(particle_material, ff_cylinder),0.0, m_cylinder_ratio);
-    particle_layout.addParticle(new Particle(particle_material, ff_prism3), 0.0, 1.0 - m_cylinder_ratio);
+    Particle particle_cyl(particle_material, ff_cylinder);
+    Particle particle_prism3(particle_material, ff_prism3);
+    particle_layout.addParticle(particle_cyl, 0.0, m_cylinder_ratio);
+    particle_layout.addParticle(particle_prism3, 0.0, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

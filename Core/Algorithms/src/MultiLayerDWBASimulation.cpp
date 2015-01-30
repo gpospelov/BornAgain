@@ -5,11 +5,11 @@
 //! @file      Algorithms/src/MultiLayerDWBASimulation.cpp
 //! @brief     Implements class MultiLayerDWBASimulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -22,6 +22,7 @@
 #include "MessageService.h"
 #include "ScalarSpecularInfoMap.h"
 #include "MatrixSpecularInfoMap.h"
+#include "SamplePreprocessor.h"
 #include "BornAgainNamespace.h"
 
 #include <boost/scoped_ptr.hpp>
@@ -32,6 +33,8 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
   : mp_roughness_dwba_simulation(0)
 {
     mp_multi_layer = p_multi_layer->clone();
+    SamplePreprocessor preprocessor;
+    preprocessor.process(mp_multi_layer);
 }
 
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
@@ -88,14 +91,14 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    setStatus(Running);
+    setStatus(RUNNING);
     try {
         runProtected();
-        setStatus(Completed);
+        setStatus(COMPLETED);
     }
     catch(const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
-        setStatus(Failed);
+        setStatus(FAILED);
     }
 }
 
@@ -230,4 +233,3 @@ bool MultiLayerDWBASimulation::requiresMatrixRTCoefficients() const
     }
     return false;
 }
-

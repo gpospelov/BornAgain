@@ -5,11 +5,11 @@
 //! @file      StandardSamples/IsGISAXS03Builder.cpp
 //! @brief     Implements class IsGISAXS03Builder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -20,9 +20,8 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticGaussian.h"
-#include "ParticleBuilder.h"
+#include "Distributions.h"
+#include "ParticleDistribution.h"
 
 
 // -----------------------------------------------------------------------------
@@ -57,7 +56,8 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
 
-    ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);
@@ -144,12 +144,13 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     FormFactorCylinder p_ff_cylinder( m_radius, m_height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
-    int nbins(100), nfwhm(2);
-    StochasticDoubleGaussian double_gaussian(m_radius, sigma);
-    StochasticSampledParameter par(double_gaussian, nbins, nfwhm);
-    ParticleBuilder builder;
-    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
-    builder.plantParticles(particle_layout);
+    int n_samples(100);
+    // to get radius_min = average - 2.0*FWHM:
+    double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
+    DistributionGaussian gauss(m_radius, sigma);
+    ParameterDistribution par_distr("*/radius", gauss, n_samples, n_sigma);
+    ParticleDistribution particle_collection(nano_particle, par_distr);
+    particle_layout.addParticle(particle_collection);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

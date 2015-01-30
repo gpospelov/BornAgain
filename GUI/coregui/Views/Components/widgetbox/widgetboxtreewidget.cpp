@@ -120,18 +120,18 @@ QIcon createIconSet(const QString &name)
 }
 
 
-enum TopLevelRole  { NORMAL_ITEM, SCRATCHPAD_ITEM, CUSTOM_ITEM };
+enum ETopLevelRole  { NORMAL_ITEM, SCRATCHPAD_ITEM, CUSTOM_ITEM };
 
 QT_BEGIN_NAMESPACE
 
-static void setTopLevelRole(TopLevelRole tlr, QTreeWidgetItem *item)
+static void setTopLevelRole(ETopLevelRole tlr, QTreeWidgetItem *item)
 {
     item->setData(0, Qt::UserRole, QVariant(tlr));
 }
 
-static TopLevelRole topLevelRole(const  QTreeWidgetItem *item)
+static ETopLevelRole topLevelRole(const  QTreeWidgetItem *item)
 {
-    return static_cast<TopLevelRole>(item->data(0, Qt::UserRole).toInt());
+    return static_cast<ETopLevelRole>(item->data(0, Qt::UserRole).toInt());
 }
 
 namespace qdesigner_internal {
@@ -185,7 +185,7 @@ WidgetBoxCategoryListView *WidgetBoxTreeWidget::categoryViewAt(int idx) const
 
 void WidgetBoxTreeWidget::saveExpandedState() const
 {
-    std::cout << "WidgetBoxTreeWidget::saveExpandedState() -> XXX Not implemented." << std::endl;
+    qDebug() << "WidgetBoxTreeWidget::saveExpandedState() -> XXX Not implemented.";
     return;
 
 //    QStringList closedCategories;
@@ -811,7 +811,7 @@ int WidgetBoxTreeWidget::widgetCount(int cat_idx) const
     if (cat_idx >= topLevelItemCount())
         return 0;
     // SDK functions want unfiltered access
-    return categoryViewAt(cat_idx)->count(WidgetBoxCategoryListView::UnfilteredAccess);
+    return categoryViewAt(cat_idx)->count(WidgetBoxCategoryListView::UNFILTERED);
 }
 
 WidgetBoxTreeWidget::Widget WidgetBoxTreeWidget::widget(int cat_idx, int wgt_idx) const
@@ -820,7 +820,7 @@ WidgetBoxTreeWidget::Widget WidgetBoxTreeWidget::widget(int cat_idx, int wgt_idx
         return Widget();
     // SDK functions want unfiltered access
     WidgetBoxCategoryListView *categoryView = categoryViewAt(cat_idx);
-    return categoryView->widgetAt(WidgetBoxCategoryListView::UnfilteredAccess, wgt_idx);
+    return categoryView->widgetAt(WidgetBoxCategoryListView::UNFILTERED, wgt_idx);
 }
 
 void WidgetBoxTreeWidget::addWidget(int cat_idx, const Widget &wgt)
@@ -844,7 +844,7 @@ void WidgetBoxTreeWidget::removeWidget(int cat_idx, int wgt_idx)
     WidgetBoxCategoryListView *categoryView = categoryViewAt(cat_idx);
 
     // SDK functions want unfiltered access
-    const WidgetBoxCategoryListView::AccessMode am = WidgetBoxCategoryListView::UnfilteredAccess;
+    const WidgetBoxCategoryListView::EAccessMode am = WidgetBoxCategoryListView::UNFILTERED;
     if (wgt_idx >= categoryView->count(am))
         return;
 
@@ -1013,7 +1013,7 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*> &i
         save();
         QApplication::setActiveWindow(this);
         // Is the new item visible in filtered mode?
-        const WidgetBoxCategoryListView::AccessMode am = WidgetBoxCategoryListView::FilteredAccess;
+        const WidgetBoxCategoryListView::EAccessMode am = WidgetBoxCategoryListView::FILTERED;
         if (const int count = categoryView->count(am))
             categoryView->setCurrentItem(am, count - 1);
         categoryView->adjustSize(); // XXX
@@ -1031,9 +1031,9 @@ void WidgetBoxTreeWidget::filter(const QString &f)
         QTreeWidgetItem *tl = topLevelItem(i);
         WidgetBoxCategoryListView *categoryView = categoryViewAt(i);
         // Anything changed? -> Enable the category
-        const int oldCount = categoryView->count(WidgetBoxCategoryListView::FilteredAccess);
+        const int oldCount = categoryView->count(WidgetBoxCategoryListView::FILTERED);
         categoryView->filter(re);
-        const int newCount = categoryView->count(WidgetBoxCategoryListView::FilteredAccess);
+        const int newCount = categoryView->count(WidgetBoxCategoryListView::FILTERED);
         if (oldCount != newCount) {
             changed = true;
             const bool categoryEnabled = newCount > 0 || empty;

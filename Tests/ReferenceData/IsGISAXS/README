@@ -9,7 +9,7 @@ ex-1   Mixture of cylinders and prisms without interference.
 ex-2   Two gaussian size cylinder distribution.
 ex-3   Cylinder formfactor in BA and DWBA.
 ex-4   1D and 2D paracrystal.
-ex-5   1D paracrystal fit example.
+ex-5   radial paracrystal fit example.
 ex-6   2D lattice with different disorders.
 ex-7   Mixture of different particles defined in morphology file.
 ex-8   2DDL paracrystal 

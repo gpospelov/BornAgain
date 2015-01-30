@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/DesignerView.h
+//! @brief     Defines class DesignerView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef DESIGNERVIEW_H
 #define DESIGNERVIEW_H
 
@@ -23,7 +38,7 @@ public:
     explicit DesignerView(QGraphicsScene *scene, QWidget *parent = 0);
     virtual ~DesignerView(){}
 
-    enum SelectionModes { SimpleSelectionMode, RubberSelectionMode, HandDragMode};
+    enum ESelectionModes { SIMPLE_SELECTION, RUBBER_SELECTION, HAND_DRAG};
     int getSelectionMode() const;
 
 signals:

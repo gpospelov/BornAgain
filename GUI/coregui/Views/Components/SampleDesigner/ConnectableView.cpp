@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/ConnectableView.cpp
+//! @brief     Implements class ConnectableView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ConnectableView.h"
 #include "DesignerHelper.h"
 #include "NodeEditorPort.h"
@@ -48,13 +63,13 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
-NodeEditorPort* ConnectableView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
+NodeEditorPort* ConnectableView::addPort(const QString &name, NodeEditorPort::EPortDirection direction, NodeEditorPort::EPortType port_type)
 {
     NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
-    if(direction == NodeEditorPort::Input) {
+    if(direction == NodeEditorPort::INPUT) {
         m_input_ports.append(port);
     }
-    else if(direction == NodeEditorPort::Output) {
+    else if(direction == NodeEditorPort::OUTPUT) {
         m_output_ports.append(port);
     }
     else {

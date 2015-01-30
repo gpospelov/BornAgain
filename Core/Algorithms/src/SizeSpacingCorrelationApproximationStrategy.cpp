@@ -5,16 +5,16 @@
 //! @file      Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp
 //! @brief     Implements class SizeSpacingCorrelationApproximationStrategy.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #include "SizeSpacingCorrelationApproximationStrategy.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "MathFunctions.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
@@ -43,9 +43,14 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 {
     double qp = getqp(k_i, k_f_bin);
     double diffuse_intensity = 0.0;
+    double total_abundance = 0.0;
+    for (size_t i=0; i<m_ff_infos.size(); ++i) {
+        total_abundance += m_ff_infos[i]->m_abundance;
+    }
+    if (total_abundance <= 0.0) return 0.0;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         complex_t ff = ff_list[i];
-        double fraction = m_ff_infos[i]->m_abundance;
+        double fraction = m_ff_infos[i]->m_abundance/total_abundance;
         diffuse_intensity += fraction*(std::norm(ff));
     }
     complex_t mcff = getMeanCharacteristicFF(k_i, k_f_bin, ff_list);
@@ -54,7 +59,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0
             * ( mcff*mcffc*omega/(1.0 - p2kappa*omega) ).real();
-    return diffuse_intensity + interference_intensity;
+    return total_abundance*( diffuse_intensity + interference_intensity);
 }
 
 bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
@@ -70,11 +75,14 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
 {
     double qp = getqp(k_i, k_f_bin);
     complex_t result(0.0, 0.0);
+    double total_abundance = 0.0;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         result += m_ff_infos[i]->m_abundance * ff_list[i]
                 * calculatePositionOffsetPhase(qp, m_kappa, i);
+        total_abundance += m_ff_infos[i]->m_abundance;
     }
-    return result;
+    if (total_abundance <= 0.0) return result;
+    return result/total_abundance;
 }
 
 complex_t
@@ -84,19 +92,22 @@ SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
 {
     double qp = getqp(k_i, k_f_bin);
     complex_t result(0.0, 0.0);
+    double total_abundance = 0.0;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         result += m_ff_infos[i]->m_abundance * std::conj(ff_list[i])
                 * calculatePositionOffsetPhase(qp, m_kappa, i);
+        total_abundance += m_ff_infos[i]->m_abundance;
     }
-    return result;
+    if (total_abundance <= 0.0) return result;
+    return result/total_abundance;
 }
 
 complex_t
 SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(
         double qp) const
 {
-    const InterferenceFunction1DParaCrystal *p_iff =
-            dynamic_cast<const InterferenceFunction1DParaCrystal *>(m_ifs[0]);
+    const InterferenceFunctionRadialParaCrystal *p_iff =
+            dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(m_ifs[0]);
     if (p_iff==0) {
         throw ClassInitializationException("Wrong interference function for SSCA");
     }
@@ -109,11 +120,14 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(
 {
     size_t n_frs = m_ff_infos.size();
     complex_t result = complex_t(0.0, 0.0);
+    double total_abundance = 0.0;
     for (size_t i=0; i<n_frs; ++i) {
         result += m_ff_infos[i]->m_abundance
                 * calculatePositionOffsetPhase(qp, kappa, i);
+        total_abundance += m_ff_infos[i]->m_abundance;
     }
-    return result;
+    if (total_abundance <= 0.0) return result;
+    return result/total_abundance;
 }
 
 complex_t
@@ -136,9 +150,11 @@ double SizeSpacingCorrelationApproximationStrategy::getqp(const cvector_t& k_i,
 void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
 {
     m_mean_radius = 0.0;
+    double total_abundance = 0.0;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         m_mean_radius += m_ff_infos[i]->m_abundance
                        * m_ff_infos[i]->mp_ff->getRadius();
+        total_abundance += m_ff_infos[i]->m_abundance;
     }
+    if (total_abundance>0.0) m_mean_radius /= total_abundance;
 }
-

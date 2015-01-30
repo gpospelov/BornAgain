@@ -5,11 +5,11 @@
 //! @file      Algorithms/src/Simulation.cpp
 //! @brief     Implements class Simulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -119,7 +119,7 @@ void Simulation::prepareSimulation()
 {
     if(!m_instrument.getDetectorDimension()) {
         throw LogicErrorException("Simulation::prepareSimulation() "
-        		"-> Error. The detector was not configured.");
+                "-> Error. The detector was not configured.");
     }
     gsl_set_error_handler_off();
     m_is_normalized = false;
@@ -134,40 +134,40 @@ void Simulation::runSimulation()
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
 
-	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
+    size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     if(m_progress) m_progress->init(this, param_combinations);
 
-	// no averaging needed:
-	if (param_combinations == 1) {
+    // no averaging needed:
+    if (param_combinations == 1) {
         ParameterPool *p_param_pool = createParameterTree();
         m_distribution_handler.setParameterValues(p_param_pool, 0);
-		runSingleSimulation();
+        updateSample();
+        runSingleSimulation();
         //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
         return;
-	}
+    }
 
-	// average over parameter distributions:
+    // average over parameter distributions:
     OutputData<double> total_intensity;
     OutputData<Eigen::Matrix2d> total_polarized_intensity;
     total_intensity.copyShapeFrom(m_intensity_map);
     total_polarized_intensity.copyShapeFrom(m_polarization_output);
     total_intensity.setAllTo(0.);
     total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
-	ParameterPool *p_param_pool = createParameterTree();
-	for (size_t index=0; index < param_combinations; ++index) {
-		double weight = m_distribution_handler.setParameterValues(
-				p_param_pool, index);
-		runSingleSimulation();
-		m_intensity_map.scaleAll(weight);
-		m_polarization_output.scaleAll(
-				(Eigen::Matrix2d)(Eigen::Matrix2d::Identity()*weight) );
-		total_intensity += m_intensity_map;
-		total_polarized_intensity += m_polarization_output;
-	}
-	m_intensity_map.copyFrom(total_intensity);
-	m_polarization_output.copyFrom(total_polarized_intensity);
-
+    ParameterPool *p_param_pool = createParameterTree();
+    for (size_t index=0; index < param_combinations; ++index) {
+        double weight = m_distribution_handler.setParameterValues(
+                p_param_pool, index);
+        updateSample();
+        runSingleSimulation();
+        m_intensity_map.scaleAll(weight);
+        m_polarization_output.scaleAll(Eigen::Matrix2d::Identity()*weight);
+        total_intensity += m_intensity_map;
+        total_polarized_intensity += m_polarization_output;
+    }
+    m_intensity_map.copyFrom(total_intensity);
+    m_polarization_output.copyFrom(total_polarized_intensity);
 }
 
 void Simulation::runOMPISimulation()
@@ -205,7 +205,7 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
 }
 
 OutputData<double>* Simulation::getPolarizedIntensityData(
-		int row, int column) const
+        int row, int column) const
 {
     const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
     OutputData<double > *result =
@@ -221,6 +221,12 @@ void Simulation::setInstrument(const Instrument& instrument)
 
 void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
 {
+    if (lambda<=0.0) {
+        throw ClassInitializationException(
+                "Simulation::setBeamParameters() "
+                "-> Error. Incoming wavelength <= 0.");
+    }
+
     m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
 }
 
@@ -350,12 +356,6 @@ void Simulation::runSingleSimulation()
         }
     }
 
-//    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-//            m_thread_info.n_batches <<
-//            ", current batch = " << m_thread_info.current_batch <<
-//            ", n_threads = " << m_thread_info.n_threads <<
-//            ", sample: " << *mp_sample;
-
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
         // Single thread.
@@ -420,7 +420,7 @@ void Simulation::runSingleSimulation()
         // Merge simulated data.
         bool isSuccess(true);
         std::string failure_message;
-        for(size_t i=0; i<simulations.size(); ++i) {            
+        for(size_t i=0; i<simulations.size(); ++i) {
             if(simulations[i]->isCompleted()) {
                 addToIntensityMaps(simulations[i]);
             } else {
@@ -466,4 +466,3 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
         dwba_progress->setCallback(callback);
     }
 }
-

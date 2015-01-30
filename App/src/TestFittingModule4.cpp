@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestFittingModule4.cpp
 //! @brief     Implements class TestFittingModule4.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -140,8 +140,9 @@ void TestFittingModule4::initializeSample()
 
     Layer air_layer;
     air_layer.setMaterial(air_material);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    Particle particle(particle_material, FormFactorCylinder(
+                          5*Units::nanometer, 5*Units::nanometer) );
+    ParticleLayout particle_layout(particle);
 
     air_layer.addLayout(particle_layout);
 

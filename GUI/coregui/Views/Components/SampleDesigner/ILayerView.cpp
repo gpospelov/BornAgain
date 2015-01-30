@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/ILayerView.cpp
+//! @brief     Implements class ILayerView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ILayerView.h"
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
@@ -178,7 +193,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 
     QRectF layerRect = mapRectToScene(boundingRect());
     foreach(QGraphicsItem *item, scene()->items()) {
-        if(item->type() == DesignerHelper::MultiLayerType
+        if(item->type() == DesignerHelper::MULTILAYER
                 && item != this
                 && !childItems().contains(item)
                 )

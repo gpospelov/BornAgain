@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/GroupPropertyRegistry.cpp
+//! @brief     Implements class GroupPropertyRegistry
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "GroupPropertyRegistry.h"
 #include "SelectableGroupProperty.h"
 #include "FancyGroupProperty.h"
@@ -50,6 +65,14 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     detectors[Constants::PhiAlphaDetectorType] = "[Phi, Alpha] plane";
     result[Constants::DetectorGroup] = detectors;
 
+    QMap<QString, QString> distributions;
+    distributions[Constants::DistributionGateType] = "Gate distribution";
+    distributions[Constants::DistributionLorentzType] = "Lorentz distribution";
+    distributions[Constants::DistributionGaussianType] = "Gaussian distribution";
+    distributions[Constants::DistributionLogNormalType] = "Log Normal distribution";
+    distributions[Constants::DistributionCosineType] = "Cosine distribution";
+    result[Constants::DistributionGroup] = distributions;
+
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";
@@ -90,11 +113,11 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
-        result->setGroupType(FancyGroupProperty::SelectableGroupType);
+        result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     }
     else {
-        result->setGroupType(FancyGroupProperty::FixedGroupType);
+        result->setGroupType(FancyGroupProperty::FIXED);
         //result->setValue(group_n);
         QMap<QString, QString> group_map;
         group_map[groupModelType] = "No label";

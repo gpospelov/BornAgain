@@ -16,26 +16,26 @@ private slots:
 
 inline void TestParaCrystalItems::test_Para1D_InitialState()
 {
-    InterferenceFunction1DParaCrystalItem item;
-    QCOMPARE(item.modelType(), Constants::InterferenceFunction1DParaCrystalType);
-    QCOMPARE(item.itemName(), Constants::InterferenceFunction1DParaCrystalType);
+    InterferenceFunctionRadialParaCrystalItem item;
+    QCOMPARE(item.modelType(), Constants::InterferenceFunctionRadialParaCrystalType);
+    QCOMPARE(item.itemName(), Constants::InterferenceFunctionRadialParaCrystalType);
     QCOMPARE(item.getSubItems().size(), 1);
 
-    QCOMPARE(item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE).toDouble(), 20.0*Units::nanometer);
-    QCOMPARE(item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH).toDouble(), 1000.0*Units::micrometer);
-    QCOMPARE(item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE).toDouble(), 20.0*Units::micrometer);
-    QCOMPARE(item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_KAPPA).toDouble(), 0.0);
+    QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE).toDouble(), 20.0*Units::nanometer);
+    QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH).toDouble(), 1000.0*Units::micrometer);
+    QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE).toDouble(), 20.0*Units::micrometer);
+    QCOMPARE(item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_KAPPA).toDouble(), 0.0);
 
-    QCOMPARE(item.getSubItems()[InterferenceFunction1DParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
+    QCOMPARE(item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF]->modelType(), Constants::FTDistribution1DCauchyType);
 
-    FancyGroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PDF).value<FancyGroupProperty_t>();
-    QCOMPARE(group_property->type(), FancyGroupProperty::SelectableGroupType);
+    FancyGroupProperty_t group_property = item.getRegisteredProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF).value<FancyGroupProperty_t>();
+    QCOMPARE(group_property->type(), FancyGroupProperty::SELECTABLE);
 
 }
 
 inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
 {
-    InterferenceFunction1DParaCrystalItem item;
+    InterferenceFunctionRadialParaCrystalItem item;
 
     // check that request for new subItem generates item of correct modelType and
     // correct signals (one propertyItemChanged, and no propertyChanged)
@@ -50,10 +50,10 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
     foreach(QString pdf_name, pdfs) {
         QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
         QSignalSpy spyPropertyItem(&item, SIGNAL(propertyItemChanged(QString)));
-        ParameterizedItem *pdfItem = item.setGroupProperty(InterferenceFunction1DParaCrystalItem::P_PDF, pdf_name);
+        ParameterizedItem *pdfItem = item.setGroupProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF, pdf_name);
         QVERIFY(pdfItem);
         QCOMPARE(item.getSubItems().size(), 1);
-        QCOMPARE(pdfItem, item.getSubItems()[InterferenceFunction1DParaCrystalItem::P_PDF]);
+        QCOMPARE(pdfItem, item.getSubItems()[InterferenceFunctionRadialParaCrystalItem::P_PDF]);
 
         QCOMPARE(spyItem.count(), 0);
         if(pdf_name == Constants::FTDistribution1DCauchyType) { // default ff
@@ -61,7 +61,7 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
         } else {
             QCOMPARE(spyPropertyItem.count(), 1);
             QList<QVariant> arguments = spyPropertyItem.takeFirst(); // take the first signal
-            QCOMPARE(arguments.at(0).toString(), InterferenceFunction1DParaCrystalItem::P_PDF);
+            QCOMPARE(arguments.at(0).toString(), InterferenceFunctionRadialParaCrystalItem::P_PDF);
         }
 
         QCOMPARE(pdfItem->modelType(), pdf_name);

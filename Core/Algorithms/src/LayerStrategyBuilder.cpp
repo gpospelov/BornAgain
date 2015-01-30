@@ -6,11 +6,11 @@
 //! @brief     Implements classes LayerStrategyBuilder and
 //!              FormFactorInfo
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -21,7 +21,6 @@
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
 #include "FormFactorTools.h"
-#include "PositionParticleInfo.h"
 
 #include <cmath>
 #include <boost/scoped_ptr.hpp>
@@ -105,20 +104,22 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mp_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_decoration = mp_layer->getLayout(m_layout_index);
+    const ILayout *p_layout = mp_layer->getLayout(m_layout_index);
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
+    double total_abundance = mp_layer->getTotalAbundance();
+    if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    size_t number_of_particles = p_decoration->getNumberOfParticles();
+    size_t number_of_particles = p_layout->getNumberOfParticles();
     for (size_t particle_index =
              0; particle_index<number_of_particles; ++particle_index) {
         const ParticleInfo *p_particle_info =
-            p_decoration->getParticleInfo(particle_index);
+            p_layout->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info;
         p_ff_info = createFormFactorInfo(p_particle_info, p_layer_material,
                 wavevector_scattering_factor);
         p_ff_info->m_abundance =
-            p_decoration->getAbundanceFractionOfParticle(particle_index);
+            p_layout->getAbundanceOfParticle(particle_index)/total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
     return;
@@ -147,34 +148,38 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
+    boost::scoped_ptr<IParticle> P_particle_clone(p_particle_info->
             getParticle()->clone());
     P_particle_clone->setAmbientMaterial(p_ambient_material);
 
     // formfactor
-    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
+    IFormFactor *p_ff_particle=0;
+    kvector_t position = p_particle_info->getPosition();
+    if (position==kvector_t(0.0, 0.0, 0.0)) {
+        p_ff_particle = P_particle_clone->createFormFactor(factor);
+    }
+    else {
+        boost::scoped_ptr<IFormFactor> p_clone(
+                    P_particle_clone->createFormFactor(factor) );
+        p_ff_particle = new FormFactorDecoratorPositionFactor(
+                    *p_clone, position);
+    }
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
-        double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle, depth);
+                    p_ff_particle);
         }
         else {
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle, depth);
+                    p_ff_particle);
         }
     }
     p_result->mp_ff = p_ff_framework;
-    // Other info (position and abundance
-    const PositionParticleInfo *p_pos_particle_info =
-        dynamic_cast<const PositionParticleInfo *>(p_particle_info);
-    if (p_pos_particle_info) {
-        kvector_t position = p_pos_particle_info->getPosition();
-        p_result->m_pos_x = position.x();
-        p_result->m_pos_y = position.y();
-    }
+    // Other info (position and abundance)
+    p_result->m_pos_x = position.x();
+    p_result->m_pos_y = position.y();
     p_result->m_abundance = p_particle_info->getAbundance();
     return p_result;
 }
@@ -194,4 +199,3 @@ FormFactorInfo* FormFactorInfo::clone() const
     p_result->mp_ff = mp_ff->clone();
     return p_result;
 }
-

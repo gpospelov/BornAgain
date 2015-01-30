@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/DomainObjectBuilder.cpp
-//! @brief     Implements class DomainObjectBuilder.
+//! @file      coregui/Models/DomainObjectBuilder.cpp
+//! @brief     Implements class DomainObjectBuilder
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "ParticleCoreShellItem.h"
 #include "Samples.h"
-#include "PositionParticleInfo.h"
 #include "Instrument.h"
 #include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
@@ -27,9 +26,15 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "RotationItems.h"
+#include "ParticleDistributionItem.h"
+#include "ParticleDistribution.h"
+#include "Distributions.h"
+#include "ComboProperty.h"
+
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
+
 
 DomainObjectBuilder::DomainObjectBuilder()
     : mp_sample(0)
@@ -107,9 +112,9 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
     ParticleLayout *result = TransformToDomain::createParticleLayout(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
+        double depth(0.0), abundance(0.0);
         if (children[i]->modelType() == Constants::ParticleType) {
             ParameterizedItem *particle_item = children[i];
-            double depth(0), abundance(0);
             boost::scoped_ptr<Particle>
                     particle(buildParticle(*particle_item, depth, abundance));
             if (particle.get()) {
@@ -125,15 +130,23 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
             }
         }
         else if(children[i]->modelType() == Constants::ParticleCoreShellType) {
-            double depth(0), abundance(0);
             boost::scoped_ptr<ParticleCoreShell>
                     coreshell(buildParticleCoreShell(*children[i], depth, abundance));
             if (coreshell.get()) {
                 result->addParticle(*coreshell, depth, abundance);
             }
         }
+        else if(children[i]->modelType() == Constants::ParticleDistributionType) {
+            boost::scoped_ptr<ParticleDistribution>
+                    part_distr(buildParticleDistribution(*children[i], depth,
+                               abundance) );
+            if (part_distr.get()) {
+                result->addParticle(*part_distr, depth, abundance);
+            }
+        }
         else {
-            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
+                                    " -> Error! Not implemented");
         }
     }
     return result;
@@ -171,6 +184,48 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item,
         }
     }
     return result;
+}
+
+ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(
+        const ParameterizedItem &item, double &depth, double &abundance) const
+{
+    ParticleDistribution *p_result = 0;
+    QList<ParameterizedItem *> children = item.childItems();
+    if (children.size()!=1) {
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
+                                " -> Error! No particle defined");
+    }
+    boost::scoped_ptr<IParticle> P_particle;
+    if (children[0]->modelType() == Constants::ParticleType) {
+        ParameterizedItem *particle_item = children[0];
+        P_particle.reset(buildParticle(*particle_item, depth, abundance));
+    }
+    else if (children[0]->modelType() == Constants::ParticleCoreShellType) {
+        ParameterizedItem *particle_item = children[0];
+        P_particle.reset(buildParticleCoreShell(*particle_item, depth,
+                                                abundance));
+    }
+    if (!P_particle.get()) {
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
+                                " -> Error! No correct particle defined");
+    }
+    ParameterizedItem *distr_item =
+            item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
+    Q_ASSERT(distr_item);
+    boost::scoped_ptr<IDistribution1D> distr(
+                TransformToDomain::createDistribution(*distr_item) );
+    QVariant par_name_var = item.getRegisteredProperty(
+                ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
+    ComboProperty prop = par_name_var.value<ComboProperty>();
+    QString par_name = prop.getValue();
+    int nbr_samples = item.getRegisteredProperty(
+                ParticleDistributionItem::P_SAMPLE_NUMBER).toInt();
+    double sigma_factor = item.getRegisteredProperty(
+                ParticleDistributionItem::P_SIGMA_FACTOR).toDouble();
+    ParameterDistribution par_distr(par_name.toStdString(), *distr,
+                                    nbr_samples, sigma_factor);
+    p_result = new ParticleDistribution(*P_particle, par_distr);
+    return p_result;
 }
 
 IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(
@@ -219,10 +274,10 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     for (int i=0; i<children.size(); ++i) {
         double tmp_depth(0), tmp_abundance(0);
         int port = children[i]->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if(port == ParameterizedItem::PortInfo::Port0) {
+        if(port == ParameterizedItem::PortInfo::PORT_0) {
             coreParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
         }
-        else if(port == ParameterizedItem::PortInfo::Port1) {
+        else if(port == ParameterizedItem::PortInfo::PORT_1) {
             shellParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
         }
         else {
@@ -264,7 +319,7 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
                         VectorItem::P_Z).toDouble();
             if (pos_x!=0.0 || pos_y!=0.0 || pos_z!=0.0) {
                 kvector_t position(pos_x, pos_y, pos_z);
-                PositionParticleInfo particle_info(
+                ParticleInfo particle_info(
                             particle, position, abundance);
                 result->addParticleInfo(particle_info);
             } else {

@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestInfLongBox.cpp
 //! @brief     Implements class TestInfLongBox.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -28,11 +28,8 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Particle.h"
-#include "ParticleBuilder.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "Utils.h"
 #include "OffSpecSimulation.h"

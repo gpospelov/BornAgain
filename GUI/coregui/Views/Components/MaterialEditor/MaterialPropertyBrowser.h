@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/MaterialEditor/MaterialPropertyBrowser.h
+//! @brief     Defines class MaterialPropertyBrowser
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MATERIALPROPERTYBROWER_H
 #define MATERIALPROPERTYBROWER_H
 
@@ -76,8 +91,8 @@ private:
     void removeSubProperties(QtProperty *property);
 //    void updateSubProperties(ParameterizedItem *material);
 
-    enum ExpandAction { SaveExpandState, RestoreExpandState};
-    void updateExpandState(ExpandAction action);
+    enum EExpandAction { SAVE_EXPAND_STATE, RESTORE_EXPAND_STATE };
+    void updateExpandState(EExpandAction action);
 
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;

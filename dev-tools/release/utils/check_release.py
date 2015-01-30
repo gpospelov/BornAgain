@@ -22,7 +22,7 @@ def check_tarball():
     run_command(cmd)
     cmd = "cd %s/build; cmake -DCMAKE_INSTALL_PREFIX=../installed ../BornAgain-%s; make -j8; make check; make install" % (get_checktarball_dir(), get_version())
     run_command(cmd)
-    cmd = "source %s/installed/bin/thisbornagain.sh; python -c \"from libBornAgainCore import *; print GetVersionNumber()\"" % (get_checktarball_dir())
+    cmd = "cd %s/installed/lib; python -c \"from libBornAgainCore import *; print GetVersionNumber()\"" % (get_checktarball_dir())
     print cmd
     result = subprocess.check_output(cmd, shell=True)
     received_version = result.split("\n")[0]

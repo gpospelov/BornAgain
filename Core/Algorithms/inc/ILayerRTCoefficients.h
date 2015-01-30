@@ -5,11 +5,11 @@
 //! @file      Algorithms/inc/ILayerRTCoefficients.h
 //! @brief     Defines class ILayerRTCoefficients.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -44,6 +44,7 @@ public:
     virtual Eigen::Vector2cd getKz() const=0;
     //! Scalar value getters; these throw errors by default as they should only
     //! be used when the derived object is really scalar
+#endif
     virtual complex_t getScalarT() const {
         throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarT(): coefficients are not scalar.");
@@ -56,7 +57,6 @@ public:
         throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarKz(): coefficients are not scalar.");
     }
-#endif
 };
 
 

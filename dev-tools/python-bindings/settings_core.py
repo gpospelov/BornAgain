@@ -8,9 +8,22 @@ import utils_build
 
 
 license = '''\
-// BornAgain: simulate and fit scattering at grazing incidence
-//! @brief Automatically generated boost::python code for PythonCoreAPI
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Automatically generated boost::python code for BornAgain Python bindings
+//! @brief     Automatically generated boost::python code for BornAgain Python bindings
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Juelich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 '''
+
 
 lib_name = 'libBornAgainCore'
 
@@ -113,17 +126,16 @@ include_classes = [
     "IObserver",
     "IObservable",
     "IParameterized",
+    "IParticle",
     "IResolutionFunction2D",
     "IntensityDataFunctions",
     "ISample",
     "ISampleBuilder",
-    #"SampleBuilder_t",
-    #"ISampleVisitor",
     "ISelectionRule",
     "Transform3D",
     "Instrument",
     "InterferenceFunction1DLattice",
-    "InterferenceFunction1DParaCrystal",
+    "InterferenceFunctionRadialParaCrystal",
     "InterferenceFunction2DLattice",
     "InterferenceFunction2DParaCrystal",
     "InterferenceFunctionNone",
@@ -132,31 +144,26 @@ include_classes = [
     "Lattice2DIFParameters",
     "LatticeBasis",
     "Layer",
-    #"LayerDecorator",
     "LayerInterface",
     "LayerRoughness",
-    #"MaterialManager",
     "MesoCrystal",
     "MultiLayer",
     "OffSpecSimulation",
     "OutputData<double>",
     "IntensityDataIOFactory",
+    "ParameterDistribution",
     "ParameterPool",
     "Particle",
+    "ParticleDistribution",
     "ParticleCoreShell",
-    "ParticleBuilder",
     "ParticleLayout",
     "ParticleInfo",
-    "PositionParticleInfo",
     "RealParameterWrapper",
-    "ResolutionFunction2DSimple",
+    "ResolutionFunction2DGaussian",
     "Simulation",
+    "SpecularSimulation",
     "SimulationParameters",
     "SimpleSelectionRule",
-    "StochasticDoubleGate",
-    "StochasticDoubleGaussian",
-    "StochasticParameter<double>",
-    "StochasticSampledParameter",
     "ThreadInfo",
     "cvector_t",
     "kvector_t",
@@ -181,16 +188,16 @@ def ManualClassTunings(mb):
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))
     shared_ptrs.disable_warnings(messages.W1040)
     # ISample
-    cl = mb.class_('ISample') 
+    cl = mb.class_('ISample')
     cl.member_function("accept").include()
     cl.member_function("printSampleTree").include()
-    
+
     # ICompositeSample
     cl = mb.class_('ICompositeSample')
     for f in cl.member_functions():
         if "shallow" in f.name:
             f.exclude()
-    
+
     # BasicVector3D
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
@@ -216,7 +223,7 @@ def ManualClassTunings(mb):
     cl.member_functions().exclude()
     cl.member_function("addParticle").include()
     #
-    cl = mb.class_('RealParameterWrapper') 
+    cl = mb.class_('RealParameterWrapper')
     cl.member_functions().exclude()
     cl.member_function("setValue").include()
     cl.member_function("getValue").include()
@@ -282,7 +289,6 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Particle")
     cl.member_function("createDiffuseParticleInfo").exclude()
-    cl.member_function("createDistributedParticles").exclude()
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
@@ -290,8 +296,15 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
+    cl = mb.class_("ParticleDistribution")
+    cl.member_function("generateParticleInfos").exclude()
+    #
     cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
+    #
+    cl = mb.class_("ParameterDistribution")
+    cl.member_function("generateSamples").exclude()
+    cl.member_function("getLinkedParameterNames").exclude()
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
@@ -316,6 +329,11 @@ def ManualClassTunings(mb):
         call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
+    #
+    cl = mb.class_("SpecularSimulation")
+    cl.member_function("setSampleBuilder").include()
+    # cl.member_function("getEvanescentWaveIntensity").call_policies = \
+    # call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("OffSpecSimulation")
     cl.member_function("setSampleBuilder").include()
@@ -355,10 +373,11 @@ def ManualClassTunings(mb):
 def ManualExcludeMemberFunctions(mb):
     # with given name in function name
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
-    to_exclude_exact=['createDiffuseParticleInfo', 'createDistributedParticles',
-        'inverse', 'transformed', 'getNearestLatticeVectorCoordinates', 'getNearestReciprocalLatticeVectorCoordinates',
-        'collectBraggAngles', 'getKVectorContainer',
-        'begin', 'end', 'getBinOfAxis', 'addMask', 'getMask', 'setMask',
+    to_exclude_exact=['createDiffuseParticleInfo', 'inverse', 'transformed',
+        'getNearestLatticeVectorCoordinates',
+        'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
+        'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',
+        'getMask', 'setMask',
     ]
     for f in mb.member_functions():
         for x in to_exclude:

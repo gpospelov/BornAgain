@@ -1,9 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/LabelSample.h
+//! @brief     Defines LabelSample class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LABELSAMPLE_H
 #define LABELSAMPLE_H
 #include <map>
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "Particle.h"
+#include "IParticle.h"
 #include "ParticleLayout.h"
 
 //static std::map<const Layer *,std::string> m_layerLabel;
@@ -28,7 +43,7 @@ public:
     std::string getLabel(const Layer *sample);
     std::string getLabel(const LayerRoughness *sample);
     std::string getLabel(const MultiLayer *sample);
-    std::string getLabel(const Particle *sample);
+    std::string getLabel(const IParticle *sample);
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ParticleInfo *sample);
     std::string getLabel(const ILayout *sample);

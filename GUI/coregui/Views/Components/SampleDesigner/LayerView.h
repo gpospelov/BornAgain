@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/LayerView.h
+//! @brief     Defines class LayerView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LAYERVIEW_H
 #define LAYERVIEW_H
 
@@ -9,12 +24,12 @@ class BA_CORE_API_ LayerView : public ILayerView
 {
     Q_OBJECT
 public:
-    enum { Type = DesignerHelper::LayerType };
+    enum { TYPE = DesignerHelper::LAYER };
 
     LayerView(QGraphicsItem *parent = 0);
     ~LayerView() { }
 
-    int type() const { return Type; }
+    int type() const { return TYPE; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

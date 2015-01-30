@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/mainwindow/actionmanager.cpp
+//! @brief     Defines class ActionManager
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ACTIONMANAGER_H
 #define ACTIONMANAGER_H
 
@@ -30,6 +45,7 @@ private:
     QAction *m_openAction;
     QAction *m_saveAction;
     QAction *m_exitAction;
+    QAction *m_aboutAction;
     QList<QAction *> m_recentProjectActions;
 
     QMenuBar *m_menuBar;

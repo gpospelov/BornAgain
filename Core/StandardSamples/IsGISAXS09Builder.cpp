@@ -5,11 +5,11 @@
 //! @file      StandardSamples/IsGISAXS09Builder.cpp
 //! @brief     Implements classes IsGISAXS09ABuilder and IsGISAXS09BBuilder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -56,7 +56,8 @@ ISample *IsGISAXS09ABuilder::buildSample() const
 
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
 
-    ParticleLayout particle_layout(new Particle(particle_material, ff_pyramid ));
+    Particle particle(particle_material, ff_pyramid);
+    ParticleLayout particle_layout(particle);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -105,7 +106,7 @@ ISample *IsGISAXS09BBuilder::buildSample() const
 
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
 
-    Particle *pyramid = new Particle(particle_material, ff_pyramid);
+    Particle pyramid(particle_material, ff_pyramid);
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(m_zangle);

@@ -5,11 +5,11 @@
 //! @file      Samples/inc/Layer.h
 //! @brief     Defines class Layer.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -94,6 +94,8 @@ public:
             size_t layout_index=0) const;
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
+
+    double getTotalAbundance() const;
 
     void setNumberOfLayers(size_t n_layers) {
         mn_layers = n_layers;

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/JobOutputDataWidget.cpp
+//! @brief     Implements class JobOutputDataWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobOutputDataWidget.h"
 #include "JobQueueModel.h"
 #include "OutputDataWidget.h"
@@ -73,7 +88,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     m_currentJobItem = item;
 
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget && (item->getStatus() == JobItem::Completed || item->getStatus() == JobItem::Canceled)) {
+    if( !widget && (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new OutputDataWidget(this, false, false, false);
@@ -113,7 +128,7 @@ void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
 
     if(jobItem == m_currentJobItem)
     {
-        if((jobItem->getStatus() == JobItem::Completed || jobItem->getStatus() == JobItem::Canceled) && jobItem->getOutputDataItem())
+        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem())
         {
             qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
             itemClicked(jobItem);
@@ -153,7 +168,7 @@ void JobOutputDataWidget::savePlot()
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
     m_toolBar->onActivityChanged(activity);
-    if(activity == JobView::RealTimeActivity) {
+    if(activity == JobView::REAL_TIME_ACTIVITY) {
         OutputDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);

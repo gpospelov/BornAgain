@@ -4,12 +4,12 @@
 //
 //! @file      Samples/inc/BAVersion.h
 //! @brief     Defines functions for access to the package version number.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -21,9 +21,9 @@
 #include <sstream>
 
 namespace BornAgain {
-    const int major_version_number = 0;
-    const int minor_version_number = 9;
-    const int patch_version_number = 9;
+    const int major_version_number = 1;
+    const int minor_version_number = 0;
+    const int patch_version_number = 0;
 
     inline int GetMajorVersionNumber() { return major_version_number; }
     inline int GetMinorVersionNumber() { return minor_version_number; }

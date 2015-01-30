@@ -4,12 +4,12 @@
 //
 //! @file      App/inc/TestIsGISAXS5.h
 //! @brief     Defines class TestIsGISAXS5.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -23,7 +23,7 @@
 class Simulation;
 class FitSuite;
 
-//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and 1D paracrystal interference function.
+//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and radial paracrystal interference function.
 
 class TestIsGISAXS5 : public IApplicationTest
 {

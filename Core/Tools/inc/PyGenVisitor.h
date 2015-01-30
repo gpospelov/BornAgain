@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/PyGenVisitor.h
+//! @brief     Defines PyGenVisitor class.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef _PYGENVISITOR_H
 #define _PYGENVISITOR_H
 #include "ISampleVisitor.h"
@@ -42,7 +57,7 @@ public:
     void visit(const FormFactorTruncatedSpheroid *sample);
     void visit(const InterferenceFunctionNone *);
     void visit(const InterferenceFunction1DLattice *);
-    void visit(const InterferenceFunction1DParaCrystal *);
+    void visit(const InterferenceFunctionRadialParaCrystal *);
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunction2DParaCrystal *);
     void visit(const Layer *sample);
@@ -53,7 +68,6 @@ public:
     void visit(const ParticleCoreShell *sample);
     void visit(const ParticleInfo *){}
     void visit(const ParticleLayout *sample);
-    void visit(const PositionParticleInfo *){}
 
 
 private:

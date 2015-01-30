@@ -5,16 +5,15 @@
 //! @file      FormFactors/src/FormFactorRipple1.cpp
 //! @brief     Implements class FormFactorRipple1.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
-#include "StochasticDiracDelta.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include <cmath>
@@ -67,8 +66,8 @@ complex_t FormFactorRipple1::Integrand(double Z, void* params) const
 //! Complex formfactor.
 
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
-{   
-	m_q = q;
+{
+    m_q = q;
     complex_t factor = m_length*MathFunctions::Sinc(m_q.x()*m_length*0.5)*m_width/M_PI;
     complex_t aaa = m_q.y()*m_width/(2*M_PI);
     complex_t aaa2 = aaa*aaa;

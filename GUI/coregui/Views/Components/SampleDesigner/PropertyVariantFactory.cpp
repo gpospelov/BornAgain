@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/PropertyVariantFactory.cpp
+//! @brief     Implements class PropertyVariantFactory
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "PropertyVariantFactory.h"
 #include "PropertyVariantManager.h"
 #include "PropertyBrowserUtils.h"
@@ -46,7 +61,7 @@ void PropertyVariantFactory::connectPropertyManager(
     connect(manager, SIGNAL(attributeChanged(QtProperty *, const QString &,
                                              const QVariant &)),
                 this, SLOT(slotPropertyAttributeChanged(QtProperty *,
-                                    const QString &, const QVariant &)));    
+                                    const QString &, const QVariant &)));
     QtVariantEditorFactory::connectPropertyManager(manager);
 }
 

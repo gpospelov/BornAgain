@@ -5,11 +5,11 @@
 //! @file      StandardSamples/PolarizedDWBAZeroMagBuilder.cpp
 //! @brief     Implements class PolarizedDWBAZeroMagBuilder
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -45,7 +45,7 @@ void PolarizedDWBAMagCylinders1Builder::init_parameters()
 
 ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 {
-	MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer *multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -57,9 +57,8 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -103,8 +102,8 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleLayout particle_layout(
-            new Particle(particle_material,ff_cylinder));
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/JobRunner.cpp
+//! @brief     Implements class JobRunner
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobRunner.h"
 #include "Simulation.h"
 #include "ProgressHandler.h"
@@ -11,7 +26,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
-    , m_job_status(JobItem::Idle)
+    , m_job_status(JobItem::IDLE)
     , m_terminate_request_flag(false)
 {
 
@@ -44,16 +59,16 @@ void JobRunner::start()
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 
-        m_job_status = JobItem::Running;
+        m_job_status = JobItem::RUNNING;
 
         try {
             m_simulation->runSimulation();
-            if(m_job_status != JobItem::Canceled)
-                m_job_status = JobItem::Completed;
+            if(m_job_status != JobItem::CANCELLED)
+                m_job_status = JobItem::COMPLETED;
         }
         catch(const std::exception &ex)
         {
-            m_job_status = JobItem::Failed;
+            m_job_status = JobItem::FAILED;
             m_progress=100;
             m_failure_message = QString(ex.what());
         }
@@ -63,7 +78,7 @@ void JobRunner::start()
 //        emit progressUpdate();
 //        emit finished();
     } else {
-        m_job_status = JobItem::Failed;
+        m_job_status = JobItem::FAILED;
         m_progress=100;
         m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
@@ -102,5 +117,5 @@ void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";
     m_terminate_request_flag = true;
-    m_job_status = JobItem::Canceled;
+    m_job_status = JobItem::CANCELLED;
 }

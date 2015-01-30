@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/PyGenTools.cpp
+//! @brief     Implements functions from PyGenTools namespace.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include <boost/scoped_ptr.hpp>
 #include <sstream>
 #include <fstream>
@@ -12,6 +27,7 @@
 #include "MultiLayer.h"
 #include "PyGenTools.h"
 #include "Simulation.h"
+#include "BAPython.h"
 
 std::string PyGenTools::genPyScript(Simulation *simulation)
 {
@@ -64,7 +80,7 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     pythonFile << "import sys\n";
     pythonFile << "import os\n";
     pythonFile << "sys.path.append(os.path.abspath("
-               << "os.path.join(os.path.split(__file__)[0],"
+               << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
                << "'..', '..', '..', 'lib')))\n\n";
     pythonFile << genPyScript(simulation);
     pythonFile.close();
@@ -97,7 +113,7 @@ bool PyGenTools::testPyScript(Simulation *simulation)
 //                simulation->getIntensityData());
 //    boost::scoped_ptr<const OutputData<double> > simulated_data(
 //                    pSimulation->getIntensityData());
-    std::string command = "python PythonScript.py";
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
     if (std::remove("PythonScript.py") != 0) {

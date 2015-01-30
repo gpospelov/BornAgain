@@ -5,11 +5,11 @@
 //! @file      Samples/src/ISampleVisitor.cpp
 //! @brief     Implements class ISampleVisitor.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -90,10 +90,20 @@ void ISampleVisitor::visit(const MultiLayer *)
     throw NotImplementedException("ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const IParticle *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const IParticle *) -> Error. Not implemented.");
+}
+
 
 void ISampleVisitor::visit(const Particle *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const Particle *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const ParticleDistribution *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleDistribution *) -> Error. Not implemented.");
 }
 
 
@@ -127,12 +137,6 @@ void ISampleVisitor::visit(const DiffuseParticleInfo *)
 }
 
 
-void ISampleVisitor::visit(const PositionParticleInfo *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const PositionParticleInfo *) -> Error. Not implemented.");
-}
-
-
 void ISampleVisitor::visit(const IFormFactor *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const IFormFactor *) -> Error. Not implemented.");
@@ -142,12 +146,6 @@ void ISampleVisitor::visit(const IFormFactor *)
 void ISampleVisitor::visit(const FormFactorDWBAPol *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBAPol *) -> Error. Not implemented.");
-}
-
-
-void ISampleVisitor::visit(const FormFactorDWBAPolConstZ *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBAPolConstZ *) -> Error. Not implemented.");
 }
 
 
@@ -338,12 +336,6 @@ void ISampleVisitor::visit(const FormFactorDWBA *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorDWBAConstZ *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDWBAConstZ *) -> Error. Not implemented.");
-}
-
-
 void ISampleVisitor::visit(const FormFactorDecoratorDebyeWaller *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorDecoratorDebyeWaller *) -> Error. Not implemented.");
@@ -390,8 +382,8 @@ void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
     throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *){
-    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");
+void ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *){
+    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *) -> Error. Not implemented.");
 }
 
 

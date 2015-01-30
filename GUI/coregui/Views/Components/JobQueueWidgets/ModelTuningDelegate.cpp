@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/ModelTuningDelegate.cpp
+//! @brief     Implements class ModelTuningDelegate
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ModelTuningDelegate.h"
 #include "ItemLink.h"
 #include "GUIHelpers.h"
@@ -17,6 +32,11 @@
 #include <limits>
 #include <iostream>
 
+
+namespace {
+const double maximum_doublespin_value(10000.0);
+const double minimum_doublespin_value(10000.0);
+}
 
 ModelTuningDelegate::SliderData::SliderData()
     : m_smin(0)
@@ -130,11 +150,17 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_valueBox->setDecimals(attribute.getDecimals());
         m_valueBox->setSingleStep(1./std::pow(10.,attribute.getDecimals()-1));
 
-        if(limits.hasLowerLimit())
+        if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
+        } else {
+            m_valueBox->setMinimum(minimum_doublespin_value);
+        }
 
-        if(limits.hasUpperLimit())
+        if(limits.hasUpperLimit()) {
            m_valueBox->setMaximum(limits.getUpperLimit());
+        } else {
+            m_valueBox->setMaximum(maximum_doublespin_value);
+        }
 
         m_valueBox->setValue(value);
         connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
@@ -190,6 +216,7 @@ void ModelTuningDelegate::sliderValueChanged(int position)
 
 void ModelTuningDelegate::editorValueChanged(double value)
 {
+    qDebug() << "ModelTuningDelegate::editorValueChanged " << value;
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
 
     updateSlider(value);

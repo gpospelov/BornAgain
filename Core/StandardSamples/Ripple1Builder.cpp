@@ -5,11 +5,11 @@
 //! @file      StandardSamples/Ripple1Builder.cpp
 //! @brief     Implement class Ripple1Builder.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -19,7 +19,7 @@
 #include "Materials.h"
 #include "FormFactorRipple1.h"
 #include "Units.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 
 Ripple1Builder::Ripple1Builder()
     : m_w(20.0*Units::nanometer)
@@ -57,8 +57,8 @@ ISample *Ripple1Builder::buildSample() const
 
     ParticleLayout particle_layout;
 	particle_layout.addParticle(ripple,0.0,1.0);
-    InterferenceFunction1DParaCrystal *p_interference_function =
-            new InterferenceFunction1DParaCrystal(m_interf_distance,
+    InterferenceFunctionRadialParaCrystal *p_interference_function =
+            new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length
     FTDistribution1DGauss pdf(m_interf_width);
     p_interference_function->setProbabilityDistribution(pdf);

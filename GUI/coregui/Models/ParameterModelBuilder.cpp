@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/ParameterModelBuilder.cpp
+//! @brief     Implements class ParameterModelBuilder
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ParameterModelBuilder.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
@@ -63,8 +78,8 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                 PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);
 
 
-                if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
-                if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) continue;
+                if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+                if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) continue;
 
                 //if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty) continue;
 
@@ -92,8 +107,8 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                             QString childPropertyName = QString(childPropertyList[j]);
 
                             PropertyAttribute prop_attribute = subItem->getPropertyAttribute(childPropertyName);
-                            if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
-                            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) continue;
+                            if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
+                            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) continue;
 
                             QVariant childPropertyValue = subItem->property(childPropertyName.toUtf8().data());
                             int proValueType = GUIHelpers::getVariantType(childPropertyValue);
@@ -145,8 +160,12 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
             insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamItem);
 
             double v = beamItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>().getValue();
-            QVariant variant(v);
-            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant, beamItem);
+            QVariant variant_inclination(v);
+            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant_inclination, beamItem);
+
+            v = beamItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>().getValue();
+            insertRowIntoItem(standardItem, BeamItem::P_AZIMUTHAL_ANGLE, QVariant(v), beamItem);
+
         }
     }
 

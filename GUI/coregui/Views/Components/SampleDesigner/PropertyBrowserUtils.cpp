@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/PropertyBrowserUtils.cpp
+//! @brief     Implements class PropertyBrowserUtils
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "PropertyBrowserUtils.h"
 #include "MaterialEditor.h"
 #include "GUIHelpers.h"
@@ -89,10 +104,10 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
     if(groupProperty) {
         m_groupProperty = groupProperty;
 
-        if(groupProperty->type() == FancyGroupProperty::FixedGroupType) {
+        if(groupProperty->type() == FancyGroupProperty::FIXED) {
             processFixedGroup();
         }
-        else if(groupProperty->type() == FancyGroupProperty::SelectableGroupType) {
+        else if(groupProperty->type() == FancyGroupProperty::SELECTABLE) {
             processSelectableGroup();
         }
         else {

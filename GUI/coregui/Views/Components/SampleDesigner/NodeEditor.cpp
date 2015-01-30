@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/NodeEditor.cpp
+//! @brief     Implements class NodeEditor
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "NodeEditor.h"
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
@@ -46,9 +61,9 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
         case Qt::LeftButton:
         {
             QGraphicsItem *item = itemAt(me->scenePos());
-            if (item && item->type() == NodeEditorPort::Type)
+            if (item && item->type() == NodeEditorPort::TYPE)
             {
-                emit selectionModeChangeRequest(DesignerView::SimpleSelectionMode);
+                emit selectionModeChangeRequest(DesignerView::SIMPLE_SELECTION);
                 conn = new NodeEditorConnection(0, scene);
                 conn->setPort1((NodeEditorPort*) item);
                 conn->setPos1(item->scenePos());
@@ -75,10 +90,10 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
     {
         if (conn && me->button() == Qt::LeftButton)
         {
-            emit selectionModeChangeRequest(DesignerView::RubberSelectionMode);
+            emit selectionModeChangeRequest(DesignerView::RUBBER_SELECTION);
 
             QGraphicsItem *item = itemAt(me->scenePos());
-            if (item && item->type() == NodeEditorPort::Type)
+            if (item && item->type() == NodeEditorPort::TYPE)
             {
                 NodeEditorPort *port1 = conn->port1();
                 NodeEditorPort *port2 = (NodeEditorPort*) item;

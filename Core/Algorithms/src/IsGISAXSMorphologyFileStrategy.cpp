@@ -5,11 +5,11 @@
 //! @file      Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp
 //! @brief     Implements class IsGISAXSMorphologyFileStrategy.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -73,11 +73,9 @@ double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t& k_i,
     // coherent part
     complex_t coherent_amplitude = complex_t(0., 0.);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        complex_t phase = q.x()*m_x_positions[i] + q.y()*m_y_positions[i];
         double fraction = m_ff_infos[i]->m_abundance;
         double hann_value = hannFunction(m_x_positions[i], m_y_positions[i]);
-        coherent_amplitude += fraction*ff_list[i]
-                            * std::exp( complex_t(0., 1.0)*phase )*hann_value;
+        coherent_amplitude += fraction * ff_list[i] * hann_value;
     }
     double coherent_intensity = std::norm(coherent_amplitude);
 
@@ -86,13 +84,9 @@ double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t& k_i,
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         diffuse_intensity += m_ff_infos[i]->m_abundance*std::norm(ff_list[i]);
         for (size_t j=i+1; j<m_ff_infos.size(); ++j) {
-            double x_diff = m_x_positions[i]-m_x_positions[j];
-            double y_diff = m_y_positions[i]-m_y_positions[j];
-            complex_t phase = q.x()*x_diff + q.y()*y_diff;
             diffuse_intensity += m_ff_infos[i]->m_abundance
                     * m_ff_infos[j]->m_abundance *
-                    2.0*(ff_list[i]*std::conj(ff_list[j]) *
-                    std::exp( complex_t(0., 1.0)*phase )).real();
+                    2.0*(ff_list[i]*std::conj(ff_list[j])).real();
         }
     }
 //    // diffuse part from IsGISAXS --> seems to be wrong (contains only one probability in cross-products and lacks the factor 2)
@@ -120,5 +114,3 @@ double IsGISAXSMorphologyFileStrategy::hannFunction(double x, double y) const
     double result = (M_PI*M_PI/4.0)*std::cos(M_PI*x/m_win_x)*std::cos(M_PI*y/m_win_y);
     return result;
 }
-
-

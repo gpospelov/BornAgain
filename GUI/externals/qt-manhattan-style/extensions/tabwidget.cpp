@@ -17,8 +17,8 @@ static const int MIN_LEFT_MARGIN = 50;
 static const int MARGIN = 12;
 static const int TAB_HEIGHT = 24;
 static const int CONTENT_HEIGHT_MARGIN = 10;
-static const int SELECTION_IMAGE_WIDTH = 10;
-static const int SELECTION_IMAGE_HEIGHT = 20;
+//static const int SELECTION_IMAGE_WIDTH = 10;
+//static const int SELECTION_IMAGE_HEIGHT = 20;
 static const int OVERFLOW_DROPDOWN_WIDTH = TAB_HEIGHT;
 
 static void drawFirstLevelSeparator(QPainter *painter, QPoint top, QPoint bottom)

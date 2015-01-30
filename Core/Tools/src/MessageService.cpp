@@ -5,11 +5,11 @@
 //! @file      Tools/src/MessageService.cpp
 //! @brief     Implement Logger class.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -23,23 +23,23 @@
 std::vector<std::string> MSG::Logger::m_level_names =
         boost::assign::list_of("VERBOSE")("DEBUG2")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL");
 
-MSG::MessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
+MSG::EMessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
 
 namespace MSG
 {
 
-void SetLevel(MessageLevel level) 
-{ 
-	Logger::SetLevel(level); 
+void SetLevel(EMessageLevel level)
+{
+	Logger::SetLevel(level);
 }
 
-void SetLevel(const std::string& levelname) 
-{ 
-	Logger::SetLevel(levelname); 
+void SetLevel(const std::string& levelname)
+{
+	Logger::SetLevel(levelname);
 }
 
 
-Logger::Logger(MessageLevel level) 
+Logger::Logger(EMessageLevel level)
 {
 	//m_buffer << boost::this_thread::get_id();
     m_buffer << "- " << NowTime();
@@ -53,19 +53,19 @@ Logger::~Logger()
     std::cout << m_buffer.str();
 }
 
-const std::string& Logger::ToString(MessageLevel level) 
+const std::string& Logger::ToString(EMessageLevel level)
 {
 	return m_level_names[level];
 }
 
-void Logger::SetLevel(MessageLevel level) 
+void Logger::SetLevel(EMessageLevel level)
 {
-	m_logLevel = level; 
+	m_logLevel = level;
 }
 
-MessageLevel Logger::GetLevel() 
+EMessageLevel Logger::GetLevel()
 {
-	return m_logLevel; 
+	return m_logLevel;
 }
 
 std::string Logger::NowTime()
@@ -90,7 +90,7 @@ void Logger::SetLevel(const std::string& levelname)
     int index(0);
     for(std::vector<std::string >::iterator it = m_level_names.begin(); it!=m_level_names.end(); ++it) {
         if( (*it) == levelname ) {
-            SetLevel(MessageLevel(index));
+            SetLevel(EMessageLevel(index));
             return;
         }
         ++index;

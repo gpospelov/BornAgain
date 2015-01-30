@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/FixedBinAxis.cpp
+//! @brief     Implement class FixedBinAxis.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FixedBinAxis.h"
 #include "Exceptions.h"
 #include <iomanip>
@@ -61,11 +76,16 @@ double FixedBinAxis::getMax() const
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {
-    if (value < getMin() || value >= getMax()) {
-        std::ostringstream ostr;
-        ostr << "FixedBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-        throw OutOfBoundsException(ostr.str());
+//    if (value < getMin() || value >= getMax()) {
+//        std::ostringstream ostr;
+//        ostr << "FixedBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
+//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+//        throw OutOfBoundsException(ostr.str());
+//    }
+    if( value < getMin()) {
+        return 0;
+    } else if(value >= getMax()) {
+        return m_nbins-1;
     }
 
     double step = (m_end - m_start)/m_nbins;

@@ -5,16 +5,15 @@
 //! @file      FormFactors/src/FormFactorRipple2.cpp
 //! @brief     Implements class FormFactorRipple2.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
 #include "FormFactorInfLongRipple2.h"
-#include "StochasticDiracDelta.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include <cmath>
@@ -58,7 +57,7 @@ double FormFactorInfLongRipple2::getVolume() const {
 //! Complex formfactor.
 
 complex_t FormFactorInfLongRipple2::evaluate_for_q(const cvector_t& q) const
-{   
+{
     (const cvector_t) q;  // to avoid unused-variable warning
     throw NotImplementedException(
         "FormFactorInfLongRipple2::evaluate_for_q(q) -> Error: not implemented exception.");

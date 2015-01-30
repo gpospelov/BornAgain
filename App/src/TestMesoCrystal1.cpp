@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestMesoCrystal1.cpp
 //! @brief     Implements class TestMesoCrystal1.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -29,13 +29,11 @@ void TestMesoCrystal1::execute()
     simulation->setProgramOptions(mp_options);
 
     // loading reference data
-    std::string filename = Utils::FileSystem::GetReferenceDataDir()+ "mesocrystal01_reference.int.gz";
+    std::string filename = Utils::FileSystem::GetReferenceDataDir()
+            + "mesocrystal01_reference.int.gz";
 
-    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
-
-    // setting detector axis as in reference data
-    //simulation->setDetectorParameters(*reference);
-    //simulation->getSampleBuilder()->setParameterValue("nphi_rotations", 180.);
+    OutputData<double> *reference =
+            IntensityDataIOFactory::readIntensityData(filename);
 
     simulation->runSimulation();
     simulation->normalize();
@@ -59,7 +57,7 @@ void TestMesoCrystal1::execute()
     IsGISAXSTools::drawOutputDataComparisonResults(
             *data, *reference, "found", "found params", 100, 1e6);
 
-    IntensityDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
+    IntensityDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.int");
     delete data;
 
     delete simulation;

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/MaterialItem.cpp
+//! @brief     Implements class MaterialItem
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "MaterialItem.h"
 #include "ColorProperty.h"
 #include "MaterialUtils.h"
@@ -20,18 +35,18 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
 {
     setItemName(Constants::MaterialType);
-    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
     ComboProperty types;
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
-    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
     registerGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HiddenProperty));
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
 }
 

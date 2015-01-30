@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestIsGISAXS13.h
 //! @brief     Defines class TestIsGISAXS13.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -25,7 +25,7 @@ class FitSuite;
 
 //! IsGISAXS ex#13: Simulating annealing.
 
-//! Cylinders with size distribution and 1D paracrystal interference function.
+//! Cylinders with size distribution and radial paracrystal interference function.
 //!
 class TestIsGISAXS13 : public IApplicationTest
 {

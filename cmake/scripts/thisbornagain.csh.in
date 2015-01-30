@@ -104,54 +104,39 @@ if ($?old_bornagain) then
 endif
 
 
-#if ($?MANPATH) then
-## Nothing to do
-#else
-#   # Grab the default man path before setting the path to avoid duplicates 
-#   if ( -X manpath ) then
-#      set default_manpath = `manpath`
-#   else
-#      set default_manpath = `man -w`
-#   endif
-#endif
 
-set path = (@bindir@ $path)
+set path = (@this_bindir@ $path)
 
 if ($?LD_LIBRARY_PATH) then
-   setenv LD_LIBRARY_PATH @libdir@:$LD_LIBRARY_PATH      # Linux, ELF HP-UX
+   setenv LD_LIBRARY_PATH @this_libdir@:$LD_LIBRARY_PATH      # Linux, ELF HP-UX
 else
-   setenv LD_LIBRARY_PATH @libdir@
+   setenv LD_LIBRARY_PATH @this_libdir@
 endif
 
 if ($?DYLD_LIBRARY_PATH) then
-   setenv DYLD_LIBRARY_PATH @libdir@:$DYLD_LIBRARY_PATH  # Mac OS X
+   setenv DYLD_LIBRARY_PATH @this_libdir@:$DYLD_LIBRARY_PATH  # Mac OS X
 else
-   setenv DYLD_LIBRARY_PATH @libdir@
+   setenv DYLD_LIBRARY_PATH @this_libdir@
 endif
 
 if ($?SHLIB_PATH) then
-   setenv SHLIB_PATH @libdir@:$SHLIB_PATH                # legacy HP-UX
+   setenv SHLIB_PATH @this_libdir@:$SHLIB_PATH                # legacy HP-UX
 else
-   setenv SHLIB_PATH @libdir@
+   setenv SHLIB_PATH @this_libdir@
 endif
 
 if ($?LIBPATH) then
-   setenv LIBPATH @libdir@:$LIBPATH                      # AIX
+   setenv LIBPATH @this_libdir@:$LIBPATH                      # AIX
 else
-   setenv LIBPATH @libdir@
+   setenv LIBPATH @this_libdir@
 endif
 
 if ($?PYTHONPATH) then
-   setenv PYTHONPATH @libdir@:$PYTHONPATH
+   setenv PYTHONPATH @this_libdir@:$PYTHONPATH
 else
-   setenv PYTHONPATH @libdir@
+   setenv PYTHONPATH @this_libdir@
 endif
 
-#if ($?MANPATH) then
-#   setenv MANPATH `dirname @mandir@`:$MANPATH
-#else
-#   setenv MANPATH `dirname @mandir@`:$default_manpath
-#endif
 
 endif # if ("$thisbornagain" != "")
 

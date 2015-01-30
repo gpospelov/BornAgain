@@ -3,32 +3,33 @@
 ############################################################################
 set(library_name BornAgainFit)
 if(POLICY CMP0042)
-cmake_policy(SET CMP0042 NEW)
+    cmake_policy(SET CMP0042 NEW)
 endif()
 
-# source and include files
+
+# --- source and include files ------
 set(include_dirs 
     ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
-#    ${CMAKE_SOURCE_DIR}/ThirdParty/RootMinimizers/inc
 )
 include_directories(${include_dirs})
 
-file(GLOB source_files
+file(GLOB fitkernel_source_files
     "FitKernel/src/*.cpp"
     "FitKernel/src/*.cxx"
 )
 
-file(GLOB include_files
+file(GLOB fitkernel_include_files
     "FitKernel/inc/*.h"
 )
 
 # genetic minimizer only available if ROOT present
 if(NOT ROOT_FOUND)
-    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
-    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
-#    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/GeneticMinimizer.cxx")
-#    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/GeneticMinimizer.h")
+    list(REMOVE_ITEM fitkernel_source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
+    list(REMOVE_ITEM fitkernel_include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
 endif()
+
+set(source_files ${fitkernel_source_files})
+set(include_files ${fitkernel_include_files})
 
 if(BORNAGAIN_PYTHON)
     file(GLOB source_pythonapi "PythonAPI/src/*.cpp")
@@ -38,18 +39,17 @@ if(BORNAGAIN_PYTHON)
 
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
-    )
-    include_directories(
-        # some Core PythonAPI is required too
         ${CMAKE_SOURCE_DIR}/Core/PythonAPI/inc
     )
 endif()
 
+# --- definitions ---------
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
-# making library
+
+# --- making library ---------
 add_library(
     ${library_name}
     SHARED
@@ -62,7 +62,7 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
-# --- dependencies ---
+# --- dependencies ---------
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
@@ -70,6 +70,7 @@ include_directories(
     ${RootMinimizers_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
 )
+
 target_link_libraries(
     ${library_name}
     ${BornAgainCore_LIBRARY}
@@ -78,18 +79,13 @@ target_link_libraries(
     ${GSL_LIBRARIES}
 )
 
-
 if(ROOT_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAS_GENETIC_MINIMIZER")
     include_directories(
         ${ROOT_INCLUDE_DIR}
     )
-#    target_link_libraries(${library_name}
-#        ${ROOT_LIBRARIES} -lGenetic -lTMVA
-#    )
     target_link_libraries(${library_name}
         ${ROOT_LIBRARIES} -lTMVA
-#        -L${ROOT_LIBRARY_DIR} -lTMVA
     )
 endif()
 
@@ -110,19 +106,35 @@ if(WIN32 AND BORNAGAIN_PYTHON)
     )
 endif()
 
+
+if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
+    set(link_flags "-Wl,-rpath,@loader_path/../..")
+    set_target_properties(${library_name}
+        PROPERTIES
+        LINK_FLAGS ${link_flags}
+    )
+endif()
+
+
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
+install (FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 
-if(WIN32 AND BORNAGAIN_PYTHON)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
+if(WIN32)
+    if(BORNAGAIN_PYTHON)
+        ADD_CUSTOM_COMMAND(
+            TARGET ${library_name}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
+        )
+
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
+    endif()
 endif()
 
-# list of headers to install
-file(GLOB include_files
-    "Factory/inc/*.h"
-)
-install (FILES ${include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 

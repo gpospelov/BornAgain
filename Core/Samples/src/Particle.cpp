@@ -5,11 +5,11 @@
 //! @file      Samples/src/Particle.cpp
 //! @brief     Implements class Particle.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -32,7 +32,6 @@ Particle::Particle(const IMaterial &p_material)
     : mp_material(p_material.clone())
     , mp_ambient_material(0)
     , mp_form_factor(0)
-    , mP_transform(0)
 {
     setName("Particle");
 }
@@ -42,7 +41,6 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     : mp_material(p_material.clone())
     , mp_ambient_material(0)
     , mp_form_factor(form_factor.clone())
-    , mP_transform(0)
 {
     setName("Particle");
     registerChild(mp_form_factor);
@@ -54,21 +52,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
     : mp_material(p_material.clone())
     , mp_ambient_material(0)
     , mp_form_factor(form_factor.clone())
-    , mP_transform(transform.clone())
 {
     setName("Particle");
-    registerChild(mp_form_factor);
-}
-
-
-Particle::Particle(IMaterial *p_material, IFormFactor *form_factor,
-        Geometry::Transform3D *transform)
-    : mp_material(p_material)
-    , mp_ambient_material(0)
-    , mp_form_factor(form_factor)
-    , mP_transform(transform)
-{
-    setName("Particle");
+    mP_transform.reset(transform.clone());
     registerChild(mp_form_factor);
 }
 
@@ -132,56 +118,6 @@ IFormFactor* Particle::createFormFactor(
     }
     p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;
-}
-
-std::vector<ParticleInfo*> Particle::createDistributedParticles(
-        size_t samples_per_particle, double factor) const
-{
-    if(!mp_form_factor) throw NullPointerException("Particle::createDistributedParticles() -> No formfactor is defined.");
-
-    std::vector<ParticleInfo*> result;
-    if (mp_form_factor->isDistributedFormFactor()) {
-        std::vector<IFormFactor *> form_factors;
-        std::vector<double> probabilities;
-        mp_form_factor->createDistributedFormFactors(form_factors, probabilities, samples_per_particle);
-        if (form_factors.size() > 0 && form_factors.size()==probabilities.size()) {
-            for (size_t i=0; i<form_factors.size(); ++i) {
-                Particle *new_particle = clone();
-                new_particle->setSimpleFormFactor(form_factors[i]);
-                ParticleInfo *p_info =
-                    new ParticleInfo(new_particle, 0., probabilities[i]*factor);
-                result.push_back(p_info);
-            }
-        }
-    }
-    return result;
-}
-
-void Particle::setTransformation(const Geometry::Transform3D& transform)
-{
-    if (!mP_transform.get()) {
-        mP_transform.reset(transform.clone());
-        applyTransformationToSubParticles(transform);
-        return;
-    }
-    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
-            mP_transform->createInverse());
-    applyTransformationToSubParticles(*P_inverse);
-    mP_transform.reset(transform.clone());
-    applyTransformationToSubParticles(transform);
-}
-
-void Particle::applyTransformation(const Geometry::Transform3D& transform)
-{
-    Geometry::Transform3D total_transformation;
-    if (mP_transform.get()) {
-        total_transformation = transform * (*mP_transform);
-    }
-    else {
-        total_transformation = transform;
-    }
-    mP_transform.reset(total_transformation.clone());
-    applyTransformationToSubParticles(transform);
 }
 
 void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)

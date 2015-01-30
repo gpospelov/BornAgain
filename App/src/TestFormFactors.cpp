@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestFormFactors.cpp
 //! @brief     Implements class TestFormFactors.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -136,8 +136,8 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     air_layer.setMaterial(air_material);
 
     mp_form_factor=p_form_factor;
-    ParticleLayout particle_layout( new Particle(particle_material,
-                                                         *mp_form_factor));
+    Particle particle(particle_material, *mp_form_factor);
+    ParticleLayout particle_layout(particle);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.addLayout(particle_layout);
     multi_layer.addLayer(air_layer);

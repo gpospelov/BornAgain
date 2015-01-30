@@ -152,6 +152,7 @@ TEST_F(LLDataTest, DataAssignment) {
     EXPECT_DOUBLE_EQ(db_data_3d->getTotalSum(), other_db_data_3d->getTotalSum());
 
 
+    matrix_data_2d->setAll(Eigen::Matrix2d::Identity());
     LLData<Eigen::Matrix2d> *other_matrix_data_2d  = new LLData<Eigen::Matrix2d>(*matrix_data_2d);
     other_matrix_data_2d->setAll(10 * Eigen::Matrix2d::Identity());
     (* other_matrix_data_2d) = (* matrix_data_2d);

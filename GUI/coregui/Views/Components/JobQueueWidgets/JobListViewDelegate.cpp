@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/JobListViewDelegate.cpp
+//! @brief     Implements class JobListViewDelegate
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobListViewDelegate.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
@@ -15,11 +30,11 @@ JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)
 {
     m_buttonState =  QStyle::State_Enabled;
-    m_status_to_color[JobItem::Idle] = QColor(255, 286, 12);
-    m_status_to_color[JobItem::Running] = QColor(5, 150, 230);
-    m_status_to_color[JobItem::Completed] = QColor(5, 150, 230);
-    m_status_to_color[JobItem::Failed] = QColor(186, 0, 0);
-    m_status_to_color[JobItem::Canceled] = QColor(255, 186, 12);
+    m_status_to_color[JobItem::IDLE] = QColor(255, 286, 12);
+    m_status_to_color[JobItem::RUNNING] = QColor(5, 150, 230);
+    m_status_to_color[JobItem::COMPLETED] = QColor(5, 150, 230);
+    m_status_to_color[JobItem::FAILED] = QColor(186, 0, 0);
+    m_status_to_color[JobItem::CANCELLED] = QColor(255, 186, 12);
 }
 
 

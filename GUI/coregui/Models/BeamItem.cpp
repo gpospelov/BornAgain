@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/BeamItem.cpp
+//! @brief     Implements class BeamItem
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "BeamItem.h"
 #include "InterferenceFunctionItems.h"
 #include "ComboProperty.h"
@@ -15,8 +30,8 @@ BeamItem::BeamItem(ParameterizedItem *parent)
 {
     setItemName(Constants::BeamType);
     registerProperty(P_INTENSITY, 1e+08);
-    registerProperty(P_WAVELENGTH, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-3), 3));
-    registerProperty(P_AZIMUTHAL_ANGLE, AngleProperty::Degrees(0.0));
+    registerProperty(P_WAVELENGTH, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
+    registerProperty(P_AZIMUTHAL_ANGLE, AngleProperty::Degrees(0.0), PropertyAttribute(AttLimits::limited(-90.0, 90.0), 3));
     registerProperty(P_INCLINATION_ANGLE, AngleProperty::Degrees(0.2));
 }
 

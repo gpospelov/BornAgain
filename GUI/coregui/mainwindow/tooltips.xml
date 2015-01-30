@@ -44,7 +44,7 @@
         </category>
 
 
-        <category name="InterferenceFunction1DParaCrystal">
+        <category name="InterferenceFunctionRadialParaCrystal">
             <property name="Title">
                 <tooltip>Interference 1D Paracrystal</tooltip>
             </property>

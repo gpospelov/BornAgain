@@ -5,11 +5,11 @@
 //! @file      Samples/inc/ParticleLayout.h
 //! @brief     Defines class ParticleLayout.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -30,9 +30,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 public:
     ParticleLayout();
     ParticleLayout(
-        Particle* p_particle, double depth=0., double abundance=1.);
-    ParticleLayout(
-        const Particle& p_particle, double depth=0., double abundance=1.);
+        const IParticle& particle, double depth=0., double abundance=1.);
 
     virtual ~ParticleLayout();
 
@@ -46,18 +44,12 @@ public:
 
     //! Adds generic particle
     void addParticle(
-        Particle *p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
-
-    void addParticle(
-        const Particle& p_particle, const Geometry::Transform3D& transform,
-        double depth=0, double abundance=1.0);
+        const IParticle& particle, const Geometry::Transform3D& transform,
+        double depth=0.0, double abundance=1.0);
 
     //! Adds particle without rotation
-    void addParticle(Particle *p_particle, double depth=0.0, double abundance=1.0);
-
-    //! Adds particle without rotation
-    void addParticle(const Particle& particle, double depth=0.0, double abundance=1.0);
+    void addParticle(const IParticle& particle, double depth=0.0,
+                     double abundance=1.0);
 
     //! Adds particle info
     void addParticleInfo(const ParticleInfo& info);
@@ -69,7 +61,7 @@ public:
     virtual const ParticleInfo *getParticleInfo(size_t index) const;
 
     //! Get abundance fraction of particle with index
-    double getAbundanceFractionOfParticle(size_t index) const;
+    double getAbundanceOfParticle(size_t index) const;
 
     //! Returns number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const
@@ -87,12 +79,17 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
+    virtual bool preprocess();
+
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+
+    //! Replace ParticleDistribution with all the particles it represents
+    void replaceParticleDistribution(size_t index);
 
     void print(std::ostream& ostr) const;
 
@@ -101,9 +98,6 @@ private:
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
-
-    //! Currently only a scalar interference function (instead of matrix)
-    double m_total_abundance;
 };
 
 #endif // PARTICLEDECORATION_H

@@ -1,12 +1,7 @@
-\chapter{Scattering cross--section} 
+\chapter{Scattering cross--section}  \SecLabel{ScatteringCrosssection}
 
 \section{Position of the problem} 
-%theoretical description - implementation in \BornAgain
-%Influence / contribution of particles (form factor) and sample geometry, interferences between particles, layer roughness,...
-%Modelling in grazing incidence : DWBA, BA, level of approximation
-%In GISAS experiments, information on the sizes, shapes of the scatterers as well as information on their relative distributions can be obtained.
-
-This section describes how assemblies of particles and layers of materials contribute to the scattering cross--section \textit{i.e.} the way their spatial distributions, the distribution of shapes and their correlations or layers' roughness can influence the output intensity. 
+This section describes how assemblies of particles and layers of materials contribute to the scattering cross--section \textit{i.e.} the way their spatial distributions, the distribution of shapes and their correlations or the layers' roughness can influence the output intensity. 
 
 The samples generated with \BornAgain\ are made of different layers of materials characterized by their thicknesses, refractive indices, and possible surface roughnesses. Except for the thickness, the other dimensions of the layers are infinite.\\ Particles can be embedded in or deposited on the top of any layers. Those particles are characterized by their shapes, refractive indices, their spatial distribution and concentration in the sample. The influence of the particles' shapes is described by the form factors. When the particles are densely packed, the distance relative to each other becomes of the same order as the particles' sizes. The radiation scattered from these various particles are going to interfere together. \\ We are first going to give a short overview of the theory involved, mostly in order to define the terminology. For a more complete theoretical description, the user is referred to, for example, reference~\cite{ReLa09} and appendix \ref{appendixtheory} of this manual. Then we are going to describe how the interference features, the form factors and the characteristics of the material layers have been implemented in \BornAgain\ and  give some examples.
 
@@ -49,7 +44,7 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/drawingDA}
 \end{center}
-\caption{Sketch of a collection of particles deposited on a substrate whose scattering  could be described by the decoupled approximation.}
+\caption{Sketch of a collection of particles deposited on a substrate whose scattering  could be described by the decoupling approximation.}
 \label{fig:da}
 \end{figure}
 
@@ -76,13 +71,13 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 \label{fig:lma}
 \end{figure}
 
-\paragraph{Size spacing correlation approximation (SSCA)} introduces correlations between polydisperse particles, more precisely between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest--neighbour spacing depends linearly on the sum of their respective sizes \cite{LaLe07}.
+\paragraph{Size spacing correlation approximation (SSCA)} introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest--neighbour spacing depends linearly on the sum of their respective sizes \cite{LaLe07}, as illustrated in fig.~\ref{fig:ssca}.
 
-For a sample where only the statistical properties of particle positions and shape/size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j )$:
-\begin{equation*}
-  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))} \; ,
-\end{equation*}
-where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
+%For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j )$:
+%\begin{equation*}
+%  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))} \; ,
+%\end{equation*}
+%where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
 
 \begin{figure}[h]
 \begin{center}
@@ -91,6 +86,8 @@ where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
 \caption{Sketch of a 1D distributed collection of particles, whose scattering could be described by the size-spacing correlation approximation: the distance between two particles depends on their sizes.}
 \label{fig:ssca}
 \end{figure}
+
+
 
 \MakeRemark{Terminology}{
 \\
@@ -118,13 +115,35 @@ g(x)=\delta(x)+ p(x)+ p(x)\otimes p(x)+\ldots + p(-x)+\ldots \: \mathrm{and}\:\,
 \end{equation*}
  where $P(q)$ is the Fourier transform of the density probability $p(x)$.\\
 
+\paragraph{Example} For a probability distribution function is Gaussian:
+\begin{equation*}
+p(x)=\frac{1}{\omega \sqrt{2\pi}} \exp\left(-\dfrac{(x-D)^2}{\omega^2}\right),\qquad P(q)=\exp\left(-\frac{q^2 \omega^2}{2}\right)\exp(iqD).
+\end{equation*}
+ The interference function of a one-dimensional paracrystal is given by
+
+\begin{align*}
+S(q) =\Re \left(\frac{1+\Phi(q) }{1 - \Phi(q)} \right), \quad \mathrm{where}\quad \Phi(q) = P(q)\exp\left(-\frac{D}{\Lambda}\right),
+\end{align*}
+where $\Lambda$ is a damping length used in order to introduce some finite-size effects.
+
+Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of $\omega /D$. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figures/S_q_1Dparacrystal}
+\end{center}
+\caption{Interference function of a 1D Gaussian paracrystal plotted for different values of $\omega /D$. The peaks broaden with a decreasing amplitude as $\omega/D$ increases. This shows the transition between an ordered and a disordered states. }
+\label{fig:1dparas_q}
+\end{figure}
+
+
 
 In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\mathbf{a}$ and $\mathbf{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\mathbf{a}}(\mathbf{r})d^2\mathbf{r}=\int p_{\mathbf{b}}(\mathbf{r})d^2\mathbf{r}=1$, $\int \mathbf{r} p_{\mathbf{a}}(\mathbf{r})d^2\mathbf{r}=\mathbf{a}$, $\int \mathbf{r} p_{\mathbf{b}}(\mathbf{r})d^2\mathbf{r}=\mathbf{b}$.\\
 In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\parallel})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\parallel})}{1-P_k(q_{\parallel})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
 
 \paragraph{Probability distributions} \mbox{}\\
 The scattering by an ordered lattice gives rise to a series of Bragg peaks situated at the nodes of the reciprocal lattice. Any divergence from the ideal crystalline case modifies the output spectrum by, for example, widening or attenuating the Bragg peaks. The influence of these "defects" can be accounted for 
- in direct space using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered pics with a function which could reproduce the experimental shapes.
+ in direct space by using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered pics with a function which could reproduce the experimental shapes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementation in \BornAgain}
@@ -135,8 +154,9 @@ This section describes the implementation of the interference functions in \Born
 \ImportantPoint{Remark:}{In \BornAgain\ the particles are positioned in the same vertical layer.}
 
 \subsubsection{Size-distribution models}
-The decoupled approximation, local monodisperse approximation and size spacing correlation approximation can be used in \BornAgain.
-The selection is made using\\ \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
+The decoupling approximation (DA), local monodisperse approximation (LMA) and size spacing correlation approximation (SSCA) can be used in \BornAgain.
+The selection between DA and SSCA is made using\\ 
+\Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
     particle_layout = ParticleLayout()
    ....
@@ -144,8 +164,21 @@ The selection is made using\\ \Code{ILayout.setApproximation(EInterferenceFuncti
     particle_layout.setApproximation(ILayout.DA)
 \end{lstlisting}
 
-%The users can refer to Script~\ref{lst:2dlatticeinterf} for a more detailed implementation. By default, the decoupled approximation (DA) is used.
+Note that with the SSCA, the users have to specify the coupling parameter $\kappa$ (with the function \Code{setKappa}), which should be a positive dimensionless value. $\kappa$ characterises the influence of the neighboring particles' sizes on their distance. If $\kappa=0$, the SSCA reduces to the DA with a radial paracrystal for the interference function.\\
 
+For the LMA, its implementation is automatically done when using more than one layout of particles:
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    particle_layout0 = ParticleLayout()
+    particle_layout1 = ParticleLayout()
+   ....
+# association of each particles' layout with materials, form factors
+#... and with a material layer
+    layer_a = Layer(m_material_a)
+    layer_a.addLayout(particle_layout0)
+    layer_a.addLayout(particle_layout1)
+\end{lstlisting}
+
+%%ADD EXPLANATION ABOUT LMA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Probability distribution functions}\label{baftd}
 
@@ -184,7 +217,7 @@ where $\omega$ is the coherence length and $\eta$ is a weighting factor.\\
 \end{itemize}
 where $cl_{x,y}$ are the coherence lengths in the $x$ or $y$ direction, respectively.
 
-These functions can be used with all interference functions except the case without any interference and the one dimensional paracrystal, for which only the Gaussian case has already been implemented.
+These functions can be used with all interference functions, except the case without any interference.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Interferences}
 
@@ -195,7 +228,7 @@ The interference function is specified when building the sample. It is linked wi
 \begin{itemize}
 \item \Code{InterferenceFunctionNone()}
 \item \Code{InterferenceFunction1DLattice(lattice\_parameters)}
-\item \Code{InterferenceFunction1DParaCrystal(peak\_distance, width,corr\_length)}
+\item \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}
 \item \Code{InterferenceFunction2DLattice(lattice\_parameters)}
 \item \Code{InterferenceFunction2DParaCrystal(length\_1, length\_2, $\alpha$\_lattice, $\xi$, \\ damping\_length)}
 \end{itemize}
@@ -207,7 +240,7 @@ The interference function is specified when building the sample. It is linked wi
 \subsubsection{\ding{253} \Code{InterferenceFunctionNone()}} 
 The particles are placed randomly in the dilute limit and are considered as individual, non-interacting scatterers. The scattered intensity is function of the form factors only. 
 
-\paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate such a sample. Figure~\ref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector's + input beam's characterizations. The full script UMInterferencesNone.py can be found in /Examples/python/UserManual. 
+\paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate such a sample. Figure~\ref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector's + input beam's characterizations.
 
 
 \begin{figure}[h]
@@ -221,7 +254,7 @@ The particles are placed randomly in the dilute limit and are considered as indi
 \FloatBarrier
 \newpage
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to simulate a sample made of half-spheres deposited on a substrate layer without any interference. The part specific to the interferences is marked in red italic font.},label={lst:nointerf}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to simulate a sample made of half-spheres deposited on a substrate layer without any interference. The part specific to the interferences is marked in a red italic font.},label={lst:nointerf}]
 def get_sample():
     """
     Build and return the sample representing particles with no interference
@@ -248,10 +281,10 @@ def get_sample():
     return multi_layer
 \end{lstlisting}
 
-\newpage %{\cleardoublepage}
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
-where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the "GISAS experiment" referential as shown in fig.~\ref{fig:1dgrating}.
+where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
 \begin{figure}[h]
 \begin{center}
@@ -261,16 +294,16 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 \label{fig:1dgrating}
 \end{figure}
 
-\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis: $\xi=90^{\circ}$.}
+\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is thefore parallel to the y-axis, perpendicular to the long axis of the particles.}
 
 \vspace{12pt}
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}. 
 
-\paragraph{Example:} Script~\ref{lst:1dlattinterf} details how to build in  \BornAgain a sample using\\ \Code{InterferenceFunction1DLattice} as the interference function. As mentioned previously, this interference function can only be used with infinitely wide or long particles.\\ Here the sample is made of infinitely long boxes deposited on a substrate (these particles are characterized by their widths and heights). They are also rotated by $90^{\circ}$  in the sample surface in order to have their long axis perpendicular to the input beam, which is along the $x$-axis.\\
+\paragraph{Example:} Script~\ref{lst:1dlattinterf} details how to build in  \BornAgain\ a sample using\\ \Code{InterferenceFunction1DLattice} as the interference function. As mentioned previously, this interference function can only be used with infinitely wide or long particles.\\ Here the sample is made of infinitely long boxes deposited on a substrate (these particles are characterized by their widths and heights). They are also rotated by $90^{\circ}$  in the sample surface in order to have their long axis perpendicular to the input beam, which is along the $x$-axis.\\
  The lattice parameters (the lattice length and angle between the lattice main axis and the $x$-axis) are passed into the constructor of the interference function.
 
 \newpage
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample made of infinitely long boxes deposited on a substrate layer with the 1DLatticeInterference function. The part specific to the interferences is marked in red italic font.},label={lst:1dlattinterf}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample made of infinitely long boxes deposited on a substrate layer with the 1DLatticeInterference function. The part specific to the interferences is marked in a red italic font.},label={lst:1dlattinterf}]
 def get_sample():
     """
     Build and return the sample with 1DLatticeInterference function
@@ -306,61 +339,36 @@ def get_sample():
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\ding{253} \Code{InterferenceFunction1DParaCrystal(peak\_distance, width, corr\_length)}}  
+\subsubsection{\ding{253} \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
 \begin{itemize}
 \item[where] \Code{peak\_distance} is the average distance to the first neighbor peak, 
 \item[]\Code{width} is the width parameter of the probability distribution,
-\item[] \Code{corr\_length} is the correlation length (equal to 0 by default).
+\item[] \Code{damping\_length} is used to introduce finite size effects by applying a multiplicative coefficient equal to  $\exp$(-\Code{peak\_distance/damping\_length}) to the Fourier transform of the probability densities. \Code{damping\_length} is equal to 0 by default and, in this case, no correction is applied.
 \end{itemize}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=0.5\textwidth]{Figures/1Dparacrystal}
+%\end{center}
+%\caption{Schematic representation of a radial paracrystal in real space (side view). $D$ is the average spacing between the particles.}
+%\label{fig:1dpara}
+%\end{figure}
 
-For this particular interference function, the implemented probability distribution function is Gaussian:
-
-\begin{equation*}
-p(x)=\frac{1}{\omega \sqrt{2\pi}} \exp\left(-\dfrac{(x-D)^2}{\omega^2}\right),\qquad P(q_{\parallel})=\exp\left(-\frac{q_{\parallel}^2 \omega^2}{2}\right)\exp(iq_{\parallel}D)
-\end{equation*}
-where $\omega\equiv$\Code{width}, $D\equiv$ \Code{peak\_distance}, and $q_{\parallel}=\sqrt{\Re^2(q_x) + \Re^2(q_y)}$ (see fig.~\ref{fig:1dpara}).
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/1Dparacrystal}
-\end{center}
-\caption{Schematic representation of a 1D paracrystal in real space (side view). $D$ is the average spacing between the particles.}
-\label{fig:1dpara}
-\end{figure}
-
-Using the procedure described in Section~\ref{sec:partlayout}, the interference function of a one-dimensional paracrystal is given by
-
-\begin{align*}
-S(q_{\parallel}) &=\Re \left(\frac{1+\Phi(q_{\parallel}) }{1 - \Phi(q_{\parallel})} \right), \\
-\mathrm{where}\quad \Phi(q_{\parallel}) &= \left\{
-\begin{array}{c l}     
-    P(q_{\parallel}) & \mathrm{if\ \Code{corr\_length}}=0\\
-    P(q_{\parallel})\exp\left(-\frac{D}{\mathrm{\Code{corr\_length}}}\right) & \mathrm{otherwise}
-\end{array}\right.&
-\end{align*}
-Figure~\ref{fig:1dparas_q} shows the evolution of S(q) for different values of $\omega /D$. 
-%$\kappa$  is the size-distance coupling constant (equal to 0 by default) for Size Spacing Correlation Approximation
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.65\textwidth]{Figures/S_q_1Dparacrystal}
-\end{center}
-\caption{Interference function of a 1D Gaussian paracrystal plotted for different values of $\omega /D$. The peaks broaden with a decreasing amplitude as $\omega/D$ increases. This shows the transition between an ordered and a disordered states. }
-\label{fig:1dparas_q}
-\end{figure}
+A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}. 
 
 
 \MakeRemark{Remark}{
-In \BornAgain\, the one-dimensional disorder linked with this interference function is radial.
+This interference function is not one-dimensional.  It takes into account the radial componant of the scattering vector.
 }
 
 \paragraph{Example}
-To illustrate the 1D paracrystal interference function, we use the same sample as in the case without interference: half-spheres deposited on a substrate.
+To illustrate the radial paracrystal interference function, we use the same sample as in the case without interference: half-spheres deposited on a substrate.
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define the 1D paracrystal interference function between half-spheres, where \Code{trsphere} is of type \Code{Particle}.},label={lst:1dpara}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define the radial paracrystal interference function between half-spheres, where \Code{trsphere} is of type \Code{Particle}.},label={lst:1dpara}]
     particle_layout = ParticleLayout()
     particle_layout.addParticle(trsphere, 0.0, 1.0)
-    interference = InterferenceFunction1DParaCrystal(25.0*nanometer, 7*nanometer, 1e3*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(25.0*nanometer, 1e3*nanometer)
+    pdf = FTDistribution1DGauss(7 * nanometer)
+    interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
 \end{lstlisting}
 
@@ -370,20 +378,20 @@ To illustrate the 1D paracrystal interference function, we use the same sample a
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_1DDL}
 \end{center}
-\caption{Output intensity scattered from a sample made of half-spheres with 1Dparacrystal interference between them. This figure has been generated using Script~\ref{lst:1dpara} for the interference function. The full script UMInterferences1DParaCrystal.py can be found in /Examples/python/UserManual.}
+\caption{Output intensity scattered from a sample made of half-spheres with the radial paracrystal interference between them. This figure has been generated using Script~\ref{lst:1dpara} for the interference function.}
 \label{fig:1ddl}
 \end{figure}
 
 \FloatBarrier
 
-\newpage%{\cleardoublepage}
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\ding{253}  \Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
-where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice}) with 
+where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with 
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell, 
 \item[]$\alpha$ the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
-\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the "GISAS experiment" referential (as shown in figure~\ref{fig:multil3d}).
+\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the reference cartesian frame (as shown in figure~\ref{fig:multil3d}).
 \end{itemize}
 
 \begin{figure}[h]
@@ -398,7 +406,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\mathbf{a}\equiv \mathbf{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation. 
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Decoupling Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in red italic font.},label={lst:2dlatticeinterf}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a 2DLattice interference function between hemi-spherical particles as well as the Decoupling Approximation in \Code{getSimulation()}.  The part specific to the interferences is marked in a red italic font.},label={lst:2dlatticeinterf}]
     #collection of particles
     sphere_ff = FormFactorTruncatedSphere(5*nanometer, 5*nanometer)
     sphere = Particle(m_particle, sphere_ff)
@@ -413,23 +421,23 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
     |particle_layout.setApproximation(ILayout.DA)|
 \end{lstlisting}
  
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    return simulation
-\end{lstlisting}
+%\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+%def get_simulation():
+%    """
+%    Create and return GISAXS simulation with beam and detector
+%    """
+%    simulation = Simulation()
+%    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+%    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+%    return simulation
+%\end{lstlisting}
 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_2Dlattice}
 \end{center}
-\caption{Output intensity scattered from a sample made of half-spheres with 2DLattice interference function. \Python\ script available in {/Examples/python/UserManual/UMInterferences2DLattice.py}.}
+\caption{Output intensity scattered from a sample made of half-spheres with 2DLattice interference function in the Decoupling Approximation.}
 \label{fig:2dlatticeintensity}
 \end{figure}
 
@@ -442,7 +450,7 @@ def get_simulation():
 \item[where] $L_1$, $L_2$ are the lengths of the lattice cell,
 \item[] lattice\_angle the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
 \item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default).
-\item[] \Code{damping\_length} is a "damping" length. It is used to introduce finite size effects by applying a multiplicative coefficient equal to  $\exp$(\Code{peak\_distance/damping\_length}) to the Fourier transform of the probability densities. \Code{damping\_length} is equal to 0 by default and, in this case, no correction is applied.
+\item[] \Code{damping\_length} is used to introduce finite size effects by applying a multiplicative coefficient equal to  $\exp$(-\Code{peak\_distance/damping\_length}) to the Fourier transform of the probability densities. \Code{damping\_length} is equal to 0 by default and, in this case, no correction is applied.
 \end{itemize}
 Two predefined interference functions can also be used:
 \begin{itemize}
@@ -455,7 +463,7 @@ where the angle between the base vectors of the lattice is set to $2\pi/3$ ,
 where
 \Code{domain\_size1, 2} are the dimensions of coherent domains of the paracrystal along the main axes,\\ \Code{peak\_distance} is the same in both directions and $\mathbf{a}\equiv \mathbf{x}$.\\
 
-Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent 1D paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} are related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
+Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent one-dimensional paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
 
 
 \begin{figure}[h]
@@ -467,7 +475,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 \end{figure}
 
 
-\paragraph{Example} The particles deposited on a substrate are half-spheres. The scattered beams interference via the 2DParacrystal distribution function. The paracrystal is based on a 2D hexagonal lattice with a Gaussian probability distribution function in reciprocal space.  Script~\ref{lst:2dparainterf} shows the implementation of the interference function and fig.~\ref{fig:2ddl} an example of output intensity using hemi-spherical particles The full script, UMInterferences2DParacrystal.py is available in /Examples/python/UserManual.
+\paragraph{Example} The particles deposited on a substrate are half-spheres. The scattered beams interference via the 2DParacrystal distribution function. The paracrystal is based on a 2D hexagonal lattice with a Gaussian probability distribution function in reciprocal space.  Script~\ref{lst:2dparainterf} shows the implementation of the interference function and fig.~\ref{fig:2ddl} an example of output intensity using hemi-spherical particles.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a "2DParacrystal" interference function between particles forming an hexagonal monolayer. },label={lst:2dparainterf}]
     interference = InterferenceFunction2DParaCrystal.createHexagonal(30.0*nanometer,0.0, 40.0*micrometer, 40.0*micrometer)|
@@ -488,6 +496,27 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Summary}
+\begin{table}[h]
+\begin{tabular}{lll}
+\hline
+Name & Characteristics &  Comments \\
+\hline
+DA & no correlations& implemented with \Code{setApproximation} \\
+     & & default option \\
+\hline
+LMA & sample = groups of particles & automatic implementation if several \\ 
+ & of identical sizes and shapes & \Code{ParticleLayout}s are defined \\
+\hline
+SSCA & distance between particles =  &  - implemented with \Code{setApproximation} \\
+ &function of their sizes&  - dimensionless coupling coefficient $\kappa$ is \\
+ & & required using \Code{setKappa}.\\
+\hline
+\hline
+\end{tabular}
+\caption{List of size-distribution models implemented in \BornAgain.}
+\end{table}
+
+\FloatBarrier
 
 \begin{landscape}
 \begin{table}
@@ -500,9 +529,8 @@ Function  & Parameters & Comments\\
 \Code{InterferenceFunction1DLattice} & \Code{lattice\_length} & use only with infinitely long/wide particles \\
   & $\xi=\widehat{(\mathbf{x},\mathbf{a})}$ & pdf=(Cauchy, Gauss or Voigt)  to be defined\\
 \hline
- \Code{InterferenceFunction1DParaCrystal}  & peak\_distance of pdf & only Gaussian pdf implemented (no option)\\
-   & width of pdf &\\
-& corr\_length (optional) & \\
+ \Code{InterferenceFunctionRadialParaCrystal}  & peak\_distance of pdf & pdf=(Cauchy, Gauss or Voigt) to be defined \\
+& damping\_length (optional) & \\
 \hline
  \Code{InterferenceFunction2DLattice}  & L\_1, L\_2: lattice lengths & pdf=(Cauchy, Gauss or Voigt) to be defined\\
                         & lattice\_angle=$\widehat{(\mathbf{a},\mathbf{b})}$ & \\
@@ -515,7 +543,7 @@ Function  & Parameters & Comments\\
 \hline
 \hline
 \end{tabular}
-\caption{List of interference functions implemented in \BornAgain. pdf : probability distribution function, $\mathbf{a}, \mathbf{b}$ are the lattice base vector, and $\mathbf{x}$ is the axis vector perpendicular to the detector plane.}
+\caption{List of interference functions implemented in \BornAgain. pdf : probability distribution function, $\mathbf{a}, \mathbf{b}$ are the lattice base vectors, and $\mathbf{x}$ is the axis vector perpendicular to the detector plane.}
 \end{table}
 \end{landscape}
 
@@ -524,7 +552,7 @@ Function  & Parameters & Comments\\
 
 \subsection{Born approximation}
 
-In \BornAgain\ the form factor is defined using Born approximation as
+In \BornAgain\ the form factor is defined using the Born approximation as
 \begin{equation}
 F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
 \label{ffformulaBA}
@@ -588,8 +616,8 @@ Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Distorted Wave Born Approximation} \SecLabel{sect:dwba}
 
-Born approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
-The collective effects between the particles are not considered in this section. They have been described in~\SecRef{sect:interf}.  We also do not take any polarization effects into account. They will be described in...\\
+The Born approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
+The collective effects between the particles are not considered in this section. They have been described in~\SecRef{sect:interf}.  We also do not take any polarization effects into account. \\
 
  In the DWBA, the form factor of a particle in a multilayer system is given by
 
@@ -646,12 +674,12 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 \item in the BA, a sample composed of the particles in air.
 \end{itemize} 
 
-Figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with truncated spheroids as particles. Note that the full \Python\ script UMFormFactorBA\_DWBA.py is available in /Examples/Python/UserManual/.
+Figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with truncated spheroids as particles.
 
 \newpage
 
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born or Distorted Wave Born Approximation. The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born (BA) or Distorted Wave Born Approximation (DWBA). The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
 def get_sample():
     """
     Build and return the sample to calculate form factor of 
@@ -697,7 +725,7 @@ def get_sample():
 
 \FloatBarrier 
 
-\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more than the air layer.}
+\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
 
 \subsubsection{Buried particles} 
 
@@ -727,7 +755,7 @@ where index $n$ is related to the layers, $z$ to the vertical component, and $j$
 
 
 
-Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied} (The full script UMFormFactor\_Buried\_DWBA.py can be found in /Examples/Python/UserManual).
+Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample where spherical particles are embedded in the middle of a layer on a substrate.},label={lst:dwbaburied}]
 def get_sample():
@@ -744,7 +772,7 @@ def get_sample():
     ff = FormFactorFullSphere(10.2*nanometer)
     particleshape = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particleshape,20.1,1.0)
+    particle_layout.addParticle(particleshape,25.2,1.0)
 
     # interferences 
     interference = InterferenceFunctionNone()
@@ -766,7 +794,7 @@ def get_sample():
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart}
+\includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart.eps}
 \caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
 \label{fig:dwbaburied}
 \end{figure}
@@ -794,7 +822,7 @@ def get_sample():
 \Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
 where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the centre of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
 
-Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. The full script can be found at /Examples/python/UserManual/UMFormFactor\_CoreShell.py. 
+Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. 
 
 \begin{figure}[ht]
 \hfill

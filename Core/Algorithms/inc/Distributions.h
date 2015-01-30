@@ -5,11 +5,11 @@
 //! @file      Algorithms/inc/Distributions.h
 //! @brief     Defines classes representing distributions.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -30,7 +30,7 @@ public:
 
     //! clone method
     virtual IDistribution1D *clone() const {
-    	throw NotImplementedException("IDistribution1D cannot be cloned");
+        throw NotImplementedException("IDistribution1D cannot be cloned");
     }
 
     //! get the probability density for value x
@@ -41,7 +41,7 @@ public:
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples(size_t nbr_samples,
-    		double sigma_factor=0.0) const;
+            double sigma_factor=0.0) const;
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
@@ -59,25 +59,36 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
-	DistributionGate(double mean, double hwhm);
-	virtual ~DistributionGate() {}
+    DistributionGate();
+    DistributionGate(double min, double max);
+    virtual ~DistributionGate() {}
 
     //! clone method
-	virtual DistributionGate *clone() const {
-		return new DistributionGate(m_mean, m_hwhm);
-	}
+    virtual DistributionGate *clone() const {
+        return new DistributionGate(m_min, m_max);
+    }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
 
     //! get the mean of the distribution
     virtual double getMean() const {
-    	return m_mean;
+        return (m_min+m_max)/2.0;
+    }
+
+    //! get the minimum value of the distribution
+    double getMin() const {
+        return m_min;
+    }
+
+    //! get the maximum value of the distribution
+    double getMax() const {
+        return m_max;
     }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const;
+            double sigma_factor) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -86,8 +97,8 @@ protected:
 private:
     //! check initialization
     bool checkInitialization() const;
-    double m_mean;
-    double m_hwhm;
+    double m_min;
+    double m_max;
 };
 
 //! @class DistributionLorentz
@@ -96,25 +107,31 @@ private:
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
-	DistributionLorentz(double mean, double hwhm);
-	virtual ~DistributionLorentz() {}
+    DistributionLorentz();
+    DistributionLorentz(double mean, double hwhm);
+    virtual ~DistributionLorentz() {}
 
     //! clone method
-	virtual DistributionLorentz *clone() const {
-		return new DistributionLorentz(m_mean, m_hwhm);
-	}
+    virtual DistributionLorentz *clone() const {
+        return new DistributionLorentz(m_mean, m_hwhm);
+    }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
 
     //! get the mean of the distribution
     virtual double getMean() const {
-    	return m_mean;
+        return m_mean;
+    }
+
+    //! get the half width at half maximum
+    double getHWHM() const {
+        return m_hwhm;
     }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const;
+            double sigma_factor) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -132,25 +149,31 @@ private:
 class BA_CORE_API_ DistributionGaussian: public IDistribution1D
 {
 public:
-	DistributionGaussian(double mean, double std_dev);
-	virtual ~DistributionGaussian() {}
+    DistributionGaussian();
+    DistributionGaussian(double mean, double std_dev);
+    virtual ~DistributionGaussian() {}
 
     //! clone method
-	virtual DistributionGaussian *clone() const {
-		return new DistributionGaussian(m_mean, m_std_dev);
-	}
+    virtual DistributionGaussian *clone() const {
+        return new DistributionGaussian(m_mean, m_std_dev);
+    }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
 
     //! get the mean of the distribution
     virtual double getMean() const {
-    	return m_mean;
+        return m_mean;
+    }
+
+    //! get the standard deviation
+    double getStdDev() const {
+        return m_std_dev;
     }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const;
+            double sigma_factor) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -168,13 +191,14 @@ private:
 class BA_CORE_API_ DistributionLogNormal: public IDistribution1D
 {
 public:
-	DistributionLogNormal(double median, double scale_param);
-	virtual ~DistributionLogNormal() {}
+    DistributionLogNormal(double scale_param);
+    DistributionLogNormal(double median, double scale_param);
+    virtual ~DistributionLogNormal() {}
 
     //! clone method
-	virtual DistributionLogNormal *clone() const {
-		return new DistributionLogNormal(m_median, m_scale_param);
-	}
+    virtual DistributionLogNormal *clone() const {
+        return new DistributionLogNormal(m_median, m_scale_param);
+    }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
@@ -182,9 +206,19 @@ public:
     //! get the mean of the distribution
     virtual double getMean() const;
 
+    //! get the median of the distribution
+    double getMedian() const {
+        return m_median;
+    }
+
+    //! get the scale parameter of the distribution
+    double getScalePar() const {
+        return m_scale_param;
+    }
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const;
+            double sigma_factor) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -202,25 +236,31 @@ private:
 class BA_CORE_API_ DistributionCosine: public IDistribution1D
 {
 public:
-	DistributionCosine(double mean, double sigma);
-	virtual ~DistributionCosine() {}
+    DistributionCosine();
+    DistributionCosine(double mean, double sigma);
+    virtual ~DistributionCosine() {}
 
     //! clone method
-	virtual DistributionCosine *clone() const {
-		return new DistributionCosine(m_mean, m_sigma);
-	}
+    virtual DistributionCosine *clone() const {
+        return new DistributionCosine(m_mean, m_sigma);
+    }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
 
     //! get the mean of the distribution
     virtual double getMean() const {
-    	return m_mean;
+        return m_mean;
+    }
+
+    //! get the sigma parameter of the distribution
+    double getSigma() const {
+        return m_sigma;
     }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const;
+            double sigma_factor) const;
 
 protected:
     //! Registers some class members for later access via parameter pool

@@ -5,11 +5,11 @@
 //! @file      Tools/inc/SampleMaterialVisitor.h
 //! @brief     Defines class SampleMaterialVisitor.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -50,18 +50,17 @@ public:
     virtual void visit(const MultiLayer *sample);
 
     virtual void visit(const Particle *sample);
+    virtual void visit(const ParticleDistribution *sample);
     virtual void visit(const LatticeBasis *sample);
     virtual void visit(const MesoCrystal *sample);
     virtual void visit(const ParticleCoreShell *sample);
 
     virtual void visit(const ParticleInfo *sample);
     virtual void visit(const DiffuseParticleInfo *sample);
-    virtual void visit(const PositionParticleInfo *sample);
 
     virtual void visit(const IFormFactor *sample);
 
     virtual void visit(const FormFactorDWBAPol *sample);
-    virtual void visit(const FormFactorDWBAPolConstZ *sample);
 
     virtual void visit(const FormFactorWeighted *sample);
 
@@ -100,7 +99,6 @@ public:
     virtual void visit(const IFormFactorDecorator *sample);
 
     virtual void visit(const FormFactorDWBA *sample);
-    virtual void visit(const FormFactorDWBAConstZ *sample);
     virtual void visit(const FormFactorDecoratorDebyeWaller *sample);
     virtual void visit(const FormFactorDecoratorFactor *sample);
     virtual void visit(const FormFactorDecoratorMaterial *sample);
@@ -110,7 +108,7 @@ public:
 
     virtual void visit(const IInterferenceFunction *sample);
     virtual void visit(const InterferenceFunction1DLattice *sample);
-    virtual void visit(const InterferenceFunction1DParaCrystal *sample);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal *sample);
     virtual void visit(const InterferenceFunction2DLattice *sample);
     virtual void visit(const InterferenceFunction2DParaCrystal *sample);
     virtual void visit(const InterferenceFunctionNone *sample);

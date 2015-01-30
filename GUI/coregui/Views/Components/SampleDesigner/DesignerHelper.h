@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/DesignerHelper.h
+//! @brief     Defines class DesignerHelper
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef DESIGNERHELPER_H
 #define DESIGNERHELPER_H
 
@@ -13,20 +28,20 @@ class BA_CORE_API_ DesignerHelper
 {
 public:
 
-    enum WidgetTypes {
-        IViewType = QGraphicsItem::UserType+1, // = 65537
-        ISampleRectType,
-        NodeEditorPortType,
-        NodeEditorConnectionType,
-        MultiLayerType,
-        LayerType,
-        ParticleLayoutType,
-        InterferenceFunctionType,
-        InterferenceFunction1DParaType,
-        InterferenceFunction2DParaType,
-        InterferenceFunction2DLatticeType,
-        ParticleType,
-        TransformationType
+    enum EWidgetTypes {
+        IVIEW = QGraphicsItem::UserType+1, // = 65537
+        ISAMPLE_RECT,
+        NODE_EDITOR_PORT,
+        NODE_EDITOR_CONNECTION,
+        MULTILAYER,
+        LAYER,
+        PARTICLE_LAYOUT,
+        INTERFERENCE_FUNCTION,
+        INTERFERENCE_FUNCTION_RADIAL_PARA,
+        INTERFERENCE_FUNCTION_2D_PARA,
+        INTERFERENCE_FUNCTION_2D_LATTICE,
+        PARTICLE,
+        TRANSFORMATION
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

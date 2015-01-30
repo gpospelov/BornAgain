@@ -5,11 +5,11 @@
 //! @file      Algorithms/src/DecoratedLayerDWBASimulation.cpp
 //! @brief     Implements class DecoratedLayerDWBASimulation.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -45,14 +45,14 @@ void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 
 void DecoratedLayerDWBASimulation::run()
 {
-    setStatus(Running);
+    setStatus(RUNNING);
     try {
         runProtected();
-        setStatus(Completed);
+        setStatus(COMPLETED);
     }
     catch(const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
-        setStatus(Failed);
+        setStatus(FAILED);
     }
 }
 

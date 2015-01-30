@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/JobQueueWidgets/JobPropertiesWidget.cpp
+//! @brief     Implements class JobPropertiesWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobPropertiesWidget.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
@@ -46,8 +61,8 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     commentsWidget->setLayout(vlayout);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
-    m_tabWidget->insertTab(JobPropertiesTab, m_propertyBrowser, "Job Properties");
-    m_tabWidget->insertTab(JobCommentsTab, commentsWidget, "Details");
+    m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyBrowser, "Job Properties");
+    m_tabWidget->insertTab(JOB_COMMENTS, commentsWidget, "Details");
 
     mainLayout->addWidget(m_tabWidget);
 
@@ -139,10 +154,10 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
     property->setValue(jobItem->getEndTime());
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
-    if(jobItem->getStatus() == JobItem::Failed) {
-        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::red);
+    if(jobItem->getStatus() == JobItem::FAILED) {
+        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
     } else {
-        m_tabWidget->tabBar()->setTabTextColor(JobCommentsTab, Qt::black);
+        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);
     }
     m_commentsEditor->setText(jobItem->getComments());
 

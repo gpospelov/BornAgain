@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/SamplePropertyEditor.cpp
+//! @brief     Implements class SamplePropertyEditor
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "SamplePropertyEditor.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
@@ -144,7 +159,7 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
         variant_property->setValue(property_value);
 
         PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
-        if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
             variant_property->setEnabled(false);
         } else {
             variant_property->setEnabled(true);
@@ -206,7 +221,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         QString prop_name = QString(property_names[i]);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
 
-        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
+        if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
@@ -233,7 +248,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
                 subProperty->setEnabled(false);
             }
 

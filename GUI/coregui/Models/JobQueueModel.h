@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/JobQueueModel.h
+//! @brief     Defines class JobQueueModel
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef JOBQUEUEMODEL_H
 #define JOBQUEUEMODEL_H
 
@@ -70,7 +85,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::ERunPolicy run_policy = JobItem::SUBMIT_ONLY);
     QString addJob(JobItem *jobItem);
 
     void clear();

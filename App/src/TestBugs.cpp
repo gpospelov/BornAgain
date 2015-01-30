@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestBugs.cpp
+//! @brief     Implements class TestBugs.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestBugs.h"
 #include "MultiLayer.h"
 #include "Materials.h"
@@ -31,7 +46,7 @@ void TestBugs::test_item339()
 
     FormFactorTruncatedSphere sphere_ff(8.0*Units::nanometer, 8.0*Units::nanometer);
 
-    Particle *particle = new Particle(mParticle, sphere_ff);
+    Particle particle(mParticle, sphere_ff);
 
     InterferenceFunction2DParaCrystal *interf =
             InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,

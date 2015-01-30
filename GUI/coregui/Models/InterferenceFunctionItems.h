@@ -1,10 +1,25 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/InterferenceFunctionItems.h
+//! @brief     Defines InterferenceFunctionItems's classes
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef PARACRYSTALITEMS_H
 #define PARACRYSTALITEMS_H
 
 #include "ParameterizedGraphicsItem.h"
 
 
-class BA_CORE_API_ InterferenceFunction1DParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
@@ -13,8 +28,8 @@ public:
     static const QString P_DOMAIN_SIZE;
     static const QString P_KAPPA;
     static const QString P_PDF;
-    explicit InterferenceFunction1DParaCrystalItem(ParameterizedItem *parent=0);
-    ~InterferenceFunction1DParaCrystalItem(){}
+    explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
+    ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
 

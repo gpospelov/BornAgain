@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/SampleViewFactory.cpp
+//! @brief     Implements class SampleViewFactory
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "SampleViewFactory.h"
 #include "item_constants.h"
 #include "MultiLayerView.h"
@@ -6,6 +21,7 @@
 #include "ParticleView.h"
 #include "TransformationView.h"
 #include "ParticleCoreShellView.h"
+#include "ParticleDistributionView.h"
 #include "InterferenceFunctionViews.h"
 #include "GUIHelpers.h"
 #include <QDebug>
@@ -18,7 +34,8 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::ParticleType
         << Constants::TransformationType
         << Constants::ParticleCoreShellType
-        << Constants::InterferenceFunction1DParaCrystalType
+        << Constants::ParticleDistributionType
+        << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;
 
@@ -53,8 +70,11 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::ParticleCoreShellType) {
         return new ParticleCoreShellView();
     }
-    else if (name==Constants::InterferenceFunction1DParaCrystalType) {
-        return new InterferenceFunction1DParaCrystalView();
+    else if (name==Constants::ParticleDistributionType) {
+        return new ParticleDistributionView();
+    }
+    else if (name==Constants::InterferenceFunctionRadialParaCrystalType) {
+        return new InterferenceFunctionRadialParaCrystalView();
     }
     else if (name==Constants::InterferenceFunction2DParaCrystalType) {
         return new InterferenceFunction2DParaCrystalView();

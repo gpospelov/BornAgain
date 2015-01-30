@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/LabelSample.cpp
+//! @brief     Implement class LabelSample.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include <iostream>
 #include "LabelSample.h"
 #include "ParticleCoreShell.h"
@@ -37,12 +52,14 @@ std::string LabelSample::getLabel(const MultiLayer *sample)
     return m_multiLayerLabel[sample];
 }
 
-std::string LabelSample::getLabel(const Particle *sample)
+std::string LabelSample::getLabel(const IParticle *sample)
 {
-    if (const ParticleCoreShell *pcs = dynamic_cast<const ParticleCoreShell *>(sample))
+    if (const ParticleCoreShell *pcs = dynamic_cast<const ParticleCoreShell*>(sample))
         return m_particleCoreShellLabel[pcs];
-    else
-        return m_particleLabel[sample];
+    if (const Particle *p = dynamic_cast<const Particle*>(sample))
+        return m_particleLabel[p];
+    throw Exceptions::NotImplementedException("LabelSample::getLabel: called"
+                                              " for unknown IParticle type");
 }
 
 std::string LabelSample::getLabel(const ParticleCoreShell *sample)

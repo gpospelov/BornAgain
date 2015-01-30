@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/Components/SampleDesigner/ConnectableView.h
+//! @brief     Defines class ConnectableView
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISAMPLEVIEW_H
 #define ISAMPLEVIEW_H
 
@@ -14,10 +29,10 @@ class NodeEditorPort;
 class BA_CORE_API_ ConnectableView : public IView
 {
 public:
-    enum { Type = DesignerHelper::ISampleRectType };
+    enum { TYPE = DesignerHelper::ISAMPLE_RECT };
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
-    int type() const { return Type; }
+    int type() const { return TYPE; }
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -29,7 +44,7 @@ public:
     virtual void setLabel(const QString &name);
 
     //! adds port to view
-    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
+    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::EPortDirection direction, NodeEditorPort::EPortType port_type);
 
     //! connects input port with given index with output port of other view
     void connectInputPort(ConnectableView *other, int port_number);

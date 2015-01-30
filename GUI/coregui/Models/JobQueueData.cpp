@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/JobQueueData.cpp
+//! @brief     Implements class JobQueueData
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "JobQueueData.h"
 #include "JobQueueItem.h"
 #include "OutputDataItem.h"
@@ -22,7 +37,7 @@ JobQueueData::JobQueueData() : m_job_index(0)
 
 }
 
-QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::ERunPolicy run_policy)
 {
     QString identifier = generateJobIdentifier();
 
@@ -129,7 +144,7 @@ void JobQueueData::runJob(const QString &identifier)
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
 
     } catch(const std::exception &ex) {
-        jobItem->setStatus(JobItem::Failed);
+        jobItem->setStatus(JobItem::FAILED);
         jobItem->setProgress(100);
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n");
@@ -211,7 +226,7 @@ void JobQueueData::onStartedJob()
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
     jobItem->setProgress(0);
-    jobItem->setStatus(JobItem::Running);
+    jobItem->setStatus(JobItem::RUNNING);
     QString begin_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setBeginTime(begin_time);
     jobItem->setEndTime("");
@@ -234,13 +249,13 @@ void JobQueueData::onFinishedJob()
 
     // propagating status of runner
     jobItem->setStatus(runner->getStatus());
-    if(runner->getStatus() == JobItem::Failed)
+    if(runner->getStatus() == JobItem::FAILED)
         jobItem->setComments(runner->getFailureMessage());
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    if(jobItem->getRunPolicy() & JobItem::RunImmediately)
+    if(jobItem->getRunPolicy() & JobItem::RUN_IMMEDIATELY)
         emit focusRequest(jobItem);
 
     emit jobIsFinished(runner->getIdentifier());
@@ -361,7 +376,7 @@ QString JobQueueData::generateJobName()
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
-{    
+{
     return QUuid::createUuid().toString();
 }
 

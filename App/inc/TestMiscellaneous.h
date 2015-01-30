@@ -4,12 +4,12 @@
 //
 //! @file      App/inc/TestMiscellaneous.h
 //! @brief     Defines class TestMiscellaneous.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -39,9 +39,6 @@ public:
 
     //! test of fast sin function approximation
     void test_FastSin();
-
-    //! test of reading of OutputData from ASCII file
-    void test_OutputDataIOFactory();
 
     //! test kvector container
     void test_KVectorContainer();

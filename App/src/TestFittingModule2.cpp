@@ -4,12 +4,12 @@
 //
 //! @file      App/src/TestFittingModule2.cpp
 //! @brief     Implements class TestFittingModule2.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -25,7 +25,7 @@
 #include "Simulation.h"
 #include "IIntensityFunction.h"
 #include "IObserver.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "Materials.h"
@@ -35,7 +35,7 @@
 #include "OutputDataFunctions.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "ResolutionFunction2DSimple.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 
 #include "TROOT.h"
@@ -260,7 +260,7 @@ void TestFittingModule2::fit_example_mask()
     initializeSimulation();
     initializeRealData();
     mp_simulation->setDetectorResolutionFunction(
-        new ResolutionFunction2DSimple(0.0002, 0.0002));
+        new ResolutionFunction2DGaussian(0.0002, 0.0002));
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas(
         "c1_test_meso_crystal", "mesocrystal");
@@ -386,17 +386,12 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
     ParticleLayout particle_layout;
-    particle_layout.addParticle(
-        new Particle(particle_material,
-                     FormFactorCylinder(m_cylinder_radius,
-                                            m_cylinder_height)),
-        0.0, m_cylinder_ratio);
-    particle_layout.addParticle(
-        new Particle(particle_material,
-                     FormFactorPrism3(m_prism3_length,
-                                          m_prism3_height
-                                          )),
-        0.0, 1.0 - m_cylinder_ratio);
+    Particle particle1(particle_material, FormFactorCylinder(
+                           m_cylinder_radius, m_cylinder_height) );
+    Particle particle2(particle_material, FormFactorPrism3(
+                           m_prism3_length, m_prism3_height) );
+    particle_layout.addParticle(particle1, 0.0, m_cylinder_ratio);
+    particle_layout.addParticle(particle2, 0.0, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

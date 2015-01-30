@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/mainwindow/mainwindow.cpp
+//! @brief     Implements class MainWindow
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "mainwindow.h"
 #include "fancytabwidget.h"
 #include "manhattanstyle.h"
@@ -40,6 +55,10 @@
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
 #include "JobView.h"
+#include "aboutapplicationdialog.h"
+#include "FitModel.h"
+#include "FitProxyModel.h"
+#include "FitView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -58,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_scriptView(0)
     , m_simulationView(0)
     , m_jobView(0)
+    , m_fitView(0)
     , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
@@ -68,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_fitProxyModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -97,19 +118,23 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
+
     //m_testView = new TestView(m_sampleModel, this);
     m_jobView = new JobView(m_jobQueueModel, m_projectManager);
+    //m_fitView = new FitView(m_fitProxyModel, this);
 
-    m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
-    m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
-    m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
+
+    m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
+    m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
+    m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
-    m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    m_tabWidget->insertTab(JobTab, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
+    m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
+    //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
 
-    m_tabWidget->setCurrentIndex(WelcomeTab);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -184,14 +209,14 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
 
-    if(index == WelcomeTab)
+    if(index == WELCOME)
     {
         m_welcomeView->updateRecentProjectPanel();
     }
-    else if (index == InstrumentTab) {
+    else if (index == INSTRUMENT) {
         m_instrumentView->updateView();
     }
-    else if(index == SimulationTab) {
+    else if(index == SIMULATION) {
         m_simulationView->updateSimulationViewElements();
     }
 }
@@ -233,6 +258,8 @@ void MainWindow::initModels()
     initJobQueueModel();
 
     initInstrumentModel();
+
+    //initFitModel();
 }
 
 
@@ -300,6 +327,23 @@ void MainWindow::initInstrumentModel()
     //m_instrumentModel->save("instrument.xml");
 }
 
+void MainWindow::initFitModel()
+{
+    m_fitProxyModel = new FitProxyModel;
+
+//    ParameterizedItem *item1 = m_fitProxyModel->insertNewItem(Constants::FitParameterType);
+//    item1->setItemName("par1");
+//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+
+//    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
+//    item2->setItemName("par2");
+
+    //m_fitProxyModel->save("fitmodel.xml");
+
+
+    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
+}
+
 
 void MainWindow::testGUIObjectBuilder()
 {
@@ -310,5 +354,11 @@ void MainWindow::testGUIObjectBuilder()
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
+}
+
+void MainWindow::onAboutApplication()
+{
+    AboutApplicationDialog dialog(this);
+    dialog.exec();
 }
 

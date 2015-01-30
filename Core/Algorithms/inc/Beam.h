@@ -5,11 +5,11 @@
 //! @file      Algorithms/inc/Beam.h
 //! @brief     Defines class Beam.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -27,11 +27,6 @@
 class BA_CORE_API_ Beam : public IParameterized
 {
 public:
-//#ifndef GCCXML_SKIP_THIS
-//    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-//#endif
-//    // see http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
-
     Beam();
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);
@@ -94,7 +89,3 @@ private:
 };
 
 #endif /* BEAM_H_ */
-
-
-
-

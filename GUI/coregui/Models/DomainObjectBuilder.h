@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/DomainObjectBuilder.h
-//! @brief     Defines class DomainObjectBuilder.
+//! @file      coregui/Models/DomainObjectBuilder.h
+//! @brief     Defines class DomainObjectBuilder
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -26,6 +26,7 @@ class Particle;
 class IInterferenceFunction;
 class Beam;
 class ParticleCoreShell;
+class ParticleDistribution;
 class ParameterizedItem;
 class LayerRoughness;
 
@@ -48,6 +49,9 @@ private:
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
     Particle *buildParticle(const ParameterizedItem &item, double &depth,
                             double &abundance) const;
+    ParticleDistribution *buildParticleDistribution(
+            const ParameterizedItem &item, double &depth,
+            double &abundance) const;
     IInterferenceFunction *buildInterferenceFunction(
             const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;

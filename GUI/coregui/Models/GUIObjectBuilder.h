@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/GUIObjectBuilder.h
-//! @brief     Defines class GUIObjectBuilder.
+//! @file      coregui/Models/GUIObjectBuilder.h
+//! @brief     Defines class GUIObjectBuilder
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -49,10 +49,11 @@ public:
     void visit(const MultiLayer *);
 
     void visit(const Particle *);
+    void visit(const ParticleDistribution *);
+
     void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
-    void visit(const PositionParticleInfo *);
 
     void visit(const FormFactorAnisoPyramid *);
     void visit(const FormFactorBox *);
@@ -73,7 +74,7 @@ public:
     void visit(const FormFactorTruncatedSphere *);
     void visit(const FormFactorTruncatedSpheroid *);
 
-    void visit(const InterferenceFunction1DParaCrystal *);
+    void visit(const InterferenceFunctionRadialParaCrystal *);
     void visit(const InterferenceFunction2DParaCrystal *);
     void visit(const InterferenceFunction2DLattice *);
     void visit(const InterferenceFunctionNone *);

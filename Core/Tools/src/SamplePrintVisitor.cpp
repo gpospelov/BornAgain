@@ -5,11 +5,11 @@
 //! @file      Tools/src/SamplePrintVisitor.cpp
 //! @brief     Implements SamplePrintVisitor class.
 //!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -19,11 +19,11 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Particle.h"
+#include "ParticleDistribution.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
 #include "ParticleInfo.h"
 #include "LayerInterface.h"
-#include "PositionParticleInfo.h"
 #include <iostream>
 #include "MesoCrystal.h"
 
@@ -94,7 +94,6 @@ void SamplePrintVisitor::visit(const MultiLayer *sample)
     print_default(sample);
 }
 
-
 void SamplePrintVisitor::visit(const Particle *sample)
 {
     assert(sample);
@@ -103,6 +102,13 @@ void SamplePrintVisitor::visit(const Particle *sample)
                          sample->getMaterial()->getName() :
                          "0_MATERIAL")
               << " " << sample->getRefractiveIndex()
+              << std::endl;
+}
+
+void SamplePrintVisitor::visit(const ParticleDistribution *sample)
+{
+    assert(sample);
+    std::cout << get_indent() << sample->getName()
               << std::endl;
 }
 
@@ -143,12 +149,6 @@ void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
 }
 
 
-void SamplePrintVisitor::visit(const PositionParticleInfo *sample)
-{
-    print_default(sample);
-}
-
-
 void SamplePrintVisitor::visit(const IFormFactor *)
 {
     throw NotImplementedException("SamplePrintVisitor::"
@@ -160,13 +160,6 @@ void SamplePrintVisitor::visit(const FormFactorDWBAPol *)
 {
     throw NotImplementedException("SamplePrintVisitor::"
         "visit(const FormFactorDWBAPol *) -> Error. Not implemented.");
-}
-
-
-void SamplePrintVisitor::visit(const FormFactorDWBAPolConstZ *)
-{
-    throw NotImplementedException("SamplePrintVisitor::"
-        "visit(const FormFactorDWBAPolConstZ *) -> Error. Not implemented.");
 }
 
 
@@ -352,13 +345,6 @@ void SamplePrintVisitor::visit(const FormFactorDWBA *)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorDWBAConstZ *)
-{
-    throw NotImplementedException("SamplePrintVisitor::"
-        "visit(const FormFactorDWBAConstZ *) -> Error. Not implemented.");
-}
-
-
 void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
 {
     print_default(sample);
@@ -414,7 +400,7 @@ void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
+void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
     print_default(sample);
 

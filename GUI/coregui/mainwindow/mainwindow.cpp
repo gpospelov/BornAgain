@@ -25,6 +25,7 @@
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "JobQueueModel.h"
+#include "NJobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "MaterialEditor.h"
@@ -83,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_materialModel(0)
@@ -299,6 +301,11 @@ void MainWindow::initJobQueueModel()
 {
     delete m_jobQueueModel;
     m_jobQueueModel = new JobQueueModel(this);
+
+    m_jobModel = new NJobModel(this);
+    ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
+    m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));
+    m_jobModel->save("jobmodel.txt");
 }
 
 

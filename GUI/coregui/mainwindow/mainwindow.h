@@ -46,6 +46,7 @@ class MaterialModel;
 class SampleModel;
 class FitProxyModel;
 class FitView;
+class NJobModel;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -97,6 +98,7 @@ private:
     QSettings *m_settings; //!< application wide settings
 
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
+    NJobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials

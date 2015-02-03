@@ -105,6 +105,9 @@ const ModelType MagneticFieldType = "MagneticField";
 
 const ModelType FitParameterType = "FitParameter";
 
+const ModelType JobItemType = "JobItem";
+const ModelType IntensityDataType = "IntensityData";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

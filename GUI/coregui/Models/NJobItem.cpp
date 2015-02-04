@@ -19,6 +19,23 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 
+
+namespace
+{
+QMap<QString, QString> initializeRunPolicies()
+{
+    QMap<QString, QString> result;
+    result["Immediately"] = QString("Start simulation immediately, switch to Jobs view automatically when completed");
+    result["In background"] = QString("Start simulation immediately, do not switch to Jobs view when completed");
+    result["Submit only"] = QString("Only submit simulation for consequent execution, has to be started from Jobs view explicitely");
+    return result;
+}
+
+}
+
+QMap<QString, QString> NJobItem::m_run_policies = initializeRunPolicies();
+
+
 const QString NJobItem::P_IDENTIFIER = "Identifier";
 const QString NJobItem::P_BEGIN_TYPE = "Begin Time";
 const QString NJobItem::P_END_TYPE = "End Time";
@@ -28,13 +45,6 @@ const QString NJobItem::P_PROGRESS = "Progress";
 const QString NJobItem::P_NTHREADS = "Number of Threads";
 const QString NJobItem::P_RUN_POLICY = "Run Policy";
 
-namespace {
-const QString STATUS_IDLE = "Idle";
-const QString STATUS_RUNNING = "Running";
-const QString STATUS_COMPLETED = "Completed";
-const QString STATUS_CANCELED = "Canceled";
-const QString STATUS_FAILED = "Failed";
-}
 
 NJobItem::NJobItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::JobItemType, parent)
@@ -44,12 +54,12 @@ NJobItem::NJobItem(ParameterizedItem *parent)
     setItemName(Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString());
     registerProperty(P_BEGIN_TYPE, QString());
-    registerProperty(P_BEGIN_TYPE, QString());
     registerProperty(P_END_TYPE, QString());
     registerProperty(P_COMMENTS, QString());
 
     ComboProperty status;
-    status << STATUS_IDLE << STATUS_RUNNING << STATUS_COMPLETED << STATUS_CANCELED << STATUS_FAILED;
+    status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
+           << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
     registerProperty(P_STATUS, status.getVariant());
 
     registerProperty(P_PROGRESS, 0);
@@ -98,29 +108,45 @@ void NJobItem::setInstrumentModel(InstrumentModel *instrumentModel)
     m_instrumentModel = instrumentModel;
 }
 
+QString NJobItem::getStatus() const
+{
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue();
+}
+
 bool NJobItem::isIdle() const
 {
-    return getRegisteredProperty(P_STATUS).toString() == STATUS_IDLE;
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue() == Constants::STATUS_IDLE;
 }
 
 bool NJobItem::isRunning() const
 {
-    return getRegisteredProperty(P_STATUS).toString() == STATUS_RUNNING;
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue() == Constants::STATUS_RUNNING;
 }
 
 bool NJobItem::isCompleted() const
 {
-    return getRegisteredProperty(P_STATUS).toString() == STATUS_COMPLETED;
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue() == Constants::STATUS_COMPLETED;
 }
 
 bool NJobItem::isCanceled() const
 {
-    return getRegisteredProperty(P_STATUS).toString() == STATUS_CANCELED;
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue() == Constants::STATUS_CANCELED;
 }
 
 bool NJobItem::isFailed() const
 {
-    return getRegisteredProperty(P_STATUS).toString() == STATUS_FAILED;
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    return combo_property.getValue() == Constants::STATUS_FAILED;
+}
+
+int NJobItem::getProgress() const
+{
+    return getRegisteredProperty(P_PROGRESS).toInt();
 }
 
 QString NJobItem::getIdentifier() const

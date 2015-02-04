@@ -1,3 +1,5 @@
+/*
+
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -49,7 +51,7 @@ JobQueueModel::~JobQueueModel()
 }
 
 
-int JobQueueModel::rowCount(const QModelIndex & /* parent */) const
+int JobQueueModel::rowCount(const QModelIndex &parent) const
 {
     return m_jobs.size();
 }
@@ -92,7 +94,7 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 }
 
 
-//bool JobQueueModel::insertRows(int position, int rows, const QModelIndex & /* parent */)
+//bool JobQueueModel::insertRows(int position, int rows, const QModelIndex & parent)
 //{
 //    qDebug() << "JobQueueModel::insertRows";
 //    beginInsertRows(QModelIndex(), position, position+rows-1);
@@ -148,7 +150,7 @@ QString JobQueueModel::addJob(JobItem *jobItem)
 }
 
 
-bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* parent */)
+bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &parent)
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
@@ -324,7 +326,7 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 }
 
 
-void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
+void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & deselected)
 {
     qDebug() << "JobQueueModel::onSelectionChanged" << selected;
     if(!selected.empty() &&  !selected.first().indexes().empty()) {
@@ -414,4 +416,7 @@ void JobQueueModel::removeJob(const QModelIndex &index)
     removeRows(index.row(), 1, QModelIndex());
     m_queue_data->removeJob(identifier);
 }
+
+
+*/
 

@@ -21,7 +21,7 @@
 #include "NJobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "JobItem.h"
+#include "NJobItem.h"
 #include "SampleValidator.h"
 #include "Utils.h"
 #include <QGroupBox>
@@ -67,9 +67,9 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runPolicyLabel->setToolTip("Defines run policy for the simulation");
     runPolicySelectionBox = new QComboBox;
     runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
+    runPolicySelectionBox->addItems(NJobItem::getRunPolicies().keys());
     int index(0);
-    foreach(QString descr, JobItem::getRunPolicies().values())
+    foreach(QString descr, NJobItem::getRunPolicies().values())
         runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
 
     // selection of number of threads

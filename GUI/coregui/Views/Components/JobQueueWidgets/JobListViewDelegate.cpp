@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "JobListViewDelegate.h"
-#include "JobQueueModel.h"
-#include "JobItem.h"
+//#include "JobQueueModel.h"
+//#include "JobItem.h"
+#include "NJobModel.h"
+#include "NJobItem.h"
 #include "progressbar.h"
 #include <QDebug>
 #include <QPainter>
@@ -26,15 +28,17 @@
 #include <QStyleOptionProgressBarV2>
 #include "hostosinfo.h"
 
+
+// FIXME duplication
 JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)
 {
     m_buttonState =  QStyle::State_Enabled;
-    m_status_to_color[JobItem::IDLE] = QColor(255, 286, 12);
-    m_status_to_color[JobItem::RUNNING] = QColor(5, 150, 230);
-    m_status_to_color[JobItem::COMPLETED] = QColor(5, 150, 230);
-    m_status_to_color[JobItem::FAILED] = QColor(186, 0, 0);
-    m_status_to_color[JobItem::CANCELLED] = QColor(255, 186, 12);
+    m_status_to_color[Constants::STATUS_IDLE] = QColor(255, 286, 12);
+    m_status_to_color[Constants::STATUS_RUNNING] = QColor(5, 150, 230);
+    m_status_to_color[Constants::STATUS_COMPLETED] = QColor(5, 150, 230);
+    m_status_to_color[Constants::STATUS_CANCELED] = QColor(186, 0, 0);
+    m_status_to_color[Constants::STATUS_FAILED] = QColor(255, 186, 12);
 }
 
 
@@ -45,17 +49,17 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
 
-    const JobQueueModel* model = static_cast<const JobQueueModel*>(index.model());
+    const NJobModel* model = static_cast<const NJobModel*>(index.model());
     Q_ASSERT(model);
 
-    const JobItem *item = model->getJobItemForIndex(index);
+    const NJobItem *item = model->getJobItemForIndex(index);
     Q_ASSERT(item);
 
     painter->save();
 
     painter->setRenderHint(QPainter::Antialiasing, true);
 
-    QString text = item->getName();
+    QString text = item->itemName();
     QRect textRect = getTextRect(option.rect);
     //textRect.setHeight( 10);
     painter->drawText(textRect,text);
@@ -106,10 +110,10 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
     }
 
 
-    const JobQueueModel* jqmodel = static_cast<const JobQueueModel*>(index.model());
+    const NJobModel* jqmodel = static_cast<const NJobModel*>(index.model());
     Q_ASSERT(model);
 
-    const JobItem *item = jqmodel->getJobItemForIndex(index);
+    const NJobItem *item = jqmodel->getJobItemForIndex(index);
     Q_ASSERT(item);
 
     if(!item->isRunning()) return false;
@@ -133,7 +137,7 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
 }
 
 
-void JobListViewDelegate::drawCustomProjectBar(const JobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
+void JobListViewDelegate::drawCustomProjectBar(const NJobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
 {
     int progress = item->getProgress();
     QRect rect = getProgressBarRect(option.rect);

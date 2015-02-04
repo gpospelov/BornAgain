@@ -120,9 +120,15 @@ const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 
-// --- Units -------------------------------------------------------------------
+// --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsRadians = "Radians";
+
+const ModelType STATUS_IDLE = "Idle";
+const ModelType STATUS_RUNNING = "Running";
+const ModelType STATUS_COMPLETED = "Completed";
+const ModelType STATUS_CANCELED = "Canceled";
+const ModelType STATUS_FAILED = "Failed";
 
 }
 

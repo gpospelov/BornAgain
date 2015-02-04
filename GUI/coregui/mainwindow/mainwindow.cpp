@@ -306,9 +306,9 @@ void MainWindow::initJobQueueModel()
 
     delete m_jobModel;
     m_jobModel = new NJobModel(this);
-    ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
-    m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));
-    m_jobModel->save("jobmodel.txt");
+//    ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
+//    m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));
+//    m_jobModel->save("jobmodel.txt");
 }
 
 

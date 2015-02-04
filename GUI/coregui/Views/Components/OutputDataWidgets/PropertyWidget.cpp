@@ -81,99 +81,102 @@ void PropertyWidget::updateData(NIntensityDataItem *outputDataItem, QCPColorGrad
 void PropertyWidget::setupPropertyWidget(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
+    Q_ASSERT(0);
+    Q_UNUSED(outputDataItem);
+    Q_UNUSED(gradient);
 
-    if(outputDataItem == 0) {
-        return;
-    }
+//    if(outputDataItem == 0) {
+//        return;
+//    }
 
-    qDebug() << "PropertyWidget::setupPropertyWidget creating new";
-
-
-
-    //disconnect();
-
-    QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
-    while (itProp != propertyToId.constEnd()) {
-        delete itProp.key();
-        itProp++;
-    }
-
-    propertyToId.clear();
-    idToProperty.clear();
-
-    m_outputDataItem = outputDataItem;
-    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()), Qt::UniqueConnection);
+//    qDebug() << "PropertyWidget::setupPropertyWidget creating new";
 
 
-    qDebug() << "PropertyWidget::setupPropertyWidget connecting";
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
+//    //disconnect();
 
-    m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
-    m_projectionsProperty->setToolTip("Projections");
-    m_projectionsProperty->setValue(m_isProjection);
-    addProperty(m_projectionsProperty, tr("Projections"));
+//    QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
+//    while (itProp != propertyToId.constEnd()) {
+//        delete itProp.key();
+//        itProp++;
+//    }
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.2";
+//    propertyToId.clear();
+//    idToProperty.clear();
 
-    m_interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
-    m_interpolationProperty->setToolTip("Interploation");
-    m_interpolationProperty->setValue(outputDataItem->isInterpolated());
-    addProperty(m_interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
-
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.3";
-
-    m_logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
-    m_logzProperty->setToolTip("Logz");
-    m_logzProperty->setValue(outputDataItem->isLogz());
-    addProperty(m_logzProperty, JobQueueXML::OutputDataLogzAttribute);
-
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.4";
-
-    m_zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
-    m_zminProperty->setValue(outputDataItem->getZaxisMin());
-    m_zminProperty->setAttribute(QLatin1String("decimals"), 6);
-    addProperty(m_zminProperty, JobQueueXML::OutputDataZminAttribute);
-
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.5";
-
-    m_zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
-    m_zmaxProperty->setValue(outputDataItem->getZaxisMax());
-    m_zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
-    addProperty(m_zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
-
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
-
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.6";
+//    m_outputDataItem = outputDataItem;
+//    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()), Qt::UniqueConnection);
 
 
-    int gradIndex = 0;
-    if(m_gradientVector.contains(gradient))
-    {
-        gradIndex = m_gradientVector.indexOf(gradient);
-    }
+//    qDebug() << "PropertyWidget::setupPropertyWidget connecting";
 
-    m_gradientProperty = m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), tr("Gradient"));
-    m_gradientProperty->setToolTip("Gradient");
-    QStringList types;
-    types << "Grayscale" << "Hot" << "Cold" << "Night" << "Candy" << "Geography" << "Ion" << "Thermal" << "Polar" << "Spectrum" << "Jet" << "Hues";
-    m_gradientProperty->setAttribute("enumNames", types);
-    m_gradientProperty->setValue(gradIndex);
-    addProperty(m_gradientProperty, tr("Gradient"));
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.7";
+//    m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
+//    m_projectionsProperty->setToolTip("Projections");
+//    m_projectionsProperty->setValue(m_isProjection);
+//    addProperty(m_projectionsProperty, tr("Projections"));
 
-    m_xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
-    m_xtitleProperty->setValue(outputDataItem->getXaxisTitle());
-    addProperty(m_xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.2";
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.8";
+//    m_interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
+//    m_interpolationProperty->setToolTip("Interploation");
+//    m_interpolationProperty->setValue(outputDataItem->isInterpolated());
+//    addProperty(m_interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
 
-    m_ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
-    m_ytitleProperty->setValue(outputDataItem->getYaxisTitle());
-    addProperty(m_ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.3";
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.9";
+//    m_logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
+//    m_logzProperty->setToolTip("Logz");
+//    m_logzProperty->setValue(outputDataItem->isLogz());
+//    addProperty(m_logzProperty, JobQueueXML::OutputDataLogzAttribute);
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.4";
+
+//    m_zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
+//    m_zminProperty->setValue(outputDataItem->getZaxisMin());
+//    m_zminProperty->setAttribute(QLatin1String("decimals"), 6);
+//    addProperty(m_zminProperty, JobQueueXML::OutputDataZminAttribute);
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.5";
+
+//    m_zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
+//    m_zmaxProperty->setValue(outputDataItem->getZaxisMax());
+//    m_zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
+//    addProperty(m_zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.6";
+
+
+//    int gradIndex = 0;
+//    if(m_gradientVector.contains(gradient))
+//    {
+//        gradIndex = m_gradientVector.indexOf(gradient);
+//    }
+
+//    m_gradientProperty = m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), tr("Gradient"));
+//    m_gradientProperty->setToolTip("Gradient");
+//    QStringList types;
+//    types << "Grayscale" << "Hot" << "Cold" << "Night" << "Candy" << "Geography" << "Ion" << "Thermal" << "Polar" << "Spectrum" << "Jet" << "Hues";
+//    m_gradientProperty->setAttribute("enumNames", types);
+//    m_gradientProperty->setValue(gradIndex);
+//    addProperty(m_gradientProperty, tr("Gradient"));
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.7";
+
+//    m_xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
+//    m_xtitleProperty->setValue(outputDataItem->getXaxisTitle());
+//    addProperty(m_xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.8";
+
+//    m_ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
+//    m_ytitleProperty->setValue(outputDataItem->getYaxisTitle());
+//    addProperty(m_ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
+
+//    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.9";
 
 }
 
@@ -194,46 +197,50 @@ void PropertyWidget::addProperty(QtVariantProperty *property, const QString &id)
 
 void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 {
-    QString id = propertyToId[property];
+    qDebug() << "PropertyWidget::valueChanged: ";
+    Q_UNUSED(property);
+    Q_UNUSED(value);
 
-    qDebug() << "PropertyWidget::valueChanged: "<<id;
+//    QString id = propertyToId[property];
 
-    //disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+//    qDebug() << "PropertyWidget::valueChanged: "<<id;
 
-    if (id == JobQueueXML::OutputDataInterpolatedAttribute) {
+//    //disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
-        m_outputDataItem->setInterpolated(value.toBool());
+//    if (id == JobQueueXML::OutputDataInterpolatedAttribute) {
 
-    } else if(id == JobQueueXML::OutputDataZminAttribute) {
+//        m_outputDataItem->setInterpolated(value.toBool());
 
-        m_outputDataItem->setZaxisMin(value.toDouble());
+//    } else if(id == JobQueueXML::OutputDataZminAttribute) {
 
-    } else if(id == JobQueueXML::OutputDataZmaxAttribute) {
+//        m_outputDataItem->setZaxisMin(value.toDouble());
 
-        m_outputDataItem->setZaxisMax(value.toDouble());
+//    } else if(id == JobQueueXML::OutputDataZmaxAttribute) {
 
-    } else if (id == JobQueueXML::OutputDataLogzAttribute) {
+//        m_outputDataItem->setZaxisMax(value.toDouble());
 
-        m_outputDataItem->setLogz(value.toBool());
+//    } else if (id == JobQueueXML::OutputDataLogzAttribute) {
 
-    } else if(id == tr("Projections")) {
-        m_isProjection = value.toBool();
-        emit projectionsChanged(value.toBool());
+//        m_outputDataItem->setLogz(value.toBool());
 
-    } else if(id == tr("Gradient")) {
+//    } else if(id == tr("Projections")) {
+//        m_isProjection = value.toBool();
+//        emit projectionsChanged(value.toBool());
 
-        emit gradientChanged(m_gradientVector.at(value.toInt()));
+//    } else if(id == tr("Gradient")) {
 
-    } else if(id == JobQueueXML::OutputDataXtitleAttribute) {
+//        emit gradientChanged(m_gradientVector.at(value.toInt()));
 
-        m_outputDataItem->setXaxisTitle(value.toString());
+//    } else if(id == JobQueueXML::OutputDataXtitleAttribute) {
 
-    } else if(id == JobQueueXML::OutputDataYtitleAttribute) {
+//        m_outputDataItem->setXaxisTitle(value.toString());
 
-        m_outputDataItem->setYaxisTitle(value.toString());
+//    } else if(id == JobQueueXML::OutputDataYtitleAttribute) {
 
-    }
-    //connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+//        m_outputDataItem->setYaxisTitle(value.toString());
+
+//    }
+//    //connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
 }
 
@@ -242,12 +249,14 @@ void PropertyWidget::onOutputDataItemModified()
 {
 
     qDebug() << "PropertyWidget::onOutputDataItemModified()" << m_outputDataItem;
-    idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());
-    idToProperty[JobQueueXML::OutputDataZminAttribute]->setValue(m_outputDataItem->getZaxisMin());
-    idToProperty[JobQueueXML::OutputDataZmaxAttribute]->setValue(m_outputDataItem->getZaxisMax());
-    idToProperty[JobQueueXML::OutputDataXtitleAttribute]->setValue(m_outputDataItem->getXaxisTitle());
-    idToProperty[JobQueueXML::OutputDataYtitleAttribute]->setValue(m_outputDataItem->getYaxisTitle());
-    idToProperty[JobQueueXML::OutputDataLogzAttribute]->setValue(m_outputDataItem->isLogz());
+    Q_ASSERT(0);
+
+//    idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());
+//    idToProperty[JobQueueXML::OutputDataZminAttribute]->setValue(m_outputDataItem->getZaxisMin());
+//    idToProperty[JobQueueXML::OutputDataZmaxAttribute]->setValue(m_outputDataItem->getZaxisMax());
+//    idToProperty[JobQueueXML::OutputDataXtitleAttribute]->setValue(m_outputDataItem->getXaxisTitle());
+//    idToProperty[JobQueueXML::OutputDataYtitleAttribute]->setValue(m_outputDataItem->getYaxisTitle());
+//    idToProperty[JobQueueXML::OutputDataLogzAttribute]->setValue(m_outputDataItem->isLogz());
 
 }
 

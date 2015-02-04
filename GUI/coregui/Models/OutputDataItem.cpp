@@ -1,3 +1,5 @@
+/*
+
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -235,3 +237,5 @@ void OutputDataItem::readFrom(QXmlStreamReader *reader)
                   .value(JobQueueXML::OutputDataYtitleAttribute).toString());
 
 }
+
+*/

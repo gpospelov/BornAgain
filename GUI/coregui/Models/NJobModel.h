@@ -20,6 +20,7 @@
 class NJobItem;
 class SampleModel;
 class InstrumentModel;
+class QItemSelection;
 
 class BA_CORE_API_ NJobModel : public SessionModel
 {
@@ -45,6 +46,8 @@ public slots:
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
+    void onSelectionChanged( const QItemSelection &selected, const QItemSelection &deselected);
+
 
 private:
     QString generateJobName();

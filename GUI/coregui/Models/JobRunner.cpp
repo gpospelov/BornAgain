@@ -17,6 +17,7 @@
 #include "Simulation.h"
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
+#include "item_constants.h"
 #include <boost/bind.hpp>
 #include <QTimer>
 #include <QDebug>
@@ -26,7 +27,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
-    , m_job_status(JobItem::IDLE)
+    , m_job_status(Constants::STATUS_IDLE)
     , m_terminate_request_flag(false)
 {
 
@@ -59,16 +60,16 @@ void JobRunner::start()
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 
-        m_job_status = JobItem::RUNNING;
+        m_job_status = Constants::STATUS_RUNNING;
 
         try {
             m_simulation->runSimulation();
-            if(m_job_status != JobItem::CANCELLED)
-                m_job_status = JobItem::COMPLETED;
+            if(m_job_status != Constants::STATUS_CANCELED)
+                m_job_status = Constants::STATUS_COMPLETED;
         }
         catch(const std::exception &ex)
         {
-            m_job_status = JobItem::FAILED;
+            m_job_status = Constants::STATUS_FAILED;
             m_progress=100;
             m_failure_message = QString(ex.what());
         }
@@ -78,7 +79,7 @@ void JobRunner::start()
 //        emit progressUpdate();
 //        emit finished();
     } else {
-        m_job_status = JobItem::FAILED;
+        m_job_status = Constants::STATUS_FAILED;
         m_progress=100;
         m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
@@ -117,5 +118,5 @@ void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";
     m_terminate_request_flag = true;
-    m_job_status = JobItem::CANCELLED;
+    m_job_status = Constants::STATUS_CANCELED;
 }

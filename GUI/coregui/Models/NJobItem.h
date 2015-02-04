@@ -44,17 +44,24 @@ public:
     InstrumentModel *getInstrumentModel();
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
+    QString getStatus() const;
     bool isIdle() const;
     bool isRunning() const;
     bool isCompleted() const;
     bool isCanceled() const;
     bool isFailed() const;
 
+    int getProgress() const;
+
+
     QString getIdentifier() const;
+
+    static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
 private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+    static QMap<QString, QString> m_run_policies; // run policy, policy description
 
 };
 

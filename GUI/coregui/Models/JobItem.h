@@ -1,3 +1,5 @@
+/*
+
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -147,3 +149,5 @@ private:
 
 
 #endif // JOBITEM_H
+
+*/

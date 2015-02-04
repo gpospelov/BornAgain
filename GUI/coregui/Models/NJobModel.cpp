@@ -18,6 +18,7 @@
 #include "ComboProperty.h"
 #include <QUuid>
 #include <QDebug>
+#include <QItemSelection>
 
 
 NJobModel::NJobModel(QObject *parent)
@@ -94,6 +95,16 @@ void NJobModel::removeJob(const QModelIndex &index)
     qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
     Q_ASSERT(0);
     Q_UNUSED(index);
+}
+
+void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+{
+    Q_UNUSED(deselected);
+    qDebug() << "NJobModel::onSelectionChanged" << selected;
+    if(!selected.empty() &&  !selected.first().indexes().empty()) {
+        QModelIndex index = selected.first().indexes().at(0);
+        emit selectionChanged(getJobItemForIndex(index));
+    }
 }
 
 //! generates job name

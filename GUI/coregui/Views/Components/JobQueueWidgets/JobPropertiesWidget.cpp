@@ -78,22 +78,16 @@ void JobPropertiesWidget::setModel(NJobModel *model)
     Q_ASSERT(model);
     if(model != m_jobModel) {
         m_jobModel = model;
-//        connect(m_jobQueueModel,
-//            SIGNAL( selectionChanged(JobQueueItem *) ),
-//            this,
-//            SLOT( itemClicked(JobQueueItem *) )
-//            );
         connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
+            SIGNAL( selectionChanged(NJobItem *) ),
             this,
-            SLOT( itemClicked(JobItem *) )
+            SLOT( itemClicked(NJobItem *) )
             );
 
         connect(m_jobModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
                 , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
     }
 }
-
 
 
 void JobPropertiesWidget::updateExpandState()
@@ -198,14 +192,14 @@ void JobPropertiesWidget::valueChanged(QtProperty *property, const QVariant &val
 //! to update properties of currently selected item if they were changed from outside
 void JobPropertiesWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
 {
-    Q_ASSERT(0);
-    Q_UNUSED(index);
-//    //qDebug() << "JobPropertiesWidget::dataChanged()";
-//    JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
-//    if(jobItem == m_currentItem) {
+    qDebug() << "JobPropertiesWidget::dataChanged(const QModelIndex &index, const QModelIndex &)";
+//    Q_UNUSED(index);
+    NJobItem *jobItem = m_jobModel->getJobItemForIndex(index);
+    if(jobItem == m_currentItem) {
+          Q_ASSERT(0);
 //        idToProperty[JobQueueXML::JobNameAttribute]->setValue(jobItem->getName());
 //        idToProperty[JobQueueXML::JobStatusAttribute]->setValue(jobItem->getStatusString());
 //        idToProperty[JobQueueXML::JobBeginTimeAttribute]->setValue(jobItem->getBeginTime());
 //        idToProperty[JobQueueXML::JobEndTimeAttribute]->setValue(jobItem->getEndTime());
-//    }
+    }
 }

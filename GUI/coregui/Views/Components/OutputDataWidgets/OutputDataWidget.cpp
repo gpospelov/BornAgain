@@ -91,7 +91,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 }
 
 
-void OutputDataWidget::setCurrentItem(OutputDataItem *item)
+void OutputDataWidget::setCurrentItem(NIntensityDataItem *item)
 {
     qDebug() << "OutputDataWidget::setCurrentItem()" << item;
     m_currentOutputDataItem = item;

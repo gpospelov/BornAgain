@@ -24,7 +24,7 @@
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
-#include "JobQueueModel.h"
+//#include "JobQueueModel.h"
 #include "NJobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
-    , m_jobQueueModel(0)
+//    , m_jobQueueModel(0)
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -122,8 +122,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(this);
 
     //m_testView = new TestView(m_sampleModel, this);
-    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
     //m_fitView = new FitView(m_fitProxyModel, this);
+
+//    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
+    m_jobView = new JobView(m_jobModel, m_projectManager);
 
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -233,9 +235,9 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if(m_jobQueueModel->getJobQueueData()->hasUnfinishedJobs()) {
+    if(m_jobModel->getJobQueueData()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, tr("Can't quite the application."),
-                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed");
+                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed.");
         event->ignore();
         return;
     }
@@ -299,9 +301,10 @@ void MainWindow::initSampleModel()
 
 void MainWindow::initJobQueueModel()
 {
-    delete m_jobQueueModel;
-    m_jobQueueModel = new JobQueueModel(this);
+//    delete m_jobQueueModel;
+//    m_jobQueueModel = new JobQueueModel(this);
 
+    delete m_jobModel;
     m_jobModel = new NJobModel(this);
     ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
     m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));

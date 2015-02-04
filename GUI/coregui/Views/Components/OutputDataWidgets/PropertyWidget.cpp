@@ -56,7 +56,7 @@ void PropertyWidget::initGradientVector()
     m_gradientVector.append(QCPColorGradient::gpHues);
 }
 
-void PropertyWidget::updateData(OutputDataItem *outputDataItem, QCPColorGradient gradient)
+void PropertyWidget::updateData(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::updateData()" << outputDataItem;
 
@@ -78,7 +78,7 @@ void PropertyWidget::updateData(OutputDataItem *outputDataItem, QCPColorGradient
 }
 
 
-void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient)
+void PropertyWidget::setupPropertyWidget(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
 

@@ -17,6 +17,8 @@
 #define NINTENSITYDATAITEM_H
 
 #include "ParameterizedItem.h"
+#include "OutputData.h"
+
 
 class BA_CORE_API_ NIntensityDataItem : public ParameterizedItem
 {
@@ -36,7 +38,44 @@ public:
     static const QString P_AXES_UNITS;
 
     explicit NIntensityDataItem(ParameterizedItem *parent=0);
-    ~NIntensityDataItem(){}
+    ~NIntensityDataItem();
+
+    OutputData<double> *getOutputData() { return m_data; }
+    void setOutputData(OutputData<double> *data);
+
+    double getXaxisMin() const;
+    double getXaxisMax() const;
+    double getYaxisMin() const;
+    double getYaxisMax() const;
+    double getZaxisMin() const;
+    double getZaxisMax() const;
+    bool isLogz() const;
+    bool isInterpolated() const;
+    QString getXaxisTitle() const;
+    QString getYaxisTitle() const;
+    QString getAxesUnits() const;
+    bool axesInRadians() const;
+
+signals:
+    void intensityModified();
+
+public slots:
+    void setXaxisMin(double xmin);
+    void setXaxisMax(double xmax);
+    void setYaxisMin(double ymin);
+    void setYaxisMax(double ymax);
+    void setZaxisRange(double zmin, double zmax);
+    void setZaxisMin(double zmin);
+    void setZaxisMax(double zmax);
+    void setLogz(bool logz);
+    void setInterpolated(bool interp);
+    void setXaxisTitle(QString xtitle);
+    void setYaxisTitle(QString ytitle);
+    void setAxesUnits(const QString &units);
+
+private:
+    OutputData<double> *m_data; //!< simulation results
+
 };
 
 #endif // NINTENSITYDATAITEM_H

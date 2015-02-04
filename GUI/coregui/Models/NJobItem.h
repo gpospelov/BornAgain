@@ -17,11 +17,15 @@
 #define NJOBITEM_H
 
 #include "ParameterizedItem.h"
+class NIntensityDataItem;
+class SampleModel;
+class InstrumentModel;
 
 class BA_CORE_API_ NJobItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
+    static const QString P_IDENTIFIER;
     static const QString P_BEGIN_TYPE;
     static const QString P_END_TYPE;
     static const QString P_COMMENTS;
@@ -31,6 +35,27 @@ public:
     static const QString P_RUN_POLICY;
     explicit NJobItem(ParameterizedItem *parent=0);
     ~NJobItem(){}
+
+    NIntensityDataItem *getIntensityDataItem();
+
+    SampleModel *getSampleModel();
+    void setSampleModel(SampleModel *sampleModel);
+
+    InstrumentModel *getInstrumentModel();
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+
+    bool isIdle() const;
+    bool isRunning() const;
+    bool isCompleted() const;
+    bool isCanceled() const;
+    bool isFailed() const;
+
+    QString getIdentifier() const;
+
+private:
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+
 };
 
 #endif // NJOBITEM_H

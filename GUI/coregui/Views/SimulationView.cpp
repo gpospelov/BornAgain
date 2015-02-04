@@ -26,16 +26,18 @@
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_jobQueueModel(0)
+//    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
-    m_jobQueueModel = mainWindow->getJobQueueModel();
+    m_jobModel = mainWindow->getJobModel();
     m_sampleModel = mainWindow->getSampleModel();
     m_instrumentModel = mainWindow->getInstrumentModel();
 
     m_simulationSetupWidget = new SimulationSetupWidget();
-    m_simulationSetupWidget->setJobQueueModel(m_jobQueueModel);
+//    m_simulationSetupWidget->setJobQueueModel(m_jobQueueModel);
+    m_simulationSetupWidget->setJobModel(m_jobModel);
     m_simulationSetupWidget->setSampleModel(m_sampleModel);
     m_simulationSetupWidget->setInstrumentModel(m_instrumentModel);
 

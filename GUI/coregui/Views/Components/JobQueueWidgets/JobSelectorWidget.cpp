@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "JobSelectorWidget.h"
-#include "JobQueueModel.h"
-#include "JobItem.h"
+//#include "JobQueueModel.h"
+//#include "JobItem.h"
+#include "NJobModel.h"
+#include "NJobItem.h"
 #include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
 #include "styledbar.h"
@@ -30,9 +32,9 @@
 
 
 
-JobSelectorWidget::JobSelectorWidget(JobQueueModel *model, QWidget *parent)
+JobSelectorWidget::JobSelectorWidget(NJobModel *model, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_splitter(new Manhattan::MiniSplitter(this))
     , m_jobListWidget(new JobListWidget(this))
     , m_jobProperties(new JobPropertiesWidget(this))
@@ -59,19 +61,20 @@ JobSelectorWidget::JobSelectorWidget(JobQueueModel *model, QWidget *parent)
 }
 
 
-void JobSelectorWidget::setModel(JobQueueModel *model)
+void JobSelectorWidget::setModel(NJobModel *model)
 {
-    if(model != m_jobQueueModel) {
-        m_jobQueueModel = model;
-        m_jobListWidget->setModel(m_jobQueueModel);
-        m_jobProperties->setModel(m_jobQueueModel);
+    if(model != m_jobModel) {
+        m_jobModel = model;
+        m_jobListWidget->setModel(m_jobModel);
+        m_jobProperties->setModel(m_jobModel);
     }
 }
 
 
-void JobSelectorWidget::makeJobItemSelected(JobItem *item)
+void JobSelectorWidget::makeJobItemSelected(NJobItem *item)
 {
-    QModelIndex index = m_jobQueueModel->getIndexForJobItem(item);
+//    QModelIndex index = m_jobModel->getIndexForJobItem(item);
+    QModelIndex index = m_jobModel->indexOfItem(item);
     Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(index);
 }

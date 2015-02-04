@@ -19,7 +19,7 @@
 #include "qcustomplot.h"
 #include "qcpdocumentobject.h"
 #include <sstream>
-#include "OutputDataItem.h"
+#include "NIntensityDataItem.h"
 
 class BA_CORE_API_ CentralPlot : public QCustomPlot
 {
@@ -32,7 +32,7 @@ public:
     void drawGraphOnMouseEvent(QPoint point);
     bool contains(QPoint point);
     QVector<QVector<double> > getHistogramData(QPoint point, bool isDrawLine = true);
-    void drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient);
+    void drawPlot(NIntensityDataItem *outputDataItem, QCPColorGradient gradient);
 
 
     QCPColorMap *getColorMap() const;
@@ -61,7 +61,7 @@ private:
     QCPColorScale *m_colorScale;
     QString statusString;
     QCPRange m_colorScaleRange;
-    OutputDataItem *m_outputDataItem;
+    NIntensityDataItem *m_outputDataItem;
     QCPRange calculateDataRange();
 
 };

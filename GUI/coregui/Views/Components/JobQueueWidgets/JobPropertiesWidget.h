@@ -20,8 +20,10 @@
 #include <QWidget>
 #include <QMap>
 
-class JobQueueModel;
-class JobItem;
+//class JobQueueModel;
+//class JobItem;
+class NJobModel;
+class NJobItem;
 class QtProperty;
 class QtVariantProperty;
 class QTextEdit;
@@ -36,13 +38,13 @@ public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget *parent = 0);
 
-    void setModel(JobQueueModel *model);
+    void setModel(NJobModel *model);
 
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:
-    void itemClicked(JobItem *item);
+    void itemClicked(NJobItem *item);
     void dataChanged(const QModelIndex &, const QModelIndex &);
 
 private slots:
@@ -52,7 +54,8 @@ private:
     void updateExpandState();
     void addProperty(QtVariantProperty *property, const QString &id);
 
-    JobQueueModel *m_jobQueueModel;
+//    JobQueueModel *m_jobQueueModel;
+    NJobModel *m_jobModel;
     class QtVariantPropertyManager *m_variantManager;
     class QtVariantPropertyManager *m_readonlyManager;
     class QtTreePropertyBrowser *m_propertyBrowser;
@@ -60,7 +63,7 @@ private:
     QMap<QString, QtVariantProperty *> idToProperty;
     QMap<QString, bool> idToExpanded;
 
-    JobItem *m_currentItem;
+    NJobItem *m_currentItem;
 
     QTabWidget *m_tabWidget;
     QTextEdit *m_commentsEditor;

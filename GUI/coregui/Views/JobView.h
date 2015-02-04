@@ -20,8 +20,9 @@
 #include "fancymainwindow.h"
 
 struct JobViewPrivate;
-class JobQueueModel;
-class JobItem;
+//class JobQueueModel;
+class NJobModel;
+class NJobItem;
 class ProjectManager;
 
 namespace Manhattan {
@@ -39,7 +40,8 @@ public:
 
     enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
-    JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
+//    JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
+    JobView(NJobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);
@@ -50,7 +52,7 @@ signals:
 
 public slots:
     void updateGlobalProgressBar(int);
-    void onFocusRequest(JobItem *);
+    void onFocusRequest(NJobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
 

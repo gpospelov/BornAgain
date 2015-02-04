@@ -236,7 +236,7 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 }
 
 
-void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient)
+void CentralPlot::drawPlot(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
 {
     Q_ASSERT(outputDataItem);
     qDebug() << "CentralPlot::drawPlot";

@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "JobRealTimeWidget.h"
-#include "JobQueueModel.h"
+//#include "JobQueueModel.h"
+#include "NJobModel.h"
+#include "NJobItem.h"
 #include "ModelTuningWidget.h"
 #include "JobRealTimeToolBar.h"
 #include <QVBoxLayout>
@@ -26,14 +28,14 @@
 #include "GUIHelpers.h"
 
 
-JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *parent)
+JobRealTimeWidget::JobRealTimeWidget(NJobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_currentJobItem(0)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobRealTimeToolBar)
 {
-    setJobQueueModel(jobQueueModel);
+    setJobModel(jobModel);
 
     setMinimumSize(100, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -58,42 +60,42 @@ JobRealTimeWidget::JobRealTimeWidget(JobQueueModel *jobQueueModel, QWidget *pare
 }
 
 
-void JobRealTimeWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
+void JobRealTimeWidget::setJobModel(NJobModel *jobModel)
 {
-    Q_ASSERT(jobQueueModel);
-    if(jobQueueModel != m_jobQueueModel) {
-        if(m_jobQueueModel) {
-            disconnect(m_jobQueueModel,
-                SIGNAL( selectionChanged(JobItem *) ),
+    Q_ASSERT(jobModel);
+    if(jobModel != m_jobModel) {
+        if(m_jobModel) {
+            disconnect(m_jobModel,
+                SIGNAL( selectionChanged(NJobItem *) ),
                 this,
-                SLOT( itemClicked(JobItem *) )
+                SLOT( itemClicked(NJobItem *) )
                 );
 
-            disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
                     , this, SLOT(onJobItemFinished(QString)));
 
-            disconnect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
+            disconnect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
                     , this, SLOT(onJobItemDelete(JobItem*)));
         }
 
-        m_jobQueueModel = jobQueueModel;
+        m_jobModel = jobModel;
 
-        connect(m_jobQueueModel,
-            SIGNAL( selectionChanged(JobItem *) ),
+        connect(m_jobModel,
+            SIGNAL( selectionChanged(NJobItem *) ),
             this,
-            SLOT( itemClicked(JobItem *) )
+            SLOT( itemClicked(NJobItem *) )
             );
 
-        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
                 , this, SLOT(onJobItemFinished(QString)));
 
-        connect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
+        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
                 , this, SLOT(onJobItemDelete(JobItem*)));
     }
 }
 
 
-void JobRealTimeWidget::itemClicked(JobItem * item)
+void JobRealTimeWidget::itemClicked(NJobItem * item)
 {
     qDebug() << "JobOutputDataWidget::itemClicked()";
     m_currentJobItem = item;
@@ -104,7 +106,7 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
     if( !widget && isValidJobItem(item)) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new ModelTuningWidget(m_jobQueueModel->getJobQueueData());
+        widget = new ModelTuningWidget(m_jobModel->getJobQueueData());
         widget->setCurrentItem(item);
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;
@@ -125,17 +127,19 @@ void JobRealTimeWidget::itemClicked(JobItem * item)
 }
 
 
-void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
+void JobRealTimeWidget::onJobItemFinished(const QString &/*identifier*/)
 {
-    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-    JobItem *jobItem = m_jobQueueModel->getJobQueueData()->getJobItem(identifier);
+    Q_ASSERT(0);
+    // FIXME
+//    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
+//    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
 
-    if(jobItem == m_currentJobItem) {
-        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem()) {
-            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-            itemClicked(jobItem);
-        }
-    }
+//    if(jobItem == m_currentJobItem) {
+//        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem()) {
+//            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
+//            itemClicked(jobItem);
+//        }
+//    }
 }
 
 void JobRealTimeWidget::onResetParameters()
@@ -166,13 +170,13 @@ ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 
 //! Returns true if JobItem is valid for real time simulation, i.e.
 //! it is not already running and it has valid models
-bool JobRealTimeWidget::isValidJobItem(JobItem *item)
+bool JobRealTimeWidget::isValidJobItem(NJobItem *item)
 {
- return (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED) && item->getSampleModel() && item->getInstrumentModel();
+ return (item->isCompleted() || item->isCanceled()) && item->getSampleModel() && item->getInstrumentModel();
 }
 
 
-void JobRealTimeWidget::onJobItemDelete(JobItem *item)
+void JobRealTimeWidget::onJobItemDelete(NJobItem *item)
 {
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
@@ -181,7 +185,7 @@ void JobRealTimeWidget::onJobItemDelete(JobItem *item)
         return;
     }
 
-    QMap<JobItem *, ModelTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
+    QMap<NJobItem *, ModelTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
     while(it!=m_jobItemToTuningWidget.end()) {
         if(it.value() == widget) {
             it = m_jobItemToTuningWidget.erase(it);

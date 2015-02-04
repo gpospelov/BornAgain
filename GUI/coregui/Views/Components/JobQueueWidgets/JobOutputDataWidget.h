@@ -21,21 +21,24 @@
 #include <QMap>
 
 class OutputDataWidget;
-class JobQueueModel;
+//class JobQueueModel;
 class QStackedWidget;
 class QModelIndex;
-class JobItem;
+//class JobItem;
 class JobOutputDataToolBar;
 class ProjectManager;
-
+class NJobModel;
+class NJobItem;
 
 class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
+//    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
+    explicit JobOutputDataWidget(NJobModel *joModel, ProjectManager *projectManager, QWidget *parent = 0);
 
-    void setJobQueueModel(JobQueueModel *jobQueueModel);
+//    void setJobQueueModel(JobQueueModel *jobQueueModel);
+    void setJobModel(NJobModel *jobModel);
 
     JobOutputDataToolBar *getToolBar() { return m_toolBar; }
 
@@ -43,8 +46,8 @@ signals:
     void jobViewActivityRequest(int activity);
 
 public slots:
-    void itemClicked(JobItem *item);
-    void onJobItemDelete(JobItem *item);
+    void itemClicked(NJobItem *item);
+    void onJobItemDelete(NJobItem *item);
     void onJobItemFinished(const QString &identifier);
     void togglePropertyPanel();
     void toggleProjections();
@@ -56,11 +59,12 @@ private:
     void connectSignals();
     OutputDataWidget *getCurrentOutputDataWidget();
 
-    JobQueueModel *m_jobQueueModel;
+//    JobQueueModel *m_jobQueueModel;
+    NJobModel *m_jobModel;
     ProjectManager *m_projectManager;
-    JobItem *m_currentJobItem;
+    NJobItem *m_currentJobItem;
     QStackedWidget *m_stack;
-    QMap<JobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
+    QMap<NJobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;
 };
 

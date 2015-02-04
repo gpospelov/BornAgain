@@ -16,6 +16,10 @@
 #define NJOBMODEL_H
 
 #include "SessionModel.h"
+#include "JobQueueData.h"
+class NJobItem;
+class SampleModel;
+class InstrumentModel;
 
 class BA_CORE_API_ NJobModel : public SessionModel
 {
@@ -23,11 +27,30 @@ class BA_CORE_API_ NJobModel : public SessionModel
 
 public:
     explicit NJobModel(QObject *parent = 0);
-    ~NJobModel(){}
+    ~NJobModel();
 
+    JobQueueData *getJobQueueData() { return m_queue_data; }
+
+    const NJobItem *getJobItemForIndex(const QModelIndex &index) const;
+    NJobItem *getJobItemForIndex(const QModelIndex &index);
+
+    NJobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+            const QString &run_policy = QString(), int numberOfThreads=-1);
+
+signals:
+    void selectionChanged(NJobItem *item);
+    void aboutToDeleteJobItem(NJobItem *item);
+
+public slots:
+    void runJob(const QModelIndex &index);
+    void cancelJob(const QModelIndex &index);
+    void removeJob(const QModelIndex &index);
 
 private:
+    QString generateJobName();
+    QString generateJobIdentifier();
 
+    JobQueueData *m_queue_data;
 };
 
 #endif

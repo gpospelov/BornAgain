@@ -17,7 +17,8 @@
 #include "Simulation.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
-#include "JobQueueModel.h"
+//#include "JobQueueModel.h"
+#include "NJobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
@@ -37,7 +38,8 @@
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(0)
+//    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
@@ -117,11 +119,18 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 }
 
 
-void SimulationSetupWidget::setJobQueueModel(JobQueueModel *model)
+//void SimulationSetupWidget::setJobQueueModel(JobQueueModel *model)
+//{
+//    Q_ASSERT(model);
+//    if(model != m_jobQueueModel) {
+//        m_jobQueueModel = model;
+//    }
+//}
+void SimulationSetupWidget::setJobModel(NJobModel *model)
 {
     Q_ASSERT(model);
-    if(model != m_jobQueueModel) {
-        m_jobQueueModel = model;
+    if(model != m_jobModel) {
+        m_jobModel = model;
     }
 }
 
@@ -190,9 +199,12 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
-    jobItem->setNumberOfThreads(getNumberOfThreads());
-    m_jobQueueModel->addJob(jobItem);
+//    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
+//    jobItem->setNumberOfThreads(getNumberOfThreads());
+//    m_jobQueueModel->addJob(jobItem);
+
+    m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
+
 }
 
 

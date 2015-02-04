@@ -17,7 +17,7 @@
 #define PROPERTYWIDGET_H
 
 #include <QWidget>
-#include "OutputDataItem.h"
+#include "NIntensityDataItem.h"
 #include "centralplot.h"
 
 class QtProperty;
@@ -34,11 +34,11 @@ public:
 
     QSize minimumSizeHint() const { return QSize(230, 800); }
 
-    void setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient);
+    void setupPropertyWidget(NIntensityDataItem *outputDataItem, QCPColorGradient gradient);
 
     int getWidth();
     void toggleProjections();
-    void updateData(OutputDataItem *outputDataItem, QCPColorGradient gradient = QCPColorGradient::gpPolar);
+    void updateData(NIntensityDataItem *outputDataItem, QCPColorGradient gradient = QCPColorGradient::gpPolar);
     void setProjections(bool visible);
 
 public slots:
@@ -58,7 +58,7 @@ private:
 
     class QtVariantPropertyManager *m_variantManager;
     class QtTreePropertyBrowser *m_propertyBrowser;
-    OutputDataItem *m_outputDataItem;
+    NIntensityDataItem *m_outputDataItem;
     QMap<QtProperty *, QString> propertyToId;
     QMap<QString, QtVariantProperty *> idToProperty;
     QVector<QCPColorGradient> m_gradientVector;

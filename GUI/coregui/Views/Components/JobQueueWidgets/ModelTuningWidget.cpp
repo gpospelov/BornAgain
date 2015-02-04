@@ -14,7 +14,8 @@
 // ************************************************************************** //
 
 #include "ModelTuningWidget.h"
-#include "JobItem.h"
+//#include "JobItem.h"
+#include "NJobItem.h"
 #include "SliderSettingsWidget.h"
 #include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
@@ -75,7 +76,7 @@ ModelTuningWidget::~ModelTuningWidget()
 }
 
 
-void ModelTuningWidget::setCurrentItem(JobItem *item)
+void ModelTuningWidget::setCurrentItem(NJobItem *item)
 {
     qDebug() << "ModelTuningWidget::setCurrentItem" << item;
     if(m_currentJobItem != item) {
@@ -101,7 +102,9 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 //        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getVariant());
         link.updateItem();
 
-        m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
+        // FIXME
+//        m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
+        m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
     }
 }
 
@@ -167,7 +170,9 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
     updateParameterModel();
 
-    m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
+    // FIXME
+//    m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
+    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
 }
 
 

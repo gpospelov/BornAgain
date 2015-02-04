@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "JobListWidget.h"
-#include "JobQueueModel.h"
-#include "JobItem.h"
+//#include "JobQueueModel.h"
+//#include "JobItem.h"
+#include "NJobModel.h"
+#include "NJobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobListToolBar.h"
 #include <QPushButton>
@@ -28,7 +30,7 @@
 
 JobListWidget::JobListWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new QListView(this))
     , m_runJobAction(0)
@@ -76,21 +78,21 @@ JobListWidget::JobListWidget(QWidget *parent)
 }
 
 
-void JobListWidget::setModel(JobQueueModel *model)
+void JobListWidget::setModel(NJobModel *model)
 {
     Q_ASSERT(model);
-    if(model != m_jobQueueModel) {
-        m_jobQueueModel = model;
+    if(model != m_jobModel) {
+        m_jobModel = model;
         m_listView->setModel(model);
 
         connect(m_listView->selectionModel(),
             SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
-            m_jobQueueModel,
+            m_jobModel,
             SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
             );
 
         connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
-        m_jobQueueModel, SLOT(cancelJob(QModelIndex)));
+        m_jobModel, SLOT(cancelJob(QModelIndex)));
 
     }
 }
@@ -98,9 +100,9 @@ void JobListWidget::setModel(JobQueueModel *model)
 
 void JobListWidget::save()
 {
-    Q_ASSERT(m_jobQueueModel);
+    Q_ASSERT(m_jobModel);
     qDebug() << "JobListWidget::save() -> ";
-    m_jobQueueModel->save("tmp2.xml");
+    m_jobModel->save("tmp2.xml");
 
 }
 
@@ -109,7 +111,7 @@ void JobListWidget::runJob()
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
     foreach(QModelIndex index, indexList) {
         if(jobItemCanBeRun(index))
-            m_jobQueueModel->runJob(index);
+            m_jobModel->runJob(index);
     }
 }
 
@@ -129,8 +131,8 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
 {
     if(!index.isValid()) return false;
 
-    const JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-    if(jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::FAILED) return false;
+    const NJobItem *jobItem = m_jobModel->getJobItemForIndex(index);
+    if(jobItem->isCompleted() || jobItem->isFailed()) return false;
 
     return true;
 }
@@ -142,7 +144,7 @@ void JobListWidget::removeJob()
     qDebug() << "JobListWidget::removeJob() ";
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
     foreach(QModelIndex index, indexList) {
-        m_jobQueueModel->removeJob(index);
+        m_jobModel->removeJob(index);
     }
 }
 

@@ -182,7 +182,7 @@ void PlotWidget::setProjectManager(ProjectManager *projectManager)
 }
 
 
-void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
+void PlotWidget::drawPlot(NIntensityDataItem *outputDataItem)
 {
     qDebug() << "PlotWidget::drawPlot()";
 //    Q_ASSERT(outputDataItem);

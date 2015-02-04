@@ -19,7 +19,8 @@
 #include <QWidget>
 #include "OutputData.h"
 #include "qcustomplot.h"
-#include "OutputDataItem.h"
+//#include "OutputDataItem.h"
+#include "NIntensityDataItem.h"
 
 class PlotWidget;
 class PropertyWidget;
@@ -33,7 +34,7 @@ class BA_CORE_API_ OutputDataWidget : public QWidget
 public:
     explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = false, bool isCreatePropertyWidget = false, bool isProjections = false);
 
-    void setCurrentItem(OutputDataItem *item);
+    void setCurrentItem(NIntensityDataItem *item);
     void setProjectManager(ProjectManager *projectManager);
 
 public slots:
@@ -56,7 +57,7 @@ private:
     PropertyWidget *m_propertyWidget;
     OutputDataToolBar *m_toolBar;
     QCPColorGradient m_gradient;
-    OutputDataItem *m_currentOutputDataItem;
+    NIntensityDataItem *m_currentOutputDataItem;
     QVBoxLayout *m_mainLayout;
     QHBoxLayout *m_layout;
 

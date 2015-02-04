@@ -20,7 +20,8 @@
 #include <QWidget>
 #include <QModelIndex>
 
-class JobQueueModel;
+//class JobQueueModel;
+class NJobModel;
 class JobListViewDelegate;
 class QListView;
 class QPushButton;
@@ -37,7 +38,7 @@ class BA_CORE_API_ JobListWidget : public QWidget
 public:
     explicit JobListWidget(QWidget *parent = 0);
 
-    void setModel(JobQueueModel *model);
+    void setModel(NJobModel *model);
 
     QSize sizeHint() const { return QSize(64, 768); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
@@ -57,7 +58,7 @@ private:
     void setupContextMenuActions();
     bool jobItemCanBeRun(const QModelIndex &index);
 
-    JobQueueModel *m_jobQueueModel;
+    NJobModel *m_jobModel;
     JobListViewDelegate *m_listViewDelegate;
     QListView *m_listView;
     QAction *m_runJobAction;

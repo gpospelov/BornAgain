@@ -16,7 +16,7 @@
 #ifndef PLOTWIDGET_H
 #define PLOTWIDGET_H
 
-#include "OutputDataItem.h"
+#include "NIntensityDataItem.h"
 #include "centralplot.h"
 #include <QWidget>
 #include <QSplitter>
@@ -36,7 +36,7 @@ public:
     QSize minimumSizeHint() const { return QSize(800, 800); }
 
     int histogramSize;
-    void drawPlot(OutputDataItem *outputDataItem);
+    void drawPlot(NIntensityDataItem *outputDataItem);
     void setPropertyWidgetVisibilityFlag(bool visible);
     void setProjectManager(ProjectManager *projectManager);
 
@@ -73,7 +73,7 @@ private:
     HistogramPlot *m_verticalPlot;
     HistogramPlot *m_horizontalPlot;
     QLabel *m_statusLabel;
-    OutputDataItem *m_outputDataItem;
+    NIntensityDataItem *m_outputDataItem;
     QCPColorGradient m_gradient;
 
     QAction *m_propertyPanelAction;

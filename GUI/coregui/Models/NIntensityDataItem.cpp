@@ -16,6 +16,7 @@
 #include "NIntensityDataItem.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include <QDebug>
 
 const QString NIntensityDataItem::P_XAXIS_MIN = "xmin";
 const QString NIntensityDataItem::P_XAXIS_MAX = "xmax";
@@ -32,6 +33,7 @@ const QString NIntensityDataItem::P_AXES_UNITS = "Axes Units";
 
 NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
+    , m_data(0)
 {
     setItemName(Constants::IntensityDataType);
     registerProperty(P_XAXIS_MIN, 0.0);
@@ -52,4 +54,178 @@ NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_YAXIS_TITLE, QString("y-axis"));
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees());
 
+}
+
+NIntensityDataItem::~NIntensityDataItem()
+{
+    delete m_data;
+}
+
+void NIntensityDataItem::setOutputData(OutputData<double> *data)
+{
+//    if(data != m_data) {
+        qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
+        delete m_data;
+        m_data = data;
+//        if(axesInRadians()) {
+//            m_xaxis_title = QString(data->getAxis(0)->getName().c_str())+QString(" [rad]");
+//            m_yaxis_title = QString(data->getAxis(1)->getName().c_str())+QString(" [rad]");
+//        } else {
+//            m_xaxis_title = QString(data->getAxis(0)->getName().c_str())+QString(" [deg]");
+//            m_yaxis_title = QString(data->getAxis(1)->getName().c_str())+QString(" [deg]");
+//        }
+//        emit modified();
+        qDebug() << "OutputDataItem::setOutputData() -> emitting intensity modified";
+        emit intensityModified();
+        //    }
+}
+
+double NIntensityDataItem::getXaxisMin() const
+{
+    return getRegisteredProperty(P_XAXIS_MIN).toDouble();
+}
+
+double NIntensityDataItem::getXaxisMax() const
+{
+    return getRegisteredProperty(P_XAXIS_MAX).toDouble();
+}
+
+double NIntensityDataItem::getYaxisMin() const
+{
+    return getRegisteredProperty(P_YAXIS_MIN).toDouble();
+}
+
+double NIntensityDataItem::getYaxisMax() const
+{
+    return getRegisteredProperty(P_YAXIS_MAX).toDouble();
+}
+
+double NIntensityDataItem::getZaxisMin() const
+{
+    return getRegisteredProperty(P_ZAXIS_MIN).toDouble();
+}
+
+double NIntensityDataItem::getZaxisMax() const
+{
+    return getRegisteredProperty(P_ZAXIS_MAX).toDouble();
+}
+
+bool NIntensityDataItem::isLogz() const
+{
+    return getRegisteredProperty(P_IS_LOGZ).toBool();
+
+}
+
+bool NIntensityDataItem::isInterpolated() const
+{
+    return getRegisteredProperty(P_IS_INTERPOLATED).toBool();
+}
+
+QString NIntensityDataItem::getXaxisTitle() const
+{
+    return getRegisteredProperty(P_XAXIS_TITLE).toString();
+}
+
+QString NIntensityDataItem::getYaxisTitle() const
+{
+    return getRegisteredProperty(P_YAXIS_TITLE).toString();
+}
+
+QString NIntensityDataItem::getAxesUnits() const
+{
+    qDebug() << "NIntensityDataItem::getAxesUnits()";
+    Q_ASSERT(0);
+    return QString();
+}
+
+bool NIntensityDataItem::axesInRadians() const
+{
+    qDebug() << "NIntensityDataItem::axesInRadians()";
+    Q_ASSERT(0);
+    return false;
+}
+
+void NIntensityDataItem::setXaxisMin(double xmin)
+{
+    qDebug() << "NIntensityDataItem::setXaxisMin(double xmin)";
+    Q_UNUSED(xmin);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setXaxisMax(double xmax)
+{
+    qDebug() << "NIntensityDataItem::setXaxisMax(double xmax)";
+    Q_UNUSED(xmax);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setYaxisMin(double ymin)
+{
+    qDebug() << "NIntensityDataItem::setYaxisMin(double ymin)";
+    Q_UNUSED(ymin);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setYaxisMax(double ymax)
+{
+    qDebug() << "NIntensityDataItem::setYaxisMax(double ymax)";
+    Q_UNUSED(ymax);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setZaxisRange(double zmin, double zmax)
+{
+    qDebug() << "NIntensityDataItem::setZaxisRange()";
+    Q_UNUSED(zmin);
+    Q_UNUSED(zmax);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setZaxisMin(double zmin)
+{
+    qDebug() << "NIntensityDataItem::setZaxisMin(double zmin)";
+    Q_UNUSED(zmin);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setZaxisMax(double zmax)
+{
+    qDebug() << "NIntensityDataItem::setZaxisMax(double zmax)";
+    Q_UNUSED(zmax);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setLogz(bool logz)
+{
+    qDebug() << "NIntensityDataItem::setLogz(bool logz)";
+    Q_UNUSED(logz);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setInterpolated(bool interp)
+{
+    qDebug() << "NIntensityDataItem::setInterpolated(bool interp)";
+    Q_UNUSED(interp);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setXaxisTitle(QString xtitle)
+{
+    qDebug() << "NIntensityDataItem::setXaxisTitle(QString xtitle)";
+    Q_UNUSED(xtitle);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setYaxisTitle(QString ytitle)
+{
+    qDebug() << "NIntensityDataItem::setYaxisTitle(QString ytitle)";
+    Q_UNUSED(ytitle);
+    Q_ASSERT(0);
+}
+
+void NIntensityDataItem::setAxesUnits(const QString &units)
+{
+    qDebug() << "NIntensityDataItem::setAxesUnits(QString units)";
+    Q_UNUSED(units);
+    Q_ASSERT(0);
 }

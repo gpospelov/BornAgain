@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "JobOutputDataWidget.h"
-#include "JobQueueModel.h"
+//#include "JobQueueModel.h"
+#include "NJobModel.h"
+#include "NJobItem.h"
 #include "OutputDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
@@ -27,14 +29,14 @@
 #include "GUIHelpers.h"
 
 
-JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent)
+JobOutputDataWidget::JobOutputDataWidget(NJobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_projectManager(projectManager)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobOutputDataToolBar())
 {
-    setJobQueueModel(jobQueueModel);
+    setJobModel(jobModel);
 
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -58,28 +60,48 @@ JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectMa
 }
 
 
-void JobOutputDataWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
-{
-    Q_ASSERT(jobQueueModel);
-    if(jobQueueModel != m_jobQueueModel) {
-        m_jobQueueModel = jobQueueModel;
+//void JobOutputDataWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
+//{
+//    Q_ASSERT(jobQueueModel);
+//    if(jobQueueModel != m_jobQueueModel) {
+//        m_jobQueueModel = jobQueueModel;
 
-        connect(m_jobQueueModel,
-            SIGNAL( selectionChanged(JobItem *) ),
+//        connect(m_jobQueueModel,
+//            SIGNAL( selectionChanged(JobItem *) ),
+//            this,
+//            SLOT( itemClicked(JobItem *) )
+//            );
+
+//        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+//                , this, SLOT(onJobItemFinished(QString)));
+
+//        connect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
+//                , this, SLOT(onJobItemDelete(JobItem*)));
+//    }
+//}
+
+void JobOutputDataWidget::setJobModel(NJobModel *jobModel)
+{
+    Q_ASSERT(jobModel);
+    if(jobModel != m_jobModel) {
+        m_jobModel = jobModel;
+
+        connect(m_jobModel,
+            SIGNAL( selectionChanged(NJobItem *) ),
             this,
-            SLOT( itemClicked(JobItem *) )
+            SLOT( itemClicked(NJobItem *) )
             );
 
-        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
                 , this, SLOT(onJobItemFinished(QString)));
 
-        connect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-                , this, SLOT(onJobItemDelete(JobItem*)));
+        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(NJobItem*))
+                , this, SLOT(onJobItemDelete(NJobItem*)));
     }
 }
 
 
-void JobOutputDataWidget::itemClicked(JobItem * item)
+void JobOutputDataWidget::itemClicked(NJobItem * item)
 {
     qDebug() << "JobOutputDataWidget::itemClicked()";
 
@@ -88,11 +110,11 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     m_currentJobItem = item;
 
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget && (item->getStatus() == JobItem::COMPLETED || item->getStatus() == JobItem::CANCELLED)) {
+    if( !widget && (item->isCompleted() || item->isCanceled())) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new OutputDataWidget(this, false, false, false);
-        widget->setCurrentItem(item->getOutputDataItem());
+        widget->setCurrentItem(item->getIntensityDataItem());
         widget->setProjectManager(m_projectManager);
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
@@ -123,17 +145,21 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
 
 void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
 {
-    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-    JobItem *jobItem = m_jobQueueModel->getJobQueueData()->getJobItem(identifier);
+    qDebug() << "JobOutputDataWidget::onJobItemFinished";
+    Q_ASSERT(0);
+    Q_UNUSED(identifier);
 
-    if(jobItem == m_currentJobItem)
-    {
-        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem())
-        {
-            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-            itemClicked(jobItem);
-        }
-    }
+//    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
+//    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
+
+//    if(jobItem == m_currentJobItem)
+//    {
+//        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem())
+//        {
+//            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
+//            itemClicked(jobItem);
+//        }
+//    }
 }
 
 
@@ -196,7 +222,7 @@ OutputDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
 }
 
 
-void JobOutputDataWidget::onJobItemDelete(JobItem *item)
+void JobOutputDataWidget::onJobItemDelete(NJobItem *item)
 {
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     OutputDataWidget *widget = m_jobItemToPlotWidget[item];
@@ -206,7 +232,7 @@ void JobOutputDataWidget::onJobItemDelete(JobItem *item)
         return;
     }
 
-    QMap<JobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
+    QMap<NJobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
     while(it!=m_jobItemToPlotWidget.end()) {
         if(it.value() == widget) {
             it = m_jobItemToPlotWidget.erase(it);

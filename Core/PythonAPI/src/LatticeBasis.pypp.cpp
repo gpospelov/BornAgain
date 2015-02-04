@@ -97,18 +97,6 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
-        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
-            return func_getAmbientMaterial(  );
-        else{
-            return this->Particle::getAmbientMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getAmbientMaterial(  ) const  {
-        return Particle::getAmbientMaterial( );
-    }
-
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -133,52 +121,28 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
-        else{
-            return this->Particle::getMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return Particle::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->Particle::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return Particle::getRefractiveIndex( );
-    }
-
     virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
         if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
             return func_getSimpleFormFactor(  );
         else{
-            return this->Particle::getSimpleFormFactor(  );
+            return this->IParticle::getSimpleFormFactor(  );
         }
     }
     
     ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return Particle::getSimpleFormFactor( );
+        return IParticle::getSimpleFormFactor( );
     }
 
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
         else{
-            return this->Particle::hasDistributedFormFactor(  );
+            return this->IParticle::hasDistributedFormFactor(  );
         }
     }
     
     bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
+        return IParticle::hasDistributedFormFactor( );
     }
 
     virtual bool preprocess(  ) {
@@ -315,12 +279,12 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
 void register_LatticeBasis_class(){
 
     { //::LatticeBasis
-        typedef bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, std::auto_ptr< LatticeBasis_wrapper >, boost::noncopyable > LatticeBasis_exposer_t;
+        typedef bp::class_< LatticeBasis_wrapper, bp::bases< IParticle >, std::auto_ptr< LatticeBasis_wrapper >, boost::noncopyable > LatticeBasis_exposer_t;
         LatticeBasis_exposer_t LatticeBasis_exposer = LatticeBasis_exposer_t( "LatticeBasis", bp::init< >() );
         bp::scope LatticeBasis_scope( LatticeBasis_exposer );
         { //::LatticeBasis::addParticle
         
-            typedef void ( ::LatticeBasis::*addParticle_function_type)( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
+            typedef void ( ::LatticeBasis::*addParticle_function_type)( ::IParticle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
             
             LatticeBasis_exposer.def( 
                 "addParticle"
@@ -385,18 +349,6 @@ void register_LatticeBasis_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Particle::getAmbientMaterial
-        
-            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getAmbientMaterial"
-                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
-                , default_getAmbientMaterial_function_type(&LatticeBasis_wrapper::default_getAmbientMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -421,49 +373,26 @@ void register_LatticeBasis_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Particle::getMaterial
+        { //::IParticle::getSimpleFormFactor
         
-            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::Particle::getMaterial)
-                , default_getMaterial_function_type(&LatticeBasis_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::getRefractiveIndex
-        
-            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( LatticeBasis_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::Particle::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&LatticeBasis_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::Particle::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::Particle::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
             typedef ::IFormFactor const * ( LatticeBasis_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::Particle::getSimpleFormFactor)
+                , getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor)
                 , default_getSimpleFormFactor_function_type(&LatticeBasis_wrapper::default_getSimpleFormFactor)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Particle::hasDistributedFormFactor
+        { //::IParticle::hasDistributedFormFactor
         
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
             typedef bool ( LatticeBasis_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
+                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
                 , default_hasDistributedFormFactor_function_type(&LatticeBasis_wrapper::default_hasDistributedFormFactor) );
         
         }

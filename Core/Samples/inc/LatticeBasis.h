@@ -16,7 +16,7 @@
 #ifndef LATTICEBASIS_H_
 #define LATTICEBASIS_H_
 
-#include "Particle.h"
+#include "IParticle.h"
 #include "Types.h"
 #include <vector>
 
@@ -24,12 +24,12 @@
 //! @ingroup samples
 //! @brief Basis of the lattice represented by the composition of particles
 
-class BA_CORE_API_ LatticeBasis : public Particle
+class BA_CORE_API_ LatticeBasis : public IParticle
 {
 public:
     LatticeBasis();
-    explicit LatticeBasis(const Particle& particle);
-    LatticeBasis(const Particle& particle, std::vector<kvector_t > positions);
+    explicit LatticeBasis(const IParticle& particle);
+    LatticeBasis(const IParticle& particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
@@ -39,10 +39,11 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    void addParticle(const Particle& particle,
+    void addParticle(const IParticle& particle,
                      std::vector<kvector_t > positions);
 
     virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
@@ -55,7 +56,7 @@ public:
     { return m_positions_vector[check_index(index)].size(); }
 
     //! Returns particle with given index
-    const Particle *getParticle(size_t index) const {
+    const IParticle *getParticle(size_t index) const {
         return m_particles[check_index(index)];
     }
 
@@ -79,10 +80,10 @@ private:
                         "-> Index is out of bounds"); }
 
     //! For internal use in cloneInvertB():
-    void addParticlePointer(Particle *p_particle,
+    void addParticlePointer(IParticle *p_particle,
             std::vector<kvector_t > positions);
 
-    std::vector<Particle *> m_particles;
+    std::vector<IParticle *> m_particles;
     std::vector<std::vector<kvector_t> > m_positions_vector;
 };
 

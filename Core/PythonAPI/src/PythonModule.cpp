@@ -242,11 +242,11 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();
-    register_Particle_class();
     register_LatticeBasis_class();
     register_Layer_class();
     register_LayerInterface_class();
     register_LayerRoughness_class();
+    register_Particle_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
     register_OffSpecSimulation_class();

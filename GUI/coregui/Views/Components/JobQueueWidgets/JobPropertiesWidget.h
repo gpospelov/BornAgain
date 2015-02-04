@@ -28,6 +28,8 @@ class QtProperty;
 class QtVariantProperty;
 class QTextEdit;
 class QTabWidget;
+class ParameterizedItem;
+class UniversalPropertyEditor;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
@@ -43,29 +45,31 @@ public:
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
-public slots:
-    void itemClicked(NJobItem *item);
-    void dataChanged(const QModelIndex &, const QModelIndex &);
+public slots:    
+    void setItem(NJobItem *item);
+//    void dataChanged(const QModelIndex &, const QModelIndex &);
 
 private slots:
-    void valueChanged(QtProperty *property, const QVariant &value);
+//    void valueChanged(QtProperty *property, const QVariant &value);
 
 private:
-    void updateExpandState();
-    void addProperty(QtVariantProperty *property, const QString &id);
+//    void updateExpandState();
+//    void addProperty(QtVariantProperty *property, const QString &id);
 
 //    JobQueueModel *m_jobQueueModel;
+
+    //! clear editor
+
+
     NJobModel *m_jobModel;
-    class QtVariantPropertyManager *m_variantManager;
-    class QtVariantPropertyManager *m_readonlyManager;
-    class QtTreePropertyBrowser *m_propertyBrowser;
-    QMap<QtProperty *, QString> propertyToId;
-    QMap<QString, QtVariantProperty *> idToProperty;
-    QMap<QString, bool> idToExpanded;
+
+//    QMap<QtProperty *, QString> propertyToId;
+//    QMap<QString, QtVariantProperty *> idToProperty;
+//    QMap<QString, bool> idToExpanded;
 
     NJobItem *m_currentItem;
-
     QTabWidget *m_tabWidget;
+    UniversalPropertyEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
 };
 

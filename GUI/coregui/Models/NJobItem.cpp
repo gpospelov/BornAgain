@@ -37,8 +37,8 @@ QMap<QString, QString> NJobItem::m_run_policies = initializeRunPolicies();
 
 
 const QString NJobItem::P_IDENTIFIER = "Identifier";
-const QString NJobItem::P_BEGIN_TYPE = "Begin Time";
-const QString NJobItem::P_END_TYPE = "End Time";
+const QString NJobItem::P_BEGIN_TIME = "Begin Time";
+const QString NJobItem::P_END_TIME = "End Time";
 const QString NJobItem::P_COMMENTS = "Comments";
 const QString NJobItem::P_STATUS = "Status";
 const QString NJobItem::P_PROGRESS = "Progress";
@@ -52,24 +52,28 @@ NJobItem::NJobItem(ParameterizedItem *parent)
     , m_instrumentModel(0)
 {
     setItemName(Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString());
-    registerProperty(P_BEGIN_TYPE, QString());
-    registerProperty(P_END_TYPE, QString());
-    registerProperty(P_COMMENTS, QString());
+    registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
            << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant());
+    registerProperty(P_STATUS, status.getVariant(), PropertyAttribute(PropertyAttribute::READONLY));
 
-    registerProperty(P_PROGRESS, 0);
-    registerProperty(P_NTHREADS, -1);
+    registerProperty(P_BEGIN_TIME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
+    registerProperty(P_END_TIME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
+    registerProperty(P_COMMENTS, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
+
+    registerProperty(P_PROGRESS, 0, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_NTHREADS, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ComboProperty policy;
     policy << QString("Immediately") << QString("In background") << QString("Submit only");
-    registerProperty(P_RUN_POLICY, policy.getVariant());
+    registerProperty(P_RUN_POLICY, policy.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     addToValidChildren(Constants::IntensityDataType);
+
+    setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
+
 
 }
 

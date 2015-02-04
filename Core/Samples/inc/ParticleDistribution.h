@@ -58,26 +58,6 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets _material_.
-    virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) {
-            mP_particle->setMaterial(p_material);
-        }
-    }
-
-    //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const {
-        return mP_particle->getMaterial();
-    }
-
-    //! Returns refractive index of the particle
-    virtual complex_t getRefractiveIndex() const {
-        return mP_particle->getRefractiveIndex();
-    }
-
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const;
-
     //! Returns list of new particles generated according to a distribution
     std::vector<ParticleInfo *> generateParticleInfos(kvector_t position,
                                                       double abundance) const;

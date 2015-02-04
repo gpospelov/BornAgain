@@ -85,42 +85,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ParticleDistribution::getAmbientMaterial( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
-        else{
-            return this->ParticleDistribution::getMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return ParticleDistribution::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->ParticleDistribution::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return ParticleDistribution::getRefractiveIndex( );
-    }
-
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
-        else{
-            return this->ParticleDistribution::getSimpleFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return ParticleDistribution::getSimpleFormFactor( );
-    }
-
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -203,6 +167,18 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->IParticle::getSimpleFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return IParticle::getSimpleFormFactor( );
     }
 
     virtual bool hasDistributedFormFactor(  ) const  {
@@ -403,18 +379,6 @@ void register_ParticleDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleDistribution::getMaterial
-        
-            typedef ::IMaterial const * ( ::ParticleDistribution::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleDistribution_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::ParticleDistribution::getMaterial)
-                , default_getMaterial_function_type(&ParticleDistribution_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ParticleDistribution::getParameterDistribution
         
             typedef ::ParameterDistribution ( ::ParticleDistribution::*getParameterDistribution_function_type)(  ) const;
@@ -422,29 +386,6 @@ void register_ParticleDistribution_class(){
             ParticleDistribution_exposer.def( 
                 "getParameterDistribution"
                 , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
-        
-        }
-        { //::ParticleDistribution::getRefractiveIndex
-        
-            typedef ::complex_t ( ::ParticleDistribution::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleDistribution_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::ParticleDistribution::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleDistribution_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::ParticleDistribution::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::ParticleDistribution::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( ParticleDistribution_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::ParticleDistribution::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&ParticleDistribution_wrapper::default_getSimpleFormFactor)
-                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParticle::applyTransformation
@@ -525,6 +466,18 @@ void register_ParticleDistribution_class(){
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ParticleDistribution_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IParticle::getSimpleFormFactor
+        
+            typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( ParticleDistribution_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
+            
+            ParticleDistribution_exposer.def( 
+                "getSimpleFormFactor"
+                , getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor)
+                , default_getSimpleFormFactor_function_type(&ParticleDistribution_wrapper::default_getSimpleFormFactor)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

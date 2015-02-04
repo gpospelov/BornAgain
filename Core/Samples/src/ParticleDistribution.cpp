@@ -46,11 +46,6 @@ IFormFactor *ParticleDistribution::createFormFactor(
         "createFormFactor: should never be called");
 }
 
-const IFormFactor *ParticleDistribution::getSimpleFormFactor() const {
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-        "getSimpleFormFactor: should never be called");
-}
-
 std::vector<ParticleInfo *>
 ParticleDistribution::generateParticleInfos(kvector_t position,
                                           double abundance) const

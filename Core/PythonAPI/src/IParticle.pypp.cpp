@@ -67,19 +67,16 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_getAmbientMaterial(  );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const {
-        bp::override func_getMaterial = this->get_override( "getMaterial" );
-        return func_getMaterial(  );
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->IParticle::getSimpleFormFactor(  );
+        }
     }
-
-    virtual ::complex_t getRefractiveIndex(  ) const {
-        bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" );
-        return func_getRefractiveIndex(  );
-    }
-
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const {
-        bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" );
-        return func_getSimpleFormFactor(  );
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return IParticle::getSimpleFormFactor( );
     }
 
     virtual bool hasDistributedFormFactor(  ) const  {
@@ -366,16 +363,6 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getMaterial
-        
-            typedef ::IMaterial const * ( ::IParticle::*getMaterial_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getMaterial"
-                , bp::pure_virtual( getMaterial_function_type(&::IParticle::getMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::IParticle::getPTransform3D
         
             typedef ::Geometry::Transform3D const * ( ::IParticle::*getPTransform3D_function_type)(  ) const;
@@ -386,22 +373,15 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getRefractiveIndex
-        
-            typedef ::complex_t ( ::IParticle::*getRefractiveIndex_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getRefractiveIndex"
-                , bp::pure_virtual( getRefractiveIndex_function_type(&::IParticle::getRefractiveIndex) ) );
-        
-        }
         { //::IParticle::getSimpleFormFactor
         
             typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( IParticle_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
             
             IParticle_exposer.def( 
                 "getSimpleFormFactor"
-                , bp::pure_virtual( getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor) )
+                , getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor)
+                , default_getSimpleFormFactor_function_type(&IParticle_wrapper::default_getSimpleFormFactor)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

@@ -97,18 +97,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
-        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
-            return func_getAmbientMaterial(  );
-        else{
-            return this->Particle::getAmbientMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getAmbientMaterial(  ) const  {
-        return Particle::getAmbientMaterial( );
-    }
-
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -133,40 +121,16 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
-        else{
-            return this->Particle::getMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return Particle::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->Particle::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return Particle::getRefractiveIndex( );
-    }
-
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
         else{
-            return this->Particle::hasDistributedFormFactor(  );
+            return this->IParticle::hasDistributedFormFactor(  );
         }
     }
     
     bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
+        return IParticle::hasDistributedFormFactor( );
     }
 
     virtual bool preprocess(  ) {
@@ -303,7 +267,7 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 void register_MesoCrystal_class(){
 
     { //::MesoCrystal
-        typedef bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, std::auto_ptr< MesoCrystal_wrapper >, boost::noncopyable > MesoCrystal_exposer_t;
+        typedef bp::class_< MesoCrystal_wrapper, bp::bases< IParticle >, std::auto_ptr< MesoCrystal_wrapper >, boost::noncopyable > MesoCrystal_exposer_t;
         MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
         { //::IParticle::applyTransformation
@@ -363,18 +327,6 @@ void register_MesoCrystal_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Particle::getAmbientMaterial
-        
-            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( MesoCrystal_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "getAmbientMaterial"
-                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
-                , default_getAmbientMaterial_function_type(&MesoCrystal_wrapper::default_getAmbientMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -399,37 +351,14 @@ void register_MesoCrystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Particle::getMaterial
+        { //::IParticle::hasDistributedFormFactor
         
-            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( MesoCrystal_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::Particle::getMaterial)
-                , default_getMaterial_function_type(&MesoCrystal_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::getRefractiveIndex
-        
-            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( MesoCrystal_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::Particle::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&MesoCrystal_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::Particle::hasDistributedFormFactor
-        
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
             typedef bool ( MesoCrystal_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
             
             MesoCrystal_exposer.def( 
                 "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
+                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
                 , default_hasDistributedFormFactor_function_type(&MesoCrystal_wrapper::default_hasDistributedFormFactor) );
         
         }

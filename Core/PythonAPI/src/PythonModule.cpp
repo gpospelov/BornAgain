@@ -246,13 +246,13 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Layer_class();
     register_LayerInterface_class();
     register_LayerRoughness_class();
-    register_Particle_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
     register_OffSpecSimulation_class();
     register_IntensityData_class();
     register_ParameterDistribution_class();
     register_ParameterPool_class();
+    register_Particle_class();
     register_ParticleCoreShell_class();
     register_ParticleDistribution_class();
     register_ParticleInfo_class();

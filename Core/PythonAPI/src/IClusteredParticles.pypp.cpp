@@ -76,6 +76,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
     }
 
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
+    }
+
     virtual ::Geometry::Transform3D const * getTransform(  ) const  {
         if( bp::override func_getTransform = this->get_override( "getTransform" ) )
             return func_getTransform(  );
@@ -343,6 +348,16 @@ void register_IClusteredParticles_class(){
                 , default_createTotalFormFactor_function_type(&IClusteredParticles_wrapper::default_createTotalFormFactor)
                 , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IClusteredParticles::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::IClusteredParticles::*getAmbientMaterial_function_type)(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IClusteredParticles::getTransform

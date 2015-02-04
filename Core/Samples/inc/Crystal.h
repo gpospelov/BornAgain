@@ -40,8 +40,13 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)
-    { mp_lattice_basis->setAmbientMaterial(p_ambient_material); }
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material) {
+        mp_lattice_basis->setAmbientMaterial(p_ambient_material);
+    }
+
+    virtual const IMaterial* getAmbientMaterial() const {
+        return mp_lattice_basis->getAmbientMaterial();
+    }
 
     virtual IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,

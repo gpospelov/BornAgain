@@ -64,15 +64,20 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
 void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
 {
     if(!p_material) return;
-    Particle::setAmbientMaterial(p_material);
     mp_particle_structure->setAmbientMaterial(p_material);
+}
+
+const IMaterial *MesoCrystal::getAmbientMaterial() const
+{
+    if (!mp_particle_structure) return 0;
+    return mp_particle_structure->getAmbientMaterial();
 }
 
 IFormFactor* MesoCrystal::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
     return mp_particle_structure->createTotalFormFactor(
-            *mp_meso_form_factor, *mp_ambient_material,
+            *mp_meso_form_factor, *getAmbientMaterial(),
             wavevector_scattering_factor);
 }
 

@@ -18,13 +18,13 @@
 
 #include "IClusteredParticles.h"
 #include "IFormFactor.h"
-#include "Particle.h"
+#include "IParticle.h"
 
 //! @class MesoCrystal
 //! @ingroup samples
 //! @brief A particle with an internal structure of smaller particles
 
-class BA_CORE_API_ MesoCrystal : public Particle
+class BA_CORE_API_ MesoCrystal : public IParticle
 {
 public:
     MesoCrystal(IClusteredParticles *p_particle_structure,
@@ -42,6 +42,7 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;

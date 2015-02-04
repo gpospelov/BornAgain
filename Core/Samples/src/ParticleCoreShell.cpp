@@ -40,7 +40,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
 {
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core,
             m_relative_core_position);
-    p_new->setAmbientMaterial(mp_ambient_material);
+    p_new->setAmbientMaterial(getAmbientMaterial());
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
@@ -53,7 +53,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     ParticleCoreShell *p_new = new ParticleCoreShell(m_relative_core_position);
     p_new->mp_shell = this->mp_shell->cloneInvertB();
     p_new->mp_core = this->mp_core->cloneInvertB();
-    p_new->mp_ambient_material = Materials::createInvertedMaterial(this->mp_ambient_material);
+    p_new->setAmbientMaterial( Materials::createInvertedMaterial(getAmbientMaterial()) );
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
@@ -63,12 +63,14 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 
 void ParticleCoreShell::setAmbientMaterial(const IMaterial* p_material)
 {
-    if(p_material) {
-        delete mp_ambient_material;
-        mp_ambient_material = p_material->clone();
-    }
     mp_shell->setAmbientMaterial(p_material);
     mp_core->setAmbientMaterial(p_material);
+}
+
+const IMaterial *ParticleCoreShell::getAmbientMaterial() const
+{
+    if (!mp_shell) return 0;
+    return mp_shell->getAmbientMaterial();
 }
 
 IFormFactor *ParticleCoreShell::createFormFactor(
@@ -79,7 +81,7 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_shell(
             getTransformedFormFactor(mp_shell, wavevector_scattering_factor,
                                      zero_vector) );
-    P_ff_shell->setAmbientMaterial(mp_ambient_material);
+    P_ff_shell->setAmbientMaterial(getAmbientMaterial());
     p_result->addFormFactor(*P_ff_shell, 1.0);
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_core(
             getTransformedFormFactor(mp_core, wavevector_scattering_factor,
@@ -87,16 +89,6 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     P_ff_core->setAmbientMaterial(mp_shell->getMaterial());
     p_result->addFormFactor(*P_ff_core, 1.0);
     return p_result;
-}
-
-void ParticleCoreShell::setSimpleFormFactor(IFormFactor* p_form_factor)
-{
-    if (p_form_factor != mp_form_factor) {
-        deregisterChild(mp_form_factor);
-        delete mp_form_factor;
-        mp_form_factor = p_form_factor;
-        registerChild(mp_form_factor);
-    }
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle &core)

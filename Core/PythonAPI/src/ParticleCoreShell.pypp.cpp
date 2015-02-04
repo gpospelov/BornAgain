@@ -97,18 +97,6 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
-        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
-            return func_getAmbientMaterial(  );
-        else{
-            return this->Particle::getAmbientMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getAmbientMaterial(  ) const  {
-        return Particle::getAmbientMaterial( );
-    }
-
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -133,40 +121,28 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
         else{
-            return this->Particle::getMaterial(  );
+            return this->IParticle::getSimpleFormFactor(  );
         }
     }
     
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return Particle::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->Particle::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return Particle::getRefractiveIndex( );
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return IParticle::getSimpleFormFactor( );
     }
 
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
         else{
-            return this->Particle::hasDistributedFormFactor(  );
+            return this->IParticle::hasDistributedFormFactor(  );
         }
     }
     
     bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
+        return IParticle::hasDistributedFormFactor( );
     }
 
     virtual bool preprocess(  ) {
@@ -303,7 +279,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
 void register_ParticleCoreShell_class(){
 
     { //::ParticleCoreShell
-        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
+        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
         ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
         { //::IParticle::applyTransformation
@@ -363,18 +339,6 @@ void register_ParticleCoreShell_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Particle::getAmbientMaterial
-        
-            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCoreShell_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "getAmbientMaterial"
-                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
-                , default_getAmbientMaterial_function_type(&ParticleCoreShell_wrapper::default_getAmbientMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -399,37 +363,26 @@ void register_ParticleCoreShell_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Particle::getMaterial
+        { //::IParticle::getSimpleFormFactor
         
-            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCoreShell_wrapper::*default_getMaterial_function_type)(  ) const;
+            typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( ParticleCoreShell_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
             
             ParticleCoreShell_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::Particle::getMaterial)
-                , default_getMaterial_function_type(&ParticleCoreShell_wrapper::default_getMaterial)
+                "getSimpleFormFactor"
+                , getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor)
+                , default_getSimpleFormFactor_function_type(&ParticleCoreShell_wrapper::default_getSimpleFormFactor)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Particle::getRefractiveIndex
+        { //::IParticle::hasDistributedFormFactor
         
-            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleCoreShell_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::Particle::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleCoreShell_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::Particle::hasDistributedFormFactor
-        
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
             typedef bool ( ParticleCoreShell_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
             
             ParticleCoreShell_exposer.def( 
                 "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
+                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
                 , default_hasDistributedFormFactor_function_type(&ParticleCoreShell_wrapper::default_hasDistributedFormFactor) );
         
         }

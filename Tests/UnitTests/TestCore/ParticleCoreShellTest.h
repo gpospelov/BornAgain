@@ -33,9 +33,6 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    EXPECT_EQ(NULL, mp_coreshell->getMaterial());
-    EXPECT_EQ(complex_t(0,0), mp_coreshell->getRefractiveIndex());
-    EXPECT_EQ(NULL, mp_coreshell->getSimpleFormFactor());
     EXPECT_FALSE(mp_coreshell->hasDistributedFormFactor());
 //    EXPECT_EQ(NULL, mp_coreshell->createFormFactor(1.0));
     EXPECT_EQ("ParticleCoreShell", mp_coreshell->getName());

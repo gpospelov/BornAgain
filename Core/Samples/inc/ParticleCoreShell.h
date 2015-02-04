@@ -16,13 +16,13 @@
 #ifndef PARTICLECORESHELL_H
 #define PARTICLECORESHELL_H
 
-#include "Particle.h"
+#include "IParticle.h"
 
 //! @class ParticleCoreShell
 //! @ingroup samples
 //! @brief A particle with a core/shell geometry
 
-class BA_CORE_API_ ParticleCoreShell : public Particle
+class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
@@ -39,19 +39,10 @@ public:
     //! Sets the refractive index of the ambient material (which influences
     //! its scattering power)
     virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
-
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
-
-    //! Returns form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual const IFormFactor *getSimpleFormFactor() const {
-        return mp_form_factor;
-    }
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(

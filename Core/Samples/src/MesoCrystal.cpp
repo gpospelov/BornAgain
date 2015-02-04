@@ -81,22 +81,6 @@ IFormFactor* MesoCrystal::createFormFactor(
             wavevector_scattering_factor);
 }
 
-void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)
-{
-    if (p_form_factor != mp_meso_form_factor) {
-        deregisterChild(mp_meso_form_factor);
-        delete mp_meso_form_factor;
-        mp_meso_form_factor = p_form_factor;
-        registerChild(mp_meso_form_factor);
-    }
-}
-
-std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
-        const ParticleInfo& parent_info) const
-{
-    return mp_particle_structure->createDiffuseParticleInfo(parent_info);
-}
-
 void MesoCrystal::applyTransformationToSubParticles(
         const Geometry::Transform3D& transform)
 {

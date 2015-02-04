@@ -17,7 +17,6 @@
 #define LAYER_H
 
 #include "Materials.h"
-#include "DiffuseDWBASimulation.h"
 #include "ICompositeSample.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleLayout.h"
@@ -89,9 +88,6 @@ public:
 
     //! creates and returns a LayerDWBASimulation for the given layout
     LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
-
-    virtual DiffuseDWBASimulation *createDiffuseDWBASimulation(
-            size_t layout_index=0) const;
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 

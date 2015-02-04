@@ -63,10 +63,6 @@ public:
     std::vector<kvector_t> getParticlePositions(size_t index) const
     { return m_positions_vector[check_index(index)]; }
 
-    //! Creates vector of size/shape distributed particles corresponding to the
-    //! particle with index i
-    std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
-
 protected:
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform);

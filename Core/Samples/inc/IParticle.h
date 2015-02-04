@@ -66,27 +66,6 @@ public:
     //! Applies transformation by composing it with the existing one
     virtual void applyTransformation(const Geometry::Transform3D& transform);
 
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const;
-
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor) {
-        (void)p_form_factor;
-    }
-
-    //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& /*parent_info*/) const {
-        return 0;
-    }
-
-    //! Indicates whether the particle consists of an assembly of different
-    //! form factors according to a certain distribution
-    virtual bool hasDistributedFormFactor() const {
-        return false;
-    }
-
 protected:
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform)=0;
@@ -119,12 +98,6 @@ inline void IParticle::applyTransformation(const Geometry::Transform3D &transfor
     }
     mP_transform.reset(total_transformation.clone());
     applyTransformationToSubParticles(transform);
-}
-
-inline const IFormFactor *IParticle::getSimpleFormFactor() const
-{
-    throw Exceptions::NotImplementedException("IParticle::"
-        "getSimpleFormFactor: should never be called");
 }
 
 #endif // IPARTICLE_H

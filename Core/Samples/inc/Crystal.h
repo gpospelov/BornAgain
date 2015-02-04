@@ -59,9 +59,6 @@ public:
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const;
-
     //! Composes transformation with existing one
     virtual void applyTransformation(const Geometry::Transform3D& transform);
 

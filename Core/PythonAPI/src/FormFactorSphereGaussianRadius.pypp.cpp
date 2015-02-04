@@ -49,18 +49,6 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return FormFactorSphereGaussianRadius::clone( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->FormFactorSphereGaussianRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        FormFactorSphereGaussianRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
@@ -95,18 +83,6 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorSphereGaussianRadius::getNumberOfStochasticParameters( );
-    }
-
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->FormFactorSphereGaussianRadius::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return FormFactorSphereGaussianRadius::isDistributedFormFactor( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -354,19 +330,6 @@ void register_FormFactorSphereGaussianRadius_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorSphereGaussianRadius::createDistributedFormFactors
-        
-            typedef void ( ::FormFactorSphereGaussianRadius::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorSphereGaussianRadius_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            
-            FormFactorSphereGaussianRadius_exposer.def( 
-                "createDistributedFormFactors"
-                , createDistributedFormFactors_function_type(&::FormFactorSphereGaussianRadius::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorSphereGaussianRadius_wrapper::default_createDistributedFormFactors)
-                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::FormFactorSphereGaussianRadius::evaluate_for_q
         
             typedef ::complex_t ( ::FormFactorSphereGaussianRadius::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
@@ -399,17 +362,6 @@ void register_FormFactorSphereGaussianRadius_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorSphereGaussianRadius::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereGaussianRadius_wrapper::default_getNumberOfStochasticParameters) );
-        
-        }
-        { //::FormFactorSphereGaussianRadius::isDistributedFormFactor
-        
-            typedef bool ( ::FormFactorSphereGaussianRadius::*isDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( FormFactorSphereGaussianRadius_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
-            
-            FormFactorSphereGaussianRadius_exposer.def( 
-                "isDistributedFormFactor"
-                , isDistributedFormFactor_function_type(&::FormFactorSphereGaussianRadius::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorSphereGaussianRadius_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::areParametersChanged

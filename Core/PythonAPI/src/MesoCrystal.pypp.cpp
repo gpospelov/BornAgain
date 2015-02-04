@@ -121,18 +121,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->IParticle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return IParticle::hasDistributedFormFactor( );
-    }
-
     virtual bool preprocess(  ) {
         if( bp::override func_preprocess = this->get_override( "preprocess" ) )
             return func_preprocess(  );
@@ -349,17 +337,6 @@ void register_MesoCrystal_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&MesoCrystal_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::hasDistributedFormFactor
-        
-            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( MesoCrystal_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            MesoCrystal_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&MesoCrystal_wrapper::default_hasDistributedFormFactor) );
         
         }
         { //::ISample::preprocess

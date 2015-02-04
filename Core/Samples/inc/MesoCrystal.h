@@ -47,20 +47,11 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
-
-    virtual const IFormFactor *getSimpleFormFactor() const {
-        return mp_meso_form_factor;
-    }
-
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (eg.  an infinite crystal)
     const IClusteredParticles *getClusteredParticles() const {
         return mp_particle_structure;
     }
-
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const;
 
 protected:
     //! Propagates a transformation to child particles

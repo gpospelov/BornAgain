@@ -44,12 +44,6 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& /*parent_info*/) const {
-        return 0;
-    }
-
     //! Returns the core particle
     const Particle *getCoreParticle() const { return mp_core; }
 

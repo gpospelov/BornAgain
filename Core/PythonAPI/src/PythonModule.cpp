@@ -94,7 +94,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorSphereLogNormalRadius.pypp.h"
 #include "FormFactorInfLongRipple1.pypp.h"
 #include "IResolutionFunction2D.pypp.h"
-#include "vector_IFormFactorPtr_t.pypp.h"
 #include "FormFactorFullSphere.pypp.h"
 #include "ParticleLayout.pypp.h"
 #include "FormFactorBox.pypp.h"
@@ -147,7 +146,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_complex_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
-    register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_IParameterized_class();
     register_Beam_class();

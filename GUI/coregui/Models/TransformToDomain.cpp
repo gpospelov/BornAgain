@@ -111,8 +111,8 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
     ParameterizedItem *ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
 
-    IFormFactor *ff = createFormFactor(*ffItem);
-    result->setSimpleFormFactor(ff);
+    boost::scoped_ptr<IFormFactor> P_ff(createFormFactor(*ffItem));
+    result->setFormFactor(*P_ff);
 
     return result;
 }

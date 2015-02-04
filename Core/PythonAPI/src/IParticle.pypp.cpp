@@ -67,30 +67,6 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_getAmbientMaterial(  );
     }
 
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
-        else{
-            return this->IParticle::getSimpleFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return IParticle::getSimpleFormFactor( );
-    }
-
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->IParticle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return IParticle::hasDistributedFormFactor( );
-    }
-
     virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
             func_setTransformation( boost::ref(transform) );
@@ -371,29 +347,6 @@ void register_IParticle_class(){
                 "getPTransform3D"
                 , getPTransform3D_function_type( &::IParticle::getPTransform3D )
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( IParticle_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&IParticle_wrapper::default_getSimpleFormFactor)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::hasDistributedFormFactor
-        
-            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( IParticle_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&IParticle_wrapper::default_hasDistributedFormFactor) );
         
         }
         { //::IParticle::setTransformation

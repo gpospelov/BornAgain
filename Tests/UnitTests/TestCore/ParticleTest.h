@@ -21,8 +21,7 @@ TEST_F(ParticleTest, ParticleInitialState)
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
     EXPECT_EQ(complex_t(0,0), particle.getRefractiveIndex());
-    EXPECT_EQ(NULL, particle.getSimpleFormFactor());
-    EXPECT_FALSE(particle.hasDistributedFormFactor());
+    EXPECT_EQ(NULL, particle.getFormFactor());
     EXPECT_EQ(NULL, particle.createFormFactor(1.0));
     EXPECT_EQ("Particle", particle.getName());
 }
@@ -33,8 +32,7 @@ TEST_F(ParticleTest, ParticleClone)
     Particle *particle2 = particle.clone();
     EXPECT_EQ(NULL, particle2->getMaterial());
     EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
-    EXPECT_EQ(NULL, particle2->getSimpleFormFactor());
-    EXPECT_FALSE(particle2->hasDistributedFormFactor());
+    EXPECT_EQ(NULL, particle2->getFormFactor());
     EXPECT_EQ(NULL, particle2->createFormFactor(1.0));
     EXPECT_EQ("Particle", particle2->getName());
     delete particle2;
@@ -53,8 +51,7 @@ TEST_F(ParticleTest, ParticleConstructors)
     Particle *p1 = new Particle(mat);
     EXPECT_EQ("Air", p1->getMaterial()->getName());
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
-    EXPECT_EQ(NULL, p1->getSimpleFormFactor());
-    EXPECT_FALSE(p1->hasDistributedFormFactor());
+    EXPECT_EQ(NULL, p1->getFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
     EXPECT_EQ( NULL, p1->getPTransform3D());
 
@@ -62,9 +59,8 @@ TEST_F(ParticleTest, ParticleConstructors)
 
     FormFactorFullSphere sphere(1.0);
     Particle *p2 = new Particle(mat, sphere);
-    EXPECT_EQ("FormFactorFullSphere", p2->getSimpleFormFactor()->getName());
-    EXPECT_EQ(1, p2->getSimpleFormFactor()->getRadius());
-    EXPECT_FALSE(p2->hasDistributedFormFactor());
+    EXPECT_EQ("FormFactorFullSphere", p2->getFormFactor()->getName());
+    EXPECT_EQ(1, p2->getFormFactor()->getRadius());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(
             p2->createFormFactor(1.0)));
     EXPECT_EQ(complex_t(1,0),
@@ -75,11 +71,11 @@ TEST_F(ParticleTest, ParticleConstructors)
     FormFactorFullSphere sphere3(1.0);
     sphere3.setName("sphere3");
     Particle *p3 = new Particle(mat, sphere3);
-    EXPECT_EQ(sphere3.getName(), p3->getSimpleFormFactor()->getName());
-    EXPECT_EQ(sphere3.getRadius(), p3->getSimpleFormFactor()->getRadius());
+    EXPECT_EQ(sphere3.getName(), p3->getFormFactor()->getName());
+    EXPECT_EQ(sphere3.getRadius(), p3->getFormFactor()->getRadius());
 
     Particle *p4 = p3->clone();
-    EXPECT_EQ("sphere3", p4->getSimpleFormFactor()->getName());
+    EXPECT_EQ("sphere3", p4->getFormFactor()->getName());
 
     delete p3;
     delete p4;
@@ -109,23 +105,22 @@ TEST_F(ParticleTest, ParticleTransform)
 TEST_F(ParticleTest, SetParam)
 {
     HomogeneousMaterial mat("Air",0,0);
-    FormFactorFullSphere *sphere = new FormFactorFullSphere(2.1);
+    FormFactorFullSphere sphere(2.1);
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
 
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
-    EXPECT_EQ(NULL, particle.getSimpleFormFactor());
+    EXPECT_EQ(NULL, particle.getFormFactor());
     EXPECT_EQ(NULL, particle.getPTransform3D());
 
     particle.setMaterial(&mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle.getRefractiveIndex());
 
-    particle.setSimpleFormFactor(sphere);
-    EXPECT_EQ("FormFactorFullSphere", particle.getSimpleFormFactor()->getName());
-    EXPECT_EQ(2.1, particle.getSimpleFormFactor()->getRadius());
-    EXPECT_FALSE(particle.hasDistributedFormFactor());
+    particle.setFormFactor(sphere);
+    EXPECT_EQ("FormFactorFullSphere", particle.getFormFactor()->getName());
+    EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
     particle.setTransformation(transform);
     EXPECT_TRUE(NULL != particle.getPTransform3D());
@@ -138,9 +133,8 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ("Particle", particle2->getName());
     EXPECT_EQ("Air", particle2->getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
-    EXPECT_TRUE(NULL != particle2->getSimpleFormFactor());
-    EXPECT_EQ(2.1, particle2->getSimpleFormFactor()->getRadius());
-    EXPECT_FALSE(particle2->hasDistributedFormFactor());
+    EXPECT_TRUE(NULL != particle2->getFormFactor());
+    EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
     EXPECT_TRUE(NULL != particle2->getPTransform3D());
 
     delete particle2;

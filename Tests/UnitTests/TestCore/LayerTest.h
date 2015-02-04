@@ -28,7 +28,6 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(NULL, layer.createDWBASimulation());
-    EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
 
     Layer *new_layer = layer.clone();
     EXPECT_EQ(NULL, new_layer->getMaterial());
@@ -39,7 +38,6 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
     EXPECT_EQ(NULL, new_layer->createDWBASimulation());
-    EXPECT_EQ(NULL, new_layer->createDiffuseDWBASimulation());
 
     delete new_layer;
 }
@@ -59,7 +57,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(NULL, layer.createDWBASimulation());
-    EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
 
     layer.setThickness(20.0);
     EXPECT_EQ(20, layer.getThickness());
@@ -78,7 +75,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("NONAME", new_layer->getName());
     EXPECT_EQ(NULL, new_layer->createDWBASimulation());
-    EXPECT_EQ(NULL, new_layer->createDiffuseDWBASimulation());
     delete new_layer;
 }
 
@@ -101,9 +97,7 @@ TEST_F(LayerTest, LayerAndDecoration)
     decoration3.setName("NONAME");
     layer.addLayout(decoration3);
     EXPECT_EQ("NONAME", layer.getLayout(1)->getName());
-
-    EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
-    }
+}
 
 
 #endif // LAYERTEST_H

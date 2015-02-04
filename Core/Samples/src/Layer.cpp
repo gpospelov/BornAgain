@@ -126,43 +126,6 @@ LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
     return new DecoratedLayerDWBASimulation(this, layout_index);
 }
 
-DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation(
-        size_t layout_index) const
-{
-    if(getNumberOfLayouts()==0) return 0;
-    if(layout_index>=getNumberOfLayouts()) return 0;
-
-    DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation(this);
-    const ILayout *p_layout = getLayout(layout_index);
-    size_t nbr_particles = p_layout->getNumberOfParticles();
-    double particle_density = p_layout->getTotalParticleSurfaceDensity();
-    const IMaterial *p_layer_material = getMaterial();
-    for (size_t i=0; i<nbr_particles; ++i) {
-        const ParticleInfo *p_info = p_layout->getParticleInfo(i);
-        std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
-                p_info->getParticle()->createDiffuseParticleInfo(*p_info);
-        if (p_diffuse_nps) {
-            for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
-                DiffuseParticleInfo *p_diff_info = (*p_diffuse_nps)[j];
-                p_diff_info->setNumberPerMeso(
-                    particle_density * p_info->getAbundance() *
-                    p_diff_info->getNumberPerMeso());
-                p_sim->addParticleInfo((*p_diffuse_nps)[j]);
-            }
-            delete p_diffuse_nps;
-            break; // TODO: remove this break (this necessitates the creation
-                   // of a phi-averaged mesocrystal class generating only one
-                   // nanoparticle for diffuse calculations)
-        }
-    }
-    if (p_sim->getSize()>0) {
-        p_sim->setMaterial(p_layer_material);
-        return p_sim;
-    }
-    delete p_sim;
-    return 0;
-}
-
 double Layer::getTotalAbundance() const
 {
     double total_abundance = 0.0;

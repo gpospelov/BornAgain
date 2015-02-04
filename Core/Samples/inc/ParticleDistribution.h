@@ -20,7 +20,6 @@
 #include "ParameterDistribution.h"
 
 class ParticleInfo;
-class DiffuseParticleInfo;
 
 //! @class ParticleDistribution
 //! @ingroup samples

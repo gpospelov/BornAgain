@@ -15,7 +15,6 @@
 
 #include "LatticeBasis.h"
 #include "FormFactors.h"
-#include "DiffuseParticleInfo.h"
 #include "Materials.h"
 #include <boost/scoped_ptr.hpp>
 
@@ -116,23 +115,6 @@ IFormFactor* LatticeBasis::createFormFactor(
     }
     p_ff->setAmbientMaterial(getAmbientMaterial());
     return p_ff;
-}
-
-std::vector<DiffuseParticleInfo *>
-LatticeBasis::createDiffuseParticleInfos() const
-{
-    std::vector<DiffuseParticleInfo *> result;
-    for (size_t index=0; index<getNbrParticles(); ++index) {
-        const IParticle *p_particle = getParticle(index);
-        if (p_particle->hasDistributedFormFactor()) {
-            DiffuseParticleInfo *p_new_info = new DiffuseParticleInfo(
-                    *p_particle);
-            p_new_info->setNumberPerMeso(
-                    (double)getNbrPositionsForParticle(index));
-            result.push_back(p_new_info);
-        }
-    }
-    return result;
 }
 
 void LatticeBasis::applyTransformationToSubParticles(

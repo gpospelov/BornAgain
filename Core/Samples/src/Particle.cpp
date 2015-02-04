@@ -71,7 +71,7 @@ Particle* Particle::clone() const
 {
     Particle *result = new Particle();
 
-    if(mp_form_factor) result->setSimpleFormFactor(mp_form_factor->clone());
+    if(mp_form_factor) result->setFormFactor(*mp_form_factor);
     result->setMaterial(mp_material);
     result->setAmbientMaterial(mp_ambient_material);
     if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
@@ -87,7 +87,7 @@ Particle* Particle::cloneInvertB() const
         throw NullPointerException("Particle::cloneInvertB() -> Error. No material defined");
 
     Particle *result = new Particle();
-    if(mp_form_factor) result->setSimpleFormFactor(mp_form_factor->clone());
+    if(mp_form_factor) result->setFormFactor(*mp_form_factor);
 
     if(mp_material) result->mp_material = Materials::createInvertedMaterial(mp_material);
     if(mp_ambient_material)
@@ -120,29 +120,14 @@ IFormFactor* Particle::createFormFactor(
     return p_ff;
 }
 
-void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)
+void Particle::setFormFactor(const IFormFactor &form_factor)
 {
-    if (!p_form_factor) return;
-
-    if (p_form_factor != mp_form_factor) {
+    if (&form_factor != mp_form_factor) {
         deregisterChild(mp_form_factor);
         delete mp_form_factor;
-        mp_form_factor = p_form_factor;
+        mp_form_factor = form_factor.clone();
         registerChild(mp_form_factor);
     }
-}
-
-std::vector<DiffuseParticleInfo*>* Particle::createDiffuseParticleInfo(
-        const ParticleInfo& parent_info) const
-{
-    (void)parent_info;
-    return 0;
-}
-
-bool Particle::hasDistributedFormFactor() const
-{
-    return ( !mp_form_factor ? false
-                             : mp_form_factor->isDistributedFormFactor() );
 }
 
 IFormFactor* Particle::createTransformedFormFactor() const

@@ -139,9 +139,9 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
     IFormFactor *p_transf_ff = 0;
     if (p_transform) {
         p_transf_ff = new FormFactorDecoratorTransformation(
-                    p_particle->getSimpleFormFactor()->clone(),*p_transform);
+                    p_particle->getFormFactor()->clone(),*p_transform);
     } else {
-        p_transf_ff = p_particle->getSimpleFormFactor()->clone();
+        p_transf_ff = p_particle->getFormFactor()->clone();
     }
     IFormFactor *p_simple_ff = 0;
     kvector_t zero_vector;

@@ -142,13 +142,6 @@ void SamplePrintVisitor::visit(const ParticleInfo *sample)
 }
 
 
-void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
-{
-    throw NotImplementedException("SamplePrintVisitor::"
-        "visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
-}
-
-
 void SamplePrintVisitor::visit(const IFormFactor *)
 {
     throw NotImplementedException("SamplePrintVisitor::"

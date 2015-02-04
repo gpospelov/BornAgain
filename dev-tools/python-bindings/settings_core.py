@@ -288,7 +288,6 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("Particle")
-    cl.member_function("createDiffuseParticleInfo").exclude()
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
@@ -373,7 +372,7 @@ def ManualClassTunings(mb):
 def ManualExcludeMemberFunctions(mb):
     # with given name in function name
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
-    to_exclude_exact=['createDiffuseParticleInfo', 'inverse', 'transformed',
+    to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
         'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
         'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',

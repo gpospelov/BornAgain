@@ -60,19 +60,6 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
     return result;
 }
 
-void FormFactorSphereLogNormalRadius::createDistributedFormFactors(
-        std::vector<IFormFactor*>& form_factors,
-        std::vector<double>& probabilities, size_t nbr_samples) const
-{
-    (void)nbr_samples;
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        const IFormFactor *p_ff = m_form_factors[i];
-        double probability = m_probabilities[i];
-        form_factors.push_back(p_ff->clone());
-        probabilities.push_back(probability);
-    }
-}
-
 double FormFactorSphereLogNormalRadius::getHeight() const
 {
     if (m_form_factors.size()<1) return 0.0;

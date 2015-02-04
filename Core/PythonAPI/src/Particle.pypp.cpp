@@ -130,30 +130,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::getRefractiveIndex( );
     }
 
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
-        else{
-            return this->Particle::getSimpleFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return Particle::getSimpleFormFactor( );
-    }
-
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->Particle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
-    }
-
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -427,6 +403,16 @@ void register_Particle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Particle::getFormFactor
+        
+            typedef ::IFormFactor const * ( ::Particle::*getFormFactor_function_type)(  ) const;
+            
+            Particle_exposer.def( 
+                "getFormFactor"
+                , getFormFactor_function_type( &::Particle::getFormFactor )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Particle::getMaterial
         
             typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
@@ -450,27 +436,14 @@ void register_Particle_class(){
                 , default_getRefractiveIndex_function_type(&Particle_wrapper::default_getRefractiveIndex) );
         
         }
-        { //::Particle::getSimpleFormFactor
+        { //::Particle::setFormFactor
         
-            typedef ::IFormFactor const * ( ::Particle::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( Particle_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
+            typedef void ( ::Particle::*setFormFactor_function_type)( ::IFormFactor const & ) ;
             
             Particle_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::Particle::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&Particle_wrapper::default_getSimpleFormFactor)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::hasDistributedFormFactor
-        
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( Particle_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            Particle_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&Particle_wrapper::default_hasDistributedFormFactor) );
+                "setFormFactor"
+                , setFormFactor_function_type( &::Particle::setFormFactor )
+                , ( bp::arg("form_factor") ) );
         
         }
         { //::IParticle::applyTransformation

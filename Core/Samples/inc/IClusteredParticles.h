@@ -20,7 +20,6 @@
 #include "ICompositeSample.h"
 #include "ParticleInfo.h"
 #include "Exceptions.h"
-#include "DiffuseParticleInfo.h"
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal
@@ -62,15 +61,6 @@ public:
         (void)wavevector_scattering_factor;
         throw NotImplementedException(
                 "IClusteredParticles::createTotalFormFactor() "
-                "-> NotImplementedException");
-    }
-
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const
-    {
-        (void)parent_info;
-        throw NotImplementedException(
-                "IClusteredParticles::createDiffuseParticleInfo() "
                 "-> NotImplementedException");
     }
 

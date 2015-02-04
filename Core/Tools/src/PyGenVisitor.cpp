@@ -364,8 +364,8 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
         }
 
         result << "\t" << it4->second
-               << " = Particle(" << m_label->getLabel(particle->getMaterial())
-               << "," << m_label->getLabel(particle->getSimpleFormFactor());
+               << " = Particle(" << m_label->getLabel(particle->getMaterial());
+//               << "," << m_label->getLabel(particle->getSimpleFormFactor());
 
         if (particle->getPTransform3D())
         {

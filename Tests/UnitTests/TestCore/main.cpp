@@ -42,6 +42,7 @@
 #include "CustomBinAxisTest.h"
 #include "IntensityDataFunctionsTest.h"
 #include "SpecularSimulationTest.h"
+#include "ParticleCoreShellTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

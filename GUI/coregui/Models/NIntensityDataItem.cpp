@@ -140,9 +140,8 @@ QString NIntensityDataItem::getAxesUnits() const
 
 bool NIntensityDataItem::axesInRadians() const
 {
-    qDebug() << "NIntensityDataItem::axesInRadians()";
-    Q_ASSERT(0);
-    return false;
+    AngleProperty angle_property = getRegisteredProperty(P_AXES_UNITS).value<AngleProperty>();
+    return angle_property.inRadians();
 }
 
 void NIntensityDataItem::setXaxisMin(double xmin)
@@ -176,9 +175,8 @@ void NIntensityDataItem::setYaxisMax(double ymax)
 void NIntensityDataItem::setZaxisRange(double zmin, double zmax)
 {
     qDebug() << "NIntensityDataItem::setZaxisRange()";
-    Q_UNUSED(zmin);
-    Q_UNUSED(zmax);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_ZAXIS_MIN, zmin);
+    setRegisteredProperty(P_ZAXIS_MAX, zmax);
 }
 
 void NIntensityDataItem::setZaxisMin(double zmin)

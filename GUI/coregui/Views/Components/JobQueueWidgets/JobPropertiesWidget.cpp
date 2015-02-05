@@ -87,10 +87,15 @@ void JobPropertiesWidget::setModel(NJobModel *model)
     }
 }
 
+//void JobPropertiesWidget::setSelectionModel(QItemSelectionModel *selectionModel)
+//{
+//    Q_ASSERT(selectionModel);
+//}
+
 
 void JobPropertiesWidget::setItem(NJobItem *jobItem)
 {
-    qDebug() << "JobPropertiesWidget::itemClicked" << jobItem;
+    qDebug() << "JobPropertiesWidget::setItem" << jobItem;
 
     m_propertyEditor->setItem(jobItem);
 

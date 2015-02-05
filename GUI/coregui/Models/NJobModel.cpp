@@ -116,8 +116,10 @@ void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSe
     qDebug() << "NJobModel::onSelectionChanged" << selected;
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
+        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)" << indices.back();
         emit selectionChanged(getJobItemForIndex(indices.back()));
     } else {
+        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)";
         emit selectionChanged(0);
     }
 

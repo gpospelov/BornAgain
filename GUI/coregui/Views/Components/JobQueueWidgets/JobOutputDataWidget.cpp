@@ -82,21 +82,28 @@ JobOutputDataWidget::JobOutputDataWidget(NJobModel *jobModel, ProjectManager *pr
 
 void JobOutputDataWidget::setJobModel(NJobModel *jobModel)
 {
-    //FIXME
-    return;
-
     Q_ASSERT(jobModel);
+
     if(jobModel != m_jobModel) {
+
+        if(m_jobModel)
+            disconnect(m_jobModel,
+                SIGNAL( selectionChanged(NJobItem *) ),
+                this,
+                SLOT( setItem(NJobItem *) )
+                );
+
+
         m_jobModel = jobModel;
 
         connect(m_jobModel,
             SIGNAL( selectionChanged(NJobItem *) ),
             this,
-            SLOT( itemClicked(NJobItem *) )
+            SLOT( setItem(NJobItem *) )
             );
 
-        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
-                , this, SLOT(onJobItemFinished(QString)));
+//        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
+//                , this, SLOT(onJobItemFinished(QString)));
 
         connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(NJobItem*))
                 , this, SLOT(onJobItemDelete(NJobItem*)));
@@ -104,11 +111,10 @@ void JobOutputDataWidget::setJobModel(NJobModel *jobModel)
 }
 
 
-void JobOutputDataWidget::itemClicked(NJobItem * item)
+void JobOutputDataWidget::setItem(NJobItem * item)
 {
-    qDebug() << "JobOutputDataWidget::itemClicked()";
-
-
+    qDebug() << "JobOutputDataWidget::setItem()" << item;
+    if(!item) return;
 
     m_currentJobItem = item;
 
@@ -146,24 +152,24 @@ void JobOutputDataWidget::itemClicked(NJobItem * item)
 }
 
 
-void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
-{
-    qDebug() << "JobOutputDataWidget::onJobItemFinished";
-    Q_ASSERT(0);
-    Q_UNUSED(identifier);
+//void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
+//{
+//    qDebug() << "JobOutputDataWidget::onJobItemFinished";
+//    Q_ASSERT(0);
+//    Q_UNUSED(identifier);
 
-//    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-//    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
+////    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
+////    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
 
-//    if(jobItem == m_currentJobItem)
-//    {
-//        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem())
-//        {
-//            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-//            itemClicked(jobItem);
-//        }
-//    }
-}
+////    if(jobItem == m_currentJobItem)
+////    {
+////        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem())
+////        {
+////            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
+////            itemClicked(jobItem);
+////        }
+////    }
+//}
 
 
 void JobOutputDataWidget::togglePropertyPanel()

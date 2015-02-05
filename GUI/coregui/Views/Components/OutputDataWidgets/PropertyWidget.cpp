@@ -59,6 +59,8 @@ void PropertyWidget::initGradientVector()
 void PropertyWidget::updateData(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::updateData()" << outputDataItem;
+//    FIXME
+    return;
 
     if(!outputDataItem)
     {
@@ -82,6 +84,7 @@ void PropertyWidget::setupPropertyWidget(NIntensityDataItem *outputDataItem, QCP
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
     Q_ASSERT(0);
+
     Q_UNUSED(outputDataItem);
     Q_UNUSED(gradient);
 

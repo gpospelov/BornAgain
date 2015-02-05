@@ -97,6 +97,11 @@ void JobListWidget::setModel(NJobModel *model)
     }
 }
 
+QItemSelectionModel *JobListWidget::getSelectionModel()
+{
+    return m_listView->selectionModel();
+}
+
 
 void JobListWidget::save()
 {

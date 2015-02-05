@@ -27,6 +27,7 @@ class QListView;
 class QPushButton;
 class QAction;
 class JobListToolBar;
+class QItemSelectionModel;
 
 
 //! Widget to select JobQueueItem in a list
@@ -42,6 +43,8 @@ public:
 
     QSize sizeHint() const { return QSize(64, 768); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
+
+    QItemSelectionModel *getSelectionModel();
 
 public slots:
     void makeJobItemSelected(const QModelIndex &index);

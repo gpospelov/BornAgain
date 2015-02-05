@@ -46,9 +46,9 @@ signals:
     void jobViewActivityRequest(int activity);
 
 public slots:
-    void itemClicked(NJobItem *item);
+    void setItem(NJobItem *item);
     void onJobItemDelete(NJobItem *item);
-    void onJobItemFinished(const QString &identifier);
+//    void onJobItemFinished(const QString &identifier);
     void togglePropertyPanel();
     void toggleProjections();
     void resetTriggered();

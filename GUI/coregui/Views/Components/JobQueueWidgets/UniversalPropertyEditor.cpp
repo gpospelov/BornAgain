@@ -185,6 +185,8 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 // assigns item to the property editor
 void UniversalPropertyEditor::setItem(ParameterizedItem *item)
 {
+    qDebug() << "UniversalPropertyEditor::setItem(ParameterizedItem *item)" << item;
+
     if (m_item == item) return;
 
     if (m_item) {

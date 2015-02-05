@@ -28,6 +28,7 @@ class QTextEdit;
 class QTabWidget;
 class ParameterizedItem;
 class UniversalPropertyEditor;
+class QItemSelectionModel;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
@@ -43,11 +44,14 @@ public:
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
+//    void setSelectionModel(QItemSelectionModel *selectionModel);
+
 public slots:    
     void setItem(NJobItem *item);
 
 private:
     NJobModel *m_jobModel;
+//    QItemSelectionModel *m_selectionModel;
     NJobItem *m_currentItem;
     QTabWidget *m_tabWidget;
     UniversalPropertyEditor *m_propertyEditor;

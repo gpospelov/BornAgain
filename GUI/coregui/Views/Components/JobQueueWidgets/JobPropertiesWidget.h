@@ -20,8 +20,6 @@
 #include <QWidget>
 #include <QMap>
 
-//class JobQueueModel;
-//class JobItem;
 class NJobModel;
 class NJobItem;
 class QtProperty;
@@ -47,32 +45,13 @@ public:
 
 public slots:    
     void setItem(NJobItem *item);
-//    void dataChanged(const QModelIndex &, const QModelIndex &);
-
-private slots:
-//    void valueChanged(QtProperty *property, const QVariant &value);
 
 private:
-//    void updateExpandState();
-//    void addProperty(QtVariantProperty *property, const QString &id);
-
-//    JobQueueModel *m_jobQueueModel;
-
-    //! clear editor
-
-
     NJobModel *m_jobModel;
-
-//    QMap<QtProperty *, QString> propertyToId;
-//    QMap<QString, QtVariantProperty *> idToProperty;
-//    QMap<QString, bool> idToExpanded;
-
     NJobItem *m_currentItem;
     QTabWidget *m_tabWidget;
     UniversalPropertyEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
 };
-
-
 
 #endif

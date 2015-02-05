@@ -26,10 +26,12 @@ class BA_CORE_API_ NJobItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_IDENTIFIER;
+    static const QString P_SAMPLE_NAME;
+    static const QString P_INSTRUMENT_NAME;
+    static const QString P_STATUS;
     static const QString P_BEGIN_TIME;
     static const QString P_END_TIME;
     static const QString P_COMMENTS;
-    static const QString P_STATUS;
     static const QString P_PROGRESS;
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;

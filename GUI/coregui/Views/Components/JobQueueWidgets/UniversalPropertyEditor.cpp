@@ -19,11 +19,9 @@
 #include "ParameterizedItem.h"
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
-
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
-
 #include <QtProperty>
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
@@ -35,6 +33,7 @@ UniversalPropertyEditor::UniversalPropertyEditor(QItemSelectionModel *selection_
     : QWidget(parent)
     , m_item(0)
     , m_selection_model(0)
+    , m_create_group_property(true)
 {
     setSelectionModel(selection_model);
 
@@ -124,7 +123,6 @@ void UniversalPropertyEditor::slotValueChanged(QtProperty *property,
 void UniversalPropertyEditor::clearEditor()
 {
     qDebug() << "UniversalPropertyEditor::clearEditor()";
-    //updateExpandState(SaveExpandState);
 
     QListIterator<QtProperty *> it(m_browser->properties());
     while (it.hasNext()) {
@@ -138,13 +136,10 @@ void UniversalPropertyEditor::clearEditor()
 void UniversalPropertyEditor::updateSubItems(const QString &name)
 {
     qDebug() << "UniversalPropertyEditor::updateSubItems()";
-    (void)name;
+    Q_UNUSED(name)
+
     if (!m_item) return;
 
-//    QListIterator<QtProperty *> it(m_browser->properties());
-//    while (it.hasNext()) {
-//        m_browser->removeProperty(it.next());
-//    }
     clearEditor();
 
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
@@ -193,10 +188,6 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
     if (m_item == item) return;
 
     if (m_item) {
-//        QListIterator<QtProperty *> it(m_browser->properties());
-//        while (it.hasNext()) {
-//            m_browser->removeProperty(it.next());
-//        }
         clearEditor();
 
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
@@ -215,16 +206,25 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
 
 }
 
+void UniversalPropertyEditor::setCreateGroupProperty(bool create_group_property)
+{
+    m_create_group_property = create_group_property;
+}
+
 
 void UniversalPropertyEditor::addItemProperties(const ParameterizedItem *item)
 {
     QString item_type = item->modelType();
-    QtProperty *item_property = m_manager->addProperty(
+
+    if(m_create_group_property) {
+        QtProperty *item_property = m_manager->addProperty(
                 QtVariantPropertyManager::groupTypeId(), item_type);
 
-    addSubProperties(item_property, item);
-
-    m_browser->addProperty(item_property);
+        addSubProperties(item_property, item);
+        m_browser->addProperty(item_property);
+    } else {
+        addSubProperties(0, item);
+    }
 }
 
 
@@ -283,7 +283,14 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
             subProperty->setEnabled(false);
         }
 
-        item_property->addSubProperty(subProperty);
+        // if item_property exists, then add sub-properties, otherwise add sub-properties
+        // directly to the tree browser
+        if(item_property) {
+            item_property->addSubProperty(subProperty);
+        } else {
+            m_browser->addProperty(subProperty);
+        }
+
         ParameterizedItem *non_const_item =
                 const_cast<ParameterizedItem *>(item);
         ItemIndexPair item_index_pair(non_const_item, i);
@@ -292,4 +299,5 @@ void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
         m_item_to_propertyname_to_qtvariantproperty[item][prop_name] = subProperty;
     }
 }
+
 

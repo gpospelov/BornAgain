@@ -37,10 +37,12 @@ QMap<QString, QString> NJobItem::m_run_policies = initializeRunPolicies();
 
 
 const QString NJobItem::P_IDENTIFIER = "Identifier";
+const QString NJobItem::P_SAMPLE_NAME = "Sample";
+const QString NJobItem::P_INSTRUMENT_NAME = "Instrument";
+const QString NJobItem::P_STATUS = "Status";
 const QString NJobItem::P_BEGIN_TIME = "Begin Time";
 const QString NJobItem::P_END_TIME = "End Time";
 const QString NJobItem::P_COMMENTS = "Comments";
-const QString NJobItem::P_STATUS = "Status";
 const QString NJobItem::P_PROGRESS = "Progress";
 const QString NJobItem::P_NTHREADS = "Number of Threads";
 const QString NJobItem::P_RUN_POLICY = "Run Policy";
@@ -53,6 +55,8 @@ NJobItem::NJobItem(ParameterizedItem *parent)
 {
     setItemName(Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_SAMPLE_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
+    registerProperty(P_INSTRUMENT_NAME, QString(), PropertyAttribute(PropertyAttribute::READONLY));
 
     ComboProperty status;
     status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
@@ -92,11 +96,13 @@ SampleModel *NJobItem::getSampleModel()
     return m_sampleModel;
 }
 
-
 void NJobItem::setSampleModel(SampleModel *sampleModel)
 {
     delete m_sampleModel;
     m_sampleModel = sampleModel;
+    if(m_sampleModel) {
+        setRegisteredProperty(P_SAMPLE_NAME, m_sampleModel->getSampleMap().firstKey());
+    }
 }
 
 
@@ -105,11 +111,13 @@ InstrumentModel *NJobItem::getInstrumentModel()
     return m_instrumentModel;
 }
 
-
 void NJobItem::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     delete m_instrumentModel;
     m_instrumentModel = instrumentModel;
+    if(m_instrumentModel) {
+        setRegisteredProperty(P_INSTRUMENT_NAME, m_instrumentModel->getInstrumentMap().firstKey());
+    }
 }
 
 QString NJobItem::getStatus() const

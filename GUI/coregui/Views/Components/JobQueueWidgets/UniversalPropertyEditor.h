@@ -56,6 +56,8 @@ public:
     //! assigns item to the property editor
     void setItem(ParameterizedItem *item);
 
+    void setCreateGroupProperty(bool create_group_property);
+
 public slots:
     //! show property of currently selected object (triggered by graphics scene)
     void selectionChanged(const QItemSelection & selected,
@@ -89,6 +91,11 @@ private:
     void addItemProperties(const ParameterizedItem *item);
     void addSubProperties(QtProperty *item_property,
                           const ParameterizedItem *item);
+
+    //! If true than group property will be created, i.e. all properties of
+    //! ParameterizedItem will be sub-properties of group with the name modelType
+    //! (as in PropertyEditor of SampleDesigner)
+    bool m_create_group_property;
 };
 
 

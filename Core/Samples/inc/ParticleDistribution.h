@@ -20,7 +20,6 @@
 #include "ParameterDistribution.h"
 
 class ParticleInfo;
-class DiffuseParticleInfo;
 
 //! @class ParticleDistribution
 //! @ingroup samples
@@ -43,8 +42,8 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material) {
-        mP_particle->setAmbientMaterial(p_material);
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        mP_particle->setAmbientMaterial(material);
     }
 
     //! Returns particle's material.
@@ -57,26 +56,6 @@ public:
     //! required form factors
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
-
-    //! Sets _material_.
-    virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) {
-            mP_particle->setMaterial(p_material);
-        }
-    }
-
-    //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const {
-        return mP_particle->getMaterial();
-    }
-
-    //! Returns refractive index of the particle
-    virtual complex_t getRefractiveIndex() const {
-        return mP_particle->getRefractiveIndex();
-    }
-
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const;
 
     //! Returns list of new particles generated according to a distribution
     std::vector<ParticleInfo *> generateParticleInfos(kvector_t position,

@@ -76,6 +76,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
     }
 
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
+    }
+
     virtual ::Geometry::Transform3D const * getTransform(  ) const  {
         if( bp::override func_getTransform = this->get_override( "getTransform" ) )
             return func_getTransform(  );
@@ -88,9 +93,9 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::getTransform( );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
+    virtual void setAmbientMaterial( ::IMaterial const & material ){
         bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
-        func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
+        func_setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -345,6 +350,16 @@ void register_IClusteredParticles_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IClusteredParticles::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::IClusteredParticles::*getAmbientMaterial_function_type)(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::IClusteredParticles::getTransform
         
             typedef ::Geometry::Transform3D const * ( ::IClusteredParticles::*getTransform_function_type)(  ) const;
@@ -359,12 +374,12 @@ void register_IClusteredParticles_class(){
         }
         { //::IClusteredParticles::setAmbientMaterial
         
-            typedef void ( ::IClusteredParticles::*setAmbientMaterial_function_type)( ::IMaterial const * ) ;
+            typedef void ( ::IClusteredParticles::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             IClusteredParticles_exposer.def( 
                 "setAmbientMaterial"
                 , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
-                , ( bp::arg("p_ambient_material") ) );
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged

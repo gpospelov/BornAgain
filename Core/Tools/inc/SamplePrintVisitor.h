@@ -53,7 +53,6 @@ public:
     virtual void visit(const ParticleCoreShell *sample);
 
     virtual void visit(const ParticleInfo *sample);
-    virtual void visit(const DiffuseParticleInfo *sample);
 
     virtual void visit(const IFormFactor *sample);
 

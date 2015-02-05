@@ -17,7 +17,6 @@
 #include "FormFactors.h"
 #include "Units.h"
 #include "MathFunctions.h"
-#include "DiffuseParticleInfo.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -75,34 +74,6 @@ Lattice Crystal::getTransformedLattice() const
     } else {
         return m_lattice;
     }
-}
-
-std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
-        const ParticleInfo& parent_info) const
-{
-    std::vector<DiffuseParticleInfo *> *p_result =
-            new std::vector<DiffuseParticleInfo *>(
-            mp_lattice_basis->createDiffuseParticleInfos());
-    if (p_result->empty()) return p_result;
-
-    double parent_volume =
-        parent_info.getParticle()->getSimpleFormFactor()->getVolume();
-    double parent_height =
-        parent_info.getParticle()->getSimpleFormFactor()->getHeight();
-    double parent_depth =
-        parent_info.getDepth();
-
-    double primitive_cell_volume = m_lattice.getVolume();
-    double nbr_unit_cells = parent_volume/primitive_cell_volume;
-
-    for (size_t i=0; i<p_result->size(); ++i) {
-        DiffuseParticleInfo *p_info = (*p_result)[i];
-        p_info->setDepth(parent_depth);
-        p_info->setNumberPerMeso(nbr_unit_cells*p_info->getNumberPerMeso());
-        p_info->setHeightRange(parent_height);
-    }
-
-    return p_result;
 }
 
 void Crystal::applyTransformation(const Geometry::Transform3D& transform)

@@ -55,7 +55,6 @@
 //#include "ParticleLayout.h"
 //#include "ParameterPool.h"
 //#include "ParticleInfo.h"
-//#include "DiffuseParticleInfo.h"
 //#include "PythonOutputData.h"
 //#include "PythonPlusplusHelper.h"
 //#include "RealParameterWrapper.h"

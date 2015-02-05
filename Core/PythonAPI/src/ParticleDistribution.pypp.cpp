@@ -85,40 +85,16 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ParticleDistribution::getAmbientMaterial( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->ParticleDistribution::getMaterial(  );
+            this->ParticleDistribution::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return ParticleDistribution::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->ParticleDistribution::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return ParticleDistribution::getRefractiveIndex( );
-    }
-
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
-        else{
-            return this->ParticleDistribution::getSimpleFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return ParticleDistribution::getSimpleFormFactor( );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        ParticleDistribution::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -203,18 +179,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->IParticle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return IParticle::hasDistributedFormFactor( );
     }
 
     virtual bool preprocess(  ) {
@@ -403,18 +367,6 @@ void register_ParticleDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleDistribution::getMaterial
-        
-            typedef ::IMaterial const * ( ::ParticleDistribution::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleDistribution_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::ParticleDistribution::getMaterial)
-                , default_getMaterial_function_type(&ParticleDistribution_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ParticleDistribution::getParameterDistribution
         
             typedef ::ParameterDistribution ( ::ParticleDistribution::*getParameterDistribution_function_type)(  ) const;
@@ -424,27 +376,16 @@ void register_ParticleDistribution_class(){
                 , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
         
         }
-        { //::ParticleDistribution::getRefractiveIndex
+        { //::ParticleDistribution::setAmbientMaterial
         
-            typedef ::complex_t ( ::ParticleDistribution::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleDistribution_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
+            typedef void ( ::ParticleDistribution::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             ParticleDistribution_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::ParticleDistribution::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleDistribution_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::ParticleDistribution::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::ParticleDistribution::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( ParticleDistribution_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::ParticleDistribution::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&ParticleDistribution_wrapper::default_getSimpleFormFactor)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::ParticleDistribution::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&ParticleDistribution_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::applyTransformation
@@ -526,17 +467,6 @@ void register_ParticleDistribution_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ParticleDistribution_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::hasDistributedFormFactor
-        
-            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( ParticleDistribution_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&ParticleDistribution_wrapper::default_hasDistributedFormFactor) );
         
         }
         { //::ISample::preprocess

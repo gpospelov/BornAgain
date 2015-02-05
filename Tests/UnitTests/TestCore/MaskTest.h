@@ -8,7 +8,7 @@
 
 class MaskTest : public ::testing::Test
 {
- protected:
+protected:
     MaskTest();
     virtual ~MaskTest();
 

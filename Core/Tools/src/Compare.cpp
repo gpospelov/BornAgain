@@ -418,10 +418,9 @@ bool Compare::compareMaterial(const IMaterial *a,const IMaterial *b)
 
 bool Compare::compareParticle(const IParticle *a,const IParticle *b)
 {
-    if (compareMaterial(a->getMaterial(),b->getMaterial()) == 1
-            && compareFormFactor(a->getSimpleFormFactor(),b->getSimpleFormFactor()) == 1)
-        return 1;
-    else
+//    if (compareFormFactor(a->getSimpleFormFactor(),b->getSimpleFormFactor()) == 1)
+//        return 1;
+//    else
         return 0;
 }
 

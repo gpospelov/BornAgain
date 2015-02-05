@@ -130,28 +130,28 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::getRefractiveIndex( );
     }
 
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->Particle::getSimpleFormFactor(  );
+            this->Particle::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return Particle::getSimpleFormFactor( );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        Particle::setAmbientMaterial( boost::ref(material) );
     }
 
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
+    virtual void setMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
+            func_setMaterial( boost::ref(material) );
         else{
-            return this->Particle::hasDistributedFormFactor(  );
+            this->Particle::setMaterial( boost::ref(material) );
         }
     }
     
-    bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
+    void default_setMaterial( ::IMaterial const & material ) {
+        Particle::setMaterial( boost::ref(material) );
     }
 
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
@@ -427,6 +427,16 @@ void register_Particle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Particle::getFormFactor
+        
+            typedef ::IFormFactor const * ( ::Particle::*getFormFactor_function_type)(  ) const;
+            
+            Particle_exposer.def( 
+                "getFormFactor"
+                , getFormFactor_function_type( &::Particle::getFormFactor )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Particle::getMaterial
         
             typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
@@ -450,27 +460,38 @@ void register_Particle_class(){
                 , default_getRefractiveIndex_function_type(&Particle_wrapper::default_getRefractiveIndex) );
         
         }
-        { //::Particle::getSimpleFormFactor
+        { //::Particle::setAmbientMaterial
         
-            typedef ::IFormFactor const * ( ::Particle::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( Particle_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
+            typedef void ( ::Particle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Particle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             Particle_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::Particle::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&Particle_wrapper::default_getSimpleFormFactor)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::Particle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&Particle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
-        { //::Particle::hasDistributedFormFactor
+        { //::Particle::setFormFactor
         
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( Particle_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
+            typedef void ( ::Particle::*setFormFactor_function_type)( ::IFormFactor const & ) ;
             
             Particle_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&Particle_wrapper::default_hasDistributedFormFactor) );
+                "setFormFactor"
+                , setFormFactor_function_type( &::Particle::setFormFactor )
+                , ( bp::arg("form_factor") ) );
+        
+        }
+        { //::Particle::setMaterial
+        
+            typedef void ( ::Particle::*setMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Particle_wrapper::*default_setMaterial_function_type)( ::IMaterial const & ) ;
+            
+            Particle_exposer.def( 
+                "setMaterial"
+                , setMaterial_function_type(&::Particle::setMaterial)
+                , default_setMaterial_function_type(&Particle_wrapper::default_setMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::applyTransformation

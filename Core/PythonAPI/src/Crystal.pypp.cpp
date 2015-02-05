@@ -85,6 +85,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
     }
 
+    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
+        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
+            return func_getAmbientMaterial(  );
+        else{
+            return this->Crystal::getAmbientMaterial(  );
+        }
+    }
+    
+    ::IMaterial const * default_getAmbientMaterial(  ) const  {
+        return Crystal::getAmbientMaterial( );
+    }
+
     virtual ::Geometry::Transform3D const * getTransform(  ) const  {
         if( bp::override func_getTransform = this->get_override( "getTransform" ) )
             return func_getTransform(  );
@@ -95,6 +107,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     ::Geometry::Transform3D const * default_getTransform(  ) const  {
         return Crystal::getTransform( );
+    }
+
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->Crystal::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        Crystal::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -343,6 +367,18 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::Crystal::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::Crystal::*getAmbientMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( Crystal_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
+            
+            Crystal_exposer.def( 
+                "getAmbientMaterial"
+                , getAmbientMaterial_function_type(&::Crystal::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&Crystal_wrapper::default_getAmbientMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Crystal::getLatticeBasis
         
             typedef ::LatticeBasis const * ( ::Crystal::*getLatticeBasis_function_type)(  ) const;
@@ -372,6 +408,18 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "getTransformedLattice"
                 , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
+        
+        }
+        { //::Crystal::setAmbientMaterial
+        
+            typedef void ( ::Crystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Crystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            Crystal_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::Crystal::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&Crystal_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::Crystal::setDWFactor

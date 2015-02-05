@@ -26,21 +26,16 @@ DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
     : LayerDWBASimulation(p_layer)
     , m_layout_index(layout_index)
 {
-    mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation(m_layout_index);
 }
 
 DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
-    delete mp_diffuseDWBA;
 }
 
 void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
     DWBASimulation::init(simulation);
-    if (mp_diffuseDWBA) {
-        mp_diffuseDWBA->init(simulation);
-    }
 }
 
 void DecoratedLayerDWBASimulation::run()
@@ -63,7 +58,6 @@ void DecoratedLayerDWBASimulation::runProtected()
             createAndInitStrategy());
 
     calculateCoherentIntensity(P_strategy.get());
-    calculateInCoherentIntensity();
 }
 
 IInterferenceFunctionStrategy
@@ -139,22 +133,4 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         }
     }
     m_progress.finished();
-}
-
-
-void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
-{
-    msglog(MSG::DEBUG2) << "Calculating incoherent scattering...";
-    if (mp_diffuseDWBA) {
-        mp_diffuseDWBA->setSpecularInfo(*mp_specular_info);
-        mp_diffuseDWBA->setThreadInfo(m_thread_info);
-        mp_diffuseDWBA->run();
-        if (checkPolarizationPresent()) {
-            addPolarizedDWBAIntensity(
-                    mp_diffuseDWBA->getPolarizedDWBAIntensity() );
-        }
-        else {
-            addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
-        }
-    }
 }

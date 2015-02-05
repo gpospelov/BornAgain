@@ -408,7 +408,6 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 //    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
 //    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
 
-//    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getParticle(0)->getSimpleFormFactor());
 //    if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");
 
 //    double nanoparticle_radius =ff_sphere->getRadius();

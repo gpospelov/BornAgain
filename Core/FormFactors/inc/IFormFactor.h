@@ -41,8 +41,8 @@ public:
 
     //! Passes the refractive index of the ambient material in which this
     //! particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial *p_material) {
-        (void)p_material;
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        (void)material;
     }
 
     //! Returns scattering amplitude for complex wavevector bin
@@ -74,21 +74,6 @@ public:
 
     //! Returns the total radial size of the particle of this form factor's shape
     virtual double getRadius() const;
-
-    //! Returns true if the form factor is constructed as an average over
-    //! multiple simple ones
-    virtual bool isDistributedFormFactor() const { return false; }
-
-    //! retrieve a list of simple form factors and their probabilities when the
-    //! form factor is a distributed one
-    virtual void createDistributedFormFactors(
-        std::vector<IFormFactor *>& form_factors,
-        std::vector<double>& probabilities,
-        size_t nbr_samples) const {
-        (void)form_factors;
-        (void)probabilities;
-        (void)nbr_samples;
-    }
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,

@@ -22,7 +22,6 @@
 #include "IMaterial.h"
 
 class ParticleInfo;
-class DiffuseParticleInfo;
 
 //! @class Particle
 //! @ingroup samples
@@ -48,11 +47,11 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material)
+    virtual void setAmbientMaterial(const IMaterial& material)
     {
-        if(p_material) {
+        if(mp_ambient_material != &material) {
             delete mp_ambient_material;
-            mp_ambient_material = p_material->clone();
+            mp_ambient_material = material.clone();
         }
     }
 
@@ -66,10 +65,10 @@ public:
             complex_t wavevector_scattering_factor) const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) {
+    virtual void setMaterial(const IMaterial& material) {
+        if(mp_material != &material) {
             delete mp_material;
-            mp_material = p_material->clone();
+            mp_material = material.clone();
         }
     }
 
@@ -83,22 +82,13 @@ public:
                             : complex_t(0,0));
     }
 
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const {
+    //! Sets the form factor
+    void setFormFactor(const IFormFactor& form_factor);
+
+    //! Returns the form factor
+    const IFormFactor* getFormFactor() const {
         return mp_form_factor;
     }
-
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
-
-    //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const;
-
-    //! Indicates whether the particle consists of an assembly of different
-    //! form factors according to a certain distribution
-    virtual bool hasDistributedFormFactor() const;
 
 protected:
     IFormFactor *createTransformedFormFactor() const;

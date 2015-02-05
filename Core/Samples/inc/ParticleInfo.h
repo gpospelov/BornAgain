@@ -65,8 +65,8 @@ public:
     void setAbundance(double abundance) { m_abundance = abundance; }
 
     //! Sets the ambient material
-    void setAmbientMaterial(const IMaterial *p_material) {
-        mP_particle->setAmbientMaterial(p_material);
+    void setAmbientMaterial(const IMaterial& material) {
+        mP_particle->setAmbientMaterial(material);
     }
 
 protected:

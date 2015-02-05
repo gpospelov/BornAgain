@@ -18,7 +18,6 @@
 
 #include "Types.h"
 #include "BasicVector3D.h"
-#include "DiffuseParticleInfo.h"
 #include "IFormFactor.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
@@ -32,7 +31,6 @@ namespace pyplusplus {
         typedef std::vector<kvector_t > vector_kvector_t;
         typedef BasicVector3D<std::complex<double> > cvector_t;
         typedef std::vector<cvector_t > vector_cvector_t;
-        typedef std::vector<DiffuseParticleInfo *> vector_DiffuseParticleInfoPtr_t;
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
         typedef OutputData<double > IntensityData;
         typedef std::vector<int > vector_integer_t;
@@ -54,7 +52,6 @@ namespace pyplusplus {
     inline size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
     inline size_t pyplusplus_boost_cvector() { return sizeof(pyplusplus::aliases::cvector_t); }
     inline size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
-    inline size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
     inline size_t pyplusplus_boost_vector_integer() { return sizeof(pyplusplus::aliases::vector_integer_t); }
     inline size_t pyplusplus_boost_vector_longinteger() { return sizeof(pyplusplus::aliases::vector_longinteger_t); }
     inline size_t pyplusplus_boost_intensity_data() { return sizeof(pyplusplus::aliases::IntensityData); }

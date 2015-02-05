@@ -42,8 +42,8 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material) {
-        (void)p_material;
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        (void)material;
     }
 
     //! Returns particle's material.
@@ -55,19 +55,8 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const=0;
 
-    //! Sets _material_ .
-    virtual void setMaterial(const IMaterial* p_material) {
-        (void)p_material;
-    }
-
-    //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const=0;
-
-    //! Returns refractive index of the particle
-    virtual complex_t getRefractiveIndex() const=0;
-
     //! Returns transformation.
-    const Geometry::Transform3D *getPTransform3D() const {
+    const Geometry::Transform3D *getTransform3D() const {
         return mP_transform.get();
     }
 
@@ -76,27 +65,6 @@ public:
 
     //! Applies transformation by composing it with the existing one
     virtual void applyTransformation(const Geometry::Transform3D& transform);
-
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const=0;
-
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor) {
-        (void)p_form_factor;
-    }
-
-    //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& /*parent_info*/) const {
-        return 0;
-    }
-
-    //! Indicates whether the particle consists of an assembly of different
-    //! form factors according to a certain distribution
-    virtual bool hasDistributedFormFactor() const {
-        return false;
-    }
 
 protected:
     virtual void applyTransformationToSubParticles(

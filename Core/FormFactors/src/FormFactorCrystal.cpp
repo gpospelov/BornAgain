@@ -18,10 +18,10 @@
 FormFactorCrystal::FormFactorCrystal(
         const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        const IMaterial &p_material, complex_t wavevector_scattering_factor)
+        const IMaterial &material, complex_t wavevector_scattering_factor)
 : m_lattice(p_crystal.getTransformedLattice())
 , m_wavevector_scattering_factor(wavevector_scattering_factor)
-, mp_ambient_material(p_material.clone())
+, mp_ambient_material(material.clone())
 , m_max_rec_length(0.0)
 {
     setName("FormFactorCrystal");
@@ -35,7 +35,7 @@ FormFactorCrystal::FormFactorCrystal(
     } else {
         mp_meso_form_factor = meso_crystal_form_factor.clone();
     }
-    setAmbientMaterial(mp_ambient_material);
+    setAmbientMaterial(material);
     calculateLargestReciprocalDistance();
 }
 
@@ -57,12 +57,10 @@ FormFactorCrystal* FormFactorCrystal::clone() const
     return result;
 }
 
-void FormFactorCrystal::setAmbientMaterial(const IMaterial *p_material)
+void FormFactorCrystal::setAmbientMaterial(const IMaterial& material)
 {
-    if(p_material) {
-        mp_lattice_basis->setAmbientMaterial(p_material);
-        mp_basis_form_factor->setAmbientMaterial(p_material);
-    }
+    mp_lattice_basis->setAmbientMaterial(material);
+    mp_basis_form_factor->setAmbientMaterial(material);
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const

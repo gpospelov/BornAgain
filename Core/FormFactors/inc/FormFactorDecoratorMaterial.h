@@ -37,10 +37,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets the material of the scatterer
-    virtual void setMaterial(const IMaterial *p_material);
+    virtual void setMaterial(const IMaterial& material);
 
     //! Sets the ambient material
-    virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Retrieves the refractive index of the ambient material
     virtual complex_t getAmbientRefractiveIndex() const;

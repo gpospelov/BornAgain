@@ -46,21 +46,6 @@ int FormFactorSphereUniformRadius::getNumberOfStochasticParameters() const
     return 2;
 }
 
-void FormFactorSphereUniformRadius::createDistributedFormFactors(
-        std::vector<IFormFactor*>& form_factors,
-        std::vector<double>& probabilities, size_t nbr_samples) const
-{
-    assert(nbr_samples>1);
-    double step = m_full_width/(nbr_samples+1.0);
-    double radius_start = m_mean - m_full_width/2.0;
-    double probability = 1.0/nbr_samples;
-    for (size_t i=0; i<nbr_samples; ++i) {
-        double radius = radius_start + (double)i*step;
-        form_factors.push_back(new FormFactorFullSphere(radius));
-        probabilities.push_back(probability);
-    }
-}
-
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(
         const cvector_t& q) const
 {

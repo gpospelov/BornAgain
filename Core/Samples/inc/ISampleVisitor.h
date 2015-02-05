@@ -42,7 +42,6 @@ class MesoCrystal;
 class ParticleCoreShell;
 // -
 class ParticleInfo;
-class DiffuseParticleInfo;
 // -
 class IFormFactor;
 // -
@@ -139,7 +138,6 @@ public:
     virtual void visit(const ParticleCoreShell *);
 
     virtual void visit(const ParticleInfo *);
-    virtual void visit(const DiffuseParticleInfo *);
 
     virtual void visit(const IFormFactor *);
 

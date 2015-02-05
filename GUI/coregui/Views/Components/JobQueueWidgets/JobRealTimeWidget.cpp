@@ -62,6 +62,9 @@ JobRealTimeWidget::JobRealTimeWidget(NJobModel *jobModel, QWidget *parent)
 
 void JobRealTimeWidget::setJobModel(NJobModel *jobModel)
 {
+    // FIXME
+    return;
+
     Q_ASSERT(jobModel);
     if(jobModel != m_jobModel) {
         if(m_jobModel) {

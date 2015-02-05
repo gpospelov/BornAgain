@@ -22,12 +22,16 @@
 
 namespace
 {
+const QString RUN_IMMEDIATELY = "Immediately";
+const QString RUN_IN_BACKGROUND = "In background";
+const QString RUN_SUBMIT_ONLY = "Submit only";
+
 QMap<QString, QString> initializeRunPolicies()
 {
     QMap<QString, QString> result;
-    result["Immediately"] = QString("Start simulation immediately, switch to Jobs view automatically when completed");
-    result["In background"] = QString("Start simulation immediately, do not switch to Jobs view when completed");
-    result["Submit only"] = QString("Only submit simulation for consequent execution, has to be started from Jobs view explicitely");
+    result[RUN_IMMEDIATELY] = QString("Start simulation immediately, switch to Jobs view automatically when completed");
+    result[RUN_IN_BACKGROUND] = QString("Start simulation immediately, do not switch to Jobs view when completed");
+    result[RUN_SUBMIT_ONLY] = QString("Only submit simulation for consequent execution, has to be started from Jobs view explicitely");
     return result;
 }
 
@@ -71,7 +75,7 @@ NJobItem::NJobItem(ParameterizedItem *parent)
     registerProperty(P_NTHREADS, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ComboProperty policy;
-    policy << QString("Immediately") << QString("In background") << QString("Submit only");
+    policy << RUN_IMMEDIATELY <<RUN_IN_BACKGROUND << RUN_SUBMIT_ONLY;
     registerProperty(P_RUN_POLICY, policy.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     addToValidChildren(Constants::IntensityDataType);
@@ -81,6 +85,15 @@ NJobItem::NJobItem(ParameterizedItem *parent)
 
 }
 
+QString NJobItem::getIdentifier() const
+{
+    return getRegisteredProperty(P_IDENTIFIER).toString();
+}
+
+void NJobItem::setIdentifier(const QString &identifier)
+{
+    setRegisteredProperty(NJobItem::P_IDENTIFIER, identifier);
+}
 
 NIntensityDataItem *NJobItem::getIntensityDataItem()
 {
@@ -105,7 +118,6 @@ void NJobItem::setSampleModel(SampleModel *sampleModel)
     }
 }
 
-
 InstrumentModel *NJobItem::getInstrumentModel()
 {
     return m_instrumentModel;
@@ -124,6 +136,13 @@ QString NJobItem::getStatus() const
 {
     ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
     return combo_property.getValue();
+}
+
+void NJobItem::setStatus(const QString &status)
+{
+    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    combo_property.setValue(status);
+    setRegisteredProperty(P_STATUS, combo_property.getVariant());
 }
 
 bool NJobItem::isIdle() const
@@ -156,14 +175,54 @@ bool NJobItem::isFailed() const
     return combo_property.getValue() == Constants::STATUS_FAILED;
 }
 
+void NJobItem::setBeginTime(const QString &begin_time)
+{
+    setRegisteredProperty(P_BEGIN_TIME, begin_time);
+}
+
+void NJobItem::setEndTime(const QString &end_time)
+{
+    setRegisteredProperty(P_END_TIME, end_time);
+}
+
+QString NJobItem::getComments() const
+{
+    return getRegisteredProperty(P_COMMENTS).toString();
+}
+
+void NJobItem::setComments(const QString &comments)
+{
+    setRegisteredProperty(P_COMMENTS, comments);
+}
+
 int NJobItem::getProgress() const
 {
     return getRegisteredProperty(P_PROGRESS).toInt();
 }
 
-QString NJobItem::getIdentifier() const
+void NJobItem::setProgress(int progress)
 {
-    return getRegisteredProperty(P_IDENTIFIER).toString();
+    setRegisteredProperty(P_PROGRESS, progress);
 }
 
+int NJobItem::getNumberOfThreads() const
+{
+    return getRegisteredProperty(P_NTHREADS).toInt();
+}
 
+void NJobItem::setNumberOfThreads(int number_of_threads)
+{
+    setRegisteredProperty(P_NTHREADS, number_of_threads);
+}
+
+bool NJobItem::runImmediately() const
+{
+    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
+    return combo_property.getValue() == RUN_IMMEDIATELY;
+}
+
+bool NJobItem::runInBackground() const
+{
+    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
+    return combo_property.getValue() == RUN_IN_BACKGROUND;
+}

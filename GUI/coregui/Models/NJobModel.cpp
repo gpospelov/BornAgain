@@ -16,6 +16,7 @@
 #include "NJobModel.h"
 #include "NJobItem.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -23,9 +24,11 @@
 
 NJobModel::NJobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
-    , m_queue_data(new JobQueueData)
+    , m_queue_data(0)
 {
-
+    m_queue_data = new JobQueueData(this);
+    connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
+    connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
 }
 
 NJobModel::~NJobModel()
@@ -52,23 +55,32 @@ NJobItem *NJobModel::getJobItemForIndex(const QModelIndex &index)
     return result;
 }
 
+NJobItem *NJobModel::getJobItemForIdentifier(const QString &identifier)
+{
+    QModelIndex parentIndex;
+    for(int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = index( i_row, 0, parentIndex );
+        NJobItem *jobItem = getJobItemForIndex(itemIndex);
+        if(jobItem->getIdentifier() == identifier) return jobItem;
+    }
+    return 0;
+}
+
 NJobItem *NJobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
 {
-    //    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
-    //    jobItem->setNumberOfThreads(getNumberOfThreads());
-    //    m_jobQueueModel->addJob(jobItem);
-
     NJobItem *jobItem = dynamic_cast<NJobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
     jobItem->setSampleModel(sampleModel);
     jobItem->setInstrumentModel(instrumentModel);
-    jobItem->setRegisteredProperty(NJobItem::P_IDENTIFIER, generateJobIdentifier());
-    jobItem->setRegisteredProperty(NJobItem::P_NTHREADS, numberOfThreads);
+    jobItem->setIdentifier(generateJobIdentifier());
+    jobItem->setNumberOfThreads(numberOfThreads);
 
     ComboProperty combo_property = jobItem->getRegisteredProperty(NJobItem::P_RUN_POLICY).value<ComboProperty>();
     combo_property.setValue(run_policy);
     jobItem->setRegisteredProperty(NJobItem::P_RUN_POLICY, combo_property.getVariant());
 
+    if(jobItem->runImmediately() || jobItem->runInBackground())
+        m_queue_data->runJob(jobItem);
 
 //    if( jobItem->getRunPolicy() & (JobItem::RUN_IMMEDIATELY | JobItem::RUN_IN_BACKGROUND)  && jobItem->getStatus()!=JobItem::COMPLETED)
 //        runJob(queue_item->getIdentifier());
@@ -79,22 +91,23 @@ NJobItem *NJobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumen
 void NJobModel::runJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::runJob(const QModelIndex &index)";
-    Q_ASSERT(0);
-    Q_UNUSED(index);
+    m_queue_data->runJob(getJobItemForIndex(index));
 }
 
 void NJobModel::cancelJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::cancelJob(const QModelIndex &index)";
-    Q_ASSERT(0);
-    Q_UNUSED(index);
+    m_queue_data->cancelJob(getJobItemForIndex(index)->getIdentifier());
 }
 
 void NJobModel::removeJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
-    Q_ASSERT(0);
-    Q_UNUSED(index);
+    NJobItem *jobItem = getJobItemForIndex(index);
+    m_queue_data->removeJob(jobItem->getIdentifier());
+
+    emit aboutToDeleteJobItem(jobItem);
+    removeRows(index.row(), 1, QModelIndex());
 }
 
 void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
@@ -111,7 +124,13 @@ void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSe
 //    if(!selected.empty() &&  !selected.first().indexes().empty()) {
 //        QModelIndex index = selected.first().indexes().at(0);
 //        emit selectionChanged(getJobItemForIndex(index));
-//    }
+    //    }
+}
+
+// called when jobQueueData asks for focus
+void NJobModel::onFocusRequest(const QString &identifier)
+{
+    emit focusRequest(getJobItemForIdentifier(identifier));
 }
 
 //! generates job name
@@ -129,7 +148,6 @@ QString NJobModel::generateJobName()
                      int job_index = jobName.remove(0,3).toInt();
                      if(job_index > glob_index) glob_index = job_index;
                  }
-
              }
          }
     }

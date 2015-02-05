@@ -20,6 +20,7 @@
 class NIntensityDataItem;
 class SampleModel;
 class InstrumentModel;
+class Simulation;
 
 class BA_CORE_API_ NJobItem : public ParameterizedItem
 {
@@ -38,6 +39,9 @@ public:
     explicit NJobItem(ParameterizedItem *parent=0);
     ~NJobItem(){}
 
+    QString getIdentifier() const;
+    void setIdentifier(const QString &identifier);
+
     NIntensityDataItem *getIntensityDataItem();
 
     SampleModel *getSampleModel();
@@ -47,18 +51,31 @@ public:
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
     QString getStatus() const;
+    void setStatus(const QString &status);
+
     bool isIdle() const;
     bool isRunning() const;
     bool isCompleted() const;
     bool isCanceled() const;
     bool isFailed() const;
 
+    void setBeginTime(const QString &begin_time);
+
+    void setEndTime(const QString &end_time);
+
+    QString getComments() const;
+    void setComments(const QString &comments);
+
     int getProgress() const;
+    void setProgress(int progress);
 
-
-    QString getIdentifier() const;
+    int getNumberOfThreads() const;
+    void setNumberOfThreads(int number_of_threads);
 
     static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
+
+    bool runImmediately() const;
+    bool runInBackground() const;
 
 private:
     SampleModel *m_sampleModel;

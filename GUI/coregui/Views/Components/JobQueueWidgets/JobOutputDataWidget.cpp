@@ -82,6 +82,9 @@ JobOutputDataWidget::JobOutputDataWidget(NJobModel *jobModel, ProjectManager *pr
 
 void JobOutputDataWidget::setJobModel(NJobModel *jobModel)
 {
+    //FIXME
+    return;
+
     Q_ASSERT(jobModel);
     if(jobModel != m_jobModel) {
         m_jobModel = jobModel;

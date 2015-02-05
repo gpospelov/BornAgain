@@ -16,43 +16,37 @@
 #ifndef JOBQUEUEDATA_H
 #define JOBQUEUEDATA_H
 
-#include "JobItem.h"
 #include <QObject>
 #include <QString>
 #include <QMap>
 
 //class JobItem;
-class JobQueueItem;
+class NJobItem;
+class NJobModel;
+//class JobQueueItem;
 class Simulation;
 class JobRunner;
 class QThread;
 
 
-//! Holds correspondance of job identifiers and JobItem, QThread, JobRunner
-//! and Simulation objects. Contains all run/cancel/progress logic for job.
+//! Main class to run jobs
 class BA_CORE_API_ JobQueueData : public QObject
 {
     Q_OBJECT
 public:
-    JobQueueData();
-
-//    QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::ERunPolicy run_policy = JobItem::SUBMIT_ONLY);
-//    QString createJob(JobItem *jobItem);
-
-//    const JobItem *getJobItem(QString identifier) const;
-//    JobItem *getJobItem(QString identifier);
+    JobQueueData(NJobModel *jobModel);
 
     QThread *getThread(QString identifier);
     JobRunner *getRunner(QString identifier);
     Simulation *getSimulation(QString identifier);
 
-//    QString getIdentifierForJobItem(const JobItem *);
-
     bool hasUnfinishedJobs();
+
+    void setResults(NJobItem *jobItem, const Simulation *simulation);
 
 signals:
     void globalProgress(int);
-//    void focusRequest(JobItem *item);
+    void focusRequest(const QString &identifier);
     void jobIsFinished(const QString &identifier);
 
 public slots:
@@ -63,6 +57,7 @@ public slots:
     void onCancelAllJobs();
 
     void runJob(const QString &identifier);
+    void runJob(NJobItem *jobItem);
     void cancelJob(const QString &identifier);
     void removeJob(const QString &identifier);
 
@@ -81,7 +76,7 @@ private:
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
     QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
-    int m_job_index;
+    NJobModel *m_jobModel;
 };
 
 

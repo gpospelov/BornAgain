@@ -35,19 +35,23 @@ public:
     const NJobItem *getJobItemForIndex(const QModelIndex &index) const;
     NJobItem *getJobItemForIndex(const QModelIndex &index);
 
+    NJobItem *getJobItemForIdentifier(const QString &identifier);
+
     NJobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
             const QString &run_policy = QString(), int numberOfThreads=-1);
 
 signals:
     void selectionChanged(NJobItem *item);
     void aboutToDeleteJobItem(NJobItem *item);
+    void focusRequest(NJobItem *item);
+    void globalProgress(int);
 
 public slots:
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
     void onSelectionChanged( const QItemSelection &selected, const QItemSelection &deselected);
-
+    void onFocusRequest(const QString &identifier);
 
 private:
     QString generateJobName();

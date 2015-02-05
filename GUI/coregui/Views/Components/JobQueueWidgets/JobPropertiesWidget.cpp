@@ -90,17 +90,19 @@ void JobPropertiesWidget::setModel(NJobModel *model)
 
 void JobPropertiesWidget::setItem(NJobItem *jobItem)
 {
-    qDebug() << "JobPropertiesWidget::itemClicked" << jobItem->itemName();
+    qDebug() << "JobPropertiesWidget::itemClicked" << jobItem;
 
     m_propertyEditor->setItem(jobItem);
 
     if (m_currentItem == jobItem) return;
 
-    if(jobItem->getStatus() == Constants::STATUS_FAILED) {
-        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
-    } else {
-        m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);
+    if(jobItem) {
+        if(jobItem->getStatus() == Constants::STATUS_FAILED) {
+            m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
+        } else {
+            m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);
+        }
+        m_commentsEditor->setText(jobItem->getComments());
     }
-    m_commentsEditor->setText(jobItem->getRegisteredProperty(NJobItem::P_COMMENTS).toString());
 
 }

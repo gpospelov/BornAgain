@@ -181,8 +181,8 @@ void JobView::initWindows()
 void JobView::connectSignals()
 {
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
-    connect(m_d->m_jobModel->getJobQueueData(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
-    connect(m_d->m_jobModel->getJobQueueData(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
+    connect(m_d->m_jobModel, SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
+    connect(m_d->m_jobModel, SIGNAL(focusRequest(NJobItem*)), this, SLOT(onFocusRequest(NJobItem*)));
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
     connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
 }

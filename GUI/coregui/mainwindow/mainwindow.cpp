@@ -154,7 +154,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-//    testGUIObjectBuilder();
+    testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }

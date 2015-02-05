@@ -54,6 +54,7 @@ void JobRunner::start()
     m_terminate_request_flag = false;
     emit started();
 
+    qDebug() << "JobRunner xxx 1.1";
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
@@ -61,6 +62,7 @@ void JobRunner::start()
         m_simulation->setProgressHandler(progressHandler);
 
         m_job_status = Constants::STATUS_RUNNING;
+        qDebug() << "JobRunner xxx 1.2";
 
         try {
             m_simulation->runSimulation();

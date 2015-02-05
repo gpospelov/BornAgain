@@ -449,7 +449,7 @@ Mask* OutputDataFunctions::CreateEllipticMask(
 //        int lower_index = (int)p_axis->findClosestIndex(center[i] - radii[i]);
 
         radii_i[i] = center_i[i] - lower_index;
-        std::cout << "XXX " << i << " center:" << center[i] << " center_i" << center_i[i] << " lower_index:" << lower_index << " radii_i[i]:" << radii_i[i]<< std::endl;
+//        std::cout << "XXX " << i << " center:" << center[i] << " center_i" << center_i[i] << " lower_index:" << lower_index << " radii_i[i]:" << radii_i[i]<< std::endl;
         dims_i[i] = (int)p_axis->getSize();
     }
     MaskCoordinateEllipseFunction *p_ellipse_function =

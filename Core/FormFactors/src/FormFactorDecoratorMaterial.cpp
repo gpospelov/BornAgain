@@ -35,7 +35,7 @@ FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const
             new FormFactorDecoratorMaterial(mp_form_factor->clone(),
                     m_wavevector_scattering_factor);
     result->setMaterial(mP_material.get());
-    result->setAmbientMaterial(mP_ambient_material.get());
+    result->setAmbientMaterial(*mP_ambient_material);
     result->setName(getName());
     return result;
 }
@@ -48,11 +48,10 @@ void FormFactorDecoratorMaterial::setMaterial(const IMaterial* p_material)
     m_factor = getRefractiveIndexFactor();
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(
-        const IMaterial *p_material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
 {
-    if (p_material) {
-        mP_ambient_material.reset(p_material->clone());
+    if (mP_ambient_material.get()!=&material) {
+        mP_ambient_material.reset(material.clone());
     }
     m_factor = getRefractiveIndexFactor();
 }

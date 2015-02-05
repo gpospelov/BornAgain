@@ -73,7 +73,7 @@ Particle* Particle::clone() const
 
     if(mp_form_factor) result->setFormFactor(*mp_form_factor);
     result->setMaterial(mp_material);
-    result->setAmbientMaterial(mp_ambient_material);
+    result->setAmbientMaterial(*mp_ambient_material);
     if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
     result->setName(getName());
 
@@ -83,9 +83,6 @@ Particle* Particle::clone() const
 
 Particle* Particle::cloneInvertB() const
 {
-    if(!mp_material)
-        throw NullPointerException("Particle::cloneInvertB() -> Error. No material defined");
-
     Particle *result = new Particle();
     if(mp_form_factor) result->setFormFactor(*mp_form_factor);
 
@@ -116,7 +113,7 @@ IFormFactor* Particle::createFormFactor(
     } else {
         p_ff->setMaterial(mp_material);
     }
-    p_ff->setAmbientMaterial(mp_ambient_material);
+    p_ff->setAmbientMaterial(*mp_ambient_material);
     return p_ff;
 }
 

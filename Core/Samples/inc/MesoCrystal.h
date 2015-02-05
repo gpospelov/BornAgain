@@ -41,7 +41,7 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(

@@ -38,7 +38,7 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences
     //! its scattering power)
-    virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(

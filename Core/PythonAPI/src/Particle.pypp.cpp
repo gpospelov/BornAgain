@@ -130,6 +130,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::getRefractiveIndex( );
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->Particle::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        Particle::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -434,6 +446,18 @@ void register_Particle_class(){
                 "getRefractiveIndex"
                 , getRefractiveIndex_function_type(&::Particle::getRefractiveIndex)
                 , default_getRefractiveIndex_function_type(&Particle_wrapper::default_getRefractiveIndex) );
+        
+        }
+        { //::Particle::setAmbientMaterial
+        
+            typedef void ( ::Particle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Particle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            Particle_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::Particle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&Particle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::Particle::setFormFactor

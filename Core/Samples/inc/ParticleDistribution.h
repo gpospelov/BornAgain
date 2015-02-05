@@ -42,8 +42,8 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material) {
-        mP_particle->setAmbientMaterial(p_material);
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        mP_particle->setAmbientMaterial(material);
     }
 
     //! Returns particle's material.

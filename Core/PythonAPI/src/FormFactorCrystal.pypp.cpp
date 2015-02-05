@@ -85,6 +85,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::getVolume( );
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -363,6 +375,18 @@ void register_FormFactorCrystal_class(){
                 "getVolume"
                 , getVolume_function_type(&::FormFactorCrystal::getVolume)
                 , default_getVolume_function_type(&FormFactorCrystal_wrapper::default_getVolume) );
+        
+        }
+        { //::FormFactorCrystal::setAmbientMaterial
+        
+            typedef void ( ::FormFactorCrystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorCrystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            FormFactorCrystal_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::FormFactorCrystal::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged

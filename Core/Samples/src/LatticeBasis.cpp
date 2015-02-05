@@ -52,7 +52,7 @@ LatticeBasis* LatticeBasis::clone() const
         p_new->addParticle(*m_particles[index], m_positions_vector[index]);
     }
     p_new->setName(getName());
-    p_new->setAmbientMaterial(getAmbientMaterial());
+    p_new->setAmbientMaterial(*getAmbientMaterial());
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
@@ -69,7 +69,7 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
     p_new->setName(getName() + "_inv");
 
     if(getAmbientMaterial()) {
-        p_new->setAmbientMaterial(Materials::createInvertedMaterial(getAmbientMaterial()));
+        p_new->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
     }
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
@@ -87,11 +87,10 @@ void LatticeBasis::addParticle(const IParticle& particle,
     m_positions_vector.push_back(positions);
 }
 
-void LatticeBasis::setAmbientMaterial(const IMaterial *p_material)
+void LatticeBasis::setAmbientMaterial(const IMaterial& material)
 {
-    if(!p_material) return;
     for (size_t index=0; index<m_particles.size(); ++index) {
-        m_particles[index]->setAmbientMaterial(p_material);
+        m_particles[index]->setAmbientMaterial(material);
     }
 }
 
@@ -113,7 +112,7 @@ IFormFactor* LatticeBasis::createFormFactor(
                 m_positions_vector[index]);
         p_ff->addFormFactor(pos_ff);
     }
-    p_ff->setAmbientMaterial(getAmbientMaterial());
+    p_ff->setAmbientMaterial(*getAmbientMaterial());
     return p_ff;
 }
 

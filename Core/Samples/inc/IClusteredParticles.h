@@ -40,7 +40,7 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const = 0;
 
-    virtual void setAmbientMaterial(const IMaterial *p_ambient_material) = 0;
+    virtual void setAmbientMaterial(const IMaterial& material) = 0;
     virtual const IMaterial* getAmbientMaterial() const = 0;
 
     //! @brief create a total form factor for the mesocrystal with a specific

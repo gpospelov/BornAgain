@@ -225,7 +225,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_0);
             const Geometry::Transform3D *p_transformation =
-                    sample->getPTransform3D();
+                    sample->getTransform3D();
             if (p_transformation) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
@@ -239,7 +239,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_1);
             const Geometry::Transform3D *p_transformation =
-                    sample->getPTransform3D();
+                    sample->getTransform3D();
             if (p_transformation) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
@@ -258,7 +258,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
                                       m_sampleModel->indexOfItem(parent));
         bool has_position_info = m_sample_encountered[
                 Constants::TransformationType];
-        const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
+        const Geometry::Transform3D *p_transformation = sample->getTransform3D();
         if (has_position_info || p_transformation) {
             ParameterizedItem *transformation_item =
                 m_sampleModel->insertNewItem(Constants::TransformationType,

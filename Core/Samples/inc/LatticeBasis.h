@@ -42,7 +42,7 @@ public:
     void addParticle(const IParticle& particle,
                      std::vector<kvector_t > positions);
 
-    virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
     virtual IFormFactor* createFormFactor(

@@ -40,7 +40,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
 {
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core,
             m_relative_core_position);
-    p_new->setAmbientMaterial(getAmbientMaterial());
+    p_new->setAmbientMaterial(*getAmbientMaterial());
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
@@ -53,7 +53,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     ParticleCoreShell *p_new = new ParticleCoreShell(m_relative_core_position);
     p_new->mp_shell = this->mp_shell->cloneInvertB();
     p_new->mp_core = this->mp_core->cloneInvertB();
-    p_new->setAmbientMaterial( Materials::createInvertedMaterial(getAmbientMaterial()) );
+    p_new->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
@@ -61,10 +61,10 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_new;
 }
 
-void ParticleCoreShell::setAmbientMaterial(const IMaterial* p_material)
+void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
 {
-    mp_shell->setAmbientMaterial(p_material);
-    mp_core->setAmbientMaterial(p_material);
+    mp_shell->setAmbientMaterial(material);
+    mp_core->setAmbientMaterial(material);
 }
 
 const IMaterial *ParticleCoreShell::getAmbientMaterial() const
@@ -76,17 +76,20 @@ const IMaterial *ParticleCoreShell::getAmbientMaterial() const
 IFormFactor *ParticleCoreShell::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
+    if (mp_core==0 || mp_shell==0) return 0;
     FormFactorWeighted *p_result = new FormFactorWeighted;
     kvector_t zero_vector;
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_shell(
             getTransformedFormFactor(mp_shell, wavevector_scattering_factor,
                                      zero_vector) );
-    P_ff_shell->setAmbientMaterial(getAmbientMaterial());
+    if (P_ff_shell.get()==0) return 0;
+    P_ff_shell->setAmbientMaterial(*getAmbientMaterial());
     p_result->addFormFactor(*P_ff_shell, 1.0);
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_core(
             getTransformedFormFactor(mp_core, wavevector_scattering_factor,
                                      m_relative_core_position) );
-    P_ff_core->setAmbientMaterial(mp_shell->getMaterial());
+    if (P_ff_core.get()==0) return 0;
+    P_ff_core->setAmbientMaterial(*mp_shell->getMaterial());
     p_result->addFormFactor(*P_ff_core, 1.0);
     return p_result;
 }
@@ -135,7 +138,8 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
         Particle *p_particle, complex_t wavevector_scattering_factor,
         kvector_t position) const
 {
-    const Geometry::Transform3D *p_transform = p_particle->getPTransform3D();
+    if (p_particle->getFormFactor() == 0) return 0;
+    const Geometry::Transform3D *p_transform = p_particle->getTransform3D();
     IFormFactor *p_transf_ff = 0;
     if (p_transform) {
         p_transf_ff = new FormFactorDecoratorTransformation(

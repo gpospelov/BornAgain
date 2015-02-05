@@ -42,8 +42,8 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material) {
-        (void)p_material;
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        (void)material;
     }
 
     //! Returns particle's material.
@@ -56,7 +56,7 @@ public:
             complex_t wavevector_scattering_factor) const=0;
 
     //! Returns transformation.
-    const Geometry::Transform3D *getPTransform3D() const {
+    const Geometry::Transform3D *getTransform3D() const {
         return mP_transform.get();
     }
 

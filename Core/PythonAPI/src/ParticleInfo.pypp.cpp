@@ -337,6 +337,16 @@ void register_ParticleInfo_class(){
                 , ( bp::arg("abundance") ) );
         
         }
+        { //::ParticleInfo::setAmbientMaterial
+        
+            typedef void ( ::ParticleInfo::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            ParticleInfo_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type( &::ParticleInfo::setAmbientMaterial )
+                , ( bp::arg("material") ) );
+        
+        }
         { //::ParticleInfo::setDepth
         
             typedef void ( ::ParticleInfo::*setDepth_function_type)( double ) ;

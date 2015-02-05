@@ -85,6 +85,18 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ParticleDistribution::getAmbientMaterial( );
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->ParticleDistribution::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        ParticleDistribution::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -362,6 +374,18 @@ void register_ParticleDistribution_class(){
             ParticleDistribution_exposer.def( 
                 "getParameterDistribution"
                 , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
+        
+        }
+        { //::ParticleDistribution::setAmbientMaterial
+        
+            typedef void ( ::ParticleDistribution::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            ParticleDistribution_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::ParticleDistribution::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&ParticleDistribution_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::applyTransformation

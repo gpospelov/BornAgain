@@ -16,7 +16,7 @@ protected:
 };
 
 
-TEST_F(ParticleTest, ParticleInitialState)
+TEST_F(ParticleTest, InitialState)
 {
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
@@ -26,7 +26,7 @@ TEST_F(ParticleTest, ParticleInitialState)
     EXPECT_EQ("Particle", particle.getName());
 }
 
-TEST_F(ParticleTest, ParticleClone)
+TEST_F(ParticleTest, Clone)
 {
     Particle particle;
     Particle *particle2 = particle.clone();
@@ -38,13 +38,19 @@ TEST_F(ParticleTest, ParticleClone)
     delete particle2;
 }
 
-TEST_F(ParticleTest, ParticleCloneInvertB)
+TEST_F(ParticleTest, CloneInvertB)
 {
     Particle particle;
-    ASSERT_THROW(particle.cloneInvertB(), NullPointerException);
+    Particle *particle2 = particle.cloneInvertB();
+    EXPECT_EQ(NULL, particle2->getMaterial());
+    EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
+    EXPECT_EQ(NULL, particle2->getFormFactor());
+    EXPECT_EQ(NULL, particle2->createFormFactor(1.0));
+    EXPECT_EQ("Particle_inv", particle2->getName());
+    delete particle2;
 }
 
-TEST_F(ParticleTest, ParticleConstructors)
+TEST_F(ParticleTest, Constructors)
 {
     HomogeneousMaterial mat("Air",0,0);
 
@@ -53,7 +59,7 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
-    EXPECT_EQ( NULL, p1->getPTransform3D());
+    EXPECT_EQ( NULL, p1->getTransform3D());
 
     delete p1;
 
@@ -81,7 +87,7 @@ TEST_F(ParticleTest, ParticleConstructors)
     delete p4;
 }
 
-TEST_F(ParticleTest, ParticleTransform)
+TEST_F(ParticleTest, Transform)
 {
     HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere sphere(1.0);
@@ -91,9 +97,9 @@ TEST_F(ParticleTest, ParticleTransform)
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 
-    EXPECT_TRUE(NULL != particle->getPTransform3D());
+    EXPECT_TRUE(NULL != particle->getTransform3D());
 
-    const Geometry::Transform3D * rZ3D  = particle->getPTransform3D();
+    const Geometry::Transform3D * rZ3D  = particle->getTransform3D();
     EXPECT_TRUE( NULL != rZ3D);
 
     const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
@@ -112,7 +118,7 @@ TEST_F(ParticleTest, SetParam)
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
     EXPECT_EQ(NULL, particle.getFormFactor());
-    EXPECT_EQ(NULL, particle.getPTransform3D());
+    EXPECT_EQ(NULL, particle.getTransform3D());
 
     particle.setMaterial(&mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
@@ -123,8 +129,8 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
     particle.setTransformation(transform);
-    EXPECT_TRUE(NULL != particle.getPTransform3D());
-    const Geometry::Transform3D * rY3D  = particle.getPTransform3D();
+    EXPECT_TRUE(NULL != particle.getTransform3D());
+    const Geometry::Transform3D * rY3D  = particle.getTransform3D();
     EXPECT_TRUE( NULL != rY3D);
     const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
     EXPECT_TRUE(NULL!=rY3D2);
@@ -135,7 +141,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
     EXPECT_TRUE(NULL != particle2->getFormFactor());
     EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
-    EXPECT_TRUE(NULL != particle2->getPTransform3D());
+    EXPECT_TRUE(NULL != particle2->getTransform3D());
 
     delete particle2;
 }

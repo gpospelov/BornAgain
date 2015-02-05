@@ -320,6 +320,18 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         }
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -638,6 +650,18 @@ void register_FormFactorPyramid_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorPyramid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IFormFactor::setAmbientMaterial
+        
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorPyramid_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            FormFactorPyramid_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorPyramid_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::setParameterValue

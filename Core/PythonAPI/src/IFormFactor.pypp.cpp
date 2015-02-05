@@ -95,6 +95,18 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return IFormFactor::getVolume( );
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -354,6 +366,18 @@ void register_IFormFactor_class(){
                 "getVolume"
                 , getVolume_function_type(&::IFormFactor::getVolume)
                 , default_getVolume_function_type(&IFormFactor_wrapper::default_getVolume) );
+        
+        }
+        { //::IFormFactor::setAmbientMaterial
+        
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IFormFactor_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            IFormFactor_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IFormFactor_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged

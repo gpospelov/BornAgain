@@ -41,8 +41,8 @@ public:
 
     //! Passes the refractive index of the ambient material in which this
     //! particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial *p_material) {
-        (void)p_material;
+    virtual void setAmbientMaterial(const IMaterial& material) {
+        (void)material;
     }
 
     //! Returns scattering amplitude for complex wavevector bin

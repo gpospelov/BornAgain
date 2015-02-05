@@ -67,6 +67,18 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_getAmbientMaterial(  );
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IParticle::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IParticle::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
             func_setTransformation( boost::ref(transform) );
@@ -339,14 +351,26 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getPTransform3D
+        { //::IParticle::getTransform3D
         
-            typedef ::Geometry::Transform3D const * ( ::IParticle::*getPTransform3D_function_type)(  ) const;
+            typedef ::Geometry::Transform3D const * ( ::IParticle::*getTransform3D_function_type)(  ) const;
             
             IParticle_exposer.def( 
-                "getPTransform3D"
-                , getPTransform3D_function_type( &::IParticle::getPTransform3D )
+                "getTransform3D"
+                , getTransform3D_function_type( &::IParticle::getTransform3D )
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IParticle::setAmbientMaterial
+        
+            typedef void ( ::IParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            IParticle_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IParticle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::setTransformation

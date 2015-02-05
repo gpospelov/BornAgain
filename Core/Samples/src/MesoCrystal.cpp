@@ -61,10 +61,9 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     return p_result;
 }
 
-void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
+void MesoCrystal::setAmbientMaterial(const IMaterial& material)
 {
-    if(!p_material) return;
-    mp_particle_structure->setAmbientMaterial(p_material);
+    mp_particle_structure->setAmbientMaterial(material);
 }
 
 const IMaterial *MesoCrystal::getAmbientMaterial() const

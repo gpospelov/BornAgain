@@ -150,7 +150,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<IParticle> P_particle_clone(p_particle_info->
             getParticle()->clone());
-    P_particle_clone->setAmbientMaterial(p_ambient_material);
+    P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
     IFormFactor *p_ff_particle=0;

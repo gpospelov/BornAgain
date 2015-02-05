@@ -47,11 +47,11 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material)
+    virtual void setAmbientMaterial(const IMaterial& material)
     {
-        if(p_material) {
+        if(mp_ambient_material != &material) {
             delete mp_ambient_material;
-            mp_ambient_material = p_material->clone();
+            mp_ambient_material = material.clone();
         }
     }
 

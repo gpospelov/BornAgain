@@ -338,11 +338,11 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
     {
         const Particle *particle = it4->first;
 
-        if(particle->getPTransform3D())
+        if(particle->getTransform3D())
         {
             double alpha, beta, gamma;
-            particle->getPTransform3D()->calculateEulerAngles(&alpha,&beta,&gamma);
-            switch (particle->getPTransform3D()->getRotationType()) {
+            particle->getTransform3D()->calculateEulerAngles(&alpha,&beta,&gamma);
+            switch (particle->getTransform3D()->getRotationType()) {
             case 1:
                 result << "\t" << it4->second
                        << "_rotation = Transform3D.createRotateX("
@@ -367,7 +367,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
                << " = Particle(" << m_label->getLabel(particle->getMaterial());
 //               << "," << m_label->getLabel(particle->getSimpleFormFactor());
 
-        if (particle->getPTransform3D())
+        if (particle->getTransform3D())
         {
             result << "," << it4->second << "_rotation";
         }

@@ -29,7 +29,6 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialState)
     EXPECT_EQ(1.0, particleInfo.getDepth());
     EXPECT_EQ(2.0, particleInfo.getAbundance());
 
-
     ParticleInfo particleInfo2(particle,2.0,3.0);
 
     EXPECT_EQ(2.0, particleInfo2.getDepth());
@@ -84,17 +83,11 @@ TEST_F(ParticleInfoTest , ParticleInfoClone)
     EXPECT_EQ(clone->getParticle()->getName(), original.getParticle()->getName());
 
     delete clone;
-
 }
 
 
-TEST_F(ParticleInfoTest , ParticleInfoInvertClone)
+TEST_F(ParticleInfoTest , ParticleInfoCloneInvertB)
 {
-    //[ERROR: if the material is not set]
-    Particle particle;
-    ParticleInfo particle_info(particle, 1.0,2.0);
-    ASSERT_THROW(particle_info.cloneInvertB(), NullPointerException);
-
     HomogeneousMaterial mat("Air",0,0);
     Particle particle2(mat);
     ParticleInfo particle_info2(particle2, 1.0,2.0);
@@ -105,7 +98,6 @@ TEST_F(ParticleInfoTest , ParticleInfoInvertClone)
     EXPECT_EQ(clone->getParticle()->getName(), particle2.getName()+"_inv");
 
     delete clone;
-
 }
 
 

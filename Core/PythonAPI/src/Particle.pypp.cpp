@@ -142,6 +142,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         Particle::setAmbientMaterial( boost::ref(material) );
     }
 
+    virtual void setMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
+            func_setMaterial( boost::ref(material) );
+        else{
+            this->Particle::setMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setMaterial( ::IMaterial const & material ) {
+        Particle::setMaterial( boost::ref(material) );
+    }
+
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -468,6 +480,18 @@ void register_Particle_class(){
                 "setFormFactor"
                 , setFormFactor_function_type( &::Particle::setFormFactor )
                 , ( bp::arg("form_factor") ) );
+        
+        }
+        { //::Particle::setMaterial
+        
+            typedef void ( ::Particle::*setMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Particle_wrapper::*default_setMaterial_function_type)( ::IMaterial const & ) ;
+            
+            Particle_exposer.def( 
+                "setMaterial"
+                , setMaterial_function_type(&::Particle::setMaterial)
+                , default_setMaterial_function_type(&Particle_wrapper::default_setMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::applyTransformation

@@ -48,7 +48,7 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 
     FormFactorDecoratorMaterial *p_material_ff =
             new FormFactorDecoratorMaterial(new FormFactorCylinder(1.0, 1.0));
-    p_material_ff->setMaterial(&particle_material);
+    p_material_ff->setMaterial(particle_material);
     p_material_ff->setAmbientMaterial(ambient_material);
     mp_matrix_ff = new FormFactorDWBAPol(p_material_ff);
     mp_scalar_ff = new FormFactorDWBA(p_material_ff->clone());

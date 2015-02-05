@@ -72,7 +72,7 @@ Particle* Particle::clone() const
     Particle *result = new Particle();
 
     if(mp_form_factor) result->setFormFactor(*mp_form_factor);
-    result->setMaterial(mp_material);
+    result->setMaterial(*mp_material);
     result->setAmbientMaterial(*mp_ambient_material);
     if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
     result->setName(getName());
@@ -109,9 +109,9 @@ IFormFactor* Particle::createFormFactor(
     if (mP_transform.get()) {
         boost::scoped_ptr<const IMaterial> transformed_material(mp_material->
                 createTransformedMaterial(*mP_transform));
-        p_ff->setMaterial(transformed_material.get());
+        p_ff->setMaterial(*transformed_material);
     } else {
-        p_ff->setMaterial(mp_material);
+        p_ff->setMaterial(*mp_material);
     }
     p_ff->setAmbientMaterial(*mp_ambient_material);
     return p_ff;

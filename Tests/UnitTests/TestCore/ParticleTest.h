@@ -120,7 +120,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(NULL, particle.getFormFactor());
     EXPECT_EQ(NULL, particle.getTransform3D());
 
-    particle.setMaterial(&mat);
+    particle.setMaterial(mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle.getRefractiveIndex());
 

@@ -44,7 +44,7 @@ public:
     virtual Layer *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
@@ -53,10 +53,10 @@ public:
     virtual double getThickness() const { return m_thickness; }
 
     //! Sets _material_ of the layer.
-    virtual void setMaterial(const IMaterial &material);
+    virtual void setMaterial(const IMaterial& material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterialAndThickness(const IMaterial &material,
+    virtual void setMaterialAndThickness(const IMaterial& material,
                                          double thickness);
 
     //! Returns layer's material.
@@ -66,7 +66,7 @@ public:
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle layout
-    virtual void addLayout(const ILayout &decoration);
+    virtual void addLayout(const ILayout& decoration);
 
     //! gets number of layouts present
     size_t getNumberOfLayouts() const {
@@ -109,7 +109,7 @@ protected:
     void print(std::ostream& ostr) const;
 
     //! adds particle layout (separate pointer version due to python-bindings)
-    virtual void addLayoutPtr(ILayout *layout);
+    virtual void addLayoutPtr(ILayout* layout);
 
     double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material

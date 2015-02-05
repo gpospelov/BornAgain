@@ -162,9 +162,9 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
     if (p_transform) {
         boost::scoped_ptr<const IMaterial> transformed_material(p_particle->
                 getMaterial()->createTransformedMaterial(*p_transform));
-        p_ff_result->setMaterial(transformed_material.get());
+        p_ff_result->setMaterial(*transformed_material);
     } else {
-        p_ff_result->setMaterial(p_particle->getMaterial());
+        p_ff_result->setMaterial(*p_particle->getMaterial());
     }
     return p_ff_result;
 }

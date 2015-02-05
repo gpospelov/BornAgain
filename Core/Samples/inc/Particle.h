@@ -65,10 +65,10 @@ public:
             complex_t wavevector_scattering_factor) const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) {
+    virtual void setMaterial(const IMaterial& material) {
+        if(mp_material != &material) {
             delete mp_material;
-            mp_material = p_material->clone();
+            mp_material = material.clone();
         }
     }
 

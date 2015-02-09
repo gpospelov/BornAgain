@@ -52,7 +52,7 @@ public slots:
 //    void onJobItemFinished(const QString &identifier);
     void togglePropertyPanel();
     void toggleProjections();
-    void resetTriggered();
+    void onResetView();
     void savePlot();
     void onActivityChanged(int);
 

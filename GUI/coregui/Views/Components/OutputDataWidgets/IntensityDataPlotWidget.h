@@ -38,6 +38,7 @@ public:
 
 public slots:
     void onSplitterMoved(int pos, int index);
+    void resetView();
 
 private slots:
     void onPropertyChanged(const QString &property_name);

@@ -189,10 +189,10 @@ void JobOutputDataWidget::toggleProjections()
 }
 
 
-void JobOutputDataWidget::resetTriggered()
+void JobOutputDataWidget::onResetView()
 {
     IntensityDataWidget *widget = getCurrentOutputDataWidget();
-    if(widget) widget->resetTriggered();
+    if(widget) widget->onResetView();
 }
 
 
@@ -221,7 +221,7 @@ void JobOutputDataWidget::connectSignals()
     connect(m_toolBar, SIGNAL(jobViewActivityRequest(int)), this, SIGNAL(jobViewActivityRequest(int)));
     connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
     connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
-    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(resetTriggered()));
+    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));
     connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
 }
 

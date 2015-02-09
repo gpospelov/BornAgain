@@ -39,6 +39,7 @@ public:
 
 public slots:
     void setLogz(bool logz, bool isReplot = true);
+    void resetView();
 
 private slots:
     void onPropertyChanged(const QString &property_name);

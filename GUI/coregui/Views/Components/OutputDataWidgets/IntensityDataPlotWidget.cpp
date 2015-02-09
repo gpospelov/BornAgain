@@ -109,6 +109,11 @@ void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
     }
 }
 
+void IntensityDataPlotWidget::resetView()
+{
+    m_centralPlot->resetView();
+}
+
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
 {
     qDebug() << "IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)" << property_name;

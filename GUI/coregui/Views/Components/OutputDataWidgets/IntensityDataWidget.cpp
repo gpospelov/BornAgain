@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IntensityDataWidget.h"
-//#include "PlotWidget.h"
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
 #include "projectmanager.h"
@@ -35,9 +34,6 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setObjectName(QLatin1String("IntensityDataWidget"));
 
     m_plotWidget = new IntensityDataPlotWidget(this);
-//    m_plotWidget = new PlotWidget(0);
-//    connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
-//    connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
 
     m_propertyWidget = new IntensityDataPropertyWidget(this);
 
@@ -104,11 +100,10 @@ void IntensityDataWidget::toggleProjections()
 //    m_propertyWidget->toggleProjections();
 }
 
-void IntensityDataWidget::resetTriggered()
+void IntensityDataWidget::onResetView()
 {
     qDebug() << "OutputDataWidget::resetTriggered()";
-    Q_ASSERT(0);
-//    m_plotWidget->resetTriggered();
+    m_plotWidget->resetView();
 }
 
 void IntensityDataWidget::savePlot()

@@ -70,6 +70,23 @@ void ColorMapPlot::setLogz(bool logz, bool isReplot)
         m_customPlot->replot();
 }
 
+void ColorMapPlot::resetView()
+{
+    m_block_update = true;
+    qDebug() << "ColorMapPlot::resetView()";
+    m_colorMap->rescaleAxes();
+
+
+    QCPRange newDataRange = calculateDataRange(m_item);
+    qDebug() << "XXX " << newDataRange.lower << newDataRange.upper;
+    m_colorMap->setDataRange(newDataRange);
+//    m_colorScale->setDataRange(newDataRange);
+
+
+    m_customPlot->replot();
+    m_block_update = false;
+}
+
 void ColorMapPlot::onPropertyChanged(const QString &property_name)
 {
     qDebug() << "ColorMapPlot::onPropertyChanged(const QString &property_name)" << property_name;
@@ -79,6 +96,27 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         qDebug() << "XXX" << m_gradient_map.size() << m_item->getGradient();
         m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
         m_customPlot->replot();
+    } else if(property_name == NIntensityDataItem::P_IS_LOGZ) {
+        setLogz(m_item->isLogz());
+    } else if(property_name == NIntensityDataItem::P_IS_INTERPOLATED) {
+        m_colorMap->setInterpolate(m_item->isInterpolated());
+        m_customPlot->replot();
+    } else if(property_name == NIntensityDataItem::P_ZAXIS_MIN) {
+        QCPRange range = m_colorMap->dataRange();
+        double zmin = m_item->getZaxisMin();
+        if(zmin != range.lower) {
+            range.lower = zmin;
+            m_colorMap->setDataRange(range);
+            m_customPlot->replot();
+        }
+    } else if(property_name == NIntensityDataItem::P_ZAXIS_MAX) {
+        QCPRange range = m_colorMap->dataRange();
+        double zmax = m_item->getZaxisMax();
+        if(zmax != range.upper) {
+            range.upper = zmax;
+            m_colorMap->setDataRange(range);
+            m_customPlot->replot();
+        }
     }
 }
 
@@ -150,11 +188,6 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
         throw NullPointerException("CustomCanvas::Draw() -> Error. Zero pointer to the data to draw");
     }
 
-    OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
-    OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
-
-    qDebug() << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max);
-
     m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     m_customPlot->axisRect()->setupFullAxesBox(true);
     m_customPlot->xAxis->setLabel(intensityItem->getXaxisTitle());
@@ -186,9 +219,6 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 
-    // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
-    m_colorMap->rescaleDataRange();
-
     QCPRange newDataRange = calculateDataRange(intensityItem);
     m_colorMap->setDataRange(newDataRange);
     intensityItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
@@ -197,7 +227,6 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
     QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
     m_customPlot->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
     m_colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
-   // m_colorScaleRange = m_colorScale->dataRange();
 
     // rescale the key (x) and value (y) axes so the whole color map is visible:
     m_customPlot->rescaleAxes();
@@ -208,24 +237,20 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
 
 QCPRange ColorMapPlot::calculateDataRange(NIntensityDataItem *intensityItem)
 {
-    if(!m_colorMap) {
-        return QCPRange(0, 0);
-    }
-
-    QCPRange dataRange  = m_colorMap->dataRange();
-    double min(dataRange.lower), max(dataRange.upper);
-
+    const OutputData<double> *data = intensityItem->getOutputData();
+    OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
+    OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
+    double min(*it_min), max(*it_max);
     if(intensityItem->isLogz()) {
         if(max>10000) {
             min = 1.0;
             max = max*1.1;
         } else {
-            max = max*1.1;
             min = max/10000;
+            max = max*1.1;
         }
     } else {
-        min = dataRange.lower;
-        max = dataRange.upper*1.1;
+        max = max*1.1;
     }
     return QCPRange(min, max);
 }

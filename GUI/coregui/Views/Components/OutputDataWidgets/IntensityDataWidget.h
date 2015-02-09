@@ -36,7 +36,7 @@ public:
 
 public slots:
 
-    void resetTriggered();
+    void onResetView();
     void togglePropertyPanel();
     void savePlot();
     void toggleProjections();

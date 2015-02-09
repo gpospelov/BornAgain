@@ -113,7 +113,7 @@ void UniversalPropertyEditor::slotValueChanged(QtProperty *property,
         if (item_index_pair.m_index > prop_list.length()) {
             return;
         }
-        qDebug() << "setting ..." << prop_list[item_index_pair.m_index].constData();
+        qDebug() << "UniversalPropertyEditor::slotValueChanged() -> setting ..." << prop_list[item_index_pair.m_index].constData();
         item_index_pair.m_item->setProperty(
             prop_list[item_index_pair.m_index].constData(), value);
     }

@@ -30,6 +30,7 @@ const QString NIntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
 const QString NIntensityDataItem::P_XAXIS_TITLE = "x-title";
 const QString NIntensityDataItem::P_YAXIS_TITLE = "y-title";
 const QString NIntensityDataItem::P_AXES_UNITS = "Axes Units";
+const QString NIntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
 
 NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
@@ -44,15 +45,22 @@ NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_ZAXIS_MAX, 0.0);
 
     ComboProperty gradient;
-    gradient << "Grayscale" << "Hot" << "Cold" << "Night" << "Candy" << "Geography"
-              << "Ion" << "Thermal" << "Polar" << "Spectrum" << "Jet" << "Hues";
+
+    gradient << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT
+             << Constants::GRADIENT_COLD << Constants::GRADIENT_NIGHT
+             << Constants::GRADIENT_CANDY << Constants::GRADIENT_GEOGRAPHY
+             << Constants::GRADIENT_ION << Constants::GRADIENT_THERMAL
+             << Constants::GRADIENT_POLAR << Constants::GRADIENT_SPECTRUM
+             << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
+    gradient.setValue(Constants::GRADIENT_POLAR);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
     registerProperty(P_IS_LOGZ, true);
     registerProperty(P_IS_INTERPOLATED, true);
     registerProperty(P_XAXIS_TITLE, QString("x-axis"));
     registerProperty(P_YAXIS_TITLE, QString("y-axis"));
-    registerProperty(P_AXES_UNITS, AngleProperty::Degrees());
+    registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_PROPERTY_PANEL_FLAG, true, PropertyAttribute(PropertyAttribute::HIDDEN));
 
 }
 
@@ -108,6 +116,11 @@ double NIntensityDataItem::getZaxisMin() const
 double NIntensityDataItem::getZaxisMax() const
 {
     return getRegisteredProperty(P_ZAXIS_MAX).toDouble();
+}
+
+QString NIntensityDataItem::getGradient() const
+{
+    return getRegisteredProperty(P_GRADIENT).toString();
 }
 
 bool NIntensityDataItem::isLogz() const

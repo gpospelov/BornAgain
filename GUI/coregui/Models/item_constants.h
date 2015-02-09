@@ -130,6 +130,19 @@ const ModelType STATUS_COMPLETED = "Completed";
 const ModelType STATUS_CANCELED = "Canceled";
 const ModelType STATUS_FAILED = "Failed";
 
+const ModelType GRADIENT_GRAYSCALE = "Grayscale";
+const ModelType GRADIENT_HOT = "Hot";
+const ModelType GRADIENT_COLD = "Cold";
+const ModelType GRADIENT_NIGHT = "Night";
+const ModelType GRADIENT_CANDY = "Candy";
+const ModelType GRADIENT_GEOGRAPHY = "Geography";
+const ModelType GRADIENT_ION = "Ion";
+const ModelType GRADIENT_THERMAL = "Thermal";
+const ModelType GRADIENT_POLAR = "Polar";
+const ModelType GRADIENT_SPECTRUM = "Spectrum";
+const ModelType GRADIENT_JET = "Jet";
+const ModelType GRADIENT_HUES = "Hues";
+
 }
 
 

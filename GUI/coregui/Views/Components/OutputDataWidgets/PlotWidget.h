@@ -19,6 +19,7 @@
 #include "NIntensityDataItem.h"
 #include "centralplot.h"
 #include <QWidget>
+#include <QMap>
 #include <QSplitter>
 #include <QMouseEvent>
 
@@ -52,7 +53,7 @@ public slots:
     void resetTriggered();
     void savePlot();
     void projectionsChanged(bool projection);
-    void gradientChanged(QCPColorGradient gradient);
+//    void gradientChanged(QCPColorGradient gradient);
 
 private slots:
     void mousePress(QMouseEvent*event);
@@ -74,7 +75,6 @@ private:
     HistogramPlot *m_horizontalPlot;
     QLabel *m_statusLabel;
     NIntensityDataItem *m_outputDataItem;
-    QCPColorGradient m_gradient;
 
     QAction *m_propertyPanelAction;
     QAction *m_projectionsAction;

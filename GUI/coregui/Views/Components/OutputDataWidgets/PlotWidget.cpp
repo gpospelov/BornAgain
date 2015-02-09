@@ -19,6 +19,7 @@
 #include "projectmanager.h"
 #include "minisplitter.h"
 #include "projectdocument.h"
+#include "item_constants.h"
 #include <QVBoxLayout>
 
 
@@ -35,7 +36,7 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
 {
     this->setObjectName(QStringLiteral("plotWidget"));
 
-    m_gradient = QCPColorGradient::gpPolar;
+
     m_isPropertyWidgetVisible = true;
     histogramSize = 150;
     //int horizontalHeight = histogramSize-15;
@@ -43,8 +44,6 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     QWidget * emptyWidget = new QWidget();
     //emptyWidget->setMaximumSize(histogramSize, histogramSize);
     //emptyWidget->setStyleSheet("background-color:white;");
-
-
 
     m_splitterTop = new QSplitter(this);
     m_splitterTop->addWidget(m_verticalPlot);
@@ -217,7 +216,7 @@ void PlotWidget::drawPlot(NIntensityDataItem *outputDataItem)
         m_block_plot_update = true;
         qDebug() << "PlotWidget::drawPlot called";
 
-        m_centralPlot->drawPlot(outputDataItem, m_gradient);
+        m_centralPlot->drawPlot(outputDataItem);
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
         //m_propertyWidget->setupPropertyWidget(outputDataItem, m_gradient);
@@ -260,7 +259,7 @@ void PlotWidget::updatePlot()
 void PlotWidget::updateIntensity()
 {
     qDebug() << "PlotWidget::updateIntensity()";
-    m_centralPlot->drawPlot(m_outputDataItem, m_gradient);
+    m_centralPlot->drawPlot(m_outputDataItem);
 }
 
 
@@ -406,12 +405,12 @@ void PlotWidget::showProjectsions(bool visible)
     m_centralPlot->showLinesOverMap(visible);
 }
 
-void PlotWidget::gradientChanged(QCPColorGradient gradient)
-{
-    m_gradient = gradient;
-    m_centralPlot->setGradient(gradient);
+//void PlotWidget::gradientChanged(QCPColorGradient gradient)
+//{
+//    Q_ASSERT(m_outputDataItem);
+//    //m_centralPlot->setGradient(m_gradient_map[m_outputDataItem->getGradient()]);
 
-}
+//}
 
 void PlotWidget::onXaxisRangeChanged(QCPRange newRange)
 {

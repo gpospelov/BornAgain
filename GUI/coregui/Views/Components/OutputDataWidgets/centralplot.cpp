@@ -28,6 +28,20 @@ CentralPlot::CentralPlot()
 {
     this->setObjectName(QStringLiteral("centralPlot"));
 
+    m_gradient_map[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
+    m_gradient_map[Constants::GRADIENT_HOT] = QCPColorGradient::gpHot;
+    m_gradient_map[Constants::GRADIENT_COLD] = QCPColorGradient::gpCold;
+    m_gradient_map[Constants::GRADIENT_NIGHT] = QCPColorGradient::gpNight;
+    m_gradient_map[Constants::GRADIENT_CANDY] = QCPColorGradient::gpCandy;
+    m_gradient_map[Constants::GRADIENT_GEOGRAPHY] = QCPColorGradient::gpGeography;
+    m_gradient_map[Constants::GRADIENT_ION] = QCPColorGradient::gpIon;
+    m_gradient_map[Constants::GRADIENT_THERMAL] = QCPColorGradient::gpThermal;
+    m_gradient_map[Constants::GRADIENT_POLAR] = QCPColorGradient::gpPolar;
+    m_gradient_map[Constants::GRADIENT_SPECTRUM] = QCPColorGradient::gpSpectrum;
+    m_gradient_map[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
+    m_gradient_map[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
+
+
     m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
     this->addPlottable(m_colorMap);
 
@@ -236,7 +250,7 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 }
 
 
-void CentralPlot::drawPlot(NIntensityDataItem *outputDataItem, QCPColorGradient gradient)
+void CentralPlot::drawPlot(NIntensityDataItem *outputDataItem)
 {
     Q_ASSERT(outputDataItem);
     qDebug() << "CentralPlot::drawPlot";
@@ -290,7 +304,8 @@ void CentralPlot::drawPlot(NIntensityDataItem *outputDataItem, QCPColorGradient 
 
     this->setLogz(outputDataItem->isLogz(), false);
 
-    m_colorMap->setGradient(gradient);
+
+    m_colorMap->setGradient(m_gradient_map[outputDataItem->getGradient()]);
 
 
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:

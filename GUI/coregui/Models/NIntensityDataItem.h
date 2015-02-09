@@ -36,6 +36,7 @@ public:
     static const QString P_XAXIS_TITLE;
     static const QString P_YAXIS_TITLE;
     static const QString P_AXES_UNITS;
+    static const QString P_PROPERTY_PANEL_FLAG;
 
     explicit NIntensityDataItem(ParameterizedItem *parent=0);
     ~NIntensityDataItem();
@@ -49,6 +50,7 @@ public:
     double getYaxisMax() const;
     double getZaxisMin() const;
     double getZaxisMax() const;
+    QString getGradient() const;
     bool isLogz() const;
     bool isInterpolated() const;
     QString getXaxisTitle() const;

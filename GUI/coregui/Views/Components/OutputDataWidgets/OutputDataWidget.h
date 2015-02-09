@@ -23,9 +23,10 @@
 #include "NIntensityDataItem.h"
 
 class PlotWidget;
-class PropertyWidget;
+//class PropertyWidget;
 class OutputDataToolBar;
 class ProjectManager;
+class IntensityDataPropertyWidget;
 
 
 class BA_CORE_API_ OutputDataWidget : public QWidget
@@ -44,7 +45,6 @@ public slots:
     void savePlot();
     void toggleProjections();
     void projectionsChanged(bool projection);
-    void gradientChanged(QCPColorGradient gradient);
     void setPropertyPanelVisible(bool visible);
 
 private:
@@ -54,9 +54,8 @@ private:
     const OutputData<double > *m_data;
     ProjectManager *m_projectManager;
 
-    PropertyWidget *m_propertyWidget;
+    IntensityDataPropertyWidget *m_propertyWidget;
     OutputDataToolBar *m_toolBar;
-    QCPColorGradient m_gradient;
     NIntensityDataItem *m_currentOutputDataItem;
     QVBoxLayout *m_mainLayout;
     QHBoxLayout *m_layout;

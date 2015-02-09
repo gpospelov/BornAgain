@@ -15,7 +15,8 @@
 
 #include "OutputDataWidget.h"
 #include "PlotWidget.h"
-#include "PropertyWidget.h"
+//#include "PropertyWidget.h"
+#include "IntensityDataPropertyWidget.h"
 #include "OutputDataToolBar.h"
 #include "projectmanager.h"
 #include <QVBoxLayout>
@@ -29,7 +30,6 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
     , m_data(0)
     , m_propertyWidget(0)
     , m_toolBar(0)
-    , m_gradient(QCPColorGradient::gpPolar)
     , m_currentOutputDataItem(0)
     , m_isProjectionsVisible(isProjections)
 
@@ -45,7 +45,6 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 //    setStyleSheet("background-color:white;");
 
 
-
     m_plotWidget = new PlotWidget(0, true, m_isProjectionsVisible);
     connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
     connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
@@ -55,9 +54,10 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 //    m_splitter->setStyleSheet("background-color:white;");
 //    m_splitter->addWidget(m_plotWidget);
 
-    m_propertyWidget = new PropertyWidget(this, m_isProjectionsVisible);
-    connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
-    connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+//    m_propertyWidget = new PropertyWidget(this, m_isProjectionsVisible);
+//    connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
+//    connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+    m_propertyWidget = new IntensityDataPropertyWidget(this);
 
     //m_splitter->addWidget(m_propertyWidget);
     //connect(m_splitter, SIGNAL(splitterMoved(int,int)), this, SLOT(onPropertySplitterMoved(int,int)));
@@ -98,7 +98,8 @@ void OutputDataWidget::setCurrentItem(NIntensityDataItem *item)
 
     m_plotWidget->drawPlot(item);
 
-    m_propertyWidget->updateData(item, m_gradient);
+    m_propertyWidget->setItem(item);
+//    m_propertyWidget->updateData(item, m_gradient);
 
 
     //connectPropertyWidgetSignals(isPropertyWidgetVisible);
@@ -129,23 +130,26 @@ void OutputDataWidget::connectToobarSignals()
 
 void OutputDataWidget::togglePropertyPanel()
 {
-    //qDebug() << "OutputDataWidget::togglePropertyPanel()";
+    qDebug() << "OutputDataWidget::togglePropertyPanel()";
     setPropertyPanelVisible(!m_propertyWidget->isVisible());
-
 }
 
 void OutputDataWidget::setPropertyPanelVisible(bool visible)
 {
+    qDebug() << "OutputDataWidget::setPropertyPanelVisible(bool visible)";
+
     //int width = 0;
     if(visible)
     {
         //width = m_propertyWidget->getWidth();
-        m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
+//        m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
+        m_propertyWidget->setItem(m_currentOutputDataItem);
     }
     else
     {
         //width = 0;
-        m_propertyWidget->updateData(0);
+//        m_propertyWidget->updateData(0);
+        m_propertyWidget->setItem(0);
     }
     m_propertyWidget->setVisible(visible);
     m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
@@ -180,12 +184,16 @@ void OutputDataWidget::setPropertyPanelVisible(bool visible)
 
 void OutputDataWidget::toggleProjections()
 {
-    m_propertyWidget->toggleProjections();
+    qDebug() << "OutputDataWidget::toggleProjections()";
+    Q_ASSERT(0);
+//    m_propertyWidget->toggleProjections();
 }
 
 void OutputDataWidget::resetTriggered()
 {
-    m_plotWidget->resetTriggered();
+    qDebug() << "OutputDataWidget::resetTriggered()";
+    Q_ASSERT(0);
+//    m_plotWidget->resetTriggered();
 }
 
 void OutputDataWidget::savePlot()
@@ -197,6 +205,8 @@ void OutputDataWidget::savePlot()
 
 void OutputDataWidget::projectionsChanged(bool projection)
 {
+    qDebug() << "OutputDataWidget::projectionsChanged(bool projection)";
+    Q_ASSERT(0);
     if(m_isProjectionsVisible == projection)
     {
         return;
@@ -204,17 +214,23 @@ void OutputDataWidget::projectionsChanged(bool projection)
 
     m_isProjectionsVisible = projection;
     m_plotWidget->projectionsChanged(projection);
-    m_propertyWidget->setProjections(projection);
-}
-
-void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
-{
-    m_gradient = gradient;
-    m_plotWidget->gradientChanged(gradient);
-
+//    m_propertyWidget->setProjections(projection);
 }
 
 
 
 
+//if(item != m_currentItem) {
+//    if(m_currentItem) {
+//        disconnect(m_currentItem, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+//        //disconnect(m_currentItem, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+//    }
+
+//    m_currentItem = item;
+
+//    connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+////        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+
+//    updateWidgets();
+//}
 

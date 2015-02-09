@@ -265,7 +265,8 @@ void PropertyWidget::onOutputDataItemModified()
 
 void PropertyWidget::toggleProjections()
 {
-  m_projectionsProperty->setValue(!m_isProjection);
+
+  //m_projectionsProperty->setValue(!m_isProjection);
 }
 
 void PropertyWidget::setProjections(bool visible)

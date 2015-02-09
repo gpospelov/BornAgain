@@ -32,7 +32,7 @@ public:
     void drawGraphOnMouseEvent(QPoint point);
     bool contains(QPoint point);
     QVector<QVector<double> > getHistogramData(QPoint point, bool isDrawLine = true);
-    void drawPlot(NIntensityDataItem *outputDataItem, QCPColorGradient gradient);
+    void drawPlot(NIntensityDataItem *outputDataItem);
 
 
     QCPColorMap *getColorMap() const;
@@ -63,6 +63,8 @@ private:
     QCPRange m_colorScaleRange;
     NIntensityDataItem *m_outputDataItem;
     QCPRange calculateDataRange();
+
+    QMap<QString, QCPColorGradient > m_gradient_map;
 
 };
 

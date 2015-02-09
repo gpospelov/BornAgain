@@ -34,7 +34,7 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     , m_isProjectionsEnabled(isProjectionsEnabled)
     , m_isContextMenuEnabled(isContextMenuEnabled)
 {
-    this->setObjectName(QStringLiteral("plotWidget"));
+    this->setObjectName(QStringLiteral("PlotWidget"));
 
 
     m_isPropertyWidgetVisible = true;
@@ -61,18 +61,12 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     m_splitter->addWidget(m_splitterBottom);
     m_splitter->setStyleSheet("background-color:white;");
 
-
-
-
     m_statusLabel = new QLabel(this);
     //m_statusLabel->setFrameStyle(QFrame::Panel );
     m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
     //m_statusLabel->setMaximumHeight(35);
     m_statusLabel->setStyleSheet("background-color:white;");
     m_statusLabel->setMargin(3);
-
-
-
 
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
@@ -82,9 +76,6 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled, bool isProjec
     vlayout->addWidget(m_statusLabel);
     this->setLayout(vlayout);
     //setCentralWidget(widget);
-
-
-
 
     QList<int> h1_sizes;
     h1_sizes.append(histogramSize);

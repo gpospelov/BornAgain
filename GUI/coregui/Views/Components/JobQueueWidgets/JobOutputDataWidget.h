@@ -20,8 +20,9 @@
 #include <QWidget>
 #include <QMap>
 
-class OutputDataWidget;
+//class OutputDataWidget;
 //class JobQueueModel;
+class IntensityDataWidget;
 class QStackedWidget;
 class QModelIndex;
 //class JobItem;
@@ -57,14 +58,14 @@ public slots:
 
 private:
     void connectSignals();
-    OutputDataWidget *getCurrentOutputDataWidget();
+    IntensityDataWidget *getCurrentOutputDataWidget();
 
 //    JobQueueModel *m_jobQueueModel;
     NJobModel *m_jobModel;
     ProjectManager *m_projectManager;
     NJobItem *m_currentJobItem;
     QStackedWidget *m_stack;
-    QMap<NJobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
+    QMap<NJobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;
 };
 

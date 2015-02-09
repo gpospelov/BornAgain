@@ -19,7 +19,6 @@
 #include "NIntensityDataItem.h"
 #include "centralplot.h"
 #include <QWidget>
-#include <QMap>
 #include <QSplitter>
 #include <QMouseEvent>
 

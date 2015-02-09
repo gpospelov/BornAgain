@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/OutputDataWidget.h
-//! @brief     Defines class OutputDataWidget
+//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataWidget.h
+//! @brief     Defines class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAWIDGET_H
-#define OUTPUTDATAWIDGET_H
+#ifndef INTENSITYDATAWIDGET_H
+#define INTENSITYDATAWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
-#include "NIntensityDataItem.h"
 
-class PlotWidget;
-class OutputDataToolBar;
 class ProjectManager;
 class IntensityDataPropertyWidget;
-class QVBoxLayout;
-class QHBoxLayout;
+//class PlotWidget;
+class NIntensityDataItem;
+class IntensityDataPlotWidget;
 
-class BA_CORE_API_ OutputDataWidget : public QWidget
+class BA_CORE_API_ IntensityDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = false, bool isCreatePropertyWidget = false, bool isProjections = false);
+    explicit IntensityDataWidget(QWidget *parent = 0);
 
-    void setCurrentItem(NIntensityDataItem *item);
+    void setItem(NIntensityDataItem *item);
     void setProjectManager(ProjectManager *projectManager);
 
 public slots:
@@ -41,20 +40,14 @@ public slots:
     void togglePropertyPanel();
     void savePlot();
     void toggleProjections();
-    void projectionsChanged(bool projection);
     void setPropertyPanelVisible(bool visible);
 
 private:
-    PlotWidget *m_plotWidget;
+//    PlotWidget *m_plotWidget;
     ProjectManager *m_projectManager;
+    IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
-    OutputDataToolBar *m_toolBar;
-    NIntensityDataItem *m_currentOutputDataItem;
-    QVBoxLayout *m_mainLayout;
-    QHBoxLayout *m_layout;
-
-    bool m_isProjectionsVisible;
-    void connectToobarSignals();
+    NIntensityDataItem *m_currentItem;
 };
 
 

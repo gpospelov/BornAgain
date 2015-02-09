@@ -17,7 +17,8 @@
 //#include "JobQueueModel.h"
 #include "NJobModel.h"
 #include "NJobItem.h"
-#include "OutputDataWidget.h"
+//#include "OutputDataWidget.h"
+#include "IntensityDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
 #include "projectmanager.h"
@@ -118,12 +119,14 @@ void JobOutputDataWidget::setItem(NJobItem * item)
 
     m_currentJobItem = item;
 
-    OutputDataWidget *widget = m_jobItemToPlotWidget[item];
+//    OutputDataWidget *widget = m_jobItemToPlotWidget[item];
+    IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget && (item->isCompleted() || item->isCanceled())) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new OutputDataWidget(this, false, false, false);
-        widget->setCurrentItem(item->getIntensityDataItem());
+//        widget = new OutputDataWidget(this, false, false, false);
+        widget = new IntensityDataWidget(this);
+        widget->setItem(item->getIntensityDataItem());
         widget->setProjectManager(m_projectManager);
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
@@ -174,28 +177,28 @@ void JobOutputDataWidget::setItem(NJobItem * item)
 
 void JobOutputDataWidget::togglePropertyPanel()
 {
-    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->togglePropertyPanel();
 }
 
 
 void JobOutputDataWidget::toggleProjections()
 {
-    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->toggleProjections();
 }
 
 
 void JobOutputDataWidget::resetTriggered()
 {
-    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->resetTriggered();
 }
 
 
 void JobOutputDataWidget::savePlot()
 {
-    OutputDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->savePlot();
 }
 
@@ -204,7 +207,7 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 {
     m_toolBar->onActivityChanged(activity);
     if(activity == JobView::REAL_TIME_ACTIVITY) {
-        OutputDataWidget *widget = getCurrentOutputDataWidget();
+        IntensityDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);
             //widget->setProjectionsVisible(false);
@@ -223,9 +226,9 @@ void JobOutputDataWidget::connectSignals()
 }
 
 
-OutputDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
+IntensityDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
 {
-    OutputDataWidget *result = dynamic_cast<OutputDataWidget *>(m_stack->currentWidget());
+    IntensityDataWidget *result = dynamic_cast<IntensityDataWidget *>(m_stack->currentWidget());
     if(result && result->isHidden()) result = 0;
     return result;
 }
@@ -234,14 +237,14 @@ OutputDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
 void JobOutputDataWidget::onJobItemDelete(NJobItem *item)
 {
     qDebug() << "JobOutputDataWidget::onJobItemDelete()";
-    OutputDataWidget *widget = m_jobItemToPlotWidget[item];
+    IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget ) {
         // this is the case when user removes failed job which doesn't have propper widget
         //throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
         return;
     }
 
-    QMap<NJobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
+    QMap<NJobItem *, IntensityDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
     while(it!=m_jobItemToPlotWidget.end()) {
         if(it.value() == widget) {
             it = m_jobItemToPlotWidget.erase(it);

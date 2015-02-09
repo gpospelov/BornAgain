@@ -120,7 +120,8 @@ double NIntensityDataItem::getZaxisMax() const
 
 QString NIntensityDataItem::getGradient() const
 {
-    return getRegisteredProperty(P_GRADIENT).toString();
+    ComboProperty combo_property = getRegisteredProperty(P_GRADIENT).value<ComboProperty>();
+    return combo_property.getValue();
 }
 
 bool NIntensityDataItem::isLogz() const
@@ -160,29 +161,25 @@ bool NIntensityDataItem::axesInRadians() const
 void NIntensityDataItem::setXaxisMin(double xmin)
 {
     qDebug() << "NIntensityDataItem::setXaxisMin(double xmin)";
-    Q_UNUSED(xmin);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_XAXIS_MIN, xmin);
 }
 
 void NIntensityDataItem::setXaxisMax(double xmax)
 {
     qDebug() << "NIntensityDataItem::setXaxisMax(double xmax)";
-    Q_UNUSED(xmax);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_XAXIS_MAX, xmax);
 }
 
 void NIntensityDataItem::setYaxisMin(double ymin)
 {
     qDebug() << "NIntensityDataItem::setYaxisMin(double ymin)";
-    Q_UNUSED(ymin);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_YAXIS_MIN, ymin);
 }
 
 void NIntensityDataItem::setYaxisMax(double ymax)
 {
     qDebug() << "NIntensityDataItem::setYaxisMax(double ymax)";
-    Q_UNUSED(ymax);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_YAXIS_MAX, ymax);
 }
 
 void NIntensityDataItem::setZaxisRange(double zmin, double zmax)
@@ -195,43 +192,37 @@ void NIntensityDataItem::setZaxisRange(double zmin, double zmax)
 void NIntensityDataItem::setZaxisMin(double zmin)
 {
     qDebug() << "NIntensityDataItem::setZaxisMin(double zmin)";
-    Q_UNUSED(zmin);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_ZAXIS_MIN, zmin);
 }
 
 void NIntensityDataItem::setZaxisMax(double zmax)
 {
     qDebug() << "NIntensityDataItem::setZaxisMax(double zmax)";
-    Q_UNUSED(zmax);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_ZAXIS_MAX, zmax);
 }
 
 void NIntensityDataItem::setLogz(bool logz)
 {
     qDebug() << "NIntensityDataItem::setLogz(bool logz)";
-    Q_UNUSED(logz);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_IS_LOGZ, logz);
 }
 
 void NIntensityDataItem::setInterpolated(bool interp)
 {
     qDebug() << "NIntensityDataItem::setInterpolated(bool interp)";
-    Q_UNUSED(interp);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_IS_INTERPOLATED, interp);
 }
 
 void NIntensityDataItem::setXaxisTitle(QString xtitle)
 {
     qDebug() << "NIntensityDataItem::setXaxisTitle(QString xtitle)";
-    Q_UNUSED(xtitle);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_XAXIS_TITLE, xtitle);
 }
 
 void NIntensityDataItem::setYaxisTitle(QString ytitle)
 {
     qDebug() << "NIntensityDataItem::setYaxisTitle(QString ytitle)";
-    Q_UNUSED(ytitle);
-    Q_ASSERT(0);
+    setRegisteredProperty(P_YAXIS_TITLE, ytitle);
 }
 
 void NIntensityDataItem::setAxesUnits(const QString &units)

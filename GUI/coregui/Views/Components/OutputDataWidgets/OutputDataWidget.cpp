@@ -27,7 +27,7 @@
 OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget, bool isProjections)
     : QWidget(parent)
     , m_plotWidget(0)
-    , m_data(0)
+//    , m_data(0)
     , m_propertyWidget(0)
     , m_toolBar(0)
     , m_currentOutputDataItem(0)
@@ -219,18 +219,4 @@ void OutputDataWidget::projectionsChanged(bool projection)
 
 
 
-
-//if(item != m_currentItem) {
-//    if(m_currentItem) {
-//        disconnect(m_currentItem, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-//        //disconnect(m_currentItem, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-//    }
-
-//    m_currentItem = item;
-
-//    connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-////        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-
-//    updateWidgets();
-//}
 

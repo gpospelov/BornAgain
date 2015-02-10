@@ -59,6 +59,31 @@ void ColorMapPlot::setItem(NIntensityDataItem *item)
 
 }
 
+// returns string containing bin content information
+QString ColorMapPlot::getStatusString(const QPoint &point)
+{
+    QString result;
+    double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
+    double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
+
+    if(m_customPlot->xAxis->range().contains(xPos) && m_customPlot->yAxis->range().contains(yPos))
+    {
+        //set status bar info
+        //QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
+        QCPColorMapData * data  = m_colorMap->data();
+
+        int key(0), value(0);
+        data->coordToCell(xPos, yPos, &key, &value);
+
+        double cellValue = data->cell(key, value);
+        std::ostringstream ss;
+        ss << " [X: " << xPos << ", Y: " << yPos << "]\t[nBinX: " << key << ", nBinY: " << value << "] \t[Value: " << cellValue << "]";
+
+        result = QString::fromStdString(ss.str());
+    }
+    return result;
+}
+
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
     if(logz) {
@@ -85,6 +110,11 @@ void ColorMapPlot::resetView()
 
     m_customPlot->replot();
     m_block_update = false;
+}
+
+void ColorMapPlot::onMouseMove(QMouseEvent *event)
+{
+    emit statusStringChanged(getStatusString(event->pos()));
 }
 
 void ColorMapPlot::onPropertyChanged(const QString &property_name)
@@ -172,7 +202,7 @@ void ColorMapPlot::initColorMap()
     connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onDataRangeChanged(QCPRange)));
     connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));
     connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)));
-
+    connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
 }
 
 void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)

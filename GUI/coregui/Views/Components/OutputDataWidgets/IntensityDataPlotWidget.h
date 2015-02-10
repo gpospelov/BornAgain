@@ -42,11 +42,12 @@ public slots:
 
 private slots:
     void onPropertyChanged(const QString &property_name);
+    void onStatusStringChanged(const QString &status);
+    void showProjections(bool flag);
 
 private:
-//    void initSplitterSizes(int horizontal_size, int vertical_size);
     void initLeftRightAreaSize(int left_size, int right_size);
-    void initBottomTopAreaSize(int bottom_size, int top_size);
+    void initTopBottomAreaSize(int bottom_size, int top_size);
 
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;

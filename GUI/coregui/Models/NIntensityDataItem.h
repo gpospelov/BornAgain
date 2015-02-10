@@ -37,6 +37,7 @@ public:
     static const QString P_YAXIS_TITLE;
     static const QString P_AXES_UNITS;
     static const QString P_PROPERTY_PANEL_FLAG;
+    static const QString P_PROJECTIONS_FLAG;
 
     explicit NIntensityDataItem(ParameterizedItem *parent=0);
     ~NIntensityDataItem();

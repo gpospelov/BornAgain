@@ -20,6 +20,7 @@
 #include "qcustomplot.h"
 #include <QWidget>
 #include <QMap>
+#include <QPoint>
 
 class NIntensityDataItem;
 class QCustomPlot;
@@ -32,14 +33,20 @@ class BA_CORE_API_ ColorMapPlot : public QWidget
 public:
     explicit ColorMapPlot(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(64, 64); }
-    QSize minimumSizeHint() const { return QSize(64, 64); }
+    QSize sizeHint() const { return QSize(500, 400); }
+    QSize minimumSizeHint() const { return QSize(128, 128); }
 
     void setItem(NIntensityDataItem *item);
+
+    QString getStatusString(const QPoint &point);
+
+signals:
+    void statusStringChanged(const QString &string);
 
 public slots:
     void setLogz(bool logz, bool isReplot = true);
     void resetView();
+    void onMouseMove(QMouseEvent *event);
 
 private slots:
     void onPropertyChanged(const QString &property_name);

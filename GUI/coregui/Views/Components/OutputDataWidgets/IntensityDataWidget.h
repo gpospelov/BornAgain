@@ -34,6 +34,9 @@ public:
     void setItem(NIntensityDataItem *item);
     void setProjectManager(ProjectManager *projectManager);
 
+    QSize sizeHint() const { return QSize(500, 400); }
+    QSize minimumSizeHint() const { return QSize(128, 128); }
+
 public slots:
 
     void onResetView();

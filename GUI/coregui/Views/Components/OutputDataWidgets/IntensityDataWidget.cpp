@@ -16,6 +16,7 @@
 #include "IntensityDataWidget.h"
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
+#include "NIntensityDataItem.h"
 #include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QDebug>
@@ -96,7 +97,10 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 void IntensityDataWidget::toggleProjections()
 {
     qDebug() << "OutputDataWidget::toggleProjections()";
-    Q_ASSERT(0);
+    if(m_currentItem) {
+        bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+        m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
+    }
 //    m_propertyWidget->toggleProjections();
 }
 

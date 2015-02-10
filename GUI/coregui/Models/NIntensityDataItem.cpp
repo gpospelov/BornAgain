@@ -31,6 +31,7 @@ const QString NIntensityDataItem::P_XAXIS_TITLE = "x-title";
 const QString NIntensityDataItem::P_YAXIS_TITLE = "y-title";
 const QString NIntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString NIntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
+const QString NIntensityDataItem::P_PROJECTIONS_FLAG = "Projections Flag";
 
 NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
@@ -61,7 +62,7 @@ NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_YAXIS_TITLE, QString("y-axis"));
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
     registerProperty(P_PROPERTY_PANEL_FLAG, true, PropertyAttribute(PropertyAttribute::HIDDEN));
-
+    registerProperty(P_PROJECTIONS_FLAG, false);
 }
 
 NIntensityDataItem::~NIntensityDataItem()

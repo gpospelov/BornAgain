@@ -26,7 +26,7 @@ class BA_CORE_API_ NHistogramPlot : public QWidget
 public:
     explicit NHistogramPlot(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(64, 64); }
+    QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:

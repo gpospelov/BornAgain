@@ -39,15 +39,18 @@ public:
 public slots:
     void onSplitterMoved(int pos, int index);
     void resetView();
+    void onMouseMove();
 
 private slots:
     void onPropertyChanged(const QString &property_name);
-    void onStatusStringChanged(const QString &status);
+//    void onStatusStringChanged(const QString &status);
     void showProjections(bool flag);
 
 private:
+    void updateItem(NIntensityDataItem *item);
     void initLeftRightAreaSize(int left_size, int right_size);
     void initTopBottomAreaSize(int bottom_size, int top_size);
+    bool isBottomAreaVisible();
 
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;

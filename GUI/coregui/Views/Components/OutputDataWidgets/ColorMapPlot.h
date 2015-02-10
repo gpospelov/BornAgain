@@ -38,15 +38,17 @@ public:
 
     void setItem(NIntensityDataItem *item);
 
-    QString getStatusString(const QPoint &point);
+    QString getStatusString();
 
 signals:
-    void statusStringChanged(const QString &string);
+    void validMousMove();
 
 public slots:
     void setLogz(bool logz, bool isReplot = true);
     void resetView();
     void onMouseMove(QMouseEvent *event);
+
+    void getHorizontalSlice(QVector<double> &x, QVector<double> &y);
 
 private slots:
     void onPropertyChanged(const QString &property_name);
@@ -55,6 +57,26 @@ private slots:
     void onYaxisRangeChanged(QCPRange newRange);
 
 private:
+
+    class PositionData {
+    public:
+        PositionData() { reset(); }
+        bool valid;
+        int key;
+        int value;
+        double m_xPos;
+        double m_yPos;
+        double cellValue;
+        void reset() {
+            valid = false;
+            key = 0;
+            value = 0;
+            m_xPos = 0;
+            m_yPos = 0;
+            cellValue = 0;
+        }
+    };
+
     void initColorMap();
     void plotItem(NIntensityDataItem *intensityItem);
     QCPRange calculateDataRange(NIntensityDataItem *intensityItem);
@@ -67,6 +89,7 @@ private:
 
     QMap<QString, QCPColorGradient > m_gradient_map;
     bool m_block_update;
+    PositionData m_posData;
 };
 
 

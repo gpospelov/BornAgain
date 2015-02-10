@@ -60,27 +60,19 @@ void ColorMapPlot::setItem(NIntensityDataItem *item)
 }
 
 // returns string containing bin content information
-QString ColorMapPlot::getStatusString(const QPoint &point)
+QString ColorMapPlot::getStatusString()
 {
+    qDebug() << "ColorMapPlot::getStatusString()";
     QString result;
-    double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
-    double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
-
-    if(m_customPlot->xAxis->range().contains(xPos) && m_customPlot->yAxis->range().contains(yPos))
-    {
-        //set status bar info
-        //QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
-        QCPColorMapData * data  = m_colorMap->data();
-
-        int key(0), value(0);
-        data->coordToCell(xPos, yPos, &key, &value);
-
-        double cellValue = data->cell(key, value);
-        std::ostringstream ss;
-        ss << " [X: " << xPos << ", Y: " << yPos << "]\t[nBinX: " << key << ", nBinY: " << value << "] \t[Value: " << cellValue << "]";
-
-        result = QString::fromStdString(ss.str());
+    if(m_posData.valid) {
+        result = QString(" [X: %1, Y: %2]    [binx: %3, biny:%4]    [value: %5]")
+                .arg(QString::number(m_posData.m_xPos, 'f', 4))
+                .arg(QString::number(m_posData.m_yPos, 'f', 4), 2)
+                .arg(m_posData.key, 2)
+                .arg(m_posData.value, 2)
+                .arg(QString::number(m_posData.cellValue, 'f',2));
     }
+    qDebug() << "ColorMapPlot::getStatusString()" << result;
     return result;
 }
 
@@ -112,9 +104,53 @@ void ColorMapPlot::resetView()
     m_block_update = false;
 }
 
+
+// saves information about mouse position and intensity data underneath
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
-    emit statusStringChanged(getStatusString(event->pos()));
+    qDebug() << "ColorMapPlot::onMouseMove(QMouseEvent *event)";
+    m_posData.reset();
+
+    QPoint point = event->pos();
+    double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
+    double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
+
+    if(m_customPlot->xAxis->range().contains(xPos) && m_customPlot->yAxis->range().contains(yPos)) {
+        m_posData.valid = true;
+        m_posData.m_xPos = xPos;
+        m_posData.m_yPos = yPos;
+        QCPColorMapData * data  = m_colorMap->data();
+        data->coordToCell(xPos, yPos, &m_posData.key, &m_posData.value);
+        m_posData.cellValue = data->cell(m_posData.key, m_posData.value);
+        emit validMousMove();
+    }
+}
+
+// returns vectors corresponding to the cut along x-axis
+void ColorMapPlot::getHorizontalSlice(QVector<double> &x, QVector<double> &y)
+{
+    x.clear();
+    y.clear();
+
+    QCPColorMapData * data  = m_colorMap->data();
+    QCPRange range = data->keyRange();
+    int keySize = data->keySize();
+    int valueSize = data->valueSize();
+
+    x.resize(keySize);
+    y.resize(keySize);
+
+    double fraction = (range.upper-range.lower)/keySize;
+
+    for(int i=0; i<x.size(); ++i) {
+        x[i] =  range.lower + (i*fraction);
+
+        if(m_posData.value>=0 && m_posData.value<valueSize) {
+            y[i] = data->cell(i, m_posData.value);
+        } else {
+            y[i] = 0;
+        }
+    }
 }
 
 void ColorMapPlot::onPropertyChanged(const QString &property_name)
@@ -203,6 +239,7 @@ void ColorMapPlot::initColorMap()
     connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));
     connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)));
     connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
+//    connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SIGNAL(mouseMove(QMouseEvent*)));
 }
 
 void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
@@ -215,7 +252,7 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
     Q_ASSERT(data);
 
     if(data->getRank() != 2) {
-        throw NullPointerException("CustomCanvas::Draw() -> Error. Zero pointer to the data to draw");
+        throw NullPointerException("ColorMapPlot::plotItem() -> Error. Zero pointer to the data to draw");
     }
 
     m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming

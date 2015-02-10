@@ -18,7 +18,9 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-
+class NIntensityDataItem;
+class QCustomPlot;
+class QCPBars;
 
 class BA_CORE_API_ NHistogramPlot : public QWidget
 {
@@ -29,10 +31,25 @@ public:
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
+    void setItem(NIntensityDataItem *item);
+
 public slots:
+    void plotData(const QVector<double> &x, const QVector<double> &y);
+
+private slots:
+    void onPropertyChanged(const QString &property_name);
 
 private:
+    void plotItem(NIntensityDataItem *intensityItem);
+    void setLogz(bool logz, bool isReplot = false);
+    void setXmin(double value);
+    void setXmax(double value);
+    void setYmin(double value);
+    void setYmax(double value);
 
+    QCustomPlot *m_customPlot;
+    QCPBars *m_bars;
+    NIntensityDataItem *m_item;
 };
 
 

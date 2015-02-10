@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/NHistogramPlot.h
-//! @brief     Defines class NHistogramPlot
+//! @file      coregui/Views/Components/OutputDataWidgets/VerticalSlicePlot.h
+//! @brief     Defines class VerticalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,11 +22,12 @@ class NIntensityDataItem;
 class QCustomPlot;
 class QCPBars;
 
-class BA_CORE_API_ NHistogramPlot : public QWidget
+//! Slice of 2D IntensityData along x-axis
+class BA_CORE_API_ VerticalSlicePlot : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NHistogramPlot(QWidget *parent = 0);
+    explicit VerticalSlicePlot(QWidget *parent = 0);
 
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
@@ -46,6 +47,8 @@ private:
     void setXmax(double value);
     void setYmin(double value);
     void setYmax(double value);
+    void setZmin(double value);
+    void setZmax(double value);
 
     QCustomPlot *m_customPlot;
     QCPBars *m_bars;

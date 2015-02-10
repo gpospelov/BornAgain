@@ -20,7 +20,8 @@
 #include <QWidget>
 
 class QSplitter;
-class NHistogramPlot;
+class HorizontalSlicePlot;
+class VerticalSlicePlot;
 class ColorMapPlot;
 class QLabel;
 class NIntensityDataItem;
@@ -51,13 +52,14 @@ private:
     void initLeftRightAreaSize(int left_size, int right_size);
     void initTopBottomAreaSize(int bottom_size, int top_size);
     bool isBottomAreaVisible();
+    bool isLeftAreaVisible();
 
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;
     QSplitter *m_splitterBottom;
     ColorMapPlot *m_centralPlot;
-    NHistogramPlot *m_verticalPlot;
-    NHistogramPlot *m_horizontalPlot;
+    VerticalSlicePlot *m_verticalPlot;
+    HorizontalSlicePlot *m_horizontalPlot;
     QLabel *m_statusLabel;
     int m_leftHistogramArea;
     int m_bottomHistogramArea;

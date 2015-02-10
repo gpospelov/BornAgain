@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/NHistogramPlot.cpp
-//! @brief     Implements class NHistogramPlot
+//! @file      coregui/Views/Components/OutputDataWidgets/VerticalSlicePlot.cpp
+//! @brief     Implements class VerticalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,20 @@
 //
 // ************************************************************************** //
 
-#include "NHistogramPlot.h"
+#include "VerticalSlicePlot.h"
 #include "NIntensityDataItem.h"
 #include "qcustomplot.h"
 #include "Units.h"
 #include <QVBoxLayout>
 
-NHistogramPlot::NHistogramPlot(QWidget *parent)
+VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
     : QWidget(parent)
     , m_customPlot(0)
     , m_bars(0)
     , m_item(0)
 {
     m_customPlot = new QCustomPlot();
-    m_bars = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
+    m_bars = new QCPBars(m_customPlot->yAxis, m_customPlot->xAxis);
     m_customPlot->addPlottable(m_bars);
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
@@ -37,7 +37,7 @@ NHistogramPlot::NHistogramPlot(QWidget *parent)
 
 }
 
-void NHistogramPlot::setItem(NIntensityDataItem *item)
+void VerticalSlicePlot::setItem(NIntensityDataItem *item)
 {
     if (m_item == item) return;
 
@@ -57,14 +57,14 @@ void NHistogramPlot::setItem(NIntensityDataItem *item)
 
 }
 
-void NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)
+void VerticalSlicePlot::plotData(const QVector<double> &x, const QVector<double> &y)
 {
     qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
     m_bars->setData(x, y);
     m_customPlot->replot();
 }
 
-void NHistogramPlot::onPropertyChanged(const QString &property_name)
+void VerticalSlicePlot::onPropertyChanged(const QString &property_name)
 {
     qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
 
@@ -74,17 +74,18 @@ void NHistogramPlot::onPropertyChanged(const QString &property_name)
         setXmin(m_item->getXaxisMin());
     } else if(property_name == NIntensityDataItem::P_XAXIS_MAX) {
         setXmax(m_item->getXaxisMax());
+    } else if(property_name == NIntensityDataItem::P_YAXIS_MIN) {
+        setYmin(m_item->getYaxisMin());
+    } else if(property_name == NIntensityDataItem::P_YAXIS_MAX) {
+        setYmax(m_item->getYaxisMax());
     } else if(property_name == NIntensityDataItem::P_ZAXIS_MIN) {
-        setYmin(m_item->getZaxisMin());
+        setZmin(m_item->getZaxisMin());
     } else if(property_name == NIntensityDataItem::P_ZAXIS_MAX) {
-        setYmax(m_item->getZaxisMax());
+        setZmax(m_item->getZaxisMax());
     }
-
-
-
 }
 
-void NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)
+void VerticalSlicePlot::plotItem(NIntensityDataItem *intensityItem)
 {
     qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem);
@@ -96,15 +97,17 @@ void NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)
         throw NullPointerException("NHistogramPlot::plotItem::Draw() -> Error. Zero pointer to the data to draw");
     }
 
-    m_customPlot->xAxis->setRange(intensityItem->getXaxisMin(), intensityItem->getXaxisMax());
-    m_customPlot->yAxis->setRange(intensityItem->getZaxisMin(), intensityItem->getZaxisMax());
+    m_customPlot->axisRect()->setupFullAxesBox(true);
 
-    const IAxis *axis0 = data->getAxis(0);
+    m_customPlot->xAxis->setRange(intensityItem->getZaxisMin(), intensityItem->getZaxisMax());
+    m_customPlot->yAxis->setRange(intensityItem->getYaxisMin(), intensityItem->getYaxisMax());
+
+    const IAxis *axis = data->getAxis(1);
     double bin_size(0);
     if(intensityItem->axesInRadians()) {
-        bin_size = (axis0->getMax() - axis0->getMin())/axis0->getSize();
+        bin_size = (axis->getMax() - axis->getMin())/axis->getSize();
     } else {
-        bin_size = (Units::rad2deg(axis0->getMax()) - Units::rad2deg((axis0->getMin())))/axis0->getSize();
+        bin_size = (Units::rad2deg(axis->getMax()) - Units::rad2deg((axis->getMin())))/axis->getSize();
     }
 
     m_bars->setWidth(bin_size);
@@ -113,7 +116,7 @@ void NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)
 
     setLogz(intensityItem->isLogz());
 
-    const QMargins margins(0,0,82,0);
+    const QMargins margins(0,0,0,0);
     m_customPlot->axisRect()->setMargins(margins);
     m_customPlot->axisRect()->layout()->setMargins(margins);
 
@@ -121,34 +124,39 @@ void NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)
 }
 
 
-void NHistogramPlot::setLogz(bool logz, bool isReplot)
+void VerticalSlicePlot::setLogz(bool logz, bool isReplot)
 {
     if(logz) {
-        m_customPlot->yAxis->setScaleType(QCPAxis::stLogarithmic);
+        m_customPlot->xAxis->setScaleType(QCPAxis::stLogarithmic);
+        m_customPlot->xAxis->setNumberFormat("eb");
+        m_customPlot->xAxis->setNumberPrecision(0);
     } else {
-        m_customPlot->yAxis->setScaleType(QCPAxis::stLinear);
+        m_customPlot->xAxis->setScaleType(QCPAxis::stLinear);
+        m_customPlot->xAxis->setNumberFormat("f");
     }
 
     if(isReplot) m_customPlot->replot();
 }
 
-void NHistogramPlot::setXmin(double value)
+void VerticalSlicePlot::setXmin(double value)
 {
-    QCPRange range = m_customPlot->xAxis->range();
-    range.lower = value;
-    m_customPlot->xAxis->setRange(range);
-    m_customPlot->replot();
+    Q_UNUSED(value);
+//    QCPRange range = m_customPlot->xAxis->range();
+//    range.lower = value;
+//    m_customPlot->xAxis->setRange(range);
+//    m_customPlot->replot();
 }
 
-void NHistogramPlot::setXmax(double value)
+void VerticalSlicePlot::setXmax(double value)
 {
-    QCPRange range = m_customPlot->xAxis->range();
-    range.upper = value;
-    m_customPlot->xAxis->setRange(range);
-    m_customPlot->replot();
+    Q_UNUSED(value);
+//    QCPRange range = m_customPlot->xAxis->range();
+//    range.upper = value;
+//    m_customPlot->xAxis->setRange(range);
+//    m_customPlot->replot();
 }
 
-void NHistogramPlot::setYmin(double value)
+void VerticalSlicePlot::setYmin(double value)
 {
     QCPRange range = m_customPlot->yAxis->range();
     range.lower = value;
@@ -156,10 +164,27 @@ void NHistogramPlot::setYmin(double value)
     m_customPlot->replot();
 }
 
-void NHistogramPlot::setYmax(double value)
+void VerticalSlicePlot::setYmax(double value)
 {
     QCPRange range = m_customPlot->yAxis->range();
     range.upper = value;
     m_customPlot->yAxis->setRange(range);
     m_customPlot->replot();
 }
+
+void VerticalSlicePlot::setZmin(double value)
+{
+    QCPRange range = m_customPlot->xAxis->range();
+    range.lower = value;
+    m_customPlot->xAxis->setRange(range);
+    m_customPlot->replot();
+}
+
+void VerticalSlicePlot::setZmax(double value)
+{
+    QCPRange range = m_customPlot->xAxis->range();
+    range.upper = value;
+    m_customPlot->xAxis->setRange(range);
+    m_customPlot->replot();
+}
+

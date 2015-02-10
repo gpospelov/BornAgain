@@ -49,6 +49,7 @@ public slots:
     void onMouseMove(QMouseEvent *event);
 
     void getHorizontalSlice(QVector<double> &x, QVector<double> &y);
+    void getVerticalSlice(QVector<double> &x, QVector<double> &y);
 
 private slots:
     void onPropertyChanged(const QString &property_name);

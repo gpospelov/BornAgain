@@ -152,7 +152,6 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double /* min */,
     m_keyAxis = this->yAxis;
 
 
-
     //set Logarithmic scale
     QCPRange colorScaleRange = centralPlot->getColorScaleRange();
     this->setLogz(centralPlot->isLogz(), false);

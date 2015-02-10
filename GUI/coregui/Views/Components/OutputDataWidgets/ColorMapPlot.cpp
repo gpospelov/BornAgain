@@ -80,7 +80,10 @@ void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
     if(logz) {
         m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+        m_colorScale->axis()->setNumberFormat("eb");
+        m_colorScale->axis()->setNumberPrecision(0);
     } else {
+        m_colorScale->axis()->setNumberFormat("f");
         m_colorScale->setDataScaleType(QCPAxis::stLinear);
     }
     if(isReplot)
@@ -147,6 +150,32 @@ void ColorMapPlot::getHorizontalSlice(QVector<double> &x, QVector<double> &y)
 
         if(m_posData.value>=0 && m_posData.value<valueSize) {
             y[i] = data->cell(i, m_posData.value);
+        } else {
+            y[i] = 0;
+        }
+    }
+}
+
+void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
+{
+    x.clear();
+    y.clear();
+
+    QCPColorMapData * data  = m_colorMap->data();
+    QCPRange range = data->valueRange();
+    int keySize = data->keySize();
+    int valueSize = data->valueSize();
+
+    x.resize(valueSize);
+    y.resize(valueSize);
+
+    double fraction = (range.upper-range.lower)/valueSize;
+
+    for(int i=0; i<x.size(); ++i) {
+        x[i] =  range.lower + (i*fraction);
+
+        if(m_posData.key>=0 && m_posData.key< keySize) {
+             y[i] = data->cell(m_posData.key, i);
         } else {
             y[i] = 0;
         }

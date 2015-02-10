@@ -15,7 +15,8 @@
 
 #include "IntensityDataPlotWidget.h"
 #include "ColorMapPlot.h"
-#include "NHistogramPlot.h"
+#include "HorizontalSlicePlot.h"
+#include "VerticalSlicePlot.h"
 #include "NIntensityDataItem.h"
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -29,8 +30,8 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_splitterTop(new QSplitter(this))
     , m_splitterBottom(new QSplitter(this))
     , m_centralPlot(new ColorMapPlot(this))
-    , m_verticalPlot(new NHistogramPlot(this))
-    , m_horizontalPlot(new NHistogramPlot(this))
+    , m_verticalPlot(new VerticalSlicePlot(this))
+    , m_horizontalPlot(new HorizontalSlicePlot(this))
     , m_statusLabel(new QLabel(this))
     , m_leftHistogramArea(150)
     , m_bottomHistogramArea(150)
@@ -86,6 +87,7 @@ void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
 
     m_centralPlot->setItem(item);
     m_horizontalPlot->setItem(item);
+    m_verticalPlot->setItem(item);
 
     if (m_item == item) return;
 
@@ -133,6 +135,11 @@ void IntensityDataPlotWidget::onMouseMove()
         m_horizontalPlot->plotData(x,y);
     }
 
+    if(isLeftAreaVisible()) {
+        QVector<double> x, y;
+        m_centralPlot->getVerticalSlice(x, y);
+        m_verticalPlot->plotData(x,y);
+    }
 }
 
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
@@ -203,4 +210,10 @@ bool IntensityDataPlotWidget::isBottomAreaVisible()
 {
     QList<int> sizes = m_splitter->sizes();
     return sizes[1] != 0;
+}
+
+bool IntensityDataPlotWidget::isLeftAreaVisible()
+{
+    QList<int> sizes = m_splitterTop->sizes();
+    return sizes[0] != 0;
 }

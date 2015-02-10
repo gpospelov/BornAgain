@@ -129,17 +129,22 @@ void IntensityDataPlotWidget::onMouseMove()
     qDebug() << "IntensityDataPlotWidget::onMouseMove(QMouseEvent *event)";
     m_statusLabel->setText(m_centralPlot->getStatusString());
 
-    if(isBottomAreaVisible()) {
+    bool bottom_is_visible = isBottomAreaVisible();
+    if(bottom_is_visible) {
         QVector<double> x, y;
         m_centralPlot->getHorizontalSlice(x, y);
         m_horizontalPlot->plotData(x,y);
     }
 
-    if(isLeftAreaVisible()) {
+    bool left_is_visible = isLeftAreaVisible();
+    if(left_is_visible) {
         QVector<double> x, y;
         m_centralPlot->getVerticalSlice(x, y);
         m_verticalPlot->plotData(x,y);
     }
+
+    if(bottom_is_visible || left_is_visible)
+        m_centralPlot->drawLinesOverTheMap();
 }
 
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)

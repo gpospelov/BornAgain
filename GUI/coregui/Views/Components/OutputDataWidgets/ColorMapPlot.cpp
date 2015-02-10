@@ -76,6 +76,63 @@ QString ColorMapPlot::getStatusString()
     return result;
 }
 
+void ColorMapPlot::drawLinesOverTheMap()
+{
+    if(!m_customPlot->graph(0)->visible() || !m_customPlot->graph(1)->visible())
+    {
+        return;
+    }
+
+    QCPColorMapData *data  = m_colorMap->data();
+    Q_ASSERT(data);
+
+    //draw line over plot
+    QCPRange keyRange = data->keyRange();
+    QCPRange valueRange = data->valueRange();
+
+    int keySize = data->keySize();
+    int valueSize = data->valueSize();
+
+    double fraction = (keyRange.upper-keyRange.lower)/keySize;
+
+    QVector<double> x1(keySize+1), y1(valueSize+1);
+    for(int i=0;i<x1.size();i++)
+    {
+        x1[i] = keyRange.lower + (i*fraction);
+        y1[i] = m_posData.m_yPos;
+
+        //qDebug() << "Line draw1: X:" << x1[i] << " Y:" << y1[i];
+    }
+    m_customPlot->graph(0)->setData(x1, y1);
+
+    //draw vertical line
+
+    fraction = (valueRange.upper-valueRange.lower)/valueSize;
+
+    QVector<double> x2(valueSize+1), y2(keySize+1);
+    for(int i=0;i<x2.size();i++)
+    {
+        x2[i] = m_posData.m_xPos;
+        y2[i] = valueRange.lower+(i*fraction);
+
+        //qDebug() << "Line draw2: X:" << x2[i] << " Y:" << y2[i];
+    }
+    m_customPlot->graph(1)->setData(x2, y2);
+
+    //replot the graph
+    m_customPlot->replot();
+}
+
+void ColorMapPlot::showLinesOverTheMap(bool isVisible)
+{
+    if(m_customPlot->graph(0) && m_customPlot->graph(1))
+    {
+        m_customPlot->graph(0)->setVisible(isVisible);
+        m_customPlot->graph(1)->setVisible(isVisible);
+        m_customPlot->replot();
+    }
+}
+
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
     if(logz) {
@@ -212,6 +269,8 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
             m_colorMap->setDataRange(range);
             m_customPlot->replot();
         }
+    } else if(property_name == NIntensityDataItem::P_PROJECTIONS_FLAG) {
+        showLinesOverTheMap(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
@@ -263,6 +322,16 @@ void ColorMapPlot::initColorMap()
     m_gradient_map[Constants::GRADIENT_SPECTRUM] = QCPColorGradient::gpSpectrum;
     m_gradient_map[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
     m_gradient_map[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
+
+
+    QPen pen;
+    pen.setWidth(1);
+    pen.setStyle(Qt::SolidLine);
+    pen.setColor(QColor(255, 255, 255, 130));
+    m_customPlot->addGraph();
+    m_customPlot->graph(0)->setPen(pen);
+    m_customPlot->addGraph();
+    m_customPlot->graph(1)->setPen(pen);
 
     connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onDataRangeChanged(QCPRange)));
     connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));

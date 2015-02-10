@@ -40,6 +40,10 @@ public:
 
     QString getStatusString();
 
+    void drawLinesOverTheMap();
+
+    void showLinesOverTheMap(bool isVisible);
+
 signals:
     void validMousMove();
 

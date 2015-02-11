@@ -245,7 +245,7 @@ void MainWindow::initModels()
 
     initSampleModel();
 
-    initJobQueueModel();
+    initJobModel();
 
     initInstrumentModel();
 
@@ -281,7 +281,7 @@ void MainWindow::initSampleModel()
 //    layer1->setItemName("layer1");
 }
 
-void MainWindow::initJobQueueModel()
+void MainWindow::initJobModel()
 {
     delete m_jobModel;
     m_jobModel = new JobModel(this);

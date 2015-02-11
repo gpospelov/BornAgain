@@ -37,20 +37,19 @@
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-//    , m_jobQueueModel(0)
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
-      // instrument selection
+    // instrument selection
     QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
     instrumentSelectionBox = new QComboBox;
-      // sample selection
+    // sample selection
     QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
     sampleSelectionBox = new QComboBox;
-      // layout
+    // layout
     QGridLayout *dataSelectionLayout = new QGridLayout;
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
     dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
@@ -78,7 +77,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
     cpuUsageSelectionBox->addItems(getCPUUsageOptions());
 
-      // layout
+    // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
     simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
     simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
@@ -117,14 +116,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     //connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
 }
 
-
-//void SimulationSetupWidget::setJobQueueModel(JobQueueModel *model)
-//{
-//    Q_ASSERT(model);
-//    if(model != m_jobQueueModel) {
-//        m_jobQueueModel = model;
-//    }
-//}
 void SimulationSetupWidget::setJobModel(JobModel *model)
 {
     Q_ASSERT(model);
@@ -132,7 +123,6 @@ void SimulationSetupWidget::setJobModel(JobModel *model)
         m_jobModel = model;
     }
 }
-
 
 void SimulationSetupWidget::setSampleModel(SampleModel *model)
 {
@@ -143,7 +133,6 @@ void SimulationSetupWidget::setSampleModel(SampleModel *model)
     }
 }
 
-
 void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
 {
     Q_ASSERT(model);
@@ -152,7 +141,6 @@ void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
         updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
     }
 }
-
 
 QString SimulationSetupWidget::getInstrumentSelection() const
 {
@@ -165,17 +153,15 @@ QString SimulationSetupWidget::getSampleSelection() const
     return sampleSelectionBox->currentText();
 }
 
-
 void SimulationSetupWidget::updateViewElements()
 {
     updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
     updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
 }
 
-
 void SimulationSetupWidget::onRunSimulation()
 {
-    qDebug() << "SimulationView::onRunSimulation()";
+    //qDebug() << "SimulationView::onRunSimulation()";
 
     InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
     if(!jobInstrumentModel) {
@@ -198,12 +184,7 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-//    JobItem *jobItem = new JobItem(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText());
-//    jobItem->setNumberOfThreads(getNumberOfThreads());
-//    m_jobQueueModel->addJob(jobItem);
-
     m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
-
 }
 
 
@@ -268,7 +249,6 @@ QStringList SimulationSetupWidget::getCPUUsageOptions()
     return result;
 }
 
-
 int SimulationSetupWidget::getNumberOfThreads()
 {
     foreach(QChar ch, cpuUsageSelectionBox->currentText()) {
@@ -276,7 +256,6 @@ int SimulationSetupWidget::getNumberOfThreads()
     }
     return 0;
 }
-
 
 //! Returns copy of InstrumentModel containing a single instrument according to the text selection
 InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
@@ -288,7 +267,6 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
     }
     return result;
 }
-
 
 //! Returns copy of SampleModel containing a single MultiLayer according to the text selection
 SampleModel *SimulationSetupWidget::getJobSampleModel()

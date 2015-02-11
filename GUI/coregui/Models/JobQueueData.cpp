@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "JobQueueData.h"
-#include "JobQueueItem.h"
-#include "OutputDataItem.h"
 #include "Simulation.h"
 #include "AngleProperty.h"
 #include "InstrumentItem.h"
@@ -41,48 +39,6 @@ JobQueueData::JobQueueData(JobModel *jobModel)
 {
 
 }
-
-//QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::ERunPolicy run_policy)
-//{
-//    QString identifier = generateJobIdentifier();
-
-//    if(jobName.isEmpty()) jobName = generateJobName();
-//    JobItem *jobItem = new JobItem(jobName);
-//    jobItem->setRunPolicy(run_policy);
-//    m_job_items[identifier] = jobItem;
-//    if(simulation) m_simulations[identifier] = simulation;
-//    return identifier;
-//}
-
-
-//QString JobQueueData::createJob(JobItem *jobItem)
-//{
-//    QString identifier = generateJobIdentifier();
-//    if(jobItem->getName().isEmpty())
-//        jobItem->setName(generateJobName());
-
-//    m_job_items[identifier] = jobItem;
-//    return identifier;
-//}
-
-
-//! returns existing JobItem for given identifier
-//const JobItem *JobQueueData::getJobItem(QString identifier) const
-//{
-//    QMap<QString, JobItem *>::const_iterator it = m_job_items.find(identifier);
-//    if(it != m_job_items.end()) {
-//        return it.value();
-//    }
-//    throw GUIHelpers::Error("JobQueueData::getJobItem() -> Error! Can't find item."+identifier);
-//    return 0;
-//}
-
-////! returns existing JobItem for given identifier (const version)
-//JobItem *JobQueueData::getJobItem(QString identifier)
-//{
-//    return const_cast<JobItem *>(static_cast<const JobQueueData &>(*this).getJobItem(identifier));
-//}
-
 
 //! returns the thread (if exists) for given identifier
 QThread *JobQueueData::getThread(QString identifier)
@@ -116,16 +72,6 @@ Simulation *JobQueueData::getSimulation(QString identifier)
     return 0;
 }
 
-
-//! returns identifier for given JobIteM
-//QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
-//{
-//    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
-//        if(it.value() == item) return it.key();
-//    }
-//    throw GUIHelpers::Error("JobQueueData::getIdentifierForJobItem() -> Error! Can't find item.");
-//}
-
 bool JobQueueData::hasUnfinishedJobs()
 {
     return m_simulations.size();
@@ -133,7 +79,7 @@ bool JobQueueData::hasUnfinishedJobs()
 
 void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
 {
-    qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
+    //qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
     if(!simulation)
         throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
 
@@ -156,7 +102,8 @@ void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
         if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
             AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
             intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
-//            if(angle_property.inDegrees())
+            // FIXME
+            //            if(angle_property.inDegrees())
 //                intensityItem->setAxesUnits(Constants::UnitsDegrees);
         }
 
@@ -258,18 +205,8 @@ void JobQueueData::removeJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::removeJob" << identifier;
     cancelJob(identifier);
-    // removing jobs
-//    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
-//        if(it.key() == identifier) {
-//            delete it.value();
-//            qDebug() << "       JobQueueData::removeJob   removing job" << identifier;
-//            m_job_items.erase(it);
-//            break;
-//        }
-//    }
     clearSimulation(identifier);
 }
-
 
 void JobQueueData::onStartedJob()
 {
@@ -283,7 +220,6 @@ void JobQueueData::onStartedJob()
     jobItem->setBeginTime(begin_time);
     jobItem->setEndTime("");
 }
-
 
 void JobQueueData::onFinishedJob()
 {
@@ -322,14 +258,12 @@ void JobQueueData::onFinishedJob()
         emit globalProgress(100);
 }
 
-
 void JobQueueData::onFinishedThread()
 {
     //qDebug() << "JobQueueData::onFinishedThread()";
     QThread *thread = qobject_cast<QThread *>(sender());
     assignForDeletion(thread);
 }
-
 
 void JobQueueData::onProgressUpdate()
 {
@@ -340,7 +274,6 @@ void JobQueueData::onProgressUpdate()
     jobItem->setProgress(runner->getProgress());
     updateGlobalProgress();
 }
-
 
 // estimates global progress from the progress of multiple running jobs
 void JobQueueData::updateGlobalProgress()
@@ -365,7 +298,6 @@ void JobQueueData::updateGlobalProgress()
     emit globalProgress(global_progress);
 }
 
-
 void JobQueueData::onCancelAllJobs()
 {
     QStringList keys = m_threads.keys();
@@ -373,7 +305,6 @@ void JobQueueData::onCancelAllJobs()
         cancelJob(key);
     }
 }
-
 
 //! Removes QThread from the map of known threads, assigns it for deletion.
 void JobQueueData::assignForDeletion(QThread *thread)
@@ -388,7 +319,6 @@ void JobQueueData::assignForDeletion(QThread *thread)
     }
     throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find thread.");
 }
-
 
 //! Removes JobRunner from the map of known runners, assigns it for deletion.
 void JobQueueData::assignForDeletion(JobRunner *runner)
@@ -407,34 +337,9 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
     throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find the runner.");
 }
 
-
 void JobQueueData::clearSimulation(const QString &identifier)
 {
     Simulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
 }
-
-
-//! generates job name
-//QString JobQueueData::generateJobName()
-//{
-//    m_job_index = 0;
-//    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
-//        QString jobName = it.value()->getName();
-//        if(jobName.startsWith("job")) {
-//            int job_index = jobName.remove(0,3).toInt();
-//            if(job_index > m_job_index) m_job_index = job_index;
-//        }
-//    }
-
-//    return QString("job")+QString::number(++m_job_index);
-//}
-
-
-////! generate unique job identifier
-//QString JobQueueData::generateJobIdentifier()
-//{
-//    return QUuid::createUuid().toString();
-//}
-

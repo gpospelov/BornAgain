@@ -26,13 +26,11 @@
 #include <QDockWidget>
 #include <QAbstractItemView>
 
-
 struct JobViewPrivate
 {
     JobViewPrivate(JobModel *jobModel, ProjectManager *projectManager);
     QWidget *m_subWindows[JobView::NUMBER_OF_DOCKS];
     QDockWidget *m_dockWidgets[JobView::NUMBER_OF_DOCKS];
-//    JobQueueModel *m_jobQueueModel;
     JobModel *m_jobModel;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
@@ -87,12 +85,10 @@ JobView::JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *pa
     connectSignals();
 }
 
-
 JobView::~JobView()
 {
     delete m_d;
 }
-
 
 void JobView::setProgressBar(Manhattan::ProgressBar *progressBar)
 {
@@ -102,7 +98,6 @@ void JobView::setProgressBar(Manhattan::ProgressBar *progressBar)
         connect(m_d->m_progressBar, SIGNAL(clicked()), m_d->m_jobModel->getJobQueueData(), SLOT(onCancelAllJobs()));
     }
 }
-
 
 void JobView::updateGlobalProgressBar(int progress)
 {
@@ -117,13 +112,11 @@ void JobView::updateGlobalProgressBar(int progress)
     }
 }
 
-
 void JobView::onFocusRequest(JobItem *item)
 {
     m_d->m_jobSelector->makeJobItemSelected(item);
     emit focusRequest(MainWindow::JOB);
 }
-
 
 void JobView::resetToDefaultLayout()
 {
@@ -147,7 +140,6 @@ void JobView::resetToDefaultLayout()
     setActivity(JOB_VIEW_ACTIVITY);
 }
 
-
 void JobView::setActivity(int activity)
 {
     if(activity == JOB_VIEW_ACTIVITY) {
@@ -162,7 +154,6 @@ void JobView::setActivity(int activity)
     }
 }
 
-
 void JobView::initWindows()
 {
     // central widget
@@ -176,7 +167,6 @@ void JobView::initWindows()
     m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 }
 
-
 void JobView::connectSignals()
 {
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
@@ -185,5 +175,3 @@ void JobView::connectSignals()
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
     connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
 }
-
-

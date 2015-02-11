@@ -68,16 +68,11 @@ private:
 
     void updateGlobalProgress();
 
-//    QString generateJobName();
-//    QString generateJobIdentifier();
-
-//    QMap<QString, JobItem *> m_job_items; //!< correspondance of JobIdentifier and JobItem's
     QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
     QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
     JobModel *m_jobModel;
 };
-
 
 #endif

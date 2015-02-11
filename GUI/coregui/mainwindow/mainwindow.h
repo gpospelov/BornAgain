@@ -107,7 +107,7 @@ private:
     void initModels();
     void initMaterialModel();
     void initSampleModel();
-    void initJobQueueModel();
+    void initJobModel();
     void initInstrumentModel();
     void initFitModel();
 

@@ -20,7 +20,6 @@
 #include <QWidget>
 
 class MainWindow;
-//class JobQueueModel;
 class SampleModel;
 class InstrumentModel;
 class SimulationSetupWidget;
@@ -41,7 +40,6 @@ public slots:
     void onRunSimulationShortcut();
 
 private:
-//    JobQueueModel *m_jobQueueModel;
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

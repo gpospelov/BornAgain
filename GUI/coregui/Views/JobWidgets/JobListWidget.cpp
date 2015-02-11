@@ -34,11 +34,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     , m_runJobAction(0)
     , m_removeJobAction(0)
     , m_toolBar(new JobListToolBar)
-//    , m_submitButton(new QPushButton("Submit"))
-//    , m_runButton(new QPushButton("Run"))
-//    , m_saveButton(new QPushButton("Save"))
 {
-//    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_listView->setDragEnabled(true);
@@ -68,13 +64,8 @@ JobListWidget::JobListWidget(QWidget *parent)
 
     setLayout(mainLayout);
 
-//    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
-//    connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-//    connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
-
     setupContextMenuActions();
 }
-
 
 void JobListWidget::setModel(JobModel *model)
 {
@@ -100,13 +91,10 @@ QItemSelectionModel *JobListWidget::getSelectionModel()
     return m_listView->selectionModel();
 }
 
-
 void JobListWidget::save()
 {
     Q_ASSERT(m_jobModel);
-    qDebug() << "JobListWidget::save() -> ";
-    m_jobModel->save("tmp2.xml");
-
+    m_jobModel->save("tmp.xml");
 }
 
 void JobListWidget::runJob()
@@ -118,7 +106,6 @@ void JobListWidget::runJob()
     }
 }
 
-
 //! setup context menu for listView
 void JobListWidget::setupContextMenuActions()
 {
@@ -128,7 +115,6 @@ void JobListWidget::setupContextMenuActions()
     m_runJobAction = new QAction(tr("Run Job"), this);
     connect(m_runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
 }
-
 
 bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
 {
@@ -140,7 +126,6 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
     return true;
 }
 
-
 //! remove job from the list
 void JobListWidget::removeJob()
 {
@@ -151,11 +136,8 @@ void JobListWidget::removeJob()
     }
 }
 
-
 void JobListWidget::makeJobItemSelected(const QModelIndex &index)
 {
-    qDebug() << "JobListWidget::makeJobItemSelected(const QModelIndex &index)" << index;
-    qDebug() << "m_listView->selectionModel()->selection()" << m_listView->selectionModel()->selectedIndexes();
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
 
     // already selected
@@ -166,13 +148,9 @@ void JobListWidget::makeJobItemSelected(const QModelIndex &index)
     m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
 }
 
-
 void JobListWidget::showContextMenu(const QPoint &pnt)
 {
-    qDebug() << "JobListWidget::showContextMenu()";
-
     QMenu menu;
-
     menu.addAction(m_runJobAction);
     menu.addAction(m_removeJobAction);
 
@@ -192,6 +170,4 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
 
     menu.exec(m_listView->mapToGlobal(pnt));
 }
-
-
 

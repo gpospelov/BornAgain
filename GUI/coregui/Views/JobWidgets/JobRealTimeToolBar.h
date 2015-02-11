@@ -21,7 +21,6 @@
 
 class QToolButton;
 
-
 //! The JobRealTimeToolBar contains buttons needed for JobRealTimeWidget
 class BA_CORE_API_ JobRealTimeToolBar : public QToolBar
 {
@@ -32,7 +31,6 @@ public:
 
 signals:
     void resetParameters();
-    //void exportParameters();
 
 private:
     QToolButton *m_resetParametersButton;

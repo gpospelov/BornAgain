@@ -24,7 +24,6 @@
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
-//#include "JobQueueModel.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
@@ -83,7 +82,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
-//    , m_jobQueueModel(0)
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
@@ -124,7 +122,6 @@ MainWindow::MainWindow(QWidget *parent)
     //m_testView = new TestView(m_sampleModel, this);
     //m_fitView = new FitView(m_fitProxyModel, this);
 
-//    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
     m_jobView = new JobView(m_jobModel, m_projectManager);
 
 
@@ -137,7 +134,6 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
 
-
     m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
@@ -146,7 +142,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_jobView->setProgressBar(m_progressBar);
 
     setCentralWidget(m_tabWidget);
-
 
     setAcceptDrops(true);
 
@@ -159,12 +154,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 }
 
-
 MainWindow::~MainWindow()
 {
     delete m_materialEditor;
 }
-
 
 void MainWindow::readSettings()
 {
@@ -177,7 +170,6 @@ void MainWindow::readSettings()
     assert(m_projectManager);
     m_projectManager->readSettings(m_settings);
 }
-
 
 void MainWindow::writeSettings()
 {
@@ -196,7 +188,6 @@ void MainWindow::onRunSimulationShortcut()
     m_simulationView->onRunSimulationShortcut();
 }
 
-
 void MainWindow::openRecentProject()
 {
     if (const QAction *action = qobject_cast<const QAction*>(sender())) {
@@ -205,8 +196,6 @@ void MainWindow::openRecentProject()
         m_projectManager->openProject(file);
     }
 }
-
-
 
 void MainWindow::onChangeTabWidget(int index)
 {
@@ -225,13 +214,10 @@ void MainWindow::onChangeTabWidget(int index)
     }
 }
 
-
 void MainWindow::onFocusRequest(int index)
 {
     m_tabWidget->setCurrentIndex(index);
 }
-
-
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
@@ -266,7 +252,6 @@ void MainWindow::initModels()
     //initFitModel();
 }
 
-
 void MainWindow::initMaterialModel()
 {
     delete m_materialModel;
@@ -279,7 +264,6 @@ void MainWindow::initMaterialModel()
 
     m_materialEditor = new MaterialEditor(m_materialModel);
 }
-
 
 void MainWindow::initSampleModel()
 {
@@ -297,63 +281,23 @@ void MainWindow::initSampleModel()
 //    layer1->setItemName("layer1");
 }
 
-
-
 void MainWindow::initJobQueueModel()
 {
-//    delete m_jobQueueModel;
-//    m_jobQueueModel = new JobQueueModel(this);
-
     delete m_jobModel;
     m_jobModel = new JobModel(this);
-//    ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
-//    m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));
-//    m_jobModel->save("jobmodel.txt");
 }
-
 
 void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
-
-//    TestProperty_t property(new TestProperty());
-//    property->m_data = 99.0;
-//    QVariant variant;
-//    variant.setValue(property);
-
-//    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument1->registerProperty("XXX", variant);
-////    instrument1->setItemName("Default GISAS");
-////    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-////    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-////    Q_UNUSED(detector1);
-////    Q_UNUSED(beam1);
-
-//    TestProperty_t tt = variant.value<TestProperty_t>();
-//    qDebug() << tt->m_data;
-
-    //m_instrumentModel->save("instrument.xml");
 }
 
 void MainWindow::initFitModel()
 {
     m_fitProxyModel = new FitProxyModel;
-
-//    ParameterizedItem *item1 = m_fitProxyModel->insertNewItem(Constants::FitParameterType);
-//    item1->setItemName("par1");
-//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
-
-//    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-//    item2->setItemName("par2");
-
-    //m_fitProxyModel->save("fitmodel.xml");
-
-
-    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
 }
-
 
 void MainWindow::testGUIObjectBuilder()
 {

@@ -22,7 +22,6 @@
 class QComboBox;
 class QToolButton;
 
-
 //! Main tool bar of JobView widget. Belongs to JobOutputDataWidget.
 class BA_CORE_API_ JobOutputDataToolBar : public QToolBar
 {
@@ -51,7 +50,5 @@ private:
     QToolButton *m_resetViewButton;
     QToolButton *m_savePlotButton;
 };
-
-
 
 #endif

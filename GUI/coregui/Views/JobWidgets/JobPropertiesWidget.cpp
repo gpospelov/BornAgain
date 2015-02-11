@@ -59,7 +59,6 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-
 void JobPropertiesWidget::setModel(JobModel *model)
 {
     Q_ASSERT(model);
@@ -77,16 +76,12 @@ void JobPropertiesWidget::setModel(JobModel *model)
             this,
             SLOT( setItem(JobItem *) )
             );
-
-//        connect(m_jobModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
-//                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
     }
 }
 
-
 void JobPropertiesWidget::setItem(JobItem *jobItem)
 {
-    qDebug() << "JobPropertiesWidget::setItem" << jobItem;
+    //qDebug() << "JobPropertiesWidget::setItem" << jobItem;
 
     m_propertyEditor->setItem(jobItem);
 
@@ -100,5 +95,4 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
         }
         m_commentsEditor->setText(jobItem->getComments());
     }
-
 }

@@ -28,13 +28,11 @@ class QStandardItemModel;
 class SampleModel;
 class InstrumentModel;
 
-
 class ModelTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-
     ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 

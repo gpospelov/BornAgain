@@ -26,7 +26,6 @@
 #include <QDebug>
 #include "GUIHelpers.h"
 
-
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(0)
@@ -55,9 +54,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     setLayout(mainLayout);
 
     connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
-    //connect(m_toolBar, SIGNAL(exportParameters()), this, SLOT(onExportParameters()));
 }
-
 
 void JobRealTimeWidget::setJobModel(JobModel *jobModel)
 {
@@ -93,10 +90,9 @@ void JobRealTimeWidget::setJobModel(JobModel *jobModel)
     }
 }
 
-
 void JobRealTimeWidget::setItem(JobItem * item)
 {
-    qDebug() << "JobOutputDataWidget::setItem()";
+    //qDebug() << "JobOutputDataWidget::setItem()";
     if(!item) return;
 
     m_currentJobItem = item;
@@ -105,8 +101,7 @@ void JobRealTimeWidget::setItem(JobItem * item)
 
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget && isValidJobItem(item)) {
-
-        qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
+        //qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
         widget = new ModelTuningWidget(m_jobModel->getJobQueueData());
         widget->setCurrentItem(item);
         m_stack->addWidget(widget);
@@ -127,10 +122,9 @@ void JobRealTimeWidget::setItem(JobItem * item)
     }
 }
 
-
 void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
 {
-    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
+    //qDebug() << "JobOutputDataWidget::onJobItemFinished()";
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
 
     if(jobItem == m_currentJobItem) {
@@ -154,12 +148,6 @@ void JobRealTimeWidget::updateCurrentItem()
     setItem(m_currentJobItem);
 }
 
-//void JobRealTimeWidget::onExportParameters()
-//{
-
-//}
-
-
 ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 {
     ModelTuningWidget *result = dynamic_cast<ModelTuningWidget *>(m_stack->currentWidget());
@@ -174,10 +162,9 @@ bool JobRealTimeWidget::isValidJobItem(JobItem *item)
  return (item->isCompleted() || item->isCanceled()) && item->getSampleModel() && item->getInstrumentModel();
 }
 
-
 void JobRealTimeWidget::onJobItemDelete(JobItem *item)
 {
-    qDebug() << "JobOutputDataWidget::onJobItemDelete()";
+    //qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget ) {
         // this is the case when user removes failed job which doesn't have propper widget

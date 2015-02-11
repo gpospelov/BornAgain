@@ -18,7 +18,6 @@
 #include <QToolButton>
 #include <QLabel>
 
-//! main tool bar on top of SampleView window
 JobListToolBar::JobListToolBar(QWidget *parent)
     : QToolBar(parent)
     , m_runJobButton(0)

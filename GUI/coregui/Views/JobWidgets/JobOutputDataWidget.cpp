@@ -29,7 +29,6 @@
 #include <QDebug>
 #include "GUIHelpers.h"
 
-
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(0)
@@ -60,27 +59,6 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *pro
 
 }
 
-
-//void JobOutputDataWidget::setJobQueueModel(JobQueueModel *jobQueueModel)
-//{
-//    Q_ASSERT(jobQueueModel);
-//    if(jobQueueModel != m_jobQueueModel) {
-//        m_jobQueueModel = jobQueueModel;
-
-//        connect(m_jobQueueModel,
-//            SIGNAL( selectionChanged(JobItem *) ),
-//            this,
-//            SLOT( itemClicked(JobItem *) )
-//            );
-
-//        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
-//                , this, SLOT(onJobItemFinished(QString)));
-
-//        connect(m_jobQueueModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-//                , this, SLOT(onJobItemDelete(JobItem*)));
-//    }
-//}
-
 void JobOutputDataWidget::setJobModel(JobModel *jobModel)
 {
     Q_ASSERT(jobModel);
@@ -103,9 +81,6 @@ void JobOutputDataWidget::setJobModel(JobModel *jobModel)
             SLOT( setItem(JobItem *) )
             );
 
-//        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
-//                , this, SLOT(onJobItemFinished(QString)));
-
         connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
                 , this, SLOT(onJobItemDelete(JobItem*)));
     }
@@ -114,39 +89,30 @@ void JobOutputDataWidget::setJobModel(JobModel *jobModel)
 
 void JobOutputDataWidget::setItem(JobItem * item)
 {
-    qDebug() << "JobOutputDataWidget::setItem()" << item;
+    //qDebug() << "JobOutputDataWidget::setItem()" << item;
     if(!item) return;
 
     m_currentJobItem = item;
 
-//    OutputDataWidget *widget = m_jobItemToPlotWidget[item];
     IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget && (item->isCompleted() || item->isCanceled())) {
 
-        qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-//        widget = new OutputDataWidget(this, false, false, false);
         widget = new IntensityDataWidget(this);
         connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
         widget->setItem(item->getIntensityDataItem());
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
 
-    }
-    else
-    {
-        if( m_stack->currentWidget() && m_stack->currentWidget() != widget)
-        {
+    } else {
+        if( m_stack->currentWidget() && m_stack->currentWidget() != widget) {
             m_stack->currentWidget()->hide();
         }
     }
 
-
-    if(widget)
-    {
+    if(widget) {
         qDebug() << "JobOutputDataWidget::itemClicked() -> setCurrentWidget";
 
-        if(widget->isHidden())
-        {
+        if(widget->isHidden()) {
             widget->show();
         }
 
@@ -154,33 +120,11 @@ void JobOutputDataWidget::setItem(JobItem * item)
     }
 }
 
-
-//void JobOutputDataWidget::onJobItemFinished(const QString &identifier)
-//{
-//    qDebug() << "JobOutputDataWidget::onJobItemFinished";
-//    Q_ASSERT(0);
-//    Q_UNUSED(identifier);
-
-////    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-////    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
-
-////    if(jobItem == m_currentJobItem)
-////    {
-////        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem())
-////        {
-////            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-////            itemClicked(jobItem);
-////        }
-////    }
-//}
-
-
 void JobOutputDataWidget::togglePropertyPanel()
 {
     IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->togglePropertyPanel();
 }
-
 
 void JobOutputDataWidget::toggleProjections()
 {
@@ -188,13 +132,11 @@ void JobOutputDataWidget::toggleProjections()
     if(widget) widget->toggleProjections();
 }
 
-
 void JobOutputDataWidget::onResetView()
 {
     IntensityDataWidget *widget = getCurrentOutputDataWidget();
     if(widget) widget->onResetView();
 }
-
 
 void JobOutputDataWidget::onSavePlot()
 {
@@ -211,7 +153,6 @@ void JobOutputDataWidget::onSavePlot()
     if(widget) widget->savePlot(dirname);
 }
 
-
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
     m_toolBar->onActivityChanged(activity);
@@ -219,11 +160,9 @@ void JobOutputDataWidget::onActivityChanged(int activity)
         IntensityDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);
-            //widget->setProjectionsVisible(false);
         }
     }
 }
-
 
 void JobOutputDataWidget::connectSignals()
 {
@@ -234,14 +173,12 @@ void JobOutputDataWidget::connectSignals()
     connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
 }
 
-
 IntensityDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
 {
     IntensityDataWidget *result = dynamic_cast<IntensityDataWidget *>(m_stack->currentWidget());
     if(result && result->isHidden()) result = 0;
     return result;
 }
-
 
 void JobOutputDataWidget::onJobItemDelete(JobItem *item)
 {

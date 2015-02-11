@@ -38,7 +38,6 @@ class ActionManager;
 class ProjectManager;
 class QCloseEvent;
 class QSettings;
-//class JobQueueModel;
 class InstrumentModel;
 class MaterialEditor;
 class ToolTipDataBase;
@@ -62,7 +61,6 @@ public:
     MaterialModel *getMaterialModel() { return m_materialModel; }
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
-//    JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
     JobModel *getJobModel() { return m_jobModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     QSettings *getSettings() const { return m_settings; }
@@ -98,7 +96,6 @@ private:
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
     QSettings *m_settings; //!< application wide settings
 
-//    JobQueueModel *m_jobQueueModel; //!< model for all jobs
     JobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments

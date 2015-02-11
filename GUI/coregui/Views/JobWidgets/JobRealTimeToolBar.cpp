@@ -33,23 +33,12 @@ JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)
 
     setContentsMargins(0,0,0,0);
 
-    // projections button
     m_resetParametersButton = new QToolButton;
     m_resetParametersButton->setText("Reset Values");
     m_resetParametersButton->setIcon(QIcon(":/images/toolbar_refresh.png"));
     m_resetParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
-    //m_importParametersButton->setShortcut(Qt::CTRL + Qt::Key_O);
     connect(m_resetParametersButton, SIGNAL(clicked()), this, SIGNAL(resetParameters()));
     addWidget(m_resetParametersButton);
-
-    // plot properties button
-//    m_exportParametersButton = new QToolButton;
-//    m_exportParametersButton->setText("Export Values");
-//    m_exportParametersButton->setIcon(QIcon(":/images/toolbar_parameter_export.png"));
-//    m_exportParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    m_exportParametersButton->setToolTip("Propagate current parameter values \nback to the original model.");
-//    connect(m_exportParametersButton, SIGNAL(clicked()), this, SIGNAL(exportParameters()));
-//    addWidget(m_exportParametersButton);
 }
 

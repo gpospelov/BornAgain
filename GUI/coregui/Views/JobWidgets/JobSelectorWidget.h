@@ -19,7 +19,6 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//class JobQueueModel;
 class JobModel;
 class JobItem;
 class JobPropertiesWidget;
@@ -44,12 +43,10 @@ public slots:
     void makeJobItemSelected(JobItem *);
 
 private:
-//    JobQueueModel *m_jobQueueModel;
     JobModel *m_jobModel;
     QSplitter *m_splitter;
     JobListWidget *m_jobListWidget;
     JobPropertiesWidget *m_jobProperties;
-
 };
 
 

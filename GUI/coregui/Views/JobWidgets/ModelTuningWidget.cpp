@@ -42,11 +42,6 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-//    QColor bgColor(0,0,255,255);
-//    QPalette palette;
-//    palette.setColor(QPalette::Background, bgColor);
-//    setAutoFillBackground(true);
-
     m_sliderSettingsWidget = new SliderSettingsWidget();
     connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(onSliderValueChanged(double)));
 
@@ -66,14 +61,12 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
 
 }
 
-
 ModelTuningWidget::~ModelTuningWidget()
 {
     delete m_parameterModel;
     delete m_sampleModelBackup;
     delete m_instrumentModelBackup;
 }
-
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
@@ -85,7 +78,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     }
 }
 
-
 void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 {
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
@@ -96,13 +88,10 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 
     if(link.getItem()) {
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
-
 //        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
 //        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getVariant());
         link.updateItem();
 
-        // FIXME
-//        m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
         m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
     }
 }
@@ -129,9 +118,7 @@ void ModelTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error. JobItem doesn't have sample or instrument model.");
 
     m_parameterModel = ParameterModelBuilder::createParameterModel(m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
-
     m_treeView->setModel(m_parameterModel);
-//    m_treeView->setFixedHeight(height);
     m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
 }
@@ -151,7 +138,6 @@ void ModelTuningWidget::backupModels()
 
 }
 
-
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 {
     if(m_currentJobItem->isRunning())
@@ -169,8 +155,6 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
     updateParameterModel();
 
-    // FIXME
-//    m_jobQueueData->runJob(m_jobQueueData->getIdentifierForJobItem(m_currentJobItem));
     m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
 }
 

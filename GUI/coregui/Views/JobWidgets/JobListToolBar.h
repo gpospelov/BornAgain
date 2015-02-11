@@ -16,12 +16,10 @@
 #ifndef JOBLISTTOOLBAR_H
 #define JOBLISTTOOLBAR_H
 
-
 #include <QToolBar>
 #include "WinDllMacros.h"
 
 class QToolButton;
-
 
 //! The JobListToolBar contains buttons (add, remove jobs) needed for JobListView
 class BA_CORE_API_ JobListToolBar : public QToolBar
@@ -40,6 +38,4 @@ private:
     QToolButton *m_removeJobButton;
 };
 
-
 #endif
-

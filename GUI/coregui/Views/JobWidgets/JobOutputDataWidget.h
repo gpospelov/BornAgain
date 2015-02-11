@@ -20,12 +20,8 @@
 #include <QWidget>
 #include <QMap>
 
-//class OutputDataWidget;
-//class JobQueueModel;
 class IntensityDataWidget;
 class QStackedWidget;
-class QModelIndex;
-//class JobItem;
 class JobOutputDataToolBar;
 class ProjectManager;
 class JobModel;
@@ -35,10 +31,8 @@ class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-//    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
     explicit JobOutputDataWidget(JobModel *joModel, ProjectManager *projectManager, QWidget *parent = 0);
 
-//    void setJobQueueModel(JobQueueModel *jobQueueModel);
     void setJobModel(JobModel *jobModel);
 
     JobOutputDataToolBar *getToolBar() { return m_toolBar; }
@@ -49,7 +43,6 @@ signals:
 public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);
-//    void onJobItemFinished(const QString &identifier);
     void togglePropertyPanel();
     void toggleProjections();
     void onResetView();
@@ -60,7 +53,6 @@ private:
     void connectSignals();
     IntensityDataWidget *getCurrentOutputDataWidget();
 
-//    JobQueueModel *m_jobQueueModel;
     JobModel *m_jobModel;
     ProjectManager *m_projectManager;
     JobItem *m_currentJobItem;
@@ -68,6 +60,5 @@ private:
     QMap<JobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;
 };
-
 
 #endif

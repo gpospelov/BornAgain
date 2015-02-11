@@ -20,12 +20,9 @@
 #include <QWidget>
 #include <QMap>
 
-//class JobQueueModel;
 class JobModel;
 class JobItem;
 class QStackedWidget;
-class QModelIndex;
-//class JobItem;
 class ModelTuningWidget;
 class JobRealTimeToolBar;
 
@@ -56,6 +53,5 @@ private:
     QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
     JobRealTimeToolBar *m_toolBar;
 };
-
 
 #endif

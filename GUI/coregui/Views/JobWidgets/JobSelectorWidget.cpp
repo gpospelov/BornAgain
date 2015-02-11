@@ -28,8 +28,6 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-
-
 JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(0)
@@ -43,7 +41,6 @@ JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Job Selector"));
     setObjectName(QLatin1String("Job Selector"));
-//    setStyleSheet("background-color:white;");
 
     m_splitter->setOrientation(Qt::Vertical);
     m_splitter->addWidget(m_jobListWidget);
@@ -55,7 +52,6 @@ JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
-
 }
 
 
@@ -68,15 +64,11 @@ void JobSelectorWidget::setModel(JobModel *model)
     }
 }
 
-
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 {
     Q_ASSERT(item);
-    qDebug() << "JobSelectorWidget::makeJobItemSelected(NJobItem *item)" << item;
-//    QModelIndex index = m_jobModel->getIndexForJobItem(item);
+    //qDebug() << "JobSelectorWidget::makeJobItemSelected(NJobItem *item)" << item;
     QModelIndex index = m_jobModel->indexOfItem(item);
-    qDebug() << index;
     Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(index);
 }
-

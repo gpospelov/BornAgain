@@ -20,7 +20,6 @@
 #include <QWidget>
 #include <QModelIndex>
 
-//class JobQueueModel;
 class JobModel;
 class JobListViewDelegate;
 class QListView;

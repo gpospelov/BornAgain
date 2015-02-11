@@ -50,5 +50,4 @@ private:
     QMap<QString, QColor> m_status_to_color;
 };
 
-
 #endif

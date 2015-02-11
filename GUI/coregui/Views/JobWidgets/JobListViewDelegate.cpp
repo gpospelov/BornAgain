@@ -26,8 +26,6 @@
 #include <QStyleOptionProgressBarV2>
 #include "hostosinfo.h"
 
-
-// FIXME duplication
 JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)
 {
@@ -38,8 +36,6 @@ JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     m_status_to_color[Constants::STATUS_CANCELED] = QColor(186, 0, 0);
     m_status_to_color[Constants::STATUS_FAILED] = QColor(255, 186, 12);
 }
-
-
 
 void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                   const QModelIndex &index ) const
@@ -59,24 +55,7 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     QString text = item->itemName();
     QRect textRect = getTextRect(option.rect);
-    //textRect.setHeight( 10);
     painter->drawText(textRect,text);
-
-//    QStyleOptionProgressBar progressBarOption;
-//    progressBarOption.state = QStyle::State_Enabled;
-//    progressBarOption.direction = QApplication::layoutDirection();
-//    progressBarOption.rect = getProgressBarRect(option.rect);
-//    //progressBarOption.rect = option.rect;
-//    //progressBarOption.fontMetrics = QApplication::fontMetrics();
-//    progressBarOption.minimum = 0;
-//    progressBarOption.maximum = 100;
-//    //progressBarOption.textAlignment = Qt::AlignCenter;
-//    progressBarOption.textVisible = false;
-
-//    // Set the progress and text values of the style option.
-//    int progress = item->getProgress();
-//    progressBarOption.progress = progress < 0 ? 0 : progress;
-//    QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
 
     drawCustomProjectBar(item, painter, option);
 
@@ -93,7 +72,6 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->restore();
 }
 
-
 bool JobListViewDelegate::editorEvent(QEvent *event,
     QAbstractItemModel *model,
     const QStyleOptionViewItem &option,
@@ -106,7 +84,6 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
         return QItemDelegate::editorEvent(event, model, option, index);
         return true;
     }
-
 
     const JobModel* jqmodel = static_cast<const JobModel*>(index.model());
     Q_ASSERT(model);
@@ -134,7 +111,6 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
     return true;
 }
 
-
 void JobListViewDelegate::drawCustomProjectBar(const JobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
 {
     int progress = item->getProgress();
@@ -160,7 +136,6 @@ void JobListViewDelegate::drawCustomProjectBar(const JobItem *item, QPainter *pa
     painter->restore();
 }
 
-
 //! returns rectangle for text
 QRect JobListViewDelegate::getTextRect(QRect optionRect) const
 {
@@ -172,7 +147,6 @@ QRect JobListViewDelegate::getTextRect(QRect optionRect) const
     return result;
 }
 
-
 //! returns rectangle for progress bar
 QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const
 {
@@ -180,12 +154,6 @@ QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const
     int height = optionRect.height()*0.6;
     int x = optionRect.x() + optionRect.width()*0.5;
     int y = optionRect.y() + (optionRect.height() - height)/2.;
-//    if( Utils::HostOsInfo::isMacHost() ) {
-//        // for Mac the height of progress bar can't be made smaller
-//        y = optionRect.y();
-//        height = optionRect.height()*0.5;
-//    }
-
     QRect result(x,y,width,height);
     return result;
 }

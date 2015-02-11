@@ -36,6 +36,9 @@ public:
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
+signals:
+    void savePlotRequest();
+
 public slots:
     void onResetView();
     void togglePropertyPanel();
@@ -43,7 +46,12 @@ public slots:
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
+private slots:
+    void onPropertyChanged(const QString &property_name);
+
 private:
+    void updateItem(NIntensityDataItem *item);
+
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     NIntensityDataItem *m_currentItem;

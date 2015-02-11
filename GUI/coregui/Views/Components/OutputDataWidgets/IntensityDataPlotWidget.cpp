@@ -30,6 +30,10 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_splitter(new QSplitter(this))
     , m_splitterTop(new QSplitter(this))
     , m_splitterBottom(new QSplitter(this))
+    , m_propertyPanelAction(0)
+    , m_projectionsAction(0)
+    , m_resetAction(0)
+    , m_saveAction(0)
     , m_centralPlot(new ColorMapPlot(this))
     , m_verticalPlot(new VerticalSlicePlot(this))
     , m_horizontalPlot(new HorizontalSlicePlot(this))
@@ -76,10 +80,10 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
 
     connect(m_splitterTop, SIGNAL(splitterMoved(int,int)), this, SLOT(onSplitterMoved(int,int)));
     connect(m_splitterBottom, SIGNAL(splitterMoved(int,int)), this, SLOT(onSplitterMoved(int,int)));
-//    connect(m_centralPlot, SIGNAL(statusStringChanged(QString)), this, SLOT(onStatusStringChanged(QString)));
-//    connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
     connect(m_centralPlot, SIGNAL(validMousMove()), this, SLOT(onMouseMove()));
+    connect(m_centralPlot->getCustomPlot(), SIGNAL(mousePress(QMouseEvent*)), this, SLOT(onMousePress(QMouseEvent*)), Qt::UniqueConnection);
 
+    setupContextMenuActions();
 }
 
 void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
@@ -148,6 +152,14 @@ void IntensityDataPlotWidget::onMouseMove()
         m_centralPlot->drawLinesOverTheMap();
 }
 
+void IntensityDataPlotWidget::onMousePress(QMouseEvent *event)
+{
+    if(event->button() == Qt::RightButton) {
+//        showContextMenu(event->pos());
+        showContextMenu(event->globalPos());
+    }
+}
+
 //! save plot into proposed directory
 void IntensityDataPlotWidget::savePlot(const QString &dirname)
 {
@@ -169,16 +181,11 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
 
         if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive)) {
             m_centralPlot->getCustomPlot()->savePdf(fileName, true, m_centralPlot->width(), m_centralPlot->height());
-
-            qDebug() << "XXX" << m_centralPlot->width() << m_centralPlot->height();
-            qDebug() << "XXX" << m_centralPlot->getCustomPlot()->width() << m_centralPlot->getCustomPlot()->height();
         } else if(fileName.endsWith(tr(".jpg"), Qt::CaseInsensitive)) {
             m_centralPlot->getCustomPlot()->saveJpg(fileName);
         } else if(fileName.endsWith(tr(".png"), Qt::CaseInsensitive)) {
             m_centralPlot->getCustomPlot()->savePng(fileName);
         } else if(defaultFilter == "*.pdf") {
-            qDebug() << "XXX" << m_centralPlot->width() << m_centralPlot->height();
-            qDebug() << "XXX" << m_centralPlot->getCustomPlot()->width() << m_centralPlot->getCustomPlot()->height();
             m_centralPlot->getCustomPlot()->savePdf(fileName+extension, true, m_centralPlot->width(), m_centralPlot->height());
         } else if(defaultFilter == "*.jpg") {
             m_centralPlot->getCustomPlot()->saveJpg(fileName+extension);
@@ -197,11 +204,6 @@ void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
         showProjections(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
-
-//void IntensityDataPlotWidget::onStatusStringChanged(const QString &status)
-//{
-//    m_statusLabel->setText(status);
-//}
 
 void IntensityDataPlotWidget::showProjections(bool flag)
 {
@@ -231,6 +233,58 @@ void IntensityDataPlotWidget::showProjections(bool flag)
         initTopBottomAreaSize(vertical_sizes[0]+vertical_sizes[1], 0);
     }
     qDebug() << "after " << m_leftHistogramArea << m_bottomHistogramArea;
+
+}
+
+void IntensityDataPlotWidget::onPropertyPanelAction(bool flag)
+{
+    Q_ASSERT(m_item);
+    qDebug() << "IntensityDataPlotWidget::onPropertyPanelAction(bool flag)" << flag;
+    m_item->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
+}
+
+void IntensityDataPlotWidget::onProjectionsAction(bool flag)
+{
+    Q_ASSERT(m_item);
+    qDebug() << "IntensityDataPlotWidget::onProjectionsAction(bool flag)" << flag;
+    m_item->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, flag);
+}
+
+
+void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
+{
+    qDebug() << "IntensityDataPlotWidget::showContextMenu(const QPoint &point)";
+    Q_ASSERT(m_item);
+
+    QMenu menu;
+
+    m_propertyPanelAction->setChecked(m_item->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    m_projectionsAction->setChecked(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+
+    menu.addAction(m_propertyPanelAction);
+    menu.addAction(m_projectionsAction);
+    menu.addAction(m_resetAction);
+    menu.addAction(m_saveAction);
+
+//    menu.exec(mapToGlobal(point));
+    menu.exec(point);
+}
+
+void IntensityDataPlotWidget::setupContextMenuActions()
+{
+    m_propertyPanelAction = new QAction(tr("&Plot Properties"), this);
+    m_propertyPanelAction->setCheckable(true);
+    connect(m_propertyPanelAction, SIGNAL(triggered(bool)), this, SLOT(onPropertyPanelAction(bool)));
+
+    m_projectionsAction = new QAction(tr("Pr&ojections"), this);
+    m_projectionsAction->setCheckable(true);
+    connect(m_projectionsAction, SIGNAL(triggered(bool)), this, SLOT(onProjectionsAction(bool)));
+
+    m_resetAction = new QAction(tr("&Reset View"), this);
+    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
+
+    m_saveAction = new QAction(tr("&Save as"), this);
+    connect(m_saveAction, SIGNAL(triggered()), this, SIGNAL(savePlotRequest()));
 
 }
 

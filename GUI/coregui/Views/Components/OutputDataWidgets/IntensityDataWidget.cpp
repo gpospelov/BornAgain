@@ -33,6 +33,7 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setObjectName(QLatin1String("IntensityDataWidget"));
 
     m_plotWidget = new IntensityDataPlotWidget(this);
+    connect(m_plotWidget, SIGNAL(savePlotRequest()), this, SIGNAL(savePlotRequest()));
 
     m_propertyWidget = new IntensityDataPropertyWidget(this);
 
@@ -54,14 +55,33 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
 
 void IntensityDataWidget::setItem(NIntensityDataItem *item)
 {
-    m_currentItem = item;
     m_plotWidget->setItem(item);
     m_propertyWidget->setItem(item);
+
+    if (m_currentItem == item) return;
+
+    if (m_currentItem) {
+        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
+                this, SLOT(onPropertyChanged(QString)));
+    }
+
+    m_currentItem = item;
+
+    if (!m_currentItem) return;
+
+    updateItem(m_currentItem);
+
+    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
+            this, SLOT(onPropertyChanged(QString)));
 }
 
 void IntensityDataWidget::togglePropertyPanel()
 {
-    setPropertyPanelVisible(!m_propertyWidget->isVisible());
+//    setPropertyPanelVisible(!m_propertyWidget->isVisible());
+    if(m_currentItem) {
+        bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
+        m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
+    }
 }
 
 void IntensityDataWidget::setPropertyPanelVisible(bool visible)
@@ -72,6 +92,18 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
         m_propertyWidget->setItem(0);
     }
     m_propertyWidget->setVisible(visible);
+}
+
+void IntensityDataWidget::onPropertyChanged(const QString &property_name)
+{
+    if(property_name == NIntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    }
+}
+
+void IntensityDataWidget::updateItem(NIntensityDataItem *item)
+{
+    setPropertyPanelVisible(item->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
 }
 
 void IntensityDataWidget::toggleProjections()

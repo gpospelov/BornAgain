@@ -37,18 +37,25 @@ public:
 
     void setItem(NIntensityDataItem *item);
 
+signals:
+    void savePlotRequest();
+
 public slots:
     void onSplitterMoved(int pos, int index);
     void resetView();
     void onMouseMove();
+    void onMousePress(QMouseEvent *event);
     void savePlot(const QString &dirname);
 
 private slots:
     void onPropertyChanged(const QString &property_name);
-//    void onStatusStringChanged(const QString &status);
     void showProjections(bool flag);
+    void onPropertyPanelAction(bool flag);
+    void onProjectionsAction(bool flag);
+    void showContextMenu(const QPoint &point);
 
 private:
+    void setupContextMenuActions();
     void updateItem(NIntensityDataItem *item);
     void initLeftRightAreaSize(int left_size, int right_size);
     void initTopBottomAreaSize(int bottom_size, int top_size);
@@ -58,6 +65,10 @@ private:
     QSplitter *m_splitter;
     QSplitter *m_splitterTop;
     QSplitter *m_splitterBottom;
+    QAction *m_propertyPanelAction;
+    QAction *m_projectionsAction;
+    QAction *m_resetAction;
+    QAction *m_saveAction;
     ColorMapPlot *m_centralPlot;
     VerticalSlicePlot *m_verticalPlot;
     HorizontalSlicePlot *m_horizontalPlot;

@@ -128,6 +128,7 @@ void JobOutputDataWidget::setItem(NJobItem * item)
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
 //        widget = new OutputDataWidget(this, false, false, false);
         widget = new IntensityDataWidget(this);
+        connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
         widget->setItem(item->getIntensityDataItem());
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;

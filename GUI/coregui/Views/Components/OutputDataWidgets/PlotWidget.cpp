@@ -259,7 +259,6 @@ void PlotWidget::initContextMenu()
     QString propertyPanelText = tr("&Property Panel");
     QString projectionsText = tr("Pr&ojections");
 
-
     m_propertyPanelAction = new QAction(propertyPanelText, this);
     m_propertyPanelAction->setCheckable(true);
     connect(m_propertyPanelAction, SIGNAL(triggered(bool)), this, SIGNAL(propertyWidgetVisibilityChanged(bool)));

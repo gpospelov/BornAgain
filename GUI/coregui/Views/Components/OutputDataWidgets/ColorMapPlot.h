@@ -44,6 +44,8 @@ public:
 
     void showLinesOverTheMap(bool isVisible);
 
+    QCustomPlot *getCustomPlot() { return m_customPlot; }
+
 signals:
     void validMousMove();
 

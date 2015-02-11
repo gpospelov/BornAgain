@@ -62,7 +62,7 @@ NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_YAXIS_TITLE, QString("y-axis"));
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
     registerProperty(P_PROPERTY_PANEL_FLAG, true, PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_PROJECTIONS_FLAG, true);
+    registerProperty(P_PROJECTIONS_FLAG, false);
 }
 
 NIntensityDataItem::~NIntensityDataItem()

@@ -19,12 +19,12 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class ProjectManager;
 class IntensityDataPropertyWidget;
-//class PlotWidget;
 class NIntensityDataItem;
 class IntensityDataPlotWidget;
 
+//! The widget presents IntensityData color map and property editor.
+//! Belongs to the stack handled by JobOutputDataWidget
 class BA_CORE_API_ IntensityDataWidget : public QWidget
 {
     Q_OBJECT
@@ -32,22 +32,18 @@ public:
     explicit IntensityDataWidget(QWidget *parent = 0);
 
     void setItem(NIntensityDataItem *item);
-    void setProjectManager(ProjectManager *projectManager);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
 public slots:
-
     void onResetView();
     void togglePropertyPanel();
-    void savePlot();
+    void savePlot(const QString &dirname);
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
 private:
-//    PlotWidget *m_plotWidget;
-    ProjectManager *m_projectManager;
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     NIntensityDataItem *m_currentItem;

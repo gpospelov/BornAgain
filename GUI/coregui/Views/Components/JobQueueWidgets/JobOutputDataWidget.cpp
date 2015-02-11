@@ -22,10 +22,12 @@
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
 #include "projectmanager.h"
+#include "projectdocument.h"
 #include "styledbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
+#include <QStandardPaths>
 #include <QDebug>
 #include "GUIHelpers.h"
 
@@ -127,7 +129,6 @@ void JobOutputDataWidget::setItem(NJobItem * item)
 //        widget = new OutputDataWidget(this, false, false, false);
         widget = new IntensityDataWidget(this);
         widget->setItem(item->getIntensityDataItem());
-        widget->setProjectManager(m_projectManager);
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
 
@@ -196,10 +197,19 @@ void JobOutputDataWidget::onResetView()
 }
 
 
-void JobOutputDataWidget::savePlot()
+void JobOutputDataWidget::onSavePlot()
 {
+    QString dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+
+    if(m_projectManager) {
+        ProjectDocument *document  = m_projectManager->getDocument();
+        if(document->hasValidNameAndPath()) {
+            dirname = document->getProjectDir();
+        }
+    }
+
     IntensityDataWidget *widget = getCurrentOutputDataWidget();
-    if(widget) widget->savePlot();
+    if(widget) widget->savePlot(dirname);
 }
 
 
@@ -222,7 +232,7 @@ void JobOutputDataWidget::connectSignals()
     connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
     connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
     connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));
-    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
+    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
 }
 
 

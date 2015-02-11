@@ -17,14 +17,12 @@
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
 #include "NIntensityDataItem.h"
-#include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : QWidget(parent)
-    , m_projectManager(0)
     , m_plotWidget(0)
     , m_propertyWidget(0)
     , m_currentItem(0)
@@ -56,63 +54,40 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
 
 void IntensityDataWidget::setItem(NIntensityDataItem *item)
 {
-    qDebug() << "OutputDataWidget::setCurrentItem()" << item;
     m_currentItem = item;
     m_plotWidget->setItem(item);
     m_propertyWidget->setItem(item);
 }
 
-void IntensityDataWidget::setProjectManager(ProjectManager *projectManager)
-{
-    if(m_projectManager == projectManager)
-        return;
-
-    m_projectManager = projectManager;
-//    if(m_plotWidget)
-//    {
-//        m_plotWidget->setProjectManager(projectManager);
-//    }
-
-}
-
 void IntensityDataWidget::togglePropertyPanel()
 {
-    qDebug() << "OutputDataWidget::togglePropertyPanel()";
     setPropertyPanelVisible(!m_propertyWidget->isVisible());
 }
 
 void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 {
-    qDebug() << "OutputDataWidget::setPropertyPanelVisible(bool visible)";
-
     if(visible) {
         m_propertyWidget->setItem(m_currentItem);
     } else {
         m_propertyWidget->setItem(0);
     }
     m_propertyWidget->setVisible(visible);
-//    m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
 }
 
 void IntensityDataWidget::toggleProjections()
 {
-    qDebug() << "OutputDataWidget::toggleProjections()";
     if(m_currentItem) {
         bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
         m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
     }
-//    m_propertyWidget->toggleProjections();
 }
 
 void IntensityDataWidget::onResetView()
 {
-    qDebug() << "OutputDataWidget::resetTriggered()";
     m_plotWidget->resetView();
 }
 
-void IntensityDataWidget::savePlot()
+void IntensityDataWidget::savePlot(const QString &dirname)
 {
-
-//    m_plotWidget->savePlot();
-
+    m_plotWidget->savePlot(dirname);
 }

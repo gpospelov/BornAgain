@@ -117,7 +117,7 @@ void HorizontalSlicePlot::plotItem(NIntensityDataItem *intensityItem)
     setLogz(intensityItem->isLogz());
 
 //    const QMargins margins(0,0,82,0);
-    const QMargins margins(5,0,72,0);
+    const QMargins margins(10,0,77,0);
     m_customPlot->axisRect()->setMargins(margins);
     m_customPlot->axisRect()->layout()->setMargins(margins);
 

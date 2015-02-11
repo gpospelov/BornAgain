@@ -18,6 +18,7 @@
 #include "HorizontalSlicePlot.h"
 #include "VerticalSlicePlot.h"
 #include "NIntensityDataItem.h"
+#include "qcustomplot.h"
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -145,6 +146,48 @@ void IntensityDataPlotWidget::onMouseMove()
 
     if(bottom_is_visible || left_is_visible)
         m_centralPlot->drawLinesOverTheMap();
+}
+
+//! save plot into proposed directory
+void IntensityDataPlotWidget::savePlot(const QString &dirname)
+{
+    qDebug() << "IntensityDataPlotWidget::savePlot(const QString &dirname)" << dirname;
+    Q_ASSERT(m_item);
+
+    bool projections_flag = m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+    if(projections_flag)
+        m_centralPlot->showLinesOverTheMap(false);
+
+    QString filters("*.png;;*.jpg;;*.pdf");
+    QString defaultFilter("*.png");
+    QString defaultName = dirname + QString("/untitled");
+    QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
+        filters, &defaultFilter);
+    QString extension =  defaultFilter.mid(1);
+
+    if (!fileName.isEmpty() && !defaultFilter.isEmpty()) {
+
+        if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive)) {
+            m_centralPlot->getCustomPlot()->savePdf(fileName, true, m_centralPlot->width(), m_centralPlot->height());
+
+            qDebug() << "XXX" << m_centralPlot->width() << m_centralPlot->height();
+            qDebug() << "XXX" << m_centralPlot->getCustomPlot()->width() << m_centralPlot->getCustomPlot()->height();
+        } else if(fileName.endsWith(tr(".jpg"), Qt::CaseInsensitive)) {
+            m_centralPlot->getCustomPlot()->saveJpg(fileName);
+        } else if(fileName.endsWith(tr(".png"), Qt::CaseInsensitive)) {
+            m_centralPlot->getCustomPlot()->savePng(fileName);
+        } else if(defaultFilter == "*.pdf") {
+            qDebug() << "XXX" << m_centralPlot->width() << m_centralPlot->height();
+            qDebug() << "XXX" << m_centralPlot->getCustomPlot()->width() << m_centralPlot->getCustomPlot()->height();
+            m_centralPlot->getCustomPlot()->savePdf(fileName+extension, true, m_centralPlot->width(), m_centralPlot->height());
+        } else if(defaultFilter == "*.jpg") {
+            m_centralPlot->getCustomPlot()->saveJpg(fileName+extension);
+        } else {
+            m_centralPlot->getCustomPlot()->savePng(fileName+extension);
+        }
+    }
+
+    m_centralPlot->showLinesOverTheMap(projections_flag);
 }
 
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)

@@ -53,7 +53,7 @@ public slots:
     void togglePropertyPanel();
     void toggleProjections();
     void onResetView();
-    void savePlot();
+    void onSavePlot();
     void onActivityChanged(int);
 
 private:

@@ -41,6 +41,7 @@ public slots:
     void onSplitterMoved(int pos, int index);
     void resetView();
     void onMouseMove();
+    void savePlot(const QString &dirname);
 
 private slots:
     void onPropertyChanged(const QString &property_name);

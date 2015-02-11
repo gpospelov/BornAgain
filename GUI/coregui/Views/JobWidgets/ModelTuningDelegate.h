@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobQueueWidgets/ModelTuningDelegate.h
+//! @file      coregui/Views/JobWidgets/ModelTuningDelegate.h
 //! @brief     Defines class ModelTuningDelegate
 //!
 //! @homepage  http://www.bornagainproject.org

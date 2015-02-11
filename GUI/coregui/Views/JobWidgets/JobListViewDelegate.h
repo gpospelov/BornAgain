@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobQueueWidgets/JobListViewDelegate.h
+//! @file      coregui/Views/JobWidgets/JobListViewDelegate.h
 //! @brief     Defines class JobListViewDelegate
 //!
 //! @homepage  http://www.bornagainproject.org

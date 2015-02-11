@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobQueueWidgets/JobListToolBar.cpp
-//! @brief     Implements class JobListToolBar
+//! @file      coregui/Views/JobWidgets/SliderSettingsWidget.h
+//! @brief     Defines class SliderSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,33 +13,32 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTTOOLBAR_H
-#define JOBLISTTOOLBAR_H
+#ifndef SLIDERSETTINGSWIDGET_H
+#define SLIDERSETTINGSWIDGET_H
 
-
-#include <QToolBar>
 #include "WinDllMacros.h"
+#include <QWidget>
 
-class QToolButton;
+class QRadioButton;
 
-
-//! The JobListToolBar contains buttons (add, remove jobs) needed for JobListView
-class BA_CORE_API_ JobListToolBar : public QToolBar
+class BA_CORE_API_ SliderSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit JobListToolBar(QWidget *parent = 0);
+    SliderSettingsWidget(QWidget *parent = 0);
 
 signals:
-    void runJob();
-    void removeJob();
+    void sliderRangeFactorChanged(double value);
+
+private slots:
+    void rangeChanged();
 
 private:
-    QToolButton *m_runJobButton;
-    QToolButton *m_removeJobButton;
+    double m_currentSliderRange;
+    QRadioButton *m_radio1;
+    QRadioButton *m_radio2;
+    QRadioButton *m_radio3;
 };
 
-
-#endif
-
+#endif // SLIDERSETTINGSWIDGET_H

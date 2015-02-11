@@ -25,8 +25,8 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SampleDesigner
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/JobQueueWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/OutputDataWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/JobWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/IntensityDataWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaterialEditor
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/InstrumentWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SimulationWidgets
@@ -40,8 +40,8 @@ file(GLOB source_files
     "Models/*.cpp"
     "Views/*.cpp"
     "Views/SampleDesigner/*.cpp"
-    "Views/JobQueueWidgets/*.cpp"
-    "Views/OutputDataWidgets/*.cpp"
+    "Views/JobWidgets/*.cpp"
+    "Views/IntensityDataWidgets/*.cpp"
     "Views/MaterialEditor/*.cpp"
     "Views/InstrumentWidgets/*.cpp"
     "Views/SimulationWidgets/*.cpp"
@@ -62,8 +62,8 @@ file(GLOB include_files
     "Models/*.h"
     "Views/*.h"
     "Views/SampleDesigner/*.h"
-    "Views/JobQueueWidgets/*.h"
-    "Views/OutputDataWidgets/*.h"
+    "Views/JobWidgets/*.h"
+    "Views/IntensityDataWidgets/*.h"
     "Views/MaterialEditor/*.h"
     "Views/InstrumentWidgets/*.h"
     "Views/SimulationWidgets/*.h"

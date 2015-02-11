@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobQueueWidgets/UniversalPropertyEditor.h
+//! @file      coregui/Views/JobWidgets/UniversalPropertyEditor.h
 //! @brief     Defines class UniversalPropertyEditor
 //!
 //! @homepage  http://www.bornagainproject.org

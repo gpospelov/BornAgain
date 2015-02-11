@@ -53,6 +53,7 @@ private slots:
     void onPropertyPanelAction(bool flag);
     void onProjectionsAction(bool flag);
     void showContextMenu(const QPoint &point);
+    void onIntensityModified();
 
 private:
     void setupContextMenuActions();

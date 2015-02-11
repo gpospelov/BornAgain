@@ -40,7 +40,7 @@ public:
     void setJobModel(NJobModel *jobModel);
 
 public slots:
-    void itemClicked(NJobItem *item);
+    void setItem(NJobItem *item);
     void onJobItemDelete(NJobItem *item);
     void onJobItemFinished(const QString &identifier);
     void onResetParameters();

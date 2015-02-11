@@ -136,7 +136,7 @@ void JobOutputDataWidget::setItem(NJobItem * item)
     }
     else
     {
-        if( m_stack->currentWidget())
+        if( m_stack->currentWidget() && m_stack->currentWidget() != widget)
         {
             m_stack->currentWidget()->hide();
         }

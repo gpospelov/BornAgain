@@ -38,9 +38,12 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
 
 void ColorMapPlot::setItem(NIntensityDataItem *item)
 {
-    qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item)";
-
-    if (m_item == item) return;
+//    if (m_item == item) return;
+    if (m_item == item) {
+        qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
+        plotItem(m_item);
+        return;
+    }
 
     if (m_item) {
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
@@ -61,7 +64,6 @@ void ColorMapPlot::setItem(NIntensityDataItem *item)
 // returns string containing bin content information
 QString ColorMapPlot::getStatusString()
 {
-    qDebug() << "ColorMapPlot::getStatusString()";
     QString result;
     if(m_posData.valid) {
         result = QString(" [X: %1, Y: %2]    [binx: %3, biny:%4]    [value: %5]")
@@ -71,16 +73,12 @@ QString ColorMapPlot::getStatusString()
                 .arg(m_posData.value, 2)
                 .arg(QString::number(m_posData.cellValue, 'f',2));
     }
-    qDebug() << "ColorMapPlot::getStatusString()" << result;
     return result;
 }
 
 void ColorMapPlot::drawLinesOverTheMap()
 {
-    if(!m_customPlot->graph(0)->visible() || !m_customPlot->graph(1)->visible())
-    {
-        return;
-    }
+    if(!m_customPlot->graph(0)->visible() || !m_customPlot->graph(1)->visible()) return;
 
     QCPColorMapData *data  = m_colorMap->data();
     Q_ASSERT(data);
@@ -95,26 +93,19 @@ void ColorMapPlot::drawLinesOverTheMap()
     double fraction = (keyRange.upper-keyRange.lower)/keySize;
 
     QVector<double> x1(keySize+1), y1(valueSize+1);
-    for(int i=0;i<x1.size();i++)
-    {
+    for(int i=0;i<x1.size();i++) {
         x1[i] = keyRange.lower + (i*fraction);
         y1[i] = m_posData.m_yPos;
-
-        //qDebug() << "Line draw1: X:" << x1[i] << " Y:" << y1[i];
     }
     m_customPlot->graph(0)->setData(x1, y1);
 
     //draw vertical line
-
     fraction = (valueRange.upper-valueRange.lower)/valueSize;
 
     QVector<double> x2(valueSize+1), y2(keySize+1);
-    for(int i=0;i<x2.size();i++)
-    {
+    for(int i=0;i<x2.size();i++) {
         x2[i] = m_posData.m_xPos;
         y2[i] = valueRange.lower+(i*fraction);
-
-        //qDebug() << "Line draw2: X:" << x2[i] << " Y:" << y2[i];
     }
     m_customPlot->graph(1)->setData(x2, y2);
 
@@ -124,8 +115,7 @@ void ColorMapPlot::drawLinesOverTheMap()
 
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
-    if(m_customPlot->graph(0) && m_customPlot->graph(1))
-    {
+    if(m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
         m_customPlot->replot();
@@ -149,16 +139,9 @@ void ColorMapPlot::setLogz(bool logz, bool isReplot)
 void ColorMapPlot::resetView()
 {
     m_block_update = true;
-    qDebug() << "ColorMapPlot::resetView()";
     m_colorMap->rescaleAxes();
-
-
     QCPRange newDataRange = calculateDataRange(m_item);
-    qDebug() << "XXX " << newDataRange.lower << newDataRange.upper;
     m_colorMap->setDataRange(newDataRange);
-//    m_colorScale->setDataRange(newDataRange);
-
-
     m_customPlot->replot();
     m_block_update = false;
 }
@@ -167,7 +150,6 @@ void ColorMapPlot::resetView()
 // saves information about mouse position and intensity data underneath
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
-    qDebug() << "ColorMapPlot::onMouseMove(QMouseEvent *event)";
     m_posData.reset();
 
     QPoint point = event->pos();
@@ -240,11 +222,10 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
 
 void ColorMapPlot::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "ColorMapPlot::onPropertyChanged(const QString &property_name)" << property_name;
+//    qDebug() << "ColorMapPlot::onPropertyChanged(const QString &property_name)" << property_name;
     if(m_block_update) return;
 
     if(property_name == NIntensityDataItem::P_GRADIENT) {
-        qDebug() << "XXX" << m_gradient_map.size() << m_item->getGradient();
         m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
         m_customPlot->replot();
     } else if(property_name == NIntensityDataItem::P_IS_LOGZ) {
@@ -342,8 +323,8 @@ void ColorMapPlot::initColorMap()
 void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
 {
     m_block_update = true;
-    qDebug() << "ColorMapPlot::updateItem(NIntensityDataItem *intensityItem)";
-    Q_ASSERT(intensityItem);
+    //qDebug() << "ColorMapPlot::updateItem(NIntensityDataItem *intensityItem)";
+    Q_ASSERT(intensityItem == m_item);
 
     const OutputData<double> *data = intensityItem->getOutputData();
     Q_ASSERT(data);

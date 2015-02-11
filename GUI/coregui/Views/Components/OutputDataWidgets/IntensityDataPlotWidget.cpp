@@ -99,6 +99,7 @@ void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
     if (m_item) {
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
+        disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
     }
 
     m_item = item;
@@ -109,6 +110,7 @@ void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
 
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
+    connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
 }
 
 // provide syncronious move of top and bottom splitters
@@ -131,7 +133,6 @@ void IntensityDataPlotWidget::resetView()
 
 void IntensityDataPlotWidget::onMouseMove()
 {
-    qDebug() << "IntensityDataPlotWidget::onMouseMove(QMouseEvent *event)";
     m_statusLabel->setText(m_centralPlot->getStatusString());
 
     bool bottom_is_visible = isBottomAreaVisible();
@@ -268,6 +269,11 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
 
 //    menu.exec(mapToGlobal(point));
     menu.exec(point);
+}
+
+void IntensityDataPlotWidget::onIntensityModified()
+{
+    m_centralPlot->setItem(m_item);
 }
 
 void IntensityDataPlotWidget::setupContextMenuActions()

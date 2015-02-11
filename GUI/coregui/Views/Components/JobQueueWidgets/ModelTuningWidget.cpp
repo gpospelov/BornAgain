@@ -96,7 +96,7 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
         return;
 
     if(link.getItem()) {
-//        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
 
 //        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
 //        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getVariant());

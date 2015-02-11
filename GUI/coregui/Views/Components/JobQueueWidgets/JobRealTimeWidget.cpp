@@ -62,16 +62,13 @@ JobRealTimeWidget::JobRealTimeWidget(NJobModel *jobModel, QWidget *parent)
 
 void JobRealTimeWidget::setJobModel(NJobModel *jobModel)
 {
-    // FIXME
-    return;
-
     Q_ASSERT(jobModel);
     if(jobModel != m_jobModel) {
         if(m_jobModel) {
             disconnect(m_jobModel,
                 SIGNAL( selectionChanged(NJobItem *) ),
                 this,
-                SLOT( itemClicked(NJobItem *) )
+                SLOT( setItem(NJobItem *) )
                 );
 
             disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
@@ -86,21 +83,22 @@ void JobRealTimeWidget::setJobModel(NJobModel *jobModel)
         connect(m_jobModel,
             SIGNAL( selectionChanged(NJobItem *) ),
             this,
-            SLOT( itemClicked(NJobItem *) )
+            SLOT( setItem(NJobItem *) )
             );
 
         connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
                 , this, SLOT(onJobItemFinished(QString)));
 
-        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-                , this, SLOT(onJobItemDelete(JobItem*)));
+        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(NJobItem*))
+                , this, SLOT(onJobItemDelete(NJobItem*)));
     }
 }
 
 
-void JobRealTimeWidget::itemClicked(NJobItem * item)
+void JobRealTimeWidget::setItem(NJobItem * item)
 {
-    qDebug() << "JobOutputDataWidget::itemClicked()";
+    qDebug() << "JobOutputDataWidget::setItem()";
+    Q_ASSERT(item);
     m_currentJobItem = item;
 
     if(!isVisible()) return;
@@ -130,19 +128,17 @@ void JobRealTimeWidget::itemClicked(NJobItem * item)
 }
 
 
-void JobRealTimeWidget::onJobItemFinished(const QString &/*identifier*/)
+void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
 {
-    Q_ASSERT(0);
-    // FIXME
-//    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-//    NJobItem *jobItem = m_jobModel->getJobQueueData()->getJobItem(identifier);
+    qDebug() << "JobOutputDataWidget::onJobItemFinished()";
+    NJobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
 
-//    if(jobItem == m_currentJobItem) {
-//        if((jobItem->getStatus() == JobItem::COMPLETED || jobItem->getStatus() == JobItem::CANCELLED) && jobItem->getOutputDataItem()) {
-//            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-//            itemClicked(jobItem);
-//        }
-//    }
+    if(jobItem == m_currentJobItem) {
+        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem()) {
+            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
+            setItem(jobItem);
+        }
+    }
 }
 
 void JobRealTimeWidget::onResetParameters()
@@ -155,7 +151,7 @@ void JobRealTimeWidget::onResetParameters()
 void JobRealTimeWidget::updateCurrentItem()
 {
     if(!m_currentJobItem) return;
-    itemClicked(m_currentJobItem);
+    setItem(m_currentJobItem);
 }
 
 //void JobRealTimeWidget::onExportParameters()

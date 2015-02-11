@@ -18,13 +18,12 @@
 #include "OutputDataItem.h"
 #include "Simulation.h"
 #include "AngleProperty.h"
-//#include "JobItem.h"
 #include "InstrumentItem.h"
 #include "InstrumentModel.h"
 #include "DetectorItems.h"
-#include "NIntensityDataItem.h"
-#include "NJobItem.h"
-#include "NJobModel.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "JobModel.h"
 #include "JobRunner.h"
 #include "DomainSimulationBuilder.h"
 #include "ThreadInfo.h"
@@ -37,7 +36,7 @@
 
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier.
-JobQueueData::JobQueueData(NJobModel *jobModel)
+JobQueueData::JobQueueData(JobModel *jobModel)
     : m_jobModel(jobModel)
 {
 
@@ -132,16 +131,16 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-void JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)
+void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
 {
     qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
     if(!simulation)
         throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
 
-    NIntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
 
     if(!intensityItem) {
-        intensityItem = static_cast<NIntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
+        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
     }
 
     // propagatind angle units to OutputDataItem
@@ -156,7 +155,7 @@ void JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)
 
         if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
             AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
-            intensityItem->setRegisteredProperty(NIntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
+            intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
 //            if(angle_property.inDegrees())
 //                intensityItem->setAxesUnits(Constants::UnitsDegrees);
         }
@@ -175,13 +174,13 @@ void JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)
 void JobQueueData::runJob(const QString &identifier)
 {
     qDebug() << "JobQueueData::runJob(const QString &identifier)";
-    NJobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
     runJob(jobItem);
 }
 
 
 //! submit job and run it in a thread
-void JobQueueData::runJob(NJobItem *jobItem)
+void JobQueueData::runJob(JobItem *jobItem)
 {
     QString identifier = jobItem->getIdentifier();
     if(getThread(identifier)) {
@@ -277,7 +276,7 @@ void JobQueueData::onStartedJob()
     qDebug() << "JobQueueData::onStartedJob()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
-    NJobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(0);
     jobItem->setStatus(Constants::STATUS_RUNNING);
     QString begin_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
@@ -293,7 +292,7 @@ void JobQueueData::onFinishedJob()
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
 
-    NJobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
 
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
@@ -337,7 +336,7 @@ void JobQueueData::onProgressUpdate()
     qDebug() << "JobQueueData::onProgressUpdate()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
-    NJobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(runner->getProgress());
     updateGlobalProgress();
 }
@@ -352,7 +351,7 @@ void JobQueueData::updateGlobalProgress()
     QModelIndex parentIndex;
     for(int i_row = 0; i_row < m_jobModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_jobModel->index( i_row, 0, parentIndex );
-        NJobItem *jobItem = m_jobModel->getJobItemForIndex(itemIndex);
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(itemIndex);
         if(jobItem->isRunning()) {
             global_progress += jobItem->getProgress();
             nRunningJobs++;

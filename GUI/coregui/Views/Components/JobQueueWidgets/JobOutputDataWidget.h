@@ -28,18 +28,18 @@ class QModelIndex;
 //class JobItem;
 class JobOutputDataToolBar;
 class ProjectManager;
-class NJobModel;
-class NJobItem;
+class JobModel;
+class JobItem;
 
 class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
 //    explicit JobOutputDataWidget(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
-    explicit JobOutputDataWidget(NJobModel *joModel, ProjectManager *projectManager, QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobModel *joModel, ProjectManager *projectManager, QWidget *parent = 0);
 
 //    void setJobQueueModel(JobQueueModel *jobQueueModel);
-    void setJobModel(NJobModel *jobModel);
+    void setJobModel(JobModel *jobModel);
 
     JobOutputDataToolBar *getToolBar() { return m_toolBar; }
 
@@ -47,8 +47,8 @@ signals:
     void jobViewActivityRequest(int activity);
 
 public slots:
-    void setItem(NJobItem *item);
-    void onJobItemDelete(NJobItem *item);
+    void setItem(JobItem *item);
+    void onJobItemDelete(JobItem *item);
 //    void onJobItemFinished(const QString &identifier);
     void togglePropertyPanel();
     void toggleProjections();
@@ -61,11 +61,11 @@ private:
     IntensityDataWidget *getCurrentOutputDataWidget();
 
 //    JobQueueModel *m_jobQueueModel;
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
     ProjectManager *m_projectManager;
-    NJobItem *m_currentJobItem;
+    JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
-    QMap<NJobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
+    QMap<JobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;
 };
 

@@ -21,8 +21,8 @@
 
 struct JobViewPrivate;
 //class JobQueueModel;
-class NJobModel;
-class NJobItem;
+class JobModel;
+class JobItem;
 class ProjectManager;
 
 namespace Manhattan {
@@ -41,7 +41,7 @@ public:
     enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
 //    JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
-    JobView(NJobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
+    JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);
@@ -52,7 +52,7 @@ signals:
 
 public slots:
     void updateGlobalProgressBar(int);
-    void onFocusRequest(NJobItem *);
+    void onFocusRequest(JobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
 

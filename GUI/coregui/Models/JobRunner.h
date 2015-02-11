@@ -17,7 +17,6 @@
 #define JOBRUNNER_H
 
 #include "WinDllMacros.h"
-#include "JobItem.h"
 #include <QObject>
 #include <QString>
 

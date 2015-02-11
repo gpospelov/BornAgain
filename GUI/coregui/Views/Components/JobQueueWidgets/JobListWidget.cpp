@@ -14,10 +14,8 @@
 // ************************************************************************** //
 
 #include "JobListWidget.h"
-//#include "JobQueueModel.h"
-//#include "JobItem.h"
-#include "NJobModel.h"
-#include "NJobItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobListToolBar.h"
 #include <QPushButton>
@@ -78,7 +76,7 @@ JobListWidget::JobListWidget(QWidget *parent)
 }
 
 
-void JobListWidget::setModel(NJobModel *model)
+void JobListWidget::setModel(JobModel *model)
 {
     Q_ASSERT(model);
     if(model != m_jobModel) {
@@ -136,7 +134,7 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
 {
     if(!index.isValid()) return false;
 
-    const NJobItem *jobItem = m_jobModel->getJobItemForIndex(index);
+    const JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
     if(jobItem->isCompleted() || jobItem->isFailed()) return false;
 
     return true;

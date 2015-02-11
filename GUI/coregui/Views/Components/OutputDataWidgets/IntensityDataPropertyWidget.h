@@ -19,8 +19,8 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class NJobModel;
-class NIntensityDataItem;
+class JobModel;
+class IntensityDataItem;
 class UniversalPropertyEditor;
 
 //! Widget to show and change properties of currently selected JobItem
@@ -31,17 +31,17 @@ class BA_CORE_API_ IntensityDataPropertyWidget : public QWidget
 public:
     explicit IntensityDataPropertyWidget(QWidget *parent = 0);
 
-    void setModel(NJobModel *model);
+    void setModel(JobModel *model);
 
     QSize sizeHint() const { return QSize(230, 256); }
     QSize minimumSizeHint() const { return QSize(230, 64); }
 
 public slots:
-    void setItem(NIntensityDataItem *item);
+    void setItem(IntensityDataItem *item);
 
 private:
-    NJobModel *m_jobModel;
-    NIntensityDataItem *m_currentItem;
+    JobModel *m_jobModel;
+    IntensityDataItem *m_currentItem;
     UniversalPropertyEditor *m_propertyEditor;
 };
 

@@ -19,7 +19,7 @@
 #include "ItemLink.h"
 #include <QWidget>
 
-class NJobItem;
+class JobItem;
 class SliderSettingsWidget;
 class ModelTuningDelegate;
 class JobQueueData;
@@ -38,7 +38,7 @@ public:
     ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 
-    void setCurrentItem(NJobItem *item);
+    void setCurrentItem(JobItem *item);
 
 public slots:
     void onCurrentLinkChanged(ItemLink link);
@@ -50,7 +50,7 @@ private:
     void backupModels();
 
     JobQueueData *m_jobQueueData;
-    NJobItem *m_currentJobItem;
+    JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
     QStandardItemModel *m_parameterModel;

@@ -46,7 +46,7 @@ class MaterialModel;
 class SampleModel;
 class FitProxyModel;
 class FitView;
-class NJobModel;
+class JobModel;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -63,7 +63,7 @@ public:
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
 //    JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
-    NJobModel *getJobModel() { return m_jobModel; }
+    JobModel *getJobModel() { return m_jobModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     QSettings *getSettings() const { return m_settings; }
     ActionManager *getActionManager() { return m_actionManager; }
@@ -99,7 +99,7 @@ private:
     QSettings *m_settings; //!< application wide settings
 
 //    JobQueueModel *m_jobQueueModel; //!< model for all jobs
-    NJobModel *m_jobModel;  //!< model for all jobs
+    JobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials

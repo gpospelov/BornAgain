@@ -22,7 +22,7 @@
 #include <QMap>
 #include <QPoint>
 
-class NIntensityDataItem;
+class IntensityDataItem;
 class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
@@ -37,7 +37,7 @@ public:
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    void setItem(NIntensityDataItem *item);
+    void setItem(IntensityDataItem *item);
 
     QString getStatusString();
 
@@ -86,14 +86,14 @@ private:
     };
 
     void initColorMap();
-    void plotItem(NIntensityDataItem *intensityItem);
-    QCPRange calculateDataRange(NIntensityDataItem *intensityItem);
+    void plotItem(IntensityDataItem *intensityItem);
+    QCPRange calculateDataRange(IntensityDataItem *intensityItem);
 
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;
     QCPColorScale *m_colorScale;
 
-    NIntensityDataItem *m_item;
+    IntensityDataItem *m_item;
 
     QMap<QString, QCPColorGradient > m_gradient_map;
     bool m_block_update;

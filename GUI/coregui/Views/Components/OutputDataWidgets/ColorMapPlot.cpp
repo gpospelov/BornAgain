@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ColorMapPlot.h"
-#include "NIntensityDataItem.h"
+#include "IntensityDataItem.h"
 #include "GUIHelpers.h"
 #include "Units.h"
 #include <QDebug>
@@ -37,7 +37,7 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
-void ColorMapPlot::setItem(NIntensityDataItem *item)
+void ColorMapPlot::setItem(IntensityDataItem *item)
 {
     if (m_item == item) {
         //qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
@@ -228,15 +228,15 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
 {
     if(m_block_update) return;
 
-    if(property_name == NIntensityDataItem::P_GRADIENT) {
+    if(property_name == IntensityDataItem::P_GRADIENT) {
         m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
         m_customPlot->replot();
-    } else if(property_name == NIntensityDataItem::P_IS_LOGZ) {
+    } else if(property_name == IntensityDataItem::P_IS_LOGZ) {
         setLogz(m_item->isLogz());
-    } else if(property_name == NIntensityDataItem::P_IS_INTERPOLATED) {
+    } else if(property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
         m_customPlot->replot();
-    } else if(property_name == NIntensityDataItem::P_ZAXIS_MIN) {
+    } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
         QCPRange range = m_colorMap->dataRange();
         double zmin = m_item->getZaxisMin();
         if(zmin != range.lower) {
@@ -244,7 +244,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
             m_colorMap->setDataRange(range);
             m_customPlot->replot();
         }
-    } else if(property_name == NIntensityDataItem::P_ZAXIS_MAX) {
+    } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
         QCPRange range = m_colorMap->dataRange();
         double zmax = m_item->getZaxisMax();
         if(zmax != range.upper) {
@@ -252,8 +252,8 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
             m_colorMap->setDataRange(range);
             m_customPlot->replot();
         }
-    } else if(property_name == NIntensityDataItem::P_PROJECTIONS_FLAG) {
-        showLinesOverTheMap(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    } else if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+        showLinesOverTheMap(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
@@ -325,7 +325,7 @@ void ColorMapPlot::initColorMap()
 }
 
 //! plot IntensityDataItem
-void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
+void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 {
     m_block_update = true;
     Q_ASSERT(intensityItem == m_item);
@@ -385,7 +385,7 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
 }
 
 //! calculate zmin, zmax for nicely looking linear, and logariphic z-axis
-QCPRange ColorMapPlot::calculateDataRange(NIntensityDataItem *intensityItem)
+QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
 {
     const OutputData<double> *data = intensityItem->getOutputData();
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());

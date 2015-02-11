@@ -17,11 +17,10 @@
 #include "Simulation.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
-//#include "JobQueueModel.h"
-#include "NJobModel.h"
+#include "JobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "NJobItem.h"
+#include "JobItem.h"
 #include "SampleValidator.h"
 #include "Utils.h"
 #include <QGroupBox>
@@ -67,9 +66,9 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runPolicyLabel->setToolTip("Defines run policy for the simulation");
     runPolicySelectionBox = new QComboBox;
     runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox->addItems(NJobItem::getRunPolicies().keys());
+    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
     int index(0);
-    foreach(QString descr, NJobItem::getRunPolicies().values())
+    foreach(QString descr, JobItem::getRunPolicies().values())
         runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
 
     // selection of number of threads
@@ -126,7 +125,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 //        m_jobQueueModel = model;
 //    }
 //}
-void SimulationSetupWidget::setJobModel(NJobModel *model)
+void SimulationSetupWidget::setJobModel(JobModel *model)
 {
     Q_ASSERT(model);
     if(model != m_jobModel) {

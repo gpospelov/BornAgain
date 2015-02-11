@@ -25,7 +25,7 @@
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 //#include "JobQueueModel.h"
-#include "NJobModel.h"
+#include "JobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "MaterialEditor.h"
@@ -305,7 +305,7 @@ void MainWindow::initJobQueueModel()
 //    m_jobQueueModel = new JobQueueModel(this);
 
     delete m_jobModel;
-    m_jobModel = new NJobModel(this);
+    m_jobModel = new JobModel(this);
 //    ParameterizedItem *jobItem = m_jobModel->insertNewItem(Constants::JobItemType);
 //    m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem));
 //    m_jobModel->save("jobmodel.txt");

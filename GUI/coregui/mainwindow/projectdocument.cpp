@@ -19,9 +19,9 @@
 //#include "JobQueueModel.h"
 //#include "JobItem.h"
 //#include "OutputDataItem.h"
-#include "NJobModel.h"
-#include "NJobItem.h"
-#include "NIntensityDataItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
 #include "SampleModel.h"
 #include "IntensityDataIOFactory.h"
 #include <QFile>
@@ -130,7 +130,7 @@ void ProjectDocument::setSampleModel(SampleModel *model)
 }
 
 
-void ProjectDocument::setJobModel(NJobModel *model)
+void ProjectDocument::setJobModel(JobModel *model)
 {
     if(model != m_jobModel) {
         if(m_jobModel) {
@@ -323,8 +323,8 @@ void ProjectDocument::saveOutputData()
 //        }
 //    }
     for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
-        NJobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
-        NIntensityDataItem *dataItem = jobItem->getIntensityDataItem();
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
+        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
         if(dataItem) {
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             const OutputData<double> *data = dataItem->getOutputData();
@@ -354,8 +354,8 @@ void ProjectDocument::loadOutputData()
 //        }
 //    }
     for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
-        NJobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
-        NIntensityDataItem *dataItem = jobItem->getIntensityDataItem();
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
+        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
         if(dataItem) {
             QString filename = getProjectDir() + "/" + dataItem->itemName();
             QFileInfo info(filename);

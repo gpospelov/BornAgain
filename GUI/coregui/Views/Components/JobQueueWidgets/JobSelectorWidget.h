@@ -20,8 +20,8 @@
 #include <QWidget>
 
 //class JobQueueModel;
-class NJobModel;
-class NJobItem;
+class JobModel;
+class JobItem;
 class JobPropertiesWidget;
 class QSplitter;
 class QPushButton;
@@ -33,19 +33,19 @@ class JobListWidget;
 class BA_CORE_API_ JobSelectorWidget : public QWidget
 {
 public:
-    explicit JobSelectorWidget(NJobModel *model, QWidget *parent = 0);
+    explicit JobSelectorWidget(JobModel *model, QWidget *parent = 0);
 
-    void setModel(NJobModel *model);
+    void setModel(JobModel *model);
 
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
 public slots:
-    void makeJobItemSelected(NJobItem *);
+    void makeJobItemSelected(JobItem *);
 
 private:
 //    JobQueueModel *m_jobQueueModel;
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
     QSplitter *m_splitter;
     JobListWidget *m_jobListWidget;
     JobPropertiesWidget *m_jobProperties;

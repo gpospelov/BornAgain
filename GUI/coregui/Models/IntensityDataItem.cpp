@@ -13,27 +13,27 @@
 //
 // ************************************************************************** //
 
-#include "NIntensityDataItem.h"
+#include "IntensityDataItem.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
 #include <QDebug>
 
-const QString NIntensityDataItem::P_XAXIS_MIN = "xmin";
-const QString NIntensityDataItem::P_XAXIS_MAX = "xmax";
-const QString NIntensityDataItem::P_YAXIS_MIN = "ymin";
-const QString NIntensityDataItem::P_YAXIS_MAX = "ymax";
-const QString NIntensityDataItem::P_ZAXIS_MIN = "zmin";
-const QString NIntensityDataItem::P_ZAXIS_MAX = "zmax";
-const QString NIntensityDataItem::P_GRADIENT = "Gradient";
-const QString NIntensityDataItem::P_IS_LOGZ = "Logz";
-const QString NIntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
-const QString NIntensityDataItem::P_XAXIS_TITLE = "x-title";
-const QString NIntensityDataItem::P_YAXIS_TITLE = "y-title";
-const QString NIntensityDataItem::P_AXES_UNITS = "Axes Units";
-const QString NIntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
-const QString NIntensityDataItem::P_PROJECTIONS_FLAG = "Projections Flag";
+const QString IntensityDataItem::P_XAXIS_MIN = "xmin";
+const QString IntensityDataItem::P_XAXIS_MAX = "xmax";
+const QString IntensityDataItem::P_YAXIS_MIN = "ymin";
+const QString IntensityDataItem::P_YAXIS_MAX = "ymax";
+const QString IntensityDataItem::P_ZAXIS_MIN = "zmin";
+const QString IntensityDataItem::P_ZAXIS_MAX = "zmax";
+const QString IntensityDataItem::P_GRADIENT = "Gradient";
+const QString IntensityDataItem::P_IS_LOGZ = "Logz";
+const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
+const QString IntensityDataItem::P_XAXIS_TITLE = "x-title";
+const QString IntensityDataItem::P_YAXIS_TITLE = "y-title";
+const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
+const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
+const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections Flag";
 
-NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
+IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
     , m_data(0)
 {
@@ -65,12 +65,12 @@ NIntensityDataItem::NIntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_PROJECTIONS_FLAG, false);
 }
 
-NIntensityDataItem::~NIntensityDataItem()
+IntensityDataItem::~IntensityDataItem()
 {
     delete m_data;
 }
 
-void NIntensityDataItem::setOutputData(OutputData<double> *data)
+void IntensityDataItem::setOutputData(OutputData<double> *data)
 {
 //    if(data != m_data) {
         qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
@@ -89,144 +89,144 @@ void NIntensityDataItem::setOutputData(OutputData<double> *data)
         //    }
 }
 
-double NIntensityDataItem::getXaxisMin() const
+double IntensityDataItem::getXaxisMin() const
 {
     return getRegisteredProperty(P_XAXIS_MIN).toDouble();
 }
 
-double NIntensityDataItem::getXaxisMax() const
+double IntensityDataItem::getXaxisMax() const
 {
     return getRegisteredProperty(P_XAXIS_MAX).toDouble();
 }
 
-double NIntensityDataItem::getYaxisMin() const
+double IntensityDataItem::getYaxisMin() const
 {
     return getRegisteredProperty(P_YAXIS_MIN).toDouble();
 }
 
-double NIntensityDataItem::getYaxisMax() const
+double IntensityDataItem::getYaxisMax() const
 {
     return getRegisteredProperty(P_YAXIS_MAX).toDouble();
 }
 
-double NIntensityDataItem::getZaxisMin() const
+double IntensityDataItem::getZaxisMin() const
 {
     return getRegisteredProperty(P_ZAXIS_MIN).toDouble();
 }
 
-double NIntensityDataItem::getZaxisMax() const
+double IntensityDataItem::getZaxisMax() const
 {
     return getRegisteredProperty(P_ZAXIS_MAX).toDouble();
 }
 
-QString NIntensityDataItem::getGradient() const
+QString IntensityDataItem::getGradient() const
 {
     ComboProperty combo_property = getRegisteredProperty(P_GRADIENT).value<ComboProperty>();
     return combo_property.getValue();
 }
 
-bool NIntensityDataItem::isLogz() const
+bool IntensityDataItem::isLogz() const
 {
     return getRegisteredProperty(P_IS_LOGZ).toBool();
 
 }
 
-bool NIntensityDataItem::isInterpolated() const
+bool IntensityDataItem::isInterpolated() const
 {
     return getRegisteredProperty(P_IS_INTERPOLATED).toBool();
 }
 
-QString NIntensityDataItem::getXaxisTitle() const
+QString IntensityDataItem::getXaxisTitle() const
 {
     return getRegisteredProperty(P_XAXIS_TITLE).toString();
 }
 
-QString NIntensityDataItem::getYaxisTitle() const
+QString IntensityDataItem::getYaxisTitle() const
 {
     return getRegisteredProperty(P_YAXIS_TITLE).toString();
 }
 
-QString NIntensityDataItem::getAxesUnits() const
+QString IntensityDataItem::getAxesUnits() const
 {
     qDebug() << "NIntensityDataItem::getAxesUnits()";
     Q_ASSERT(0);
     return QString();
 }
 
-bool NIntensityDataItem::axesInRadians() const
+bool IntensityDataItem::axesInRadians() const
 {
     AngleProperty angle_property = getRegisteredProperty(P_AXES_UNITS).value<AngleProperty>();
     return angle_property.inRadians();
 }
 
-void NIntensityDataItem::setXaxisMin(double xmin)
+void IntensityDataItem::setXaxisMin(double xmin)
 {
     qDebug() << "NIntensityDataItem::setXaxisMin(double xmin)";
     setRegisteredProperty(P_XAXIS_MIN, xmin);
 }
 
-void NIntensityDataItem::setXaxisMax(double xmax)
+void IntensityDataItem::setXaxisMax(double xmax)
 {
     qDebug() << "NIntensityDataItem::setXaxisMax(double xmax)";
     setRegisteredProperty(P_XAXIS_MAX, xmax);
 }
 
-void NIntensityDataItem::setYaxisMin(double ymin)
+void IntensityDataItem::setYaxisMin(double ymin)
 {
     qDebug() << "NIntensityDataItem::setYaxisMin(double ymin)";
     setRegisteredProperty(P_YAXIS_MIN, ymin);
 }
 
-void NIntensityDataItem::setYaxisMax(double ymax)
+void IntensityDataItem::setYaxisMax(double ymax)
 {
     qDebug() << "NIntensityDataItem::setYaxisMax(double ymax)";
     setRegisteredProperty(P_YAXIS_MAX, ymax);
 }
 
-void NIntensityDataItem::setZaxisRange(double zmin, double zmax)
+void IntensityDataItem::setZaxisRange(double zmin, double zmax)
 {
     qDebug() << "NIntensityDataItem::setZaxisRange()";
     setRegisteredProperty(P_ZAXIS_MIN, zmin);
     setRegisteredProperty(P_ZAXIS_MAX, zmax);
 }
 
-void NIntensityDataItem::setZaxisMin(double zmin)
+void IntensityDataItem::setZaxisMin(double zmin)
 {
     qDebug() << "NIntensityDataItem::setZaxisMin(double zmin)";
     setRegisteredProperty(P_ZAXIS_MIN, zmin);
 }
 
-void NIntensityDataItem::setZaxisMax(double zmax)
+void IntensityDataItem::setZaxisMax(double zmax)
 {
     qDebug() << "NIntensityDataItem::setZaxisMax(double zmax)";
     setRegisteredProperty(P_ZAXIS_MAX, zmax);
 }
 
-void NIntensityDataItem::setLogz(bool logz)
+void IntensityDataItem::setLogz(bool logz)
 {
     qDebug() << "NIntensityDataItem::setLogz(bool logz)";
     setRegisteredProperty(P_IS_LOGZ, logz);
 }
 
-void NIntensityDataItem::setInterpolated(bool interp)
+void IntensityDataItem::setInterpolated(bool interp)
 {
     qDebug() << "NIntensityDataItem::setInterpolated(bool interp)";
     setRegisteredProperty(P_IS_INTERPOLATED, interp);
 }
 
-void NIntensityDataItem::setXaxisTitle(QString xtitle)
+void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
     qDebug() << "NIntensityDataItem::setXaxisTitle(QString xtitle)";
     setRegisteredProperty(P_XAXIS_TITLE, xtitle);
 }
 
-void NIntensityDataItem::setYaxisTitle(QString ytitle)
+void IntensityDataItem::setYaxisTitle(QString ytitle)
 {
     qDebug() << "NIntensityDataItem::setYaxisTitle(QString ytitle)";
     setRegisteredProperty(P_YAXIS_TITLE, ytitle);
 }
 
-void NIntensityDataItem::setAxesUnits(const QString &units)
+void IntensityDataItem::setAxesUnits(const QString &units)
 {
     qDebug() << "NIntensityDataItem::setAxesUnits(QString units)";
     Q_UNUSED(units);

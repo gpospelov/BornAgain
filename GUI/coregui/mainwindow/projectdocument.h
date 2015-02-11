@@ -27,7 +27,7 @@ class JobItem;
 class InstrumentModel;
 class MaterialModel;
 class SampleModel;
-class NJobModel;
+class JobModel;
 
 namespace ProjectDocumentXML
 {
@@ -71,7 +71,7 @@ public:
     void setInstrumentModel(InstrumentModel *model);
     void setSampleModel(SampleModel *model);
 //    void setJobQueueModel(JobQueueModel *model);
-    void setJobModel(NJobModel *model);
+    void setJobModel(JobModel *model);
 
     bool hasValidNameAndPath();
 
@@ -95,7 +95,7 @@ private:
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
 //    JobQueueModel *m_jobQueueModel;
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
     bool m_modified;
 };
 

@@ -14,8 +14,7 @@
 // ************************************************************************** //
 
 #include "ModelTuningWidget.h"
-//#include "JobItem.h"
-#include "NJobItem.h"
+#include "JobItem.h"
 #include "SliderSettingsWidget.h"
 #include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
@@ -76,7 +75,7 @@ ModelTuningWidget::~ModelTuningWidget()
 }
 
 
-void ModelTuningWidget::setCurrentItem(NJobItem *item)
+void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
     qDebug() << "ModelTuningWidget::setCurrentItem" << item;
     if(m_currentJobItem != item) {

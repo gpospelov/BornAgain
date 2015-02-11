@@ -18,7 +18,6 @@
 #include "styledtoolbar.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "JobQueueModel.h"
 #include "mainwindow.h"
 #include <QTabWidget>
 #include <QVBoxLayout>

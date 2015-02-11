@@ -14,10 +14,8 @@
 // ************************************************************************** //
 
 #include "JobSelectorWidget.h"
-//#include "JobQueueModel.h"
-//#include "JobItem.h"
-#include "NJobModel.h"
-#include "NJobItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
 #include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
 #include "styledbar.h"
@@ -32,7 +30,7 @@
 
 
 
-JobSelectorWidget::JobSelectorWidget(NJobModel *model, QWidget *parent)
+JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(0)
     , m_splitter(new Manhattan::MiniSplitter(this))
@@ -61,7 +59,7 @@ JobSelectorWidget::JobSelectorWidget(NJobModel *model, QWidget *parent)
 }
 
 
-void JobSelectorWidget::setModel(NJobModel *model)
+void JobSelectorWidget::setModel(JobModel *model)
 {
     if(model != m_jobModel) {
         m_jobModel = model;
@@ -71,7 +69,7 @@ void JobSelectorWidget::setModel(NJobModel *model)
 }
 
 
-void JobSelectorWidget::makeJobItemSelected(NJobItem *item)
+void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 {
     Q_ASSERT(item);
     qDebug() << "JobSelectorWidget::makeJobItemSelected(NJobItem *item)" << item;

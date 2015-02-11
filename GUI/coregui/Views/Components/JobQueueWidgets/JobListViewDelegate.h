@@ -21,7 +21,7 @@
 #include <QRect>
 #include <QMap>
 
-class NJobItem;
+class JobItem;
 
 //! ViewDelegate to show progress bar JobQueuListView
 class BA_CORE_API_ JobListViewDelegate : public QItemDelegate
@@ -41,7 +41,7 @@ signals:
 
 private:
     QStyle::State  m_buttonState;
-    void drawCustomProjectBar(const NJobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const;
+    void drawCustomProjectBar(const JobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const;
 
     QRect getTextRect(QRect optionRect) const;
     QRect getProgressBarRect(QRect optionRect) const;

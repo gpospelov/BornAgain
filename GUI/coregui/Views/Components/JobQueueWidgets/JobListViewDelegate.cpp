@@ -14,10 +14,8 @@
 // ************************************************************************** //
 
 #include "JobListViewDelegate.h"
-//#include "JobQueueModel.h"
-//#include "JobItem.h"
-#include "NJobModel.h"
-#include "NJobItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
 #include "progressbar.h"
 #include <QDebug>
 #include <QPainter>
@@ -49,10 +47,10 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
 
-    const NJobModel* model = static_cast<const NJobModel*>(index.model());
+    const JobModel* model = static_cast<const JobModel*>(index.model());
     Q_ASSERT(model);
 
-    const NJobItem *item = model->getJobItemForIndex(index);
+    const JobItem *item = model->getJobItemForIndex(index);
     Q_ASSERT(item);
 
     painter->save();
@@ -110,10 +108,10 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
     }
 
 
-    const NJobModel* jqmodel = static_cast<const NJobModel*>(index.model());
+    const JobModel* jqmodel = static_cast<const JobModel*>(index.model());
     Q_ASSERT(model);
 
-    const NJobItem *item = jqmodel->getJobItemForIndex(index);
+    const JobItem *item = jqmodel->getJobItemForIndex(index);
     Q_ASSERT(item);
 
     if(!item->isRunning()) return false;
@@ -137,7 +135,7 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
 }
 
 
-void JobListViewDelegate::drawCustomProjectBar(const NJobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
+void JobListViewDelegate::drawCustomProjectBar(const JobItem *item, QPainter *painter, const QStyleOptionViewItem &option) const
 {
     int progress = item->getProgress();
     QRect rect = getProgressBarRect(option.rect);

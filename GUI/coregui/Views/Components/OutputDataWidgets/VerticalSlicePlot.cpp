@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "VerticalSlicePlot.h"
-#include "NIntensityDataItem.h"
+#include "IntensityDataItem.h"
 #include "qcustomplot.h"
 #include "Units.h"
 #include <QVBoxLayout>
@@ -37,7 +37,7 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
 
 }
 
-void VerticalSlicePlot::setItem(NIntensityDataItem *item)
+void VerticalSlicePlot::setItem(IntensityDataItem *item)
 {
     if (m_item == item) return;
 
@@ -68,24 +68,24 @@ void VerticalSlicePlot::onPropertyChanged(const QString &property_name)
 {
     //qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
 
-    if(property_name == NIntensityDataItem::P_IS_LOGZ) {
+    if(property_name == IntensityDataItem::P_IS_LOGZ) {
         setLogz(m_item->isLogz(), true);
-    } else if(property_name == NIntensityDataItem::P_XAXIS_MIN) {
+    } else if(property_name == IntensityDataItem::P_XAXIS_MIN) {
         setXmin(m_item->getXaxisMin());
-    } else if(property_name == NIntensityDataItem::P_XAXIS_MAX) {
+    } else if(property_name == IntensityDataItem::P_XAXIS_MAX) {
         setXmax(m_item->getXaxisMax());
-    } else if(property_name == NIntensityDataItem::P_YAXIS_MIN) {
+    } else if(property_name == IntensityDataItem::P_YAXIS_MIN) {
         setYmin(m_item->getYaxisMin());
-    } else if(property_name == NIntensityDataItem::P_YAXIS_MAX) {
+    } else if(property_name == IntensityDataItem::P_YAXIS_MAX) {
         setYmax(m_item->getYaxisMax());
-    } else if(property_name == NIntensityDataItem::P_ZAXIS_MIN) {
+    } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
         setZmin(m_item->getZaxisMin());
-    } else if(property_name == NIntensityDataItem::P_ZAXIS_MAX) {
+    } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
         setZmax(m_item->getZaxisMax());
     }
 }
 
-void VerticalSlicePlot::plotItem(NIntensityDataItem *intensityItem)
+void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
 {
     //qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem);

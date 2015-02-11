@@ -21,8 +21,8 @@
 #include <QMap>
 
 //class JobItem;
-class NJobItem;
-class NJobModel;
+class JobItem;
+class JobModel;
 //class JobQueueItem;
 class Simulation;
 class JobRunner;
@@ -34,7 +34,7 @@ class BA_CORE_API_ JobQueueData : public QObject
 {
     Q_OBJECT
 public:
-    JobQueueData(NJobModel *jobModel);
+    JobQueueData(JobModel *jobModel);
 
     QThread *getThread(QString identifier);
     JobRunner *getRunner(QString identifier);
@@ -42,7 +42,7 @@ public:
 
     bool hasUnfinishedJobs();
 
-    void setResults(NJobItem *jobItem, const Simulation *simulation);
+    void setResults(JobItem *jobItem, const Simulation *simulation);
 
 signals:
     void globalProgress(int);
@@ -57,7 +57,7 @@ public slots:
     void onCancelAllJobs();
 
     void runJob(const QString &identifier);
-    void runJob(NJobItem *jobItem);
+    void runJob(JobItem *jobItem);
     void cancelJob(const QString &identifier);
     void removeJob(const QString &identifier);
 
@@ -76,7 +76,7 @@ private:
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
     QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
 };
 
 

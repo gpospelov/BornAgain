@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef NINTENSITYDATAITEM_H
-#define NINTENSITYDATAITEM_H
+#ifndef INTENSITYDATAITEM_H
+#define INTENSITYDATAITEM_H
 
 #include "ParameterizedItem.h"
 #include "OutputData.h"
 
 
-class BA_CORE_API_ NIntensityDataItem : public ParameterizedItem
+class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -39,8 +39,8 @@ public:
     static const QString P_PROPERTY_PANEL_FLAG;
     static const QString P_PROJECTIONS_FLAG;
 
-    explicit NIntensityDataItem(ParameterizedItem *parent=0);
-    ~NIntensityDataItem();
+    explicit IntensityDataItem(ParameterizedItem *parent=0);
+    ~IntensityDataItem();
 
     OutputData<double> *getOutputData() { return m_data; }
     void setOutputData(OutputData<double> *data);

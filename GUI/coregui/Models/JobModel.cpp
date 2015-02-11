@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "NJobModel.h"
-#include "NJobItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include <QUuid>
@@ -22,7 +22,7 @@
 #include <QItemSelection>
 
 
-NJobModel::NJobModel(QObject *parent)
+JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
     , m_queue_data(0)
 {
@@ -31,7 +31,7 @@ NJobModel::NJobModel(QObject *parent)
     connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
 }
 
-NJobModel::~NJobModel()
+JobModel::~JobModel()
 {
     delete m_queue_data;
 }
@@ -41,43 +41,43 @@ NJobModel::~NJobModel()
 //    return rowCount(QModelIndex());
 //}
 
-const NJobItem *NJobModel::getJobItemForIndex(const QModelIndex &index) const
+const JobItem *JobModel::getJobItemForIndex(const QModelIndex &index) const
 {
-    const NJobItem *result = dynamic_cast<const NJobItem *>(itemForIndex(index));
+    const JobItem *result = dynamic_cast<const JobItem *>(itemForIndex(index));
     Q_ASSERT(result);
     return result;
 }
 
-NJobItem *NJobModel::getJobItemForIndex(const QModelIndex &index)
+JobItem *JobModel::getJobItemForIndex(const QModelIndex &index)
 {
-    NJobItem *result = dynamic_cast<NJobItem *>(itemForIndex(index));
+    JobItem *result = dynamic_cast<JobItem *>(itemForIndex(index));
     Q_ASSERT(result);
     return result;
 }
 
-NJobItem *NJobModel::getJobItemForIdentifier(const QString &identifier)
+JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 {
     QModelIndex parentIndex;
     for(int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = index( i_row, 0, parentIndex );
-        NJobItem *jobItem = getJobItemForIndex(itemIndex);
+        JobItem *jobItem = getJobItemForIndex(itemIndex);
         if(jobItem->getIdentifier() == identifier) return jobItem;
     }
     return 0;
 }
 
-NJobItem *NJobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
+JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
 {
-    NJobItem *jobItem = dynamic_cast<NJobItem *>(insertNewItem(Constants::JobItemType));
+    JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
     jobItem->setSampleModel(sampleModel);
     jobItem->setInstrumentModel(instrumentModel);
     jobItem->setIdentifier(generateJobIdentifier());
     jobItem->setNumberOfThreads(numberOfThreads);
 
-    ComboProperty combo_property = jobItem->getRegisteredProperty(NJobItem::P_RUN_POLICY).value<ComboProperty>();
+    ComboProperty combo_property = jobItem->getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
     combo_property.setValue(run_policy);
-    jobItem->setRegisteredProperty(NJobItem::P_RUN_POLICY, combo_property.getVariant());
+    jobItem->setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
 
     if(jobItem->runImmediately() || jobItem->runInBackground())
         m_queue_data->runJob(jobItem);
@@ -88,29 +88,29 @@ NJobItem *NJobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumen
     return jobItem;
 }
 
-void NJobModel::runJob(const QModelIndex &index)
+void JobModel::runJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::runJob(const QModelIndex &index)";
     m_queue_data->runJob(getJobItemForIndex(index));
 }
 
-void NJobModel::cancelJob(const QModelIndex &index)
+void JobModel::cancelJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::cancelJob(const QModelIndex &index)";
     m_queue_data->cancelJob(getJobItemForIndex(index)->getIdentifier());
 }
 
-void NJobModel::removeJob(const QModelIndex &index)
+void JobModel::removeJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
-    NJobItem *jobItem = getJobItemForIndex(index);
+    JobItem *jobItem = getJobItemForIndex(index);
     m_queue_data->removeJob(jobItem->getIdentifier());
 
     emit aboutToDeleteJobItem(jobItem);
     removeRows(index.row(), 1, QModelIndex());
 }
 
-void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+void JobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     Q_UNUSED(deselected);
     qDebug() << "NJobModel::onSelectionChanged" << selected;
@@ -130,13 +130,13 @@ void NJobModel::onSelectionChanged(const QItemSelection &selected, const QItemSe
 }
 
 // called when jobQueueData asks for focus
-void NJobModel::onFocusRequest(const QString &identifier)
+void JobModel::onFocusRequest(const QString &identifier)
 {
     emit focusRequest(getJobItemForIdentifier(identifier));
 }
 
 //! generates job name
-QString NJobModel::generateJobName()
+QString JobModel::generateJobName()
 {
     int glob_index = 0;
     QModelIndex parentIndex;
@@ -158,7 +158,7 @@ QString NJobModel::generateJobName()
 
 
 //! generate unique job identifier
-QString NJobModel::generateJobIdentifier()
+QString JobModel::generateJobIdentifier()
 {
     return QUuid::createUuid().toString();
 }

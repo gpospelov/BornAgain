@@ -17,8 +17,7 @@
 #include "TestView.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
-//#include "JobQueueModel.h"
-#include "NJobModel.h"
+#include "JobModel.h"
 #include "JobRealTimeWidget.h"
 #include "projectmanager.h"
 #include "mainwindow.h"
@@ -30,11 +29,11 @@
 
 struct JobViewPrivate
 {
-    JobViewPrivate(NJobModel *jobModel, ProjectManager *projectManager);
+    JobViewPrivate(JobModel *jobModel, ProjectManager *projectManager);
     QWidget *m_subWindows[JobView::NUMBER_OF_DOCKS];
     QDockWidget *m_dockWidgets[JobView::NUMBER_OF_DOCKS];
 //    JobQueueModel *m_jobQueueModel;
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
@@ -43,7 +42,7 @@ struct JobViewPrivate
 };
 
 
-JobViewPrivate::JobViewPrivate(NJobModel *jobModel, ProjectManager *projectManager)
+JobViewPrivate::JobViewPrivate(JobModel *jobModel, ProjectManager *projectManager)
     : m_jobModel(jobModel)
     , m_jobSelector(0)
     , m_jobOutputDataWidget(0)
@@ -57,7 +56,7 @@ JobViewPrivate::JobViewPrivate(NJobModel *jobModel, ProjectManager *projectManag
 }
 
 
-JobView::JobView(NJobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
+JobView::JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
     , m_d(new JobViewPrivate(jobModel, projectManager))
 {
@@ -119,7 +118,7 @@ void JobView::updateGlobalProgressBar(int progress)
 }
 
 
-void JobView::onFocusRequest(NJobItem *item)
+void JobView::onFocusRequest(JobItem *item)
 {
     m_d->m_jobSelector->makeJobItemSelected(item);
     emit focusRequest(MainWindow::JOB);
@@ -182,7 +181,7 @@ void JobView::connectSignals()
 {
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
     connect(m_d->m_jobModel, SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
-    connect(m_d->m_jobModel, SIGNAL(focusRequest(NJobItem*)), this, SLOT(onFocusRequest(NJobItem*)));
+    connect(m_d->m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
     connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
 }

@@ -20,7 +20,7 @@
 #include <QWidget>
 
 class IntensityDataPropertyWidget;
-class NIntensityDataItem;
+class IntensityDataItem;
 class IntensityDataPlotWidget;
 
 //! The widget presents IntensityData color map and property editor.
@@ -31,7 +31,7 @@ class BA_CORE_API_ IntensityDataWidget : public QWidget
 public:
     explicit IntensityDataWidget(QWidget *parent = 0);
 
-    void setItem(NIntensityDataItem *item);
+    void setItem(IntensityDataItem *item);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
@@ -50,11 +50,11 @@ private slots:
     void onPropertyChanged(const QString &property_name);
 
 private:
-    void updateItem(NIntensityDataItem *item);
+    void updateItem(IntensityDataItem *item);
 
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
-    NIntensityDataItem *m_currentItem;
+    IntensityDataItem *m_currentItem;
 };
 
 

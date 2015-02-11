@@ -15,8 +15,8 @@
 
 #include "IntensityDataPropertyWidget.h"
 #include "UniversalPropertyEditor.h"
-#include "NJobModel.h"
-#include "NIntensityDataItem.h"
+#include "JobModel.h"
+#include "IntensityDataItem.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -42,27 +42,27 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void IntensityDataPropertyWidget::setModel(NJobModel *model)
+void IntensityDataPropertyWidget::setModel(JobModel *model)
 {
     Q_ASSERT(model);
     if(model != m_jobModel) {
         if(m_jobModel)
             disconnect(m_jobModel,
-                SIGNAL( selectionChanged(NJobItem *) ),
+                SIGNAL( selectionChanged(JobItem *) ),
                 this,
-                SLOT( setItem(NJobItem *) )
+                SLOT( setItem(JobItem *) )
                 );
 
         m_jobModel = model;
         connect(m_jobModel,
-            SIGNAL( selectionChanged(NJobItem *) ),
+            SIGNAL( selectionChanged(JobItem *) ),
             this,
-            SLOT( setItem(NJobItem *) )
+            SLOT( setItem(JobItem *) )
             );
     }
 }
 
-void IntensityDataPropertyWidget::setItem(NIntensityDataItem *jobItem)
+void IntensityDataPropertyWidget::setItem(IntensityDataItem *jobItem)
 {
     m_propertyEditor->setItem(jobItem);
 }

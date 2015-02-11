@@ -20,8 +20,8 @@
 #include <QWidget>
 #include <QMap>
 
-class NJobModel;
-class NJobItem;
+class JobModel;
+class JobItem;
 class QTextEdit;
 class QTabWidget;
 class UniversalPropertyEditor;
@@ -35,17 +35,17 @@ public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget *parent = 0);
 
-    void setModel(NJobModel *model);
+    void setModel(JobModel *model);
 
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:    
-    void setItem(NJobItem *item);
+    void setItem(JobItem *item);
 
 private:
-    NJobModel *m_jobModel;
-    NJobItem *m_currentItem;
+    JobModel *m_jobModel;
+    JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
     UniversalPropertyEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;

@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-class NIntensityDataItem;
+class IntensityDataItem;
 class QCustomPlot;
 class QCPBars;
 
@@ -32,7 +32,7 @@ public:
     QSize sizeHint() const { return QSize(128, 128); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
-    void setItem(NIntensityDataItem *item);
+    void setItem(IntensityDataItem *item);
 
 public slots:
     void plotData(const QVector<double> &x, const QVector<double> &y);
@@ -41,7 +41,7 @@ private slots:
     void onPropertyChanged(const QString &property_name);
 
 private:
-    void plotItem(NIntensityDataItem *intensityItem);
+    void plotItem(IntensityDataItem *intensityItem);
     void setLogz(bool logz, bool isReplot = false);
     void setXmin(double value);
     void setXmax(double value);
@@ -52,7 +52,7 @@ private:
 
     QCustomPlot *m_customPlot;
     QCPBars *m_bars;
-    NIntensityDataItem *m_item;
+    IntensityDataItem *m_item;
 };
 
 

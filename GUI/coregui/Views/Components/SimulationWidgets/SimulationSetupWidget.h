@@ -25,7 +25,7 @@ class QPushButton;
 //class JobQueueModel;
 class SampleModel;
 class InstrumentModel;
-class NJobModel;
+class JobModel;
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -35,7 +35,7 @@ public:
     SimulationSetupWidget(QWidget *parent = 0);
     void updateViewElements();
 //    void setJobQueueModel(JobQueueModel *model);
-    void setJobModel(NJobModel *model);
+    void setJobModel(JobModel *model);
     void setSampleModel(SampleModel *model);
     void setInstrumentModel(InstrumentModel *model);
 
@@ -55,7 +55,7 @@ private:
     SampleModel *getJobSampleModel();
 
 //    JobQueueModel *m_jobQueueModel;
-    NJobModel *m_jobModel;
+    JobModel *m_jobModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
     QComboBox *instrumentSelectionBox;

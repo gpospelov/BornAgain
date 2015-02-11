@@ -17,7 +17,7 @@
 #include "ColorMapPlot.h"
 #include "HorizontalSlicePlot.h"
 #include "VerticalSlicePlot.h"
-#include "NIntensityDataItem.h"
+#include "IntensityDataItem.h"
 #include "qcustomplot.h"
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -80,7 +80,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
 }
 
 //! initializes the class with NIntensityDataItem
-void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
+void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
 {
     //qDebug() << "IntensityDataPlotWidget::setItem(NIntensityDataItem *item)";
 
@@ -164,7 +164,7 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
     //qDebug() << "IntensityDataPlotWidget::savePlot(const QString &dirname)" << dirname;
     Q_ASSERT(m_item);
 
-    bool projections_flag = m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+    bool projections_flag = m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
     if(projections_flag)
         m_centralPlot->showLinesOverTheMap(false);
 
@@ -198,8 +198,8 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
 {
     //qDebug() << "IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)" << property_name;
-    if(property_name == NIntensityDataItem::P_PROJECTIONS_FLAG) {
-        showProjections(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+        showProjections(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
@@ -231,13 +231,13 @@ void IntensityDataPlotWidget::showProjections(bool flag)
 void IntensityDataPlotWidget::onPropertyPanelAction(bool flag)
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
+    m_item->setRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
 }
 
 void IntensityDataPlotWidget::onProjectionsAction(bool flag)
 {
     Q_ASSERT(m_item);
-    m_item->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, flag);
+    m_item->setRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG, flag);
 }
 
 
@@ -246,8 +246,8 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
     Q_ASSERT(m_item);
     QMenu menu;
 
-    m_propertyPanelAction->setChecked(m_item->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    m_projectionsAction->setChecked(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    m_propertyPanelAction->setChecked(m_item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    m_projectionsAction->setChecked(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 
     menu.addAction(m_propertyPanelAction);
     menu.addAction(m_projectionsAction);
@@ -281,9 +281,9 @@ void IntensityDataPlotWidget::setupContextMenuActions()
 
 }
 
-void IntensityDataPlotWidget::updateItem(NIntensityDataItem *item)
+void IntensityDataPlotWidget::updateItem(IntensityDataItem *item)
 {
-    showProjections(item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    showProjections(item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 }
 
 //! sets sizes of top and bottom splitters to have correct sizes of vertical histogram (on the left) and color map

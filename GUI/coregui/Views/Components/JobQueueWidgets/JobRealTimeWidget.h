@@ -21,8 +21,8 @@
 #include <QMap>
 
 //class JobQueueModel;
-class NJobModel;
-class NJobItem;
+class JobModel;
+class JobItem;
 class QStackedWidget;
 class QModelIndex;
 //class JobItem;
@@ -35,25 +35,25 @@ class BA_CORE_API_ JobRealTimeWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobRealTimeWidget(NJobModel *jobModel, QWidget *parent = 0);
+    explicit JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
 
-    void setJobModel(NJobModel *jobModel);
+    void setJobModel(JobModel *jobModel);
 
 public slots:
-    void setItem(NJobItem *item);
-    void onJobItemDelete(NJobItem *item);
+    void setItem(JobItem *item);
+    void onJobItemDelete(JobItem *item);
     void onJobItemFinished(const QString &identifier);
     void onResetParameters();
     void updateCurrentItem();
 
 private:
     ModelTuningWidget *getCurrentModelTuningWidget();
-    bool isValidJobItem(NJobItem *item);
+    bool isValidJobItem(JobItem *item);
 
-    NJobModel *m_jobModel;
-    NJobItem *m_currentJobItem;
+    JobModel *m_jobModel;
+    JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
-    QMap<NJobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
+    QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
     JobRealTimeToolBar *m_toolBar;
 };
 

@@ -15,8 +15,8 @@
 
 #include "JobPropertiesWidget.h"
 #include "UniversalPropertyEditor.h"
-#include "NJobModel.h"
-#include "NJobItem.h"
+#include "JobModel.h"
+#include "JobItem.h"
 #include <QVBoxLayout>
 #include <QTabBar>
 #include <QTextEdit>
@@ -60,22 +60,22 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
 }
 
 
-void JobPropertiesWidget::setModel(NJobModel *model)
+void JobPropertiesWidget::setModel(JobModel *model)
 {
     Q_ASSERT(model);
     if(model != m_jobModel) {
         if(m_jobModel)
             disconnect(m_jobModel,
-                SIGNAL( selectionChanged(NJobItem *) ),
+                SIGNAL( selectionChanged(JobItem *) ),
                 this,
-                SLOT( setItem(NJobItem *) )
+                SLOT( setItem(JobItem *) )
                 );
 
         m_jobModel = model;
         connect(m_jobModel,
-            SIGNAL( selectionChanged(NJobItem *) ),
+            SIGNAL( selectionChanged(JobItem *) ),
             this,
-            SLOT( setItem(NJobItem *) )
+            SLOT( setItem(JobItem *) )
             );
 
 //        connect(m_jobModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
@@ -84,7 +84,7 @@ void JobPropertiesWidget::setModel(NJobModel *model)
 }
 
 
-void JobPropertiesWidget::setItem(NJobItem *jobItem)
+void JobPropertiesWidget::setItem(JobItem *jobItem)
 {
     qDebug() << "JobPropertiesWidget::setItem" << jobItem;
 

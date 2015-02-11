@@ -12,38 +12,38 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-#ifndef NJOBMODEL_H
-#define NJOBMODEL_H
+#ifndef JOBMODEL_H
+#define JOBMODEL_H
 
 #include "SessionModel.h"
 #include "JobQueueData.h"
-class NJobItem;
+class JobItem;
 class SampleModel;
 class InstrumentModel;
 class QItemSelection;
 
-class BA_CORE_API_ NJobModel : public SessionModel
+class BA_CORE_API_ JobModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit NJobModel(QObject *parent = 0);
-    ~NJobModel();
+    explicit JobModel(QObject *parent = 0);
+    ~JobModel();
 
     JobQueueData *getJobQueueData() { return m_queue_data; }
 
-    const NJobItem *getJobItemForIndex(const QModelIndex &index) const;
-    NJobItem *getJobItemForIndex(const QModelIndex &index);
+    const JobItem *getJobItemForIndex(const QModelIndex &index) const;
+    JobItem *getJobItemForIndex(const QModelIndex &index);
 
-    NJobItem *getJobItemForIdentifier(const QString &identifier);
+    JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    NJobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+    JobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
             const QString &run_policy = QString(), int numberOfThreads=-1);
 
 signals:
-    void selectionChanged(NJobItem *item);
-    void aboutToDeleteJobItem(NJobItem *item);
-    void focusRequest(NJobItem *item);
+    void selectionChanged(JobItem *item);
+    void aboutToDeleteJobItem(JobItem *item);
+    void focusRequest(JobItem *item);
     void globalProgress(int);
 
 public slots:

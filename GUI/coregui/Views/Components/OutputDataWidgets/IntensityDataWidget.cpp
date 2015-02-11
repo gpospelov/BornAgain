@@ -16,7 +16,7 @@
 #include "IntensityDataWidget.h"
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
-#include "NIntensityDataItem.h"
+#include "IntensityDataItem.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -52,7 +52,7 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void IntensityDataWidget::setItem(NIntensityDataItem *item)
+void IntensityDataWidget::setItem(IntensityDataItem *item)
 {
     m_plotWidget->setItem(item);
     m_propertyWidget->setItem(item);
@@ -77,8 +77,8 @@ void IntensityDataWidget::setItem(NIntensityDataItem *item)
 void IntensityDataWidget::togglePropertyPanel()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
+        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
     }
 }
 
@@ -94,21 +94,21 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 
 void IntensityDataWidget::onPropertyChanged(const QString &property_name)
 {
-    if(property_name == NIntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    if(property_name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
     }
 }
 
-void IntensityDataWidget::updateItem(NIntensityDataItem *item)
+void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
-    setPropertyPanelVisible(item->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    setPropertyPanelVisible(item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
 }
 
 void IntensityDataWidget::toggleProjections()
 {
     if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
+        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
     }
 }
 

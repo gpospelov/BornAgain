@@ -24,7 +24,7 @@ class HorizontalSlicePlot;
 class VerticalSlicePlot;
 class ColorMapPlot;
 class QLabel;
-class NIntensityDataItem;
+class IntensityDataItem;
 
 //! The widget contains IntensityDataItem color map, two projections and all
 //! logic. Belongs to IntensityDataWidget.
@@ -37,7 +37,7 @@ public:
     QSize sizeHint() const { return QSize(800, 800); }
     QSize minimumSizeHint() const { return QSize(512, 512); }
 
-    void setItem(NIntensityDataItem *item);
+    void setItem(IntensityDataItem *item);
 
 signals:
     void savePlotRequest();
@@ -59,7 +59,7 @@ private slots:
 
 private:
     void setupContextMenuActions();
-    void updateItem(NIntensityDataItem *item);
+    void updateItem(IntensityDataItem *item);
     void initLeftRightAreaSize(int left_size, int right_size);
     void initTopBottomAreaSize(int bottom_size, int top_size);
     bool isBottomAreaVisible();
@@ -78,7 +78,7 @@ private:
     QLabel *m_statusLabel;
     int m_leftHistogramArea;
     int m_bottomHistogramArea;
-    NIntensityDataItem *m_item;
+    IntensityDataItem *m_item;
 };
 
 #endif

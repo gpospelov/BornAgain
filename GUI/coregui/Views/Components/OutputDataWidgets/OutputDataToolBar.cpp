@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/OutputDataToolBar.cpp
+//! @file      coregui/Views/IntensityDataWidgets/OutputDataToolBar.cpp
 //! @brief     Implements class OutputDataToolBar
 //!
 //! @homepage  http://www.bornagainproject.org

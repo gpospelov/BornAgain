@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataPropertyWidget.h
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h
 //! @brief     Defines class IntensityDataPropertyWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,6 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QMap>
 
 class NJobModel;
 class NIntensityDataItem;

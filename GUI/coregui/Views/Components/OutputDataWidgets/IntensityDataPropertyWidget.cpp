@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataPropertyWidget.cpp
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.cpp
 //! @brief     Implements class IntensityDataPropertyWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -42,7 +42,6 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-
 void IntensityDataPropertyWidget::setModel(NJobModel *model)
 {
     Q_ASSERT(model);
@@ -63,11 +62,7 @@ void IntensityDataPropertyWidget::setModel(NJobModel *model)
     }
 }
 
-
 void IntensityDataPropertyWidget::setItem(NIntensityDataItem *jobItem)
 {
-    qDebug() << "JobPropertiesWidget::setItem" << jobItem;
-
     m_propertyEditor->setItem(jobItem);
 }
-

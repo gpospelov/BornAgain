@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/HorizontalSlicePlot.h
+//! @file      coregui/Views/IntensityDataWidgets/HorizontalSlicePlot.h
 //! @brief     Defines class HorizontalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -23,6 +23,7 @@ class QCustomPlot;
 class QCPBars;
 
 //! Slice of 2D IntensityData along x-axis
+//!  FIXME functionality has to be merged with VerticalSlicePlot (code duplication)
 class BA_CORE_API_ HorizontalSlicePlot : public QWidget
 {
     Q_OBJECT
@@ -54,8 +55,5 @@ private:
     QCPBars *m_bars;
     NIntensityDataItem *m_item;
 };
-
-
-
 
 #endif

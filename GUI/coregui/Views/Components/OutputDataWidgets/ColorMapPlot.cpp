@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/ColorMapPlot.cpp
+//! @file      coregui/Views/IntensityDataWidgets/ColorMapPlot.cpp
 //! @brief     Implements class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -36,11 +36,11 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     setLayout(vlayout);
 }
 
+//! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(NIntensityDataItem *item)
 {
-//    if (m_item == item) return;
     if (m_item == item) {
-        qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
+        //qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
         plotItem(m_item);
         return;
     }
@@ -61,7 +61,7 @@ void ColorMapPlot::setItem(NIntensityDataItem *item)
 
 }
 
-// returns string containing bin content information
+//! returns string containing bin content information
 QString ColorMapPlot::getStatusString()
 {
     QString result;
@@ -76,6 +76,7 @@ QString ColorMapPlot::getStatusString()
     return result;
 }
 
+//! draws two crossed lines
 void ColorMapPlot::drawLinesOverTheMap()
 {
     if(!m_customPlot->graph(0)->visible() || !m_customPlot->graph(1)->visible()) return;
@@ -109,10 +110,10 @@ void ColorMapPlot::drawLinesOverTheMap()
     }
     m_customPlot->graph(1)->setData(x2, y2);
 
-    //replot the graph
     m_customPlot->replot();
 }
 
+//! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
     if(m_customPlot->graph(0) && m_customPlot->graph(1)) {
@@ -122,6 +123,7 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
     }
 }
 
+//! sets logarithmic scale
 void ColorMapPlot::setLogz(bool logz, bool isReplot)
 {
     if(logz) {
@@ -136,6 +138,7 @@ void ColorMapPlot::setLogz(bool logz, bool isReplot)
         m_customPlot->replot();
 }
 
+//! reset all axes min,max to initial value
 void ColorMapPlot::resetView()
 {
     m_block_update = true;
@@ -146,8 +149,7 @@ void ColorMapPlot::resetView()
     m_block_update = false;
 }
 
-
-// saves information about mouse position and intensity data underneath
+//! saves information about mouse position and intensity data underneath
 void ColorMapPlot::onMouseMove(QMouseEvent *event)
 {
     m_posData.reset();
@@ -167,7 +169,7 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     }
 }
 
-// returns vectors corresponding to the cut along x-axis
+//! returns vectors corresponding to the cut along x-axis
 void ColorMapPlot::getHorizontalSlice(QVector<double> &x, QVector<double> &y)
 {
     x.clear();
@@ -194,6 +196,7 @@ void ColorMapPlot::getHorizontalSlice(QVector<double> &x, QVector<double> &y)
     }
 }
 
+//! returns vectors corresponding to the cut along y-axis
 void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
 {
     x.clear();
@@ -220,9 +223,9 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
     }
 }
 
+//! updates color map depending on  IntensityDataItem properties
 void ColorMapPlot::onPropertyChanged(const QString &property_name)
 {
-//    qDebug() << "ColorMapPlot::onPropertyChanged(const QString &property_name)" << property_name;
     if(m_block_update) return;
 
     if(property_name == NIntensityDataItem::P_GRADIENT) {
@@ -254,6 +257,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
     }
 }
 
+//! Propagate zmin, zmax back to IntensityDataItem
 void ColorMapPlot::onDataRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
@@ -261,6 +265,7 @@ void ColorMapPlot::onDataRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
+//! Propagate xmin, xmax back to IntensityDataItem
 void ColorMapPlot::onXaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
@@ -269,6 +274,7 @@ void ColorMapPlot::onXaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
+//! Propagate ymin, ymax back to IntensityDataItem
 void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
@@ -277,7 +283,7 @@ void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
-
+//! creates and initializes the color map
 void ColorMapPlot::initColorMap()
 {
     m_customPlot = new QCustomPlot();
@@ -303,7 +309,6 @@ void ColorMapPlot::initColorMap()
     m_gradient_map[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
     m_gradient_map[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
 
-
     QPen pen;
     pen.setWidth(1);
     pen.setStyle(Qt::SolidLine);
@@ -317,13 +322,12 @@ void ColorMapPlot::initColorMap()
     connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));
     connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)));
     connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
-//    connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SIGNAL(mouseMove(QMouseEvent*)));
 }
 
+//! plot IntensityDataItem
 void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
 {
     m_block_update = true;
-    //qDebug() << "ColorMapPlot::updateItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem == m_item);
 
     const OutputData<double> *data = intensityItem->getOutputData();
@@ -380,6 +384,7 @@ void ColorMapPlot::plotItem(NIntensityDataItem *intensityItem)
     m_block_update = false;
 }
 
+//! calculate zmin, zmax for nicely looking linear, and logariphic z-axis
 QCPRange ColorMapPlot::calculateDataRange(NIntensityDataItem *intensityItem)
 {
     const OutputData<double> *data = intensityItem->getOutputData();
@@ -399,4 +404,3 @@ QCPRange ColorMapPlot::calculateDataRange(NIntensityDataItem *intensityItem)
     }
     return QCPRange(min, max);
 }
-

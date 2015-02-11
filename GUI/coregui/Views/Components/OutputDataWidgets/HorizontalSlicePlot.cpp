@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/HorizontalSlicePlot.cpp
+//! @file      coregui/Views/IntensityDataWidgets/HorizontalSlicePlot.cpp
 //! @brief     Implements class HorizontalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -59,14 +59,14 @@ void HorizontalSlicePlot::setItem(NIntensityDataItem *item)
 
 void HorizontalSlicePlot::plotData(const QVector<double> &x, const QVector<double> &y)
 {
-    qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
+    //qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
     m_bars->setData(x, y);
     m_customPlot->replot();
 }
 
 void HorizontalSlicePlot::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
+    //qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
 
     if(property_name == NIntensityDataItem::P_IS_LOGZ) {
         setLogz(m_item->isLogz(), true);
@@ -87,7 +87,7 @@ void HorizontalSlicePlot::onPropertyChanged(const QString &property_name)
 
 void HorizontalSlicePlot::plotItem(NIntensityDataItem *intensityItem)
 {
-    qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
+    //qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem);
 
     const OutputData<double> *data = intensityItem->getOutputData();

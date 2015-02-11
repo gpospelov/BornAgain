@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataPlotWidget.h
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataPlotWidget.h
 //! @brief     Defines class IntensityDataPlotWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,6 +26,8 @@ class ColorMapPlot;
 class QLabel;
 class NIntensityDataItem;
 
+//! The widget contains IntensityDataItem color map, two projections and all
+//! logic. Belongs to IntensityDataWidget.
 class BA_CORE_API_ IntensityDataPlotWidget : public QWidget
 {
     Q_OBJECT
@@ -78,8 +80,5 @@ private:
     int m_bottomHistogramArea;
     NIntensityDataItem *m_item;
 };
-
-
-
 
 #endif

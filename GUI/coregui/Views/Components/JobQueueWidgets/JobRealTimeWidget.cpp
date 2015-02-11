@@ -98,7 +98,8 @@ void JobRealTimeWidget::setJobModel(NJobModel *jobModel)
 void JobRealTimeWidget::setItem(NJobItem * item)
 {
     qDebug() << "JobOutputDataWidget::setItem()";
-    Q_ASSERT(item);
+    if(!item) return;
+
     m_currentJobItem = item;
 
     if(!isVisible()) return;

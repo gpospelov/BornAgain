@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataWidget.cpp
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataWidget.cpp
 //! @brief     Implements class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -52,7 +52,6 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-
 void IntensityDataWidget::setItem(NIntensityDataItem *item)
 {
     m_plotWidget->setItem(item);
@@ -77,7 +76,6 @@ void IntensityDataWidget::setItem(NIntensityDataItem *item)
 
 void IntensityDataWidget::togglePropertyPanel()
 {
-//    setPropertyPanelVisible(!m_propertyWidget->isVisible());
     if(m_currentItem) {
         bool current_flag = m_currentItem->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
         m_currentItem->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);

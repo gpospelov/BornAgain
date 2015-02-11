@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/VerticalSlicePlot.cpp
+//! @file      coregui/Views/IntensityDataWidgets/VerticalSlicePlot.cpp
 //! @brief     Implements class VerticalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -59,14 +59,14 @@ void VerticalSlicePlot::setItem(NIntensityDataItem *item)
 
 void VerticalSlicePlot::plotData(const QVector<double> &x, const QVector<double> &y)
 {
-    qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
+    //qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
     m_bars->setData(x, y);
     m_customPlot->replot();
 }
 
 void VerticalSlicePlot::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
+    //qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
 
     if(property_name == NIntensityDataItem::P_IS_LOGZ) {
         setLogz(m_item->isLogz(), true);
@@ -87,7 +87,7 @@ void VerticalSlicePlot::onPropertyChanged(const QString &property_name)
 
 void VerticalSlicePlot::plotItem(NIntensityDataItem *intensityItem)
 {
-    qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
+    //qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem);
 
     const OutputData<double> *data = intensityItem->getOutputData();
@@ -141,19 +141,11 @@ void VerticalSlicePlot::setLogz(bool logz, bool isReplot)
 void VerticalSlicePlot::setXmin(double value)
 {
     Q_UNUSED(value);
-//    QCPRange range = m_customPlot->xAxis->range();
-//    range.lower = value;
-//    m_customPlot->xAxis->setRange(range);
-//    m_customPlot->replot();
 }
 
 void VerticalSlicePlot::setXmax(double value)
 {
     Q_UNUSED(value);
-//    QCPRange range = m_customPlot->xAxis->range();
-//    range.upper = value;
-//    m_customPlot->xAxis->setRange(range);
-//    m_customPlot->replot();
 }
 
 void VerticalSlicePlot::setYmin(double value)

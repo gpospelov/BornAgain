@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataWidget.h
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
 //! @brief     Defines class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org

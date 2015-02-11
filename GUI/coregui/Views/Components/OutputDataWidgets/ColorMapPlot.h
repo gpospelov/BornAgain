@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/ColorMapPlot.h
+//! @file      coregui/Views/IntensityDataWidgets/ColorMapPlot.h
 //! @brief     Defines class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -27,6 +27,7 @@ class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
 
+//! 2D color map widget for IntensityData
 class BA_CORE_API_ ColorMapPlot : public QWidget
 {
     Q_OBJECT

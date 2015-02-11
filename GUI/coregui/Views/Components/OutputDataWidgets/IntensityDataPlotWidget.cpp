@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/Components/OutputDataWidgets/IntensityDataPlotWidget.cpp
+//! @file      coregui/Views/IntensityDataWidgets/IntensityDataPlotWidget.cpp
 //! @brief     Implements class IntensityDataPlotWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -23,7 +23,6 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
-
 
 IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     : QWidget(parent)
@@ -58,9 +57,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     m_splitter->addWidget(m_splitterBottom);
     m_splitter->setStyleSheet("background-color:white;");
 
-    //m_statusLabel->setFrameStyle(QFrame::Panel );
     m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
-    //m_statusLabel->setMaximumHeight(35);
     m_statusLabel->setStyleSheet("background-color:white;");
     m_statusLabel->setMargin(3);
 
@@ -70,13 +67,9 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     vlayout->addWidget(m_splitter);
     vlayout->addWidget(m_statusLabel);
     this->setLayout(vlayout);
-    //setCentralWidget(widget);
 
-//    initLeftRightAreaSize(m_leftHistogramArea, 600-m_leftHistogramArea);
-//    initTopBottomAreaSize(500-m_bottomHistogramArea, m_bottomHistogramArea);
     initLeftRightAreaSize(0, 600);
     initTopBottomAreaSize(500, 0);
-//    showProjections(false);
 
     connect(m_splitterTop, SIGNAL(splitterMoved(int,int)), this, SLOT(onSplitterMoved(int,int)));
     connect(m_splitterBottom, SIGNAL(splitterMoved(int,int)), this, SLOT(onSplitterMoved(int,int)));
@@ -86,9 +79,10 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     setupContextMenuActions();
 }
 
+//! initializes the class with NIntensityDataItem
 void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
 {
-    qDebug() << "IntensityDataPlotWidget::setItem(NIntensityDataItem *item)";
+    //qDebug() << "IntensityDataPlotWidget::setItem(NIntensityDataItem *item)";
 
     m_centralPlot->setItem(item);
     m_horizontalPlot->setItem(item);
@@ -113,7 +107,7 @@ void IntensityDataPlotWidget::setItem(NIntensityDataItem *item)
     connect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
 }
 
-// provide syncronious move of top and bottom splitters
+//! provide syncronious move of top and bottom splitters
 void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
 {
     Q_UNUSED(index);
@@ -126,11 +120,13 @@ void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
     }
 }
 
+//! reset views to original axes min and max
 void IntensityDataPlotWidget::resetView()
 {
     m_centralPlot->resetView();
 }
 
+//! updates status string, line cross and projections on mouse move
 void IntensityDataPlotWidget::onMouseMove()
 {
     m_statusLabel->setText(m_centralPlot->getStatusString());
@@ -153,18 +149,19 @@ void IntensityDataPlotWidget::onMouseMove()
         m_centralPlot->drawLinesOverTheMap();
 }
 
+//! provides context menu on right mouse button
 void IntensityDataPlotWidget::onMousePress(QMouseEvent *event)
 {
     if(event->button() == Qt::RightButton) {
-//        showContextMenu(event->pos());
+        //showContextMenu(event->pos());
         showContextMenu(event->globalPos());
     }
 }
 
-//! save plot into proposed directory
+//! saves plot into proposed directory
 void IntensityDataPlotWidget::savePlot(const QString &dirname)
 {
-    qDebug() << "IntensityDataPlotWidget::savePlot(const QString &dirname)" << dirname;
+    //qDebug() << "IntensityDataPlotWidget::savePlot(const QString &dirname)" << dirname;
     Q_ASSERT(m_item);
 
     bool projections_flag = m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool();
@@ -194,27 +191,23 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
             m_centralPlot->getCustomPlot()->savePng(fileName+extension);
         }
     }
-
     m_centralPlot->showLinesOverTheMap(projections_flag);
 }
 
+//! updates itself if item properties changed
 void IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)" << property_name;
+    //qDebug() << "IntensityDataPlotWidget::onPropertyChanged(const QString &property_name)" << property_name;
     if(property_name == NIntensityDataItem::P_PROJECTIONS_FLAG) {
         showProjections(m_item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
 }
 
+//! switches projections On and Off
 void IntensityDataPlotWidget::showProjections(bool flag)
 {
-    qDebug() << "IntensityDataPlotWidget::showProjections(bool flag)" << flag;
-    // restoring old splitter positions
-
-    qDebug() << "m_leftHistogramArea:" << m_leftHistogramArea << "m_splitterTop->width():" << m_splitterTop->size() << m_splitterTop->sizes();
-    qDebug() << "m_bottomHistogramArea:" << m_bottomHistogramArea << "m_splitter->height():" << m_splitter->size() << m_splitter->sizes();
-    qDebug() << "XXX" << size();
     if(flag) {
+        // restoring old splitter positions
         int width = m_splitterTop->width() - m_leftHistogramArea;
         if(width < 0) width = m_leftHistogramArea*3;
         initLeftRightAreaSize(m_leftHistogramArea, width);
@@ -233,30 +226,24 @@ void IntensityDataPlotWidget::showProjections(bool flag)
         if(vertical_sizes[1] > 0) m_bottomHistogramArea = vertical_sizes[1];
         initTopBottomAreaSize(vertical_sizes[0]+vertical_sizes[1], 0);
     }
-    qDebug() << "after " << m_leftHistogramArea << m_bottomHistogramArea;
-
 }
 
 void IntensityDataPlotWidget::onPropertyPanelAction(bool flag)
 {
     Q_ASSERT(m_item);
-    qDebug() << "IntensityDataPlotWidget::onPropertyPanelAction(bool flag)" << flag;
     m_item->setRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
 }
 
 void IntensityDataPlotWidget::onProjectionsAction(bool flag)
 {
     Q_ASSERT(m_item);
-    qDebug() << "IntensityDataPlotWidget::onProjectionsAction(bool flag)" << flag;
     m_item->setRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG, flag);
 }
 
 
 void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
 {
-    qDebug() << "IntensityDataPlotWidget::showContextMenu(const QPoint &point)";
     Q_ASSERT(m_item);
-
     QMenu menu;
 
     m_propertyPanelAction->setChecked(m_item->getRegisteredProperty(NIntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
@@ -267,7 +254,7 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
     menu.addAction(m_resetAction);
     menu.addAction(m_saveAction);
 
-//    menu.exec(mapToGlobal(point));
+    //menu.exec(mapToGlobal(point));
     menu.exec(point);
 }
 
@@ -299,7 +286,7 @@ void IntensityDataPlotWidget::updateItem(NIntensityDataItem *item)
     showProjections(item->getRegisteredProperty(NIntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 }
 
-// sets sizes of top and bottom splitters to have correct sizes of vertical histogram (on the left) and color map
+//! sets sizes of top and bottom splitters to have correct sizes of vertical histogram (on the left) and color map
 void IntensityDataPlotWidget::initLeftRightAreaSize(int left_size, int right_size)
 {
     QList<int> sizes = QList<int>() << left_size << right_size;
@@ -307,19 +294,21 @@ void IntensityDataPlotWidget::initLeftRightAreaSize(int left_size, int right_siz
     m_splitterBottom->setSizes(sizes);
 }
 
-// set size of main splitter to have correct sizes of horizontal histogram (at the bottom) and color map
+//! set size of main splitter to have correct sizes of horizontal histogram (at the bottom) and color map
 void IntensityDataPlotWidget::initTopBottomAreaSize(int top_size, int bottom_size)
 {
     QList<int> sizes = QList<int>() << top_size << bottom_size;
     m_splitter->setSizes(sizes);
 }
 
+//! returns true if bottom splitter is not collapsed
 bool IntensityDataPlotWidget::isBottomAreaVisible()
 {
     QList<int> sizes = m_splitter->sizes();
     return sizes[1] != 0;
 }
 
+//! returns true if left splitter is not collapsed
 bool IntensityDataPlotWidget::isLeftAreaVisible()
 {
     QList<int> sizes = m_splitterTop->sizes();

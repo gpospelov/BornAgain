@@ -17,7 +17,6 @@
 #include "NIntensityDataItem.h"
 #include "GUIHelpers.h"
 #include "Units.h"
-#include "qcpdocumentobject.h"
 #include <QDebug>
 
 ColorMapPlot::ColorMapPlot(QWidget *parent)

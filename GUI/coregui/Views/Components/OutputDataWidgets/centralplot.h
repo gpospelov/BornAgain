@@ -17,7 +17,6 @@
 #define CENTRALPLOT_H
 
 #include "qcustomplot.h"
-#include "qcpdocumentobject.h"
 #include <sstream>
 #include "NIntensityDataItem.h"
 

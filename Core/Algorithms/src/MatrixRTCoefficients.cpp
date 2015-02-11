@@ -179,6 +179,16 @@ void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
     phi_psi_plus(3) = 0.0;
 }
 
+void MatrixRTCoefficients::initializeBottomLayerRT()
+{
+    // first treat case where both eigenmodes are the same (no B-field in layer)
+    if (m_b_mag == 0.0) {
+        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
+        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
+        return;
+    }
+}
+
 void MatrixRTCoefficients::calculateTRWithoutMagnetization()
 {
     T1m.setZero();

@@ -48,6 +48,7 @@ public:
 private:
     void calculateTRMatrices();
     void initializeBottomLayerPhiPsi();
+    void initializeBottomLayerRT();
     void calculateTRWithoutMagnetization();
     Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
     Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix

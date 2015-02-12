@@ -46,7 +46,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
     std::ostringstream result;
     result << definePreamble();
 
-    result << defineSample();
+    result << defineGetSample();
     result << defineGetSimulation(simulation);
     result << definePlotting(simulation);
     result << defineRunSimulation();
@@ -259,7 +259,7 @@ std::string PyGenVisitor::definePreamble() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineSample() const
+std::string PyGenVisitor::defineGetSample() const
 {
     std::ostringstream result;
     result << "def getSample():\n";

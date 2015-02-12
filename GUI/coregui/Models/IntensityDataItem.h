@@ -45,12 +45,26 @@ public:
     OutputData<double> *getOutputData() { return m_data; }
     void setOutputData(OutputData<double> *data);
 
-    double getXaxisMin() const;
-    double getXaxisMax() const;
-    double getYaxisMin() const;
-    double getYaxisMax() const;
-    double getZaxisMin() const;
-    double getZaxisMax() const;
+    //! returns lower and upper zoom ranges of x-axis
+    double getLowerX() const;
+    double getUpperX() const;
+
+    //! returns min and max range of x-axis as given by IntensityData
+    double getXmin() const;
+    double getXmax() const;
+
+    //! returns lower and upper zoom ranges of y-axis
+    double getLowerY() const;
+    double getUpperY() const;
+
+    //! returns min and max range of y-axis as given by IntensityData
+    double getYmin() const;
+    double getYmax() const;
+
+    //! returns lower and upper zoom ranges of z-axis
+    double getLowerZ() const;
+    double getUpperZ() const;
+
     QString getGradient() const;
     bool isLogz() const;
     bool isInterpolated() const;
@@ -63,13 +77,13 @@ signals:
     void intensityModified();
 
 public slots:
-    void setXaxisMin(double xmin);
-    void setXaxisMax(double xmax);
-    void setYaxisMin(double ymin);
-    void setYaxisMax(double ymax);
-    void setZaxisRange(double zmin, double zmax);
-    void setZaxisMin(double zmin);
-    void setZaxisMax(double zmax);
+    void setLowerX(double xmin);
+    void setUpperX(double xmax);
+    void setLowerY(double ymin);
+    void setUpperY(double ymax);
+    void setLowerAndUpperZ(double zmin, double zmax);
+    void setLowerZ(double zmin);
+    void setUpperZ(double zmax);
     void setLogz(bool logz);
     void setInterpolated(bool interp);
     void setXaxisTitle(QString xtitle);

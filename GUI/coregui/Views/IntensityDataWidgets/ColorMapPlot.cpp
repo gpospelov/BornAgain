@@ -66,7 +66,7 @@ QString ColorMapPlot::getStatusString()
 {
     QString result;
     if(m_posData.valid) {
-        result = QString(" [X: %1, Y: %2]    [binx: %3, biny:%4]    [value: %5]")
+        result = QString(" [x: %1, y: %2]    [binx: %3, biny:%4]    [value: %5]")
                 .arg(QString::number(m_posData.m_xPos, 'f', 4))
                 .arg(QString::number(m_posData.m_yPos, 'f', 4), 2)
                 .arg(m_posData.key, 2)
@@ -238,7 +238,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         m_customPlot->replot();
     } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
         QCPRange range = m_colorMap->dataRange();
-        double zmin = m_item->getZaxisMin();
+        double zmin = m_item->getLowerZ();
         if(zmin != range.lower) {
             range.lower = zmin;
             m_colorMap->setDataRange(range);
@@ -246,7 +246,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         }
     } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
         QCPRange range = m_colorMap->dataRange();
-        double zmax = m_item->getZaxisMax();
+        double zmax = m_item->getUpperZ();
         if(zmax != range.upper) {
             range.upper = zmax;
             m_colorMap->setDataRange(range);
@@ -261,7 +261,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
 void ColorMapPlot::onDataRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
-    m_item->setZaxisRange(newRange.lower, newRange.upper);
+    m_item->setLowerAndUpperZ(newRange.lower, newRange.upper);
     m_block_update = false;
 }
 
@@ -269,8 +269,8 @@ void ColorMapPlot::onDataRangeChanged(QCPRange newRange)
 void ColorMapPlot::onXaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
-    m_item->setXaxisMin(newRange.lower);
-    m_item->setXaxisMax(newRange.upper);
+    m_item->setLowerX(newRange.lower);
+    m_item->setUpperX(newRange.upper);
     m_block_update = false;
 }
 
@@ -278,8 +278,8 @@ void ColorMapPlot::onXaxisRangeChanged(QCPRange newRange)
 void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
-    m_item->setYaxisMin(newRange.lower);
-    m_item->setYaxisMax(newRange.upper);
+    m_item->setLowerY(newRange.lower);
+    m_item->setUpperY(newRange.upper);
     m_block_update = false;
 }
 
@@ -339,6 +339,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     m_customPlot->axisRect()->setupFullAxesBox(true);
+
     m_customPlot->xAxis->setLabel(intensityItem->getXaxisTitle());
     m_customPlot->yAxis->setLabel(intensityItem->getYaxisTitle());
 
@@ -348,11 +349,16 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
     m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-    if(intensityItem->axesInRadians()) {
-        m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
-    } else {
-        m_colorMap->data()->setRange(QCPRange(Units::rad2deg(axis_x->getMin()), Units::rad2deg(axis_x->getMax())), QCPRange(Units::rad2deg(axis_y->getMin()), Units::rad2deg(axis_y->getMax())));
-    }
+
+//    if(intensityItem->axesInRadians()) {
+//        m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
+//    } else {
+//        m_colorMap->data()->setRange(QCPRange(Units::rad2deg(axis_x->getMin()), Units::rad2deg(axis_x->getMax())), QCPRange(Units::rad2deg(axis_y->getMin()), Units::rad2deg(axis_y->getMax())));
+//    }
+
+//    qDebug() << intensityItem->getXaxisMin() << intensityItem->getXaxisMax() << intensityItem->getYaxisMin() << intensityItem->getYaxisMax();
+//    Q_ASSERT(0);
+    m_colorMap->data()->setRange(QCPRange(intensityItem->getXmin(), intensityItem->getXmax()), QCPRange(intensityItem->getYmin(), intensityItem->getYmax()));
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
@@ -370,7 +376,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     QCPRange newDataRange = calculateDataRange(intensityItem);
     m_colorMap->setDataRange(newDataRange);
-    intensityItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
+    intensityItem->setLowerAndUpperZ(newDataRange.lower, newDataRange.upper);
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
@@ -378,7 +384,10 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     m_colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
 
     // rescale the key (x) and value (y) axes so the whole color map is visible:
-    m_customPlot->rescaleAxes();
+//    m_customPlot->rescaleAxes();
+
+    m_customPlot->xAxis->setRange(intensityItem->getLowerX(), intensityItem->getUpperX());
+    m_customPlot->yAxis->setRange(intensityItem->getLowerY(), intensityItem->getUpperY());
 
     m_customPlot->replot();
     m_block_update = false;

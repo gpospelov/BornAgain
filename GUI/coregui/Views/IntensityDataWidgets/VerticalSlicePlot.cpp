@@ -71,17 +71,17 @@ void VerticalSlicePlot::onPropertyChanged(const QString &property_name)
     if(property_name == IntensityDataItem::P_IS_LOGZ) {
         setLogz(m_item->isLogz(), true);
     } else if(property_name == IntensityDataItem::P_XAXIS_MIN) {
-        setXmin(m_item->getXaxisMin());
+        setXmin(m_item->getLowerX());
     } else if(property_name == IntensityDataItem::P_XAXIS_MAX) {
-        setXmax(m_item->getXaxisMax());
+        setXmax(m_item->getUpperX());
     } else if(property_name == IntensityDataItem::P_YAXIS_MIN) {
-        setYmin(m_item->getYaxisMin());
+        setYmin(m_item->getLowerY());
     } else if(property_name == IntensityDataItem::P_YAXIS_MAX) {
-        setYmax(m_item->getYaxisMax());
+        setYmax(m_item->getUpperY());
     } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
-        setZmin(m_item->getZaxisMin());
+        setZmin(m_item->getLowerZ());
     } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
-        setZmax(m_item->getZaxisMax());
+        setZmax(m_item->getUpperZ());
     }
 }
 
@@ -99,8 +99,8 @@ void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
 
     m_customPlot->axisRect()->setupFullAxesBox(true);
 
-    m_customPlot->xAxis->setRange(intensityItem->getZaxisMin(), intensityItem->getZaxisMax());
-    m_customPlot->yAxis->setRange(intensityItem->getYaxisMin(), intensityItem->getYaxisMax());
+    m_customPlot->xAxis->setRange(intensityItem->getLowerZ(), intensityItem->getUpperZ());
+    m_customPlot->yAxis->setRange(intensityItem->getLowerY(), intensityItem->getUpperY());
 
     const IAxis *axis = data->getAxis(1);
     double bin_size(0);

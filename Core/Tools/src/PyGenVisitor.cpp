@@ -48,7 +48,7 @@ std::string PyGenVisitor::writePyScript(const Simulation *simulation)
     result << std::setprecision(12) <<"import numpy\n";
     result << "from libBornAgainCore import *\n";
     result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import matplotlib, pylab\n\n";
+    result << "#import pylab\n\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     result << "#NOTE: Running this Script by default will write output data"
            << "to \"output.int\" file\n";

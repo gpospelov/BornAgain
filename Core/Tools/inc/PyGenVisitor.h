@@ -73,8 +73,21 @@ public:
 
 
 private:
+    std::string defineMaterials() const;
+    std::string defineLayers() const;
+    std::string defineFormFactors() const;
+    std::string defineParticles() const;
+    std::string defineCoreShellParticles() const;
+    std::string defineInterferenceFunctions() const;
+    std::string defineParticleLayouts() const;
+    std::string defineRoughnesses() const;
+    std::string addLayoutsToLayers() const;
+    std::string defineMultiLayers() const;
+    std::string defineDetector(const Simulation *simulation) const;
+    std::string defineBeam(const Simulation *simulation) const;
+    std::string definePlotting(const Simulation *simulation) const;
+    std::string defineRunSimulation() const;
     LabelSample *m_label;
-    std::set<std::string> visitedMaterials;
 };
 
 

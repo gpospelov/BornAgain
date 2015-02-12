@@ -24,20 +24,16 @@ class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_XAXIS_MIN;
-    static const QString P_XAXIS_MAX;
-    static const QString P_YAXIS_MIN;
-    static const QString P_YAXIS_MAX;
+    static const QString P_PROJECTIONS_FLAG;
+    static const QString P_IS_INTERPOLATED;
+    static const QString P_GRADIENT;
     static const QString P_ZAXIS_MIN;
     static const QString P_ZAXIS_MAX;
-    static const QString P_GRADIENT;
-    static const QString P_IS_LOGZ;
-    static const QString P_IS_INTERPOLATED;
-    static const QString P_XAXIS_TITLE;
-    static const QString P_YAXIS_TITLE;
     static const QString P_AXES_UNITS;
     static const QString P_PROPERTY_PANEL_FLAG;
-    static const QString P_PROJECTIONS_FLAG;
+    static const QString P_XAXIS;
+    static const QString P_YAXIS;
+    static const QString P_ZAXIS;
 
     explicit IntensityDataItem(ParameterizedItem *parent=0);
     ~IntensityDataItem();

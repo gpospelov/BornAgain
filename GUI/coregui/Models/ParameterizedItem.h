@@ -123,7 +123,7 @@ public:
 
     void setItemPort(PortInfo::EPorts nport);
 
-    virtual QString getItemLabel() const { return QString("no label"); }
+    virtual QString getItemLabel() const { return QString(""); }
 
     void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
 
@@ -137,6 +137,7 @@ public slots:
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
+    void propertyItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);

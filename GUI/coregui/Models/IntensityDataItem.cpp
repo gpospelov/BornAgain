@@ -16,35 +16,27 @@
 #include "IntensityDataItem.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include "AxesItems.h"
 #include "Units.h"
 #include <QDebug>
 
-const QString IntensityDataItem::P_XAXIS_MIN = "xmin";
-const QString IntensityDataItem::P_XAXIS_MAX = "xmax";
-const QString IntensityDataItem::P_YAXIS_MIN = "ymin";
-const QString IntensityDataItem::P_YAXIS_MAX = "ymax";
-const QString IntensityDataItem::P_ZAXIS_MIN = "zmin";
-const QString IntensityDataItem::P_ZAXIS_MAX = "zmax";
-const QString IntensityDataItem::P_GRADIENT = "Gradient";
-const QString IntensityDataItem::P_IS_LOGZ = "Logz";
+const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
-const QString IntensityDataItem::P_XAXIS_TITLE = "x-title";
-const QString IntensityDataItem::P_YAXIS_TITLE = "y-title";
+const QString IntensityDataItem::P_GRADIENT = "Gradient";
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
-const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections Flag";
+const QString IntensityDataItem::P_XAXIS = "x-axis";
+const QString IntensityDataItem::P_YAXIS = "y-axis";
+const QString IntensityDataItem::P_ZAXIS = "color-axis";
+
 
 IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::IntensityDataType, parent)
     , m_data(0)
 {
     setItemName(Constants::IntensityDataType);
-    registerProperty(P_XAXIS_MIN, 0.0);
-    registerProperty(P_XAXIS_MAX, -1.0);
-    registerProperty(P_YAXIS_MIN, 0.0);
-    registerProperty(P_YAXIS_MAX, -1.0);
-    registerProperty(P_ZAXIS_MIN, 0.0);
-    registerProperty(P_ZAXIS_MAX, -1.0);
+    registerProperty(P_PROJECTIONS_FLAG, false);
+    registerProperty(P_IS_INTERPOLATED, true);
 
     ComboProperty gradient;
 
@@ -57,13 +49,12 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     gradient.setValue(Constants::GRADIENT_POLAR);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
-    registerProperty(P_IS_LOGZ, true);
-    registerProperty(P_IS_INTERPOLATED, true);
-    registerProperty(P_XAXIS_TITLE, QString());
-    registerProperty(P_YAXIS_TITLE, QString());
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));
     registerProperty(P_PROPERTY_PANEL_FLAG, false, PropertyAttribute(PropertyAttribute::HIDDEN));
-    registerProperty(P_PROJECTIONS_FLAG, false);
+
+    registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
+    registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
 }
 
 IntensityDataItem::~IntensityDataItem()
@@ -109,12 +100,12 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
 double IntensityDataItem::getLowerX() const
 {
-    return getRegisteredProperty(P_XAXIS_MIN).toDouble();
+    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperX() const
 {
-    return getRegisteredProperty(P_XAXIS_MAX).toDouble();
+    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 double IntensityDataItem::getXmin() const
@@ -139,12 +130,12 @@ double IntensityDataItem::getXmax() const
 
 double IntensityDataItem::getLowerY() const
 {
-    return getRegisteredProperty(P_YAXIS_MIN).toDouble();
+    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperY() const
 {
-    return getRegisteredProperty(P_YAXIS_MAX).toDouble();
+    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 double IntensityDataItem::getYmin() const
@@ -169,12 +160,12 @@ double IntensityDataItem::getYmax() const
 
 double IntensityDataItem::getLowerZ() const
 {
-    return getRegisteredProperty(P_ZAXIS_MIN).toDouble();
+    return getSubItems()[P_ZAXIS]->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
 }
 
 double IntensityDataItem::getUpperZ() const
 {
-    return getRegisteredProperty(P_ZAXIS_MAX).toDouble();
+    return getSubItems()[P_ZAXIS]->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
 }
 
 QString IntensityDataItem::getGradient() const
@@ -185,8 +176,7 @@ QString IntensityDataItem::getGradient() const
 
 bool IntensityDataItem::isLogz() const
 {
-    return getRegisteredProperty(P_IS_LOGZ).toBool();
-
+    return getSubItems()[P_ZAXIS]->getRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
 }
 
 bool IntensityDataItem::isInterpolated() const
@@ -196,12 +186,12 @@ bool IntensityDataItem::isInterpolated() const
 
 QString IntensityDataItem::getXaxisTitle() const
 {
-    return getRegisteredProperty(P_XAXIS_TITLE).toString();
+    return getSubItems()[P_XAXIS]->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
 }
 
 QString IntensityDataItem::getYaxisTitle() const
 {
-    return getRegisteredProperty(P_YAXIS_TITLE).toString();
+    return getSubItems()[P_YAXIS]->getRegisteredProperty(BasicAxisItem::P_TITLE).toString();
 }
 
 QString IntensityDataItem::getAxesUnits() const
@@ -220,50 +210,50 @@ bool IntensityDataItem::axesInRadians() const
 void IntensityDataItem::setLowerX(double xmin)
 {
     qDebug() << "IntensityDataItem::setXaxisMin(double xmin)" << xmin;
-    setRegisteredProperty(P_XAXIS_MIN, xmin);
+    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, xmin);
 }
 
 void IntensityDataItem::setUpperX(double xmax)
 {
     qDebug() << "IntensityDataItem::setXaxisMax(double xmax)" << xmax;
-    setRegisteredProperty(P_XAXIS_MAX, xmax);
+    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, xmax);
 }
 
 void IntensityDataItem::setLowerY(double ymin)
 {
     qDebug() << "IntensityDataItem::setYaxisMin(double ymin)" << ymin;
-    setRegisteredProperty(P_YAXIS_MIN, ymin);
+    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, ymin);
 }
 
 void IntensityDataItem::setUpperY(double ymax)
 {
     qDebug() << "IntensityDataItem::setYaxisMax(double ymax)" << ymax;
-    setRegisteredProperty(P_YAXIS_MAX, ymax);
+    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, ymax);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
     qDebug() << "IntensityDataItem::setZaxisRange()";
-    setRegisteredProperty(P_ZAXIS_MIN, zmin);
-    setRegisteredProperty(P_ZAXIS_MAX, zmax);
+    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
+    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
 }
 
 void IntensityDataItem::setLowerZ(double zmin)
 {
     qDebug() << "IntensityDataItem::setZaxisMin(double zmin)";
-    setRegisteredProperty(P_ZAXIS_MIN, zmin);
+    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
 }
 
 void IntensityDataItem::setUpperZ(double zmax)
 {
     qDebug() << "IntensityDataItem::setZaxisMax(double zmax)";
-    setRegisteredProperty(P_ZAXIS_MAX, zmax);
+    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
 }
 
 void IntensityDataItem::setLogz(bool logz)
 {
     qDebug() << "IntensityDataItem::setLogz(bool logz)";
-    setRegisteredProperty(P_IS_LOGZ, logz);
+    getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_IS_LOGSCALE, logz);
 }
 
 void IntensityDataItem::setInterpolated(bool interp)
@@ -275,13 +265,13 @@ void IntensityDataItem::setInterpolated(bool interp)
 void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
     qDebug() << "IntensityDataItem::setXaxisTitle(QString xtitle)";
-    setRegisteredProperty(P_XAXIS_TITLE, xtitle);
+    getSubItems()[P_XAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, xtitle);
 }
 
 void IntensityDataItem::setYaxisTitle(QString ytitle)
 {
     qDebug() << "IntensityDataItem::setYaxisTitle(QString ytitle)";
-    setRegisteredProperty(P_YAXIS_TITLE, ytitle);
+    getSubItems()[P_YAXIS]->setRegisteredProperty(BasicAxisItem::P_TITLE, ytitle);
 }
 
 void IntensityDataItem::setAxesUnits(const QString &units)

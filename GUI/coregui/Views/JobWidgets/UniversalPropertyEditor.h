@@ -67,6 +67,7 @@ private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
     void updateSubItems(const QString &name);
     void onPropertyChanged(const QString &property_name);
+    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private:
     //! clear editor

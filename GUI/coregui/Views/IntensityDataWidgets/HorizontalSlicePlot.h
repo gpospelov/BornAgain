@@ -39,7 +39,8 @@ public slots:
     void plotData(const QVector<double> &x, const QVector<double> &y);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
+//    void onPropertyChanged(const QString &property_name);
+    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private:
     void plotItem(IntensityDataItem *intensityItem);

@@ -145,8 +145,9 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
 
 
 // to update label of FixedGroupProperty
-void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
+void ParameterizedItem::onPropertyItemChanged(const QString & propertyName)
 {
+    Q_UNUSED(propertyName);
     ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
     for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin();
         it!= m_sub_items.end(); ++it) {
@@ -154,6 +155,8 @@ void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
             FancyGroupProperty_t group_property =
                     getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
+            emit propertyItemPropertyChanged(it.key(), propertyName);
+//            emit propertyItemChanged(it.key());
             if (m_parent) m_parent->onChildPropertyChange();
             return;
         }

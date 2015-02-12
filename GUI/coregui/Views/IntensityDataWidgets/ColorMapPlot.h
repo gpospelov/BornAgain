@@ -60,6 +60,7 @@ public slots:
 
 private slots:
     void onPropertyChanged(const QString &property_name);
+    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);

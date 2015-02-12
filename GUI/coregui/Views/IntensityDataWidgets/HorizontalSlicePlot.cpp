@@ -15,6 +15,7 @@
 
 #include "HorizontalSlicePlot.h"
 #include "IntensityDataItem.h"
+#include "AxesItems.h"
 #include "qcustomplot.h"
 #include "Units.h"
 #include <QVBoxLayout>
@@ -42,8 +43,10 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
     if (m_item == item) return;
 
     if (m_item) {
-        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
+//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
+//                this, SLOT(onPropertyChanged(QString)));
+        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 
     m_item = item;
@@ -52,8 +55,11 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
 
     plotItem(m_item);
 
-    connect(m_item, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
+//    connect(m_item, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyChanged(QString)));
+
+    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 }
 
@@ -64,24 +70,53 @@ void HorizontalSlicePlot::plotData(const QVector<double> &x, const QVector<doubl
     m_customPlot->replot();
 }
 
-void HorizontalSlicePlot::onPropertyChanged(const QString &property_name)
-{
-    //qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
+//void HorizontalSlicePlot::onPropertyChanged(const QString &property_name)
+//{
+//    //qDebug() << "NHistogramPlot::onPropertyChanged(const QString &property_name)";
 
-    if(property_name == IntensityDataItem::P_IS_LOGZ) {
-        setLogz(m_item->isLogz(), true);
-    } else if(property_name == IntensityDataItem::P_XAXIS_MIN) {
-        setXmin(m_item->getLowerX());
-    } else if(property_name == IntensityDataItem::P_XAXIS_MAX) {
-        setXmax(m_item->getUpperX());
-    } else if(property_name == IntensityDataItem::P_YAXIS_MIN) {
-        setYmin(m_item->getLowerY());
-    } else if(property_name == IntensityDataItem::P_YAXIS_MAX) {
-        setYmax(m_item->getUpperY());
-    } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
-        setZmin(m_item->getLowerZ());
-    } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
-        setZmax(m_item->getUpperZ());
+////    if(property_name == IntensityDataItem::P_IS_LOGZ) {
+////        setLogz(m_item->isLogz(), true);
+////    }
+////    else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
+////        setZmin(m_item->getLowerZ());
+////    }
+////    else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
+////        setZmax(m_item->getUpperZ());
+////    }
+//}
+
+void HorizontalSlicePlot::onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    qDebug() << "HorizontalSlicePlot::onPropertyItemChanged(const QString &property_name)" << property_group << property_name;
+    if(property_group == IntensityDataItem::P_XAXIS) {
+        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_XAXIS];
+        if(property_name == BasicAxisItem::P_MIN) {
+            setXmin(axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            setXmax(axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        }
+    }
+    else if(property_group == IntensityDataItem::P_YAXIS) {
+        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_YAXIS];
+        if(property_name == BasicAxisItem::P_MIN) {
+            setYmin(axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            setYmax(axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        }
+    }
+    else if(property_group == IntensityDataItem::P_ZAXIS) {
+        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_ZAXIS];
+        if(property_name == BasicAxisItem::P_MIN) {
+            setZmin(axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            setZmax(axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
+        }
+        else if(property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
+            setLogz(m_item->isLogz(), true);
+        }
     }
 }
 

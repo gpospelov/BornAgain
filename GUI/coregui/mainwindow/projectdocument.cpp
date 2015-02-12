@@ -21,6 +21,7 @@
 #include "IntensityDataItem.h"
 #include "SampleModel.h"
 #include "IntensityDataIOFactory.h"
+#include "BAVersion.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -237,7 +238,8 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("BornAgain");
-    writer.writeAttribute("Version", "1.9");
+    QString version_string = QString("%1.%2.%3").arg(BornAgain::GetMajorVersionNumber()).arg(BornAgain::GetMinorVersionNumber()).arg(BornAgain::GetPatchVersionNumber());
+    writer.writeAttribute("Version", version_string);
 
     writer.writeStartElement(ProjectDocumentXML::InfoTag);
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());

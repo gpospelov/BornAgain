@@ -15,6 +15,7 @@
 
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
+#include "AxesItems.h"
 #include "GUIHelpers.h"
 #include "Units.h"
 #include <QDebug>
@@ -48,6 +49,8 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
     if (m_item) {
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
+        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 
     m_item = item;
@@ -58,6 +61,9 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
+
+    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 }
 
@@ -231,30 +237,100 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
     if(property_name == IntensityDataItem::P_GRADIENT) {
         m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
         m_customPlot->replot();
-    } else if(property_name == IntensityDataItem::P_IS_LOGZ) {
-        setLogz(m_item->isLogz());
+//    } else if(property_name == IntensityDataItem::P_IS_LOGZ) {
+//        setLogz(m_item->isLogz());
     } else if(property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
         m_customPlot->replot();
-    } else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
-        QCPRange range = m_colorMap->dataRange();
-        double zmin = m_item->getLowerZ();
-        if(zmin != range.lower) {
-            range.lower = zmin;
-            m_colorMap->setDataRange(range);
-            m_customPlot->replot();
-        }
-    } else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
-        QCPRange range = m_colorMap->dataRange();
-        double zmax = m_item->getUpperZ();
-        if(zmax != range.upper) {
-            range.upper = zmax;
-            m_colorMap->setDataRange(range);
-            m_customPlot->replot();
-        }
-    } else if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+    }
+//    else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
+//        QCPRange range = m_colorMap->dataRange();
+//        double zmin = m_item->getLowerZ();
+//        if(zmin != range.lower) {
+//            range.lower = zmin;
+//            m_colorMap->setDataRange(range);
+//            m_customPlot->replot();
+//        }
+//    }
+//    else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
+//        QCPRange range = m_colorMap->dataRange();
+//        double zmax = m_item->getUpperZ();
+//        if(zmax != range.upper) {
+//            range.upper = zmax;
+//            m_colorMap->setDataRange(range);
+//            m_customPlot->replot();
+//        }
+//    }
+    else if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
+}
+
+void ColorMapPlot::onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    if(m_block_update) return;
+
+    qDebug() << "ColorMapPlot::onPropertyItemChanged(const QString &property_name)" << property_group << property_name;
+    if(property_group == IntensityDataItem::P_XAXIS) {
+        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_XAXIS];
+        if(property_name == BasicAxisItem::P_MIN) {
+            QCPRange range = m_customPlot->xAxis->range();
+            range.lower = axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+            m_customPlot->xAxis->setRange(range);
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            QCPRange range = m_customPlot->xAxis->range();
+            range.upper = axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+            m_customPlot->xAxis->setRange(range);
+        }
+        else if(property_name == BasicAxisItem::P_TITLE ) {
+            m_customPlot->xAxis->setLabel(axis->getRegisteredProperty(BasicAxisItem::P_TITLE).toString());
+        }
+        m_customPlot->replot();
+    }
+    else if(property_group == IntensityDataItem::P_YAXIS) {
+        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_YAXIS];
+        if(property_name == BasicAxisItem::P_MIN) {
+            QCPRange range = m_customPlot->yAxis->range();
+            range.lower = axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+            m_customPlot->yAxis->setRange(range);
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            QCPRange range = m_customPlot->yAxis->range();
+            range.upper = axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+            m_customPlot->yAxis->setRange(range);
+        }
+        else if(property_name == BasicAxisItem::P_TITLE ) {
+            m_customPlot->yAxis->setLabel(axis->getRegisteredProperty(BasicAxisItem::P_TITLE).toString());
+        }
+        m_customPlot->replot();
+    }
+
+    else if(property_group == IntensityDataItem::P_ZAXIS) {
+        if(property_name == BasicAxisItem::P_MIN) {
+            QCPRange range = m_colorMap->dataRange();
+            double zmin = m_item->getLowerZ();
+            if(zmin != range.lower) {
+                range.lower = zmin;
+                m_colorMap->setDataRange(range);
+            }
+        }
+        else if(property_name == BasicAxisItem::P_MAX) {
+            QCPRange range = m_colorMap->dataRange();
+            double zmax = m_item->getUpperZ();
+            if(zmax != range.upper) {
+                range.upper = zmax;
+                m_colorMap->setDataRange(range);
+                m_customPlot->replot();
+            }
+        }
+        else if(property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
+            setLogz(m_item->isLogz());
+        }
+        m_customPlot->replot();
+    }
+
+
 }
 
 //! Propagate zmin, zmax back to IntensityDataItem
@@ -350,14 +426,6 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     int ny = axis_y->getSize();
     m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
 
-//    if(intensityItem->axesInRadians()) {
-//        m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
-//    } else {
-//        m_colorMap->data()->setRange(QCPRange(Units::rad2deg(axis_x->getMin()), Units::rad2deg(axis_x->getMax())), QCPRange(Units::rad2deg(axis_y->getMin()), Units::rad2deg(axis_y->getMax())));
-//    }
-
-//    qDebug() << intensityItem->getXaxisMin() << intensityItem->getXaxisMax() << intensityItem->getYaxisMin() << intensityItem->getYaxisMax();
-//    Q_ASSERT(0);
     m_colorMap->data()->setRange(QCPRange(intensityItem->getXmin(), intensityItem->getXmax()), QCPRange(intensityItem->getYmin(), intensityItem->getYmax()));
 
     OutputData<double>::const_iterator it = data->begin();

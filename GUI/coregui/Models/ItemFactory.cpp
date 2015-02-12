@@ -39,6 +39,7 @@
 #include "FitParameterItem.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"
+#include "AxesItems.h"
 #include <QDebug>
 
 namespace {
@@ -127,6 +128,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::IntensityDataType] = &createInstance<IntensityDataItem>;
 
+    result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
+    result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
     return result;
 }

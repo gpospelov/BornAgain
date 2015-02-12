@@ -73,6 +73,9 @@ public:
 
 
 private:
+    std::string definePreamble() const;
+    std::string defineSample() const;
+    std::string defineGetSimulation(const Simulation *simulation) const;
     std::string defineMaterials() const;
     std::string defineLayers() const;
     std::string defineFormFactors() const;

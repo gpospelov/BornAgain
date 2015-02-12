@@ -44,37 +44,10 @@ PyGenVisitor::PyGenVisitor()
 std::string PyGenVisitor::writePyScript(const Simulation *simulation)
 {
     std::ostringstream result;
-    result << std::setprecision(12) <<"import numpy\n";
-    result << "from libBornAgainCore import *\n";
-    result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import pylab\n\n";
-    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
-    result << "#NOTE: Running this Script by default will write output data"
-           << "to \"output.int\" file\n";
-    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
-           << "given to runSimulation in _main_\n";
-    result << "#NOTE: To read data from a file use the command:"
-           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
-    result << "def getSample():\n";
+    result << definePreamble();
 
-    result << defineMaterials();
-    result << defineLayers();
-    result << defineFormFactors();
-    result << defineParticles();
-    result << defineCoreShellParticles();
-    result << defineInterferenceFunctions();
-    result << defineParticleLayouts();
-    result << defineRoughnesses();
-    result << addLayoutsToLayers();
-    result << defineMultiLayers();
-
-    result << "def getSimulation():\n";
-    result << "\t# Creating and returning GISAXS simulation\n";
-    result << "\tsimulation = Simulation()\n";
-    result << defineDetector(simulation);
-    result << defineBeam(simulation);
-    result << "\treturn simulation\n\n";
-
+    result << defineSample();
+    result << defineGetSimulation(simulation);
     result << definePlotting(simulation);
     result << defineRunSimulation();
 
@@ -266,13 +239,61 @@ void PyGenVisitor::visit(const ParticleCoreShell *sample)
 void PyGenVisitor::visit(const ParticleLayout *sample)
 {
     m_label->setLabel(sample);
-//     result << sample->getName() << std::endl;
+    //     result << sample->getName() << std::endl;
+}
+
+std::string PyGenVisitor::definePreamble() const
+{
+    std::ostringstream result;
+    result << "import numpy\n";
+    result << "from libBornAgainCore import *\n";
+    result << "#NOTE: Uncomment the next import statement for plotting\n";
+    result << "#import pylab\n\n";
+    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
+    result << "#NOTE: Running this Script by default will write output data"
+           << "to \"output.int\" file\n";
+    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
+           << "given to runSimulation in __main__\n";
+    result << "#NOTE: To read data from a file use the command:"
+           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
+    return result.str();
+}
+
+std::string PyGenVisitor::defineSample() const
+{
+    std::ostringstream result;
+    result << "def getSample():\n";
+    result << defineMaterials();
+    result << defineLayers();
+    result << defineFormFactors();
+    result << defineParticles();
+    result << defineCoreShellParticles();
+    result << defineInterferenceFunctions();
+    result << defineParticleLayouts();
+    result << defineRoughnesses();
+    result << addLayoutsToLayers();
+    result << defineMultiLayers();
+    result << std::endl;
+    return result.str();
+}
+
+std::string PyGenVisitor::defineGetSimulation(const Simulation *simulation) const
+{
+    std::ostringstream result;
+    result << "def getSimulation():\n";
+    result << "\t# Creating and returning GISAXS simulation\n";
+    result << "\tsimulation = Simulation()\n";
+    result << defineDetector(simulation);
+    result << defineBeam(simulation);
+    result << "\treturn simulation\n\n";
+    return result.str();
 }
 
 std::string PyGenVisitor::defineMaterials() const
 {
     if (m_label->getMaterialMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\t#Defining Materials\n";
     std::map<const IMaterial *,std::string>::iterator it =
             m_label->getMaterialMap()->begin();
@@ -322,6 +343,7 @@ std::string PyGenVisitor::defineLayers() const
 {
     if (m_label->getLayerMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Layers\n";
     std::map<const Layer *,std::string>::iterator it =
             m_label->getLayerMap()->begin();
@@ -344,6 +366,7 @@ std::string PyGenVisitor::defineFormFactors() const
 {
     if (m_label->getFormFactorMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Form Factors\n";
     std::map<const IFormFactor *,std::string>::iterator it =
             m_label->getFormFactorMap()->begin();
@@ -585,6 +608,7 @@ std::string PyGenVisitor::defineParticles() const
 {
     if (m_label->getParticleMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Particles\n";
     std::map<const Particle *,std::string>::iterator it =
             m_label->getParticleMap()->begin();
@@ -640,6 +664,7 @@ std::string PyGenVisitor::defineCoreShellParticles() const
 {
     if (m_label->getParticleCoreShellMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Core Shell Particles\n";
     std::map<const ParticleCoreShell *,std::string>::iterator it =
             m_label->getParticleCoreShellMap()->begin();
@@ -666,6 +691,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 {
     if (m_label->getInterferenceFunctionMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Interference Functions\n";
     std::map<const IInterferenceFunction *,std::string>::iterator it =
             m_label->getInterferenceFunctionMap()->begin();
@@ -1264,6 +1290,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
 {
     if (m_label->getParticleLayoutMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Particle Layouts and adding Particles\n";
     std::map<const ILayout *,std::string>::iterator it =
             m_label->getParticleLayoutMap()->begin();
@@ -1362,6 +1389,7 @@ std::string PyGenVisitor::defineRoughnesses() const
 {
     if (m_label->getLayerRoughnessMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Defining Roughness Parameters\n";
     std::map<const LayerRoughness *,std::string>::iterator it =
             m_label->getLayerRoughnessMap()->begin();
@@ -1381,6 +1409,7 @@ std::string PyGenVisitor::addLayoutsToLayers() const
 {
     if (m_label->getParticleLayoutMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\n\t# Adding layouts to layers\n";
     std::map<const Layer *,std::string>::iterator it = m_label->getLayerMap()->begin();
     while (it != m_label->getLayerMap()->end())
@@ -1404,6 +1433,7 @@ std::string PyGenVisitor::defineMultiLayers() const
 {
     if (m_label->getMultiLayerMap()->size() == 0) return "";
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "n\t# Defining Multilayers\n";
     std::map<const MultiLayer *,std::string>::iterator it =
             m_label->getMultiLayerMap()->begin();
@@ -1441,7 +1471,7 @@ std::string PyGenVisitor::defineMultiLayers() const
             }
             layerIndex++;
         }
-        result <<"\treturn " << it->second <<  std::endl << std::endl;
+        result <<"\treturn " << it->second <<  std::endl;
         it++;
     }
     return result.str();
@@ -1456,6 +1486,7 @@ std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
                                                 "detector must be two-dimensional for GISAS");
     }
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\t# Defining Detector Parameters\n";
     result << "\tsimulation.setDetectorParameters(" ;
     size_t index = 0;
@@ -1476,6 +1507,7 @@ std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
 std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
 {
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "\t# Defining Beam Parameters\n";
     result << "\tsimulation.setBeamParameters(" ;
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer,"
@@ -1487,6 +1519,7 @@ std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
 std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
 {
     std::ostringstream result;
+    result << std::setprecision(12);
     result << "#NOTE: Uncomment the next function for plotting\n";
     result << "#NOTE: This requires the presence of matplotlib library\n";
     result << "#def plotSimulation(simulation):\n";

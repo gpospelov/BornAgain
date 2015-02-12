@@ -60,6 +60,7 @@ public:
 
 
 private:
+    bool definesSameMaterial(IMaterial *left, IMaterial *right) const;
     std::map<const IFormFactor *,std::string> m_formFactorLabel;
     std::map<const IInterferenceFunction *, std::string> m_interferenceFunctionLabel;
     std::map<const Layer *,std::string> m_layerLabel;

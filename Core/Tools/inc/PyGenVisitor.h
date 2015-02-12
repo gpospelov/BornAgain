@@ -55,20 +55,20 @@ public:
     virtual void visit(const FormFactorTetrahedron *sample);
     virtual void visit(const FormFactorTruncatedSphere *sample);
     virtual void visit(const FormFactorTruncatedSpheroid *sample);
-    virtual void visit(const InterferenceFunctionNone *);
-    virtual void visit(const InterferenceFunction1DLattice *);
-    virtual void visit(const InterferenceFunctionRadialParaCrystal *);
-    virtual void visit(const InterferenceFunction2DLattice *);
-    virtual void visit(const InterferenceFunction2DParaCrystal *);
+    virtual void visit(const InterferenceFunctionNone *sample);
+    virtual void visit(const InterferenceFunction1DLattice *sample);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal *sample);
+    virtual void visit(const InterferenceFunction2DLattice *sample);
+    virtual void visit(const InterferenceFunction2DParaCrystal *sample);
     virtual void visit(const Layer *sample);
-    virtual void visit(const LayerInterface *){}
+    virtual void visit(const LayerInterface *sample){ (void)sample; }
     virtual void visit(const LayerRoughness *sample);
     virtual void visit(const MultiLayer *sample);
     virtual void visit(const LatticeBasis *sample);
     virtual void visit(const MesoCrystal *sample);
     virtual void visit(const Particle *sample);
     virtual void visit(const ParticleCoreShell *sample);
-    virtual void visit(const ParticleInfo *){}
+    virtual void visit(const ParticleInfo *sample){ (void)sample; }
     virtual void visit(const ParticleLayout *sample);
 
 

@@ -19,7 +19,6 @@
 
 LabelSample::LabelSample()
 {
-
 }
 
 std::string LabelSample::getLabel(const IFormFactor *sample)
@@ -215,4 +214,26 @@ void LabelSample::setLabel(const ParticleInfo *sample)
     std::ostringstream inter;
     inter << "ParticleInfo_" << m_particleInfoLabel.size()+1;
     m_particleInfoLabel[sample] = inter.str();;
+}
+
+bool LabelSample::definesSameMaterial(IMaterial *left, IMaterial *right) const
+{
+    // Non-magnetic materials
+    if (left->isScalarMaterial() && right->isScalarMaterial()) {
+        if (left->getName() == right->getName() &&
+            left->getRefractiveIndex() == right->getRefractiveIndex() ) {
+            return true;
+        }
+        return false;
+    }
+    // Magnetic materials TODO
+    else if (!left->isScalarMaterial() && !right->isScalarMaterial()) {
+        if (left->getName() == right->getName() &&
+            left->getRefractiveIndex() == right->getRefractiveIndex() ) {
+            return true;
+        }
+        return false;
+    }
+    // Return false if one material is magnetic and the other one not
+    else return false;
 }

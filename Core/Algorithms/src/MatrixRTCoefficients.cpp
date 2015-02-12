@@ -187,6 +187,8 @@ void MatrixRTCoefficients::initializeBottomLayerRT()
         phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
         return;
     }
+    // non-zero B-field
+    return;
 }
 
 void MatrixRTCoefficients::calculateTRWithoutMagnetization()

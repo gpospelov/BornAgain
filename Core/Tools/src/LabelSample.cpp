@@ -132,8 +132,7 @@ void LabelSample::insertMaterial(const IMaterial *sample)
     std::map<const IMaterial *,std::string>::const_iterator iEnd = m_materialLabel.end();
     while (it != iEnd)
     {
-        if(it->first->getName() == sample->getName() &&
-                it->first->getRefractiveIndex() == sample->getRefractiveIndex() )
+        if(definesSameMaterial(it->first, sample) )
         {
             m_materialLabel[sample] = it->second;
             break;
@@ -142,9 +141,9 @@ void LabelSample::insertMaterial(const IMaterial *sample)
     }
     if(it == iEnd)
     {
-        std::ostringstream inter;
-        inter << "Material_" << m_materialLabel.size()+1;
-        m_materialLabel[sample] = inter.str();
+        std::ostringstream label_stream;
+        label_stream << "Material_" << m_materialLabel.size()+1;
+        m_materialLabel[sample] = label_stream.str();
     }
 }
 
@@ -168,7 +167,6 @@ void LabelSample::setLabel(const ILayout *sample)
     inter << "Layout_" << m_ILayoutLabel.size()+1;
     m_ILayoutLabel[sample] = inter.str();;
 }
-
 
 void LabelSample::setLabel(const Layer *sample)
 {
@@ -216,7 +214,7 @@ void LabelSample::setLabel(const ParticleInfo *sample)
     m_particleInfoLabel[sample] = inter.str();;
 }
 
-bool LabelSample::definesSameMaterial(IMaterial *left, IMaterial *right) const
+bool LabelSample::definesSameMaterial(const IMaterial *left, const IMaterial *right) const
 {
     // Non-magnetic materials
     if (left->isScalarMaterial() && right->isScalarMaterial()) {
@@ -228,8 +226,18 @@ bool LabelSample::definesSameMaterial(IMaterial *left, IMaterial *right) const
     }
     // Magnetic materials TODO
     else if (!left->isScalarMaterial() && !right->isScalarMaterial()) {
-        if (left->getName() == right->getName() &&
-            left->getRefractiveIndex() == right->getRefractiveIndex() ) {
+        const HomogeneousMagneticMaterial *p_left =
+                dynamic_cast<const HomogeneousMagneticMaterial *>(left);
+        const HomogeneousMagneticMaterial *p_right =
+                dynamic_cast<const HomogeneousMagneticMaterial *>(right);
+        if (!p_left || !p_right) {
+            throw Exceptions::RuntimeErrorException("LabelSample::definesSameMaterial: "
+                                                    "non-scalar materials should be of type "
+                                                    "HomogeneousMagneticMaterial");
+        }
+        if (p_left->getName() == p_right->getName() &&
+            p_left->getRefractiveIndex() == p_right->getRefractiveIndex() &&
+            p_left->getMagneticField() == p_right->getMagneticField() ) {
             return true;
         }
         return false;

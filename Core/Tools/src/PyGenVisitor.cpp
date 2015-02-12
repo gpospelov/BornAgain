@@ -294,7 +294,7 @@ std::string PyGenVisitor::defineMaterials() const
     if (m_label->getMaterialMap()->size() == 0) return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\t#Defining Materials\n";
+    result << "\t# Defining Materials\n";
     std::map<const IMaterial *,std::string>::iterator it =
             m_label->getMaterialMap()->begin();
     std::set<std::string> visitedMaterials;
@@ -1300,7 +1300,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
         if (const ParticleLayout *particleLayout =
                 dynamic_cast<const ParticleLayout *>(iLayout))
         {
-            result << "\t" << it->second << " = ParticleLayout()\n\n";
+            result << "\t" << it->second << " = ParticleLayout()\n";
             size_t numberOfParticles = particleLayout->getNumberOfParticles();
             size_t particleIndex = 0;
 
@@ -1311,10 +1311,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 kvector_t pos = particleInfo->getPosition();
                 if (pos.x()!=0.0 || pos.y()!=0.0)
                 {
-                    result << "\t# Defining "
-                           << m_label->getLabel(particleInfo->getParticle());
-
-                    result << "\n\t"
+                    result << "\t"
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position = kvector_t("
                            << pos.x()
@@ -1341,17 +1338,13 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 }
                 else
                 {
-                    result << "\t# Defining "
-                           << m_label->getLabel(particleInfo->getParticle());
-
-                    result << "\n\t" << it->second
+                    result << "\t" << it->second
                            << ".addParticle("
                            << m_label->getLabel(particleInfo->getParticle())
                            << ","
                            << PyGenTools::printDouble(particleInfo->getDepth()) << ","
                            << PyGenTools::printDouble(particleInfo->getAbundance()) <<")\n";
                 }
-
                 particleIndex++;
             }
 
@@ -1410,7 +1403,7 @@ std::string PyGenVisitor::addLayoutsToLayers() const
     if (m_label->getParticleLayoutMap()->size() == 0) return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n\t# Adding layouts to layers\n";
+    result << "\n\t# Adding layouts to layers";
     std::map<const Layer *,std::string>::iterator it = m_label->getLayerMap()->begin();
     while (it != m_label->getLayerMap()->end())
     {
@@ -1434,7 +1427,7 @@ std::string PyGenVisitor::defineMultiLayers() const
     if (m_label->getMultiLayerMap()->size() == 0) return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "n\t# Defining Multilayers\n";
+    result << "\n\t# Defining Multilayers\n";
     std::map<const MultiLayer *,std::string>::iterator it =
             m_label->getMultiLayerMap()->begin();
     while (it != m_label->getMultiLayerMap()->end())
@@ -1556,7 +1549,6 @@ std::string PyGenVisitor::defineRunSimulation() const
     result << "\tsimulation = getSimulation()\n";
     result << "\tsimulation.setSample(sample)\n";
     result << "\tsimulation.runSimulation()\n";
-    result << "\tsimulation.normalize()\n";
     result << "\tif filename != '':\n";
     result << "\t\tIntensityDataIOFactory.writeIntensityData(simulation."
            << "getIntensityData(), filename + '.int')\n\n";

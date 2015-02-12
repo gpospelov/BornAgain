@@ -43,7 +43,8 @@ OutputDataReader::~OutputDataReader()
 OutputData<double > *OutputDataReader::getOutputData()
 {
     if(!m_read_strategy) {
-        throw NullPointerException("OutputDataReader::getOutputData() -> Error! No read strategy defined");
+        throw NullPointerException("OutputDataReader::getOutputData() ->"
+                                   " Error! No read strategy defined");
     }
 
     // opening file
@@ -54,10 +55,12 @@ OutputData<double > *OutputDataReader::getOutputData()
 
     fin.open(m_file_name.c_str(), openmode );
     if( !fin.is_open() ) {
-        throw FileNotIsOpenException("OutputDataReader::getOutputData() -> Error. Can't open file '"+m_file_name+"' for reading.");
+        throw FileNotIsOpenException("OutputDataReader::getOutputData() -> Error. Can't open file '"
+                                     + m_file_name + "' for reading.");
     }
     if ( !fin.good() ) {
-        throw FileIsBadException("OutputDataReader::getOutputData() -> Error! File is not good, probably it is a directory.");
+        throw FileIsBadException("OutputDataReader::getOutputData() -> Error! File is not good, "
+                                 "probably it is a directory.");
     }
 
     OutputData<double > *result = m_read_strategy->readOutputData(fin);

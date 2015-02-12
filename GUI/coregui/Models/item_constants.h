@@ -105,6 +105,12 @@ const ModelType MagneticFieldType = "MagneticField";
 
 const ModelType FitParameterType = "FitParameter";
 
+const ModelType JobItemType = "JobItem";
+const ModelType IntensityDataType = "IntensityData";
+
+const ModelType BasicAxisType = "BasicAxis";
+const ModelType AmplitudeAxisType = "AmplitudeAxis";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -117,9 +123,28 @@ const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 
-// --- Units -------------------------------------------------------------------
+// --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsRadians = "Radians";
+
+const ModelType STATUS_IDLE = "Idle";
+const ModelType STATUS_RUNNING = "Running";
+const ModelType STATUS_COMPLETED = "Completed";
+const ModelType STATUS_CANCELED = "Canceled";
+const ModelType STATUS_FAILED = "Failed";
+
+const ModelType GRADIENT_GRAYSCALE = "Grayscale";
+const ModelType GRADIENT_HOT = "Hot";
+const ModelType GRADIENT_COLD = "Cold";
+const ModelType GRADIENT_NIGHT = "Night";
+const ModelType GRADIENT_CANDY = "Candy";
+const ModelType GRADIENT_GEOGRAPHY = "Geography";
+const ModelType GRADIENT_ION = "Ion";
+const ModelType GRADIENT_THERMAL = "Thermal";
+const ModelType GRADIENT_POLAR = "Polar";
+const ModelType GRADIENT_SPECTRUM = "Spectrum";
+const ModelType GRADIENT_JET = "Jet";
+const ModelType GRADIENT_HUES = "Hues";
 
 }
 

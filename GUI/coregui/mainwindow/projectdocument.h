@@ -20,13 +20,13 @@
 #include <QObject>
 #include <QString>
 
-class JobQueueModel;
 class QIODevice;
 class QModelIndex;
 class JobItem;
 class InstrumentModel;
 class MaterialModel;
 class SampleModel;
+class JobModel;
 
 namespace ProjectDocumentXML
 {
@@ -69,7 +69,7 @@ public:
     void setMaterialModel(MaterialModel *materialModel);
     void setInstrumentModel(InstrumentModel *model);
     void setSampleModel(SampleModel *model);
-    void setJobQueueModel(JobQueueModel *model);
+    void setJobModel(JobModel *model);
 
     bool hasValidNameAndPath();
 
@@ -78,7 +78,7 @@ signals:
 
 public slots:
     void onDataChanged(const QModelIndex &, const QModelIndex &);
-    void onJobQueueModelChanged(const QString &);
+    void onJobModelChanged(const QString &);
 
 private:
     bool writeTo(QIODevice *device);
@@ -92,7 +92,7 @@ private:
     MaterialModel *m_materialModel;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
-    JobQueueModel *m_jobQueueModel;
+    JobModel *m_jobModel;
     bool m_modified;
 };
 

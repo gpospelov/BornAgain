@@ -16,11 +16,12 @@
 #include "projectdocument.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
-#include "JobQueueModel.h"
+#include "JobModel.h"
 #include "JobItem.h"
-#include "OutputDataItem.h"
+#include "IntensityDataItem.h"
 #include "SampleModel.h"
 #include "IntensityDataIOFactory.h"
+#include "BAVersion.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -31,12 +32,11 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 
-
 ProjectDocument::ProjectDocument()
     : m_materialModel(0)
     , m_instrumentModel(0)
     , m_sampleModel(0)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_modified(false)
 {
 
@@ -44,14 +44,13 @@ ProjectDocument::ProjectDocument()
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
     : m_sampleModel(0)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_modified(false)
 {
     setProjectFileName(projectFileName);
     qDebug() << "ProjectDocument::ProjectDocument(const QString &projectFileName)"
              << projectFileName << getProjectPath() << getProjectName() << getProjectFileName();
 }
-
 
 void ProjectDocument::setProjectFileName(const QString &projectFileName)
 {
@@ -62,19 +61,16 @@ void ProjectDocument::setProjectFileName(const QString &projectFileName)
     setProjectPath(info_dir.path());
 }
 
-
-
 ProjectDocument::ProjectDocument(const QString &path, const QString &name)
     : m_project_path(path)
     , m_project_name(name)
     , m_materialModel(0)
     , m_sampleModel(0)
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_modified(false)
 {
 
 }
-
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
@@ -83,13 +79,11 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
     emit modified();
 }
 
-
-void ProjectDocument::onJobQueueModelChanged(const QString &)
+void ProjectDocument::onJobModelChanged(const QString &)
 {
     m_modified = true;
     emit modified();
 }
-
 
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
@@ -120,17 +114,15 @@ void ProjectDocument::setSampleModel(SampleModel *model)
 }
 
 
-void ProjectDocument::setJobQueueModel(JobQueueModel *model)
+void ProjectDocument::setJobModel(JobModel *model)
 {
-    if(model != m_jobQueueModel) {
-        if(m_jobQueueModel) {
-            //disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-            disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
+    if(model != m_jobModel) {
+        if(m_jobModel) {
+            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobModelChanged(QString)));
         }
-        m_jobQueueModel = model;
+        m_jobModel = model;
 
-//        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-        connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
+        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobModelChanged(QString)));
     }
 }
 
@@ -168,13 +160,11 @@ bool ProjectDocument::save()
 
 bool ProjectDocument::load()
 {
-    qDebug() << "ProjectDocument::load() -> " << getProjectFileName();
-    //QFileInfo info(filename);
-    //qDebug()  << info.baseName() << " " << info.path();
+    //qDebug() << "ProjectDocument::load() -> " << getProjectFileName();
 
     QFile file(getProjectFileName());
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "ProjectDocument::openExistingDocument -> Error. Can't open file" << getProjectFileName();
+        //qDebug() << "ProjectDocument::openExistingDocument -> Error. Can't open file" << getProjectFileName();
         return 0;
     }
 
@@ -201,9 +191,8 @@ bool ProjectDocument::readFrom(QIODevice *device)
     Q_ASSERT(m_sampleModel);
     disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
-    Q_ASSERT(m_jobQueueModel);
-    //disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-    disconnect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
+    Q_ASSERT(m_jobModel);
+    disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobModelChanged(QString)));
 
     QXmlStreamReader reader(device);
 
@@ -226,8 +215,8 @@ bool ProjectDocument::readFrom(QIODevice *device)
                 m_sampleModel->readFrom(&reader);
 
             }
-            else if(reader.name() == JobQueueXML::ModelTag) {
-                m_jobQueueModel->readFrom(&reader);
+            else if(reader.name() == SessionXML::JobModelTag) {
+                m_jobModel->readFrom(&reader);
             }
         }
     }
@@ -238,11 +227,8 @@ bool ProjectDocument::readFrom(QIODevice *device)
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-    //connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-    connect(m_jobQueueModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobQueueModelChanged(QString)));
-
+    connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this, SLOT(onJobModelChanged(QString)));
     return true;
-
 }
 
 
@@ -252,7 +238,8 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("BornAgain");
-    writer.writeAttribute("Version", "1.9");
+    QString version_string = QString("%1.%2.%3").arg(BornAgain::GetMajorVersionNumber()).arg(BornAgain::GetMinorVersionNumber()).arg(BornAgain::GetPatchVersionNumber());
+    writer.writeAttribute("Version", version_string);
 
     writer.writeStartElement(ProjectDocumentXML::InfoTag);
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
@@ -267,8 +254,8 @@ bool ProjectDocument::writeTo(QIODevice *device)
     Q_ASSERT(m_sampleModel);
     m_sampleModel->writeTo(&writer);
 
-    Q_ASSERT(m_jobQueueModel);
-    m_jobQueueModel->writeTo(&writer);
+    Q_ASSERT(m_jobModel);
+    m_jobModel->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain
     writer.writeEndDocument();
@@ -298,39 +285,63 @@ QString ProjectDocument::getProjectDir()
 //! saves OutputData into project directory
 void ProjectDocument::saveOutputData()
 {
-    Q_ASSERT(m_jobQueueModel);
+    Q_ASSERT(m_jobModel);
 
-    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
-        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
-        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+//    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
+//        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
+//        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+//        if(dataItem) {
+//            QString filename = getProjectDir() + "/" + dataItem->getName();
+//            const OutputData<double> *data = dataItem->getOutputData();
+//            if(data) {
+//                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
+//            }
+//        }
+//    }
+    for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
+        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
         if(dataItem) {
-            QString filename = getProjectDir() + "/" + dataItem->getName();
+            QString filename = getProjectDir() + "/" + dataItem->itemName();
             const OutputData<double> *data = dataItem->getOutputData();
             if(data) {
                 IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
             }
         }
-
     }
+
 }
 
 
 //! load OutputData from project directory
 void ProjectDocument::loadOutputData()
 {
-    Q_ASSERT(m_jobQueueModel);
+    Q_ASSERT(m_jobModel);
 
-    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
-        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
-        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+//    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
+//        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
+//        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+//        if(dataItem) {
+//            QString filename = getProjectDir() + "/" + dataItem->getName();
+//            QFileInfo info(filename);
+//            if(info.exists()) {
+//                jobItem->getOutputDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
+//            }
+//        }
+//    }
+    for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
+        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
         if(dataItem) {
-            QString filename = getProjectDir() + "/" + dataItem->getName();
+            QString filename = getProjectDir() + "/" + dataItem->itemName();
             QFileInfo info(filename);
             if(info.exists()) {
-                jobItem->getOutputDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
+                jobItem->getIntensityDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
             }
         }
     }
+
+
 }
 
 

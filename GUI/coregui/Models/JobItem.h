@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobItem.h
-//! @brief     Defines class JobItem
+//! @file      coregui/Models/NJobItem.h
+//! @brief     Defines class NJobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,67 +16,33 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "WinDllMacros.h"
-#include <QList>
-#include <QVariant>
-#include <QString>
-#include <QStringList>
-
-class OutputDataItem;
+#include "ParameterizedItem.h"
+class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
-class QXmlStreamWriter;
-class QXmlStreamReader;
 class Simulation;
 
-
-//! Class to hold all job settings
-//!
-//! See also JobQueueItem which is stored in a list by JobQueueModel and serve
-//! as an adapter for given JobItem.
-class BA_CORE_API_ JobItem : public QObject
+class BA_CORE_API_ JobItem : public ParameterizedItem
 {
     Q_OBJECT
-
 public:
-    enum EJobStatus { IDLE, RUNNING, COMPLETED, CANCELLED, FAILED };
+    static const QString P_IDENTIFIER;
+    static const QString P_SAMPLE_NAME;
+    static const QString P_INSTRUMENT_NAME;
+    static const QString P_STATUS;
+    static const QString P_BEGIN_TIME;
+    static const QString P_END_TIME;
+    static const QString P_COMMENTS;
+    static const QString P_PROGRESS;
+    static const QString P_NTHREADS;
+    static const QString P_RUN_POLICY;
+    explicit JobItem(ParameterizedItem *parent=0);
+    ~JobItem(){}
 
-    enum ERunPolicy {
-        RUN_IMMEDIATELY = 0x0001,
-        RUN_IN_BACKGROUND  = 0x0002,
-        SUBMIT_ONLY = 0x0004
-    };
+    QString getIdentifier() const;
+    void setIdentifier(const QString &identifier);
 
-    JobItem(const QString &name);
-    JobItem(SampleModel *sampleModel, InstrumentModel *instrumentModel,
-            const QString &run_policy = QString());
-
-    virtual ~JobItem();
-
-    QString getName() const { return m_name; }
-
-    QString getBeginTime() const { return m_begin_time; }
-
-    QString getEndTime() const { return m_end_time; }
-
-    QString getComments() const { return m_comments; }
-
-    EJobStatus getStatus() const { return m_status; }
-
-    QString getStatusString() const;
-
-    int getProgress() const { return m_progress; }
-
-    void writeTo(QXmlStreamWriter *writer);
-    void readFrom(QXmlStreamReader *reader);
-
-    bool isRunning() const { return m_status == RUNNING; }
-
-    OutputDataItem *getOutputDataItem(int n_item = 0);
-
-    ERunPolicy getRunPolicy() const { return m_run_policy; }
-    void setRunPolicy(ERunPolicy run_policy) { m_run_policy = run_policy; }
-    void setRunPolicy(const QString &run_policy);
+    IntensityDataItem *getIntensityDataItem();
 
     SampleModel *getSampleModel();
     void setSampleModel(SampleModel *sampleModel);
@@ -84,66 +50,38 @@ public:
     InstrumentModel *getInstrumentModel();
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
+    QString getStatus() const;
+    void setStatus(const QString &status);
+
+    bool isIdle() const;
+    bool isRunning() const;
+    bool isCompleted() const;
+    bool isCanceled() const;
+    bool isFailed() const;
+
+    void setBeginTime(const QString &begin_time);
+
+    void setEndTime(const QString &end_time);
+
+    QString getComments() const;
+    void setComments(const QString &comments);
+
+    int getProgress() const;
+    void setProgress(int progress);
+
+    int getNumberOfThreads() const;
+    void setNumberOfThreads(int number_of_threads);
+
     static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
-    void initOutputDataItem();
-
-    void setResults(const Simulation *simulation);
-
-    int getNumberOfThreads() const { return m_nthreads; }
-    void setNumberOfThreads(int nthreads) { m_nthreads = nthreads; }
-
-signals:
-    void modified(JobItem *);
-
-public slots:
-    void setName(QString name);
-    void setBeginTime(QString begin_time) {
-        m_begin_time = begin_time;
-        emit modified(this);
-    }
-    void setEndTime(QString end_time) {
-        m_end_time = end_time;
-        emit modified(this);
-    }
-    void setComments(QString comments) {
-        m_comments = comments;
-        emit modified(this);
-    }
-    void setStatus(EJobStatus status) {
-        m_status = status;
-        emit modified(this);
-    }
-    void setProgress(int progress) {
-        m_progress = progress;
-        emit modified(this);
-    }
-
-    void onDataItemModified() {
-        emit modified(this);
-    }
+    bool runImmediately() const;
+    bool runInBackground() const;
 
 private:
-    void clear();
-
-    QString m_name;
-    QString m_begin_time;
-    QString m_end_time;
-    QString m_comments;
-    EJobStatus m_status;
-    int m_progress;
-    int m_nthreads;
-
-    QList<OutputDataItem *> m_data_items;
-    ERunPolicy m_run_policy;
-
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
-
-    static QStringList m_status_list;
     static QMap<QString, QString> m_run_policies; // run policy, policy description
+
 };
 
-
-
-#endif // JOBITEM_H
+#endif // NJOBITEM_H

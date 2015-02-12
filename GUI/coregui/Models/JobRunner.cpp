@@ -17,6 +17,7 @@
 #include "Simulation.h"
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
+#include "item_constants.h"
 #include <boost/bind.hpp>
 #include <QTimer>
 #include <QDebug>
@@ -26,7 +27,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
-    , m_job_status(JobItem::IDLE)
+    , m_job_status(Constants::STATUS_IDLE)
     , m_terminate_request_flag(false)
 {
 
@@ -53,22 +54,24 @@ void JobRunner::start()
     m_terminate_request_flag = false;
     emit started();
 
+    qDebug() << "JobRunner xxx 1.1";
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 
-        m_job_status = JobItem::RUNNING;
+        m_job_status = Constants::STATUS_RUNNING;
+        qDebug() << "JobRunner xxx 1.2";
 
         try {
             m_simulation->runSimulation();
-            if(m_job_status != JobItem::CANCELLED)
-                m_job_status = JobItem::COMPLETED;
+            if(m_job_status != Constants::STATUS_CANCELED)
+                m_job_status = Constants::STATUS_COMPLETED;
         }
         catch(const std::exception &ex)
         {
-            m_job_status = JobItem::FAILED;
+            m_job_status = Constants::STATUS_FAILED;
             m_progress=100;
             m_failure_message = QString(ex.what());
         }
@@ -78,7 +81,7 @@ void JobRunner::start()
 //        emit progressUpdate();
 //        emit finished();
     } else {
-        m_job_status = JobItem::FAILED;
+        m_job_status = Constants::STATUS_FAILED;
         m_progress=100;
         m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
@@ -106,9 +109,11 @@ void JobRunner::runFakeSimulation()
 //! function which is called by the Simulation to report its progress
 bool JobRunner::similationProgressCallback(int progress)
 {
-    m_progress = progress;
-    //qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
-    emit progressUpdate();
+    if(progress >= m_progress) {
+        m_progress = progress;
+        emit progressUpdate();
+    }
+
     return !m_terminate_request_flag;
 }
 
@@ -117,5 +122,5 @@ void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";
     m_terminate_request_flag = true;
-    m_job_status = JobItem::CANCELLED;
+    m_job_status = Constants::STATUS_CANCELED;
 }

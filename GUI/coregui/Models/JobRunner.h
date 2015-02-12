@@ -17,7 +17,6 @@
 #define JOBRUNNER_H
 
 #include "WinDllMacros.h"
-#include "JobItem.h"
 #include <QObject>
 #include <QString>
 
@@ -41,7 +40,7 @@ public:
 
     bool isTerminated() { return m_terminate_request_flag; }
 
-    JobItem::EJobStatus getStatus() const { return m_job_status; }
+    QString getStatus() const { return m_job_status; }
 
     QString getFailureMessage() const { return m_failure_message; }
 
@@ -61,7 +60,7 @@ private:
     QString m_identifier;
     Simulation *m_simulation;
     int m_progress;
-    JobItem::EJobStatus m_job_status;
+    QString m_job_status;
 
     bool m_terminate_request_flag;
     QString m_failure_message;

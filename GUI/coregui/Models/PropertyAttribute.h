@@ -30,7 +30,8 @@ public:
     enum EAppearance {
         VISIBLE = 0x0000,
         HIDDEN = 0x0001,
-        DISABLED = 0x0002
+        DISABLED = 0x0002,
+        READONLY = 0x0004
     };
 
     explicit PropertyAttribute(EAppearance appearance=VISIBLE, const AttLimits &limits=AttLimits::lowerLimited(0.0), int decimals=2, const QString &label = QString())

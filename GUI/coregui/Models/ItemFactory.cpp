@@ -37,6 +37,9 @@
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
 #include "FitParameterItem.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
+#include "AxesItems.h"
 #include <QDebug>
 
 namespace {
@@ -120,6 +123,13 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+
+    result[Constants::JobItemType] = &createInstance<JobItem>;
+
+    result[Constants::IntensityDataType] = &createInstance<IntensityDataItem>;
+
+    result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
+    result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
     return result;
 }

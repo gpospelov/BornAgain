@@ -64,6 +64,8 @@ public:
     virtual void visit(const LayerInterface *){}
     virtual void visit(const LayerRoughness *sample);
     virtual void visit(const MultiLayer *sample);
+    virtual void visit(const LatticeBasis *sample);
+    virtual void visit(const MesoCrystal *sample);
     virtual void visit(const Particle *sample);
     virtual void visit(const ParticleCoreShell *sample);
     virtual void visit(const ParticleInfo *){}

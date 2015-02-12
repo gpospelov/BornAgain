@@ -1396,6 +1396,20 @@ void PyGenVisitor::visit(const MultiLayer *sample)
     m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const LatticeBasis *sample)
+{
+    (void)sample;
+    throw Exceptions::NotImplementedException("PyGenVisitor::visit(const LatticeBasis *sample): "
+                                              "not implemented!");
+}
+
+void PyGenVisitor::visit(const MesoCrystal *sample)
+{
+    (void)sample;
+    throw Exceptions::NotImplementedException("PyGenVisitor::visit(const MesoCrystal *sample): "
+                                              "not implemented!");
+}
+
 void PyGenVisitor::visit(const Particle *sample)
 {
     m_label->insertMaterial(sample->getMaterial());

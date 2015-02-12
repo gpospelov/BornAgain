@@ -109,9 +109,11 @@ void JobRunner::runFakeSimulation()
 //! function which is called by the Simulation to report its progress
 bool JobRunner::similationProgressCallback(int progress)
 {
-    m_progress = progress;
-    //qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
-    emit progressUpdate();
+    if(progress >= m_progress) {
+        m_progress = progress;
+        emit progressUpdate();
+    }
+
     return !m_terminate_request_flag;
 }
 

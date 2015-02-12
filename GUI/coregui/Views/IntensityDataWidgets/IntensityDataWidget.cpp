@@ -86,6 +86,7 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 {
     if(visible) {
         m_propertyWidget->setItem(m_currentItem);
+
     } else {
         m_propertyWidget->setItem(0);
     }

@@ -138,6 +138,7 @@ void ColorMapPlot::setLogz(bool logz, bool isReplot)
         m_colorScale->axis()->setNumberPrecision(0);
     } else {
         m_colorScale->axis()->setNumberFormat("f");
+        m_colorScale->axis()->setNumberPrecision(0);
         m_colorScale->setDataScaleType(QCPAxis::stLinear);
     }
     if(isReplot)
@@ -237,30 +238,10 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
     if(property_name == IntensityDataItem::P_GRADIENT) {
         m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
         m_customPlot->replot();
-//    } else if(property_name == IntensityDataItem::P_IS_LOGZ) {
-//        setLogz(m_item->isLogz());
     } else if(property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
         m_customPlot->replot();
     }
-//    else if(property_name == IntensityDataItem::P_ZAXIS_MIN) {
-//        QCPRange range = m_colorMap->dataRange();
-//        double zmin = m_item->getLowerZ();
-//        if(zmin != range.lower) {
-//            range.lower = zmin;
-//            m_colorMap->setDataRange(range);
-//            m_customPlot->replot();
-//        }
-//    }
-//    else if(property_name == IntensityDataItem::P_ZAXIS_MAX) {
-//        QCPRange range = m_colorMap->dataRange();
-//        double zmax = m_item->getUpperZ();
-//        if(zmax != range.upper) {
-//            range.upper = zmax;
-//            m_colorMap->setDataRange(range);
-//            m_customPlot->replot();
-//        }
-//    }
     else if(property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
@@ -272,36 +253,34 @@ void ColorMapPlot::onPropertyItemPropertyChanged(const QString &property_group, 
 
     qDebug() << "ColorMapPlot::onPropertyItemChanged(const QString &property_name)" << property_group << property_name;
     if(property_group == IntensityDataItem::P_XAXIS) {
-        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_XAXIS];
         if(property_name == BasicAxisItem::P_MIN) {
             QCPRange range = m_customPlot->xAxis->range();
-            range.lower = axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+            range.lower = m_item->getLowerX();
             m_customPlot->xAxis->setRange(range);
         }
         else if(property_name == BasicAxisItem::P_MAX) {
             QCPRange range = m_customPlot->xAxis->range();
-            range.upper = axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+            range.upper = m_item->getUpperX();
             m_customPlot->xAxis->setRange(range);
         }
         else if(property_name == BasicAxisItem::P_TITLE ) {
-            m_customPlot->xAxis->setLabel(axis->getRegisteredProperty(BasicAxisItem::P_TITLE).toString());
+            m_customPlot->xAxis->setLabel(m_item->getXaxisTitle());
         }
         m_customPlot->replot();
     }
     else if(property_group == IntensityDataItem::P_YAXIS) {
-        ParameterizedItem *axis = m_item->getSubItems()[IntensityDataItem::P_YAXIS];
         if(property_name == BasicAxisItem::P_MIN) {
             QCPRange range = m_customPlot->yAxis->range();
-            range.lower = axis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble();
+            range.lower = m_item->getLowerY();
             m_customPlot->yAxis->setRange(range);
         }
         else if(property_name == BasicAxisItem::P_MAX) {
             QCPRange range = m_customPlot->yAxis->range();
-            range.upper = axis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble();
+            range.upper = m_item->getUpperY();
             m_customPlot->yAxis->setRange(range);
         }
         else if(property_name == BasicAxisItem::P_TITLE ) {
-            m_customPlot->yAxis->setLabel(axis->getRegisteredProperty(BasicAxisItem::P_TITLE).toString());
+            m_customPlot->yAxis->setLabel(m_item->getYaxisTitle());
         }
         m_customPlot->replot();
     }

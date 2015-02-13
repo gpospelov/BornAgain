@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/PropertyVariantFactory.cpp
+//! @file      coregui/Views/PropertyEditor/PropertyVariantFactory.cpp
 //! @brief     Implements class PropertyVariantFactory
 //!
 //! @homepage  http://www.bornagainproject.org

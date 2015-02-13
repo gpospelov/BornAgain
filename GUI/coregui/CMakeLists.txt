@@ -31,6 +31,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/InstrumentWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SimulationWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/FitWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
 )
 include_directories(${include_dirs})
 
@@ -46,6 +47,7 @@ file(GLOB source_files
     "Views/InstrumentWidgets/*.cpp"
     "Views/SimulationWidgets/*.cpp"
     "Views/FitWidgets/*.cpp"
+    "Views/PropertyEditor/*.cpp"
 )
 
 set(source_widgetbox
@@ -68,6 +70,7 @@ file(GLOB include_files
     "Views/InstrumentWidgets/*.h"
     "Views/SimulationWidgets/*.h"
     "Views/FitWidgets/*.h"
+    "Views/PropertyEditor/*.h"
 )
 
 set(include_widgetbox

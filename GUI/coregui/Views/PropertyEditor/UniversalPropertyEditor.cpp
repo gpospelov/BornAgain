@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SamplePropertyEditor.cpp
-//! @brief     Implements class SamplePropertyEditor
+//! @file      coregui/Views/PropertyEditor/UniversalPropertyEditor.cpp
+//! @brief     Implements class UniversalPropertyEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,38 +13,51 @@
 //
 // ************************************************************************** //
 
-#include "SamplePropertyEditor.h"
+#include "UniversalPropertyEditor.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
-
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
-
 #include <QtProperty>
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
 #include <QMetaProperty>
 #include <QDebug>
+#include <cmath>
 
-SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
-                                           QWidget *parent)
+UniversalPropertyEditor::UniversalPropertyEditor(QItemSelectionModel *selection_model,
+                                           QWidget *parent, EBrowserType browser_type)
     : QWidget(parent)
     , m_item(0)
-    , m_selection_model(selection_model)
+    , m_selection_model(0)
+    , m_browser(0)
+    , m_create_group_property(true)
+    , m_browser_type(browser_type)
 {
+    setSelectionModel(selection_model);
+
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));
 
-//    QtAbstractPropertyBrowser *browser = new QtGroupBoxPropertyBrowser();
-//    QtAbstractPropertyBrowser *browser = new QtButtonPropertyBrowser();
+    if(m_browser_type == BROWSER_TREE_TYPE) {
+        QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
+        browser->setRootIsDecorated(false);
+        m_browser = browser;
+    }
+    else if(m_browser_type == BROWSER_GROUPBOX_TYPE) {
+        m_browser = new QtGroupBoxPropertyBrowser();
+    }
+    else if(m_browser_type == BROWSER_BUTTON_TYPE) {
+        m_browser = new QtButtonPropertyBrowser();
+    }
+    else {
+        throw GUIHelpers::Error("UniversalPropertyEditor::UniversalPropertyEditor() -> Error. Unknown browser type.");
+    }
 
-    QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
-    browser->setRootIsDecorated(false);
-    m_browser = browser;
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->addWidget(m_browser);
@@ -59,17 +72,29 @@ SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
     connect(m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
 
-    if(m_selection_model)
+}
+
+void UniversalPropertyEditor::setSelectionModel(QItemSelectionModel *selection_model)
+{
+    if(selection_model != m_selection_model) {
+        if(m_selection_model)
+            disconnect(m_selection_model,
+                    SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                    this,
+                    SLOT(selectionChanged(QItemSelection,QItemSelection)) );
+
+        m_selection_model = selection_model;
         connect(m_selection_model,
                 SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                 this,
                 SLOT(selectionChanged(QItemSelection,QItemSelection)) );
-}
 
+    }
+}
 
 // show property of currently selected object (triggered by the graphics scene)
 // if more than one object is selected, show only last selected
-void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
+void UniversalPropertyEditor::selectionChanged(const QItemSelection & selected,
                                             const QItemSelection & deselected)
 {
     (void)deselected;
@@ -84,10 +109,10 @@ void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
 }
 
 
-void SamplePropertyEditor::slotValueChanged(QtProperty *property,
+void UniversalPropertyEditor::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    qDebug() << "SamplePropertyEditor::slotValueChanged()" << value;
+    qDebug() << "UniversalPropertyEditor::slotValueChanged()" << value;
     if (!m_property_to_item_index_pair.contains(property))
         return;
 
@@ -100,17 +125,16 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property,
         if (item_index_pair.m_index > prop_list.length()) {
             return;
         }
-        qDebug() << "setting ..." << prop_list[item_index_pair.m_index].constData();
+        qDebug() << "UniversalPropertyEditor::slotValueChanged() -> setting ..." << prop_list[item_index_pair.m_index].constData();
         item_index_pair.m_item->setProperty(
             prop_list[item_index_pair.m_index].constData(), value);
     }
 }
 
 
-void SamplePropertyEditor::clearEditor()
+void UniversalPropertyEditor::clearEditor()
 {
-    qDebug() << "SamplePropertyEditor::clearEditor()";
-    //updateExpandState(SaveExpandState);
+    qDebug() << "UniversalPropertyEditor::clearEditor()";
 
     QListIterator<QtProperty *> it(m_browser->properties());
     while (it.hasNext()) {
@@ -121,30 +145,34 @@ void SamplePropertyEditor::clearEditor()
 }
 
 
-void SamplePropertyEditor::updateSubItems(const QString &name)
+void UniversalPropertyEditor::updateSubItems(const QString &name)
 {
-    qDebug() << "SamplePropertyEditor::updateSubItems()";
-    (void)name;
+    qDebug() << "UniversalPropertyEditor::updateSubItems()";
+    Q_UNUSED(name)
+
     if (!m_item) return;
 
-//    QListIterator<QtProperty *> it(m_browser->properties());
-//    while (it.hasNext()) {
-//        m_browser->removeProperty(it.next());
-//    }
     clearEditor();
 
+    disconnect(m_item, SIGNAL(propertyChanged(QString)),
+            this, SLOT(onPropertyChanged(QString)));
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
+    disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+
     addItemProperties(m_item);
     connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
+    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 }
 
-void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
+void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "SamplePropertyEditor::onPropertyChanged() " << property_name ;
+    qDebug() << "UniversalPropertyEditor::onPropertyChanged() " << property_name ;
     if(!m_item) return;
 
     QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[m_item][property_name];
@@ -155,6 +183,8 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
                this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
+        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
         variant_property->setValue(property_value);
 
@@ -169,24 +199,65 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
                this, SLOT(onPropertyChanged(QString)));
         connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
+        connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 }
 
+void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    qDebug() << "UniversalPropertyEditor::onPropertyItemPropertyChanged" << property_group << property_name;
+    ParameterizedItem *subItem = m_item->getSubItems()[property_group];
+    if(subItem){
+        qDebug() << "XXX ";
+        QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
+        if(variant_property) {
+            QVariant property_value = subItem->getRegisteredProperty(property_name);
+
+            disconnect(m_item, SIGNAL(propertyChanged(QString)),
+                   this, SLOT(onPropertyChanged(QString)));
+            disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
+                this, SLOT(updateSubItems(QString)));
+            disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                    this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+
+            variant_property->setValue(property_value);
+
+//            PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
+//            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+//                variant_property->setEnabled(false);
+//            } else {
+//                variant_property->setEnabled(true);
+//            }
+
+            connect(m_item, SIGNAL(propertyChanged(QString)),
+                   this, SLOT(onPropertyChanged(QString)));
+            connect(m_item, SIGNAL(propertyItemChanged(QString)),
+                this, SLOT(updateSubItems(QString)));
+            connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                    this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+
+
+        }
+    }
+}
 
 // assigns item to the property editor
-void SamplePropertyEditor::setItem(ParameterizedItem *item)
+void UniversalPropertyEditor::setItem(ParameterizedItem *item)
 {
+    qDebug() << "UniversalPropertyEditor::setItem(ParameterizedItem *item)" << item;
+
     if (m_item == item) return;
 
     if (m_item) {
-//        QListIterator<QtProperty *> it(m_browser->properties());
-//        while (it.hasNext()) {
-//            m_browser->removeProperty(it.next());
-//        }
         clearEditor();
 
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
+        disconnect(m_item, SIGNAL(propertyChanged(QString)),
+                this, SLOT(onPropertyChanged(QString)));
+        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 
     m_item = item;
@@ -198,22 +269,34 @@ void SamplePropertyEditor::setItem(ParameterizedItem *item)
             this, SLOT(updateSubItems(QString)));
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
+    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 }
 
+void UniversalPropertyEditor::setCreateGroupProperty(bool create_group_property)
+{
+    m_create_group_property = create_group_property;
+}
 
-void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
+
+void UniversalPropertyEditor::addItemProperties(const ParameterizedItem *item)
 {
     QString item_type = item->modelType();
-    QtProperty *item_property = m_manager->addProperty(
+
+    if(m_create_group_property) {
+        QtProperty *item_property = m_manager->addProperty(
                 QtVariantPropertyManager::groupTypeId(), item_type);
 
-    addSubProperties(item_property, item);
-    m_browser->addProperty(item_property);
+        addSubProperties(item_property, item);
+        m_browser->addProperty(item_property);
+    } else {
+        addSubProperties(0, item);
+    }
 }
 
 
-void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
+void UniversalPropertyEditor::addSubProperties(QtProperty *item_property,
                                             const ParameterizedItem *item)
 {
     QList<QByteArray> property_names = item->dynamicPropertyNames();
@@ -226,23 +309,27 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = GUIHelpers::getVariantType(prop_value);
 
-        qDebug() << "XXX " << item->modelType() << prop_name << type;
+        QtVariantPropertyManager *manager = m_manager;
+        if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_read_only_manager;
+
         QtVariantProperty *subProperty = 0;
         if (m_manager->isPropertyTypeSupported(type)) {
 
             if(prop_attribute.getLabel().isEmpty()) {
-                subProperty = m_manager->addProperty(type, prop_name);
+                subProperty = manager->addProperty(type, prop_name);
             } else {
-                subProperty = m_manager->addProperty(type, prop_attribute.getLabel());
+                subProperty = manager->addProperty(type, prop_attribute.getLabel());
             }
 
             subProperty->setValue(prop_value);
 
             if(type == QVariant::Double) {
                 subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
-                 AttLimits limits = prop_attribute.getLimits();
-                 if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
-                 if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+                AttLimits limits = prop_attribute.getLimits();
+                if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
+                if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+                subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+                subProperty->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
             }
 
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
@@ -266,7 +353,14 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             subProperty->setEnabled(false);
         }
 
-        item_property->addSubProperty(subProperty);
+        // if item_property exists, then add sub-properties, otherwise add sub-properties
+        // directly to the tree browser
+        if(item_property) {
+            item_property->addSubProperty(subProperty);
+        } else {
+            m_browser->addProperty(subProperty);
+        }
+
         ParameterizedItem *non_const_item =
                 const_cast<ParameterizedItem *>(item);
         ItemIndexPair item_index_pair(non_const_item, i);
@@ -275,4 +369,5 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         m_item_to_propertyname_to_qtvariantproperty[item][prop_name] = subProperty;
     }
 }
+
 

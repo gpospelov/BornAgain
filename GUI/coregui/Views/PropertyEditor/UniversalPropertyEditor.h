@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SamplePropertyEditor.h
-//! @brief     Defines class SamplePropertyEditor
+//! @file      coregui/Views/PropertyEditor/UniversalPropertyEditor.h
+//! @brief     Defines class UniversalPropertyEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEPROPERTYEDITOR_H
-#define SAMPLEPROPERTYEDITOR_H
+#ifndef UNIVERSALPROPERTYEDITOR_H
+#define UNIVERSALPROPERTYEDITOR_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -33,16 +33,17 @@ class QtAbstractPropertyBrowser;
 class ParameterizedItem;
 
 
-//! property editor to modify property of the objectcurrently selected on the graphics scene
-//! located in the bottom right corner of SampleView
-class BA_CORE_API_ SamplePropertyEditor : public QWidget
+//! property editor to display and modify properties of currently selected ParameterizedItem
+class BA_CORE_API_ UniversalPropertyEditor : public QWidget
 {
     Q_OBJECT
 
 public:
-    SamplePropertyEditor(QItemSelectionModel *selection_model,
-                         QWidget *parent = 0);
-    virtual ~SamplePropertyEditor(){}
+    enum EBrowserType { BROWSER_TREE_TYPE, BROWSER_GROUPBOX_TYPE, BROWSER_BUTTON_TYPE};
+
+    UniversalPropertyEditor(QItemSelectionModel *selection_model,
+                         QWidget *parent = 0, EBrowserType browser_type = BROWSER_TREE_TYPE);
+    virtual ~UniversalPropertyEditor(){}
 
     QObject *getObject() const;
     struct ItemIndexPair {
@@ -51,6 +52,13 @@ public:
         ParameterizedItem *m_item;
         int m_index;
     };
+
+    void setSelectionModel(QItemSelectionModel *selection_model);
+
+    //! assigns item to the property editor
+    void setItem(ParameterizedItem *item);
+
+    void setCreateGroupProperty(bool create_group_property);
 
 public slots:
     //! show property of currently selected object (triggered by graphics scene)
@@ -61,11 +69,9 @@ private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
     void updateSubItems(const QString &name);
     void onPropertyChanged(const QString &property_name);
+    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private:
-    //! assigns item to the property editor
-    void setItem(ParameterizedItem *item);
-
     //! clear editor
     void clearEditor();
 
@@ -88,6 +94,14 @@ private:
     void addItemProperties(const ParameterizedItem *item);
     void addSubProperties(QtProperty *item_property,
                           const ParameterizedItem *item);
+
+    //! If true than group property will be created, i.e. all properties of
+    //! ParameterizedItem will be sub-properties of group with the name modelType
+    //! (as in PropertyEditor of SampleDesigner)
+    bool m_create_group_property;
+
+    //! type of property browser
+    EBrowserType m_browser_type;
 };
 
 

@@ -22,7 +22,6 @@
 #include "DesignerScene.h"
 
 class DesignerScene;
-class SamplePropertyEditor;
 class DesignerWidgetFactory;
 class InstrumentModel;
 class SampleModel;

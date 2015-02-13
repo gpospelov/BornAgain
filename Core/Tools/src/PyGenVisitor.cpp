@@ -239,7 +239,6 @@ void PyGenVisitor::visit(const ParticleCoreShell *sample)
 void PyGenVisitor::visit(const ParticleLayout *sample)
 {
     m_label->setLabel(sample);
-    //     result << sample->getName() << std::endl;
 }
 
 std::string PyGenVisitor::definePreamble() const

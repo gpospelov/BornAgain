@@ -209,7 +209,6 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
     qDebug() << "UniversalPropertyEditor::onPropertyItemPropertyChanged" << property_group << property_name;
     ParameterizedItem *subItem = m_item->getSubItems()[property_group];
     if(subItem){
-        qDebug() << "XXX ";
         QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
         if(variant_property) {
             QVariant property_value = subItem->getRegisteredProperty(property_name);
@@ -223,12 +222,12 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
 
             variant_property->setValue(property_value);
 
-//            PropertyAttribute prop_attribute = m_item->getPropertyAttribute(property_name);
-//            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
-//                variant_property->setEnabled(false);
-//            } else {
-//                variant_property->setEnabled(true);
-//            }
+            PropertyAttribute prop_attribute = subItem->getPropertyAttribute(property_name);
+            if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+                variant_property->setEnabled(false);
+            } else {
+                variant_property->setEnabled(true);
+            }
 
             connect(m_item, SIGNAL(propertyChanged(QString)),
                    this, SLOT(onPropertyChanged(QString)));

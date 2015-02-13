@@ -34,7 +34,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new UniversalPropertyEditor(0, this);
+    m_propertyEditor = new UniversalPropertyEditor(0, this, UniversalPropertyEditor::GROUPBOX_BROWSER);
     //m_propertyEditor->setCreateGroupProperty(false);
 
     mainLayout->addWidget(m_propertyEditor);

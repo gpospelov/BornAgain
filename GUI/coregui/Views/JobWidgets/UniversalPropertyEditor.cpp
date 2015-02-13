@@ -30,23 +30,34 @@
 #include <cmath>
 
 UniversalPropertyEditor::UniversalPropertyEditor(QItemSelectionModel *selection_model,
-                                           QWidget *parent)
+                                           QWidget *parent, EBrowserType browser_type)
     : QWidget(parent)
     , m_item(0)
     , m_selection_model(0)
+    , m_browser(0)
     , m_create_group_property(true)
+    , m_browser_type(browser_type)
 {
     setSelectionModel(selection_model);
 
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));
 
-//    QtAbstractPropertyBrowser *browser = new QtGroupBoxPropertyBrowser();
-//    QtAbstractPropertyBrowser *browser = new QtButtonPropertyBrowser();
+    if(m_browser_type == TREE_BROWSER) {
+        QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
+        browser->setRootIsDecorated(false);
+        m_browser = browser;
+    }
+    else if(m_browser_type == GROUPBOX_BROWSER) {
+        m_browser = new QtGroupBoxPropertyBrowser();
+    }
+    else if(m_browser_type == BUTTON_BROWSER) {
+        m_browser = new QtButtonPropertyBrowser();
+    }
+    else {
+        throw GUIHelpers::Error("UniversalPropertyEditor::UniversalPropertyEditor() -> Error. Unknown browser type.");
+    }
 
-    QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
-    browser->setRootIsDecorated(false);
-    m_browser = browser;
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->addWidget(m_browser);

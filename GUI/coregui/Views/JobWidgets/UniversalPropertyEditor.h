@@ -39,8 +39,10 @@ class BA_CORE_API_ UniversalPropertyEditor : public QWidget
     Q_OBJECT
 
 public:
+    enum EBrowserType { TREE_BROWSER, GROUPBOX_BROWSER, BUTTON_BROWSER};
+
     UniversalPropertyEditor(QItemSelectionModel *selection_model,
-                         QWidget *parent = 0);
+                         QWidget *parent = 0, EBrowserType browser_type = TREE_BROWSER);
     virtual ~UniversalPropertyEditor(){}
 
     QObject *getObject() const;
@@ -97,6 +99,9 @@ private:
     //! ParameterizedItem will be sub-properties of group with the name modelType
     //! (as in PropertyEditor of SampleDesigner)
     bool m_create_group_property;
+
+    //! type of property browser
+    EBrowserType m_browser_type;
 };
 
 

@@ -27,6 +27,8 @@ class DetectorEditorWidget;
 class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
+class TestInstrumentWidget;
+class QScrollArea;
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
@@ -47,8 +49,10 @@ private:
 
     QLineEdit *m_nameLineEdit;
     QComboBox *m_typeComboBox;
-    BeamEditorWidget *m_beamWidget;
-    DetectorEditorWidget *m_detectorWidget;
+    QScrollArea *m_scrollArea;
+//    BeamEditorWidget *m_beamWidget;
+//    DetectorEditorWidget *m_detectorWidget;
+//    TestInstrumentWidget *m_testWidget;
 
     ParameterizedItem *m_currentItem;
     bool m_block_signals;

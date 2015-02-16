@@ -30,6 +30,14 @@ public:
     virtual IDistribution1D *createDistribution() const=0;
 };
 
+class BA_CORE_API_ DistributionNoneItem : public DistributionItem
+{
+    Q_OBJECT
+public:
+    explicit DistributionNoneItem(ParameterizedItem *parent=0);
+    virtual IDistribution1D *createDistribution() const;
+};
+
 
 class BA_CORE_API_ DistributionGateItem : public DistributionItem
 {

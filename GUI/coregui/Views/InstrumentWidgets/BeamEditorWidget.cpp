@@ -22,6 +22,7 @@
 #include "GUIHelpers.h"
 #include "GroupBox.h"
 #include "ComboWidget.h"
+#include "UniversalPropertyEditor.h"
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QDoubleValidator>
@@ -78,7 +79,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     beamParamsLayout->addWidget(m_beamTypeCombo, 5, 1);
 
 
-    /* Code of Mahadi, will be used in the future for beam divergence
+//    // Code of Mahadi, will be used in the future for beam divergence
 
     //GroupBox Test
     GroupBox *settingsGroupBox = new GroupBox("Beam Type Settings");
@@ -98,21 +99,20 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
 
 
 
-    //ComboWidget Test
-    QGridLayout *comboLayout = new QGridLayout;
-    comboLayout->addWidget(new QLabel("Param 1"), 0, 0);
-    comboLayout->addWidget(new QLineEdit, 0, 1);
-    comboLayout->addWidget(new QLabel("Param 2"), 1, 0);
-    comboLayout->addWidget(new QLineEdit, 1, 1);
+//    //ComboWidget Test
+//    QGridLayout *comboLayout = new QGridLayout;
+//    comboLayout->addWidget(new QLabel("Param 1"), 0, 0);
+//    comboLayout->addWidget(new QLineEdit, 0, 1);
+//    comboLayout->addWidget(new QLabel("Param 2"), 1, 0);
+//    comboLayout->addWidget(new QLineEdit, 1, 1);
 
-    ComboWidget *comboWidget = new ComboWidget("Monochromatic", comboLayout, this);
-    beamParamsLayout->addWidget(new QLabel("Beam Type"), 7, 0);
-    beamParamsLayout->addWidget(comboWidget, 7,1,1,2);
+//    ComboWidget *comboWidget = new ComboWidget("Monochromatic", comboLayout, this);
+//    beamParamsLayout->addWidget(new QLabel("Beam Type"), 7, 0);
+//    beamParamsLayout->addWidget(comboWidget, 7,1,1,2);
 
-    comboWidget->addItem("Dichromatic");
-    //end of ComboWidget Test
+//    comboWidget->addItem("Dichromatic");
+//    //end of ComboWidget Test
 
-    */
 
 
 

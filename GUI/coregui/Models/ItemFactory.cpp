@@ -93,6 +93,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
+    result[Constants::DistributionNoneType] = &createInstance<DistributionNoneItem>;
     result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
     result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
     result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;

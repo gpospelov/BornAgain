@@ -48,3 +48,62 @@ void BeamItem::onPropertyChange(const QString &name)
     }
     ParameterizedItem::onPropertyChange(name);
 }
+
+// ---------------
+
+
+const QString WavelengthItem::P_DISTRIBUTION = "Distribution";
+const QString WavelengthItem::P_SAMPLE_NUMBER = "Number of samples";
+
+WavelengthItem::WavelengthItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::ParticleDistributionType, parent)
+{
+//    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
+//    setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
+//    registerProperty(P_SAMPLE_NUMBER, 5);
+}
+
+
+const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";
+
+TestBeamItem::TestBeamItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::BeamType, parent)
+{
+    registerProperty(P_INTENSITY, 1e+08);
+
+}
+
+
+const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
+const QString BeamDistributionItem::P_VALUE = "Value";
+BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::BeamDistributionType, parent)
+{
+    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.1";
+    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.2";
+    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.3";
+    setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
+    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.4";
+    initProperties();
+}
+
+void BeamDistributionItem::onPropertyChange(const QString &name)
+{
+    qDebug() << "BeamDistributionItem::onPropertyChange(const QString &name)" << name;
+    print();
+    if(name == P_DISTRIBUTION) {
+        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
+        if(distribution->modelType() != Constants::DistributionNoneType) {
+            registerProperty(P_VALUE, 1.0);
+        }
+    }
+}
+
+void BeamDistributionItem::initProperties()
+{
+
+}
+
+

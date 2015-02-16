@@ -42,7 +42,7 @@ public:
     enum EBrowserType { BROWSER_TREE_TYPE, BROWSER_GROUPBOX_TYPE, BROWSER_BUTTON_TYPE};
 
     UniversalPropertyEditor(QItemSelectionModel *selection_model,
-                         QWidget *parent = 0, EBrowserType browser_type = BROWSER_TREE_TYPE);
+                         QWidget *parent = 0, EBrowserType browser_type = BROWSER_GROUPBOX_TYPE);
     virtual ~UniversalPropertyEditor(){}
 
     QObject *getObject() const;

@@ -18,6 +18,19 @@
 
 /* ------------------------------------------------ */
 
+DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
+    : DistributionItem(Constants::DistributionNoneType, parent)
+{
+    setItemName(Constants::DistributionNoneType);
+}
+
+IDistribution1D *DistributionNoneItem::createDistribution() const
+{
+    return 0;
+}
+
+/* ------------------------------------------------ */
+
 const QString DistributionGateItem::P_MIN = "Minimum";
 const QString DistributionGateItem::P_MAX = "Maximum";
 

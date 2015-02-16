@@ -36,5 +36,42 @@ public:
 
 
 
+class BA_CORE_API_ WavelengthItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_DISTRIBUTION;
+    static const QString P_SAMPLE_NUMBER;
+    explicit WavelengthItem(ParameterizedItem *parent=0);
+    ~WavelengthItem(){}
+};
+
+
+class BA_CORE_API_ TestBeamItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_INTENSITY;
+    explicit TestBeamItem(ParameterizedItem *parent=0);
+    ~TestBeamItem(){}
+};
+
+class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_DISTRIBUTION;
+    static const QString P_VALUE;
+    explicit BeamDistributionItem(ParameterizedItem *parent=0);
+    ~BeamDistributionItem(){}
+    virtual void onPropertyChange(const QString &name);
+private:
+    void initProperties();
+};
+
+
+
+
+
 #endif
 

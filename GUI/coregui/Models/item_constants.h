@@ -37,6 +37,7 @@ const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLatti
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
+const ModelType BeamDistributionType = "BeamDistribution";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
@@ -71,7 +72,7 @@ const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
-const ModelType DistributionType = "Distribution";
+const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
 const ModelType DistributionLorentzType = "DistributionLorentz";
 const ModelType DistributionGaussianType = "DistributionGaussian";
@@ -118,6 +119,7 @@ const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
+const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";

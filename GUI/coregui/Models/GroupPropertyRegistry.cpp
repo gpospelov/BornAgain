@@ -73,6 +73,15 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     distributions[Constants::DistributionCosineType] = "Cosine distribution";
     result[Constants::DistributionGroup] = distributions;
 
+    QMap<QString, QString> distributions_ext;
+    distributions_ext[Constants::DistributionNoneType] = "None";
+    distributions_ext[Constants::DistributionGateType] = "Gate distribution";
+    distributions_ext[Constants::DistributionLorentzType] = "Lorentz distribution";
+    distributions_ext[Constants::DistributionGaussianType] = "Gaussian distribution";
+    distributions_ext[Constants::DistributionLogNormalType] = "Log Normal distribution";
+    distributions_ext[Constants::DistributionCosineType] = "Cosine distribution";
+    result[Constants::DistributionExtendedGroup] = distributions_ext;
+
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";

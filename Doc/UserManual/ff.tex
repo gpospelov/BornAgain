@@ -156,8 +156,8 @@ This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
 \hfill
 \caption{Sketch of a Tetrahedron. The implementation of this shape uses angle
   $\alpha$, which is linked to $\beta$ via $\tan \alpha = 2 \tan 
-  \beta$. $\alpha$ is measured along one of the base lines and $\beta$
-  at one of the base vertices.}
+  \beta$. $\alpha$ is the angle between the base and a side face and $\beta$
+  the angle between the base and a side edge.}
 \label{fig:tetrahedron}
 \end{figure}
 
@@ -168,7 +168,7 @@ This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
 \item length of one side of the equilateral triangular base $L$,
 \item height $H$,
 \item angle $\alpha$ is the angle between the base and the
-  side faces, taken in the middle of the base lines.
+  side faces.
 \end{itemize}
 
 \paragraph{Restrictions on the parameters:} 
@@ -185,9 +185,9 @@ $\dfrac{H}{L}< \dfrac{\tan{\alpha}}{2\sqrt{3}}$.
 
 \begin{align*}
 &F(\mathbf{q}, L, H, \alpha)=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
-\exp\left(i\frac{q_z L}{2\tan (\alpha)\sqrt{3}}\right) \times \\
+\exp\left(i\frac{q_z L\tan (\alpha)}{2\sqrt{3}}\right) \times \\
 &\Big\{2q_x \exp(iq_3 D)\sinc(q_3 H) - (q_x +\sqrt{3}q_y)
-\exp(iq_1 D)\sinc(q_1 D) -(q_x-\sqrt{3}q_y)\exp(-iq_2
+\exp(iq_1 D)\sinc(q_1 H) -(q_x-\sqrt{3}q_y)\exp(-iq_2
 D)\sinc(q_2 H) \Big\}, 
 \end{align*}
 with $\sinc(x)=\sin(x)/x$,

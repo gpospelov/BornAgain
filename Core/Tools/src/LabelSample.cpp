@@ -116,11 +116,6 @@ std::map<const ParticleCoreShell *,std::string>* LabelSample::getParticleCoreShe
     return &m_particleCoreShellLabel;
 }
 
-std::map<const ParticleInfo *,std::string>* LabelSample::getParticleInfoMap()
-{
-    return &m_particleInfoLabel;
-}
-
 std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
 {
     return &m_ILayoutLabel;

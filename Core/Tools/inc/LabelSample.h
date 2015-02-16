@@ -35,7 +35,6 @@ public:
     std::map<const MultiLayer *,std::string>* getMultiLayerMap();
     std::map<const Particle *,std::string>* getParticleMap();
     std::map<const ParticleCoreShell *,std::string>* getParticleCoreShellMap();
-    std::map<const ParticleInfo *,std::string>* getParticleInfoMap();
     std::map<const ILayout *,std::string>* getParticleLayoutMap();
     std::string getLabel(const IFormFactor *sample);
     std::string getLabel(const IInterferenceFunction *sample);

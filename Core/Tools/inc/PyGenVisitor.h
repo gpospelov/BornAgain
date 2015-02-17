@@ -81,6 +81,7 @@ private:
     std::string defineFormFactors() const;
     std::string defineParticles() const;
     std::string defineCoreShellParticles() const;
+    std::string defineLatticeBases() const;
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;

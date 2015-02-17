@@ -35,6 +35,7 @@ set(list_of_cpp_python_tests
     "PyScript_isgisaxs04_1DDL"
     "PyScript_isgisaxs04_2DDL"
     "PyScript_isgisaxs06a"
+    "PyScript_isgisaxs06b"
     "PyScript_isgisaxs07"
     "PyScript_isgisaxs11"
     "PyScript_multiplelayoutbuilder"

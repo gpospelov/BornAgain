@@ -244,8 +244,9 @@ std::string PyGenVisitor::definePreamble() const
     std::ostringstream result;
     result << "import numpy\n";
     result << "from libBornAgainCore import *\n";
-    result << "#NOTE: Uncomment the next import statement for plotting\n";
-    result << "#import pylab\n\n";
+    result << "#NOTE: Uncomment the next import statements for plotting\n";
+    result << "#import pylab\n";
+    result << "#import matplotlib\n\n";
     result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     result << "#NOTE: Running this Script by default will write output data"
            << "to \"output.int\" file\n";
@@ -308,7 +309,7 @@ std::string PyGenVisitor::defineMaterials() const
             if (p_material->isScalarMaterial()) {
                 result << "\t" << m_label->getLabel(p_material)
                        << " = HomogeneousMaterial(\"" << p_material->getName();
-                result << "\"," << PyGenTools::printDouble(delta) << ","
+                result << "\", " << PyGenTools::printDouble(delta) << ", "
                        << PyGenTools::printDouble(beta) << ")\n";
             }
             else {
@@ -327,7 +328,7 @@ std::string PyGenVisitor::defineMaterials() const
                                              << ")\n";
                 result << "\t" << m_label->getLabel(p_material)
                        << " = HomogeneousMagneticMaterial(\"" << p_material->getName();
-                result << "\"," << PyGenTools::printDouble(delta) << ", "
+                result << "\", " << PyGenTools::printDouble(delta) << ", "
                        << PyGenTools::printDouble(beta) << ", "
                        << "magnetic_field)\n";
             }
@@ -352,7 +353,7 @@ std::string PyGenVisitor::defineLayers() const
                << m_label->getLabel(layer->getMaterial());
         if (layer->getThickness() != 0)
         {
-            result << "," << layer->getThickness();
+            result << ", " << layer->getThickness();
         }
         result << ")\n";
         it++;
@@ -377,9 +378,9 @@ std::string PyGenVisitor::defineFormFactors() const
                 dynamic_cast<const FormFactorAnisoPyramid *>(p_ff))
         {
             result << " = FormFactorAnisoPyramid("
-                   << anisoPyramid->getLength()<< "*nanometer,"
-                   << anisoPyramid->getWidth() << "*nanometer,"
-                   << anisoPyramid->getHeight() << "*nanometer,"
+                   << anisoPyramid->getLength()<< "*nanometer, "
+                   << anisoPyramid->getWidth() << "*nanometer, "
+                   << anisoPyramid->getHeight() << "*nanometer, "
                    << anisoPyramid->getAlpha() << ")\n";
         }
 
@@ -387,8 +388,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorBox *>(p_ff))
         {
             result << " = FormFactorBox("
-                   << box->getLength() << "*nanometer,"
-                   << box->getWidth() << "*nanometer,"
+                   << box->getLength() << "*nanometer, "
+                   << box->getWidth() << "*nanometer, "
                    << box->getHeight() << "*nanometer)\n";
         }
 
@@ -396,8 +397,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorCone *>(p_ff))
         {
             result << " = FormFactorCone("
-                   << cone->getRadius() << "*nanometer,"
-                   << cone->getHeight() << "*nanometer,"
+                   << cone->getRadius() << "*nanometer, "
+                   << cone->getHeight() << "*nanometer, "
                    << cone->getAlpha() << ")\n";
         }
 
@@ -405,8 +406,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorCone6 *>(p_ff))
         {
             result << " = FormFactorCone6("
-                   << cone6->getRadius() << "*nanometer,"
-                   << cone6->getHeight() << "*nanometer,"
+                   << cone6->getRadius() << "*nanometer, "
+                   << cone6->getHeight() << "*nanometer, "
                    << cone6->getAlpha() << ")\n";
         }
 
@@ -414,9 +415,9 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorCuboctahedron *>(p_ff))
         {
             result << " = FormFactorCuboctahedron("
-                   << cuboctahedron->getLength() << "*nanometer,"
-                   << cuboctahedron->getHeight() << "*nanometer,"
-                   << cuboctahedron->getHeightRatio() << "*nanometer"
+                   << cuboctahedron->getLength() << "*nanometer, "
+                   << cuboctahedron->getHeight() << "*nanometer, "
+                   << cuboctahedron->getHeightRatio() << "*nanometer, "
                    << cuboctahedron->getAlpha() << ")\n";
         }
 
@@ -424,7 +425,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorCylinder *>(p_ff))
         {
             result << " = FormFactorCylinder("
-                   << cylinder->getHeight() << "*nanometer,"
+                   << cylinder->getHeight() << "*nanometer, "
                    << cylinder->getRadius() << "*nanometer)\n";
         }
 
@@ -432,8 +433,8 @@ std::string PyGenVisitor::defineFormFactors() const
                 dynamic_cast<const FormFactorEllipsoidalCylinder *>(p_ff))
         {
             result << " = FormFactorEllipsoidalCylinder("
-                   << ellipsoidalCylinder->getRadiusA() << "*nanometer,"
-                   << ellipsoidalCylinder->getRadiusB() << "*nanometer,"
+                   << ellipsoidalCylinder->getRadiusA() << "*nanometer, "
+                   << ellipsoidalCylinder->getRadiusB() << "*nanometer, "
                    << ellipsoidalCylinder->getHeight() << "*nanometer)\n";
         }
 
@@ -448,7 +449,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorFullSpheroid *>(p_ff))
         {
             result << " = FormFactorFullSpheroid("
-                   << fullSpheroid->getRadius() << "*nanometer,"
+                   << fullSpheroid->getRadius() << "*nanometer, "
                    << fullSpheroid->getHeight() << "*nanometer)\n";
         }
 
@@ -463,7 +464,7 @@ std::string PyGenVisitor::defineFormFactors() const
             else
             {
                 result << " = FormFactorGauss("
-                       << gauss->getRadius() << "*nanometer,"
+                       << gauss->getRadius() << "*nanometer, "
                        << gauss->getHeight() << "*nanometer)\n";
             }
         }
@@ -472,8 +473,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorHemiEllipsoid *>(p_ff))
         {
             result << " = FormFactorHemiEllipsoid("
-                   << hemiEllipsoid->getRadiusA() << "*nanometer,"
-                   << hemiEllipsoid->getRadiusB() << "*nanometer,"
+                   << hemiEllipsoid->getRadiusA() << "*nanometer, "
+                   << hemiEllipsoid->getRadiusB() << "*nanometer, "
                    << hemiEllipsoid->getHeight() << "*nanometer)\n";
         }
 
@@ -481,7 +482,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorInfLongBox *>(p_ff))
         {
             result << " = FormFactorInfLongBox("
-                   << infLongBox->getWidth() << "*nanometer,"
+                   << infLongBox->getWidth() << "*nanometer, "
                    << infLongBox->getHeight() << "*nanometer)\n";
         }
 
@@ -489,7 +490,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorInfLongRipple1 *>(p_ff))
         {
             result << " = FormFactorInfLongRipple1("
-                   << infLongRipple1->getWidth() << "*nanometer,"
+                   << infLongRipple1->getWidth() << "*nanometer, "
                    << infLongRipple1->getHeight() << "*nanometer)\n";
         }
 
@@ -497,8 +498,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorInfLongRipple2 *>(p_ff))
         {
             result << " = FormFactorInfLongRipple2("
-                   << infLongRipple2->getWidth() << "*nanometer,"
-                   << infLongRipple1->getHeight() << "*nanometer,"
+                   << infLongRipple2->getWidth() << "*nanometer, "
+                   << infLongRipple1->getHeight() << "*nanometer, "
                    << infLongRipple2->getAsymetry() << "*nanometer)\n";
         }
 
@@ -513,7 +514,7 @@ std::string PyGenVisitor::defineFormFactors() const
             else
             {
                 result << " = FormFactorLorentz("
-                       << lorentz->getRadius() << "*nanometer,"
+                       << lorentz->getRadius() << "*nanometer, "
                        << lorentz->getHeight() << "*nanometer)\n";
             }
         }
@@ -522,7 +523,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorPrism3 *>(p_ff))
         {
             result << " = FormFactorPrism3("
-                   << prism3->getLength() << "*nanometer,"
+                   << prism3->getLength() << "*nanometer, "
                    << prism3->getHeight() << "*nanometer)\n";
         }
 
@@ -530,7 +531,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorPrism6 *>(p_ff))
         {
             result << " = FormFactorPrism6("
-                   << prism6->getRadius() << "*nanometer,"
+                   << prism6->getRadius() << "*nanometer, "
                    << prism6->getHeight() << "*nanometer)\n";
         }
 
@@ -538,8 +539,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorPyramid *>(p_ff))
         {
             result << " = FormFactorPyramid("
-                   << pyramid->getLength() << "*nanometer,"
-                   << pyramid->getHeight() << "*nanometer,"
+                   << pyramid->getLength() << "*nanometer, "
+                   << pyramid->getHeight() << "*nanometer, "
                    << pyramid->getAlpha() << ")\n";
         }
 
@@ -547,8 +548,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorRipple1 *>(p_ff))
         {
             result << " = FormFactorRipple1("
-                   << ripple1->getLength() << "*nanometer,"
-                   << ripple1->getWidth() << "*nanometer,"
+                   << ripple1->getLength() << "*nanometer, "
+                   << ripple1->getWidth() << "*nanometer, "
                    << ripple1->getHeight() << "*nanometer)\n";
         }
 
@@ -556,9 +557,9 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorRipple2 *>(p_ff))
         {
             result << " = FormFactorRipple2("
-                   << ripple2->getLength() << "*nanometer,"
-                   << ripple2->getWidth() << "*nanometer,"
-                   << ripple2->getHeight() << "nanometer,"
+                   << ripple2->getLength() << "*nanometer, "
+                   << ripple2->getWidth() << "*nanometer, "
+                   << ripple2->getHeight() << "nanometer, "
                    << ripple2->getAsymmetry() << "*nanometer)\n";
         }
 
@@ -566,8 +567,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorTetrahedron *>(p_ff))
         {
             result << " = FormFactorTetrahedron("
-                   << tetrahedron->getLength() << "*nanometer,"
-                   << tetrahedron->getHeight() << "*nanometer,"
+                   << tetrahedron->getLength() << "*nanometer, "
+                   << tetrahedron->getHeight() << "*nanometer, "
                    << tetrahedron->getAlpha() << ")\n";
         }
 
@@ -575,7 +576,7 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorTruncatedSphere *>(p_ff))
         {
             result << " = FormFactorTruncatedSphere("
-                   << truncatedSphere->getRadius() << "*nanometer,"
+                   << truncatedSphere->getRadius() << "*nanometer, "
                    << truncatedSphere->getHeight() << "*nanometer)\n";
         }
 
@@ -583,8 +584,8 @@ std::string PyGenVisitor::defineFormFactors() const
                  dynamic_cast<const FormFactorTruncatedSpheroid *>(p_ff))
         {
             result << " = FormFactorTruncatedSpheroid("
-                   << truncatedSpheroid->getRadius() << "*nanometer,"
-                   << truncatedSpheroid->getHeight() << "*nanometer,"
+                   << truncatedSpheroid->getRadius() << "*nanometer, "
+                   << truncatedSpheroid->getHeight() << "*nanometer, "
                    << truncatedSpheroid->getHeightFlattening()
                    << "*nanometer)\n";
         }
@@ -645,11 +646,11 @@ std::string PyGenVisitor::defineParticles() const
         }
         result << "\t" << it->second
                << " = Particle(" << m_label->getLabel(particle->getMaterial())
-               << "," << m_label->getLabel(particle->getFormFactor());
+               << ", " << m_label->getLabel(particle->getFormFactor());
 
         if (particle->getTransform3D())
         {
-            result << "," << it->second << "_rotation";
+            result << ", " << it->second << "_rotation";
         }
 
         result << ")\n";
@@ -672,12 +673,12 @@ std::string PyGenVisitor::defineCoreShellParticles() const
         kvector_t position = it->first->getRelativeCorePosition();
         result << "\t" << it->second
                << "_relPosition = kvector_t("
-               << position.x() << "*nanometer,"
-               << position.y() << "*nanometer,"
+               << position.x() << "*nanometer, "
+               << position.y() << "*nanometer, "
                << position.z() << "*nanometer)";
         result << "\n\t" << it->second
                << " = ParticleCoreShell("
-               << m_label->getLabel(it->first->getShellParticle()) << ","
+               << m_label->getLabel(it->first->getShellParticle()) << ", "
                << m_label->getLabel(it->first->getCoreParticle()) << ", "
                << it->second << "_relPosition)\n";
         it++;
@@ -700,16 +701,16 @@ std::string PyGenVisitor::defineLatticeBases() const
         for (size_t i=0; i<it->first->getNbrParticles(); ++i) {
             std::vector<kvector_t> position_vector = it->first->getParticlePositions(i);
             for (size_t j=0; j<position_vector.size(); ++j) {
-                result << "\tparticle_" << i
-                       << "_position_" << j << " = kvector_t("
-                       << position_vector[j].x() << "*nanometer,"
-                       << position_vector[j].y() << "*nanometer,"
+                result << "\tparticle_" << i+1
+                       << "_position_" << j+1 << " = kvector_t("
+                       << position_vector[j].x() << "*nanometer, "
+                       << position_vector[j].y() << "*nanometer, "
                        << position_vector[j].z() << "*nanometer)\n";
             }
             result << "\t" << it->second << ".addParticle("
                    << m_label->getLabel(it->first->getParticle(i)) << ", [";
             for (size_t j=0; j<position_vector.size(); ++j) {
-                result << "particle_" << i << "_position_" << j;
+                result << "particle_" << i+1 << "_position_" << j+1;
                 if (j!=position_vector.size()-1) result << ", ";
             }
             result << "])\n";
@@ -771,7 +772,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ", "
                        << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
@@ -842,7 +843,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         {
             result << "\t" << it->second
                    << " = InterferenceFunctionRadialParaCrystal("
-                   << oneDParaCrystal->getPeakDistance() << "*nanometer,"
+                   << oneDParaCrystal->getPeakDistance() << "*nanometer, "
                    << oneDParaCrystal->getDampingLength() << "*nanometer)\n";
 
             if (oneDParaCrystal->getKappa() != 0.0)
@@ -869,7 +870,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution1DVoigt("
-                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ","
+                       << PyGenTools::printDouble(fTD1DVoigt->getOmega()) << ", "
                        << PyGenTools::printDouble(fTD1DVoigt->getEta()) << ")\n";
             }
 
@@ -956,7 +957,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DCauchy("
                        << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthX())
-                       << "*nanometer,"
+                       << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DCauchy->getCoherenceLengthY())
                        << "*nanometer" << ")\n";
                 if (fTD2DCauchy->getGamma() != 0.0)
@@ -973,7 +974,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DCone->getCoherenceLengthY() << "*nanometer"
                        << ")\n";
 
@@ -991,7 +992,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGate->getCoherenceLengthY() << "*nanometer"
                        << ")\n";
 
@@ -1009,7 +1010,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGauss->getCoherenceLengthY() << "*nanometer"
                        << ")\n";
 
@@ -1027,8 +1028,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf  = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
+                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
+                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
@@ -1065,9 +1066,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << " = InterferenceFunction2DParaCrystal.createSquare("
-                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
-                       << twoDParaCrystal->getDampingLength() << "*nanometer,"
-                       << domainSize[0] << "*nanometer,"
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer, "
+                       << twoDParaCrystal->getDampingLength() << "*nanometer, "
+                       << domainSize[0] << "*nanometer, "
                        << domainSize[1] << "*nanometer)\n";
             }
 
@@ -1078,9 +1079,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << " = InterferenceFunction2DParaCrystal.createHexagonal("
-                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
-                       << twoDParaCrystal->getDampingLength() << "*nanometer,"
-                       << domainSize[0] << "*nanometer,"
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer, "
+                       << twoDParaCrystal->getDampingLength() << "*nanometer, "
+                       << domainSize[0] << "*nanometer, "
                        << domainSize[1] << "*nanometer)\n";
             }
 
@@ -1088,12 +1089,12 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << " = InterferenceFunction2DParaCrystal"
-                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer,"
-                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer,"
+                       << twoDParaCrystal->getLatticeLengths()[0]<< "*nanometer, "
+                       << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer, "
                        << PyGenTools::printDouble(
-                              twoDParaCrystal->getAlphaLattice()) << ","
+                              twoDParaCrystal->getAlphaLattice()) << ", "
                        << PyGenTools::printDouble(
-                              twoDParaCrystal->getLatticeOrientation()) << ","
+                              twoDParaCrystal->getLatticeOrientation()) << ", "
                        << twoDParaCrystal->getDampingLength() << "*nanometer)\n";
 
 
@@ -1102,7 +1103,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 {
                     result << "\t" << it->second
                            << ".setDomainSizes("
-                           << domainSize[0] << "*nanometer,"
+                           << domainSize[0] << "*nanometer, "
                            << domainSize[1] << "*nanometer)\n";
                 }
 
@@ -1122,7 +1123,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_1  = FTDistribution2DCauchy("
-                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DCauchy->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DCauchy->getGamma() != 0.0)
@@ -1138,7 +1139,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_1  = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DCone->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DCone->getGamma() != 0.0)
@@ -1154,7 +1155,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_1  = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGate->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DGate->getGamma() != 0.0)
@@ -1170,7 +1171,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_1  = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGauss->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DGauss->getGamma() != 0.0)
@@ -1186,8 +1187,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_1  = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
+                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
+                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
@@ -1214,7 +1215,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_2   = FTDistribution2DCauchy("
-                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DCauchy->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DCauchy->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DCauchy->getGamma() != 0.0)
@@ -1230,7 +1231,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_2   = FTDistribution2DCone("
-                       << fTD2DCone->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DCone->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DCone->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DCone->getGamma() != 0.0)
@@ -1246,7 +1247,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_2   = FTDistribution2DGate("
-                       << fTD2DGate->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGate->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGate->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DGate->getGamma() != 0.0)
@@ -1262,7 +1263,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_2 = FTDistribution2DGauss("
-                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer,"
+                       << fTD2DGauss->getCoherenceLengthX() << "*nanometer, "
                        << fTD2DGauss->getCoherenceLengthY() << "*nanometer)\n";
 
                 if (fTD2DGauss->getGamma() != 0.0)
@@ -1278,8 +1279,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             {
                 result << "\t" << it->second
                        << "_pdf_2 = FTDistribution2DVoigt("
-                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer,"
-                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer,"
+                       << fTD2DVoigt->getCoherenceLengthX() << "*nanometer, "
+                       << fTD2DVoigt->getCoherenceLengthY() << "*nanometer, "
                        << PyGenTools::printDouble(fTD2DVoigt->getEta()) << ")\n";
 
                 if (fTD2DVoigt->getGamma() != 0.0)
@@ -1301,7 +1302,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
             result << "\t" << it->second
                    << ".setProbabilityDistributions("
-                   << it->second << "_pdf_2," << it->second << "_pdf_2)\n\n";
+                   << it->second << "_pdf_2, " << it->second << "_pdf_2)\n\n";
         }
 
         else
@@ -1347,9 +1348,9 @@ std::string PyGenVisitor::defineParticleLayouts() const
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_position = kvector_t("
                            << pos.x()
-                           << "*nanometer,"
+                           << "*nanometer, "
                            << pos.y()
-                           << "*nanometer,"
+                           << "*nanometer, "
                            << pos.z()
                            << "*nanometer)\n";
 
@@ -1357,9 +1358,9 @@ std::string PyGenVisitor::defineParticleLayouts() const
                            << m_label->getLabel(particleInfo->getParticle())
                            << "_positionInfo = ParticleInfo("
                            << m_label->getLabel(particleInfo->getParticle())
-                           << ","
+                           << ", "
                            << m_label->getLabel(particleInfo->getParticle())
-                           << "_position,"
+                           << "_position, "
                            << PyGenTools::printDouble(particleInfo->getAbundance())
                            << ")\n";
 
@@ -1373,8 +1374,8 @@ std::string PyGenVisitor::defineParticleLayouts() const
                     result << "\t" << it->second
                            << ".addParticle("
                            << m_label->getLabel(particleInfo->getParticle())
-                           << ","
-                           << PyGenTools::printDouble(particleInfo->getDepth()) << ","
+                           << ", "
+                           << PyGenTools::printDouble(particleInfo->getDepth()) << ", "
                            << PyGenTools::printDouble(particleInfo->getAbundance()) <<")\n";
                 }
                 particleIndex++;
@@ -1403,7 +1404,9 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 result << "\t" << it->second << ".setApproximation(ILayout.";
                 result << "ISGISAXSMOR)\n";
                 break;
-                }
+            }
+            result << "\t" << it->second << ".setTotalParticleSurfaceDensity("
+                   << it->first->getTotalParticleSurfaceDensity() << ")\n";
         }
         it++;
     }
@@ -1422,8 +1425,8 @@ std::string PyGenVisitor::defineRoughnesses() const
     {
         result << "\t" << it->second
                << " = LayerRoughness("
-               << it->first->getSigma() << "*nanometer,"
-               << it->first->getHurstParameter() << ","
+               << it->first->getSigma() << "*nanometer, "
+               << it->first->getHurstParameter() << ", "
                << it->first->getLatteralCorrLength() << "*nanometer)\n";
         it++;
     }
@@ -1490,7 +1493,7 @@ std::string PyGenVisitor::defineMultiLayers() const
                 result << "\t" << it->second
                        << ".addLayerWithTopRoughness("
                        << m_label->getLabel(it->first->getLayer(layerIndex))
-                       << ","
+                       << ", "
                        << m_label->getLabel(layerInterface->getRoughness())
                        << ")\n";
             }
@@ -1517,11 +1520,11 @@ std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
     size_t index = 0;
     while (index < numberOfDetectorDimensions)
     {
-        if (index != 0) {result << ",";}
+        if (index != 0) {result << ", ";}
         result << simulation->getInstrument().getDetectorAxis(index).getSize()
-               << ","
+               << ", "
                << simulation->getInstrument().getDetectorAxis(index).getMin()
-               << ","
+               << ", "
                << simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
     }
@@ -1535,8 +1538,8 @@ std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
     result << std::setprecision(12);
     result << "\t# Defining Beam Parameters\n";
     result << "\tsimulation.setBeamParameters(" ;
-    result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer,"
-           << simulation->getInstrument().getBeam().getAlpha() << ","
+    result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
+           << simulation->getInstrument().getBeam().getAlpha() << ", "
            << simulation->getInstrument().getBeam().getPhi() << ")\n";
     return result.str();
 }
@@ -1550,8 +1553,8 @@ std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
     result << "#def plotSimulation(simulation):\n";
     result << "#\tresult = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
-    result << "#\tim = pylab.imshow(numpy.rot90(result, 1),"
-           << "norm=pylab.colors.LogNorm(), extent=[";
+    result << "#\tim = pylab.imshow(numpy.rot90(result, 1), "
+           << "norm=matplotlib.colors.LogNorm(), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions =
             simulation->getInstrument().getDetectorDimension();
@@ -1559,10 +1562,10 @@ std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
     {
         if (index != 0)
         {
-            result << ",";
+            result << ", ";
         }
         result << simulation->getInstrument().getDetectorAxis(index).getMin()
-               << ","
+               << ", "
                << simulation->getInstrument().getDetectorAxis(index).getMax();
         index++;
     }

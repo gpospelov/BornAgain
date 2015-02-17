@@ -62,7 +62,7 @@ def run_simulation_centered():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
     interference.setProbabilityDistribution(pdf)
 
-    # particle 1
+    # two cylinders at fixed position of each other
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position1 = kvector_t(0.0, 0.0, 0.0)

@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include <LatticeBasis.h>
 #include <iostream>
 #include "LabelSample.h"
 #include "ParticleCoreShell.h"
@@ -53,10 +54,13 @@ std::string LabelSample::getLabel(const MultiLayer *sample)
 
 std::string LabelSample::getLabel(const IParticle *sample)
 {
-    if (const ParticleCoreShell *pcs = dynamic_cast<const ParticleCoreShell*>(sample))
-        return m_ParticleCoreShellLabel[pcs];
-    if (const Particle *p = dynamic_cast<const Particle*>(sample))
-        return m_ParticleLabel[p];
+    if (const ParticleCoreShell *core_shell_particle =
+            dynamic_cast<const ParticleCoreShell*>(sample))
+        return m_ParticleCoreShellLabel[core_shell_particle];
+    if (const Particle *particle = dynamic_cast<const Particle*>(sample))
+        return m_ParticleLabel[particle];
+    if (const LatticeBasis *lattice_basis = dynamic_cast<const LatticeBasis*>(sample))
+        return m_LatticeBasisLabel[lattice_basis];
     throw Exceptions::NotImplementedException("LabelSample::getLabel: called"
                                               " for unknown IParticle type");
 }

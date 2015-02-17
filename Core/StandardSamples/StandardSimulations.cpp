@@ -383,7 +383,7 @@ Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 
     Simulation *result = new Simulation();
 
-	result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
@@ -544,6 +544,23 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::gui_IsGISAXS06L2()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
 
     Simulation *result = new Simulation();
 

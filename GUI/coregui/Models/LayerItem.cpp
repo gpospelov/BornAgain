@@ -15,6 +15,7 @@
 
 #include "LayerItem.h"
 #include "MaterialUtils.h"
+#include "ComboProperty.h"
 
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
@@ -30,4 +31,9 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
+
+    ComboProperty types;
+    types << "property 1" << "property 2" << "property 3";
+    registerProperty("Combo property", types.getVariant());
+
 }

@@ -136,12 +136,15 @@ void CustomPropertyEditor::clearEditor()
 {
     qDebug() << "CustomPropertyEditor::clearEditor()";
 
+
     QListIterator<QtProperty *> it(m_browser->properties());
     while (it.hasNext()) {
         m_browser->removeProperty(it.next());
     }
     m_property_to_item_index_pair.clear();
     m_item_to_index_to_property.clear();
+
+
 }
 
 
@@ -151,15 +154,17 @@ void CustomPropertyEditor::updateSubItems(const QString &name)
     Q_UNUSED(name)
 
     if (!m_item) return;
-
-    clearEditor();
-
     disconnect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
     disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+
+//    disconnect(m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+
+    clearEditor();
 
     addItemProperties(m_item);
     connect(m_item, SIGNAL(propertyItemChanged(QString)),
@@ -168,6 +173,9 @@ void CustomPropertyEditor::updateSubItems(const QString &name)
             this, SLOT(onPropertyChanged(QString)));
     connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+//    connect(m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+
 }
 
 void CustomPropertyEditor::onPropertyChanged(const QString &property_name)
@@ -249,14 +257,15 @@ void CustomPropertyEditor::setItem(ParameterizedItem *item)
     if (m_item == item) return;
 
     if (m_item) {
-        clearEditor();
-
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
                 this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+
+        clearEditor();
+
     }
 
     m_item = item;

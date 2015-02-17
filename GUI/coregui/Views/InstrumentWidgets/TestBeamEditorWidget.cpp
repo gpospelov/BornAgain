@@ -16,7 +16,9 @@
 #include "TestBeamEditorWidget.h"
 #include "UniversalPropertyEditor.h"
 #include "CustomPropertyEditor.h"
+#include "AwesomePropertyEditor.h"
 #include "BeamItem.h"
+#include "LayerItem.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -33,22 +35,49 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 //    beamGroup->setLayout(beamGroupLayout);
 
 
-    QGridLayout *beamParamsLayout = new QGridLayout;
+//    QGridLayout *beamParamsLayout = new QGridLayout;
     //beamGroup->setLayout(beamParamsLayout);
 
-    beamParamsLayout->addWidget(new QLabel("Intensity"), 0, 0);
-    beamParamsLayout->addWidget(new QLineEdit, 0, 1);
+//    beamParamsLayout->addWidget(new QLabel("Intensity"), 0, 0);
+//    beamParamsLayout->addWidget(new QLineEdit, 0, 1);
 
 
-    UniversalPropertyEditor *editor = new UniversalPropertyEditor(0, this);
+    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
+    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+
+    BeamDistributionItem *item1 = new BeamDistributionItem;
+    LayerItem *layer = new LayerItem();
+//    editor1->addItemProperty(item1, BeamDistributionItem::P_VALUE);
+//    editor1->addItemProperty(layer, LayerItem::P_THICKNESS);
+//    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
+//    editor1->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
+//    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
+
+    editor1->addItemProperties(item1);
+
+//    editor2->addItemProperty(item1, BeamDistributionItem::P_VALUE);
+//    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
+//    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
+//    editor2->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
+//    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
+
+    editor2->addItemProperties(item1);
+
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(editor1, 3);
+    hlayout->addWidget(editor2);
+
+    beamGroupLayout->addLayout(hlayout);
+//    CustomPropertyEditor *editor = new CustomPropertyEditor(0, this);
     //editor->setCreateGroupProperty(false);
-    editor->setItem(new BeamDistributionItem);
+//    editor->setItem(new BeamDistributionItem);
 
-    beamParamsLayout->addWidget(new QLabel("Wavelength"), 1, 0);
-    beamParamsLayout->addWidget(editor, 1, 1);
+//    beamParamsLayout->addWidget(new QLabel("Wavelength"), 1, 0);
+//    beamParamsLayout->addWidget(editor1, 1, 0);
+//    beamParamsLayout->addWidget(editor2, 1, 1);
 
 
-    beamGroupLayout->addLayout(beamParamsLayout);
+    //beamGroupLayout->addLayout(beamParamsLayout);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;

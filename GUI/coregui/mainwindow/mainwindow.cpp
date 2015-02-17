@@ -304,8 +304,6 @@ void MainWindow::testGUIObjectBuilder()
     SampleBuilderFactory factory;
     boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
 
-    sample->printSampleTree();
-
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
 }

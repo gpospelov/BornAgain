@@ -157,7 +157,7 @@ The particles are placed randomly in the dilute limit and are considered as indi
 \paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate it. Figure~\ref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector + input beam. The full script UMInterferencesNone.py can be found in /Examples/python/UsrManual. 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_NoInterf}
 \end{center}
@@ -200,7 +200,7 @@ def get_sample():
 \subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_parameters)}} \label{paragraph1dlatt}
 where  \Code{lattice\_parameters}=(lattice\_length, $\xi$) with lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the "GISAS experiment" referential as shown in fig.~\ref{fig:1dgrating}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.75\textwidth]{Figures/1DGrating}
 \end{center}
@@ -272,7 +272,7 @@ p(x)=\frac{1}{\omega \sqrt{2\pi}} \exp\left(-\dfrac{(x-D)^2}{\omega^2}\right),\q
 \end{equation*}
 where $\omega\equiv$\Code{width}, $D\equiv$ \Code{peak\_distance}, and $q_{\parallel}=\sqrt{\Re^2(q_x) + \Re^2(q_y)}$ (see fig.~\ref{fig:1dpara}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/1Dparacrystal}
 \end{center}
@@ -302,7 +302,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
     particle_layout.addInterferenceFunction(interference)
 \end{lstlisting}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_1DDL}
 \end{center}
@@ -322,7 +322,7 @@ where \Code{lattice\_parameters} corresponds to ($L_1$, $L_2$, $\alpha$, $\xi$) 
 \item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the "GISAS experiment" referential (as shown in figure~\ref{fig:multil3d}).
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/2Dlattice.eps}
 \end{center}
@@ -368,7 +368,7 @@ def get_simulation():
 \end{lstlisting}
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_2Dlattice}
 \end{center}
@@ -410,7 +410,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
     particle_decoration.addInterferenceFunction(interference)
 \end{lstlisting}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{Figures/HSphere_2DDL}
 \end{center}

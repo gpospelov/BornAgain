@@ -129,10 +129,11 @@ private:
     ScientificDoubleProperty m_scientificDoubleProperty;
 };
 
-
+#include <QComboBox>
 //! The ComboPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ComboProperty
-class BA_CORE_API_ ComboPropertyEdit : public QWidget
+//class BA_CORE_API_ ComboPropertyEdit : public QWidget
+class BA_CORE_API_ ComboPropertyEdit : public QComboBox
 {
     Q_OBJECT
 public:
@@ -143,8 +144,8 @@ public:
 
     QString comboValueText();
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
+//    QSize sizeHint() const;
+//    QSize minimumSizeHint() const;
 
 
 signals:
@@ -153,7 +154,7 @@ private slots:
     void onCurrentIndexChanged(QString current_value);
 
 private:
-    QComboBox *m_comboBox;
+//    QComboBox *m_comboBox;
     ComboProperty m_combo_property;
 };
 

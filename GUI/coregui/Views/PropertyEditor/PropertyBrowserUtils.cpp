@@ -283,9 +283,15 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 // ComboPropertyEdit
 // -----------------------------------------------------------------------------
 
+//ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
+//    : QWidget(parent)
+//    , m_comboBox(0)
+//{
+//    m_comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//}
+
 ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
-    : QWidget(parent)
-    , m_comboBox(0)
+    : QComboBox(parent)
 {
 }
 
@@ -293,20 +299,20 @@ void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
     m_combo_property = combo_property;
-    if (!m_comboBox) {
-        m_comboBox = new QComboBox(this);
-        m_comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    }
+//    if (!m_comboBox) {
+//        m_comboBox = new QComboBox(this);
+//    }
 
-    disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+    disconnect(this, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(onCurrentIndexChanged(QString)));
 
-    m_comboBox->clear();
+//    m_comboBox->clear();
+    clear();
     QStringList value_list = m_combo_property.getValues();
-    m_comboBox->addItems(value_list);
-    m_comboBox->setCurrentText(comboValueText());
+    addItems(value_list);
+    setCurrentText(comboValueText());
 
-    connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+    connect(this, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(onCurrentIndexChanged(QString)));
 }
 
@@ -315,18 +321,18 @@ QString ComboPropertyEdit::comboValueText()
     return m_combo_property.getValue();
 }
 
-QSize ComboPropertyEdit::sizeHint() const
-{
-    Q_ASSERT(m_comboBox);
-    return m_comboBox->sizeHint();
+//QSize ComboPropertyEdit::sizeHint() const
+//{
+//    Q_ASSERT(m_comboBox);
+//    return m_comboBox->sizeHint();
 
-}
+//}
 
-QSize ComboPropertyEdit::minimumSizeHint() const
-{
-    Q_ASSERT(m_comboBox);
-    return m_comboBox->minimumSizeHint();
-}
+//QSize ComboPropertyEdit::minimumSizeHint() const
+//{
+//    Q_ASSERT(m_comboBox);
+//    return m_comboBox->minimumSizeHint();
+//}
 
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {

@@ -85,34 +85,6 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     pythonFile << genPyScript(simulation);
     pythonFile.close();
 
-//    Py_Initialize();
-//    std::string path("sys.path.append('");
-//    path.append("/home/abhishekskhanna/BornAgain-Build");
-//    path.append("')");
-//    PyRun_SimpleString("import sys");
-//    PyRun_SimpleString(path.c_str());
-//    PyObject *pName = PyString_FromString("PythonScript");
-//    if (!pName)
-//        throw std::runtime_error("PyGenTools::testPyScript -> pName is NULL");
-//    PyObject *pModule = PyImport_Import(pName);
-//    if (!pModule)
-//        throw std::runtime_error("PyGenTools::testPyScript -> pModule is NULL");
-//    PyObject *pDict = PyModule_GetDict(pModule);
-//    if (!pDict)
-//        throw std::runtime_error("PyGenTools::testPyScript -> pDict is NULL");
-//    PyObject *pRunSimulation = PyDict_GetItemString(pDict, "runSimulation");
-//    if (!pRunSimulation)
-//        throw std::runtime_error(
-//                "PyGenTools::testPyScript -> pRunSimulation is NULL");
-//    PyObject *pResult = PyObject_CallObject(pRunSimulation, NULL);
-//    if (!pResult)
-//        throw std::runtime_error("PyGenTools::testPyScript -> pResult is NULL");
-//    Simulation *pSimulation = boost::python::extract<Simulation *>(pResult);
-//    Py_Finalize();
-//    boost::scoped_ptr<const OutputData<double> > reference_data(
-//                simulation->getIntensityData());
-//    boost::scoped_ptr<const OutputData<double> > simulated_data(
-//                    pSimulation->getIntensityData());
     std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;

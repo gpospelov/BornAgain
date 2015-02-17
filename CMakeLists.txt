@@ -25,8 +25,9 @@ option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
 
 #--- Including macros ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+include(PreventInSourceBuilds)
+
 include(BornAgainMacros)
-#AssureOutOfSourceBuilds()
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)

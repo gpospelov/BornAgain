@@ -11,6 +11,8 @@ if(POLICY CMP0046)
 cmake_policy(SET CMP0046 NEW)
 endif()
 
+set(PDFLATEX_COMPILER xelatex)
+
 set(LATEX_COMPILER_FLAGS
 "-interaction=nonstopmode --enable-write18"
 CACHE STRING "Flags passed to latex."

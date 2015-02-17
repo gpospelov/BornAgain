@@ -1,12 +1,18 @@
 \chapter{Scattering cross--section}  \SecLabel{ScatteringCrosssection}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Position of the problem} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 This section describes how assemblies of particles and layers of materials contribute to the scattering cross--section \textit{i.e.} the way their spatial distributions, the distribution of shapes and their correlations or the layers' roughness can influence the output intensity. 
 
 The samples generated with \BornAgain\ are made of different layers of materials characterized by their thicknesses, refractive indices, and possible surface roughnesses. Except for the thickness, the other dimensions of the layers are infinite.\\ Particles can be embedded in or deposited on the top of any layers. Those particles are characterized by their shapes, refractive indices, their spatial distribution and concentration in the sample. The influence of the particles' shapes is described by the form factors. When the particles are densely packed, the distance relative to each other becomes of the same order as the particles' sizes. The radiation scattered from these various particles are going to interfere together. \\ We are first going to give a short overview of the theory involved, mostly in order to define the terminology. For a more complete theoretical description, the user is referred to, for example, reference~\cite{ReLa09} and appendix \ref{appendixtheory} of this manual. Then we are going to describe how the interference features, the form factors and the characteristics of the material layers have been implemented in \BornAgain\ and  give some examples.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Collection of particles} \SecLabel{sect:interf}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Let us consider the general geometry of a scattering experiment. An incident neutron with a wave vector $\mathbf{k}_i$ is scattered in a new direction $\mathbf{k}_f$ after interacting with a particle. This scattering occurs in a cone of solid angle $d\Omega$ around the direction of the scattered wave vector $\mathbf{k}_f$.
 Considering a set of $N$ particles labeled with index $i$, located at $\mathbf{R}_i$ and having shapes $S_i(\mathbf{r})$ ($S_i=0$ outside the particle and 1 inside), occupying a total volume $V$, the differential cross--section per particle is given by:
 \begin{equation*}
@@ -42,7 +48,7 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/drawingDA}
+\includegraphics[width=0.5\textwidth]{Figures/drawingDA.eps}
 \end{center}
 \caption{Sketch of a collection of particles deposited on a substrate whose scattering  could be described by the decoupling approximation.}
 \label{fig:da}
@@ -65,7 +71,7 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/drawingLMA}
+\includegraphics[width=0.5\textwidth]{Figures/drawingLMA.eps}
 \end{center}
 \caption{Sketch of a collection of particles deposited on a substrate whose scattering could be described by the local monodisperse correlation approximation. The dashed areas mark the coherent domains. In this case, the total scattering intensity is the incoherent sum from all these domains.}
 \label{fig:lma}
@@ -81,7 +87,7 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/drawingSSCA}
+\includegraphics[width=0.9\textwidth]{Figures/drawingSSCA.eps}
 \end{center}
 \caption{Sketch of a 1D distributed collection of particles, whose scattering could be described by the size-spacing correlation approximation: the distance between two particles depends on their sizes.}
 \label{fig:ssca}
@@ -130,7 +136,7 @@ Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Figures/S_q_1Dparacrystal}
+\includegraphics[width=0.6\textwidth]{Figures/S_q_1Dparacrystal.eps}
 \end{center}
 \caption{Interference function of a 1D Gaussian paracrystal plotted for different values of $\omega /D$. The peaks broaden with a decreasing amplitude as $\omega/D$ increases. This shows the transition between an ordered and a disordered states. }
 \label{fig:1dparas_q}
@@ -245,7 +251,7 @@ The particles are placed randomly in the dilute limit and are considered as indi
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/HSphere_NoInterf}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_NoInterf.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with no interference between them.}
 \label{fig:nointerf}
@@ -288,7 +294,7 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.75\textwidth]{Figures/1DGrating}
+\includegraphics[width=0.75\textwidth]{Figures/1DGrating.eps}
 \end{center}
 \caption{Schematic representation of a 1D lattice (side and top views). Such a lattice is characterized by a lattice length and the angle $\xi$.}
 \label{fig:1dgrating}
@@ -338,20 +344,12 @@ def get_sample():
 \end{lstlisting} 
 
 \newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\ding{253} \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
 \begin{itemize}
 \item[where] \Code{peak\_distance} is the average distance to the first neighbor peak, 
 \item[]\Code{width} is the width parameter of the probability distribution,
 \item[] \Code{damping\_length} is used to introduce finite size effects by applying a multiplicative coefficient equal to  $\exp$(-\Code{peak\_distance/damping\_length}) to the Fourier transform of the probability densities. \Code{damping\_length} is equal to 0 by default and, in this case, no correction is applied.
 \end{itemize}
-%\begin{figure}[ht]
-%\begin{center}
-%\includegraphics[width=0.5\textwidth]{Figures/1Dparacrystal}
-%\end{center}
-%\caption{Schematic representation of a radial paracrystal in real space (side view). $D$ is the average spacing between the particles.}
-%\label{fig:1dpara}
-%\end{figure}
 
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}. 
 
@@ -376,7 +374,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/HSphere_1DDL}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_1DDL.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with the radial paracrystal interference between them. This figure has been generated using Script~\ref{lst:1dpara} for the interference function.}
 \label{fig:1ddl}
@@ -385,7 +383,6 @@ To illustrate the radial paracrystal interference function, we use the same samp
 \FloatBarrier
 
 \newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\ding{253}  \Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
 where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with 
 \begin{itemize}
@@ -435,7 +432,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/HSphere_2Dlattice}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_2Dlattice.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with 2DLattice interference function in the Decoupling Approximation.}
 \label{fig:2dlatticeintensity}
@@ -486,7 +483,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/HSphere_2DDL}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_2DDL.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with 2DParacrystal interference function.}
 \label{fig:2ddl}
@@ -494,7 +491,6 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 
 \FloatBarrier
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Summary}
 \begin{table}[h]
 \begin{tabular}{lll}
@@ -547,8 +543,10 @@ Function  & Parameters & Comments\\
 \end{table}
 \end{landscape}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Particles - Form factors} \SecLabel{sect:ff}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Born approximation}
 
@@ -579,34 +577,34 @@ factors have been implemented in \BornAgain\ and a detailed description is given
   \begin{tabulary} {\textwidth}{Lc Lc L c L} 
 \hline 
 Box,\phantom{-} \SecRef{Box} & & Prism3,  \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron} & & Prism6,  \SecRef{Prism6}\\
-\includegraphics[width=1in]{Figures/Box3d} & & 
-\includegraphics[width=1in]{Figures/Prism33d} & & 
-\includegraphics[width=1in]{Figures/Tetrahedron3d} & & 
-\includegraphics[width=1in]{Figures/Prism63d} 
+\includegraphics[width=1in]{Figures/blue/Box3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Prism33d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Tetrahedron3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Prism63d.png} 
 \\
 \hline 
 Cone6,  \SecRef{Cone6} & &  Pyramid, \SecRef{Pyramid} & & Anisotropic pyramid,  \SecRef{AnisoPyramid} & &  {Cuboctahedron}, \SecRef{Cuboctahedron}\\
-\includegraphics[width=1in]{Figures/Cone63d}  & & 
-\includegraphics[width=1in]{Figures/Pyramid3d} & &
-\includegraphics[width=1in]{Figures/AnistropicPyramid3d} & & 
-\includegraphics[width=1in]{Figures/Cuboctahedron3d}
+\includegraphics[width=1in]{Figures/blue/Cone63d.png}  & & 
+\includegraphics[width=1in]{Figures/blue/Pyramid3d.png} & &
+\includegraphics[width=1in]{Figures/blue/AnistropicPyramid3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Cuboctahedron3d.png}
 \\
 \hline
 Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder} & &  Cone,\phantom{--} \SecRef{Cone} & & Full Sphere, \SecRef{FullSphere} \\
-\includegraphics[width=1in]{Figures/Cylinder3d} & & 
-\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d} & & 
-\includegraphics[width=1in]{Figures/Cone3d} & & 
-\includegraphics[width=1in]{Figures/FullSphere3d} \\
+\includegraphics[width=1in]{Figures/blue/Cylinder3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/EllipsoidalCylinder3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Cone3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/FullSphere3d.png} \\
 \hline
 Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} & & Truncated Spheroid,  \SecRef{Spheroid} & & Hemi Ellipsoid, \SecRef{HemiEllipsoid}\\
-\includegraphics[width=1in]{Figures/Sphere3d}  & & 
-\includegraphics[width=1in]{Figures/FullSpheroid3d} & & 
-\includegraphics[width=1in]{Figures/Spheroid3d} & & 
-\includegraphics[width=1in]{Figures/HemiEllipsoid3d}\\
+\includegraphics[width=1in]{Figures/blue/Sphere3d.png}  & & 
+\includegraphics[width=1in]{Figures/blue/FullSpheroid3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Spheroid3d.png} & & 
+\includegraphics[width=1in]{Figures/blue/HemiEllipsoid3d.png}\\
 \hline
 Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
-\includegraphics[width=1in]{Figures/Ripple13d} & & 
-\includegraphics[width=1in]{Figures/Ripple23d} & &  & & \\
+\includegraphics[width=1in]{Figures/blue/Ripple13d.png} & & 
+\includegraphics[width=1in]{Figures/blue/Ripple23d.png} & &  & & \\
 \hline 
 \end{tabulary}
 \end{table}
@@ -659,7 +657,7 @@ Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a suppo
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\textwidth]{Figures/drawingDWBA}
+\includegraphics[width=\textwidth]{Figures/drawingDWBA.eps}
 \end{center}
 \caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA for particles sitting on a substrate layer.}
 \label{fig:SchemDWBA}
@@ -715,9 +713,9 @@ def get_sample():
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Born Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidBA}}
+\subfigure[Born Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/ffspheroidBA.pdf}}
 \hfill
-\subfigure[DWB Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidDWBA}}
+\subfigure[DWB Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/ffspheroidDWBA.pdf}}
 \hfill
 \caption{Intensity map of TruncatedSpheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} for the sample.}
 \label{fig:spheroidbadwba}
@@ -747,7 +745,7 @@ where index $n$ is related to the layers, $z$ to the vertical component, and $j$
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\textwidth]{Figures/drawingDWBAburied}
+\includegraphics[width=\textwidth]{Figures/drawingDWBAburied.eps}
 \end{center}
 \caption{Schematic views of the different terms appearing in the expression of the form factor under the DWBA for buried particles.}
 \label{fig:SchemDWBAburied}
@@ -806,15 +804,17 @@ def get_sample():
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.5\textwidth]{Figures/drawingDepthParticle}
+\includegraphics[width=0.5\textwidth]{Figures/drawingDepthParticle.eps}
 \caption{Illustration of the convention about \Code{depth} used in \BornAgain\ to encapsulate particles in layers.}
 \label{fig:depthpartBA}
 \end{figure}
 
 
 \newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{More complicated particles' shapes} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \BornAgain\ also offers the possibility to simulate more complicated shapes of particles by combining those listed in Table~\ref{tab:formfactors}. 
 
 \subsection{Core-shell particles} \label{subsec:CoreShell}
@@ -826,9 +826,9 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/CoreShellParallPyrxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/CoreShellParallPyrxz.eps}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/CoreShellParallPyrxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/CoreShellParallPyrxy.eps}}
 \hfill
 \caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centres of the bases. }
 \label{fig:coreshell}
@@ -851,13 +851,12 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Figures/CoreShellParallPyr}
+\includegraphics[angle=-90,width=0.6\textwidth]{Figures/CoreShellParallPyr.pdf}
 \end{center}
 \caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
 \label{fig:FFCoreShellBA}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rotation of particles}
 
 The particles can be rotated in a different direction by using one of
@@ -878,8 +877,9 @@ the $z$-axis:\\
 
 \subsection{Polydispersity}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Material layers}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Roughness}
 \section{Polarisation}
 To be completed 

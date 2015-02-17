@@ -21,8 +21,6 @@ option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 option(BORNAGAIN_CRASHHADLER "Additional machinery to send crash reports" OFF)
 
-
-
 #--- Including macros ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(PreventInSourceBuilds)

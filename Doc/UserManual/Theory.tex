@@ -48,7 +48,7 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/drawingDA.eps}
+\includegraphics[width=0.5\textwidth]{Figures/drawing/drawingDA.eps}
 \end{center}
 \caption{Sketch of a collection of particles deposited on a substrate whose scattering  could be described by the decoupling approximation.}
 \label{fig:da}
@@ -71,7 +71,7 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/drawingLMA.eps}
+\includegraphics[width=0.5\textwidth]{Figures/drawing/drawingLMA.eps}
 \end{center}
 \caption{Sketch of a collection of particles deposited on a substrate whose scattering could be described by the local monodisperse correlation approximation. The dashed areas mark the coherent domains. In this case, the total scattering intensity is the incoherent sum from all these domains.}
 \label{fig:lma}
@@ -87,7 +87,7 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/drawingSSCA.eps}
+\includegraphics[width=0.9\textwidth]{Figures/drawing/drawingSSCA.eps}
 \end{center}
 \caption{Sketch of a 1D distributed collection of particles, whose scattering could be described by the size-spacing correlation approximation: the distance between two particles depends on their sizes.}
 \label{fig:ssca}
@@ -136,7 +136,7 @@ Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Figures/S_q_1Dparacrystal.eps}
+\includegraphics[width=0.6\textwidth]{Figures/funcplot/S_q_1Dparacrystal.eps}
 \end{center}
 \caption{Interference function of a 1D Gaussian paracrystal plotted for different values of $\omega /D$. The peaks broaden with a decreasing amplitude as $\omega/D$ increases. This shows the transition between an ordered and a disordered states. }
 \label{fig:1dparas_q}
@@ -251,7 +251,7 @@ The particles are placed randomly in the dilute limit and are considered as indi
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_NoInterf.pdf}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/gisasmap/HSphere_NoInterf.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with no interference between them.}
 \label{fig:nointerf}
@@ -294,7 +294,7 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.75\textwidth]{Figures/1DGrating.eps}
+\includegraphics[width=0.75\textwidth]{Figures/drawing/1DGrating.eps}
 \end{center}
 \caption{Schematic representation of a 1D lattice (side and top views). Such a lattice is characterized by a lattice length and the angle $\xi$.}
 \label{fig:1dgrating}
@@ -374,7 +374,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_1DDL.pdf}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/gisasmap/HSphere_1DDL.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with the radial paracrystal interference between them. This figure has been generated using Script~\ref{lst:1dpara} for the interference function.}
 \label{fig:1ddl}
@@ -393,7 +393,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{Figures/2Dlattice.eps}
+\includegraphics[width=0.5\textwidth]{Figures/drawing/2Dlattice.eps}
 \end{center}
 \caption{Schematic representation of a 2D lattice (top view). Such a lattice is characterized by lattice lengths $L_1$, $L_2$ and angles $\alpha$ and $\xi$.}
 \label{fig:2dlattice}
@@ -432,7 +432,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_2Dlattice.pdf}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/gisasmap/HSphere_2Dlattice.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with 2DLattice interference function in the Decoupling Approximation.}
 \label{fig:2dlatticeintensity}
@@ -465,7 +465,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.75\textwidth]{Figures/drawing2Dparacrystal.eps}
+\includegraphics[width=0.75\textwidth]{Figures/drawing/drawing2Dparacrystal.eps}
 \end{center}
 \caption{Shematics of the ideal 2D paracrystal. The grey-shaded areas mark the regions where the probability to find a node is larger that the width at half-maximum of the distribution. $L$ and  $W$ are the mean inter-node distances along the two crystallographic axes. cl$_{(L,W),(x,y)}$ are the widths of the distribution of distance. The disorder is propagated as we add more nodes. Such a structure would be generated using \Code{InterferenceFunction2DParacrystal(L,W,90.*degrees,0,damp\_length)}, with \Code{pdf$_1$ = FTDistribution2DGauss(cl$_{L,x}$,cl$_{L,y}$)} and  \Code{pdf$_2$ = FTDistribution2DGauss(cl$_{W,x}$,cl$_{W,y}$)}.}
 \label{fig:2dparaschematic}
@@ -483,7 +483,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[angle=-90,width=0.5\textwidth]{Figures/HSphere_2DDL.pdf}
+\includegraphics[angle=-90,width=0.5\textwidth]{Figures/gisasmap/HSphere_2DDL.pdf}
 \end{center}
 \caption{Output intensity scattered from a sample made of half-spheres with 2DParacrystal interference function.}
 \label{fig:2ddl}
@@ -657,7 +657,7 @@ Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a suppo
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\textwidth]{Figures/drawingDWBA.eps}
+\includegraphics[width=\textwidth]{Figures/drawing/drawingDWBA.eps}
 \end{center}
 \caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA for particles sitting on a substrate layer.}
 \label{fig:SchemDWBA}
@@ -713,9 +713,9 @@ def get_sample():
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Born Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/ffspheroidBA.pdf}}
+\subfigure[Born Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/gisasmap/ffspheroidBA.pdf}}
 \hfill
-\subfigure[DWB Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/ffspheroidDWBA.pdf}}
+\subfigure[DWB Approximation]{\includegraphics[angle=-90,width=6cm]{Figures/gisasmap/ffspheroidDWBA.pdf}}
 \hfill
 \caption{Intensity map of TruncatedSpheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} for the sample.}
 \label{fig:spheroidbadwba}
@@ -745,7 +745,7 @@ where index $n$ is related to the layers, $z$ to the vertical component, and $j$
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\textwidth]{Figures/drawingDWBAburied.eps}
+\includegraphics[width=\textwidth]{Figures/drawing/drawingDWBAburied.eps}
 \end{center}
 \caption{Schematic views of the different terms appearing in the expression of the form factor under the DWBA for buried particles.}
 \label{fig:SchemDWBAburied}
@@ -792,7 +792,7 @@ def get_sample():
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart.eps}
+\includegraphics[width=0.6\textwidth]{Figures/gisasmap/figIntBuriedPart.pdf}
 \caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
 \label{fig:dwbaburied}
 \end{figure}
@@ -804,7 +804,7 @@ def get_sample():
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.5\textwidth]{Figures/drawingDepthParticle.eps}
+\includegraphics[width=0.5\textwidth]{Figures/drawing/drawingDepthParticle.eps}
 \caption{Illustration of the convention about \Code{depth} used in \BornAgain\ to encapsulate particles in layers.}
 \label{fig:depthpartBA}
 \end{figure}
@@ -851,7 +851,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[angle=-90,width=0.6\textwidth]{Figures/CoreShellParallPyr.pdf}
+\includegraphics[angle=-90,width=0.6\textwidth]{Figures/gisasmap/CoreShellParallPyr.pdf}
 \end{center}
 \caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
 \label{fig:FFCoreShellBA}

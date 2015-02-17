@@ -23,6 +23,7 @@
 #include "JobItem.h"
 #include "SampleValidator.h"
 #include "Utils.h"
+#include "PyGenTools.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -34,6 +35,7 @@
 #include <QDir>
 #include <QtCore>
 #include <QMenu>
+#include <DomainSimulationBuilder.h>
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
@@ -91,15 +93,21 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
     runSimulationButton->setMinimumWidth(100);
     runSimulationButton->setMinimumHeight(50);
-    runSimulationButton->setToolTip("Run the simulation using settings above.\n Global shortcut ctrl-r can be used to run from sample view.");
+    runSimulationButton->setToolTip("Run the simulation using settings above.\n"
+                                    " Global shortcut ctrl-r can be used to run from sample view.");
+
+    // export simulation to a python script
+    exportToPyScriptButton = new QPushButton(tr("Export Simulation to Python Script"));
+    exportToPyScriptButton->setIcon(QIcon(":/images/main_simulation.png"));
+    exportToPyScriptButton->setMinimumWidth(100);
+    exportToPyScriptButton->setMinimumHeight(50);
+    exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
+                                       "a python script.\n");
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);
+    simButtonLayout->addWidget(exportToPyScriptButton);
     simButtonLayout->addStretch();
-
-
-    // run simulation with python script sample builder
-    //runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -113,7 +121,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
-    //connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
+    connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
 }
 
 void SimulationSetupWidget::setJobModel(JobModel *model)
@@ -161,8 +169,6 @@ void SimulationSetupWidget::updateViewElements()
 
 void SimulationSetupWidget::onRunSimulation()
 {
-    //qDebug() << "SimulationView::onRunSimulation()";
-
     InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
     if(!jobInstrumentModel) {
         QMessageBox::warning(this, tr("No Instrument Selected"),
@@ -187,33 +193,38 @@ void SimulationSetupWidget::onRunSimulation()
     m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
 }
 
-
-void SimulationSetupWidget::onPythonJobLaunched()
+void SimulationSetupWidget::onExportToPythonScript()
 {
-//    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
-//                instrumentSelectionBox->currentText(), 0);
-//    if (!p_instrument) {
-//        QMessageBox::warning(this, tr("No Instrument Selected"),
-//                             tr("You must select an instrument first."));
-//        return;
-//    }
-//    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
-//                            QDir::homePath(), tr("Python scripts (*.py)"),
-//                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
-//    if (file_name.isNull()) {
-//        return;
-//    }
-//    PythonScriptSampleBuilder builder(file_name);
-//    ISample *p_sample = builder.buildSample();
-//    Simulation *p_sim = new Simulation;
-//    p_sim->setSample(*p_sample);
-//    p_sim->setInstrument(*p_instrument);
+    InstrumentModel *instrumentModel = getJobInstrumentModel();
+    if(!instrumentModel) {
+        QMessageBox::warning(this, tr("No Instrument Selected"),
+                             tr("You must select an instrument first."));
+        return;
+    }
 
-//    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
-//    m_jobQueueModel->runJob(identifier);
+    SampleModel *sampleModel = getJobSampleModel();
+    if(!sampleModel) {
+        QMessageBox::warning(this, tr("No Sample Selected"),
+                             tr("You must select a sample first."));
+        return;
+    }
+
+    SampleValidator sampleValidator;
+    if(!sampleValidator.isVaildSampleModel(sampleModel)) {
+        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
+                             sampleValidator.getValidationMessage());
+        return;
+    }
+
+    Simulation *simulation(0);
+    try{
+        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
+    } catch(const std::exception &ex) {
+        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
+        return;
+    }
+    exportSimulation(simulation);
 }
-
-
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
 {
@@ -277,7 +288,24 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
         result = m_sampleModel->createCopy(samples[getSampleSelection()]);
     }
     return result;
+}
 
+void SimulationSetupWidget::exportSimulation(Simulation *simulation)
+{
+    Q_ASSERT(simulation);
+    qDebug() << "SimulationSetupWidget::exportSimulation(const Simulation*)";
+    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), QString(),
+                            tr("Python scipts (*.py)"), 0,
+                            QFileDialog::DontResolveSymlinks);
+    qDebug() << file_name;
+    QFile file(file_name);
+    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
+        qDebug() << "SimulationSetupWidget::exportSimulation: Error! Can't save file";
+        return;
+    }
+    QTextStream out(&file);
+    out << PyGenTools::genPyScript(simulation).c_str();
+    file.close();
 }
 
 

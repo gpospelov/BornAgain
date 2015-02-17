@@ -200,8 +200,8 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 
 ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
 {
-    qDebug() << "registerFancyGroupProperty "
-             << modelType() << group_name;
+    qDebug() << "ParameterizedItem::registerGroupProperty() ->"
+             << "this->modelType" << modelType() << "group_name" << group_name << " group_model" << group_model;
 
     FancyGroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
     QVariant variant;

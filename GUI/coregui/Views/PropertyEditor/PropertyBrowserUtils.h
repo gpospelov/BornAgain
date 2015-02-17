@@ -143,6 +143,10 @@ public:
 
     QString comboValueText();
 
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+
 signals:
     void comboPropertyChanged(const ComboProperty &combo_property);
 private slots:

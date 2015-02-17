@@ -19,6 +19,7 @@
 #include "FixedGroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
+#include <QDebug>
 
 
 namespace {
@@ -122,6 +123,7 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
+        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of groupModelType" << groupModelType;
         result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     }

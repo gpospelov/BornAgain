@@ -293,7 +293,10 @@ void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
     m_combo_property = combo_property;
-    if (!m_comboBox) m_comboBox = new QComboBox(this);
+    if (!m_comboBox) {
+        m_comboBox = new QComboBox(this);
+        m_comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    }
 
     disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(onCurrentIndexChanged(QString)));
@@ -310,6 +313,19 @@ void ComboPropertyEdit::setComboProperty(
 QString ComboPropertyEdit::comboValueText()
 {
     return m_combo_property.getValue();
+}
+
+QSize ComboPropertyEdit::sizeHint() const
+{
+    Q_ASSERT(m_comboBox);
+    return m_comboBox->sizeHint();
+
+}
+
+QSize ComboPropertyEdit::minimumSizeHint() const
+{
+    Q_ASSERT(m_comboBox);
+    return m_comboBox->minimumSizeHint();
 }
 
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)

@@ -81,11 +81,18 @@ BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
 {
     qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.1";
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.2";
-    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
-    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.3";
-    setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
+//    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.2";
+//    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+//    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.3";
+    //setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
     qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.4";
+    registerProperty(P_VALUE, 1.0);
+
+
+    ComboProperty types;
+    types << "property 1" << "property 2" << "property 3";
+    registerProperty("Combo property", types.getVariant());
+
     initProperties();
 }
 
@@ -95,7 +102,7 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
     print();
     if(name == P_DISTRIBUTION) {
         ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
-        if(distribution->modelType() != Constants::DistributionNoneType) {
+        if(distribution && distribution->modelType() != Constants::DistributionNoneType) {
             registerProperty(P_VALUE, 1.0);
         }
     }

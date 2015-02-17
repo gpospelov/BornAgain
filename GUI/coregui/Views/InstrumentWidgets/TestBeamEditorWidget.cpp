@@ -15,6 +15,7 @@
 
 #include "TestBeamEditorWidget.h"
 #include "UniversalPropertyEditor.h"
+#include "CustomPropertyEditor.h"
 #include "BeamItem.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
@@ -40,7 +41,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 
 
     UniversalPropertyEditor *editor = new UniversalPropertyEditor(0, this);
-    editor->setCreateGroupProperty(false);
+    //editor->setCreateGroupProperty(false);
     editor->setItem(new BeamDistributionItem);
 
     beamParamsLayout->addWidget(new QLabel("Wavelength"), 1, 0);

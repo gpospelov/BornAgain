@@ -19,9 +19,10 @@ form factor.\\
 All form factors have been implemented with complex scattering vectors
 in order to take any material absorption into account.\\
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Box} \SecLabel{Box} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a rectangular cuboid as
@@ -29,9 +30,9 @@ shown in fig.~\ref{fig:box}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Box2dxz.eps}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Box2dxz.eps}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Box2dxy.eps}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Box2dxy.eps}}
 \hfill
 \caption{Sketch of a Box.}
 \label{fig:box}
@@ -81,9 +82,11 @@ $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 %\subsection{References}
 %\BornAgain\ uses a different convention for the parameters in comparison with \Code{IsGISAXS}, where the half length
 %values are used (see fig.~\ref{box}).
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Prism3} \SecLabel{Prism3} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a triangular prism, whose base is an equilateral
@@ -91,9 +94,9 @@ triangle as shown in fig.~\ref{fig:prism3}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Prism32dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Prism32dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Prism32dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Prism32dxy}}
 \hfill
 \caption{Sketch of a Prism3.}
 \label{fig:prism3}
@@ -141,18 +144,20 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 %In the $x,y$ plane , we use the full side length of the triangular
 %base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
 %R_{\rm{\Code{IsGISAXS}}}$.
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Tetrahedron}  \SecLabel{Tetrahedron} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Tetrahedron2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Tetrahedron2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Tetrahedron2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Tetrahedron2dxy}}
 \hfill
 \caption{Sketch of a Tetrahedron. The implementation of this shape uses angle
   $\alpha$, which is linked to $\beta$ via $\tan \alpha = 2 \tan 
@@ -216,18 +221,20 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 \end{figure}
 
 %\FloatBarrier
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Prism6} \SecLabel{Prism6}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is an hexagonal prism (see fig.~\ref{fig:prism6}).
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Prism62dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Prism62dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Prism62dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Prism62dxy}}
 \hfill
 \caption{Sketch of a Prism6.}
 \label{fig:prism6}
@@ -280,18 +287,20 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 %\Code{IsGISXAXS}. In \BornAgain\, we use $R = 2/\sqrt{3}R_{\text{\Code{IsGiSaXs}}}$.
 %A factor $H$ is missing in the expression of the form factor given in
 %\Code{IsGISAXS}'s manual. 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Cone6} \SecLabel{Cone6} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 It is a truncated hexagonal pyramid (see fig.~\ref{fig:cone6}). 
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cone62dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Cone62dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cone62dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Cone62dxy}}
 \hfill
 \caption{Sketch of a Cone6.  The implementation of this shape uses angle
   $\alpha$, which is linked to $\beta$ via $\tan \alpha = \dfrac{2}{\sqrt{3}} \tan 
@@ -351,18 +360,19 @@ $\alpha=60^{\circ}$.
 
 %\FloatBarrier
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Pyramid}\SecLabel{Pyramid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:pyramid}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Pyramid2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Pyramid2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Pyramid2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Pyramid2dxy}}
 \hfill
 \caption{Sketch of a Pyramid}
 \label{fig:pyramid}
@@ -428,9 +438,11 @@ $\alpha=60^{\circ}$.
 %In \BornAgain\, the base of the pyramid is characterized by the full
 %length of one of its side and not by half this value: $L=2R_{\rm{\Code{IsGISXAXS}}}$. 
 %Pyramid: problem with signs of K2 and K4
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Anisotropic pyramid} \SecLabel{AnisoPyramid} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated right pyramid with a rectangular base as
@@ -438,9 +450,9 @@ shown in fig.~\ref{fig:anisopyramid}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/AnisoPyramid2dxz.eps}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/AnisoPyramid2dxz.eps}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/AnisoPyramid2dxy.eps}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/AnisoPyramid2dxy.eps}}
 \hfill
 \caption{Sketch of an Anisotropic Pyramid.}
 \label{fig:anisopyramid}
@@ -513,9 +525,10 @@ $\alpha=60^{\circ}$.
 %Should not it be: H/R < tan(alpha) and  H/W < tan(alpha) instead of H/R < tan(alpha) and  
 %W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Cuboctahedron} \SecLabel{Cuboctahedron} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 It is a combination of two pyramids with square bases, as shown in fig.~\ref{fig:cuboctahedron}: the bottom one
@@ -524,9 +537,9 @@ orientation (the standard one) and an height $r_H \times H$.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cuboctahedron2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Cuboctahedron2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cuboctahedron2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Cuboctahedron2dxy}}
 \hfill
 \caption{Sketch of a Cuboctahedron.}
 \label{fig:cuboctahedron}
@@ -582,18 +595,19 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 %we use the full length of a side of the square base:
 %$L=2R_{\rm{\Code{IsGISAXS}}}$. 
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Cylinder} \SecLabel{Cylinder}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cylinder2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Cylinder2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cylinder2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Cylinder2dxy}}
 \hfill
 \caption{Sketch of a Cylinder.}
 \label{fig:cylinder}
@@ -637,18 +651,19 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 \end{figure}
 %\FloatBarrier
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Ellipsoidal cylinder} \SecLabel{EllipsoidalCylinder} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This is a cylinder whose cross section is an ellipse.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/EllipsoidalCylinder2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/EllipsoidalCylinder2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/EllipsoidalCylinder2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/EllipsoidalCylinder2dxy}}
 \hfill
 \caption{Sketch of an Ellipsoidal Cylinder.}
 \label{fig:ellipscylinder}
@@ -697,18 +712,19 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 %\subsection{References}
 %This form factor is referred to as "Ellipsoid'' in \Code{ISGISAXS}. 
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Cone} \SecLabel{Cone} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}
 This shape is a truncated cone as shown in fig.~\ref{fig:cone}. 
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cone2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Cone2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cone2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Cone2dxy}}
 \hfill
 \caption{Sketch of a Cone.}
 \label{fig:cone}
@@ -753,18 +769,20 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \end{figure}
 
 %\subsection{References}
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Full Sphere} \SecLabel{FullSphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 The full sphere is parametrized by its radius $R$. 
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/FullSphere2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/FullSphere2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/FullSphere2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/FullSphere2dxy}}
 \hfill
 \caption{Sketch of a Full Sphere.}
 \label{fig:fullsphere}
@@ -804,9 +822,10 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 
 %\FloatBarrier
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Truncated Sphere}\SecLabel{Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a spherical dome, \textit{i.e.} a portion of a sphere cut off by a plane (perpendicular
@@ -814,9 +833,9 @@ to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Sphere2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Sphere2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Sphere2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Sphere2dxy}}
 \hfill
 \caption{Sketch of a Truncated Sphere.}
 \label{fig:sphere}
@@ -867,9 +886,10 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 %Equation~(\ref{eq:ffsphere}) agrees with the \lq\lq Sphere\rq\rq ~form
 %factor of \IsGISAXS~\cite{Laz02}.
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Full Spheroid} \SecLabel{FullSpheroid}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 A full spheroid is generated by rotating an ellipse around the vertical
@@ -877,9 +897,9 @@ axis (see fig.~\ref{fig:fullspheroid}).
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/FullSpheroid2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/FullSpheroid2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/FullSpheroid2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/FullSpheroid2dxy}}
 \hfill
 \caption{Sketch of a Full Spheroid. }
 \label{fig:fullspheroid}
@@ -933,10 +953,10 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 %In \Code{IsGISAXS}, factor 4 instead of 2 in the expression of the
 %volume. In the code there is also a problem with an extra factor 2 in the function to integrate.
 
-\newpage%{\cleardoublepage}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Truncated Spheroid} \SecLabel{Spheroid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a spheroidal dome: a portion of a full spheroid cut off
@@ -944,9 +964,9 @@ by a plane perpendicular to the $z$-axis.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Spheroid2dxz.eps}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Spheroid2dxz.eps}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Spheroid2dxy.eps}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Spheroid2dxy.eps}}
 \hfill
 \caption{Sketch of a Truncated Spheroid.}
 \label{fig:spheroid}
@@ -997,18 +1017,19 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 %In \Code{IsGISAXS}'s manual there is an extra factor 2 in the
 %expression of the volume.
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Hemi ellipsoid} \SecLabel{HemiEllipsoid}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/HemiEllipsoid2dxz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/HemiEllipsoid2dxz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/HemiEllipsoid2dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/HemiEllipsoid2dxy}}
 \hfill
 \caption{Sketch of an Hemi-ellipsoid.}
 \label{fig:hemiellipsoid}
@@ -1060,18 +1081,20 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 %Problem when running  \Code{ISGISAXS}.
 %In \Code{IsGISAXS} manual, where does the minus sign in exp(-iq\_z z)
 %come from?
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Ripple1} \SecLabel{Ripple1}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape has a sinusoidal profile (see fig.~\ref{fig:ripple1}).
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Ripple12dyz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Ripple12dyz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Ripple12dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Ripple12dxy}}
 \hfill
 \caption{Sketch of a Ripple1.}
 \label{fig:ripple1}
@@ -1114,18 +1137,19 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 \end{figure}
 %\FloatBarrier
 
-\newpage%{\cleardoublepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Ripple2} \SecLabel{Ripple2}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
 This shape has an asymmetric sawtooth profile.
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Ripple22dyz}}
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/Ripple22dyz}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Ripple22dxy}}
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/Ripple22dxy}}
 \hfill
 \caption{Sketch of a Ripple2.}
 \label{fig:ripple2}
@@ -1224,7 +1248,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\begin{center}
-%\includegraphics[angle=-90,width=\textwidth]{Figures/drawingDWBA}
+%\includegraphics[angle=-90,width=\textwidth]{Figures/cuts/drawingDWBA}
 %\end{center}
 %\caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA for particles sitting on a substrate layer.}
 %\label{fig:SchemDWBA}
@@ -1277,9 +1301,9 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\hfill
-%\subfigure[Born Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidBA}}
+%\subfigure[Born Approximation]{\includegraphics[width=6cm]{Figures/cuts/ffspheroidBA}}
 %\hfill
-%\subfigure[DWB Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidDWBA}}
+%\subfigure[DWB Approximation]{\includegraphics[width=6cm]{Figures/cuts/ffspheroidDWBA}}
 %\hfill
 %\caption{Intensity map of TruncatedSpheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} for the sample.}
 %\label{fig:spheroidbadwba}
@@ -1308,7 +1332,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\begin{center}
-%\includegraphics[angle=-90,width=\textwidth]{Figures/drawingDWBAburied}
+%\includegraphics[angle=-90,width=\textwidth]{Figures/cuts/drawingDWBAburied}
 %\end{center}
 %\caption{Schematic views of the different terms appearing in the expression of the form factor under the DWBA for buried particles.}
 %\label{fig:SchemDWBAburied}
@@ -1358,7 +1382,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\centering
-%\includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart}
+%\includegraphics[width=0.6\textwidth]{Figures/cuts/figIntBuriedPart}
 %\caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
 %\label{fig:dwbaburied}
 %\end{figure}
@@ -1369,7 +1393,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\centering
-%\includegraphics[width=0.5\textwidth]{Figures/drawingDepthParticle}
+%\includegraphics[width=0.5\textwidth]{Figures/cuts/drawingDepthParticle}
 %\caption{Illustration of the convention about \Code{depth} used in \BornAgain\ to encapsulate particles in %layers.}
 %\label{fig:depthpartBA}
 %\end{figure}
@@ -1385,9 +1409,9 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\hfill
-%\subfigure[Side view]{\includegraphics[width=5cm]{Figures/CoreShellParallPyrxz}}
+%\subfigure[Side view]{\includegraphics[width=5cm]{Figures/cuts/CoreShellParallPyrxz}}
 %\hfill
-%\subfigure[Top view]{\includegraphics[width=5cm]{Figures/CoreShellParallPyrxy}}
+%\subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/CoreShellParallPyrxy}}
 %\hfill
 %\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked %by the position of its center of gravity (blue point $\color{blue}\bullet$) with respect to the center of gravity of the box (red %point $\color{red}\bullet$). }
 %\label{fig:coreshell}
@@ -1407,7 +1431,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %\begin{figure}[ht]
 %\begin{center}
-%\includegraphics[width=0.6\textwidth]{Figures/CoreShellParallPyr}
+%\includegraphics[width=0.6\textwidth]{Figures/cuts/CoreShellParallPyr}
 %\end{center}
 %\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, %16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner %shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The %sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the %particles.}
 %\label{fig:FFCoreShellBA}

@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   BornAgain:  simulate and fit scattering at grazing incidence
+%%   BornAgain User Manual
 %%
 %%   homepage:   http://www.bornagainproject.org
 %%
 %%   copyright:  Forschungszentrum Jülich GmbH 2015
-%%               Software licence does not cover this documentation
-%%               For documentation licence, contact the authors
+%%
+%%   license:    Creative Commons CC-BY-SA
 %%   
 %%   authors:    Scientific Computing Group at MLZ Garching
 %%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
@@ -14,9 +14,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 \section{Data classes for simulations and fits}
+
 This section will give an overview of the classes that are used to describe all the data needed to perform a single simulation. The prime elements of this data are formed by the sample, the experimental conditions (beam and detector parameters) and simulation parameters.
 
 These classes constitute the main interface to the software's users, since they will mostly be interacting with the program by creating samples and running simulations with specific parameters. Since it is not the intent to explain internals of classes in this document, the text and figures will only mention the most important methods and fields of the classes discussed. Furthermore, getters and setters of private member fields will not be indicated, although these do belong to the public interface. For more detailed information about the project's classes, their methods and fields, the reader is referred to the source code documentation. REF?

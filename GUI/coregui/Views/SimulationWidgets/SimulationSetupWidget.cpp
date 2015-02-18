@@ -305,6 +305,10 @@ void SimulationSetupWidget::exportSimulation(Simulation *simulation)
     QFile file(file_name);
     if (!file.open(QIODevice::WriteOnly)) {
         qDebug() << "SimulationSetupWidget::exportSimulation: Error! Can't save file";
+        QMessageBox warning_dialog(this);
+        warning_dialog.setIcon(QMessageBox::Warning);
+        warning_dialog.setText(tr("File could not be opened for writing!"));
+        warning_dialog.exec();
         return;
     }
     QTextStream out(&file);

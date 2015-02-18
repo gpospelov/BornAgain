@@ -381,6 +381,8 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
                 m_fancygroup_editor_to_property.constBegin();
     while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
         if (fancygroup_editor_it.key() == object) {
+            qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object)";
+
             FancyGroupPropertyEdit *editor = fancygroup_editor_it.key();
             QtProperty *property = fancygroup_editor_it.value();
             m_fancygroup_editor_to_property.remove(editor);

@@ -132,6 +132,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
+    result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
     return result;
 }
 }

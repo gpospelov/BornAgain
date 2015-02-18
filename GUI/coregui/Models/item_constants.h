@@ -112,6 +112,8 @@ const ModelType IntensityDataType = "IntensityData";
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
+const ModelType BeamWavelengthType = "BeamWavelength";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

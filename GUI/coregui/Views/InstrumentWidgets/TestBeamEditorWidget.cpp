@@ -23,9 +23,90 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QDebug>
+
 
 TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     : QWidget(parent)
+    , m_wavelengthEditor(0)
+    , m_beamItem(0)
+{
+    // group box layout
+    QGroupBox *groupBox = new QGroupBox("Beam Parameters");
+    QVBoxLayout *groupLayout = new QVBoxLayout;
+    groupBox->setLayout(groupLayout);
+
+    // whole content is represented as grid layout
+    QGridLayout *gridLayout = new QGridLayout;
+
+    m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_wavelengthEditor->setRecursive(false);
+    gridLayout->addWidget(m_wavelengthEditor, 0, 0);
+
+    groupLayout->addLayout(gridLayout);
+
+    // main layout
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(groupBox);
+    setLayout(mainLayout);
+}
+
+void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
+{
+    m_beamItem = beamItem;
+    initWavelengthWidget();
+}
+
+void TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)
+{
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)" << property_name;
+    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
+    if(item->modelType() == Constants::BeamWavelengthType)
+        initWavelengthWidget();
+
+}
+
+void TestBeamEditorWidget::initWavelengthWidget()
+{
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "TestBeamEditorWidget::initWavelengthWidget()";
+    m_wavelengthEditor->clearEditor();
+
+    Q_ASSERT(m_beamItem);
+    BeamWavelengthItem *wavelengthItem = dynamic_cast<BeamWavelengthItem *>(m_beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH]);
+    Q_ASSERT(wavelengthItem);
+    qDebug() << "    XXX 1.1";
+
+    ParameterizedItem *distributionItem = wavelengthItem->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
+    qDebug() << "    XXX 1.2";
+
+    Q_ASSERT(distributionItem);
+
+////    m_wavelengthEditor->addItemPropertyToGroup(beamItem, TestBeamItem::P_INTENSITY, "Wavelength");
+    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_DISTRIBUTION, "Wavelength");
+//    qDebug() << "    XXX 1.3";
+//    m_wavelengthEditor->addItemPropertiesToGroup(distributionItem, "Wavelength");
+//    qDebug() << "    XXX 1.4";
+
+    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+}
+
+
+
+
+
+
+/*
+
+TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
+    : QWidget(parent)
+    , m_beamItem(0)
 {
     QGroupBox *beamGroup = new QGroupBox("Beam Parameters");
     QVBoxLayout *beamGroupLayout = new QVBoxLayout;
@@ -87,3 +168,4 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 
 
 
+*/

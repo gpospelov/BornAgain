@@ -59,6 +59,7 @@
 #include "FitModel.h"
 #include "FitProxyModel.h"
 #include "FitView.h"
+#include "TestView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -119,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
 
-    //m_testView = new TestView(m_sampleModel, this);
+//    m_testView = new TestView(m_sampleModel, this);
     //m_fitView = new FitView(m_fitProxyModel, this);
 
     m_jobView = new JobView(m_jobModel, m_projectManager);
@@ -133,6 +134,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
+    m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 
     m_tabWidget->setCurrentIndex(INSTRUMENT);
 

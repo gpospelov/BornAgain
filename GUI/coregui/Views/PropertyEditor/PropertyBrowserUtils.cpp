@@ -110,7 +110,7 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
 
 FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
 {
-    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> destroyed";
+    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> destroyed" << this;
 
 }
 

@@ -52,25 +52,27 @@ void BeamItem::onPropertyChange(const QString &name)
 // ---------------
 
 
-const QString WavelengthItem::P_DISTRIBUTION = "Distribution";
-const QString WavelengthItem::P_SAMPLE_NUMBER = "Number of samples";
+const QString BeamWavelengthItem::P_DISTRIBUTION = "Distribution";
+const QString BeamWavelengthItem::P_VALUE = "Value";
+const QString BeamWavelengthItem::P_SAMPLE_NUMBER = "Number of samples";
 
-WavelengthItem::WavelengthItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::ParticleDistributionType, parent)
+BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::BeamWavelengthType, parent)
 {
-//    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
-//    setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
-//    registerProperty(P_SAMPLE_NUMBER, 5);
+    setItemName(Constants::BeamWavelengthType);
+    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    registerProperty(P_SAMPLE_NUMBER, 5);
 }
 
 
 const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";
+const QString TestBeamItem::P_WAVELENGTH = "Wavelength";
 
 TestBeamItem::TestBeamItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamType, parent)
 {
-    registerProperty(P_INTENSITY, 1e+08);
-
+    registerProperty(P_INTENSITY, 1e+08);    
+    registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
 }
 
 

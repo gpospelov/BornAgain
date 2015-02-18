@@ -32,8 +32,4 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
 
-    ComboProperty types;
-    types << "property 1" << "property 2" << "property 3";
-    registerProperty("Combo property", types.getVariant());
-
 }

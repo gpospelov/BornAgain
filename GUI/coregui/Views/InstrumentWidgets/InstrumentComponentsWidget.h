@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/TestBeamEditorWidget.h
-//! @brief     Defines class TestBeamEditorWidget
+//! @file      coregui/Views/InstrumentWidgets/InstrumentComponentsWidget.h
+//! @brief     Defines class InstrumentComponentsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTBEAMEDITORWIDGET_H
-#define TESTBEAMEDITORWIDGET_H
+#ifndef INSTRUMENTCOMPONENTSWIDGET_H
+#define INSTRUMENTCOMPONENTSWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
 class TestBeamItem;
-class AwesomePropertyEditor;
+class TestBeamEditorWidget;
+class TestDetectorEditorWidget;
 
-class BA_CORE_API_ TestBeamEditorWidget : public QWidget
+class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TestBeamEditorWidget(QWidget *parent = 0);
+    InstrumentComponentsWidget(QWidget *parent = 0);
 
-    void setBeamItem(TestBeamItem *m_beamItem);
-
-private slots:
-    void onPropertyItemChanged(const QString &property_name);
-
+    void setBeamItem(TestBeamItem *beamItem);
 
 private:
-    void initWavelengthWidget();
-
-    AwesomePropertyEditor *m_wavelengthEditor;
+    TestBeamEditorWidget *m_beamEditor;
+    TestDetectorEditorWidget *m_detectorEditor;
     TestBeamItem *m_beamItem;
 };
 

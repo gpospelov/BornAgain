@@ -53,6 +53,7 @@ public:
     QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
+    bool m_recursive_flag;
 };
 
 AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type)
@@ -60,6 +61,7 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     , m_manager(0)
     , m_read_only_manager(0)
     , m_browser_type(browser_type)
+    , m_recursive_flag(true)
 {
     if(m_browser_type == AwesomePropertyEditor::BROWSER_TREE_TYPE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
@@ -133,6 +135,19 @@ void AwesomePropertyEditor::addItemProperties(ParameterizedItem *item, QtPropert
     }
 }
 
+void AwesomePropertyEditor::addItemPropertiesToGroup(ParameterizedItem *item, const QString &group_name)
+{
+    QtVariantProperty *variantProperty(0);
+    if(m_d->m_groupname_to_qtvariant.contains(group_name)) {
+        variantProperty = m_d->m_groupname_to_qtvariant[group_name];
+    } else {
+        variantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
+        m_d->m_groupname_to_qtvariant[group_name] = variantProperty;
+        m_d->m_browser->addProperty(variantProperty);
+    }
+    addItemProperties(item, variantProperty);
+}
+
 //! add single ParameterizedItem property
 void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name, QtProperty *parent_qtproperty)
 {
@@ -190,7 +205,7 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
     }
 
     // additing properties of SubItem
-    if (item->getSubItems().contains(property_name)) {
+    if(m_d->m_recursive_flag && item->getSubItems().contains(property_name)) {
         ParameterizedItem *subitem = item->getSubItems()[property_name];
         if (subitem) {
             addItemProperties(subitem, subProperty);
@@ -220,6 +235,41 @@ void AwesomePropertyEditor::addItemPropertyToGroup(ParameterizedItem *item, cons
         m_d->m_browser->addProperty(variantProperty);
     }
     addItemProperty(item, property_name, variantProperty);
+}
+
+void AwesomePropertyEditor::setRecursive(bool recursive_flag)
+{
+    m_d->m_recursive_flag = recursive_flag;
+}
+
+void AwesomePropertyEditor::clearEditor()
+{
+    qDebug() << "AwesomePropertyEditor::clearEditor()";
+    disconnect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+    disconnect();
+
+//    QListIterator<QtProperty *> it(m_d->m_browser->properties());
+//    while (it.hasNext()) {
+//        m_d->m_browser->removeProperty(it.next());
+//    }
+
+    m_d->m_browser->clear();
+
+    QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair>::iterator it = m_d->m_qtproperty_to_itempropertypair.begin();
+    while(it!=m_d->m_qtproperty_to_itempropertypair.end()) {
+        //m_d->m_browser->removeProperty(it.key());
+        delete it.key();
+        it++;
+    }
+
+    m_d->m_qtproperty_to_itempropertypair.clear();
+    m_d->m_item_to_property_to_qtvariant.clear();
+    m_d->m_groupname_to_qtvariant.clear();
+
+    connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+
 }
 
 //! updates corresponding property of ParameterizedItem on editor change
@@ -295,7 +345,8 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
         }
 
         removeSubProperties(variant_property);
-        addItemProperties( item->getSubItems()[property_name], variant_property);
+
+        if(m_d->m_recursive_flag) addItemProperties( item->getSubItems()[property_name], variant_property);
 
         connect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));

@@ -21,6 +21,7 @@
 #include "BeamEditorWidget.h"
 #include "TestInstrumentWidget.h"
 #include "InstrumentScrollArea.h"
+#include "InstrumentComponentsWidget.h"
 #include <QBoxLayout>
 #include <QGroupBox>
 #include <QComboBox>
@@ -39,6 +40,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
 //    , m_testWidget(new TestInstrumentWidget(this))
     , m_currentItem(0)
     , m_block_signals(false)
+    , m_instrumentComponents(new InstrumentComponentsWidget)
 {
 
     setMinimumSize(400, 400);
@@ -63,7 +65,10 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
 
 //    m_scrollArea->setWidget(new InstrumentScrollArea);
 
-    instrumentGroupLayout->addWidget(new InstrumentScrollArea);
+//    instrumentGroupLayout->addWidget(new InstrumentScrollArea);
+//    m_scrollArea->setWidget(m_instrumentComponents);
+//    instrumentGroupLayout->addWidget(m_scrollArea);
+    instrumentGroupLayout->addWidget(m_instrumentComponents);
 
 //    instrumentGroupLayout->addWidget(m_scrollArea);
 //    instrumentGroupLayout->addWidget(m_beamWidget);
@@ -122,6 +127,10 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 //    m_beamWidget->initFromItem(beamItem);
 //    m_detectorWidget->initFromItem(detectorItem);
 //    m_testWidget->setBeamItem(beamItem);
+
+
+    TestBeamItem *testBeam = new TestBeamItem;
+    m_instrumentComponents->setBeamItem(testBeam);
 }
 
 

@@ -40,12 +40,17 @@ public:
 
     //! add multiple properties of ParameterizedItem
     void addItemProperties(ParameterizedItem *item, QtProperty *parent_qtproperty = 0);
+    void addItemPropertiesToGroup(ParameterizedItem *item, const QString &group_name);
 
     //! add single ParameterizedItem property
     void addItemProperty(ParameterizedItem *item, const QString &property_name, QtProperty *parent_qtproperty = 0);
 
     //! add single ParameterizedItem property to group
     void addItemPropertyToGroup(ParameterizedItem *item, const QString &property_name, const QString &group_name);
+
+    void setRecursive(bool recursive_flag);
+
+    void clearEditor();
 
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);

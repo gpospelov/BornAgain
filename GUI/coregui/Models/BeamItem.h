@@ -35,15 +35,15 @@ public:
 };
 
 
-
-class BA_CORE_API_ WavelengthItem : public ParameterizedItem
+class BA_CORE_API_ BeamWavelengthItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_SAMPLE_NUMBER;
-    explicit WavelengthItem(ParameterizedItem *parent=0);
-    ~WavelengthItem(){}
+    static const QString P_VALUE;
+    explicit BeamWavelengthItem(ParameterizedItem *parent=0);
+    ~BeamWavelengthItem(){}
 };
 
 
@@ -52,6 +52,7 @@ class BA_CORE_API_ TestBeamItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_INTENSITY;
+    static const QString P_WAVELENGTH;
     explicit TestBeamItem(ParameterizedItem *parent=0);
     ~TestBeamItem(){}
 };

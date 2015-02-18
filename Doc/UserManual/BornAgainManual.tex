@@ -30,7 +30,15 @@
 \usepackage[toc,page]{appendix}
 \usepackage{titlesec}
 
-\textwidth = 410pt
+\textwidth=410pt
+\hoffset=210mm % width of A4
+\advance\hoffset by -1\textwidth
+\hoffset=0.5\hoffset
+\advance\hoffset by -1in
+% Now a slight assymmetry to leave more blank on the side of the fold
+\evensidemargin=0pt
+\oddsidemargin=5pt
+\advance\evensidemargin by -1\oddsidemargin
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}

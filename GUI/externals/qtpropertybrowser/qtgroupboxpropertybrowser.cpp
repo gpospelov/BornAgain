@@ -220,6 +220,8 @@ void QtGroupBoxPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, Qt
                 parentItem->widget->setParent(parentItem->groupBox);
                 parentItem->layout->addWidget(parentItem->widget, 0, 0, 1, 2);
                 parentItem->line = new QFrame(parentItem->groupBox);
+                // g.p. 18.02.2015 AwesomePropertyEditor Bedurf
+                parentItem->widget->show();
             } else if (parentItem->widgetLabel) {
                 l->removeWidget(parentItem->widgetLabel);
                 delete parentItem->widgetLabel;
@@ -312,7 +314,8 @@ void QtGroupBoxPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
         }
 
         if (parentItem->widget) {
-            parentItem->widget->hide();
+            // g.p. 18.02.2015 AwesomePropertyEditor Bedurf
+            //parentItem->widget->hide();
             parentItem->widget->setParent(0);
         } else if (parentItem->widgetLabel) {
             parentItem->widgetLabel->hide();

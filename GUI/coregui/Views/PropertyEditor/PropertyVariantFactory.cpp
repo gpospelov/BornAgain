@@ -69,7 +69,7 @@ void PropertyVariantFactory::connectPropertyManager(
 QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         QtProperty *property, QWidget *parent)
 {
-    qDebug() << "PropertyVariantFactory::createEditor()";
+    qDebug() << "PropertyVariantFactory::createEditor()" << property->propertyName();
     if (manager->propertyType(property) ==
             PropertyVariantManager::materialTypeId()) {
         MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
@@ -178,7 +178,7 @@ void PropertyVariantFactory::disconnectPropertyManager(
 void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
-    qDebug() << "PropertyVariantFactory::slotPropertyChanged()";
+    qDebug() << "PropertyVariantFactory::slotPropertyChanged()" << property->propertyName() << value;
     if (m_property_to_material_editors.contains(property)) {
         QList<MaterialPropertyEdit *> editors =
                 m_property_to_material_editors[property];
@@ -302,6 +302,7 @@ void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
+//            itEditor.key()->repaint();
             return;
         }
         itEditor++;

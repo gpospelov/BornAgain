@@ -89,7 +89,9 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     , m_label(0)
     , m_groupProperty(0)
 {
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_box);
@@ -97,11 +99,13 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
  //   setLayout(layout);
 //    m_label->hide();
 //    update();
-    setFocusPolicy(Qt::StrongFocus);
-    setAttribute(Qt::WA_InputMethodEnabled);
+//    setFocusPolicy(Qt::StrongFocus);
+//    setAttribute(Qt::WA_InputMethodEnabled);
 
     connect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
+
+    setLayout(layout);
 }
 
 FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
@@ -170,6 +174,7 @@ void FancyGroupPropertyEdit::indexChanged(int index)
     qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << index;
     m_groupProperty->setValue(m_groupProperty->toString(index));
     emit fancyGroupPropertyChanged(m_groupProperty);
+    update();
 }
 
 
@@ -181,7 +186,7 @@ QSize FancyGroupPropertyEdit::sizeHint() const
     if(m_label) {
         return m_label->sizeHint();
     }
-    return QSize(10,10);
+    return QSize(100,10);
 }
 
 QSize FancyGroupPropertyEdit::minimumSizeHint() const
@@ -192,7 +197,7 @@ QSize FancyGroupPropertyEdit::minimumSizeHint() const
     if(m_label) {
         return m_label->minimumSizeHint();
     }
-    return QSize(10,10);
+    return QSize(100,10);
 }
 
 
@@ -359,6 +364,7 @@ QString ComboPropertyEdit::comboValueText()
 
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
+    qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
     emit comboPropertyChanged(m_combo_property);
 }

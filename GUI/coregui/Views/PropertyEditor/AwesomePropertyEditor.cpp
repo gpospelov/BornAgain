@@ -197,13 +197,15 @@ void AwesomePropertyEditor::addItemPropertyToGroup(ParameterizedItem *item, cons
 void AwesomePropertyEditor::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    qDebug() << "AwesomePropertyEditor::slotValueChanged() BROWSER_ID:" << m_d->m_browser_type << "value:" << value;
+    qDebug() << "AwesomePropertyEditor::slotValueChanged() BROWSER_ID:" << m_d->m_browser_type << "property:" << property->propertyName() << "value:" << value;
 
-    if (!m_d->m_qtproperty_to_itempropertypair.contains(property))
+    if (!m_d->m_qtproperty_to_itempropertypair.contains(property)) {
+        qDebug() << "    AwesomePropertyEditor::slotValueChanged()    -> No such property";
         return;
+    }
 
     AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair = m_d->m_qtproperty_to_itempropertypair[property];
-    qDebug() << itemPropertyPair.m_item << itemPropertyPair.m_name;
+    qDebug() << "    AwesomePropertyEditor::slotValueChanged()-> itemPropertyPair" << itemPropertyPair.m_item << itemPropertyPair.m_name;
     itemPropertyPair.m_item->setProperty(itemPropertyPair.m_name.toUtf8().data(), value);
 }
 
@@ -242,20 +244,39 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
 
     QtVariantProperty *variant_property = m_d->m_item_to_property_to_qtvariant[item][property_name];
     if(variant_property) {
+        QVariant property_value = item->property(property_name.toUtf8().data());
+
+        disconnect(item, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+        disconnect(item, SIGNAL(propertyItemChanged(QString)),
+                this, SLOT(onPropertyItemChanged(QString)));
+
+        variant_property->setValue(property_value);
+
         removeSubProperties(variant_property);
         addItemProperties( item->getSubItems()[property_name], variant_property);
+
+        connect(item, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+        connect(item, SIGNAL(propertyItemChanged(QString)),
+                this, SLOT(onPropertyItemChanged(QString)));
+
     }
+
+
 }
 
 //!
 void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
 {
-    qDebug() << "AwesomePropertyEditor::removeSubProperties" << property->propertyName();
+    qDebug() << "AwesomePropertyEditor::removeSubProperties" << property << property->propertyName();
+//    disconnect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+
     QList<QtProperty *> properties = property->subProperties();
     foreach(QtProperty *child, properties) {
         m_d->m_browser->removeProperty(child);
         delete child;
-        m_d->m_browser->update();
 
         QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair >::iterator it = m_d->m_qtproperty_to_itempropertypair.find(child);
         if(it != m_d->m_qtproperty_to_itempropertypair.end()) {
@@ -265,6 +286,46 @@ void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
         }
     }
 //    property->setModified(true);
-    update();
+//    m_d->m_browser->update();
+//    update();
+//    connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
+
+
+//    QList<QtBrowserItem *> list = m_d->m_browser->items(property);
+//    qDebug() << "xxx" << list.size();
+//    QListIterator<QtBrowserItem *> it_browser(list);
+//    while (it_browser.hasNext()) {
+//        QtBrowserItem *item = it_browser.next();
+//        QtProperty *prop = item->property();
+//        qDebug() << "aaa" << prop->propertyName();
+//        //m_d->m_browser->setCurrentItem(item);
+//        emit m_d->m_browser->currentItemChanged(item);
+
+//    }
+
 }
+
+
+
+
+//void MaterialPropertyBrowser::updateExpandState(EExpandAction action)
+//{
+//    QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
+//    while(it_prop!=m_property_to_subitem.end()) {
+//        QList<QtBrowserItem *> list = m_browser->items(it_prop.key());
+
+//        QListIterator<QtBrowserItem *> it_browser(list);
+//        while (it_browser.hasNext()) {
+//            QtBrowserItem *item = it_browser.next();
+//            QtProperty *prop = item->property();
+//            if(action == SAVE_EXPAND_STATE) {
+//                m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
+//            } else if (action == RESTORE_EXPAND_STATE) {
+//                m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
+//            }
+//        }
+//        ++it_prop;
+//    }
+//}
 

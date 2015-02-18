@@ -92,6 +92,7 @@ BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
     ComboProperty types;
     types << "property 1" << "property 2" << "property 3";
     registerProperty(P_COMBO, types.getVariant());
+//    registerGroupProperty(P_CORE_POS, Constants::VectorType);
 
     initProperties();
 }

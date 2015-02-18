@@ -1,3 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain:  simulate and fit scattering at grazing incidence
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%               Software licence does not cover this documentation
+%%               For documentation licence, contact the authors
+%%   
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %\newpage
 \chapter{\Python\ examples}
 This appendix describes the samples and the simulated output intensity maps of the examples, whose \Python\ scripts are contained in the folder /Examples/python/simulation.
@@ -7,7 +23,7 @@ This appendix describes the samples and the simulated output intensity maps of t
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Figures/py-ex/BAgeometry_wide}
+\includegraphics[width=0.6\textwidth]{Figures/py-ex/BAgeometry_wide.jpg}
 \end{center}
 \caption{The GISAS setup and the coordinate system used in
 \BornAgain. The incoming  beam propagates with incidence angles $\alpha_i$ and $\phi_i$ with respect to the sample axes as shown. A scattered (outgoing) beam, characterized by $\alpha_f$ and $\phi_f$ propagates toward the area detector.}
@@ -53,7 +69,7 @@ The simulation is performed using the Distorted Wave Born Approximation. The out
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex001}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex001.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex001.eps}}
 \hfill
@@ -81,7 +97,7 @@ The result of the simulation is shown in fig.~\ref{fig:PythonEx2}(b).
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex002}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex002.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex002.eps}}
 \hfill
@@ -100,7 +116,7 @@ The sample considered for this example and the output intensity generated using 
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003BA}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003BA.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex003BA.eps}}
 \hfill
@@ -113,7 +129,7 @@ This example considers a polydisperse distribution of cylinders (see fig.~\ref{f
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003BASize}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003BASize.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex003BASize.eps}}
 \hfill
@@ -132,7 +148,7 @@ The distribution of cylinders is monodisperse with a height and a radius of 5~nm
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003DWBA}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex003DWBA.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex003DWBA.eps}}
 \hfill
@@ -185,7 +201,7 @@ The distribution function is a two-dimensional Cauchy function with correlation 
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/g_r_2dparasq}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/g_r_2dparasq.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex0042DDLsq.eps}}
 \hfill
@@ -211,7 +227,7 @@ The simulation is run using the DWBA.
 % question: LMA with constant size of particles?? 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis1}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis1.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex005Disorder1.eps}}
 \hfill
@@ -224,7 +240,7 @@ This sample differs from the previous one by an overlap of two spatial distribut
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis2}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis2.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex005Disorder2.eps}}
 \hfill
@@ -239,7 +255,7 @@ Compared to Section~\ref{sec:ex005Dis1}, the square lattice used in this example
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis3}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis3.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex005Disorder3.eps}}
 \hfill
@@ -253,7 +269,7 @@ This sample is composed of identical cylinders. Their distribution is generated 
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis4rand}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex005Dis4rand.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex005Disorder4.eps}}
 \hfill
@@ -271,7 +287,7 @@ For the second example, shown in fig.~\ref{fig:PythonEx6RotatedPyramid}, the pyr
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex006Pyramids}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex006Pyramids.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex006Pyramids.eps}}
 \hfill
@@ -281,7 +297,7 @@ For the second example, shown in fig.~\ref{fig:PythonEx6RotatedPyramid}, the pyr
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex006RotatedPyramids}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex006RotatedPyramids.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex006RotatedPyramids.eps}}
 \hfill
@@ -301,7 +317,7 @@ The incident beam is characterized by a wavelength of 1~\AA, incident angles $\a
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex007Core}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex007Core.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex007CoreShell.eps}}
 \hfill
@@ -336,7 +352,7 @@ There is no added particle. All layers present the same type of roughness on the
 The incident beam is characterized by a wavelength of 1~\AA \ and incident angles $\alpha_i=0.2^{\circ}$ and $\phi_i=0^{\circ}$. 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex008Rough}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex008Rough.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex008CorrelatedRough.eps}}
 \hfill
@@ -361,7 +377,7 @@ The interference considered is a two-dimensional orthogonal lattice with $L_1=20
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex009Cos}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex009Cos.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex009CosRipple2DLat.eps}}
 \hfill
@@ -384,7 +400,7 @@ The influence of the interference function on the output pattern can be seen by 
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex009Tri}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex009Tri.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex009TriRipple2DLat.eps}}
 \hfill
@@ -415,7 +431,7 @@ The sample is made of cylinders (5~nm in radius and height) deposited on a subst
 
 \begin{figure}[H]
 \hfill
-\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex010BeamDiv}}
+\subfigure[Schematic of the sample]{\includegraphics[width=.49\textwidth]{Figures/py-ex/fig_ex010BeamDiv.jpg}}
 \hfill
 \subfigure[Simulated 2D pattern]{\includegraphics[width=.49\textwidth]{Figures/py-ex/figure_ex010BeamDiv.eps}}
 \hfill

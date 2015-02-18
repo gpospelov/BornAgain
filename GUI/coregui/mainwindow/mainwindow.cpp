@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
-    Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
+    Manhattan::Utils::StyleHelper::setBaseColor(QColor(Constants::MAIN_THEME_COLOR));
 
     setDockNestingEnabled(true);
 
@@ -148,8 +148,6 @@ MainWindow::MainWindow(QWidget *parent)
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
-
-    testGUIObjectBuilder();
 
     m_projectManager->createNewProject();
 }

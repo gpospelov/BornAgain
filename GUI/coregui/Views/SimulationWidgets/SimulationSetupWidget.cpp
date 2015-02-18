@@ -24,6 +24,7 @@
 #include "SampleValidator.h"
 #include "Utils.h"
 #include "PyGenTools.h"
+#include "mainwindow_constants.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -95,14 +96,19 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runSimulationButton->setMinimumHeight(50);
     runSimulationButton->setToolTip("Run the simulation using settings above.\n"
                                     " Global shortcut ctrl-r can be used to run from sample view.");
+    QPalette palette = runSimulationButton->palette();
+    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+    runSimulationButton->setPalette(palette);
 
     // export simulation to a python script
-    exportToPyScriptButton = new QPushButton(tr("Export Simulation to Python Script"));
+    exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
     exportToPyScriptButton->setIcon(QIcon(":/images/main_simulation.png"));
     exportToPyScriptButton->setMinimumWidth(100);
     exportToPyScriptButton->setMinimumHeight(50);
     exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
                                        "a python script.\n");
+    exportToPyScriptButton->setPalette(palette);
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);
@@ -113,8 +119,6 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(inputDataGroup);
     mainLayout->addWidget(simulationParametersGroup);
-    //mainLayout->addWidget(runSimulationButton);
-    //mainLayout->addWidget(runPyScriptSimulation);
     mainLayout->addLayout(simButtonLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);

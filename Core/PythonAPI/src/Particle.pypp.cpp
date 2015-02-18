@@ -154,18 +154,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         Particle::setMaterial( boost::ref(material) );
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::applyTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::applyTransformation( boost::ref(transform) );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -315,18 +303,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
-    }
-
-    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
-            func_setTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::setTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::setTransformation( boost::ref(transform) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -494,18 +470,6 @@ void register_Particle_class(){
                 , ( bp::arg("material") ) );
         
         }
-        { //::IParticle::applyTransformation
-        
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( Particle_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            
-            Particle_exposer.def( 
-                "applyTransformation"
-                , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&Particle_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
@@ -639,18 +603,6 @@ void register_Particle_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&Particle_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::IParticle::setTransformation
-        
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( Particle_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            
-            Particle_exposer.def( 
-                "setTransformation"
-                , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&Particle_wrapper::default_setTransformation)
-                , ( bp::arg("transform") ) );
         
         }
         { //::ICompositeSample::size

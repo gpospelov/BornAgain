@@ -197,7 +197,6 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
     else {
         return QColor(Qt::lightGray);
     }
-
 }
 
 

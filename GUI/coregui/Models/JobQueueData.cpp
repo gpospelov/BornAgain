@@ -136,8 +136,8 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     Simulation *simulation(0);
     try{
-        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(), jobItem->getInstrumentModel());
-
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
+                                                            jobItem->getInstrumentModel());
     } catch(const std::exception &ex) {
         jobItem->setStatus(Constants::STATUS_FAILED);
         jobItem->setProgress(100);

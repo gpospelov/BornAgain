@@ -25,6 +25,7 @@ class QPushButton;
 class SampleModel;
 class InstrumentModel;
 class JobModel;
+class Simulation;
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -42,7 +43,7 @@ public:
 
 public slots:
     void onRunSimulation();
-    void onPythonJobLaunched();
+    void onExportToPythonScript();
 
 private:
     void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
@@ -52,6 +53,8 @@ private:
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
 
+    void exportSimulation(Simulation *simulation);
+
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
@@ -60,7 +63,7 @@ private:
     QPushButton *runSimulationButton;
     QComboBox *runPolicySelectionBox;
     QComboBox *cpuUsageSelectionBox;
-    //QPushButton *runPyScriptSimulation;
+    QPushButton *exportToPyScriptButton;
 };
 
 #endif // SIMULATIONSETUPWIDGET_H

@@ -54,18 +54,25 @@ WelcomeView::WelcomeView(MainWindow *parent)
     newProjectButton->setMinimumWidth(buttonWidth);
     newProjectButton->setMinimumHeight(buttonHeight);
     newProjectButton->setFont(buttonFont);
+    QPalette button_palette = newProjectButton->palette();
+    button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+    button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+    newProjectButton->setPalette(button_palette);
+
 
     openProjectButton = new QPushButton(tr("Open Project"));
     //openProjectButton->setIcon(QIcon(":/images/main_simulation.png"));
     openProjectButton->setMinimumWidth(buttonWidth);
     openProjectButton->setMinimumHeight(buttonHeight);
     openProjectButton->setFont(buttonFont);
+    openProjectButton->setPalette(button_palette);
 
     newUsertButton = new QPushButton(tr("New to BornAgain?"));
     //newUsertButton->setIcon(QIcon(":/images/main_simulation.png"));
     newUsertButton->setMinimumWidth(buttonWidth);
     newUsertButton->setMinimumHeight(buttonHeight);
     newUsertButton->setFont(buttonFont);
+    newUsertButton->setPalette(button_palette);
 
 
 

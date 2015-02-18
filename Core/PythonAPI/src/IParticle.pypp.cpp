@@ -30,18 +30,6 @@ namespace bp = boost::python;
 
 struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::applyTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::applyTransformation( boost::ref(transform) );
-    }
-
     virtual void applyTransformationToSubParticles( ::Geometry::Transform3D const & transform ){
         bp::override func_applyTransformationToSubParticles = this->get_override( "applyTransformationToSubParticles" );
         func_applyTransformationToSubParticles( boost::ref(transform) );
@@ -77,18 +65,6 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
     
     void default_setAmbientMaterial( ::IMaterial const & material ) {
         IParticle::setAmbientMaterial( boost::ref(material) );
-    }
-
-    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
-            func_setTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::setTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::setTransformation( boost::ref(transform) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -291,12 +267,10 @@ void register_IParticle_class(){
         { //::IParticle::applyTransformation
         
             typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IParticle_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
             IParticle_exposer.def( 
                 "applyTransformation"
-                , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&IParticle_wrapper::default_applyTransformation)
+                , applyTransformation_function_type( &::IParticle::applyTransformation )
                 , ( bp::arg("transform") ) );
         
         }
@@ -376,12 +350,10 @@ void register_IParticle_class(){
         { //::IParticle::setTransformation
         
             typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IParticle_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
             IParticle_exposer.def( 
                 "setTransformation"
-                , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&IParticle_wrapper::default_setTransformation)
+                , setTransformation_function_type( &::IParticle::setTransformation )
                 , ( bp::arg("transform") ) );
         
         }

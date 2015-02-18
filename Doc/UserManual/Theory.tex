@@ -95,7 +95,7 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 \label{fig:lma}
 \end{figure}
 
-\paragraph{Size spacing correlation approximation (SSCA)} introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest--neighbour spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
+\paragraph{Size spacing correlation approximation (SSCA)} introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest--neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
 
 %For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j )$:
 %\begin{equation*}
@@ -125,7 +125,7 @@ For collections of particles, the scattered intensity contains contributions fro
 For very diluted distributions of particles, the particles are too far apart from each other to lead to any interference between the waves scattered by each of them. In this case the interference function is equal to 1. The scattered intensity is then entirely determined by the form factors of the particles distributed in the sample.
 
 \subsubsection{The regular  lattice}\mbox{}\\
-The particles are positioned at regular intervals generating a layout characterised by its base vectors $\mathbf{a}$ and $\mathbf{b}$ (in direct space) and the angle between these two vectors.
+The particles are positioned at regular intervals generating a layout characterized by its base vectors $\mathbf{a}$ and $\mathbf{b}$ (in direct space) and the angle between these two vectors.
 This lattice can be two or one-dimensional depending on the characteristics of the particles. For example when they are infinitely long, the implementation can be simplified and reduced to a "pseudo" 1D system.
 
 \paragraph{The ideal paracrystal} \mbox{}\\
@@ -188,7 +188,7 @@ The selection between DA and SSCA is made using\\
     particle_layout.setApproximation(ILayout.DA)
 \end{lstlisting}
 
-Note that with the SSCA, the users have to specify the coupling parameter $\kappa$ (with the function \Code{setKappa}), which should be a positive dimensionless value. $\kappa$ characterises the influence of the neighboring particles' sizes on their distance. If $\kappa=0$, the SSCA reduces to the DA with a radial paracrystal for the interference function.\\
+Note that with the SSCA, the users have to specify the coupling parameter $\kappa$ (with the function \Code{setKappa}), which should be a positive dimensionless value. $\kappa$ characterizes the influence of the neighboring particles' sizes on their distance. If $\kappa=0$, the SSCA reduces to the DA with a radial paracrystal for the interference function.\\
 
 For the LMA, its implementation is automatically done when using more than one layout of particles:
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
@@ -308,7 +308,7 @@ def get_sample():
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
-where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference cartesian frame as shown in fig.~\ref{fig:1dgrating}.
+where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
 \begin{figure}[ht]
 \begin{center}
@@ -318,7 +318,7 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 \label{fig:1dgrating}
 \end{figure}
 
-\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is thefore parallel to the y-axis, perpendicular to the long axis of the particles.}
+\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is therefore parallel to the y-axis, perpendicular to the long axis of the particles.}
 
 \vspace{12pt}
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}. 
@@ -373,7 +373,7 @@ A probability distribution function \Code{pdf} has to be chosen from the list in
 
 
 \MakeRemark{Remark}{
-This interference function is not one-dimensional.  It takes into account the radial componant of the scattering vector.
+This interference function is not one-dimensional.  It takes into account the radial component of the scattering vector.
 }
 
 \paragraph{Example}
@@ -406,7 +406,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell, 
 \item[]$\alpha$ the angle between the lattice basis vectors $\mathbf{a}, \mathbf{b}$ in direct space,
-\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the reference cartesian frame (as shown in figure~\ref{fig:multil3d}).
+\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the reference Cartesian frame (as shown in figure~\ref{fig:multil3d}).
 \end{itemize}
 
 \begin{figure}[ht]
@@ -485,7 +485,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 \begin{center}
 \includegraphics[width=0.75\textwidth]{Figures/drawing/drawing2Dparacrystal.eps}
 \end{center}
-\caption{Shematics of the ideal 2D paracrystal. The grey-shaded areas mark the regions where the probability to find a node is larger that the width at half-maximum of the distribution. $L$ and  $W$ are the mean inter-node distances along the two crystallographic axes. cl$_{(L,W),(x,y)}$ are the widths of the distribution of distance. The disorder is propagated as we add more nodes. Such a structure would be generated using \Code{InterferenceFunction2DParacrystal(L,W,90.*degrees,0,damp\_length)}, with \Code{pdf$_1$ = FTDistribution2DGauss(cl$_{L,x}$,cl$_{L,y}$)} and  \Code{pdf$_2$ = FTDistribution2DGauss(cl$_{W,x}$,cl$_{W,y}$)}.}
+\caption{Schematics of the ideal 2D paracrystal. The gray-shaded areas mark the regions where the probability to find a node is larger that the width at half-maximum of the distribution. $L$ and  $W$ are the mean inter-node distances along the two crystallographic axes. cl$_{(L,W),(x,y)}$ are the widths of the distribution of distance. The disorder is propagated as we add more nodes. Such a structure would be generated using \Code{InterferenceFunction2DParacrystal(L,W,90.*degrees,0,damp\_length)}, with \Code{pdf$_1$ = FTDistribution2DGauss(cl$_{L,x}$,cl$_{L,y}$)} and  \Code{pdf$_2$ = FTDistribution2DGauss(cl$_{W,x}$,cl$_{W,y}$)}.}
 \label{fig:2dparaschematic}
 \end{figure}
 
@@ -578,7 +578,7 @@ $\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
 $\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
 vector, respectively.\\
 
-The particle's shape is parametrized in a cartesian frame, with its
+The particle's shape is parametrized in a Cartesian frame, with its
 $z$-axis pointing upwards and its origin at the center of the bottom
 of the particle: $\mathbf{r}=(x,y,z)$. 
 
@@ -690,7 +690,7 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 \item in the BA, a sample composed of the particles in air.
 \end{itemize} 
 
-Figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with truncated spheroids as particles.
+Figure~\ref{fig:spheroidbadwba} shows the intensity contour plot generated using this script with truncated spheroids as particles.
 
 \newpage
 
@@ -841,7 +841,7 @@ def get_sample():
 \subsection{Core-shell particles} \label{subsec:CoreShell}
  To generate a core-shell particle, the combination is performed using the following command:\\
 \Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
-where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the centre of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
+where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the center of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
 
 Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. 
 
@@ -851,7 +851,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \hfill
 \subfigure[Top view]{\includegraphics[width=5cm]{Figures/cuts/CoreShellParallPyrxy.eps}}
 \hfill
-\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centres of the bases. }
+\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centers of the bases. }
 \label{fig:coreshell}
 \end{figure}
 
@@ -874,7 +874,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \begin{center}
 \includegraphics[angle=-90,width=0.6\textwidth]{Figures/gisasmap/CoreShellParallPyr.pdf}
 \end{center}
-\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
+\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the center of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
 \label{fig:FFCoreShellBA}
 \end{figure}
 

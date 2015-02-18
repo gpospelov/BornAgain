@@ -150,15 +150,46 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
     if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_d->m_read_only_manager;
 
     QtVariantProperty *subProperty = 0;
-    subProperty = manager->addProperty(type, property_name);
-    subProperty->setValue(prop_value);
+    if(manager->isPropertyTypeSupported(type)) {
+        if(prop_attribute.getLabel().isEmpty()) {
+            subProperty = manager->addProperty(type, property_name);
+        } else {
+            subProperty = manager->addProperty(type, prop_attribute.getLabel());
+        }
 
-    if(parent_qtproperty) {
-        parent_qtproperty->addSubProperty(subProperty);
+        if(type == QVariant::Double) {
+            subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+            AttLimits limits = prop_attribute.getLimits();
+            if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
+            if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+            subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+            subProperty->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
+        }
+
+        QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+        if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
+        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            subProperty->setEnabled(false);
+        }
+
+        subProperty->setValue(prop_value);
+
+        // adding property to parent property/manager
+        if(parent_qtproperty) {
+            parent_qtproperty->addSubProperty(subProperty);
+        } else {
+            m_d->m_browser->addProperty(subProperty);
+        }
+
     } else {
-        m_d->m_browser->addProperty(subProperty);
+        subProperty = m_d->m_read_only_manager->addProperty(QVariant::String,
+                                                     property_name);
+        subProperty->setValue(QLatin1String("< Unknown Type >"));
+        subProperty->setEnabled(false);
     }
 
+    // additing properties of SubItem
     if (item->getSubItems().contains(property_name)) {
         ParameterizedItem *subitem = item->getSubItems()[property_name];
         if (subitem) {
@@ -166,16 +197,14 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
         }
     }
 
+    // configuring PropertyEditor
     AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair(item, property_name);
-
     m_d->m_qtproperty_to_itempropertypair[subProperty] = itemPropertyPair;
     m_d->m_item_to_property_to_qtvariant[item][property_name] = subProperty;
-
     connect(item, SIGNAL(propertyChanged(QString)),
            this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
     connect(item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
-
 }
 
 //! add single ParameterizedItem property to group
@@ -225,6 +254,13 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
                 this, SLOT(onPropertyItemChanged(QString)));
 
         variant_property->setValue(property_value);
+        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            variant_property->setEnabled(false);
+        } else {
+            variant_property->setEnabled(true);
+        }
+
 
         connect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
@@ -234,7 +270,6 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
     } else {
         Q_ASSERT(0);
     }
-
 }
 
 void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
@@ -252,6 +287,12 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
                 this, SLOT(onPropertyItemChanged(QString)));
 
         variant_property->setValue(property_value);
+        PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+            variant_property->setEnabled(false);
+        } else {
+            variant_property->setEnabled(true);
+        }
 
         removeSubProperties(variant_property);
         addItemProperties( item->getSubItems()[property_name], variant_property);
@@ -260,19 +301,13 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
                this, SLOT(onPropertyChanged(QString)));
         connect(item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(onPropertyItemChanged(QString)));
-
     }
-
-
 }
 
 //!
 void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
 {
     qDebug() << "AwesomePropertyEditor::removeSubProperties" << property << property->propertyName();
-//    disconnect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-
     QList<QtProperty *> properties = property->subProperties();
     foreach(QtProperty *child, properties) {
         m_d->m_browser->removeProperty(child);
@@ -285,47 +320,5 @@ void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
             m_d->m_qtproperty_to_itempropertypair.erase(it);
         }
     }
-//    property->setModified(true);
-//    m_d->m_browser->update();
-//    update();
-//    connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-//                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-
-
-//    QList<QtBrowserItem *> list = m_d->m_browser->items(property);
-//    qDebug() << "xxx" << list.size();
-//    QListIterator<QtBrowserItem *> it_browser(list);
-//    while (it_browser.hasNext()) {
-//        QtBrowserItem *item = it_browser.next();
-//        QtProperty *prop = item->property();
-//        qDebug() << "aaa" << prop->propertyName();
-//        //m_d->m_browser->setCurrentItem(item);
-//        emit m_d->m_browser->currentItemChanged(item);
-
-//    }
-
 }
-
-
-
-
-//void MaterialPropertyBrowser::updateExpandState(EExpandAction action)
-//{
-//    QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
-//    while(it_prop!=m_property_to_subitem.end()) {
-//        QList<QtBrowserItem *> list = m_browser->items(it_prop.key());
-
-//        QListIterator<QtBrowserItem *> it_browser(list);
-//        while (it_browser.hasNext()) {
-//            QtBrowserItem *item = it_browser.next();
-//            QtProperty *prop = item->property();
-//            if(action == SAVE_EXPAND_STATE) {
-//                m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
-//            } else if (action == RESTORE_EXPAND_STATE) {
-//                m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
-//            }
-//        }
-//        ++it_prop;
-//    }
-//}
 

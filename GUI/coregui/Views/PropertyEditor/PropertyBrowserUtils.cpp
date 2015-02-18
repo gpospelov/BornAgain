@@ -86,7 +86,7 @@ void MaterialPropertyEdit::setMaterialProperty(
 FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
     , m_box(new QComboBox())
-    , m_label(0)
+    , m_label(new QLabel())
     , m_groupProperty(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -95,9 +95,9 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_box);
-//    layout->addWidget(m_label);
+    layout->addWidget(m_label);
  //   setLayout(layout);
-//    m_label->hide();
+    m_label->hide();
 //    update();
 //    setFocusPolicy(Qt::StrongFocus);
 //    setAttribute(Qt::WA_InputMethodEnabled);
@@ -122,7 +122,6 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
         m_groupProperty = groupProperty;
 
         if(groupProperty->type() == FancyGroupProperty::FIXED) {
-            Q_ASSERT(0);
             processFixedGroup();
         }
         else if(groupProperty->type() == FancyGroupProperty::SELECTABLE) {
@@ -140,8 +139,8 @@ void FancyGroupPropertyEdit::processFixedGroup()
 {
     qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getValueLabel();
 //    if(!m_label) m_label = new QLabel(this);
-//    m_box->hide();
-//    m_label->show();
+    m_box->hide();
+    m_label->show();
     m_label->setText(m_groupProperty->getValueLabel());
 }
 

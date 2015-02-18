@@ -63,6 +63,7 @@ public:
     static const QString P_DISTRIBUTION;
     static const QString P_VALUE;
     static const QString P_COMBO;
+    static const QString P_VECTOR;
     explicit BeamDistributionItem(ParameterizedItem *parent=0);
     ~BeamDistributionItem(){}
 //    virtual void onPropertyChange(const QString &name);

@@ -48,7 +48,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     BeamDistributionItem *item1 = new BeamDistributionItem;
     LayerItem *layer = new LayerItem();
 //    editor1->addItemProperty(item1, BeamDistributionItem::P_VALUE);
-//    editor1->addItemProperty(layer, LayerItem::P_THICKNESS);
+    editor1->addItemProperty(layer, LayerItem::P_THICKNESS);
 //    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
 //    editor1->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
 //    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
@@ -56,7 +56,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     editor1->addItemProperties(item1);
 
 //    editor2->addItemProperty(item1, BeamDistributionItem::P_VALUE);
-//    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
+    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
 //    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
 //    editor2->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
 //    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");

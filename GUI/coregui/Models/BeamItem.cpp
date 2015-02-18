@@ -77,6 +77,7 @@ TestBeamItem::TestBeamItem(ParameterizedItem *parent)
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString BeamDistributionItem::P_VALUE = "Value";
 const QString BeamDistributionItem::P_COMBO = "Combo";
+const QString BeamDistributionItem::P_VECTOR = "Vector";
 BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamDistributionType, parent)
 {
@@ -87,12 +88,12 @@ BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
 //    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.3";
     //setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
     qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.4";
-    registerProperty(P_VALUE, 99.0);
+    registerProperty(P_VALUE, 99.0, PropertyAttribute(PropertyAttribute::DISABLED));
 
     ComboProperty types;
     types << "property 1" << "property 2" << "property 3";
     registerProperty(P_COMBO, types.getVariant());
-//    registerGroupProperty(P_CORE_POS, Constants::VectorType);
+    registerGroupProperty(P_VECTOR, Constants::VectorType);
 
     initProperties();
 }

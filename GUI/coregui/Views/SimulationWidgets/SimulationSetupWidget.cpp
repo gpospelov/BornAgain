@@ -298,7 +298,8 @@ void SimulationSetupWidget::exportSimulation(Simulation *simulation)
 {
     Q_ASSERT(simulation);
     qDebug() << "SimulationSetupWidget::exportSimulation(const Simulation*)";
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), QString(),
+    QString default_path = QDir::homePath();
+    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), default_path,
                             tr("Python scipts (*.py)"), 0,
                             QFileDialog::DontResolveSymlinks);
     qDebug() << file_name;

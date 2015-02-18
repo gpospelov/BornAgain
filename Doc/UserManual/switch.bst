@@ -1,9 +1,19 @@
-% switch.bst
+% Generic bibliography style file
+% for use with the compact data base format of jw7.bib
+% by Joachim Wuttke and collaborators.
 
-        % copied from BibTeX standard bibliography style `abbrv' 17nov93
-	% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
-	% copied from first.bst - changed to physrev.bst
-        % changed to switch.bst 21nov97
+
+% Make permanent edits  only in sc-intern/bib/switch.bib;
+% then copy to application directory.
+
+% Change switches only in the application directory.
+
+
+% A litle history:
+% - copied from BibTeX standard bibliography style `abbrv' 17nov93
+%     version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
+% - changed to switch.bst 21nov97
+
 
 INTEGERS { switch sw.lablenauto sw.namemaju sw.yearpos sw.name sw.journit
            sw.titlit sw.journco sw.volbf sw.wutex sw.lang sw.thebib
@@ -14,7 +24,7 @@ STRINGS  { wrd.and wrd.edd sw.namesep sw.namesterm }
 %=============================================================================%
 
 FUNCTION {choices} {
-   #1 'switch :=       % main style switch
+   #2 'switch :=       % main style switch
    #0 'sw.wutex :=     % my own definitions (from wubib.sty etc.)
    #1 'sw.lang :=      % language (1) engl (2) deutsch
    #1 'sw.thebib :=    % \references (0) or \begin{bibliography} (1)
@@ -48,12 +58,18 @@ FUNCTION {initialize.switches} {
        #1 'sw.lablenauto :=
        #0 'sw.journit :=
     } {} if$
+    % PhysRevLett
+    #2 switch = {
+       #1 'sw.lablenauto :=
+       #0 'sw.journit :=
+       #4 'nam_max_voll :=
+    } {} if$
     % J Phys
     #4 switch = {
        #0 'sw.lablenauto :=
        #2 'sw.yearpos :=
        #3 'sw.name :=
-       #1 'sw.titlit :=
+       #1 'sw.title :=
     } {} if$
     % Chikago
     #5 switch = {
@@ -143,6 +159,8 @@ MACRO{aasNY}{"Ann.\ NY Acad.\ Sci."}
 MACRO{acsmi}{"ACS Appl. Mater. Interfaces"}
 MACRO{acp}  {"Adv.\ Chem.\ Phys."}
 MACRO{amm}  {"Acta metall.\ mater."}
+MACRO{ammm} {"Am.\ Math.\ Mon."}
+MACRO{amse} {"Adv.\ Mat.\ Sci.\ Eng."}
 MACRO{assp} {"Adv.\ Solid State Phys.\ (Festk\ouml rperprobleme)"}
 % define outside the bibtex environment: \def\ouml{\"o}
 MACRO{acsss}{"Am.~Chem.\ Soc.\ Symp.\ Ser."}
@@ -157,8 +175,8 @@ MACRO{aop}  {"Appl. Optics"}
 MACRO{asp}  {"Appl.\ Spectrosc."}
 MACRO{avp}  {"Adv.\ Phys."}
 MACRO{avpc} {"Adv.\ Phys.\ Chem."}
-MACRO{ax}   {"Acta Cryst.\ A"}
-MACRO{axA}  {"Acta Cryst.\ B"}
+MACRO{ax}   {"Acta Cryst."}
+MACRO{axA}  {"Acta Cryst.\ A"}
 MACRO{axB}  {"Acta Cryst.\ B"}
 MACRO{axC}  {"Acta Cryst.\ C"}
 MACRO{axD}  {"Acta Cryst.\ D"}
@@ -180,16 +198,22 @@ MACRO{csr}  {"Chem.\ Soc.\ Rev."}
 MACRO{cssp} {"Comm.\ Sol.\ State Phys."}
 MACRO{cop}  {"Contemporary Phys."}
 MACRO{crasB}{"C.~R.\ Acad.\ Sc.\ Paris B"}
-MACRO{ddf}  {"Defect Diffus.\ Forum"}
 MACRO{dan}  {"Dok.\ Akad.\ Nauk SSSR"}
+MACRO{ddf}  {"Defect Diffus.\ Forum"}
+MACRO{dm}   {"Discrete Math."}
 MACRO{ebpj} {"Eur.\ Biophys.~J."}
+MACRO{ecb}  {"Eur.\ Chem.\ Bull."}
 MACRO{epjB} {"Eur.\ Phys.~J.\ B"}
+MACRO{epjE} {"Eur.\ Phys.~J.\ E"}
 MACRO{epjST} {"Eur.\ Phys.~J.\ Special Topics"}
 MACRO{epl}  {"Europhys.\ Lett."}
+MACRO{epl0} {"EPL"}
 MACRO{Fd}   {"Faraday Discuss."}
 MACRO{febsl}{"Fed.\ Eur. Biochem.\ Soc.\ Lett."}
 MACRO{fscs} {"Faraday Symp.\ Chem.\ Soc."}
-MACRO{hfi}  {"Hyperfine Interactions "}
+MACRO{hfi}  {"Hyperfine Interactions"}
+MACRO{ijbmm}{"Int.~J.\ Biol.\ Macromol."}
+MACRO{ijps} {"Int.~J.\ Phys.\ Sci."}
 MACRO{ijtp} {"Int.~J.\ Thermophys."}
 MACRO{itse} {"IEEE T.\ Software Eng."}
 MACRO{jACmp}{"J.~Alloys Comp."}
@@ -221,6 +245,7 @@ MACRO{jnr}  {"J.~Neutron Res."}
 MACRO{jpc}  {"J.~Phys.\ Chem."}
 MACRO{jpcA} {"J.~Phys.\ Chem. A"}
 MACRO{jpcB} {"J.~Phys.\ Chem. B"}
+MACRO{jpcbp}{"J.~Phys.\ Chem. Biophys."}
 MACRO{jpcC} {"J.~Phys.\ Chem. C"}
 MACRO{jpcl} {"J.~Phys.\ Chem.\ Lett."}
 MACRO{jpcs} {"J.~Phys.\ Chem.\ Solids"}
@@ -230,6 +255,7 @@ MACRO{jpii} {"J.~Phys.\ B"}
 MACRO{jpiii}{"J.~Phys.\ C"}
 MACRO{jpiv} {"J.~Phys.~D: Appl.\ Phys."}
 MACRO{jpCM} {"J.~Phys.\ Condens. Matter"}
+MACRO{jpCf} {"J.~Phys.: Conf.\ Ser."}
 MACRO{jpEsi}{"J.~Phys.\ E Sci.\ Instr."}
 MACRO{jpMP} {"J.~Phys.\ F Metal Phys."}
 MACRO{jpF} {"J.~Phys.\ France"}
@@ -239,6 +265,7 @@ MACRO{jpPL} {"J.~Physique Lett."}
 MACRO{jprad}{"J.~Phys.\ Radium"}
 MACRO{jpsJ} {"J.~Phys.\ Soc.\ Jpn."}
 MACRO{jPmSB}{"J.~Polym.\ Sci.\ B"}
+MACRO{jrsi} {"J.~Roy.\ Soc.\ Interf."}
 MACRO{jrNBS}{"J.~Res.\ N.~B.~S."}
 MACRO{jsp}  {"J.~Stat.\ Phys."}
 MACRO{jsyr} {"J.~Synchrotron Rad."}
@@ -258,6 +285,7 @@ MACRO{nim}  {"Nucl.\ Inst.\ Meth."}
 MACRO{nimA} {"Nucl.\ Inst.\ Meth.\ A"}
 MACRO{nimB} {"Nucl.\ Inst.\ Meth.\ B"}
 MACRO{njp}  {"New J.~Phys."}
+MACRO{nl}   {"Nanoletters"}
 MACRO{nn}   {"Neutron News"}
 MACRO{nnt}  {"Nano\-techno\-logy"}
 MACRO{nse}  {"Nucl.\ Sci.\ Eng."}
@@ -294,6 +322,7 @@ MACRO{ptps} {"Prog.\ Theor.\ Phys.\ Suppl."}
 MACRO{py}   {"Physica"}
 MACRO{pyA}  {"Physica\ A"}
 MACRO{pyB}  {"Physica\ B"}
+MACRO{pyBC} {"Physica\ B$+$C"}
 MACRO{pyZ}  {"Physik.~Z."}
 MACRO{pzSU} {"Physik.~Z.\ Sowjet."}
 MACRO{rpp}  {"Rep.\ Progr.\ Phys."}
@@ -675,7 +704,7 @@ FUNCTION {format.vol.pages.date}
 { sw.yearpos #3 = {
     "{\bf " y * "}, " *
     v empty$ {} { v * ", " * } if$
-    p empty$ {} { p n.dashify * pf empty$ {} { "--" * pf * } if$ } if$
+    p empty$ {} { p n.dashify * pf empty$ sw.pf #0 = or {} { "--" * pf * } if$ } if$
   } {
     v empty$
       { "" }
@@ -695,14 +724,14 @@ FUNCTION {format.vol.pages.date}
         'skip$
         { duplicate$ empty$
 	   { pop$ format.pages }
-	   { ", " * p n.dashify * pf empty$ {} { "--" * pf * } if$ } % MOD
+	   { ", " * p n.dashify * pf empty$ sw.pf #0 = or {} { "--" * pf * } if$ } % MOD
 	 if$
       }
       if$
       format.date *
     } {
       sw.yearpos #1 = { format.date * } {} if$
-      p empty$ {} { " " * p n.dashify * pf empty$ {} { "--" * pf * } if$ } if$
+      p empty$ {} { " " * p n.dashify * pf empty$ sw.pf #0 = or {} { "--" * pf * } if$ } if$
     } if$
   } if$
 }

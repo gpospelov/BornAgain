@@ -299,7 +299,7 @@ void SimulationSetupWidget::exportSimulation(Simulation *simulation)
                             QFileDialog::DontResolveSymlinks);
     qDebug() << file_name;
     QFile file(file_name);
-    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
+    if (!file.open(QIODevice::WriteOnly)) {
         qDebug() << "SimulationSetupWidget::exportSimulation: Error! Can't save file";
         return;
     }

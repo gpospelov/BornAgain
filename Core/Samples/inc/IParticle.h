@@ -61,10 +61,10 @@ public:
     }
 
     //! Sets transformation.
-    virtual void setTransformation(const Geometry::Transform3D& transform);
+    void setTransformation(const Geometry::Transform3D& transform);
 
     //! Applies transformation by composing it with the existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
+    void applyTransformation(const Geometry::Transform3D& transform);
 
 protected:
     virtual void applyTransformationToSubParticles(

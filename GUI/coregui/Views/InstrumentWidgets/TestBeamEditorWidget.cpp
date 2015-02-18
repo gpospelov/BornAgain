@@ -42,8 +42,8 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 //    beamParamsLayout->addWidget(new QLineEdit, 0, 1);
 
 
-    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
-    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
+    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_BUTTON_TYPE);
 
     BeamDistributionItem *item1 = new BeamDistributionItem;
     LayerItem *layer = new LayerItem();
@@ -53,7 +53,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 //    editor1->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
 //    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
 
-    editor1->addItemProperties(item1);
+//    editor1->addItemProperties(item1);
 
 //    editor2->addItemProperty(item1, BeamDistributionItem::P_VALUE);
 //    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
@@ -64,7 +64,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     editor2->addItemProperties(item1);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(editor1, 3);
+//    hlayout->addWidget(editor1, 3);
     hlayout->addWidget(editor2);
 
     beamGroupLayout->addLayout(hlayout);

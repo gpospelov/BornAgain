@@ -85,10 +85,23 @@ void MaterialPropertyEdit::setMaterialProperty(
 // -----------------------------------------------------------------------------
 FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
-    , m_box(0)
+    , m_box(new QComboBox())
     , m_label(0)
     , m_groupProperty(0)
 {
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_box);
+//    layout->addWidget(m_label);
+ //   setLayout(layout);
+//    m_label->hide();
+//    update();
+    setFocusPolicy(Qt::StrongFocus);
+    setAttribute(Qt::WA_InputMethodEnabled);
+
+    connect(m_box, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged(int)));
 }
 
 FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
@@ -105,6 +118,7 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
         m_groupProperty = groupProperty;
 
         if(groupProperty->type() == FancyGroupProperty::FIXED) {
+            Q_ASSERT(0);
             processFixedGroup();
         }
         else if(groupProperty->type() == FancyGroupProperty::SELECTABLE) {
@@ -121,19 +135,28 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
 void FancyGroupPropertyEdit::processFixedGroup()
 {
     qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getValueLabel();
-    if(!m_label) m_label = new QLabel(this);
+//    if(!m_label) m_label = new QLabel(this);
+//    m_box->hide();
+//    m_label->show();
     m_label->setText(m_groupProperty->getValueLabel());
 }
 
 
 void FancyGroupPropertyEdit::processSelectableGroup()
 {
-    if(!m_box) m_box = new QComboBox(this);
+    qDebug() << "FancyGroupPropertyEdit::processSelectableGroup()";
+//    if(!m_box) m_box = new QComboBox(this);
 
+//    m_label->hide();
+//    m_box->show();
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
-    if(!m_box->count()) m_box->insertItems(0, m_groupProperty->getValueLabels());
+    if(m_box->count() != m_groupProperty->getValueLabels().size()) {
+        m_box->clear();
+        qDebug() << "XXX inserting_items" << m_groupProperty->getValueLabels();
+        m_box->insertItems(0, m_groupProperty->getValueLabels());
+    }
     m_box->setCurrentIndex(m_groupProperty->index());
 
     connect(m_box, SIGNAL(currentIndexChanged(int)),

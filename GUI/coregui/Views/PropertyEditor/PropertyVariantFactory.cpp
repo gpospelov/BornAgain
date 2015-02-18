@@ -69,6 +69,7 @@ void PropertyVariantFactory::connectPropertyManager(
 QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         QtProperty *property, QWidget *parent)
 {
+    qDebug() << "PropertyVariantFactory::createEditor()";
     if (manager->propertyType(property) ==
             PropertyVariantManager::materialTypeId()) {
         MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
@@ -177,6 +178,7 @@ void PropertyVariantFactory::disconnectPropertyManager(
 void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
+    qDebug() << "PropertyVariantFactory::slotPropertyChanged()";
     if (m_property_to_material_editors.contains(property)) {
         QList<MaterialPropertyEdit *> editors =
                 m_property_to_material_editors[property];

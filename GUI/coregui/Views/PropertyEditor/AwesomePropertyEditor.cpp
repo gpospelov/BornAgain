@@ -125,7 +125,7 @@ QSize AwesomePropertyEditor::minimumSizeHint() const
 void AwesomePropertyEditor::addItemProperties(ParameterizedItem *item, QtProperty *parent_qtproperty)
 {
     Q_ASSERT(item);
-    qDebug() << "AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name)" << item->modelType();
+    qDebug() << "addItemProperties(ParameterizedItem *item, QtProperty *parent_qtproperty)" << item->modelType() << parent_qtproperty;
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
@@ -247,7 +247,7 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
     }
 }
 
-
+//!
 void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
 {
     qDebug() << "AwesomePropertyEditor::removeSubProperties" << property->propertyName();
@@ -255,12 +255,16 @@ void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
     foreach(QtProperty *child, properties) {
         m_d->m_browser->removeProperty(child);
         delete child;
+        m_d->m_browser->update();
 
         QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair >::iterator it = m_d->m_qtproperty_to_itempropertypair.find(child);
         if(it != m_d->m_qtproperty_to_itempropertypair.end()) {
             AwesomePropertyEditorPrivate::ItemPropertyPair itemPair = it.value();
+            m_d->m_item_to_property_to_qtvariant.remove(itemPair.m_item);
             m_d->m_qtproperty_to_itempropertypair.erase(it);
         }
     }
+//    property->setModified(true);
+    update();
 }
 

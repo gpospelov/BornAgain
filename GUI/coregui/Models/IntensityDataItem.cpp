@@ -46,7 +46,7 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
              << Constants::GRADIENT_ION << Constants::GRADIENT_THERMAL
              << Constants::GRADIENT_POLAR << Constants::GRADIENT_SPECTRUM
              << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
-    gradient.setValue(Constants::GRADIENT_POLAR);
+    gradient.setValue(Constants::GRADIENT_JET);
     registerProperty(P_GRADIENT, gradient.getVariant());
 
     registerProperty(P_AXES_UNITS, AngleProperty::Degrees(), PropertyAttribute(PropertyAttribute::HIDDEN));

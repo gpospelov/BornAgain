@@ -97,7 +97,7 @@ void TestBeamEditorWidget::initWavelengthWidget()
 //    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_VALUE, "Wavelength");
 
 //    m_wavelengthEditor->insertItemProperty(wavelengthItem, BeamWavelengthItem::P_VALUE);
-    m_wavelengthEditor->insertItemProperties(wavelengthItem);
+    m_wavelengthEditor->insertItemProperties(wavelengthItem, 0, AwesomePropertyEditor::INSERT_AFTER, AwesomePropertyEditor::INSERT_AFTER);
 
 
 //    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),

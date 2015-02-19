@@ -178,11 +178,17 @@
 \newcommand{\MakeRemark}[2]
 { \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
 }
+\newcommand{\BareRemark}[1]%
+{\noindent\smallpencil\colorbox{Lightgray}%
+{\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}}
 
 \newcommand{\ImportantPoint}[2]
 {\noindent
   {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
  {\underline{#1} #2}}}
+\newcommand{\BareWarning}[1]%
+{\noindent{\huge\danger}\colorbox{Lightgray}%
+{\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}\vspace*{0.7ex}}
 
 \newcommand{\mychapter}[2]{
     \setcounter{chapter}{#1}
@@ -291,7 +297,9 @@ Disclaimer:\index{Disclaimer}\index{BornAgain@\BornAgain!disclaimer}
             &We cannot guarantee that they are accurate and correct.\\
             &Anyway, it is entirely in the responsibility of users
              to ensure\\
-            &that their data interpretation is physically meaningful.\\
+             &that their data interpretation is physically meaningful.\\
+\index{Collaboration}
+\index{Scientific collaboration}
             &If in doubt, contact us for assistance or scientific collaboration.
 \end{tabular}
 
@@ -300,7 +308,7 @@ Disclaimer:\index{Disclaimer}\index{BornAgain@\BornAgain!disclaimer}
 \cleardoublepage
 
 \input{Introduction}
-\input{QuickStart}
+\input{OnlineDocs}
 \input{Simulation}
 \input{Theory}
 \input{Fitting}

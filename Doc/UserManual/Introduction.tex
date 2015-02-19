@@ -21,10 +21,13 @@
 to simulate and fit small-angle
 scattering at grazing incidence (GISAS). 
 It supports analysis of both X-ray (GISAXS) and neutron (GISANS) data.
+\index{GISANS}
+\index{GISAXS}
 Its name, \BornAgain,\index{BornAgain@\BornAgain!name}
 indicates the central role of the distorted-wave Born
 approximation (DWBA) in the physical description of the
 scattering process.
+\index{Distorted wave Born approximation}
 The software provides a generic framework for modeling multilayer samples with smooth or
 rough interfaces and with various types of embedded nano\-particles.
 
@@ -61,21 +64,13 @@ version \UserManualVersionNumber,\newline
 \url{http://www.bornagainproject.org}
 \end{quote}
 
-\index{Disclaimer}\index{BornAgain@\BornAgain!disclaimer}
-Software and documentation are work in progress.
-We cannot guarantee that they are accurate and correct.
-Anyway, it is entirely in the responsibility of users
-to ensure that their data interpretation is physically meaningful.
-If in doubt, please contact us.
-We are grateful for all kind of feedback:
-criticism, praise, bug reports, feature requests or contributed modules.
-If questions go beyond normal user support,
-we will be glad to discuss a scientific collaboration.
-
 This User Manual is complementary to the online documentation
 at \url{http://www.bornagainproject.org}.
-In particular, for download and installation instructions,
-\SecRef{QuickStart} just refers there.
+It does not duplicate information that is more conveniently read online.
+Therefore, \SecRef{online} just contains a few pointers to the web site.
+The remainder of this User Manual mostly contains background
+on the sample models and on the scattering theory implemented in \BornAgain,
+and some documentation of the corresponding \Python\ functions.
 \SecRef{Simulation} describes
 the general methodology of a simulation with \BornAgain,
 and gives detailed usage examples.
@@ -83,6 +78,27 @@ and gives detailed usage examples.
 which sample structures are supported in \BornAgain,
 and which physical approximations are used.
 Fitting is explained in \SecRef{Fitting}.
-
 More theoretical background is given in Appendix~\ref{app:theory}.
 Implemented particle formfactors are specified in Appendix~\ref{app:ff}.
+
+\index{Disclaimer}\index{BornAgain@\BornAgain!disclaimer}
+\BareWarning{Software and documentation are work in progress.
+We cannot guarantee that they are accurate and correct.
+Anyway, it is entirely in the responsibility of users
+to ensure that their data interpretation is physically meaningful.
+If in doubt, please contact us.}
+
+\noindent
+\index{Feedback}
+\index{Criticism}
+\index{Praise}
+\index{Bug reports}
+\index{Feature requests}
+\index{Collaboration}
+\index{Scientific collaboration}
+\index{Contributing}
+\index{Support}
+We are grateful for all kind of feedback:
+criticism, praise, bug reports, feature requests or contributed modules.
+If questions go beyond normal user support,
+we will be glad to discuss a scientific collaboration.

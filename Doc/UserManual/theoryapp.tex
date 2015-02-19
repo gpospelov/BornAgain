@@ -23,10 +23,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
-\subsection{Green operators and the $T$--matrix}
+\subsection{Green operators and the $T$-matrix}
 %===============================================================================
 
-For a particle, governed by the Schr\"odinger equation with Hamiltonian $H = H_0 + V$, the time--independent scattering theory formally consists of solving the eigenvalue equations:
+For a particle, governed by the Schr\"odinger equation with Hamiltonian $H = H_0 + V$, the time-independent scattering theory formally consists of solving the eigenvalue equations:
 
 \begin{equation*}
   H\Psi_\alpha = E_\alpha\Psi_\alpha \; ,
@@ -48,16 +48,16 @@ where the Green operators are defined as:
   G^\pm_0(E) &= (E-H_0\pm i\epsilon )^{-1}  \\
   G^\pm (E) &= (E-H\pm i\epsilon )^{-1} \; .
 \end{align*}
-In these equations, the upper index or sign refers to the state corresponding with the free state $\Psi_{0\alpha}$ at time $t\rightarrow - \infty$ (and vice--versa for the lower sign). Since the solutions of the eigenvalue equations, both for the unperturbed as for the full Hamiltonian, are dependent on the energy eigenvalue $E$, the index $\alpha$ is assumed to include this value (and possibly other quantum numbers).
+In these equations, the upper index or sign refers to the state corresponding with the free state $\Psi_{0\alpha}$ at time $t\rightarrow - \infty$ (and vice-versa for the lower sign). Since the solutions of the eigenvalue equations, both for the unperturbed as for the full Hamiltonian, are dependent on the energy eigenvalue $E$, the index $\alpha$ is assumed to include this value (and possibly other quantum numbers).
 
-The transition amplitude between two asymptotic states is given by the $S$--matrix elements, defined as:
+The transition amplitude between two asymptotic states is given by the $S$-matrix elements, defined as:
 \begin{align}
   S_{\alpha\beta} &\equiv \braket{\Psi_{0\beta}}{S}{\Psi_{0\alpha}} \nonumber\\
   & \equiv \braketnoop{\Psi_\beta^-}{\Psi_\alpha^+} \; .
   \label{<++>}
 \end{align}
 
-The $S$--matrix can be decomposed into a delta function, representing the absence of scattering, and a $T$--matrix that encodes the scattering part, caused by the potential $V$:
+The $S$-matrix can be decomposed into a delta function, representing the absence of scattering, and a $T$-matrix that encodes the scattering part, caused by the potential $V$:
 \begin{equation*}
   S_{\alpha\beta} = \delta (E_\alpha - E_\beta)\delta_{\alpha\beta} - 2\pi i \delta (E_\alpha - E_\beta) T^\pm_{\alpha\beta} \; ,
 \end{equation*}
@@ -68,14 +68,14 @@ with
 \end{align*}
 On the energy shell $E_\alpha = E_\beta$, one has $T^+_{\alpha\beta}= T^-_{\alpha\beta}$, so that both formulations are equivalent.
 
-By expanding the eigenstates $\Psi^\pm_\alpha$ in these equations, the $T$--matrix elements (on--shell) can be expressed as:
+By expanding the eigenstates $\Psi^\pm_\alpha$ in these equations, the $T$-matrix elements (on-shell) can be expressed as:
 \begin{equation*}
   T^\pm_{\alpha\beta} = V + VG^+ V \; .
 \end{equation*}
 
 
 %===============================================================================
-\subsection{Momentum representation and the scattering cross--section}
+\subsection{Momentum representation and the scattering cross-section}
 %===============================================================================
 
 The previous general formulas can also be presented in a momentum (and position) eigenbasis, defined by:
@@ -92,7 +92,7 @@ The wavefunction that evolves from a momentum eigenstate $\ket{\vect{k}_i}$ can 
 \begin{equation*}
   \braketnoop{\vect{r}}{\Psi^+} = \braketnoop{\vect{r}}{\vect{k}_i} + \braket{\vect{r}}{G_0^+T}{\vect{k}_i} \; ,
 \end{equation*}
-which in the far--field limit becomes:
+which in the far-field limit becomes:
 \begin{align*}
   \braketnoop{\vect{r}}{\Psi^+} &= (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} - \frac{4\pi^2m}{\hbar^2}\cdot\frac{e^{ik_f r}}{r} \braket{\vect{k}_f}{T}{\vect{k}_i} \right]  \\
   &\equiv (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} + f(\theta,\phi)\frac{e^{ik_f r}}{r} \right] \; ,
@@ -102,11 +102,11 @@ where the scattering amplitude was defined as
   f(\theta, \phi) = -\frac{4\pi^2m}{\hbar^2}\braket{\vect{k}_f}{T}{\vect{k}_i} \; .
 \end{equation*}
 
-The amount of particles per unit time that are scattered in a small solid angle $d\Omega$ in direction $\vect{k}_f$ will then be (still in the far--field limit):
+The amount of particles per unit time that are scattered in a small solid angle $d\Omega$ in direction $\vect{k}_f$ will then be (still in the far-field limit):
 \begin{equation*}
   dI_{scat} = J_0\lvert f(\theta,\phi)\rvert^2d\Omega \; ,
 \end{equation*}
-where $J_0$ denotes the incident flux density. The scattering cross--section is defined as:
+where $J_0$ denotes the incident flux density. The scattering cross-section is defined as:
 \begin{equation*}
   \frac{d\sigma}{d\Omega}\equiv \frac{dI_{scat}}{J_0 d\Omega} = \lvert f(\theta,\phi) \rvert^2 \; .
 \end{equation*}
@@ -121,7 +121,7 @@ In the case of pure nuclear scattering, the Hamiltonian describing a neutron in 
 \begin{equation*}
   V = \frac{2\pi \hbar^2}{m}\rho_s(\vect{r}) \; ,
 \end{equation*}
-with $\rho_s(\vect{r})$ the scattering length density of the sample. This scattering length density typically consists of a sum of weighted delta--functions, peaked at the atomic positions of the sample. For small scattering angles, the Bragg condition will not be fulfilled and the scattering length density may be replaced by a continuous function, representing the average scattering length density. In this case, one can define a refractive index, which in general will also be a continuous function of the position in the sample:
+with $\rho_s(\vect{r})$ the scattering length density of the sample. This scattering length density typically consists of a sum of weighted delta-functions, peaked at the atomic positions of the sample. For small scattering angles, the Bragg condition will not be fulfilled and the scattering length density may be replaced by a continuous function, representing the average scattering length density. In this case, one can define a refractive index, which in general will also be a continuous function of the position in the sample:
 \begin{equation*}
   n^2(\vect{r}) \equiv 1 - \frac{4\pi}{k_0^2}\rho_s(\vect{r}) \; ,
 \end{equation*}
@@ -138,9 +138,9 @@ Using these definitions, one can rescale the Hamiltonian with a factor $2m/\hbar
   \widetilde{H} &\equiv -\Delta + \widetilde{V} \nonumber \\
   \widetilde{V}(\vect{r}) &\equiv 4\pi\rho_s(\vect{r}) = k_0^2(1-n^2(\vect{r})) \; .
 \end{align*}
-It should be noted that this Hamiltonian implicitly contains the energy eigenvalue ($E_{k_0}=(\hbar k_0)^2/2m$), so that it can only be used in the time--independent Schr\"odinger equation $H\Psi_\alpha = E_\alpha \Psi_\alpha$.
+It should be noted that this Hamiltonian implicitly contains the energy eigenvalue ($E_{k_0}=(\hbar k_0)^2/2m$), so that it can only be used in the time-independent Schr\"odinger equation $H\Psi_\alpha = E_\alpha \Psi_\alpha$.
 
-The $T$--matrix then also becomes rescaled and the scattering amplitude becomes:
+The $T$-matrix then also becomes rescaled and the scattering amplitude becomes:
 \begin{equation*}
   f(\theta, \phi) = -2\pi^2 \braket{\vect{k}_f}{\widetilde{T}}{\vect{k}_i} \; .
 \end{equation*}
@@ -163,7 +163,7 @@ where $\vect{q}\equiv \vect{k}_i - \vect{k}_f$ denotes the wavevector transfer a
   \rho_s(\vect{r}) = \frac{k_0^2}{4\pi}(1-n^2(\vect{r})) \; .
 \end{equation*}
 
-The differential cross--section (per scattering center) is then given by:
+The differential cross-section (per scattering center) is then given by:
 \begin{equation*}
   \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2 \; .
 \end{equation*}
@@ -172,7 +172,7 @@ Following the initial assumptions. the scattering length density can be written 
 \begin{equation*}
 \rho_s(\vect{r}) = \sum_i \rho_{s,i} S^i(\vect{r}) \otimes \delta (\vect{r}-\vect{R}^i) \; ,
 \end{equation*}
-with $\rho_{s,i}$ the scattering length density of particle $i$. The cross--section then becomes:
+with $\rho_{s,i}$ the scattering length density of particle $i$. The cross-section then becomes:
 \begin{align*}
   N\frac{d\sigma}{d\Omega}(\vect{q}) & = \left\lvert \sum_i F^i(\vect{q}) \exp (i\vect{q}\cdot\vect{R}^i) \right\rvert ^2  \\
   & = \left\lbrace \sum_i \left\lvert F^i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F^i(\vect{q}) F^{j*}(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}^i-\vect{R}^j)\right] \right\rbrace \; .
@@ -183,7 +183,7 @@ In the last expression, the formfactors $F^i(\vect{q})$ are the Fourier transfor
 \end{equation*}
 
 
-Since in most real conditions only the statistical properties of the particles are known, one can consider the expectation value of this cross--section. Assuming that the particles' shapes are determined by their class $\alpha$, with abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density $\rho_V \equiv N/V$, the expectation value becomes:
+Since in most real conditions only the statistical properties of the particles are known, one can consider the expectation value of this cross-section. Assuming that the particles' shapes are determined by their class $\alpha$, with abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}
   \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\vect{q})\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\vect{q})F_\beta^*(\vect{q})  \\
   & \times \iint_V d^3\vect{R}_\alpha d^3\vect{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot (\vect{R}_\alpha - \vect{R}_\beta ) \right] \; .
@@ -222,7 +222,7 @@ $S_{\alpha\beta} (\vect{q})$ is called the \emph{interference function} and $\la
 %===============================================================================
 \index{Decoupling approximation}
 
-When the partial pair correlation function is independent of the particle class $\alpha$ ($ \ppcfb{\alpha}{\beta}{R} \equiv g(\vect{R}_{\alpha\beta})$ ), the scattering cross--section becomes:
+When the partial pair correlation function is independent of the particle class $\alpha$ ($ \ppcfb{\alpha}{\beta}{R} \equiv g(\vect{R}_{\alpha\beta})$ ), the scattering cross-section becomes:
 \begin{equation*}
 \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  = I_d(\vect{q}) + \left\lvert \left\langle F_\alpha(\vect{q}) \right\rangle_\alpha \right\rvert ^2 \times S(\vect{q}) \; ,
 \end{equation*}
@@ -238,21 +238,21 @@ where
 \index{LMA|see {Local monodisperse approximation}}
 \index{Local monodisperse approximation}
   
-By assuming that inside every coherence region of the beam, the particle class (or size/shape) is fixed, the cross--section will consist of an incoherent superposition of these different coherence regions and can be written as:
+By assuming that inside every coherence region of the beam, the particle class (or size/shape) is fixed, the cross-section will consist of an incoherent superposition of these different coherence regions and can be written as:
 \begin{equation*}
   \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle \simeq \left\langle \left\lvert F_\alpha(\vect{q})\right\rvert ^2 S_\alpha(\vect{q}) \right\rangle_\alpha \; .
 \end{equation*}
 
-Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape--dependent pair correlation functions by having distinct interference functions $S_\alpha(\vect{q})$.
+Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape-dependent pair correlation functions by having distinct interference functions $S_\alpha(\vect{q})$.
 
 
 %===============================================================================
-\subsection{Size--Spacing Correlation Approximation}
+\subsection{Size-Spacing Correlation Approximation}
 %===============================================================================
-\index{Size--spacing correlation approximation}
-\index{SSCA|see {Size--spacing correlation approximation}}
+\index{Size-spacing correlation approximation}
+\index{SSCA|see {Size-spacing correlation approximation}}
 
-In the Size--Spacing Correlation Approximation, a correlation is assumed between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest--neighbor spacing depends linearly on the sum of their respective sizes. The following discussion of this type of correlation is inspired by \cite{LaLR07}
+In the Size-Spacing Correlation Approximation, a correlation is assumed between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes. The following discussion of this type of correlation is inspired by \cite{LaLR07}
 
 The scattered intensity can also be calculated as the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density:
 \begin{equation*}
@@ -282,7 +282,7 @@ Taking $x$ as the coordinate in the direction in which the particles are arrange
 \end{align*}
 where $p(\alpha_0,\dotsc ,\alpha_n)$ denotes the probability of having a sequence of particles of the indicated sizes/shapes and $P_n(x|\alpha_0\dotsc\alpha_n)$ is the probability density of having a particle of type $\alpha_n$ at a (positive) distance $x$ of its nearest neighbor of type $\alpha_{n-1}$ in a sequence of the given order.
 
-In the Size--Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
+In the Size-Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
 \begin{equation*}
   p(\alpha_0,\dotsc ,\alpha_n) = \prod_i p(\alpha_i) \; ,
 \end{equation*}
@@ -312,7 +312,7 @@ and the Fourier transform of $P_1(x|\alpha_0\alpha_1)$ is
   \curlp (\vectq ) = \phi (\vectq )e^{i q_x D_0} e^{i \kappa q_x \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right] } \; .
 \end{equation*}
 
-Using the result from the one--dimensional analysis, one can apply this formula ad hoc for distributions of particles in a plane, where the coordinate $x$ will now be replaced with $(x,y)$, while the $s$ coordinate encodes a position in the remaining orthogonal direction. One must be aware however that this constitutes a further approximation, since this type of correlation does not have a general solution in more than one dimension.
+Using the result from the one-dimensional analysis, one can apply this formula ad hoc for distributions of particles in a plane, where the coordinate $x$ will now be replaced with $(x,y)$, while the $s$ coordinate encodes a position in the remaining orthogonal direction. One must be aware however that this constitutes a further approximation, since this type of correlation does not have a general solution in more than one dimension.
 
 The intensity in \refeq{sscainf} will contain a Dirac delta function contribution, caused by taking an infinite sum of terms that are perfectly correlated at $\vectq = 0$. One can leverage this behaviour by multiplying the nearest neighbor distribution by a constant factor $e^{-D/\Lambda}$, which removes the division by zero in \refeq{sscainf}.
 Another way of dealing with this infinity at $\vectq =0$ consists of taking only a finite number of terms, in which case the geometric series still has an analytic solution, but becomes a bit more cumbersome:
@@ -322,7 +322,7 @@ Another way of dealing with this infinity at $\vectq =0$ consists of taking only
   & \times \left[ \left( 1 - \frac{1}{N}\right) \frac{\Omega_\kappa(\vectq )}{1 - \Omega_\kappa(\vectq ) } - \frac{1}{N}\frac{\Omega_\kappa^2(\vectq )\left( 1- \Omega_\kappa^{N-1}(\vectq )\right) }{\left( 1 - \Omega_\kappa(\vectq ) \right) ^2 } \right] \Biggr\rbrace \; .
 \end{split}
 \end{equation*}
-This expression has a well--defined limit for $\Omega_\kappa(\vectq ) \rightarrow 1$ (when $\vectq \rightarrow 0$), namely:
+This expression has a well-defined limit for $\Omega_\kappa(\vectq ) \rightarrow 1$ (when $\vectq \rightarrow 0$), namely:
 \begin{equation*}
   \lim_{\vectq \rightarrow 0} I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(0 ) \right| ^2} + \left( N-1 \right) \left| \ensavg{\alpha}{F_\alpha(0 )} \right|^2 \; .
 \end{equation*}
@@ -345,7 +345,7 @@ where the Green operators are defined to be:
   G^\pm_2 &\equiv (E-H_2\pm i\epsilon) ^{-1} \; .
 \end{align*}
 
-The $T$--matrix element for scattering between the asymptotic states $\Psi_{0\alpha}$ and $\Psi_{0\beta}$ (note that these asymptotic states refer to the free Hamiltonian $H_0$), is:
+The $T$-matrix element for scattering between the asymptotic states $\Psi_{0\alpha}$ and $\Psi_{0\beta}$ (note that these asymptotic states refer to the free Hamiltonian $H_0$), is:
 \begin{align*}
   T^+_{\alpha\beta} &= \braket{\Psi_{0\beta}}{V_1+V_2}{\Psi^+_\alpha} \nonumber \\
   & = \braket{\Psi_{0\beta}}{V_1+V_2}{\Psi_{0\alpha} + G^+_1V_1\Psi_{0\alpha} + G^+_2V_2\Psi^+_{1\alpha}} \nonumber \\
@@ -371,7 +371,7 @@ In the conventions where $H=-\Delta + V$, the potential splits into two parts $V
   V_1 & = k_0^2\left( 1-n_0^2(\vect{r})\right)  \\
   V_2 & = \sum_i k_0^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i) \; ,
 \end{align*}
-where $n_0(\vect{r})$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$--coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\vect{R}^i$.
+where $n_0(\vect{r})$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\vect{R}^i$.
 
 For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, one only needs the unperturbed solutions in layer $j$:
 \begin{align*}
@@ -379,7 +379,7 @@ For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, on
   \braketnoop{\Psi^-_{1k_f}}{\vect{r}} &= (2\pi)^{-3/2}\left[ R_j(-\vect{k}_f) e^{i \vect{k}_{j,R}(-\vect{k}_f)\cdot\vect{r}} + T_j(-\vect{k}_f) e^{i \vect{k}_{j,T}(-\vect{k}_f)\cdot\vectr} \right] \; .
 \end{align*}
 
-The off--specular contribution to the scattering amplitude then becomes:
+The off-specular contribution to the scattering amplitude then becomes:
 \begin{align*}
   f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_iT_fe^{i(\vectk_{j,i}-\vectk_{j,f})\cdot\vectr} + R_iT_fe^{i(\vectkt_{j,i}-\vectk_{j,f})\cdot\vectr} \\
    & + T_iR_fe^{i(\vectk_{j,i}-\vectkt_{j,f})\cdot\vectr} + R_iR_fe^{i(\vectkt_{j,i}-\vectkt_{j,f})\cdot\vectr} \biggr] \; ,
@@ -406,15 +406,15 @@ with
   & + T_iR_fF^i(\vectk_i-\vectkt_f)e^{i(k_{iz}+k_{fz})R_z} + R_iR_fF^i(\vectkt_i-\vectkt_f)e^{i(-k_{iz}+k_{fz})R_z} \; ,
 \end{align*}
 
-With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross--section:
+With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
-  & \left\langle \frac{d\sigma}{d\Omega}(\vectk_i,\vectk_f) \right\rangle_{\text{Off--specular}}  \\
+  & \left\langle \frac{d\sigma}{d\Omega}(\vectk_i,\vectk_f) \right\rangle_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\curlf_\beta^*(\vectk_{j,i},\vectk_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2\vect{R}_\alpha^\parallel d^2\vect{R}_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\vect{q}_{j\parallel}\cdot (\vect{R}_\alpha^\parallel - \vect{R}_\beta^\parallel ) \right] \; .
 \end{align*}
 
-The main differences with respect to the cross---section in the Born approximation are:
+The main differences with respect to the cross-section in the Born approximation are:
 \begin{enumerate}
-  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wavevectors and also on the $z$--coordinate of the particle;
-  \item Since the $z$--coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$-- and $y$--coordinates and the volume and density gets replaced with the surface area and surface density respectively.
+  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wavevectors and also on the $z$-coordinate of the particle;
+  \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
 \end{enumerate}

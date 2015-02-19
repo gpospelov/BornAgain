@@ -22,13 +22,13 @@
 \section{General methodology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A simulation of GISAXS using \BornAgain\ consists of following steps:
+A simulation of GISAS using \BornAgain\ consists of the following steps:
 \begin{itemize}
 \item define materials by specifying name and refractive index,
+\item define layers by specifying thickness, roughness, material,
 \item define embedded particles by specifying shape, size,
    constituting material, interference function,
-\item define layers by specifying thickness, roughness, material,
-\item include particles in layers, specifying density, position, orientation, 
+\item embed the particles in layers, specifying density, position, orientation, 
 \item assemble a multilayered sample,
 \item specify input beam and detector characteristics,
 \item run the simulation,
@@ -272,7 +272,7 @@ air layer. \textbf{The order in which we define these layers is important: we
 start from the top layer down to the bottom one}.
 
 Let us start with the air layer. It contains the particles. In
-line~\ref{airlayer}, we use the previously defined \Code{mAmbience}
+line~\ref{airlayer}, we use the previously defined \Code{m\_air}
 (="air" material) (line~\ref{material2}). The command in line~\ref{airlayerdecorator} shows that this layer contains particles
 which are defined using particle layout object. The substrate layer
 only contains the substrate material (line~\ref{substratelayer}).

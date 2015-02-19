@@ -174,7 +174,7 @@ In the ideal case the deformations along the two axes are decoupled and each uni
 
 \paragraph{Probability distributions} \mbox{}\\
 The scattering by an ordered lattice gives rise to a series of Bragg peaks situated at the nodes of the reciprocal lattice. Any divergence from the ideal crystalline case modifies the output spectrum by, for example, widening or attenuating the Bragg peaks. The influence of these "defects" can be accounted for 
- in direct space by using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered pics with a function which could reproduce the experimental shapes.
+ in direct space by using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered peaks with a function which could reproduce the experimental shapes.
 
 
 %===============================================================================
@@ -598,7 +598,8 @@ Function  & Parameters & Comments\\
 \subsection{Born approximation}
 %===============================================================================
 
-In \BornAgain\ the form factor is defined using the Born approximation as
+\index{Shape transform}
+The form factor of a hard-shell particle is its \textit{shape transform}
 \begin{equation}
 F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
 \label{ffformulaBA}

@@ -322,9 +322,15 @@ ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
 {
 }
 
+//ComboPropertyEdit::~ComboPropertyEdit()
+//{
+//    qDebug() << "ComboPropertyEdit::~ComboPropertyEdit()" << this;
+//}
+
 void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
+    qDebug() << "ComboPropertyEdit::setComboProperty() this=" << this;
     m_combo_property = combo_property;
 //    if (!m_comboBox) {
 //        m_comboBox = new QComboBox(this);
@@ -334,9 +340,12 @@ void ComboPropertyEdit::setComboProperty(
             this, SLOT(onCurrentIndexChanged(QString)));
 
 //    m_comboBox->clear();
-    clear();
-    QStringList value_list = m_combo_property.getValues();
-    addItems(value_list);
+    if(count() !=m_combo_property.getValues().size()) {
+        clear();
+        QStringList value_list = m_combo_property.getValues();
+
+        addItems(value_list);
+    }
     setCurrentText(comboValueText());
 
     connect(this, SIGNAL(currentIndexChanged(QString)),
@@ -365,6 +374,7 @@ void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
     qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
+    qDebug() << "       ComboPropertyEdit::onCurrentIndexChanged(QString current_value) -> emitting combo property";
     emit comboPropertyChanged(m_combo_property);
 }
 

@@ -55,6 +55,7 @@ void BeamItem::onPropertyChange(const QString &name)
 const QString BeamWavelengthItem::P_DISTRIBUTION = "Distribution";
 const QString BeamWavelengthItem::P_VALUE = "Value";
 const QString BeamWavelengthItem::P_SAMPLE_NUMBER = "Number of samples";
+const QString BeamWavelengthItem::P_COMBO = "Combo";
 
 BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamWavelengthType, parent)
@@ -62,6 +63,11 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     setItemName(Constants::BeamWavelengthType);
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     registerProperty(P_SAMPLE_NUMBER, 5);
+
+    ComboProperty types;
+    types << "property 1" << "property 2" << "property 3";
+    registerProperty(P_COMBO, types.getVariant());
+
 }
 
 

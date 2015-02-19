@@ -88,13 +88,18 @@ void TestBeamEditorWidget::initWavelengthWidget()
     Q_ASSERT(distributionItem);
 
 ////    m_wavelengthEditor->addItemPropertyToGroup(beamItem, TestBeamItem::P_INTENSITY, "Wavelength");
-    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_DISTRIBUTION, "Wavelength");
+//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_DISTRIBUTION, "Wavelength");
 //    qDebug() << "    XXX 1.3";
 //    m_wavelengthEditor->addItemPropertiesToGroup(distributionItem, "Wavelength");
 //    qDebug() << "    XXX 1.4";
 
-    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),
-            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_COMBO, "Wavelength");
+
+
+//    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),
+//            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+//    connect(wavelengthItem, SIGNAL(propertyChanged(QString)),
+//            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
 }
 
 

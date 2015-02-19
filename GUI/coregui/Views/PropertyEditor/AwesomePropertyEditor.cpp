@@ -283,9 +283,18 @@ void AwesomePropertyEditor::slotValueChanged(QtProperty *property,
         return;
     }
 
+
     AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair = m_d->m_qtproperty_to_itempropertypair[property];
     qDebug() << "    AwesomePropertyEditor::slotValueChanged()-> itemPropertyPair" << itemPropertyPair.m_item << itemPropertyPair.m_name;
+
+    disconnect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
+           this, SLOT(onPropertyChanged(QString)));
+
     itemPropertyPair.m_item->setProperty(itemPropertyPair.m_name.toUtf8().data(), value);
+
+    connect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
+           this, SLOT(onPropertyChanged(QString)));
+
 }
 
 //! updates editors on ParameterizedItem's propertyChanged
@@ -303,6 +312,7 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
         disconnect(item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(onPropertyItemChanged(QString)));
 
+        qDebug() << "       AwesomePropertyEditor::onPropertyChanged(const QString &property_name) -> Setting variant_property";
         variant_property->setValue(property_value);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
         if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {

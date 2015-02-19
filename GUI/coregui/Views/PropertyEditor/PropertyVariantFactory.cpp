@@ -144,6 +144,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     if (manager->propertyType(property) ==
             PropertyVariantManager::comboPropertyTypeId()) {
         ComboPropertyEdit *editor = new ComboPropertyEdit(parent);
+        qDebug() << "       PropertyVariantFactory::createEditor() -> created ComboEditor" << editor;
+
         QVariant var = manager->value(property);
         ComboProperty combo = var.value<ComboProperty>();
         editor->setComboProperty(combo);
@@ -212,6 +214,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
         QListIterator<FancyGroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             FancyGroupProperty_t mat = value.value<FancyGroupProperty_t>();
+            qDebug() << "       PropertyVariantFactory::slotPropertyChanged() -> Setting editor";
             itEditor.next()->setFancyGroupProperty(mat);
         }
     }
@@ -220,6 +223,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_combo_editors[property];
         QListIterator<ComboPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
+            qDebug() << "       PropertyVariantFactory::slotPropertyChanged() -> Setting editor";
             ComboProperty combo = value.value<ComboProperty>();
             itEditor.next()->setComboProperty(combo);
         }
@@ -311,6 +315,7 @@ void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
 
 void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
 {
+    qDebug() << "PropertyVariantFactory::slotSetValue(const ComboProperty &value)";
     QObject *object = sender();
     QMap<ComboPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_combo_editor_to_property.constBegin();

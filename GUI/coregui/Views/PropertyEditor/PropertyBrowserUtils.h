@@ -138,6 +138,7 @@ class BA_CORE_API_ ComboPropertyEdit : public QComboBox
     Q_OBJECT
 public:
     ComboPropertyEdit(QWidget *parent = 0);
+//    ~ComboPropertyEdit();
 
     void setComboProperty(const ComboProperty &combo_property);
     ComboProperty getComboProperty() const {return m_combo_property; }

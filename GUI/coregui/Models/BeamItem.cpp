@@ -64,6 +64,8 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     registerProperty(P_SAMPLE_NUMBER, 5);
 
+    registerProperty(P_VALUE, 99.9);
+
     ComboProperty types;
     types << "property 1" << "property 2" << "property 3";
     registerProperty(P_COMBO, types.getVariant());

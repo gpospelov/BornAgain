@@ -93,7 +93,11 @@ void TestBeamEditorWidget::initWavelengthWidget()
 //    m_wavelengthEditor->addItemPropertiesToGroup(distributionItem, "Wavelength");
 //    qDebug() << "    XXX 1.4";
 
-    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_COMBO, "Wavelength");
+//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_COMBO, "Wavelength");
+//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_VALUE, "Wavelength");
+
+//    m_wavelengthEditor->insertItemProperty(wavelengthItem, BeamWavelengthItem::P_VALUE);
+    m_wavelengthEditor->insertItemProperties(wavelengthItem);
 
 
 //    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),

@@ -23,6 +23,7 @@ class ParameterizedItem;
 class AwesomePropertyEditorPrivate;
 class ParameterizedIytem;
 class QtProperty;
+class QtVariantProperty;
 
 //! property editor to display and modify properties of multiple ParameterizedItem
 class BA_CORE_API_ AwesomePropertyEditor : public QWidget
@@ -31,6 +32,8 @@ class BA_CORE_API_ AwesomePropertyEditor : public QWidget
 
 public:
     enum EBrowserType {BROWSER_TREE_TYPE, BROWSER_GROUPBOX_TYPE, BROWSER_BUTTON_TYPE};
+    enum EInsertMode {INSERT_AS_CHILD, INSERT_AFTER};
+//    enum ESubItemsPolicy {SUBITEMS_SKIP, SUBITEMS_AS_CHILD, SUBITEMS_AFTER};
 
     AwesomePropertyEditor(QWidget *parent = 0, EBrowserType browser_type = BROWSER_TREE_TYPE);
     virtual ~AwesomePropertyEditor();
@@ -45,10 +48,16 @@ public:
     //! add single ParameterizedItem property
     void addItemProperty(ParameterizedItem *item, const QString &property_name, QtProperty *parent_qtproperty = 0);
 
+    void insertItemProperties(ParameterizedItem *item, QtVariantProperty *parent_qtproperty=0, EInsertMode insert_mode = INSERT_AFTER);
+    void insertItemProperty(ParameterizedItem *item, const QString &property_name, QtVariantProperty *parent_qtproperty=0, EInsertMode insert_mode = INSERT_AFTER);
+
     //! add single ParameterizedItem property to group
     void addItemPropertyToGroup(ParameterizedItem *item, const QString &property_name, const QString &group_name);
 
     void setRecursive(bool recursive_flag);
+
+
+
 
     void clearEditor();
 
@@ -59,6 +68,9 @@ private slots:
     void removeSubProperties(QtProperty *property);
 
 private:
+    QtVariantProperty *createQtVariantProperty(ParameterizedItem *item, const QString &property_name);
+    void insertQtVariantProperty(QtVariantProperty *qtVariantItem, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode);
+
     AwesomePropertyEditorPrivate *m_d;
 };
 

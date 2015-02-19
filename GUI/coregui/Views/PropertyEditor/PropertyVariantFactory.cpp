@@ -306,7 +306,6 @@ void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
-//            itEditor.key()->repaint();
             return;
         }
         itEditor++;
@@ -417,6 +416,7 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 
 void PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
 {
+    qDebug() << "PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &) -> ???";
 
 }
 

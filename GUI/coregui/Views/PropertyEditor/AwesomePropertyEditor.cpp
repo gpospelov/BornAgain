@@ -45,6 +45,11 @@ public:
         }
     };
 
+//    struct SubInfo {
+//        QtVariantProperty *m_qtvariantproperty;
+//        bool m_create_subproperties;
+//    };
+
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
@@ -53,6 +58,8 @@ public:
     QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
+//    QMap<ParameterizedItem *, QMap<QString, QList<QtVariantProperty *> > m_item_to_connected_qtvariant;
+    QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
     bool m_recursive_flag;
 };
 
@@ -206,6 +213,7 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
 
     // additing properties of SubItem
     if(m_d->m_recursive_flag && item->getSubItems().contains(property_name)) {
+        qDebug() << "AAAAAAAAAAAAAAAAAAAAAA";
         ParameterizedItem *subitem = item->getSubItems()[property_name];
         if (subitem) {
             addItemProperties(subitem, subProperty);
@@ -221,6 +229,51 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
     connect(item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
 }
+
+void AwesomePropertyEditor::insertItemProperties(ParameterizedItem *item, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode)
+{
+    Q_ASSERT(item);
+    qDebug() << "AwesomePropertyEditor::insertItemProperties()";
+    QList<QByteArray> property_names = item->dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString prop_name = QString(property_names[i]);
+        insertItemProperty(item, prop_name, parent_qtproperty, insert_mode);
+    }
+
+}
+
+void AwesomePropertyEditor::insertItemProperty(ParameterizedItem *item, const QString &property_name, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode)
+{
+    Q_ASSERT(item);
+    qDebug() << "AwesomePropertyEditor::insertItemProperty()";
+    QtVariantProperty *qtVariantItem = createQtVariantProperty(item, property_name);
+    if(!qtVariantItem) return;
+
+    insertQtVariantProperty(qtVariantItem, parent_qtproperty, insert_mode);
+
+    // Processing SubProperty
+    if(item->getSubItems().contains(property_name)) {
+        ParameterizedItem *subitem = item->getSubItems()[property_name];
+        if (subitem) {
+            insertItemProperties(subitem, qtVariantItem, INSERT_AS_CHILD);
+        }
+    }
+
+
+    // registering given property
+    AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair(item, property_name);
+    m_d->m_qtproperty_to_itempropertypair[qtVariantItem] = itemPropertyPair;
+    m_d->m_item_to_property_to_qtvariant[item][property_name] = qtVariantItem;
+
+    m_d->m_qtvariant_to_dependend[parent_qtproperty].append(qtVariantItem);
+
+    connect(item, SIGNAL(propertyChanged(QString)),
+           this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
+    connect(item, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+
+}
+
 
 //! add single ParameterizedItem property to group
 void AwesomePropertyEditor::addItemPropertyToGroup(ParameterizedItem *item, const QString &property_name, const QString &group_name)
@@ -356,7 +409,9 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
 
         removeSubProperties(variant_property);
 
-        if(m_d->m_recursive_flag) addItemProperties( item->getSubItems()[property_name], variant_property);
+//        if(m_d->m_recursive_flag) addItemProperties( item->getSubItems()[property_name], variant_property);
+        insertItemProperties( item->getSubItems()[property_name], variant_property, INSERT_AS_CHILD);
+
 
         connect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
@@ -383,3 +438,67 @@ void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
     }
 }
 
+//! creates QtVariantProperty for given ParameterizedItem's property
+QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name)
+{
+    qDebug() << "QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name)";
+    QtVariantProperty *result(0);
+
+    PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
+    if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) return 0;
+
+    QVariant prop_value = item->property(property_name.toUtf8().data());
+    Q_ASSERT(prop_value.isValid());
+    int type = GUIHelpers::getVariantType(prop_value);
+
+    QtVariantPropertyManager *manager = m_d->m_manager;
+    if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_d->m_read_only_manager;
+
+    if(!manager->isPropertyTypeSupported(type)) {
+        throw GUIHelpers::Error("AwesomePropertyEditor::createQtVariantProperty() -> Error. Not supported property type "+property_name);
+    }
+
+    if(prop_attribute.getLabel().isEmpty()) {
+        result = manager->addProperty(type, property_name);
+    } else {
+        result = manager->addProperty(type, prop_attribute.getLabel());
+    }
+
+    if(type == QVariant::Double) {
+        result->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+        AttLimits limits = prop_attribute.getLimits();
+        if(limits.hasLowerLimit()) result->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
+        if(limits.hasUpperLimit()) result->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
+        result->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+        result->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
+    }
+
+    QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
+    if(!toolTip.isEmpty()) result->setToolTip(toolTip);
+
+    if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
+        result->setEnabled(false);
+    }
+
+    result->setValue(prop_value);
+
+    return result;
+}
+
+//! inserts QtVariantProperty in proper place of the browser
+void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariantItem, QtVariantProperty *parent_qtproperty, AwesomePropertyEditor::EInsertMode insert_mode)
+{
+    if(parent_qtproperty) {
+        if(insert_mode ==INSERT_AS_CHILD) {
+            parent_qtproperty->addSubProperty(qtVariantItem);
+        }
+        else if(insert_mode == INSERT_AFTER) {
+            m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+        }
+        else {
+            throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Error. Unknown insert mode");
+        }
+    } else {
+        m_d->m_browser->addProperty(qtVariantItem);
+    }
+}

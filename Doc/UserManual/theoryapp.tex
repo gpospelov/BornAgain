@@ -14,11 +14,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
 \chapter{Theory} \label{app:theory}
 
-\section{Scattering on nanoparticles - Formal treatment} \label{sec:formal}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scattering on nanoparticles - Formal treatment} \label{sec:formal}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
 \subsection{Green operators and the $T$--matrix}
+%===============================================================================
 
 For a particle, governed by the Schr\"odinger equation with Hamiltonian $H = H_0 + V$, the time--independent scattering theory formally consists of solving the eigenvalue equations:
 
@@ -68,7 +74,10 @@ By expanding the eigenstates $\Psi^\pm_\alpha$ in these equations, the $T$--matr
 \end{equation*}
 
 
+%===============================================================================
 \subsection{Momentum representation and the scattering cross--section}
+%===============================================================================
+
 The previous general formulas can also be presented in a momentum (and position) eigenbasis, defined by:
 \begin{align*}
   \oper{P}\ket{\vect{k}} & = \hbar \vect{k} \ket{\vect{k}} \\
@@ -101,8 +110,12 @@ where $J_0$ denotes the incident flux density. The scattering cross--section is 
 \begin{equation*}
   \frac{d\sigma}{d\Omega}\equiv \frac{dI_{scat}}{J_0 d\Omega} = \lvert f(\theta,\phi) \rvert^2 \; .
 \end{equation*}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Small angle approximation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 In the case of pure nuclear scattering, the Hamiltonian describing a neutron in a scattering experiment, is given by $H = -\dfrac{\hbar^2}{2m}\Delta + V$, where
 
 \begin{equation*}
@@ -132,8 +145,12 @@ The $T$--matrix then also becomes rescaled and the scattering amplitude becomes:
   f(\theta, \phi) = -2\pi^2 \braket{\vect{k}_f}{\widetilde{T}}{\vect{k}_i} \; .
 \end{equation*}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Born approximation} \label{sec:ba}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
 
 In the Born approximation ($\widetilde{T}\simeq\widetilde{V}$), the scattering amplitude is
@@ -177,7 +194,11 @@ In this equation, the factor $\ppcf{\alpha}{\beta}{R}$ is called the \emph{parti
   \mathcal{P}(\alpha, \vect{R}_\alpha ; \beta , \vect{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R} \; .
 \end{equation*}
 
+
+%===============================================================================
 \subsection{General formulas}
+%===============================================================================
+
 Even in the most general case, the partial pair correlation function will only depend on the difference $\vect{R}_{\alpha\beta}\equiv(\vect{R}_\alpha - \vect{R}_\beta )$ of the particles' positions. One of the volume integrals can then be dropped, together with the volume factor, giving:
 \begin{align*}
   \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\vect{q})\right\rvert ^2 + \rho_V\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\vect{q})F_\beta^*(\vect{q}) \\
@@ -195,7 +216,12 @@ where
 \end{align*}
 $S_{\alpha\beta} (\vect{q})$ is called the \emph{interference function} and $\langle\dotso\rangle_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
 
+
+%===============================================================================
 \subsection{Decoupling approximation}
+%===============================================================================
+\index{Decoupling approximation}
+
 When the partial pair correlation function is independent of the particle class $\alpha$ ($ \ppcfb{\alpha}{\beta}{R} \equiv g(\vect{R}_{\alpha\beta})$ ), the scattering cross--section becomes:
 \begin{equation*}
 \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  = I_d(\vect{q}) + \left\lvert \left\langle F_\alpha(\vect{q}) \right\rangle_\alpha \right\rvert ^2 \times S(\vect{q}) \; ,
@@ -205,7 +231,13 @@ where
   S(\vect{q}) = 1+ \rho_V \int_V d^3\vect{R} \; g(\vect{R}) \exp \left[ i\vect{q}\cdot \vect{R} \right] \; .
 \end{equation*}
 
+
+%===============================================================================
 \subsection{Local Monodisperse Approximation}
+%===============================================================================
+\index{LMA|see {Local monodisperse approximation}}
+\index{Local monodisperse approximation}
+  
 By assuming that inside every coherence region of the beam, the particle class (or size/shape) is fixed, the cross--section will consist of an incoherent superposition of these different coherence regions and can be written as:
 \begin{equation*}
   \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle \simeq \left\langle \left\lvert F_\alpha(\vect{q})\right\rvert ^2 S_\alpha(\vect{q}) \right\rangle_\alpha \; .
@@ -213,8 +245,13 @@ By assuming that inside every coherence region of the beam, the particle class (
 
 Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape--dependent pair correlation functions by having distinct interference functions $S_\alpha(\vect{q})$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
 \subsection{Size--Spacing Correlation Approximation}
+%===============================================================================
+\index{Size--spacing correlation approximation}
+\index{SSCA|see {Size--spacing correlation approximation}}
+
 In the Size--Spacing Correlation Approximation, a correlation is assumed between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest--neighbor spacing depends linearly on the sum of their respective sizes. The following discussion of this type of correlation is inspired by \cite{LaLR07}
 
 The scattered intensity can also be calculated as the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density:
@@ -244,8 +281,6 @@ Taking $x$ as the coordinate in the direction in which the particles are arrange
   z_-(\vectr ) &= z_+(-\vectr ) \; ,
 \end{align*}
 where $p(\alpha_0,\dotsc ,\alpha_n)$ denotes the probability of having a sequence of particles of the indicated sizes/shapes and $P_n(x|\alpha_0\dotsc\alpha_n)$ is the probability density of having a particle of type $\alpha_n$ at a (positive) distance $x$ of its nearest neighbor of type $\alpha_{n-1}$ in a sequence of the given order.
-
-
 
 In the Size--Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
 \begin{equation*}
@@ -292,8 +327,13 @@ This expression has a well--defined limit for $\Omega_\kappa(\vectq ) \rightarro
   \lim_{\vectq \rightarrow 0} I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(0 ) \right| ^2} + \left( N-1 \right) \left| \ensavg{\alpha}{F_\alpha(0 )} \right|^2 \; .
 \end{equation*}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted Wave Born Approximation} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Distorted wave Born approximation}
+\index{DWBA|see {Distorted wave Born approximation}}
+
 In this section, one proceeds along similar lines as in the formal treatment of section \ref{sec:formal}. This time however, the full Hamiltonian is written as $H_2 = H_1 + V_2 = H_0 +V_1 + V_2$, where $H_0$ will again refer to the free Hamiltonian. In the distorted wave Born approximation (DWBA), one performs a perturbative expansion around the solutions of the Hamiltonian $H_1$, which are assumed to be known:
 \begin{align*}
   H_1\Psi^\pm_{1\alpha} &= E_\alpha\Psi^\pm_{1\alpha} \\
@@ -319,8 +359,11 @@ with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \sime
    T^+_{\alpha\beta} \simeq \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_{1\alpha}} \; .
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
 \subsection{Multilayer systems}
+%===============================================================================
+
 In multilayer systems, the first term of \refeq{tdwba} denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
@@ -375,4 +418,3 @@ The main differences with respect to the cross---section in the Born approximati
   \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wavevectors and also on the $z$--coordinate of the particle;
   \item Since the $z$--coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$-- and $y$--coordinates and the volume and density gets replaced with the surface area and surface density respectively.
 \end{enumerate}
-

@@ -103,7 +103,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
 
     // export simulation to a python script
     exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
-    exportToPyScriptButton->setIcon(QIcon(":/images/main_simulation.png"));
+    exportToPyScriptButton->setIcon(QIcon(":/images/mode_script.png"));
     exportToPyScriptButton->setMinimumWidth(100);
     exportToPyScriptButton->setMinimumHeight(50);
     exportToPyScriptButton->setToolTip("Export the simulation using settings above to "

@@ -33,7 +33,7 @@ else()
 endif()
 
 file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)
-file(GLOB fig_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} fig/* fig/*/*)
+file(GLOB fig_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} fig/[a-z]*/*)
 
 ADD_LATEX_DOCUMENT(BornAgainManual.tex
     INPUTS ${tex_inputs} ${fig_inputs}

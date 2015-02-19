@@ -19,6 +19,7 @@
 % then each section left-right so that it can be read without page turning
 
 \chapter{Form factors} \label{app:ff}
+\index{Form factors|(}
 
 \hypertarget{formfactors}{}
 In \BornAgain\ the expression of the form factor has been implemented in the Born approximation. Each of them is defined as
@@ -41,7 +42,10 @@ in order to take any material absorption into account.\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Box} \SecLabel{Box} 
+\section{Box} \SecLabel{Box}
+  \index{Box (form factor)}
+  \index{Cuboid (form factor)}
+  \index{Prism (form factor)!reactangular}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -105,7 +109,8 @@ $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Prism3} \SecLabel{Prism3} 
+\section{Prism3} \SecLabel{Prism3}
+  \index{Prism (form factor)!triangular}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -167,7 +172,9 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Tetrahedron}  \SecLabel{Tetrahedron} 
+\section{Tetrahedron} \SecLabel{Tetrahedron}
+  \index{Tetrahedron (form factor)}
+  \index{Truncated tetrahedron (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \paragraph{Real-space geometry}\mbox{}\\
@@ -245,6 +252,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Prism6} \SecLabel{Prism6}
+  \index{Prism (form factor)!hexagonal}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -310,7 +318,10 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Cone6} \SecLabel{Cone6} 
+\section{Cone6} \SecLabel{Cone6}
+  \index{Cone (form factor)!hexagonal}
+  \index{Pyramid (form factor)!hexagonal}
+  \index{Truncated pyramid (form factor)!hexagonal)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -383,6 +394,8 @@ $\alpha=60^{\circ}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Pyramid}\SecLabel{Pyramid}
+  \index{Pyramid (form factor)!square base}
+  \index{Truncated pyramid (form factor)!square base}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -462,6 +475,9 @@ $\alpha=60^{\circ}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Anisotropic pyramid} \SecLabel{AnisoPyramid} 
+  \index{Anisotropic pyramid (form factor)}
+  \index{Pyramid (form factor)!rectangular base}
+  \index{Truncated pyramid (form factor)!rectangular base}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -547,7 +563,8 @@ $\alpha=60^{\circ}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Cuboctahedron} \SecLabel{Cuboctahedron} 
+\section{Cuboctahedron} \SecLabel{Cuboctahedron}
+  \index{Cuboctahedron (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -618,6 +635,7 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Cylinder} \SecLabel{Cylinder}
+  \index{Cylinder (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \paragraph{Real-space geometry}\mbox{}\\
@@ -674,6 +692,8 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Ellipsoidal cylinder} \SecLabel{EllipsoidalCylinder} 
+  \index{Ellipsoidal cylinder (form factor)}
+  \index{Cylinder (form factor)!ellipsoidal}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -735,6 +755,8 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Cone} \SecLabel{Cone} 
+  \index{Cone (form factor)}
+  \index{Truncated cone (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}
@@ -793,6 +815,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Full Sphere} \SecLabel{FullSphere}
+  \index{Sphere (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -845,6 +868,8 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Truncated Sphere}\SecLabel{Sphere}
+  \index{Sphere (form factor)!truncated}
+  \index{Truncated sphere (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \paragraph{Real-space geometry}\mbox{}\\
@@ -908,7 +933,8 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Full Spheroid} \SecLabel{FullSpheroid}  
+\section{Full Spheroid} \SecLabel{FullSpheroid}
+  \index{Spheroid (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -976,6 +1002,8 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Truncated Spheroid} \SecLabel{Spheroid}
+  \index{Spheroid (form factor)!truncated}
+  \index{Truncated spheroid (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -1040,6 +1068,9 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Hemi ellipsoid} \SecLabel{HemiEllipsoid}  
+  \index{Hemi ellipsoid (form factor)}
+  \index{Ellipsoid (form factor)!truncated}
+  \index{Truncated ellipsoid (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -1105,6 +1136,8 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Ripple1} \SecLabel{Ripple1}  
+  \index{Ripple (form factor)!sinusoidal}
+  \index{Sinusoidal ripple (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -1160,6 +1193,8 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Ripple2} \SecLabel{Ripple2}  
+  \index{Ripple (form factor)!saw-tooth}
+  \index{Saw-tooth ripple (form factor)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Real-space geometry}\mbox{}\\
@@ -1464,3 +1499,5 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 %% core_position = kvector_t(1.5, 0.0, 0.0)
 %% alphai=0.2*degree
 %%    phii=0.*degree
+
+\index{Form factors|)}

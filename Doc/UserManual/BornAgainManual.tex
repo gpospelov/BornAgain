@@ -28,6 +28,7 @@
 %	PAGE LAYOUT
 %-------------------------------------------------------------------------------
 \usepackage[toc,page]{appendix}
+\setcounter{tocdepth}{4}
 \usepackage{titlesec}
 
 \textwidth=410pt
@@ -309,15 +310,13 @@ Disclaimer:\index{Disclaimer}\index{BornAgain@\BornAgain!disclaimer}
 
 \input{Introduction}
 \input{OnlineDocs}
-\input{Simulation}
-\input{Theory}
-\input{Fitting}
+\input{ScatteringTheory}
+\input{Multilayers}
+\input{HorizontalStructs}
+\input{Usage}
 
-\appendix
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\input{theoryapp}
-\input{FormFactors}
-\input{UserAPI}
+%\appendix
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 % unused old stuff:
 %\input{unused/SoftwareArchitecture}

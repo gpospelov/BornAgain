@@ -24,7 +24,6 @@ class AwesomePropertyEditorPrivate;
 class ParameterizedIytem;
 class QtProperty;
 class QtVariantProperty;
-#include <QGraphicsItem>
 
 //! property editor to display and modify properties of multiple ParameterizedItem
 class BA_CORE_API_ AwesomePropertyEditor : public QWidget
@@ -39,17 +38,15 @@ public:
     };
 
     enum EInsertMode {
-        INSERT_AS_CHILD,
-        INSERT_AFTER,
+        INSERT_AS_CHILD, //! child will be inserted as child to form tree structure
+        INSERT_AFTER,    //! child will be inserted on the same level as parent right after him
         SKIP
     };
 
     AwesomePropertyEditor(QWidget *parent = 0, EBrowserType browser_type = BROWSER_TREE_TYPE);
     virtual ~AwesomePropertyEditor();
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
-
+    void setItem(ParameterizedItem *item, const QString &group_name = QString());
     void addItemProperty(ParameterizedItem *item, const QString &property_name, const QString &group_name=QString(), EInsertMode subitem_insert_policy = INSERT_AS_CHILD);
     void addItemProperties(ParameterizedItem *item, const QString &group_name=QString(), EInsertMode subitem_insert_policy = INSERT_AS_CHILD);
 

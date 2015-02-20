@@ -24,7 +24,7 @@ class JobModel;
 class JobItem;
 class QTextEdit;
 class QTabWidget;
-class UniversalPropertyEditor;
+class AwesomePropertyEditor;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobView
@@ -47,7 +47,7 @@ private:
     JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
-    UniversalPropertyEditor *m_propertyEditor;
+    AwesomePropertyEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
 };
 

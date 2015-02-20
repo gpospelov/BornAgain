@@ -15,7 +15,6 @@
 
 #include "TestBeamEditorWidget.h"
 #include "UniversalPropertyEditor.h"
-#include "CustomPropertyEditor.h"
 #include "AwesomePropertyEditor.h"
 #include "BeamItem.h"
 #include "LayerItem.h"

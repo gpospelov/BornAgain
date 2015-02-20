@@ -65,7 +65,7 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
 {
     if(m_browser_type == AwesomePropertyEditor::BROWSER_TREE_TYPE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
-        //browser->setResizeMode(QtTreePropertyBrowser::Stretch);
+        browser->setResizeMode(QtTreePropertyBrowser::Interactive);
         browser->setRootIsDecorated(false);
         m_browser = browser;
     }
@@ -91,22 +91,17 @@ AwesomePropertyEditor::AwesomePropertyEditor(QWidget *parent, EBrowserType brows
     : QWidget(parent)
     , m_d(new AwesomePropertyEditorPrivate(this, browser_type))
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setMinimumSize(256, 128);
-
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("AwesomePropertyEditor"));
 
     m_d->m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->addWidget(m_d->m_browser);
 
     connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-
-    setLayout(layout);
 }
 
 AwesomePropertyEditor::~AwesomePropertyEditor()
@@ -114,14 +109,11 @@ AwesomePropertyEditor::~AwesomePropertyEditor()
     delete m_d;
 }
 
-QSize AwesomePropertyEditor::sizeHint() const
+void AwesomePropertyEditor::setItem(ParameterizedItem *item, const QString &group_name)
 {
-    return m_d->m_browser->sizeHint();
-}
-
-QSize AwesomePropertyEditor::minimumSizeHint() const
-{
-    return m_d->m_browser->minimumSizeHint();
+    qDebug() << "AwesomePropertyEditor::setItem(ParameterizedItem *item)";
+    clearEditor();
+    if(item) addItemProperties(item, group_name);
 }
 
 //! adds given ParameterizedItem's property to the group
@@ -248,8 +240,6 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
         connect(item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
 
-    } else {
-        Q_ASSERT(0);
     }
 }
 

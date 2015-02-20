@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-#include "UniversalPropertyEditor.h"
+#include "AwesomePropertyEditor.h"
 #include "JobModel.h"
 #include "JobItem.h"
 #include <QVBoxLayout>
@@ -39,8 +39,8 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new UniversalPropertyEditor(0, this);
-    m_propertyEditor->setCreateGroupProperty(false);
+    m_propertyEditor = new AwesomePropertyEditor(this);
+    //m_propertyEditor->setCreateGroupProperty(false);
 
     m_commentsEditor = new QTextEdit();
 

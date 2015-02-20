@@ -20,7 +20,8 @@
 #include <QWidget>
 
 class QItemSelectionModel;
-class UniversalPropertyEditor;
+class QItemSelection;
+class AwesomePropertyEditor;
 
 //! Property editor to modify property of the objectcurrently selected on the
 //! graphics scene, located in the bottom right corner of SampleView.
@@ -34,9 +35,16 @@ public:
     QSize sizeHint() const { return QSize(230, 256); }
     QSize minimumSizeHint() const { return QSize(230, 64); }
 
+    void setSelectionModel(QItemSelectionModel *selection_model);
+
+public slots:
+    //! show property of currently selected object (triggered by graphics scene)
+    void selectionChanged(const QItemSelection & selected,
+                          const QItemSelection & deselected);
+
 private:
     QItemSelectionModel *m_selection_model;
-    UniversalPropertyEditor *m_propertyEditor;
+    AwesomePropertyEditor *m_propertyEditor;
 };
 
 #endif

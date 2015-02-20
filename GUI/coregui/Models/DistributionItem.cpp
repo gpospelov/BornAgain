@@ -16,12 +16,27 @@
 #include "DistributionItem.h"
 #include "ComboProperty.h"
 
+const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
+DistributionItem::DistributionItem(const QString name, ParameterizedItem *parent)
+    : ParameterizedItem(name, parent)
+{
+
+}
+
+void DistributionItem::register_number_of_samples()
+{
+    registerProperty(P_NUMBER_OF_SAMPLES, 5);
+}
+
 /* ------------------------------------------------ */
+
+const QString DistributionNoneItem::P_VALUE = "Value";
 
 DistributionNoneItem::DistributionNoneItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionNoneType, parent)
 {
     setItemName(Constants::DistributionNoneType);
+    registerProperty(P_VALUE, 0.1);
 }
 
 IDistribution1D *DistributionNoneItem::createDistribution() const
@@ -40,6 +55,7 @@ DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionGateType);
     registerProperty(P_MIN, 0.0);
     registerProperty(P_MAX, 1.0);
+    register_number_of_samples();
 }
 
 IDistribution1D *DistributionGateItem::createDistribution() const
@@ -60,6 +76,7 @@ DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionLorentzType);
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_HWHM, 1.0);
+    register_number_of_samples();
 }
 
 IDistribution1D *DistributionLorentzItem::createDistribution() const
@@ -80,6 +97,7 @@ DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionGaussianType);
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_STD_DEV, 1.0);
+    register_number_of_samples();
 }
 
 IDistribution1D *DistributionGaussianItem::createDistribution() const
@@ -100,6 +118,7 @@ DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionLogNormalType);
     registerProperty(P_MEDIAN, 1.0);
     registerProperty(P_SCALE_PAR, 1.0);
+    register_number_of_samples();
 }
 
 IDistribution1D *DistributionLogNormalItem::createDistribution() const
@@ -120,6 +139,7 @@ DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     setItemName(Constants::DistributionCosineType);
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_SIGMA, 1.0);
+    register_number_of_samples();
 }
 
 IDistribution1D *DistributionCosineItem::createDistribution() const

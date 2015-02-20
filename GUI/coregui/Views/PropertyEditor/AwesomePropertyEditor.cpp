@@ -43,6 +43,11 @@ public:
                 return left.m_name < right.m_name;
             return left.m_item < right.m_item;
         }
+        friend bool operator == (const ItemPropertyPair& left, const ItemPropertyPair& right)
+        {
+            return (left.m_item == right.m_item) && (left.m_name < right.m_name);
+        }
+        void clear() { m_name.clear(); m_item = 0; }
     };
 
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
@@ -55,6 +60,7 @@ public:
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
     QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
     QMap<ParameterizedItem *, QMap<QString, AwesomePropertyEditor::EInsertMode > > m_item_subitem_insert_mode;
+    ItemPropertyPair m_current_item_property_pair;
 };
 
 AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type)
@@ -160,16 +166,10 @@ void AwesomePropertyEditor::clearEditor()
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
     disconnect();
 
-//    QListIterator<QtProperty *> it(m_d->m_browser->properties());
-//    while (it.hasNext()) {
-//        m_d->m_browser->removeProperty(it.next());
-//    }
-
     m_d->m_browser->clear();
 
     QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair>::iterator it = m_d->m_qtproperty_to_itempropertypair.begin();
     while(it!=m_d->m_qtproperty_to_itempropertypair.end()) {
-        //m_d->m_browser->removeProperty(it.key());
         delete it.key();
         it++;
     }
@@ -200,13 +200,17 @@ void AwesomePropertyEditor::slotValueChanged(QtProperty *property,
     AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair = m_d->m_qtproperty_to_itempropertypair[property];
     qDebug() << "    AwesomePropertyEditor::slotValueChanged()-> itemPropertyPair" << itemPropertyPair.m_item << itemPropertyPair.m_name;
 
-    disconnect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
-           this, SLOT(onPropertyChanged(QString)));
 
+//    disconnect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
+//           this, SLOT(onPropertyChanged(QString)));
+
+    // FIXME Find more elegant solution
+    m_d->m_current_item_property_pair = itemPropertyPair;
     itemPropertyPair.m_item->setProperty(itemPropertyPair.m_name.toUtf8().data(), value);
+    m_d->m_current_item_property_pair.clear();
 
-    connect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
-           this, SLOT(onPropertyChanged(QString)));
+//    connect(itemPropertyPair.m_item, SIGNAL(propertyChanged(QString)),
+//           this, SLOT(onPropertyChanged(QString)));
 
 }
 
@@ -215,6 +219,10 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
 {
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     qDebug() << "AwesomePropertyEditor::onPropertyChanged(const QString &property_name) BROWSER_ID:" << m_d->m_browser_type << "item->modelType(), property_name" << item->modelType() << property_name;
+
+    if(m_d->m_current_item_property_pair.m_item == item && m_d->m_current_item_property_pair.m_name == property_name) {
+        return;
+    }
 
     QtVariantProperty *variant_property = m_d->m_item_to_property_to_qtvariant[item][property_name];
     if(variant_property) {

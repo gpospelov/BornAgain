@@ -23,17 +23,20 @@ class BA_CORE_API_ DistributionItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit DistributionItem(const QString name, ParameterizedItem *parent=0)
-        : ParameterizedItem(name, parent) {}
+    static const QString P_NUMBER_OF_SAMPLES;
+    explicit DistributionItem(const QString name, ParameterizedItem *parent=0);
     virtual ~DistributionItem() {}
 
     virtual IDistribution1D *createDistribution() const=0;
+protected:
+    void register_number_of_samples();
 };
 
 class BA_CORE_API_ DistributionNoneItem : public DistributionItem
 {
     Q_OBJECT
 public:
+    static const QString P_VALUE;
     explicit DistributionNoneItem(ParameterizedItem *parent=0);
     virtual IDistribution1D *createDistribution() const;
 };

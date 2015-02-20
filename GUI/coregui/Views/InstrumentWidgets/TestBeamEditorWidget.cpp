@@ -73,10 +73,10 @@ void TestBeamEditorWidget::initWavelengthWidget()
     Q_ASSERT(wavelengthItem);
     qDebug() << "    XXX 1.1";
 
-    ParameterizedItem *distributionItem = wavelengthItem->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
-    qDebug() << "    XXX 1.2";
+//    ParameterizedItem *distributionItem = wavelengthItem->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
+//    qDebug() << "    XXX 1.2";
 
-    Q_ASSERT(distributionItem);
+//    Q_ASSERT(distributionItem);
 
     m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);
 

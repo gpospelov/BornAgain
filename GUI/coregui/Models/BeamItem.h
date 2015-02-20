@@ -40,11 +40,10 @@ class BA_CORE_API_ BeamWavelengthItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_DISTRIBUTION;
-    static const QString P_SAMPLE_NUMBER;
     static const QString P_VALUE;
-    static const QString P_COMBO;
     explicit BeamWavelengthItem(ParameterizedItem *parent=0);
     ~BeamWavelengthItem(){}
+    void onPropertyChange(const QString &name);
 };
 
 

@@ -54,22 +54,49 @@ void BeamItem::onPropertyChange(const QString &name)
 
 const QString BeamWavelengthItem::P_DISTRIBUTION = "Distribution";
 const QString BeamWavelengthItem::P_VALUE = "Value";
-const QString BeamWavelengthItem::P_SAMPLE_NUMBER = "Number of samples";
-const QString BeamWavelengthItem::P_COMBO = "Combo";
 
 BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamWavelengthType, parent)
 {
     setItemName(Constants::BeamWavelengthType);
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    registerProperty(P_SAMPLE_NUMBER, 5);
+    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+    registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
 
-    registerProperty(P_VALUE, 99.9);
+}
 
-    ComboProperty types;
-    types << "property 1" << "property 2" << "property 3";
-    registerProperty(P_COMBO, types.getVariant());
-
+void BeamWavelengthItem::onPropertyChange(const QString &name)
+{
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    qDebug() << "XXXX";
+    if(name == P_DISTRIBUTION) {
+        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
+        if(distribution) {
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            qDebug() << "XXXX";
+            if(distribution->modelType() == Constants::DistributionNoneType) {
+                setPropertyAppearance(P_VALUE, PropertyAttribute::VISIBLE);
+                qDebug() << "XXX setting to visible";
+            } else {
+                setPropertyAppearance(P_VALUE, PropertyAttribute::HIDDEN);
+                qDebug() << "XXX setting to hidden";
+            }
+            ParameterizedItem::onPropertyChange(P_VALUE);
+        }
+    }
+    ParameterizedItem::onPropertyChange(name);
 }
 
 

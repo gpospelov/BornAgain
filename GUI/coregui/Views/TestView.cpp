@@ -39,11 +39,11 @@ TestView::TestView(QWidget *parent)
 
     BeamDistributionItem *item1 = new BeamDistributionItem;
     LayerItem *layer = new LayerItem();
-    editor1->addItemProperty(layer, LayerItem::P_THICKNESS);
-    editor1->addItemProperties(item1);
+    editor1->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
+    editor1->addItemProperties(item1, "MyGroup");
 
-    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
-    editor2->addItemProperties(item1);
+    editor2->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
+    editor2->addItemProperties(item1, "MyGroup", AwesomePropertyEditor::INSERT_AFTER);
 
     gridLayout->addWidget(editor1, 0, 0);
     gridLayout->addWidget(editor2, 0, 1);

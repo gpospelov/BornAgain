@@ -40,7 +40,6 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     QGridLayout *gridLayout = new QGridLayout;
 
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_wavelengthEditor->setRecursive(false);
     gridLayout->addWidget(m_wavelengthEditor, 0, 0);
 
     groupLayout->addLayout(gridLayout);
@@ -59,22 +58,15 @@ void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
 
 void TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)
 {
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
     qDebug() << "TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)" << property_name;
-    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
-    if(item->modelType() == Constants::BeamWavelengthType)
-        initWavelengthWidget();
+//    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
+//    if(item->modelType() == Constants::BeamWavelengthType)
+//        initWavelengthWidget();
 
 }
 
 void TestBeamEditorWidget::initWavelengthWidget()
 {
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "TestBeamEditorWidget::initWavelengthWidget()";
     m_wavelengthEditor->clearEditor();
 
     Q_ASSERT(m_beamItem);
@@ -87,23 +79,8 @@ void TestBeamEditorWidget::initWavelengthWidget()
 
     Q_ASSERT(distributionItem);
 
-////    m_wavelengthEditor->addItemPropertyToGroup(beamItem, TestBeamItem::P_INTENSITY, "Wavelength");
-//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_DISTRIBUTION, "Wavelength");
-//    qDebug() << "    XXX 1.3";
-//    m_wavelengthEditor->addItemPropertiesToGroup(distributionItem, "Wavelength");
-//    qDebug() << "    XXX 1.4";
+    m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);
 
-//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_COMBO, "Wavelength");
-//    m_wavelengthEditor->addItemPropertyToGroup(wavelengthItem, BeamWavelengthItem::P_VALUE, "Wavelength");
-
-//    m_wavelengthEditor->insertItemProperty(wavelengthItem, BeamWavelengthItem::P_VALUE);
-    m_wavelengthEditor->insertItemProperties(wavelengthItem, 0, AwesomePropertyEditor::INSERT_AFTER, AwesomePropertyEditor::INSERT_AFTER);
-
-
-//    connect(wavelengthItem, SIGNAL(propertyItemChanged(QString)),
-//            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
-//    connect(wavelengthItem, SIGNAL(propertyChanged(QString)),
-//            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
 }
 
 

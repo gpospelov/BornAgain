@@ -45,11 +45,6 @@ public:
         }
     };
 
-//    struct SubInfo {
-//        QtVariantProperty *m_qtvariantproperty;
-//        bool m_create_subproperties;
-//    };
-
     AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type);
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager  *m_manager;
@@ -58,10 +53,8 @@ public:
     QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
-//    QMap<ParameterizedItem *, QMap<QString, QList<QtVariantProperty *> > m_item_to_connected_qtvariant;
     QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
     QMap<ParameterizedItem *, QMap<QString, AwesomePropertyEditor::EInsertMode > > m_item_subitem_insert_mode;
-    bool m_recursive_flag;
 };
 
 AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, AwesomePropertyEditor::EBrowserType browser_type)
@@ -69,7 +62,6 @@ AwesomePropertyEditorPrivate::AwesomePropertyEditorPrivate(QWidget *parent, Awes
     , m_manager(0)
     , m_read_only_manager(0)
     , m_browser_type(browser_type)
-    , m_recursive_flag(true)
 {
     if(m_browser_type == AwesomePropertyEditor::BROWSER_TREE_TYPE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(parent);
@@ -132,173 +124,43 @@ QSize AwesomePropertyEditor::minimumSizeHint() const
     return m_d->m_browser->minimumSizeHint();
 }
 
-void AwesomePropertyEditor::addItemProperties(ParameterizedItem *item, QtProperty *parent_qtproperty)
+//! adds given ParameterizedItem's property to the group
+void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name, const QString &group_name, AwesomePropertyEditor::EInsertMode subitem_insert_policy)
 {
-    Q_ASSERT(item);
-    qDebug() << "addItemProperties(ParameterizedItem *item, QtProperty *parent_qtproperty)" << item->modelType() << parent_qtproperty;
-    QList<QByteArray> property_names = item->dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString prop_name = QString(property_names[i]);
-        addItemProperty(item, prop_name, parent_qtproperty);
-    }
-}
-
-void AwesomePropertyEditor::addItemPropertiesToGroup(ParameterizedItem *item, const QString &group_name)
-{
-    QtVariantProperty *variantProperty(0);
-    if(m_d->m_groupname_to_qtvariant.contains(group_name)) {
-        variantProperty = m_d->m_groupname_to_qtvariant[group_name];
-    } else {
-        variantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
-        m_d->m_groupname_to_qtvariant[group_name] = variantProperty;
-        m_d->m_browser->addProperty(variantProperty);
-    }
-    addItemProperties(item, variantProperty);
-}
-
-//! add single ParameterizedItem property
-void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name, QtProperty *parent_qtproperty)
-{
-    Q_ASSERT(item);
-    qDebug() << "AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name)" << item->modelType() << property_name;
-
-    PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
-    if(prop_attribute.getAppearance() & PropertyAttribute::HIDDEN) return;
-
-    QVariant prop_value = item->property(property_name.toUtf8().data());
-    Q_ASSERT(prop_value.isValid());
-    int type = GUIHelpers::getVariantType(prop_value);
-
-    QtVariantPropertyManager *manager = m_d->m_manager;
-    if(prop_attribute.getAppearance() & PropertyAttribute::READONLY) manager = m_d->m_read_only_manager;
-
-    QtVariantProperty *subProperty = 0;
-    if(manager->isPropertyTypeSupported(type)) {
-        if(prop_attribute.getLabel().isEmpty()) {
-            subProperty = manager->addProperty(type, property_name);
+    qDebug() << " AwesomePropertyEditor::addItemProperty() " << item << property_name << group_name << subitem_insert_policy;
+    QtVariantProperty *groupVariantProperty(0);
+    if(!group_name.isEmpty()) {
+        if(m_d->m_groupname_to_qtvariant.contains(group_name)) {
+            groupVariantProperty = m_d->m_groupname_to_qtvariant[group_name];
         } else {
-            subProperty = manager->addProperty(type, prop_attribute.getLabel());
+            groupVariantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
+            m_d->m_groupname_to_qtvariant[group_name] = groupVariantProperty;
+            m_d->m_browser->addProperty(groupVariantProperty);
         }
+    }
+    insertItemProperty(item, property_name, groupVariantProperty, INSERT_AS_CHILD, subitem_insert_policy);
+}
 
-        if(type == QVariant::Double) {
-            subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
-            AttLimits limits = prop_attribute.getLimits();
-            if(limits.hasLowerLimit()) subProperty->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
-            if(limits.hasUpperLimit()) subProperty->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
-            subProperty->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
-            subProperty->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
-        }
-
-        QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);
-        if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
-
-        if(prop_attribute.getAppearance() & PropertyAttribute::DISABLED) {
-            subProperty->setEnabled(false);
-        }
-
-        subProperty->setValue(prop_value);
-
-        // adding property to parent property/manager
-        if(parent_qtproperty) {
-            parent_qtproperty->addSubProperty(subProperty);
+//! adds all ParameterizedItem properties to the group
+void AwesomePropertyEditor::addItemProperties(ParameterizedItem *item, const QString &group_name, AwesomePropertyEditor::EInsertMode subitem_insert_policy)
+{
+    qDebug() << "AwesomePropertyEditor::addItemProperties() group_name:" << group_name;
+    QtVariantProperty *groupVariantProperty(0);
+    if(!group_name.isEmpty()) {
+        if(m_d->m_groupname_to_qtvariant.contains(group_name)) {
+            groupVariantProperty = m_d->m_groupname_to_qtvariant[group_name];
+            qDebug() << "AwesomePropertyEditor::addItemProperties() 1.1";
         } else {
-            m_d->m_browser->addProperty(subProperty);
-        }
-
-    } else {
-        subProperty = m_d->m_read_only_manager->addProperty(QVariant::String,
-                                                     property_name);
-        subProperty->setValue(QLatin1String("< Unknown Type >"));
-        subProperty->setEnabled(false);
-    }
-
-    // additing properties of SubItem
-    if(m_d->m_recursive_flag && item->getSubItems().contains(property_name)) {
-        qDebug() << "AAAAAAAAAAAAAAAAAAAAAA";
-        ParameterizedItem *subitem = item->getSubItems()[property_name];
-        if (subitem) {
-            addItemProperties(subitem, subProperty);
+            groupVariantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
+            m_d->m_groupname_to_qtvariant[group_name] = groupVariantProperty;
+            m_d->m_browser->addProperty(groupVariantProperty);
+            qDebug() << "AwesomePropertyEditor::addItemProperties() 1.2" << groupVariantProperty;
         }
     }
-
-    // configuring PropertyEditor
-    AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair(item, property_name);
-    m_d->m_qtproperty_to_itempropertypair[subProperty] = itemPropertyPair;
-    m_d->m_item_to_property_to_qtvariant[item][property_name] = subProperty;
-    connect(item, SIGNAL(propertyChanged(QString)),
-           this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
-    connect(item, SIGNAL(propertyItemChanged(QString)),
-            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+    insertItemProperties(item, groupVariantProperty, INSERT_AS_CHILD, subitem_insert_policy);
 }
 
-void AwesomePropertyEditor::insertItemProperties(ParameterizedItem *item, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode, EInsertMode subitem_insert_mode)
-{
-    Q_ASSERT(item);
-    qDebug() << "AwesomePropertyEditor::insertItemProperties()";
-    QList<QByteArray> property_names = item->dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString prop_name = QString(property_names[i]);
-        insertItemProperty(item, prop_name, parent_qtproperty, insert_mode, subitem_insert_mode);
-    }
-
-}
-
-void AwesomePropertyEditor::insertItemProperty(ParameterizedItem *item, const QString &property_name, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode, EInsertMode subitem_insert_mode)
-{
-    Q_ASSERT(item);
-    qDebug() << "AwesomePropertyEditor::insertItemProperty()";
-    if(insert_mode == SKIP) return;
-
-    QtVariantProperty *qtVariantItem = createQtVariantProperty(item, property_name);
-    if(!qtVariantItem) return;
-
-    insertQtVariantProperty(qtVariantItem, parent_qtproperty, insert_mode);
-
-    // Processing SubProperty
-    if(subitem_insert_mode != SKIP && item->getSubItems().contains(property_name)) {
-        ParameterizedItem *subitem = item->getSubItems()[property_name];
-        if (subitem) {
-            insertItemProperties(subitem, qtVariantItem, subitem_insert_mode, subitem_insert_mode);
-        }
-    }
-
-
-    // registering given property
-    AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair(item, property_name);
-    m_d->m_qtproperty_to_itempropertypair[qtVariantItem] = itemPropertyPair;
-    m_d->m_item_to_property_to_qtvariant[item][property_name] = qtVariantItem;
-
-    m_d->m_qtvariant_to_dependend[parent_qtproperty].append(qtVariantItem);
-    m_d->m_item_subitem_insert_mode[item][property_name] = subitem_insert_mode;
-
-    connect(item, SIGNAL(propertyChanged(QString)),
-           this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
-    connect(item, SIGNAL(propertyItemChanged(QString)),
-            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
-
-}
-
-
-//! add single ParameterizedItem property to group
-void AwesomePropertyEditor::addItemPropertyToGroup(ParameterizedItem *item, const QString &property_name, const QString &group_name)
-{
-    qDebug() << "AwesomePropertyEditor::addItemPropertyToGroup() BROWSER_ID" << m_d->m_browser_type << "group_name" << group_name;
-    QtVariantProperty *variantProperty(0);
-    if(m_d->m_groupname_to_qtvariant.contains(group_name)) {
-        variantProperty = m_d->m_groupname_to_qtvariant[group_name];
-    } else {
-        variantProperty = m_d->m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), group_name);
-        m_d->m_groupname_to_qtvariant[group_name] = variantProperty;
-        m_d->m_browser->addProperty(variantProperty);
-    }
-    addItemProperty(item, property_name, variantProperty);
-}
-
-void AwesomePropertyEditor::setRecursive(bool recursive_flag)
-{
-    m_d->m_recursive_flag = recursive_flag;
-}
-
+//! clears the editor from all properties and connections
 void AwesomePropertyEditor::clearEditor()
 {
     qDebug() << "AwesomePropertyEditor::clearEditor()";
@@ -323,6 +185,8 @@ void AwesomePropertyEditor::clearEditor()
     m_d->m_qtproperty_to_itempropertypair.clear();
     m_d->m_item_to_property_to_qtvariant.clear();
     m_d->m_groupname_to_qtvariant.clear();
+    m_d->m_qtvariant_to_dependend.clear();
+    m_d->m_item_subitem_insert_mode.clear();
 
     connect(m_d->m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
@@ -411,10 +275,8 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
             variant_property->setEnabled(true);
         }
 
-        //removeSubProperties(variant_property);
         removeQtVariantProperties(m_d->m_qtvariant_to_dependend[variant_property]);
 
-//        if(m_d->m_recursive_flag) addItemProperties( item->getSubItems()[property_name], variant_property);
         insertItemProperties( item->getSubItems()[property_name], variant_property, m_d->m_item_subitem_insert_mode[item][property_name]);
 
 
@@ -425,28 +287,59 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
     }
 }
 
-//!
-void AwesomePropertyEditor::removeSubProperties(QtProperty *property)
+//! Inserts all properties of given ParameterizedItem
+void AwesomePropertyEditor::insertItemProperties(ParameterizedItem *item, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode, EInsertMode subitem_insert_mode)
 {
-    qDebug() << "AwesomePropertyEditor::removeSubProperties" << property << property->propertyName();
-    QList<QtProperty *> properties = property->subProperties();
-    foreach(QtProperty *child, properties) {
-        m_d->m_browser->removeProperty(child);
-        delete child;
+    Q_ASSERT(item);
+    qDebug() << "AwesomePropertyEditor::insertItemProperties() item" << item << "parent_qtproperty" << parent_qtproperty << insert_mode << subitem_insert_mode;
+    QList<QByteArray> property_names = item->dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString prop_name = QString(property_names[i]);
+        insertItemProperty(item, prop_name, parent_qtproperty, insert_mode, subitem_insert_mode);
+    }
 
-        QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair >::iterator it = m_d->m_qtproperty_to_itempropertypair.find(child);
-        if(it != m_d->m_qtproperty_to_itempropertypair.end()) {
-            AwesomePropertyEditorPrivate::ItemPropertyPair itemPair = it.value();
-            m_d->m_item_to_property_to_qtvariant.remove(itemPair.m_item);
-            m_d->m_qtproperty_to_itempropertypair.erase(it);
+}
+
+//! Creates QtVariantProperty for given ParameterizedItem property name, inserts it into proper place, creates all signals, fills correspondance maps
+void AwesomePropertyEditor::insertItemProperty(ParameterizedItem *item, const QString &property_name, QtVariantProperty *parent_qtproperty, EInsertMode insert_mode, EInsertMode subitem_insert_mode)
+{
+    Q_ASSERT(item);
+    qDebug() << "AwesomePropertyEditor::insertItemProperty()" << item << property_name << parent_qtproperty << insert_mode << subitem_insert_mode;
+    if(insert_mode == SKIP) return;
+
+    QtVariantProperty *qtVariantItem = createQtVariantProperty(item, property_name);
+    qDebug() << "     AwesomePropertyEditor::insertItemProperty(): qtVariantItem" << qtVariantItem;
+    if(!qtVariantItem) return;
+
+    insertQtVariantProperty(qtVariantItem, parent_qtproperty, insert_mode);
+
+    // Processing SubProperty
+    if(subitem_insert_mode != SKIP && item->getSubItems().contains(property_name)) {
+        ParameterizedItem *subitem = item->getSubItems()[property_name];
+        if (subitem) {
+            insertItemProperties(subitem, qtVariantItem, subitem_insert_mode, subitem_insert_mode);
         }
     }
+
+    // registering given property
+    AwesomePropertyEditorPrivate::ItemPropertyPair itemPropertyPair(item, property_name);
+    m_d->m_qtproperty_to_itempropertypair[qtVariantItem] = itemPropertyPair;
+    m_d->m_item_to_property_to_qtvariant[item][property_name] = qtVariantItem;
+
+    m_d->m_qtvariant_to_dependend[parent_qtproperty].append(qtVariantItem);
+    m_d->m_item_subitem_insert_mode[item][property_name] = subitem_insert_mode;
+
+    connect(item, SIGNAL(propertyChanged(QString)),
+           this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
+    connect(item, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
 }
 
 //! creates QtVariantProperty for given ParameterizedItem's property
 QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name)
 {
-    qDebug() << "QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name)";
+    qDebug() << " ";
+    qDebug() << "QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name) item" << item << property_name;
     QtVariantProperty *result(0);
 
     PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
@@ -487,18 +380,31 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
 
     result->setValue(prop_value);
 
+    qDebug() << "       QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedItem *item, const QString &property_name) result" << result;
+
     return result;
 }
 
 //! inserts QtVariantProperty in proper place of the browser
 void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariantItem, QtVariantProperty *parent_qtproperty, AwesomePropertyEditor::EInsertMode insert_mode)
 {
+    qDebug() << "AwesomePropertyEditor::insertQtVariantProperty qtVariantItem:" << qtVariantItem << " parent_property" << parent_qtproperty << insert_mode;
+
     if(parent_qtproperty) {
-        if(insert_mode ==INSERT_AS_CHILD) {
+        if(insert_mode == INSERT_AS_CHILD) {
             parent_qtproperty->addSubProperty(qtVariantItem);
+            qDebug() << "      AwesomePropertyEditor::insertQtVariantProperty() -> adding " << qtVariantItem << " as subproperty of" << parent_qtproperty;
         }
         else if(insert_mode == INSERT_AFTER) {
-            m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+            if(m_d->m_browser->items(parent_qtproperty).size() == 1) {
+                // inserting qtVariantItem after parent property, so we need to know parent of parent
+                QtProperty *new_parent = m_d->m_browser->items(parent_qtproperty).at(0)->parent()->property();
+                new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+            } else {
+                // our parent property is already at the top, so need to add into the browser
+                QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+                Q_ASSERT(browserItem);
+            }
         }
         else {
             throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Error. Unknown insert mode");
@@ -508,6 +414,7 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
     }
 }
 
+//! removes list of QtVariantProperties from the browser and from all maps
 void AwesomePropertyEditor::removeQtVariantProperties(QList<QtVariantProperty *> &list_of_properties)
 {
     qDebug() << "AwesomePropertyEditor::removeQtVarintProperties(QList<QtVariantProperty> &list_of_properties)";
@@ -515,9 +422,6 @@ void AwesomePropertyEditor::removeQtVariantProperties(QList<QtVariantProperty *>
     foreach(QtVariantProperty *child, list_of_properties) {
         m_d->m_browser->removeProperty(child);
         delete child;
-
-//        m_d->m_qtvariant_to_dependend
-
         QMap<QtProperty *, AwesomePropertyEditorPrivate::ItemPropertyPair >::iterator it = m_d->m_qtproperty_to_itempropertypair.find(child);
         if(it != m_d->m_qtproperty_to_itempropertypair.end()) {
             AwesomePropertyEditorPrivate::ItemPropertyPair itemPair = it.value();
@@ -528,12 +432,3 @@ void AwesomePropertyEditor::removeQtVariantProperties(QList<QtVariantProperty *>
 
     list_of_properties.clear();
 }
-
-
-
-//QMap<QtProperty *, ItemPropertyPair> m_qtproperty_to_itempropertypair;
-//QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_item_to_property_to_qtvariant;
-//QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
-////    QMap<ParameterizedItem *, QMap<QString, QList<QtVariantProperty *> > m_item_to_connected_qtvariant;
-//QMap<QtVariantProperty *, QList<QtVariantProperty *> > m_qtvariant_to_dependend;
-//QMap<ParameterizedItem *, QMap<QString, AwesomePropertyEditor::EInsertMode > > m_item_subitem_insert_mode;

@@ -488,7 +488,7 @@ def get_sample():
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{fig/gisasmap/figIntBuriedPart.pdf}
+\includegraphics[angle=-90,width=0.6\textwidth]{fig/gisasmap/figIntBuriedPart.pdf}
 \caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
 \label{fig:dwbaburied}
 \end{figure}
@@ -942,12 +942,30 @@ of the particle: $\mathbf{r}=(x,y,z)$.
 All form factors have been implemented with complex scattering vectors
 in order to take any material absorption into account.
 
+In \BornAgain\ the expression of the form factor has been implemented in the Born approximation. Each of them is defined as
+\begin{equation*}
+F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
+\end{equation*}
+where $V$ is the volume of the particle's shape,
+$\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
+$\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
+vector, respectively. The Distorted Wave Born Approximation can be taken into account as it has been explained in \SecRef{sect:dwba}.\\
+
+The particle's shape is parametrized in a Cartesian frame, with its
+$z$-axis pointing upwards and its origin at the center of the bottom
+of the particle: $\mathbf{r}=(x,y,z)$. In the followings, a schematic view will depict this layout for each
+form factor.\\
+
+All form factors have been implemented with complex scattering vectors
+in order to take any material absorption into account.\\
+
 %===============================================================================
 \subsection{Implemented form factors}
 %===============================================================================
 
 Table~\ref{tab:formfactors} lists the shapes whose form
-factors have been implemented in \BornAgain\ and a detailed description is given in Appendix \ref{app:ff}.
+factors have been implemented in \BornAgain.
+The following pages document each implemented form factor in detail.
 
 
 \begin{table}[H] 
@@ -988,26 +1006,6 @@ Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
 \index{Form factors!table of implemented}
 \end{table}
 
-
-
-\hypertarget{formfactors}{}
-In \BornAgain\ the expression of the form factor has been implemented in the Born approximation. Each of them is defined as
-\begin{equation*}
-F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
-\end{equation*}
-where $V$ is the volume of the particle's shape,
-$\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
-$\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
-vector, respectively. The Distorted Wave Born Approximation can be taken into account as it has been explained in \SecRef{sect:dwba}.\\
-
-The particle's shape is parametrized in a Cartesian frame, with its
-$z$-axis pointing upwards and its origin at the center of the bottom
-of the particle: $\mathbf{r}=(x,y,z)$. In the followings, a schematic view will depict this layout for each
-form factor.\\
-
-
-All form factors have been implemented with complex scattering vectors
-in order to take any material absorption into account.\\
 
 %-------------------------------------------------------------------------------
 \newpage

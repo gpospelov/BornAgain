@@ -28,7 +28,8 @@
 %	PAGE LAYOUT
 %-------------------------------------------------------------------------------
 \usepackage[toc,page]{appendix}
-\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \usepackage{titlesec}
 
 \textwidth=410pt
@@ -90,6 +91,7 @@
 \usepackage{tikz-uml} 
 \usetikzlibrary{trees}
 \usepackage{amsmath}
+\usepackage{mathtools} % has \coloneqq for :=
 
 \usepackage{pifont}
 \usepackage{dingbat}
@@ -167,15 +169,18 @@
 %       Commands
 %-------------------------------------------------------------------------------
 
+\newcommand{\SecLabel}[1]{\label{sec:#1}}%
+
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
+\renewcommand{\refeq}[1]{equation (\ref{eq:#1})}
+\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
+
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\Python}{\Code{Python}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
-\newcommand{\SecLabel}[1]{\label{sec:#1}}%
-\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
 \newcommand{\MakeRemark}[2]
 { \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
 }
@@ -210,6 +215,7 @@
 \newcommand{\vectk}{\vect{k}}
 \newcommand{\vectkt}{\vect{\widetilde{k}}}
 \newcommand{\vectq}{\vect{q}}
+\newcommand{\Nabla}{\text{\boldmath$\nabla$}}
 
 %curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}
@@ -229,8 +235,6 @@
 %ensemble average
 \newcommand{\ensavg}[2]{\ensuremath{\left\langle #2 \right\rangle_{#1} }}
 
-%reference to equations
-\newcommand{\refeq}[1]{equation (\ref{eq:#1})}
 
 %-------------------------------------------------------------------------------
 %	HYPHENATION

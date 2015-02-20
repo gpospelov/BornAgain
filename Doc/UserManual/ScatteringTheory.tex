@@ -16,23 +16,92 @@
 
 \chapter{Scattering Theory}  \SecLabel{ScatTheory}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Wave equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+X-ray and neutron propagation are both governed by
+the same stationary wave equation,
+the \textit{Helmholtz equation}
+\begin{equation}\label{eq:Helmholtz}
+  \left(\Nabla^2+K^2n(\vect{r})^2\right)\Psi(\vect{r}),
+\end{equation}
+where $K=2\pi/\lambda_0$ is the vacuum wave number,
+and $n$ is the index of refraction.
+In this equation,
+the time dependence ${\rm e}^{i\omega t}$ of the wave field
+does not appear explicitly.
+In GISAS, we are only interested in elastic scattering.
+Therefore, the wave frequency~$\omega$ is considered constant.
+
+Implicitly, $K$ depends on~$\omega$ through a \textit{dispersion relation}.
+This relation is fundamentally different for
+X-rays (where it is linear, $\omega\propto K$)
+and for thermal neutrons (where it is quadratic, $\omega\propto K^2$).
+However, for stationary problems
+this frequency dependence of~$K$ does not matter.
+Therefore we can use $K$ instead of~$\omega$ as a constant
+that characterizes the incoming radiation.
+In this way, scalar X-ray and neutron scattering can be described by exactly
+the same wave equation~\refeq{Helmholtz}.
+
+Some GISAS experiments are performed with polarized radiation
+or/and involve polarization-dependent interactions.
+Therefore we need also to consider
+the propagation of polarized X-rays and neutrons.
+Electromagnetic field vectors and neutron spinors
+are fundamentally different mathematical objects
+Nevertheless, for our purpose they can be
+mapped onto a uniform .... <to elaborate> ....
+so that one and the same formalism can be applied
+to polarized GISAXS and GISANS.
+This shall be derived in the following.
+
 %===============================================================================
-\subsection{Distorted Wave Born Approximation} \SecLabel{sect:dwba}
+\subsection{X-ray propagation}
 %===============================================================================
-\index{Distorted wave Born approximation}
 
-The Born approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
-The collective effects between the particles are not considered in this section. They have been described in~\SecRef{sect:interf}.  We also do not take any polarization effects into account. \\
+\ldots to come
 
- In the DWBA, the form factor of a particle in a multilayer system is given by
+%===============================================================================
+\subsection{Neutron propagation}
+%===============================================================================
 
-\begin{align}
-F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
- \nonumber \\
-  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z} \; , \label{eq:dwbageneral}
-\end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
-$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
+In the case of pure nuclear scattering, the Hamiltonian describing a neutron in a scattering experiment, is given by $H = -\dfrac{\hbar^2}{2m}\Delta + V$, where
+
+\begin{equation*}
+  V = \frac{2\pi \hbar^2}{m}\rho_s(\vect{r}) \; ,
+\end{equation*}
+with $\rho_s(\vect{r})$ the scattering length density of the sample. This scattering length density typically consists of a sum of weighted delta-functions, peaked at the atomic positions of the sample. For small scattering angles, the Bragg condition will not be fulfilled and the scattering length density may be replaced by a continuous function, representing the average scattering length density. In this case, one can define a refractive index, which in general will also be a continuous function of the position in the sample:
+\begin{equation*}
+  n^2(\vect{r}) \equiv 1 - \frac{4\pi}{K^2}\rho_s(\vect{r}) \; ,
+\end{equation*}
+with $K$ the wavevector in vacuum, or alternatively $K = 2\pi /\lambda$, with $\lambda$ the de Broglie wavelength of the neutron.
+
+
+Substituting this refractive index in the potential then gives:
+\begin{equation*}
+  V(\vect{r}) = \frac{\hbar^2}{2m}K^2(1-n^2(\vect{r})) \; .
+\end{equation*}
+
+Using these definitions, one can rescale the Hamiltonian with a factor $2m/\hbar^2$, such that
+\begin{align*}
+  \widetilde{H} &\coloneqq -\Delta + \widetilde{V} \nonumber \\
+  \widetilde{V}(\vect{r}) &\coloneqq 4\pi\rho_s(\vect{r}) = K^2(1-n^2(\vect{r})) \; .
+\end{align*}
+It should be noted that this Hamiltonian implicitly contains the energy eigenvalue ($E_{K}=(\hbar K)^2/2m$), so that it can only be used in the time-independent Schr\"odinger equation $H\Psi_\alpha = E_\alpha \Psi_\alpha$.
+
+The $T$-matrix then also becomes rescaled and the scattering amplitude becomes:
+\begin{equation*}
+  f(\theta, \phi) = -2\pi^2 \braket{\vect{k}_f}{\widetilde{T}}{\vect{k}_i} \; .
+\end{equation*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\boldmath$T$ and $S$ matrix formalism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %===============================================================================
 \subsection{Green operators and the $T$-matrix}
@@ -125,39 +194,6 @@ where $J_0$ denotes the incident flux density. The scattering cross-section is d
 \end{equation*}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Small angle approximation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In the case of pure nuclear scattering, the Hamiltonian describing a neutron in a scattering experiment, is given by $H = -\dfrac{\hbar^2}{2m}\Delta + V$, where
-
-\begin{equation*}
-  V = \frac{2\pi \hbar^2}{m}\rho_s(\vect{r}) \; ,
-\end{equation*}
-with $\rho_s(\vect{r})$ the scattering length density of the sample. This scattering length density typically consists of a sum of weighted delta-functions, peaked at the atomic positions of the sample. For small scattering angles, the Bragg condition will not be fulfilled and the scattering length density may be replaced by a continuous function, representing the average scattering length density. In this case, one can define a refractive index, which in general will also be a continuous function of the position in the sample:
-\begin{equation*}
-  n^2(\vect{r}) \equiv 1 - \frac{4\pi}{k_0^2}\rho_s(\vect{r}) \; ,
-\end{equation*}
-with $k_0$ the wavevector in vacuum, or alternatively $k_0 = 2\pi /\lambda$, with $\lambda$ the de Broglie wavelength of the neutron.
-
-
-Substituting this refractive index in the potential then gives:
-\begin{equation*}
-  V(\vect{r}) = \frac{\hbar^2}{2m}k_0^2(1-n^2(\vect{r})) \; .
-\end{equation*}
-
-Using these definitions, one can rescale the Hamiltonian with a factor $2m/\hbar^2$, such that
-\begin{align*}
-  \widetilde{H} &\equiv -\Delta + \widetilde{V} \nonumber \\
-  \widetilde{V}(\vect{r}) &\equiv 4\pi\rho_s(\vect{r}) = k_0^2(1-n^2(\vect{r})) \; .
-\end{align*}
-It should be noted that this Hamiltonian implicitly contains the energy eigenvalue ($E_{k_0}=(\hbar k_0)^2/2m$), so that it can only be used in the time-independent Schr\"odinger equation $H\Psi_\alpha = E_\alpha \Psi_\alpha$.
-
-The $T$-matrix then also becomes rescaled and the scattering amplitude becomes:
-\begin{equation*}
-  f(\theta, \phi) = -2\pi^2 \braket{\vect{k}_f}{\widetilde{T}}{\vect{k}_i} \; .
-\end{equation*}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -173,7 +209,7 @@ In the Born approximation ($\widetilde{T}\simeq\widetilde{V}$), the scattering a
 \end{align*}
 where $\vect{q}\equiv \vect{k}_i - \vect{k}_f$ denotes the wavevector transfer and
 \begin{equation*}
-  \rho_s(\vect{r}) = \frac{k_0^2}{4\pi}(1-n^2(\vect{r})) \; .
+  \rho_s(\vect{r}) = \frac{K^2}{4\pi}(1-n^2(\vect{r})) \; .
 \end{equation*}
 
 The differential cross-section (per scattering center) is then given by:
@@ -240,6 +276,24 @@ with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \sime
 
 
 %===============================================================================
+\subsection{More on the Distorted Wave Born Approximation} \SecLabel{sect:dwba}
+%===============================================================================
+\index{Distorted wave Born approximation}
+
+The Born approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
+The collective effects between the particles are not considered in this section. They have been described in~\SecRef{sect:interf}.  We also do not take any polarization effects into account. \\
+
+ In the DWBA, the form factor of a particle in a multilayer system is given by
+
+\begin{align}
+F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
+ \nonumber \\
+  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z} \; , \label{eq:dwbageneral}
+\end{align}
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
+$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
+
+%===============================================================================
 \subsection{Multilayer systems}
 %===============================================================================
 
@@ -247,8 +301,8 @@ In multilayer systems, the first term of \refeq{tdwba} denotes the specular part
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
-  V_1 & = k_0^2\left( 1-n_0^2(\vect{r})\right)  \\
-  V_2 & = \sum_i k_0^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i) \; ,
+  V_1 & = K^2\left( 1-n_0^2(\vect{r})\right)  \\
+  V_2 & = \sum_i K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i) \; ,
 \end{align*}
 where $n_0(\vect{r})$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\vect{R}^i$.
 
@@ -275,7 +329,7 @@ From this expression, one sees that the scattering amplitude consists of a weigh
 \begin{equation*}
   V_2(\vectr) = \sum_i 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \vect{R}^i) \; ,
 \end{equation*}
-with $\rho_{s,rel,i}\equiv  k_0^2\left( n_0^2(\vect{R}^i) - n_i^2 \right)/4\pi$, the scattering amplitude becomes
+with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right)/4\pi$, the scattering amplitude becomes
 \begin{equation*}
   f(\theta, \phi) = -\sum_i  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\vectk_{j,i},\vectk_{j,f},\vect{R}^i_z)e^{i(\vectk_{j,i\parallel}-\vectk_{j,f\parallel})\cdot \vect{R}^{i\parallel} } \; ,
 \end{equation*}

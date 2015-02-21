@@ -262,7 +262,32 @@ In this equation, the factor $\ppcf{\alpha}{\beta}{R}$ is called the \emph{parti
 \index{Distorted wave Born approximation}
 \index{DWBA|see {Distorted wave Born approximation}}
 
-In this section, one proceeds along similar lines as in the formal treatment of section \ref{sec:formal}. This time however, the full Hamiltonian is written as $H_2 = H_1 + V_2 = H_0 +V_1 + V_2$, where $H_0$ will again refer to the free Hamiltonian. In the distorted wave Born approximation (DWBA), one performs a perturbative expansion around the solutions of the Hamiltonian $H_1$, which are assumed to be known:
+In Born approximation,
+the incoming radiation is treated as a plane wave
+with wavevector~$\vect{k}_i$.
+The scattered spherical wave is considered
+at a particular remote detector position,
+and therefore can be approximated as an outgoing plane wave
+with wavevector~$\vect{k}_f$.
+This is adequate for almost all neutron scattering experiments ---
+but not if plane-wave propagation is substantially distorted
+by reflection and refraction.
+Which is most notably the case
+for grazing-incidence scattering from multilayer samples.
+While scattering can still be treated as a weak perturbation,
+reflection and refraction distort the incoming and outgoing wave field
+in zeroeth order,
+and need to be fully accounted for.
+Doing this, the Born approximation is naturally extended into
+the distorted wave Born approximation (DWBA).
+
+To start, we extend the formalism of section \ref{sec:formal}.
+The full Hamiltonian is now written as $H_2 = H_1 + V_2 = H_0 +V_1 + V_2$,
+where $H_0$ will again refer to the free Hamiltonian.
+In DWBA,
+one performs a perturbative expansion
+around the solutions of the Hamiltonian $H_1$,
+which are assumed to be known:
 \begin{align*}
   H_1\Psi^\pm_{1\alpha} &= E_\alpha\Psi^\pm_{1\alpha} \\
   \Psi^\pm_{1\alpha} &= \Psi_{0\alpha} + G^\pm_1 V_1 \Psi_{0\alpha} \; ,
@@ -288,16 +313,7 @@ with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \sime
 \end{equation}
 
 
-%===============================================================================
-\subsection{More on the Distorted Wave Born Approximation} \SecLabel{sect:dwba}
-%===============================================================================
-\index{Distorted wave Born approximation}
-
-The Born approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
-The collective effects between the particles are not considered in this section. They have been described in~\SecRef{sect:interf}.  We also do not take any polarization effects into account. \\
-
- In the DWBA, the form factor of a particle in a multilayer system is given by
-
+In the DWBA, the form factor of a particle in a multilayer system is given by
 \begin{align}
 F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
  \nonumber \\

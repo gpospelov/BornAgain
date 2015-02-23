@@ -35,6 +35,7 @@ TestView::TestView(QWidget *parent)
 
 
     AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
+    editor1->setMinimumSize(256, 256);
     AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
 
     BeamDistributionItem *item1 = new BeamDistributionItem;

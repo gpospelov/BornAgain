@@ -30,9 +30,6 @@ public:
 
     void setBeamItem(TestBeamItem *m_beamItem);
 
-private slots:
-    void onPropertyItemChanged(const QString &property_name);
-
 
 private:
     void initWavelengthWidget();

@@ -251,7 +251,7 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group, const
 {
     if(m_block_update) return;
 
-    qDebug() << "ColorMapPlot::onPropertyItemChanged(const QString &property_name)" << property_group << property_name;
+    qDebug() << "ColorMapPlot::onSubItemPropertyChanged(const QString &property_name)" << property_group << property_name;
     if(property_group == IntensityDataItem::P_XAXIS) {
         if(property_name == BasicAxisItem::P_MIN) {
             QCPRange range = m_customPlot->xAxis->range();

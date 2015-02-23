@@ -156,7 +156,6 @@ void ParameterizedItem::onSubItemPropertyChanged(const QString & propertyName)
                     getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
             emit subItemPropertyChanged(it.key(), propertyName);
-//            emit propertyItemChanged(it.key());
             if (m_parent) m_parent->onChildPropertyChange();
             return;
         }

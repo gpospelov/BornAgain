@@ -230,8 +230,8 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
 
         disconnect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
-        disconnect(item, SIGNAL(propertyItemChanged(QString)),
-                this, SLOT(onPropertyItemChanged(QString)));
+        disconnect(item, SIGNAL(subItemChanged(QString)),
+                this, SLOT(onSubItemChanged(QString)));
 
         qDebug() << "       AwesomePropertyEditor::onPropertyChanged(const QString &property_name) -> Setting variant_property";
         variant_property->setValue(property_value);
@@ -245,16 +245,16 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
 
         connect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
-        connect(item, SIGNAL(propertyItemChanged(QString)),
-                this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+        connect(item, SIGNAL(subItemChanged(QString)),
+                this, SLOT(onSubItemChanged(QString)), Qt::UniqueConnection);
 
     }
 }
 
-void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
+void AwesomePropertyEditor::onSubItemChanged(const QString &property_name)
 {
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
-    qDebug() << "AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name) BROWSER_ID:" << m_d->m_browser_type << "item->modelType(), property_name" << item->modelType() << property_name;
+    qDebug() << "AwesomePropertyEditor::onSubItemChanged(const QString &property_name) BROWSER_ID:" << m_d->m_browser_type << "item->modelType(), property_name" << item->modelType() << property_name;
 
     QtVariantProperty *variant_property = m_d->m_item_to_property_to_qtvariant[item][property_name];
     if(variant_property) {
@@ -262,8 +262,8 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
 
         disconnect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
-        disconnect(item, SIGNAL(propertyItemChanged(QString)),
-                this, SLOT(onPropertyItemChanged(QString)));
+        disconnect(item, SIGNAL(subItemChanged(QString)),
+                this, SLOT(onSubItemChanged(QString)));
 
         variant_property->setValue(property_value);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(property_name);
@@ -280,8 +280,8 @@ void AwesomePropertyEditor::onPropertyItemChanged(const QString &property_name)
 
         connect(item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
-        connect(item, SIGNAL(propertyItemChanged(QString)),
-                this, SLOT(onPropertyItemChanged(QString)));
+        connect(item, SIGNAL(subItemChanged(QString)),
+                this, SLOT(onSubItemChanged(QString)));
     }
 }
 
@@ -329,8 +329,8 @@ void AwesomePropertyEditor::insertItemProperty(ParameterizedItem *item, const QS
 
     connect(item, SIGNAL(propertyChanged(QString)),
            this, SLOT(onPropertyChanged(QString)), Qt::UniqueConnection);
-    connect(item, SIGNAL(propertyItemChanged(QString)),
-            this, SLOT(onPropertyItemChanged(QString)), Qt::UniqueConnection);
+    connect(item, SIGNAL(subItemChanged(QString)),
+            this, SLOT(onSubItemChanged(QString)), Qt::UniqueConnection);
 }
 
 //! creates QtVariantProperty for given ParameterizedItem's property

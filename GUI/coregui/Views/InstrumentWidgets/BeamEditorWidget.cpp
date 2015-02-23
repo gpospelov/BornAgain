@@ -138,13 +138,13 @@ void BeamEditorWidget::initFromItem(BeamItem *item)
     if(item != m_currentItem) {
         if(m_currentItem) {
             disconnect(m_currentItem, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-            //disconnect(m_currentItem, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+            //disconnect(m_currentItem, SIGNAL(subItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
         }
 
         m_currentItem = item;
 
         connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-//        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+//        connect(item, SIGNAL(subItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
 
         updateWidgets();
     }

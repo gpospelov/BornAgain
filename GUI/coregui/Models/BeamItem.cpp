@@ -83,18 +83,6 @@ void BeamWavelengthItem::onPropertyChange(const QString &name)
     ParameterizedItem::onPropertyChange(name);
 }
 
-//void BeamWavelengthItem::onPropertyItemChanged(const QString &propertyName)
-//{
-//    qDebug() << "AAA";
-//    qDebug() << "AAA";
-//    qDebug() << "AAA";
-//    qDebug() << "AAA";
-//    qDebug() << "AAA";
-//    qDebug() << "AAA";
-//    qDebug() << "BeamWavelengthItem::onPropertyItemChanged(const QString &propertyName)" << propertyName;
-//    ParameterizedItem::onPropertyItemChanged(propertyName);
-//}
-
 
 const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";
 const QString TestBeamItem::P_WAVELENGTH = "Wavelength";

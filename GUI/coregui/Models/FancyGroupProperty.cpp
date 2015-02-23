@@ -64,7 +64,7 @@ void FancyGroupProperty::setValue(const QString &value)
 
     if(m_parent) {
         m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
-        emit m_parent->propertyItemChanged(getGroupName());
+        emit m_parent->subItemChanged(getGroupName());
     }
 }
 

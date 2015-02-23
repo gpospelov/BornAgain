@@ -111,13 +111,13 @@ void DetectorEditorWidget::initFromItem(ParameterizedItem *item)
     if(item != m_currentItem) {
         if(m_currentItem) {
             disconnect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString  &)));
-            disconnect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+            disconnect(item, SIGNAL(subItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
         }
 
         m_currentItem = item;
 
         connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+        connect(item, SIGNAL(subItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
 
         updateWidgets();
     }

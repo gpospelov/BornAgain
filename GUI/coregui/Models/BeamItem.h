@@ -44,7 +44,6 @@ public:
     explicit BeamWavelengthItem(ParameterizedItem *parent=0);
     ~BeamWavelengthItem(){}
     void onPropertyChange(const QString &name);
-//    void onPropertyItemChanged(const QString &propertyName);
 };
 
 

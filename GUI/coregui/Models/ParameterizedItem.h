@@ -136,7 +136,7 @@ public slots:
 
 signals:
     void propertyChanged(const QString &propertyName);
-    void propertyItemChanged(const QString &propertyName);
+    void subItemChanged(const QString &propertyName);
     void subItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:

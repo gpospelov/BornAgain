@@ -56,14 +56,6 @@ void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
     initWavelengthWidget();
 }
 
-void TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)
-{
-    qDebug() << "TestBeamEditorWidget::onPropertyItemChanged(const QString &property_name)" << property_name;
-//    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
-//    if(item->modelType() == Constants::BeamWavelengthType)
-//        initWavelengthWidget();
-
-}
 
 void TestBeamEditorWidget::initWavelengthWidget()
 {

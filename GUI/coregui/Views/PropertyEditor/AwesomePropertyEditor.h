@@ -55,7 +55,7 @@ public:
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
     void onPropertyChanged(const QString &property_name);
-    void onPropertyItemChanged(const QString &property_name);
+    void onSubItemChanged(const QString &property_name);
 
 private:
     void insertItemProperties(ParameterizedItem *item, QtVariantProperty *parent_qtproperty=0, EInsertMode insert_mode = INSERT_AFTER, EInsertMode subitem_insert_mode = INSERT_AS_CHILD);

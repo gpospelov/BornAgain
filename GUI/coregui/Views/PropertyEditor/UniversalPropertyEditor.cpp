@@ -157,7 +157,7 @@ void UniversalPropertyEditor::updateSubItems(const QString &name)
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
     disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
     clearEditor();
 
@@ -167,7 +167,7 @@ void UniversalPropertyEditor::updateSubItems(const QString &name)
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
     connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 }
 
 void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
@@ -184,7 +184,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
         variant_property->setValue(property_value);
 
@@ -200,13 +200,13 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
         connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
         connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                this, SLOT(onSubItemPropertyChanged(QString,QString)));
     }
 }
 
-void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name)
+void UniversalPropertyEditor::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
-    qDebug() << "UniversalPropertyEditor::onPropertyItemPropertyChanged" << property_group << property_name;
+    qDebug() << "UniversalPropertyEditor::onSubItemPropertyChanged" << property_group << property_name;
     ParameterizedItem *subItem = m_item->getSubItems()[property_group];
     if(subItem){
         QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[subItem][property_name];
@@ -218,7 +218,7 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
             disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
             disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                    this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
             variant_property->setValue(property_value);
 
@@ -234,7 +234,7 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
             connect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
             connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                    this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                    this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 
         }
@@ -254,7 +254,7 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
         clearEditor();
 
@@ -270,7 +270,7 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
     connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 }
 

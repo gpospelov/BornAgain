@@ -39,7 +39,7 @@ public slots:
 
 private slots:
 //    void onPropertyChanged(const QString &property_name);
-    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private:
     void plotItem(IntensityDataItem *intensityItem);

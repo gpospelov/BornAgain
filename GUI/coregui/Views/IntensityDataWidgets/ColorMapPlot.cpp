@@ -50,7 +50,7 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+                this, SLOT(onSubItemPropertyChanged(QString,QString)));
     }
 
     m_item = item;
@@ -63,7 +63,7 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
             this, SLOT(onPropertyChanged(QString)));
 
     connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
+            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 }
 
@@ -247,7 +247,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
     }
 }
 
-void ColorMapPlot::onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name)
+void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
     if(m_block_update) return;
 

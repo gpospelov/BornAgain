@@ -156,7 +156,7 @@ void UniversalPropertyEditor::updateSubItems(const QString &name)
             this, SLOT(onPropertyChanged(QString)));
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
-    disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+    disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
     clearEditor();
@@ -166,7 +166,7 @@ void UniversalPropertyEditor::updateSubItems(const QString &name)
             this, SLOT(updateSubItems(QString)));
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 }
 
@@ -183,7 +183,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
                this, SLOT(onPropertyChanged(QString)));
         disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
-        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                 this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
         variant_property->setValue(property_value);
@@ -199,7 +199,7 @@ void UniversalPropertyEditor::onPropertyChanged(const QString &property_name)
                this, SLOT(onPropertyChanged(QString)));
         connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
-        connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+        connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                 this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 }
@@ -217,7 +217,7 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
                    this, SLOT(onPropertyChanged(QString)));
             disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
-            disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                     this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
             variant_property->setValue(property_value);
@@ -233,7 +233,7 @@ void UniversalPropertyEditor::onPropertyItemPropertyChanged(const QString &prope
                    this, SLOT(onPropertyChanged(QString)));
             connect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
-            connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+            connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                     this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 
@@ -253,7 +253,7 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
                 this, SLOT(updateSubItems(QString)));
         disconnect(m_item, SIGNAL(propertyChanged(QString)),
                 this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                 this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
         clearEditor();
@@ -269,7 +269,7 @@ void UniversalPropertyEditor::setItem(ParameterizedItem *item)
             this, SLOT(updateSubItems(QString)));
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 }

@@ -45,7 +45,7 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
     if (m_item) {
 //        disconnect(m_item, SIGNAL(propertyChanged(QString)),
 //                this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
                 this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
     }
 
@@ -58,7 +58,7 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
 //    connect(m_item, SIGNAL(propertyChanged(QString)),
 //            this, SLOT(onPropertyChanged(QString)));
 
-    connect(m_item, SIGNAL(propertyItemPropertyChanged(QString,QString)),
+    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
             this, SLOT(onPropertyItemPropertyChanged(QString,QString)));
 
 }

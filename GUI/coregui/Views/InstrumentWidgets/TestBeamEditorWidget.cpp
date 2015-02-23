@@ -39,6 +39,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     QGridLayout *gridLayout = new QGridLayout;
 
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+//    m_wavelengthEditor = new AwesomePropertyEditor(this);
     gridLayout->addWidget(m_wavelengthEditor, 0, 0);
 
     groupLayout->addLayout(gridLayout);
@@ -79,6 +80,7 @@ void TestBeamEditorWidget::initWavelengthWidget()
 //    Q_ASSERT(distributionItem);
 
     m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);
+//    m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"));
 
 }
 

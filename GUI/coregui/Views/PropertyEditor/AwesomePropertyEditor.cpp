@@ -397,7 +397,8 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
             if(m_d->m_browser->items(parent_qtproperty).size() == 1) {
                 // inserting qtVariantItem after parent property, so we need to know parent of parent
                 QtProperty *new_parent = m_d->m_browser->items(parent_qtproperty).at(0)->parent()->property();
-                new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+                //new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+                new_parent->insertSubProperty(qtVariantItem, new_parent->subProperties().back());
             } else {
                 // our parent property is already at the top, so need to add into the browser
                 QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);

@@ -15,6 +15,7 @@
 
 #include "DistributionItem.h"
 #include "ComboProperty.h"
+#include <QDebug>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 DistributionItem::DistributionItem(const QString name, ParameterizedItem *parent)

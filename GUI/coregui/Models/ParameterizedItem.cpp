@@ -144,8 +144,8 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::EPorts nport)
 }
 
 
-// to update label of FixedGroupProperty
-void ParameterizedItem::onPropertyItemChanged(const QString & propertyName)
+//! this slot is called when SubItem change one of its properties
+void ParameterizedItem::onSubItemPropertyChanged(const QString & propertyName)
 {
     Q_UNUSED(propertyName);
     ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
@@ -155,13 +155,13 @@ void ParameterizedItem::onPropertyItemChanged(const QString & propertyName)
             FancyGroupProperty_t group_property =
                     getRegisteredProperty(it.key()).value<FancyGroupProperty_t>();
             group_property->setValueLabel(propertyItem->getItemLabel());
-            emit propertyItemPropertyChanged(it.key(), propertyName);
+            emit subItemPropertyChanged(it.key(), propertyName);
 //            emit propertyItemChanged(it.key());
             if (m_parent) m_parent->onChildPropertyChange();
             return;
         }
     }
-    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() ->"
+    throw GUIHelpers::Error("ParameterizedItem::onSubItemPropertyChanged() ->"
                             " Error. No such propertyItem found");
 }
 
@@ -192,7 +192,7 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     }
     m_sub_items[name] = item;
     item->m_parent = this;
-    connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+    connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onSubItemPropertyChanged(QString)));
     onChildPropertyChange();
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }

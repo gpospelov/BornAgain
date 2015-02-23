@@ -31,5 +31,4 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
-
 }

@@ -60,32 +60,16 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
 {
     setItemName(Constants::BeamWavelengthType);
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+    setGroupProperty(P_DISTRIBUTION, Constants::DistributionGateType);
     registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
 
 }
 
 void BeamWavelengthItem::onPropertyChange(const QString &name)
 {
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
-    qDebug() << "XXXX";
     if(name == P_DISTRIBUTION) {
         ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
         if(distribution) {
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
-            qDebug() << "XXXX";
             if(distribution->modelType() == Constants::DistributionNoneType) {
                 setPropertyAppearance(P_VALUE, PropertyAttribute::VISIBLE);
                 qDebug() << "XXX setting to visible";
@@ -98,6 +82,18 @@ void BeamWavelengthItem::onPropertyChange(const QString &name)
     }
     ParameterizedItem::onPropertyChange(name);
 }
+
+//void BeamWavelengthItem::onPropertyItemChanged(const QString &propertyName)
+//{
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "AAA";
+//    qDebug() << "BeamWavelengthItem::onPropertyItemChanged(const QString &propertyName)" << propertyName;
+//    ParameterizedItem::onPropertyItemChanged(propertyName);
+//}
 
 
 const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";

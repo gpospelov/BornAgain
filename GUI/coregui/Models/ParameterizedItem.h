@@ -132,12 +132,12 @@ public:
     virtual void onChildPropertyChange();
 
 public slots:
-    void onPropertyItemChanged(const QString &propertyName);
+    virtual void onSubItemPropertyChanged(const QString &propertyName);
 
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
-    void propertyItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void subItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);

@@ -402,7 +402,9 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
             } else {
                 // our parent property is already at the top, so need to add into the browser
                 QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
-                Q_ASSERT(browserItem);
+                if(!browserItem) {
+                    throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Failed while inserting property");
+                }
             }
         }
         else {

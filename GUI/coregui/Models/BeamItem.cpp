@@ -17,6 +17,7 @@
 #include "InterferenceFunctionItems.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include "DistributionItem.h"
 #include "Units.h"
 #include <QDebug>
 
@@ -53,7 +54,7 @@ void BeamItem::onPropertyChange(const QString &name)
 
 
 const QString BeamWavelengthItem::P_DISTRIBUTION = "Distribution";
-const QString BeamWavelengthItem::P_VALUE = "Value";
+const QString BeamWavelengthItem::P_CACHED_VALUE = "Value";
 
 BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamWavelengthType, parent)
@@ -61,26 +62,51 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     setItemName(Constants::BeamWavelengthType);
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionGateType);
-    registerProperty(P_VALUE, 0.1, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
+    registerProperty(P_CACHED_VALUE, 0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::lowerLimited(1e-4), 4));
 
 }
 
 void BeamWavelengthItem::onPropertyChange(const QString &name)
 {
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "BeamWavelengthItem::onPropertyChange(const QString &name)" << name;
+
     if(name == P_DISTRIBUTION) {
         ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
         if(distribution) {
             if(distribution->modelType() == Constants::DistributionNoneType) {
-                setPropertyAppearance(P_VALUE, PropertyAttribute::VISIBLE);
+                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::VISIBLE);
                 qDebug() << "XXX setting to visible";
             } else {
-                setPropertyAppearance(P_VALUE, PropertyAttribute::HIDDEN);
+                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::HIDDEN);
                 qDebug() << "XXX setting to hidden";
             }
-            ParameterizedItem::onPropertyChange(P_VALUE);
+            ParameterizedItem::onPropertyChange(P_CACHED_VALUE);
         }
     }
     ParameterizedItem::onPropertyChange(name);
+}
+
+void BeamWavelengthItem::onSubItemChanged(const QString &propertyName)
+{
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "BeamWavelengthItem::onSubItemChanged(const QString &propertyName)" << propertyName;
+    if(propertyName == P_DISTRIBUTION) {
+        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
+        Q_ASSERT(distribution);
+        if(distribution->modelType() == Constants::DistributionNoneType) {
+            double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
+            distribution->setRegisteredProperty(DistributionNoneItem::P_VALUE, cached_value);
+            distribution->setPropertyAttribute(DistributionNoneItem::P_VALUE, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
+        }
+    }
+    ParameterizedItem::onSubItemChanged(propertyName);
 }
 
 

@@ -130,18 +130,22 @@ public:
     QStringList getParameterTreeList() const;
 
     virtual void onChildPropertyChange();
-
-public slots:
-    virtual void onSubItemPropertyChanged(const QString &propertyName);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
 signals:
     void propertyChanged(const QString &propertyName);
     void subItemChanged(const QString &propertyName);
     void subItemPropertyChanged(const QString &property_group, const QString &property_name);
 
+protected slots:
+    virtual void onSubItemChanged(const QString &propertyName);
+    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+
+private slots:
+    virtual void processSubItemPropertyChanged(const QString &propertyName);
+
 protected:
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     QStringList m_registered_properties;
 

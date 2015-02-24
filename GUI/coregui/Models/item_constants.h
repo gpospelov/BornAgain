@@ -113,6 +113,7 @@ const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
 const ModelType BeamWavelengthType = "BeamWavelength";
+const ModelType BeamAngleType = "BeamAngle";
 
 // --- Groups ------------------------------------------------------------------
 

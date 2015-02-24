@@ -125,6 +125,7 @@ void AwesomePropertyEditor::setItem(ParameterizedItem *item, const QString &grou
 //! adds given ParameterizedItem's property to the group
 void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QString &property_name, const QString &group_name, AwesomePropertyEditor::EInsertMode subitem_insert_policy)
 {
+    Q_ASSERT(item);
     qDebug() << " AwesomePropertyEditor::addItemProperty() " << item << property_name << group_name << subitem_insert_policy;
     QtVariantProperty *groupVariantProperty(0);
     if(!group_name.isEmpty()) {
@@ -142,6 +143,7 @@ void AwesomePropertyEditor::addItemProperty(ParameterizedItem *item, const QStri
 //! adds all ParameterizedItem properties to the group
 void AwesomePropertyEditor::addItemProperties(ParameterizedItem *item, const QString &group_name, AwesomePropertyEditor::EInsertMode subitem_insert_policy)
 {
+    Q_ASSERT(item);
     qDebug() << "AwesomePropertyEditor::addItemProperties() group_name:" << group_name;
     QtVariantProperty *groupVariantProperty(0);
     if(!group_name.isEmpty()) {

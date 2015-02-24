@@ -44,10 +44,26 @@ public:
     explicit BeamWavelengthItem(ParameterizedItem *parent=0);
     ~BeamWavelengthItem(){}
 protected slots:
-//    void onPropertyChange(const QString &name);
     void onSubItemChanged(const QString &propertyName);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 };
+
+
+class BA_CORE_API_ BeamAngleItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    static const QString P_DISTRIBUTION;
+    static const QString P_CACHED_VALUE;
+    explicit BeamAngleItem(ParameterizedItem *parent=0);
+    ~BeamAngleItem(){}
+protected slots:
+    void onSubItemChanged(const QString &propertyName);
+    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+};
+
+
+
 
 
 class BA_CORE_API_ TestBeamItem : public ParameterizedItem
@@ -56,6 +72,8 @@ class BA_CORE_API_ TestBeamItem : public ParameterizedItem
 public:
     static const QString P_INTENSITY;
     static const QString P_WAVELENGTH;
+    static const QString P_INCLINATION_ANGLE;
+    static const QString P_AZIMUTHAL_ANGLE;
     explicit TestBeamItem(ParameterizedItem *parent=0);
     ~TestBeamItem(){}
 };

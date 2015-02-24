@@ -28,6 +28,8 @@
 TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     : QWidget(parent)
     , m_wavelengthEditor(0)
+    , m_inclinationAngleEditor(0)
+    , m_azimuthalAngleEditor(0)
     , m_beamItem(0)
 {
     // group box layout
@@ -39,8 +41,11 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     QGridLayout *gridLayout = new QGridLayout;
 
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    m_wavelengthEditor = new AwesomePropertyEditor(this);
     gridLayout->addWidget(m_wavelengthEditor, 0, 0);
+    m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    gridLayout->addWidget(m_inclinationAngleEditor, 0, 1);
+    m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    gridLayout->addWidget(m_azimuthalAngleEditor, 0, 2);
 
     groupLayout->addLayout(gridLayout);
 
@@ -53,98 +58,19 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
 {
     m_beamItem = beamItem;
-    initWavelengthWidget();
-}
-
-
-void TestBeamEditorWidget::initWavelengthWidget()
-{
     m_wavelengthEditor->clearEditor();
+    m_inclinationAngleEditor->clearEditor();
 
-    Q_ASSERT(m_beamItem);
-    BeamWavelengthItem *wavelengthItem = dynamic_cast<BeamWavelengthItem *>(m_beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH]);
-    Q_ASSERT(wavelengthItem);
-    qDebug() << "    XXX 1.1";
+    if(!m_beamItem) return;
 
-//    ParameterizedItem *distributionItem = wavelengthItem->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
-//    qDebug() << "    XXX 1.2";
-
-//    Q_ASSERT(distributionItem);
-
+    ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH];
     m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);
-//    m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"));
+
+    ParameterizedItem *inclinationAngleItem = m_beamItem->getSubItems()[TestBeamItem::P_INCLINATION_ANGLE];
+    m_inclinationAngleEditor->addItemProperties(inclinationAngleItem, QString("Inclination angle"), AwesomePropertyEditor::INSERT_AFTER);
+
+    ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[TestBeamItem::P_AZIMUTHAL_ANGLE];
+    m_azimuthalAngleEditor->addItemProperties(azimuthalAngleItem, QString("Azimuthal angle"), AwesomePropertyEditor::INSERT_AFTER);
 
 }
 
-
-
-
-
-
-/*
-
-TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_beamItem(0)
-{
-    QGroupBox *beamGroup = new QGroupBox("Beam Parameters");
-    QVBoxLayout *beamGroupLayout = new QVBoxLayout;
-    beamGroup->setLayout(beamGroupLayout);
-
-//    QVBoxLayout *beamGroupLayout = new QVBoxLayout;
-//    beamGroup->setLayout(beamGroupLayout);
-
-
-//    QGridLayout *beamParamsLayout = new QGridLayout;
-    //beamGroup->setLayout(beamParamsLayout);
-
-//    beamParamsLayout->addWidget(new QLabel("Intensity"), 0, 0);
-//    beamParamsLayout->addWidget(new QLineEdit, 0, 1);
-
-
-    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
-    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-
-    BeamDistributionItem *item1 = new BeamDistributionItem;
-    LayerItem *layer = new LayerItem();
-//    editor1->addItemProperty(item1, BeamDistributionItem::P_VALUE);
-    editor1->addItemProperty(layer, LayerItem::P_THICKNESS);
-//    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
-//    editor1->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
-//    editor1->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
-
-    editor1->addItemProperties(item1);
-
-//    editor2->addItemProperty(item1, BeamDistributionItem::P_VALUE);
-    editor2->addItemProperty(layer, LayerItem::P_THICKNESS);
-//    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_VALUE, "xxx");
-//    editor2->addItemPropertyToGroup(layer, LayerItem::P_THICKNESS, "xxx");
-//    editor2->addItemPropertyToGroup(item1, BeamDistributionItem::P_COMBO, "xxx");
-
-    editor2->addItemProperties(item1);
-
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(editor1, 3);
-    hlayout->addWidget(editor2);
-
-    beamGroupLayout->addLayout(hlayout);
-//    CustomPropertyEditor *editor = new CustomPropertyEditor(0, this);
-    //editor->setCreateGroupProperty(false);
-//    editor->setItem(new BeamDistributionItem);
-
-//    beamParamsLayout->addWidget(new QLabel("Wavelength"), 1, 0);
-//    beamParamsLayout->addWidget(editor1, 1, 0);
-//    beamParamsLayout->addWidget(editor2, 1, 1);
-
-
-    //beamGroupLayout->addLayout(beamParamsLayout);
-
-    // main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(beamGroup);
-    setLayout(mainLayout);
-}
-
-
-
-*/

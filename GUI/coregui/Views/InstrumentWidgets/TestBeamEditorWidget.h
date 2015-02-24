@@ -30,11 +30,10 @@ public:
 
     void setBeamItem(TestBeamItem *m_beamItem);
 
-
 private:
-    void initWavelengthWidget();
-
     AwesomePropertyEditor *m_wavelengthEditor;
+    AwesomePropertyEditor *m_inclinationAngleEditor;
+    AwesomePropertyEditor *m_azimuthalAngleEditor;
     TestBeamItem *m_beamItem;
 };
 

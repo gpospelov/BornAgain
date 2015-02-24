@@ -133,6 +133,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
     result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
+    result[Constants::BeamAngleType] = &createInstance<BeamAngleItem>;
     return result;
 }
 }

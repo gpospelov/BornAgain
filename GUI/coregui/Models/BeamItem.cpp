@@ -65,31 +65,7 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
-//void BeamWavelengthItem::onPropertyChange(const QString &name)
-//{
-//    qDebug() << " ";
-//    qDebug() << " ";
-//    qDebug() << " ";
-//    qDebug() << " ";
-//    qDebug() << "BeamWavelengthItem::onPropertyChange(const QString &name)" << name;
-
-//    if(name == P_DISTRIBUTION) {
-//        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
-//        if(distribution) {
-//            if(distribution->modelType() == Constants::DistributionNoneType) {
-//                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::VISIBLE);
-//                qDebug() << "XXX setting to visible";
-//            } else {
-//                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::HIDDEN);
-//                qDebug() << "XXX setting to hidden";
-//            }
-//            ParameterizedItem::onPropertyChange(P_CACHED_VALUE);
-//        }
-//    }
-//    ParameterizedItem::onPropertyChange(name);
-//}
-
-//! updates DistributionItem with cached_value
+//! updates new DistributionItem with cached_value
 void BeamWavelengthItem::onSubItemChanged(const QString &propertyName)
 {
     qDebug() << "BeamWavelengthItem::onSubItemChanged(const QString &propertyName)" << propertyName;
@@ -114,14 +90,56 @@ void BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group,
 }
 
 
+// ------------ BeamAngleItem ---
+
+const QString BeamAngleItem::P_DISTRIBUTION = "Distribution";
+const QString BeamAngleItem::P_CACHED_VALUE = "Value";
+
+BeamAngleItem::BeamAngleItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::BeamAngleType, parent)
+{
+    setItemName(Constants::BeamAngleType);
+    registerProperty(P_CACHED_VALUE, 0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::lowerLimited(1e-4), 4));
+    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+}
+
+//! updates new DistributionItem with cached_value
+void BeamAngleItem::onSubItemChanged(const QString &propertyName)
+{
+    qDebug() << "BeamAngleItem::onSubItemChanged(const QString &propertyName)" << propertyName;
+    if(propertyName == P_DISTRIBUTION) {
+        DistributionItem *distribution = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION]);
+        Q_ASSERT(distribution);
+        double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
+        PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+        cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+        distribution->init_parameters(cached_value, cached_attribute);
+    }
+    ParameterizedItem::onSubItemChanged(propertyName);
+}
+
+void BeamAngleItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    qDebug() << "BeamAngleItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)" << property_group << property_name;
+    if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
+        double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
+        setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
+    }
+}
+
 
 
 const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";
 const QString TestBeamItem::P_WAVELENGTH = "Wavelength";
+const QString TestBeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
+const QString TestBeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 
 TestBeamItem::TestBeamItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamType, parent)
 {
     registerProperty(P_INTENSITY, 1e+08);    
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
+    registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamAngleType);
+    registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAngleType);
 }

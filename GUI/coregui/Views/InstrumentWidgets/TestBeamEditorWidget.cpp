@@ -43,9 +43,9 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     gridLayout->addWidget(m_wavelengthEditor, 0, 0);
     m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_inclinationAngleEditor, 0, 1);
+    gridLayout->addWidget(m_inclinationAngleEditor, 1, 0);
     m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_azimuthalAngleEditor, 0, 2);
+    gridLayout->addWidget(m_azimuthalAngleEditor, 1, 1);
 
     groupLayout->addLayout(gridLayout);
 

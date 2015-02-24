@@ -24,6 +24,8 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     : QWidget(parent)
     , m_beamEditor(new TestBeamEditorWidget)
     , m_detectorEditor(new TestDetectorEditorWidget)
+    , m_beamItem(0)
+    , m_detectorItem(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -37,4 +39,11 @@ void InstrumentComponentsWidget::setBeamItem(TestBeamItem *beamItem)
 {
     m_beamItem = beamItem;
     m_beamEditor->setBeamItem(beamItem);
+}
+
+void InstrumentComponentsWidget::setDetectorItem(TestDetectorItem *detectorItem)
+{
+    m_detectorItem = detectorItem;
+    m_detectorEditor->setDetectorItem(detectorItem);
+
 }

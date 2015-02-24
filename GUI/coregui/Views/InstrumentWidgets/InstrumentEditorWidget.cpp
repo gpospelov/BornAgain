@@ -131,6 +131,9 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 
     TestBeamItem *testBeam = new TestBeamItem;
     m_instrumentComponents->setBeamItem(testBeam);
+
+    TestDetectorItem *testDetector = new TestDetectorItem;
+    m_instrumentComponents->setDetectorItem(testDetector);
 }
 
 

@@ -63,6 +63,9 @@ inline void TestParameterizedItem::test_registerProperty()
     // setting property value to wrong QVariant
     QVERIFY_THROW(item.setRegisteredProperty(property_name, QString("aaa")), GUIHelpers::Error);
 
+    // attempt to register already existing property
+    QVERIFY_THROW(item.registerProperty(property_name, 1.0), GUIHelpers::Error);
+
     // remove registered property
     item.removeRegisteredProperty(property_name);
     QCOMPARE(spy.count(), 1);

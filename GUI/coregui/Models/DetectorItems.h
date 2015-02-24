@@ -57,4 +57,16 @@ public:
 
 //};
 
+
+class TestDetectorItem : public ParameterizedItem
+{
+public:
+    static const QString P_BINNING;
+    static const QString P_PHI_AXIS;
+    static const QString P_ALPHA_AXIS;
+    explicit TestDetectorItem(ParameterizedItem *parent=0);
+    ~TestDetectorItem(){}
+};
+
+
 #endif

@@ -20,6 +20,7 @@
 #include <QWidget>
 
 class TestBeamItem;
+class TestDetectorItem;
 class TestBeamEditorWidget;
 class TestDetectorEditorWidget;
 
@@ -30,11 +31,13 @@ public:
     InstrumentComponentsWidget(QWidget *parent = 0);
 
     void setBeamItem(TestBeamItem *beamItem);
+    void setDetectorItem(TestDetectorItem *detectorItem);
 
 private:
     TestBeamEditorWidget *m_beamEditor;
     TestDetectorEditorWidget *m_detectorEditor;
     TestBeamItem *m_beamItem;
+    TestDetectorItem *m_detectorItem;
 };
 
 #endif

@@ -16,6 +16,7 @@
 #include "DetectorItems.h"
 #include "ComboProperty.h"
 #include "AngleProperty.h"
+#include "AxesItems.h"
 #include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "Detector";
@@ -82,4 +83,30 @@ void PhiAlphaDetectorItem::onPropertyChange(const QString &name)
     }
     ParameterizedItem::onPropertyChange(name);
 }
+
+// -----------------------------------------------------------------
+const QString TestDetectorItem::P_BINNING = "Binning";
+const QString TestDetectorItem::P_PHI_AXIS = "Phi axis";
+const QString TestDetectorItem::P_ALPHA_AXIS = "Alpha axis";
+
+TestDetectorItem::TestDetectorItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
+{
+    setItemName(Constants::PhiAlphaDetectorType);
+    ComboProperty binning;
+    binning << "Const KBin" << "Fixed";
+    registerProperty(P_BINNING, binning.getVariant());
+
+    registerGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
+    getSubItems()[P_PHI_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, -1.0);
+    getSubItems()[P_PHI_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 1.0);
+
+    registerGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    getSubItems()[P_ALPHA_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
+    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
+    getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+}
+
+
 

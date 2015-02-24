@@ -363,12 +363,17 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
     }
 
     if(type == QVariant::Double) {
-        result->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
+        //result->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
         AttLimits limits = prop_attribute.getLimits();
         if(limits.hasLowerLimit()) result->setAttribute(QLatin1String("minimum"), limits.getLowerLimit());
         if(limits.hasUpperLimit()) result->setAttribute(QLatin1String("maximum"), limits.getUpperLimit());
         result->setAttribute(QLatin1String("decimals"), prop_attribute.getDecimals());
         result->setAttribute(QLatin1String("singleStep"), 1./std::pow(10.,prop_attribute.getDecimals()-1));
+    }
+    else if(type == QVariant::Int) {
+        AttLimits limits = prop_attribute.getLimits();
+        if(limits.hasLowerLimit()) result->setAttribute(QLatin1String("minimum"), int(limits.getLowerLimit()));
+        if(limits.hasUpperLimit()) result->setAttribute(QLatin1String("maximum"), int(limits.getUpperLimit()));
     }
 
     QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), property_name);

@@ -28,7 +28,7 @@ class BA_CORE_API_ TestBeamEditorWidget : public QWidget
 public:
     TestBeamEditorWidget(QWidget *parent = 0);
 
-    void setBeamItem(TestBeamItem *m_beamItem);
+    void setBeamItem(TestBeamItem *beamItem);
 
 private:
     AwesomePropertyEditor *m_wavelengthEditor;

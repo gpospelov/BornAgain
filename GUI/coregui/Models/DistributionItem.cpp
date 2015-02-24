@@ -45,6 +45,12 @@ IDistribution1D *DistributionNoneItem::createDistribution() const
     return 0;
 }
 
+void DistributionNoneItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(DistributionNoneItem::P_VALUE, value);
+    setPropertyAttribute(DistributionNoneItem::P_VALUE, attribute);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionGateItem::P_MIN = "Minimum";
@@ -64,6 +70,14 @@ IDistribution1D *DistributionGateItem::createDistribution() const
     double min = getRegisteredProperty(P_MIN).toDouble();
     double max = getRegisteredProperty(P_MAX).toDouble();
     return new DistributionGate(min, max);
+}
+
+void DistributionGateItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(P_MIN, value - 0.1*value);
+    setPropertyAttribute(P_MIN, attribute);
+    setRegisteredProperty(P_MAX, value + 0.1*value);
+    setPropertyAttribute(P_MAX, attribute);
 }
 
 /* ------------------------------------------------ */
@@ -87,6 +101,14 @@ IDistribution1D *DistributionLorentzItem::createDistribution() const
     return new DistributionLorentz(mean, hwhm);
 }
 
+void DistributionLorentzItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(P_MEAN, value);
+    setPropertyAttribute(P_MEAN, attribute);
+    setRegisteredProperty(P_HWHM, 0.1*value);
+    setPropertyAttribute(P_HWHM, attribute);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionGaussianItem::P_MEAN = "Mean";
@@ -106,6 +128,14 @@ IDistribution1D *DistributionGaussianItem::createDistribution() const
     double mean = getRegisteredProperty(P_MEAN).toDouble();
     double std_dev = getRegisteredProperty(P_STD_DEV).toDouble();
     return new DistributionGaussian(mean, std_dev);
+}
+
+void DistributionGaussianItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(P_MEAN, value);
+    setPropertyAttribute(P_MEAN, attribute);
+    setRegisteredProperty(P_STD_DEV, 0.1*value);
+    setPropertyAttribute(P_STD_DEV, attribute);
 }
 
 /* ------------------------------------------------ */
@@ -129,6 +159,14 @@ IDistribution1D *DistributionLogNormalItem::createDistribution() const
     return new DistributionLogNormal(median, scale_par);
 }
 
+void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(P_MEDIAN, value);
+    setPropertyAttribute(P_MEDIAN, attribute);
+    setRegisteredProperty(P_SCALE_PAR, 0.1*value);
+    setPropertyAttribute(P_SCALE_PAR, attribute);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionCosineItem::P_MEAN = "Mean";
@@ -148,4 +186,12 @@ IDistribution1D *DistributionCosineItem::createDistribution() const
     double mean = getRegisteredProperty(P_MEAN).toDouble();
     double sigma = getRegisteredProperty(P_SIGMA).toDouble();
     return new DistributionCosine(mean, sigma);
+}
+
+void DistributionCosineItem::init_parameters(double value, PropertyAttribute attribute)
+{
+    setRegisteredProperty(P_MEAN, value);
+    setPropertyAttribute(P_MEAN, attribute);
+    setRegisteredProperty(P_SIGMA, 0.1*value);
+    setPropertyAttribute(P_SIGMA, attribute);
 }

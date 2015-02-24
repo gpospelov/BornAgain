@@ -70,7 +70,6 @@ inline void TestParameterizedItem::test_registerProperty()
     QCOMPARE(arguments.size(), 1);
     QCOMPARE(arguments.at(0).toString(), property_name);
     QVERIFY_THROW(item.getRegisteredProperty(property_name), GUIHelpers::Error);
-
 }
 
 inline void TestParameterizedItem::test_SelectableGroupProperty()

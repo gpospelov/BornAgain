@@ -60,10 +60,9 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamWavelengthType, parent)
 {
     setItemName(Constants::BeamWavelengthType);
-    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    setGroupProperty(P_DISTRIBUTION, Constants::DistributionGateType);
     registerProperty(P_CACHED_VALUE, 0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::lowerLimited(1e-4), 4));
-
+    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
 //void BeamWavelengthItem::onPropertyChange(const QString &name)
@@ -90,31 +89,23 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
 //    ParameterizedItem::onPropertyChange(name);
 //}
 
+//! updates DistributionItem with cached_value
 void BeamWavelengthItem::onSubItemChanged(const QString &propertyName)
 {
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
     qDebug() << "BeamWavelengthItem::onSubItemChanged(const QString &propertyName)" << propertyName;
     if(propertyName == P_DISTRIBUTION) {
-        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
+        DistributionItem *distribution = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION]);
         Q_ASSERT(distribution);
-        if(distribution->modelType() == Constants::DistributionNoneType) {
-            double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
-            distribution->setRegisteredProperty(DistributionNoneItem::P_VALUE, cached_value);
-            distribution->setPropertyAttribute(DistributionNoneItem::P_VALUE, PropertyAttribute(AttLimits::lowerLimited(1e-4), 4));
-        }
+        double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
+        PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+        cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+        distribution->init_parameters(cached_value, cached_attribute);
     }
     ParameterizedItem::onSubItemChanged(propertyName);
 }
 
 void BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
-    qDebug() << "OOO";
-    qDebug() << "OOO";
-    qDebug() << "OOO";
-    qDebug() << "OOO";
     qDebug() << "BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)" << property_group << property_name;
     if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
         double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();

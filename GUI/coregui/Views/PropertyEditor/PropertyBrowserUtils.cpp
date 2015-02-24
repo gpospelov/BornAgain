@@ -172,8 +172,8 @@ void FancyGroupPropertyEdit::indexChanged(int index)
 {
     qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << index;
     m_groupProperty->setValue(m_groupProperty->toString(index));
-    emit fancyGroupPropertyChanged(m_groupProperty);
-    update();
+//    emit fancyGroupPropertyChanged(m_groupProperty);
+//    update();
 }
 
 

@@ -16,7 +16,7 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "ParameterizedItem.h"
-
+#include <QDebug>
 
 PropertyVariantManager::PropertyVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)
@@ -154,6 +154,7 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 
 void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
+    qDebug() << "PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)";
     if (m_theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
         MaterialProperty mat = val.value<MaterialProperty>();
@@ -211,6 +212,7 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 
 void PropertyVariantManager::initializeProperty(QtProperty *property)
 {
+    qDebug() << "PropertyVariantManager::initializeProperty(QtProperty *property)";
     if (propertyType(property) == materialTypeId()) {
         MaterialProperty m;
         m_theMaterialValues[property] = m;

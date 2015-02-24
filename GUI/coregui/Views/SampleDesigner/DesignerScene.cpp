@@ -199,7 +199,8 @@ void DesignerScene::onSceneSelectionChanged()
             ParameterizedItem *sampleItem = view->getParameterizedItem();
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
-            m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
+            if(!m_selectionModel->isSelected(itemIndex))
+                m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
             //break; // selection of only one item will be propagated to the model
         }
     }

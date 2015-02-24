@@ -21,6 +21,7 @@
 
 PropertyVariantFactory::~PropertyVariantFactory()
 {
+    qDebug() << "PropertyVariantFactory::~PropertyVariantFactory()";
     QList<MaterialPropertyEdit *> mat_editors =
             m_material_editor_to_property.keys();
     QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
@@ -295,6 +296,7 @@ void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
 
 void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
 {
+    qDebug() << "PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)";
     QObject *object = sender();
     QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_fancygroup_editor_to_property.constBegin();
@@ -336,6 +338,7 @@ void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
 
 void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {
+    qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object)";
     QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
                 m_material_editor_to_property.constBegin();
     while (mat_it_editor != m_material_editor_to_property.constEnd()) {
@@ -385,7 +388,7 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
                 m_fancygroup_editor_to_property.constBegin();
     while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
         if (fancygroup_editor_it.key() == object) {
-            qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object)";
+            qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object) -> fancy group editor";
 
             FancyGroupPropertyEdit *editor = fancygroup_editor_it.key();
             QtProperty *property = fancygroup_editor_it.value();

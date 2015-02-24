@@ -311,6 +311,7 @@ QStringList ParameterizedItem::getParameterTreeList() const
 
 void ParameterizedItem::onChildPropertyChange()
 {
+    qDebug() << "ParameterizedItem::onChildPropertyChange()";
     if (m_parent) m_parent->onChildPropertyChange();
 }
 

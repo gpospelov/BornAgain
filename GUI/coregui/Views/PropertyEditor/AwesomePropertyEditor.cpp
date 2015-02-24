@@ -220,10 +220,6 @@ void AwesomePropertyEditor::onPropertyChanged(const QString &property_name)
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     qDebug() << "AwesomePropertyEditor::onPropertyChanged(const QString &property_name) BROWSER_ID:" << m_d->m_browser_type << "item->modelType(), property_name" << item->modelType() << property_name;
 
-    if(m_d->m_current_item_property_pair.m_item == item && m_d->m_current_item_property_pair.m_name == property_name) {
-        return;
-    }
-
     QtVariantProperty *variant_property = m_d->m_item_to_property_to_qtvariant[item][property_name];
     if(variant_property) {
         QVariant property_value = item->property(property_name.toUtf8().data());
@@ -255,6 +251,10 @@ void AwesomePropertyEditor::onSubItemChanged(const QString &property_name)
 {
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     qDebug() << "AwesomePropertyEditor::onSubItemChanged(const QString &property_name) BROWSER_ID:" << m_d->m_browser_type << "item->modelType(), property_name" << item->modelType() << property_name;
+
+    if(m_d->m_current_item_property_pair.m_item == item && m_d->m_current_item_property_pair.m_name == property_name) {
+        return;
+    }
 
     QtVariantProperty *variant_property = m_d->m_item_to_property_to_qtvariant[item][property_name];
     if(variant_property) {

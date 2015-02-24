@@ -43,8 +43,10 @@ public:
     static const QString P_CACHED_VALUE;
     explicit BeamWavelengthItem(ParameterizedItem *parent=0);
     ~BeamWavelengthItem(){}
-    void onPropertyChange(const QString &name);
+protected slots:
+//    void onPropertyChange(const QString &name);
     void onSubItemChanged(const QString &propertyName);
+    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 };
 
 
@@ -57,25 +59,6 @@ public:
     explicit TestBeamItem(ParameterizedItem *parent=0);
     ~TestBeamItem(){}
 };
-
-class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
-{
-    Q_OBJECT
-public:
-    static const QString P_DISTRIBUTION;
-    static const QString P_VALUE;
-    static const QString P_COMBO;
-    static const QString P_VECTOR;
-    explicit BeamDistributionItem(ParameterizedItem *parent=0);
-    ~BeamDistributionItem(){}
-//    virtual void onPropertyChange(const QString &name);
-private:
-    void initProperties();
-};
-
-
-
-
 
 #endif
 

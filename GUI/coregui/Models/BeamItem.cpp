@@ -66,29 +66,29 @@ BeamWavelengthItem::BeamWavelengthItem(ParameterizedItem *parent)
 
 }
 
-void BeamWavelengthItem::onPropertyChange(const QString &name)
-{
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "BeamWavelengthItem::onPropertyChange(const QString &name)" << name;
+//void BeamWavelengthItem::onPropertyChange(const QString &name)
+//{
+//    qDebug() << " ";
+//    qDebug() << " ";
+//    qDebug() << " ";
+//    qDebug() << " ";
+//    qDebug() << "BeamWavelengthItem::onPropertyChange(const QString &name)" << name;
 
-    if(name == P_DISTRIBUTION) {
-        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
-        if(distribution) {
-            if(distribution->modelType() == Constants::DistributionNoneType) {
-                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::VISIBLE);
-                qDebug() << "XXX setting to visible";
-            } else {
-                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::HIDDEN);
-                qDebug() << "XXX setting to hidden";
-            }
-            ParameterizedItem::onPropertyChange(P_CACHED_VALUE);
-        }
-    }
-    ParameterizedItem::onPropertyChange(name);
-}
+//    if(name == P_DISTRIBUTION) {
+//        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
+//        if(distribution) {
+//            if(distribution->modelType() == Constants::DistributionNoneType) {
+//                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::VISIBLE);
+//                qDebug() << "XXX setting to visible";
+//            } else {
+//                setPropertyAppearance(P_CACHED_VALUE, PropertyAttribute::HIDDEN);
+//                qDebug() << "XXX setting to hidden";
+//            }
+//            ParameterizedItem::onPropertyChange(P_CACHED_VALUE);
+//        }
+//    }
+//    ParameterizedItem::onPropertyChange(name);
+//}
 
 void BeamWavelengthItem::onSubItemChanged(const QString &propertyName)
 {
@@ -109,6 +109,21 @@ void BeamWavelengthItem::onSubItemChanged(const QString &propertyName)
     ParameterizedItem::onSubItemChanged(propertyName);
 }
 
+void BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
+{
+    qDebug() << "OOO";
+    qDebug() << "OOO";
+    qDebug() << "OOO";
+    qDebug() << "OOO";
+    qDebug() << "BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)" << property_group << property_name;
+    if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
+        double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
+        setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
+    }
+}
+
+
+
 
 const QString TestBeamItem::P_INTENSITY = "Intensity [1/s]";
 const QString TestBeamItem::P_WAVELENGTH = "Wavelength";
@@ -119,47 +134,3 @@ TestBeamItem::TestBeamItem(ParameterizedItem *parent)
     registerProperty(P_INTENSITY, 1e+08);    
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
 }
-
-
-const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
-const QString BeamDistributionItem::P_VALUE = "Value";
-const QString BeamDistributionItem::P_COMBO = "Combo";
-const QString BeamDistributionItem::P_VECTOR = "Vector";
-BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::BeamDistributionType, parent)
-{
-    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.1";
-    registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-//    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.2";
-//    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
-//    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.3";
-    //setPropertyAppearance(P_DISTRIBUTION, PropertyAttribute::HIDDEN);
-    qDebug() << "BeamDistributionItem::BeamDistributionItem() 1.4";
-    registerProperty(P_VALUE, 99.0, PropertyAttribute(PropertyAttribute::DISABLED));
-
-    ComboProperty types;
-    types << "property 1" << "property 2" << "property 3";
-    registerProperty(P_COMBO, types.getVariant());
-    registerGroupProperty(P_VECTOR, Constants::VectorType);
-
-    initProperties();
-}
-
-//void BeamDistributionItem::onPropertyChange(const QString &name)
-//{
-//    qDebug() << "BeamDistributionItem::onPropertyChange(const QString &name)" << name;
-//    print();
-//    if(name == P_DISTRIBUTION) {
-//        ParameterizedItem *distribution = getSubItems()[P_DISTRIBUTION];
-//        if(distribution && distribution->modelType() != Constants::DistributionNoneType) {
-//            registerProperty(P_VALUE, 1.0);
-//        }
-//    }
-//}
-
-void BeamDistributionItem::initProperties()
-{
-
-}
-
-

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Models/TestItem.h
+//! @brief     Defines class TestItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,22 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#ifndef TESTITEM_H
+#define TESTITEM_H
 
-#include <QWidget>
+#include "ParameterizedItem.h"
 
-class TestView : public QWidget
+//! The TestItem class for TestParameterizedItem unit tests and for checking AwesomePropertyEditor machinery
+class BA_CORE_API_ TestItem : public ParameterizedItem
 {
     Q_OBJECT
-
 public:
-
-    TestView(QWidget *parent = 0);
-    virtual ~TestView() {}
+    static const QString P_DISTRIBUTION;
+    static const QString P_VALUE;
+    static const QString P_COMBO;
+    static const QString P_VECTOR;
+    explicit TestItem(ParameterizedItem *parent=0);
+    ~TestItem(){}
 };
 
 #endif

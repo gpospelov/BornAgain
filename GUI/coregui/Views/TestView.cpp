@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "TestView.h"
-#include "BeamItem.h"
+#include "TestItem.h"
 #include "LayerItem.h"
 #include "AwesomePropertyEditor.h"
 #include <QGroupBox>
@@ -33,12 +33,11 @@ TestView::TestView(QWidget *parent)
     // whole content is represented as grid layout
     QGridLayout *gridLayout = new QGridLayout;
 
-
     AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
     editor1->setMinimumSize(256, 256);
     AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
 
-    BeamDistributionItem *item1 = new BeamDistributionItem;
+    TestItem *item1 = new TestItem;
     LayerItem *layer = new LayerItem();
     editor1->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
     editor1->addItemProperties(item1, "MyGroup");

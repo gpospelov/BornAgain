@@ -30,6 +30,7 @@ const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
+const ModelType ParticleCollectionType = "ParticleCollection";
 const ModelType TransformationType = "Transformation";
 const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";

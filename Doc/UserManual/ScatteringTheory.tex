@@ -14,21 +14,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Scattering theory}  \SecLabel{ScatTheory}
+\chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wave equations}
+\section{Wave propagation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Wave propagation|(}
+
+%===============================================================================
+\subsection{Helmholtz and Schr\"odinger equation}
+%===============================================================================
 
 X-ray and neutron propagation are both governed by
 the same stationary wave equation,
 the \textit{Helmholtz equation}
+\index{Helmholtz equation}
+\index{Wave equation}
 \begin{equation}\label{eq:Helmholtz}
   \left(\Nabla^2+K^2n(\vect{r})^2\right)\Psi(\vect{r}),
 \end{equation}
 where $K=2\pi/\lambda_0$ is the vacuum wave number,
-and $n$ is the index of refraction.
+and $n$ is the refractive index.
+\index{Refractive index}
 In this equation,
 the time dependence ${\rm e}^{i\omega t}$ of the wave field
 does not appear explicitly.
@@ -36,6 +44,7 @@ In GISAS, we are only interested in elastic scattering.
 Therefore, the wave frequency~$\omega$ is considered constant.
 
 Implicitly, $K$ depends on~$\omega$ through a \textit{dispersion relation}.
+\index{dispersion relation}
 This relation is fundamentally different for
 X-rays (where it is linear, $\omega\propto K$)
 and for thermal neutrons (where it is quadratic, $\omega\propto K^2$).
@@ -45,6 +54,25 @@ Therefore we can use $K$ instead of~$\omega$ as a constant
 that characterizes the incoming radiation.
 In this way, scalar X-ray and neutron scattering can be described by exactly
 the same wave equation~\refeq{Helmholtz}.
+
+In the following,
+the Helmholtz equation 
+shall be solved in first-order perturbation theory,
+using the fact that the refractive index~$n$
+is close to~1 for both X-rays and neutrons.
+For this purpose,
+we rewrite \refeq{Helmholtz} as a stationary Schr\"odinger equation
+\index{Schrodinger equation@Schr\"odinger equation}
+\begin{equation}
+  H\Psi = E\Psi
+\end{equation}
+with
+\begin{equation*}
+  H:=H_0+V,\quad
+  H_0:=\Nabla^2,\quad
+  V:=-K^2(1-n(\vect{r}^2),\quad
+  E:=K^2.
+\end{equation*}
 
 Some GISAS experiments are performed with polarized radiation
 or/and involve polarization-dependent interactions.
@@ -61,12 +89,16 @@ This shall be derived in the following.
 %===============================================================================
 \subsection{X-ray propagation}
 %===============================================================================
+\index{Wave propagation!X-rays}
+\index{X-rays!wave propagation}
 
 \ldots to come
 
 %===============================================================================
 \subsection{Neutron propagation}
 %===============================================================================
+\index{Wave propagation!neutrons}
+\index{neutrons!wave propagation}
 
 In a GISANS experiment,
 we are only interested in small scattering vectors~$\vect{q}$,
@@ -81,90 +113,65 @@ in continuum approximation by a refractive index~$n$ with
 where $\rho_s$ is an effective scattering length density
 \cite{Lax51,Sea89}.
 
-In the case of pure nuclear scattering, the Hamiltonian describing a neutron in a scattering experiment, is given by $H = -\dfrac{\hbar^2}{2m}\Delta + V$, where
+%TODO: how is absorption taken into account?
 
-\begin{equation*}
-  V = \frac{2\pi \hbar^2}{m}\rho_s(\vect{r}) \; ,
-\end{equation*}
-with $\rho_s(\vect{r})$ the scattering length density of the sample. This scattering length density typically consists of a sum of weighted delta-functions, peaked at the atomic positions of the sample. For small scattering angles, the Bragg condition will not be fulfilled and the scattering length density may be replaced by a continuous function, representing the average scattering length density. In this case, one can define a refractive index, which in general will also be a continuous function of the position in the sample:
-\begin{equation*}
-  n^2(\vect{r}) \equiv 1 - \frac{4\pi}{K^2}\rho_s(\vect{r}) \; ,
-\end{equation*}
-with $K$ the wavevector in vacuum, or alternatively $K = 2\pi /\lambda$, with $\lambda$ the de Broglie wavelength of the neutron.
-
-
-Substituting this refractive index in the potential then gives:
-\begin{equation*}
-  V(\vect{r}) = \frac{\hbar^2}{2m}K^2(1-n^2(\vect{r})) \; .
-\end{equation*}
-
-Using these definitions, one can rescale the Hamiltonian with a factor $2m/\hbar^2$, such that
-\begin{align*}
-  \widetilde{H} &\coloneqq -\Delta + \widetilde{V} \nonumber \\
-  \widetilde{V}(\vect{r}) &\coloneqq 4\pi\rho_s(\vect{r}) = K^2(1-n^2(\vect{r})) \; .
-\end{align*}
-It should be noted that this Hamiltonian implicitly contains the energy eigenvalue ($E_{K}=(\hbar K)^2/2m$), so that it can only be used in the time-independent Schr\"odinger equation $H\Psi_\alpha = E_\alpha \Psi_\alpha$.
-
-The $T$-matrix then also becomes rescaled and the scattering amplitude becomes:
-\begin{equation*}
-  f(\theta, \phi) = -2\pi^2 \braket{\vect{k}_f}{\widetilde{T}}{\vect{k}_i} \; .
-\end{equation*}
+\index{Wave propagation|)}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\boldmath$T$ and $S$ matrix formalism}
+\section{Scattering in Born approximation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %===============================================================================
 \subsection{Green operators and the $T$-matrix}
+  \label{sec:BornT}
 %===============================================================================
 
 For a particle, governed by the Schr\"odinger equation with Hamiltonian $H = H_0 + V$, the time-independent scattering theory formally consists of solving the eigenvalue equations:
 
 \begin{equation*}
-  H\Psi_\alpha = E_\alpha\Psi_\alpha \; ,
+  H\Psi_\alpha = E_\alpha\Psi_\alpha,
 \end{equation*}
 with $E$ the scalar energy eigenvalue of the eigenstate $\Psi(E)$.\\
 If the solutions of the free (or unperturbed) Hamiltonian $H_0$ are known:
 \begin{equation*}
-  H_0\Psi_{0\alpha} = E_\alpha\Psi_{0\alpha} \; ,
+  H_0\Psi_{0\alpha} = E_\alpha\Psi_{0\alpha},
 \end{equation*}
 one can write the solutions of the full Hamiltonian in terms of these asymptotic states and Green operators:
 
 \begin{align*}
   \Psi^\pm_\alpha &= \Psi_{0\alpha} + G^\pm_0 V \Psi^\pm_\alpha  \\
-  & = \Psi_{0\alpha} + G^\pm V  \Psi_{0\alpha} \; ,
+  & = \Psi_{0\alpha} + G^\pm V  \Psi_{0\alpha},
 \end{align*}
-
 where the Green operators are defined as:
 \begin{align*}
   G^\pm_0(E) &= (E-H_0\pm i\epsilon )^{-1}  \\
-  G^\pm (E) &= (E-H\pm i\epsilon )^{-1} \; .
+  G^\pm (E) &= (E-H\pm i\epsilon )^{-1}.
 \end{align*}
 In these equations, the upper index or sign refers to the state corresponding with the free state $\Psi_{0\alpha}$ at time $t\rightarrow - \infty$ (and vice-versa for the lower sign). Since the solutions of the eigenvalue equations, both for the unperturbed as for the full Hamiltonian, are dependent on the energy eigenvalue $E$, the index $\alpha$ is assumed to include this value (and possibly other quantum numbers).
 
 The transition amplitude between two asymptotic states is given by the $S$-matrix elements, defined as:
 \begin{align}
   S_{\alpha\beta} &\equiv \braket{\Psi_{0\beta}}{S}{\Psi_{0\alpha}} \nonumber\\
-  & \equiv \braketnoop{\Psi_\beta^-}{\Psi_\alpha^+} \; .
+  & \equiv \braketnoop{\Psi_\beta^-}{\Psi_\alpha^+}.
   \label{<++>}
 \end{align}
 
 The $S$-matrix can be decomposed into a delta function, representing the absence of scattering, and a $T$-matrix that encodes the scattering part, caused by the potential $V$:
 \begin{equation*}
-  S_{\alpha\beta} = \delta (E_\alpha - E_\beta)\delta_{\alpha\beta} - 2\pi i \delta (E_\alpha - E_\beta) T^\pm_{\alpha\beta} \; ,
+  S_{\alpha\beta} = \delta (E_\alpha - E_\beta)\delta_{\alpha\beta} - 2\pi i \delta (E_\alpha - E_\beta) T^\pm_{\alpha\beta},
 \end{equation*}
 with
 \begin{align*}
   T^+_{\alpha\beta} & = \braket{\Psi_{0\beta}}{V}{\Psi^+_\alpha} \\
-  T^-_{\alpha\beta} & = \braket{\Psi^-_\beta}{V}{\Psi_{0\alpha}} \; .
+  T^-_{\alpha\beta} & = \braket{\Psi^-_\beta}{V}{\Psi_{0\alpha}}.
 \end{align*}
 On the energy shell $E_\alpha = E_\beta$, one has $T^+_{\alpha\beta}= T^-_{\alpha\beta}$, so that both formulations are equivalent.
 
 By expanding the eigenstates $\Psi^\pm_\alpha$ in these equations, the $T$-matrix elements (on-shell) can be expressed as:
 \begin{equation*}
-  T^\pm_{\alpha\beta} = V + VG^+ V \; .
+  T^\pm_{\alpha\beta} = V + VG^+ V.
 \end{equation*}
 
 
@@ -178,82 +185,51 @@ The previous general formulas can also be presented in a momentum (and position)
   \braketnoop{\vect{k'}}{\vect{k}} & = \delta(\vect{k'}-\vect{k}) \\
   1 &= \int d^3\vect{k} \ket{\vect{k}} \bra{\vect{k}} \\
   1 &= \int d^3\vect{r} \ket{\vect{r}} \bra{\vect{r}} \\
-  \braketnoop{\vect{r}}{\vect{k}} &= (2\pi)^{-3/2} \exp (i\vect{k}\cdot\vect{r}) \; ,
+  \braketnoop{\vect{r}}{\vect{k}}
+  &= (2\pi)^{-3/2} \exp (i\vect{k}\cdot\vect{r}),
 \end{align*}
 where the normalization in the last equation follows from the other definitions.
 
 The wavefunction that evolves from a momentum eigenstate $\ket{\vect{k}_i}$ can then be written as:
 \begin{equation*}
-  \braketnoop{\vect{r}}{\Psi^+} = \braketnoop{\vect{r}}{\vect{k}_i} + \braket{\vect{r}}{G_0^+T}{\vect{k}_i} \; ,
+  \braketnoop{\vect{r}}{\Psi^+} = \braketnoop{\vect{r}}{\vect{k}_i} + \braket{\vect{r}}{G_0^+T}{\vect{k}_i},
 \end{equation*}
 which in the far-field limit becomes:
 \begin{align*}
-  \braketnoop{\vect{r}}{\Psi^+} &= (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} - \frac{4\pi^2m}{\hbar^2}\cdot\frac{e^{ik_f r}}{r} \braket{\vect{k}_f}{T}{\vect{k}_i} \right]  \\
-  &\equiv (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} + f(\theta,\phi)\frac{e^{ik_f r}}{r} \right] \; ,
+  \braketnoop{\vect{r}}{\Psi^+}
+  &= (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}}
+     - 2\pi^2\frac{e^{ik_f r}}{r} \braket{\vect{k}_f}{T}{\vect{k}_i} \right]  \\
+  &\equiv (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} + f(\theta,\phi)\frac{e^{ik_f r}}{r} \right],
 \end{align*}
 where $r,\theta,\phi$ are the polar coordinates of $\vect{r}$,
 and the scattering amplitude was defined as
 \begin{equation*}
-  f(\theta, \phi) = -\frac{4\pi^2m}{\hbar^2}\braket{\vect{k}_f}{T}{\vect{k}_i} \; .
+  f(\theta, \phi) := -2\pi^2\braket{\vect{k}_f}{T}{\vect{k}_i}.
 \end{equation*}
 
 The amount of particles per unit time that are scattered in a small solid angle $d\Omega$ in direction $\vect{k}_f$ will then be (still in the far-field limit):
 \begin{equation*}
-  dI_{scat} = J_0\lvert f(\theta,\phi)\rvert^2d\Omega \; ,
+  dI_{scat} = J_0\lvert f(\theta,\phi)\rvert^2d\Omega,
 \end{equation*}
 where $J_0$ denotes the incident flux density. The scattering cross-section is defined as:
 \begin{equation*}
-  \frac{d\sigma}{d\Omega}\equiv \frac{dI_{scat}}{J_0 d\Omega} = \lvert f(\theta,\phi) \rvert^2 \; .
+  \frac{d\sigma}{d\Omega}\equiv \frac{dI_{scat}}{J_0 d\Omega} = \lvert f(\theta,\phi) \rvert^2.
 \end{equation*}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Born approximation} \label{sec:ba}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
 
-In the Born approximation ($\widetilde{T}\simeq\widetilde{V}$), the scattering amplitude is
+In the Born approximation ($T\simeq V$), the scattering amplitude is
 \begin{align*}
   f(\theta, \phi) & = -8\pi^3 \braket{\vect{k_f}}{\rho_s(\vect{r})}{\vect{k_i}} \nonumber \\
-  & = -\int d^3\vect{r} e^{i\vect{q}\cdot\vect{r}} \rho_s(\vect{r}) \; ,
+  & = -\int d^3\vect{r} e^{i\vect{q}\cdot\vect{r}} \rho_s(\vect{r}),
 \end{align*}
-where $\vect{q}\equiv \vect{k}_i - \vect{k}_f$ denotes the wavevector transfer and
-\begin{equation*}
-  \rho_s(\vect{r}) = \frac{K^2}{4\pi}(1-n^2(\vect{r})) \; .
-\end{equation*}
+where $\vect{q}:=\vect{k}_i-\vect{k}_f$ denotes the scattering wavevector.
 
 The differential cross-section (per scattering center) is then given by:
-\begin{equation*}
-  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2 \; .
-\end{equation*}
+\begin{equation}\label{eq:xsec1}
+  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2.
+\end{equation}
 
-Following the initial assumptions. the scattering length density can be written as:
-\begin{equation*}
-\rho_s(\vect{r}) = \sum_i \rho_{s,i} S^i(\vect{r}) \otimes \delta (\vect{r}-\vect{R}^i) \; ,
-\end{equation*}
-with $\rho_{s,i}$ the scattering length density of particle $i$. The cross-section then becomes:
-\begin{align*}
-  N\frac{d\sigma}{d\Omega}(\vect{q}) & = \left\lvert \sum_i F^i(\vect{q}) \exp (i\vect{q}\cdot\vect{R}^i) \right\rvert ^2  \\
-  & = \left\lbrace \sum_i \left\lvert F^i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F^i(\vect{q}) F^{j*}(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}^i-\vect{R}^j)\right] \right\rbrace \; .
-\end{align*}
-In the last expression, the formfactors $F^i(\vect{q})$ are the Fourier transforms of the shape functions, including their scattering length densities:
-\begin{equation*}
-  F^i(\vect{q}) \equiv \int d^3\vect{r} \rho_{s,i} S^i(\vect{r}) \exp (i\vect{q}\cdot\vect{r} ) \; .
-\end{equation*}
-
-Since in most real conditions only the statistical properties of the particles are known, one can consider the expectation value of this cross-section. Assuming that the particles' shapes are determined by their class $\alpha$, with abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density $\rho_V \equiv N/V$, the expectation value becomes:
-\begin{align*}
-  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\vect{q})\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\vect{q})F_\beta^*(\vect{q})  \\
-  & \times \iint_V d^3\vect{R}_\alpha d^3\vect{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot (\vect{R}_\alpha - \vect{R}_\beta ) \right] \; .
-\end{align*}
-
-In this equation, the factor $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation function} and it represents a normalized probability of finding particles of type $\alpha$ and $\beta$ in positions $\vect{R}_\alpha$ and $\vect{R}_\beta$ respectively. More precisely, the probability density for finding a particle $\alpha$ at position $\vect{R}_\alpha$ and another one of type $\beta$ at $\vect{R}_\beta$ is given by:
-\begin{equation*}
-  \mathcal{P}(\alpha, \vect{R}_\alpha ; \beta , \vect{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R} \; .
-\end{equation*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -281,7 +257,7 @@ and need to be fully accounted for.
 Doing this, the Born approximation is naturally extended into
 the distorted wave Born approximation (DWBA).
 
-To start, we extend the formalism of section \ref{sec:formal}.
+To start, we extend the formalism of section \ref{sec:BornT}.
 The full Hamiltonian is now written as $H_2 = H_1 + V_2 = H_0 +V_1 + V_2$,
 where $H_0$ will again refer to the free Hamiltonian.
 In DWBA,
@@ -290,12 +266,12 @@ around the solutions of the Hamiltonian $H_1$,
 which are assumed to be known:
 \begin{align*}
   H_1\Psi^\pm_{1\alpha} &= E_\alpha\Psi^\pm_{1\alpha} \\
-  \Psi^\pm_{1\alpha} &= \Psi_{0\alpha} + G^\pm_1 V_1 \Psi_{0\alpha} \; ,
+  \Psi^\pm_{1\alpha} &= \Psi_{0\alpha} + G^\pm_1 V_1 \Psi_{0\alpha},
 \end{align*}
 where the Green operators are defined to be:
 \begin{align*}
   G^\pm_1 &\equiv (E-H_1\pm i\epsilon) ^{-1} \nonumber \\
-  G^\pm_2 &\equiv (E-H_2\pm i\epsilon) ^{-1} \; .
+  G^\pm_2 &\equiv (E-H_2\pm i\epsilon) ^{-1}.
 \end{align*}
 
 The $T$-matrix element for scattering between the asymptotic states $\Psi_{0\alpha}$ and $\Psi_{0\beta}$ (note that these asymptotic states refer to the free Hamiltonian $H_0$), is:
@@ -304,23 +280,14 @@ The $T$-matrix element for scattering between the asymptotic states $\Psi_{0\alp
   & = \braket{\Psi_{0\beta}}{V_1+V_2}{\Psi_{0\alpha} + G^+_1V_1\Psi_{0\alpha} + G^+_2V_2\Psi^+_{1\alpha}} \nonumber \\
   & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi_{0\beta}}{(V_1G^+_1 + 1)V_2}{\Psi^+_\alpha} \\
   & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_\alpha} \nonumber \\
-  & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{T_2}{\Psi^+_{1\alpha}} \; ,
+  & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{T_2}{\Psi^+_{1\alpha}},
 \end{align*}
 with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \simeq V_2$, one arrives at the distorted wave Born approximation:
 \begin{equation}
   \label{eq:tdwba}
-   T^+_{\alpha\beta} \simeq \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_{1\alpha}} \; .
+   T^+_{\alpha\beta} \simeq \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_{1\alpha}}.
 \end{equation}
 
-
-In the DWBA, the form factor of a particle in a multilayer system is given by
-\begin{align}
-F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
- \nonumber \\
-  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z} \; , \label{eq:dwbageneral}
-\end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
-$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
 
 %===============================================================================
 \subsection{Multilayer systems}
@@ -331,48 +298,58 @@ In multilayer systems, the first term of \refeq{tdwba} denotes the specular part
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
   V_1 & = K^2\left( 1-n_0^2(\vect{r})\right)  \\
-  V_2 & = \sum_i K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i) \; ,
+  V_2 & = \sum_i K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i),
 \end{align*}
 where $n_0(\vect{r})$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\vect{R}^i$.
 
 For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, one only needs the unperturbed solutions in layer $j$:
 \begin{align*}
   \braketnoop{\vect{r}}{\Psi^+_{1k_i}} &= (2\pi)^{-3/2}\left[ R_j(\vect{k}_i) e^{i \vect{k}_{j,R}(\vect{k}_i)\cdot\vect{r}} + T_j(\vect{k}_i) e^{i \vect{k}_{j,T}(\vect{k}_i)\cdot\vect{r}} \right] \\
-  \braketnoop{\Psi^-_{1k_f}}{\vect{r}} &= (2\pi)^{-3/2}\left[ R_j(-\vect{k}_f) e^{i \vect{k}_{j,R}(-\vect{k}_f)\cdot\vect{r}} + T_j(-\vect{k}_f) e^{i \vect{k}_{j,T}(-\vect{k}_f)\cdot\vectr} \right] \; .
+  \braketnoop{\Psi^-_{1k_f}}{\vect{r}} &= (2\pi)^{-3/2}\left[ R_j(-\vect{k}_f) e^{i \vect{k}_{j,R}(-\vect{k}_f)\cdot\vect{r}} + T_j(-\vect{k}_f) e^{i \vect{k}_{j,T}(-\vect{k}_f)\cdot\vectr} \right].
 \end{align*}
 
 The off-specular contribution to the scattering amplitude then becomes:
 \begin{align*}
   f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_iT_fe^{i(\vectk_{j,i}-\vectk_{j,f})\cdot\vectr} + R_iT_fe^{i(\vectkt_{j,i}-\vectk_{j,f})\cdot\vectr} \\
-   & + T_iR_fe^{i(\vectk_{j,i}-\vectkt_{j,f})\cdot\vectr} + R_iR_fe^{i(\vectkt_{j,i}-\vectkt_{j,f})\cdot\vectr} \biggr] \; ,
+   & + T_iR_fe^{i(\vectk_{j,i}-\vectkt_{j,f})\cdot\vectr} + R_iR_fe^{i(\vectkt_{j,i}-\vectkt_{j,f})\cdot\vectr} \biggr],
 \end{align*}
 where the following shorthand notations were used:
 \begin{align*}
   T_i &\equiv  T_j(\vect{k}_i) & R_i &\equiv  R_j(\vect{k}_i)  \\
   T_f &\equiv  T_j(-\vect{k}_f) & R_f &\equiv  R_j(-\vect{k}_f) \\
   \vectk_{j,i} &\equiv \vectk_{j,T}(\vectk_i) & \vectkt_{j,i} &\equiv \vectk_{j,R}(\vectk_i)  \\
-  \vectk_{j,f} &\equiv -\vectk_{j,T}(-\vectk_f) & \vectkt_{j,f} &\equiv -\vectk_{j,R}(-\vectk_f) \; .
+  \vectk_{j,f} &\equiv -\vectk_{j,T}(-\vectk_f) & \vectkt_{j,f} &\equiv -\vectk_{j,R}(-\vectk_f).
 \end{align*}
 
 From this expression, one sees that the scattering amplitude consists of a weighted sum of Fourier transforms of the potential $V_2$. Using
 \begin{equation*}
-  V_2(\vectr) = \sum_i 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \vect{R}^i) \; ,
+  V_2(\vectr) = \sum_i 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \vect{R}^i),
 \end{equation*}
 with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right)/4\pi$, the scattering amplitude becomes
 \begin{equation*}
-  f(\theta, \phi) = -\sum_i  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\vectk_{j,i},\vectk_{j,f},\vect{R}^i_z)e^{i(\vectk_{j,i\parallel}-\vectk_{j,f\parallel})\cdot \vect{R}^{i\parallel} } \; ,
+  f(\theta, \phi) = -\sum_i  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\vectk_{j,i},\vectk_{j,f},\vect{R}^i_z)e^{i(\vectk_{j,i\parallel}-\vectk_{j,f\parallel})\cdot \vect{R}^{i\parallel} },
 \end{equation*}
 with
 \begin{align*}
   \curlf^i_\text{DWBA}(\vectk_i,\vectk_f,R_z) & \equiv T_iT_fF^i(\vectk_i-\vectk_f)e^{i(k_{iz}-k_{fz})R_z} + R_iT_fF^i(\vectkt_i-\vectk_f)e^{i(-k_{iz}-k_{fz})R_z} \\
-  & + T_iR_fF^i(\vectk_i-\vectkt_f)e^{i(k_{iz}+k_{fz})R_z} + R_iR_fF^i(\vectkt_i-\vectkt_f)e^{i(-k_{iz}+k_{fz})R_z} \; ,
+  & + T_iR_fF^i(\vectk_i-\vectkt_f)e^{i(k_{iz}+k_{fz})R_z} + R_iR_fF^i(\vectkt_i-\vectkt_f)e^{i(-k_{iz}+k_{fz})R_z},
 \end{align*}
+
+TO MERGE IN:
+In the DWBA, the form factor of a particle in a multilayer system is given by
+\begin{align}
+F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
+ \nonumber \\
+  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z}, \label{eq:dwbageneral}
+\end{align}
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
+$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
 
 With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
   & \left\langle \frac{d\sigma}{d\Omega}(\vectk_i,\vectk_f) \right\rangle_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\curlf_\beta^*(\vectk_{j,i},\vectk_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2\vect{R}_\alpha^\parallel d^2\vect{R}_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\vect{q}_{j\parallel}\cdot (\vect{R}_\alpha^\parallel - \vect{R}_\beta^\parallel ) \right] \; .
+  & \times \iint_S d^2\vect{R}_\alpha^\parallel d^2\vect{R}_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\vect{q}_{j\parallel}\cdot (\vect{R}_\alpha^\parallel - \vect{R}_\beta^\parallel ) \right].
 \end{align*}
 
 The main differences with respect to the cross-section in the Born approximation are:

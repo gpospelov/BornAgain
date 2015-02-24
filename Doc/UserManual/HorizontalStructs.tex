@@ -42,6 +42,21 @@ This section describes how assemblies of particles and layers of materials contr
 
 The samples generated with \BornAgain\ are made of different layers of materials characterized by their thicknesses, refractive indices, and possible surface roughnesses. Except for the thickness, the other dimensions of the layers are infinite.\\ Particles can be embedded in or deposited on the top of any layers. Those particles are characterized by their shapes, refractive indices, their spatial distribution and concentration in the sample. The influence of the particles' shapes is described by the form factors. When the particles are densely packed, the distance relative to each other becomes of the same order as the particles' sizes. The radiation scattered from these various particles are going to interfere together. \\ We are first going to give a short overview of the theory involved, mostly in order to define the terminology. For a more complete theoretical description, the user is referred to, for example, reference~\cite{ReLL09} and appendix \ref{app:theory} of this manual. Then we are going to describe how the interference features, the form factors and the characteristics of the material layers have been implemented in \BornAgain\ and  give some examples.
 
+TO MERGE IN:
+The scattering length density can be written as:
+\begin{equation*}
+\rho_s(\vect{r}) = \sum_i \rho_{s,i} S^i(\vect{r}) \otimes \delta (\vect{r}-\vect{R}^i) \; ,
+\end{equation*}
+with $\rho_{s,i}$ the scattering length density of particle $i$. The cross-section \refeq{xsec1} then becomes:
+\begin{align*}
+  N\frac{d\sigma}{d\Omega}(\vect{q}) & = \left\lvert \sum_i F^i(\vect{q}) \exp (i\vect{q}\cdot\vect{R}^i) \right\rvert ^2  \\
+  & = \left\lbrace \sum_i \left\lvert F^i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F^i(\vect{q}) F^{j*}(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}^i-\vect{R}^j)\right] \right\rbrace \; .
+\end{align*}
+In the last expression, the formfactors $F^i(\vect{q})$ are the Fourier transforms of the shape functions, including their scattering length densities:
+\begin{equation*}
+  F^i(\vect{q}) \equiv \int d^3\vect{r} \rho_{s,i} S^i(\vect{r}) \exp (i\vect{q}\cdot\vect{r} ) \; .
+\end{equation*}
+
 
 %===============================================================================
 \subsection{Collection of particles} \SecLabel{sect:interf}
@@ -61,6 +76,13 @@ Since in most experimental conditions only the statistical properties of the par
 \end{align*}
 
 where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation function}. It represents the normalized probability of finding particles of type $\alpha$ and $\beta$ in positions $\vect{R}_\alpha$ and $\vect{R}_\beta$ respectively. 
+
+TO MERGE IN:
+More precisely, the probability density for finding a particle $\alpha$ at position $\vect{R}_\alpha$ and another one of type $\beta$ at $\vect{R}_\beta$ is given by:
+\begin{equation*}
+  \mathcal{P}(\alpha, \vect{R}_\alpha ; \beta , \vect{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R} \; .
+\end{equation*}
+
 
 %===============================================================================
 \subsection{Size-distribution models}

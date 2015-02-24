@@ -64,6 +64,7 @@ public:
     static const QString P_BINNING;
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
+    static const QString P_RESOLUTION_FUNCTION;
     explicit TestDetectorItem(ParameterizedItem *parent=0);
     ~TestDetectorItem(){}
 };

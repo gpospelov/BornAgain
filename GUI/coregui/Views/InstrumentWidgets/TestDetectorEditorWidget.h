@@ -34,6 +34,7 @@ private:
     AwesomePropertyEditor *m_binningEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;
+    AwesomePropertyEditor *m_resolutionFunctionEditor;
     TestDetectorItem *m_detectorItem;
 };
 

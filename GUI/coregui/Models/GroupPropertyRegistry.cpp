@@ -106,6 +106,11 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     lattices[Constants::HexagonalLatticeType] = "Hexagonal";
     result[Constants::LatticeGroup] = lattices;
 
+    QMap<QString, QString> resolution_functions;
+    resolution_functions[Constants::ResolutionFunctionNoneType] = "None";
+    resolution_functions[Constants::ResolutionFunction2DGaussianType] = "2D Gaussian";
+    result[Constants::ResolutionFunctionGroup] = resolution_functions;
+
     return result;
 }
 

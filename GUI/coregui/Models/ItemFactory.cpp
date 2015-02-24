@@ -40,6 +40,7 @@
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
+#include "ResolutionFunctionItems.h"
 #include <QDebug>
 
 namespace {
@@ -134,6 +135,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
     result[Constants::BeamAngleType] = &createInstance<BeamAngleItem>;
+
+    result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
+    result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
+
     return result;
 }
 }

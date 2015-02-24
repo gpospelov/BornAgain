@@ -88,6 +88,7 @@ void PhiAlphaDetectorItem::onPropertyChange(const QString &name)
 const QString TestDetectorItem::P_BINNING = "Binning";
 const QString TestDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString TestDetectorItem::P_ALPHA_AXIS = "Alpha axis";
+const QString TestDetectorItem::P_RESOLUTION_FUNCTION = "Distribution";
 
 TestDetectorItem::TestDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)
@@ -106,6 +107,9 @@ TestDetectorItem::TestDetectorItem(ParameterizedItem *parent)
     getSubItems()[P_ALPHA_AXIS]->setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, 0.0);
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
+
+    registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+
 }
 
 

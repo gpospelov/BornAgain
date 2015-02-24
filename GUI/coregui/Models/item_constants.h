@@ -115,6 +115,9 @@ const ModelType AmplitudeAxisType = "AmplitudeAxis";
 const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAngleType = "BeamAngle";
 
+const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
+const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -127,6 +130,7 @@ const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
+const ModelType ResolutionFunctionGroup = "Resolution function group";
 
 // --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";

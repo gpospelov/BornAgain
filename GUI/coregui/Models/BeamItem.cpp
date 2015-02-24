@@ -18,6 +18,7 @@
 #include "ComboProperty.h"
 #include "AngleProperty.h"
 #include "DistributionItem.h"
+#include "ScientificDoubleProperty.h"
 #include "Units.h"
 #include <QDebug>
 
@@ -138,7 +139,12 @@ const QString TestBeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 TestBeamItem::TestBeamItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamType, parent)
 {
-    registerProperty(P_INTENSITY, 1e+08);    
+    //registerProperty(P_INTENSITY, 1e+08);
+
+    ScientificDoubleProperty intensity(1e+08);
+    registerProperty(P_INTENSITY, intensity.getVariant());
+
+
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamAngleType);
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAngleType);

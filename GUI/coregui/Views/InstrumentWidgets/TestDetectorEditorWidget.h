@@ -31,6 +31,7 @@ public:
     void setDetectorItem(TestDetectorItem *detectorItem);
 
 private:
+    AwesomePropertyEditor *m_binningEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;
     TestDetectorItem *m_detectorItem;

@@ -27,6 +27,7 @@
 
 TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     : QWidget(parent)
+    , m_intensityEditor(0)
     , m_wavelengthEditor(0)
     , m_inclinationAngleEditor(0)
     , m_azimuthalAngleEditor(0)
@@ -40,12 +41,15 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     QGridLayout *gridLayout = new QGridLayout;
 
+    m_intensityEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    gridLayout->addWidget(m_intensityEditor, 0, 0);
+
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_wavelengthEditor, 0, 0);
+    gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_inclinationAngleEditor, 1, 0);
+    gridLayout->addWidget(m_inclinationAngleEditor, 2, 0);
     m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_azimuthalAngleEditor, 1, 1);
+    gridLayout->addWidget(m_azimuthalAngleEditor, 2, 1);
 
     groupLayout->addLayout(gridLayout);
 
@@ -58,10 +62,14 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
 void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
 {
     m_beamItem = beamItem;
+    m_intensityEditor->clearEditor();
     m_wavelengthEditor->clearEditor();
     m_inclinationAngleEditor->clearEditor();
+    m_azimuthalAngleEditor->clearEditor();
 
     if(!m_beamItem) return;
+
+    m_intensityEditor->addItemProperty(m_beamItem, TestBeamItem::P_INTENSITY);
 
     ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH];
     m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);

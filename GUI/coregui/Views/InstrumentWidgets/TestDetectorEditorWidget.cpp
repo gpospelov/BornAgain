@@ -21,6 +21,7 @@
 
 TestDetectorEditorWidget::TestDetectorEditorWidget(QWidget *parent)
     : QWidget(parent)
+    , m_binningEditor(0)
     , m_phiAxisEditor(0)
     , m_alphaAxisEditor(0)
     , m_detectorItem(0)
@@ -32,10 +33,12 @@ TestDetectorEditorWidget::TestDetectorEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     QGridLayout *gridLayout = new QGridLayout;
 
+    m_binningEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    gridLayout->addWidget(m_binningEditor, 0, 0);
     m_phiAxisEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_phiAxisEditor, 0, 0);
+    gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_alphaAxisEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_alphaAxisEditor, 0, 1);
+    gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
     groupLayout->addLayout(gridLayout);
 
@@ -49,10 +52,13 @@ TestDetectorEditorWidget::TestDetectorEditorWidget(QWidget *parent)
 void TestDetectorEditorWidget::setDetectorItem(TestDetectorItem *detectorItem)
 {
     m_detectorItem = detectorItem;
+    m_binningEditor->clearEditor();
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
 
     if(!m_detectorItem) return;
+
+    m_binningEditor->addItemProperty(m_detectorItem, TestDetectorItem::P_BINNING);
 
     ParameterizedItem *phiAxisItem = m_detectorItem->getSubItems()[TestDetectorItem::P_PHI_AXIS];
     m_phiAxisEditor->addItemProperties(phiAxisItem, QString("Phi axis"), AwesomePropertyEditor::INSERT_AFTER);

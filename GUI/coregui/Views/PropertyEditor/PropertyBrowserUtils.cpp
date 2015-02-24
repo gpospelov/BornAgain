@@ -269,7 +269,14 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
     m_lineEdit = new QLineEdit(this);
+    layout->addWidget(m_lineEdit);
 
     m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
     m_validator->setNotation(QDoubleValidator::ScientificNotation);
@@ -277,6 +284,8 @@ ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
 
     connect(m_lineEdit, SIGNAL(editingFinished()),
             this, SLOT(onEditingFinished()));
+
+    setLayout(layout);
 }
 
 void ScientificDoublePropertyEdit::setScientificDoubleProperty(

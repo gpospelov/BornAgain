@@ -31,6 +31,7 @@ public:
     void setBeamItem(TestBeamItem *beamItem);
 
 private:
+    AwesomePropertyEditor *m_intensityEditor;
     AwesomePropertyEditor *m_wavelengthEditor;
     AwesomePropertyEditor *m_inclinationAngleEditor;
     AwesomePropertyEditor *m_azimuthalAngleEditor;

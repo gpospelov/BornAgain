@@ -69,17 +69,19 @@ F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
 where $V$ is the volume of the particle's shape,
 $\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
 $\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
-vector, respectively. The Distorted Wave Born Approximation can be taken into account as it has been explained in \SecRef{sect:dwba}.\\
+vector, respectively. The Distorted Wave Born Approximation can be taken into account as it has been explained in \SecRef{sect:dwba}.
 
 The particle's shape is parametrized in a Cartesian frame, with its
 $z$-axis pointing upwards and its origin at the center of the bottom
 of the particle: $\mathbf{r}=(x,y,z)$. In the followings, a schematic view will depict this layout for each
-form factor.\\
+form factor.
 
 All form factors have been implemented with complex scattering vectors
-in order to take any material absorption into account.\\
+in order to take any material absorption into account.
 
 %===============================================================================
+\newpage
+\ifodd\value{page}\textit{Page intentionally left blank}\newpage\fi
 \section{Implemented form factors}
 %===============================================================================
 
@@ -89,7 +91,6 @@ The following pages document each implemented form factor in detail.
 
 
 \begin{table}[H] 
-\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
   \begin{tabulary} {\textwidth}{Lc Lc L c L} 
 \hline 
 Box,\phantom{-} \SecRef{Box} & & Prism3,  \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron} & & Prism6,  \SecRef{Prism6}\\
@@ -123,9 +124,11 @@ Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
 \includegraphics[width=1in]{fig/blue/Ripple23d.png} & &  & & \\
 \hline 
 \end{tabulary}
-\index{Form factors!table of implemented}
+\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
+\index{Form factor!table of implemented models}
 \end{table}
 
+\FloatBarrier
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -191,7 +194,7 @@ $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Box\rq\rq ~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq Box\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 %-------------------------------------------------------------------------------
@@ -254,7 +257,7 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Prism3\rq\rq ~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq Prism3\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
@@ -399,7 +402,7 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Prism6\rq\rq ~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq Prism6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization,
 and for a factor $H$ missing in the \Code{IsGISAXS} manual. 
 
@@ -478,7 +481,7 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Cone6\rq\rq ~form factor of \IsGISAXS~\cite{Laz02} ???
+Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -555,7 +558,7 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Pyramid\rq\rq ~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq Pyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
 [and sign problem??]
 
@@ -639,7 +642,7 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq AnisoPyramid\rq\rq ~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq AnisoPyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization. ???
 
 %\subsection{References}
@@ -717,7 +720,7 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq \rq\rq Cuboctahedron~form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \lq\lq Cuboctahedron\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
@@ -778,7 +781,7 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq \rq\rq Cylinder~form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -842,7 +845,7 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Ellipsoid \rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -904,7 +907,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Cone \rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -960,7 +963,7 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq ?? \rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 
 %-------------------------------------------------------------------------------
@@ -1025,7 +1028,7 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq Sphere\rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
@@ -1089,7 +1092,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \end{figure}
 
 \paragraph{References}
-Corrected version of the \lq\lq FullSpheroid \rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %\subsection{References}
 %The expression is identical to \Code{IsGISAXS} manual. In the code,
@@ -1160,7 +1163,7 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 \end{figure}
 
 \paragraph{References}
-Agrees with \lq\lq TruncatedSpheroid \rq\rq ~form factor
+Agrees with \lq\lq TruncatedSpheroid\rq\rq\ form factor
 of \IsGISAXS~\cite{Laz02}.
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.

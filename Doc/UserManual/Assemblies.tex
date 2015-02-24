@@ -28,21 +28,22 @@
 
 This section describes how assemblies of particles and layers of materials contribute to the scattering cross-section \textit{i.e.} the way their spatial distributions, the distribution of shapes and their correlations or the layers' roughness can influence the output intensity. 
 
-The samples generated with \BornAgain\ are made of different layers of materials characterized by their thicknesses, refractive indices, and possible surface roughnesses. Except for the thickness, the other dimensions of the layers are infinite.\\ Particles can be embedded in or deposited on the top of any layers. Those particles are characterized by their shapes, refractive indices, their spatial distribution and concentration in the sample. The influence of the particles' shapes is described by the form factors. When the particles are densely packed, the distance relative to each other becomes of the same order as the particles' sizes. The radiation scattered from these various particles are going to interfere together. \\ We are first going to give a short overview of the theory involved, mostly in order to define the terminology. For a more complete theoretical description, the user is referred to, for example, reference~\cite{ReLL09} and appendix \ref{app:theory} of this manual. Then we are going to describe how the interference features, the form factors and the characteristics of the material layers have been implemented in \BornAgain\ and  give some examples.
+The samples generated with \BornAgain\ are made of different layers of materials characterized by their thicknesses, refractive indices, and possible surface roughnesses. Except for the thickness, the other dimensions of the layers are infinite.\\ Particles can be embedded in or deposited on the top of any layers. Those particles are characterized by their shapes, refractive indices, their spatial distribution and concentration in the sample. The influence of the particles' shapes is described by the form factors. When the particles are densely packed, the distance relative to each other becomes of the same order as the particles' sizes. The radiation scattered from these various particles are going to interfere together. \\ We are first going to give a short overview of the theory involved, mostly in order to define the terminology. For a more complete theoretical description, the user is referred to, for example, reference~\cite{ReLL09}.
+hen we are going to describe how the interference features, the form factors and the characteristics of the material layers have been implemented in \BornAgain\ and  give some examples.
 
 TO MERGE IN:
 The scattering length density can be written as:
 \begin{equation*}
-\rho_s(\vect{r}) = \sum_i \rho_{s,i} S^i(\vect{r}) \otimes \delta (\vect{r}-\vect{R}^i) \; ,
+\rho_s(\vect{r}) = \sum_i \rho_{s,i} S^i(\vect{r}) \otimes \delta (\vect{r}-\vect{R}^i),
 \end{equation*}
 with $\rho_{s,i}$ the scattering length density of particle $i$. The cross-section \refeq{xsec1} then becomes:
 \begin{align*}
   N\frac{d\sigma}{d\Omega}(\vect{q}) & = \left\lvert \sum_i F^i(\vect{q}) \exp (i\vect{q}\cdot\vect{R}^i) \right\rvert ^2  \\
-  & = \left\lbrace \sum_i \left\lvert F^i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F^i(\vect{q}) F^{j*}(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}^i-\vect{R}^j)\right] \right\rbrace \; .
+  & = \left\lbrace \sum_i \left\lvert F^i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F^i(\vect{q}) F^{j*}(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}^i-\vect{R}^j)\right] \right\rbrace.
 \end{align*}
 In the last expression, the formfactors $F^i(\vect{q})$ are the Fourier transforms of the shape functions, including their scattering length densities:
 \begin{equation*}
-  F^i(\vect{q}) \equiv \int d^3\vect{r} \rho_{s,i} S^i(\vect{r}) \exp (i\vect{q}\cdot\vect{r} ) \; .
+  F^i(\vect{q}) \equiv \int d^3\vect{r} \rho_{s,i} S^i(\vect{r}) \exp (i\vect{q}\cdot\vect{r} ).
 \end{equation*}
 
 
@@ -53,27 +54,40 @@ In the last expression, the formfactors $F^i(\vect{q})$ are the Fourier transfor
 Let us consider the general geometry of a scattering experiment. An incident neutron with a wave vector $\mathbf{k}_i$ is scattered in a new direction $\mathbf{k}_f$ after interacting with a particle. This scattering occurs in a cone of solid angle $d\Omega$ around the direction of the scattered wave vector $\mathbf{k}_f$.
 Considering a set of $N$ particles labeled with index $i$, located at $\mathbf{R}_i$ and having shapes $S_i(\mathbf{r})$ ($S_i=0$ outside the particle and 1 inside), occupying a total volume $V$, the differential cross-section per particle is given by:
 \begin{equation*}
-  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lbrace \sum_i \left\lvert F_i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F_i(\vect{q}) F_{j}^*(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}_i-\vect{R}_j)\right] \right\rbrace \; .
+  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lbrace \sum_i \left\lvert F_i(\vect{q}) \right\rvert ^2 + \sum_{i\neq j} F_i(\vect{q}) F_{j}^*(\vect{q}) \exp \left[i\vect{q}\cdot (\vect{R}_i-\vect{R}_j)\right] \right\rbrace.
 \end{equation*}
 where  $\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the wave vector transfer and $F_i$ is the form factor of particle $i$ (see \SecRef{sect:ff} for a description).
 
 Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \textit{i.e.} its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}
   \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\vect{q})\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\vect{q})F_\beta^*(\vect{q})  \\
-  & \times \iint_V d^3\vect{R}_\alpha d^3\vect{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot (\vect{R}_\alpha - \vect{R}_\beta ) \right] \; ,
+  & \times \iint_V d^3\vect{R}_\alpha d^3\vect{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot (\vect{R}_\alpha - \vect{R}_\beta ) \right],
 \end{align*}
 
 where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation function}. It represents the normalized probability of finding particles of type $\alpha$ and $\beta$ in positions $\vect{R}_\alpha$ and $\vect{R}_\beta$ respectively. 
 
 TO MERGE IN:
+This expression can be split into a diffuse part, which by definition should be zero for the case of only one particle type, and a coherent part, resulting from the coherent superposition of scattering amplitudes for particles at different positions:
+\begin{equation*}
+  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle = I_d(\vect{q}) + \ensavg{\alpha\beta}{F_\alpha (\vect{q} ) S_{\alpha\beta} (\vect{q}) F_\beta^* (\vect{q})},
+\end{equation*}
+where
+\begin{align*}
+  I_d(\vect{q}) &\equiv \ensavg{\alpha}{\left\rvert F_\alpha (\vect{q}) \right\rvert^2} - \left\lvert \ensavg{\alpha}{ F_\alpha (\vect{q})} \right\rvert^2, \\
+  S_{\alpha\beta} (\vect{q}) &\equiv 1 + \rho_V \int_V d^3\vect{r}\mathcal{G}_{\alpha\beta}(\vect{r}) \exp \left[ i\vect{q}\cdot \vect{r} \right].
+\end{align*}
+$S_{\alpha\beta} (\vect{q})$ is called the \emph{interference function} and $\langle\dotso\rangle_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
+
+
+TO MERGE IN:
 More precisely, the probability density for finding a particle $\alpha$ at position $\vect{R}_\alpha$ and another one of type $\beta$ at $\vect{R}_\beta$ is given by:
 \begin{equation*}
-  \mathcal{P}(\alpha, \vect{R}_\alpha ; \beta , \vect{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R} \; .
+  \mathcal{P}(\alpha, \vect{R}_\alpha ; \beta , \vect{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R}.
 \end{equation*}
 
 
 %===============================================================================
-\subsection{Size-distribution models}
+\section{Horizontal particle distributions}
 %===============================================================================
 
 To proceed further, when the morphology and topology are not exactly known, some hypotheses need to be made since the correlation between the kinds of scatterers and their relative positions included in the pair correlation functions are difficult to estimate. Several options are available:
@@ -84,11 +98,11 @@ neglects all correlations. It supposes that the particles are positioned in a wa
 
 This leads to the following expression of the scattering cross-section:
 \begin{equation*}
-\left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  = I_d(\vect{q}) + \left\lvert \left\langle F_\alpha(\vect{q}) \right\rangle_\alpha \right\rvert ^2 \times S(\vect{q}) \; ,
+\left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  = I_d(\vect{q}) + \left\lvert \left\langle F_\alpha(\vect{q}) \right\rangle_\alpha \right\rvert ^2 \times S(\vect{q}),
 \end{equation*}
 where $I_d$ is the diffuse part of the scattering. It is the signature of the fluctuations of shapes, sizes or orientations of the particles; its maximum is located in $q_{\parallel}=0$. In the second term of the expression of the scattering cross-section, $S(\vect{q})$ is the interference function and is given by
 \begin{equation*} 
-  S(\vect{q}) = 1+ \rho_V \int_V d^3\vect{R} \; g(\vect{R}) \exp \left[ i\vect{q}\cdot \vect{R} \right] \; .
+  S(\vect{q}) = 1+ \rho_V \int_V d^3\vect{r}g(\vect{r}) \exp \left[ i\vect{q}\cdot \vect{r} \right].
 \end{equation*}
 
 
@@ -108,7 +122,7 @@ In concentrated systems, DA breaks down because of correlations. One solution is
 partially accounts for some coupling between the positions and the kinds of the particles \cite{Ped94}. 
  It requires a subdivision of the layers of particles into monodisperse domains. The contributions of these subdomains are then  incoherently summed up and weighted by the size-shape probabilities.\\ In this approximation, a particle is supposed to be surrounded by particles of the same size and shape, within the coherence length of the input beam (see fig.~\ref{fig:lma}). The scattering cross-section is expressed as
 \begin{equation*}
-  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle \simeq \left\langle \left\lvert F_\alpha(\vect{q})\right\rvert ^2 S_\alpha(\vect{q}) \right\rangle_\alpha \; .
+  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle \simeq \left\langle \left\lvert F_\alpha(\vect{q})\right\rvert ^2 S_\alpha(\vect{q}) \right\rangle_\alpha.
 \end{equation*}
 
 Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape-dependent pair correlation functions by having distinct interference functions $S_\alpha(\vect{q})$.
@@ -123,24 +137,6 @@ DA and LMA separate the contributions of the form factors and of the interferenc
 \end{center}
 \caption{Sketch of a collection of particles deposited on a substrate whose scattering could be described by the local monodisperse correlation approximation. The dashed areas mark the coherent domains. In this case, the total scattering intensity is the incoherent sum from all these domains.}
 \label{fig:lma}
-\end{figure}
-
-\paragraph{Size spacing correlation approximation (SSCA)}
-\index{Size-spacing correlation approximation}
-introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
-
-%For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j )$:
-%\begin{equation*}
-%  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))} \; ,
-%\end{equation*}
-%where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{fig/drawing/drawingSSCA.eps}
-\end{center}
-\caption{Sketch of a 1D distributed collection of particles, whose scattering could be described by the size-spacing correlation approximation: the distance between two particles depends on their sizes.}
-\label{fig:ssca}
 \end{figure}
 
 
@@ -202,56 +198,6 @@ The scattering by an ordered lattice gives rise to a series of Bragg peaks situa
  in direct space by using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered peaks with a function which could reproduce the experimental shapes.
 
 
-%===============================================================================
-\subsubsection{General formulas}
-%===============================================================================
-
-Even in the most general case, the partial pair correlation function will only depend on the difference $\vect{R}_{\alpha\beta}\equiv(\vect{R}_\alpha - \vect{R}_\beta )$ of the particles' positions. One of the volume integrals can then be dropped, together with the volume factor, giving:
-\begin{align*}
-  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\vect{q})\right\rvert ^2 + \rho_V\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\vect{q})F_\beta^*(\vect{q}) \\
-  & \times \int_V d^3\vect{R}_{\alpha\beta} \ppcfb{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot \vect{R}_{\alpha\beta} \right] \; .
-\end{align*}
-
-This expression can be split into a diffuse part, which by definition should be zero for the case of only one particle type, and a coherent part, resulting from the coherent superposition of scattering amplitudes for particles at different positions:
-\begin{equation*}
-  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle = I_d(\vect{q}) + \ensavg{\alpha\beta}{F_\alpha (\vect{q} ) S_{\alpha\beta} (\vect{q}) F_\beta^* (\vect{q})} \; ,
-\end{equation*}
-where
-\begin{align*}
-  I_d(\vect{q}) &\equiv \ensavg{\alpha}{\left\rvert F_\alpha (\vect{q}) \right\rvert^2} - \left\lvert \ensavg{\alpha}{ F_\alpha (\vect{q})} \right\rvert^2 \; , \\
-  S_{\alpha\beta} (\vect{q}) &\equiv 1 + \rho_V \int_V d^3\vect{R}_{\alpha\beta}\ppcfb{\alpha}{\beta}{R} \exp \left[ i\vect{q}\cdot \vect{R}_{\alpha\beta} \right] \; .
-\end{align*}
-$S_{\alpha\beta} (\vect{q})$ is called the \emph{interference function} and $\langle\dotso\rangle_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
-
-
-%===============================================================================
-\subsubsection{Decoupling approximation}
-%===============================================================================
-\index{Decoupling approximation}
-
-When the partial pair correlation function is independent of the particle class $\alpha$ ($ \ppcfb{\alpha}{\beta}{R} \equiv g(\vect{R}_{\alpha\beta})$ ), the scattering cross-section becomes:
-\begin{equation*}
-\left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle  = I_d(\vect{q}) + \left\lvert \left\langle F_\alpha(\vect{q}) \right\rangle_\alpha \right\rvert ^2 \times S(\vect{q}) \; ,
-\end{equation*}
-where
-\begin{equation*} 
-  S(\vect{q}) = 1+ \rho_V \int_V d^3\vect{R} \; g(\vect{R}) \exp \left[ i\vect{q}\cdot \vect{R} \right] \; .
-\end{equation*}
-
-
-%===============================================================================
-\subsubsection{Local Monodisperse Approximation}
-%===============================================================================
-\index{LMA|see {Local monodisperse approximation}}
-\index{Local monodisperse approximation}
-  
-By assuming that inside every coherence region of the beam, the particle class (or size/shape) is fixed, the cross-section will consist of an incoherent superposition of these different coherence regions and can be written as:
-\begin{equation*}
-  \left\langle \frac{d\sigma}{d\Omega}(\vect{q}) \right\rangle \simeq \left\langle \left\lvert F_\alpha(\vect{q})\right\rvert ^2 S_\alpha(\vect{q}) \right\rangle_\alpha \; .
-\end{equation*}
-
-Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape-dependent pair correlation functions by having distinct interference functions $S_\alpha(\vect{q})$.
-
 
 %===============================================================================
 \subsubsection{Size-Spacing Correlation Approximation}
@@ -259,25 +205,43 @@ Contrary to the Decoupling Approximation, the Local Monodisperse Approximation c
 \index{Size-spacing correlation approximation}
 \index{SSCA|see {Size-spacing correlation approximation}}
 
+TO MERGE IN:
+introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
+
+%For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j )$:
+%\begin{equation*}
+%  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))},
+%\end{equation*}
+%where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig/drawing/drawingSSCA.eps}
+\end{center}
+\caption{Sketch of a 1D distributed collection of particles, whose scattering could be described by the size-spacing correlation approximation: the distance between two particles depends on their sizes.}
+\label{fig:ssca}
+\end{figure}
+
+
 In the Size-Spacing Correlation Approximation, a correlation is assumed between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes. The following discussion of this type of correlation is inspired by \cite{LaLR07}
 
 The scattered intensity can also be calculated as the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density:
 \begin{equation*}
-  \curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j ) \; .
+  \curlp (\vectr ) \equiv \sum_{ij} S_i(-\vectr )\otimes S_j(\vectr )\otimes \delta (\vectr + \vectr_i - \vectr_j ).
 \end{equation*}
 For a sample where only the statistical properties of particle positions and shape/size are known, the scattered intensity per scattering particle becomes average over an ensemble of the Fourier transform of the Patterson function:
 \begin{equation*}
-  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))} \; ,
+  I(\vectq ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\vectr ))},
 \end{equation*}
 where $\curlf$ denotes the Fourier transform.
 
 The ensemble averaged Patterson function will be denoted as:
 \begin{equation*}
-  Z(r) \equiv \frac{1}{N}\ensavg{}{\curlp (\vectr )} \; .
+  Z(r) \equiv \frac{1}{N}\ensavg{}{\curlp (\vectr )}.
 \end{equation*}
 In the case of systems where the particles are aligned in one dimension, this autocorrelation function can be further split into nearest neighbor probabilities. First, it is split into terms for negative, zero or positive distance:
 \begin{equation*}
-  Z(\vectr ) \equiv z_0(\vectr ) + z_+(\vectr ) + z_-(\vectr ) \; .
+  Z(\vectr ) \equiv z_0(\vectr ) + z_+(\vectr ) + z_-(\vectr ).
 \end{equation*}
 Taking $x$ as the coordinate in the direction in which the particles are arranged and $s$ as an orthogonal coordinate ($\vectr \equiv (x,s)$), one obtains:
 \begin{align*}
@@ -285,38 +249,38 @@ Taking $x$ as the coordinate in the direction in which the particles are arrange
   z_+(\vectr ) &= \sum_{\alpha_0\alpha_1} p(\alpha_0,\alpha_1) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_1}(x,s) \otimes P_1(x|\alpha_0\alpha_1)  \\
                &+ \sum_{\alpha_0\alpha_1\alpha_2} p(\alpha_0,\alpha_1,\alpha_2) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_2}(x,s) \otimes P_1(x|\alpha_0\alpha_1) \otimes P_2(x|\alpha_0\alpha_1\alpha_2)  \\
                &+ \dotsb \\
-  z_-(\vectr ) &= z_+(-\vectr ) \; ,
+  z_-(\vectr ) &= z_+(-\vectr ),
 \end{align*}
 where $p(\alpha_0,\dotsc ,\alpha_n)$ denotes the probability of having a sequence of particles of the indicated sizes/shapes and $P_n(x|\alpha_0\dotsc\alpha_n)$ is the probability density of having a particle of type $\alpha_n$ at a (positive) distance $x$ of its nearest neighbor of type $\alpha_{n-1}$ in a sequence of the given order.
 
 In the Size-Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
 \begin{equation*}
-  p(\alpha_0,\dotsc ,\alpha_n) = \prod_i p(\alpha_i) \; ,
+  p(\alpha_0,\dotsc ,\alpha_n) = \prod_i p(\alpha_i),
 \end{equation*}
 and the nearest neighbor distance distribution is dependent only on the two particles involved:
 \begin{equation*}
-  P_n(x|\alpha_0\dotsc\alpha_n) = P_1(x|\alpha_{n-1}\alpha_n) \; .
+  P_n(x|\alpha_0\dotsc\alpha_n) = P_1(x|\alpha_{n-1}\alpha_n).
 \end{equation*}
 Furthermore, the distance distribution $P_1(x|\alpha_0\alpha_1)$ depends on the particle sizes/shapes only through its mean value $D$:
 \begin{equation*}
-  P_1(x|\alpha_0\alpha_1) = P_0(x - D(\alpha_0,\alpha_1) ) \; ,
+  P_1(x|\alpha_0\alpha_1) = P_0(x - D(\alpha_0,\alpha_1) ),
 \end{equation*}
 where $D(\alpha_0,\alpha_1) = D_0 + \kappa \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right]$, with $\Delta R(\alpha_i)$ the deviation of a size parameter of particle $i$ with respect to the mean over all particles sizes/shapes and $\kappa$ the coupling parameter.
 
 In momentum space, the sum of convolutions can be written as a geometric series, which can be exactly calculated to be:
 \begin{equation}
 \label{eq:sscainf}
-  I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(\vectq ) \right| ^2} + 2 \Re \left\lbrace \widetilde{\curlf_\kappa}(\vectq )\widetilde{\curlf_\kappa^*}(\vectq ) \cdot \frac{\Omega_\kappa(\vectq )}{\tilde{p}_{2\kappa}(\vectq )\left[ 1 - \Omega_\kappa(\vectq )\right] } \right\rbrace \; ,
+  I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(\vectq ) \right| ^2} + 2 \Re \left\lbrace \widetilde{\curlf_\kappa}(\vectq )\widetilde{\curlf_\kappa^*}(\vectq ) \cdot \frac{\Omega_\kappa(\vectq )}{\tilde{p}_{2\kappa}(\vectq )\left[ 1 - \Omega_\kappa(\vectq )\right] } \right\rbrace,
 \end{equation}
 with
 \begin{align*}
   \tilde{p}_\kappa(\vectq ) &= \int d\alpha\; p(\alpha) e^{i\kappa q_x \Delta R(\alpha)}  \\
   \Omega_\kappa(\vectq ) &= \tilde{p}_{2\kappa}(\vectq ) \phi(\vectq) e^{i q_x D_0}  \\
-  \widetilde{\curlf_\kappa}(\vectq ) &= \int d\alpha\; p(\alpha)F_\alpha (\vectq ) e^{i\kappa q_x \Delta R(\alpha)} \; ,
+  \widetilde{\curlf_\kappa}(\vectq ) &= \int d\alpha\; p(\alpha)F_\alpha (\vectq ) e^{i\kappa q_x \Delta R(\alpha)},
 \end{align*}
 and the Fourier transform of $P_1(x|\alpha_0\alpha_1)$ is
 \begin{equation*}
-  \curlp (\vectq ) = \phi (\vectq )e^{i q_x D_0} e^{i \kappa q_x \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right] } \; .
+  \curlp (\vectq ) = \phi (\vectq )e^{i q_x D_0} e^{i \kappa q_x \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right] }.
 \end{equation*}
 
 Using the result from the one-dimensional analysis, one can apply this formula ad hoc for distributions of particles in a plane, where the coordinate $x$ will now be replaced with $(x,y)$, while the $s$ coordinate encodes a position in the remaining orthogonal direction. One must be aware however that this constitutes a further approximation, since this type of correlation does not have a general solution in more than one dimension.
@@ -326,23 +290,23 @@ Another way of dealing with this infinity at $\vectq =0$ consists of taking only
 \begin{equation*}
 \begin{split}
   I(\vectq ) &= \ensavg{\alpha}{\left| F_\alpha(\vectq ) \right| ^2} + 2 \Re \Biggl\lbrace \frac{1}{\tilde{p}_{2\kappa}(\vectq )}\widetilde{\curlf_\kappa}(\vectq )\widetilde{\curlf_\kappa^*}(\vectq ) \\
-  & \times \left[ \left( 1 - \frac{1}{N}\right) \frac{\Omega_\kappa(\vectq )}{1 - \Omega_\kappa(\vectq ) } - \frac{1}{N}\frac{\Omega_\kappa^2(\vectq )\left( 1- \Omega_\kappa^{N-1}(\vectq )\right) }{\left( 1 - \Omega_\kappa(\vectq ) \right) ^2 } \right] \Biggr\rbrace \; .
+  & \times \left[ \left( 1 - \frac{1}{N}\right) \frac{\Omega_\kappa(\vectq )}{1 - \Omega_\kappa(\vectq ) } - \frac{1}{N}\frac{\Omega_\kappa^2(\vectq )\left( 1- \Omega_\kappa^{N-1}(\vectq )\right) }{\left( 1 - \Omega_\kappa(\vectq ) \right) ^2 } \right] \Biggr\rbrace.
 \end{split}
 \end{equation*}
 This expression has a well-defined limit for $\Omega_\kappa(\vectq ) \rightarrow 1$ (when $\vectq \rightarrow 0$), namely:
 \begin{equation*}
-  \lim_{\vectq \rightarrow 0} I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(0 ) \right| ^2} + \left( N-1 \right) \left| \ensavg{\alpha}{F_\alpha(0 )} \right|^2 \; .
+  \lim_{\vectq \rightarrow 0} I(\vectq ) = \ensavg{\alpha}{\left| F_\alpha(0 ) \right| ^2} + \left( N-1 \right) \left| \ensavg{\alpha}{F_\alpha(0 )} \right|^2.
 \end{equation*}
 
 
 %===============================================================================
-\subsection{Vertical location of particles}
+\section{Vertical location of particles}
 %===============================================================================
 
  \ImportantPoint{Remark:}{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
 
 %-------------------------------------------------------------------------------
-\subsubsection{Particles deposited on a substrate}
+\subsection{Particles deposited on a substrate}
 %-------------------------------------------------------------------------------
 %Substrate modified Born approximation
 In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in fig.~\ref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes 
@@ -428,7 +392,7 @@ def get_sample():
 \ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
 
 %-------------------------------------------------------------------------------
-\subsubsection{Buried particles} 
+\subsection{Buried particles} 
 %-------------------------------------------------------------------------------
 
 The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see fig.~\ref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by

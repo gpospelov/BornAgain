@@ -27,7 +27,6 @@ class DetectorEditorWidget;
 class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
-class TestInstrumentWidget;
 class InstrumentComponentsWidget;
 class QScrollArea;
 

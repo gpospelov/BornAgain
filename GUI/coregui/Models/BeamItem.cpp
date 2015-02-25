@@ -88,6 +88,7 @@ void BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group,
         double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
         setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
     }
+    ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
 }
 
 
@@ -127,6 +128,7 @@ void BeamAngleItem::onSubItemPropertyChanged(const QString &property_group, cons
         double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
         setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
     }
+    ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
 }
 
 

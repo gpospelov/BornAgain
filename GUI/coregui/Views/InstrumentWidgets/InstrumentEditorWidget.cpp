@@ -19,8 +19,6 @@
 #include "DetectorItems.h"
 #include "DetectorEditorWidget.h"
 #include "BeamEditorWidget.h"
-#include "TestInstrumentWidget.h"
-#include "InstrumentScrollArea.h"
 #include "InstrumentComponentsWidget.h"
 #include <QBoxLayout>
 #include <QGroupBox>

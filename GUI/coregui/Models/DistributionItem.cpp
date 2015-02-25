@@ -83,7 +83,7 @@ void DistributionGateItem::init_parameters(double value, PropertyAttribute attri
 /* ------------------------------------------------ */
 
 const QString DistributionLorentzItem::P_MEAN = "Mean";
-const QString DistributionLorentzItem::P_HWHM = "Half width half maximum";
+const QString DistributionLorentzItem::P_HWHM = "HWHM";
 
 DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     : DistributionItem(Constants::DistributionLorentzType, parent)

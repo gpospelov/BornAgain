@@ -21,6 +21,7 @@
 #include "ItemLink.h"
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
+#include "DistributionItem.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QDebug>
@@ -88,7 +89,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                 int type = GUIHelpers::getVariantType(propertyValue);
                 if (type == QVariant::Double) {
 //                    qDebug() << "       Items: "<<propertyName << propertyValue.toDouble();
-                    insertRowIntoItem(standardItem, propertyName, propertyValue, item);
+                    addPropertyToParameterModel(standardItem, propertyName, propertyName, propertyValue, item);
 
                 }
                 else if(item->getSubItems().contains(propertyName)) {
@@ -115,12 +116,12 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
                             if (proValueType == QVariant::Double) {
                                 //qDebug() << "Items: "<<prop_name << prop_value.toDouble();
                                 isChildPropertyFound = true;
-                                insertRowIntoItem(childStandardItem, childPropertyName, childPropertyValue, subItem);
+                                addPropertyToParameterModel(childStandardItem, childPropertyName, childPropertyName, childPropertyValue, subItem);
                             }
                         }
                         if(isChildPropertyFound)
                         {
-                            insertRowIntoItem(standardItem, childStandardItem);
+                            InsertRowIntoItem(standardItem, childStandardItem);
                         }
 
 
@@ -135,7 +136,7 @@ QStandardItem *ParameterModelBuilder::iterateSessionModel(SampleModel *sampleMod
             }
             else
             {
-                insertRowIntoItem(parentItem, standardItem);
+                InsertRowIntoItem(parentItem, standardItem);
             }
             //qDebug() << "iteration called" << i_row;
             iterateSessionModel(sampleModel, itemIndex, standardItem);
@@ -154,17 +155,36 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
 
     InstrumentItem *instrument = instrumentModel->getInstrumentItem();
     if(instrument) {
-        BeamItem *beamItem = instrument->getBeamItem();
+        TestBeamItem *beamItem = instrument->getBeamItem();
         if(beamItem) {
             standardItem = new QStandardItem(instrument->itemName());
-            insertRowIntoItem(standardItem, BeamItem::P_WAVELENGTH, beamItem->getRegisteredProperty(BeamItem::P_WAVELENGTH), beamItem);
+            addPropertyToParameterModel(standardItem, TestBeamItem::P_INTENSITY, TestBeamItem::P_INTENSITY, QVariant(beamItem->getIntensity()), beamItem);
 
-            double v = beamItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>().getValue();
-            QVariant variant_inclination(v);
-            insertRowIntoItem(standardItem, BeamItem::P_INCLINATION_ANGLE, variant_inclination, beamItem);
+            // wavelength, incident and azimuthal angle will be varied only if there is no distribution assigned to them
 
-            v = beamItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>().getValue();
-            insertRowIntoItem(standardItem, BeamItem::P_AZIMUTHAL_ANGLE, QVariant(v), beamItem);
+            ParameterizedItem *beamWavelength = beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH];
+            Q_ASSERT(beamWavelength);
+            ParameterizedItem *wavelengthDistribution = beamWavelength->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
+            Q_ASSERT(wavelengthDistribution);
+            if(wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_WAVELENGTH, BeamWavelengthItem::P_CACHED_VALUE, beamWavelength->getRegisteredProperty(BeamWavelengthItem::P_CACHED_VALUE), beamWavelength);
+            }
+
+            ParameterizedItem *inclinationAngle = beamItem->getSubItems()[TestBeamItem::P_INCLINATION_ANGLE];
+            Q_ASSERT(inclinationAngle);
+            ParameterizedItem *inclinationDistribution = inclinationAngle->getSubItems()[BeamAngleItem::P_DISTRIBUTION];
+            Q_ASSERT(inclinationDistribution);
+            if(inclinationDistribution->modelType() == Constants::DistributionNoneType) {
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_INCLINATION_ANGLE, BeamAngleItem::P_CACHED_VALUE, inclinationAngle->getRegisteredProperty(BeamAngleItem::P_CACHED_VALUE), inclinationAngle);
+            }
+
+            ParameterizedItem *azimuthalAngle = beamItem->getSubItems()[TestBeamItem::P_AZIMUTHAL_ANGLE];
+            Q_ASSERT(azimuthalAngle);
+            ParameterizedItem *azimuthalDistribution = azimuthalAngle->getSubItems()[BeamAngleItem::P_DISTRIBUTION];
+            Q_ASSERT(azimuthalDistribution);
+            if(azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_AZIMUTHAL_ANGLE, BeamAngleItem::P_CACHED_VALUE, azimuthalAngle->getRegisteredProperty(BeamAngleItem::P_CACHED_VALUE), azimuthalAngle);
+            }
 
         }
     }
@@ -173,7 +193,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
 }
 
 
-void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
+void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
 {
     if(childValueItem == NULL)
     {
@@ -186,9 +206,9 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QStanda
 }
 
 
-void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
+void ParameterModelBuilder::addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, ParameterizedItem *parameterizedItem)
 {
-    ItemLink itemLink(title, parameterizedItem);
+    ItemLink itemLink(property_name, parameterizedItem);
 
     QVariant itemLinkData;
     itemLinkData.setValue(itemLink);
@@ -200,6 +220,6 @@ void ParameterModelBuilder::insertRowIntoItem(QStandardItem *parentItem, QString
     valueItem->setData(itemLinkData, Qt::UserRole);
     valueItem->setData(value, Qt::EditRole);
     valueItem->setEditable(true);
-    insertRowIntoItem(parentItem, titleItem, valueItem);
+    InsertRowIntoItem(parentItem, titleItem, valueItem);
 }
 

@@ -18,7 +18,7 @@
 
 
 #include "ParameterizedItem.h"
-class BeamItem;
+class TestBeamItem;
 class DetectorItem;
 
 class BA_CORE_API_ InstrumentItem : public ParameterizedItem
@@ -29,7 +29,7 @@ public:
     explicit InstrumentItem(ParameterizedItem *parent=0);
     ~InstrumentItem(){}
 
-    BeamItem *getBeamItem();
+    TestBeamItem *getBeamItem();
 
     DetectorItem *getDetectorItem();
 

@@ -79,18 +79,15 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     instrumentItem->setItemName(instrument->getName().c_str());
 
     Beam beam = instrument->getBeam();
-    ParameterizedItem *beamItem = instrumentModel->insertNewItem(
+    TestBeamItem *beamItem = dynamic_cast<TestBeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
-                instrumentModel->indexOfItem(instrumentItem));
-    beamItem->setRegisteredProperty(BeamItem::P_INTENSITY,
-                                    beam.getIntensity());
-    beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
-                                    beam.getWavelength());
+                instrumentModel->indexOfItem(instrumentItem)));
+    Q_ASSERT(beamItem);
 
-    beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
-    beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
+    beamItem->setIntensity(beam.getIntensity());
+    beamItem->setWavelength(beam.getWavelength());
+    beamItem->setInclinationAngle(Units::rad2deg(-1.0*beam.getAlpha()));
+    beamItem->setAzimuthalAngle(Units::rad2deg(-1.0*beam.getPhi()));
 
     Detector detector = instrument->getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(

@@ -288,12 +288,18 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 //    qDebug() << "TransformToDomain::createBeam";
     Beam *result = new Beam();
     result->setName(item.itemName().toUtf8().constData());
-    result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
-    double lambda = item.getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble();
 
-    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
-    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
-    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
+    const TestBeamItem *beamItem = dynamic_cast<const TestBeamItem *>(&item);
+
+    result->setIntensity(beamItem->getIntensity());
+    double lambda = beamItem->getWavelength();
+    double inclination_angle = Units::deg2rad(beamItem->getInclinationAngle());
+    double azimuthal_angle = Units::deg2rad(beamItem->getAzimuthalAngle());
+    result->setCentralK( lambda, inclination_angle, azimuthal_angle);
+
+//    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+//    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+//    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
     return result;
 }
 

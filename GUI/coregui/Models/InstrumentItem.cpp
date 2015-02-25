@@ -26,11 +26,11 @@ InstrumentItem::InstrumentItem(ParameterizedItem *parent)
 }
 
 
-BeamItem *InstrumentItem::getBeamItem()
+TestBeamItem *InstrumentItem::getBeamItem()
 {
     foreach(ParameterizedItem *item, childItems()) {
         if(item->modelType() == Constants::BeamType) {
-            return dynamic_cast<BeamItem *>(item);
+            return dynamic_cast<TestBeamItem *>(item);
         }
     }
     return 0;

@@ -49,13 +49,17 @@ QMap<QString, ParameterizedItem *> InstrumentModel::getInstrumentMap() const
 }
 
 
-InstrumentItem *InstrumentModel::getInstrumentItem()
+InstrumentItem *InstrumentModel::getInstrumentItem(const QString &instrument_name)
 {
     InstrumentItem *result(0);
 
     QMap<QString, ParameterizedItem *> instrumentMap = getInstrumentMap();
     if(instrumentMap.size()) {
-        result = dynamic_cast<InstrumentItem *>(instrumentMap.values().at(0));
+        if(instrument_name.isEmpty()) {
+            result = dynamic_cast<InstrumentItem *>(instrumentMap.first());
+        } else {
+            result = dynamic_cast<InstrumentItem *>(instrumentMap[instrument_name]);
+        }
     }
     return result;
 }

@@ -17,28 +17,31 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "Instrument.h"
+#include "InstrumentItem.h"
 #include "MultiLayer.h"
 #include "DomainObjectBuilder.h"
+#include "TransformToDomain.h"
 #include <QDebug>
+#include <boost/scoped_ptr.hpp>
+
 
 //! Creates domain simulation from sample and instrument models for given names of MultiLayer and Instrument
 Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel, const QString &sample_name, InstrumentModel *instrumentModel, const QString &instrument_name)
 {
     qDebug() << "QuickSimulationHelper::getSimulation() " << sample_name << instrument_name;
+    DomainObjectBuilder builder;
+
+    ParameterizedItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
+    InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
 
     Simulation *result = new Simulation;
-
-    MultiLayer *multilayer = getMultiLayer(sampleModel, sample_name);
-    Q_ASSERT(multilayer);
-
-    Instrument *instrument = getInstrument(instrumentModel, instrument_name);
-    Q_ASSERT(instrument);
+    boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
+    boost::scoped_ptr<Instrument> instrument(builder.buildInstrument(*instrumentItem));
 
     result->setSample(*multilayer);
     result->setInstrument(*instrument);
 
-    delete multilayer;
-    delete instrument;
+//    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(), result);
 
     return result;
 }
@@ -51,54 +54,25 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel, Ins
 }
 
 
-//! Creates domain instrument from InstrumentModel and given instrument name. If name is empty, then uses first instrument in the model.
-Instrument *DomainSimulationBuilder::getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name)
-{
-    qDebug() << "QuickSimulationHelper::getInstrument()";
-
-    Instrument *result(0);
-
-    QMap<QString, ParameterizedItem *> instrumentMap = instrumentModel->getInstrumentMap();
-
-    if(instrumentMap.size()) {
-        ParameterizedItem *instrumentItem(0);
-        if(instrument_name.isEmpty()) {
-            instrumentItem = instrumentMap.first();
-        } else {
-            instrumentItem = instrumentMap[instrument_name];
-        }
-
-        Q_ASSERT(instrumentItem);
-        DomainObjectBuilder builder;
-        result = builder.buildInstrument(*instrumentItem);
-    }
-
-    return result;
-}
+////! Creates domain instrument from InstrumentModel and given instrument name. If name is empty, then uses first instrument in the model.
+//Instrument *DomainSimulationBuilder::getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name)
+//{
+//    qDebug() << "DomainSimulationBuilder::getInstrument()";
+//    DomainObjectBuilder builder;
+//    ParameterizedItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
+//    return builder.buildInstrument(*instrumentItem);
+//}
 
 
-//! Creates domain MultiLayer from SampleModel and given MultiLayer name. If name is empty, then uses first MultiLayer in the model.
-MultiLayer *DomainSimulationBuilder::getMultiLayer(SampleModel *sampleModel, const QString &sample_name)
-{
-    qDebug() << "QuickSimulationHelper::getMultiLayer()";
+////! Creates domain MultiLayer from SampleModel and given MultiLayer name. If name is empty, then uses first MultiLayer in the model.
+//MultiLayer *DomainSimulationBuilder::getMultiLayer(SampleModel *sampleModel, const QString &sample_name)
+//{
+//    qDebug() << "DomainSimulationBuilder::getMultiLayer()";
 
-    MultiLayer *result(0);
+//    DomainObjectBuilder builder;
+//    ParameterizedItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
+//    return builder.buildMultiLayer(*sampleItem);
 
-    QMap<QString, ParameterizedItem *> sampleMap = sampleModel->getSampleMap();
+//}
 
-    if(sampleMap.size()) {
-        ParameterizedItem *sampleItem(0);
-        if(sample_name.isEmpty()) {
-            sampleItem = sampleMap.first();
-        } else {
-            sampleItem = sampleMap[sample_name];
-        }
-
-        Q_ASSERT(sampleItem);
-        DomainObjectBuilder builder;
-        result = builder.buildMultiLayer(*sampleItem);
-    }
-
-    return result;
-}
 

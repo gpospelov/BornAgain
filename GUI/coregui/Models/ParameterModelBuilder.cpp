@@ -153,7 +153,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
 {
     QStandardItem *standardItem(0);
 
-    InstrumentItem *instrument = instrumentModel->getInstrumentItem();
+    InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(instrumentModel->getInstrumentItem());
     if(instrument) {
         TestBeamItem *beamItem = instrument->getBeamItem();
         if(beamItem) {

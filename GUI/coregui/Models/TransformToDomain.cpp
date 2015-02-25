@@ -385,3 +385,12 @@ LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem 
     }
 
 }
+
+//! adds DistributionParameters to the Simulation
+void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item, Simulation *simulation)
+{
+    if(beam_item.modelType() == Constants::BeamType) {
+
+    }
+
+}

@@ -17,6 +17,7 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "LayerItem.h"
+#include "MultiLayerItem.h"
 #include "ParticleItem.h"
 #include <QDebug>
 
@@ -49,6 +50,21 @@ QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
                  result[item->itemName()] = item;
              }
          }
+    }
+    return result;
+}
+
+ParameterizedItem *SampleModel::getMultiLayerItem(const QString &name)
+{
+    ParameterizedItem *result(0);
+
+    QMap<QString, ParameterizedItem *> sampleMap = getSampleMap();
+    if(sampleMap.size()) {
+        if(name.isEmpty()) {
+            result = sampleMap.first();
+        } else {
+            result = sampleMap[name];
+        }
     }
     return result;
 }

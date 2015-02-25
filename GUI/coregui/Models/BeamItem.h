@@ -43,6 +43,7 @@ public:
     static const QString P_CACHED_VALUE;
     explicit BeamWavelengthItem(ParameterizedItem *parent=0);
     ~BeamWavelengthItem(){}
+
 protected slots:
     void onSubItemChanged(const QString &propertyName);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
@@ -57,6 +58,7 @@ public:
     static const QString P_CACHED_VALUE;
     explicit BeamAngleItem(ParameterizedItem *parent=0);
     ~BeamAngleItem(){}
+    virtual void onPropertyChange(const QString &name);
 protected slots:
     void onSubItemChanged(const QString &propertyName);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);

@@ -101,9 +101,22 @@ BeamAngleItem::BeamAngleItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamAngleType, parent)
 {
     setItemName(Constants::BeamAngleType);
-    registerProperty(P_CACHED_VALUE, 0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limitless(), 4));
+    registerProperty(P_CACHED_VALUE, 0.1, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limitless(), 2));
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+}
+
+void BeamAngleItem::onPropertyChange(const QString &name)
+{
+    if(name == P_CACHED_VALUE) {
+        DistributionItem *distribution = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION]);
+        if(distribution) {
+            double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
+            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+            cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+            distribution->init_parameters(cached_value, cached_attribute);
+        }
+    }
 }
 
 //! updates new DistributionItem with cached_value
@@ -146,7 +159,12 @@ TestBeamItem::TestBeamItem(ParameterizedItem *parent)
 
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     registerGroupProperty(P_INCLINATION_ANGLE, Constants::BeamAngleType);
+    getSubItems()[P_INCLINATION_ANGLE]->setRegisteredProperty(BeamAngleItem::P_CACHED_VALUE, 0.2);
+    getSubItems()[P_INCLINATION_ANGLE]->setPropertyAttribute(BeamAngleItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(0.0, 90.0), 2));
+
     registerGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAngleType);
+    getSubItems()[P_AZIMUTHAL_ANGLE]->setRegisteredProperty(BeamAngleItem::P_CACHED_VALUE, 0.0);
+    getSubItems()[P_AZIMUTHAL_ANGLE]->setPropertyAttribute(BeamAngleItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(-90.0, 90.0), 2));
 
 
 }

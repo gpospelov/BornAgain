@@ -83,7 +83,7 @@ this frequency dependence of~$K$ does not matter.
 Therefore we can use $K$ instead of~$\omega$ as a constant
 that characterizes the incoming radiation.
 In this way, scalar X-ray and neutron scattering can be described by exactly
-the same wave equation~\ref({eq:Helmholtz}).
+the same wave equation~(\ref{eq:Helmholtz}).
 
 \index{Wave propagation|)}
 
@@ -137,9 +137,10 @@ one encloses the origin in a small sphere
 and integrates by means of the Gauß-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
 \begin{equation}\label{eq:Greens1}
-  G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r}.
+  G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r},
 \end{equation}
-Convoluting $G$ with the given inhomogeneity $(\chi/4\pi)\Psi$,
+which is an outgoing spherical wave originating from $\vect{r}=0$.
+Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
 we obtain the formal solution
 of the full inhomogeneous equation~(\ref{eq:HelmholtzInhomog})
 \begin{equation}\label{eq:PsiFormal}
@@ -205,7 +206,8 @@ but not in the denominator:
   G(\vect{r}-\vect{r'})
   \simeq\frac{{\rm e}^{iKr - i\vect{k}_f \vect{r'}}}{4\pi r}.
 \end{equation}
-As function of~$\vect{r'}$, this is just a plane wave.
+This is an outgoing spherical wave with respect to $\vect{r}$,
+but a plane wave with respect to~$\vect{r'}$.
 If the incident radiation is also a plane wave,
 \begin{equation}\label{eq:Psi0Plane}
   \Psi_0(\vect{r})={\rm e}^{i \vect{k}_i \vect{r}},
@@ -252,7 +254,7 @@ This leaves us with
     \int\,{\rm d}^3r' {\rm e}^{i\vect{q}\,\vect{r'}}\chi(\vect{r'})
     \right|}^2 K\frac{\vect{r}}{r}.
 \end{equation}
-The ratio of the scattered flux hitting an infinitesimal detector area
+The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \textit{differential cross section}
   \index{Cross section}
@@ -270,7 +272,7 @@ we find
     \right|}^2 =: {\left| \chi(\vect{q}) \right|}^2
 \end{equation}
 The differential cross section is just the squared modulus
-of the Fourier transform $\chi{\vect{q}}$
+of the Fourier transform $\chi(\vect{q})$
 \index{Fourier transform}
 of the scattering-length distribution~(\ref{eq:ChiDef}).
 
@@ -281,56 +283,30 @@ of the scattering-length distribution~(\ref{eq:ChiDef}).
 \index{Distorted wave Born approximation}
 \index{DWBA|see {Distorted wave Born approximation}}
 
-In Born approximation,
-the incoming radiation is treated as a plane wave
-with wavevector~$\vect{k}_i$.
-The scattered spherical wave is considered
-at a particular remote detector position,
-and therefore can be approximated as an outgoing plane wave
-with wavevector~$\vect{k}_f$.
-This is adequate for almost all neutron scattering experiments ---
-but not if plane-wave propagation is substantially distorted
-by reflection and refraction.
-Which is most notably the case
-for grazing-incidence scattering from multilayer samples.
-While scattering can still be treated as a weak perturbation,
-reflection and refraction distort the incoming and outgoing wave field
-in zeroeth order,
-and need to be fully accounted for.
-Doing this, the Born approximation is naturally extended into
+As we have seen
+the Born approximation relies on plane waves,
+which basically means that incoming and scattered radiation
+are assumed to propagate along straight lines,
+with directions expressed by $\vect{k}_i$ and $\vect{k}_f$.
+This is adequate for most experiments with weakly interacting radiation,
+and especially for most X-ray and neutron scattering techniques,
+but not for grazing-incidence small-angle scattering
+where radiation is refracted and reflected by interfaces
+ \index{Refraction}
+ \index{Reflection}
+and therefore does not propagate along straight lines.
+The Born approximation also fails for collisions of charged particles.
+For them, Massey and Mott devised in the early 1930s
 the distorted wave Born approximation (DWBA).
+% Schiff (^3 1968, p 327) cites
+% Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
+% There are also several papers by Massey and Mott from about 1933.
+A particularly simple variant of this approximation
+is routinely used to account for refraction and reflection
+in grazing-incidence scattering.
 
-To start, we extend the formalism of section \ref{sec:BornT}.
-The full Hamiltonian is now written as $H_2 = H_1 + V_2 = H_0 +V_1 + V_2$,
-where $H_0$ will again refer to the free Hamiltonian.
-In DWBA,
-one performs a perturbative expansion
-around the solutions of the Hamiltonian $H_1$,
-which are assumed to be known:
-\begin{align*}
-  H_1\Psi^\pm_{1\alpha} &= E_\alpha\Psi^\pm_{1\alpha} \\
-  \Psi^\pm_{1\alpha} &= \Psi_{0\alpha} + G^\pm_1 V_1 \Psi_{0\alpha},
-\end{align*}
-where the Green operators are defined to be:
-\begin{align*}
-  G^\pm_1 &\equiv (E-H_1\pm i\epsilon) ^{-1} \nonumber \\
-  G^\pm_2 &\equiv (E-H_2\pm i\epsilon) ^{-1}.
-\end{align*}
-
-The $T$-matrix element for scattering between the asymptotic states $\Psi_{0\alpha}$ and $\Psi_{0\beta}$ (note that these asymptotic states refer to the free Hamiltonian $H_0$), is:
-\begin{align*}
-  T^+_{\alpha\beta} &= \braket{\Psi_{0\beta}}{V_1+V_2}{\Psi^+_\alpha} \nonumber \\
-  & = \braket{\Psi_{0\beta}}{V_1+V_2}{\Psi_{0\alpha} + G^+_1V_1\Psi_{0\alpha} + G^+_2V_2\Psi^+_{1\alpha}} \nonumber \\
-  & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi_{0\beta}}{(V_1G^+_1 + 1)V_2}{\Psi^+_\alpha} \\
-  & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_\alpha} \nonumber \\
-  & = \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{T_2}{\Psi^+_{1\alpha}},
-\end{align*}
-with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \simeq V_2$, one arrives at the distorted wave Born approximation:
-\begin{equation}
-  \label{eq:tdwba}
-   T^+_{\alpha\beta} \simeq \braket{\Psi_{0\beta}}{V_1}{\Psi^+_{1\alpha}} + \braket{\Psi^-_{1\beta}}{V_2}{\Psi^+_{1\alpha}}.
-\end{equation}
-
+Refraction and reflection are caused by vertical variations
+of the average refractive index $n_0(z)$.
 
 %===============================================================================
 \subsection{Multilayer systems}

@@ -258,6 +258,15 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
+void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor) {
+    m_distribution_handler.addParameterDistribution(param_name,
+                                                    distribution, nbr_samples, sigma_factor);
+}
+
+void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
+{
+    m_distribution_handler.addParameterDistribution(par_distr);
+}
 
 void Simulation::updateIntensityMapAxes()
 {

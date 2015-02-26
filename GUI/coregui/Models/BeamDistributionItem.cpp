@@ -15,7 +15,10 @@
 
 #include "BeamDistributionItem.h"
 #include "DistributionItem.h"
+#include "ParameterDistribution.h"
 #include <QDebug>
+#include <boost/scoped_ptr.hpp>
+
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
@@ -48,6 +51,21 @@ void BeamDistributionItem::setInitialValue(double value, const PropertyAttribute
     cached_attribute.setAppearance(PropertyAttribute::HIDDEN);
     setPropertyAttribute(P_CACHED_VALUE, cached_attribute);
     setRegisteredProperty(P_CACHED_VALUE, value);
+}
+
+//! returns parameter distribution to add into the Simulation
+ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name, bool clever_alpha_invert_flag)
+{
+    ParameterDistribution *result(0);
+    if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
+        boost::scoped_ptr<IDistribution1D> distribution(distributionItem->createDistribution());
+        if(distribution) {
+            int nbr_samples = distributionItem->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+            double sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();
+            result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor);
+        }
+    }
+    return result;
 }
 
 //! updates new DistributionItem with cached_value

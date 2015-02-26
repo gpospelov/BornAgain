@@ -37,6 +37,8 @@ public:
 			const IDistribution1D &distribution, size_t nbr_samples,
 			double sigma_factor=0.0);
 
+    void addParameterDistribution(const ParameterDistribution &par_distr);
+
 	//! get the total number of parameter value combinations (product
 	//! of the individual sizes of each parameter distribution
 	size_t getTotalNumberOfSamples() const;

@@ -17,7 +17,8 @@
 #define BEAMDISTRIBUTIONITEM_H
 
 #include "ParameterizedItem.h"
-class IDistribution;
+class ParameterDistribution;
+
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
@@ -32,6 +33,8 @@ public:
     void onPropertyChange(const QString &name);
 
     void setInitialValue(double value, const PropertyAttribute &attribute);
+
+    ParameterDistribution *getParameterDistributionForName(const QString &parameter_name, bool clever_alpha_invert_flag = false);
 
 protected slots:
     void onSubItemChanged(const QString &propertyName);

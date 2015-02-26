@@ -31,6 +31,11 @@ void DistributionItem::register_number_of_samples()
     registerProperty(P_NUMBER_OF_SAMPLES, 5);
 }
 
+void DistributionItem::register_sigma_factor()
+{
+    registerProperty(P_SIGMA_FACTOR, 2.0);
+}
+
 /* ------------------------------------------------ */
 
 const QString DistributionNoneItem::P_VALUE = "Value";
@@ -94,6 +99,7 @@ DistributionLorentzItem::DistributionLorentzItem(ParameterizedItem *parent)
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_HWHM, 1.0);
     register_number_of_samples();
+    register_sigma_factor();
 }
 
 IDistribution1D *DistributionLorentzItem::createDistribution() const
@@ -123,6 +129,7 @@ DistributionGaussianItem::DistributionGaussianItem(ParameterizedItem *parent)
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
+    register_sigma_factor();
 }
 
 IDistribution1D *DistributionGaussianItem::createDistribution() const
@@ -152,6 +159,7 @@ DistributionLogNormalItem::DistributionLogNormalItem(ParameterizedItem *parent)
     registerProperty(P_MEDIAN, 1.0);
     registerProperty(P_SCALE_PAR, 1.0);
     register_number_of_samples();
+    register_sigma_factor();
 }
 
 IDistribution1D *DistributionLogNormalItem::createDistribution() const
@@ -181,6 +189,7 @@ DistributionCosineItem::DistributionCosineItem(ParameterizedItem *parent)
     registerProperty(P_MEAN, 0.0);
     registerProperty(P_SIGMA, 1.0);
     register_number_of_samples();
+    register_sigma_factor();
 }
 
 IDistribution1D *DistributionCosineItem::createDistribution() const

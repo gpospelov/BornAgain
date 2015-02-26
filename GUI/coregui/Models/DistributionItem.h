@@ -34,6 +34,7 @@ public:
     virtual void init_parameters(double, PropertyAttribute){}
 protected:
     void register_number_of_samples();
+    void register_sigma_factor();
 };
 
 class BA_CORE_API_ DistributionNoneItem : public DistributionItem

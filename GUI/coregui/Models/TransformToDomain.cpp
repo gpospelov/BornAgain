@@ -393,18 +393,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
     if(beam_item.modelType() == Constants::BeamType) {
 
         if(BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
-            ParameterizedItem *distr_item = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
-            Q_ASSERT(distr_item);
-            if(distr_item->modelType() != Constants::DistributionNoneType) {
-                boost::scoped_ptr<IDistribution1D> distr(
-                            TransformToDomain::createDistribution(*distr_item) );
-                int number_of_samples = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-                double sigma_factor(0);
-                if(distr_item->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR))
-                    sigma_factor = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+            ParameterDistribution *distr = beamWavelength->getParameterDistributionForName("*/Beam/wavelength");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
+        }
 
-                simulation->addParameterDistribution("*/Beam/wavelength", *distr.get(), number_of_samples, sigma_factor);
-            }
+        if(BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
+            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
+        }
+
+        if(BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
+            ParameterDistribution *distr = azimuthalAngle->getParameterDistributionForName("*/Beam/phi");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
         }
 
 

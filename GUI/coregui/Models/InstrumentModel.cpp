@@ -34,33 +34,12 @@ InstrumentModel *InstrumentModel::createCopy(ParameterizedItem *parent)
 //! returns list of Instruments defined in the model
 QMap<QString, ParameterizedItem *> InstrumentModel::getInstrumentMap() const
 {
-    QMap<QString, ParameterizedItem *> result;
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
-             if(item->modelType() == Constants::InstrumentType) {
-                 result[item->itemName()] = item;
-             }
-         }
-    }
-    return result;
+    return getTopItemMap(Constants::InstrumentType);
 }
 
 
 InstrumentItem *InstrumentModel::getInstrumentItem(const QString &instrument_name)
 {
-    InstrumentItem *result(0);
-
-    QMap<QString, ParameterizedItem *> instrumentMap = getInstrumentMap();
-    if(instrumentMap.size()) {
-        if(instrument_name.isEmpty()) {
-            result = dynamic_cast<InstrumentItem *>(instrumentMap.first());
-        } else {
-            result = dynamic_cast<InstrumentItem *>(instrumentMap[instrument_name]);
-        }
-    }
-    return result;
+    return dynamic_cast<InstrumentItem *>(getTopItem(Constants::InstrumentType, instrument_name));
 }
 

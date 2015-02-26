@@ -30,6 +30,7 @@
 #include "ParticleDistribution.h"
 #include "Distributions.h"
 #include "ComboProperty.h"
+#include "MultiLayerItem.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 

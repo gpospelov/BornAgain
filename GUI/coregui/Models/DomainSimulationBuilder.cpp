@@ -19,6 +19,8 @@
 #include "Instrument.h"
 #include "InstrumentItem.h"
 #include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "BeamItem.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
 #include <QDebug>
@@ -31,7 +33,7 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel, con
     qDebug() << "QuickSimulationHelper::getSimulation() " << sample_name << instrument_name;
     DomainObjectBuilder builder;
 
-    ParameterizedItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
+    MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
     InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
 
     Simulation *result = new Simulation;
@@ -41,7 +43,7 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel, con
     result->setSample(*multilayer);
     result->setInstrument(*instrument);
 
-//    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(), result);
+    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(), result);
 
     return result;
 }

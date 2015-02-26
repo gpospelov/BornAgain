@@ -40,33 +40,12 @@ SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 //! returns list of MultiLayers defined in the model
 QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
 {
-    QMap<QString, ParameterizedItem *> result;
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
-             if(item->modelType() == Constants::MultiLayerType) {
-                 result[item->itemName()] = item;
-             }
-         }
-    }
-    return result;
+    return getTopItemMap(Constants::MultiLayerType);
 }
 
-ParameterizedItem *SampleModel::getMultiLayerItem(const QString &name)
+MultiLayerItem *SampleModel::getMultiLayerItem(const QString &item_name)
 {
-    ParameterizedItem *result(0);
-
-    QMap<QString, ParameterizedItem *> sampleMap = getSampleMap();
-    if(sampleMap.size()) {
-        if(name.isEmpty()) {
-            result = sampleMap.first();
-        } else {
-            result = sampleMap[name];
-        }
-    }
-    return result;
+    return dynamic_cast<MultiLayerItem *>(getTopItem(Constants::MultiLayerType, item_name));
 }
 
 

@@ -159,10 +159,19 @@ QString SimulationSetupWidget::getInstrumentSelection() const
     return instrumentSelectionBox->currentText();
 }
 
+int SimulationSetupWidget::getInstrumentCurrentIndex() const
+{
+    return instrumentSelectionBox->currentIndex();
+}
 
 QString SimulationSetupWidget::getSampleSelection() const
 {
     return sampleSelectionBox->currentText();
+}
+
+int SimulationSetupWidget::getSampleCurrentIndex() const
+{
+    return sampleSelectionBox->currentIndex();
 }
 
 void SimulationSetupWidget::updateViewElements()
@@ -277,9 +286,14 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 {
     InstrumentModel *result(0);
     QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
-    if(instruments[getInstrumentSelection()]) {
-        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
-    }
+//    if(instruments[getInstrumentSelection()]) {
+//        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
+//    }
+    // there can be several instruments with same name
+    int index = getInstrumentCurrentIndex();
+    QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
+    result = m_instrumentModel->createCopy(it.value());
+
     return result;
 }
 
@@ -288,9 +302,12 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 {
     SampleModel *result(0);
     QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
-    if(samples[getSampleSelection()]) {
-        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
-    }
+//    if(samples[getSampleSelection()]) {
+//        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
+//    }
+    int index = getSampleCurrentIndex();
+    QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
+    result = m_sampleModel->createCopy(it.value());
     return result;
 }
 

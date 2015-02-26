@@ -408,7 +408,40 @@ SessionModel *SessionModel::createCopy(ParameterizedItem *parent)
     throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
 }
 
+//! returns map of item name to ParameterizedItem for all top level items in the model
+QMap<QString, ParameterizedItem *> SessionModel::getTopItemMap(const QString &model_type) const
+{
+    QMap<QString, ParameterizedItem *> result;
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+         if (ParameterizedItem *item = itemForIndex(itemIndex)){
+             if(model_type.isEmpty()) {
+                result.insertMulti(item->itemName(), item);
+             } else {
+                 if(item->modelType() == model_type) {
+                     result.insertMulti(item->itemName(), item);
+                 }
+             }
+         }
+    }
+    return result;
+}
 
+//! returns top level item with given name and model type
+ParameterizedItem *SessionModel::getTopItem(const QString &model_type, const QString &item_name) const
+{
+    ParameterizedItem *result(0);
+    QMap<QString, ParameterizedItem *> item_map = getTopItemMap(model_type);
+    if(item_map.size()) {
+        if(item_name.isEmpty()) {
+            result = item_map.first();
+        } else {
+            result = item_map[item_name];
+        }
+    }
+    return result;
+}
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,

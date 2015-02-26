@@ -79,7 +79,7 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     instrumentItem->setItemName(instrument->getName().c_str());
 
     Beam beam = instrument->getBeam();
-    TestBeamItem *beamItem = dynamic_cast<TestBeamItem *>(instrumentModel->insertNewItem(
+    BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
                 instrumentModel->indexOfItem(instrumentItem)));
     Q_ASSERT(beamItem);

@@ -35,7 +35,7 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
 }
 
 
-void InstrumentComponentsWidget::setBeamItem(TestBeamItem *beamItem)
+void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)
 {
     m_beamItem = beamItem;
     m_beamEditor->setBeamItem(beamItem);

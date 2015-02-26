@@ -62,7 +62,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
-    result[Constants::BeamType] = &createInstance<TestBeamItem>;
+    result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
 
     result[Constants::AnisoPyramidType] = &createInstance<AnisoPyramidItem>;
@@ -134,8 +134,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
-//    result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
-//    result[Constants::BeamAngleType] = &createInstance<BeamAngleItem>;
     result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
 
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;

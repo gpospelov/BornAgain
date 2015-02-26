@@ -104,7 +104,7 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
         updateWidgets();
     }
 
-    TestBeamItem *beamItem(0);
+    BeamItem *beamItem(0);
     DetectorItem *detectorItem(0);
 
     instrument->print();
@@ -113,7 +113,7 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
         qDebug() << "XXX " << item->modelType();
         item->print();
         if(item->modelType() == Constants::BeamType) {
-            beamItem = dynamic_cast<TestBeamItem *>(item);
+            beamItem = dynamic_cast<BeamItem *>(item);
         }
         else if(item->modelType() == Constants::DetectorType) {
             detectorItem = dynamic_cast<DetectorItem *>(item);

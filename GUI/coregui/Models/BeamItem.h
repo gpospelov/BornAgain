@@ -16,45 +16,9 @@
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-
 #include "ParameterizedItem.h"
 
-
-
-//class BA_CORE_API_ BeamWavelengthItem : public ParameterizedItem
-//{
-//    Q_OBJECT
-//public:
-//    static const QString P_DISTRIBUTION;
-//    static const QString P_CACHED_VALUE;
-//    explicit BeamWavelengthItem(ParameterizedItem *parent=0);
-//    ~BeamWavelengthItem(){}
-
-//protected slots:
-//    void onSubItemChanged(const QString &propertyName);
-//    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
-//};
-
-
-//class BA_CORE_API_ BeamAngleItem : public ParameterizedItem
-//{
-//    Q_OBJECT
-//public:
-//    static const QString P_DISTRIBUTION;
-//    static const QString P_CACHED_VALUE;
-//    explicit BeamAngleItem(ParameterizedItem *parent=0);
-//    ~BeamAngleItem(){}
-//    virtual void onPropertyChange(const QString &name);
-//protected slots:
-//    void onSubItemChanged(const QString &propertyName);
-//    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
-//};
-
-
-
-
-
-class BA_CORE_API_ TestBeamItem : public ParameterizedItem
+class BA_CORE_API_ BeamItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -62,8 +26,8 @@ public:
     static const QString P_WAVELENGTH;
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
-    explicit TestBeamItem(ParameterizedItem *parent=0);
-    ~TestBeamItem(){}
+    explicit BeamItem(ParameterizedItem *parent=0);
+    ~BeamItem(){}
 
     double getIntensity() const;
     void setIntensity(double value);

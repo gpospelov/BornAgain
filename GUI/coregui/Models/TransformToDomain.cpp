@@ -290,7 +290,7 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
     Beam *result = new Beam();
     result->setName(item.itemName().toUtf8().constData());
 
-    const TestBeamItem *beamItem = dynamic_cast<const TestBeamItem *>(&item);
+    const BeamItem *beamItem = dynamic_cast<const BeamItem *>(&item);
 
     result->setIntensity(beamItem->getIntensity());
     double lambda = beamItem->getWavelength();
@@ -392,7 +392,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
 {
     if(beam_item.modelType() == Constants::BeamType) {
 
-        if(BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[TestBeamItem::P_WAVELENGTH])) {
+        if(BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
             ParameterizedItem *distr_item = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
             Q_ASSERT(distr_item);
             if(distr_item->modelType() != Constants::DistributionNoneType) {

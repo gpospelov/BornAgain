@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class TestBeamItem;
+class BeamItem;
 class AwesomePropertyEditor;
 
 class BA_CORE_API_ TestBeamEditorWidget : public QWidget
@@ -28,14 +28,14 @@ class BA_CORE_API_ TestBeamEditorWidget : public QWidget
 public:
     TestBeamEditorWidget(QWidget *parent = 0);
 
-    void setBeamItem(TestBeamItem *beamItem);
+    void setBeamItem(BeamItem *beamItem);
 
 private:
     AwesomePropertyEditor *m_intensityEditor;
     AwesomePropertyEditor *m_wavelengthEditor;
     AwesomePropertyEditor *m_inclinationAngleEditor;
     AwesomePropertyEditor *m_azimuthalAngleEditor;
-    TestBeamItem *m_beamItem;
+    BeamItem *m_beamItem;
 };
 
 #endif

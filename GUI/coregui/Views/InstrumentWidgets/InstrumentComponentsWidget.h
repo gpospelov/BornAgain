@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class TestBeamItem;
+class BeamItem;
 class TestDetectorItem;
 class TestBeamEditorWidget;
 class TestDetectorEditorWidget;
@@ -30,13 +30,13 @@ class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
 public:
     InstrumentComponentsWidget(QWidget *parent = 0);
 
-    void setBeamItem(TestBeamItem *beamItem);
+    void setBeamItem(BeamItem *beamItem);
     void setDetectorItem(TestDetectorItem *detectorItem);
 
 private:
     TestBeamEditorWidget *m_beamEditor;
     TestDetectorEditorWidget *m_detectorEditor;
-    TestBeamItem *m_beamItem;
+    BeamItem *m_beamItem;
     TestDetectorItem *m_detectorItem;
 };
 

@@ -59,7 +59,7 @@ TestBeamEditorWidget::TestBeamEditorWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
+void TestBeamEditorWidget::setBeamItem(BeamItem *beamItem)
 {
     m_beamItem = beamItem;
     m_intensityEditor->clearEditor();
@@ -69,15 +69,15 @@ void TestBeamEditorWidget::setBeamItem(TestBeamItem *beamItem)
 
     if(!m_beamItem) return;
 
-    m_intensityEditor->addItemProperty(m_beamItem, TestBeamItem::P_INTENSITY);
+    m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
 
-    ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH];
+    ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
     m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength"), AwesomePropertyEditor::INSERT_AFTER);
 
-    ParameterizedItem *inclinationAngleItem = m_beamItem->getSubItems()[TestBeamItem::P_INCLINATION_ANGLE];
+    ParameterizedItem *inclinationAngleItem = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
     m_inclinationAngleEditor->addItemProperties(inclinationAngleItem, QString("Inclination angle"), AwesomePropertyEditor::INSERT_AFTER);
 
-    ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[TestBeamItem::P_AZIMUTHAL_ANGLE];
+    ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
     m_azimuthalAngleEditor->addItemProperties(azimuthalAngleItem, QString("Azimuthal angle"), AwesomePropertyEditor::INSERT_AFTER);
 
 }

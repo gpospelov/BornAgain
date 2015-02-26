@@ -307,6 +307,15 @@ in grazing-incidence scattering.
 
 Refraction and reflection are caused by vertical variations
 of the average refractive index $n_0(z)$.
+We rewrite the Helmholtz equation~(\ref{eq:HelmholtzInhomog} as
+\begin{equation}\label{eq:HelmholtzGraded}
+  \left(\Nabla^2+K^2n_0^2(z)\right)\Psi(\vect{r})
+  = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
+\end{equation}
+with (\ref{eq:ChiDef}) replaced by
+\begin{equation}\label{eq:ChiGraded}
+  \chi(\vect{r}) := \frac{4\pi}{K^2}\left(n_0^2(z)-n^2(\vect{r})\right).
+\end{equation}
 
 %===============================================================================
 \subsection{Multilayer systems}

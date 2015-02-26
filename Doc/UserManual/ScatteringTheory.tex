@@ -23,7 +23,37 @@
 \index{Wave propagation|(}
 
 %===============================================================================
-\subsection{Helmholtz and Schr\"odinger equation}
+\subsection{X-ray propagation}
+%===============================================================================
+\index{Wave propagation!X-rays}
+\index{X-rays!wave propagation}
+
+\ldots to come
+
+%===============================================================================
+\subsection{Neutron propagation}
+%===============================================================================
+\index{Wave propagation!neutrons}
+\index{neutrons!wave propagation}
+
+In a GISANS experiment,
+we are only interested in small scattering vectors~$\vect{q}$,
+and therefore do not register ordinary Bragg scattering
+by crystal lattices or other correlations at atomic level;
+at most, Bragg scattering must be accounted for as a loss channels.
+We therefore describe the neutron-sample interaction
+in continuum approximation by a refractive index~$n$ with
+\begin{equation}
+  n^2=1-\frac{4\pi}{K^2}\rho_s
+\end{equation}
+where $\rho_s$ is an effective scattering length density
+\cite{Lax51,Sea89}.
+\index{Scattering length density}
+
+%TODO: how is absorption taken into account?
+
+%===============================================================================
+\subsection{Helmholtz equation}
 %===============================================================================
 
 X-ray and neutron propagation are both governed by
@@ -55,26 +85,131 @@ that characterizes the incoming radiation.
 In this way, scalar X-ray and neutron scattering can be described by exactly
 the same wave equation~\refeq{Helmholtz}.
 
+\index{Wave propagation|)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scalar scattering}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For both X-rays and neutrons the refractive index~$n$ is close to~1.
 In the following,
-the Helmholtz equation 
-shall be solved in first-order perturbation theory,
-using the fact that the refractive index~$n$
-is close to~1 for both X-rays and neutrons.
-For this purpose,
-we rewrite \refeq{Helmholtz} as a stationary Schr\"odinger equation
-\index{Schrodinger equation@Schr\"odinger equation}
-\begin{equation}
-  H\Psi = E\Psi
+we shall use this fact to solve the Helmholtz equation 
+in a perturbation expansion
+that is known as the Born approximation
+though it goes back to Lord Rayleigh
+who devised it for the scattering of sound,
+and later also applied it to electromagnetic waves.
+
+%===============================================================================
+\subsection{Born approximation}
+%===============================================================================
+
+We rewrite the scalar Helmholtz equation~\refeq{Helmholtz} as
+\begin{equation}\label{eq:HelmholtzInhomog}
+  \left(\Nabla^2+K^2\right)\Psi(\vect{r}) = K^2\chi(\vect{r})\Psi(\vect{r})
 \end{equation}
 with
-\begin{equation*}
-  H:=H_0+V,\quad
-  H_0:=\Nabla^2,\quad
-  V:=-K^2(1-n(\vect{r}^2),\quad
-  E:=K^2.
-\end{equation*}
+\begin{equation}
+  \chi(\vect{r}) := 1-n^2(\vect{r}).
+\end{equation}
+Eq.~\refeq{Helmholtz} looks like an inhomogenous differential equation ---
+provided we neglect for a moment that unknown function~$\Psi$
+reappears on the right side.
+The homogeneous equation
+\begin{equation}\label{eq:HelmholtzHomog}
+  \left(\Nabla^2+K^2\right)\Psi_0(\vect{r}) = 0
+\end{equation}
+is solved by plane waves and superpositions thereof.
+For an isolated inhomogeneity,
+\begin{equation}\label{eq:HelmholtzInhomog}
+  \left(\Nabla^2+K^2\right)G(\vect{r}) = \delta(\vect{r})
+\end{equation}
+is solved by the Green's function\footnote
+{Verification under the condition $\vect{r}\ne0$
+is a straightforward, though somewhat tedious exercice in vector analysis.
+For the special case $\vect{r}=0$,
+one encloses the origin in a small sphere
+and integrates by means of the Gauß-Ostrogadsky divergence theorem.
+This explains the appearance of the factor $4\pi$.}
+\begin{equation}\label{eq:Greens1}
+  G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r}.
+\end{equation}
+The full inhomegenous equation~\refeq{HelmholtzInhomog} is hence
+formally solved by
+\begin{equation}\label{eq:PsiFormal}
+  \Psi(\vect{r})
+  = \Psi_0(\vect{r})
+    + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})\Psi(\vect{r'}).
+\end{equation}
+However, the integral kernel still contains the full solution~$\Psi$.
+If we replace this occurence of $\Psi$
+by the full right-hand side of~\refeq{PsiFormal}
+we obtain
+\begin{equation}
+  \Psi(\vect{r})
+  = \Psi_0(\vect{r})
+  + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})
+  \left(\Psi_0(\vect{r'})
+  + \int\,{\rm d}^3r''
+     K^2G(\vect{r'}-\vect{r''})\chi(\vect{r''})\Psi(\vect{r''})\right).
+\end{equation}
+This can be iterated to obtain an infinite series representation of $\Psi$.
+Successive terms in this series contain rising powers of $\chi$.
+Since $\chi$ is assumed to be small, the series is likely to converge.
+In first Born approximation,
+only the linear order in $\chi$ is retained,
+\begin{equation}\label{eq:Born}
+  \Psi(\vect{r})
+  \simeq \Psi_0(\vect{r})
+  + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})\Psi_0(\vect{r'}).
+\end{equation}
+This is practically always adequate for
+material investigations with X-rays or neutrons,
+where the aim is to 
+deduce $\chi(\vect{r'})$ from the scattered intensity ${|\Psi(\vect{r})|}^2$.
 
-Some GISAS experiments are performed with polarized radiation
+%===============================================================================
+\subsection{Far-field expansion}
+%===============================================================================
+
+In a scattering experiment,
+the intensity ${|\Psi(\vect{r})|}^2$ is measured
+at a detector location~$\vect{r}$
+far away from the sample volume.
+We choose the coordinate origin at the nominal center of the sample
+so that the integral in~\refeq{Born} runs over $\vect{r'}$ with $r'\ll r$.
+This allows us to expand
+\begin{equation}
+  \left|\vect{r}-\vect{r'}\right|
+  \simeq \sqrt{r^2-2\vect{r}\vect{r'}}
+  \simeq r - \frac{\vect{r}\vect{r'}}{r}
+  \equiv r - \frac{\vect{k}_f \vect{r'}}{K},
+\end{equation}
+where we have introduced the outgoing wave vector
+\begin{equation}
+  \vect{k}_f:=K\frac{\vect{r}}{r}.
+\end{equation}
+We apply this to the Green's function~\refeq{Greens1},
+retaining the first order in $\vect{r'}$ in the exponent,
+but not in the denominator:
+\begin{equation}
+  G(\vect{r}-\vect{r'})
+  \simeq\frac{{\rm e}^{iKr - i\vect{k}_f \vect{r'}}}{4\pi r}.
+\end{equation}
+As function of~$\vect{r'}$, this is just a plane wave.
+
+If the incident radiation is also a plane wave,
+\begin{equation}
+  \Psi_0(\vect{r})={\rm e}^{i \vect{k}_i \vect{r}},
+\end{equation}
+
+%===============================================================================
+\subsection{Polarized X-rays}
+%===============================================================================
+
+
+ome GISAS experiments are performed with polarized radiation
 or/and involve polarization-dependent interactions.
 Therefore we need also to consider
 the propagation of polarized X-rays and neutrons.
@@ -86,42 +221,11 @@ so that one and the same formalism can be applied
 to polarized GISAXS and GISANS.
 This shall be derived in the following.
 
-%===============================================================================
-\subsection{X-ray propagation}
-%===============================================================================
-\index{Wave propagation!X-rays}
-\index{X-rays!wave propagation}
-
-\ldots to come
 
 %===============================================================================
-\subsection{Neutron propagation}
+\subsection{Polarized neutrons}
 %===============================================================================
-\index{Wave propagation!neutrons}
-\index{neutrons!wave propagation}
 
-In a GISANS experiment,
-we are only interested in small scattering vectors~$\vect{q}$,
-and therefore do not register ordinary Bragg scattering
-by crystal lattices or other correlations at atomic level;
-at most, Bragg scattering must be accounted for as a loss channels.
-We therefore describe the neutron-sample interaction
-in continuum approximation by a refractive index~$n$ with
-\begin{equation}
-  n^2=1-\frac{4\pi}{K^2}\rho_s
-\end{equation}
-where $\rho_s$ is an effective scattering length density
-\cite{Lax51,Sea89}.
-\index{Scattering length density}
-
-%TODO: how is absorption taken into account?
-
-\index{Wave propagation|)}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scattering in Born approximation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %===============================================================================

@@ -14,16 +14,16 @@
 // ************************************************************************** //
 
 #include "InstrumentComponentsWidget.h"
-#include "TestBeamEditorWidget.h"
-#include "TestDetectorEditorWidget.h"
+#include "BeamEditorWidget.h"
+#include "DetectorEditorWidget.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_beamEditor(new TestBeamEditorWidget)
-    , m_detectorEditor(new TestDetectorEditorWidget)
+    , m_beamEditor(new BeamEditorWidget)
+    , m_detectorEditor(new DetectorEditorWidget)
     , m_beamItem(0)
     , m_detectorItem(0)
 {

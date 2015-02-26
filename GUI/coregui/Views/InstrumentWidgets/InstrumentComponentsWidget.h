@@ -21,8 +21,8 @@
 
 class BeamItem;
 class TestDetectorItem;
-class TestBeamEditorWidget;
-class TestDetectorEditorWidget;
+class BeamEditorWidget;
+class DetectorEditorWidget;
 
 class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
 {
@@ -34,8 +34,8 @@ public:
     void setDetectorItem(TestDetectorItem *detectorItem);
 
 private:
-    TestBeamEditorWidget *m_beamEditor;
-    TestDetectorEditorWidget *m_detectorEditor;
+    BeamEditorWidget *m_beamEditor;
+    DetectorEditorWidget *m_detectorEditor;
     BeamItem *m_beamItem;
     TestDetectorItem *m_detectorItem;
 };

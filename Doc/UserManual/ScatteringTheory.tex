@@ -43,7 +43,7 @@ by crystal lattices or other correlations at atomic level;
 at most, Bragg scattering must be accounted for as a loss channels.
 We therefore describe the neutron-sample interaction
 in continuum approximation by a refractive index~$n$ with
-\begin{equation}
+\begin{equation}\label{eq:nRefrIndx}
   n^2=1-\frac{4\pi}{K^2}\rho_s
 \end{equation}
 where $\rho_s$ is an effective scattering length density
@@ -83,7 +83,7 @@ this frequency dependence of~$K$ does not matter.
 Therefore we can use $K$ instead of~$\omega$ as a constant
 that characterizes the incoming radiation.
 In this way, scalar X-ray and neutron scattering can be described by exactly
-the same wave equation~\refeq{Helmholtz}.
+the same wave equation~\ref({eq:Helmholtz}).
 
 \index{Wave propagation|)}
 
@@ -105,15 +105,19 @@ and later also applied it to electromagnetic waves.
 \subsection{Born approximation}
 %===============================================================================
 
-We rewrite the scalar Helmholtz equation~\refeq{Helmholtz} as
+We rewrite the scalar Helmholtz equation~(\ref{eq:Helmholtz}) as
 \begin{equation}\label{eq:HelmholtzInhomog}
-  \left(\Nabla^2+K^2\right)\Psi(\vect{r}) = K^2\chi(\vect{r})\Psi(\vect{r})
+  \left(\Nabla^2+K^2\right)\Psi(\vect{r})
+  = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
 \end{equation}
 with
-\begin{equation}
-  \chi(\vect{r}) := 1-n^2(\vect{r}).
+\begin{equation}\label{eq:ChiDef}
+  \chi(\vect{r}) := \frac{4\pi}{K^2}\left(1-n^2(\vect{r})\right).
 \end{equation}
-Eq.~\refeq{Helmholtz} looks like an inhomogenous differential equation ---
+For neutrons, this definition just compensates (\ref{eq:nRefrIndx})
+so that $\chi=\rho_s$.
+Equation~(\ref{eq:Helmholtz}) looks
+like an inhomogenous differential equation ---
 provided we neglect for a moment that unknown function~$\Psi$
 reappears on the right side.
 The homogeneous equation
@@ -122,12 +126,12 @@ The homogeneous equation
 \end{equation}
 is solved by plane waves and superpositions thereof.
 For an isolated inhomogeneity,
-\begin{equation}\label{eq:HelmholtzInhomog}
+\begin{equation}\label{eq:HelmholtzForGreen}
   \left(\Nabla^2+K^2\right)G(\vect{r}) = \delta(\vect{r})
 \end{equation}
 is solved by the Green's function\footnote
 {Verification under the condition $\vect{r}\ne0$
-is a straightforward, though somewhat tedious exercice in vector analysis.
+is a straightforward exercice in vector analysis.
 For the special case $\vect{r}=0$,
 one encloses the origin in a small sphere
 and integrates by means of the Gauß-Ostrogadsky divergence theorem.
@@ -135,24 +139,27 @@ This explains the appearance of the factor $4\pi$.}
 \begin{equation}\label{eq:Greens1}
   G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r}.
 \end{equation}
-The full inhomegenous equation~\refeq{HelmholtzInhomog} is hence
-formally solved by
+Convoluting $G$ with the given inhomogeneity $(\chi/4\pi)\Psi$,
+we obtain the formal solution
+of the full inhomogeneous equation~(\ref{eq:HelmholtzInhomog})
 \begin{equation}\label{eq:PsiFormal}
   \Psi(\vect{r})
   = \Psi_0(\vect{r})
-    + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})\Psi(\vect{r'}).
+  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})
+                     \frac{\chi(\vect{r'})}{4\pi}\Psi(\vect{r'}).
 \end{equation}
 However, the integral kernel still contains the full solution~$\Psi$.
 If we replace this occurence of $\Psi$
-by the full right-hand side of~\refeq{PsiFormal}
+by the full right-hand side of~(\ref{eq:PsiFormal})
 we obtain
 \begin{equation}
   \Psi(\vect{r})
   = \Psi_0(\vect{r})
-  + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})
+  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})\frac{\chi(\vect{r'})}{4\pi}
   \left(\Psi_0(\vect{r'})
   + \int\,{\rm d}^3r''
-     K^2G(\vect{r'}-\vect{r''})\chi(\vect{r''})\Psi(\vect{r''})\right).
+  G(\vect{r'}-\vect{r''})\frac{\chi(\vect{r''})}{4\pi}
+  \Psi(\vect{r''})\right).
 \end{equation}
 This can be iterated to obtain an infinite series representation of $\Psi$.
 Successive terms in this series contain rising powers of $\chi$.
@@ -162,7 +169,8 @@ only the linear order in $\chi$ is retained,
 \begin{equation}\label{eq:Born}
   \Psi(\vect{r})
   \simeq \Psi_0(\vect{r})
-  + \int\,{\rm d}^3r' K^2G(\vect{r}-\vect{r'})\chi(\vect{r'})\Psi_0(\vect{r'}).
+  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})\frac{\chi(\vect{r'})}{4\pi}
+   \Psi_0(\vect{r'}).
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
@@ -178,19 +186,19 @@ the intensity ${|\Psi(\vect{r})|}^2$ is measured
 at a detector location~$\vect{r}$
 far away from the sample volume.
 We choose the coordinate origin at the nominal center of the sample
-so that the integral in~\refeq{Born} runs over $\vect{r'}$ with $r'\ll r$.
+so that the integral in~(\ref{eq:Born}) runs over $\vect{r'}$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
   \left|\vect{r}-\vect{r'}\right|
-  \simeq \sqrt{r^2-2\vect{r}\vect{r'}}
-  \simeq r - \frac{\vect{r}\vect{r'}}{r}
+  \simeq \sqrt{r^2-2\vect{r}\,\vect{r'}}
+  \simeq r - \frac{\vect{r}\,\vect{r'}}{r}
   \equiv r - \frac{\vect{k}_f \vect{r'}}{K},
 \end{equation}
 where we have introduced the outgoing wave vector
 \begin{equation}
   \vect{k}_f:=K\frac{\vect{r}}{r}.
 \end{equation}
-We apply this to the Green's function~\refeq{Greens1},
+We apply this to the Green's function~(\ref{eq:Greens1}),
 retaining the first order in $\vect{r'}$ in the exponent,
 but not in the denominator:
 \begin{equation}
@@ -198,143 +206,73 @@ but not in the denominator:
   \simeq\frac{{\rm e}^{iKr - i\vect{k}_f \vect{r'}}}{4\pi r}.
 \end{equation}
 As function of~$\vect{r'}$, this is just a plane wave.
-
 If the incident radiation is also a plane wave,
-\begin{equation}
+\begin{equation}\label{eq:Psi0Plane}
   \Psi_0(\vect{r})={\rm e}^{i \vect{k}_i \vect{r}},
 \end{equation}
-
-%===============================================================================
-\subsection{Polarized X-rays}
-%===============================================================================
-
-
-ome GISAS experiments are performed with polarized radiation
-or/and involve polarization-dependent interactions.
-Therefore we need also to consider
-the propagation of polarized X-rays and neutrons.
-Electromagnetic field vectors and neutron spinors
-are fundamentally different mathematical objects
-Nevertheless, for our purpose they can be
-mapped onto a uniform .... <to elaborate> ....
-so that one and the same formalism can be applied
-to polarized GISAXS and GISANS.
-This shall be derived in the following.
-
-
-%===============================================================================
-\subsection{Polarized neutrons}
-%===============================================================================
-
-
-
-%===============================================================================
-\subsection{Green operators and the $T$-matrix}
-  \label{sec:BornT}
-%===============================================================================
-
-For a particle, governed by the Schr\"odinger equation with Hamiltonian $H = H_0 + V$, the time-independent scattering theory formally consists of solving the eigenvalue equations:
-
-\begin{equation*}
-  H\Psi_\alpha = E_\alpha\Psi_\alpha,
-\end{equation*}
-with $E$ the scalar energy eigenvalue of the eigenstate $\Psi(E)$.\\
-If the solutions of the free (or unperturbed) Hamiltonian $H_0$ are known:
-\begin{equation*}
-  H_0\Psi_{0\alpha} = E_\alpha\Psi_{0\alpha},
-\end{equation*}
-one can write the solutions of the full Hamiltonian in terms of these asymptotic states and Green operators:
-
-\begin{align*}
-  \Psi^\pm_\alpha &= \Psi_{0\alpha} + G^\pm_0 V \Psi^\pm_\alpha  \\
-  & = \Psi_{0\alpha} + G^\pm V  \Psi_{0\alpha},
-\end{align*}
-where the Green operators are defined as:
-\begin{align*}
-  G^\pm_0(E) &= (E-H_0\pm i\epsilon )^{-1}  \\
-  G^\pm (E) &= (E-H\pm i\epsilon )^{-1}.
-\end{align*}
-In these equations, the upper index or sign refers to the state corresponding with the free state $\Psi_{0\alpha}$ at time $t\rightarrow - \infty$ (and vice-versa for the lower sign). Since the solutions of the eigenvalue equations, both for the unperturbed as for the full Hamiltonian, are dependent on the energy eigenvalue $E$, the index $\alpha$ is assumed to include this value (and possibly other quantum numbers).
-
-The transition amplitude between two asymptotic states is given by the $S$-matrix elements, defined as:
-\begin{align}
-  S_{\alpha\beta} &\equiv \braket{\Psi_{0\beta}}{S}{\Psi_{0\alpha}} \nonumber\\
-  & \equiv \braketnoop{\Psi_\beta^-}{\Psi_\alpha^+}.
-  \label{<++>}
-\end{align}
-
-The $S$-matrix can be decomposed into a delta function, representing the absence of scattering, and a $T$-matrix that encodes the scattering part, caused by the potential $V$:
-\begin{equation*}
-  S_{\alpha\beta} = \delta (E_\alpha - E_\beta)\delta_{\alpha\beta} - 2\pi i \delta (E_\alpha - E_\beta) T^\pm_{\alpha\beta},
-\end{equation*}
-with
-\begin{align*}
-  T^+_{\alpha\beta} & = \braket{\Psi_{0\beta}}{V}{\Psi^+_\alpha} \\
-  T^-_{\alpha\beta} & = \braket{\Psi^-_\beta}{V}{\Psi_{0\alpha}}.
-\end{align*}
-On the energy shell $E_\alpha = E_\beta$, one has $T^+_{\alpha\beta}= T^-_{\alpha\beta}$, so that both formulations are equivalent.
-
-By expanding the eigenstates $\Psi^\pm_\alpha$ in these equations, the $T$-matrix elements (on-shell) can be expressed as:
-\begin{equation*}
-  T^\pm_{\alpha\beta} = V + VG^+ V.
-\end{equation*}
-
-
-%===============================================================================
-\subsection{Momentum representation and the scattering cross-section}
-%===============================================================================
-
-The previous general formulas can also be presented in a momentum (and position) eigenbasis, defined by:
-\begin{align*}
-  \oper{P}\ket{\vect{k}} & = \hbar \vect{k} \ket{\vect{k}} \\
-  \braketnoop{\vect{k'}}{\vect{k}} & = \delta(\vect{k'}-\vect{k}) \\
-  1 &= \int d^3\vect{k} \ket{\vect{k}} \bra{\vect{k}} \\
-  1 &= \int d^3\vect{r} \ket{\vect{r}} \bra{\vect{r}} \\
-  \braketnoop{\vect{r}}{\vect{k}}
-  &= (2\pi)^{-3/2} \exp (i\vect{k}\cdot\vect{r}),
-\end{align*}
-where the normalization in the last equation follows from the other definitions.
-
-The wavefunction that evolves from a momentum eigenstate $\ket{\vect{k}_i}$ can then be written as:
-\begin{equation*}
-  \braketnoop{\vect{r}}{\Psi^+} = \braketnoop{\vect{r}}{\vect{k}_i} + \braket{\vect{r}}{G_0^+T}{\vect{k}_i},
-\end{equation*}
-which in the far-field limit becomes:
-\begin{align*}
-  \braketnoop{\vect{r}}{\Psi^+}
-  &= (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}}
-     - 2\pi^2\frac{e^{ik_f r}}{r} \braket{\vect{k}_f}{T}{\vect{k}_i} \right]  \\
-  &\equiv (2\pi)^{-3/2}\left[ e^{i\vect{k}_i\cdot\vect{r}} + f(\theta,\phi)\frac{e^{ik_f r}}{r} \right],
-\end{align*}
-where $r,\theta,\phi$ are the polar coordinates of $\vect{r}$,
-and the scattering amplitude was defined as
-\begin{equation*}
-  f(\theta, \phi) := -2\pi^2\braket{\vect{k}_f}{T}{\vect{k}_i}.
-\end{equation*}
-
-The amount of particles per unit time that are scattered in a small solid angle $d\Omega$ in direction $\vect{k}_f$ will then be (still in the far-field limit):
-\begin{equation*}
-  dI_{scat} = J_0\lvert f(\theta,\phi)\rvert^2d\Omega,
-\end{equation*}
-where $J_0$ denotes the incident flux density. The scattering cross-section is defined as:
-\begin{equation*}
-  \frac{d\sigma}{d\Omega}\equiv \frac{dI_{scat}}{J_0 d\Omega} = \lvert f(\theta,\phi) \rvert^2.
-\end{equation*}
-
-Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
-
-In the Born approximation ($T\simeq V$), the scattering amplitude is
-\begin{align*}
-  f(\theta, \phi) & = -8\pi^3 \braket{\vect{k_f}}{\rho_s(\vect{r})}{\vect{k_i}} \nonumber \\
-  & = -\int d^3\vect{r} e^{i\vect{q}\cdot\vect{r}} \rho_s(\vect{r}),
-\end{align*}
-where $\vect{q}:=\vect{k}_i-\vect{k}_f$ denotes the scattering wavevector.
-
-The differential cross-section (per scattering center) is then given by:
-\begin{equation}\label{eq:xsec1}
-  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2.
+then the Born approximation~(\ref{eq:Born})
+becomes essentially a Fourier transform of $\chi$,
+  \index{Fourier transform}
+\begin{equation}\label{eq:BornPlane}
+  \Psi(\vect{r})
+  \simeq \Psi_0(\vect{r})
+  + \frac{{\rm e}^{iKr}}{r}
+    \int\,{\rm d}^3r' {\rm e}^{i\vect{q}\,\vect{r'}}\chi(\vect{r'})
+\end{equation}
+with the \textit{scattering vector}
+\index{Scattering vector}
+\begin{equation}
+  \vect{q}:=\vect{k}_i-\vect{k}_f.
 \end{equation}
 
+%===============================================================================
+\subsection{Differential cross section}
+%===============================================================================
+
+Above, we said somewhat sloppily
+that a scattering experiment measures intensities~${|\Psi(\vect{r}|}^2$.
+We shall now make this more rigorous.
+In the case of neutron scattering,
+one actually measures the probability flux.
+We define it in arbitrary relative units as
+\begin{equation}
+  \vect{J} := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
+\end{equation}
+With (\ref{eq:Psi0Plane}), the incident flux is
+\begin{equation}
+  \vect{J}_0 = \vect{k}_i.
+\end{equation}
+The scattered wavefield (\ref{eq:BornPlane}) is observed
+at a detector position $\vect{r}$ that is not illuminated by the
+incident beam, hence $\Psi_0(\vect{r})=0$.
+This leaves us with
+\begin{equation}
+  \vect{J}(\vect{r})
+  = {\left|\frac{1}{r}
+    \int\,{\rm d}^3r' {\rm e}^{i\vect{q}\,\vect{r'}}\chi(\vect{r'})
+    \right|}^2 K\frac{\vect{r}}{r}.
+\end{equation}
+The ratio of the scattered flux hitting an infinitesimal detector area
+$r^2{\rm d}\Omega$ to the incident flux is expressed as a
+\textit{differential cross section}
+  \index{Cross section}
+  \index{Differential cross section}
+\begin{equation}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  := \frac{r^2 J(\vect{r})}{J_0}.
+\end{equation}
+Using $k_i=K$ and changing notation $\vect{r'}\to\vect{r}$,
+we find
+\begin{equation}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  = {\left|
+    \int\,{\rm d}^3r {\rm e}^{i\vect{q}\,\vect{r}}\chi(\vect{r})
+    \right|}^2 =: {\left| \chi(\vect{q}) \right|}^2
+\end{equation}
+The differential cross section is just the squared modulus
+of the Fourier transform $\chi{\vect{q}}$
+\index{Fourier transform}
+of the scattering-length distribution~(\ref{eq:ChiDef}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -398,7 +336,7 @@ with $T_2 = V_2 + V_2G^+_2V_2$. By approximating this last term using $T_2 \sime
 \subsection{Multilayer systems}
 %===============================================================================
 
-In multilayer systems, the first term of \refeq{tdwba} denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
+In multilayer systems, the first term of (\ref{eq:tdwba}) denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
@@ -463,4 +401,42 @@ The main differences with respect to the cross-section in the Born approximation
   \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
 \end{enumerate}
 
+%===============================================================================
+\section{Polarization}
+%===============================================================================
+
+ome GISAS experiments are performed with polarized radiation
+or/and involve polarization-dependent interactions.
+Therefore we need also to consider
+the propagation of polarized X-rays and neutrons.
+Electromagnetic field vectors and neutron spinors
+are fundamentally different mathematical objects
+Nevertheless, for our purpose they can be
+mapped onto a uniform .... <to elaborate> ....
+so that one and the same formalism can be applied
+to polarized GISAXS and GISANS.
+This shall be derived in the following.
+
+
+%===============================================================================
+\subsection{Polarized X-rays}
+%===============================================================================
+
+%===============================================================================
+\subsection{Polarized neutrons}
+%===============================================================================
+
+
+
+
+%===============================================================================
+\section{TO RECYCLE}
+%===============================================================================
+
+Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
+
+The differential cross-section (per scattering center) is then given by:
+\begin{equation}\label{eq:xsec1}
+  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2.
+\end{equation}
 

@@ -18,6 +18,7 @@
 #include "InstrumentModel.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
+#include "BeamDistributionItem.h"
 #include "ItemLink.h"
 #include "AngleProperty.h"
 #include "GUIHelpers.h"
@@ -164,26 +165,26 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
 
             ParameterizedItem *beamWavelength = beamItem->getSubItems()[TestBeamItem::P_WAVELENGTH];
             Q_ASSERT(beamWavelength);
-            ParameterizedItem *wavelengthDistribution = beamWavelength->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION];
+            ParameterizedItem *wavelengthDistribution = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
             Q_ASSERT(wavelengthDistribution);
             if(wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
-                addPropertyToParameterModel(standardItem, TestBeamItem::P_WAVELENGTH, BeamWavelengthItem::P_CACHED_VALUE, beamWavelength->getRegisteredProperty(BeamWavelengthItem::P_CACHED_VALUE), beamWavelength);
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE, beamWavelength->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), beamWavelength);
             }
 
             ParameterizedItem *inclinationAngle = beamItem->getSubItems()[TestBeamItem::P_INCLINATION_ANGLE];
             Q_ASSERT(inclinationAngle);
-            ParameterizedItem *inclinationDistribution = inclinationAngle->getSubItems()[BeamAngleItem::P_DISTRIBUTION];
+            ParameterizedItem *inclinationDistribution = inclinationAngle->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
             Q_ASSERT(inclinationDistribution);
             if(inclinationDistribution->modelType() == Constants::DistributionNoneType) {
-                addPropertyToParameterModel(standardItem, TestBeamItem::P_INCLINATION_ANGLE, BeamAngleItem::P_CACHED_VALUE, inclinationAngle->getRegisteredProperty(BeamAngleItem::P_CACHED_VALUE), inclinationAngle);
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_INCLINATION_ANGLE, BeamDistributionItem::P_CACHED_VALUE, inclinationAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), inclinationAngle);
             }
 
             ParameterizedItem *azimuthalAngle = beamItem->getSubItems()[TestBeamItem::P_AZIMUTHAL_ANGLE];
             Q_ASSERT(azimuthalAngle);
-            ParameterizedItem *azimuthalDistribution = azimuthalAngle->getSubItems()[BeamAngleItem::P_DISTRIBUTION];
+            ParameterizedItem *azimuthalDistribution = azimuthalAngle->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
             Q_ASSERT(azimuthalDistribution);
             if(azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
-                addPropertyToParameterModel(standardItem, TestBeamItem::P_AZIMUTHAL_ANGLE, BeamAngleItem::P_CACHED_VALUE, azimuthalAngle->getRegisteredProperty(BeamAngleItem::P_CACHED_VALUE), azimuthalAngle);
+                addPropertyToParameterModel(standardItem, TestBeamItem::P_AZIMUTHAL_ANGLE, BeamDistributionItem::P_CACHED_VALUE, azimuthalAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), azimuthalAngle);
             }
 
         }

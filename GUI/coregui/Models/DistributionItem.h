@@ -25,6 +25,7 @@ class BA_CORE_API_ DistributionItem : public ParameterizedItem
     Q_OBJECT
 public:
     static const QString P_NUMBER_OF_SAMPLES;
+    static const QString P_SIGMA_FACTOR;
     explicit DistributionItem(const QString name, ParameterizedItem *parent=0);
     virtual ~DistributionItem() {}
 

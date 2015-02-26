@@ -37,6 +37,7 @@
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
 #include "DistributionItem.h"
+#include "BeamDistributionItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -390,6 +391,22 @@ LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem 
 void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item, Simulation *simulation)
 {
     if(beam_item.modelType() == Constants::BeamType) {
+
+        if(BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[TestBeamItem::P_WAVELENGTH])) {
+            ParameterizedItem *distr_item = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
+            Q_ASSERT(distr_item);
+            if(distr_item->modelType() != Constants::DistributionNoneType) {
+                boost::scoped_ptr<IDistribution1D> distr(
+                            TransformToDomain::createDistribution(*distr_item) );
+                int number_of_samples = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+                double sigma_factor(0);
+                if(distr_item->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR))
+                    sigma_factor = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+
+                simulation->addParameterDistribution("*/Beam/wavelength", *distr.get(), number_of_samples, sigma_factor);
+            }
+        }
+
 
     }
 

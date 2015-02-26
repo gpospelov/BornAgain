@@ -37,7 +37,6 @@ const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLatti
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";
-const ModelType BeamDistributionType = "BeamDistribution";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
@@ -112,8 +111,9 @@ const ModelType IntensityDataType = "IntensityData";
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
-const ModelType BeamWavelengthType = "BeamWavelength";
+//const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAngleType = "BeamAngle";
+const ModelType BeamDistributionType = "BeamDistribution";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";

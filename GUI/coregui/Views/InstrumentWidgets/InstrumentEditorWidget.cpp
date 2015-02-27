@@ -20,6 +20,7 @@
 #include "DetectorEditorWidget.h"
 #include "BeamEditorWidget.h"
 #include "InstrumentComponentsWidget.h"
+#include "InstrumentItem.h"
 #include <QBoxLayout>
 #include <QGroupBox>
 #include <QComboBox>
@@ -104,34 +105,10 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
         updateWidgets();
     }
 
-    BeamItem *beamItem(0);
-    DetectorItem *detectorItem(0);
+    InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
-    instrument->print();
-
-    foreach(ParameterizedItem *item, instrument->childItems()) {
-        qDebug() << "XXX " << item->modelType();
-        item->print();
-        if(item->modelType() == Constants::BeamType) {
-            beamItem = dynamic_cast<BeamItem *>(item);
-        }
-        else if(item->modelType() == Constants::DetectorType) {
-            detectorItem = dynamic_cast<DetectorItem *>(item);
-        }
-    }
-    Q_ASSERT(beamItem);
-    Q_ASSERT(detectorItem);
-
-//    m_beamWidget->initFromItem(beamItem);
-//    m_detectorWidget->initFromItem(detectorItem);
-//    m_testWidget->setBeamItem(beamItem);
-
-
-//    TestBeamItem *testBeam = new TestBeamItem;
-    m_instrumentComponents->setBeamItem(beamItem);
-
-    TestDetectorItem *testDetector = new TestDetectorItem;
-    m_instrumentComponents->setDetectorItem(testDetector);
+    m_instrumentComponents->setBeamItem(instrumentItem->getBeamItem());
+    m_instrumentComponents->setDetectorItem(instrumentItem->getDetectorItem());
 }
 
 

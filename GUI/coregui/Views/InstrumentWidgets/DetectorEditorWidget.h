@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class TestDetectorItem;
+class DetectorItem;
 class AwesomePropertyEditor;
 
 class BA_CORE_API_ DetectorEditorWidget : public QWidget
@@ -28,14 +28,14 @@ class BA_CORE_API_ DetectorEditorWidget : public QWidget
 public:
     DetectorEditorWidget(QWidget *parent = 0);
 
-    void setDetectorItem(TestDetectorItem *detectorItem);
+    void setDetectorItem(DetectorItem *detectorItem);
 
 private:
     AwesomePropertyEditor *m_binningEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;
     AwesomePropertyEditor *m_resolutionFunctionEditor;
-    TestDetectorItem *m_detectorItem;
+    DetectorItem *m_detectorItem;
 };
 
 #endif

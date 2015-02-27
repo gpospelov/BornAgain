@@ -17,6 +17,7 @@
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
+#include "InstrumentItem.h"
 #include "styledbar.h"
 #include "minisplitter.h"
 #include <QBoxLayout>

@@ -41,7 +41,7 @@ void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)
     m_beamEditor->setBeamItem(beamItem);
 }
 
-void InstrumentComponentsWidget::setDetectorItem(TestDetectorItem *detectorItem)
+void InstrumentComponentsWidget::setDetectorItem(DetectorItem *detectorItem)
 {
     m_detectorItem = detectorItem;
     m_detectorEditor->setDetectorItem(detectorItem);

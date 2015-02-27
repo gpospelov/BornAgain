@@ -40,6 +40,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "RotationItems.h"
+#include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
 #include <QDebug>
@@ -106,24 +107,17 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     detectorSubItem->setRegisteredProperty(
         PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
 
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NPHI, (int)phi_axis.getSize());
+    BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(detectorSubItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+    Q_ASSERT(phiAxisItem);
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MIN,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MAX,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MIN,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MAX,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
+    BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(detectorSubItem->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+    Q_ASSERT(alphaAxisItem);
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     return instrumentItem;
 }

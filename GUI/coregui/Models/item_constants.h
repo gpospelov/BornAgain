@@ -69,7 +69,6 @@ const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
-const ModelType XYDetectorType  = "XYDetector";
 
 const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
@@ -154,6 +153,9 @@ const ModelType GRADIENT_POLAR = "Polar";
 const ModelType GRADIENT_SPECTRUM = "Spectrum";
 const ModelType GRADIENT_JET = "Jet";
 const ModelType GRADIENT_HUES = "Hues";
+
+const ModelType AXIS_FIXED_BINNING = "Fixed";
+const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 
 }
 

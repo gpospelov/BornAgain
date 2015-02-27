@@ -23,6 +23,7 @@
 #include "BeamItem.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "AxesItems.h"
 #include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
@@ -314,34 +315,28 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 
 //    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
     if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
-        int nphi = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NPHI).toInt();
 
-        AngleProperty phi_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN).value<AngleProperty>();
-        AngleProperty phi_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX).value<AngleProperty>();
-        double phi_min = phi_min_property.getValueInRadians();
-        double phi_max = phi_max_property.getValueInRadians();
+        BasicAxisItem *phiAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+        Q_ASSERT(phiAxis);
+        int nphi = phiAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double phi_min = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double phi_max = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
-        int nalpha = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA).toInt();
-
-        AngleProperty alpha_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN).value<AngleProperty>();
-        AngleProperty alpha_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX).value<AngleProperty>();
-        double alpha_min = alpha_min_property.getValueInRadians();
-        double alpha_max = alpha_max_property.getValueInRadians();
+        BasicAxisItem *alphaAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+        Q_ASSERT(alphaAxis);
+        int nalpha = alphaAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double alpha_min = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double alpha_max = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
         ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-        // FIXME Get rid from hardcoded string
-//        if(binning.getValue() != QStringLiteral("Const KBin"))
-//            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
 
-        if(binning.getValue() == QStringLiteral("Const KBin")) {
+        if(binning.getValue() == Constants::AXIS_CONSTK_BINNING) {
             instrument->setDetectorAxes(ConstKBinAxis("phi_x",nphi, phi_min, phi_max), ConstKBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
-        }else if(binning.getValue() == QStringLiteral("Fixed")) {
+        }else if(binning.getValue() == Constants::AXIS_FIXED_BINNING) {
             instrument->setDetectorAxes(FixedBinAxis("phi_x",nphi, phi_min, phi_max), FixedBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
         } else {
             throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
         }
-
-//        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
 
     }
     else {
@@ -399,7 +394,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
         }
 
         if(BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
-            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
+            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha", BeamDistributionItem::MAKE_DISTRIBUTION_NEGATIVE);
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;
         }

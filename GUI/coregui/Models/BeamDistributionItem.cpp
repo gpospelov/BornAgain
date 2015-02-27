@@ -54,11 +54,13 @@ void BeamDistributionItem::setInitialValue(double value, const PropertyAttribute
 }
 
 //! returns parameter distribution to add into the Simulation
-ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name, bool clever_alpha_invert_flag)
+ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name, EInvertFlag distribution_modifier)
 {
+    Q_UNUSED(distribution_modifier);
     ParameterDistribution *result(0);
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
         boost::scoped_ptr<IDistribution1D> distribution(distributionItem->createDistribution());
+
         if(distribution) {
             int nbr_samples = distributionItem->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();

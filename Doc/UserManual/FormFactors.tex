@@ -21,9 +21,9 @@
 In this and the next chapter we consider scattering by particles
 that are attached to a substrate or embedded in a layer.
 These particles are assumed to be of a ``nano'' or ``meso'' size,
-\index{Particles!on substrate}
-\index{Particles!embedded in layer}
-\index{Nano-particles}
+\index{Particles!on substrate}%
+\index{Particles!embedded in layer}%
+\index{Nano-particles}%
 \index{Meso-particles}
 so that their internal atomistic structure does not matter.
 We first consider ``hard-shell'' particles
@@ -36,8 +36,8 @@ In \SecRef{CoreShell} we briefly discuss ``core-shell'' particles
 that have a two valued scattering-length distribution $\rho_s(\vect{r})$.
 
 In this chapter,
-we present models isolated particles,
-and compute their form factor.
+we present models of isolated particles,
+and compute their form factors.
 In the next chapter, we discuss inter-particle correlations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,36 +45,25 @@ In the next chapter, we discuss inter-particle correlations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Shape transform}
-The form factor of a hard-shell particle is its \textit{shape transform}
+The form factor of a particle is the Fourier transform
+of its shape function,
 \begin{equation}
-F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
-\label{ffformulaBA}
+  F(\mathbf{q})=\int {\rm d}^3r\, {\rm e}^{i\vect{q}\vect{r}} S(\vect{r}).
 \end{equation}
-where $V$ is the volume of the particle,
-$\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
-$\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
-vector, respectively.\\
+For hard-shell particles the shape function $S(\vect{r}$ only takes
+the values 0 and~1
+so that the form factor becomes
+the \textit{shape transform}
+\begin{equation}\label{eq:FFHard}
+  F(\mathbf{q})=\int_V {\rm d}^3r\, {\rm e}^{i\vect{q}\vect{r}}.
+\end{equation}
+where $V$ is the volume of the particle.
+In the following,
+we compute form factors in a Cartesian frame,
+with the $z$-axis pointing upwards and
+the origin at the center of the bottom of the particle.
 
-The particle's shape is parametrized in a Cartesian frame, with its
-$z$-axis pointing upwards and its origin at the center of the bottom
-of the particle: $\mathbf{r}=(x,y,z)$. 
-
-All form factors have been implemented with complex scattering vectors
-in order to take any material absorption into account.
-
-In \BornAgain\ the expression of the form factor has been implemented in the Born approximation. Each of them is defined as
-\begin{equation*}
-F(\mathbf{q})=\int_V \exp (i\mathbf{q}.\mathbf{r}) d^3 \mathbf{r},
-\end{equation*}
-where $V$ is the volume of the particle's shape,
-$\mathbf{q}=\mathbf{k}_i - \mathbf{k}_f$ is the scattering vector with
-$\mathbf{k}_f$ and $\mathbf{k}_i$ the scattered and incident wave
-vector, respectively. The Distorted Wave Born Approximation can be taken into account as it has been explained in \SecRef{sect:dwba}.
-
-The particle's shape is parametrized in a Cartesian frame, with its
-$z$-axis pointing upwards and its origin at the center of the bottom
-of the particle: $\mathbf{r}=(x,y,z)$. In the followings, a schematic view will depict this layout for each
-form factor.
+TODO: reconsider/explain handling of absorption
 
 All form factors have been implemented with complex scattering vectors
 in order to take any material absorption into account.
@@ -139,9 +128,8 @@ Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
   \index{FormFactorBox@\Code{FormFactorBox}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a rectangular cuboid as
-shown in fig.~\ref{fig:box}. 
+\paragraph{Real-space geometry}\strut\\
+A rectangular cuboid, as shown in fig.~\ref{fig:box}. 
 
 \begin{figure}[ht]
 \hfill
@@ -169,19 +157,20 @@ shown in fig.~\ref{fig:box}.
 %\item radius of gyration
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
+
 \begin{equation*}
 F(\mathbf{q},L,W,H)= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 \sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right),
 \end{equation*}
-   
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
-\paragraph{Syntax} \Code{FormFactorBox(length, width, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorBox(length, width, height)}
 
 \newpage
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFBoxEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 
@@ -193,7 +182,7 @@ $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 \label{fig:FFBoxEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Box\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
@@ -204,9 +193,9 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
   \index{FormFactorPrism3@\Code{FormFactorPrism3}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a triangular prism, whose base is an equilateral
-triangle as shown in fig.~\ref{fig:prism3}.
+\paragraph{Real-space geometry}\strut\\
+A triangular prism, whose base is an equilateral
+triangle, as shown in fig.~\ref{fig:prism3}.
 
 \begin{figure}[ht]
 \hfill
@@ -233,7 +222,7 @@ triangle as shown in fig.~\ref{fig:prism3}.
 
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 F(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)\left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)-i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
   &
@@ -241,9 +230,10 @@ F(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{
 \end{align*}
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
-\paragraph{Syntax} \Code{FormFactorPrism3(length, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorPrism3(length, height)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFprism3Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \begin{figure}[ht]
@@ -256,7 +246,7 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \label{fig:FFprism3Ex}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Prism3\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
@@ -268,8 +258,8 @@ except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
   \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
 %-------------------------------------------------------------------------------
  
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
+\paragraph{Real-space geometry}\strut\\
+A truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
 
 \begin{figure}[ht]
 \hfill
@@ -304,7 +294,7 @@ $\dfrac{H}{L}< \dfrac{\tan{\alpha}}{2\sqrt{3}}$.
 \item particle surface seen from above $S =\dfrac{\sqrt{3}}{4}L^2$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 
 \begin{align*}
 &F(\mathbf{q}, L, H, \alpha)=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
@@ -321,9 +311,10 @@ q_1  =\frac{1}{2}\left[\frac{q_x\sqrt{3} -q_y}{\tan \alpha}-q_z \right],
 q_3 = \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad D = \frac{L \tan \alpha}{\sqrt{3}} -H.
 \end{equation*}
 
-\paragraph{Syntax} \Code{FormFactorTetrahedron(length, height, alpha)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorTetrahedron(length, height, alpha)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFtetrahEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 ^{\circ}$.
@@ -338,7 +329,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 \label{fig:FFtetrahEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 ??
 
 %-------------------------------------------------------------------------------
@@ -348,7 +339,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
   \index{FormFactorPrism6@\Code{FormFactorPrism6}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
+\paragraph{Real-space geometry}\strut\\
 This shape is an hexagonal prism (see fig.~\ref{fig:prism6}).
 
 \begin{figure}[ht]
@@ -375,7 +366,7 @@ This shape is an hexagonal prism (see fig.~\ref{fig:prism6}).
 \item particle surface seen from above $S =\dfrac{3\sqrt{3}R^2}{2}$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 F(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
 \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right)\times\\
@@ -385,11 +376,12 @@ F(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
 \end{align*}
 with $\sinc(x)=\sin(x)/x$.
 
-\paragraph{Syntax} \Code{FormFactorPrism6(radius, height)} 
+\paragraph{Syntax}\strut\\
+\Code{FormFactorPrism6(radius, height)} 
 
 \newpage
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFprism6Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 
@@ -401,7 +393,7 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 \label{fig:FFprism6Ex}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Prism6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization,
 and for a factor $H$ missing in the \Code{IsGISAXS} manual. 
@@ -415,7 +407,7 @@ and for a factor $H$ missing in the \Code{IsGISAXS} manual.
   \index{FormFactorCone6@\Code{FormFactorCone6}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
+\paragraph{Real-space geometry}\strut\\
 It is a truncated hexagonal pyramid (see fig.~\ref{fig:cone6}). 
 
 \begin{figure}[ht]
@@ -452,7 +444,7 @@ $\dfrac{2H}{\sqrt{3}R}< \tan{\alpha}$.
 \item  particle surface seen from above $S =\dfrac{3\sqrt{3}R^2}{2}$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}\mbox{}\\
+\paragraph{Form factor}\strut\\
 The
 calculation can be derived from ``Prism6'' (\SecRef{Prism6}) by
 considering a side length varying with the vertical position:
@@ -465,9 +457,10 @@ R_z}{2}\right)\\
 \end{align*}
 with $R_z=R-\dfrac{2z}{\sqrt{3}\tan(\alpha)}$ and $\sinc(x)=\sin(x)/x$.
 
-\paragraph{Syntax} \Code{FormFactorCone6(radius,height, alpha)} 
+\paragraph{Syntax}\strut\\
+\Code{FormFactorCone6(radius,height, alpha)} 
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFCone6Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and
 $\alpha=60^{\circ}$.
@@ -480,7 +473,7 @@ $\alpha=60^{\circ}$.
 \label{fig:FFCone6Ex}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
 
 %-------------------------------------------------------------------------------
@@ -491,8 +484,8 @@ Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
   \index{FormFactorPyramid@\Code{FormFactorPyramid}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:pyramid}.
+\paragraph{Real-space geometry}\strut\\
+A truncated pyramid with a square base as shown in fig.~\ref{fig:pyramid}.
 
 \begin{figure}[ht]
 \hfill
@@ -523,7 +516,7 @@ This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:
 \item particle surface seen from above $S = L^2$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 &F(\mathbf{q},L, H, \alpha) =
 \frac{H}{q_x q_y} \times \nonumber \\ &\left\{ K_1 \cos\left[
@@ -540,7 +533,8 @@ with $\sinc(x)=\sin(x)/x$,
         K_4 &= -i \sinc(q_3 H) \exp(i q_3 H) + i \sinc(q_4 H) \exp(-i q_4 H) 
    \end{align*}
 
-\paragraph{Syntax}  \Code{FormFactorPyramid(length, height, alpha)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorPyramid(length, height, alpha)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFPyramidEx} shows the normalized intensity
@@ -557,7 +551,7 @@ $\alpha=60^{\circ}$.
 \label{fig:FFPyramidEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Pyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
 [and sign problem??]
@@ -571,8 +565,8 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
   \index{FormFactorAnisoPyramid@\Code{FormFactorAnisoPyramid}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a truncated right pyramid with a rectangular base as
+\paragraph{Real-space geometry}\strut\\
+A truncated right pyramid with a rectangular base as
 shown in fig.~\ref{fig:anisopyramid}.
 
 \begin{figure}[ht]
@@ -605,7 +599,7 @@ shown in fig.~\ref{fig:anisopyramid}.
 \item particle surface seen from above $S = LW$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 &F(\mathbf{q}, L, W, H, \alpha)=
 \frac{H}{q_xq_y} \times \\
@@ -625,9 +619,10 @@ q_1 &= \frac{1}{2}\left[\frac{q_x -q_y}{\tan \alpha} +q_z \right],\quad q_2 = \f
 q_3 &= \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} +q_z \right] , \quad q_4 = \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} -q_z \right]
 \end{align*}
 
-\paragraph{Syntax} \Code{FormFactorAnisoPyramid(length, width, height, alpha)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorAnisoPyramid(length, width, height, alpha)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFAnisoPyramidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, $H=13$~nm, and
 $\alpha=60^{\circ}$.
@@ -641,7 +636,7 @@ $\alpha=60^{\circ}$.
 \label{fig:FFAnisoPyramidEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq AnisoPyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization. ???
 
@@ -661,7 +656,7 @@ except for different parametrization. ???
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
+\paragraph{Real-space geometry}\strut\\
 It is a combination of two pyramids with square bases, as shown in fig.~\ref{fig:cuboctahedron}: the bottom one
 is upside down with an height $H$ and the top one has the opposite
 orientation (the standard one) and an height $r_H \times H$.
@@ -699,17 +694,17 @@ orientation (the standard one) and an height $r_H \times H$.
 \item particle surface seen from above $S =L^2$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}
 F(\mathbf{q}, L, H, r_H, \alpha)=\exp(iq_z
 H)\Big[F_{\rm{Pyramid}}(q_x,q_y, q_z, L, r_H H,
 \alpha)+F_{\rm{Pyramid}}(q_x, q_y, -q_z, L, H, \alpha))\Big]
 \end{equation*}
 
-\paragraph{Syntax} \Code{FormFactorCuboctahedron(length, height, height\_ratio,
-  alpha)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorCuboctahedron(length, height, height\_ratio, alpha)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm, $r_H=0.7$, and $\alpha=60^{\circ}$.
 \begin{figure}[ht]
 \begin{center}
@@ -719,7 +714,7 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 \label{fig:FFcuboctahEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Cuboctahedron\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
@@ -730,8 +725,8 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
   \index{FormFactorCylinder@\Code{FormFactorCylinder}}
 %-------------------------------------------------------------------------------
  
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
+\paragraph{Real-space geometry}\strut\\
+A right circular cylinder (see fig.~\ref{fig:cylinder}).
 
 \begin{figure}[ht]
 \hfill
@@ -756,7 +751,7 @@ This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
 
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
   \begin{equation*}
 F(\mathbf{q},R, H)=  2\pi
  R^2 H  \sinc\left(q_ z \frac{H}{2}\right) \exp\left(i q_ z \frac{H}{2}\right) \frac{J_1(q_{\parallel} R )}{q_{\parallel} R },
@@ -764,11 +759,12 @@ F(\mathbf{q},R, H)=  2\pi
 with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax} \Code{FormFactorCylinder(radius, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorCylinder(radius, height)}
 
 \newpage
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFcylinderEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=8$~nm and \mbox{$H=16$~nm.}
 \begin{figure}[ht]
@@ -780,7 +776,7 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 \label{fig:FFcylinderEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
@@ -791,8 +787,8 @@ Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
   \index{FormFactorEllipsoidalCylinder@\Code{FormFactorEllipsoidalCylinder}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This is a cylinder whose cross section is an ellipse.
+\paragraph{Real-space geometry}\strut\\
+A cylinder whose cross section is an ellipse.
 
 \begin{figure}[ht]
 \hfill
@@ -817,7 +813,7 @@ This is a cylinder whose cross section is an ellipse.
 \item particle surface seen from above $S = r_a r_b$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 The total form factor is given by 
 \begin{equation*}
 F(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac{q_z
@@ -826,12 +822,13 @@ F(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac{q_z
 with $\gamma=\sqrt{(q_x r_a)^2+(q_y r_b)^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax} \Code{FormFactorEllipsoidalCylinder($r_a$, $r_b$, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorEllipsoidalCylinder($r_a$, $r_b$, height)}
 
 \newpage
 
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFellipscylinderEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \begin{figure}[ht]
@@ -844,7 +841,7 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \label{fig:FFellipscylinderEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
@@ -856,7 +853,7 @@ Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}
-This shape is a truncated cone as shown in fig.~\ref{fig:cone}. 
+A truncated cone as shown in fig.~\ref{fig:cone}. 
 
 \begin{figure}[ht]
 \hfill
@@ -884,7 +881,7 @@ This shape is a truncated cone as shown in fig.~\ref{fig:cone}.
 \item  particle surface seen from above $S=\pi R^2$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}
 F(\mathbf{q}, R, H, \alpha) = \int_0 ^H 2\pi R_z^2
 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel} R_z}\exp(iq_z z)dz,
@@ -892,9 +889,10 @@ F(\mathbf{q}, R, H, \alpha) = \int_0 ^H 2\pi R_z^2
 with $R_z =R-\dfrac{z}{\tan \alpha}$, $\mathbf{q}_{\parallel}=\sqrt{q_x^2+ q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax}  \Code{FormFactorCone(radius, height, alpha)}. 
+\paragraph{Syntax}\strut\\
+\Code{FormFactorCone(radius, height, alpha)}. 
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFConeEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \begin{figure}[ht]
@@ -906,7 +904,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \label{fig:FFConeEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
@@ -917,7 +915,7 @@ Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
   \index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
+\paragraph{Real-space geometry}\strut\\
 The full sphere is parametrized by its radius $R$. 
 
 \begin{figure}[ht]
@@ -941,17 +939,18 @@ The full sphere is parametrized by its radius $R$.
 %\item radius of gyration
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}
 F(\mathbf{q},R) = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
 \end{equation*}
 where $q=\sqrt{q_x^2 + q_y^2 + q_z^2}$.
 
-\paragraph{Syntax} \Code{FormFactorFullSphere(radius)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorFullSphere(radius)}
 
 \newpage
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=8$~nm.
 \begin{figure}[ht]
 \begin{center}
@@ -962,7 +961,7 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 \label{fig:FFfSphereEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 
@@ -974,8 +973,8 @@ Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
   \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
 %-------------------------------------------------------------------------------
   
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a spherical dome, \textit{i.e.} a portion of a sphere cut off by a plane (perpendicular
+\paragraph{Real-space geometry}\strut\\
+A spherical dome, \textit{i.e.} a portion of a sphere cut off by a plane (perpendicular
 to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 
 \begin{figure}[ht]
@@ -1006,7 +1005,7 @@ to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 %R, & H > R \\ \sqrt{2RH-H^2}, & H < R \end{array}\right. .$
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}  
 F(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
 \end{equation*}
@@ -1014,9 +1013,10 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 \sqrt{q_x^2+q_y^2}$, and $R_z = \sqrt{R^2-z^2}$
 
-\paragraph{Syntax} \Code{FormFactorTruncatedSphere(radius, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorTruncatedSphere(radius, height)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
 \begin{figure}[ht]
 \begin{center}
@@ -1027,7 +1027,7 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \label{fig:SphereEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
@@ -1038,7 +1038,7 @@ Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
   \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
+\paragraph{Real-space geometry}\strut\\
 A full spheroid is generated by rotating an ellipse around the vertical
 axis (see fig.~\ref{fig:fullspheroid}).
 
@@ -1066,7 +1066,7 @@ axis (see fig.~\ref{fig:fullspheroid}).
 \item particle surface seen from above $S =\pi R^2$. 
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}
 F(\mathbf{q}, R, H) = 4\pi \exp(i q_z H/2) \int_0 ^{H/2}R_z ^2
 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \cos(q_z z) dz,
@@ -1075,11 +1075,12 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64},
 $R_z = R\sqrt{1-\frac{4z^2}{H^2}}$, $\gamma_z = \sqrt{(q_x R_z)^2+(q_y R_z)^2}$.
 
+\paragraph{Syntax}\strut\\
+\Code{FormFactorFullSpheroid(radius,height)}
 
-\paragraph{Syntax} \Code{FormFactorFullSpheroid(radius,height)}
 \newpage
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFfspheroidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \begin{figure}[ht]
@@ -1091,7 +1092,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \label{fig:FFfspheroidEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %\subsection{References}
@@ -1109,8 +1110,8 @@ Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\ci
   \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a spheroidal dome: a portion of a full spheroid cut off
+\paragraph{Real-space geometry}\strut\\
+A spheroidal dome: a portion of a full spheroid cut off
 by a plane perpendicular to the $z$-axis.
 
 \begin{figure}[ht]
@@ -1139,7 +1140,7 @@ by a plane perpendicular to the $z$-axis.
          \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right.$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*} 
 F(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
         ^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z) dz
@@ -1147,9 +1148,10 @@ F(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel}=\sqrt{q_x^2+q_y^2} $ and $R_z=\sqrt{R^2-z^2/f_p^2}$.
 
-\paragraph{Syntax} \Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFspheroidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 
@@ -1162,7 +1164,7 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 \label{fig:FFspheroidEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Agrees with \lq\lq TruncatedSpheroid\rq\rq\ form factor
 of \IsGISAXS~\cite{Laz02}.
 % Note an erroneous factor~2 in the expression of the volume
@@ -1178,8 +1180,8 @@ of \IsGISAXS~\cite{Laz02}.
   \index{FormFactorHemiEllipsoid@\Code{FormFactorHemiEllipsoid}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape is a truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
+\paragraph{Real-space geometry}\strut\\
+A truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
 
 \begin{figure}[ht]
 \hfill
@@ -1204,7 +1206,7 @@ This shape is a truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
 \item particle surface seen from above $S =\pi r_a r_b$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{equation*}
 F(\mathbf{q},r_a,r_b,H) = 2\pi \int_0 ^{H} r_{a,z} r_{b,z}
 \frac{J_1(\gamma_z)}{\gamma_z}\exp(iq_z z)dz,
@@ -1213,11 +1215,12 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $r_{a,z} = r_a \sqrt{1-\left(\dfrac{z}{H} \right)^2}$, ${r_{b,z} = r_b
 \sqrt{1-\left(\dfrac{z}{H} \right)^2}}$ and $\gamma_z =\sqrt{(q_x r_{a,z})^2+(q_y r_{b,z})^2}$.
 
-\paragraph{Syntax} \Code{FormFactorHemiEllipsoid($r_a$, $r_b$, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorHemiEllipsoid($r_a$, $r_b$, height)}
 
 \newpage
 
-\paragraph{Example} \mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFhemiellipsEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 
@@ -1230,7 +1233,7 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 \label{fig:FFhemiellipsEx}
 \end{figure}
 
-\paragraph{References}
+\paragraph{References}\strut\\
 Called \lq\lq Anisotropic hemi ellipsoid\rq\rq in \Code{ISGISAXS},
 which seems to have a sign error in the $z$ dependence.
 
@@ -1243,8 +1246,8 @@ which seems to have a sign error in the $z$ dependence.
   \index{FormFactorRipple1@\Code{FormFactorRipple1}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape has a sinusoidal profile (see fig.~\ref{fig:ripple1}).
+\paragraph{Real-space geometry}\strut\\
+An infinite ripple with a sinusoidal profile (see fig.~\ref{fig:ripple1}).
 
 \begin{figure}[ht]
 \hfill
@@ -1269,16 +1272,17 @@ This shape has a sinusoidal profile (see fig.~\ref{fig:ripple1}).
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 F(\mathbf{q},L,W,H) &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\ &\int_0^H{dz \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right)},
 \end{align*}
 where $\arccos$ is the  arc cosine (\textit{i.e.} the inverse
 operation of cosine).
 
-\paragraph{Syntax} \Code{FormFactorRipple1(length, width, height)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorRipple1(length, width, height)}
 
-\paragraph{Example}\mbox{}\\
+\paragraph{Example}\strut\\
 Figure~\ref{fig:FFripple1Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 
@@ -1301,8 +1305,8 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
   \index{FormFactorRipple2@\Code{FormFactorRipple2}}
 %-------------------------------------------------------------------------------
 
-\paragraph{Real-space geometry}\mbox{}\\
-This shape has an asymmetric saw-tooth profile.
+\paragraph{Real-space geometry}\strut\\
+An infinite ripple with an asymmetric saw-tooth profile.
 
 \begin{figure}[ht]
 \hfill
@@ -1332,7 +1336,7 @@ This shape has an asymmetric saw-tooth profile.
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
-\paragraph{Expression of the form factor}
+\paragraph{Form factor}
 \begin{align*}
 F(\mathbf{q},L,W,H,d) &=L W
 \sinc\left(\frac{q_xL}{2}\right)\times \\ &
@@ -1345,7 +1349,8 @@ F(\mathbf{q},L,W,H,d) &=L W
 dz
 \end{align*}
 
-\paragraph{Syntax} \Code{FormFactorRipple2(length, width, height, asymmetry)}
+\paragraph{Syntax}\strut\\
+\Code{FormFactorRipple2(length, width, height, asymmetry)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFripple2Ex} shows the normalized intensity
@@ -1362,6 +1367,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 
 %===============================================================================
+\newpage
 \section{Core-shell particles} \label{sec:CoreShell}
 %===============================================================================
 \index{Core-shell particles}
@@ -1430,4 +1436,5 @@ the $z$-axis:\\
 \section{Polydispersity}
 %===============================================================================
 
+... to come
 \index{Form factors|)}

@@ -130,7 +130,7 @@ For an isolated inhomogeneity,
 \begin{equation}\label{eq:HelmholtzForGreen}
   \left(\Nabla^2+K^2\right)G(\vect{r}) = \delta(\vect{r})
 \end{equation}
-is solved by the Green's function\footnote
+is solved by the Green function\footnote
 {Verification under the condition $\vect{r}\ne0$
 is a straightforward exercice in vector analysis.
 For the special case $\vect{r}=0$,
@@ -200,7 +200,7 @@ where we have introduced the outgoing wave vector
 \begin{equation}
   \vect{k}_f:=K\frac{\vect{r}}{r}.
 \end{equation}
-We apply this to the Green's function~(\ref{eq:Greens1}),
+We apply this to the Green function~(\ref{eq:Greens1}),
 retaining the first order in $\vect{r'}$ in the exponent,
 but not in the denominator:
 \begin{equation}
@@ -306,6 +306,14 @@ A particularly simple variant of this approximation
 is routinely used to account for refraction and reflection
 in grazing-incidence scattering.
 
+In reflectometry or grazing-incidence scattering,
+samples are usually modelled as being translationally invariant
+in $x$ and $y$ direction,
+while being nontrivially modulated in $z$ direction.
+The $z$ axis points upwards, hence out of the sample towards the
+air or vacuum half space where the incident radiation comes from.
+% TODO: add figure
+
 Refraction and reflection are caused by vertical variations
 of the average refractive index $\nz(z)$.
 We rewrite the Helmholtz equation~(\ref{eq:HelmholtzInhomog} as
@@ -323,22 +331,27 @@ The homogeneous equation
 \end{equation}
 suggests the ansatz
 \begin{equation}\label{eq:wave3}
-\psi(\vect{r}) = {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel} \psi(z).
+\psi_0(\vect{r}) = {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel} \phi(z).
 \end{equation}
 The in-plane wave vector $\vect{k}_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
 \begin{equation}\label{eq:wavez}
-\left(\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right) \psi(z) = 0.
+\left(\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right) \phi(z) = 0.
 \end{equation}
 Since we are describing scattering in continuum approximation anyway,
 we can safely assume that $\nz(z)$ varies only slowly on the length scale
 of the radiation wavelength.
 Therefore an appropriate ansatz is
 \begin{equation}
-  \psi(z) = r(z){\rm e}^{ipz} + t(z){\rm e}^{-ipz},
+  \phi(z) = r(z){\rm e}^{ip(z)z} + t(z){\rm e}^{-ip(z)z}
 \end{equation}
-where we identify $r(z)$ and $t(z)$
+with
+\begin{equation}
+  p(z) := \sqrt{K^2\nz(z)^2 - k_\parallel^2}.
+\end{equation}
+Since the incoming beam has a vertical component in direction $-z$,
+we identify $r(z)$ and $t(z)$
 as amplitudes of the backward-propagating (reflected)
 and forward-propagting (transmitted) beam, respectively.
 

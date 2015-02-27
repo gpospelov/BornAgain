@@ -16,6 +16,7 @@
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
 
+\newcommand{\nz}{\overline{n}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wave propagation}
@@ -306,7 +307,40 @@ is routinely used to account for refraction and reflection
 in grazing-incidence scattering.
 
 Refraction and reflection are caused by vertical variations
-of the average refractive index $n_0(z)$.
+of the average refractive index $\nz(z)$.
+We rewrite the Helmholtz equation~(\ref{eq:HelmholtzInhomog} as
+\begin{equation}\label{eq:HelmholtzGraded}
+  \left(\Nabla^2+K^2\nz^2(z)\right)\Psi(\vect{r})
+  = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
+\end{equation}
+with (\ref{eq:ChiDef}) replaced by
+\begin{equation}\label{eq:ChiGraded}
+  \chi(\vect{r}) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\vect{r})\right).
+\end{equation}
+The homogeneous equation
+\begin{equation}\label{eq:HelmholtzGradedHomog}
+  \left(\Nabla^2+K^2\nz^2(z)\right)\Psi_0(\vect{r}) = 0
+\end{equation}
+suggests the ansatz
+\begin{equation}\label{eq:wave3}
+\psi(\vect{r}) = {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel} \psi(z).
+\end{equation}
+The in-plane wave vector $\vect{k}_\parallel$ remains constant
+as initialized by the incoming beam.
+The vertical wave function must fulfill
+\begin{equation}\label{eq:wavez}
+\left(\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right) \psi(z) = 0.
+\end{equation}
+Since we are describing scattering in continuum approximation anyway,
+we can safely assume that $\nz(z)$ varies only slowly on the length scale
+of the radiation wavelength.
+Therefore an appropriate ansatz is
+\begin{equation}
+  \psi(z) = r(z){\rm e}^{ipz} + t(z){\rm e}^{-ipz},
+\end{equation}
+where we identify $r(z)$ and $t(z)$
+as amplitudes of the backward-propagating (reflected)
+and forward-propagting (transmitted) beam, respectively.
 
 %===============================================================================
 \subsection{Multilayer systems}
@@ -361,7 +395,8 @@ F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\
  \nonumber \\
   &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z}, \label{eq:dwbageneral}
 \end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
+With a tilde (\~{}), these wave vectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
 $T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
 
 With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:

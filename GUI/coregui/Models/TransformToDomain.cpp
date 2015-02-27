@@ -394,7 +394,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
         }
 
         if(BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
-            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha", BeamDistributionItem::MAKE_DISTRIBUTION_NEGATIVE);
+            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;
         }
@@ -404,8 +404,6 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;
         }
-
-
     }
 
 }

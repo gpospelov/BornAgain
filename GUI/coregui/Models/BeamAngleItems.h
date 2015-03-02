@@ -25,6 +25,8 @@ class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 public:
     explicit BeamAzimuthalAngleItem(ParameterizedItem *parent=0);
     ~BeamAzimuthalAngleItem(){}
+protected:
+    virtual IDistribution1D *createDistribution1D();
 };
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
@@ -33,6 +35,15 @@ class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
 public:
     explicit BeamInclinationAngleItem(ParameterizedItem *parent=0);
     ~BeamInclinationAngleItem(){}
+    virtual IDistribution1D *createDistribution1D();
 };
+
+class BA_CORE_API_ BeamAngleHelper
+{
+public:
+    enum EAngleType {INCLINATION_ANGLE, AZIMUTHAL_ANGLE};
+    static IDistribution1D *creatAngleDistribution(DistributionItem *distributionItem, EAngleType angle_type);
+};
+
 
 #endif

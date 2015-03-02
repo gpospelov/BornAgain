@@ -19,7 +19,7 @@
 #include "ParameterizedItem.h"
 #include "DistributionItem.h"
 class ParameterDistribution;
-
+class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
@@ -29,17 +29,20 @@ class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
 public:
     static const QString P_DISTRIBUTION;
     static const QString P_CACHED_VALUE;
-    explicit BeamDistributionItem(ParameterizedItem *parent=0);
+    explicit BeamDistributionItem(const QString name = QString(), ParameterizedItem *parent=0);
     ~BeamDistributionItem(){}
     void onPropertyChange(const QString &name);
 
-    void setInitialValue(double value, const PropertyAttribute &attribute);
+//    void setInitialValue(double value, const PropertyAttribute &attribute);
 
     ParameterDistribution *getParameterDistributionForName(const QString &parameter_name);
 
 protected slots:
     void onSubItemChanged(const QString &propertyName);
     void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+
+protected:
+    virtual IDistribution1D *createDistribution1D();
 };
 
 #endif

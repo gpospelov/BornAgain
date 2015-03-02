@@ -42,6 +42,8 @@
 #include "AxesItems.h"
 #include "ResolutionFunctionItems.h"
 #include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
 #include <QDebug>
 
 namespace {
@@ -134,7 +136,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
-    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
+//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
+    result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
+    result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
+    result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;
 
     result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;

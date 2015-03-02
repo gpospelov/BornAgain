@@ -110,9 +110,10 @@ const ModelType IntensityDataType = "IntensityData";
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
-//const ModelType BeamWavelengthType = "BeamWavelength";
-const ModelType BeamAngleType = "BeamAngle";
 const ModelType BeamDistributionType = "BeamDistribution";
+const ModelType BeamWavelengthType = "BeamWavelength";
+const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
+const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";

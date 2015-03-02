@@ -19,6 +19,7 @@
 #include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
 #include "ItemLink.h"
 #include "AngleProperty.h"
 #include "GUIHelpers.h"

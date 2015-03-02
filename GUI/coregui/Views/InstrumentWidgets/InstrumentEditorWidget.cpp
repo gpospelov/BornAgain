@@ -62,11 +62,11 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->addLayout(topLayout);
 
 
-//    instrumentGroupLayout->addWidget(m_instrumentComponents);
-    m_scrollArea->setWidgetResizable(true);
-    m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_scrollArea->setWidget(m_instrumentComponents);
-    instrumentGroupLayout->addWidget(m_scrollArea);
+    instrumentGroupLayout->addWidget(m_instrumentComponents);
+//    m_scrollArea->setWidgetResizable(true);
+//    m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_scrollArea->setWidget(m_instrumentComponents);
+//    instrumentGroupLayout->addWidget(m_scrollArea);
 
 //    instrumentGroupLayout->addWidget(m_scrollArea);
 //    instrumentGroupLayout->addWidget(m_beamWidget);

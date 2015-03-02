@@ -38,7 +38,9 @@
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
 #include "DistributionItem.h"
-#include "BeamDistributionItem.h"
+//#include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -387,19 +389,19 @@ void TransformToDomain::addDistributionParametersToSimulation(const Parameterize
 {
     if(beam_item.modelType() == Constants::BeamType) {
 
-        if(BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
+        if(BeamWavelengthItem *beamWavelength = dynamic_cast<BeamWavelengthItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
             ParameterDistribution *distr = beamWavelength->getParameterDistributionForName("*/Beam/wavelength");
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;
         }
 
-        if(BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
+        if(BeamInclinationAngleItem *inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
             ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;
         }
 
-        if(BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
+        if(BeamAzimuthalAngleItem *azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
             ParameterDistribution *distr = azimuthalAngle->getParameterDistributionForName("*/Beam/phi");
             if(distr) simulation->addParameterDistribution(*distr);
             delete distr;

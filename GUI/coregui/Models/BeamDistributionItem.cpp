@@ -23,8 +23,8 @@
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString BeamDistributionItem::P_CACHED_VALUE = "Cached value";
 
-BeamDistributionItem::BeamDistributionItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::BeamDistributionType, parent)
+BeamDistributionItem::BeamDistributionItem(const QString name, ParameterizedItem *parent)
+    : ParameterizedItem(name, parent)
 {
     setItemName(Constants::BeamDistributionType);
     registerProperty(P_CACHED_VALUE, 0.0, PropertyAttribute(PropertyAttribute::HIDDEN));
@@ -45,20 +45,20 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
     }
 }
 
-void BeamDistributionItem::setInitialValue(double value, const PropertyAttribute &attribute)
-{
-    PropertyAttribute cached_attribute = attribute;
-    cached_attribute.setAppearance(PropertyAttribute::HIDDEN);
-    setPropertyAttribute(P_CACHED_VALUE, cached_attribute);
-    setRegisteredProperty(P_CACHED_VALUE, value);
-}
+//void BeamDistributionItem::setInitialValue(double value, const PropertyAttribute &attribute)
+//{
+//    PropertyAttribute cached_attribute = attribute;
+//    cached_attribute.setAppearance(PropertyAttribute::HIDDEN);
+//    setPropertyAttribute(P_CACHED_VALUE, cached_attribute);
+//    setRegisteredProperty(P_CACHED_VALUE, value);
+//}
 
 //! returns parameter distribution to add into the Simulation
 ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name)
 {
     ParameterDistribution *result(0);
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
-        boost::scoped_ptr<IDistribution1D> distribution(distributionItem->createDistribution());
+        boost::scoped_ptr<IDistribution1D> distribution(createDistribution1D());
 
         if(distribution) {
             int nbr_samples = distributionItem->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
@@ -94,4 +94,11 @@ void BeamDistributionItem::onSubItemPropertyChanged(const QString &property_grou
     ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
 }
 
-
+IDistribution1D *BeamDistributionItem::createDistribution1D()
+{
+    IDistribution1D *result(0);
+    if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
+        result = distributionItem->createDistribution();
+    }
+    return result;
+}

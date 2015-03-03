@@ -141,6 +141,10 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "gui_multiple_layouts", StandardSimulations::gui_MultipleLayouts,
         "GUI: Mixture of Cylinders and Prisms using Multiple Layouts");
+
+    registerItem(
+        "beam_divergence", StandardSimulations::BeamDivergence,
+        "Cylinders in DWBA with beam divergence");
 }
 
 

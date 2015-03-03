@@ -32,6 +32,7 @@ set(list_of_tests
     "Ripple2"
     "Ripple1"
     "BatchSimulation"
+    "BeamDivergence"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

@@ -28,6 +28,7 @@ set(list_of_tests
     "ripple1.py"
     "customformfactor.py"
     "montecarlo_integration.py"
+    "beam_divergence.py"
 )
 
 set(list_of_cpp_python_tests

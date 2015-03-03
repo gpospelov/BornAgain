@@ -10,7 +10,7 @@ set(list_of_tests
     "isgisaxs01.py"
     "isgisaxs01_normalize.py"
     "isgisaxs02.py"
-    "isgisaxs03.py"
+    "cylinders_ba_dwba_size.py"
     "isgisaxs04.py"
     "isgisaxs06.py"
     "isgisaxs07.py"

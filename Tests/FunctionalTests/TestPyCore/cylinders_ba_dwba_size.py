@@ -137,7 +137,7 @@ def runTest():
     status = "OK"
     if(diff > 2e-10 or numpy.isnan(diff)):
         status = "FAILED"
-    return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", diff, status
+    return "Cylinders_BA_DWBA_SIZE", "Cylinder formfactor in BA and DWBA", diff, status
 
    
 if __name__ == '__main__':

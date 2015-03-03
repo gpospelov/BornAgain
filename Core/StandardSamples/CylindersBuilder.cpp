@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS03Builder.cpp
-//! @brief     Implements class IsGISAXS03Builder.
+//! @file      StandardSamples/CylindersBuilder.cpp
+//! @brief     Implements classes of CylindersBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS03Builder.h"
+#include "CylindersBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -27,7 +27,7 @@
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
 // -----------------------------------------------------------------------------
-IsGISAXS03DWBABuilder::IsGISAXS03DWBABuilder()
+CylindersInDWBABuilder::CylindersInDWBABuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
 {
@@ -35,7 +35,7 @@ IsGISAXS03DWBABuilder::IsGISAXS03DWBABuilder()
 }
 
 
-void IsGISAXS03DWBABuilder::init_parameters()
+void CylindersInDWBABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("radius", &m_radius);
@@ -43,7 +43,7 @@ void IsGISAXS03DWBABuilder::init_parameters()
 }
 
 
-ISample *IsGISAXS03DWBABuilder::buildSample() const
+ISample *CylindersInDWBABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -72,7 +72,7 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
-IsGISAXS03BABuilder::IsGISAXS03BABuilder()
+CylindersInBABuilder::CylindersInBABuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
 {
@@ -80,7 +80,7 @@ IsGISAXS03BABuilder::IsGISAXS03BABuilder()
 }
 
 
-void IsGISAXS03BABuilder::init_parameters()
+void CylindersInBABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("radius", &m_radius);
@@ -88,7 +88,7 @@ void IsGISAXS03BABuilder::init_parameters()
 }
 
 
-ISample *IsGISAXS03BABuilder::buildSample() const
+ISample *CylindersInBABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -113,7 +113,7 @@ ISample *IsGISAXS03BABuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // Cylinders in BA with size distribution
 // -----------------------------------------------------------------------------
-IsGISAXS03BASizeBuilder::IsGISAXS03BASizeBuilder()
+CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
 {
@@ -121,7 +121,7 @@ IsGISAXS03BASizeBuilder::IsGISAXS03BASizeBuilder()
 }
 
 
-void IsGISAXS03BASizeBuilder::init_parameters()
+void CylindersWithSizeDistributionBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("radius", &m_radius);
@@ -129,7 +129,7 @@ void IsGISAXS03BASizeBuilder::init_parameters()
 }
 
 
-ISample *IsGISAXS03BASizeBuilder::buildSample() const
+ISample *CylindersWithSizeDistributionBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

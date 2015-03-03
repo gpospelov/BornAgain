@@ -28,13 +28,13 @@ SimulationRegistry::SimulationRegistry()
         "Mixture cylinder particles with different size distribution");
 
     registerItem(
-        "isgisaxs03_ba", StandardSimulations::IsGISAXS03BA,
+        "cylinders_ba", StandardSimulations::CylindersInBA,
         "Cylinder formfactor in BA");
     registerItem(
-        "isgisaxs03_dwba", StandardSimulations::IsGISAXS03DWBA,
+        "cylinders_dwba", StandardSimulations::CylindersInDWBA,
         "Cylinder formfactor in DWBA");
     registerItem(
-        "isgisaxs03_basize", StandardSimulations::IsGISAXS03BAsize,
+        "cylinders_basize", StandardSimulations::CylindersWithSizeDistribution,
         "Cylinder formfactor in BA with size distribution");
 
     registerItem(

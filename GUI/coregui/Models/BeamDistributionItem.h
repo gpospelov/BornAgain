@@ -33,8 +33,6 @@ public:
     ~BeamDistributionItem(){}
     void onPropertyChange(const QString &name);
 
-//    void setInitialValue(double value, const PropertyAttribute &attribute);
-
     ParameterDistribution *getParameterDistributionForName(const QString &parameter_name);
 
 protected slots:

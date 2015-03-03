@@ -25,9 +25,9 @@ namespace StandardSimulations{
 
 Simulation *IsGISAXS01();
 Simulation *IsGISAXS02();
-Simulation *IsGISAXS03BA();
-Simulation *IsGISAXS03DWBA();
-Simulation *IsGISAXS03BAsize();
+Simulation *CylindersInBA();
+Simulation *CylindersInDWBA();
+Simulation *CylindersWithSizeDistribution();
 Simulation *IsGISAXS041DDL();
 Simulation *IsGISAXS042DDL();
 Simulation *IsGISAXS06L1();

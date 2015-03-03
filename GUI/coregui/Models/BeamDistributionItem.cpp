@@ -45,14 +45,6 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
     }
 }
 
-//void BeamDistributionItem::setInitialValue(double value, const PropertyAttribute &attribute)
-//{
-//    PropertyAttribute cached_attribute = attribute;
-//    cached_attribute.setAppearance(PropertyAttribute::HIDDEN);
-//    setPropertyAttribute(P_CACHED_VALUE, cached_attribute);
-//    setRegisteredProperty(P_CACHED_VALUE, value);
-//}
-
 //! returns parameter distribution to add into the Simulation
 ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(const QString &parameter_name)
 {

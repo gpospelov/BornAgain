@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS03Builder.h
-//! @brief     Defines class IsGISAXS03Builder.
+//! @file      StandardSamples/CylindersBuilder.h
+//! @brief     Defines classes of CylindersBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,20 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS03BUILDER_H
-#define ISGISAXS03BUILDER_H
+#ifndef CYLINDERSBUILDER_H
+#define CYLINDERSBUILDER_H
 
 
 #include "ISampleBuilder.h"
 
-//! @class IsGISAXS03DWBABuilder
+//! @class CylindersInBABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
 
-class BA_CORE_API_ IsGISAXS03DWBABuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS03DWBABuilder();
+    CylindersInDWBABuilder();
     ISample *buildSample() const;
 
 protected:
@@ -38,14 +38,14 @@ private:
 };
 
 
-//! @class IsGISAXS03BABuilder
+//! @class CylindersInBABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
 
-class BA_CORE_API_ IsGISAXS03BABuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS03BABuilder();
+    CylindersInBABuilder();
     ISample *buildSample() const;
 
 protected:
@@ -57,15 +57,15 @@ private:
 };
 
 
-//! @class IsGISAXS03BASizeBuilder
+//! @class CylindersWithSizeDistributionBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA with size distribution
 //! (IsGISAXS example #3, part II)
 
-class IsGISAXS03BASizeBuilder : public ISampleBuilder
+class CylindersWithSizeDistributionBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS03BASizeBuilder();
+    CylindersWithSizeDistributionBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -78,4 +78,4 @@ private:
 
 
 
-#endif // ISGISAXS03BUILDER_H
+#endif // CYLINDERSBUILDER_H

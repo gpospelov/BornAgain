@@ -56,10 +56,10 @@ Simulation *StandardSimulations::IsGISAXS02()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS03BA()
+Simulation *StandardSimulations::CylindersInBA()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_ba");
+    SampleBuilder_t builder = factory.createBuilder("cylinders_ba");
 
     Simulation *result = new Simulation();
 
@@ -74,10 +74,10 @@ Simulation *StandardSimulations::IsGISAXS03BA()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS03DWBA()
+Simulation *StandardSimulations::CylindersInDWBA()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_dwba");
+    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
 
     Simulation *result = new Simulation();
 
@@ -93,10 +93,10 @@ Simulation *StandardSimulations::IsGISAXS03DWBA()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS03BAsize()
+Simulation *StandardSimulations::CylindersWithSizeDistribution()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_basize");
+    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
 
     Simulation *result = new Simulation();
 

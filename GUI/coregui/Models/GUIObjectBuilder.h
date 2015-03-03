@@ -34,9 +34,20 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
-                                           ISample *sample);
+                                           const Simulation &simulation,
+                                           const QString &sampleName=QString());
+
+    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+                                           const ISample &sample,
+                                           const QString &sampleName=QString());
+
     ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
-                                               Instrument *instrument);
+                                               const Simulation &simulation,
+                                               const QString &instrumentName=QString());
+
+    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
+                                               const Instrument &instrument,
+                                               const QString &instrumentName=QString());
 
     using ISampleVisitor::visit;
 

@@ -307,7 +307,7 @@ void MainWindow::testGUIObjectBuilder()
     boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, sample.get());
+    guiBuilder.populateSampleModel(m_sampleModel, *sample);
 }
 
 void MainWindow::onAboutApplication()

@@ -81,19 +81,15 @@ void GUIFunctionalTest::createDomainSimulation()
     boost::scoped_ptr<MaterialEditor> materialEditor(new MaterialEditor(materialModel.get()));
 
     // populating GUI models from domain
-    boost::scoped_ptr<ISample> reference_sample(m_reference_simulation->getSample()->clone());
-    boost::scoped_ptr<Instrument> reference_instrument(new Instrument(m_reference_simulation->getInstrument()));
-
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(sampleModel.get(), reference_sample.get());
-    guiBuilder.populateInstrumentModel(instrumentModel.get(), reference_instrument.get());
+    guiBuilder.populateSampleModel(sampleModel.get(), *m_reference_simulation);
+    guiBuilder.populateInstrumentModel(instrumentModel.get(), *m_reference_simulation);
 
     // building sample back
     QModelIndex sampleIndex = sampleModel->index(0, 0, QModelIndex());
     ParameterizedItem *sampleItem = sampleModel->itemForIndex(sampleIndex);
     DomainObjectBuilder builder;
     MultiLayer *new_sample = builder.buildMultiLayer(*sampleItem);
-    new_sample->printSampleTree();
 
     // building multilayer back
     QModelIndex instrumentIndex = instrumentModel->index(0, 0, QModelIndex());

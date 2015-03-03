@@ -51,35 +51,61 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(
-        SampleModel *sampleModel, ISample *sample)
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+                                       const Simulation &simulation, const QString &sampleName)
+{
+    boost::scoped_ptr<ISample> sample;
+    if(simulation.getSampleBuilder()) {
+        sample.reset(simulation.getSampleBuilder()->buildSample());
+    } else if(simulation.getSample()) {
+        sample.reset(simulation.getSample()->clone());
+    } else {
+        throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
+    }
+
+    return populateSampleModel(sampleModel, *sample, sampleName);
+}
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, const ISample &sample, const QString &sampleName)
 {
     Q_ASSERT(sampleModel);
-    Q_ASSERT(sample);
 
     m_levelToParentItem.clear();
 
-    m_topSampleName = sample->getName().c_str();
+    m_topSampleName = sampleName;
+    if(m_topSampleName.isEmpty()) m_topSampleName = sample.getName().c_str();
+
     m_sampleModel = sampleModel;
 
-    qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
+    VisitSampleTree(sample, *this);
+    ParameterizedItem *result = m_levelToParentItem[0];
 
-    //sample->accept(this);
-    VisitSampleTree(*sample, *this);
-    return m_levelToParentItem[0];
+    result->setItemName(m_topSampleName);
+    return result;
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
-        InstrumentModel *instrumentModel, Instrument *instrument)
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
+                                           const Simulation &simulation, const QString &instrumentName)
 {
-    Q_UNUSED(instrumentModel);
-    Q_UNUSED(instrument);
+    return populateInstrumentModel(instrumentModel, simulation.getInstrument(), instrumentName);
+}
 
+
+
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel, const Instrument &instrument, const QString &instrumentName)
+{
+    Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =
             instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrumentItem->setItemName(instrument->getName().c_str());
 
-    Beam beam = instrument->getBeam();
+    if(instrumentName.isEmpty()) {
+        instrumentItem->setItemName(instrument.getName().c_str());
+    } else {
+        instrumentItem->setItemName(instrumentName);
+    }
+
+    Beam beam = instrument.getBeam();
     BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
                 instrumentModel->indexOfItem(instrumentItem)));
@@ -90,7 +116,7 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     beamItem->setInclinationAngle(Units::rad2deg(-1.0*beam.getAlpha()));
     beamItem->setAzimuthalAngle(Units::rad2deg(-1.0*beam.getPhi()));
 
-    Detector detector = instrument->getDetector();
+    Detector detector = instrument.getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
     ParameterizedItem *detectorSubItem =

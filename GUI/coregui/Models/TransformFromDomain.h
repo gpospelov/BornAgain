@@ -32,6 +32,11 @@ class Layer;
 class Detector;
 class ParticleDistribution;
 class Beam;
+class Simulation;
+class BeamDistributionItem;
+class ParameterDistribution;
+class DistributionItem;
+class IDistribution1D;
 
 namespace TransformFromDomain
 {
@@ -63,9 +68,11 @@ BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angl
 
 BA_CORE_API_ QString getDetectorBinning(const Detector *detector);
 
-BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const Beam &beam);
+BA_CORE_API_ void setItemFromSample(BeamItem *beamItem, const Simulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Detector &detector);
+BA_CORE_API_ void setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation);
+
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem, const ParameterDistribution &parameterDistribution);
 
 }
 

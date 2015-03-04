@@ -45,9 +45,6 @@ public:
                                                const Simulation &simulation,
                                                const QString &instrumentName=QString());
 
-    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
-                                               const Instrument &instrument,
-                                               const QString &instrumentName=QString());
 
     using ISampleVisitor::visit;
 

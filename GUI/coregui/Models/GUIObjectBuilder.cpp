@@ -43,8 +43,6 @@
 #include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
-#include "DistributionHandler.h"
-#include "ParameterDistribution.h"
 #include <QDebug>
 
 
@@ -90,58 +88,35 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
                                            const Simulation &simulation, const QString &instrumentName)
 {
-    ParameterizedItem *result = populateInstrumentModel(instrumentModel, simulation.getInstrument(), instrumentName);
-
-    // processing simulation distributions
-//    const DistributionHandler::Distributions_t& distributions = simulation.getDistributionHandler().getDistributions();
-//    for(size_t i=0; i<distributions.size(); ++i) {
-//        QString mainParameterName = QString::fromStdString(distributions[i].getMainParameterName());
-//        if(mainParameterName == "*/Beam/wavelength") {
-
-//        }
-//        else if(mainParameterName == "*/Beam/wavelength") {
-
-//        }
-//        else if
-//    }
-
-    return result;
-}
-
-
-
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel, const Instrument &instrument, const QString &instrumentName)
-{
     Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =
             instrumentModel->insertNewItem(Constants::InstrumentType);
 
     if(instrumentName.isEmpty()) {
-        instrumentItem->setItemName(instrument.getName().c_str());
+        instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
     } else {
         instrumentItem->setItemName(instrumentName);
     }
 
     // beam
-    Beam beam = instrument.getBeam();
     BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
                 instrumentModel->indexOfItem(instrumentItem)));
 
-    TransformFromDomain::setItemFromSample(beamItem, beam);
+    TransformFromDomain::setItemFromSample(beamItem, simulation);
 
     // detector
-    Detector detector = instrument.getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
 
     PhiAlphaDetectorItem *detectorSubItem =
             dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    TransformFromDomain::setItemFromSample(detectorSubItem, detector);
+    TransformFromDomain::setItemFromSample(detectorSubItem, simulation);
 
     return instrumentItem;
 }
+
 
 void GUIObjectBuilder::visit(const ParticleLayout *sample)
 {

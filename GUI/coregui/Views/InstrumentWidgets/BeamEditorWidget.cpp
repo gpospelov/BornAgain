@@ -18,10 +18,12 @@
 #include "AwesomePropertyEditor.h"
 #include "BeamItem.h"
 #include "LayerItem.h"
+#include "GroupBox.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QComboBox>
 #include <QDebug>
 
 
@@ -33,8 +35,11 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     , m_azimuthalAngleEditor(0)
     , m_beamItem(0)
 {
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     // group box layout
     QGroupBox *groupBox = new QGroupBox("Beam Parameters");
+    //QGroupBox *groupBox = new GroupBox("Beam Parameters");
+
     QVBoxLayout *groupLayout = new QVBoxLayout;
     groupBox->setLayout(groupLayout);
 
@@ -59,6 +64,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(groupBox);
+    mainLayout->addStretch();
     setLayout(mainLayout);
 }
 

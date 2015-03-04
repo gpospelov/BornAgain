@@ -49,6 +49,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(groupBox);
+    mainLayout->addStretch();
     setLayout(mainLayout);
 
 }

@@ -32,6 +32,7 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
 //    mainLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
+    mainLayout->addStretch();
 //    setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
 //    mainLayout->addStretch();
 //    setLayout(mainLayout);

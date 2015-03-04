@@ -86,7 +86,7 @@ IDistribution1D *BeamAngleHelper::creatAngleDistribution(DistributionItem *distr
     else if(distributionItem->modelType() == Constants::DistributionLogNormalType) {
         double median = invertion*distributionItem->getRegisteredProperty(DistributionLogNormalItem::P_MEDIAN).toDouble();
         double scale_par = distributionItem->getRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR).toDouble();
-        return new DistributionLogNormal(Units::deg2rad(median), Units::deg2rad(scale_par));
+        return new DistributionLogNormal(Units::deg2rad(median), scale_par);
     }
     else if(distributionItem->modelType() == Constants::DistributionCosineType) {
         double mean = invertion*distributionItem->getRegisteredProperty(DistributionCosineItem::P_MEAN).toDouble();

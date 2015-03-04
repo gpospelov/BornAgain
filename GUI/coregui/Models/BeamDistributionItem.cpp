@@ -54,7 +54,11 @@ ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(con
 
         if(distribution) {
             int nbr_samples = distributionItem->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-            double sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();
+            double sigma_factor(0);
+            if(distributionItem->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR)) {
+                sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();
+            }
+
             result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor);
         }
     }

@@ -651,7 +651,7 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
         qDebug() << "XXX lognormal" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLogNormalType);
         distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, sign_factor*unit_factor*distr->getMedian());
-        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR, unit_factor*distr->getScalePar());
+        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR, distr->getScalePar());
     }
     else if(const DistributionCosine *distr = dynamic_cast<const DistributionCosine *>(p_distr)) {
         qDebug() << "XXX cosine" << beamDistributionItem->modelType();

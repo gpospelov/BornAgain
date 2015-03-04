@@ -617,19 +617,20 @@ Simulation *StandardSimulations::BeamDivergence()
 
     Simulation *result = new Simulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setDetectorParameters(40, -0.2*Units::degree, 1.8*Units::degree,
+                60, 0.0*Units::degree, 2.2*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
     DistributionGaussian alpha_distr(-0.2*Units::degree, 0.1*Units::degree);
-    DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
+    //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
+    DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
 
     result->addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5);
-    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 5);
-    result->addParameterDistribution("*/Beam/phi", phi_distr, 5);
+    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
+    result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
 
     result->setSampleBuilder( builder );
 

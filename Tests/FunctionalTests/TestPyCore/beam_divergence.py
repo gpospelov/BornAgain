@@ -10,8 +10,8 @@ sys.path.append(os.path.abspath(
 
 from libBornAgainCore import *
 
-phi_min, phi_max = 0.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
+phi_min, phi_max = -0.2, 1.8
+alpha_min, alpha_max = 0.0, 2.2
 
 def RunSimulation():
     """
@@ -39,14 +39,15 @@ def RunSimulation():
 
     # build simulation
     simulation = Simulation()
-    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(40, phi_min*degree, phi_max*degree, 60, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
     alpha_distr = DistributionGaussian(-0.2*degree, 0.1*degree)
-    phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
+    #phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
+    phi_distr = DistributionGate(-0.1*degree, 0.1*degree)
     simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)
-    simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 5)
-    simulation.addParameterDistribution("*/Beam/phi", phi_distr, 5)
+    simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 4)
+    simulation.addParameterDistribution("*/Beam/phi", phi_distr, 3)
     simulation.setSample(multi_layer)
 
     # run simulation and retrieve results

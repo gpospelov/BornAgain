@@ -74,7 +74,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     // main group box with all instrument parameters
     QGroupBox *instrumentGroup = new QGroupBox(tr("Instrument Parameters"));
     QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
-    //instrumentGroupLayout->setContentsMargins(0,0,0,0);
+    instrumentGroupLayout->setContentsMargins(0,0,0,0);
     instrumentGroup->setLayout(instrumentGroupLayout);
 
     // top block with instrument name and type
@@ -82,6 +82,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     m_typeComboBox->addItem("Default GISAS Instrument");
 
     QHBoxLayout *topLayout = new QHBoxLayout;
+    topLayout->addSpacing(16);
+
     QGridLayout *nameAndTypeLayout = new QGridLayout;
     nameAndTypeLayout->addWidget(new QLabel("Name"), 0, 0);
     nameAndTypeLayout->addWidget(m_nameLineEdit, 0, 1);
@@ -90,16 +92,17 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     topLayout->addLayout(nameAndTypeLayout );
     topLayout->addStretch(1);
 
+    instrumentGroupLayout->addSpacing(10);
     instrumentGroupLayout->addLayout(topLayout);
 
     // Scroling area with insturment components
     m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
 
     AdjustingScrollArea *area = new AdjustingScrollArea;
+    area->setContentsMargins( 0, 0, 0, 0 );
     area->setWidgetResizable(true);
     area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     area->setWidget(m_instrumentComponents);
-    area->setContentsMargins( 0, 0, 0, 0 );
     area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:#D3D0CE;}");
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();
@@ -111,9 +114,6 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
 
     connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));
 }
-
-
-
 
 void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 {
@@ -138,7 +138,6 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
     m_instrumentComponents->setBeamItem(instrumentItem->getBeamItem());
     m_instrumentComponents->setDetectorItem(instrumentItem->getDetectorItem());
 }
-
 
 void InstrumentEditorWidget::onChangedEditor(const QString &)
 {

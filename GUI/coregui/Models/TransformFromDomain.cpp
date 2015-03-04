@@ -38,6 +38,10 @@
 #include "ParticleDistribution.h"
 #include "Distributions.h"
 #include "DistributionItem.h"
+#include "DetectorItems.h"
+#include "BeamItem.h"
+#include "ComboProperty.h"
+#include "AxesItems.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -529,14 +533,52 @@ QString TransformFromDomain::getDetectorBinning(const Detector *detector)
 
     if( dynamic_cast<ConstKBinAxis *>(phi_axis.get())
             && dynamic_cast<ConstKBinAxis *>(alpha_axis.get())) {
-        return QString("Const KBin");
+        return Constants::AXIS_CONSTK_BINNING;
     }
     else if( dynamic_cast<FixedBinAxis *>(phi_axis.get())
              && dynamic_cast<FixedBinAxis *>(alpha_axis.get())) {
-        return QString("Fixed");
+        return Constants::AXIS_FIXED_BINNING;
     }
     else {
         throw GUIHelpers::Error("TransformFromDomain::getDetectorBinning()"
                                 " -> Error. Can't determine detector binning");
     }
+}
+
+
+void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const Beam &beam)
+{
+    Q_ASSERT(beamItem);
+    beamItem->setIntensity(beam.getIntensity());
+    beamItem->setWavelength(beam.getWavelength());
+    beamItem->setInclinationAngle(Units::rad2deg(-1.0*beam.getAlpha()));
+    beamItem->setAzimuthalAngle(Units::rad2deg(-1.0*beam.getPhi()));
+}
+
+
+
+void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Detector &detector)
+{
+    Q_ASSERT(detectorItem);
+    const IAxis &phi_axis = detector.getAxis(0);
+    const IAxis &alpha_axis = detector.getAxis(1);
+
+    ComboProperty binning_property = detectorItem->getRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
+    detectorItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
+
+    BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(detectorItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+    Q_ASSERT(phiAxisItem);
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
+
+    BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(detectorItem->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+    Q_ASSERT(alphaAxisItem);
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
+
 }

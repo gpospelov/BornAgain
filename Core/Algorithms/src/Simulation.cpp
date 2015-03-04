@@ -268,6 +268,11 @@ void Simulation::addParameterDistribution(const ParameterDistribution &par_distr
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
+const DistributionHandler &Simulation::getDistributionHandler() const
+{
+    return m_distribution_handler;
+}
+
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();

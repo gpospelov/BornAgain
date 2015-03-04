@@ -80,3 +80,8 @@ double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
     }
     return weight;
 }
+
+const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const
+{
+    return m_distributions;
+}

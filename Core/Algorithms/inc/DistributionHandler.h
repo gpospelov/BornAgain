@@ -29,6 +29,7 @@ class IDistribution1D;
 class BA_CORE_API_ DistributionHandler : public IParameterized
 {
 public:
+    typedef std::vector<ParameterDistribution> Distributions_t;
 	DistributionHandler();
 	~DistributionHandler();
 
@@ -48,9 +49,11 @@ public:
 	//! than the total number of combinations) and returns the weight
 	//! associated with this combination of parameter values
 	double setParameterValues(ParameterPool *p_parameter_pool, size_t index);
+
+    const Distributions_t& getDistributions() const;
 private:
 	size_t m_nbr_combinations;
-	std::vector<ParameterDistribution> m_distributions;
+    Distributions_t m_distributions;
 	std::vector<std::vector<ParameterSample> > m_cached_samples;
 };
 

@@ -43,6 +43,8 @@
 #include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
+#include "DistributionHandler.h"
+#include "ParameterDistribution.h"
 #include <QDebug>
 
 
@@ -88,7 +90,22 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
                                            const Simulation &simulation, const QString &instrumentName)
 {
-    return populateInstrumentModel(instrumentModel, simulation.getInstrument(), instrumentName);
+    ParameterizedItem *result = populateInstrumentModel(instrumentModel, simulation.getInstrument(), instrumentName);
+
+    // processing simulation distributions
+//    const DistributionHandler::Distributions_t& distributions = simulation.getDistributionHandler().getDistributions();
+//    for(size_t i=0; i<distributions.size(); ++i) {
+//        QString mainParameterName = QString::fromStdString(distributions[i].getMainParameterName());
+//        if(mainParameterName == "*/Beam/wavelength") {
+
+//        }
+//        else if(mainParameterName == "*/Beam/wavelength") {
+
+//        }
+//        else if
+//    }
+
+    return result;
 }
 
 
@@ -105,45 +122,23 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
         instrumentItem->setItemName(instrumentName);
     }
 
+    // beam
     Beam beam = instrument.getBeam();
     BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
                 instrumentModel->indexOfItem(instrumentItem)));
-    Q_ASSERT(beamItem);
 
-    beamItem->setIntensity(beam.getIntensity());
-    beamItem->setWavelength(beam.getWavelength());
-    beamItem->setInclinationAngle(Units::rad2deg(-1.0*beam.getAlpha()));
-    beamItem->setAzimuthalAngle(Units::rad2deg(-1.0*beam.getPhi()));
+    TransformFromDomain::setItemFromSample(beamItem, beam);
 
+    // detector
     Detector detector = instrument.getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
-    ParameterizedItem *detectorSubItem =
-            detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
-    Q_ASSERT(detectorSubItem);
 
+    PhiAlphaDetectorItem *detectorSubItem =
+            dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
-
-    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
-
-    BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(detectorSubItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
-    Q_ASSERT(phiAxisItem);
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
-    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
-
-    BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(detectorSubItem->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
-    Q_ASSERT(alphaAxisItem);
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
-    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
+    TransformFromDomain::setItemFromSample(detectorSubItem, detector);
 
     return instrumentItem;
 }

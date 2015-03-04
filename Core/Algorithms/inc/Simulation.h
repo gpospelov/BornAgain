@@ -144,6 +144,8 @@ public:
     //! add a sampled parameter distribution
     void addParameterDistribution(const ParameterDistribution &par_distr);
 
+    const DistributionHandler& getDistributionHandler() const;
+
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
 

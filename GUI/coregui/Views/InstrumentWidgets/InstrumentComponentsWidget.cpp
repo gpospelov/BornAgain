@@ -27,11 +27,13 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     , m_beamItem(0)
     , m_detectorItem(0)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
-    setLayout(mainLayout);
+//    mainLayout->addStretch();
+//    setLayout(mainLayout);
 }
 
 

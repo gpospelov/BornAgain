@@ -26,20 +26,44 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QScrollArea>
+#include <QEvent>
 #include <QDebug>
+
+
+class AdjustingScrollArea : public QScrollArea {
+    bool eventFilter(QObject * obj, QEvent * ev) {
+        if (obj == widget() && ev->type() != QEvent::Resize) {
+            // Essential vvv
+            setMaximumWidth(width() - viewport()->width() + widget()->width());
+            setMaximumHeight(height() - viewport()->height() + widget()->height());
+            qDebug() << "EEEEEEEEEEEEEEEEEEEEEE ";
+        }
+        return QScrollArea::eventFilter(obj, ev);
+    }
+
+    QSize sizeHint() const { return widget()->sizeHint(); }
+public:
+    AdjustingScrollArea(QWidget * parent = 0) : QScrollArea(parent) {}
+    void setWidget(QWidget *w) {
+        QScrollArea::setWidget(w);
+        // It so happens that QScrollArea already filters widget events,
+        // but that's an implementation detail that we shouldn't rely on.
+        w->installEventFilter(this);
+    }
+};
 
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit())
     , m_typeComboBox(new QComboBox())
-    , m_scrollArea(new QScrollArea)
+    , m_scrollArea(0)
 //    , m_beamWidget(new BeamEditorWidget(this))
 //    , m_detectorWidget(new DetectorEditorWidget(this))
 //    , m_testWidget(new TestInstrumentWidget(this))
     , m_currentItem(0)
     , m_block_signals(false)
-    , m_instrumentComponents(new InstrumentComponentsWidget)
+    , m_instrumentComponents(0)
 {
 
     setMinimumSize(400, 400);
@@ -62,16 +86,25 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->addLayout(topLayout);
 
 
-    instrumentGroupLayout->addWidget(m_instrumentComponents);
-//    m_scrollArea->setWidgetResizable(true);
+    m_instrumentComponents = new InstrumentComponentsWidget;
+    //m_instrumentComponents->setFixedWidth(500);
+
+    AdjustingScrollArea *area = new AdjustingScrollArea;
+    area->setWidgetResizable(true);
+    //area->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+    area->setWidget(m_instrumentComponents);
+
+
+    instrumentGroupLayout->addWidget(area);
+
+
+//    instrumentGroupLayout->addWidget(m_instrumentComponents);
+    //m_scrollArea->setWidgetResizable(true);
 //    m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    m_scrollArea->setWidget(m_instrumentComponents);
+//    m_scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 //    instrumentGroupLayout->addWidget(m_scrollArea);
 
-//    instrumentGroupLayout->addWidget(m_scrollArea);
-//    instrumentGroupLayout->addWidget(m_beamWidget);
-//    instrumentGroupLayout->addWidget(m_detectorWidget);
-//    instrumentGroupLayout->addWidget(m_testWidget);
 
     instrumentGroup->setLayout(instrumentGroupLayout);
 

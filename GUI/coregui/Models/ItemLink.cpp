@@ -15,7 +15,7 @@
 
 #include "ItemLink.h"
 #include "AngleProperty.h"
-
+#include "ScientificDoubleProperty.h"
 
 ItemLink::ItemLink(const QString property_name, ParameterizedItem *item)
     : m_property_name(property_name)
@@ -52,6 +52,11 @@ QVariant ItemLink::getVariant()
         AngleProperty angle_property = variant.value<AngleProperty>();
         angle_property.setValue(m_value);
         return angle_property.getVariant();
+    }
+    else if(variant.typeName() == QString("ScientificDoubleProperty")) {
+        ScientificDoubleProperty scdouble_property = variant.value<ScientificDoubleProperty>();
+        scdouble_property.setValue(m_value);
+        return scdouble_property.getVariant();
     }
 
     return QVariant();

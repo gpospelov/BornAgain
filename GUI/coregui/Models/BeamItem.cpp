@@ -33,7 +33,7 @@ BeamItem::BeamItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamType, parent)
 {
     ScientificDoubleProperty intensity(1e+08);
-    registerProperty(P_INTENSITY, intensity.getVariant(), PropertyAttribute(AttLimits::lowerLimited(0.0)));
+    registerProperty(P_INTENSITY, intensity.getVariant(), PropertyAttribute(AttLimits::limited(0.0, 1e+32)));
 
     registerGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
 //    BeamDistributionItem *distributionItem = dynamic_cast<BeamDistributionItem *>(item);

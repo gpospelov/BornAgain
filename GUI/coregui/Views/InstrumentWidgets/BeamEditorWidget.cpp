@@ -51,6 +51,9 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     gridLayout->addWidget(m_azimuthalAngleEditor, 2, 1);
 
+//    gridLayout->setColumnStretch(0,0);
+//    gridLayout->setColumnStretch(1,0);
+
     groupLayout->addLayout(gridLayout);
 
     // main layout

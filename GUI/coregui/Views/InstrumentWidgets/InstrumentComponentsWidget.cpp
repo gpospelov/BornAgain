@@ -27,11 +27,12 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     , m_beamItem(0)
     , m_detectorItem(0)
 {
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+//    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
+//    mainLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
+//    setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
 //    mainLayout->addStretch();
 //    setLayout(mainLayout);
 }

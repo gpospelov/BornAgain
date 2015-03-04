@@ -26,6 +26,7 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QScrollArea>
+#include <QScrollBar>
 #include <QEvent>
 #include <QDebug>
 
@@ -33,17 +34,23 @@
 class AdjustingScrollArea : public QScrollArea {
     bool eventFilter(QObject * obj, QEvent * ev) {
         if (obj == widget() && ev->type() != QEvent::Resize) {
-            // Essential vvv
-            setMaximumWidth(width() - viewport()->width() + widget()->width());
+//            setMaximumWidth(width() - viewport()->width() + widget()->width());
+            widget()->setMaximumWidth(viewport()->width());
             setMaximumHeight(height() - viewport()->height() + widget()->height());
-            qDebug() << "EEEEEEEEEEEEEEEEEEEEEE ";
         }
         return QScrollArea::eventFilter(obj, ev);
     }
 
-    QSize sizeHint() const { return widget()->sizeHint(); }
+    QSize sizeHint() const {
+        QScrollBar *horizontal = horizontalScrollBar();
+        QSize result(viewport()->width(), widget()->height()+horizontal->height()*2);
+        return result;
+    }
 public:
-    AdjustingScrollArea(QWidget * parent = 0) : QScrollArea(parent) {}
+    AdjustingScrollArea(QWidget * parent = 0) : QScrollArea(parent)
+    {
+        setObjectName("MyScrollArea");
+    }
     void setWidget(QWidget *w) {
         QScrollArea::setWidget(w);
         // It so happens that QScrollArea already filters widget events,
@@ -57,18 +64,20 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit())
     , m_typeComboBox(new QComboBox())
-    , m_scrollArea(0)
-//    , m_beamWidget(new BeamEditorWidget(this))
-//    , m_detectorWidget(new DetectorEditorWidget(this))
-//    , m_testWidget(new TestInstrumentWidget(this))
     , m_currentItem(0)
     , m_block_signals(false)
-    , m_instrumentComponents(0)
+    , m_instrumentComponents(new InstrumentComponentsWidget)
 {
-
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    // main group box with all instrument parameters
+    QGroupBox *instrumentGroup = new QGroupBox(tr("Instrument Parameters"));
+    QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
+    //instrumentGroupLayout->setContentsMargins(0,0,0,0);
+    instrumentGroup->setLayout(instrumentGroupLayout);
+
+    // top block with instrument name and type
     m_typeComboBox->setMinimumWidth(300);
     m_typeComboBox->addItem("Default GISAS Instrument");
 
@@ -81,36 +90,23 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     topLayout->addLayout(nameAndTypeLayout );
     topLayout->addStretch(1);
 
-    QGroupBox *instrumentGroup = new QGroupBox(tr("Instrument Parameters"));
-    QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
     instrumentGroupLayout->addLayout(topLayout);
 
-
-    m_instrumentComponents = new InstrumentComponentsWidget;
-    //m_instrumentComponents->setFixedWidth(500);
+    // Scroling area with insturment components
+    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
 
     AdjustingScrollArea *area = new AdjustingScrollArea;
     area->setWidgetResizable(true);
-    //area->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+    area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     area->setWidget(m_instrumentComponents);
+    area->setContentsMargins( 0, 0, 0, 0 );
+    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:#D3D0CE;}");
+    instrumentGroupLayout->addWidget(area, 1);
+    instrumentGroupLayout->addStretch();
 
-
-    instrumentGroupLayout->addWidget(area);
-
-
-//    instrumentGroupLayout->addWidget(m_instrumentComponents);
-    //m_scrollArea->setWidgetResizable(true);
-//    m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    m_scrollArea->setWidget(m_instrumentComponents);
-//    m_scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    instrumentGroupLayout->addWidget(m_scrollArea);
-
-
-    instrumentGroup->setLayout(instrumentGroupLayout);
-
+    // setting main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(instrumentGroup);
-    mainLayout->addStretch();
     setLayout(mainLayout);
 
     connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));

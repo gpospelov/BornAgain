@@ -160,16 +160,19 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
         BeamItem *beamItem = instrument->getBeamItem();
         if(beamItem) {
             standardItem = new QStandardItem(instrument->itemName());
+
+            // intensity
             addPropertyToParameterModel(standardItem, BeamItem::P_INTENSITY, BeamItem::P_INTENSITY, QVariant(beamItem->getIntensity()), beamItem);
 
             // wavelength, incident and azimuthal angle will be varied only if there is no distribution assigned to them
-
             ParameterizedItem *beamWavelength = beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
             Q_ASSERT(beamWavelength);
             ParameterizedItem *wavelengthDistribution = beamWavelength->getSubItems()[BeamDistributionItem::P_DISTRIBUTION];
             Q_ASSERT(wavelengthDistribution);
             if(wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
                 addPropertyToParameterModel(standardItem, BeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE, beamWavelength->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), beamWavelength);
+            } else {
+                addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
             }
 
             ParameterizedItem *inclinationAngle = beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
@@ -178,6 +181,8 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
             Q_ASSERT(inclinationDistribution);
             if(inclinationDistribution->modelType() == Constants::DistributionNoneType) {
                 addPropertyToParameterModel(standardItem, BeamItem::P_INCLINATION_ANGLE, BeamDistributionItem::P_CACHED_VALUE, inclinationAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), inclinationAngle);
+            } else {
+                addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
             }
 
             ParameterizedItem *azimuthalAngle = beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
@@ -186,6 +191,8 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
             Q_ASSERT(azimuthalDistribution);
             if(azimuthalDistribution->modelType() == Constants::DistributionNoneType) {
                 addPropertyToParameterModel(standardItem, BeamItem::P_AZIMUTHAL_ANGLE, BeamDistributionItem::P_CACHED_VALUE, azimuthalAngle->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), azimuthalAngle);
+            } else {
+                addDisabledProperty(standardItem, BeamItem::P_AZIMUTHAL_ANGLE);
             }
 
         }
@@ -207,7 +214,10 @@ void ParameterModelBuilder::InsertRowIntoItem(QStandardItem *parentItem, QStanda
     parentItem->appendRow(QList<QStandardItem *>()  << childTitleItem << childValueItem);
 }
 
-
+//! adds property of ParameterizedItem to the QStandardItem of ParameterTree
+//! title - the name of the property as it will be shown by QTreeView
+//! property_name - the name of the property to add (normally coincide with 'title')
+//! value - QVariant representing property_value
 void ParameterModelBuilder::addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, ParameterizedItem *parameterizedItem)
 {
     ItemLink itemLink(property_name, parameterizedItem);
@@ -222,6 +232,21 @@ void ParameterModelBuilder::addPropertyToParameterModel(QStandardItem *parentIte
     valueItem->setData(itemLinkData, Qt::UserRole);
     valueItem->setData(value, Qt::EditRole);
     valueItem->setEditable(true);
+    InsertRowIntoItem(parentItem, titleItem, valueItem);
+}
+
+void ParameterModelBuilder::addDisabledProperty(QStandardItem *parentItem, const QString &title)
+{
+    QStandardItem *titleItem = new QStandardItem(title);
+    titleItem->setEditable(false);
+    QStandardItem *valueItem = new QStandardItem("disabled");
+    valueItem->setEditable(false);
+
+    QFont font("Arial", 8);
+    font.setItalic(true);
+    valueItem->setData(font, Qt::FontRole);
+    valueItem->setData("Disabled because of the distribution attached to this item.", Qt::ToolTipRole);
+
     InsertRowIntoItem(parentItem, titleItem, valueItem);
 }
 

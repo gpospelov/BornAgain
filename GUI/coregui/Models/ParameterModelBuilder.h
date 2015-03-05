@@ -41,6 +41,7 @@ private:
     static QStandardItem *iterateInstrumentModel(InstrumentModel *instrumentModel);
     static void InsertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
     static void addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, ParameterizedItem *parameterizedItem);
+    static void addDisabledProperty(QStandardItem *parentItem, const QString &title);
 };
 
 

@@ -19,7 +19,6 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
-
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     : QWidget(parent)
     , m_beamEditor(new BeamEditorWidget)
@@ -27,17 +26,11 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     , m_beamItem(0)
     , m_detectorItem(0)
 {
-//    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-//    mainLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
     mainLayout->addStretch();
-//    setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
-//    mainLayout->addStretch();
-//    setLayout(mainLayout);
 }
-
 
 void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)
 {

@@ -7,9 +7,9 @@ set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 set(list_of_tests
     "IsGISAXS01"
     "IsGISAXS02"
-    "IsGISAXS03BA"
-    "IsGISAXS03DWBA"
-    "IsGISAXS03BAsize"
+    "CylindersInBA"
+    "CylindersInDWBA"
+    "CylindersWithSizeDistribution"
     "IsGISAXS041DDL"
     "IsGISAXS042DDL"
     "IsGISAXS06L1"
@@ -32,6 +32,7 @@ set(list_of_tests
     "Ripple2"
     "Ripple1"
     "BatchSimulation"
+    "BeamDivergence"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

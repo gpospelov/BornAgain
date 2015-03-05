@@ -90,21 +90,20 @@ void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
     }
 
     // propagatind angle units to OutputDataItem
-    if(jobItem->getInstrumentModel()) {
-        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(jobItem->getInstrumentModel()->getInstrumentMap().begin().value());
-        qDebug() << instrumentItem->modelType();
-        Q_ASSERT(instrumentItem);
-        DetectorItem *detectorItem = instrumentItem->getDetectorItem();
-        Q_ASSERT(detectorItem);
-        ParameterizedItem *subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
-        Q_ASSERT(subDetector);
+//    if(jobItem->getInstrumentModel()) {
+//        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(jobItem->getInstrumentModel()->getInstrumentMap().begin().value());
+//        qDebug() << instrumentItem->modelType();
+//        Q_ASSERT(instrumentItem);
+//        DetectorItem *detectorItem = instrumentItem->getDetectorItem();
+//        Q_ASSERT(detectorItem);
+//        ParameterizedItem *subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
+//        Q_ASSERT(subDetector);
 
-        if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
-            AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
-            intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
-        }
-
-    }
+//        if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+//            AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
+//            intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
+//        }
+//    }
 
     qDebug() << "JobItem::setResults()" << intensityItem;
     intensityItem->setItemName(QString("data_%1_%2.int").arg(jobItem->itemName(), QString::number(0)));

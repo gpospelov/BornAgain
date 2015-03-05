@@ -53,8 +53,13 @@ IntensityDataItem::IntensityDataItem(ParameterizedItem *parent)
     registerProperty(P_PROPERTY_PANEL_FLAG, false, PropertyAttribute(PropertyAttribute::HIDDEN));
 
     registerGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    getSubItems()[P_XAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+
     registerGroupProperty(P_YAXIS, Constants::BasicAxisType);
+    getSubItems()[P_YAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
+
     registerGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
+    getSubItems()[P_ZAXIS]->setPropertyAppearance(BasicAxisItem::P_NBINS, PropertyAttribute::HIDDEN);
 }
 
 IntensityDataItem::~IntensityDataItem()

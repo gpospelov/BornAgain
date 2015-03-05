@@ -40,6 +40,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "RotationItems.h"
+#include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
 #include <QDebug>
@@ -50,86 +51,72 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(
-        SampleModel *sampleModel, ISample *sample)
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+                                       const Simulation &simulation, const QString &sampleName)
+{
+    boost::scoped_ptr<ISample> sample;
+    if(simulation.getSampleBuilder()) {
+        sample.reset(simulation.getSampleBuilder()->buildSample());
+    } else if(simulation.getSample()) {
+        sample.reset(simulation.getSample()->clone());
+    } else {
+        throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
+    }
+
+    return populateSampleModel(sampleModel, *sample, sampleName);
+}
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, const ISample &sample, const QString &sampleName)
 {
     Q_ASSERT(sampleModel);
-    Q_ASSERT(sample);
 
     m_levelToParentItem.clear();
 
-    m_topSampleName = sample->getName().c_str();
+    m_topSampleName = sampleName;
+    if(m_topSampleName.isEmpty()) m_topSampleName = sample.getName().c_str();
+
     m_sampleModel = sampleModel;
 
-    qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
+    VisitSampleTree(sample, *this);
+    ParameterizedItem *result = m_levelToParentItem[0];
 
-    //sample->accept(this);
-    VisitSampleTree(*sample, *this);
-    return m_levelToParentItem[0];
+    result->setItemName(m_topSampleName);
+    return result;
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
-        InstrumentModel *instrumentModel, Instrument *instrument)
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
+                                           const Simulation &simulation, const QString &instrumentName)
 {
-    Q_UNUSED(instrumentModel);
-    Q_UNUSED(instrument);
-
+    Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =
             instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrumentItem->setItemName(instrument->getName().c_str());
 
-    Beam beam = instrument->getBeam();
-    ParameterizedItem *beamItem = instrumentModel->insertNewItem(
+    if(instrumentName.isEmpty()) {
+        instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
+    } else {
+        instrumentItem->setItemName(instrumentName);
+    }
+
+    // beam
+    BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
-                instrumentModel->indexOfItem(instrumentItem));
-    beamItem->setRegisteredProperty(BeamItem::P_INTENSITY,
-                                    beam.getIntensity());
-    beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
-                                    beam.getWavelength());
+                instrumentModel->indexOfItem(instrumentItem)));
 
-    beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
-    beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
+    TransformFromDomain::setItemFromSample(beamItem, simulation);
 
-    Detector detector = instrument->getDetector();
+    // detector
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
-    ParameterizedItem *detectorSubItem =
-            detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
-    Q_ASSERT(detectorSubItem);
 
+    PhiAlphaDetectorItem *detectorSubItem =
+            dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
-
-    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NPHI, (int)phi_axis.getSize());
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MIN,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MAX,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MIN,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MAX,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
+    TransformFromDomain::setItemFromSample(detectorSubItem, simulation);
 
     return instrumentItem;
 }
+
 
 void GUIObjectBuilder::visit(const ParticleLayout *sample)
 {

@@ -17,6 +17,7 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "LayerItem.h"
+#include "MultiLayerItem.h"
 #include "ParticleItem.h"
 #include <QDebug>
 
@@ -39,18 +40,12 @@ SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
 //! returns list of MultiLayers defined in the model
 QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
 {
-    QMap<QString, ParameterizedItem *> result;
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+    return getTopItemMap(Constants::MultiLayerType);
+}
 
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
-             if(item->modelType() == Constants::MultiLayerType) {
-                 result[item->itemName()] = item;
-             }
-         }
-    }
-    return result;
+MultiLayerItem *SampleModel::getMultiLayerItem(const QString &item_name)
+{
+    return dynamic_cast<MultiLayerItem *>(getTopItem(Constants::MultiLayerType, item_name));
 }
 
 

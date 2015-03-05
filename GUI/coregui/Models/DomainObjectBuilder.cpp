@@ -30,45 +30,15 @@
 #include "ParticleDistribution.h"
 #include "Distributions.h"
 #include "ComboProperty.h"
-
+#include "MultiLayerItem.h"
 #include <QDebug>
-
 #include <boost/scoped_ptr.hpp>
 
 
-DomainObjectBuilder::DomainObjectBuilder()
-    : mp_sample(0)
-    , m_instrument(0)
+MultiLayer *DomainObjectBuilder::buildMultiLayer(const ParameterizedItem &multilayer_item) const
 {
-
-}
-
-DomainObjectBuilder::~DomainObjectBuilder()
-{
-    delete mp_sample;
-    delete m_instrument;
-}
-
-void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
-{
-    if (item.modelType() == Constants::MultiLayerType) {
-        delete mp_sample;
-        mp_sample = buildMultiLayer(item);
-    }
-    else if(item.modelType() == Constants::InstrumentType) {
-        delete m_instrument;
-        m_instrument = buildInstrument(item);
-    }
-    else {
-        throw GUIHelpers::Error("DomainObjectBuilder::buildItem() -> Error. Not a suitable top level object.");
-    }
-}
-
-MultiLayer *DomainObjectBuilder::buildMultiLayer(
-        const ParameterizedItem &item) const
-{
-    MultiLayer *result = TransformToDomain::createMultiLayer(item);
-    QList<ParameterizedItem *> children = item.childItems();
+    MultiLayer *result = TransformToDomain::createMultiLayer(multilayer_item);
+    QList<ParameterizedItem *> children = multilayer_item.childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             boost::scoped_ptr<Layer> P_layer(buildLayer(*children[i]));
@@ -238,10 +208,10 @@ IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(
 }
 
 
-Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) const
+Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &instrument_item) const
 {
-    Instrument *result = TransformToDomain::createInstrument(item);
-    QList<ParameterizedItem *> children = item.childItems();
+    Instrument *result = TransformToDomain::createInstrument(instrument_item);
+    QList<ParameterizedItem *> children = instrument_item.childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::BeamType) {
             boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));

@@ -10,7 +10,7 @@ set(list_of_tests
     "isgisaxs01.py"
     "isgisaxs01_normalize.py"
     "isgisaxs02.py"
-    "isgisaxs03.py"
+    "cylinders_ba_dwba_size.py"
     "isgisaxs04.py"
     "isgisaxs06.py"
     "isgisaxs07.py"
@@ -28,6 +28,7 @@ set(list_of_tests
     "ripple1.py"
     "customformfactor.py"
     "montecarlo_integration.py"
+    "beam_divergence.py"
 )
 
 set(list_of_cpp_python_tests

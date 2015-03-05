@@ -137,12 +137,14 @@ public:
         int copy_number=-1) const;
 
 	//! add a sampled parameter distribution
-	void addParameterDistribution(const std::string &param_name,
-			const IDistribution1D &distribution, size_t nbr_samples,
-			double sigma_factor=0.0) {
-		m_distribution_handler.addParameterDistribution(param_name,
-				distribution, nbr_samples, sigma_factor);
-	}
+    void addParameterDistribution(const std::string &param_name,
+            const IDistribution1D &distribution, size_t nbr_samples,
+            double sigma_factor=0.0);
+
+    //! add a sampled parameter distribution
+    void addParameterDistribution(const ParameterDistribution &par_distr);
+
+    const DistributionHandler& getDistributionHandler() const;
 
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;

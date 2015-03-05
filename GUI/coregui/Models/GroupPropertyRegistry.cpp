@@ -19,6 +19,7 @@
 #include "FixedGroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
+#include <QDebug>
 
 
 namespace {
@@ -73,6 +74,15 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     distributions[Constants::DistributionCosineType] = "Cosine distribution";
     result[Constants::DistributionGroup] = distributions;
 
+    QMap<QString, QString> distributions_ext;
+    distributions_ext[Constants::DistributionNoneType] = "None";
+    distributions_ext[Constants::DistributionGateType] = "Gate distribution";
+    distributions_ext[Constants::DistributionLorentzType] = "Lorentz distribution";
+    distributions_ext[Constants::DistributionGaussianType] = "Gaussian distribution";
+    distributions_ext[Constants::DistributionLogNormalType] = "Log Normal distribution";
+    distributions_ext[Constants::DistributionCosineType] = "Cosine distribution";
+    result[Constants::DistributionExtendedGroup] = distributions_ext;
+
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";
@@ -96,6 +106,11 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     lattices[Constants::HexagonalLatticeType] = "Hexagonal";
     result[Constants::LatticeGroup] = lattices;
 
+    QMap<QString, QString> resolution_functions;
+    resolution_functions[Constants::ResolutionFunctionNoneType] = "None";
+    resolution_functions[Constants::ResolutionFunction2DGaussianType] = "2D Gaussian";
+    result[Constants::ResolutionFunctionGroup] = resolution_functions;
+
     return result;
 }
 
@@ -113,6 +128,7 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
+        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of groupModelType" << groupModelType;
         result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     }

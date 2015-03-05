@@ -32,13 +32,13 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Mixture cylinder particles with different size distribution",
         "isgisaxs02_reference.int.gz", 2e-10);
 
-    add("isgisaxs03_ba",
+    add("cylinders_ba",
         "Cylinder formfactor in BA",
         "isgisaxs03_reference_BA.int.gz", 2e-10);
-    add("isgisaxs03_dwba",
+    add("cylinders_dwba",
         "Cylinder formfactor in DWBA",
         "isgisaxs03_reference_DWBA.int.gz", 2e-10);
-    add("isgisaxs03_basize",
+    add("cylinders_basize",
         "Cylinder formfactor in BA with size distribution",
         "isgisaxs03_reference_BA_size.int.gz", 2e-10);
 
@@ -116,6 +116,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
     add("ripple1",
         "Cosine ripple within the 1D-paracrystal model",
         "ripple1_reference.int.gz", 1e-10);
+
+    add("beam_divergence",
+        "Cylinders in DWBA with beam divergence",
+        "beamdivergence_reference.int.gz", 1e-10);
 
 }
 

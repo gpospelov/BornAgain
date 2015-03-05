@@ -34,8 +34,9 @@
 
 
 namespace {
-const double maximum_doublespin_value(10000.0);
-const double minimum_doublespin_value(10000.0);
+//const double maximum_doublespin_value(1e+20);
+const double maximum_doublespin_value(20000.0);
+const double minimum_doublespin_value(0.0);
 }
 
 ModelTuningDelegate::SliderData::SliderData()
@@ -95,31 +96,27 @@ void ModelTuningDelegate::paint(QPainter *painter,
                                 const QStyleOptionViewItem &option,
                                 const QModelIndex &index) const
 {
-
     if (index.column() == m_valueColumn) {
 
-        if(index.parent().isValid() == false)
-            return;
+        if(!index.parent().isValid()) return;
 
         QVariant prop_value = index.model()->data(index, Qt::EditRole);
-        int type = GUIHelpers::getVariantType(prop_value);
-        if (type == QVariant::Double) {
-            double value = prop_value.toDouble();
-            QString text(QString::number(value));
+        if(prop_value.isValid()) {
+            int type = GUIHelpers::getVariantType(prop_value);
+            if (type == QVariant::Double) {
+                double value = prop_value.toDouble();
+                QString text(QString::number(value));
 
-            QStyleOptionViewItem myOption = option;
-            myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
+                QStyleOptionViewItem myOption = option;
+                myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
 
-
-            drawDisplay(painter, myOption, myOption.rect, text);
-            drawFocus(painter, myOption, myOption.rect);
-        } else {
-            return;
+                drawDisplay(painter, myOption, myOption.rect, text);
+                drawFocus(painter, myOption, myOption.rect);
+                return;
+            }
         }
-
-    } else{
-        QItemDelegate::paint(painter, option, index);
     }
+    QItemDelegate::paint(painter, option, index);
 }
 
 
@@ -128,12 +125,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
                                            const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
-
-
-        if(index.parent().isValid() == false)
-        {
-            return NULL;
-        }
+        if(index.parent().isValid() == false) return NULL;
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 

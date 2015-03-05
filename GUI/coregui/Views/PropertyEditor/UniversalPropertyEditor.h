@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/UniversalPropertyEditor.h
+//! @file      coregui/Views/PropertyEditor/UniversalPropertyEditor.h
 //! @brief     Defines class UniversalPropertyEditor
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -39,8 +39,10 @@ class BA_CORE_API_ UniversalPropertyEditor : public QWidget
     Q_OBJECT
 
 public:
+    enum EBrowserType { BROWSER_TREE_TYPE, BROWSER_GROUPBOX_TYPE, BROWSER_BUTTON_TYPE};
+
     UniversalPropertyEditor(QItemSelectionModel *selection_model,
-                         QWidget *parent = 0);
+                         QWidget *parent = 0, EBrowserType browser_type = BROWSER_TREE_TYPE);
     virtual ~UniversalPropertyEditor(){}
 
     QObject *getObject() const;
@@ -67,7 +69,7 @@ private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
     void updateSubItems(const QString &name);
     void onPropertyChanged(const QString &property_name);
-    void onPropertyItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 
 private:
     //! clear editor
@@ -97,6 +99,9 @@ private:
     //! ParameterizedItem will be sub-properties of group with the name modelType
     //! (as in PropertyEditor of SampleDesigner)
     bool m_create_group_property;
+
+    //! type of property browser
+    EBrowserType m_browser_type;
 };
 
 

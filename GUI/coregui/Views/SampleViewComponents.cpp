@@ -24,11 +24,11 @@ SampleWidgetBox *SampleViewComponents::createWidgetBox(
     return new SampleWidgetBox(core, parent);
 }
 
-SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
-        QItemSelectionModel *selection_model, QWidget *parent)
-{
-    return new SamplePropertyEditor(selection_model, parent);
-}
+//SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
+//        QItemSelectionModel *selection_model, QWidget *parent)
+//{
+//    return new SamplePropertyEditor(selection_model, parent);
+//}
 
 ItemTreeView *SampleViewComponents::createTreeView(
         SampleModel *sampleModel, QWidget *parent)

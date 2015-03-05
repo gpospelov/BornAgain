@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/PropertyBrowserUtils.h
+//! @file      coregui/Views/PropertyEditor/PropertyBrowserUtils.h
 //! @brief     Defines class PropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -129,19 +129,25 @@ private:
     ScientificDoubleProperty m_scientificDoubleProperty;
 };
 
-
+#include <QComboBox>
 //! The ComboPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ComboProperty
-class BA_CORE_API_ ComboPropertyEdit : public QWidget
+//class BA_CORE_API_ ComboPropertyEdit : public QWidget
+class BA_CORE_API_ ComboPropertyEdit : public QComboBox
 {
     Q_OBJECT
 public:
     ComboPropertyEdit(QWidget *parent = 0);
+//    ~ComboPropertyEdit();
 
     void setComboProperty(const ComboProperty &combo_property);
     ComboProperty getComboProperty() const {return m_combo_property; }
 
     QString comboValueText();
+
+//    QSize sizeHint() const;
+//    QSize minimumSizeHint() const;
+
 
 signals:
     void comboPropertyChanged(const ComboProperty &combo_property);
@@ -149,7 +155,7 @@ private slots:
     void onCurrentIndexChanged(QString current_value);
 
 private:
-    QComboBox *m_comboBox;
+//    QComboBox *m_comboBox;
     ComboProperty m_combo_property;
 };
 

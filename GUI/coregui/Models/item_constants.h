@@ -69,9 +69,8 @@ const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
-const ModelType XYDetectorType  = "XYDetector";
 
-const ModelType DistributionType = "Distribution";
+const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
 const ModelType DistributionLorentzType = "DistributionLorentz";
 const ModelType DistributionGaussianType = "DistributionGaussian";
@@ -111,6 +110,14 @@ const ModelType IntensityDataType = "IntensityData";
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
+const ModelType BeamDistributionType = "BeamDistribution";
+const ModelType BeamWavelengthType = "BeamWavelength";
+const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
+const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
+
+const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
+const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -118,10 +125,12 @@ const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
+const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
+const ModelType ResolutionFunctionGroup = "Resolution function group";
 
 // --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";
@@ -145,6 +154,9 @@ const ModelType GRADIENT_POLAR = "Polar";
 const ModelType GRADIENT_SPECTRUM = "Spectrum";
 const ModelType GRADIENT_JET = "Jet";
 const ModelType GRADIENT_HUES = "Hues";
+
+const ModelType AXIS_FIXED_BINNING = "Fixed";
+const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 
 }
 

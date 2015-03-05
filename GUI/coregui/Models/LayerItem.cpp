@@ -15,6 +15,7 @@
 
 #include "LayerItem.h"
 #include "MaterialUtils.h"
+#include "ComboProperty.h"
 
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";

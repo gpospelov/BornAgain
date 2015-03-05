@@ -25,9 +25,9 @@ namespace StandardSimulations{
 
 Simulation *IsGISAXS01();
 Simulation *IsGISAXS02();
-Simulation *IsGISAXS03BA();
-Simulation *IsGISAXS03DWBA();
-Simulation *IsGISAXS03BAsize();
+Simulation *CylindersInBA();
+Simulation *CylindersInDWBA();
+Simulation *CylindersWithSizeDistribution();
 Simulation *IsGISAXS041DDL();
 Simulation *IsGISAXS042DDL();
 Simulation *IsGISAXS06L1();
@@ -56,6 +56,7 @@ Simulation *gui_IsGISAXS06L1();
 Simulation *gui_IsGISAXS06L2();
 Simulation *gui_IsGISAXS07();
 Simulation *gui_MultipleLayouts();
+Simulation *BeamDivergence();
 }
 
 

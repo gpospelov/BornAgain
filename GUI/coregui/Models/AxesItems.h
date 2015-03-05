@@ -23,6 +23,7 @@ class BA_CORE_API_  BasicAxisItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
+    static const QString P_NBINS;
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString P_TITLE;

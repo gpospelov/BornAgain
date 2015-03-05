@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/PropertyVariantManager.h
+//! @file      coregui/Views/PropertyEditor/PropertyVariantManager.h
 //! @brief     Defines class PropertyVariantManager
 //!
 //! @homepage  http://www.bornagainproject.org

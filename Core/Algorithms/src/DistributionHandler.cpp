@@ -37,6 +37,15 @@ void DistributionHandler::addParameterDistribution(
     }
 }
 
+void DistributionHandler::addParameterDistribution(const ParameterDistribution &par_distr)
+{
+    if(par_distr.getNbrSamples() > 0) {
+        m_distributions.push_back(par_distr);
+        m_nbr_combinations *= par_distr.getNbrSamples();
+        m_cached_samples.push_back(par_distr.generateSamples());
+    }
+}
+
 size_t DistributionHandler::getTotalNumberOfSamples() const
 {
     return m_nbr_combinations;
@@ -70,4 +79,9 @@ double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
         if (param_index==0) break;
     }
     return weight;
+}
+
+const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const
+{
+    return m_distributions;
 }

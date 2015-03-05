@@ -127,6 +127,10 @@ public:
 
     virtual SessionModel *createCopy(ParameterizedItem *parent=0);
 
+
+    QMap<QString, ParameterizedItem *> getTopItemMap(const QString &model_type = QString()) const;
+    ParameterizedItem *getTopItem(const QString &model_type = QString(), const QString &item_name = QString()) const;
+
 public slots:
     void onItemPropertyChange(const QString &name);
 

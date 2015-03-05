@@ -39,7 +39,10 @@ public:
     void setInstrumentModel(InstrumentModel *model);
 
     QString getInstrumentSelection() const;
+    int getInstrumentCurrentIndex() const;
+
     QString getSampleSelection() const;
+    int getSampleCurrentIndex() const;
 
 public slots:
     void onRunSimulation();

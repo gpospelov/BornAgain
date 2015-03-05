@@ -20,7 +20,7 @@
 #include "ItemTreeView.h"
 #include "widgetbox.h"
 
-#include "SamplePropertyEditor.h"
+//#include "SamplePropertyEditor.h"
 #include "SampleWidgetBox.h"
 #include "SampleModel.h"
 
@@ -42,8 +42,8 @@ class BA_CORE_API_ SampleViewComponents
 public:
     static SampleWidgetBox *createWidgetBox(
             SampleDesignerInterface *core, QWidget *parent);
-    static SamplePropertyEditor *createPropertyEditor(
-            QItemSelectionModel *selection_model, QWidget *parent);
+//    static SamplePropertyEditor *createPropertyEditor(
+//            QItemSelectionModel *selection_model, QWidget *parent);
     static ItemTreeView *createTreeView(
             SampleModel *sample_model, QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);

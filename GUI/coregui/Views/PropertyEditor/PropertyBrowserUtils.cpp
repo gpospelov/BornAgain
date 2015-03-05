@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/PropertyBrowserUtils.cpp
+//! @file      coregui/Views/PropertyEditor/PropertyBrowserUtils.cpp
 //! @brief     Implements class PropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -85,15 +85,32 @@ void MaterialPropertyEdit::setMaterialProperty(
 // -----------------------------------------------------------------------------
 FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
-    , m_box(0)
-    , m_label(0)
+    , m_box(new QComboBox())
+    , m_label(new QLabel())
     , m_groupProperty(0)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_box);
+    layout->addWidget(m_label);
+ //   setLayout(layout);
+    m_label->hide();
+//    update();
+//    setFocusPolicy(Qt::StrongFocus);
+//    setAttribute(Qt::WA_InputMethodEnabled);
+
+    connect(m_box, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged(int)));
+
+    setLayout(layout);
 }
 
 FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
 {
-    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> destroyed";
+    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> destroyed" << this;
 
 }
 
@@ -121,19 +138,28 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
 void FancyGroupPropertyEdit::processFixedGroup()
 {
     qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getValueLabel();
-    if(!m_label) m_label = new QLabel(this);
+//    if(!m_label) m_label = new QLabel(this);
+    m_box->hide();
+    m_label->show();
     m_label->setText(m_groupProperty->getValueLabel());
 }
 
 
 void FancyGroupPropertyEdit::processSelectableGroup()
 {
-    if(!m_box) m_box = new QComboBox(this);
+    qDebug() << "FancyGroupPropertyEdit::processSelectableGroup()";
+//    if(!m_box) m_box = new QComboBox(this);
 
+//    m_label->hide();
+//    m_box->show();
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
-    if(!m_box->count()) m_box->insertItems(0, m_groupProperty->getValueLabels());
+    if(m_box->count() != m_groupProperty->getValueLabels().size()) {
+        m_box->clear();
+        qDebug() << "XXX inserting_items" << m_groupProperty->getValueLabels();
+        m_box->insertItems(0, m_groupProperty->getValueLabels());
+    }
     m_box->setCurrentIndex(m_groupProperty->index());
 
     connect(m_box, SIGNAL(currentIndexChanged(int)),
@@ -146,7 +172,8 @@ void FancyGroupPropertyEdit::indexChanged(int index)
 {
     qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << index;
     m_groupProperty->setValue(m_groupProperty->toString(index));
-    emit fancyGroupPropertyChanged(m_groupProperty);
+//    emit fancyGroupPropertyChanged(m_groupProperty);
+//    update();
 }
 
 
@@ -158,7 +185,7 @@ QSize FancyGroupPropertyEdit::sizeHint() const
     if(m_label) {
         return m_label->sizeHint();
     }
-    return QSize(10,10);
+    return QSize(100,10);
 }
 
 QSize FancyGroupPropertyEdit::minimumSizeHint() const
@@ -169,7 +196,7 @@ QSize FancyGroupPropertyEdit::minimumSizeHint() const
     if(m_label) {
         return m_label->minimumSizeHint();
     }
-    return QSize(10,10);
+    return QSize(100,10);
 }
 
 
@@ -242,7 +269,14 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
     m_lineEdit = new QLineEdit(this);
+    layout->addWidget(m_lineEdit);
 
     m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
     m_validator->setNotation(QDoubleValidator::ScientificNotation);
@@ -250,6 +284,8 @@ ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
 
     connect(m_lineEdit, SIGNAL(editingFinished()),
             this, SLOT(onEditingFinished()));
+
+    setLayout(layout);
 }
 
 void ScientificDoublePropertyEdit::setScientificDoubleProperty(
@@ -283,27 +319,45 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 // ComboPropertyEdit
 // -----------------------------------------------------------------------------
 
+//ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
+//    : QWidget(parent)
+//    , m_comboBox(0)
+//{
+//    m_comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//}
+
 ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
-    : QWidget(parent)
-    , m_comboBox(0)
+    : QComboBox(parent)
 {
 }
+
+//ComboPropertyEdit::~ComboPropertyEdit()
+//{
+//    qDebug() << "ComboPropertyEdit::~ComboPropertyEdit()" << this;
+//}
 
 void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
+    qDebug() << "ComboPropertyEdit::setComboProperty() this=" << this;
     m_combo_property = combo_property;
-    if (!m_comboBox) m_comboBox = new QComboBox(this);
+//    if (!m_comboBox) {
+//        m_comboBox = new QComboBox(this);
+//    }
 
-    disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+    disconnect(this, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(onCurrentIndexChanged(QString)));
 
-    m_comboBox->clear();
-    QStringList value_list = m_combo_property.getValues();
-    m_comboBox->addItems(value_list);
-    m_comboBox->setCurrentText(comboValueText());
+//    m_comboBox->clear();
+    if(count() !=m_combo_property.getValues().size()) {
+        clear();
+        QStringList value_list = m_combo_property.getValues();
 
-    connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+        addItems(value_list);
+    }
+    setCurrentText(comboValueText());
+
+    connect(this, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(onCurrentIndexChanged(QString)));
 }
 
@@ -312,9 +366,24 @@ QString ComboPropertyEdit::comboValueText()
     return m_combo_property.getValue();
 }
 
+//QSize ComboPropertyEdit::sizeHint() const
+//{
+//    Q_ASSERT(m_comboBox);
+//    return m_comboBox->sizeHint();
+
+//}
+
+//QSize ComboPropertyEdit::minimumSizeHint() const
+//{
+//    Q_ASSERT(m_comboBox);
+//    return m_comboBox->minimumSizeHint();
+//}
+
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
+    qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
+    qDebug() << "       ComboPropertyEdit::onCurrentIndexChanged(QString current_value) -> emitting combo property";
     emit comboPropertyChanged(m_combo_property);
 }
 

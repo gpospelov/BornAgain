@@ -27,6 +27,7 @@ class DetectorEditorWidget;
 class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
+class InstrumentComponentsWidget;
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
@@ -47,11 +48,9 @@ private:
 
     QLineEdit *m_nameLineEdit;
     QComboBox *m_typeComboBox;
-    BeamEditorWidget *m_beamWidget;
-    DetectorEditorWidget *m_detectorWidget;
-
     ParameterizedItem *m_currentItem;
     bool m_block_signals;
+    InstrumentComponentsWidget *m_instrumentComponents;
 };
 
 #endif

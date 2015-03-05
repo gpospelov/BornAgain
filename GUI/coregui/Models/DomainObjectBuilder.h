@@ -33,16 +33,11 @@ class LayerRoughness;
 class BA_CORE_API_ DomainObjectBuilder
 {
 public:
-    explicit DomainObjectBuilder();
-    ~DomainObjectBuilder();
+    explicit DomainObjectBuilder(){}
+    ~DomainObjectBuilder(){}
 
-    void buildItem(const ParameterizedItem &item);
-
-    ISample *getSample() { return mp_sample; }
-    Instrument *getInstrument() { return m_instrument; }
-
-    MultiLayer *buildMultiLayer(const ParameterizedItem &item) const;
-    Instrument *buildInstrument(const ParameterizedItem &item) const;
+    MultiLayer *buildMultiLayer(const ParameterizedItem &multilayer_item) const;
+    Instrument *buildInstrument(const ParameterizedItem &instrument_item) const;
 
 private:
     Layer *buildLayer(const ParameterizedItem &item) const;
@@ -60,9 +55,6 @@ private:
     void addParticleToLayout(ParticleLayout *result,
         ParameterizedItem *particle_item, double depth, double abundance,
         const Particle& particle) const;
-
-    ISample *mp_sample;
-    Instrument *m_instrument;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

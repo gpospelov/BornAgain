@@ -40,6 +40,10 @@
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
+#include "ResolutionFunctionItems.h"
+#include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
 #include <QDebug>
 
 namespace {
@@ -93,6 +97,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
+    result[Constants::DistributionNoneType] = &createInstance<DistributionNoneItem>;
     result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
     result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
     result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
@@ -130,6 +135,14 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
+
+//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
+    result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
+    result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
+    result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;
+
+    result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
+    result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
     return result;
 }

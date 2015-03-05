@@ -18,6 +18,7 @@
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
 #include "GUIHelpers.h"
+#include "SamplePropertyWidget.h"
 #include <ItemFactory.h>
 
 
@@ -102,9 +103,10 @@ void SampleView::initSubWindows()
     m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
 
-    m_subWindows[PROPERTY_EDITOR] =
-            SampleViewComponents::createPropertyEditor(
-                m_tree_view->selectionModel(), this);
+//    m_subWindows[PROPERTY_EDITOR] =
+//            SampleViewComponents::createPropertyEditor(
+//                m_tree_view->selectionModel(), this);
+    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
     SampleInfoStreamInterface *ae =
             SampleViewComponents::createInfoStream(this);

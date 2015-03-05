@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/PropertyVariantFactory.cpp
+//! @file      coregui/Views/PropertyEditor/PropertyVariantFactory.cpp
 //! @brief     Implements class PropertyVariantFactory
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,6 +21,7 @@
 
 PropertyVariantFactory::~PropertyVariantFactory()
 {
+    qDebug() << "PropertyVariantFactory::~PropertyVariantFactory()";
     QList<MaterialPropertyEdit *> mat_editors =
             m_material_editor_to_property.keys();
     QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
@@ -69,6 +70,7 @@ void PropertyVariantFactory::connectPropertyManager(
 QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         QtProperty *property, QWidget *parent)
 {
+    qDebug() << "PropertyVariantFactory::createEditor()" << property->propertyName();
     if (manager->propertyType(property) ==
             PropertyVariantManager::materialTypeId()) {
         MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
@@ -143,6 +145,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     if (manager->propertyType(property) ==
             PropertyVariantManager::comboPropertyTypeId()) {
         ComboPropertyEdit *editor = new ComboPropertyEdit(parent);
+        qDebug() << "       PropertyVariantFactory::createEditor() -> created ComboEditor" << editor;
+
         QVariant var = manager->value(property);
         ComboProperty combo = var.value<ComboProperty>();
         editor->setComboProperty(combo);
@@ -177,6 +181,7 @@ void PropertyVariantFactory::disconnectPropertyManager(
 void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
+    qDebug() << "PropertyVariantFactory::slotPropertyChanged()" << property->propertyName() << value;
     if (m_property_to_material_editors.contains(property)) {
         QList<MaterialPropertyEdit *> editors =
                 m_property_to_material_editors[property];
@@ -210,6 +215,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
         QListIterator<FancyGroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             FancyGroupProperty_t mat = value.value<FancyGroupProperty_t>();
+            qDebug() << "       PropertyVariantFactory::slotPropertyChanged() -> Setting editor";
             itEditor.next()->setFancyGroupProperty(mat);
         }
     }
@@ -218,6 +224,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_combo_editors[property];
         QListIterator<ComboPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
+            qDebug() << "       PropertyVariantFactory::slotPropertyChanged() -> Setting editor";
             ComboProperty combo = value.value<ComboProperty>();
             itEditor.next()->setComboProperty(combo);
         }
@@ -240,7 +247,7 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
             var.setValue(value);
             manager->setValue(property, var);
             // FIXME g.p. Is it the right place to delete?
-            object->deleteLater();
+            //object->deleteLater();
             return;
         }
         itEditor++;
@@ -261,7 +268,7 @@ void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
             var.setValue(value);
             manager->setValue(property, var);
             // FIXME g.p. Is it the right place to delete?
-            object->deleteLater();
+            //object->deleteLater();
             return;
         }
         itEditor++;
@@ -289,6 +296,7 @@ void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
 
 void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
 {
+    qDebug() << "PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)";
     QObject *object = sender();
     QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_fancygroup_editor_to_property.constBegin();
@@ -308,6 +316,7 @@ void PropertyVariantFactory::slotSetValue(const FancyGroupProperty_t &value)
 
 void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
 {
+    qDebug() << "PropertyVariantFactory::slotSetValue(const ComboProperty &value)";
     QObject *object = sender();
     QMap<ComboPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_combo_editor_to_property.constBegin();
@@ -320,7 +329,7 @@ void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
             var.setValue(value);
             manager->setValue(property, var);
             // FIXME g.p. Is it the right place to delete?
-            object->deleteLater();
+            //object->deleteLater();
             return;
         }
         itEditor++;
@@ -329,6 +338,7 @@ void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
 
 void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {
+    qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object)";
     QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
                 m_material_editor_to_property.constBegin();
     while (mat_it_editor != m_material_editor_to_property.constEnd()) {
@@ -378,6 +388,8 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
                 m_fancygroup_editor_to_property.constBegin();
     while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
         if (fancygroup_editor_it.key() == object) {
+            qDebug() << "PropertyVariantFactory::slotEditorDestroyed(QObject *object) -> fancy group editor";
+
             FancyGroupPropertyEdit *editor = fancygroup_editor_it.key();
             QtProperty *property = fancygroup_editor_it.value();
             m_fancygroup_editor_to_property.remove(editor);
@@ -407,6 +419,7 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 
 void PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
 {
+//    qDebug() << "PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &) -> ???";
 
 }
 

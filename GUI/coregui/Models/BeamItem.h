@@ -16,7 +16,6 @@
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-
 #include "ParameterizedItem.h"
 
 class BA_CORE_API_ BeamItem : public ParameterizedItem
@@ -30,11 +29,18 @@ public:
     explicit BeamItem(ParameterizedItem *parent=0);
     ~BeamItem(){}
 
-    void onPropertyChange(const QString &name);
+    double getIntensity() const;
+    void setIntensity(double value);
 
+    double getWavelength() const;
+    void setWavelength(double value, const QString &distribution_name = QString());
+
+    double getInclinationAngle() const;
+    void setInclinationAngle(double value, const QString &distribution_name = QString());
+
+    double getAzimuthalAngle() const;
+    void setAzimuthalAngle(double value, const QString &distribution_name = QString());
 };
-
-
 
 #endif
 

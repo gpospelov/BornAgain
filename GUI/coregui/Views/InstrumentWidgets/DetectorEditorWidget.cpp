@@ -42,7 +42,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
     m_resolutionFunctionEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_resolutionFunctionEditor, 2, 0);
+    gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     groupLayout->addLayout(gridLayout);
 

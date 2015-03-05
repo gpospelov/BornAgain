@@ -52,9 +52,11 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_inclinationAngleEditor, 2, 0);
+//    gridLayout->addWidget(m_inclinationAngleEditor, 2, 0);
+    gridLayout->addWidget(m_inclinationAngleEditor, 1, 1);
     m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_azimuthalAngleEditor, 2, 1);
+//    gridLayout->addWidget(m_azimuthalAngleEditor, 2, 1);
+    gridLayout->addWidget(m_azimuthalAngleEditor, 1, 2);
 
 //    gridLayout->setColumnStretch(0,0);
 //    gridLayout->setColumnStretch(1,0);

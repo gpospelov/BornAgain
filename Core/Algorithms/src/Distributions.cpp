@@ -107,6 +107,7 @@ bool DistributionGate::checkInitialization() const
 {
     bool result = true;
     if (m_max < m_min) result = false;
+    if(m_max == m_min) result = false;
     if (!result) SignalBadInitialization("DistributionGate");
     return result;
 }

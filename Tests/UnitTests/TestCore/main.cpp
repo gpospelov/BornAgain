@@ -44,6 +44,7 @@
 #include "SpecularSimulationTest.h"
 #include "ParticleCoreShellTest.h"
 #include "ParameterDistributionTest.h"
+#include "DistributionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

@@ -66,6 +66,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 
     PhiAlphaDetectorItem *subDetector = dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
+    m_binningEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(), AwesomePropertyEditor::SKIP);
 
     m_binningEditor->addItemProperty(subDetector, PhiAlphaDetectorItem::P_BINNING);
 

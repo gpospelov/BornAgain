@@ -38,6 +38,10 @@ class AdjustingScrollArea : public QScrollArea {
             widget()->setMaximumWidth(viewport()->width());
             setMaximumHeight(height() - viewport()->height() + widget()->height());
         }
+//        if (obj == widget() && ev->type() == QEvent::Wheel) {
+//            ev->ignore();
+//        }
+
         return QScrollArea::eventFilter(obj, ev);
     }
 

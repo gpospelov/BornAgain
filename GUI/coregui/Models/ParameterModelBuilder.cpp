@@ -172,7 +172,7 @@ QStandardItem *ParameterModelBuilder::iterateInstrumentModel(InstrumentModel *in
             if(wavelengthDistribution->modelType() == Constants::DistributionNoneType) {
                 addPropertyToParameterModel(standardItem, BeamItem::P_WAVELENGTH, BeamDistributionItem::P_CACHED_VALUE, beamWavelength->getRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE), beamWavelength);
             } else {
-                addDisabledProperty(standardItem, BeamItem::P_INCLINATION_ANGLE);
+                addDisabledProperty(standardItem, BeamItem::P_WAVELENGTH);
             }
 
             ParameterizedItem *inclinationAngle = beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
@@ -245,7 +245,7 @@ void ParameterModelBuilder::addDisabledProperty(QStandardItem *parentItem, const
     QFont font("Arial", 8);
     font.setItalic(true);
     valueItem->setData(font, Qt::FontRole);
-    valueItem->setData("Disabled because of the distribution attached to this item.", Qt::ToolTipRole);
+    valueItem->setData("Editing disabled because of the distribution attached to this item.", Qt::ToolTipRole);
 
     InsertRowIntoItem(parentItem, titleItem, valueItem);
 }

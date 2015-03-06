@@ -134,9 +134,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
-    m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
-//
-    m_tabWidget->setCurrentIndex(INSTRUMENT);
+    //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
+
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);

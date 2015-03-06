@@ -103,10 +103,11 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     QString scolor=QString("rgb(%1,%2,%3,%4)").arg(r).arg(g).arg(b).arg(c);
 
     // Scroling area with insturment components
-    QString ssheet = QString("InstrumentComponentsWidget {background-color:%1;}").arg(scolor);
+//    QString ssheet = QString("InstrumentComponentsWidget {background-color:%1;}").arg(scolor);
 //    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:#D3D0CE;}");
-    qDebug() << ssheet << " AAA " << QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor);
-    m_instrumentComponents->setStyleSheet(ssheet);
+//    qDebug() << ssheet << " AAA " << QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor);
+//    m_instrumentComponents->setStyleSheet(ssheet);
+    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 
     AdjustingScrollArea *area = new AdjustingScrollArea;
     area->setContentsMargins( 0, 0, 0, 0 );
@@ -114,7 +115,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     area->setWidget(m_instrumentComponents);
 //    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:#D3D0CE;}");
-    area->setStyleSheet(QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor));
+//    area->setStyleSheet(QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor));
+    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:transparent;}");
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();
 

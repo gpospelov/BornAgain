@@ -12,6 +12,7 @@ protected:
     virtual ~DistributionsTest(){}
 };
 
+// -------------------------------------------------------------------------- //
 
 TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 {
@@ -24,9 +25,11 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
     EXPECT_EQ("DistributionGate", id1D->getName());
 
     std::vector<double> list1 = id1D->generateValueList(1, 0.0);
+    EXPECT_EQ(list1.size(), size_t(1));
     EXPECT_EQ(id1D->getMean(), list1[0]);
 
     std::vector<double> list2 = id1D->generateValueList(2, 0.0);
+    EXPECT_EQ(list2.size(), size_t(2));
     EXPECT_EQ(0, list2[0]);
     EXPECT_EQ(1, list2[1]);
 
@@ -35,48 +38,44 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
-//    DistributionGate * id1D2 = new DistributionGate(1.0, 1.0);
     EXPECT_THROW(DistributionGate(1.0, 1.0), ClassInitializationException);
-//    DistributionGate * id1D = new DistributionGate(1.0, 2.0);
-//    EXPECT_NO_THROW(id1D);
-//    EXPECT_EQ(1.5, id1D->getMean());
-//    EXPECT_EQ(1.0, id1D->getMin());
-//    EXPECT_EQ(2.0, id1D->getMax());
-//    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
-//    EXPECT_EQ(0, id1D->probabilityDensity(3));
-//    EXPECT_EQ("DistributionGate", id1D->getName());
-
-//    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-//    EXPECT_EQ(id1D->getMean(), list1[0]);
-
-//    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-//    EXPECT_EQ(1, list2[0]);
-//    EXPECT_EQ(2, list2[1]);
-
-//    delete id1D;
-}
-
-TEST_F(DistributionsTest, DistributionGateClone)
-{
-    DistributionGate * id1D = new DistributionGate(2.0, 3.0);
-    DistributionGate * id1DClone = id1D->clone();
-    EXPECT_EQ(2.5, id1DClone->getMean());
-    EXPECT_EQ(2.0, id1DClone->getMin());
-    EXPECT_EQ(3.0, id1DClone->getMax());
-    EXPECT_EQ(1.0, id1DClone->probabilityDensity(2));
-    EXPECT_EQ(0, id1DClone->probabilityDensity(4));
-    EXPECT_EQ("DistributionGate", id1DClone->getName());
+    DistributionGate * id1D = new DistributionGate(1.0, 2.0);
+    EXPECT_EQ(1.5, id1D->getMean());
+    EXPECT_EQ(1.0, id1D->getMin());
+    EXPECT_EQ(2.0, id1D->getMax());
+    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
+    EXPECT_EQ(0, id1D->probabilityDensity(3));
+    EXPECT_EQ("DistributionGate", id1D->getName());
 
     std::vector<double> list1 = id1D->generateValueList(1, 0.0);
     EXPECT_EQ(id1D->getMean(), list1[0]);
 
     std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(2, list2[0]);
-    EXPECT_EQ(3, list2[1]);
+    EXPECT_EQ(1, list2[0]);
+    EXPECT_EQ(2, list2[1]);
 
     delete id1D;
-    delete id1DClone;
 }
+
+TEST_F(DistributionsTest, DistributionGateParameters)
+{
+    DistributionGate gate(2.0, 3.0);
+    EXPECT_EQ(gate.getMin(), gate.getParameterPool()->getParameter("min").getValue());
+    EXPECT_EQ(gate.getMax(), gate.getParameterPool()->getParameter("max").getValue());
+}
+
+TEST_F(DistributionsTest, DistributionGateClone)
+{
+    DistributionGate gate(2.0, 3.0);
+    DistributionGate *clone = gate.clone();
+    EXPECT_EQ(gate.getName(), clone->getName());
+    EXPECT_EQ(gate.getMean(), clone->getMean());
+    EXPECT_EQ(gate.getMin(), clone->getMin());
+    EXPECT_EQ(gate.getMax(), clone->getMax());
+    delete clone;
+}
+
+// -------------------------------------------------------------------------- //
 
 TEST_F(DistributionsTest, DistributionLorentzDefaultConstructer)
 {
@@ -86,17 +85,13 @@ TEST_F(DistributionsTest, DistributionLorentzDefaultConstructer)
     EXPECT_EQ("DistributionLorentz", id1D->getName());
     EXPECT_EQ(1/(2*M_PI), id1D->probabilityDensity(1.0));
 
-
     std::vector<double> list1 = id1D->generateValueList(1, 0.0);
     EXPECT_EQ(id1D->getMean(), list1[0]);
 
     std::vector<double> list2 = id1D->generateValueList(2, 0.0);
     EXPECT_EQ(-2, list2[0]);
     EXPECT_EQ(2, list2[1]);
-
     delete id1D;
-
-
 }
 
 TEST_F(DistributionsTest, DistributionLorentzConstructer)
@@ -107,7 +102,6 @@ TEST_F(DistributionsTest, DistributionLorentzConstructer)
     EXPECT_EQ("DistributionLorentz", id1D->getName());
     EXPECT_EQ(1.0/M_PI, id1D->probabilityDensity(1.0));
 
-
     std::vector<double> list1 = id1D->generateValueList(1, 0.0);
     EXPECT_EQ(id1D->getMean(), list1[0]);
 
@@ -116,10 +110,7 @@ TEST_F(DistributionsTest, DistributionLorentzConstructer)
     EXPECT_EQ(3, list2[1]);
 
     delete id1D;
-
-
 }
-
 
 TEST_F(DistributionsTest, DistributionLorentzClone)
 {
@@ -141,6 +132,8 @@ TEST_F(DistributionsTest, DistributionLorentzClone)
     delete id1DClone;
 }
 
+// -------------------------------------------------------------------------- //
+
 TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor)
 {
     DistributionGaussian* id1D = new DistributionGaussian();
@@ -159,7 +152,6 @@ TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor)
     delete id1D;
 }
 
-
 TEST_F(DistributionsTest, DistributionGaussianConstructor)
 {
     DistributionGaussian* id1D = new DistributionGaussian(1.0, 1.0);
@@ -176,9 +168,7 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor)
     EXPECT_EQ(3, list2[1]);
 
     delete id1D;
-
 }
-
 
 TEST_F(DistributionsTest, DistributionGaussianClone)
 {
@@ -200,6 +190,8 @@ TEST_F(DistributionsTest, DistributionGaussianClone)
     delete id1DClone;
 
 }
+
+// -------------------------------------------------------------------------- //
 
 TEST_F(DistributionsTest, DistributionLogNormalConstructorWithOneParameter)
 {
@@ -237,7 +229,6 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
     EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list2[1]);
 
     delete id1D;
-
 }
 
 TEST_F(DistributionsTest, DistributionLogNormalClone)
@@ -259,8 +250,9 @@ TEST_F(DistributionsTest, DistributionLogNormalClone)
 
     delete id1D;
     delete id1DClone;
-
 }
+
+// -------------------------------------------------------------------------- //
 
 TEST_F(DistributionsTest, DistributionCosineDefaultConstructor)
 {
@@ -320,6 +312,5 @@ TEST_F(DistributionsTest, DistributionCosineClone)
     delete id1D;
     delete id1DClone;
 }
-
 
 #endif

@@ -45,8 +45,8 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(Parameterized
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
 {
     setItemName(Constants::ResolutionFunction2DGaussianType);
-    registerProperty(P_SIGMA_X, 0.02);
-    registerProperty(P_SIGMA_Y, 0.02);
+    registerProperty(P_SIGMA_X, 0.002, PropertyAttribute(AttLimits::lowerLimited(0.0), 4));
+    registerProperty(P_SIGMA_Y, 0.002, PropertyAttribute(AttLimits::lowerLimited(0.0), 4));
 }
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction() const

@@ -38,9 +38,9 @@
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
 #include "DistributionItem.h"
-//#include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
+#include "ResolutionFunctionItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -309,13 +309,9 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 
 void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument)
 {
-//    qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
-//    item.print();
-
     ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-//    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
     if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
 
         BasicAxisItem *phiAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
@@ -339,6 +335,16 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         } else {
             throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
         }
+
+        // setting up resolution function
+        ResolutionFunctionItem *resfuncItem = dynamic_cast<ResolutionFunctionItem *>
+                (subDetector->getSubItems()[PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION]);
+        Q_ASSERT(resfuncItem);
+
+        IResolutionFunction2D *resfunc = resfuncItem->createResolutionFunction();
+        if(resfunc)
+            instrument->setDetectorResolutionFunction(*resfunc);
+        delete resfunc;
 
     }
     else {

@@ -54,6 +54,7 @@ PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
     getSubItems()[P_ALPHA_AXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, 2.0);
 
     registerGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 }
 
 

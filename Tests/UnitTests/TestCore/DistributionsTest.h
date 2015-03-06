@@ -112,6 +112,14 @@ TEST_F(DistributionsTest, DistributionLorentzConstructer)
     delete id1D;
 }
 
+TEST_F(DistributionsTest, DistributionLorentzParameters)
+{
+    DistributionLorentz lorentz(2.0, 3.0);
+    EXPECT_EQ(lorentz.getMean(), lorentz.getParameterPool()->getParameter("mean").getValue());
+    EXPECT_EQ(lorentz.getHWHM(), lorentz.getParameterPool()->getParameter("hwhm").getValue());
+}
+
+
 TEST_F(DistributionsTest, DistributionLorentzClone)
 {
     DistributionLorentz * id1D = new DistributionLorentz(1.0, 2.0);
@@ -168,6 +176,13 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor)
     EXPECT_EQ(3, list2[1]);
 
     delete id1D;
+}
+
+TEST_F(DistributionsTest, DistributionGaussianParameters)
+{
+    DistributionGaussian gaussian(2.0, 3.0);
+    EXPECT_EQ(gaussian.getMean(), gaussian.getParameterPool()->getParameter("mean").getValue());
+    EXPECT_EQ(gaussian.getStdDev(), gaussian.getParameterPool()->getParameter("std_dev").getValue());
 }
 
 TEST_F(DistributionsTest, DistributionGaussianClone)
@@ -231,6 +246,13 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
     delete id1D;
 }
 
+TEST_F(DistributionsTest, DistributionLogNormalParameters)
+{
+    DistributionLogNormal logNormal(2.0, 3.0);
+    EXPECT_EQ(logNormal.getMedian(), logNormal.getParameterPool()->getParameter("median").getValue());
+    EXPECT_EQ(logNormal.getScalePar(), logNormal.getParameterPool()->getParameter("scale_parameter").getValue());
+}
+
 TEST_F(DistributionsTest, DistributionLogNormalClone)
 {
     DistributionLogNormal* id1D = new DistributionLogNormal(1.0, 1.0);
@@ -290,6 +312,13 @@ TEST_F(DistributionsTest, DistributionCosineConstructor)
     EXPECT_EQ(1+M_PI, list2[1]);
 
     delete id1D;
+}
+
+TEST_F(DistributionsTest, DistributionCosineParameters)
+{
+    DistributionCosine cosine(2.0, 3.0);
+    EXPECT_EQ(cosine.getMean(), cosine.getParameterPool()->getParameter("mean").getValue());
+    EXPECT_EQ(cosine.getSigma(), cosine.getParameterPool()->getParameter("sigma").getValue());
 }
 
 TEST_F(DistributionsTest, DistributionCosineClone)

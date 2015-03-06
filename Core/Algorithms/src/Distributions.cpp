@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "Distributions.h"
-
 #include "MathFunctions.h"
 #include "Exceptions.h"
 

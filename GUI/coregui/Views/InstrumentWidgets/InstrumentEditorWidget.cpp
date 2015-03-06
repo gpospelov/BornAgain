@@ -54,8 +54,6 @@ public:
     }
     void setWidget(QWidget *w) {
         QScrollArea::setWidget(w);
-        // It so happens that QScrollArea already filters widget events,
-        // but that's an implementation detail that we shouldn't rely on.
         w->installEventFilter(this);
     }
 };
@@ -96,17 +94,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->addSpacing(10);
     instrumentGroupLayout->addLayout(topLayout);
 
-    // accessing color of group box (system depe
-    QColor parent_color = instrumentGroup->palette().color(instrumentGroup->backgroundRole());
-    int r,g,b,c;
-    parent_color.getRgb(&r,&g,&b,&c);
-    QString scolor=QString("rgb(%1,%2,%3,%4)").arg(r).arg(g).arg(b).arg(c);
-
     // Scroling area with insturment components
-//    QString ssheet = QString("InstrumentComponentsWidget {background-color:%1;}").arg(scolor);
-//    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:#D3D0CE;}");
-//    qDebug() << ssheet << " AAA " << QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor);
-//    m_instrumentComponents->setStyleSheet(ssheet);
     m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 
     AdjustingScrollArea *area = new AdjustingScrollArea;
@@ -114,8 +102,6 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     area->setWidgetResizable(true);
     area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     area->setWidget(m_instrumentComponents);
-//    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:#D3D0CE;}");
-//    area->setStyleSheet(QString("QScrollArea#MyScrollArea {border: 0px; background-color:%1;}").arg(scolor));
     area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:transparent;}");
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();

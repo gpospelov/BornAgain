@@ -21,6 +21,7 @@
 
 class DetectorItem;
 class AwesomePropertyEditor;
+class QGridLayout;
 
 class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
@@ -30,11 +31,14 @@ public:
 
     void setDetectorItem(DetectorItem *detectorItem);
 
+    QGridLayout *getGridLayout() { return m_gridLayout;}
+
 private:
     AwesomePropertyEditor *m_binningEditor;
     AwesomePropertyEditor *m_phiAxisEditor;
     AwesomePropertyEditor *m_alphaAxisEditor;
     AwesomePropertyEditor *m_resolutionFunctionEditor;
+    QGridLayout *m_gridLayout;
     DetectorItem *m_detectorItem;
 };
 

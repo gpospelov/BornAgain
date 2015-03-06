@@ -25,6 +25,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     , m_phiAxisEditor(0)
     , m_alphaAxisEditor(0)
     , m_resolutionFunctionEditor(0)
+    , m_gridLayout(0)
     , m_detectorItem(0)
 {
     QGroupBox *groupBox = new QGroupBox("Detector Parameters");
@@ -32,26 +33,25 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     groupBox->setLayout(groupLayout);
 
     // whole content is represented as grid layout
-    QGridLayout *gridLayout = new QGridLayout;
+    m_gridLayout = new QGridLayout;
 
     m_binningEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_binningEditor, 0, 0);
+    m_gridLayout->addWidget(m_binningEditor, 0, 0);
     m_phiAxisEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_phiAxisEditor, 1, 0);
+    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_alphaAxisEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
+    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
     m_resolutionFunctionEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
+    m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
-    groupLayout->addLayout(gridLayout);
+    groupLayout->addLayout(m_gridLayout);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(groupBox);
     mainLayout->addStretch();
     setLayout(mainLayout);
-
 }
 
 void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)

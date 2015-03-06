@@ -16,6 +16,7 @@
 #include "InstrumentComponentsWidget.h"
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
+#include "columnresizer.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -30,6 +31,14 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
     mainLayout->addStretch();
+
+    ColumnResizer *resizer = new ColumnResizer(this);
+    resizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 0);
+    resizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 1);
+    resizer->addWidgetsFromGridLayout(m_detectorEditor->getGridLayout(), 2);
+    resizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 0);
+    resizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 1);
+    resizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 2);
 }
 
 void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)

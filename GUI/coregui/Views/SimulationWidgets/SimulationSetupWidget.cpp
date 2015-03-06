@@ -290,9 +290,11 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 //        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
 //    }
     // there can be several instruments with same name
-    int index = getInstrumentCurrentIndex();
-    QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
-    result = m_instrumentModel->createCopy(it.value());
+    if(instruments[getInstrumentSelection()]) {
+        int index = getInstrumentCurrentIndex();
+        QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
+        result = m_instrumentModel->createCopy(it.value());
+    }
 
     return result;
 }
@@ -305,9 +307,12 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 //    if(samples[getSampleSelection()]) {
 //        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
 //    }
-    int index = getSampleCurrentIndex();
-    QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
-    result = m_sampleModel->createCopy(it.value());
+    // there can be several instruments with same name
+    if(samples[getSampleSelection()]) {
+        int index = getSampleCurrentIndex();
+        QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
+        result = m_sampleModel->createCopy(it.value());
+    }
     return result;
 }
 

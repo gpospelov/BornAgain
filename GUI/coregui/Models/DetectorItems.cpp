@@ -33,7 +33,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 const QString PhiAlphaDetectorItem::P_BINNING = "Binning";
 const QString PhiAlphaDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString PhiAlphaDetectorItem::P_ALPHA_AXIS = "Alpha axis";
-const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Distribution";
+const QString PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
 PhiAlphaDetectorItem::PhiAlphaDetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PhiAlphaDetectorType, parent)

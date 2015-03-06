@@ -42,7 +42,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
 
     m_resolutionFunctionEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_resolutionFunctionEditor, 2, 0);
+    gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     groupLayout->addLayout(gridLayout);
 
@@ -66,6 +66,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 
     PhiAlphaDetectorItem *subDetector = dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
+    m_binningEditor->addItemProperty(detectorItem, DetectorItem::P_DETECTOR, QString(), AwesomePropertyEditor::SKIP);
 
     m_binningEditor->addItemProperty(subDetector, PhiAlphaDetectorItem::P_BINNING);
 

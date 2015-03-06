@@ -38,6 +38,7 @@ class AdjustingScrollArea : public QScrollArea {
             widget()->setMaximumWidth(viewport()->width());
             setMaximumHeight(height() - viewport()->height() + widget()->height());
         }
+
         return QScrollArea::eventFilter(obj, ev);
     }
 
@@ -53,8 +54,6 @@ public:
     }
     void setWidget(QWidget *w) {
         QScrollArea::setWidget(w);
-        // It so happens that QScrollArea already filters widget events,
-        // but that's an implementation detail that we shouldn't rely on.
         w->installEventFilter(this);
     }
 };
@@ -96,14 +95,14 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     instrumentGroupLayout->addLayout(topLayout);
 
     // Scroling area with insturment components
-    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:black;}");
+    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 
     AdjustingScrollArea *area = new AdjustingScrollArea;
     area->setContentsMargins( 0, 0, 0, 0 );
     area->setWidgetResizable(true);
     area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     area->setWidget(m_instrumentComponents);
-    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:#D3D0CE;}");
+    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:transparent;}");
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();
 

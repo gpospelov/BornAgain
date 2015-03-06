@@ -331,11 +331,11 @@ void Simulation::setDetectorParameters(const DetectorParameters& params)
     updateIntensityMapAxes();
 }
 
-void Simulation::setDetectorResolutionFunction(
-    IResolutionFunction2D *p_resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-}
+//void Simulation::setDetectorResolutionFunction(
+//    IResolutionFunction2D *p_resolution_function)
+//{
+//    m_instrument.setDetectorResolutionFunction(p_resolution_function);
+//}
 void Simulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {

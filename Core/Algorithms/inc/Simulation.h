@@ -113,8 +113,8 @@ public:
     { return m_sim_params; }
 
     //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        IResolutionFunction2D *p_resolution_function);
+//    void setDetectorResolutionFunction(
+//        IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function);
 

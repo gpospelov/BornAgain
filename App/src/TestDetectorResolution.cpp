@@ -34,9 +34,8 @@ void TestDetectorResolution::execute()
     simulation.setDetectorParameters
         (100, 0.0*Units::degree, 2.0*Units::degree,
          100, 0.0*Units::degree, 2.0*Units::degree);
-    IResolutionFunction2D *p_resolution_function =
-        new ResolutionFunction2DGaussian(0.001, 0.001);
-    simulation.setDetectorResolutionFunction(p_resolution_function);
+    ResolutionFunction2DGaussian resfunc(0.001, 0.001);
+    simulation.setDetectorResolutionFunction(resfunc);
     simulation.setBeamParameters
         (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();

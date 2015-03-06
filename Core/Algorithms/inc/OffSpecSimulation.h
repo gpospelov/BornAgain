@@ -103,10 +103,10 @@ public:
     { return m_simulation.getSimulationParameters(); }
 
     //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        IResolutionFunction2D *p_resolution_function) {
-    	m_simulation.setDetectorResolutionFunction(p_resolution_function);
-    }
+//    void setDetectorResolutionFunction(
+//        IResolutionFunction2D *p_resolution_function) {
+//    	m_simulation.setDetectorResolutionFunction(p_resolution_function);
+//    }
 
     void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function) {

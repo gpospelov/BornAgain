@@ -49,6 +49,8 @@ public:
     //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
+    const IResolutionFunction2D *getResolutionFunction2D() const { return mp_res_function_2d; }
+
 protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
 

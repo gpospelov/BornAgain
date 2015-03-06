@@ -15,6 +15,7 @@
 
 #include "ResolutionFunctionItems.h"
 #include "ComboProperty.h"
+#include "Units.h"
 #include <QDebug>
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString name, ParameterizedItem *parent)
@@ -45,13 +46,13 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem(Parameterized
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType, parent)
 {
     setItemName(Constants::ResolutionFunction2DGaussianType);
-    registerProperty(P_SIGMA_X, 0.002, PropertyAttribute(AttLimits::lowerLimited(0.0), 4));
-    registerProperty(P_SIGMA_Y, 0.002, PropertyAttribute(AttLimits::lowerLimited(0.0), 4));
+    registerProperty(P_SIGMA_X, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
+    registerProperty(P_SIGMA_Y, 0.02, PropertyAttribute(AttLimits::lowerLimited(0.0), 3));
 }
 
 IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction() const
 {
-    double sigma_x = getRegisteredProperty(P_SIGMA_X).toDouble();
-    double sigma_y = getRegisteredProperty(P_SIGMA_Y).toDouble();
+    double sigma_x = Units::deg2rad(getRegisteredProperty(P_SIGMA_X).toDouble());
+    double sigma_y = Units::deg2rad(getRegisteredProperty(P_SIGMA_Y).toDouble());
     return new ResolutionFunction2DGaussian(sigma_x, sigma_y);
 }

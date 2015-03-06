@@ -1,4 +1,4 @@
-# IsGISAXS09 example: Pyramids on top of substrate - Rotated pyramids on top of substrate
+# Functional test: IsGISAXS09 example: Pyramids on top of substrate - Rotated pyramids on top of substrate
 import sys
 import os
 import numpy

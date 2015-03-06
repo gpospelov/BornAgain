@@ -1,4 +1,4 @@
-# IsGISAXS08 example: 2DDL paracrystal
+# Functional test: IsGISAXS08 example: 2DDL paracrystal
 import sys
 import os
 import numpy

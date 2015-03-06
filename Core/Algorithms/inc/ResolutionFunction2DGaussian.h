@@ -32,6 +32,9 @@ public:
 
     ResolutionFunction2DGaussian *clone() const;
 
+    double getSigmaX() const { return m_sigma_x; }
+    double getSigmaY() const { return m_sigma_y; }
+
 protected:
     virtual void init_parameters();
 private:

@@ -61,6 +61,7 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.printParameters()
     simulation.runSimulation()
+
     result = simulation.getIntensityData().getArray() + 1  # for log scale
 
     # showing the result

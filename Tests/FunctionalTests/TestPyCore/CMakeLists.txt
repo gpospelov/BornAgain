@@ -29,6 +29,7 @@ set(list_of_tests
     "customformfactor.py"
     "montecarlo_integration.py"
     "beam_divergence.py"
+    "detector_resolution.py"
 )
 
 set(list_of_cpp_python_tests

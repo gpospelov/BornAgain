@@ -1,4 +1,4 @@
-# IsGISAXS02 example: Mixture cylinder particles with different size distribution
+# Functional test: IsGISAXS02 example: Mixture cylinder particles with different size distribution
 import sys
 import os
 import numpy

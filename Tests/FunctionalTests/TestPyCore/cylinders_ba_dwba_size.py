@@ -1,4 +1,4 @@
-# IsGISAXS03 example: Cylinder formfactor in BA and DWBA
+# Functional test: IsGISAXS03 example: Cylinder formfactor in BA and DWBA
 import sys
 import os
 import numpy

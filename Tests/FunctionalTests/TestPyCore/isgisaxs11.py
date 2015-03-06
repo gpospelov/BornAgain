@@ -1,4 +1,4 @@
-# IsGISAXS011 example: Core shell nanoparticles
+# Functional test: IsGISAXS011 example: Core shell nanoparticles
 import sys
 import os
 import numpy

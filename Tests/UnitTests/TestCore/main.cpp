@@ -16,6 +16,7 @@
 #include "MaskTest.h"
 #include "OutputDataIteratorTest.h"
 #include "OutputDataTest.h"
+#include "ParameterDistributionTest.h"
 #include "ParameterPoolTest.h"
 #include "ParticleTest.h"
 #include "RealParameterWrapperTest.h"

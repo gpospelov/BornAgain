@@ -4,6 +4,7 @@
 #include "ParameterDistribution.h"
 #include "Distributions.h"
 
+
 class ParameterDistributionTest : public ::testing::Test
 {
 protected:
@@ -77,4 +78,3 @@ TEST_F(ParameterDistributionTest, CopyConstructor)
 }
 
 
-#endif

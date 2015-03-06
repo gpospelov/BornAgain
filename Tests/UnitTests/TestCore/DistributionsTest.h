@@ -35,25 +35,23 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
-//    DistributionGate * id1D2 = new DistributionGate(1.0, 1.0);
     EXPECT_THROW(DistributionGate(1.0, 1.0), ClassInitializationException);
-//    DistributionGate * id1D = new DistributionGate(1.0, 2.0);
-//    EXPECT_NO_THROW(id1D);
-//    EXPECT_EQ(1.5, id1D->getMean());
-//    EXPECT_EQ(1.0, id1D->getMin());
-//    EXPECT_EQ(2.0, id1D->getMax());
-//    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
-//    EXPECT_EQ(0, id1D->probabilityDensity(3));
-//    EXPECT_EQ("DistributionGate", id1D->getName());
+    DistributionGate * id1D = new DistributionGate(1.0, 2.0);
+    EXPECT_EQ(1.5, id1D->getMean());
+    EXPECT_EQ(1.0, id1D->getMin());
+    EXPECT_EQ(2.0, id1D->getMax());
+    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
+    EXPECT_EQ(0, id1D->probabilityDensity(3));
+    EXPECT_EQ("DistributionGate", id1D->getName());
 
-//    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-//    EXPECT_EQ(id1D->getMean(), list1[0]);
+    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
+    EXPECT_EQ(id1D->getMean(), list1[0]);
 
-//    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-//    EXPECT_EQ(1, list2[0]);
-//    EXPECT_EQ(2, list2[1]);
+    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
+    EXPECT_EQ(1, list2[0]);
+    EXPECT_EQ(2, list2[1]);
 
-//    delete id1D;
+    delete id1D;
 }
 
 TEST_F(DistributionsTest, DistributionGateClone)

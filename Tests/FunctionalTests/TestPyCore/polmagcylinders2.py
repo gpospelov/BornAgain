@@ -1,4 +1,4 @@
-# Magnetic cylinders in DWBA with zero magnetic field
+# Functional test: Magnetic cylinders in DWBA with zero magnetic field
 import sys
 import os
 import numpy

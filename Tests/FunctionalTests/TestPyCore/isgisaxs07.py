@@ -1,4 +1,4 @@
-# IsGISAXS07 example: Mixture of different particles defined in morphology file
+# Functional test: IsGISAXS07 example: Mixture of different particles defined in morphology file
 import sys
 import os
 import numpy

@@ -46,6 +46,9 @@
 #include "BeamDistributionItem.h"
 #include "BeamAngleItems.h"
 #include "AxesItems.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "ResolutionFunctionItems.h"
+#include "ConvolutionDetectorResolution.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -586,6 +589,7 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, 
     Q_ASSERT(detectorItem);
     Detector detector = simulation.getInstrument().getDetector();
 
+    // Axes
     const IAxis &phi_axis = detector.getAxis(0);
     const IAxis &alpha_axis = detector.getAxis(1);
 
@@ -607,6 +611,23 @@ void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, 
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
+    // detector resolution
+    if(const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+        if(const ConvolutionDetectorResolution *p_convfunc = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
+            if(const ResolutionFunction2DGaussian *resfunc = dynamic_cast<const ResolutionFunction2DGaussian *>(p_convfunc->getResolutionFunction2D())) {
+                ParameterizedItem *item = detectorItem->setGroupProperty(
+                    PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION, Constants::ResolutionFunction2DGaussianType);
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                                        Units::rad2deg(resfunc->getSigmaX()));
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                                        Units::rad2deg(resfunc->getSigmaY()));
+            } else {
+                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation) -> Error, unknown detector resolution function");
+            }
+        } else {
+            throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation) -> Error, not a ConvolutionDetectorResolution function");
+        }
+    }
 }
 
 
@@ -628,7 +649,6 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
     const IDistribution1D *p_distr = parameterDistribution.getDistribution();
     ParameterizedItem *distributionItem(0);
     if(const DistributionGate * distr = dynamic_cast<const DistributionGate *>(p_distr)) {
-        qDebug() << "XXX gate" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGateType);
         double x1=sign_factor*unit_factor*distr->getMin();
         double x2=sign_factor*unit_factor*distr->getMax();
@@ -636,25 +656,21 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributi
         distributionItem->setRegisteredProperty(DistributionGateItem::P_MAX, std::max(x1, x2));
     }
     else if(const DistributionLorentz *distr = dynamic_cast<const DistributionLorentz *>(p_distr)) {
-        qDebug() << "XXX lorentz" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLorentzType);
         distributionItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN, sign_factor*unit_factor*distr->getMean());
         distributionItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM, unit_factor*distr->getHWHM());
     }
     else if(const DistributionGaussian *distr = dynamic_cast<const DistributionGaussian *>(p_distr)) {
-        qDebug() << "XXX gauss" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGaussianType);
         distributionItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN, sign_factor*unit_factor*distr->getMean());
         distributionItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV, unit_factor*distr->getStdDev());
     }
     else if(const DistributionLogNormal *distr = dynamic_cast<const DistributionLogNormal *>(p_distr)) {
-        qDebug() << "XXX lognormal" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLogNormalType);
         distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, sign_factor*unit_factor*distr->getMedian());
         distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR, distr->getScalePar());
     }
     else if(const DistributionCosine *distr = dynamic_cast<const DistributionCosine *>(p_distr)) {
-        qDebug() << "XXX cosine" << beamDistributionItem->modelType();
         distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionCosineType);
         distributionItem->setRegisteredProperty(DistributionCosineItem::P_MEAN, sign_factor*unit_factor*distr->getMean());
         distributionItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA, unit_factor*distr->getSigma());

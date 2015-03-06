@@ -145,6 +145,10 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "beam_divergence", StandardSimulations::BeamDivergence,
         "Cylinders in DWBA with beam divergence");
+
+    registerItem(
+        "detector_resolution", StandardSimulations::DetectorResolution,
+        "Cylinders in DWBA with beam divergence");
 }
 
 

@@ -33,6 +33,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     , m_wavelengthEditor(0)
     , m_inclinationAngleEditor(0)
     , m_azimuthalAngleEditor(0)
+    , m_gridLayout(0)
     , m_beamItem(0)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -44,24 +45,19 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     groupBox->setLayout(groupLayout);
 
     // whole content is represented as grid layout
-    QGridLayout *gridLayout = new QGridLayout;
+    m_gridLayout = new QGridLayout;
 
     m_intensityEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_intensityEditor, 0, 0);
+    m_gridLayout->addWidget(m_intensityEditor, 0, 0);
 
     m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    gridLayout->addWidget(m_wavelengthEditor, 1, 0);
+    m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    gridLayout->addWidget(m_inclinationAngleEditor, 2, 0);
-    gridLayout->addWidget(m_inclinationAngleEditor, 1, 1);
+    m_gridLayout->addWidget(m_inclinationAngleEditor, 1, 1);
     m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    gridLayout->addWidget(m_azimuthalAngleEditor, 2, 1);
-    gridLayout->addWidget(m_azimuthalAngleEditor, 1, 2);
+    m_gridLayout->addWidget(m_azimuthalAngleEditor, 1, 2);
 
-//    gridLayout->setColumnStretch(0,0);
-//    gridLayout->setColumnStretch(1,0);
-
-    groupLayout->addLayout(gridLayout);
+    groupLayout->addLayout(m_gridLayout);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -90,6 +86,5 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
     ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
     m_azimuthalAngleEditor->addItemProperties(azimuthalAngleItem, QString("Azimuthal angle"), AwesomePropertyEditor::INSERT_AFTER);
-
 }
 

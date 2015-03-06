@@ -32,7 +32,6 @@ public:
     ~BasicAxisItem(){}
 };
 
-
 class BA_CORE_API_  AmplitudeAxisItem : public BasicAxisItem
 {
     Q_OBJECT

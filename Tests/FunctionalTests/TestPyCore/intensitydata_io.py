@@ -1,4 +1,4 @@
-# tests of IO operations with the IntensityData object
+# Functional test: tests of IO operations with the IntensityData object
 
 import sys
 import os

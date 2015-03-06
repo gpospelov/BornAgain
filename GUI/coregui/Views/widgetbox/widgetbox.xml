@@ -300,7 +300,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Example #8 (Beam Divergence)" icon="images/sample_layers2.png">
+        <categoryentry name="Example #8 Test" icon="images/sample_layers2.png">
             <widget class="example08">
                 <property name="objectName">
                     <string notr="true">somestring</string>

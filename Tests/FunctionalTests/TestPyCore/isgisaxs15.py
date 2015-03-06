@@ -1,4 +1,4 @@
-# IsGISAXS015 example: Size spacing correlation approximation
+# Functional test: IsGISAXS015 example: Size spacing correlation approximation
 import sys
 import os
 import numpy

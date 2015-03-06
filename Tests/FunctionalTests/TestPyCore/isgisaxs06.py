@@ -1,4 +1,4 @@
-# IsGISAXS06 example: 2D lattice with different disorder
+# Functional test: IsGISAXS06 example: 2D lattice with different disorder
 import sys
 import os
 import numpy

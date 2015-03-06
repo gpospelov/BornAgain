@@ -1,4 +1,4 @@
-# functional test: mesocrystal simulation
+# Functional test: functional test: mesocrystal simulation
 #
 
 import sys

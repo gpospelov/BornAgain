@@ -1,4 +1,4 @@
-# Custom formfactor example
+#  Functional test: Custom formfactor example
 import sys
 import os
 import numpy

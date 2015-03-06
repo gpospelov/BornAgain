@@ -1,4 +1,4 @@
-# Ripple2 example: triangular asymetric ripple formfactor within the 1D-paracrystal model
+# Functional test: triangular asymetric ripple formfactor within the 1D-paracrystal model
 import sys
 import os
 import numpy

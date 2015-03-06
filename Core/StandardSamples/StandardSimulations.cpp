@@ -636,3 +636,24 @@ Simulation *StandardSimulations::BeamDivergence()
 
     return result;
 }
+
+
+Simulation *StandardSimulations::DetectorResolution()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(40, -0.2*Units::degree, 1.8*Units::degree,
+                60, 0.0*Units::degree, 2.2*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    ResolutionFunction2DGaussian resfunc(0.0025, 0.0025);
+    result->setDetectorResolutionFunction(resfunc);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

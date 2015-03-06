@@ -1,4 +1,4 @@
-# Functional test: Cylinders in DWBA with beam divergence
+# Functional test: detector resolution function
 import sys
 import os
 import numpy
@@ -41,13 +41,7 @@ def RunSimulation():
     simulation = Simulation()
     simulation.setDetectorParameters(40, phi_min*degree, phi_max*degree, 60, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
-    alpha_distr = DistributionGaussian(-0.2*degree, 0.1*degree)
-    #phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
-    phi_distr = DistributionGate(-0.1*degree, 0.1*degree)
-    simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)
-    simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 4)
-    simulation.addParameterDistribution("*/Beam/phi", phi_distr, 3)
+    simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.0025, 0.0025))
     simulation.setSample(multi_layer)
 
     # run simulation and retrieve results
@@ -61,7 +55,7 @@ def runTest():
     """
     result = RunSimulation()
 
-    diff = IntensityDataFunctions.getRelativeDifference(result, get_reference_data("beamdivergence_reference.int.gz"))
+    diff = IntensityDataFunctions.getRelativeDifference(result, get_reference_data("resolutionfunction_reference.int.gz"))
 
     status = "OK"
     if(diff > 2e-10 or numpy.isnan(diff)):
@@ -74,6 +68,3 @@ if __name__ == '__main__':
     print name, description, diff, status
     if("FAILED" in status):
         exit(1)
-
-
-

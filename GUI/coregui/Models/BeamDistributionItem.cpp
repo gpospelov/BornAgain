@@ -40,7 +40,13 @@ void BeamDistributionItem::onPropertyChange(const QString &name)
             double cached_value = getRegisteredProperty(P_CACHED_VALUE).toDouble();
             PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
             cached_attribute.setAppearance(PropertyAttribute::VISIBLE);
+            // do not propagate this change back to me, or I will enter an infinite
+            // signal-slot loop
+            disconnect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
+                    this, SLOT(processSubItemPropertyChanged(QString)) );
             distribution->init_parameters(cached_value, cached_attribute);
+            connect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
+                    this, SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
         }
     }
 }
@@ -84,8 +90,13 @@ void BeamDistributionItem::onSubItemPropertyChanged(const QString &property_grou
 {
     qDebug() << "BeamWavelengthItem::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)" << property_group << property_name;
     if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
-        double value_to_cache = getSubItems()[P_DISTRIBUTION]->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
+        double value_to_cache = getSubItems()[P_DISTRIBUTION]->
+                getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
+        disconnect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
+                this, SLOT(processSubItemPropertyChanged(QString)) );
         setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
+        connect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
+                this, SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
     }
     ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
 }

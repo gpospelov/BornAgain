@@ -114,6 +114,10 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
 
 OutputData<double> *IntensityDataFunctions::applyDetectorResolution(const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
 {
+    if (origin.getRank() != 2) {
+        throw LogicErrorException("IntensityDataFunctions::applyDetectorResolution()"
+                " -> Error! Works only on two-dimensional data");
+    }
     OutputData<double > *result = origin.clone();
     boost::scoped_ptr<ConvolutionDetectorResolution> resolution(new ConvolutionDetectorResolution(resolution_function));
     resolution->applyDetectorResolution(result);

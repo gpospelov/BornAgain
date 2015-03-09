@@ -115,6 +115,9 @@ public:
     void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function);
 
+    //! Removes detector resolution function
+    void removeDetectorResolutionFunction();
+
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
     { m_sim_params = sim_params; }

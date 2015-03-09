@@ -186,6 +186,24 @@ void register_ResolutionFunction2DGaussian_class(){
                 , ( bp::arg("x"), bp::arg("y") ) );
         
         }
+        { //::ResolutionFunction2DGaussian::getSigmaX
+        
+            typedef double ( ::ResolutionFunction2DGaussian::*getSigmaX_function_type)(  ) const;
+            
+            ResolutionFunction2DGaussian_exposer.def( 
+                "getSigmaX"
+                , getSigmaX_function_type( &::ResolutionFunction2DGaussian::getSigmaX ) );
+        
+        }
+        { //::ResolutionFunction2DGaussian::getSigmaY
+        
+            typedef double ( ::ResolutionFunction2DGaussian::*getSigmaY_function_type)(  ) const;
+            
+            ResolutionFunction2DGaussian_exposer.def( 
+                "getSigmaY"
+                , getSigmaY_function_type( &::ResolutionFunction2DGaussian::getSigmaY ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

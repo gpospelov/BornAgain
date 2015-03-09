@@ -345,6 +345,11 @@ void Simulation::setDetectorResolutionFunction(
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
+void Simulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(0);
+}
+
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
 {
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();

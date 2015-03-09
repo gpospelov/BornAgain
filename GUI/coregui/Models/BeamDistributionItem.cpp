@@ -92,11 +92,7 @@ void BeamDistributionItem::onSubItemPropertyChanged(const QString &property_grou
     if(property_group == P_DISTRIBUTION && property_name == DistributionNoneItem::P_VALUE) {
         double value_to_cache = getSubItems()[P_DISTRIBUTION]->
                 getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble();
-        disconnect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
-                this, SLOT(processSubItemPropertyChanged(QString)) );
         setRegisteredProperty(P_CACHED_VALUE, value_to_cache);
-        connect(getSubItems()[P_DISTRIBUTION], SIGNAL(propertyChanged(QString)),
-                this, SLOT(processSubItemPropertyChanged(QString)), Qt::UniqueConnection);
     }
     ParameterizedItem::onSubItemPropertyChanged(property_group, property_name);
 }

@@ -22,6 +22,12 @@ TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
     handler().addParameterDistribution(paraName, distribution, 1.0, 1.0);
     EXPECT_EQ(1, handler.getTotalNumberOfSamples());
     EXPECT_EQ("",handler.getName());
+    std::vector distributions = handler.getDistributions();
+    DistributionGate distribution1 = distributions[0];
+    EXPECT_EQ(distribution1.getMax(), distribution.getMax());
+    EXPECT_EQ(distribution1.getMin(), distribution.getMin());
+    EXPECT_EQ(distribution1.getMean(), distribution.getMean());
+    EXPECT_EQ(distribution1.getName(), distribution.getName());
 
 }
 

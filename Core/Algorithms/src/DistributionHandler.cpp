@@ -31,9 +31,7 @@ void DistributionHandler::addParameterDistribution(
     if (nbr_samples > 0) {
         ParameterDistribution par_distr(param_name, distribution,
                                         nbr_samples, sigma_factor);
-        m_distributions.push_back(par_distr);
-        m_nbr_combinations *= nbr_samples;
-        m_cached_samples.push_back(par_distr.generateSamples());
+        addParameterDistribution(par_distr);
     }
 }
 

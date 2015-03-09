@@ -30,9 +30,6 @@ TEST_F(ParameterDistributionTest, DistributionGateConstructor)
 
     ParameterDistribution pd1D1(name, distribution, 0, 1.0);
     EXPECT_THROW(pd1D1.generateSamples(),OutOfBoundsException);
-//    DistributionGate distribution1(-0.1,-0.2);
-//    ParameterDistribution pd1D2(name, distribution1, 3, 0.0);
-//    EXPECT_THROW(pd1D2.generateSamples(), RuntimeErrorException);
     std::vector<ParameterSample> list = pd1D.generateSamples();
     ParameterSample parameterSample = list[0];
     EXPECT_EQ(pd1D.getDistribution()->getMean(), parameterSample.value);

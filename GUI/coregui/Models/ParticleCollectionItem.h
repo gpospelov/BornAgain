@@ -24,17 +24,8 @@ class BA_CORE_API_ ParticleCollectionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    static const QString P_DISTRIBUTED_PARAMETER;
     explicit ParticleCollectionItem(ParameterizedItem *parent=0);
     ~ParticleCollectionItem();
-
-    void onPropertyChange(const QString &name);
-
-    void onChildPropertyChange();
-public slots:
-    void updateParameterList();
-private:
-    static const QString NO_SELECTION;
 };
 
 #endif // PARTICLECOLLECTIONITEM_H

@@ -16,6 +16,9 @@
 #include "IntensityDataFunctions.h"
 #include "OutputDataFunctions.h"
 #include "MathFunctions.h"
+#include "IDetectorResolution.h"
+#include "IResolutionFunction2D.h"
+#include "ConvolutionDetectorResolution.h"
 #include <boost/scoped_ptr.hpp>
 
 void IntensityDataFunctions::setRectangularMask(OutputData<double>& data,
@@ -108,4 +111,13 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
 
     return result;
 }
+
+OutputData<double> *IntensityDataFunctions::applyDetectorResolution(const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
+{
+    OutputData<double > *result = origin.clone();
+    boost::scoped_ptr<ConvolutionDetectorResolution> resolution(new ConvolutionDetectorResolution(resolution_function));
+    resolution->applyDetectorResolution(result);
+    return result;
+}
+
 

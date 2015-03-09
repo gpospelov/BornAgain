@@ -18,7 +18,7 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataFunctions.h"
 #include "FileSystem.h"
-
+#include <boost/scoped_ptr.hpp>
 
 FunctionalTest::FunctionalTest(const FunctionalTestInfo &info)
     : m_info(info),
@@ -51,7 +51,9 @@ int FunctionalTest::analyseResults()
 {
     assert(m_simulation);
     assert(m_reference);
-    double diff = IntensityDataFunctions::getRelativeDifference(*getResult(),*m_reference);
+    boost::scoped_ptr<OutputData<double> > data(m_simulation->getIntensityData());
+
+    double diff = IntensityDataFunctions::getRelativeDifference(*data,*m_reference);
 
     std::cout << getName() << " " << getDescription() << " " << diff
               << " " << (diff>m_info.m_threshold ? "[FAILED]" : "[OK]") << std::endl;

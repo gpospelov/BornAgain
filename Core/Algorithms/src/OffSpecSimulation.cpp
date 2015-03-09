@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "OffSpecSimulation.h"
-
 #include "OutputDataFunctions.h"
+#include <boost/scoped_ptr.hpp>
 
 OffSpecSimulation::OffSpecSimulation()
 : IParameterized("OffSpecSimulation")
@@ -91,8 +91,14 @@ void OffSpecSimulation::runSimulation()
 	}
 }
 
+OutputData<double> *OffSpecSimulation::getIntensityData() const
+{
+    OutputData<double> *result = m_intensity_map.clone();
+    return result;
+}
+
 OutputData<double>* OffSpecSimulation::getPolarizedIntensityData(
-		int row, int column) const
+        int row, int column) const
 {
     const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
     OutputData<double > *result =
@@ -198,9 +204,19 @@ void OffSpecSimulation::updateIntensityMapAxes()
 
 void OffSpecSimulation::addIntegratedIntensity(size_t index)
 {
-	const OutputData<double> *intensity = m_simulation.getOutputData();
-	const OutputData<Eigen::Matrix2d> *pol_intensity =
-			m_simulation.getPolarizedOutputData();
+//	const OutputData<double> *intensity = m_simulation.getOutputData();
+//	const OutputData<Eigen::Matrix2d> *pol_intensity =
+//			m_simulation.getPolarizedOutputData();
+
+    boost::scoped_ptr<OutputData<double> > intensity(m_simulation.getOutputData()->clone());
+    boost::scoped_ptr<OutputData<Eigen::Matrix2d> > pol_intensity(m_simulation.getPolarizedOutputData()->clone());
+
+    if( getSample()->containsMagneticMaterial() ) {
+        getInstrument().applyDetectorResolution(intensity.get(), pol_intensity.get());
+    }
+    else {
+        getInstrument().applyDetectorResolution(intensity.get());
+    }
 
 	if (intensity->getRank() != 2) {
 		throw LogicErrorException("Embedded GISAS simulation does not"

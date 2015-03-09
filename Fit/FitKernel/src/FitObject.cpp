@@ -16,6 +16,7 @@
 #include "FitObject.h"
 #include "Exceptions.h"
 #include "MessageService.h"
+#include <boost/scoped_ptr.hpp>
 
 FitObject::FitObject(
     const Simulation& simulation, const OutputData<double >& real_data,
@@ -67,8 +68,9 @@ void FitObject::setRealData(const OutputData<double >& real_data)
 
 double FitObject::calculateChiSquared()
 {
-    m_chi2_module->setRealAndSimulatedData(
-        *m_real_data, *m_simulation->getOutputData());
+    boost::scoped_ptr<OutputData<double> > sim_data(m_simulation->getIntensityData());
+    m_chi2_module->setRealAndSimulatedData(*m_real_data, *sim_data.get());
+
     return m_chi2_module->calculateChiSquared();
 }
 

@@ -74,7 +74,6 @@ public:
     ~FunctionalTest();
 
     Simulation *getSimulation() { return m_simulation; }
-    const OutputData<double> *getResult() const { return m_simulation->getOutputData(); }
     const OutputData<double> *getReference() const { return m_reference; }
     std::string getName() const { return m_info.m_name; }
     std::string getDescription() const { return m_info.m_description; }

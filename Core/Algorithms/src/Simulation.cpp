@@ -204,12 +204,20 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
     mp_sample = 0;
 }
 
+OutputData<double> *Simulation::getIntensityData() const
+{
+    OutputData<double> *result = m_intensity_map.clone();
+    m_instrument.applyDetectorResolution(result);
+    return result;
+}
+
 OutputData<double>* Simulation::getPolarizedIntensityData(
         int row, int column) const
 {
     const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
     OutputData<double > *result =
             OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    m_instrument.applyDetectorResolution(result);
     return result;
 }
 
@@ -331,15 +339,15 @@ void Simulation::setDetectorParameters(const DetectorParameters& params)
     updateIntensityMapAxes();
 }
 
-//void Simulation::setDetectorResolutionFunction(
-//    IResolutionFunction2D *p_resolution_function)
-//{
-//    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-//}
 void Simulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
+
+void Simulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(0);
 }
 
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
@@ -448,13 +456,13 @@ void Simulation::runSingleSimulation()
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
         }
     }
-    if( mp_sample->containsMagneticMaterial() ) {
-        m_instrument.applyDetectorResolution(&m_intensity_map,
-                &m_polarization_output);
-    }
-    else {
-        m_instrument.applyDetectorResolution(&m_intensity_map);
-    }
+//    if( mp_sample->containsMagneticMaterial() ) {
+//        m_instrument.applyDetectorResolution(&m_intensity_map,
+//                &m_polarization_output);
+//    }
+//    else {
+//        m_instrument.applyDetectorResolution(&m_intensity_map);
+//    }
 
 }
 

@@ -52,6 +52,17 @@ void register_IntensityDataFunctions_class(){
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) ) );
         
         }
+        { //::IntensityDataFunctions::applyDetectorResolution
+        
+            typedef ::OutputData< double > * ( *applyDetectorResolution_function_type )( ::OutputData< double > const &,::IResolutionFunction2D const & );
+            
+            IntensityDataFunctions_exposer.def( 
+                "applyDetectorResolution"
+                , applyDetectorResolution_function_type( &::IntensityDataFunctions::applyDetectorResolution )
+                , ( bp::arg("origin"), bp::arg("resolution_function") )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::IntensityDataFunctions::createClippedDataSet
         
             typedef ::OutputData< double > * ( *createClippedDataSet_function_type )( ::OutputData< double > const &,double,double,double,double );
@@ -95,6 +106,7 @@ void register_IntensityDataFunctions_class(){
         }
         IntensityDataFunctions_exposer.staticmethod( "addEllipticMask" );
         IntensityDataFunctions_exposer.staticmethod( "addRectangularMask" );
+        IntensityDataFunctions_exposer.staticmethod( "applyDetectorResolution" );
         IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
         IntensityDataFunctions_exposer.staticmethod( "getRelativeDifference" );
         IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );

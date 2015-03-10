@@ -3,78 +3,54 @@
 
 #include "ParameterDistribution.h"
 #include "Distributions.h"
+#include "ParameterSample.h"
+#include "IParameterized.h"
+#include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test
 {
+
 protected:
-    ParameterDistributionTest(){}
+   ParameterDistributionTest(){}
     virtual ~ParameterDistributionTest(){}
 };
 
-
-TEST_F(ParameterDistributionTest, InitialState)
+TEST_F(ParameterDistributionTest, DistributionGateConstructor)
 {
-    DistributionGate gate(1.0, 2.0);
-    std::string par_name("name");
-    int nbr_samples(5);
-    double sigma_factor(2.0);
-    ParameterDistribution par(par_name, gate, nbr_samples, sigma_factor);
+    std::string name = "ParameterDistribution";
+    DistributionGate distribution(1.0,2.0);
+    EXPECT_THROW(ParameterDistribution(name,distribution,1.0, -1.0), RuntimeErrorException);
+    ParameterDistribution pd1D(name,distribution,1,0.0);
+    EXPECT_EQ(1.5, pd1D.getDistribution()->getMean());
+    EXPECT_EQ("DistributionGate", pd1D.getDistribution()->getName());
+    EXPECT_EQ(1.0, pd1D.getDistribution()->probabilityDensity(1));
+    EXPECT_EQ("ParameterDistribution",pd1D.getMainParameterName());
+    EXPECT_EQ(1,pd1D.getNbrSamples());
+    EXPECT_EQ(0.0, pd1D.getSigmaFactor());
 
-    EXPECT_EQ(par.getMainParameterName(), par_name);
-    EXPECT_EQ(par.getNbrSamples(), nbr_samples);
-    EXPECT_EQ(par.getSigmaFactor(), sigma_factor);
+    ParameterDistribution pd1D1(name, distribution, 0, 1.0);
+    EXPECT_THROW(pd1D1.generateSamples(),OutOfBoundsException);
+    std::vector<ParameterSample> list = pd1D.generateSamples();
+    ParameterSample parameterSample = list[0];
+    EXPECT_EQ(pd1D.getDistribution()->getMean(), parameterSample.value);
+    EXPECT_EQ(pd1D.getDistribution()->probabilityDensity(pd1D.getDistribution()->getMean()), parameterSample.weight);
+    pd1D.linkParameter("parameter");
 
-    const DistributionGate *gate2 = dynamic_cast<const DistributionGate *>(par.getDistribution());
-    EXPECT_FALSE(gate2 == 0);
-    EXPECT_EQ(gate2->getMin(), gate.getMin());
-    EXPECT_EQ(gate2->getMax(), gate.getMax());
-    EXPECT_EQ(size_t(0), par.getLinkedParameterNames().size());
+    std::vector<std::string> linked_par_names = pd1D.getLinkedParameterNames();
+    EXPECT_EQ("parameter", linked_par_names[0]);
 
-    par.linkParameter("aaa").linkParameter("bbb");
-    std::vector<std::string> linked = par.getLinkedParameterNames();
-    EXPECT_EQ(linked[0], std::string("aaa"));
-    EXPECT_EQ(linked[1], std::string("bbb"));
+
+    std::string nameOther = "ParameterDistribution2";
+    DistributionGate distributionOther(1.0,2.0);
+    ParameterDistribution pd1DOther(nameOther,distributionOther,1,0.0);
+    pd1D.operator =(pd1DOther);
+    EXPECT_EQ(pd1DOther.getDistribution()->getName(), pd1D.getDistribution()->getName());
+    EXPECT_EQ(pd1DOther.getLinkedParameterNames(), pd1D.getLinkedParameterNames());
+    EXPECT_EQ(pd1DOther.getNbrSamples(), pd1D.getNbrSamples());
+    EXPECT_EQ(pd1DOther.getName(), pd1D.getName());
+    EXPECT_EQ(pd1DOther.getMainParameterName(), pd1D.getMainParameterName());
+    EXPECT_EQ(pd1DOther.getSigmaFactor(), pd1D.getSigmaFactor());
+
 }
-
-TEST_F(ParameterDistributionTest, AssignmentOperator)
-{
-    DistributionLogNormal lognormal(1.0, 2.0);
-    std::string par_name("name");
-    int nbr_samples(2);
-    double sigma_factor(5.0);
-    ParameterDistribution par(par_name, lognormal, nbr_samples, sigma_factor);
-    par.linkParameter("aaa").linkParameter("bbb");
-
-    ParameterDistribution par2 = par;
-
-    EXPECT_EQ(par2.getMainParameterName(), par.getMainParameterName());
-    EXPECT_EQ(par2.getNbrSamples(), par.getNbrSamples());
-    EXPECT_EQ(par2.getSigmaFactor(), par.getSigmaFactor());
-    EXPECT_EQ(dynamic_cast<const DistributionLogNormal *>(par2.getDistribution())->getMean(), lognormal.getMean());
-    EXPECT_EQ(dynamic_cast<const DistributionLogNormal *>(par2.getDistribution())->getMedian(), lognormal.getMedian());
-    EXPECT_EQ(par2.getLinkedParameterNames()[0], par.getLinkedParameterNames()[0]);
-    EXPECT_EQ(par2.getLinkedParameterNames()[1], par.getLinkedParameterNames()[1]);
-}
-
-TEST_F(ParameterDistributionTest, CopyConstructor)
-{
-    DistributionLorentz lorents(1.0, 2.0);
-    std::string par_name("name");
-    int nbr_samples(2);
-    double sigma_factor(5.0);
-    ParameterDistribution par(par_name, lorents, nbr_samples, sigma_factor);
-    par.linkParameter("aaa").linkParameter("bbb");
-
-    ParameterDistribution par2(par);
-
-    EXPECT_EQ(par2.getMainParameterName(), par.getMainParameterName());
-    EXPECT_EQ(par2.getNbrSamples(), par.getNbrSamples());
-    EXPECT_EQ(par2.getSigmaFactor(), par.getSigmaFactor());
-    EXPECT_EQ(dynamic_cast<const DistributionLorentz *>(par2.getDistribution())->getMean(), lorents.getMean());
-    EXPECT_EQ(dynamic_cast<const DistributionLorentz *>(par2.getDistribution())->getHWHM(), lorents.getHWHM());
-    EXPECT_EQ(par2.getLinkedParameterNames()[0], par.getLinkedParameterNames()[0]);
-    EXPECT_EQ(par2.getLinkedParameterNames()[1], par.getLinkedParameterNames()[1]);
-}
-
 
 #endif

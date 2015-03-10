@@ -31,7 +31,7 @@ class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobModel *joModel, ProjectManager *projectManager, QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
 
     void setJobModel(JobModel *jobModel);
 

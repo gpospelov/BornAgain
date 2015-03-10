@@ -124,6 +124,9 @@ void Simulation::prepareSimulation()
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
+    if(getSample()->containsMagneticMaterial()) {
+        updatePolarizationMapAxes();
+    }
 }
 
 //! Run simulation with possible averaging over parameter distributions
@@ -180,7 +183,11 @@ void Simulation::runOMPISimulation()
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        if(getSample() && getSample()->containsMagneticMaterial()) {
+            m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        } else {
+            m_instrument.normalize(&m_intensity_map);
+        }
         m_is_normalized = true;
     }
 }
@@ -284,13 +291,20 @@ const DistributionHandler &Simulation::getDistributionHandler() const
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
-    m_polarization_output.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    m_intensity_map.setAllTo(0.);    
+}
+
+void Simulation::updatePolarizationMapAxes()
+{
+    m_polarization_output.clear();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
     }
-    m_intensity_map.setAllTo(0.);
     m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 

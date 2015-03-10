@@ -167,6 +167,7 @@ protected:
 
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
+    void updatePolarizationMapAxes();
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();

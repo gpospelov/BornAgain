@@ -36,7 +36,7 @@ bool ProgressHandlerDWBA::update()
 
     m_nitems_total++;
     m_nitems++;
-    if(m_nitems == m_report_every_nth) {
+    if(m_nitems >= m_report_every_nth) {
         continue_calculations = m_callback(m_nitems); // report to the Simulation
         m_nitems=0;
     }

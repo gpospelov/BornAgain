@@ -121,7 +121,17 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
     if(!index.isValid()) return false;
 
     const JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
-    if(jobItem->isCompleted() || jobItem->isFailed()) return false;
+    if(jobItem->isCompleted() || jobItem->isFailed() || jobItem->isRunning()) return false;
+
+    return true;
+}
+
+bool JobListWidget::jobItemCanBeRemoved(const QModelIndex &index)
+{
+    if(!index.isValid()) return false;
+
+    const JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
+    if(jobItem->isRunning()) return false;
 
     return true;
 }
@@ -129,10 +139,10 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
 //! remove job from the list
 void JobListWidget::removeJob()
 {
-    qDebug() << "JobListWidget::removeJob() ";
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
     foreach(QModelIndex index, indexList) {
-        m_jobModel->removeJob(index);
+        if(jobItemCanBeRemoved(index))
+            m_jobModel->removeJob(index);
     }
 }
 
@@ -162,7 +172,11 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
         } else {
             m_runJobAction->setDisabled(true);
         }
-        m_removeJobAction->setDisabled(false);
+        if(jobItemCanBeRemoved(item_index)) {
+            m_removeJobAction->setDisabled(false);
+        } else {
+            m_removeJobAction->setDisabled(true);
+        }
     } else {
         m_runJobAction->setDisabled(true);
         m_removeJobAction->setDisabled(true);

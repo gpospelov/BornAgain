@@ -59,6 +59,7 @@ private slots:
 private:
     void setupContextMenuActions();
     bool jobItemCanBeRun(const QModelIndex &index);
+    bool jobItemCanBeRemoved(const QModelIndex &index);
 
     JobModel *m_jobModel;
     JobListViewDelegate *m_listViewDelegate;

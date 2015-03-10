@@ -137,9 +137,10 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
         mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0) );
 
-
-    double sigma = mp_multi_layer->getLayerBottomInterface(ilayer)->
-        getRoughness()->getSigma();
+    double sigma(0.0);
+    if(const LayerRoughness *roughness  = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
+        sigma = roughness->getSigma();
+    }
     double sigma2 = -0.5*sigma*sigma;
     complex_t term1 = p_in_coeff->getScalarT() * P_out_coeff->getScalarT()
             * std::exp( sigma2*qz1*qz1 );

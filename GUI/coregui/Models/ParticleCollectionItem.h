@@ -25,7 +25,8 @@ class BA_CORE_API_ ParticleCollectionItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     explicit ParticleCollectionItem(ParameterizedItem *parent=0);
-    ~ParticleCollectionItem();
+    ~ParticleCollectionItem() {}
+    void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // PARTICLECOLLECTIONITEM_H

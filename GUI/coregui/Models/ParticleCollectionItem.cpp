@@ -30,7 +30,9 @@ ParticleCollectionItem::ParticleCollectionItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
 }
 
-ParticleCollectionItem::~ParticleCollectionItem()
+void ParticleCollectionItem::insertChildItem(int row, ParameterizedItem *item)
 {
+    ParameterizedItem::insertChildItem(row, item);
+    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+    item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DISABLED);
 }
-

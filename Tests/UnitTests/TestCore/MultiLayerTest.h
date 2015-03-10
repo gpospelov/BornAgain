@@ -155,21 +155,21 @@ TEST_F(MultiLayerTest, LayerInterfaces)
     const LayerInterface * interface0 = mLayer.getLayerInterface(0);
     EXPECT_TRUE(NULL!=interface0);
     EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ("LayerRoughness", interface0->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayer.getLayerInterface(1);
     EXPECT_TRUE(NULL!=interface1);
     EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ("LayerRoughness", interface1->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayer.getLayerInterface(2);
     EXPECT_TRUE(NULL!=interface2);
     EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ("LayerRoughness", interface2->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
@@ -177,7 +177,7 @@ TEST_F(MultiLayerTest, LayerInterfaces)
     const LayerInterface * interfaceBottom = mLayer.getLayerBottomInterface(0);
     EXPECT_TRUE(NULL!=interfaceBottom);
     EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ("LayerRoughness", interfaceBottom->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
@@ -185,7 +185,7 @@ TEST_F(MultiLayerTest, LayerInterfaces)
     const LayerInterface * interfaceTop = mLayer.getLayerTopInterface(3);
     EXPECT_TRUE(NULL!=interfaceTop);
     EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ("LayerRoughness", interfaceTop->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
@@ -262,21 +262,21 @@ TEST_F(MultiLayerTest, Clone)
     const LayerInterface * interface0 = mLayerClone->getLayerInterface(0);
     EXPECT_TRUE(NULL!=interface0);
     EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ("LayerRoughness", interface0->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayerClone->getLayerInterface(1);
     EXPECT_TRUE(NULL!=interface1);
     EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ("LayerRoughness", interface1->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayerClone->getLayerInterface(2);
     EXPECT_TRUE(NULL!=interface2);
     EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ("LayerRoughness", interface2->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
@@ -284,7 +284,7 @@ TEST_F(MultiLayerTest, Clone)
     const LayerInterface * interfaceBottom = mLayerClone->getLayerTopInterface(1);
     EXPECT_TRUE(NULL!=interfaceBottom);
     EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ("LayerRoughness", interfaceBottom->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
@@ -292,7 +292,7 @@ TEST_F(MultiLayerTest, Clone)
     const LayerInterface * interfaceTop = mLayerClone->getLayerBottomInterface(2);
     EXPECT_TRUE(NULL!=interfaceTop);
     EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ("LayerRoughness", interfaceTop->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
@@ -371,21 +371,21 @@ TEST_F(MultiLayerTest, CloneInvertB)
     const LayerInterface * interface0 = mLayerClone->getLayerInterface(0);
     EXPECT_TRUE(NULL!=interface0);
     EXPECT_EQ("LayerInterface",interface0->getName());
-    EXPECT_EQ("LayerRoughness", interface0->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface0->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interface0->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface0->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface1 = mLayerClone->getLayerInterface(1);
     EXPECT_TRUE(NULL!=interface1);
     EXPECT_EQ("LayerInterface",interface1->getName());
-    EXPECT_EQ("LayerRoughness", interface1->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface1->getRoughness());
     EXPECT_EQ(layer1.getMaterial()->getName(), interface1->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface1->getLayerBottom()->getMaterial()->getName());
 
     const LayerInterface * interface2 = mLayerClone->getLayerInterface(2);
     EXPECT_TRUE(NULL!=interface2);
     EXPECT_EQ("LayerInterface",interface2->getName());
-    EXPECT_EQ("LayerRoughness", interface2->getRoughness()->getName());
+    EXPECT_EQ(NULL, interface2->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interface2->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interface2->getLayerBottom()->getMaterial()->getName());
 
@@ -393,7 +393,7 @@ TEST_F(MultiLayerTest, CloneInvertB)
     const LayerInterface * interfaceBottom = mLayerClone->getLayerTopInterface(1);
     EXPECT_TRUE(NULL!=interfaceBottom);
     EXPECT_EQ("LayerInterface",interfaceBottom->getName());
-    EXPECT_EQ("LayerRoughness", interfaceBottom->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceBottom->getRoughness());
     EXPECT_EQ(layer0.getMaterial()->getName(), interfaceBottom->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer1.getMaterial()->getName(), interfaceBottom->getLayerBottom()->getMaterial()->getName());
 
@@ -401,7 +401,7 @@ TEST_F(MultiLayerTest, CloneInvertB)
     const LayerInterface * interfaceTop = mLayerClone->getLayerBottomInterface(2);
     EXPECT_TRUE(NULL!=interfaceTop);
     EXPECT_EQ("LayerInterface",interfaceTop->getName());
-    EXPECT_EQ("LayerRoughness", interfaceTop->getRoughness()->getName());
+    EXPECT_EQ(NULL, interfaceTop->getRoughness());
     EXPECT_EQ(layer2.getMaterial()->getName(), interfaceTop->getLayerTop()->getMaterial()->getName());
     EXPECT_EQ(layer3.getMaterial()->getName(), interfaceTop->getLayerBottom()->getMaterial()->getName());
 
@@ -439,12 +439,12 @@ TEST_F(MultiLayerTest, WithRoughness)
     const LayerRoughness * roughness0 = interface0->getRoughness();
     const LayerRoughness * roughness1 = interface1->getRoughness();
 
+    EXPECT_TRUE(roughness0);
+    EXPECT_EQ(NULL, roughness1);
+
     EXPECT_EQ(1.1, roughness0->getSigma());
     EXPECT_EQ(-7.3, roughness0->getHurstParameter());
     EXPECT_EQ(0.1, roughness0->getLatteralCorrLength());
-    EXPECT_EQ(0.0, roughness1->getSigma());
-    EXPECT_EQ(0.0, roughness1->getHurstParameter());
-    EXPECT_EQ(0.0, roughness1->getLatteralCorrLength());
 }
 
 
@@ -474,6 +474,9 @@ TEST_F(MultiLayerTest, CloneWithRoughness)
     const LayerInterface * interface1 = mLayerClone->getLayerInterface(1);
     const LayerRoughness * roughness0 = interface0->getRoughness();
     const LayerRoughness * roughness1 = interface1->getRoughness();
+
+    EXPECT_TRUE(roughness0);
+    EXPECT_TRUE(roughness1);
 
     EXPECT_EQ(-2.1, roughness0->getSigma());
     EXPECT_EQ(7.3, roughness0->getHurstParameter());

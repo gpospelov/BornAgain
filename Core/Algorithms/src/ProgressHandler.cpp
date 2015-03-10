@@ -50,8 +50,8 @@ bool ProgressHandler::update(int n)
 
     m_nitems += n;
 
-    //std::cout << "ProgressHandler::update " << m_nitems << std::endl;
     int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
+    std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems << " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
     if(progress != m_current_progress) {
         m_current_progress = progress;
         if(m_callback) {

@@ -25,17 +25,8 @@ TEST_F(LatticeBasisTest, LatticeBasisDefaultConstructor)
     std::vector<kvector_t > positions;
     positions.push_back(kvector_t(0.0,0.0,0.0));
     EXPECT_EQ("LatticeBasis",lb->getName());
-    lb->addParticle(particle, positions);
-    EXPECT_EQ(particle.getMaterial(),lb->getParticle(0)->getAmbientMaterial());
-    EXPECT_EQ(particle.getName(),lb->getParticle(0)->getName());
-    EXPECT_EQ(particle.getTransform3D(),lb->getParticle(0)->getTransform3D());
-    EXPECT_EQ(positions, lb->getParticlePositions(0));
-
-    HomogeneousMaterial material("Air",0.0,0.0);
-    lb->setAmbientMaterial(material);
-    EXPECT_EQ("Air", lb->getAmbientMaterial()->getName());
-    EXPECT_EQ(1.0, lb->getAmbientMaterial()->getRefractiveIndex());
-
+    EXPECT_EQ(0, lb->getAmbientMaterial());
+    EXPECT_EQ(0, lb->getNbrParticles());
 
     delete lb;
 

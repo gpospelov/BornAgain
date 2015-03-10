@@ -8,6 +8,7 @@
 #include "CVectorTest.h"
 #include "DetectorTest.h"
 #include "DistributionsTest.h"
+#include "DistributionHandlerTest.h"
 #include "DWBASimulationTest.h"
 #include "FormFactorTest.h"
 #include "InstrumentTest.h"

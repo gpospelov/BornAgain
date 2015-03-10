@@ -424,3 +424,7 @@
 
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
 | 2015-01-30 11:26:18 | jcnsopc126 | linuxx8664gcc | 0  | 18.951   | 0.360        | 2.433        | 1.451        | 0.416        | 2.214        | 1.808        | 0.530        | 8.132        | 1.607        |
+
+# After introducing zero pointer for roughness
+| 2015-03-10 14:23:51 | jcnsopc126 | linuxx8664gcc | 0  | 15.987   | 0.352        | 1.709        | 1.059        | 0.468        | 2.192        | 0.264        | 0.522        | 7.944        | 1.478        |
+| 2015-03-10 14:24:10 | jcnsopc126 | linuxx8664gcc | 0  | 16.347   | 0.358        | 1.727        | 1.061        | 0.477        | 2.419        | 0.278        | 0.576        | 7.953        | 1.498        |

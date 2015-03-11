@@ -124,6 +124,9 @@ void Simulation::prepareSimulation()
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
+    if(getSample()->containsMagneticMaterial()) {
+        updatePolarizationMapAxes();
+    }
 }
 
 //! Run simulation with possible averaging over parameter distributions
@@ -180,7 +183,11 @@ void Simulation::runOMPISimulation()
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        if(getSample() && getSample()->containsMagneticMaterial()) {
+            m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        } else {
+            m_instrument.normalize(&m_intensity_map);
+        }
         m_is_normalized = true;
     }
 }
@@ -204,12 +211,20 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
     mp_sample = 0;
 }
 
+OutputData<double> *Simulation::getIntensityData() const
+{
+    OutputData<double> *result = m_intensity_map.clone();
+    m_instrument.applyDetectorResolution(result);
+    return result;
+}
+
 OutputData<double>* Simulation::getPolarizedIntensityData(
         int row, int column) const
 {
     const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
     OutputData<double > *result =
             OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    m_instrument.applyDetectorResolution(result);
     return result;
 }
 
@@ -276,13 +291,20 @@ const DistributionHandler &Simulation::getDistributionHandler() const
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
-    m_polarization_output.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    m_intensity_map.setAllTo(0.);    
+}
+
+void Simulation::updatePolarizationMapAxes()
+{
+    m_polarization_output.clear();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
     }
-    m_intensity_map.setAllTo(0.);
     m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
@@ -331,15 +353,15 @@ void Simulation::setDetectorParameters(const DetectorParameters& params)
     updateIntensityMapAxes();
 }
 
-//void Simulation::setDetectorResolutionFunction(
-//    IResolutionFunction2D *p_resolution_function)
-//{
-//    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-//}
 void Simulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
+
+void Simulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(0);
 }
 
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
@@ -448,13 +470,13 @@ void Simulation::runSingleSimulation()
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
         }
     }
-    if( mp_sample->containsMagneticMaterial() ) {
-        m_instrument.applyDetectorResolution(&m_intensity_map,
-                &m_polarization_output);
-    }
-    else {
-        m_instrument.applyDetectorResolution(&m_intensity_map);
-    }
+//    if( mp_sample->containsMagneticMaterial() ) {
+//        m_instrument.applyDetectorResolution(&m_intensity_map,
+//                &m_polarization_output);
+//    }
+//    else {
+//        m_instrument.applyDetectorResolution(&m_intensity_map);
+//    }
 
 }
 

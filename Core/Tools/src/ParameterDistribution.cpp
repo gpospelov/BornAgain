@@ -55,7 +55,7 @@ ParameterDistribution& ParameterDistribution::operator=(
         const ParameterDistribution& other)
 {
     if (this != &other) {
-        m_name = other.m_name;
+        this->m_name = other.m_name;
         m_nbr_samples = other.m_nbr_samples;
         m_sigma_factor = other.m_sigma_factor;
         mP_distribution.reset(other.mP_distribution->clone());

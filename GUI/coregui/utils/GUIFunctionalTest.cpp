@@ -59,7 +59,9 @@ void GUIFunctionalTest::runTest()
 
 int GUIFunctionalTest::analyseResults()
 {
-    double diff = IntensityDataFunctions::getRelativeDifference(*m_domain_simulation->getOutputData(),*m_reference_simulation->getOutputData());
+    boost::scoped_ptr<OutputData<double> > domain_data(m_domain_simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > reference_data(m_reference_simulation->getIntensityData());
+    double diff = IntensityDataFunctions::getRelativeDifference(*domain_data,*reference_data);
 
     std::cout << m_name<< " " << " " << diff
               << " " << (diff>m_threshold ? "[FAILED]" : "[OK]") << std::endl;

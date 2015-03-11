@@ -184,6 +184,16 @@ void register_Simulation_class(){
                 , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
         
         }
+        { //::Simulation::addParameterDistribution
+        
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::ParameterDistribution const & ) ;
+            
+            Simulation_exposer.def( 
+                "addParameterDistribution"
+                , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
+                , ( bp::arg("par_distr") ) );
+        
+        }
         { //::Simulation::clone
         
             typedef ::Simulation * ( ::Simulation::*clone_function_type)(  ) const;
@@ -194,6 +204,16 @@ void register_Simulation_class(){
                 , clone_function_type(&::Simulation::clone)
                 , default_clone_function_type(&Simulation_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Simulation::getDistributionHandler
+        
+            typedef ::DistributionHandler const & ( ::Simulation::*getDistributionHandler_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getDistributionHandler"
+                , getDistributionHandler_function_type( &::Simulation::getDistributionHandler )
+                , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
         { //::Simulation::getInstrument
@@ -271,6 +291,15 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "prepareSimulation"
                 , prepareSimulation_function_type( &::Simulation::prepareSimulation ) );
+        
+        }
+        { //::Simulation::removeDetectorResolutionFunction
+        
+            typedef void ( ::Simulation::*removeDetectorResolutionFunction_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "removeDetectorResolutionFunction"
+                , removeDetectorResolutionFunction_function_type( &::Simulation::removeDetectorResolutionFunction ) );
         
         }
         { //::Simulation::runOMPISimulation

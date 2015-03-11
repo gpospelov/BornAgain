@@ -162,9 +162,14 @@ void MultiLayer::addLayerWithTopRoughness(
     if (getNumberOfLayers())
     {
         const Layer *p_last_layer = m_layers.back();
-        LayerInterface *interface =
-            LayerInterface::createRoughInterface(
+        LayerInterface *interface(0);
+        if(roughness.getSigma() != 0.0) {
+            interface = LayerInterface::createRoughInterface(
                 p_last_layer, p_new_layer, roughness);
+        } else {
+            interface = LayerInterface::createSmoothInterface(
+                p_last_layer, p_new_layer);
+        }
         addAndRegisterInterface(interface);
         addAndRegisterLayer(p_new_layer);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );

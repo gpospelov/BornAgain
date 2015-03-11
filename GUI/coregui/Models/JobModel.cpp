@@ -96,7 +96,7 @@ void JobModel::runJob(const QModelIndex &index)
 
 void JobModel::cancelJob(const QModelIndex &index)
 {
-    qDebug() << "NJobModel::cancelJob(const QModelIndex &index)";
+    qDebug() << "JobModel::cancelJob(const QModelIndex &index)";
     m_queue_data->cancelJob(getJobItemForIndex(index)->getIdentifier());
 }
 

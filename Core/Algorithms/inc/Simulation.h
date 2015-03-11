@@ -69,18 +69,17 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Returns detector intensity map for all scan parameters
+    //! Returns detector intensity map for all scan parameters (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getIntensityData() const
-    { return m_intensity_map.clone(); }
+    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
+    OutputData<double>* getIntensityData() const;
 
-    //! returns component of polarized intensity map
+    //! returns component of polarized intensity map (apply detector resolution first)
     OutputData<double>* getPolarizedIntensityData(int row, int column) const;
 
 #ifndef GCCXML_SKIP_THIS
-    //! Returns polarized intensity map
+    //! Returns polarized intensity map (no detector resolution)
     const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
         return &m_polarization_output;
     }
@@ -113,10 +112,11 @@ public:
     { return m_sim_params; }
 
     //! Define resolution function for detector
-//    void setDetectorResolutionFunction(
-//        IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function);
+
+    //! Removes detector resolution function
+    void removeDetectorResolutionFunction();
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
@@ -167,6 +167,7 @@ protected:
 
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
+    void updatePolarizationMapAxes();
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();

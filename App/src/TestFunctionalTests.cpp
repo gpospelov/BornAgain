@@ -18,6 +18,8 @@
 #include "IsGISAXSTools.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
+#include "IFunctionalTest.h"
+#include <boost/scoped_ptr.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -35,10 +37,11 @@ void TestFunctionalTests::execute()
 
         IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-        double diff = IntensityDataFunctions::getRelativeDifference(*test->getResult(), *test->getReference());
+        boost::scoped_ptr<OutputData<double> > result_data(test->getSimulation()->getIntensityData());
+        double diff = IntensityDataFunctions::getRelativeDifference(*result_data.get(), *test->getReference());
         std::cout << "diff: " << diff << std::endl;
 
-        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
+        IsGISAXSTools::drawOutputDataComparisonResults( *result_data.get(),
             *test->getReference(), test->getName(), test->getDescription());
    }
 }

@@ -158,23 +158,31 @@ bool ProjectDocument::save()
 }
 
 
-bool ProjectDocument::load()
+bool ProjectDocument::load(const QString &project_file_name)
 {
-    //qDebug() << "ProjectDocument::load() -> " << getProjectFileName();
+    bool success_read(false);
+    m_error_message.clear();
+    setProjectFileName(project_file_name);
 
     QFile file(getProjectFileName());
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        //qDebug() << "ProjectDocument::openExistingDocument -> Error. Can't open file" << getProjectFileName();
-        return 0;
+        m_error_message = QString("Can't open '%1'. Wrong permissions or binary file.")
+                .arg(project_file_name);
+        return false;
     }
 
-    //ProjectDocument *result = new ProjectDocument(info.path(), info.baseName());
+    try{
+        // loading project file
+        success_read = readFrom(&file);
+        file.close();
 
-    bool success_read = readFrom(&file);
-    file.close();
-
-    // loading non-xml data
-    loadOutputData();
+        // loading accompanying non-xml data
+        loadOutputData();
+    } catch(const std::exception &ex) {
+        m_error_message = QString("Exception was thrown with the error message '%1'")
+                .arg(QString(ex.what()));
+        success_read = false;
+    }
 
     return success_read;
 }
@@ -221,8 +229,10 @@ bool ProjectDocument::readFrom(QIODevice *device)
         }
     }
 
-    if (reader.hasError())
-        throw GUIHelpers::Error(reader.errorString());
+    if (reader.hasError()) {
+        m_error_message = QString("File parse error with error message '%1").arg(reader.errorString());
+        return false;
+    }
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );

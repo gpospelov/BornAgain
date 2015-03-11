@@ -193,17 +193,39 @@ void ProjectManager::openProject(QString fileName)
     qDebug() << "ProjectManager::openProject()" << fileName;
     if( !closeCurrentProject()) return;
 
+//    if(fileName.isEmpty()) {
+//        fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
+//                                                    getDefaultProjectPath(),
+//                                         tr("BornAgain project Files (*.pro)"));
+//    }
+
     if(fileName.isEmpty()) {
-        fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
-                                                    getDefaultProjectPath(),
-                                         tr("BornAgain project Files (*.pro)"));
+        QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
+                             tr("File name is empty."));
+        return;
+    }
+
+    QFile fin(fileName);
+    if(!fin.exists()) {
+        QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
+                             QString("File '%1' doesn't exist").arg(fileName));
+        return;
     }
 
     if(!fileName.isEmpty()) {
         createNewProject();
-        m_project_document->setProjectFileName(fileName);
-        m_project_document->load();
-        emit modified();
+        bool success_read = m_project_document->load(fileName);
+        if(success_read) {
+            emit modified();
+        } else {
+            QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
+                                 QString("Can't load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
+            delete m_project_document;
+            m_project_document = 0;
+            m_mainWindow->resetModels();
+            createNewProject();
+            return;
+        }
     }
 }
 

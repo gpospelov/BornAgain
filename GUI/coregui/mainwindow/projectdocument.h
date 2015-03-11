@@ -53,7 +53,7 @@ public:
     ProjectDocument(const QString &path, const QString &name);
 
     bool save();
-    bool load();
+    bool load(const QString &project_file_name);
 
     QString getProjectPath() const { return m_project_path; }
     QString getProjectName() const { return m_project_name; }
@@ -72,6 +72,8 @@ public:
     void setJobModel(JobModel *model);
 
     bool hasValidNameAndPath();
+
+    QString getErrorMessage() const { return m_error_message; }
 
 signals:
     void modified();
@@ -94,6 +96,7 @@ private:
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
     bool m_modified;
+    QString m_error_message;
 };
 
 

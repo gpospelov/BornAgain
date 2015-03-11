@@ -265,7 +265,7 @@ void MainWindow::createMaterialModel()
 //    m_materialModel->addMaterial("Air", 0.0, 0.0);
 //    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
 //    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-//    m_materialEditor = new MaterialEditor(m_materialModel);
+    m_materialEditor = new MaterialEditor(m_materialModel);
 }
 
 void MainWindow::createSampleModel()

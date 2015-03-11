@@ -219,7 +219,7 @@ void ProjectManager::openProject(QString fileName)
             emit modified();
         } else {
             QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
-                                 QString("Can't load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
+                                 QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
             delete m_project_document;
             m_project_document = 0;
             m_mainWindow->resetModels();

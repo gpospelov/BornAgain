@@ -179,8 +179,8 @@ bool ProjectDocument::load(const QString &project_file_name)
         // loading accompanying non-xml data
         loadOutputData();
     } catch(const std::exception &ex) {
-        m_error_message = QString("Exception was thrown with the error message '%1'")
-                .arg(QString(ex.what()));
+        m_error_message.append(QString("Exception was thrown with the error message '%1'")
+                .arg(QString(ex.what())));
         success_read = false;
     }
 
@@ -207,8 +207,19 @@ bool ProjectDocument::readFrom(QIODevice *device)
     while (!reader.atEnd()) {
         reader.readNext();
         if (reader.isStartElement()) {
-
-            if (reader.name() == ProjectDocumentXML::InfoTag) {
+            if (reader.name() == ProjectDocumentXML::BornAgainTag) {
+                const QString version = reader.attributes()
+                        .value(ProjectDocumentXML::BornAgainVersionAttribute).toString();
+                if(version != GUIHelpers::getBornAgainVersionString()) {
+                    m_error_message.append(
+                        QString("Given project was created using BornAgain ver. %1").arg(version));
+                    m_error_message.append(
+                        QString(" which is different from the version %1 you are currently using.")
+                                .arg(GUIHelpers::getBornAgainVersionString()));
+                    m_error_message.append(QString(" At the moment we do not support import from older versions.\n\n"));
+                }
+            }
+            else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             }
             else if(reader.name() == SessionXML::MaterialModelTag) {
@@ -230,7 +241,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
     }
 
     if (reader.hasError()) {
-        m_error_message = QString("File parse error with error message '%1").arg(reader.errorString());
+        m_error_message.append(QString("File parse error with error message '%1").arg(reader.errorString()));
         return false;
     }
 
@@ -248,7 +259,7 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("BornAgain");
-    QString version_string = QString("%1.%2.%3").arg(BornAgain::GetMajorVersionNumber()).arg(BornAgain::GetMinorVersionNumber()).arg(BornAgain::GetPatchVersionNumber());
+    QString version_string = GUIHelpers::getBornAgainVersionString();
     writer.writeAttribute("Version", version_string);
 
     writer.writeStartElement(ProjectDocumentXML::InfoTag);

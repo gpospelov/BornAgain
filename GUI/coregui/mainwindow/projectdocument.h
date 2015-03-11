@@ -30,8 +30,10 @@ class JobModel;
 
 namespace ProjectDocumentXML
 {
-    const QString InfoTag("DocumentInfo");
-    const QString InfoNameAttribute("ProjectName");
+const QString BornAgainTag("BornAgain");
+const QString BornAgainVersionAttribute("Version");
+const QString InfoTag("DocumentInfo");
+const QString InfoNameAttribute("ProjectName");
 }
 
 

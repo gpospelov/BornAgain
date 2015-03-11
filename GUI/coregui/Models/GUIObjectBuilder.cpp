@@ -240,7 +240,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
         }
     }
     else if(parent->modelType() == Constants::ParticleLayoutType
-         || parent->modelType() == Constants::ParticleCollectionType
+         || parent->modelType() == Constants::ParticleCompositionType
          || parent->modelType() == Constants::ParticleDistributionType){
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
@@ -348,10 +348,10 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     ParameterizedItem *item(0);
     if(parent) {
-        item = m_sampleModel->insertNewItem(Constants::ParticleCollectionType,
+        item = m_sampleModel->insertNewItem(Constants::ParticleCompositionType,
                                          m_sampleModel->indexOfItem(parent));
     } else {
-        item = m_sampleModel->insertNewItem(Constants::ParticleCollectionType);
+        item = m_sampleModel->insertNewItem(Constants::ParticleCompositionType);
     }
     item->setItemName(sample->getName().c_str());
 

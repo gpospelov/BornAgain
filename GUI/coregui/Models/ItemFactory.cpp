@@ -21,7 +21,7 @@
 #include "TransformationItem.h"
 #include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
-#include "ParticleCollectionItem.h"
+#include "ParticleCompositionItem.h"
 #include "ParticleDistributionItem.h"
 #include "DistributionItem.h"
 #include "InterferenceFunctionItems.h"
@@ -59,7 +59,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
     result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
-    result[Constants::ParticleCollectionType] = &createInstance<ParticleCollectionItem>;
+    result[Constants::ParticleCompositionType] = &createInstance<ParticleCompositionItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
     result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;

@@ -232,8 +232,8 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Particle Collection" icon="images/ParticleCoreShell.png">
-            <widget class="ParticleCollection">
+        <categoryentry name="Particle Composition" icon="images/ParticleCoreShell.png">
+            <widget class="ParticleComposition">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

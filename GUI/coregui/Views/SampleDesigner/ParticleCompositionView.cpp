@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ParticleCollectionView.cpp
-//! @brief     Implements class ParticleCollectionView
+//! @file      coregui/Views/SampleDesigner/ParticleCompositionView.cpp
+//! @brief     Implements class ParticleCompositionView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,16 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCollectionView.h"
+#include "ParticleCompositionView.h"
 #include "ParameterizedItem.h"
 #include <QDebug>
 
 
-ParticleCollectionView::ParticleCollectionView(QGraphicsItem *parent)
+ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
-    setName(Constants::ParticleCollectionType);
-    setLabel("Particle\ncollection");
+    setName(Constants::ParticleCompositionType);
+    setLabel("Particle\ncomposition");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleCoreShellType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
@@ -32,10 +32,10 @@ ParticleCollectionView::ParticleCollectionView(QGraphicsItem *parent)
 }
 
 
-void ParticleCollectionView::addView(IView *childView, int /* row */)
+void ParticleCompositionView::addView(IView *childView, int /* row */)
 {
     int index = childView->getParameterizedItem()->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-    qDebug() << "ParticleCollectionView::addView()" << index;
+    qDebug() << "ParticleCompositionView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 
 }

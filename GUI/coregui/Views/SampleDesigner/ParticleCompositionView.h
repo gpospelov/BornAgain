@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleCollectionItem.h
-//! @brief     Defines class ParticleCollectionItem
+//! @file      coregui/Views/SampleDesigner/ParticleCompositionView.h
+//! @brief     Defines class ParticleCompositionView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECOLLECTIONITEM_H
-#define PARTICLECOLLECTIONITEM_H
+#ifndef PARTICLECOMPOSITIONVIEW_H
+#define PARTICLECOMPOSITIONVIEW_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "ConnectableView.h"
 
-#include <QStringList>
-
-class BA_CORE_API_ ParticleCollectionItem : public ParameterizedGraphicsItem
+//! Class representing view of Particle item
+class BA_CORE_API_ ParticleCompositionView : public ConnectableView
 {
     Q_OBJECT
+
 public:
-    explicit ParticleCollectionItem(ParameterizedItem *parent=0);
-    ~ParticleCollectionItem() {}
-    void insertChildItem(int row, ParameterizedItem *item);
+    enum { TYPE = DesignerHelper::PARTICLE };
+
+    ParticleCompositionView(QGraphicsItem *parent = 0);
+
+    int type() const { return TYPE; }
+
+    void addView(IView *childView, int row = 0);
+
 };
 
-#endif // PARTICLECOLLECTIONITEM_H
+
+#endif
 

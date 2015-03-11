@@ -47,7 +47,7 @@ private:
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
     ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
                                      double &depth, double &abundance) const;
-    ParticleComposition *buildParticleCollection(const ParameterizedItem &item, double &depth,
+    ParticleComposition *buildParticleComposition(const ParameterizedItem &item, double &depth,
                                           double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
                                                     double &abundance) const;
@@ -56,7 +56,7 @@ private:
     Beam *buildBeam(const ParameterizedItem &item) const;
     void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
                              double abundance, const Particle& particle) const;
-    void addParticleToCollection(ParticleComposition *result, ParameterizedItem *particle_item,
+    void addParticleToParticleComposition(ParticleComposition *result, ParameterizedItem *particle_item,
                                  const IParticle& particle) const;
 };
 

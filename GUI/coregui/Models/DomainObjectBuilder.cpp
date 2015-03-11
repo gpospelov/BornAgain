@@ -104,9 +104,9 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
             if (part_distr.get()) {
                 result->addParticle(*part_distr, depth, abundance);
             }
-        } else if (children[i]->modelType() == Constants::ParticleCollectionType) {
+        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
             boost::scoped_ptr<ParticleComposition> part_coll(
-                buildParticleCollection(*children[i], depth, abundance));
+                buildParticleComposition(*children[i], depth, abundance));
             if (part_coll.get()) {
                 result->addParticle(*part_coll, depth, abundance);
             }
@@ -178,10 +178,10 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     return result;
 }
 
-ParticleComposition *DomainObjectBuilder::buildParticleCollection(const ParameterizedItem &item,
+ParticleComposition *DomainObjectBuilder::buildParticleComposition(const ParameterizedItem &item,
                                                            double &depth, double &abundance) const
 {
-    ParticleComposition *result = TransformToDomain::createParticleCollection(item, depth, abundance);
+    ParticleComposition *result = TransformToDomain::createParticleComposition(item, depth, abundance);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         double tmp_depth(0.0), tmp_abundance(0.0);
@@ -190,17 +190,17 @@ ParticleComposition *DomainObjectBuilder::buildParticleCollection(const Paramete
             boost::scoped_ptr<Particle> particle(
                 buildParticle(*particle_item, tmp_depth, tmp_abundance));
             if (particle.get()) {
-                addParticleToCollection(result, particle_item, *particle);
+                addParticleToParticleComposition(result, particle_item, *particle);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *particle_item = children[i];
             boost::scoped_ptr<ParticleCoreShell> coreshell(
                 buildParticleCoreShell(*children[i], tmp_depth, tmp_abundance));
             if (coreshell.get()) {
-                addParticleToCollection(result, particle_item, *coreshell);
+                addParticleToParticleComposition(result, particle_item, *coreshell);
             }
         } else {
-            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCollection()"
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
                                     " -> Error! Not implemented");
         }
     }
@@ -308,7 +308,7 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
     }
 }
 
-void DomainObjectBuilder::addParticleToCollection(ParticleComposition *result,
+void DomainObjectBuilder::addParticleToParticleComposition(ParticleComposition *result,
                                                   ParameterizedItem *particle_item,
                                                   const IParticle &particle) const
 {

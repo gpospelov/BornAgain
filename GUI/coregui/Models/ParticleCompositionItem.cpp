@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleCollectionItem.cpp
-//! @brief     Implements class ParticleCollectionItem
+//! @file      coregui/Models/ParticleCompositionItem.cpp
+//! @brief     Implements class ParticleCompositionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCollectionItem.h"
+#include "ParticleCompositionItem.h"
 #include "ParticleItem.h"
 
-ParticleCollectionItem::ParticleCollectionItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleCollectionType, parent)
+ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
+    : ParameterizedGraphicsItem(Constants::ParticleCompositionType, parent)
 {
-    setItemName(Constants::ParticleCollectionType);
+    setItemName(Constants::ParticleCompositionType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerProperty(ParticleItem::P_DEPTH, 0.0);
@@ -30,7 +30,7 @@ ParticleCollectionItem::ParticleCollectionItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
 }
 
-void ParticleCollectionItem::insertChildItem(int row, ParameterizedItem *item)
+void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);

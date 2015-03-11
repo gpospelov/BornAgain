@@ -51,7 +51,7 @@ public:
 
     void visit(const Particle *sample);
     void visit(const ParticleDistribution *sample);
-    void visit(const LatticeBasis *sample);
+    void visit(const ParticleComposition *sample);
     void visit(const MesoCrystal *sample);
     void visit(const ParticleCoreShell *sample);
 

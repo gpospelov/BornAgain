@@ -16,6 +16,7 @@
 #include "IsGISAXS06Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
+#include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"
@@ -24,7 +25,7 @@
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"
 
-#include <LatticeBasis.h>
+
 
 
 // -----------------------------------------------------------------------------
@@ -91,7 +92,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     positions.push_back(position_1);
     positions.push_back(position_2);
-    LatticeBasis basis;
+    ParticleComposition basis;
     basis.addParticle(cylinder, positions);
 
     ParticleLayout particle_layout;

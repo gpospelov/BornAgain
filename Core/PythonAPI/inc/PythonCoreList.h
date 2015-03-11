@@ -72,7 +72,7 @@
 #include "Lattice.h"
 #include "Lattice1DIFParameters.h"
 #include "Lattice2DIFParameters.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MathFunctions.h"

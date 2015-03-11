@@ -211,7 +211,7 @@ void PyGenVisitor::visit(const MultiLayer *sample)
     m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const LatticeBasis *sample)
+void PyGenVisitor::visit(const ParticleComposition *sample)
 {
     m_label->setLabel(sample);
 }
@@ -266,7 +266,7 @@ std::string PyGenVisitor::defineGetSample() const
     result << defineFormFactors();
     result << defineParticles();
     result << defineCoreShellParticles();
-    result << defineLatticeBases();
+    result << defineParticleCompositions();
     result << defineInterferenceFunctions();
     result << defineParticleLayouts();
     result << defineRoughnesses();
@@ -686,18 +686,18 @@ std::string PyGenVisitor::defineCoreShellParticles() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineLatticeBases() const
+std::string PyGenVisitor::defineParticleCompositions() const
 {
-    if (m_label->getLatticeBasisMap()->size() == 0) return "";
+    if (m_label->getParticleCompositionMap()->size() == 0) return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n\t# Defining collection of particles with specific positions\n";
-    std::map<const LatticeBasis *,std::string>::iterator it =
-            m_label->getLatticeBasisMap()->begin();
+    std::map<const ParticleComposition *,std::string>::iterator it =
+            m_label->getParticleCompositionMap()->begin();
 
-    while (it != m_label->getLatticeBasisMap()->end())
+    while (it != m_label->getParticleCompositionMap()->end())
     {
-        result << "\t" << it->second << " = LatticeBasis()\n";
+        result << "\t" << it->second << " = ParticleComposition()\n";
         for (size_t i=0; i<it->first->getNbrParticles(); ++i) {
             std::vector<kvector_t> position_vector = it->first->getParticlePositions(i);
             for (size_t j=0; j<position_vector.size(); ++j) {

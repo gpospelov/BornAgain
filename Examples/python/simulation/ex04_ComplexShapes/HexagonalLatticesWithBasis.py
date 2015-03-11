@@ -25,7 +25,7 @@ def get_sample():
 
     pos0 = kvector_t(0.0, 0.0, 0.0)
     pos1 = kvector_t(radius, radius, numpy.sqrt(3.0)*radius)
-    basis = LatticeBasis()
+    basis = ParticleComposition()
     basis.addParticle(sphere, [pos0, pos1])
     particle_layout.addParticle(basis)
 

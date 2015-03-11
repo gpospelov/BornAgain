@@ -342,9 +342,9 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     m_itemToSample[coreshellItem] = sample;
 }
 
-void GUIObjectBuilder::visit(const LatticeBasis *sample)
+void GUIObjectBuilder::visit(const ParticleComposition *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const LatticeBasis *)"  << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleComposition *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     ParameterizedItem *item(0);
     if(parent) {

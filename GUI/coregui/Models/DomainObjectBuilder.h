@@ -27,7 +27,7 @@ class Particle;
 class IInterferenceFunction;
 class Beam;
 class ParticleCoreShell;
-class LatticeBasis;
+class ParticleComposition;
 class ParticleDistribution;
 class ParameterizedItem;
 class LayerRoughness;
@@ -47,7 +47,7 @@ private:
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
     ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
                                      double &depth, double &abundance) const;
-    LatticeBasis *buildParticleCollection(const ParameterizedItem &item, double &depth,
+    ParticleComposition *buildParticleCollection(const ParameterizedItem &item, double &depth,
                                           double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
                                                     double &abundance) const;
@@ -56,7 +56,7 @@ private:
     Beam *buildBeam(const ParameterizedItem &item) const;
     void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
                              double abundance, const Particle& particle) const;
-    void addParticleToCollection(LatticeBasis *result, ParameterizedItem *particle_item,
+    void addParticleToCollection(ParticleComposition *result, ParameterizedItem *particle_item,
                                  const IParticle& particle) const;
 };
 

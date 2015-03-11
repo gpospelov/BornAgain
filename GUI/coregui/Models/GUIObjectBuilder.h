@@ -59,7 +59,7 @@ public:
     void visit(const Particle *);
     void visit(const ParticleDistribution *);
     void visit(const ParticleCoreShell *);
-    void visit(const LatticeBasis *);
+    void visit(const ParticleComposition *);
 
     void visit(const ParticleInfo *);
 

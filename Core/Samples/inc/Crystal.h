@@ -19,7 +19,7 @@
 #include "IClusteredParticles.h"
 #include "Particle.h"
 #include "Lattice.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 
 
 //! @class Crystal
@@ -29,7 +29,7 @@
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
-    Crystal(const LatticeBasis& lattice_basis, const Lattice& lattice);
+    Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
     virtual Crystal *clone() const;
@@ -55,7 +55,7 @@ public:
 
     Lattice getTransformedLattice() const;
 
-    const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
+    const ParticleComposition *getLatticeBasis() const { return mp_lattice_basis; }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
@@ -70,7 +70,7 @@ public:
 
 private:
     //! Private constructor
-    Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
+    Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);
 
     //! Propagates a transformation to child particles
     virtual void applyTransformationToSubParticles(
@@ -78,7 +78,7 @@ private:
 
     Lattice m_lattice;
     std::auto_ptr<Geometry::Transform3D> mP_transform;
-    LatticeBasis *mp_lattice_basis;
+    ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };
 

@@ -67,7 +67,7 @@ def run_simulation_centered():
     cylinder = Particle(mParticle, cylinder_ff)
     position1 = kvector_t(0.0, 0.0, 0.0)
     position2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
-    basis = LatticeBasis()
+    basis = ParticleComposition()
     basis.addParticle(cylinder, [position1, position2])
 
     particle_layout = ParticleLayout()

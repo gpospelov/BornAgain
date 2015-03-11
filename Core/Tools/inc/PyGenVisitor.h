@@ -64,7 +64,7 @@ public:
     void visit(const LayerInterface *sample){ (void)sample; }
     void visit(const LayerRoughness *sample);
     void visit(const MultiLayer *sample);
-    void visit(const LatticeBasis *sample);
+    void visit(const ParticleComposition *sample);
     void visit(const MesoCrystal *sample);
     void visit(const Particle *sample);
     void visit(const ParticleCoreShell *sample);
@@ -81,7 +81,7 @@ private:
     std::string defineFormFactors() const;
     std::string defineParticles() const;
     std::string defineCoreShellParticles() const;
-    std::string defineLatticeBases() const;
+    std::string defineParticleCompositions() const;
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;

@@ -20,7 +20,7 @@
 
 #include <boost/scoped_ptr.hpp>
 
-Crystal::Crystal(const LatticeBasis& lattice_basis,
+Crystal::Crystal(const ParticleComposition& lattice_basis,
         const Lattice& lattice)
 : m_lattice(lattice)
 , m_dw_factor(0.0)
@@ -89,7 +89,7 @@ void Crystal::applyTransformation(const Geometry::Transform3D& transform)
     applyTransformationToSubParticles(transform);
 }
 
-Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
+Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
 : m_lattice(lattice)
 , m_dw_factor(0.0)
 {

@@ -113,7 +113,7 @@ void SamplePrintVisitor::visit(const ParticleDistribution *sample)
 }
 
 
-void SamplePrintVisitor::visit(const LatticeBasis *sample)
+void SamplePrintVisitor::visit(const ParticleComposition *sample)
 {
     print_default(sample);
 }

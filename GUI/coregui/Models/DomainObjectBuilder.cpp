@@ -105,7 +105,7 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
                 result->addParticle(*part_distr, depth, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleCollectionType) {
-            boost::scoped_ptr<LatticeBasis> part_coll(
+            boost::scoped_ptr<ParticleComposition> part_coll(
                 buildParticleCollection(*children[i], depth, abundance));
             if (part_coll.get()) {
                 result->addParticle(*part_coll, depth, abundance);
@@ -178,10 +178,10 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     return result;
 }
 
-LatticeBasis *DomainObjectBuilder::buildParticleCollection(const ParameterizedItem &item,
+ParticleComposition *DomainObjectBuilder::buildParticleCollection(const ParameterizedItem &item,
                                                            double &depth, double &abundance) const
 {
-    LatticeBasis *result = TransformToDomain::createParticleCollection(item, depth, abundance);
+    ParticleComposition *result = TransformToDomain::createParticleCollection(item, depth, abundance);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         double tmp_depth(0.0), tmp_abundance(0.0);
@@ -308,7 +308,7 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
     }
 }
 
-void DomainObjectBuilder::addParticleToCollection(LatticeBasis *result,
+void DomainObjectBuilder::addParticleToCollection(ParticleComposition *result,
                                                   ParameterizedItem *particle_item,
                                                   const IParticle &particle) const
 {

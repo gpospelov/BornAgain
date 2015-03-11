@@ -31,7 +31,7 @@ BA_CORE_API_ Particle *createParticle(const ParameterizedItem &item,
                                   double &depth, double &abundance);
 BA_CORE_API_ ParticleCoreShell *createParticleCoreShell(const ParameterizedItem &item,
         const Particle &core, const Particle &shell, double &depth, double &abundance);
-BA_CORE_API_ LatticeBasis *createParticleCollection(const ParameterizedItem &item,
+BA_CORE_API_ ParticleComposition *createParticleCollection(const ParameterizedItem &item,
                                                     double &depth, double &abundance);
 BA_CORE_API_ IFormFactor *createFormFactor(const ParameterizedItem &item);
 BA_CORE_API_ IDistribution1D * createDistribution(

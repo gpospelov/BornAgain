@@ -20,7 +20,7 @@
 #include "Lattice.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "Units.h"
 #include "FormFactorFullSphere.h"
 
@@ -405,7 +405,7 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 //    const Crystal *crystal = dynamic_cast<const Crystal *>(meso->getClusteredParticles());
 //    if( !crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
 //    Lattice lattice = crystal->getLattice();
-//    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
+//    const ParticleComposition *lattice_basis = crystal->getLatticeBasis();
 //    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
 
 //    if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");

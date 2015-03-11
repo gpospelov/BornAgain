@@ -471,6 +471,15 @@
            </property>
         </category>
 
+        <category name="ParticleCollection">
+           <property name="Title">
+               <tooltip> Collection of particles with fixed positions</tooltip>
+           </property>
+           <property name="Description">
+               <tooltip> to be completed </tooltip>
+           </property>
+        </category>
+
         <category name="EulerRotation">
            <property name="Title">
                <tooltip> Rotation applied to the particle</tooltip>

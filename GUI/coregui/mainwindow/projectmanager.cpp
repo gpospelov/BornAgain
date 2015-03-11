@@ -215,17 +215,15 @@ void ProjectManager::openProject(QString fileName)
     if(!fileName.isEmpty()) {
         createNewProject();
         bool success_read = m_project_document->load(fileName);
-        if(success_read) {
-            emit modified();
-        } else {
+        if(!success_read) {
             QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
                                  QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
             delete m_project_document;
             m_project_document = 0;
             m_mainWindow->resetModels();
             createNewProject();
-            return;
         }
+        emit modified();
     }
 }
 

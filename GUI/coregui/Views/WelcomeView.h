@@ -16,43 +16,41 @@
 #ifndef WELCOMEVIEW_H
 #define WELCOMEVIEW_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
-#include "mainwindow.h"
-#include "mainwindow_constants.h"
-#include "projectmanager.h"
-#include <QString>
-#include "qpushbutton.h"
-#include <QCommandLinkButton>
-#include <QScrollArea>
-#include <QVBoxLayout>
-#include <QSignalMapper>
 
-
+class QPushButton;
+class MainWindow;
+class ProjectManager;
+class QSignalMapper;
+class QVBoxLayout;
+class FancyLabel;
 
 class BA_CORE_API_ WelcomeView : public QWidget
 {
     Q_OBJECT
-
 public:
     WelcomeView(MainWindow *parent);
 
 public slots:
     void onWebLinkClicked(const QUrl &url);
-    //void onNewProject();
-    //void onOpenProject();
     void onNewUser();
     void updateRecentProjectPanel();
 
 private:
-    QPushButton *newProjectButton;
-    QPushButton *openProjectButton;
-    QPushButton *newUsertButton;
+    void clearLayout(QLayout* layout, bool deleteWidgets = true);
+    void generateRecentProjectList();
+    QString getCurrentProjectFancyName();
+    void setCurrentProjectName(const QString &name);
+
+    QPushButton *m_newProjectButton;
+    QPushButton *m_openProjectButton;
+    QPushButton *m_newUsertButton;
     MainWindow *m_mainWindow;
     ProjectManager *m_projectManager;
-    void generateRecentProjectList();
     QSignalMapper *m_signalMapper;
     QVBoxLayout *m_recentProjectLayout;
-    void clearLayout(QLayout* layout, bool deleteWidgets = true);
+    FancyLabel *m_currentProName;
 };
 
 #endif // WELCOMEVIEW_H

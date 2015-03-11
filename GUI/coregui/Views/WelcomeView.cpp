@@ -15,8 +15,12 @@
 
 #include "WelcomeView.h"
 #include "DesignerHelper.h"
+#include "FancyLabel.h"
+#include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectdocument.h"
+#include "projectmanager.h"
+#include "stringutils.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
@@ -24,11 +28,10 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QSizePolicy>
+#include <QCommandLinkButton>
+#include <QSignalMapper>
 #include <QDebug>
-#include "stringutils.h"
-#include <QGraphicsDropShadowEffect>
-
-
+#include <QPushButton>
 
 WelcomeView::WelcomeView(MainWindow *parent)
     : m_mainWindow(parent)
@@ -42,61 +45,70 @@ WelcomeView::WelcomeView(MainWindow *parent)
     m_projectManager = m_mainWindow->getProjectManager();
     Q_ASSERT(m_projectManager);
 
+    // button layout
     QFont buttonFont;
     buttonFont.setPointSize(DesignerHelper::getLabelFontSize());
     buttonFont.setBold(false);
+    const int buttonHeight = 45;
+    const int buttonWidth = 140;
 
-    int buttonHeight = 45;
-    int buttonWidth = 140;
-
-    newProjectButton = new QPushButton(tr("New Project"));
-    //newProjectButton->setIcon(QIcon(":/images/main_simulation.png"));
-    newProjectButton->setMinimumWidth(buttonWidth);
-    newProjectButton->setMinimumHeight(buttonHeight);
-    newProjectButton->setFont(buttonFont);
-    QPalette button_palette = newProjectButton->palette();
+    m_newProjectButton = new QPushButton(tr("New Project"));
+    m_newProjectButton->setMinimumWidth(buttonWidth);
+    m_newProjectButton->setMinimumHeight(buttonHeight);
+    m_newProjectButton->setFont(buttonFont);
+    QPalette button_palette = m_newProjectButton->palette();
     button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
     button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-    newProjectButton->setPalette(button_palette);
+    m_newProjectButton->setPalette(button_palette);
 
+    m_openProjectButton = new QPushButton(tr("Open Project"));
+    m_openProjectButton->setMinimumWidth(buttonWidth);
+    m_openProjectButton->setMinimumHeight(buttonHeight);
+    m_openProjectButton->setFont(buttonFont);
+    m_openProjectButton->setPalette(button_palette);
 
-    openProjectButton = new QPushButton(tr("Open Project"));
-    //openProjectButton->setIcon(QIcon(":/images/main_simulation.png"));
-    openProjectButton->setMinimumWidth(buttonWidth);
-    openProjectButton->setMinimumHeight(buttonHeight);
-    openProjectButton->setFont(buttonFont);
-    openProjectButton->setPalette(button_palette);
-
-    newUsertButton = new QPushButton(tr("New to BornAgain?"));
-    //newUsertButton->setIcon(QIcon(":/images/main_simulation.png"));
-    newUsertButton->setMinimumWidth(buttonWidth);
-    newUsertButton->setMinimumHeight(buttonHeight);
-    newUsertButton->setFont(buttonFont);
-    newUsertButton->setPalette(button_palette);
-
-
-
+    m_newUsertButton = new QPushButton(tr("New to BornAgain?"));
+    m_newUsertButton->setMinimumWidth(buttonWidth);
+    m_newUsertButton->setMinimumHeight(buttonHeight);
+    m_newUsertButton->setFont(buttonFont);
+    m_newUsertButton->setPalette(button_palette);
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;
-    //buttonLayout->setContentsMargins(0,0,0,0);
 
-    buttonLayout->addWidget(newProjectButton);
-    buttonLayout->addWidget(openProjectButton);
+    buttonLayout->addWidget(m_newProjectButton);
+    buttonLayout->addWidget(m_openProjectButton);
     buttonLayout->addStretch(1);
-    buttonLayout->addWidget(newUsertButton);
+    buttonLayout->addWidget(m_newUsertButton);
 
     QHBoxLayout *buttonPanel = new QHBoxLayout;
     buttonPanel->setContentsMargins(30,0,30,0);
     buttonPanel->addLayout(buttonLayout);
 
+    // current project layout
+    QVBoxLayout *currentProjectLayout = new QVBoxLayout;
+    currentProjectLayout->setContentsMargins(30,0,0,0);
+    QFont titleFont;
+    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
+    titleFont.setBold(true);
 
+    QLabel *currentProLabel = new QLabel("Current Project:");
+    currentProLabel->setFont(titleFont);
 
+    m_currentProName = new FancyLabel("Untitled");
+    currentProjectLayout->addWidget(currentProLabel);
+    currentProjectLayout->addWidget(m_currentProName);
 
-
+    // recent project layout
     m_recentProjectLayout = new QVBoxLayout;
     m_recentProjectLayout->setContentsMargins(30,0,0,0);
 
+    // project layout
+    QVBoxLayout *projectLayout = new QVBoxLayout;
+    projectLayout->addLayout(currentProjectLayout);
+    projectLayout->addSpacing(15);
+    projectLayout->addLayout(m_recentProjectLayout);
 
+    // assembling all together
     QFrame* line = new QFrame();
     line->setFrameShape(QFrame::VLine);
     line->setFrameShadow(QFrame::Sunken);
@@ -104,9 +116,9 @@ WelcomeView::WelcomeView(MainWindow *parent)
     QHBoxLayout *itemContainerLayout = new QHBoxLayout;
     itemContainerLayout->addLayout(buttonPanel);
     itemContainerLayout->addWidget(line);
-    itemContainerLayout->addLayout(m_recentProjectLayout);
+//    itemContainerLayout->addLayout(m_recentProjectLayout);
+    itemContainerLayout->addLayout(projectLayout);
     itemContainerLayout->addStretch(1);
-
 
     QWidget *itemContainerWidget = new QWidget;
     itemContainerWidget->setLayout(itemContainerLayout);
@@ -131,7 +143,6 @@ WelcomeView::WelcomeView(MainWindow *parent)
     ""));
     containerWidget->setLayout(containerLayout);
 
-
     // main layout
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
@@ -140,9 +151,9 @@ WelcomeView::WelcomeView(MainWindow *parent)
     mainLayout->addWidget(new QWidget);
     setLayout(mainLayout);
 
-    connect(newProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(newProject()));
-    connect(openProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(openProject()));
-    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));
+    connect(m_newProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(newProject()));
+    connect(m_openProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(openProject()));
+    connect(m_newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));
 
     connect(m_projectManager, SIGNAL(modified()), this, SLOT(updateRecentProjectPanel()));
 
@@ -156,25 +167,26 @@ void WelcomeView::generateRecentProjectList()
     titleFont.setBold(true);
 
 
-    QLabel *currentProLabel = new QLabel("Current Project:");
-    currentProLabel->setFont(titleFont);
+//    QLabel *currentProLabel = new QLabel("Current Project:");
+//    currentProLabel->setFont(titleFont);
 
     QLabel *recentProLabel = new QLabel("Recent Projects:");
     recentProLabel->setFont(titleFont);
 
-    QLabel *currentProName = new QLabel("Untitled");
-    ProjectDocument *projectDocument = m_projectManager->getDocument();
-    if(projectDocument) {
-        if(projectDocument->hasValidNameAndPath()) {
-           currentProName->setText(Utils::withTildeHomePath(m_projectManager->getDocument()->getProjectFileName()));
-        } else {
-            currentProName->setText(m_projectManager->getDocument()->getProjectName());
-        }
-    }
+    setCurrentProjectName(getCurrentProjectFancyName());
+//    QLabel *currentProName = new QLabel("Untitled");
+//    ProjectDocument *projectDocument = m_projectManager->getDocument();
+//    if(projectDocument) {
+//        if(projectDocument->hasValidNameAndPath()) {
+//           m_currentProName->setText(Utils::withTildeHomePath(m_projectManager->getDocument()->getProjectFileName()));
+//        } else {
+//            m_currentProName->setText(m_projectManager->getDocument()->getProjectName());
+//        }
+//    }
 
-    m_recentProjectLayout->addWidget(currentProLabel);
-    m_recentProjectLayout->addWidget(currentProName);
-    m_recentProjectLayout->addSpacing(15);
+//    m_recentProjectLayout->addWidget(currentProLabel);
+//    m_recentProjectLayout->addWidget(currentProName);
+//    m_recentProjectLayout->addSpacing(15);
 
     m_recentProjectLayout->addWidget(recentProLabel);
 
@@ -182,8 +194,7 @@ void WelcomeView::generateRecentProjectList()
     //QLabel *myLabel[count];
     m_signalMapper = new QSignalMapper(this);
 
-    int i = 0;
-
+    int i(0);
     foreach(QString file, m_projectManager->getRecentProjects() ) {
         //hasRecentProjects = true;
 
@@ -217,6 +228,27 @@ void WelcomeView::generateRecentProjectList()
             m_projectManager, SLOT(openProject(QString)));
 }
 
+//! returns current project name suited for displaying on current project layout
+QString WelcomeView::getCurrentProjectFancyName()
+{
+    QString result("Untitled");
+    if(ProjectDocument *projectDocument = m_projectManager->getDocument()) {
+        if(projectDocument->hasValidNameAndPath()) {
+           result = Utils::withTildeHomePath(projectDocument->getProjectFileName());
+        } else {
+           result = projectDocument->getProjectName();
+        }
+    }
+    return result;
+}
+
+//! updates label with current project name in picturesque manner
+void WelcomeView::setCurrentProjectName(const QString &name)
+{
+    m_currentProName->setTextAnimated(name);
+//    m_currentProName->setText(name);
+}
+
 void WelcomeView::onWebLinkClicked(const QUrl &url)
 {
     QDesktopServices::openUrl(url);
@@ -233,23 +265,19 @@ void WelcomeView::updateRecentProjectPanel()
     qDebug() << "WelcomeView::updateRecentProjectPanel called";
     this->clearLayout(m_recentProjectLayout);
     this->generateRecentProjectList();
+    update();
 }
 
 void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
 {
-    if(layout)
-    {
-        while (QLayoutItem* item = layout->takeAt(0))
-        {
-            if (deleteWidgets)
-            {
+    if(layout) {
+        while (QLayoutItem* item = layout->takeAt(0)) {
+            if (deleteWidgets) {
                 if (QWidget* widget = item->widget())
                     delete widget;
             }
-            if (QLayout* childLayout = item->layout())
-                clearLayout(childLayout, deleteWidgets);
+            if (QLayout* childLayout = item->layout()) clearLayout(childLayout, deleteWidgets);
             delete item;
         }
     }
-
 }

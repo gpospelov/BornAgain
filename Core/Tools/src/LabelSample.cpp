@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <LatticeBasis.h>
 #include <iostream>
 #include "LabelSample.h"
 #include "ParticleCoreShell.h"
+#include "ParticleComposition.h"
 
 LabelSample::LabelSample()
 {
@@ -59,8 +59,8 @@ std::string LabelSample::getLabel(const IParticle *sample)
         return m_ParticleCoreShellLabel[core_shell_particle];
     if (const Particle *particle = dynamic_cast<const Particle*>(sample))
         return m_ParticleLabel[particle];
-    if (const LatticeBasis *lattice_basis = dynamic_cast<const LatticeBasis*>(sample))
-        return m_LatticeBasisLabel[lattice_basis];
+    if (const ParticleComposition *lattice_basis = dynamic_cast<const ParticleComposition*>(sample))
+        return m_ParticleCompositionLabel[lattice_basis];
     throw Exceptions::NotImplementedException("LabelSample::getLabel: called"
                                               " for unknown IParticle type");
 }
@@ -75,9 +75,9 @@ std::string LabelSample::getLabel(const ILayout *sample)
     return m_ILayoutLabel[sample];
 }
 
-std::string LabelSample::getLabel(const LatticeBasis *sample)
+std::string LabelSample::getLabel(const ParticleComposition *sample)
 {
-    return m_LatticeBasisLabel[sample];
+    return m_ParticleCompositionLabel[sample];
 }
 
 std::map<const IFormFactor *,std::string>* LabelSample::getFormFactorMap()
@@ -125,9 +125,9 @@ std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
     return &m_ILayoutLabel;
 }
 
-std::map<const LatticeBasis *, std::string> *LabelSample::getLatticeBasisMap()
+std::map<const ParticleComposition *, std::string> *LabelSample::getParticleCompositionMap()
 {
-    return &m_LatticeBasisLabel;
+    return &m_ParticleCompositionLabel;
 }
 
 void LabelSample::insertMaterial(const IMaterial *sample)
@@ -210,11 +210,11 @@ void LabelSample::setLabel(const ParticleCoreShell *sample)
     m_ParticleCoreShellLabel[sample] = inter.str();
 }
 
-void LabelSample::setLabel(const LatticeBasis *sample)
+void LabelSample::setLabel(const ParticleComposition *sample)
 {
     std::ostringstream inter;
-    inter << "LatticeBasis_" << m_LatticeBasisLabel.size()+1;
-    m_LatticeBasisLabel[sample] = inter.str();
+    inter << "ParticleComposition_" << m_ParticleCompositionLabel.size()+1;
+    m_ParticleCompositionLabel[sample] = inter.str();
 }
 
 

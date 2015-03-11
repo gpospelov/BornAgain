@@ -25,7 +25,7 @@
 #include "Lattice.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "MathFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"

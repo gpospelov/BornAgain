@@ -30,7 +30,7 @@ namespace bp = boost::python;
 
 struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
-    Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
+    Crystal_wrapper(::ParticleComposition const & lattice_basis, ::Lattice const & lattice )
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< Crystal >(){
         // constructor
@@ -316,7 +316,7 @@ void register_Crystal_class(){
 
     { //::Crystal
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
-        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
+        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
         
@@ -381,7 +381,7 @@ void register_Crystal_class(){
         }
         { //::Crystal::getLatticeBasis
         
-            typedef ::LatticeBasis const * ( ::Crystal::*getLatticeBasis_function_type)(  ) const;
+            typedef ::ParticleComposition const * ( ::Crystal::*getLatticeBasis_function_type)(  ) const;
             
             Crystal_exposer.def( 
                 "getLatticeBasis"

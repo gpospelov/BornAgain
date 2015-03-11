@@ -142,7 +142,6 @@ include_classes = [
     "Lattice",
     "Lattice1DIFParameters",
     "Lattice2DIFParameters",
-    "LatticeBasis",
     "Layer",
     "LayerInterface",
     "LayerRoughness",
@@ -154,6 +153,7 @@ include_classes = [
     "ParameterDistribution",
     "ParameterPool",
     "Particle",
+    "ParticleComposition",
     "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
@@ -218,7 +218,7 @@ def ManualClassTunings(mb):
     cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value)
     cl.member_function("setSelectionRule").include()
     #
-    cl = mb.class_("LatticeBasis")
+    cl = mb.class_("ParticleComposition")
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     cl.member_functions().exclude()
     cl.member_function("addParticle").include()

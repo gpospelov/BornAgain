@@ -44,7 +44,7 @@
 //#include "ISelectionRule.h"
 //#include "ISingleton.h"
 //#include "Lattice.h"
-//#include "LatticeBasis.h"
+//#include "ParticleComposition.h"
 //#include "Layer.h"
 //#include "LayerDecorator.h"
 //#include "LayerRoughness.h"

@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef LatticeBasis_hpp__pyplusplus_wrapper
-#define LatticeBasis_hpp__pyplusplus_wrapper
+#ifndef ParticleComposition_hpp__pyplusplus_wrapper
+#define ParticleComposition_hpp__pyplusplus_wrapper
 
-void register_LatticeBasis_class();
+void register_ParticleComposition_class();
 
-#endif//LatticeBasis_hpp__pyplusplus_wrapper
+#endif//ParticleComposition_hpp__pyplusplus_wrapper

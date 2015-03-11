@@ -471,9 +471,9 @@
            </property>
         </category>
 
-        <category name="ParticleCollection">
+        <category name="ParticleComposition">
            <property name="Title">
-               <tooltip> Collection of particles with fixed positions</tooltip>
+               <tooltip> Composition of particles with fixed positions</tooltip>
            </property>
            <property name="Description">
                <tooltip> to be completed </tooltip>

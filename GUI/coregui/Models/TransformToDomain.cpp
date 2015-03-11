@@ -372,12 +372,12 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
 }
 
 
-LatticeBasis *TransformToDomain::createParticleCollection(const ParameterizedItem &item,
+ParticleComposition *TransformToDomain::createParticleComposition(const ParameterizedItem &item,
                                                           double &depth, double &abundance)
 {
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    LatticeBasis *result = new LatticeBasis();
+    ParticleComposition *result = new ParticleComposition();
     return result;
 }
 

@@ -1,7 +1,7 @@
-#ifndef LATTICEBASISTEST_H
-#define LATTICEBASISTEST_H
+#ifndef PARTICLECOMPOSITIONTEST_H
+#define PARTICLECOMPOSITIONTEST_H
 
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "Particle.h"
 #include "Materials.h"
 #include "Units.h"
@@ -11,20 +11,20 @@
 #include <iostream>
 
 
-class LatticeBasisTest : public ::testing::Test
+class ParticleCompositionTest : public ::testing::Test
 {
 protected:
-    LatticeBasisTest(){}
-    virtual ~LatticeBasisTest(){}
+    ParticleCompositionTest(){}
+    virtual ~ParticleCompositionTest(){}
 };
 
-TEST_F(LatticeBasisTest, LatticeBasisDefaultConstructor)
+TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 {
-    LatticeBasis *lb = new LatticeBasis();
+    ParticleComposition *lb = new ParticleComposition();
     Particle particle;
     std::vector<kvector_t > positions;
     positions.push_back(kvector_t(0.0,0.0,0.0));
-    EXPECT_EQ("LatticeBasis",lb->getName());
+    EXPECT_EQ("ParticleComposition",lb->getName());
     EXPECT_EQ(0, lb->getAmbientMaterial());
     EXPECT_EQ(0, lb->getNbrParticles());
 
@@ -32,13 +32,13 @@ TEST_F(LatticeBasisTest, LatticeBasisDefaultConstructor)
 
 }
 
-TEST_F(LatticeBasisTest, LatticeBasisConstructorWithOneParameter)
+TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithOneParameter)
 {
     Particle particle;
-    LatticeBasis *lb = new LatticeBasis(particle);
+    ParticleComposition *lb = new ParticleComposition(particle);
     std::vector<kvector_t > positions;
     positions.push_back(kvector_t(0.0,0.0,0.0));
-    EXPECT_EQ("LatticeBasis",lb->getName());
+    EXPECT_EQ("ParticleComposition",lb->getName());
     lb->addParticle(particle, positions);
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(0)->getName());
@@ -58,14 +58,14 @@ TEST_F(LatticeBasisTest, LatticeBasisConstructorWithOneParameter)
 }
 
 
-TEST_F(LatticeBasisTest, LatticeBasisConstructorWithTwoParameter)
+TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithTwoParameter)
 {
     Particle particle;
     std::vector<kvector_t > positions;
     positions.push_back(kvector_t(1.0,1.0,1.0));
-    LatticeBasis *lb = new LatticeBasis(particle, positions);
+    ParticleComposition *lb = new ParticleComposition(particle, positions);
 
-    EXPECT_EQ("LatticeBasis",lb->getName());
+    EXPECT_EQ("ParticleComposition",lb->getName());
     lb->addParticle(particle, positions);
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(0)->getName());
@@ -84,16 +84,16 @@ TEST_F(LatticeBasisTest, LatticeBasisConstructorWithTwoParameter)
     delete lb;
 }
 
-TEST_F(LatticeBasisTest, LatticeBasisClone)
+TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 {
-    LatticeBasis *lb = new LatticeBasis();
+    ParticleComposition *lb = new ParticleComposition();
     Particle particle;
     std::vector<kvector_t > positions;
     positions.push_back(kvector_t(1.0,1.0,1.0));
     HomogeneousMaterial material("Air",0.0,0.0);
     lb->addParticle(particle, positions);
     lb->setAmbientMaterial(material);
-    LatticeBasis *lbClone = lb->clone();
+    ParticleComposition *lbClone = lb->clone();
 
     EXPECT_EQ(lbClone->getName(),lb->getName());
 

@@ -155,7 +155,7 @@ MesoCrystal* MesoCrystal01Builder::createMesoCrystal(double stacking_radius_a, d
     pos_vector.push_back(position_0);
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
-    LatticeBasis basis(particle, pos_vector);
+    ParticleComposition basis(particle, pos_vector);
 
     Crystal npc(basis, *p_lat);
     delete p_lat;

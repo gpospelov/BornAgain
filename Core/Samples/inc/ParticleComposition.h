@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/LatticeBasis.h
-//! @brief     Defines class LatticeBasis.
+//! @file      Samples/inc/ParticleComposition.h
+//! @brief     Defines class ParticleComposition.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,28 +13,28 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICEBASIS_H_
-#define LATTICEBASIS_H_
+#ifndef PARTICLECOMPOSITION_H_
+#define PARTICLECOMPOSITION_H_
 
 #include "IParticle.h"
 #include "Types.h"
 #include <vector>
 
-//! @class LatticeBasis
+//! @class ParticleComposition
 //! @ingroup samples
-//! @brief Basis of the lattice represented by the composition of particles
+//! @brief A composition of particles at fixed positions
 
-class BA_CORE_API_ LatticeBasis : public IParticle
+class BA_CORE_API_ ParticleComposition : public IParticle
 {
 public:
-    LatticeBasis();
-    explicit LatticeBasis(const IParticle& particle);
-    LatticeBasis(const IParticle& particle, std::vector<kvector_t > positions);
-    virtual ~LatticeBasis();
-    virtual LatticeBasis *clone() const;
+    ParticleComposition();
+    explicit ParticleComposition(const IParticle& particle);
+    ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
+    virtual ~ParticleComposition();
+    virtual ParticleComposition *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual LatticeBasis *cloneInvertB() const;
+    virtual ParticleComposition *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -72,7 +72,7 @@ private:
     inline size_t check_index(size_t index) const {
         return index < m_positions_vector.size()
                 ? index
-                : throw OutOfBoundsException("LatticeBasis::check_index()"
+                : throw OutOfBoundsException("ParticleComposition::check_index()"
                         "-> Index is out of bounds"); }
 
     //! For internal use in cloneInvertB():
@@ -83,6 +83,6 @@ private:
     std::vector<std::vector<kvector_t> > m_positions_vector;
 };
 
-#endif /* LATTICEBASIS_H_ */
+#endif /* PARTICLECOMPOSITION_H_ */
 
 

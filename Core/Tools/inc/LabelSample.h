@@ -36,7 +36,7 @@ public:
     std::map<const Particle*, std::string>* getParticleMap();
     std::map<const ParticleCoreShell*, std::string>* getParticleCoreShellMap();
     std::map<const ILayout*, std::string>* getParticleLayoutMap();
-    std::map<const LatticeBasis*, std::string>* getLatticeBasisMap();
+    std::map<const ParticleComposition*, std::string>* getParticleCompositionMap();
     std::string getLabel(const IFormFactor *sample);
     std::string getLabel(const IInterferenceFunction *sample);
     std::string getLabel(const IMaterial *sample);
@@ -46,7 +46,7 @@ public:
     std::string getLabel(const IParticle *sample);
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ILayout *sample);
-    std::string getLabel(const LatticeBasis *sample);
+    std::string getLabel(const ParticleComposition *sample);
     void insertMaterial(const IMaterial *sample);
     void setLabel(const IFormFactor *sample);
     void setLabel(const IInterferenceFunction *sample);
@@ -56,7 +56,7 @@ public:
     void setLabel(const MultiLayer *sample);
     void setLabel(const Particle *sample);
     void setLabel(const ParticleCoreShell *sample);
-    void setLabel(const LatticeBasis *sample);
+    void setLabel(const ParticleComposition *sample);
 
 
 private:
@@ -70,7 +70,7 @@ private:
     std::map<const Particle*, std::string> m_ParticleLabel;
     std::map<const ParticleCoreShell*, std::string> m_ParticleCoreShellLabel;
     std::map<const ILayout*, std::string> m_ILayoutLabel;
-    std::map<const LatticeBasis*, std::string> m_LatticeBasisLabel;
+    std::map<const ParticleComposition*, std::string> m_ParticleCompositionLabel;
 };
 
 #endif // LABELSAMPLE_H

@@ -59,7 +59,7 @@ public:
     void visit(const Particle *);
     void visit(const ParticleDistribution *);
     void visit(const ParticleCoreShell *);
-    void visit(const LatticeBasis *);
+    void visit(const ParticleComposition *);
 
     void visit(const ParticleInfo *);
 
@@ -88,8 +88,6 @@ public:
     void visit(const InterferenceFunctionNone *);
 
     void visit(const LayerRoughness *);
-
-//    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);

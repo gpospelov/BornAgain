@@ -24,7 +24,7 @@
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
-#include "LatticeBasisTest.h"
+#include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"
 #include "ParticleInfoTest.h"
 #include "LLDataTest.h"

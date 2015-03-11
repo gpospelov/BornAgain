@@ -24,15 +24,15 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "LatticeBasis.pypp.h"
+#include "ParticleComposition.pypp.h"
 
 namespace bp = boost::python;
 
-struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
+struct ParticleComposition_wrapper : ParticleComposition, bp::wrapper< ParticleComposition > {
 
-    LatticeBasis_wrapper( )
-    : LatticeBasis( )
-      , bp::wrapper< LatticeBasis >(){
+    ParticleComposition_wrapper( )
+    : ParticleComposition( )
+      , bp::wrapper< ParticleComposition >(){
         // null constructor
     m_pyobj = 0;
     }
@@ -156,7 +156,7 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< LatticeBasis_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ParticleComposition_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -228,177 +228,177 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
 
 };
 
-void register_LatticeBasis_class(){
+void register_ParticleComposition_class(){
 
-    { //::LatticeBasis
-        typedef bp::class_< LatticeBasis_wrapper, bp::bases< IParticle >, std::auto_ptr< LatticeBasis_wrapper >, boost::noncopyable > LatticeBasis_exposer_t;
-        LatticeBasis_exposer_t LatticeBasis_exposer = LatticeBasis_exposer_t( "LatticeBasis", bp::init< >() );
-        bp::scope LatticeBasis_scope( LatticeBasis_exposer );
-        { //::LatticeBasis::addParticle
+    { //::ParticleComposition
+        typedef bp::class_< ParticleComposition_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleComposition_wrapper >, boost::noncopyable > ParticleComposition_exposer_t;
+        ParticleComposition_exposer_t ParticleComposition_exposer = ParticleComposition_exposer_t( "ParticleComposition", bp::init< >() );
+        bp::scope ParticleComposition_scope( ParticleComposition_exposer );
+        { //::ParticleComposition::addParticle
         
-            typedef void ( ::LatticeBasis::*addParticle_function_type)( ::IParticle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
+            typedef void ( ::ParticleComposition::*addParticle_function_type)( ::IParticle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "addParticle"
-                , addParticle_function_type( &::LatticeBasis::addParticle )
+                , addParticle_function_type( &::ParticleComposition::addParticle )
                 , ( bp::arg("particle"), bp::arg("positions") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( LatticeBasis_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( ParticleComposition_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&LatticeBasis_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&ParticleComposition_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( ParticleComposition_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&LatticeBasis_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&ParticleComposition_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
-            typedef bool ( LatticeBasis_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( ParticleComposition_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&LatticeBasis_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&ParticleComposition_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( LatticeBasis_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ParticleComposition_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&LatticeBasis_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&ParticleComposition_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( ParticleComposition_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&LatticeBasis_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleComposition_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( ParticleComposition_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&LatticeBasis_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleComposition_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::preprocess
         
             typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( LatticeBasis_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef bool ( ParticleComposition_wrapper::*default_preprocess_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "preprocess"
                 , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&LatticeBasis_wrapper::default_preprocess) );
+                , default_preprocess_function_type(&ParticleComposition_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( LatticeBasis_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( ParticleComposition_wrapper::*default_printParameters_function_type)(  ) const;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&LatticeBasis_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&ParticleComposition_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_printSampleTree_function_type)(  ) ;
+            typedef void ( ParticleComposition_wrapper::*default_printSampleTree_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&LatticeBasis_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&ParticleComposition_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &LatticeBasis_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &ParticleComposition_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( LatticeBasis_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ParticleComposition_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&LatticeBasis_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&ParticleComposition_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ParticleComposition_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&LatticeBasis_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&ParticleComposition_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size
         
             typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( LatticeBasis_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ParticleComposition_wrapper::*default_size_function_type)(  ) const;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&LatticeBasis_wrapper::default_size) );
+                , default_size_function_type(&ParticleComposition_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_transferToCPP_function_type)(  ) ;
+            typedef void ( ParticleComposition_wrapper::*default_transferToCPP_function_type)(  ) ;
             
-            LatticeBasis_exposer.def( 
+            ParticleComposition_exposer.def( 
                 "transferToCPP"
                 , transferToCPP_function_type(&::ICloneable::transferToCPP)
-                , default_transferToCPP_function_type(&LatticeBasis_wrapper::default_transferToCPP) );
+                , default_transferToCPP_function_type(&ParticleComposition_wrapper::default_transferToCPP) );
         
         }
     }

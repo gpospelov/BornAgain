@@ -17,7 +17,7 @@
 #include "IMaterial.h"
 #include "Layer.h"
 #include "Particle.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 
 
 void SampleMaterialVisitor::clear()
@@ -100,7 +100,7 @@ void SampleMaterialVisitor::visit(const ParticleDistribution *)
 {
 }
 
-void SampleMaterialVisitor::visit(const LatticeBasis *)
+void SampleMaterialVisitor::visit(const ParticleComposition *)
 {
 }
 

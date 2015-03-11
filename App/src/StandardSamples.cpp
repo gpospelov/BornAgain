@@ -22,7 +22,7 @@
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 #include "Lattice.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunctions.h"

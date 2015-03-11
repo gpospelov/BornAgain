@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/LatticeBasis.cpp
-//! @brief     Implements class LatticeBasis.
+//! @file      Samples/src/ParticleComposition.cpp
+//! @brief     Implements class ParticleComposition.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,41 +13,41 @@
 //
 // ************************************************************************** //
 
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include <boost/scoped_ptr.hpp>
 
-LatticeBasis::LatticeBasis()
+ParticleComposition::ParticleComposition()
 {
-    setName("LatticeBasis");
+    setName("ParticleComposition");
 }
 
-LatticeBasis::LatticeBasis(const IParticle& particle)
+ParticleComposition::ParticleComposition(const IParticle& particle)
 {
-    setName("LatticeBasis");
+    setName("ParticleComposition");
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
     addParticle( particle, positions );
 }
 
-LatticeBasis::LatticeBasis(const IParticle& particle,
+ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
-    setName("LatticeBasis");
+    setName("ParticleComposition");
     addParticle(particle, positions);
 }
 
-LatticeBasis::~LatticeBasis()
+ParticleComposition::~ParticleComposition()
 {
     for (size_t index=0; index<m_particles.size(); ++index) {
         delete m_particles[index];
     }
 }
 
-LatticeBasis* LatticeBasis::clone() const
+ParticleComposition* ParticleComposition::clone() const
 {
-    LatticeBasis *p_new = new LatticeBasis();
+    ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticle(*m_particles[index], m_positions_vector[index]);
     }
@@ -59,9 +59,9 @@ LatticeBasis* LatticeBasis::clone() const
     return p_new;
 }
 
-LatticeBasis* LatticeBasis::cloneInvertB() const
+ParticleComposition* ParticleComposition::cloneInvertB() const
 {
-    LatticeBasis *p_new = new LatticeBasis();
+    ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticlePointer(m_particles[index]->cloneInvertB(),
                 m_positions_vector[index]);
@@ -78,7 +78,7 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
     return p_new;
 }
 
-void LatticeBasis::addParticle(const IParticle& particle,
+void ParticleComposition::addParticle(const IParticle& particle,
         std::vector<kvector_t > positions)
 {
     IParticle *np = particle.clone();
@@ -87,20 +87,20 @@ void LatticeBasis::addParticle(const IParticle& particle,
     m_positions_vector.push_back(positions);
 }
 
-void LatticeBasis::setAmbientMaterial(const IMaterial& material)
+void ParticleComposition::setAmbientMaterial(const IMaterial& material)
 {
     for (size_t index=0; index<m_particles.size(); ++index) {
         m_particles[index]->setAmbientMaterial(material);
     }
 }
 
-const IMaterial *LatticeBasis::getAmbientMaterial() const
+const IMaterial *ParticleComposition::getAmbientMaterial() const
 {
     if (m_particles.size()==0) return 0;
     return m_particles[0]->getAmbientMaterial();
 }
 
-IFormFactor* LatticeBasis::createFormFactor(
+IFormFactor* ParticleComposition::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
     FormFactorWeighted *p_ff = new FormFactorWeighted();
@@ -116,7 +116,7 @@ IFormFactor* LatticeBasis::createFormFactor(
     return p_ff;
 }
 
-void LatticeBasis::applyTransformationToSubParticles(
+void ParticleComposition::applyTransformationToSubParticles(
         const Geometry::Transform3D& transform)
 {
     for (std::vector<IParticle *>::iterator it = m_particles.begin();
@@ -134,7 +134,7 @@ void LatticeBasis::applyTransformationToSubParticles(
     }
 }
 
-void LatticeBasis::addParticlePointer(IParticle* p_particle,
+void ParticleComposition::addParticlePointer(IParticle* p_particle,
         std::vector<kvector_t> positions)
 {
     registerChild(p_particle);

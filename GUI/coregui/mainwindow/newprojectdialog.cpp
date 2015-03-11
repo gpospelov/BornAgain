@@ -61,6 +61,7 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
 
     m_createButton = new QPushButton(tr("Create"));
     connect(m_createButton, SIGNAL(clicked()), this, SLOT(createProjectDir()));
+    m_createButton->setDefault(true);
     m_cancelButton = new QPushButton(tr("Cancel"));
     connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 

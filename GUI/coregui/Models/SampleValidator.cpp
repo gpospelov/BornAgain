@@ -75,8 +75,9 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
     QList<ParameterizedItem *> children = item->childItems();
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleType
-         || children[i]->modelType() == Constants::ParticleCoreShellType
-         || children[i]->modelType() == Constants::ParticleDistributionType) {
+            || children[i]->modelType() == Constants::ParticleCoreShellType
+            || children[i]->modelType() == Constants::ParticleCollectionType
+            || children[i]->modelType() == Constants::ParticleDistributionType) {
             particles_found = true;
         }
     }

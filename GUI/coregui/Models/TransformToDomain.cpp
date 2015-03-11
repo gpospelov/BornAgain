@@ -354,7 +354,8 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 }
 
 
-ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core, const Particle &shell, double &depth, double &abundance)
+ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item,
+    const Particle &core, const Particle &shell, double &depth, double &abundance)
 {
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
@@ -367,6 +368,16 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
     pos.setZ(vectorItem->getRegisteredProperty(VectorItem::P_Z).toDouble());
     ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
     result->setName(item.itemName().toStdString());
+    return result;
+}
+
+
+LatticeBasis *TransformToDomain::createParticleCollection(const ParameterizedItem &item,
+                                                          double &depth, double &abundance)
+{
+    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    LatticeBasis *result = new LatticeBasis();
     return result;
 }
 

@@ -22,10 +22,12 @@ class Instrument;
 class MultiLayer;
 class Layer;
 class ParticleLayout;
+class IParticle;
 class Particle;
 class IInterferenceFunction;
 class Beam;
 class ParticleCoreShell;
+class LatticeBasis;
 class ParticleDistribution;
 class ParameterizedItem;
 class LayerRoughness;
@@ -42,19 +44,20 @@ public:
 private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &depth,
-                            double &abundance) const;
-    ParticleDistribution *buildParticleDistribution(
-            const ParameterizedItem &item, double &depth,
-            double &abundance) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
+                                     double &depth, double &abundance) const;
+    LatticeBasis *buildParticleCollection(const ParameterizedItem &item, double &depth,
+                                          double &abundance) const;
+    ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
+                                                    double &abundance) const;
     IInterferenceFunction *buildInterferenceFunction(
             const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
-                                     double &depth, double &abundance) const;
-    void addParticleToLayout(ParticleLayout *result,
-        ParameterizedItem *particle_item, double depth, double abundance,
-        const Particle& particle) const;
+    void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
+                             double abundance, const Particle& particle) const;
+    void addParticleToCollection(LatticeBasis *result, ParameterizedItem *particle_item,
+                                 const IParticle& particle) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

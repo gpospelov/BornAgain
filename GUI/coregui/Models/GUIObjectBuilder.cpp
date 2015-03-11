@@ -240,6 +240,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
         }
     }
     else if(parent->modelType() == Constants::ParticleLayoutType
+         || parent->modelType() == Constants::ParticleCollectionType
          || parent->modelType() == Constants::ParticleDistributionType){
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
@@ -273,10 +274,10 @@ void GUIObjectBuilder::visit(const Particle *sample)
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
         throw GUIHelpers::Error("GUIObjectBuilder::visit"
-          "(const ParticleCoreShell *sample) -> Error. No depth property.");
+          "(const Particle *sample) -> Error. No depth property.");
     if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
         throw GUIHelpers::Error("GUIObjectBuilder::visit"
-          "(const ParticleCoreShell *sample) -> Error. No abundance property.");
+          "(const Particle *sample) -> Error. No abundance property.");
 
     particleItem->setRegisteredProperty(ParticleItem::P_DEPTH,
         m_propertyToValue[ParticleItem::P_DEPTH]);
@@ -339,6 +340,22 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 
     m_levelToParentItem[getLevel()] = coreshellItem;
     m_itemToSample[coreshellItem] = sample;
+}
+
+void GUIObjectBuilder::visit(const LatticeBasis *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const LatticeBasis *)"  << getLevel();
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *item(0);
+    if(parent) {
+        item = m_sampleModel->insertNewItem(Constants::ParticleCollectionType,
+                                         m_sampleModel->indexOfItem(parent));
+    } else {
+        item = m_sampleModel->insertNewItem(Constants::ParticleCollectionType);
+    }
+    item->setItemName(sample->getName().c_str());
+
+    m_levelToParentItem[getLevel()] = item;
 }
 
 void GUIObjectBuilder::visit(const ParticleInfo *sample)

@@ -232,6 +232,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Particle Collection" icon="images/ParticleCoreShell.png">
+            <widget class="ParticleCollection">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
 <!--        <categoryentry name="Distributed particle" icon="images/ParticleCoreShell.png">
             <widget class="ParticleDistribution">
                 <property name="objectName">
@@ -307,8 +315,8 @@
                 </property>
             </widget>
         </categoryentry>
-	
-	
+
+
     </category>
 
 </widgetbox>

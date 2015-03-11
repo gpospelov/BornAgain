@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleCoreShellItem.cpp
-//! @brief     Implements class ParticleCoreShellItem
+//! @file      coregui/Models/ParticleCollectionItem.cpp
+//! @brief     Implements class ParticleCollectionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,30 +13,24 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCoreShellItem.h"
+#include "ParticleCollectionItem.h"
 #include "ParticleItem.h"
-#include "GUIHelpers.h"
-#include <QDebug>
 
-const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
-
-
-ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
+ParticleCollectionItem::ParticleCollectionItem(ParameterizedItem *parent)
+    : ParameterizedGraphicsItem(Constants::ParticleCollectionType, parent)
 {
-    setItemName(Constants::ParticleCoreShellType);
+    setItemName(Constants::ParticleCollectionType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
+
     registerProperty(ParticleItem::P_DEPTH, 0.0);
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
 
-    registerGroupProperty(P_CORE_POS, Constants::VectorType);
-
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
 }
 
-void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
+void ParticleCollectionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);

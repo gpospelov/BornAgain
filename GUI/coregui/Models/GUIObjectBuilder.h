@@ -89,8 +89,6 @@ public:
 
     void visit(const LayerRoughness *);
 
-//    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
-
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
     void addRotationItem(const Geometry::Transform3D *p_transformation,

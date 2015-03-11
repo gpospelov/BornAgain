@@ -32,44 +32,44 @@ public:
     using ISampleVisitor::visit;
 
     std::string writePyScript(const Simulation *simulation);
-    virtual void visit(const FormFactorAnisoPyramid *sample);
-    virtual void visit(const FormFactorBox *sample);
-    virtual void visit(const FormFactorCone *sample);
-    virtual void visit(const FormFactorCone6 *sample);
-    virtual void visit(const FormFactorCuboctahedron *sample);
-    virtual void visit(const FormFactorCylinder *sample);
-    virtual void visit(const FormFactorEllipsoidalCylinder *sample);
-    virtual void visit(const FormFactorFullSphere *sample);
-    virtual void visit(const FormFactorFullSpheroid *sample);
-    virtual void visit(const FormFactorGauss *sample);
-    virtual void visit(const FormFactorHemiEllipsoid *sample);
-    virtual void visit(const FormFactorInfLongBox *sample);
-    virtual void visit(const FormFactorInfLongRipple1 *sample);
-    virtual void visit(const FormFactorInfLongRipple2 *sample);
-    virtual void visit(const FormFactorLorentz *sample);
-    virtual void visit(const FormFactorPrism3 *sample);
-    virtual void visit(const FormFactorPrism6 *sample);
-    virtual void visit(const FormFactorPyramid *sample);
-    virtual void visit(const FormFactorRipple1 *sample);
-    virtual void visit(const FormFactorRipple2 *sample);
-    virtual void visit(const FormFactorTetrahedron *sample);
-    virtual void visit(const FormFactorTruncatedSphere *sample);
-    virtual void visit(const FormFactorTruncatedSpheroid *sample);
-    virtual void visit(const InterferenceFunctionNone *sample);
-    virtual void visit(const InterferenceFunction1DLattice *sample);
-    virtual void visit(const InterferenceFunctionRadialParaCrystal *sample);
-    virtual void visit(const InterferenceFunction2DLattice *sample);
-    virtual void visit(const InterferenceFunction2DParaCrystal *sample);
-    virtual void visit(const Layer *sample);
-    virtual void visit(const LayerInterface *sample){ (void)sample; }
-    virtual void visit(const LayerRoughness *sample);
-    virtual void visit(const MultiLayer *sample);
-    virtual void visit(const LatticeBasis *sample);
-    virtual void visit(const MesoCrystal *sample);
-    virtual void visit(const Particle *sample);
-    virtual void visit(const ParticleCoreShell *sample);
-    virtual void visit(const ParticleInfo *sample){ (void)sample; }
-    virtual void visit(const ParticleLayout *sample);
+    void visit(const FormFactorAnisoPyramid *sample);
+    void visit(const FormFactorBox *sample);
+    void visit(const FormFactorCone *sample);
+    void visit(const FormFactorCone6 *sample);
+    void visit(const FormFactorCuboctahedron *sample);
+    void visit(const FormFactorCylinder *sample);
+    void visit(const FormFactorEllipsoidalCylinder *sample);
+    void visit(const FormFactorFullSphere *sample);
+    void visit(const FormFactorFullSpheroid *sample);
+    void visit(const FormFactorGauss *sample);
+    void visit(const FormFactorHemiEllipsoid *sample);
+    void visit(const FormFactorInfLongBox *sample);
+    void visit(const FormFactorInfLongRipple1 *sample);
+    void visit(const FormFactorInfLongRipple2 *sample);
+    void visit(const FormFactorLorentz *sample);
+    void visit(const FormFactorPrism3 *sample);
+    void visit(const FormFactorPrism6 *sample);
+    void visit(const FormFactorPyramid *sample);
+    void visit(const FormFactorRipple1 *sample);
+    void visit(const FormFactorRipple2 *sample);
+    void visit(const FormFactorTetrahedron *sample);
+    void visit(const FormFactorTruncatedSphere *sample);
+    void visit(const FormFactorTruncatedSpheroid *sample);
+    void visit(const InterferenceFunctionNone *sample);
+    void visit(const InterferenceFunction1DLattice *sample);
+    void visit(const InterferenceFunctionRadialParaCrystal *sample);
+    void visit(const InterferenceFunction2DLattice *sample);
+    void visit(const InterferenceFunction2DParaCrystal *sample);
+    void visit(const Layer *sample);
+    void visit(const LayerInterface *sample){ (void)sample; }
+    void visit(const LayerRoughness *sample);
+    void visit(const MultiLayer *sample);
+    void visit(const LatticeBasis *sample);
+    void visit(const MesoCrystal *sample);
+    void visit(const Particle *sample);
+    void visit(const ParticleCoreShell *sample);
+    void visit(const ParticleInfo *sample){ (void)sample; }
+    void visit(const ParticleLayout *sample);
 
 
 private:

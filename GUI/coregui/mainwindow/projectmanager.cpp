@@ -126,6 +126,7 @@ void ProjectManager::newProject()
         m_defaultProjectPath = dialog.getProjectPath();
         m_project_document->setProjectName(dialog.getProjectName());
         m_project_document->setProjectPath(dialog.getProjectPath());
+        saveProject();
         emit modified();
     }
 
@@ -138,8 +139,14 @@ void ProjectManager::saveProject()
     qDebug() << "ProjectManager::saveProject()";
 
     if(m_project_document->hasValidNameAndPath()) {
-        m_project_document->save();
-        addToRecentProjects();
+        bool success = m_project_document->save();
+        if(success == false) {
+            QMessageBox::warning(m_mainWindow, tr("Error while saving project"),
+                                 QString("Failed to save project under '%1'").arg(m_project_document->getProjectDir()));
+
+        } else {
+            addToRecentProjects();
+        }
     } else {
         NewProjectDialog dialog(m_mainWindow);
         // give projectDialog something to start with
@@ -154,6 +161,7 @@ void ProjectManager::saveProject()
             addToRecentProjects();
         }
     }
+    modified();
 }
 
 bool ProjectManager::saveModifiedProject()

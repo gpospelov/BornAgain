@@ -52,6 +52,8 @@ public:
 
     void clearEditor();
 
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
     void onPropertyChanged(const QString &property_name);

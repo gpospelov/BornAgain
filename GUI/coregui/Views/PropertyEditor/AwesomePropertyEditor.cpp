@@ -22,10 +22,13 @@
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qtbuttonpropertybrowser.h"
+#include <QEvent>
+#include <QAbstractSpinBox>
 #include <QtProperty>
 #include <QMetaProperty>
 #include <QDebug>
 #include <QVBoxLayout>
+#include <QComboBox>
 #include <cmath>
 
 
@@ -427,6 +430,22 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
     } else {
         m_d->m_browser->addProperty(qtVariantItem);
     }
+
+    // hack to change behaviour of ComboBoxes and SpinBoxes produced by QtGroupBoxPropertyBrowser
+    // with the goal to react on mouse wheel event only when there is keyboard focus
+    if(m_d->m_browser_type == BROWSER_GROUPBOX_TYPE) {
+        QList<QAbstractSpinBox*> spinboxes = m_d->m_browser->findChildren<QAbstractSpinBox *>();
+        QList<QComboBox*> comboboxes = m_d->m_browser->findChildren<QComboBox *>();
+        foreach(QAbstractSpinBox *w, spinboxes) {
+            w->removeEventFilter(this);
+            w->installEventFilter(this);
+            w->setFocusPolicy(Qt::StrongFocus);
+        }
+        foreach(QComboBox *w, comboboxes) {
+            w->removeEventFilter(this);
+            w->installEventFilter(this);
+        }
+    }
 }
 
 //! removes list of QtVariantProperties from the browser and from all maps
@@ -446,4 +465,38 @@ void AwesomePropertyEditor::removeQtVariantProperties(QList<QtVariantProperty *>
     }
 
     list_of_properties.clear();
+}
+
+//! event filter to install on combo boxes and spin boxes of QtGroupBoxPropertyBrowser to not
+//! to react on wheel events during scrolling of InstrumentComponentWidget
+bool AwesomePropertyEditor::eventFilter(QObject *obj, QEvent *event)
+{
+    if(QAbstractSpinBox* spinBox = qobject_cast<QAbstractSpinBox*>(obj)) {
+
+        if(event->type() == QEvent::Wheel) {
+            if(spinBox->focusPolicy() == Qt::WheelFocus) {
+                event->accept();
+                return false;
+            } else {
+                event->ignore();
+                return true;
+            }
+        }
+        else if(event->type() == QEvent::FocusIn) {
+            spinBox->setFocusPolicy(Qt::WheelFocus);
+        }
+        else if(event->type() == QEvent::FocusOut) {
+            spinBox->setFocusPolicy(Qt::StrongFocus);
+        }
+    }
+    else if(qobject_cast<QComboBox*>(obj)) {
+        if(event->type() == QEvent::Wheel) {
+            event->ignore();
+            return true;
+        } else {
+            event->accept();
+            return false;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }

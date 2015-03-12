@@ -28,7 +28,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     , m_instrumentModel(0)
     , m_listView(0)
 {
-    setMinimumSize(128, 600);
+    setMinimumSize(128, 400);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     m_listView = new QListView;

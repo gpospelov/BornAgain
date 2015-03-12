@@ -32,8 +32,8 @@ class BA_CORE_API_ InstrumentSelectorWidget : public QWidget
 public:
     InstrumentSelectorWidget(InstrumentModel *model, QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(200, 600); }
-    QSize minimumSizeHint() const { return QSize(128, 300); }
+    QSize sizeHint() const { return QSize(200, 400); }
+    QSize minimumSizeHint() const { return QSize(128, 200); }
 
     void setInstrumentModel(InstrumentModel *model);
 

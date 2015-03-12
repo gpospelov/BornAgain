@@ -179,9 +179,11 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
 }
 
 ParticleComposition *DomainObjectBuilder::buildParticleComposition(const ParameterizedItem &item,
-                                                           double &depth, double &abundance) const
+                                                                   double &depth,
+                                                                   double &abundance) const
 {
-    ParticleComposition *result = TransformToDomain::createParticleComposition(item, depth, abundance);
+    ParticleComposition *result
+        = TransformToDomain::createParticleComposition(item, depth, abundance);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         double tmp_depth(0.0), tmp_abundance(0.0);
@@ -309,8 +311,8 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
 }
 
 void DomainObjectBuilder::addParticleToParticleComposition(ParticleComposition *result,
-                                                  ParameterizedItem *particle_item,
-                                                  const IParticle &particle) const
+                                                           ParameterizedItem *particle_item,
+                                                           const IParticle &particle) const
 {
     QList<ParameterizedItem *> particle_children = particle_item->childItems();
     kvector_t zero_position;

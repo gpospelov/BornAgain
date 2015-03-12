@@ -28,24 +28,18 @@
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
 
-
 GUIFunctionalTest::GUIFunctionalTest(const std::string &name)
-    : m_name(name)
-    , m_threshold(2e-10)
-    , m_reference_simulation(0)
-    , m_domain_simulation(0)
+    : m_name(name), m_threshold(2e-10), m_reference_simulation(0), m_domain_simulation(0)
 {
     SimulationRegistry sim_registry;
     m_reference_simulation = sim_registry.createSimulation(m_name);
 }
-
 
 GUIFunctionalTest::~GUIFunctionalTest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
-
 
 void GUIFunctionalTest::runTest()
 {
@@ -56,22 +50,20 @@ void GUIFunctionalTest::runTest()
     m_domain_simulation->runSimulation();
 }
 
-
 int GUIFunctionalTest::analyseResults()
 {
     boost::scoped_ptr<OutputData<double> > domain_data(m_domain_simulation->getIntensityData());
-    boost::scoped_ptr<OutputData<double> > reference_data(m_reference_simulation->getIntensityData());
-    double diff = IntensityDataFunctions::getRelativeDifference(*domain_data,*reference_data);
+    boost::scoped_ptr<OutputData<double> > reference_data(
+        m_reference_simulation->getIntensityData());
+    double diff = IntensityDataFunctions::getRelativeDifference(*domain_data, *reference_data);
 
-    std::cout << m_name<< " " << " " << diff
-              << " " << (diff>m_threshold ? "[FAILED]" : "[OK]") << std::endl;
+    std::cout << m_name << " "
+              << " " << diff << " " << (diff > m_threshold ? "[FAILED]" : "[OK]") << std::endl;
 
-    if( diff > m_threshold ) return FAILED;
+    if (diff > m_threshold)
+        return FAILED;
     return SUCCESS;
-
 }
-
-
 
 //! returns new simulation from
 void GUIFunctionalTest::createDomainSimulation()
@@ -90,24 +82,24 @@ void GUIFunctionalTest::createDomainSimulation()
 
     // building sample back
 
-//    QModelIndex sampleIndex = sampleModel->index(0, 0, QModelIndex());
-//    ParameterizedItem *sampleItem = sampleModel->itemForIndex(sampleIndex);
-//    DomainObjectBuilder builder;
-//    MultiLayer *new_sample = builder.buildMultiLayer(*sampleItem);
+    //    QModelIndex sampleIndex = sampleModel->index(0, 0, QModelIndex());
+    //    ParameterizedItem *sampleItem = sampleModel->itemForIndex(sampleIndex);
+    //    DomainObjectBuilder builder;
+    //    MultiLayer *new_sample = builder.buildMultiLayer(*sampleItem);
 
-//    // building multilayer back
-//    QModelIndex instrumentIndex = instrumentModel->index(0, 0, QModelIndex());
-//    ParameterizedItem *instrumentItem = sampleModel->itemForIndex(instrumentIndex);
-//    Q_ASSERT(sampleItem);
-//    Instrument *new_instrument = builder.buildInstrument(*instrumentItem);
+    //    // building multilayer back
+    //    QModelIndex instrumentIndex = instrumentModel->index(0, 0, QModelIndex());
+    //    ParameterizedItem *instrumentItem = sampleModel->itemForIndex(instrumentIndex);
+    //    Q_ASSERT(sampleItem);
+    //    Instrument *new_instrument = builder.buildInstrument(*instrumentItem);
 
-//    m_domain_simulation = new Simulation;
-//    m_domain_simulation->setSample(*new_sample);
-//    m_domain_simulation->setInstrument(*new_instrument);
+    //    m_domain_simulation = new Simulation;
+    //    m_domain_simulation->setSample(*new_sample);
+    //    m_domain_simulation->setInstrument(*new_instrument);
 
-    m_domain_simulation = DomainSimulationBuilder::getSimulation(sampleModel.get(), instrumentModel.get());
+    m_domain_simulation
+        = DomainSimulationBuilder::getSimulation(sampleModel.get(), instrumentModel.get());
 }
-
 
 int GUI_FUNCTIONAL_TEST(const std::string &name)
 {
@@ -115,4 +107,3 @@ int GUI_FUNCTIONAL_TEST(const std::string &name)
     test.runTest();
     return test.analyseResults();
 }
-

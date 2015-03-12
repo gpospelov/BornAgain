@@ -48,11 +48,12 @@ signals:
 public slots:
     void clearRecentProjects();
     void onDocumentModified();
-    void saveProject();
+    bool saveProject();
+    bool saveProjectAs();
     void openProject(QString fileName = QString());
     void newProject();
 
-    bool saveModifiedProject();
+//    bool saveModifiedProject();
 
 private:
 //    ProjectDocument *createNewProject();

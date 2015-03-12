@@ -75,6 +75,7 @@ public slots:
     void writeSettings();
     void onRunSimulationShortcut();
     void onAboutApplication();
+    void resetModels();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
@@ -104,16 +105,12 @@ private:
     ToolTipDataBase *m_toolTipDataBase;
     FitProxyModel *m_fitProxyModel;
 
-    void initModels();
-    void initMaterialModel();
-    void initSampleModel();
-    void initJobModel();
-    void initInstrumentModel();
-    void initFitModel();
-
-    void updateSimModel();
-    void updateSamples();
-    void updateInstruments();
+    void createModels();
+    void createMaterialModel();
+    void createSampleModel();
+    void createJobModel();
+    void createInstrumentModel();
+    void createFitModel();
 
     void testGUIObjectBuilder();
 };

@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "aboutapplicationdialog.h"
-#include "BAVersion.h"
 #include "DesignerHelper.h"
+#include "GUIHelpers.h"
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -55,7 +55,8 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
 
 
-    QLabel *aboutTitleLabel = new QLabel(QString::fromStdString(BornAgain::GetName()).append(" ver. ").append(QString::fromStdString(BornAgain::GetVersionNumber())));
+    QLabel *aboutTitleLabel = new QLabel(QString("BornAgain").append(" ver. ")
+                                         .append(GUIHelpers::getBornAgainVersionString()));
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0,0,0,15);
 

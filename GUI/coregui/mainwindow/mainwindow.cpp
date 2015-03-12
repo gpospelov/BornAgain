@@ -95,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
-    initModels();
+    createModels();
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
@@ -241,64 +241,78 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::initModels()
+//! creates and initializes models
+void MainWindow::createModels()
 {
-    initMaterialModel(); // should be first
+    createMaterialModel(); // should be first
 
-    initSampleModel();
+    createSampleModel();
 
-    initJobModel();
+    createJobModel();
 
-    initInstrumentModel();
+    createInstrumentModel();
 
-    //initFitModel();
+    //createFitModel();
+
+    resetModels();
 }
 
-void MainWindow::initMaterialModel()
+void MainWindow::createMaterialModel()
 {
     delete m_materialModel;
-
     m_materialModel = new MaterialModel(this);
-    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-    m_materialModel->addMaterial("Air", 0.0, 0.0);
-    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-
+//    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+//    m_materialModel->addMaterial("Air", 0.0, 0.0);
+//    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+//    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
     m_materialEditor = new MaterialEditor(m_materialModel);
 }
 
-void MainWindow::initSampleModel()
+void MainWindow::createSampleModel()
 {
     Q_ASSERT(m_materialModel);
-
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
-
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
-
-//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-//    ParameterizedItem *layer0 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
-//    layer0->setItemName("layer0");
-//    ParameterizedItem *layer1 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
-//    layer1->setItemName("layer1");
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 }
 
-void MainWindow::initJobModel()
+void MainWindow::createJobModel()
 {
     delete m_jobModel;
     m_jobModel = new JobModel(this);
 }
 
-void MainWindow::initInstrumentModel()
+void MainWindow::createInstrumentModel()
 {
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 }
 
-void MainWindow::initFitModel()
+void MainWindow::createFitModel()
 {
     m_fitProxyModel = new FitProxyModel;
+}
+
+//! reset all models to initial state
+void MainWindow::resetModels()
+{
+    m_materialModel->clear();
+    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+    m_materialModel->addMaterial("Air", 0.0, 0.0);
+    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
+
+    m_sampleModel->clear();
+
+    m_jobModel->clear();
+
+    m_instrumentModel->clear();
+    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    instrument->setItemName("Default GISAS");
+    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 }
 
 void MainWindow::testGUIObjectBuilder()

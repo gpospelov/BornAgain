@@ -58,7 +58,8 @@ bool ProjectManager::closeCurrentProject()
         switch (ret) {
           case QMessageBox::Save:
               qDebug() << "QMessageBox::Save";
-              returnVal = saveModifiedProject();
+//              returnVal = saveModifiedProject();
+              returnVal = saveProject();
               break;
           case QMessageBox::Discard:
             qDebug() << "QMessageBox::Discard";
@@ -133,7 +134,7 @@ void ProjectManager::newProject()
 }
 
 
-void ProjectManager::saveProject()
+bool ProjectManager::saveProject()
 {
     Q_ASSERT(m_project_document);
     qDebug() << "ProjectManager::saveProject()";
@@ -142,7 +143,8 @@ void ProjectManager::saveProject()
         bool success = m_project_document->save();
         if(success == false) {
             QMessageBox::warning(m_mainWindow, tr("Error while saving project"),
-                                 QString("Failed to save project under '%1'").arg(m_project_document->getProjectDir()));
+                                 QString("Failed to save project under '%1'.")
+                                 .arg(m_project_document->getProjectDir()));
 
         } else {
             addToRecentProjects();
@@ -159,40 +161,64 @@ void ProjectManager::saveProject()
             m_project_document->setProjectPath(dialog.getProjectPath());
             m_project_document->save();
             addToRecentProjects();
-        }
-    }
-    modified();
-}
-
-bool ProjectManager::saveModifiedProject()
-{
-    Q_ASSERT(m_project_document);
-    qDebug() << "ProjectManager::saveProject()";
-
-    if(m_project_document->hasValidNameAndPath()) {
-        m_project_document->save();
-        addToRecentProjects();
-    } else {
-        NewProjectDialog dialog(m_mainWindow);
-        // give projectDialog something to start with
-        dialog.setProjectPath(getDefaultProjectPath());
-        dialog.setProjectName(getUntitledProjectName());
-
-        if (dialog.exec() == QDialog::Accepted) {
-            m_defaultProjectPath = dialog.getProjectPath();
-            m_project_document->setProjectName(dialog.getProjectName());
-            m_project_document->setProjectPath(dialog.getProjectPath());
-            m_project_document->save();
-            addToRecentProjects();
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-
+    modified();
     return true;
 }
+
+bool ProjectManager::saveProjectAs()
+{
+    NewProjectDialog dialog(m_mainWindow);
+    // give projectDialog something to start with
+    dialog.setProjectPath(getDefaultProjectPath());
+    dialog.setProjectName(getUntitledProjectName());
+
+    if (dialog.exec() == QDialog::Accepted) {
+        m_defaultProjectPath = dialog.getProjectPath();
+        m_project_document->setProjectName(dialog.getProjectName());
+        m_project_document->setProjectPath(dialog.getProjectPath());
+        m_project_document->save();
+        addToRecentProjects();
+    } else {
+        return false;
+    }
+
+    modified();
+    return true;
+}
+
+//bool ProjectManager::saveModifiedProject()
+//{
+//    Q_ASSERT(m_project_document);
+//    qDebug() << "ProjectManager::saveProject()";
+
+//    if(m_project_document->hasValidNameAndPath()) {
+//        m_project_document->save();
+//        addToRecentProjects();
+//    } else {
+//        NewProjectDialog dialog(m_mainWindow);
+//        // give projectDialog something to start with
+//        dialog.setProjectPath(getDefaultProjectPath());
+//        dialog.setProjectName(getUntitledProjectName());
+
+//        if (dialog.exec() == QDialog::Accepted) {
+//            m_defaultProjectPath = dialog.getProjectPath();
+//            m_project_document->setProjectName(dialog.getProjectName());
+//            m_project_document->setProjectPath(dialog.getProjectPath());
+//            m_project_document->save();
+//            addToRecentProjects();
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+
+//    return true;
+//}
 
 
 //! Opens existing project. If fileName is empty, will popup file selection dialog

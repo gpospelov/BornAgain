@@ -34,6 +34,7 @@ ActionManager::ActionManager(MainWindow *parent)
     , m_newAction(0)
     , m_openAction(0)
     , m_saveAction(0)
+    , m_saveAsAction(0)
     , m_menuBar(0)
     , m_fileMenu(0)
     , m_helpMenu(0)
@@ -69,9 +70,16 @@ void ActionManager::createActions()
     // save project action
     icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
     m_saveAction = new QAction(icon, tr("&Save Project"), m_mainWindow);
-    m_saveAction->setShortcuts(QKeySequence::Open);
+    m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip(tr("Save project"));
     connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
+
+    // save-as project action
+    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
+    m_saveAsAction = new QAction(icon, tr("Save &As..."), m_mainWindow);
+    m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
+    m_saveAsAction->setStatusTip(tr("Save project under different name"));
+    connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()) );
 
     // exit application action
     icon = QIcon::fromTheme(QLatin1String("application-exit"));
@@ -107,6 +115,7 @@ void ActionManager::createMenus()
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_saveAction);
+    m_fileMenu->addAction(m_saveAsAction);
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);

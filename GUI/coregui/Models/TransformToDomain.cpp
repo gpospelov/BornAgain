@@ -100,6 +100,9 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     else if (approximation == QString("Size Space Coupling Approximation")) {
         result->setApproximation(ILayout::SSCA);
     }
+    double total_density =
+            item.getRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
+    result->setTotalParticleSurfaceDensity(total_density);
     return result;
 }
 

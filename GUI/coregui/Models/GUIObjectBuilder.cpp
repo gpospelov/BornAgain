@@ -149,6 +149,8 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     }
     item->setRegisteredProperty(ParticleLayoutItem::P_APPROX,
                                 approx_prop.getVariant());
+    item->setRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY,
+                                sample->getTotalParticleSurfaceDensity());
     m_levelToParentItem[getLevel()] = item;
 }
 

@@ -36,8 +36,8 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     registerProperty(P_SAMPLE_NUMBER, 5);
     registerProperty(P_SIGMA_FACTOR, 2.0);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
+    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0, 1);
 
     registerProperty(P_CACHED_SELECTED_PARAMETER, QString("None"),
                      PropertyAttribute::hiddenProperty());

@@ -277,9 +277,15 @@ void ProjectManager::writeSettings(QSettings *settings)
 }
 
 
-//! returns list of recent projects
+//! returns list of recent projects, validates if projects still exists on disk
 QStringList ProjectManager::getRecentProjects()
 {
+    QStringList updatedList;
+    foreach(QString fileName, m_recentProjects) {
+        QFile fin(fileName);
+        if(fin.exists()) updatedList.append(fileName);
+    }
+    m_recentProjects = updatedList;
     return m_recentProjects;
 }
 

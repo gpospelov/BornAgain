@@ -30,7 +30,7 @@ def get_sample():
     cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     basis = ParticleComposition()
-    basis.addParticle(cylinder, [position1, position2])
+    basis.addParticles(cylinder, [position1, position2])
     particle_layout.addParticle(basis)
     particle_layout.addInterferenceFunction(interference)
 

@@ -44,6 +44,7 @@ user_api = [
     "Lattice2DIFParameters",
     "ParticleComposition",
     "ParticleComposition.addParticle",
+    "ParticleComposition.addParticles",
     "Layer",
     "Layer.setDecoration",
     "LayerRoughness",

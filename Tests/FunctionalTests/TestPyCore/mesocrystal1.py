@@ -124,7 +124,7 @@ class MySampleBuilder(ISampleBuilder):
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
         positions = [ position_0, position_1, position_2 ]
         basis = ParticleComposition()
-        basis.addParticle(particle, positions)
+        basis.addParticles(particle, positions)
 
         npc = Crystal(basis, p_lat)
         dw_factor = self.sigma_lattice_length_a.value*self.sigma_lattice_length_a.value/6.0

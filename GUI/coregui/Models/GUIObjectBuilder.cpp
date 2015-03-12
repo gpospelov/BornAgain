@@ -239,9 +239,39 @@ void GUIObjectBuilder::visit(const Particle *sample)
              "(const Particle *sample) -> Error. Logically should not be here");
         }
     }
+    else if(parent->modelType() == Constants::ParticleCompositionType){
+        const ParticleComposition *particle_composition =
+                dynamic_cast<const ParticleComposition *>(m_itemToSample[parent]);
+        Q_ASSERT(particle_composition);
+        size_t index = 0;
+        for (size_t i=0; i<particle_composition->getNbrParticles(); ++i) {
+            if (sample == particle_composition->getParticle(i)) {
+                index = i;
+            }
+        }
+        if (index == 0 && sample != particle_composition->getParticle(0)) {
+            throw GUIHelpers::Error("GUIObjectBuilder::visit"
+             "(const Particle *sample) -> Error. Particle is not part of"
+             " ParticleComposition");
+        }
+        kvector_t position = particle_composition->getParticlePosition(index);
+        particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
+                                                    m_sampleModel->indexOfItem(parent) );
+        const Geometry::Transform3D *p_transformation = sample->getTransform3D();
+        ParameterizedItem *transformation_item =
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
+        ParameterizedItem *p_position_item =
+                transformation_item->getSubItems()[TransformationItem::P_POS];
+        p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
+        p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
+        p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
+        if (p_transformation) {
+            addRotationItem(p_transformation, transformation_item);
+        }
+    }
     else if(parent->modelType() == Constants::ParticleLayoutType
-         || parent->modelType() == Constants::ParticleCompositionType
-         || parent->modelType() == Constants::ParticleDistributionType){
+         || parent->modelType() == Constants::ParticleDistributionType) {
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
         bool has_position_info = m_sample_encountered[
@@ -356,6 +386,7 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     item->setItemName(sample->getName().c_str());
 
     m_levelToParentItem[getLevel()] = item;
+    m_itemToSample[item] = sample;
 }
 
 void GUIObjectBuilder::visit(const ParticleInfo *sample)
@@ -366,7 +397,7 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
     kvector_t position = sample->getPosition();
-    if (position.x()!=0.0 || position.y()!=0.0){
+    if (position.x()!=0.0 || position.y()!=0.0) {
         m_sample_encountered[Constants::TransformationType] = true;
         m_propertyToValue[VectorItem::P_X] = position.x();
         m_propertyToValue[VectorItem::P_Y] = position.y();

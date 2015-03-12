@@ -326,9 +326,9 @@ void DomainObjectBuilder::addParticleToParticleComposition(ParticleComposition *
         double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
         kvector_t position(pos_x, pos_y, pos_z);
         positions.push_back(position);
-        result->addParticle(particle, positions);
+        result->addParticles(particle, positions);
     } else {
         positions.push_back(zero_position);
-        result->addParticle(particle, positions);
+        result->addParticles(particle, positions);
     }
 }

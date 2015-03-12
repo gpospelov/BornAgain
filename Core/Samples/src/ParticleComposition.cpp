@@ -26,16 +26,20 @@ ParticleComposition::ParticleComposition()
 ParticleComposition::ParticleComposition(const IParticle& particle)
 {
     setName("ParticleComposition");
-    std::vector<kvector_t> positions;
-    positions.push_back(kvector_t(0.0, 0.0, 0.0));
-    addParticle( particle, positions );
+    addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
+}
+
+ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
+{
+    setName("ParticleComposition");
+    addParticle(particle, position);
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
     setName("ParticleComposition");
-    addParticle(particle, positions);
+    addParticles(particle, positions);
 }
 
 ParticleComposition::~ParticleComposition()
@@ -49,7 +53,7 @@ ParticleComposition* ParticleComposition::clone() const
 {
     ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticle(*m_particles[index], m_positions_vector[index]);
+        p_new->addParticle(*m_particles[index], m_position_vector[index]);
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
@@ -64,7 +68,7 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticlePointer(m_particles[index]->cloneInvertB(),
-                m_positions_vector[index]);
+                m_position_vector[index]);
     }
     p_new->setName(getName() + "_inv");
 
@@ -78,13 +82,20 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     return p_new;
 }
 
-void ParticleComposition::addParticle(const IParticle& particle,
-        std::vector<kvector_t > positions)
+void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
 {
     IParticle *np = particle.clone();
     registerChild(np);
     m_particles.push_back(np);
-    m_positions_vector.push_back(positions);
+    m_position_vector.push_back(position);
+}
+
+void ParticleComposition::addParticles(const IParticle& particle,
+        std::vector<kvector_t > positions)
+{
+    for (size_t i=0; i<positions.size(); ++i) {
+        addParticle(particle, positions[i]);
+    }
 }
 
 void ParticleComposition::setAmbientMaterial(const IMaterial& material)
@@ -108,8 +119,7 @@ IFormFactor* ParticleComposition::createFormFactor(
         boost::scoped_ptr<IFormFactor> P_particle_ff(
                 m_particles[index]->createFormFactor(
                                       wavevector_scattering_factor));
-        FormFactorDecoratorMultiPositionFactor pos_ff(*P_particle_ff,
-                m_positions_vector[index]);
+        FormFactorDecoratorPositionFactor pos_ff(*P_particle_ff, m_position_vector[index]);
         p_ff->addFormFactor(pos_ff);
     }
     p_ff->setAmbientMaterial(*getAmbientMaterial());
@@ -124,21 +134,17 @@ void ParticleComposition::applyTransformationToSubParticles(
     {
         (*it)->applyTransformation(transform);
     }
-    for (std::vector<std::vector<kvector_t> >::iterator it_vec =
-            m_positions_vector.begin(); it_vec != m_positions_vector.end();
+    for (std::vector<kvector_t>::iterator it_vec =
+            m_position_vector.begin(); it_vec != m_position_vector.end();
             ++it_vec) {
-        for (std::vector<kvector_t>::iterator it_vec_el = it_vec->begin();
-                it_vec_el != it_vec->end(); ++it_vec_el) {
-            *it_vec_el = transform.transformed(*it_vec_el);
-        }
+            *it_vec = transform.transformed(*it_vec);
     }
 }
 
-void ParticleComposition::addParticlePointer(IParticle* p_particle,
-        std::vector<kvector_t> positions)
+void ParticleComposition::addParticlePointer(IParticle* p_particle, kvector_t position)
 {
     registerChild(p_particle);
     m_particles.push_back(p_particle);
-    m_positions_vector.push_back(positions);
+    m_position_vector.push_back(position);
 }
 

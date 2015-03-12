@@ -699,21 +699,15 @@ std::string PyGenVisitor::defineParticleCompositions() const
     {
         result << "\t" << it->second << " = ParticleComposition()\n";
         for (size_t i=0; i<it->first->getNbrParticles(); ++i) {
-            std::vector<kvector_t> position_vector = it->first->getParticlePositions(i);
-            for (size_t j=0; j<position_vector.size(); ++j) {
-                result << "\tparticle_" << i+1
-                       << "_position_" << j+1 << " = kvector_t("
-                       << position_vector[j].x() << "*nanometer, "
-                       << position_vector[j].y() << "*nanometer, "
-                       << position_vector[j].z() << "*nanometer)\n";
-            }
+            kvector_t position = it->first->getParticlePosition(i);
+            result << "\tparticle_" << i+1
+                   << "_position" << " = kvector_t("
+                   << position.x() << "*nanometer, "
+                   << position.y() << "*nanometer, "
+                   << position.z() << "*nanometer)\n";
             result << "\t" << it->second << ".addParticle("
-                   << m_label->getLabel(it->first->getParticle(i)) << ", [";
-            for (size_t j=0; j<position_vector.size(); ++j) {
-                result << "particle_" << i+1 << "_position_" << j+1;
-                if (j!=position_vector.size()-1) result << ", ";
-            }
-            result << "])\n";
+                   << m_label->getLabel(it->first->getParticle(i)) << ", ";
+            result << "particle_" << i+1 << "_position"  << ")\n";
         }
         it++;
     }

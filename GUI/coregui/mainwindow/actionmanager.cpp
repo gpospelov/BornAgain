@@ -72,6 +72,7 @@ void ActionManager::createActions()
     m_saveAction = new QAction(icon, tr("&Save Project"), m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip(tr("Save project"));
+    m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
     connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
 
     // save-as project action

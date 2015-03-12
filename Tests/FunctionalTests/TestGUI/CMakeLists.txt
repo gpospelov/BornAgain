@@ -17,6 +17,7 @@ set(list_of_tests
     "TestGUI05"
     "TestGUI06"
     "TestGUI07"
+    "TestGUI08"
     "TestGUIBeamDivergence"
     "TestGUIDetectorResolution"
 )
@@ -37,11 +38,11 @@ include_directories(
 
 foreach(_test ${list_of_tests})
    #BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-   
+
    file(GLOB source_files "${_test}/*.cpp")
    file(GLOB include_files "${_test}/*.h")
-   add_executable( ${_test} ${source_files} ${include_files})      
-   target_link_libraries(${_test} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY}) 
+   add_executable( ${_test} ${source_files} ${include_files})
+   target_link_libraries(${_test} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
 
    qt5_use_modules(${_test} Widgets Core Gui Script Designer PrintSupport)
 

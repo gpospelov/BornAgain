@@ -19,6 +19,7 @@
 #include "ComboProperty.h"
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
+const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
 
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
@@ -29,6 +30,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
     registerProperty(P_APPROX, approx.getVariant());
+    registerProperty(P_TOTAL_DENSITY, 1.0);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);

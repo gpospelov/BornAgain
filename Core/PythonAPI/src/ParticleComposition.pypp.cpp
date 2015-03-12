@@ -236,11 +236,21 @@ void register_ParticleComposition_class(){
         bp::scope ParticleComposition_scope( ParticleComposition_exposer );
         { //::ParticleComposition::addParticle
         
-            typedef void ( ::ParticleComposition::*addParticle_function_type)( ::IParticle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
+            typedef void ( ::ParticleComposition::*addParticle_function_type)( ::IParticle const &,::kvector_t ) ;
             
             ParticleComposition_exposer.def( 
                 "addParticle"
                 , addParticle_function_type( &::ParticleComposition::addParticle )
+                , ( bp::arg("particle"), bp::arg("position") ) );
+        
+        }
+        { //::ParticleComposition::addParticles
+        
+            typedef void ( ::ParticleComposition::*addParticles_function_type)( ::IParticle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
+            
+            ParticleComposition_exposer.def( 
+                "addParticles"
+                , addParticles_function_type( &::ParticleComposition::addParticles )
                 , ( bp::arg("particle"), bp::arg("positions") ) );
         
         }

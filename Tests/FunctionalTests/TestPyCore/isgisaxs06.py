@@ -68,7 +68,7 @@ def run_simulation_centered():
     position1 = kvector_t(0.0, 0.0, 0.0)
     position2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     basis = ParticleComposition()
-    basis.addParticle(cylinder, [position1, position2])
+    basis.addParticles(cylinder, [position1, position2])
 
     particle_layout = ParticleLayout()
     particle_layout.addParticle(basis)

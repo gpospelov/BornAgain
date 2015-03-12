@@ -221,6 +221,7 @@ def ManualClassTunings(mb):
     cl = mb.class_("ParticleComposition")
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     cl.member_functions().exclude()
+    cl.member_function("addParticles").include()
     cl.member_function("addParticle").include()
     #
     cl = mb.class_('RealParameterWrapper')

@@ -93,7 +93,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     positions.push_back(position_1);
     positions.push_back(position_2);
     ParticleComposition basis;
-    basis.addParticle(cylinder, positions);
+    basis.addParticles(cylinder, positions);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(basis);

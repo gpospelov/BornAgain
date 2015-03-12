@@ -201,15 +201,15 @@ void ProjectManager::openProject(QString fileName)
     qDebug() << "ProjectManager::openProject()" << fileName;
     if( !closeCurrentProject()) return;
 
-//    if(fileName.isEmpty()) {
-//        fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
-//                                                    getDefaultProjectPath(),
-//                                         tr("BornAgain project Files (*.pro)"));
-//    }
+    if(fileName.isEmpty()) {
+        fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
+                                                    getDefaultProjectPath(),
+                                         tr("BornAgain project Files (*.pro)"));
+    }
 
     if(fileName.isEmpty()) {
-        QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
-                             tr("File name is empty."));
+//        QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
+//                             tr("File name is empty."));
         return;
     }
 
@@ -230,6 +230,8 @@ void ProjectManager::openProject(QString fileName)
             m_project_document = 0;
             m_mainWindow->resetModels();
             createNewProject();
+        } else {
+            addToRecentProjects();
         }
         emit modified();
     }
@@ -286,6 +288,7 @@ QStringList ProjectManager::getRecentProjects()
 void ProjectManager::clearRecentProjects()
 {
     m_recentProjects.clear();
+    modified();
 }
 
 

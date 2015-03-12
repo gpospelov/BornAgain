@@ -36,8 +36,9 @@ QMap<QString, QString > init_NameToRegistry()
     result["example06"] = "gui_isgisaxs06a";
     result["example07"] = "gui_isgisaxs07";
     // temporary for testing
-    //result["example08"] = "beam_divergence";
-    result["example08"] = "detector_resolution";
+//    result["example08"] = "beam_divergence";
+//    result["example08"] = "detector_resolution";
+    result["example08"] = "gui_isgisaxs06b";
     return result;
 }
 

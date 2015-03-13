@@ -468,7 +468,7 @@ void Simulation::runSingleSimulation()
         }
         if(!isSuccess) {
             throw Exceptions::RuntimeErrorException(
-                "Simulation::runSimulation() -> Simulation has terminated unexpectedly "
+                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
                 "with the following error message.\n" + failure_message);
         }
     }

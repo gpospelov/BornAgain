@@ -68,7 +68,9 @@ void JobRunner::start()
         {
             m_job_status = Constants::STATUS_FAILED;
             m_progress=100;
-            m_failure_message = QString(ex.what());
+            m_failure_message = QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
+
+            m_failure_message.append(QString(ex.what()));
         }
 
     } else {

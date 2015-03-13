@@ -33,7 +33,7 @@ public:
 
     DecoratedLayerDWBASimulation *clone() const
     {
-        throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> "
+        throw NotImplementedException("DecoratedLayerDWBASimulation::clone() -> "
                                       "Error: not implemented.");
     }
 

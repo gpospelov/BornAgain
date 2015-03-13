@@ -33,12 +33,10 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
 
 }
 
-
 JobRunner::~JobRunner()
 {
     qDebug() << "JobRunner::~JobRunner()";
 }
-
 
 int JobRunner::getProgress() const
 {
@@ -47,14 +45,12 @@ int JobRunner::getProgress() const
     return m_progress < 100 ? m_progress : 100;
 }
 
-
 void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
     m_terminate_request_flag = false;
     emit started();
 
-    qDebug() << "JobRunner xxx 1.1";
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
@@ -62,7 +58,6 @@ void JobRunner::start()
         m_simulation->setProgressHandler(progressHandler);
 
         m_job_status = Constants::STATUS_RUNNING;
-        qDebug() << "JobRunner xxx 1.2";
 
         try {
             m_simulation->runSimulation();
@@ -76,10 +71,6 @@ void JobRunner::start()
             m_failure_message = QString(ex.what());
         }
 
-        //if(m_terminate_request_flag) m_progress=-1;
-
-//        emit progressUpdate();
-//        emit finished();
     } else {
         m_job_status = Constants::STATUS_FAILED;
         m_progress=100;
@@ -88,7 +79,6 @@ void JobRunner::start()
     emit progressUpdate();
     emit finished();
 }
-
 
 //! Fake simulation function to mimic some hard work going on
 void JobRunner::runFakeSimulation()
@@ -105,7 +95,6 @@ void JobRunner::runFakeSimulation()
     }
 }
 
-
 //! function which is called by the Simulation to report its progress
 bool JobRunner::similationProgressCallback(int progress)
 {
@@ -117,7 +106,7 @@ bool JobRunner::similationProgressCallback(int progress)
     return !m_terminate_request_flag;
 }
 
-
+//! set request for JobRunner to terminate underlying domain simulation
 void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";

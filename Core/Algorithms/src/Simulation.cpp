@@ -467,7 +467,9 @@ void Simulation::runSingleSimulation()
             delete threads[i];
         }
         if(!isSuccess) {
-            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
+            throw Exceptions::RuntimeErrorException(
+                "Simulation::runSimulation() -> Simulation has terminated unexpectedly "
+                "with the following error message.\n" + failure_message);
         }
     }
 //    if( mp_sample->containsMagneticMaterial() ) {

@@ -52,6 +52,11 @@ public:
         ostr << p.m_data; return ostr;
     }
 
+    AttLimits getAttLimits() const { return m_limits; }
+
+    bool operator==(const RealParameterWrapper &other) const;
+    bool operator!=(const RealParameterWrapper &other) const;
+
 private:
     //! swap function
     void swapContent(RealParameterWrapper& other);
@@ -75,7 +80,17 @@ inline void RealParameterWrapper::checkNull() const
 {
     if(isNull())
         throw NullPointerException(
-            "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+                "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+}
+
+inline bool RealParameterWrapper::operator==(const RealParameterWrapper &other) const
+{
+    return (m_limits == other.m_limits) && (m_data == other.m_data);
+}
+
+inline bool RealParameterWrapper::operator!=(const RealParameterWrapper &other) const
+{
+    return !(*this == other);
 }
 
 

@@ -92,7 +92,7 @@ public:
     const Instrument& getInstrument() const { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);

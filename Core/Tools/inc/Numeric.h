@@ -21,9 +21,9 @@
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
-#ifndef M_PI
-#define M_PI		3.14159265358979323846
-#endif
+//#ifndef M_PI
+//#define M_PI		3.14159265358979323846
+//#endif
 
 namespace Numeric {
 

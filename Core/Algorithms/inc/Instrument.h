@@ -39,7 +39,7 @@ public:
     void setBeam(const Beam &beam);
 
     //! Sets the beam wavelength and incoming angles
-    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets the beam's intensity
     void setBeamIntensity(double intensity) { m_beam.setIntensity(intensity); }
@@ -108,9 +108,9 @@ inline void Instrument::setBeam(const Beam &beam)
     m_beam = beam;
 }
 
-inline void Instrument::setBeamParameters(double lambda, double alpha_i, double phi_i)
+inline void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    m_beam.setCentralK(lambda, alpha_i, phi_i);
+    m_beam.setCentralK(wavelength, alpha_i, phi_i);
 }
 
 inline Detector Instrument::getDetector() const

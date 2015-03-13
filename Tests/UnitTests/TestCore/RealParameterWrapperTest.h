@@ -110,6 +110,7 @@ TEST_F(RealParameterWrapperTest, LimitedParameter)
     EXPECT_EQ(16.0, m_real_parameter);
 
     RealParameterWrapper par2(par1);
+    EXPECT_TRUE(par1.getAttLimits() == par2.getAttLimits());
     EXPECT_TRUE(par1 == par2);
 
     EXPECT_FALSE(par1.setValue(21.0));

@@ -234,15 +234,15 @@ void Simulation::setInstrument(const Instrument& instrument)
     updateIntensityMapAxes();
 }
 
-void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
+void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    if (lambda<=0.0) {
+    if (wavelength<=0.0) {
         throw ClassInitializationException(
                 "Simulation::setBeamParameters() "
                 "-> Error. Incoming wavelength <= 0.");
     }
 
-    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
+    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
 void Simulation::setBeamIntensity(double intensity)

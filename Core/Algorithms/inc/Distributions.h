@@ -44,8 +44,19 @@ public:
             double sigma_factor=0.0) const;
 
     //! generate list of sample values
+    //! @param nbr_samples number of values to generate
+    //! @param sigma_factor parameter to derive min,max range for sample values
+    //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor) const=0;
+
+    //! generate list of sample values
+    //! @param nbr_samples number of values to generate
+    //! @param sigma_factor parameter to derive min,max range for sample values
+    //! @return vector of generated values
+    virtual std::vector<double> generateValues(size_t nbr_samples,
+            double xmin, double xmax) const;
+
 
 protected:
     //! this function is called during bad initialization of a subclass

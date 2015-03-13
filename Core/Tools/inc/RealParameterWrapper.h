@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "Exceptions.h"
+#include "AttLimits.h"
 
 #include <ostream>
 
@@ -28,39 +29,55 @@
 
 class BA_CORE_API_ RealParameterWrapper {
 public:
-    explicit RealParameterWrapper(double *par) : m_data(par) {}
-    // explicit RealParameterWrapper(double *par) : m_data(par), m_signal() {}
+    explicit RealParameterWrapper(double *par, const AttLimits &limits = AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other );
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
     ~RealParameterWrapper(){}
 
     //! Sets value of wrapped parameter and emmit signal
-    void setValue(double value)
-    {
-        checkNull();
-        if(value != *m_data) {
-            *m_data = value;
-            // m_signal();
-        }
-    }
+    bool setValue(double value);
 
     //! Returns value of wrapped parameter
-    double getValue() const { checkNull(); return *m_data; }
+    double getValue() const;
 
     //! Returns true if wrapped parameter was not initialized with proper real value
-    bool isNull() const { return (m_data ? false : true); }
+    bool isNull() const;
 
     //! throw exception if parameter was not initialized with proper value
-    void checkNull() const { if(isNull()) throw NullPointerException("RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer."); }
+    void checkNull() const;
 
     //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) { ostr << p.m_data; return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p)
+    {
+        ostr << p.m_data; return ostr;
+    }
+
 private:
     //! swap function
     void swapContent(RealParameterWrapper& other);
 
     volatile double *m_data;
+    AttLimits m_limits;
 };
+
+inline double RealParameterWrapper::getValue() const
+{
+    checkNull();
+    return *m_data;
+}
+
+inline bool RealParameterWrapper::isNull() const
+{
+    return (m_data ? false : true);
+}
+
+inline void RealParameterWrapper::checkNull() const
+{
+    if(isNull())
+        throw NullPointerException(
+            "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+}
+
 
 #endif // REALPARAMETERPROXY_H
 

@@ -3,6 +3,7 @@
 #endif
 #include "gtest/gtest.h"
 
+#include "AttLimitsTest.h"
 #include "BeamTest.h"
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"

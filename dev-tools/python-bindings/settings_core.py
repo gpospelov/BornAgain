@@ -309,6 +309,7 @@ def ManualClassTunings(mb):
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
     cl.member_function("getMatchedParameters").exclude()
+    cl.member_function("getParameterNames").exclude()
     #
     mb.namespace("Units").include()
     #

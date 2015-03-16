@@ -79,14 +79,9 @@ void ParticleDistributionItem::updateParameterList()
     QString cached_par =
             getRegisteredProperty(P_CACHED_SELECTED_PARAMETER).toString();
     ComboProperty updated_prop;
-    if (childItems().size()>0) {
-        QStringList par_names = childItems()[0]->getParameterTreeList();
-        par_names.prepend(NO_SELECTION);
-        par_names.removeAll(ParticleItem::P_ABUNDANCE);
-        updated_prop = ComboProperty(par_names);
-    } else {
-        updated_prop << NO_SELECTION;
-    }
+    QStringList par_names = getChildParameterNames();
+    par_names.removeAll(ParticleItem::P_ABUNDANCE);
+    updated_prop = ComboProperty(par_names);
     if (updated_prop.getValues().contains(cached_par)) {
         updated_prop.setValue(cached_par);
     } else if (updated_prop.getValues().contains(selected_par)) {
@@ -99,4 +94,16 @@ void ParticleDistributionItem::updateParameterList()
                               updated_prop.getValue());
     }
     setRegisteredProperty(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
+}
+
+QStringList ParticleDistributionItem::getChildParameterNames() const
+{
+    QStringList result;
+    if (childItems().size()>0) {
+        result = childItems()[0]->getParameterTreeList();
+        result.prepend(NO_SELECTION);
+    } else {
+        result << NO_SELECTION;
+    }
+    return result;
 }

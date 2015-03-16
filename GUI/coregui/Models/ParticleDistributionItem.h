@@ -39,6 +39,7 @@ public slots:
     void updateParameterList();
 private:
     static const QString NO_SELECTION;
+    QStringList getChildParameterNames() const;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

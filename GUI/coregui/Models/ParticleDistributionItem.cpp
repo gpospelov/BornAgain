@@ -15,7 +15,12 @@
 
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
+#include "Particle.h"
+#include "ParticleCoreShell.h"
+#include "DomainObjectBuilder.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
+#include <boost/scoped_ptr.hpp>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER =
         "Distributed parameter";
@@ -99,11 +104,46 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    if (childItems().size()>0) {
-        result = childItems()[0]->getParameterTreeList();
-        result.prepend(NO_SELECTION);
-    } else {
+    QList<ParameterizedItem *> children = childItems();
+    if (children.size()>1) {
+        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
+                                " -> Error! More than one child item");
+    }
+    if (children.size()==0) {
         result << NO_SELECTION;
+        return result;
+    }
+    double depth(0.0), abundance(0.0);
+    ParameterizedItem *child = children[0];
+    DomainObjectBuilder builder;
+    if (child->modelType() == Constants::ParticleType) {
+        boost::scoped_ptr<Particle> particle(builder.buildParticle(*child, depth, abundance));
+        if (particle.get()) {
+            boost::scoped_ptr<ParameterPool> pool(particle->createParameterTree());
+            result << extractFromParameterPool(pool.get());
+        }
+    } else if (child->modelType() == Constants::ParticleCoreShellType) {
+        boost::scoped_ptr<ParticleCoreShell> coreshell(
+                    builder.buildParticleCoreShell(*child, depth, abundance));
+        if (coreshell.get()) {
+            boost::scoped_ptr<ParameterPool> pool(coreshell->createParameterTree());
+            result << extractFromParameterPool(pool.get());
+        }
+    } else {
+        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
+                                " -> Error! Child not of valid type");
+    }
+
+    result.prepend(NO_SELECTION);
+    return result;
+}
+
+QStringList ParticleDistributionItem::extractFromParameterPool(const ParameterPool *pool) const
+{
+    QStringList result;
+    std::vector<std::string> par_names = pool->getParameterNames();
+    for (size_t i=0; i<par_names.size(); ++i) {
+        result << QString(par_names[i].c_str());
     }
     return result;
 }

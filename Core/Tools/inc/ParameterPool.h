@@ -78,6 +78,9 @@ public:
     //! Sets parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string& wildcards, double value);
 
+    //! Returns all parameter names
+    std::vector<std::string> getParameterNames() const;
+
     friend std::ostream& operator<<(std::ostream& ostr,
                                     const ParameterPool& obj) {
         obj.print(ostr); return ostr;

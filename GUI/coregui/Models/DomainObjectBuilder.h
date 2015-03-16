@@ -41,7 +41,6 @@ public:
     MultiLayer *buildMultiLayer(const ParameterizedItem &multilayer_item) const;
     Instrument *buildInstrument(const ParameterizedItem &instrument_item) const;
 
-private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
@@ -54,6 +53,7 @@ private:
     IInterferenceFunction *buildInterferenceFunction(
             const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
+private:
     void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
                              double abundance, const Particle& particle) const;
     void addParticleToParticleComposition(ParticleComposition *result, ParameterizedItem *particle_item,

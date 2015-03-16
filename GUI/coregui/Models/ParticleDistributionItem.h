@@ -20,6 +20,8 @@
 
 #include <QStringList>
 
+class ParameterPool;
+
 class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
@@ -40,6 +42,7 @@ public slots:
 private:
     static const QString NO_SELECTION;
     QStringList getChildParameterNames() const;
+    QStringList extractFromParameterPool(const ParameterPool *pool) const;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

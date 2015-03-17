@@ -46,16 +46,18 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t& k_i,
         complex_t ff = ff_list[i];
 
         if (MathFunctions::isnan(ff.real())) {
-            std::cout << "Amplitude is NaN: i = " << i << std::endl;
+            throw RuntimeErrorException(
+                "DecouplingApproximationStrategy::evaluateForList() -> "
+                "Error! Amplitude is NaN");
         }
         double fraction = m_ff_infos[i]->m_abundance/total_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(std::norm(ff));
 
-        assert(!MathFunctions::isnan(amplitude.real()));
-        assert(!MathFunctions::isnan(amplitude.imag()));
-        assert(!MathFunctions::isinf(amplitude.real()));
-        assert(!MathFunctions::isinf(amplitude.imag()));
+//        assert(!MathFunctions::isnan(amplitude.real()));
+//        assert(!MathFunctions::isnan(amplitude.imag()));
+//        assert(!MathFunctions::isinf(amplitude.real()));
+//        assert(!MathFunctions::isinf(amplitude.imag()));
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());

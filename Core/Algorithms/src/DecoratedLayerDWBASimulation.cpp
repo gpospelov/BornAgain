@@ -48,6 +48,10 @@ void DecoratedLayerDWBASimulation::run()
     catch(const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
         setStatus(FAILED);
+        std::string message(
+            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
+            + getRunMessage());
+        throw Exceptions::RuntimeErrorException(message);
     }
 }
 

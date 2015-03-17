@@ -2,6 +2,7 @@
 #define DISTRIBUTIONSTEST_H
 
 #include "Distributions.h"
+#include "ParameterSample.h"
 #include <cmath>
 
 class DistributionsTest : public ::testing::Test
@@ -20,8 +21,8 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
     EXPECT_EQ(0.5, id1D->getMean());
     EXPECT_EQ(0.0, id1D->getMin());
     EXPECT_EQ(1.0, id1D->getMax());
-    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
-    EXPECT_EQ(0, id1D->probabilityDensity(3));
+    EXPECT_EQ(1.0, id1D->probabilityDensity(1.0));
+    EXPECT_EQ(0, id1D->probabilityDensity(3.0));
     EXPECT_EQ("DistributionGate", id1D->getName());
 
     std::vector<double> list1 = id1D->generateValueList(1, 0.0);
@@ -39,22 +40,33 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
     EXPECT_THROW(DistributionGate(1.0, 1.0), ClassInitializationException);
-    DistributionGate * id1D = new DistributionGate(1.0, 2.0);
-    EXPECT_EQ(1.5, id1D->getMean());
-    EXPECT_EQ(1.0, id1D->getMin());
-    EXPECT_EQ(2.0, id1D->getMax());
-    EXPECT_EQ(1.0, id1D->probabilityDensity(1));
-    EXPECT_EQ(0, id1D->probabilityDensity(3));
-    EXPECT_EQ("DistributionGate", id1D->getName());
+    DistributionGate * distr = new DistributionGate(1.0, 2.0);
+    EXPECT_EQ(1.5, distr->getMean());
+    EXPECT_EQ(1.0, distr->getMin());
+    EXPECT_EQ(2.0, distr->getMax());
+    EXPECT_EQ(1.0, distr->probabilityDensity(1));
+    EXPECT_EQ(0, distr->probabilityDensity(3));
+    EXPECT_EQ("DistributionGate", distr->getName());
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
+    std::vector<double> list = distr->generateValueList(1, 0.0);
+    EXPECT_EQ(list.size(), size_t(1));
+    EXPECT_EQ(distr->getMean(), list[0]);
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(1, list2[0]);
-    EXPECT_EQ(2, list2[1]);
+    list = distr->generateValueList(2, 0.0);
+    EXPECT_EQ(list.size(), size_t(2));
+    EXPECT_EQ(1.0, list[0]);
+    EXPECT_EQ(2.0, list[1]);
 
-    delete id1D;
+    std::vector<ParameterSample> samples = distr->generateSamples(3);
+    EXPECT_EQ(samples.size(), size_t(3));
+    EXPECT_EQ(samples[0].value, 1.0);
+    EXPECT_EQ(samples[0].weight, 1./3.);
+    EXPECT_EQ(samples[1].value, 1.5);
+    EXPECT_EQ(samples[1].weight, 1./3.);
+    EXPECT_EQ(samples[2].value, 2.0);
+    EXPECT_EQ(samples[2].weight, 1./3.);
+
+    delete distr;
 }
 
 TEST_F(DistributionsTest, DistributionGateParameters)
@@ -77,24 +89,24 @@ TEST_F(DistributionsTest, DistributionGateClone)
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionLorentzDefaultConstructer)
+TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor)
 {
-    DistributionLorentz * id1D = new DistributionLorentz();
-    EXPECT_EQ(0.0, id1D->getMean());
-    EXPECT_EQ(1.0, id1D->getHWHM());
-    EXPECT_EQ("DistributionLorentz", id1D->getName());
-    EXPECT_EQ(1/(2*M_PI), id1D->probabilityDensity(1.0));
+    DistributionLorentz * distr = new DistributionLorentz();
+    EXPECT_EQ(0.0, distr->getMean());
+    EXPECT_EQ(1.0, distr->getHWHM());
+    EXPECT_EQ("DistributionLorentz", distr->getName());
+    EXPECT_EQ(1/(2*M_PI), distr->probabilityDensity(1.0));
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
+    std::vector<double> list1 = distr->generateValueList(1, 0.0);
+    EXPECT_EQ(distr->getMean(), list1[0]);
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
+    std::vector<double> list2 = distr->generateValueList(2, 0.0);
     EXPECT_EQ(-2, list2[0]);
     EXPECT_EQ(2, list2[1]);
-    delete id1D;
+    delete distr;
 }
 
-TEST_F(DistributionsTest, DistributionLorentzConstructer)
+TEST_F(DistributionsTest, DistributionLorentzConstructor)
 {
     DistributionLorentz * id1D = new DistributionLorentz(1.0, 1.0);
     EXPECT_EQ(1.0, id1D->getMean());
@@ -126,18 +138,45 @@ TEST_F(DistributionsTest, DistributionLorentzClone)
     DistributionLorentz* id1DClone = id1D->clone();
     EXPECT_EQ(1.0, id1DClone->getMean());
     EXPECT_EQ(2.0, id1DClone->getHWHM());
-    EXPECT_EQ(2/(5*M_PI), id1DClone->probabilityDensity(2.0));
     EXPECT_EQ("DistributionLorentz", id1DClone->getName());
-
-    std::vector<double> list1 = id1DClone->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
-
-    std::vector<double> list2 = id1DClone->generateValueList(2, 0.0);
-    EXPECT_EQ(-3, list2[0]);
-    EXPECT_EQ(5, list2[1]);
 
     delete id1D;
     delete id1DClone;
+}
+
+TEST_F(DistributionsTest, DistributionLorentzSamples)
+{
+    DistributionLorentz distr(1.0, 0.1);
+
+    const int nbr_samples(3);
+
+    // with sigma factor
+    const double sigma_factor(2.0);
+    std::vector<ParameterSample> samples = distr.generateSamples(nbr_samples, sigma_factor);
+
+    EXPECT_EQ(samples.size(), size_t(nbr_samples));
+    EXPECT_EQ(samples[0].value, 1.0 - sigma_factor*0.1);
+    EXPECT_EQ(samples[1].value, 1.0);
+    EXPECT_EQ(samples[2].value, 1.0 + sigma_factor*0.1);
+    double d1 = distr.probabilityDensity(samples[0].value);
+    double d2 = distr.probabilityDensity(samples[1].value);
+    double d3 = distr.probabilityDensity(samples[2].value);
+    EXPECT_EQ(samples[0].weight, d1/(d1+d2+d3));
+    EXPECT_EQ(samples[1].weight, d2/(d1+d2+d3));
+    EXPECT_EQ(samples[2].weight, d3/(d1+d2+d3));
+
+    // with AttLimits
+    samples = distr.generateSamples(nbr_samples, sigma_factor, AttLimits::lowerLimited(0.99));
+    EXPECT_EQ(samples[0].value, 0.99);
+    EXPECT_EQ(samples[1].value, samples[0].value + (samples[2].value - samples[0].value)/2.0);
+    EXPECT_EQ(samples[2].value, 1.0 + sigma_factor*0.1);
+
+    // with xmin, xmax
+    samples = distr.generateSamples(nbr_samples, 0.8, 1.2);
+    EXPECT_EQ(samples[0].value, 0.8);
+    EXPECT_EQ(samples[1].value, 1.0);
+    EXPECT_EQ(samples[2].value, 1.2);
+
 }
 
 // -------------------------------------------------------------------------- //

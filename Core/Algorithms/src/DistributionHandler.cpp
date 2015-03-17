@@ -25,13 +25,12 @@ DistributionHandler::~DistributionHandler()
 {
 }
 
-void DistributionHandler::addParameterDistribution(
-        const std::string &param_name, const IDistribution1D &distribution,
-        size_t nbr_samples, double sigma_factor)
+void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution,
+        size_t nbr_samples, double sigma_factor, const AttLimits &limits)
 {
     if (nbr_samples > 0) {
         ParameterDistribution par_distr(param_name, distribution,
-                                        nbr_samples, sigma_factor);
+                                        nbr_samples, sigma_factor, limits);
         addParameterDistribution(par_distr);
     }
 }

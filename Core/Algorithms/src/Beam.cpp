@@ -15,6 +15,7 @@
 
 #include "Beam.h"
 #include "Exceptions.h"
+#include "Numeric.h"
 #include <Eigen/LU>
 
 
@@ -98,7 +99,7 @@ void Beam::init_parameters()
 {
     clearParameterPool();
     registerParameter("intensity", &m_intensity);
-    registerParameter("wavelength", &m_lambda);
+    registerParameter("wavelength", &m_lambda, AttLimits::positive());
     registerParameter("alpha", &m_alpha);
     registerParameter("phi", &m_phi);
 }

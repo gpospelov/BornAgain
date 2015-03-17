@@ -92,7 +92,7 @@ public:
     const Instrument& getInstrument() const { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);
@@ -139,7 +139,8 @@ public:
 	//! add a sampled parameter distribution
     void addParameterDistribution(const std::string &param_name,
             const IDistribution1D &distribution, size_t nbr_samples,
-            double sigma_factor=0.0);
+            double sigma_factor=0.0,
+            const AttLimits &limits = AttLimits());
 
     //! add a sampled parameter distribution
     void addParameterDistribution(const ParameterDistribution &par_distr);

@@ -50,6 +50,7 @@ include_dirs = [
 ]
 
 include_classes = [
+    "AttLimits",
     "FixedBinAxis",
     "VariableBinAxis",
     "ConstKBinAxis",
@@ -158,6 +159,7 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "ParticleInfo",
+#    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "Simulation",
@@ -273,7 +275,10 @@ def ManualClassTunings(mb):
     cl.member_function("setAmbientMaterial").include()
     #
     cl = mb.class_("IDistribution1D")
-    cl.member_function("generateSamples").exclude()
+    for fun in cl.member_functions():
+        print fun.name
+        if "generateSamples" in fun.name:
+            fun.exclude()
     #
     cl = mb.class_("IObserver")
     cl.member_function("update").include()

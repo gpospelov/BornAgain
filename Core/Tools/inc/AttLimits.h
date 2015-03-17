@@ -17,6 +17,7 @@
 #define ATTLIMITS_H
 
 #include "WinDllMacros.h"
+#include "Numeric.h"
 #include <iostream>
 #include <iomanip>
 
@@ -29,44 +30,58 @@ class BA_CORE_API_ AttLimits
 {
  public:
     AttLimits() : m_has_lower_limit(false), m_has_upper_limit(false), m_is_fixed(false), m_lower_limit(0), m_upper_limit(0) {}
-    virtual ~AttLimits(){}
+    ~AttLimits(){}
 
     //! if has lower limit
-    virtual bool hasLowerLimit() const { return m_has_lower_limit; }
+    bool hasLowerLimit() const { return m_has_lower_limit; }
+
     //! Returns lower limit
-    virtual double getLowerLimit() const { return m_lower_limit; }
+    double getLowerLimit() const { return m_lower_limit; }
+
     //! Sets lower limit
-    virtual void setLowerLimit(double value) { m_lower_limit = value; m_has_lower_limit = true; }
+    void setLowerLimit(double value) { m_lower_limit = value; m_has_lower_limit = true; }
+
     //! remove lower limit
-    virtual void removeLowerLimit() { m_lower_limit = 0.0; m_has_lower_limit = false; }
+    void removeLowerLimit() { m_lower_limit = 0.0; m_has_lower_limit = false; }
 
     //! if has upper limit
-    virtual bool hasUpperLimit() const { return m_has_upper_limit; }
+    bool hasUpperLimit() const { return m_has_upper_limit; }
+
     //! Returns upper limit
-    virtual double getUpperLimit() const { return m_upper_limit; }
+    double getUpperLimit() const { return m_upper_limit; }
+
     //! Sets upper limit
-    virtual void setUpperLimit(double value) { m_upper_limit = value; m_has_upper_limit = true; }
+    void setUpperLimit(double value) { m_upper_limit = value; m_has_upper_limit = true; }
+
     //! remove upper limit
-    virtual void removeUpperLimit() { m_upper_limit = 0.0; m_has_upper_limit = false; }
+    void removeUpperLimit() { m_upper_limit = 0.0; m_has_upper_limit = false; }
 
     //! if has lower and upper limit
-    virtual bool hasLowerAndUpperLimits() const { return (m_has_lower_limit && m_has_upper_limit); }
+    bool hasLowerAndUpperLimits() const { return (m_has_lower_limit && m_has_upper_limit); }
 
     //! Sets object fixed
-    virtual void setFixed(bool is_fixed) { m_is_fixed = is_fixed; }
+    void setFixed(bool is_fixed) { m_is_fixed = is_fixed; }
+
     //! if object is fixed at some value
-    virtual bool isFixed() const { return m_is_fixed; }
+    bool isFixed() const { return m_is_fixed; }
 
     //! Sets lower and upper limits
-    virtual void setLimits(double xmin, double xmax) { setLowerLimit(xmin); setUpperLimit(xmax); }
+    void setLimits(double xmin, double xmax) { setLowerLimit(xmin); setUpperLimit(xmax); }
+
     //! remove limits
-    virtual void removeLimits() { removeLowerLimit(); removeUpperLimit(); }
+    void removeLimits() { removeLowerLimit(); removeUpperLimit(); }
+
+    //! returns true if proposed value is in limits range
+    bool isInRange(double value) const;
 
     // ---------
     // static creation methods
 
     //! Creates an object bounded from the left
     static AttLimits lowerLimited(double bound_value) { return AttLimits(true, false, false, bound_value, 0.0); }
+
+    //! Creates an object which can have only positive values (>0.0, zero is not included)
+    static AttLimits positive() { return AttLimits(true, false, false, Numeric::double_epsilon, 0.0); }
 
     //! Creates an object bounded from the right
     static AttLimits upperLimited(double bound_value) { return AttLimits(false, true, false, 0.0, bound_value); }
@@ -82,6 +97,9 @@ class BA_CORE_API_ AttLimits
 
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) { m.print(ostr); return ostr; }
+
+    bool operator==(const AttLimits &other) const;
+    bool operator!=(const AttLimits &other) const;
 
  protected:
     AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed, double lower_limit, double upper_limit)
@@ -114,6 +132,29 @@ class BA_CORE_API_ AttLimits
         }
     }
 };
+
+
+inline bool AttLimits::isInRange(double value) const
+{
+    if(hasLowerLimit() && value < m_lower_limit) return false;
+    if(hasUpperLimit() && value >= m_upper_limit) return false;
+    return true;
+}
+
+inline bool AttLimits::operator==(const AttLimits &other) const
+{
+    return (m_has_lower_limit == other.m_has_lower_limit) &&
+            (m_has_upper_limit == other.m_has_upper_limit) &&
+            (m_lower_limit == other.m_lower_limit) &&
+            (m_upper_limit == other.m_upper_limit);
+
+}
+
+inline bool AttLimits::operator!=(const AttLimits &other) const
+{
+    return !(*this == other);
+}
+
 
 #endif // LIMITS_H
 

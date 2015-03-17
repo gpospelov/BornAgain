@@ -20,6 +20,12 @@
 
 namespace Units {  // BornAgain namespace
 
+// Definitions of Pi and company
+static const double PI          = 3.14159265358979323846264338327950288;
+static const double PI2         = 6.28318530717958647692528676655900577;
+static const double PID2        = 1.57079632679489661923132169163975144;
+static const double PI_SQR      = 9.86960440108935861883449099987615114;
+
 // Length
 static const double nanometer   = 1.;
 static const double angstrom    = 1.e-1*nanometer;
@@ -33,7 +39,7 @@ static const double nm  = nanometer;
 // Angle
 static const double radian      = 1.;
 static const double milliradian = 1.e-3*radian;
-static const double degree = (3.14159265358979323846/180.0)*radian;
+static const double degree = (PI/180.0)*radian;
 static const double steradian = 1.;
 
 inline double rad2deg(double angle) {return angle/degree; }
@@ -48,12 +54,6 @@ static const double deg  = degree;
 // Magnetic field
 static const double tesla       = 1.;
 static const double gauss       = 1e-4;
-
-// Definitions of Pi for fast sine calculations
-static const double PI          = 3.14159265358979323846264338327950288f;
-static const double PI2         = 6.28318530717958647692528676655900577f;
-static const double PID2        = 1.57079632679489661923132169163975144f;
-static const double PI_SQR      = 9.86960440108935861883449099987615114f;
 
 }
 

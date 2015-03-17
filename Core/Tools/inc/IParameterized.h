@@ -20,6 +20,8 @@
 #include "IChangeable.h"
 #include "ParameterPool.h"
 
+class AttLimits;
+
 //! @class IParameterized
 //! @ingroup tools_internal
 //! @brief Manage a "local" parameter pool, and a tree of children's pools.
@@ -57,8 +59,8 @@ public:
     virtual void setParametersAreChanged() { m_status.setIsChanged(true); }
 
     //! main method to register data address in the pool
-    virtual void registerParameter(const std::string &name, double *parpointer)
-    { m_parameters.registerParameter(name, parpointer); }
+    virtual void registerParameter(const std::string &name, double *parpointer, const AttLimits &limits = AttLimits::limitless())
+    { m_parameters.registerParameter(name, parpointer, limits); }
 
     //! set parameter value, return true in the case of success
     virtual bool setParameterValue(const std::string &name, double value);

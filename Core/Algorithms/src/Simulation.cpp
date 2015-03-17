@@ -234,15 +234,15 @@ void Simulation::setInstrument(const Instrument& instrument)
     updateIntensityMapAxes();
 }
 
-void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
+void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    if (lambda<=0.0) {
+    if (wavelength<=0.0) {
         throw ClassInitializationException(
                 "Simulation::setBeamParameters() "
                 "-> Error. Incoming wavelength <= 0.");
     }
 
-    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
+    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
 void Simulation::setBeamIntensity(double intensity)
@@ -273,9 +273,13 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
-void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor) {
+void Simulation::addParameterDistribution(const std::string &param_name,
+                                          const IDistribution1D &distribution,
+                                          size_t nbr_samples,
+                                          double sigma_factor,
+                                          const AttLimits &limits) {
     m_distribution_handler.addParameterDistribution(param_name,
-                                                    distribution, nbr_samples, sigma_factor);
+                                                    distribution, nbr_samples, sigma_factor, limits);
 }
 
 void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
@@ -467,7 +471,9 @@ void Simulation::runSingleSimulation()
             delete threads[i];
         }
         if(!isSuccess) {
-            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
+            throw Exceptions::RuntimeErrorException(
+                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
+                "with the following error message.\n" + failure_message);
         }
     }
 //    if( mp_sample->containsMagneticMaterial() ) {

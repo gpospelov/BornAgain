@@ -22,6 +22,8 @@
 #include <map>
 #include <vector>
 
+class AttLimits;
+
 //! @class ParameterPool
 //! @ingroup tools_internal
 //! @brief Holds a map of pointers to parameters (which must have different names).
@@ -60,7 +62,7 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double *parpointer);
+    void registerParameter(const std::string& name, double *parpointer, const AttLimits &limits=AttLimits::limitless());
 
     //! Adds parameter to the pool
     bool addParameter(const std::string& name, parameter_t par);
@@ -89,6 +91,12 @@ protected:
 
     //! prints error message
     std::string get_error_message(const std::string &criteria) const;
+
+    //! reports error while finding parameters matching given name
+    void report_find_matched_parameters_error(const std::string &pattern) const;
+
+    //! reports error while setting parname to given value
+    void report_set_value_error(const std::string &parname, double value) const;
 
     //! Map of parameters.
     parametermap_t m_map;

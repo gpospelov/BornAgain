@@ -95,11 +95,30 @@ TEST_F(ParameterPoolTest, SetMatchedParametersValue)
     pool.registerParameter("xx_x", &x);
     pool.registerParameter("xx_y", &y);
     pool.registerParameter("xx_z", &z);
-    ASSERT_THROW( pool.setMatchedParametersValue("zz*", 4.0), LogicErrorException );
+    EXPECT_THROW( pool.setMatchedParametersValue("zz*", 4.0), LogicErrorException );
     pool.setMatchedParametersValue("xx*", 4.0);
     EXPECT_EQ( double(4.0), pool.getParameter("xx_x").getValue());
     EXPECT_EQ( double(4.0), pool.getParameter("xx_y").getValue());
     EXPECT_EQ( double(4.0), pool.getParameter("xx_z").getValue());
+}
+
+TEST_F(ParameterPoolTest, AttLimitsOnParameterValue)
+{
+    double x(0.0);
+    ParameterPool pool;
+
+    EXPECT_THROW(pool.registerParameter("xx_x", &x, AttLimits::limited(1.0, 2.0)), OutOfBoundsException);
+
+    pool.registerParameter("xx_x", &x, AttLimits::limited(-1.0, 1.0));
+
+    EXPECT_TRUE(pool.setParameterValue("xx_x", 0.5));
+    EXPECT_EQ(0.5, x);
+
+    EXPECT_THROW(pool.setParameterValue("xx_x", 2.0), LogicErrorException);
+    EXPECT_EQ(0.5, x);
+
+    EXPECT_THROW(pool.setMatchedParametersValue("xx*", 2.0), LogicErrorException);
+    EXPECT_EQ(0.5, x);
 }
 
 

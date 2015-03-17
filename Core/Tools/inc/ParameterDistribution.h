@@ -33,6 +33,11 @@ public:
                           const IDistribution1D &distribution,
                           size_t nbr_samples, double sigma_factor=0.0,
                           const AttLimits &limits = AttLimits());
+
+    ParameterDistribution(const std::string &par_name,
+                          const IDistribution1D &distribution,
+                          size_t nbr_samples, double xmin, double xmax);
+
     ParameterDistribution(const ParameterDistribution &other);
     ~ParameterDistribution();
 
@@ -67,6 +72,12 @@ public:
     std::vector<std::string> getLinkedParameterNames() const {
         return m_linked_par_names;
     }
+
+    AttLimits getLimits() const {return m_limits;}
+
+    double getMinValue() const { return m_xmin; }
+    double getMaxValue() const { return m_xmax; }
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -77,6 +88,8 @@ private:
     double m_sigma_factor;
     std::vector<std::string> m_linked_par_names;
     AttLimits m_limits;
+    double m_xmin;
+    double m_xmax;
 };
 
 

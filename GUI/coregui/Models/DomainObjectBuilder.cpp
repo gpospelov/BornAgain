@@ -31,6 +31,7 @@
 #include "Distributions.h"
 #include "ComboProperty.h"
 #include "MultiLayerItem.h"
+#include "DistributionItem.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 
@@ -271,9 +272,10 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
         = item.getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
     ComboProperty prop = par_name_var.value<ComboProperty>();
     QString par_name = prop.getValue();
-    int nbr_samples = item.getRegisteredProperty(ParticleDistributionItem::P_SAMPLE_NUMBER).toInt();
+    int nbr_samples
+        = distr_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
-        = item.getRegisteredProperty(ParticleDistributionItem::P_SIGMA_FACTOR).toDouble();
+        = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(par_name.toStdString(), *distr, nbr_samples, sigma_factor);
     p_result = new ParticleDistribution(*P_particle, par_distr);
     return p_result;

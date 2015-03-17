@@ -25,8 +25,6 @@
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER =
         "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
-const QString ParticleDistributionItem::P_SAMPLE_NUMBER = "Number of samples";
-const QString ParticleDistributionItem::P_SIGMA_FACTOR = "Sigma factor";
 const QString ParticleDistributionItem::P_CACHED_SELECTED_PARAMETER =
         "Cached selected parameter name";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
@@ -38,8 +36,6 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
-    registerProperty(P_SAMPLE_NUMBER, 5);
-    registerProperty(P_SIGMA_FACTOR, 2.0);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0, 1);

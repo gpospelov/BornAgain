@@ -70,6 +70,7 @@ DistributionGateItem::DistributionGateItem(ParameterizedItem *parent)
     registerProperty(P_MIN, 0.0);
     registerProperty(P_MAX, 1.0);
     register_number_of_samples();
+    register_sigma_factor();
 }
 
 IDistribution1D *DistributionGateItem::createDistribution() const

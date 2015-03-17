@@ -99,7 +99,7 @@ void Beam::init_parameters()
 {
     clearParameterPool();
     registerParameter("intensity", &m_intensity);
-    registerParameter("wavelength", &m_lambda, AttLimits::lowerLimited(Numeric::double_epsilon));
+    registerParameter("wavelength", &m_lambda, AttLimits::positive());
     registerParameter("alpha", &m_alpha);
     registerParameter("phi", &m_phi);
 }

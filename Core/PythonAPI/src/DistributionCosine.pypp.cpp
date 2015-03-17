@@ -63,16 +63,16 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
         return DistributionCosine::clone( );
     }
 
-    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
         if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
-            return func_generateValueList( nbr_samples, sigma_factor );
+            return func_generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
         else{
-            return this->DistributionCosine::generateValueList( nbr_samples, sigma_factor );
+            return this->DistributionCosine::generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
         }
     }
     
-    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
-        return DistributionCosine::generateValueList( nbr_samples, sigma_factor );
+    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
+        return DistributionCosine::generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
     }
 
     virtual double getMean(  ) const  {
@@ -133,6 +133,18 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::std::vector< double > generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        if( bp::override func_generateValues = this->get_override( "generateValues" ) )
+            return func_generateValues( nbr_samples, xmin, xmax );
+        else{
+            return this->IDistribution1D::generateValues( nbr_samples, xmin, xmax );
+        }
+    }
+    
+    ::std::vector< double > default_generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        return IDistribution1D::generateValues( nbr_samples, xmin, xmax );
     }
 
     virtual void printParameters(  ) const  {
@@ -215,14 +227,14 @@ void register_DistributionCosine_class(){
         }
         { //::DistributionCosine::generateValueList
         
-            typedef ::std::vector< double > ( ::DistributionCosine::*generateValueList_function_type)( ::std::size_t,double ) const;
-            typedef ::std::vector< double > ( DistributionCosine_wrapper::*default_generateValueList_function_type)( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( ::DistributionCosine::*generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
+            typedef ::std::vector< double > ( DistributionCosine_wrapper::*default_generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
             
             DistributionCosine_exposer.def( 
                 "generateValueList"
                 , generateValueList_function_type(&::DistributionCosine::generateValueList)
                 , default_generateValueList_function_type(&DistributionCosine_wrapper::default_generateValueList)
-                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor"), bp::arg("limits")=::AttLimits( ) ) );
         
         }
         { //::DistributionCosine::getMean
@@ -289,6 +301,18 @@ void register_DistributionCosine_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&DistributionCosine_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IDistribution1D::generateValues
+        
+            typedef ::std::vector< double > ( ::IDistribution1D::*generateValues_function_type)( ::std::size_t,double,double ) const;
+            typedef ::std::vector< double > ( DistributionCosine_wrapper::*default_generateValues_function_type)( ::std::size_t,double,double ) const;
+            
+            DistributionCosine_exposer.def( 
+                "generateValues"
+                , generateValues_function_type(&::IDistribution1D::generateValues)
+                , default_generateValues_function_type(&DistributionCosine_wrapper::default_generateValues)
+                , ( bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") ) );
         
         }
         { //::IParameterized::printParameters

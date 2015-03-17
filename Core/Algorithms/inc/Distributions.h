@@ -19,6 +19,8 @@
 #include "IParameterized.h"
 #include "ParameterSample.h"
 
+class AttLimits;
+
 //! @class IDistribution1D
 //! @ingroup algorithms_internal
 //! @brief Interface for 1 dimensional distributions
@@ -41,14 +43,14 @@ public:
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples(size_t nbr_samples,
-            double sigma_factor=0.0) const;
+            double sigma_factor=0.0, const AttLimits &limits = AttLimits()) const;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
     //! @param sigma_factor parameter to derive min,max range for sample values
     //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const=0;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const=0;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
@@ -62,6 +64,11 @@ protected:
     //! this function is called during bad initialization of a subclass
     static void SignalBadInitialization(std::string distribution_name);
 
+    //! modifies xmin and xmax if they are outside of limits
+    void adjustMinMaxForLimits(double &xmin, double &xmax, const AttLimits &limits) const;
+
+    //! generate list of sampled values with their weight from value list
+    std::vector<ParameterSample> generateSamplesFromValues(const std::vector<double> &sample_values) const;
 };
 
 //! @class DistributionGate
@@ -99,7 +106,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -142,7 +149,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -184,7 +191,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -229,7 +236,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -271,7 +278,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor) const;
+            double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
 protected:
     //! Registers some class members for later access via parameter pool

@@ -49,9 +49,21 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
         return IDistribution1D::clone( );
     }
 
-    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const {
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const {
         bp::override func_generateValueList = this->get_override( "generateValueList" );
-        return func_generateValueList( nbr_samples, sigma_factor );
+        return func_generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
+    }
+
+    virtual ::std::vector< double > generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        if( bp::override func_generateValues = this->get_override( "generateValues" ) )
+            return func_generateValues( nbr_samples, xmin, xmax );
+        else{
+            return this->IDistribution1D::generateValues( nbr_samples, xmin, xmax );
+        }
+    }
+    
+    ::std::vector< double > default_generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        return IDistribution1D::generateValues( nbr_samples, xmin, xmax );
     }
 
     virtual double getMean(  ) const {
@@ -179,12 +191,24 @@ void register_IDistribution1D_class(){
         }
         { //::IDistribution1D::generateValueList
         
-            typedef ::std::vector<double, std::allocator<double> > ( ::IDistribution1D::*generateValueList_function_type)( ::std::size_t,double ) const;
+            typedef ::std::vector<double, std::allocator<double> > ( ::IDistribution1D::*generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
             
             IDistribution1D_exposer.def( 
                 "generateValueList"
                 , bp::pure_virtual( generateValueList_function_type(&::IDistribution1D::generateValueList) )
-                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor"), bp::arg("limits")=::AttLimits( ) ) );
+        
+        }
+        { //::IDistribution1D::generateValues
+        
+            typedef ::std::vector< double > ( ::IDistribution1D::*generateValues_function_type)( ::std::size_t,double,double ) const;
+            typedef ::std::vector< double > ( IDistribution1D_wrapper::*default_generateValues_function_type)( ::std::size_t,double,double ) const;
+            
+            IDistribution1D_exposer.def( 
+                "generateValues"
+                , generateValues_function_type(&::IDistribution1D::generateValues)
+                , default_generateValues_function_type(&IDistribution1D_wrapper::default_generateValues)
+                , ( bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") ) );
         
         }
         { //::IDistribution1D::getMean

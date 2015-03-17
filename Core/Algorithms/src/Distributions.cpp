@@ -19,18 +19,43 @@
 
 #include <math.h>
 
-std::vector<ParameterSample> IDistribution1D::generateSamples(
-        size_t nbr_samples, double sigma_factor) const {
+std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples,
+        double sigma_factor, const AttLimits &limits) const {
     if (nbr_samples == 0) {
         throw OutOfBoundsException("IDistribution1D::generateSamples: number "
                 "of generated samples must be bigger than zero");
     }
     std::vector<double> sample_values = generateValueList(
-            nbr_samples, sigma_factor);
+            nbr_samples, sigma_factor, limits);
+
+    return generateSamplesFromValues(sample_values);
+}
+
+//! Interface
+void IDistribution1D::SignalBadInitialization(std::string distribution_name)
+{
+    throw ClassInitializationException(distribution_name +
+                                       ": not correctly initialized");
+}
+
+void IDistribution1D::adjustMinMaxForLimits(double &xmin, double &xmax, const AttLimits &limits) const
+{
+    if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
+    if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
+    if(xmin >= xmax) {
+        std::ostringstream ostr;
+        ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can adjust ";
+        ostr << "xmin:" << xmin << " xmax:" << xmax << " for given limits " << limits << std::endl;
+        throw DomainErrorException(ostr.str());
+    }
+}
+
+std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(const std::vector<double> &sample_values) const
+{
     std::vector<ParameterSample> result;
-    result.resize(nbr_samples);
+    result.resize(sample_values.size());
     double norm_factor = 0.0;
-    for (size_t i=0; i<nbr_samples; ++i) {
+    for (size_t i=0; i<sample_values.size(); ++i) {
         double pdf = probabilityDensity(sample_values[i]);
         result[i].value = sample_values[i];
         result[i].weight = pdf;
@@ -40,17 +65,11 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
         throw RuntimeErrorException("IDistribution1D::generateSamples: "
                 "total probability must be bigger than zero");;
     }
-    for (size_t i=0; i<nbr_samples; ++i) {
+    for (size_t i=0; i<sample_values.size(); ++i) {
         result[i].weight /= norm_factor;
     }
     return result;
-}
 
-//! Interface
-void IDistribution1D::SignalBadInitialization(std::string distribution_name)
-{
-    throw ClassInitializationException(distribution_name +
-            ": not correctly initialized");
 }
 
 std::vector<double> IDistribution1D::generateValues(size_t nbr_samples,
@@ -96,9 +115,10 @@ double DistributionGate::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
-        double sigma_factor) const
+        double sigma_factor, const AttLimits &limits) const
 {    
     (void)sigma_factor;
+    (void)limits;
     return generateValues(nbr_samples, m_min, m_max);
 }
 
@@ -144,11 +164,12 @@ double DistributionLorentz::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
-        double sigma_factor) const
+        double sigma_factor, const AttLimits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_hwhm;
     double xmax = m_mean + sigma_factor*m_hwhm;
+    adjustMinMaxForLimits(xmin, xmax, limits);
     return generateValues(nbr_samples, xmin, xmax);
 }
 
@@ -195,11 +216,12 @@ double DistributionGaussian::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
-        double sigma_factor) const
+        double sigma_factor, const AttLimits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_std_dev;
     double xmax = m_mean + sigma_factor*m_std_dev;
+    adjustMinMaxForLimits(xmin, xmax, limits);
     return generateValues(nbr_samples, xmin, xmax);
 }
 
@@ -251,7 +273,7 @@ double DistributionLogNormal::getMean() const
 }
 
 std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
-        double sigma_factor) const
+        double sigma_factor, const AttLimits &limits) const
 {
     if(nbr_samples < 2) {
         std::vector<double> result;
@@ -261,6 +283,7 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
         if (sigma_factor <= 0.0) sigma_factor = 2.0;
         double xmin = m_median*std::exp(-sigma_factor*m_scale_param);
         double xmax = m_median*std::exp(sigma_factor*m_scale_param);
+        adjustMinMaxForLimits(xmin, xmax, limits);
         return generateValues(nbr_samples, xmin, xmax);
     }
 }
@@ -308,11 +331,12 @@ double DistributionCosine::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
-        double sigma_factor) const
+        double sigma_factor, const AttLimits &limits) const
 {
     if (sigma_factor <= 0.0 || sigma_factor > 2.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_sigma*M_PI/2.0;
     double xmax = m_mean + sigma_factor*m_sigma*M_PI/2.0;
+    adjustMinMaxForLimits(xmin, xmax, limits);
     return generateValues(nbr_samples, xmin, xmax);
 }
 

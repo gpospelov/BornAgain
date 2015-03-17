@@ -50,6 +50,7 @@ include_dirs = [
 ]
 
 include_classes = [
+    "AttLimits",
     "FixedBinAxis",
     "VariableBinAxis",
     "ConstKBinAxis",

@@ -4,6 +4,7 @@
 //! list of files to process with Py++
 
 #include "IAxis.h"
+#include "AttLimits.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "ConstKBinAxis.h"

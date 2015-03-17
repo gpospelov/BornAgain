@@ -33,7 +33,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ChiSquaredModule.pypp.h"
 #include "SquaredFunctionSimError.pypp.h"
 #include "MinimizerOptions.pypp.h"
-#include "AttLimits.pypp.h"
 #include "SquaredFunctionDefault.pypp.h"
 #include "vector_string_t.pypp.h"
 #include "IFitStrategy.pypp.h"
@@ -43,7 +42,6 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
 
     register_vector_string_t_class();
     register_AttFitting_class();
-    register_AttLimits_class();
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();
     register_INamed_class();

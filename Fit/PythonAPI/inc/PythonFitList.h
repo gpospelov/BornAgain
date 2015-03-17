@@ -5,7 +5,6 @@
 
 #include "INamed.h"
 #include "IObserver.h"
-#include "AttLimits.h"
 #include "IChiSquaredModule.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"

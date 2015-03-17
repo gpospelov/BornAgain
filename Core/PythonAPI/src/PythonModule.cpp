@@ -116,6 +116,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "MultiLayer.pypp.h"
 #include "FormFactorCone.pypp.h"
 #include "IDistribution1D.pypp.h"
+#include "AttLimits.pypp.h"
 #include "LayerRoughness.pypp.h"
 #include "VariableBinAxis.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
@@ -147,6 +148,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
     register_vector_kvector_t_class();
+    register_AttLimits_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();

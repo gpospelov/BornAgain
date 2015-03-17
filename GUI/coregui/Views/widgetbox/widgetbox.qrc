@@ -33,5 +33,7 @@
         <file>images/ParticleCoreShell.png</file>
         <file>images/Lattice2D.png</file>
         <file>images/Transformation.png</file>
+        <file>images/ParticleComposition.png</file>
+        <file>images/SizeDistribution.png</file>
     </qresource>
 </RCC>

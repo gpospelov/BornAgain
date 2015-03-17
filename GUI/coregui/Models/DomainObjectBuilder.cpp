@@ -86,12 +86,6 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
             if (particle.get()) {
                 addParticleToLayout(result, particle_item, depth, abundance, *particle);
             }
-        } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
-            boost::scoped_ptr<IInterferenceFunction> interference(
-                buildInterferenceFunction(*children[i]));
-            if (interference.get()) {
-                result->addInterferenceFunction(*interference);
-            }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             boost::scoped_ptr<ParticleCoreShell> coreshell(
                 buildParticleCoreShell(*children[i], depth, abundance));
@@ -99,16 +93,52 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
                 result->addParticle(*coreshell, depth, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleDistributionType) {
-            boost::scoped_ptr<ParticleDistribution> part_distr(
-                buildParticleDistribution(*children[i], depth, abundance));
-            if (part_distr.get()) {
-                result->addParticle(*part_distr, depth, abundance);
+            QVariant par_name_var = children[i]->getRegisteredProperty(
+                        ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
+            ComboProperty prop = par_name_var.value<ComboProperty>();
+            QString par_name = prop.getValue();
+            if (par_name == ParticleDistributionItem::NO_SELECTION) {
+                QList<ParameterizedItem *> grandchildren = children[i]->childItems();
+                if (grandchildren.size() == 0) {
+                    continue;
+                }
+                if (grandchildren.size() > 1) {
+                    throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
+                                            " -> Error! Too many particles defined"
+                                            " in ParticleDistribution");
+                }
+                if (grandchildren[0]->modelType() == Constants::ParticleType) {
+                    ParameterizedItem *particle_item = grandchildren[0];
+                    boost::scoped_ptr<Particle> particle(
+                        buildParticle(*particle_item, depth, abundance));
+                    if (particle.get()) {
+                        addParticleToLayout(result, particle_item, depth, abundance, *particle);
+                    }
+                } else if (grandchildren[0]->modelType() == Constants::ParticleCoreShellType) {
+                    boost::scoped_ptr<ParticleCoreShell> coreshell(
+                        buildParticleCoreShell(*grandchildren[0], depth, abundance));
+                    if (coreshell.get()) {
+                        result->addParticle(*coreshell, depth, abundance);
+                    }
+                }
+            } else {
+                boost::scoped_ptr<ParticleDistribution> part_distr(
+                            buildParticleDistribution(*children[i], depth, abundance));
+                if (part_distr.get()) {
+                    result->addParticle(*part_distr, depth, abundance);
+                }
             }
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
             boost::scoped_ptr<ParticleComposition> part_coll(
                 buildParticleComposition(*children[i], depth, abundance));
             if (part_coll.get()) {
                 result->addParticle(*part_coll, depth, abundance);
+            }
+        } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
+            boost::scoped_ptr<IInterferenceFunction> interference(
+                buildInterferenceFunction(*children[i]));
+            if (interference.get()) {
+                result->addInterferenceFunction(*interference);
             }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout()"
@@ -215,9 +245,12 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
 {
     ParticleDistribution *p_result = 0;
     QList<ParameterizedItem *> children = item.childItems();
-    if (children.size() != 1) {
+    if (children.size() == 0) {
+        return p_result;
+    }
+    if (children.size() > 1) {
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
-                                " -> Error! No particle defined");
+                                " -> Error! Too many particles defined");
     }
     boost::scoped_ptr<IParticle> P_particle;
     if (children[0]->modelType() == Constants::ParticleType) {

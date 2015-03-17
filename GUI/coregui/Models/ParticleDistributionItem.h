@@ -31,6 +31,7 @@ public:
     static const QString P_SAMPLE_NUMBER;
     static const QString P_SIGMA_FACTOR;
     static const QString P_CACHED_SELECTED_PARAMETER;
+    static const QString NO_SELECTION;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
 
@@ -40,7 +41,6 @@ public:
 public slots:
     void updateParameterList();
 private:
-    static const QString NO_SELECTION;
     QStringList getChildParameterNames() const;
     QStringList extractFromParameterPool(const ParameterPool *pool) const;
 };

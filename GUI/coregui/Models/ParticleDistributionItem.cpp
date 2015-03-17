@@ -28,7 +28,6 @@ const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::P_CACHED_SELECTED_PARAMETER =
         "Cached selected parameter name";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
-const QString ParticleDistributionItem::P_ABUNDANCE = "Abundance";
 
 ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
@@ -36,7 +35,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemName(Constants::ParticleDistributionType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
-    registerProperty(P_ABUNDANCE, 1.0,
+    registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
@@ -59,6 +58,7 @@ ParticleDistributionItem::~ParticleDistributionItem()
 void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
 }
 

@@ -35,8 +35,12 @@ class LayerRoughness;
 class BA_CORE_API_ DomainObjectBuilder
 {
 public:
-    explicit DomainObjectBuilder(){}
-    ~DomainObjectBuilder(){}
+    explicit DomainObjectBuilder()
+    {
+    }
+    ~DomainObjectBuilder()
+    {
+    }
 
     MultiLayer *buildMultiLayer(const ParameterizedItem &multilayer_item) const;
     Instrument *buildInstrument(const ParameterizedItem &instrument_item) const;
@@ -44,20 +48,21 @@ public:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
-                                     double &depth, double &abundance) const;
-    ParticleComposition *buildParticleComposition(const ParameterizedItem &item, double &depth,
-                                          double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth,
+                                              double &abundance) const;
+    ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
+                                                  double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
                                                     double &abundance) const;
-    IInterferenceFunction *buildInterferenceFunction(
-            const ParameterizedItem &item) const;
+    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
+
 private:
     void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
-                             double abundance, const Particle& particle) const;
-    void addParticleToParticleComposition(ParticleComposition *result, ParameterizedItem *particle_item,
-                                 const IParticle& particle) const;
+                             double abundance, const Particle &particle) const;
+    void addParticleToParticleComposition(ParticleComposition *result,
+                                          ParameterizedItem *particle_item,
+                                          const IParticle &particle) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

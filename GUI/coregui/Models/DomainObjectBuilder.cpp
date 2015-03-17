@@ -32,6 +32,7 @@
 #include "ComboProperty.h"
 #include "MultiLayerItem.h"
 #include "DistributionItem.h"
+#include "ParticleItem.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 
@@ -131,9 +132,9 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
             }
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
             boost::scoped_ptr<ParticleComposition> part_coll(
-                buildParticleComposition(*children[i], depth, abundance));
+                buildParticleComposition(*children[i], abundance));
             if (part_coll.get()) {
-                result->addParticle(*part_coll, depth, abundance);
+                result->addParticle(*part_coll, 0.0, abundance);
             }
         } else if (children[i]->modelType().startsWith("InterferenceFunction")) {
             boost::scoped_ptr<IInterferenceFunction> interference(
@@ -210,11 +211,10 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
 }
 
 ParticleComposition *DomainObjectBuilder::buildParticleComposition(const ParameterizedItem &item,
-                                                                   double &depth,
                                                                    double &abundance) const
 {
     ParticleComposition *result
-        = TransformToDomain::createParticleComposition(item, depth, abundance);
+        = TransformToDomain::createParticleComposition(item, abundance);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         double tmp_depth(0.0), tmp_abundance(0.0);
@@ -223,7 +223,7 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
             boost::scoped_ptr<Particle> particle(
                 buildParticle(*particle_item, tmp_depth, tmp_abundance));
             if (particle.get()) {
-                addParticleToParticleComposition(result, particle_item, *particle);
+                addParticleToParticleComposition(result, particle_item, *particle); //TODO: add depth
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *particle_item = children[i];
@@ -349,21 +349,19 @@ void DomainObjectBuilder::addParticleToParticleComposition(ParticleComposition *
                                                            ParameterizedItem *particle_item,
                                                            const IParticle &particle) const
 {
+    double depth = particle_item->getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     QList<ParameterizedItem *> particle_children = particle_item->childItems();
-    kvector_t zero_position;
-    std::vector<kvector_t> positions;
+    kvector_t position;
     if (particle_children.size() == 1
         && particle_children[0]->modelType() == Constants::TransformationType) {
         ParameterizedItem *pos_item
             = particle_children[0]->getSubItems()[TransformationItem::P_POS];
-        double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
-        double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
-        double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
-        kvector_t position(pos_x, pos_y, pos_z);
-        positions.push_back(position);
-        result->addParticles(particle, positions);
+        position.setX( pos_item->getRegisteredProperty(VectorItem::P_X).toDouble() );
+        position.setY( pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble() );
+        position.setZ( pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble() - depth );
+        result->addParticle(particle, position);
     } else {
-        positions.push_back(zero_position);
-        result->addParticles(particle, positions);
+        position.setZ( -depth );
+        result->addParticle(particle, position);
     }
 }

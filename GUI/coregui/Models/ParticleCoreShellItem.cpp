@@ -39,6 +39,8 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+    item->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
     item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DISABLED);
 }

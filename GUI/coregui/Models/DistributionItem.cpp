@@ -23,7 +23,6 @@ const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
 DistributionItem::DistributionItem(const QString name, ParameterizedItem *parent)
     : ParameterizedItem(name, parent)
 {
-
 }
 
 void DistributionItem::register_number_of_samples()

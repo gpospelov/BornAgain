@@ -30,8 +30,11 @@ public:
     static const QString P_DISTRIBUTION;
     static const QString P_CACHED_SELECTED_PARAMETER;
     static const QString NO_SELECTION;
+    static const QString P_ABUNDANCE;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
+
+    void insertChildItem(int row, ParameterizedItem *item);
 
     void onPropertyChange(const QString &name);
 

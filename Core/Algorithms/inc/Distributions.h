@@ -42,8 +42,12 @@ public:
     virtual double getMean() const=0;
 
     //! generate list of sampled values with their weight
+    //! xmin, xmax for sample generations are deduced from sigma_factor and possible limits
     std::vector<ParameterSample> generateSamples(size_t nbr_samples,
             double sigma_factor=0.0, const AttLimits &limits = AttLimits()) const;
+
+    //! generate list of sampled values with their weight within given xmin, xmax
+    std::vector<ParameterSample> generateSamples(size_t nbr_samples, double xmin, double xmax) const;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate

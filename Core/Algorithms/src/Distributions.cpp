@@ -31,6 +31,18 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples
     return generateSamplesFromValues(sample_values);
 }
 
+std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples, double xmin, double xmax) const
+{
+    if (nbr_samples == 0) {
+        throw OutOfBoundsException("IDistribution1D::generateSamples: number "
+                "of generated samples must be bigger than zero");
+    }
+    std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
+
+    return generateSamplesFromValues(sample_values);
+
+}
+
 //! Interface
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
@@ -63,7 +75,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(const st
     }
     if (norm_factor <= 0.0) {
         throw RuntimeErrorException("IDistribution1D::generateSamples: "
-                "total probability must be bigger than zero");;
+                "total probability must be bigger than zero");
     }
     for (size_t i=0; i<sample_values.size(); ++i) {
         result[i].weight /= norm_factor;

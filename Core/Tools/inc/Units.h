@@ -21,10 +21,10 @@
 namespace Units {  // BornAgain namespace
 
 // Definitions of Pi and company
-static const double PI          = 3.14159265358979323846264338327950288d;
-static const double PI2         = 6.28318530717958647692528676655900577d;
-static const double PID2        = 1.57079632679489661923132169163975144d;
-static const double PI_SQR      = 9.86960440108935861883449099987615114d;
+static const double PI          = 3.14159265358979323846264338327950288;
+static const double PI2         = 6.28318530717958647692528676655900577;
+static const double PID2        = 1.57079632679489661923132169163975144;
+static const double PI_SQR      = 9.86960440108935861883449099987615114;
 
 // Length
 static const double nanometer   = 1.;

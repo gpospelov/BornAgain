@@ -85,7 +85,6 @@
 #include "OutputDataFunctions.h"
 #include "ParameterDistribution.h"
 #include "ParameterPool.h"
-#include "ParameterSample.h"
 #include "IParticle.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"

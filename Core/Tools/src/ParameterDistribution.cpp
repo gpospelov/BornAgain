@@ -21,11 +21,12 @@
 
 ParameterDistribution::ParameterDistribution(const std::string &par_name,
     const IDistribution1D &distribution, size_t nbr_samples,
-    double sigma_factor)
+    double sigma_factor, const AttLimits &limits)
     : IParameterized("ParameterDistribution")
     , m_name(par_name)
     , m_nbr_samples(nbr_samples)
     , m_sigma_factor(sigma_factor)
+    , m_limits(limits)
 {
     mP_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
@@ -38,10 +39,11 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
 
 ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
 : IParameterized("ParameterDistribution")
-, m_name(other.m_name)
-, m_nbr_samples(other.m_nbr_samples)
-, m_sigma_factor(other.m_sigma_factor)
-, m_linked_par_names(other.m_linked_par_names)
+    , m_name(other.m_name)
+    , m_nbr_samples(other.m_nbr_samples)
+    , m_sigma_factor(other.m_sigma_factor)
+    , m_linked_par_names(other.m_linked_par_names)
+    , m_limits(other.m_limits)
 {
     mP_distribution.reset(other.mP_distribution->clone());
     init_parameters();
@@ -60,6 +62,7 @@ ParameterDistribution& ParameterDistribution::operator=(
         m_sigma_factor = other.m_sigma_factor;
         mP_distribution.reset(other.mP_distribution->clone());
         m_linked_par_names = other.m_linked_par_names;
+        m_limits = other.m_limits;
         init_parameters();
     }
     return *this;
@@ -73,7 +76,7 @@ ParameterDistribution &ParameterDistribution::linkParameter(std::string par_name
 
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 {
-    return mP_distribution->generateSamples(m_nbr_samples, m_sigma_factor);
+    return mP_distribution->generateSamples(m_nbr_samples, m_sigma_factor, m_limits);
 }
 
 void ParameterDistribution::init_parameters()

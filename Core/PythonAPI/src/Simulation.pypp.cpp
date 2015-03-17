@@ -176,12 +176,12 @@ void register_Simulation_class(){
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
         
-            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double ) ;
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double,::AttLimits const & ) ;
             
             Simulation_exposer.def( 
                 "addParameterDistribution"
                 , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
-                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
+                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) ) );
         
         }
         { //::Simulation::addParameterDistribution

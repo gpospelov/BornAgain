@@ -23,6 +23,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
+#include "DesignerHelper.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -76,7 +77,15 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     QHBoxLayout *infoPanelLayout = new QHBoxLayout;
     infoPanelLayout->setContentsMargins(0, 0, 0, 0);
 
+    QFont font;
+    font.setPointSize(DesignerHelper::getSectionFontSize());
+    font.setBold(true);
+    QPalette palette;
+    palette.setColor(QPalette::ButtonText,QColor(41,73,150));
+
     m_infoLinkButton = new QCommandLinkButton;
+    m_infoLinkButton->setFont(font);
+    m_infoLinkButton->setPalette(palette);
     m_infoLinkButton->setText("Houston, we have a problem ...");
     infoPanelLayout->addWidget(m_infoLinkButton);
     m_infoPanel->setLayout(infoPanelLayout);

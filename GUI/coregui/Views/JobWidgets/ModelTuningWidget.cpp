@@ -22,6 +22,7 @@
 #include "JobQueueData.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
+#include "IntensityDataItem.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -44,6 +45,7 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
 
     m_sliderSettingsWidget = new SliderSettingsWidget();
     connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(onSliderValueChanged(double)));
+    connect(m_sliderSettingsWidget, SIGNAL(lockzChanged(bool)), this, SLOT(onLockZValueChanged(bool)));
 
     m_treeView = new QTreeView();
     m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
@@ -100,6 +102,15 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
 void ModelTuningWidget::onSliderValueChanged(double value)
 {
     m_delegate->setSliderRangeFactor(value);
+}
+
+void ModelTuningWidget::onLockZValueChanged(bool value)
+{
+    if(!m_currentJobItem) return;
+    if(IntensityDataItem *intensityDataItem = m_currentJobItem->getIntensityDataItem()) {
+        qDebug() << "ModelTuningWidget::onLockZValueChanged(bool value) ->" << value;
+        intensityDataItem->setZAxisLocked(value);
+    }
 }
 
 

@@ -69,6 +69,10 @@ public:
     QString getAxesUnits() const;
     bool axesInRadians() const;
 
+    //! return true if min, max range of Z-axis is locked (change not allowed)
+    bool isZAxisLocked() const;
+    void setZAxisLocked(bool state);
+
 signals:
     void intensityModified();
 

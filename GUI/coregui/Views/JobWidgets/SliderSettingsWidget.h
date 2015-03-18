@@ -20,6 +20,7 @@
 #include <QWidget>
 
 class QRadioButton;
+class QCheckBox;
 
 class BA_CORE_API_ SliderSettingsWidget : public QWidget
 {
@@ -30,15 +31,18 @@ public:
 
 signals:
     void sliderRangeFactorChanged(double value);
+    void lockzChanged(bool value);
 
 private slots:
     void rangeChanged();
+    void onLockZChanged(int state);
 
 private:
     double m_currentSliderRange;
     QRadioButton *m_radio1;
     QRadioButton *m_radio2;
     QRadioButton *m_radio3;
+    QCheckBox *m_lockzCheckBox;
 };
 
 #endif // SLIDERSETTINGSWIDGET_H

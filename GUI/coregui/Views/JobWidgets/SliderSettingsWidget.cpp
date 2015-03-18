@@ -21,12 +21,18 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QCheckBox>
 
 
 SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)
     : QWidget(parent)
     , m_currentSliderRange(100.0)
+    , m_radio1(0)
+    , m_radio2(0)
+    , m_radio3(0)
+    , m_lockzCheckBox(0)
 {
+    // tuning selectors
     QString tooltip("Allows to tune sample parameters within +/- of given range \nwith the help of the slider.");
 
     QLabel *label = new QLabel("Tuning:");
@@ -48,6 +54,11 @@ SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)
     m_radio3->setToolTip(tooltip);
     connect(m_radio3,SIGNAL(clicked(bool)),this,SLOT(rangeChanged()));
 
+    // Fix z-axis
+    m_lockzCheckBox = new QCheckBox("Lock-Z");
+    m_lockzCheckBox->setToolTip("Preserve (min, max) range of intensity axis during parameter tuning.");
+    connect(m_lockzCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onLockZChanged(int)));
+
     QHBoxLayout *hbox = new QHBoxLayout;
 
     hbox->addWidget(label);
@@ -55,6 +66,7 @@ SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)
     hbox->addWidget(m_radio2);
     hbox->addWidget(m_radio3);
     hbox->addStretch(1);
+    hbox->addWidget(m_lockzCheckBox);
 
     setLayout(hbox);
 }
@@ -75,4 +87,13 @@ void SliderSettingsWidget::rangeChanged()
         m_currentSliderRange = 1000.0;
     }
     emit sliderRangeFactorChanged(m_currentSliderRange);
+}
+
+void SliderSettingsWidget::onLockZChanged(int state)
+{
+    if(state == Qt::Unchecked) {
+        emit lockzChanged(false);
+    } else if(state == Qt::Checked) {
+        emit lockzChanged(true);
+    }
 }

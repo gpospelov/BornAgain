@@ -21,8 +21,6 @@
 #include "FormFactorDecoratorTransformation.h"
 #include "IMaterial.h"
 
-class ParticleInfo;
-
 //! @class Particle
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index

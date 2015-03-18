@@ -347,16 +347,6 @@ void register_ParticleInfo_class(){
                 , ( bp::arg("material") ) );
         
         }
-        { //::ParticleInfo::setDepth
-        
-            typedef void ( ::ParticleInfo::*setDepth_function_type)( double ) ;
-            
-            ParticleInfo_exposer.def( 
-                "setDepth"
-                , setDepth_function_type( &::ParticleInfo::setDepth )
-                , ( bp::arg("depth") ) );
-        
-        }
         { //::ParticleInfo::setPosition
         
             typedef void ( ::ParticleInfo::*setPosition_function_type)( ::kvector_t ) ;

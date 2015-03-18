@@ -49,9 +49,6 @@ public:
     //! Returns depth.
     double getDepth() const { return m_depth; }
 
-    //! Sets depth.
-    void setDepth(double depth) { m_depth = depth; }
-
     //! Returns particle position, including depth.
     kvector_t getPosition() const { return kvector_t(m_x, m_y, -m_depth); }
 

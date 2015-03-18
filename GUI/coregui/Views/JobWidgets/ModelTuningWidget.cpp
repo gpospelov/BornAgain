@@ -85,6 +85,11 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
 
+    if(m_currentJobItem->isFailed()) {
+        QModelIndexList indexList = m_treeView->selectionModel()->selectedIndexes();
+        qDebug() << "XXX " << indexList;
+    }
+
     if(m_currentJobItem->isRunning())
         return;
 

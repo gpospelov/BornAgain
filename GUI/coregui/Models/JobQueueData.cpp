@@ -228,14 +228,16 @@ void JobQueueData::onFinishedJob()
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
 
-    // propagating simulation results
-    Simulation *simulation = getSimulation(runner->getIdentifier());
-    setResults(jobItem, simulation);
 
     // propagating status of runner
     jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed())
+    if(jobItem->isFailed()) {
         jobItem->setComments(runner->getFailureMessage());
+    } else {
+        // propagating simulation results
+        Simulation *simulation = getSimulation(runner->getIdentifier());
+        setResults(jobItem, simulation);
+    }
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();

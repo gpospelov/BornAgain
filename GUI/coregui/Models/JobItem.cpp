@@ -143,6 +143,13 @@ void JobItem::setStatus(const QString &status)
     ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
     combo_property.setValue(status);
     setRegisteredProperty(P_STATUS, combo_property.getVariant());
+    if(status == Constants::STATUS_FAILED) {
+        if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
+            if(intensityItem->getOutputData())
+                intensityItem->getOutputData()->setAllTo(0.0);
+                emit intensityItem->intensityModified();
+        }
+    }
 }
 
 bool JobItem::isIdle() const

@@ -27,7 +27,12 @@
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QStandardItemModel>
+#include <QToolButton>
+#include <QCommandLinkButton>
 #include <QDebug>
+#include <QMessageBox>
+#include "qtcolorbutton.h"
+#include "doubletabwidget.h"
 
 
 ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
@@ -39,6 +44,7 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     , m_delegate(new ModelTuningDelegate)
     , m_sampleModelBackup(0)
     , m_instrumentModelBackup(0)
+    , m_infoPanel(0)
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -56,11 +62,25 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
+    // setting up bottom info panel
+    m_infoPanel = new QWidget;
+    m_infoPanel->setStyleSheet("background-color:white;");
+    QHBoxLayout *infoPanelLayout = new QHBoxLayout;
+    infoPanelLayout->setContentsMargins(0, 0, 0, 0);
+
+    m_infoLinkButton = new QCommandLinkButton;
+    m_infoLinkButton->setText("Houston, we have a problem ...");
+    infoPanelLayout->addWidget(m_infoLinkButton);
+    m_infoPanel->setLayout(infoPanelLayout);
+    m_infoPanel->hide();
+    connect(m_infoLinkButton, SIGNAL(clicked()), this, SLOT(onInfoLinkButtonClicked()));
+
+    // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
+    mainLayout->addWidget(m_infoPanel);
 
     setLayout(mainLayout);
-
 }
 
 ModelTuningWidget::~ModelTuningWidget()
@@ -73,11 +93,30 @@ ModelTuningWidget::~ModelTuningWidget()
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
     qDebug() << "ModelTuningWidget::setCurrentItem" << item;
-    if(m_currentJobItem != item) {
-        m_currentJobItem = item;
-        updateParameterModel();
-        backupModels();
+//    if(m_currentJobItem != item) {
+//        m_currentJobItem = item;
+//        updateParameterModel();
+//        backupModels();
+//    }
+
+    if (m_currentJobItem == item) return;
+
+    if (m_currentJobItem) {
+        disconnect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
+                this, SLOT(onPropertyChanged(QString)));
     }
+
+    m_currentJobItem = item;
+
+    if (!m_currentJobItem) return;
+
+    updateParameterModel();
+    backupModels();
+
+    //updateItem(m_currentJobItem);
+
+    connect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
+            this, SLOT(onPropertyChanged(QString)));
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
@@ -85,18 +124,11 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
 
-    if(m_currentJobItem->isFailed()) {
-        QModelIndexList indexList = m_treeView->selectionModel()->selectedIndexes();
-        qDebug() << "XXX " << indexList;
-    }
-
     if(m_currentJobItem->isRunning())
         return;
 
     if(link.getItem()) {
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
-//        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
-//        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getVariant());
         link.updateItem();
 
         m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
@@ -172,6 +204,29 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     updateParameterModel();
 
     m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+}
+
+void ModelTuningWidget::onInfoLinkButtonClicked()
+{
+    if(m_currentJobItem && !m_currentJobItem->getComments().isEmpty()) {
+        QString message;
+        message.append("Simulation has failed with current parameters.\n\n");
+        message.append(m_currentJobItem->getComments());
+
+        QMessageBox::warning(this, tr("Simulation failed"), message);
+
+    }
+}
+
+void ModelTuningWidget::onPropertyChanged(const QString &property_name)
+{
+    if(property_name == JobItem::P_STATUS) {
+        if(m_currentJobItem->isFailed()) {
+            m_infoPanel->show();
+        } else {
+            m_infoPanel->hide();
+        }
+    }
 }
 
 

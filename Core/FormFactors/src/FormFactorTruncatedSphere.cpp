@@ -27,9 +27,9 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     setName("FormFactorTruncatedSphere");
     if(m_height > 2.*m_radius) {
         std::ostringstream ostr;
-        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization. ";
-        ostr << " Check for m_height <= 2.*m_radius failed.";
-        ostr << " radius:" << m_radius << " height:" << m_height;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
+        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
+        ostr << "Check for height <= 2.*radius failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     init_parameters();

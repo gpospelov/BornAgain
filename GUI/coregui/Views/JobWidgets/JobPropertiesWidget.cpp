@@ -81,12 +81,34 @@ void JobPropertiesWidget::setModel(JobModel *model)
 
 void JobPropertiesWidget::setItem(JobItem *jobItem)
 {
-    //qDebug() << "JobPropertiesWidget::setItem" << jobItem;
-
     m_propertyEditor->setItem(jobItem);
 
     if (m_currentItem == jobItem) return;
 
+    if (m_currentItem) {
+        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
+                this, SLOT(onPropertyChanged(QString)));
+    }
+
+    m_currentItem = jobItem;
+
+    if (!m_currentItem) return;
+
+    updateItem(m_currentItem);
+
+    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
+            this, SLOT(onPropertyChanged(QString)));
+}
+
+void JobPropertiesWidget::onPropertyChanged(const QString &property_name)
+{
+    if(property_name == JobItem::P_COMMENTS) {
+        updateItem(m_currentItem);
+    }
+}
+
+void JobPropertiesWidget::updateItem(JobItem *jobItem)
+{
     if(jobItem) {
         if(jobItem->getStatus() == Constants::STATUS_FAILED) {
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
@@ -95,4 +117,9 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
         }
         m_commentsEditor->setText(jobItem->getComments());
     }
+
 }
+
+
+
+

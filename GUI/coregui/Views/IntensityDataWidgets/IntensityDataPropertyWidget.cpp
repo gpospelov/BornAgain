@@ -26,7 +26,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     , m_currentItem(0)
     , m_propertyEditor(0)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
     setObjectName(QLatin1String("Intensity Data Properties"));
 

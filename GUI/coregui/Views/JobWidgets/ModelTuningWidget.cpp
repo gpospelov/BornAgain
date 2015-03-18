@@ -31,8 +31,6 @@
 #include <QCommandLinkButton>
 #include <QDebug>
 #include <QMessageBox>
-#include "qtcolorbutton.h"
-#include "doubletabwidget.h"
 
 
 ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
@@ -54,7 +52,17 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     connect(m_sliderSettingsWidget, SIGNAL(lockzChanged(bool)), this, SLOT(onLockZValueChanged(bool)));
 
     m_treeView = new QTreeView();
-    m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
+    m_treeView->setStyleSheet(
+        "QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
+        "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
+        "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
+        "!has-children:!has-siblings:adjoins-item {border-image: "
+        "url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed"
+        ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
+        "url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
+        "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
+        "url(:/images/treeview-branch-open.png);}");
+
     m_treeView->setItemDelegate(m_delegate);
     connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
 
@@ -130,7 +138,6 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(link.getItem()) {
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
         link.updateItem();
-
         m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
     }
 }
@@ -163,9 +170,11 @@ void ModelTuningWidget::updateParameterModel()
     if(!m_currentJobItem) return;
 
     if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
-        throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error. JobItem doesn't have sample or instrument model.");
+        throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
+                                "JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = ParameterModelBuilder::createParameterModel(m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
+    m_parameterModel = ParameterModelBuilder::createParameterModel(
+                m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
     m_treeView->setModel(m_parameterModel);
     m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
@@ -183,7 +192,6 @@ void ModelTuningWidget::backupModels()
 
     if(!m_instrumentModelBackup)
         m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
-
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
@@ -191,13 +199,14 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     if(m_currentJobItem->isRunning())
         return;
 
-    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
+//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
     Q_ASSERT(m_sampleModelBackup);
     Q_ASSERT(m_instrumentModelBackup);
     Q_ASSERT(m_currentJobItem);
 
-    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current" << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
-                << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
+//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current"
+//             << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
+//             << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
 
     m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
     m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
@@ -210,11 +219,10 @@ void ModelTuningWidget::onInfoLinkButtonClicked()
 {
     if(m_currentJobItem && !m_currentJobItem->getComments().isEmpty()) {
         QString message;
-        message.append("Simulation has failed with current parameters.\n\n");
+        message.append("Current parameter values cause simulation failure.\n\n");
         message.append(m_currentJobItem->getComments());
 
         QMessageBox::warning(this, tr("Simulation failed"), message);
-
     }
 }
 

@@ -65,7 +65,4 @@ private:
     QCommandLinkButton *m_infoLinkButton;
 };
 
-
-
 #endif
-

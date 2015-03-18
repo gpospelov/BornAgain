@@ -141,7 +141,7 @@ void JobQueueData::runJob(JobItem *jobItem)
         jobItem->setStatus(Constants::STATUS_FAILED);
         jobItem->setProgress(100);
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
-                        "has failed with following error message.\n");
+                        "has failed with following error message.\n\n");
         message += QString(ex.what());
         jobItem->setComments(message);
         emit focusRequest(identifier);

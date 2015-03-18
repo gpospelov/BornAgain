@@ -65,8 +65,12 @@ ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(con
                 sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
-            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-            result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor, cached_attribute.getLimits());
+            if(modelType() == Constants::BeamWavelengthType) {
+                PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+                result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor, cached_attribute.getLimits());
+            } else {
+                result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor);
+            }
         }
     }
     return result;

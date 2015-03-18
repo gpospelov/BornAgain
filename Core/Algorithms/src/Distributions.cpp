@@ -56,7 +56,7 @@ void IDistribution1D::adjustMinMaxForLimits(double &xmin, double &xmax, const At
     if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
     if(xmin >= xmax) {
         std::ostringstream ostr;
-        ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can adjust ";
+        ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";
         ostr << "xmin:" << xmin << " xmax:" << xmax << " for given limits " << limits << std::endl;
         throw DomainErrorException(ostr.str());
     }

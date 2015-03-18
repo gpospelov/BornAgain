@@ -43,7 +43,12 @@ public:
 public slots:    
     void setItem(JobItem *item);
 
+private slots:
+    void onPropertyChanged(const QString &property_name);
+
 private:
+    void updateItem(JobItem *item);
+
     JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;

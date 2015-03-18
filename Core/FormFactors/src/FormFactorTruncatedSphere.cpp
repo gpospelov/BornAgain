@@ -25,7 +25,13 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     , m_height(height)
 {
     setName("FormFactorTruncatedSphere");
-    assert(m_height <= 2.*m_radius);
+    if(m_height > 2.*m_radius) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
+        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
+        ostr << "Check for height <= 2.*radius failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =

@@ -27,6 +27,7 @@ class QTreeView;
 class QStandardItemModel;
 class SampleModel;
 class InstrumentModel;
+class QCommandLinkButton;
 
 class ModelTuningWidget : public QWidget
 {
@@ -43,6 +44,10 @@ public slots:
     void onSliderValueChanged(double value);
     void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();
+    void onInfoLinkButtonClicked();
+
+private slots:
+    void onPropertyChanged(const QString &property_name);
 
 private:
     void updateParameterModel();
@@ -56,9 +61,8 @@ private:
     ModelTuningDelegate *m_delegate;
     SampleModel *m_sampleModelBackup;
     InstrumentModel *m_instrumentModelBackup;
+    QWidget *m_infoPanel;
+    QCommandLinkButton *m_infoLinkButton;
 };
 
-
-
 #endif
-

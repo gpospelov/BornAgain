@@ -212,6 +212,16 @@ bool IntensityDataItem::axesInRadians() const
     return angle_property.inRadians();
 }
 
+bool IntensityDataItem::isZAxisLocked() const
+{
+    return getSubItems()[P_ZAXIS]->getRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX).toBool();
+}
+
+void IntensityDataItem::setZAxisLocked(bool state)
+{
+    return getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
+}
+
 void IntensityDataItem::setLowerX(double xmin)
 {
     qDebug() << "IntensityDataItem::setXaxisMin(double xmin)" << xmin;

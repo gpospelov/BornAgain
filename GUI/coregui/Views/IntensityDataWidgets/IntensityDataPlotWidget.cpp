@@ -42,6 +42,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_item(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitterTop->addWidget(m_verticalPlot);
     m_splitterTop->addWidget(m_centralPlot);

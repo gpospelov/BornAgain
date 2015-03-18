@@ -24,6 +24,11 @@ BasicAxisItem::BasicAxisItem(const QString &type, ParameterizedItem *parent)
     : ParameterizedItem(type, parent)
 {
     setItemName(type);
+    register_basic_properties();
+}
+
+void BasicAxisItem::register_basic_properties()
+{
     registerProperty(P_NBINS, 100, PropertyAttribute(AttLimits::limited(1, 1024)));
     registerProperty(P_MIN, 0.0, PropertyAttribute(AttLimits::limitless()));
     registerProperty(P_MAX, -1.0, PropertyAttribute(AttLimits::limitless()));
@@ -33,10 +38,12 @@ BasicAxisItem::BasicAxisItem(const QString &type, ParameterizedItem *parent)
 // ---------------------------------------------------------------------------------------------- //
 
 const QString AmplitudeAxisItem::P_IS_LOGSCALE = "log10";
+const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 
 AmplitudeAxisItem::AmplitudeAxisItem(ParameterizedItem *parent)
     : BasicAxisItem(Constants::AmplitudeAxisType, parent)
 {
-    registerProperty(P_IS_LOGSCALE, true);
+    registerProperty(P_LOCK_MIN_MAX, false);
+    registerProperty(P_IS_LOGSCALE, true, PropertyAttribute(PropertyAttribute::HIDDEN));
     setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
 }

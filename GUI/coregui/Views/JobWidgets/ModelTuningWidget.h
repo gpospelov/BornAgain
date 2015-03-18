@@ -41,6 +41,7 @@ public:
 public slots:
     void onCurrentLinkChanged(ItemLink link);
     void onSliderValueChanged(double value);
+    void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();
 
 private:

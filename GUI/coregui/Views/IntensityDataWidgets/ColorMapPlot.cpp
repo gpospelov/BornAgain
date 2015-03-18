@@ -421,9 +421,11 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 
     m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
 
-    QCPRange newDataRange = calculateDataRange(intensityItem);
-    m_colorMap->setDataRange(newDataRange);
-    intensityItem->setLowerAndUpperZ(newDataRange.lower, newDataRange.upper);
+    if(!intensityItem->isZAxisLocked()) {
+        QCPRange newDataRange = calculateDataRange(intensityItem);
+        m_colorMap->setDataRange(newDataRange);
+        intensityItem->setLowerAndUpperZ(newDataRange.lower, newDataRange.upper);
+    }
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);

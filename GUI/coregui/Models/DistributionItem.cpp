@@ -81,9 +81,11 @@ IDistribution1D *DistributionGateItem::createDistribution() const
 
 void DistributionGateItem::init_parameters(double value, PropertyAttribute attribute)
 {
-    setRegisteredProperty(P_MIN, value - 0.1*value);
+    double sigma(0.1*std::abs(value));
+    if(sigma == 0.0) sigma = 0.1;
+    setRegisteredProperty(P_MIN, value - sigma);
     setPropertyAttribute(P_MIN, attribute);
-    setRegisteredProperty(P_MAX, value + 0.1*value);
+    setRegisteredProperty(P_MAX, value + sigma);
     setPropertyAttribute(P_MAX, attribute);
 }
 
@@ -111,10 +113,13 @@ IDistribution1D *DistributionLorentzItem::createDistribution() const
 
 void DistributionLorentzItem::init_parameters(double value, PropertyAttribute attribute)
 {
+    double sigma(0.1*std::abs(value));
+    if(sigma == 0.0) sigma = 0.1;
+
     setRegisteredProperty(P_MEAN, value);
     setPropertyAttribute(P_MEAN, attribute);
-    setRegisteredProperty(P_HWHM, 0.1*value);
-    setPropertyAttribute(P_HWHM, attribute);
+    setRegisteredProperty(P_HWHM, sigma);
+    setPropertyAttribute(P_HWHM, PropertyAttribute(AttLimits::lowerLimited(0.0)));
 }
 
 /* ------------------------------------------------ */
@@ -141,10 +146,13 @@ IDistribution1D *DistributionGaussianItem::createDistribution() const
 
 void DistributionGaussianItem::init_parameters(double value, PropertyAttribute attribute)
 {
+    double sigma(0.1*std::abs(value));
+    if(sigma == 0.0) sigma = 0.1;
+
     setRegisteredProperty(P_MEAN, value);
     setPropertyAttribute(P_MEAN, attribute);
-    setRegisteredProperty(P_STD_DEV, 0.1*value);
-    setPropertyAttribute(P_STD_DEV, attribute);
+    setRegisteredProperty(P_STD_DEV, sigma);
+    setPropertyAttribute(P_STD_DEV, PropertyAttribute(AttLimits::lowerLimited(0.0)));
 }
 
 /* ------------------------------------------------ */
@@ -171,10 +179,13 @@ IDistribution1D *DistributionLogNormalItem::createDistribution() const
 
 void DistributionLogNormalItem::init_parameters(double value, PropertyAttribute attribute)
 {
+    double sigma(0.1*std::abs(value));
+    if(sigma == 0.0) sigma = 0.1;
+
     setRegisteredProperty(P_MEDIAN, value);
     setPropertyAttribute(P_MEDIAN, attribute);
-    setRegisteredProperty(P_SCALE_PAR, 0.1*value);
-    setPropertyAttribute(P_SCALE_PAR, attribute);
+    setRegisteredProperty(P_SCALE_PAR, sigma);
+    setPropertyAttribute(P_SCALE_PAR, PropertyAttribute(AttLimits::lowerLimited(0.0)));
 }
 
 /* ------------------------------------------------ */
@@ -201,8 +212,11 @@ IDistribution1D *DistributionCosineItem::createDistribution() const
 
 void DistributionCosineItem::init_parameters(double value, PropertyAttribute attribute)
 {
+    double sigma(0.1*std::abs(value));
+    if(sigma == 0.0) sigma = 0.1;
+
     setRegisteredProperty(P_MEAN, value);
     setPropertyAttribute(P_MEAN, attribute);
-    setRegisteredProperty(P_SIGMA, 0.1*value);
-    setPropertyAttribute(P_SIGMA, attribute);
+    setRegisteredProperty(P_SIGMA, sigma);
+    setPropertyAttribute(P_SIGMA, PropertyAttribute(AttLimits::lowerLimited(0.0)));
 }

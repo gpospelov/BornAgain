@@ -37,6 +37,13 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     m_pyobj = 0;
     }
 
+    ParticleDistribution_wrapper(::IParticle const & prototype, ::ParameterDistribution const & par_distr, ::kvector_t position )
+    : ParticleDistribution( boost::ref(prototype), boost::ref(par_distr), position )
+      , bp::wrapper< ParticleDistribution >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     virtual ::ParticleDistribution * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -294,6 +301,7 @@ void register_ParticleDistribution_class(){
         typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
         ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
         bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
+        ParticleDistribution_exposer.def( bp::init< IParticle const &, ParameterDistribution const &, kvector_t >(( bp::arg("prototype"), bp::arg("par_distr"), bp::arg("position") )) );
         { //::ParticleDistribution::clone
         
             typedef ::ParticleDistribution * ( ::ParticleDistribution::*clone_function_type)(  ) const;
@@ -316,6 +324,16 @@ void register_ParticleDistribution_class(){
                 , cloneInvertB_function_type(&::ParticleDistribution::cloneInvertB)
                 , default_cloneInvertB_function_type(&ParticleDistribution_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ParticleDistribution::createDistributedParameterPool
+        
+            typedef ::ParameterPool * ( ::ParticleDistribution::*createDistributedParameterPool_function_type)(  ) const;
+            
+            ParticleDistribution_exposer.def( 
+                "createDistributedParameterPool"
+                , createDistributedParameterPool_function_type( &::ParticleDistribution::createDistributedParameterPool )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ParticleDistribution::createFormFactor

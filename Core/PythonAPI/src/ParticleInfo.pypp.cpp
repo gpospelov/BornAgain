@@ -266,6 +266,16 @@ void register_ParticleInfo_class(){
         ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
         ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 )) );
+        { //::ParticleInfo::applyTransformation
+        
+            typedef void ( ::ParticleInfo::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            
+            ParticleInfo_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type( &::ParticleInfo::applyTransformation )
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::ParticleInfo::clone
         
             typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type)(  ) const;

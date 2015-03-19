@@ -15,6 +15,7 @@
 
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
+#include "ParticleDistribution.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "DomainObjectBuilder.h"
@@ -22,11 +23,10 @@
 #include "GUIHelpers.h"
 #include <boost/scoped_ptr.hpp>
 
-const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER =
-        "Distributed parameter";
+const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
-const QString ParticleDistributionItem::P_CACHED_SELECTED_PARAMETER =
-        "Cached selected parameter name";
+const QString ParticleDistributionItem::P_CACHED_SELECTED_PARAMETER
+    = "Cached selected parameter name";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
 
 ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
@@ -36,7 +36,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
@@ -65,13 +65,11 @@ void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 void ParticleDistributionItem::onPropertyChange(const QString &name)
 {
     ParameterizedItem::onPropertyChange(name);
-    if (name == P_DISTRIBUTED_PARAMETER
-            && isRegisteredProperty(P_DISTRIBUTED_PARAMETER) ) {
+    if (name == P_DISTRIBUTED_PARAMETER && isRegisteredProperty(P_DISTRIBUTED_PARAMETER)) {
         QVariant par_var = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
         ComboProperty par_prop = par_var.value<ComboProperty>();
         if (par_prop.getValue() != NO_SELECTION) {
-            setRegisteredProperty(P_CACHED_SELECTED_PARAMETER,
-                                  par_prop.getValue());
+            setRegisteredProperty(P_CACHED_SELECTED_PARAMETER, par_prop.getValue());
         }
     }
 }
@@ -84,11 +82,11 @@ void ParticleDistributionItem::onChildPropertyChange()
 
 void ParticleDistributionItem::updateParameterList()
 {
-    if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER)) return;
+    if (!isRegisteredProperty(P_DISTRIBUTED_PARAMETER))
+        return;
     QVariant par_prop = getRegisteredProperty(P_DISTRIBUTED_PARAMETER);
     QString selected_par = par_prop.value<ComboProperty>().getValue();
-    QString cached_par =
-            getRegisteredProperty(P_CACHED_SELECTED_PARAMETER).toString();
+    QString cached_par = getRegisteredProperty(P_CACHED_SELECTED_PARAMETER).toString();
     ComboProperty updated_prop;
     QStringList par_names = getChildParameterNames();
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
@@ -101,8 +99,7 @@ void ParticleDistributionItem::updateParameterList()
         updated_prop.setValue(NO_SELECTION);
     }
     if (updated_prop.getValue() != NO_SELECTION) {
-        setRegisteredProperty(P_CACHED_SELECTED_PARAMETER,
-                              updated_prop.getValue());
+        setRegisteredProperty(P_CACHED_SELECTED_PARAMETER, updated_prop.getValue());
     }
     setRegisteredProperty(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
 }
@@ -111,33 +108,21 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
     QList<ParameterizedItem *> children = childItems();
-    if (children.size()>1) {
+    if (children.size() > 1) {
         throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
                                 " -> Error! More than one child item");
     }
-    if (children.size()==0) {
+    if (children.size() == 0) {
         result << NO_SELECTION;
         return result;
     }
     double depth(0.0), abundance(0.0);
-    ParameterizedItem *child = children[0];
     DomainObjectBuilder builder;
-    if (child->modelType() == Constants::ParticleType) {
-        boost::scoped_ptr<Particle> particle(builder.buildParticle(*child, depth, abundance));
-        if (particle.get()) {
-            boost::scoped_ptr<ParameterPool> pool(particle->createParameterTree());
-            result << extractFromParameterPool(pool.get());
-        }
-    } else if (child->modelType() == Constants::ParticleCoreShellType) {
-        boost::scoped_ptr<ParticleCoreShell> coreshell(
-                    builder.buildParticleCoreShell(*child, depth, abundance));
-        if (coreshell.get()) {
-            boost::scoped_ptr<ParameterPool> pool(coreshell->createParameterTree());
-            result << extractFromParameterPool(pool.get());
-        }
-    } else {
-        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
-                                " -> Error! Child not of valid type");
+    boost::scoped_ptr<ParticleDistribution> part_distr(
+        builder.buildParticleDistribution(*this, depth, abundance));
+    if (part_distr.get()) {
+        boost::scoped_ptr<ParameterPool> pool(part_distr->createDistributedParameterPool());
+        result << extractFromParameterPool(pool.get());
     }
 
     result.prepend(NO_SELECTION);
@@ -148,7 +133,7 @@ QStringList ParticleDistributionItem::extractFromParameterPool(const ParameterPo
 {
     QStringList result;
     std::vector<std::string> par_names = pool->getParameterNames();
-    for (size_t i=0; i<par_names.size(); ++i) {
+    for (size_t i = 0; i < par_names.size(); ++i) {
         result << QString(par_names[i].c_str());
     }
     return result;

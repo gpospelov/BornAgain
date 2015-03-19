@@ -23,6 +23,7 @@ FormFactorGauss::FormFactorGauss(double volume)
     setName("FormFactorGauss");
     m_height = std::pow(volume, 1.0/3.0);
     m_width = m_height;
+    check_initialization();
     init_parameters();
     m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
                / 3.0);
@@ -33,12 +34,16 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     setName("FormFactorGauss");
     m_width = width;
     m_height = height;
+    check_initialization();
     init_parameters();
     m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
                / 3.0);
 }
 
-//! Registers some class members for later access via parameter pool
+bool FormFactorGauss::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorGauss::init_parameters()
 {
@@ -72,3 +77,4 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
     complex_t result = radial_part * z_part;
     return result;
 }
+

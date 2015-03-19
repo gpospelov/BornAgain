@@ -29,12 +29,28 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     assert(m_height > 0);
     assert(m_width > 0);
     assert(m_length > 0);
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorRipple1>::mem_function p_mf =
        & FormFactorRipple1::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorRipple1>(p_mf, this);
+}
+
+bool FormFactorRipple1::check_initialization() const
+{
+    bool result(true);
+    if(m_height <=0.0 || m_width<=0.0 || m_length<=0.0) {
+        std::ostringstream ostr;
+        ostr << "FormFactorRipple1() -> Error in class initialization with parameters ";
+        ostr << " height:" << m_height;
+        ostr << " width:" << m_width << "\n\n";
+        ostr << " length:" << m_length << "\n\n";
+        ostr << "Check for 'height>0.0 && width>0.0 && length>0.0' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorRipple1::init_parameters()

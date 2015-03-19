@@ -27,12 +27,18 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(
     m_radius_a = radius_a;
     m_radius_b  = radius_b;
     m_height = height;
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid>::mem_function p_mf =
        & FormFactorHemiEllipsoid::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid>(p_mf, this);
+}
+
+bool FormFactorHemiEllipsoid::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorHemiEllipsoid::init_parameters()

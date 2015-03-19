@@ -28,13 +28,28 @@ FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
     m_height = height;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
-    assert(m_height <= m_radius*std::tan(m_alpha));
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorCone6>::mem_function p_mf =
        & FormFactorCone6::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorCone6>(p_mf, this);
+}
+
+bool FormFactorCone6::check_initialization() const
+{
+    bool result(true);
+    if(m_height > m_radius*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorCone6() -> Error in class initialization ";
+        ostr << "with parameters radius:" << m_radius;
+        ostr << " m_height:" << m_height;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for 'height <= radius*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorCone6::init_parameters()

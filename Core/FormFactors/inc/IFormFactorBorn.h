@@ -62,6 +62,9 @@ protected:
     //! determine if a large bin size approximation should be used
     bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
+    //! check if object initialization was correct
+    virtual bool check_initialization() const;
+
 private:
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;

@@ -29,7 +29,37 @@ FormFactorInfLongRipple2::FormFactorInfLongRipple2(double width, double height, 
     assert(-1*m_width <= 2.*m_d);
     assert(m_width >= 2.*m_d);
     assert(m_height > 0);
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorInfLongRipple2::check_initialization() const
+{
+    bool result(true);
+    std::string message;
+    if(-1*m_width > 2.*m_d) {
+        result = false;
+        message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
+    }
+    if(m_width < 2.*m_d) {
+        result = false;
+        message = std::string("Check for 'width >= 2.*asymmetry' failed.");
+    }
+    if(m_height <=0) {
+        result = false;
+        message = std::string("Check for 'height > 0' failed.");
+    }
+
+    if(!result) {
+        std::ostringstream ostr;
+        ostr << "FormFactorInfLongRipple2() -> Error in class initialization with parameters ";
+        ostr << " width:" << m_width;
+        ostr << " height:" << m_height;
+        ostr << " asymmetry:" << m_d << "\n\n";
+        ostr << message;
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorInfLongRipple2::init_parameters()
@@ -51,7 +81,7 @@ double FormFactorInfLongRipple2::getVolume() const {
     // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
-        "FormFactorInfLongRipple2::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
+                "FormFactorInfLongRipple2::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
 }
 
 //! Complex formfactor.

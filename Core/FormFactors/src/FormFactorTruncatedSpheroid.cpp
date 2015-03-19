@@ -26,6 +26,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
     m_height = height;
     m_height_flattening = height_flattening;
     assert(m_height <= 2.*m_radius*m_height_flattening);
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>::mem_function p_mf =
@@ -33,6 +34,21 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>(p_mf, this);
  }
+
+bool FormFactorTruncatedSpheroid::check_initialization() const
+{
+    bool result(true);
+    if(m_height > 2.*m_radius) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization with parameters ";
+        ostr << " radius:" << m_radius;
+        ostr << " height:" << m_height;
+        ostr << " height_flattening:" << m_height_flattening << "\n\n";
+        ostr << "Check for 'height <= 2.*radius*height_flattening' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
 
 void FormFactorTruncatedSpheroid::init_parameters()
 {

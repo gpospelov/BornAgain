@@ -23,7 +23,13 @@ FormFactorPrism6::FormFactorPrism6(double radius, double height)
     m_height = height;
     m_radius = radius;
     m_root3 = std::sqrt(3.0);
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorPrism6::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorPrism6::init_parameters()

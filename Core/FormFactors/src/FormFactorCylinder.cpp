@@ -23,10 +23,14 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     setName("FormFactorCylinder");
     m_radius = radius;
     m_height = height;
+    check_initialization();
     init_parameters();
 }
 
-//! Registers some class members for later access via parameter pool
+bool FormFactorCylinder::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorCylinder::init_parameters()
 {
@@ -61,5 +65,6 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
 
     return result;
 }
+
 
 

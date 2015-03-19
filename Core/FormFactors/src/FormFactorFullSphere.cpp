@@ -23,7 +23,13 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)
 {
     setName("FormFactorFullSphere");
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorFullSphere::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorFullSphere::init_parameters()
@@ -69,5 +75,6 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
 
     return radial*z_part;
 }
+
 
 

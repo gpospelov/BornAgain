@@ -26,6 +26,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 {
     setName("FormFactorSphereLogNormalRadius");
     mp_distribution = new DistributionLogNormal(mean, scale_param);
+    check_initialization();
     init_parameters();
     init_vectors();
 }
@@ -69,6 +70,11 @@ double FormFactorSphereLogNormalRadius::getHeight() const
         result = std::max(result, height);
     }
     return result;
+}
+
+bool FormFactorSphereLogNormalRadius::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorSphereLogNormalRadius::init_parameters()

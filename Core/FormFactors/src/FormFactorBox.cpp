@@ -35,14 +35,19 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
         std::exp(complex_t(0.,1.)*qzHdiv2) *
         MathFunctions::Sinc(qxRdiv2) *
         MathFunctions::Sinc(qyWdiv2) *
-        MathFunctions::Sinc(qzHdiv2);
+            MathFunctions::Sinc(qzHdiv2);
+}
+
+bool FormFactorBox::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorBox::init_parameters()
 {
     clearParameterPool();
     registerParameter("length", &m_length);
-    registerParameter( "width", &m_width);
+    registerParameter("width", &m_width);
     registerParameter("height", &m_height);
 }
 

@@ -23,8 +23,23 @@ FormFactorPyramid::FormFactorPyramid(
     m_length = length;
     m_height = height;
     m_alpha = alpha;
-    assert(2.*m_height <= m_length*std::tan(m_alpha));
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorPyramid::check_initialization() const
+{
+    bool result(true);
+    if(2.*m_height > m_length*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorInfLongRipple1() -> Error in class initialization with parameters ";
+        ostr << " length:" << m_length;
+        ostr << " height:" << m_height;
+        ostr << " alpha:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*height <= length*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorPyramid::init_parameters()

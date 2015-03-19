@@ -45,6 +45,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
     void init_vectors();
 

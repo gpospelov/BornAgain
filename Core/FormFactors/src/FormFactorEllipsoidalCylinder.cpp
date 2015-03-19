@@ -24,6 +24,7 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_a,
     m_height = height;
     m_radius_a = radius_a;
     m_radius_b  = radius_b;
+    check_initialization();
     init_parameters();
 }
 
@@ -45,6 +46,11 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t& q) cons
 
     return 2.*M_PI *m_radius_a*m_radius_b*m_height * Fz*J1_gamma_div_gamma;
 
+}
+
+bool FormFactorEllipsoidalCylinder::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorEllipsoidalCylinder::init_parameters()

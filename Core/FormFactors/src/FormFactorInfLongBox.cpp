@@ -49,6 +49,10 @@ complex_t FormFactorInfLongBox::evaluate(const cvector_t& k_i,
         MathFunctions::Sinc(qzHdiv2);
 }
 
+bool FormFactorInfLongBox::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorInfLongBox::init_parameters()
 {
@@ -68,5 +72,5 @@ double FormFactorInfLongBox::getVolume() const {
     // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
-        "FormFactorInfLongBox::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
+                "FormFactorInfLongBox::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
 }

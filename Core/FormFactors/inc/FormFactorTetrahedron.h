@@ -31,8 +31,6 @@ public:
     //! @param height of Tetrahedron
     //! @param angle in radians between base and facet
     FormFactorTetrahedron(double length, double height, double alpha);
-    //~FormFactorTetrahedron() {}
-    // addition integration
     ~FormFactorTetrahedron() {delete m_integrator;}
 
     virtual FormFactorTetrahedron *clone() const;
@@ -53,6 +51,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

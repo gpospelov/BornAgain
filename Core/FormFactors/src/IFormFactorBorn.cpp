@@ -93,6 +93,11 @@ bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector& q_bin) const
     return false;
 }
 
+bool IFormFactorBorn::check_initialization() const
+{
+    return true;
+}
+
 double IFormFactorBorn::bigZPartIntegral(double qH2) const
 {
     if (qH2<Numeric::double_epsilon) return qH2;

@@ -25,6 +25,18 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     , m_height(height)
 {
     setName("FormFactorTruncatedSphere");
+    check_initialization();
+    init_parameters();
+
+    MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =
+       & FormFactorTruncatedSphere::Integrand;
+    m_integrator =
+        new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
+}
+
+bool FormFactorTruncatedSphere::check_initialization() const
+{
+    bool result(true);
     if(m_height > 2.*m_radius) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
@@ -32,12 +44,7 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
         ostr << "Check for height <= 2.*radius failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    init_parameters();
-
-    MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =
-       & FormFactorTruncatedSphere::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
+    return result;
 }
 
 void FormFactorTruncatedSphere::init_parameters()
@@ -53,7 +60,6 @@ FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
     result->setName(getName());
     return result;
 }
-
 
 //! Integrand for complex formfactor.
 

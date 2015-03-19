@@ -29,6 +29,7 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
     assert(2.*m_root3 * m_height <= m_length*std::tan(m_alpha) );
+    check_initialization();
     init_parameters();
 
     // addition integration
@@ -38,6 +39,21 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorTetrahedron>(p_mf, this);
 
+}
+
+bool FormFactorTetrahedron::check_initialization() const
+{
+    bool result(true);
+    if(2.*m_root3 * m_height > m_length*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
+        ostr << " height:" << m_height;
+        ostr << " length:" << m_length << "\n\n";
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*m_root3 * m_height <= m_length*std::tan(m_alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorTetrahedron::init_parameters()
@@ -123,6 +139,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
             (-(1.+m_root3*qy/qx)*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
             -(1.-m_root3*qy/qx)*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
              2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L));
- }
+    }
 }
+
 

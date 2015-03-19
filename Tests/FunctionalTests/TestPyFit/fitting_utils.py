@@ -41,7 +41,7 @@ def get_simulation():
     """
     simulation = Simulation()
     simulation.setDetectorParameters(50, 0.0*degree, 2.0*degree, 50, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setBeamIntensity(1e10)
     simulation.setSample(get_sample())
     return simulation

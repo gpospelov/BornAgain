@@ -41,8 +41,7 @@ public:
 class BA_CORE_API_ BeamAngleHelper
 {
 public:
-    enum EAngleType {INCLINATION_ANGLE, AZIMUTHAL_ANGLE};
-    static IDistribution1D *creatAngleDistribution(DistributionItem *distributionItem, EAngleType angle_type);
+    static IDistribution1D *creatAngleDistribution(DistributionItem *distributionItem);
 };
 
 

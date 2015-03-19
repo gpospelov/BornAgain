@@ -38,7 +38,7 @@ TEST_F(InstrumentTest, BeamManipulation)
     double x = k*std::cos(alpha) * std::cos(phi);
     double y = k*std::cos(alpha) * std::sin(phi);
     double z = k*std::sin(alpha);
-    m_instrument.setBeamParameters(lambda, alpha, phi);
+    m_instrument.setBeamParameters(lambda, -1.0*alpha, phi);
     EXPECT_DOUBLE_EQ(x, m_instrument.getBeam().getCentralK().x().real() );
     EXPECT_DOUBLE_EQ(0, m_instrument.getBeam().getCentralK().x().imag() );
     EXPECT_DOUBLE_EQ(y, m_instrument.getBeam().getCentralK().y().real() );

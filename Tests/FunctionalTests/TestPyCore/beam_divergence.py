@@ -42,7 +42,7 @@ def RunSimulation():
     simulation.setDetectorParameters(40, phi_min*degree, phi_max*degree, 60, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
-    alpha_distr = DistributionGaussian(-0.2*degree, 0.1*degree)
+    alpha_distr = DistributionGaussian(0.2*degree, 0.1*degree)
     #phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
     phi_distr = DistributionGate(-0.1*degree, 0.1*degree)
     simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)

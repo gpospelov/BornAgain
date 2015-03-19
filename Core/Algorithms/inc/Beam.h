@@ -38,7 +38,7 @@ public:
 
     //! Sets the value of the incoming wavevector in terms of wavelength
     //! and incoming angles
-    void setCentralK(double lambda, double alpha_i, double phi_i);
+    void setCentralK(double wavelength, double alpha_i, double phi_i);
 
     //! Gets the beam intensity in neutrons/sec
     double getIntensity() const { return m_intensity; }
@@ -65,7 +65,7 @@ public:
     bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
 #endif
 
-    double getWavelength() const { return m_lambda; }
+    double getWavelength() const { return m_wavelength; }
     double getAlpha() const { return m_alpha; }
     double getPhi() const { return m_phi;}
 
@@ -81,7 +81,7 @@ private:
     //! Initialize polarization (for constructors)
     void initPolarization();
 
-    double m_lambda, m_alpha, m_phi; //!< wavelength and angles of beam
+    double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
     double m_intensity;     //!< beam intensity (neutrons/sec)
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization; //!< polarization density matrix

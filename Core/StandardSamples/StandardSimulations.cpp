@@ -624,7 +624,7 @@ Simulation *StandardSimulations::BeamDivergence()
 
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
-    DistributionGaussian alpha_distr(-0.2*Units::degree, 0.1*Units::degree);
+    DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
     //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
     DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
 

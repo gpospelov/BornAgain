@@ -53,6 +53,7 @@ public:
     double getVolume() const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

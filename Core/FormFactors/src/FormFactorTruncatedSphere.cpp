@@ -25,13 +25,7 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     , m_height(height)
 {
     setName("FormFactorTruncatedSphere");
-    if(m_height > 2.*m_radius) {
-        std::ostringstream ostr;
-        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
-        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
-        ostr << "Check for height <= 2.*radius failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =
@@ -40,11 +34,24 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
 }
 
+bool FormFactorTruncatedSphere::check_initialization() const
+{
+    bool result(true);
+    if(m_height > 2.*m_radius) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
+        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
+        ostr << "Check for height <= 2.*radius failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorTruncatedSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
@@ -53,7 +60,6 @@ FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
     result->setName(getName());
     return result;
 }
-
 
 //! Integrand for complex formfactor.
 

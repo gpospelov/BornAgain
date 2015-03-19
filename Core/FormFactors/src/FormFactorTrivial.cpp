@@ -18,6 +18,7 @@
 FormFactorTrivial::FormFactorTrivial()
 {
     setName("FormFactorTrivial");
+    check_initialization();
     init_parameters();
 }
 
@@ -32,6 +33,11 @@ complex_t FormFactorTrivial::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;
     return complex_t(1.0, 0.0);
+}
+
+bool FormFactorTrivial::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorTrivial::init_parameters()

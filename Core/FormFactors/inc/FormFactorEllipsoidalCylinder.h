@@ -50,8 +50,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
-
-    //! Registers some class members for later access via parameter pool
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

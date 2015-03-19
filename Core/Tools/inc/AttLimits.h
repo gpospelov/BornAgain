@@ -81,7 +81,10 @@ class BA_CORE_API_ AttLimits
     static AttLimits lowerLimited(double bound_value) { return AttLimits(true, false, false, bound_value, 0.0); }
 
     //! Creates an object which can have only positive values (>0.0, zero is not included)
-    static AttLimits positive() { return AttLimits(true, false, false, Numeric::double_epsilon, 0.0); }
+    static AttLimits positive() { return lowerLimited(Numeric::double_epsilon); }
+
+    //! Creates an object which can have only positive values with 0.0 included
+    static AttLimits n_positive() { return lowerLimited(0.0); }
 
     //! Creates an object bounded from the right
     static AttLimits upperLimited(double bound_value) { return AttLimits(false, true, false, 0.0, bound_value); }

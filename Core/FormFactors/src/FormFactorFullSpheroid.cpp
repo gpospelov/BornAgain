@@ -24,19 +24,25 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     setName("FormFactorFullSpheroid");
     m_radius = radius;
     m_height = height;
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
        & FormFactorFullSpheroid::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorFullSpheroid>(p_mf, this);
- }
+}
+
+bool FormFactorFullSpheroid::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorFullSpheroid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const

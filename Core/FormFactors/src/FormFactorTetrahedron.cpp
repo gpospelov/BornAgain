@@ -28,7 +28,7 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_length = length;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
-    assert(2.*m_root3 * m_height <= m_length*std::tan(m_alpha) );
+    check_initialization();
     init_parameters();
 
     // addition integration
@@ -40,12 +40,27 @@ FormFactorTetrahedron::FormFactorTetrahedron(
 
 }
 
+bool FormFactorTetrahedron::check_initialization() const
+{
+    bool result(true);
+    if(2.*m_root3 * m_height > m_length*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
+        ostr << " height:" << m_height;
+        ostr << " length:" << m_length;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*sqrt(3.) * height <= length*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorTetrahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
-    registerParameter("length", &m_length);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
@@ -123,6 +138,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
             (-(1.+m_root3*qy/qx)*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
             -(1.-m_root3*qy/qx)*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L) +
              2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L));
- }
+    }
 }
+
 

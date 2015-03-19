@@ -24,17 +24,33 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     m_width = width;
     m_height = height;
     m_alpha = alpha;
-    assert(2.*m_height <= std::min(m_length, m_width)*std::tan(m_alpha));
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorAnisoPyramid::check_initialization() const
+{
+    bool result(true);
+    if(2.*m_height > std::min(m_length, m_width)*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorAnisoPyramid() -> Error in class initialization ";
+        ostr << "with parameters length:" << m_length;
+        ostr << " width:" << m_width;
+        ostr << " height:" << m_height;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*height > min(length, width)*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorAnisoPyramid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const

@@ -71,8 +71,8 @@ IFormFactor *BoxItem::createFormFactor() const
 /* ------------------------------------------------ */
 
 const QString ConeItem::P_RADIUS = "Radius";
-const QString ConeItem::P_HEIGHT = "Width";
-const QString ConeItem::P_ALPHA = "Height";
+const QString ConeItem::P_HEIGHT = "Height";
+const QString ConeItem::P_ALPHA = "Alpha";
 
 ConeItem::ConeItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::ConeType, parent)
@@ -95,8 +95,8 @@ IFormFactor *ConeItem::createFormFactor() const
 /* ------------------------------------------------ */
 
 const QString Cone6Item::P_RADIUS = "Radius";
-const QString Cone6Item::P_HEIGHT = "Width";
-const QString Cone6Item::P_ALPHA = "Height";
+const QString Cone6Item::P_HEIGHT = "Height";
+const QString Cone6Item::P_ALPHA = "Alpha";
 
 Cone6Item::Cone6Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Cone6Type, parent)

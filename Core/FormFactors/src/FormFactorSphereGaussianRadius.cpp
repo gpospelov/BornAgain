@@ -25,6 +25,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
     setName("FormFactorSphereGaussianRadius");
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
+    check_initialization();
     init_parameters();
 }
 
@@ -59,9 +60,14 @@ double FormFactorSphereGaussianRadius::calculateMeanR3() const
     return std::pow(m_mean*(m_mean*m_mean+3.0*m_sigma*m_sigma),1.0/3.0);
 }
 
+bool FormFactorSphereGaussianRadius::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorSphereGaussianRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("sigma_radius", &m_sigma);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("sigma_radius", &m_sigma, AttLimits::n_positive());
 }

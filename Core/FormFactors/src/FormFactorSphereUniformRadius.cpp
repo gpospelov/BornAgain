@@ -26,6 +26,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 " mean radius must be bigger than the half width");
     }
     setName("FormFactorSphereUniformRadius");
+    check_initialization();
     init_parameters();
 }
 
@@ -64,11 +65,16 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(
     return nominator/(q2*q2*W);
 }
 
+bool FormFactorSphereUniformRadius::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorSphereUniformRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("width_radius", &m_full_width);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("width_radius", &m_full_width, AttLimits::n_positive());
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

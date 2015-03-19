@@ -50,8 +50,8 @@ bool FormFactorTruncatedSphere::check_initialization() const
 void FormFactorTruncatedSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const

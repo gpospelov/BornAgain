@@ -64,10 +64,10 @@ bool FormFactorRipple2::check_initialization() const
 void FormFactorRipple2::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
-    registerParameter("length", &m_length);
-    registerParameter("asymetry", &m_d);
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("asymetry", &m_d, AttLimits::n_positive());
 }
 
 FormFactorRipple2 *FormFactorRipple2::clone() const

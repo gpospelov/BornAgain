@@ -35,8 +35,8 @@ bool FormFactorCylinder::check_initialization() const
 void FormFactorCylinder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const

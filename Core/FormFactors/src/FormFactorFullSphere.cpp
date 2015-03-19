@@ -32,7 +32,7 @@ bool FormFactorFullSphere::check_initialization() const
 void FormFactorFullSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
 }
 
 

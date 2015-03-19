@@ -53,9 +53,9 @@ bool FormFactorRipple1::check_initialization() const
 void FormFactorRipple1::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
-    registerParameter("length", &m_length);
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
 }
 
 FormFactorRipple1 *FormFactorRipple1::clone() const

@@ -76,6 +76,6 @@ bool FormFactorDecoratorDebyeWaller::check_initialization() const
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
     clearParameterPool();
-    registerParameter("hfactor", &m_h_dw_factor);
-    registerParameter("rfactor", &m_r_dw_factor);
+    registerParameter("hfactor", &m_h_dw_factor, AttLimits::n_positive());
+    registerParameter("rfactor", &m_r_dw_factor, AttLimits::n_positive());
 }

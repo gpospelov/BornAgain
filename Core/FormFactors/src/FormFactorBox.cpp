@@ -46,9 +46,9 @@ bool FormFactorBox::check_initialization() const
 void FormFactorBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 

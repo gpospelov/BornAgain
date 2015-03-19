@@ -44,9 +44,9 @@ bool FormFactorHemiEllipsoid::check_initialization() const
 void FormFactorHemiEllipsoid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius_a", &m_radius_a);
-    registerParameter("radius_b", & m_radius_b);
-    registerParameter("height", &m_height);
+    registerParameter("radius_a", &m_radius_a, AttLimits::n_positive());
+    registerParameter("radius_b", & m_radius_b, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 
 }
 

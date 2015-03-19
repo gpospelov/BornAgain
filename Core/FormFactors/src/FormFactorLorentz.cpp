@@ -45,8 +45,8 @@ bool FormFactorLorentz::check_initialization() const
 void FormFactorLorentz::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const

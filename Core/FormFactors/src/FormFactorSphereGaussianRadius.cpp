@@ -68,6 +68,6 @@ bool FormFactorSphereGaussianRadius::check_initialization() const
 void FormFactorSphereGaussianRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("sigma_radius", &m_sigma);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("sigma_radius", &m_sigma, AttLimits::n_positive());
 }

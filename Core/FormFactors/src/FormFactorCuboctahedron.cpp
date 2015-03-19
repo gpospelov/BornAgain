@@ -48,10 +48,10 @@ bool FormFactorCuboctahedron::check_initialization() const
 void FormFactorCuboctahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
-    registerParameter("height_ratio", &m_height_ratio);
-    registerParameter("length", &m_length);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("height_ratio", &m_height_ratio, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const

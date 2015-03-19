@@ -45,9 +45,9 @@ bool FormFactorPyramid::check_initialization() const
 void FormFactorPyramid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("height", &m_height);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const

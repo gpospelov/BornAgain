@@ -58,9 +58,9 @@ bool FormFactorTetrahedron::check_initialization() const
 void FormFactorTetrahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
-    registerParameter("length", &m_length);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

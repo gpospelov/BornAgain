@@ -73,8 +73,8 @@ bool FormFactorSphereUniformRadius::check_initialization() const
 void FormFactorSphereUniformRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("width_radius", &m_full_width);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("width_radius", &m_full_width, AttLimits::n_positive());
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

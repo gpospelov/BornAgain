@@ -57,8 +57,8 @@ bool FormFactorInfLongBox::check_initialization() const
 void FormFactorInfLongBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter( "width", & m_width);
-    registerParameter("height", &m_height);
+    registerParameter( "width", & m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 complex_t FormFactorInfLongBox::evaluate_for_q(const cvector_t& q) const

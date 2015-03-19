@@ -52,9 +52,9 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
 void FormFactorTruncatedSpheroid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
-    registerParameter("height_flattening", &m_height_flattening);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("height_flattening", &m_height_flattening, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const

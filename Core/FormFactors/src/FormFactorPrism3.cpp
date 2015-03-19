@@ -35,8 +35,8 @@ bool FormFactorPrism3::check_initialization() const
 void FormFactorPrism3::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("height", &m_height);
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

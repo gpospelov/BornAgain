@@ -560,8 +560,8 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const Simulation
 
     beamItem->setIntensity(beam.getIntensity());
     beamItem->setWavelength(beam.getWavelength());
-    beamItem->setInclinationAngle(Units::rad2deg(-1.0*beam.getAlpha()));
-    beamItem->setAzimuthalAngle(Units::rad2deg(-1.0*beam.getPhi()));
+    beamItem->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
+    beamItem->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
 
     // distribution parameters
     const DistributionHandler::Distributions_t distributions = simulation.getDistributionHandler().getDistributions();

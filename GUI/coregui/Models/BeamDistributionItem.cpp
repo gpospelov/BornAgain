@@ -16,6 +16,7 @@
 #include "BeamDistributionItem.h"
 #include "DistributionItem.h"
 #include "ParameterDistribution.h"
+#include "Units.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 
@@ -65,12 +66,16 @@ ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(con
                 sigma_factor = distributionItem->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
+            PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
+            AttLimits limits;
             if(modelType() == Constants::BeamWavelengthType) {
-                PropertyAttribute cached_attribute = getPropertyAttribute(P_CACHED_VALUE);
-                result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor, cached_attribute.getLimits());
+                limits = cached_attribute.getLimits();
             } else {
-                result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor);
+                AttLimits orig = cached_attribute.getLimits();
+                if(orig.hasLowerLimit()) limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
+                if(orig.hasUpperLimit()) limits.setUpperLimit(Units::deg2rad(orig.getUpperLimit()));
             }
+            result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor, limits);
         }
     }
     return result;

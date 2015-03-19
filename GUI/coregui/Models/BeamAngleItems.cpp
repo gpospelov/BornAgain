@@ -36,7 +36,7 @@ IDistribution1D *BeamInclinationAngleItem::createDistribution1D()
 {
     IDistribution1D *result(0);
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
-        result = BeamAngleHelper::creatAngleDistribution(distributionItem, BeamAngleHelper::INCLINATION_ANGLE);
+        result = BeamAngleHelper::creatAngleDistribution(distributionItem);
     }
     return result;
 }
@@ -58,46 +58,39 @@ IDistribution1D *BeamAzimuthalAngleItem::createDistribution1D()
 {
     IDistribution1D *result(0);
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
-        result = BeamAngleHelper::creatAngleDistribution(distributionItem, BeamAngleHelper::AZIMUTHAL_ANGLE);
+        result = BeamAngleHelper::creatAngleDistribution(distributionItem);
     }
     return result;
 }
 
 // -------------------------------------------------------------------------- //
 
-//! FIXME, It is so ugly
-IDistribution1D *BeamAngleHelper::creatAngleDistribution(DistributionItem *distributionItem, BeamAngleHelper::EAngleType angle_type)
+IDistribution1D *BeamAngleHelper::creatAngleDistribution(DistributionItem *distributionItem)
 {
-    int invertion(1);
-    if(angle_type == INCLINATION_ANGLE) invertion = -1;
 
     IDistribution1D *result(0);
     if(distributionItem->modelType() == Constants::DistributionGateType) {
-        double min = invertion*distributionItem->getRegisteredProperty(DistributionGateItem::P_MIN).toDouble();
-        double max = invertion*distributionItem->getRegisteredProperty(DistributionGateItem::P_MAX).toDouble();
-        if(min > max) {
-            result = new DistributionGate(Units::deg2rad(max), Units::deg2rad(min));
-        } else {
-            result = new DistributionGate(Units::deg2rad(min), Units::deg2rad(max));
-        }
+        double min = distributionItem->getRegisteredProperty(DistributionGateItem::P_MIN).toDouble();
+        double max = distributionItem->getRegisteredProperty(DistributionGateItem::P_MAX).toDouble();
+        result = new DistributionGate(Units::deg2rad(min), Units::deg2rad(max));
     }
     else if(distributionItem->modelType() == Constants::DistributionLorentzType) {
-        double mean = invertion*distributionItem->getRegisteredProperty(DistributionLorentzItem::P_MEAN).toDouble();
+        double mean = distributionItem->getRegisteredProperty(DistributionLorentzItem::P_MEAN).toDouble();
         double hwhm = distributionItem->getRegisteredProperty(DistributionLorentzItem::P_HWHM).toDouble();
         result = new DistributionLorentz(Units::deg2rad(mean), Units::deg2rad(hwhm));
     }
     else if(distributionItem->modelType() == Constants::DistributionGaussianType) {
-        double mean = invertion*distributionItem->getRegisteredProperty(DistributionGaussianItem::P_MEAN).toDouble();
+        double mean = distributionItem->getRegisteredProperty(DistributionGaussianItem::P_MEAN).toDouble();
         double std_dev = distributionItem->getRegisteredProperty(DistributionGaussianItem::P_STD_DEV).toDouble();
         result = new DistributionGaussian(Units::deg2rad(mean), Units::deg2rad(std_dev));
     }
     else if(distributionItem->modelType() == Constants::DistributionLogNormalType) {
-        double median = invertion*distributionItem->getRegisteredProperty(DistributionLogNormalItem::P_MEDIAN).toDouble();
+        double median = distributionItem->getRegisteredProperty(DistributionLogNormalItem::P_MEDIAN).toDouble();
         double scale_par = distributionItem->getRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR).toDouble();
         return new DistributionLogNormal(Units::deg2rad(median), scale_par);
     }
     else if(distributionItem->modelType() == Constants::DistributionCosineType) {
-        double mean = invertion*distributionItem->getRegisteredProperty(DistributionCosineItem::P_MEAN).toDouble();
+        double mean = distributionItem->getRegisteredProperty(DistributionCosineItem::P_MEAN).toDouble();
         double sigma = distributionItem->getRegisteredProperty(DistributionCosineItem::P_SIGMA).toDouble();
         return new DistributionCosine(Units::deg2rad(mean), Units::deg2rad(sigma));
     }

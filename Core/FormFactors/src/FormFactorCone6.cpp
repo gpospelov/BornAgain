@@ -42,9 +42,9 @@ bool FormFactorCone6::check_initialization() const
     bool result(true);
     if(m_height > m_radius*std::tan(m_alpha)) {
         std::ostringstream ostr;
-        ostr << "FormFactorCone6() -> Error in class initialization ";
-        ostr << "with parameters radius:" << m_radius;
-        ostr << " m_height:" << m_height;
+        ostr << "FormFactorCone6() -> Error in class initialization with parameters";
+        ostr << " radius:" << m_radius;
+        ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());

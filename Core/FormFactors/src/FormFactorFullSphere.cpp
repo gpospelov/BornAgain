@@ -14,10 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
-//#include "Numeric.h"
 #include "MathFunctions.h"
-
-//#include <cmath>
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)

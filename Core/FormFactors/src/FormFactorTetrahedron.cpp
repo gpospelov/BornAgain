@@ -28,7 +28,6 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_length = length;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
-    assert(2.*m_root3 * m_height <= m_length*std::tan(m_alpha) );
     check_initialization();
     init_parameters();
 
@@ -48,9 +47,9 @@ bool FormFactorTetrahedron::check_initialization() const
         std::ostringstream ostr;
         ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
-        ostr << " length:" << m_length << "\n\n";
+        ostr << " length:" << m_length;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for '2.*m_root3 * m_height <= m_length*std::tan(m_alpha)' failed.";
+        ostr << "Check for '2.*sqrt(3.) * height <= length*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;

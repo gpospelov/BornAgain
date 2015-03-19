@@ -26,9 +26,6 @@ FormFactorInfLongRipple2::FormFactorInfLongRipple2(double width, double height, 
     , m_d(asymetry)
 {
     setName("FormFactorInfLongRipple2");
-    assert(-1*m_width <= 2.*m_d);
-    assert(m_width >= 2.*m_d);
-    assert(m_height > 0);
     check_initialization();
     init_parameters();
 }

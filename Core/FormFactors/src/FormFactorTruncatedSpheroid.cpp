@@ -25,7 +25,6 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
     m_radius = radius;
     m_height = height;
     m_height_flattening = height_flattening;
-    assert(m_height <= 2.*m_radius*m_height_flattening);
     check_initialization();
     init_parameters();
 
@@ -38,7 +37,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
 bool FormFactorTruncatedSpheroid::check_initialization() const
 {
     bool result(true);
-    if(m_height > 2.*m_radius) {
+    if(m_height > 2.*m_radius*m_height_flattening) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedSphere() -> Error in class initialization with parameters ";
         ostr << " radius:" << m_radius;

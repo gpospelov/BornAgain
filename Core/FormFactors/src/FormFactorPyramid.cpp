@@ -32,7 +32,7 @@ bool FormFactorPyramid::check_initialization() const
     bool result(true);
     if(2.*m_height > m_length*std::tan(m_alpha)) {
         std::ostringstream ostr;
-        ostr << "FormFactorInfLongRipple1() -> Error in class initialization with parameters ";
+        ostr << "FormFactorPyramid() -> Error in class initialization with parameters ";
         ostr << " length:" << m_length;
         ostr << " height:" << m_height;
         ostr << " alpha:" << m_alpha << "\n\n";

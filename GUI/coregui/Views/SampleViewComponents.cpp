@@ -38,9 +38,9 @@ ItemTreeView *SampleViewComponents::createTreeView(
     return tree_view;
 }
 
-SampleInfoStreamInterface *SampleViewComponents::createInfoStream(
-        QWidget *parent)
-{
-    return new SampleInfoStreamInterface(parent);
-}
+//SampleInfoStreamInterface *SampleViewComponents::createInfoStream(
+//        QWidget *parent)
+//{
+//    return new SampleInfoStreamInterface(parent);
+//}
 

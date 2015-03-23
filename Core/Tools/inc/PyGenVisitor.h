@@ -92,6 +92,8 @@ private:
     std::string definePlotting(const Simulation *simulation) const;
     std::string defineRunSimulation() const;
     LabelSample *m_label;
+
+    std::string indent() const;
 };
 
 

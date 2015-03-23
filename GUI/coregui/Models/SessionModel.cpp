@@ -24,6 +24,7 @@
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
+#include "ParameterizedGraphicsItem.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -747,6 +748,9 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
 
 void SessionModel::onItemPropertyChange(const QString & name )
 {
+    if(name == ParameterizedGraphicsItem::P_XPOS || name == ParameterizedGraphicsItem::P_YPOS)
+        return;
+
     qDebug() << "SessionModel::onItemPropertyChange()" << name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     Q_ASSERT(item);

@@ -58,6 +58,7 @@ Simulation *gui_IsGISAXS07();
 Simulation *gui_MultipleLayouts();
 Simulation *BeamDivergence();
 Simulation *DetectorResolution();
+Simulation *ParticleDistribution();
 }
 
 

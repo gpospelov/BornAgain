@@ -383,6 +383,7 @@ void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
     qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
+    m_combo_property.setCachedValue(current_value);
     qDebug() << "       ComboPropertyEdit::onCurrentIndexChanged(QString current_value) -> emitting combo property";
     emit comboPropertyChanged(m_combo_property);
 }

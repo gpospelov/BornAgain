@@ -28,14 +28,11 @@ class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
-    static const QString P_CACHED_SELECTED_PARAMETER;
     static const QString NO_SELECTION;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
 
     void insertChildItem(int row, ParameterizedItem *item);
-
-    void onPropertyChange(const QString &name);
 
     void onChildPropertyChange();
 public slots:

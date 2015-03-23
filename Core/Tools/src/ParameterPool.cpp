@@ -143,6 +143,15 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards,
     return npars;
 }
 
+std::vector<std::string> ParameterPool::getParameterNames() const
+{
+    std::vector<std::string> result;
+    for (parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
+}
+
 //! Prints content on the screen.
 
 void ParameterPool::print(std::ostream& ostr) const

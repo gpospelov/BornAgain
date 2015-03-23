@@ -61,6 +61,11 @@ void ParticleInfo::setPosition(kvector_t position)
     m_depth = -position.z();
 }
 
+void ParticleInfo::applyTransformation(const Geometry::Transform3D &transform)
+{
+    mP_particle->applyTransformation(transform);
+}
+
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();

@@ -149,6 +149,10 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "detector_resolution", StandardSimulations::DetectorResolution,
         "Cylinders in DWBA with beam divergence");
+
+    registerItem(
+        "part_distribution", StandardSimulations::ParticleDistribution,
+        "Cylinders with size distribution");
 }
 
 

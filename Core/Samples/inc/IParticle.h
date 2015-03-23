@@ -22,8 +22,6 @@
 #include <memory>
 #include <boost/scoped_ptr.hpp>
 
-class ParticleInfo;
-
 //! @class IParticle
 //! @ingroup samples
 //! @brief Interface for a generic particle

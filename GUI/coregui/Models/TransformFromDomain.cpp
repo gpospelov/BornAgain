@@ -442,21 +442,21 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const ParticleDistribution *sample)
 {
     ParameterDistribution par_distr = sample->getParameterDistribution();
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-                QString::fromStdString(par_distr.getMainParameterName()) );
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_SAMPLE_NUMBER, (int)par_distr.getNbrSamples());
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+    QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
+    ComboProperty combo_property
+        = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+            .value<ComboProperty>();
+    combo_property.setCachedValue(main_distr_par_name);
+    item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
+                                combo_property.getVariant());
 
     const IDistribution1D *p_distribution = par_distr.getDistribution();
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-
+    ParameterizedItem *pdfItem = 0;
     if(const DistributionGate *distr =
             dynamic_cast<const DistributionGate *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionGateType);
         pdfItem->setRegisteredProperty(
                     DistributionGateItem::P_MIN, distr->getMin());
@@ -465,7 +465,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionLorentz *distr =
             dynamic_cast<const DistributionLorentz *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionLorentzType);
         pdfItem->setRegisteredProperty(
                     DistributionLorentzItem::P_MEAN, distr->getMean());
@@ -474,7 +474,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionGaussian *distr =
             dynamic_cast<const DistributionGaussian *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionGaussianType);
         pdfItem->setRegisteredProperty(
                     DistributionGaussianItem::P_MEAN, distr->getMean());
@@ -483,7 +483,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionLogNormal *distr =
             dynamic_cast<const DistributionLogNormal *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionLogNormalType);
         pdfItem->setRegisteredProperty(
                   DistributionLogNormalItem::P_MEDIAN, distr->getMedian());
@@ -492,13 +492,20 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionCosine *distr =
             dynamic_cast<const DistributionCosine *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionCosineType);
         pdfItem->setRegisteredProperty(
                   DistributionCosineItem::P_MEAN, distr->getMean());
         pdfItem->setRegisteredProperty(
                   DistributionCosineItem::P_SIGMA, distr->getSigma());
     }
+    if (pdfItem) {
+        pdfItem->setRegisteredProperty(
+                    DistributionItem::P_NUMBER_OF_SAMPLES, (int)par_distr.getNbrSamples());
+        pdfItem->setRegisteredProperty(
+                    DistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+    }
+
 }
 
 

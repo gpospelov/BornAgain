@@ -127,5 +127,4 @@ std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 void ParameterDistribution::init_parameters()
 {
     clearParameterPool();
-//    registerParameter("sigma_factor", &m_sigma_factor);
 }

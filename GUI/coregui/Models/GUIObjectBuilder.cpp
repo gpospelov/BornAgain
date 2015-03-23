@@ -387,6 +387,9 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     }
     item->setItemName(sample->getName().c_str());
 
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+                                m_propertyToValue[ParticleItem::P_ABUNDANCE]);
+
     m_levelToParentItem[getLevel()] = item;
     m_itemToSample[item] = sample;
 }
@@ -396,7 +399,6 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
-    m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
     kvector_t position = sample->getPosition();
     if (position.x()!=0.0 || position.y()!=0.0) {
@@ -404,6 +406,9 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
         m_propertyToValue[VectorItem::P_X] = position.x();
         m_propertyToValue[VectorItem::P_Y] = position.y();
         m_propertyToValue[VectorItem::P_Z] = position.z();
+        m_propertyToValue[ParticleItem::P_DEPTH] = 0.0;
+    } else {
+        m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     }
     m_levelToParentItem[getLevel()] = parent;
 }

@@ -60,9 +60,14 @@ public:
     }
 
     int getIndex() const { return toIndex(m_current_value); }
+
+    QString getCachedValue() const { return m_cached_value; }
+    void setCachedValue(const QString &name);
+
 private:
     QStringList m_values;
     QString m_current_value;
+    QString m_cached_value;  // for comboboxes with dynamically generated value lists
 };
 
 Q_DECLARE_METATYPE(ComboProperty)

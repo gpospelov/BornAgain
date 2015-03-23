@@ -657,3 +657,22 @@ Simulation *StandardSimulations::DetectorResolution()
 
     return result;
 }
+
+
+Simulation *StandardSimulations::ParticleDistribution()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

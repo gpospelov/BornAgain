@@ -134,6 +134,15 @@ void register_AttLimits_class(){
                 , ( bp::arg("bound_value") ) );
         
         }
+        { //::AttLimits::n_positive
+        
+            typedef ::AttLimits ( *n_positive_function_type )(  );
+            
+            AttLimits_exposer.def( 
+                "n_positive"
+                , n_positive_function_type( &::AttLimits::n_positive ) );
+        
+        }
         AttLimits_exposer.def( bp::self != bp::self );
         AttLimits_exposer.def( bp::self == bp::self );
         { //::AttLimits::positive
@@ -226,6 +235,7 @@ void register_AttLimits_class(){
         AttLimits_exposer.staticmethod( "limited" );
         AttLimits_exposer.staticmethod( "limitless" );
         AttLimits_exposer.staticmethod( "lowerLimited" );
+        AttLimits_exposer.staticmethod( "n_positive" );
         AttLimits_exposer.staticmethod( "positive" );
         AttLimits_exposer.staticmethod( "upperLimited" );
     }

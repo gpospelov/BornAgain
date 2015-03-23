@@ -37,6 +37,13 @@ struct ParameterDistribution_wrapper : ParameterDistribution, bp::wrapper< Param
     
     }
 
+    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double xmin, double xmax )
+    : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, xmin, xmax )
+      , bp::wrapper< ParameterDistribution >(){
+        // constructor
+    
+    }
+
     ParameterDistribution_wrapper(::ParameterDistribution const & other )
     : ParameterDistribution( boost::ref(other) )
       , bp::wrapper< ParameterDistribution >(){
@@ -143,6 +150,7 @@ void register_ParameterDistribution_class(){
         typedef bp::class_< ParameterDistribution_wrapper, bp::bases< IParameterized > > ParameterDistribution_exposer_t;
         ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )) );
         bp::scope ParameterDistribution_scope( ParameterDistribution_exposer );
+        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, std::size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") )) );
         ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") )) );
         { //::ParameterDistribution::getDistribution
         
@@ -154,6 +162,15 @@ void register_ParameterDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::ParameterDistribution::getLimits
+        
+            typedef ::AttLimits ( ::ParameterDistribution::*getLimits_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getLimits"
+                , getLimits_function_type( &::ParameterDistribution::getLimits ) );
+        
+        }
         { //::ParameterDistribution::getMainParameterName
         
             typedef ::std::string ( ::ParameterDistribution::*getMainParameterName_function_type)(  ) const;
@@ -161,6 +178,24 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getMainParameterName"
                 , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName ) );
+        
+        }
+        { //::ParameterDistribution::getMaxValue
+        
+            typedef double ( ::ParameterDistribution::*getMaxValue_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getMaxValue"
+                , getMaxValue_function_type( &::ParameterDistribution::getMaxValue ) );
+        
+        }
+        { //::ParameterDistribution::getMinValue
+        
+            typedef double ( ::ParameterDistribution::*getMinValue_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getMinValue"
+                , getMinValue_function_type( &::ParameterDistribution::getMinValue ) );
         
         }
         { //::ParameterDistribution::getNbrSamples

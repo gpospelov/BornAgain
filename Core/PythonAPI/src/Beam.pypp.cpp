@@ -217,7 +217,7 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "setCentralK"
                 , setCentralK_function_type( &::Beam::setCentralK )
-                , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
+                , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
         { //::Beam::setIntensity

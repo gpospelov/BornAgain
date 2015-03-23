@@ -146,7 +146,7 @@ void LabelSample::insertMaterial(const IMaterial *sample)
     if(it == iEnd)
     {
         std::ostringstream label_stream;
-        label_stream << "Material_" << m_MaterialLabel.size()+1;
+        label_stream << "material_" << m_MaterialLabel.size()+1;
         m_MaterialLabel[sample] = label_stream.str();
     }
 }
@@ -154,28 +154,28 @@ void LabelSample::insertMaterial(const IMaterial *sample)
 void LabelSample::setLabel(const IFormFactor *sample)
 {
         std::ostringstream inter;
-        inter << "FormFactor_" << m_FormFactorLabel.size()+1;
+        inter << "formFactor_" << m_FormFactorLabel.size()+1;
         m_FormFactorLabel[sample] = inter.str();
 }
 
 void LabelSample::setLabel(const IInterferenceFunction *sample)
 {
     std::ostringstream inter;
-    inter << "InterferenceFunction_" << m_InterferenceFunctionLabel.size()+1;
+    inter << "interference_" << m_InterferenceFunctionLabel.size()+1;
     m_InterferenceFunctionLabel[sample] = inter.str();
 }
 
 void LabelSample::setLabel(const ILayout *sample)
 {
     std::ostringstream inter;
-    inter << "Layout_" << m_ILayoutLabel.size()+1;
+    inter << "layout_" << m_ILayoutLabel.size()+1;
     m_ILayoutLabel[sample] = inter.str();;
 }
 
 void LabelSample::setLabel(const Layer *sample)
 {
     std::ostringstream inter;
-    inter << "Layer_" << m_LayerLabel.size()+1;
+    inter << "layer_" << m_LayerLabel.size()+1;
     m_LayerLabel[sample] = inter.str();
 }
 
@@ -184,7 +184,7 @@ void LabelSample::setLabel(const LayerRoughness *sample)
     if(sample->getSigma() != 0 && sample->getHurstParameter() != 0 && sample->getLatteralCorrLength() != 0)
     {
         std::ostringstream inter;
-        inter << "LayerRoughness_" << m_LayerRoughnessLabel.size()+1;
+        inter << "layerRoughness_" << m_LayerRoughnessLabel.size()+1;
         m_LayerRoughnessLabel[sample] = inter.str();
     }
 }
@@ -192,28 +192,28 @@ void LabelSample::setLabel(const LayerRoughness *sample)
 void LabelSample::setLabel(const MultiLayer *sample)
 {
     std::ostringstream inter;
-    inter << "MultiLayer_" << m_MultiLayerLabel.size()+1;
+    inter << "multiLayer_" << m_MultiLayerLabel.size()+1;
     m_MultiLayerLabel[sample] = inter.str();
 }
 
 void LabelSample::setLabel(const Particle *sample)
 {
     std::ostringstream inter;
-    inter << "Particle_" << m_ParticleLabel.size()+1;
+    inter << "particle_" << m_ParticleLabel.size()+1;
     m_ParticleLabel[sample] = inter.str();
 }
 
 void LabelSample::setLabel(const ParticleCoreShell *sample)
 {
     std::ostringstream inter;
-    inter << "ParticleCoreShell_" << m_ParticleCoreShellLabel.size()+1;
+    inter << "particleCoreShell_" << m_ParticleCoreShellLabel.size()+1;
     m_ParticleCoreShellLabel[sample] = inter.str();
 }
 
 void LabelSample::setLabel(const ParticleComposition *sample)
 {
     std::ostringstream inter;
-    inter << "ParticleComposition_" << m_ParticleCompositionLabel.size()+1;
+    inter << "particleComposition_" << m_ParticleCompositionLabel.size()+1;
     m_ParticleCompositionLabel[sample] = inter.str();
 }
 

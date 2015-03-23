@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/LabelSample.h
-//! @brief     Defines LabelSample class
+//! @file      Tools/inc/SampleLabelHandler.h
+//! @brief     Defines SampleLabelHandler class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LABELSAMPLE_H
-#define LABELSAMPLE_H
+#ifndef SAMPLELABELHANDLER_H
+#define SAMPLELABELHANDLER_H
 #include <map>
 #include "MultiLayer.h"
 #include "Layer.h"
@@ -23,10 +23,10 @@
 
 //static std::map<const Layer *,std::string> m_layerLabel;
 
-class BA_CORE_API_ LabelSample
+class BA_CORE_API_ SampleLabelHandler
 {
 public:
-    LabelSample();
+    SampleLabelHandler();
     std::map<const IFormFactor*, std::string>* getFormFactorMap();
     std::map<const IInterferenceFunction*, std::string>* getInterferenceFunctionMap();
     std::map<const Layer*, std::string>* getLayerMap();

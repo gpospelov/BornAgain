@@ -21,7 +21,7 @@
 #include <set>
 
 class IMaterial;
-class LabelSample;
+class SampleLabelHandler;
 class Simulation;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
@@ -91,7 +91,7 @@ private:
     std::string defineBeam(const Simulation *simulation) const;
     std::string definePlotting(const Simulation *simulation) const;
     std::string defineRunSimulation() const;
-    LabelSample *m_label;
+    SampleLabelHandler *m_label;
 
     std::string indent() const;
 };

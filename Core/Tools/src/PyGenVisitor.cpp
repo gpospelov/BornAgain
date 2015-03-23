@@ -25,7 +25,7 @@
 #include "IMaterial.h"
 #include "ICompositeSample.h"
 #include "Layer.h"
-#include "LabelSample.h"
+#include "SampleLabelHandler.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"
 #include "Particle.h"
@@ -37,7 +37,7 @@
 #include "Transform3D.h"
 
 PyGenVisitor::PyGenVisitor()
-    : m_label(new LabelSample())
+    : m_label(new SampleLabelHandler())
 {
 }
 

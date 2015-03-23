@@ -40,7 +40,6 @@ const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
-const QString ParameterCachedValueAttribute("ParCachedValue");
 
 const QString IdentifierAttribute("Identifier");
 

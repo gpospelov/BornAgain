@@ -552,15 +552,13 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     } else if (parameter_type == "ComboProperty") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
-        QString cached_parameter_value
-            = reader->attributes().value(SessionXML::ParameterCachedValueAttribute).toString();
 
         ComboProperty combo_property
             = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
         if (combo_property.getValues().contains(parameter_value)) {
             combo_property.setValue(parameter_value);
         }
-        combo_property.setCachedValue(cached_parameter_value);
+        combo_property.setCachedValue(parameter_value);
         item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     } else if (parameter_type == "ScientificDoubleProperty") {
         double parameter_value
@@ -655,8 +653,6 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer, ParameterizedItem *it
         } else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ComboProperty>().getValue());
-            writer->writeAttribute(SessionXML::ParameterCachedValueAttribute,
-                                   variant.value<ComboProperty>().getCachedValue());
         } else if (type_name == QString("ScientificDoubleProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ScientificDoubleProperty>().getText());

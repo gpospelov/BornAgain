@@ -443,9 +443,12 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 {
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
-    QVariant par_prop = item->getRegisteredProperty(
-                ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
-    par_prop.value<ComboProperty>().setCachedValue(main_distr_par_name);
+    ComboProperty combo_property
+        = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+            .value<ComboProperty>();
+    combo_property.setCachedValue(main_distr_par_name);
+    item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
+                                combo_property.getVariant());
 
     const IDistribution1D *p_distribution = par_distr.getDistribution();
 

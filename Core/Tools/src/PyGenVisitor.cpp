@@ -1464,34 +1464,27 @@ std::string PyGenVisitor::defineMultiLayers() const
         result << "\t" << it->second << " = MultiLayer()\n";
 
         size_t numberOfLayers = it->first->getNumberOfLayers();
-        result << "\t" << it->second
-               << ".addLayer("
-               << m_label->getLabel(it->first->getLayer(0)) << ")\n";
 
-        size_t layerIndex = 1;
-        while (layerIndex != numberOfLayers)
-        {
-            const LayerInterface *layerInterface =
-                    it->first->getLayerInterface(layerIndex-1);
-            if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
-                == m_label->getLayerRoughnessMap()->end())
-            {
-                result << "\t" << it->second
-                       << ".addLayer("
-                       << m_label->getLabel(it->first->getLayer(layerIndex))
-                       << ")\n";
-            }
+        if (numberOfLayers) {
+            result << "\t" << it->second << ".addLayer("
+                   << m_label->getLabel(it->first->getLayer(0)) << ")\n";
 
-            else
-            {
-                result << "\t" << it->second
-                       << ".addLayerWithTopRoughness("
-                       << m_label->getLabel(it->first->getLayer(layerIndex))
-                       << ", "
-                       << m_label->getLabel(layerInterface->getRoughness())
-                       << ")\n";
+            size_t layerIndex = 1;
+            while (layerIndex != numberOfLayers) {
+                const LayerInterface *layerInterface = it->first->getLayerInterface(layerIndex - 1);
+                if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
+                    == m_label->getLayerRoughnessMap()->end()) {
+                    result << "\t" << it->second << ".addLayer("
+                           << m_label->getLabel(it->first->getLayer(layerIndex)) << ")\n";
+                }
+
+                else {
+                    result << "\t" << it->second << ".addLayerWithTopRoughness("
+                           << m_label->getLabel(it->first->getLayer(layerIndex)) << ", "
+                           << m_label->getLabel(layerInterface->getRoughness()) << ")\n";
+                }
+                layerIndex++;
             }
-            layerIndex++;
         }
         result <<"\treturn " << it->second <<  std::endl;
         it++;

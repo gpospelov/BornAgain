@@ -14,35 +14,32 @@
 // ************************************************************************** //
 
 #include "InfoWidget.h"
+#include "PySampleWidget.h"
 #include <QVBoxLayout>
-#include <QTextEdit>
-#include <QFile>
-#include <QTextStream>
-#include "PythonSyntaxHighlighter.h"
 
 InfoWidget::InfoWidget(QWidget *parent)
     : QWidget(parent)
-    , m_textEdit(new QTextEdit)
+    , m_pySampleWidget(new PySampleWidget(this))
 {
     setWindowTitle(tr("Info Stream"));
     setObjectName(tr("InfoStream"));
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-//    QVBoxLayout *mainLayout = new QVBoxLayout;
-//    mainLayout->addWidget(m_textEdit);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(m_pySampleWidget);
 
-//    setLayout(mainLayout);
+    setLayout(mainLayout);
+}
 
+void InfoWidget::setSampleModel(SampleModel *sampleModel)
+{
+    Q_ASSERT(m_pySampleWidget);
+    m_pySampleWidget->setSampleModel(sampleModel);
+}
 
-////    PyScriptSyntaxHighlighter *highlighter = new PyScriptSyntaxHighlighter(m_textEdit->document());
-//    PythonSyntaxHighlighter *highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
-//    Q_UNUSED(highlighter);
-
-//    QFile scriptFile("CylindersAndPrisms.py");
-//    if (!scriptFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-//        return;
-//    }
-//    QTextStream fileStream(&scriptFile);
-//    m_textEdit->setText(fileStream.readAll());
+void InfoWidget::setInstrumentModel(InstrumentModel *instrumentModel)
+{
+    Q_ASSERT(m_pySampleWidget);
+    m_pySampleWidget->setInstrumentModel(instrumentModel);
 }

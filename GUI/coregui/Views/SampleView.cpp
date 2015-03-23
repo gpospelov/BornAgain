@@ -110,6 +110,8 @@ void SampleView::initSubWindows()
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
     InfoWidget *infoWidget = new InfoWidget(this);
+    infoWidget->setSampleModel(m_sampleModel);
+    infoWidget->setInstrumentModel(m_instrumentModel);
     m_subWindows[INFO] = infoWidget;
 
     m_sampleDesigner->setSampleModel(m_sampleModel);

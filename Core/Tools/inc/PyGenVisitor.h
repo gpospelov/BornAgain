@@ -71,12 +71,12 @@ public:
     void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
 
+    std::string definePreamble() const;
+    std::string defineGetSimulation(const Simulation *simulation) const;
+    std::string defineGetSample() const;
+    std::string defineMaterials() const;
 
 private:
-    std::string definePreamble() const;
-    std::string defineGetSample() const;
-    std::string defineGetSimulation(const Simulation *simulation) const;
-    std::string defineMaterials() const;
     std::string defineLayers() const;
     std::string defineFormFactors() const;
     std::string defineParticles() const;

@@ -32,6 +32,7 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_textEdit(new QTextEdit)
     , m_sampleModel(0)
     , m_instrumentModel(0)
+    , m_block_update(false)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -56,16 +57,19 @@ void PySampleWidget::setSampleModel(SampleModel *sampleModel)
         if(m_sampleModel) {
             disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
             disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
             disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
         }
 
         m_sampleModel = sampleModel;
 
+        updateEditor();
+
         connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
         connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
         connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
 
-        updateEditor();
     }
 
 }
@@ -82,31 +86,34 @@ void PySampleWidget::onModifiedRow(const QModelIndex &, int, int)
     updateEditor();
 }
 
+void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
+{
+    updateEditor();
+}
+
 void PySampleWidget::updateEditor()
 {
+    if(m_block_update) return;
+
     qDebug() << "PySampleWidget::updateEditor()";
-//    QFile scriptFile("CylindersAndPrisms.py");
-//    if (!scriptFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-//        return;
-//    }
-//    QTextStream fileStream(&scriptFile);
-//    m_textEdit->setText(fileStream.readAll());
+    m_block_update = true;
 
     QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
+    if(!sampleMap.isEmpty()) {
 
-    if(sampleMap.isEmpty()) return;
+        DomainObjectBuilder builder;
+        ParameterizedItem *sampleItem = sampleMap.first();
+        boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
+        multilayer->printSampleTree();
 
-    DomainObjectBuilder builder;
-    ParameterizedItem *sampleItem = sampleMap.first();
-    boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
-    multilayer->printSampleTree();
+        PyGenVisitor visitor;
+        VisitSampleTree(*multilayer, visitor);
 
-    PyGenVisitor visitor;
-    VisitSampleTree(*multilayer, visitor);
+        std::ostringstream result;
+        result << visitor.defineGetSample();
 
-    std::ostringstream result;
-    result << visitor.defineGetSample();
+        m_textEdit->setText(QString::fromStdString(result.str()));
+    }
 
-    m_textEdit->setText(QString::fromStdString(result.str()));
-
+    m_block_update = false;
 }

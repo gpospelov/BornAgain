@@ -468,6 +468,9 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
 
     connect(new_item, SIGNAL(propertyChanged(const QString &)),
             this, SLOT(onItemPropertyChange(const QString &)));
+    connect(new_item, SIGNAL(subItemChanged(const QString &)),
+            this, SLOT(onItemPropertyChange(const QString &)));
+
     parent->insertChildItem(row, new_item);
 
     return new_item;

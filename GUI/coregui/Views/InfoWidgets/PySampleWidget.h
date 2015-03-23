@@ -38,12 +38,16 @@ public:
 
 public slots:
     void onModifiedRow(const QModelIndex &, int, int);
+    void onDataChanged(const QModelIndex &, const QModelIndex &);
+
     void updateEditor();
+
 
 private:
     QTextEdit *m_textEdit;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+    bool m_block_update;
 };
 
 #endif

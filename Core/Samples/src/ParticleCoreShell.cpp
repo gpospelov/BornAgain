@@ -41,8 +41,8 @@ ParticleCoreShell *ParticleCoreShell::clone() const
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core,
             m_relative_core_position);
     p_new->setAmbientMaterial(*getAmbientMaterial());
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
     p_new->setName(getName());
     return p_new;
@@ -54,8 +54,8 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     p_new->mp_shell = this->mp_shell->cloneInvertB();
     p_new->mp_core = this->mp_core->cloneInvertB();
     p_new->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
     p_new->setName(getName() + "_inv");
     return p_new;
@@ -139,7 +139,7 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
         kvector_t position) const
 {
     if (p_particle->getFormFactor() == 0) return 0;
-    const Geometry::Transform3D *p_transform = p_particle->getTransform3D();
+    const Geometry::Transform3D *p_transform = p_particle->createTransform3D();
     IFormFactor *p_transf_ff = 0;
     if (p_transform) {
         p_transf_ff = new FormFactorDecoratorTransformation(

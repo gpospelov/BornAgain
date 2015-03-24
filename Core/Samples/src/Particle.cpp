@@ -54,7 +54,7 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
     , mp_form_factor(form_factor.clone())
 {
     setName("Particle");
-    mP_transform.reset(transform.clone());
+    mP_rotation.reset(IRotation::createRotation(transform));
     registerChild(mp_form_factor);
 }
 
@@ -74,7 +74,7 @@ Particle* Particle::clone() const
     if(mp_form_factor) result->setFormFactor(*mp_form_factor);
     result->setMaterial(*mp_material);
     result->setAmbientMaterial(*mp_ambient_material);
-    if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
+    if(mP_rotation.get()) result->mP_rotation.reset(mP_rotation->clone());
     result->setName(getName());
 
     return result;
@@ -90,7 +90,7 @@ Particle* Particle::cloneInvertB() const
     if(mp_ambient_material)
         result->mp_ambient_material = Materials::createInvertedMaterial(mp_ambient_material);
 
-    if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
+    if(mP_rotation.get()) result->mP_rotation.reset(mP_rotation->clone());
 
     result->setName(getName() + "_inv");
     return result;
@@ -106,9 +106,10 @@ IFormFactor* Particle::createFormFactor(
     FormFactorDecoratorMaterial *p_ff =
             new FormFactorDecoratorMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
-    if (mP_transform.get()) {
+    if (mP_rotation.get()) {
+        boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
         boost::scoped_ptr<const IMaterial> transformed_material(mp_material->
-                createTransformedMaterial(*mP_transform));
+                createTransformedMaterial(*P_transform));
         p_ff->setMaterial(*transformed_material);
     } else {
         p_ff->setMaterial(*mp_material);
@@ -131,9 +132,10 @@ IFormFactor* Particle::createTransformedFormFactor() const
 {
     if(!mp_form_factor) return 0;
     IFormFactor *p_result;
-    if(mP_transform.get()) {
+    if(mP_rotation.get()) {
+        boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
         p_result = new FormFactorDecoratorTransformation(
-                    mp_form_factor->clone(), *mP_transform.get());
+                    mp_form_factor->clone(), *P_transform);
     }
     else {
         p_result = mp_form_factor->clone();

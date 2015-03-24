@@ -331,7 +331,7 @@ void register_IParticle_class(){
             
             IParticle_exposer.def( 
                 "getTransform3D"
-                , getTransform3D_function_type( &::IParticle::getTransform3D )
+                , getTransform3D_function_type( &::IParticle::createTransform3D )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

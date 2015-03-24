@@ -57,8 +57,8 @@ ParticleComposition* ParticleComposition::clone() const
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
     return p_new;
 }
@@ -75,8 +75,8 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     if(getAmbientMaterial()) {
         p_new->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
     }
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
 
     return p_new;

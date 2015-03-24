@@ -59,7 +59,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
-    EXPECT_EQ( NULL, p1->getTransform3D());
+    EXPECT_EQ( NULL, p1->createTransform3D());
 
     delete p1;
 
@@ -97,9 +97,9 @@ TEST_F(ParticleTest, Transform)
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 
-    EXPECT_TRUE(NULL != particle->getTransform3D());
+    EXPECT_TRUE(NULL != particle->createTransform3D());
 
-    const Geometry::Transform3D * rZ3D  = particle->getTransform3D();
+    const Geometry::Transform3D * rZ3D  = particle->createTransform3D();
     EXPECT_TRUE( NULL != rZ3D);
 
     const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
@@ -118,7 +118,7 @@ TEST_F(ParticleTest, SetParam)
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
     EXPECT_EQ(NULL, particle.getFormFactor());
-    EXPECT_EQ(NULL, particle.getTransform3D());
+    EXPECT_EQ(NULL, particle.createTransform3D());
 
     particle.setMaterial(mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
@@ -129,8 +129,8 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
     particle.setTransformation(transform);
-    EXPECT_TRUE(NULL != particle.getTransform3D());
-    const Geometry::Transform3D * rY3D  = particle.getTransform3D();
+    EXPECT_TRUE(NULL != particle.createTransform3D());
+    const Geometry::Transform3D * rY3D  = particle.createTransform3D();
     EXPECT_TRUE( NULL != rY3D);
     const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
     EXPECT_TRUE(NULL!=rY3D2);
@@ -141,7 +141,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
     EXPECT_TRUE(NULL != particle2->getFormFactor());
     EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
-    EXPECT_TRUE(NULL != particle2->getTransform3D());
+    EXPECT_TRUE(NULL != particle2->createTransform3D());
 
     delete particle2;
 }

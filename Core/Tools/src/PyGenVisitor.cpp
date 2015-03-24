@@ -615,11 +615,11 @@ std::string PyGenVisitor::defineParticles() const
     {
         const Particle *particle = it->first;
 
-        if(particle->getTransform3D())
+        if(particle->createTransform3D())
         {
             double alpha, beta, gamma;
-            particle->getTransform3D()->calculateEulerAngles(&alpha,&beta,&gamma);
-            switch (particle->getTransform3D()->getRotationType()) {
+            particle->createTransform3D()->calculateEulerAngles(&alpha,&beta,&gamma);
+            switch (particle->createTransform3D()->getRotationType()) {
             case Geometry::Transform3D::EULER:
                 result << "\t" << it->second
                        << "_rotation = Transform3D.createRotateEuler("
@@ -648,7 +648,7 @@ std::string PyGenVisitor::defineParticles() const
                << " = Particle(" << m_label->getLabel(particle->getMaterial())
                << ", " << m_label->getLabel(particle->getFormFactor());
 
-        if (particle->getTransform3D())
+        if (particle->createTransform3D())
         {
             result << ", " << it->second << "_rotation";
         }

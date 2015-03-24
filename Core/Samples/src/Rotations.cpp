@@ -37,12 +37,12 @@ IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
     }
 }
 
-IRotation &operator*(const IRotation &left, const IRotation &right)
+IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 {
     boost::scoped_ptr<Geometry::Transform3D> tr_left(left.createTransform3D());
     boost::scoped_ptr<Geometry::Transform3D> tr_right(right.createTransform3D());
     IRotation *p_result = IRotation::createRotation((*tr_left)*(*tr_right));
-    return *p_result;
+    return p_result;
 }
 
 

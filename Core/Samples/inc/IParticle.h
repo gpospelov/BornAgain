@@ -18,6 +18,7 @@
 
 #include "ICompositeSample.h"
 #include "IMaterial.h"
+#include "Rotations.h"
 
 #include <memory>
 #include <boost/scoped_ptr.hpp>
@@ -54,8 +55,9 @@ public:
             complex_t wavevector_scattering_factor) const=0;
 
     //! Returns transformation.
-    const Geometry::Transform3D *getTransform3D() const {
-        return mP_transform.get();
+    const Geometry::Transform3D *createTransform3D() const {
+        if (mP_rotation.get()) return mP_rotation->createTransform3D();
+        return 0;
     }
 
     //! Sets transformation.
@@ -67,34 +69,34 @@ public:
 protected:
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform)=0;
-    std::auto_ptr<Geometry::Transform3D> mP_transform;
+    std::auto_ptr<IRotation> mP_rotation;
 };
 
 
 inline void IParticle::setTransformation(const Geometry::Transform3D &transform)
 {
-    if (!mP_transform.get()) {
-        mP_transform.reset(transform.clone());
+    if (!mP_rotation.get()) {
+        mP_rotation.reset(IRotation::createRotation(transform));
         applyTransformationToSubParticles(transform);
         return;
     }
-    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
-            mP_transform->createInverse());
+    boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
+    boost::scoped_ptr<Geometry::Transform3D> P_inverse(P_transform->createInverse());
     applyTransformationToSubParticles(*P_inverse);
-    mP_transform.reset(transform.clone());
+    mP_rotation.reset(IRotation::createRotation(transform));
     applyTransformationToSubParticles(transform);
 }
 
 inline void IParticle::applyTransformation(const Geometry::Transform3D &transform)
 {
-    Geometry::Transform3D total_transformation;
-    if (mP_transform.get()) {
-        total_transformation = transform * (*mP_transform);
+    IRotation *p_rotation = IRotation::createRotation(transform);
+    if (mP_rotation.get()) {
+        mP_rotation.reset(CreateProduct(*p_rotation, *mP_rotation));
+        delete p_rotation;
     }
     else {
-        total_transformation = transform;
+        mP_rotation.reset(p_rotation);
     }
-    mP_transform.reset(total_transformation.clone());
     applyTransformationToSubParticles(transform);
 }
 

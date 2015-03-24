@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QModelIndex>
+#include <QScrollBar>
 #include <QDebug>
 
 PySampleWidget::PySampleWidget(QWidget *parent)
@@ -98,6 +99,8 @@ void PySampleWidget::updateEditor()
     qDebug() << "PySampleWidget::updateEditor()";
     m_block_update = true;
 
+    const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
+
     QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
     if(!sampleMap.isEmpty()) {
 
@@ -114,6 +117,8 @@ void PySampleWidget::updateEditor()
 
         m_textEdit->setText(QString::fromStdString(result.str()));
     }
+
+    m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
 
     m_block_update = false;
 }

@@ -21,6 +21,7 @@
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 #include <map>
+#include <list>
 
 namespace Utils {
 
@@ -139,6 +140,84 @@ public:
 
 private:
     container_t m_value_map;
+};
+
+//! @class OrderedMap
+//! @ingroup tools_internal
+//! @brief Ordered map which saves the order of insertion
+
+template<class Key, class Object >
+class OrderedMap
+{
+public:
+    typedef std::pair<Key, Object> entry_t;
+    typedef std::list<entry_t > list_t;
+    typedef typename list_t::iterator iterator;
+    typedef typename list_t::const_iterator const_iterator;
+    typedef boost::unordered_map<Key, iterator > map_t;
+
+    OrderedMap() {}
+    virtual ~OrderedMap(){}
+
+    void clear() {
+        m_map.clear();
+        m_list.clear();
+    }
+
+    const_iterator begin() const { return m_list.begin(); }
+    const_iterator end() const { return m_list.end(); }
+    iterator begin() { return m_list.begin(); }
+    iterator end() { return m_list.end(); }
+
+    size_t size() {
+        assert(m_list.size() == m_map.size());
+        return m_list.size();
+    }
+
+    // if such key exists, pair will be deleted, and new pair appended to the end
+    void insert(const Key &key, const Object &object) {
+        erase(key);
+        iterator it = m_list.insert(m_list.end(), std::make_pair(key, object));
+        m_map[key] = it;
+    }
+
+    iterator find(const Key &key) {
+        iterator result = m_list.end();
+        if(m_map.find(key) != m_map.end()) {
+            result = m_map[key];
+        }
+        return result;
+    }
+
+    const_iterator find(const Key &key) const {
+        const_iterator result = m_list.end();
+        if(m_map.find(key) != m_map.end()) {
+            result = m_map[key];
+        }
+        return result;
+    }
+
+    size_t erase(const Key &key) {
+        size_t result(0);
+        if(m_map.find(key) == m_map.end()) return result;
+        iterator it = m_map[key];
+        m_list.erase(it);
+        m_map.erase(key);
+        return 1;
+    }
+
+    const Object &value(const Key &key) {
+        typename map_t::const_iterator mit = m_map.find(key);
+        if(mit == m_map.end()) {
+            throw RuntimeErrorException("OrderedMap::value() -> No such key");
+        }
+        const_iterator it = mit->second;
+        return (*it).second;
+    }
+
+private:
+    map_t m_map;
+    list_t m_list;
 };
 
 class BA_CORE_API_ System

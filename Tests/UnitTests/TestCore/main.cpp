@@ -49,6 +49,7 @@
 #include "SpecularSimulationTest.h"
 #include "ParticleCoreShellTest.h"
 #include "ParameterDistributionTest.h"
+#include "UtilsTest.h"
 
 
 struct ErrorStreamRedirect {

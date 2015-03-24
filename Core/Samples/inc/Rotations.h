@@ -28,6 +28,8 @@
 class BA_CORE_API_ IRotation : public ISample
 {
 public:
+    static IRotation *createRotation(const Geometry::Transform3D &transform);
+
     virtual ~IRotation() {}
 
     //! Returns a clone
@@ -40,9 +42,10 @@ public:
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
-    virtual Geometry::Transform3D *getTransform3D() const=0;
+    virtual Geometry::Transform3D *createTransform3D() const=0;
 };
 
+IRotation& operator*(const IRotation& left, const IRotation &right);
 
 class BA_CORE_API_ RotationX : public IRotation
 {
@@ -53,12 +56,63 @@ public:
 
     RotationX *cloneInvertB() const;
 
-    Geometry::Transform3D *getTransform3D() const;
+    Geometry::Transform3D *createTransform3D() const;
 
 protected:
     void init_parameters();
 
     double m_angle;
+};
+
+class BA_CORE_API_ RotationY : public IRotation
+{
+public:
+    RotationY(double angle);
+
+    RotationY *clone() const;
+
+    RotationY *cloneInvertB() const;
+
+    Geometry::Transform3D *createTransform3D() const;
+
+protected:
+    void init_parameters();
+
+    double m_angle;
+};
+
+class BA_CORE_API_ RotationZ : public IRotation
+{
+public:
+    RotationZ(double angle);
+
+    RotationZ *clone() const;
+
+    RotationZ *cloneInvertB() const;
+
+    Geometry::Transform3D *createTransform3D() const;
+
+protected:
+    void init_parameters();
+
+    double m_angle;
+};
+
+class BA_CORE_API_ RotationEuler : public IRotation
+{
+public:
+    RotationEuler(double alpha, double beta, double gamma);
+
+    RotationEuler *clone() const;
+
+    RotationEuler *cloneInvertB() const;
+
+    Geometry::Transform3D *createTransform3D() const;
+
+protected:
+    void init_parameters();
+
+    double m_alpha, m_beta, m_gamma;
 };
 
 

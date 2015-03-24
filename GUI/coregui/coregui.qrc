@@ -42,5 +42,8 @@
         <file>images/expand_arrow.png</file>
         <file>images/splashscreen.png</file>
         <file>images/about_icon.png</file>
+        <file>images/darkarrowdown.png</file>
+        <file>images/darkarrowup.png</file>
+        <file>images/darkclose.png</file>
     </qresource>
 </RCC>

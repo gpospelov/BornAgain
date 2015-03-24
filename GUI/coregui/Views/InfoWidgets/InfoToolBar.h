@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/InfoWidget.h
-//! @brief     Defines class InfoWidget
+//! @file      coregui/Views/InfoWidgets/InfoToolBar.h
+//! @brief     Defines class InfoToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOWIDGET_H
-#define INFOWIDGET_H
+#ifndef INFOTOOLBAR_H
+#define INFOTOOLBAR_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QToolBar>
 
-class InfoToolBar;
-class SampleModel;
-class InstrumentModel;
-class PySampleWidget;
+class QToolButton;
 
-//! The InfoWidget resides at the bottom of SampleView and displays a Python script
-class BA_CORE_API_ InfoWidget : public QWidget
+//! The InfoToolBar is a tool bar for InfoWidget
+class BA_CORE_API_ InfoToolBar : public QToolBar
 {
     Q_OBJECT
 
 public:
-    explicit InfoWidget(QWidget *parent = 0);
-
-    void setSampleModel(SampleModel *sampleModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
+    explicit InfoToolBar(QWidget *parent = 0);
 
 private:
-    InfoToolBar *m_infoToolBar;
-    PySampleWidget *m_pySampleWidget;
+    QToolButton *m_expandButton;
+    QToolButton *m_closeButton;
 };
 
 #endif

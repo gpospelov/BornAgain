@@ -15,10 +15,12 @@
 
 #include "InfoWidget.h"
 #include "PySampleWidget.h"
+#include "InfoToolBar.h"
 #include <QVBoxLayout>
 
 InfoWidget::InfoWidget(QWidget *parent)
     : QWidget(parent)
+    , m_infoToolBar(new InfoToolBar(this))
     , m_pySampleWidget(new PySampleWidget(this))
 {
     setWindowTitle(tr("Info Stream"));
@@ -27,6 +29,8 @@ InfoWidget::InfoWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addWidget(m_infoToolBar);
     mainLayout->addWidget(m_pySampleWidget);
 
     setLayout(mainLayout);

@@ -23,6 +23,7 @@ class SampleModel;
 class InstrumentModel;
 class QTextEdit;
 class QModelIndex;
+class QTimer;
 
 //! The PySampleWidget displays Python script representing a MultiLayer at the bottom of SampleView
 //! Belongs to InfoWidget
@@ -40,14 +41,20 @@ public slots:
     void onModifiedRow(const QModelIndex &, int, int);
     void onDataChanged(const QModelIndex &, const QModelIndex &);
 
+    void scheduleUpdate();
     void updateEditor();
 
+private slots:
+    void onTimerTimeout();
 
 private:
     QTextEdit *m_textEdit;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
-    bool m_block_update;
+    QTimer *m_timer;
+    int m_time_to_update;
+    int m_n_of_sceduled_updates;
+//    bool m_block_update;
 };
 
 #endif

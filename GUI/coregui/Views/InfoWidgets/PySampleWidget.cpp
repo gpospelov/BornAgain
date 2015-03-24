@@ -26,14 +26,22 @@
 #include <QTextStream>
 #include <QModelIndex>
 #include <QScrollBar>
+#include <QTimer>
 #include <QDebug>
+
+namespace {
+const int timer_interval_msec = 10;
+const int update_every_msec = 20.;
+}
 
 PySampleWidget::PySampleWidget(QWidget *parent)
     : QWidget(parent)
     , m_textEdit(new QTextEdit)
     , m_sampleModel(0)
     , m_instrumentModel(0)
-    , m_block_update(false)
+    , m_time_to_update(update_every_msec)
+    , m_n_of_sceduled_updates(0)
+//    , m_block_update(false)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -47,6 +55,10 @@ PySampleWidget::PySampleWidget(QWidget *parent)
 //    QWidget *infoPanel = new QWidget(parent);
 //    infoPanel->setGeometry(QRect(100, 100, 400, 200));
 //    infoPanel->show();
+
+    m_timer = new QTimer(this);
+    m_timer->setInterval(timer_interval_msec);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 
 }
 
@@ -84,22 +96,35 @@ void PySampleWidget::setInstrumentModel(InstrumentModel *instrumentModel)
 
 void PySampleWidget::onModifiedRow(const QModelIndex &, int, int)
 {
-    updateEditor();
+    scheduleUpdate();
 }
 
 void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    updateEditor();
+    scheduleUpdate();
+}
+
+void PySampleWidget::scheduleUpdate()
+{
+    m_n_of_sceduled_updates++;
+    qDebug() << "PySampleWidget::scheduleUpdate()" << m_n_of_sceduled_updates;
+    if(!m_timer->isActive()) m_timer->start();
 }
 
 void PySampleWidget::updateEditor()
 {
-    if(m_block_update) return;
+//    if(m_block_update) return;
+//    m_block_update = true;
 
-    qDebug() << "PySampleWidget::updateEditor()";
-    m_block_update = true;
+//    Q_ASSERT(m_timer->isActive());
+//    m_timer->stop();
+
+    qDebug() << "PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
+    m_n_of_sceduled_updates = 0;
 
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
+
+    m_textEdit->clear();
 
     QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
     if(!sampleMap.isEmpty()) {
@@ -107,7 +132,7 @@ void PySampleWidget::updateEditor()
         DomainObjectBuilder builder;
         ParameterizedItem *sampleItem = sampleMap.first();
         boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
-        multilayer->printSampleTree();
+        //multilayer->printSampleTree();
 
         PyGenVisitor visitor;
         VisitSampleTree(*multilayer, visitor);
@@ -120,5 +145,24 @@ void PySampleWidget::updateEditor()
 
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
 
-    m_block_update = false;
+
+//    m_time_to_update = update_every_msec;
+
+//    m_block_update = false;
+    qDebug() << "       PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
+
 }
+
+void PySampleWidget::onTimerTimeout()
+{
+    qDebug() << "PySampleWidget::onTimerTimeout()" << m_time_to_update << "scheduled updates" << m_n_of_sceduled_updates;
+    m_time_to_update -= timer_interval_msec;
+
+    if(m_time_to_update < 0) {
+        m_timer->stop();
+        updateEditor();
+        m_time_to_update = update_every_msec;
+    }
+}
+
+

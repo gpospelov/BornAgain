@@ -215,6 +215,11 @@ public:
         return (*it).second;
     }
 
+    const Object &operator[](const Key &key) {
+        return value(key);
+    }
+
+
 private:
     map_t m_map;
     list_t m_list;

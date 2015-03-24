@@ -295,7 +295,7 @@ std::string PyGenVisitor::defineMaterials() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << indent() << "# Defining Materials\n";
-    std::map<const IMaterial *,std::string>::iterator it =
+    SampleLabelHandler::materials_t::iterator it =
             m_label->getMaterialMap()->begin();
     std::set<std::string> visitedMaterials;
     while (it != m_label->getMaterialMap()->end())
@@ -345,7 +345,7 @@ std::string PyGenVisitor::defineLayers() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Layers\n";
-    std::map<const Layer *,std::string>::iterator it =
+    SampleLabelHandler::layers_t::iterator it =
             m_label->getLayerMap()->begin();
     while (it != m_label->getLayerMap()->end())
     {
@@ -368,7 +368,7 @@ std::string PyGenVisitor::defineFormFactors() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Form Factors\n";
-    std::map<const IFormFactor *,std::string>::iterator it =
+    SampleLabelHandler::formfactors_t::iterator it =
             m_label->getFormFactorMap()->begin();
     while (it != m_label->getFormFactorMap()->end())
     {
@@ -610,7 +610,7 @@ std::string PyGenVisitor::defineParticles() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particles\n";
-    std::map<const Particle *,std::string>::iterator it =
+    SampleLabelHandler::particles_t::iterator it =
             m_label->getParticleMap()->begin();
     while (it != m_label->getParticleMap()->end())
     {
@@ -666,7 +666,7 @@ std::string PyGenVisitor::defineCoreShellParticles() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Core Shell Particles\n";
-    std::map<const ParticleCoreShell *,std::string>::iterator it =
+    SampleLabelHandler::particlescoreshell_t::iterator it =
             m_label->getParticleCoreShellMap()->begin();
 
     while (it != m_label->getParticleCoreShellMap()->end())
@@ -693,7 +693,7 @@ std::string PyGenVisitor::defineParticleCompositions() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Defining collection of particles with specific positions\n";
-    std::map<const ParticleComposition *,std::string>::iterator it =
+    SampleLabelHandler::particlecompositions_t::iterator it =
             m_label->getParticleCompositionMap()->begin();
 
     while (it != m_label->getParticleCompositionMap()->end())
@@ -721,7 +721,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Defining Interference Functions\n";
-    std::map<const IInterferenceFunction *,std::string>::iterator it =
+    SampleLabelHandler::interferences_t::iterator it =
             m_label->getInterferenceFunctionMap()->begin();
     while (it != m_label->getInterferenceFunctionMap()->end())
     {
@@ -1320,7 +1320,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Defining Particle Layouts and adding Particles\n";
-    std::map<const ILayout *,std::string>::iterator it =
+    SampleLabelHandler::layouts_t::iterator it =
             m_label->getParticleLayoutMap()->begin();
     while (it != m_label->getParticleLayoutMap()->end())
     {
@@ -1414,7 +1414,7 @@ std::string PyGenVisitor::defineRoughnesses() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Defining Roughness Parameters\n";
-    std::map<const LayerRoughness *,std::string>::iterator it =
+    SampleLabelHandler::roughnesses_t::iterator it =
             m_label->getLayerRoughnessMap()->begin();
     while (it != m_label->getLayerRoughnessMap()->end())
     {
@@ -1434,7 +1434,7 @@ std::string PyGenVisitor::addLayoutsToLayers() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Adding layouts to layers";
-    std::map<const Layer *,std::string>::iterator it = m_label->getLayerMap()->begin();
+    SampleLabelHandler::layers_t::iterator it = m_label->getLayerMap()->begin();
     while (it != m_label->getLayerMap()->end())
     {
         const Layer *layer = it->first;
@@ -1458,7 +1458,7 @@ std::string PyGenVisitor::defineMultiLayers() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n"<<indent()<<"# Defining Multilayers\n";
-    std::map<const MultiLayer *,std::string>::iterator it =
+    SampleLabelHandler::multilayers_t::iterator it =
             m_label->getMultiLayerMap()->begin();
     while (it != m_label->getMultiLayerMap()->end())
     {

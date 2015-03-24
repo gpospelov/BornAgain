@@ -15,28 +15,53 @@
 
 #ifndef SAMPLELABELHANDLER_H
 #define SAMPLELABELHANDLER_H
-#include <map>
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "IParticle.h"
-#include "ParticleLayout.h"
 
-//static std::map<const Layer *,std::string> m_layerLabel;
+#include "WinDllMacros.h"
+#include "Utils.h"
+#include <map>
+
+class IFormFactor;
+class IInterferenceFunction;
+class Layer;
+class MultiLayer;
+class LayerRoughness;
+class IMaterial;
+class Particle;
+class IParticle;
+class ParticleCoreShell;
+class ILayout;
+class ParticleComposition;
+
+//! @class SampleLabelHandler
+//! @ingroup tools_internal
+//! @brief The hadler which construct labels for sample variables during python script generation
 
 class BA_CORE_API_ SampleLabelHandler
 {
 public:
+    typedef Utils::OrderedMap<const IFormFactor*, std::string> formfactors_t;
+    typedef Utils::OrderedMap<const IInterferenceFunction*, std::string> interferences_t;
+    typedef Utils::OrderedMap<const Layer*, std::string> layers_t;
+    typedef Utils::OrderedMap<const LayerRoughness*, std::string> roughnesses_t;
+    typedef Utils::OrderedMap<const IMaterial*, std::string> materials_t;
+    typedef Utils::OrderedMap<const MultiLayer*, std::string> multilayers_t;
+    typedef Utils::OrderedMap<const Particle*, std::string> particles_t;
+    typedef Utils::OrderedMap<const ParticleCoreShell*, std::string> particlescoreshell_t;
+    typedef Utils::OrderedMap<const ILayout*, std::string> layouts_t;
+    typedef Utils::OrderedMap<const ParticleComposition*, std::string> particlecompositions_t;
+
     SampleLabelHandler();
-    std::map<const IFormFactor*, std::string>* getFormFactorMap();
-    std::map<const IInterferenceFunction*, std::string>* getInterferenceFunctionMap();
-    std::map<const Layer*, std::string>* getLayerMap();
-    std::map<const LayerRoughness*, std::string>* getLayerRoughnessMap();
-    std::map<const IMaterial*, std::string>* getMaterialMap();
-    std::map<const MultiLayer*, std::string>* getMultiLayerMap();
-    std::map<const Particle*, std::string>* getParticleMap();
-    std::map<const ParticleCoreShell*, std::string>* getParticleCoreShellMap();
-    std::map<const ILayout*, std::string>* getParticleLayoutMap();
-    std::map<const ParticleComposition*, std::string>* getParticleCompositionMap();
+    formfactors_t* getFormFactorMap();
+    interferences_t* getInterferenceFunctionMap();
+    layers_t* getLayerMap();
+    roughnesses_t* getLayerRoughnessMap();
+    materials_t* getMaterialMap();
+    multilayers_t* getMultiLayerMap();
+    particles_t* getParticleMap();
+    particlescoreshell_t* getParticleCoreShellMap();
+    layouts_t* getParticleLayoutMap();
+    particlecompositions_t* getParticleCompositionMap();
+
     std::string getLabel(const IFormFactor *sample);
     std::string getLabel(const IInterferenceFunction *sample);
     std::string getLabel(const IMaterial *sample);
@@ -47,6 +72,7 @@ public:
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ILayout *sample);
     std::string getLabel(const ParticleComposition *sample);
+
     void insertMaterial(const IMaterial *sample);
     void setLabel(const IFormFactor *sample);
     void setLabel(const IInterferenceFunction *sample);
@@ -61,16 +87,16 @@ public:
 
 private:
     bool definesSameMaterial(const IMaterial *left, const IMaterial *right) const;
-    std::map<const IFormFactor*, std::string> m_FormFactorLabel;
-    std::map<const IInterferenceFunction*, std::string> m_InterferenceFunctionLabel;
-    std::map<const Layer*, std::string> m_LayerLabel;
-    std::map<const LayerRoughness*, std::string> m_LayerRoughnessLabel;
-    std::map<const IMaterial*, std::string> m_MaterialLabel;
-    std::map<const MultiLayer*, std::string> m_MultiLayerLabel;
-    std::map<const Particle*, std::string> m_ParticleLabel;
-    std::map<const ParticleCoreShell*, std::string> m_ParticleCoreShellLabel;
-    std::map<const ILayout*, std::string> m_ILayoutLabel;
-    std::map<const ParticleComposition*, std::string> m_ParticleCompositionLabel;
+    formfactors_t m_FormFactorLabel;
+    interferences_t m_InterferenceFunctionLabel;
+    layers_t m_LayerLabel;
+    roughnesses_t m_LayerRoughnessLabel;
+    materials_t m_MaterialLabel;
+    multilayers_t m_MultiLayerLabel;
+    particles_t m_ParticleLabel;
+    particlescoreshell_t m_ParticleCoreShellLabel;
+    layouts_t m_ILayoutLabel;
+    particlecompositions_t m_ParticleCompositionLabel;
 };
 
 #endif // LABELSAMPLE_H

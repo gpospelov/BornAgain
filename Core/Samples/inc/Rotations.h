@@ -45,7 +45,7 @@ public:
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
-    virtual Geometry::Transform3D *createTransform3D() const=0;
+    virtual Geometry::Transform3D getTransform3D() const=0;
 };
 
 IRotation *CreateProduct(const IRotation& left, const IRotation &right);
@@ -61,7 +61,7 @@ public:
 
     RotationX *createInverse() const;
 
-    Geometry::Transform3D *createTransform3D() const;
+    Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
@@ -80,7 +80,7 @@ public:
 
     RotationY *createInverse() const;
 
-    Geometry::Transform3D *createTransform3D() const;
+    Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
@@ -99,7 +99,7 @@ public:
 
     RotationZ *createInverse() const;
 
-    Geometry::Transform3D *createTransform3D() const;
+    Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();
@@ -118,7 +118,7 @@ public:
 
     IRotation *createInverse() const;
 
-    Geometry::Transform3D *createTransform3D() const;
+    Geometry::Transform3D getTransform3D() const;
 
 protected:
     void init_parameters();

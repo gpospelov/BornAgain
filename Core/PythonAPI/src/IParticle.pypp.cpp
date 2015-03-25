@@ -325,14 +325,23 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::IParticle::getRotation
+        
+            typedef ::IRotation const * ( ::IParticle::*getRotation_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getRotation"
+                , getRotation_function_type( &::IParticle::getRotation )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::IParticle::getTransform3D
         
-            typedef ::Geometry::Transform3D const * ( ::IParticle::*getTransform3D_function_type)(  ) const;
+            typedef ::Geometry::Transform3D const ( ::IParticle::*getTransform3D_function_type)(  ) const;
             
             IParticle_exposer.def( 
                 "getTransform3D"
-                , getTransform3D_function_type( &::IParticle::createTransform3D )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , getTransform3D_function_type( &::IParticle::getTransform3D ) );
         
         }
         { //::IParticle::setAmbientMaterial

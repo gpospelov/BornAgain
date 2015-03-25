@@ -139,11 +139,12 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
         kvector_t position) const
 {
     if (p_particle->getFormFactor() == 0) return 0;
-    const Geometry::Transform3D *p_transform = p_particle->createTransform3D();
+    const IRotation *p_rotation = p_particle->getRotation();
+    const Geometry::Transform3D transform = p_particle->getTransform3D();
     IFormFactor *p_transf_ff = 0;
-    if (p_transform) {
+    if (p_rotation) {
         p_transf_ff = new FormFactorDecoratorTransformation(
-                    p_particle->getFormFactor()->clone(),*p_transform);
+                    p_particle->getFormFactor()->clone(),transform);
     } else {
         p_transf_ff = p_particle->getFormFactor()->clone();
     }
@@ -159,9 +160,9 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
     FormFactorDecoratorMaterial *p_ff_result =
             new FormFactorDecoratorMaterial(p_simple_ff,
                                             wavevector_scattering_factor);
-    if (p_transform) {
+    if (p_rotation) {
         boost::scoped_ptr<const IMaterial> transformed_material(p_particle->
-                getMaterial()->createTransformedMaterial(*p_transform));
+                getMaterial()->createTransformedMaterial(transform));
         p_ff_result->setMaterial(*transformed_material);
     } else {
         p_ff_result->setMaterial(*p_particle->getMaterial());

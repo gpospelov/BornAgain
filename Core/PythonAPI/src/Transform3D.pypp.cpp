@@ -80,16 +80,6 @@ void register_Transform3D_class(){
                 , bp::return_value_policy< bp::return_by_value >() );
         
         }
-        { //::Geometry::Transform3D::createInverse
-        
-            typedef ::Geometry::Transform3D * ( ::Geometry::Transform3D::*createInverse_function_type)(  ) const;
-            
-            Transform3D_exposer.def( 
-                "createInverse"
-                , createInverse_function_type( &::Geometry::Transform3D::createInverse )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Geometry::Transform3D::createRotateEuler
         
             typedef ::Geometry::Transform3D ( *createRotateEuler_function_type )( double,double,double );
@@ -134,6 +124,15 @@ void register_Transform3D_class(){
                 , bp::return_value_policy< bp::return_by_value >() );
         
         }
+        { //::Geometry::Transform3D::getInverse
+        
+            typedef ::Geometry::Transform3D ( ::Geometry::Transform3D::*getInverse_function_type)(  ) const;
+            
+            Transform3D_exposer.def( 
+                "getInverse"
+                , getInverse_function_type( &::Geometry::Transform3D::getInverse ) );
+        
+        }
         { //::Geometry::Transform3D::getRotationType
         
             typedef ::Geometry::Transform3D::ERotationType ( ::Geometry::Transform3D::*getRotationType_function_type)(  ) const;
@@ -153,6 +152,7 @@ void register_Transform3D_class(){
         
         }
         Transform3D_exposer.def( bp::self * bp::self );
+        Transform3D_exposer.def( bp::self == bp::self );
         { //::Geometry::Transform3D::print
         
             typedef void ( ::Geometry::Transform3D::*print_function_type)( ::std::ostream & ) const;

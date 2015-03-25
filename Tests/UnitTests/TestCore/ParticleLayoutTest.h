@@ -115,25 +115,25 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     EXPECT_TRUE(NULL!=pInfo1);
     EXPECT_EQ(0.0, pInfo1->getDepth());
     EXPECT_EQ(1.0, pInfo1->getAbundance());
-    EXPECT_TRUE(NULL == pInfo1->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo1->getParticle()->getRotation());
 
     const ParticleInfo * pInfo2 = particleDecoration.getParticleInfo(size_t(1));
     EXPECT_TRUE(NULL!=pInfo2);
     EXPECT_EQ(2.1, pInfo2->getDepth());
     EXPECT_EQ(2.2, pInfo2->getAbundance());
-    EXPECT_TRUE(NULL == pInfo2->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo2->getParticle()->getRotation());
 
     const ParticleInfo * pInfo3 = particleDecoration.getParticleInfo(size_t(2));
     EXPECT_TRUE(NULL!=pInfo3);
     EXPECT_EQ(0.0, pInfo3->getDepth());
     EXPECT_EQ(1.0, pInfo3->getAbundance());
-    EXPECT_TRUE(NULL != pInfo3->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo3->getParticle()->getRotation());
 
     const ParticleInfo * pInfo4 = particleDecoration.getParticleInfo(size_t(3));
     EXPECT_TRUE(NULL!=pInfo4);
     EXPECT_EQ(4.1, pInfo4->getDepth());
     EXPECT_EQ(-4.2, pInfo4->getAbundance());
-    EXPECT_TRUE(NULL != pInfo4->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo4->getParticle()->getRotation());
 }
 
 
@@ -202,31 +202,31 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     EXPECT_TRUE(NULL!=pInfo1);
     EXPECT_EQ(0.0, pInfo1->getDepth());
     EXPECT_EQ(1.0, pInfo1->getAbundance());
-    EXPECT_TRUE(NULL == pInfo1->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo1->getParticle()->getRotation());
 
     const ParticleInfo * pInfo2 = clone->getParticleInfo(size_t(1));
     EXPECT_TRUE(NULL!=pInfo2);
     EXPECT_EQ(2.1, pInfo2->getDepth());
     EXPECT_EQ(2.0, pInfo2->getAbundance());
-    EXPECT_TRUE(NULL == pInfo2->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo2->getParticle()->getRotation());
 
     const ParticleInfo * pInfo3 = clone->getParticleInfo(size_t(2));
     EXPECT_TRUE(NULL!=pInfo3);
     EXPECT_EQ(0.0, pInfo3->getDepth());
     EXPECT_EQ(1.0, pInfo3->getAbundance());
-    EXPECT_TRUE(NULL != pInfo3->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo3->getParticle()->getRotation());
 
     const ParticleInfo * pInfo4 = clone->getParticleInfo(size_t(3));
     EXPECT_TRUE(NULL!=pInfo4);
     EXPECT_EQ(4.1, pInfo4->getDepth());
     EXPECT_EQ(4.0, pInfo4->getAbundance());
-    EXPECT_TRUE(NULL != pInfo4->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo4->getParticle()->getRotation());
 
     const ParticleInfo * pInfo5 = clone->getParticleInfo(size_t(4));
     EXPECT_TRUE(NULL!=pInfo5);
     EXPECT_EQ(0.0, pInfo5->getDepth());
     EXPECT_EQ(0.0, pInfo5->getAbundance());
-    EXPECT_TRUE(NULL == pInfo2->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo2->getParticle()->getRotation());
 
     EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(0)));
     EXPECT_EQ(2.0, clone->getAbundanceOfParticle(size_t(1)));
@@ -285,32 +285,32 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     EXPECT_TRUE(NULL!=pInfo1);
     EXPECT_EQ(0.0, pInfo1->getDepth());
     EXPECT_EQ(1.0, pInfo1->getAbundance());
-    EXPECT_TRUE(NULL == pInfo1->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo1->getParticle()->getRotation());
 
     const ParticleInfo * pInfo2 = clone->getParticleInfo(size_t(1));
     EXPECT_TRUE(NULL!=pInfo2);
     EXPECT_EQ(2.1, pInfo2->getDepth());
     EXPECT_EQ(2.0, pInfo2->getAbundance());
-    EXPECT_TRUE(NULL == pInfo2->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo2->getParticle()->getRotation());
 
     const ParticleInfo * pInfo3 = clone->getParticleInfo(size_t(2));
     EXPECT_TRUE(NULL!=pInfo3);
     EXPECT_EQ(0.0, pInfo3->getDepth());
     EXPECT_EQ(1.0, pInfo3->getAbundance());
-    EXPECT_TRUE(NULL != pInfo3->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo3->getParticle()->getRotation());
 
     const ParticleInfo * pInfo4 = clone->getParticleInfo(size_t(3));
     EXPECT_TRUE(NULL!=pInfo4);
     EXPECT_EQ(4.1, pInfo4->getDepth());
     EXPECT_EQ(4.0, pInfo4->getAbundance());
-    EXPECT_TRUE(NULL != pInfo4->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL != pInfo4->getParticle()->getRotation());
 
 
     const ParticleInfo * pInfo5 = clone->getParticleInfo(size_t(4));
     EXPECT_TRUE(NULL!=pInfo5);
     EXPECT_EQ(0.0, pInfo5->getDepth());
     EXPECT_EQ(0.0, pInfo5->getAbundance());
-    EXPECT_TRUE(NULL == pInfo2->getParticle()->createTransform3D());
+    EXPECT_TRUE(NULL == pInfo2->getParticle()->getRotation());
 
     EXPECT_EQ(1.0, clone->getAbundanceOfParticle(size_t(0)));
     EXPECT_EQ(2.0, clone->getAbundanceOfParticle(size_t(1)));

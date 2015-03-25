@@ -64,7 +64,7 @@ public:
                               double *p_gamma) const;
 
     //! Returns the inverse transformation.
-    Transform3D *createInverse() const;
+    Transform3D getInverse() const;
 
     //! Return transformed vector _v_.
     BasicVector3D<double>
@@ -84,6 +84,9 @@ public:
 
     //! Composes two transformations
     Transform3D operator*(const Transform3D &other) const;
+
+    //! Provides equality operator
+    bool operator==(const Transform3D &other) const;
 
     //! Retrieve the rotation type (general, around x, y or z-axis)
     ERotationType getRotationType() const;

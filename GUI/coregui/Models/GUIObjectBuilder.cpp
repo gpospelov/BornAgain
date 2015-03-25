@@ -213,28 +213,26 @@ void GUIObjectBuilder::visit(const Particle *sample)
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_0);
-            const Geometry::Transform3D *p_transformation =
-                    sample->createTransform3D();
-            if (p_transformation) {
+            const Geometry::Transform3D transformation = sample->getTransform3D();
+            if (sample->getRotation()) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
                             Constants::TransformationType,
                             m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(p_transformation, transformation_item);
+                addRotationItem(transformation, transformation_item);
             }
         }
         else if(sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_1);
-            const Geometry::Transform3D *p_transformation =
-                    sample->createTransform3D();
-            if (p_transformation) {
+            const Geometry::Transform3D transformation = sample->getTransform3D();
+            if (sample->getRotation()) {
                 ParameterizedItem *transformation_item =
                         m_sampleModel->insertNewItem(
                             Constants::TransformationType,
                             m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(p_transformation, transformation_item);
+                addRotationItem(transformation, transformation_item);
             }
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit"
@@ -259,7 +257,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
         kvector_t position = particle_composition->getParticlePosition(index);
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                                     m_sampleModel->indexOfItem(parent) );
-        const Geometry::Transform3D *p_transformation = sample->createTransform3D();
+        const Geometry::Transform3D transformation = sample->getTransform3D();
         ParameterizedItem *transformation_item =
                 m_sampleModel->insertNewItem(Constants::TransformationType,
                                              m_sampleModel->indexOfItem(particleItem));
@@ -268,8 +266,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
         p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
         p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
         p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
-        if (p_transformation) {
-            addRotationItem(p_transformation, transformation_item);
+        if (sample->getRotation()) {
+            addRotationItem(transformation, transformation_item);
         }
     }
     else if(parent->modelType() == Constants::ParticleLayoutType
@@ -278,8 +276,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
                                       m_sampleModel->indexOfItem(parent));
         bool has_position_info = m_sample_encountered[
                 Constants::TransformationType];
-        const Geometry::Transform3D *p_transformation = sample->createTransform3D();
-        if (has_position_info || p_transformation) {
+        const Geometry::Transform3D transformation = sample->getTransform3D();
+        if (has_position_info || sample->getRotation()) {
             ParameterizedItem *transformation_item =
                 m_sampleModel->insertNewItem(Constants::TransformationType,
                     m_sampleModel->indexOfItem(particleItem));
@@ -294,8 +292,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
                      m_propertyToValue[VectorItem::P_Z]);
                 m_sample_encountered[Constants::TransformationType] = false;
             }
-            if (p_transformation) {
-                addRotationItem(p_transformation, transformation_item);
+            if (sample->getRotation()) {
+                addRotationItem(transformation, transformation_item);
             }
         }
     }
@@ -710,14 +708,12 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     return MaterialProperty();
 }
 
-void GUIObjectBuilder::addRotationItem(
-        const Geometry::Transform3D *p_transformation,
-        ParameterizedItem *transformation_item)
+void GUIObjectBuilder::addRotationItem(const Geometry::Transform3D &transformation,
+                                       ParameterizedItem *transformation_item)
 {
-    Geometry::Transform3D::ERotationType rot_type =
-            p_transformation->getRotationType();
+    Geometry::Transform3D::ERotationType rot_type = transformation.getRotationType();
     double alpha, beta, gamma;
-    p_transformation->calculateEulerAngles(&alpha, &beta, &gamma);
+    transformation.calculateEulerAngles(&alpha, &beta, &gamma);
     ParameterizedItem *p_rotation_item = 0;
     switch (rot_type) {
     case Geometry::Transform3D::XAXIS:

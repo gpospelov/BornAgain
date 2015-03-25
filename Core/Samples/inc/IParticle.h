@@ -54,10 +54,14 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const=0;
 
+    //! Returns rotation object
+    const IRotation* getRotation() const {
+        return mP_rotation.get();
+    }
     //! Returns transformation.
-    const Geometry::Transform3D *createTransform3D() const {
-        if (mP_rotation.get()) return mP_rotation->createTransform3D();
-        return 0;
+    const Geometry::Transform3D getTransform3D() const {
+        if (mP_rotation.get()) return mP_rotation->getTransform3D();
+        return Geometry::Transform3D();
     }
 
     //! Sets transformation.
@@ -80,9 +84,8 @@ inline void IParticle::setTransformation(const Geometry::Transform3D &transform)
         applyTransformationToSubParticles(transform);
         return;
     }
-    boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
-    boost::scoped_ptr<Geometry::Transform3D> P_inverse(P_transform->createInverse());
-    applyTransformationToSubParticles(*P_inverse);
+    Geometry::Transform3D inverse_transform = mP_rotation->getTransform3D().getInverse();
+    applyTransformationToSubParticles(inverse_transform);
     mP_rotation.reset(IRotation::createRotation(transform));
     applyTransformationToSubParticles(transform);
 }

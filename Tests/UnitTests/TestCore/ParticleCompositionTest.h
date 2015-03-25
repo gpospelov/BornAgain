@@ -41,10 +41,10 @@ TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithOneParameter)
     lb->addParticle(particle, position);
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(0)->getName());
-    EXPECT_EQ(particle.createTransform3D(),lb->getParticle(0)->createTransform3D());
+    EXPECT_EQ(particle.getTransform3D(),lb->getParticle(0)->getTransform3D());
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(1)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(1)->getName());
-    EXPECT_EQ(particle.createTransform3D(),lb->getParticle(1)->createTransform3D());
+    EXPECT_EQ(particle.getTransform3D(),lb->getParticle(1)->getTransform3D());
     EXPECT_EQ(position, lb->getParticlePosition(0));
     EXPECT_EQ(position, lb->getParticlePosition(1));
 
@@ -67,10 +67,10 @@ TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithTwoParameter)
     lb->addParticle(particle, position);
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(0)->getName());
-    EXPECT_EQ(particle.createTransform3D(),lb->getParticle(0)->createTransform3D());
+    EXPECT_EQ(particle.getTransform3D(),lb->getParticle(0)->getTransform3D());
     EXPECT_EQ(particle.getMaterial(),lb->getParticle(1)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(),lb->getParticle(1)->getName());
-    EXPECT_EQ(particle.createTransform3D(),lb->getParticle(1)->createTransform3D());
+    EXPECT_EQ(particle.getTransform3D(),lb->getParticle(1)->getTransform3D());
     EXPECT_EQ(position, lb->getParticlePosition(0));
     EXPECT_EQ(position, lb->getParticlePosition(1));
 
@@ -96,7 +96,7 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 
     EXPECT_EQ(lbClone->getParticle(0)->getAmbientMaterial()->getRefractiveIndex(),lb->getParticle(0)->getAmbientMaterial()->getRefractiveIndex());
     EXPECT_EQ(lbClone->getParticle(0)->getName(), lb->getParticle(0)->getName());
-    EXPECT_EQ(lbClone->getParticle(0)->createTransform3D(),lb->getParticle(0)->createTransform3D());
+    EXPECT_EQ(lbClone->getParticle(0)->getTransform3D(),lb->getParticle(0)->getTransform3D());
     EXPECT_EQ(position, lb->getParticlePosition(0));
 
 

@@ -91,7 +91,7 @@ public:
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
-    void addRotationItem(const Geometry::Transform3D *p_transformation,
+    void addRotationItem(const Geometry::Transform3D &transformation,
                          ParameterizedItem *transformation_item);
 
     SampleModel *m_sampleModel;

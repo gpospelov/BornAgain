@@ -107,9 +107,9 @@ IFormFactor* Particle::createFormFactor(
             new FormFactorDecoratorMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
     if (mP_rotation.get()) {
-        boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
+        Geometry::Transform3D transform = mP_rotation->getTransform3D();
         boost::scoped_ptr<const IMaterial> transformed_material(mp_material->
-                createTransformedMaterial(*P_transform));
+                createTransformedMaterial(transform));
         p_ff->setMaterial(*transformed_material);
     } else {
         p_ff->setMaterial(*mp_material);
@@ -133,9 +133,9 @@ IFormFactor* Particle::createTransformedFormFactor() const
     if(!mp_form_factor) return 0;
     IFormFactor *p_result;
     if(mP_rotation.get()) {
-        boost::scoped_ptr<Geometry::Transform3D> P_transform(mP_rotation->createTransform3D());
+        Geometry::Transform3D transform = mP_rotation->getTransform3D();
         p_result = new FormFactorDecoratorTransformation(
-                    mp_form_factor->clone(), *P_transform);
+                    mp_form_factor->clone(), transform);
     }
     else {
         p_result = mp_form_factor->clone();

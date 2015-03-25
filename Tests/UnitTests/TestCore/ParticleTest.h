@@ -59,7 +59,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
-    EXPECT_EQ( NULL, p1->createTransform3D());
+    EXPECT_EQ( NULL, p1->getRotation());
 
     delete p1;
 
@@ -97,13 +97,7 @@ TEST_F(ParticleTest, Transform)
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 
-    EXPECT_TRUE(NULL != particle->createTransform3D());
-
-    const Geometry::Transform3D * rZ3D  = particle->createTransform3D();
-    EXPECT_TRUE( NULL != rZ3D);
-
-    const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
-    EXPECT_TRUE(NULL!=rZ3D2);
+    EXPECT_TRUE(NULL != particle->getRotation());
 
     delete particle;
 }
@@ -118,7 +112,7 @@ TEST_F(ParticleTest, SetParam)
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
     EXPECT_EQ(NULL, particle.getFormFactor());
-    EXPECT_EQ(NULL, particle.createTransform3D());
+    EXPECT_EQ(NULL, particle.getRotation());
 
     particle.setMaterial(mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
@@ -129,19 +123,14 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
     particle.setTransformation(transform);
-    EXPECT_TRUE(NULL != particle.createTransform3D());
-    const Geometry::Transform3D * rY3D  = particle.createTransform3D();
-    EXPECT_TRUE( NULL != rY3D);
-    const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
-    EXPECT_TRUE(NULL!=rY3D2);
-
+    EXPECT_TRUE(NULL != particle.getRotation());
     Particle *particle2 = particle.clone();
     EXPECT_EQ("Particle", particle2->getName());
     EXPECT_EQ("Air", particle2->getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
     EXPECT_TRUE(NULL != particle2->getFormFactor());
     EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
-    EXPECT_TRUE(NULL != particle2->createTransform3D());
+    EXPECT_TRUE(NULL != particle2->getRotation());
 
     delete particle2;
 }

@@ -15,8 +15,6 @@
 
 #include "Rotations.h"
 
-#include <boost/scoped_ptr.hpp>
-
 
 IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
 {
@@ -39,9 +37,9 @@ IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
 
 IRotation *CreateProduct(const IRotation &left, const IRotation &right)
 {
-    boost::scoped_ptr<Geometry::Transform3D> tr_left(left.createTransform3D());
-    boost::scoped_ptr<Geometry::Transform3D> tr_right(right.createTransform3D());
-    IRotation *p_result = IRotation::createRotation((*tr_left)*(*tr_right));
+    Geometry::Transform3D tr_left = left.getTransform3D();
+    Geometry::Transform3D tr_right = right.getTransform3D();
+    IRotation *p_result = IRotation::createRotation(tr_left*tr_right);
     return p_result;
 }
 
@@ -68,9 +66,9 @@ RotationX *RotationX::createInverse() const
     return new RotationX(-m_angle);
 }
 
-Geometry::Transform3D *RotationX::createTransform3D() const
+Geometry::Transform3D RotationX::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateX(m_angle).clone();
+    return Geometry::Transform3D::createRotateX(m_angle);
 }
 
 void RotationX::init_parameters()
@@ -101,9 +99,9 @@ RotationY *RotationY::createInverse() const
     return new RotationY(-m_angle);
 }
 
-Geometry::Transform3D *RotationY::createTransform3D() const
+Geometry::Transform3D RotationY::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateY(m_angle).clone();
+    return Geometry::Transform3D::createRotateY(m_angle);
 }
 
 void RotationY::init_parameters()
@@ -134,9 +132,9 @@ RotationZ *RotationZ::createInverse() const
     return new RotationZ(-m_angle);
 }
 
-Geometry::Transform3D *RotationZ::createTransform3D() const
+Geometry::Transform3D RotationZ::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateZ(m_angle).clone();
+    return Geometry::Transform3D::createRotateZ(m_angle);
 }
 
 void RotationZ::init_parameters()
@@ -166,14 +164,13 @@ RotationEuler *RotationEuler::cloneInvertB() const
 
 IRotation *RotationEuler::createInverse() const
 {
-    boost::scoped_ptr<Geometry::Transform3D> P_transform(createTransform3D());
-    boost::scoped_ptr<Geometry::Transform3D> P_inverse(P_transform->createInverse());
-    return createRotation(*P_inverse);
+    Geometry::Transform3D inverse_transform(getTransform3D().getInverse());
+    return createRotation(inverse_transform);
 }
 
-Geometry::Transform3D *RotationEuler::createTransform3D() const
+Geometry::Transform3D RotationEuler::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma).clone();
+    return Geometry::Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }
 
 void RotationEuler::init_parameters()

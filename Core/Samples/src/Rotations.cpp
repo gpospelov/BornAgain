@@ -63,6 +63,11 @@ RotationX *RotationX::cloneInvertB() const
     return clone();
 }
 
+RotationX *RotationX::createInverse() const
+{
+    return new RotationX(-m_angle);
+}
+
 Geometry::Transform3D *RotationX::createTransform3D() const
 {
     return Geometry::Transform3D::createRotateX(m_angle).clone();
@@ -89,6 +94,11 @@ RotationY *RotationY::clone() const
 RotationY *RotationY::cloneInvertB() const
 {
     return clone();
+}
+
+RotationY *RotationY::createInverse() const
+{
+    return new RotationY(-m_angle);
 }
 
 Geometry::Transform3D *RotationY::createTransform3D() const
@@ -119,6 +129,11 @@ RotationZ *RotationZ::cloneInvertB() const
     return clone();
 }
 
+RotationZ *RotationZ::createInverse() const
+{
+    return new RotationZ(-m_angle);
+}
+
 Geometry::Transform3D *RotationZ::createTransform3D() const
 {
     return Geometry::Transform3D::createRotateZ(m_angle).clone();
@@ -147,6 +162,13 @@ RotationEuler *RotationEuler::clone() const
 RotationEuler *RotationEuler::cloneInvertB() const
 {
     return clone();
+}
+
+IRotation *RotationEuler::createInverse() const
+{
+    boost::scoped_ptr<Geometry::Transform3D> P_transform(createTransform3D());
+    boost::scoped_ptr<Geometry::Transform3D> P_inverse(P_transform->createInverse());
+    return createRotation(*P_inverse);
 }
 
 Geometry::Transform3D *RotationEuler::createTransform3D() const

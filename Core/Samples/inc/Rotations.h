@@ -38,6 +38,9 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual IRotation *cloneInvertB() const=0;
 
+    //! Returns a new IRotation object that is the current object's inverse
+    virtual IRotation *createInverse() const=0;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
@@ -56,6 +59,8 @@ public:
 
     RotationX *cloneInvertB() const;
 
+    RotationX *createInverse() const;
+
     Geometry::Transform3D *createTransform3D() const;
 
 protected:
@@ -72,6 +77,8 @@ public:
     RotationY *clone() const;
 
     RotationY *cloneInvertB() const;
+
+    RotationY *createInverse() const;
 
     Geometry::Transform3D *createTransform3D() const;
 
@@ -90,6 +97,8 @@ public:
 
     RotationZ *cloneInvertB() const;
 
+    RotationZ *createInverse() const;
+
     Geometry::Transform3D *createTransform3D() const;
 
 protected:
@@ -106,6 +115,8 @@ public:
     RotationEuler *clone() const;
 
     RotationEuler *cloneInvertB() const;
+
+    IRotation *createInverse() const;
 
     Geometry::Transform3D *createTransform3D() const;
 

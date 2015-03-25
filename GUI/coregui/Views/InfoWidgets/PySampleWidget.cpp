@@ -80,10 +80,10 @@ void PySampleWidget::setSampleModel(SampleModel *sampleModel)
 
         //updateEditor();
 
-        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
+//        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
+//        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
+//        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
+//        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()), Qt::UniqueConnection);
 
     }
 
@@ -106,14 +106,15 @@ void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
     scheduleUpdate();
 }
 
+//! Schedule subsequent update of the editor
 void PySampleWidget::scheduleUpdate()
 {
-    return;
     m_n_of_sceduled_updates++;
     qDebug() << "PySampleWidget::scheduleUpdate()" << m_n_of_sceduled_updates;
     if(!m_timer->isActive()) m_timer->start();
 }
 
+//! Update the editor with the script content
 void PySampleWidget::updateEditor()
 {
 //    if(m_block_update) return;
@@ -153,9 +154,32 @@ void PySampleWidget::updateEditor()
 
 //    m_block_update = false;
     qDebug() << "       PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
+    m_time_to_update = update_every_msec;
 
 }
 
+//! Disconnect from all signals to prevent editor update
+void PySampleWidget::disableEditor()
+{
+    Q_ASSERT(m_sampleModel);
+    m_timer->stop();
+    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
+    disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
+}
+
+void PySampleWidget::enableEditor()
+{
+    Q_ASSERT(m_sampleModel);
+    updateEditor();
+    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
+    connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
+}
+
+//! Triggers the update of the editor
 void PySampleWidget::onTimerTimeout()
 {
     qDebug() << "PySampleWidget::onTimerTimeout()" << m_time_to_update << "scheduled updates" << m_n_of_sceduled_updates;
@@ -164,7 +188,6 @@ void PySampleWidget::onTimerTimeout()
     if(m_time_to_update < 0) {
         m_timer->stop();
         updateEditor();
-        m_time_to_update = update_every_msec;
     }
 }
 

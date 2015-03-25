@@ -25,9 +25,6 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     , m_closeButton(new QToolButton)
     , m_expanded(false)
 {
-//    QHBoxLayout *mainLayout = new QHBoxLayout;
-//    mainLayout->setContentsMargins(0, 0, 0, 0);
-//    setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
     setMovable(false);
 
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
@@ -35,18 +32,12 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setMinimumSize(25, 25);
 
-
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    m_expandButton->setToolTip("Run currently selected job");
+    m_expandButton->setToolTip("Collapse/expand of Python script viewer");
     connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
-    m_closeButton->setToolTip("Run currently selected job");
-
-//    mainLayout->addStretch();
-//    mainLayout->addWidget(m_expandButton);
-//    mainLayout->addWidget(m_closeButton);
-
+    m_closeButton->setToolTip("Close Python script viewer");
 
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -70,7 +61,6 @@ void InfoToolBar::setExpandStatus(bool status)
 
 void InfoToolBar::onExpandButtonClicked()
 {
-    qDebug() << "InfoToolBar::onExpandButtonClicked()";
     m_expanded = !m_expanded;
     setExpandStatus(m_expanded);
     emit expandButtonClicked();

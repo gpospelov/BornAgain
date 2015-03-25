@@ -30,14 +30,10 @@ InfoWidget::InfoWidget(QWidget *parent)
     , m_infoToolBar(new InfoToolBar(this))
     , m_pySampleWidget(new PySampleWidget(this))
     , m_placeHolder(new QWidget(this))
-    , m_cached_height(0)
+    , m_cached_height(150)
 {
-    setWindowTitle(tr("Info Stream"));
-    setObjectName(tr("InfoStream"));
-    //setMinimumSize(128, 128);
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-//    m_placeHolder->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    setWindowTitle(tr("Python Script Viewer"));
+    setObjectName(tr("PythonScriptViewer"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_infoToolBar);
@@ -47,8 +43,6 @@ InfoWidget::InfoWidget(QWidget *parent)
     m_placeHolder->show();
     m_pySampleWidget->hide();
 
-    //mainLayout->addStretch();
-    //mainLayout->setSizeConstraint();
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
@@ -91,31 +85,11 @@ void InfoWidget::onExpandButtonClicked()
 {
     qDebug() << "InfoWidget::onExpandButtonClicked()" << m_cached_height;
     setEditorVisible(!isEditorVisible(), true);
-
-//    if(m_pySampleWidget->isHidden()) {
-//        if(m_cached_height) {
-//            QSize new_size = size();
-//            new_size.setHeight(m_cached_height);
-//            qDebug() << "xxx 1.1";
-//            //resize(new_size);
-//            emit widgetHeightRequest(new_size.height());
-//        }
-//        m_placeHolder->hide();
-//        m_pySampleWidget->show();
-//    } else {
-//        m_cached_height = height();
-//        m_pySampleWidget->hide();
-//        m_placeHolder->show();
-//        qDebug() << "xxx 1.2 ask for" << m_infoToolBar->size();
-//        //resize(m_infoToolBar->size());
-//        emit widgetHeightRequest(m_infoToolBar->height());
-//    }
-////    layout()->invalidate();
-//    layout()->update();
-//    layout()->activate();
-//    update();
 }
 
+//! sets the editor to be visible or not.
+//! @param dock_notify is used to inform parent QDockWidget about necessary adjustments
+//! in its own height
 void InfoWidget::setEditorVisible(bool editor_status, bool dock_notify)
 {
     m_infoToolBar->setExpandStatus(editor_status);
@@ -125,19 +99,21 @@ void InfoWidget::setEditorVisible(bool editor_status, bool dock_notify)
         }
         m_placeHolder->hide();
         m_pySampleWidget->show();
+        m_pySampleWidget->enableEditor();
     } else {
         m_cached_height = height();
         m_pySampleWidget->hide();
+        m_pySampleWidget->disableEditor();
         m_placeHolder->show();
         if(dock_notify) emit widgetHeightRequest(minimum_widget_height);
     }
 }
 
+//! Method watches over the height of the widget (which is triggered from outside, i.e. from
+//! DockWindow splitter) and if height becomes too small, disables python editor.
+//! Similarly, if widget is growing in height, the editor will be enabled back again
 void InfoWidget::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << "InfoWidget::resizeEvent -> current_size"
-             << size() << "hint:" << sizeHint() << "event->size" << event->size() << "event->oldsize:" << event->oldSize();
-
     // widget is schrinking in height
     if(event->oldSize().height() > event->size().height()) {
         if(event->size().height() <= minimum_height_before_collapse && isEditorVisible()) {
@@ -145,7 +121,7 @@ void InfoWidget::resizeEvent(QResizeEvent *event)
         }
     }
 
-    // widget is growing
+    // widget is growing in height
     if(event->oldSize().height() < event->size().height()) {
         if(event->size().height() > minimum_height_before_collapse && !isEditorVisible()) {
             setEditorVisible(true);

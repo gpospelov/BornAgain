@@ -44,6 +44,9 @@ public slots:
     void scheduleUpdate();
     void updateEditor();
 
+    void disableEditor();
+    void enableEditor();
+
 private slots:
     void onTimerTimeout();
 

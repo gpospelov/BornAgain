@@ -72,6 +72,9 @@ public:
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);
 
+    //! Returns a pointer to the first child of the given type
+    ParameterizedItem *getChildOfType(QString type) const;
+
     //! indicates if the passed item can be set as
     //! a child item
     bool acceptsAsChild(const QString &child_name) const;

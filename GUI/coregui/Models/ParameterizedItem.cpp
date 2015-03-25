@@ -78,6 +78,15 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
     return item;
 }
 
+ParameterizedItem *ParameterizedItem::getChildOfType(QString type) const
+{
+    for (QList<ParameterizedItem *>::const_iterator it = m_children.begin();
+         it != m_children.end(); ++it) {
+        if ((*it)->modelType() == type) return *it;
+    }
+    return 0;
+}
+
 bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 {
     return m_valid_children.contains(child_name);

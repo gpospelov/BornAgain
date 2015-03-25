@@ -690,9 +690,7 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item =
-            m_sampleModel->insertNewItem(Constants::TransformationType,
-                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE, sample->getAngle());
@@ -705,9 +703,7 @@ void GUIObjectBuilder::visit(const RotationY *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item =
-            m_sampleModel->insertNewItem(Constants::TransformationType,
-                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE, sample->getAngle());
@@ -720,9 +716,7 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item =
-            m_sampleModel->insertNewItem(Constants::TransformationType,
-                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE, sample->getAngle());
@@ -735,9 +729,7 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item =
-            m_sampleModel->insertNewItem(Constants::TransformationType,
-                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA, sample->getAlpha());
@@ -815,5 +807,4 @@ void GUIObjectBuilder::addRotationItem(const IRotation &rotation,
         break;
     }
 }
-
 

@@ -58,7 +58,6 @@ private:
     QTimer *m_timer;
     int m_time_to_update;
     int m_n_of_sceduled_updates;
-//    bool m_block_update;
 };
 
 #endif

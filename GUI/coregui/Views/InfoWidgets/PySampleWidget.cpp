@@ -41,7 +41,6 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_instrumentModel(0)
     , m_time_to_update(update_every_msec)
     , m_n_of_sceduled_updates(0)
-//    , m_block_update(false)
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -53,10 +52,6 @@ PySampleWidget::PySampleWidget(QWidget *parent)
 
     PythonSyntaxHighlighter *highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
     Q_UNUSED(highlighter);
-
-//    QWidget *infoPanel = new QWidget(parent);
-//    infoPanel->setGeometry(QRect(100, 100, 400, 200));
-//    infoPanel->show();
 
     m_timer = new QTimer(this);
     m_timer->setInterval(timer_interval_msec);

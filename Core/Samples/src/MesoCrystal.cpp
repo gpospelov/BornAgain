@@ -80,8 +80,7 @@ IFormFactor* MesoCrystal::createFormFactor(
             wavevector_scattering_factor);
 }
 
-void MesoCrystal::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void MesoCrystal::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    mp_particle_structure->applyTransformation(transform);
+    mp_particle_structure->applyTransformation(rotation);
 }

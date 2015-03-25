@@ -126,14 +126,14 @@ IFormFactor* ParticleComposition::createFormFactor(
     return p_ff;
 }
 
-void ParticleComposition::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void ParticleComposition::applyTransformationToSubParticles(const IRotation& rotation)
 {
     for (std::vector<IParticle *>::iterator it = m_particles.begin();
             it != m_particles.end(); ++it)
     {
-        (*it)->applyTransformation(transform);
+        (*it)->applyTransformation(rotation);
     }
+    Geometry::Transform3D transform = rotation.getTransform3D();
     for (std::vector<kvector_t>::iterator it_vec =
             m_position_vector.begin(); it_vec != m_position_vector.end();
             ++it_vec) {

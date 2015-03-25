@@ -99,10 +99,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     Particle particle3;
     Particle particle4;
 
-    Geometry::Transform3D transform3 =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
-    Geometry::Transform3D transform4 =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform3(45.*Units::degree);
+    RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.1, 2.2);
@@ -146,11 +144,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     Particle particle3;
     Particle particle4;
 
-    Geometry::Transform3D transform3 =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
-
-    Geometry::Transform3D transform4 =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationY transform3(45.*Units::degree);
+    RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
@@ -175,10 +170,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle3;
     Particle particle4;
 
-    Geometry::Transform3D transform3 =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
-    Geometry::Transform3D transform4 =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationY transform3(45.*Units::degree);
+    RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.1, 2.0);
@@ -258,10 +251,9 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     HomogeneousMaterial mat4("silica",0,0);
     Particle particle4(mat4);
 
-    Geometry::Transform3D transform3 =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
-    Geometry::Transform3D transform4 =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationY transform3(45.*Units::degree);
+    RotationZ transform4(45.*Units::degree);
+
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.1, 2.0);

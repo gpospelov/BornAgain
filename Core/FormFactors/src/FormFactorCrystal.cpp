@@ -28,10 +28,11 @@ FormFactorCrystal::FormFactorCrystal(
     mp_lattice_basis = p_crystal.getLatticeBasis()->clone();
     mp_basis_form_factor = mp_lattice_basis->createFormFactor(
             m_wavevector_scattering_factor);
-    if (p_crystal.getTransform()) {
+    const IRotation *p_rotation = p_crystal.getRotation();
+    if (p_rotation) {
         mp_meso_form_factor = new FormFactorDecoratorTransformation(
                 meso_crystal_form_factor.clone(),
-                *p_crystal.getTransform() );
+                p_rotation->getTransform3D() );
     } else {
         mp_meso_form_factor = meso_crystal_form_factor.clone();
     }

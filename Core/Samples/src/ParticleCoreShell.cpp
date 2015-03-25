@@ -122,15 +122,15 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 {
 }
 
-void ParticleCoreShell::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void ParticleCoreShell::applyTransformationToSubParticles(const IRotation& rotation)
 {
     if (mp_core) {
-        mp_core->applyTransformation(transform);
+        mp_core->applyTransformation(rotation);
     }
     if (mp_shell) {
-        mp_shell->applyTransformation(transform);
+        mp_shell->applyTransformation(rotation);
     }
+    Geometry::Transform3D transform = rotation.getTransform3D();
     m_relative_core_position = transform.transformed(m_relative_core_position);
 }
 

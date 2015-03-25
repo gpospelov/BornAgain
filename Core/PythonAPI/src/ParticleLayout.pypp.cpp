@@ -338,12 +338,12 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,::Geometry::Transform3D const &,double,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,::IRotation const &,double,double ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"
                 , addParticle_function_type( &::ParticleLayout::addParticle )
-                , ( bp::arg("particle"), bp::arg("transform"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
+                , ( bp::arg("particle"), bp::arg("rotation"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
         
         }
         { //::ParticleLayout::addParticle

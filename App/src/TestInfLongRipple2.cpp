@@ -215,8 +215,7 @@ ISample *TestInfLongRipple2::TestSampleBuilder::buildSample() const
     FormFactorInfLongRipple2 ff(m_w, m_h, m_d);
     Particle ibox(iron_material, ff );
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(90*Units::degree);
+    RotationZ transform(90.*Units::degree);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ibox,transform);

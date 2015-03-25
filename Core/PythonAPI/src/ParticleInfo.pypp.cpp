@@ -268,7 +268,7 @@ void register_ParticleInfo_class(){
         ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleInfo::applyTransformation
         
-            typedef void ( ::ParticleInfo::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::ParticleInfo::*applyTransformation_function_type)( ::IRotation const & ) ;
             
             ParticleInfo_exposer.def( 
                 "applyTransformation"

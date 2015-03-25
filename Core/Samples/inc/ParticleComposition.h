@@ -61,8 +61,7 @@ public:
     { return m_position_vector[check_index(index)]; }
 
 protected:
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 
 private:
     //! Checks index

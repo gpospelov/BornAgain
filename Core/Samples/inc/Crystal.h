@@ -32,23 +32,23 @@ public:
     Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
-    virtual Crystal *clone() const;
+    Crystal *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual Crystal *cloneInvertB() const;
+    Crystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual void setAmbientMaterial(const IMaterial& material) {
+    void setAmbientMaterial(const IMaterial& material) {
         mp_lattice_basis->setAmbientMaterial(material);
     }
 
-    virtual const IMaterial* getAmbientMaterial() const {
+    const IMaterial* getAmbientMaterial() const {
         return mp_lattice_basis->getAmbientMaterial();
     }
 
-    virtual IFormFactor *createTotalFormFactor(
+    IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial &p_ambient_material,
         complex_t wavevector_scattering_factor) const;
@@ -60,11 +60,11 @@ public:
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     //! Composes transformation with existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
+    void applyTransformation(const IRotation& rotation);
 
     //! Gets transformation
-    virtual const Geometry::Transform3D *getTransform() const {
-        return mP_transform.get();
+    const IRotation* getRotation() const {
+        return mP_rotation.get();
     }
 
 
@@ -73,11 +73,10 @@ private:
     Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);
 
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    void applyTransformationToSubParticles(const IRotation& rotation);
 
     Lattice m_lattice;
-    std::auto_ptr<Geometry::Transform3D> mP_transform;
+    std::auto_ptr<IRotation> mP_rotation;
     ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };

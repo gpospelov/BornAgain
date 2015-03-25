@@ -201,8 +201,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     FormFactorInfLongBox ff(m_w, m_h);
     Particle ibox(iron_material, ff );
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(90*Units::degree);
+    RotationZ transform(90.*Units::degree);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ibox,transform);

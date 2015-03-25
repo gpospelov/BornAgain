@@ -30,9 +30,9 @@ namespace bp = boost::python;
 
 struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 
-    virtual void applyTransformationToSubParticles( ::Geometry::Transform3D const & transform ){
+    virtual void applyTransformationToSubParticles( ::IRotation const & rotation ){
         bp::override func_applyTransformationToSubParticles = this->get_override( "applyTransformationToSubParticles" );
-        func_applyTransformationToSubParticles( boost::ref(transform) );
+        func_applyTransformationToSubParticles( boost::ref(rotation) );
     }
 
     virtual ::IParticle * clone(  ) const {
@@ -266,22 +266,22 @@ void register_IParticle_class(){
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyTransformation
         
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IParticle::*applyTransformation_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type( &::IParticle::applyTransformation )
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParticle::applyTransformationToSubParticles
         
-            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "applyTransformationToSubParticles"
                 , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParticle::clone
@@ -358,12 +358,12 @@ void register_IParticle_class(){
         }
         { //::IParticle::setTransformation
         
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IParticle::*setTransformation_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "setTransformation"
                 , setTransformation_function_type( &::IParticle::setTransformation )
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParameterized::areParametersChanged

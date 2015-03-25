@@ -91,8 +91,7 @@ public:
 protected:
     IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
     IMaterial* mp_material;
     IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;

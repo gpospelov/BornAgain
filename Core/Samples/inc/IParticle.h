@@ -65,42 +65,39 @@ public:
     }
 
     //! Sets transformation.
-    void setTransformation(const Geometry::Transform3D& transform);
+    void setTransformation(const IRotation& rotation);
 
     //! Applies transformation by composing it with the existing one
-    void applyTransformation(const Geometry::Transform3D& transform);
+    void applyTransformation(const IRotation& roation);
 
 protected:
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform)=0;
+    virtual void applyTransformationToSubParticles(const IRotation& rotation)=0;
     std::auto_ptr<IRotation> mP_rotation;
 };
 
 
-inline void IParticle::setTransformation(const Geometry::Transform3D &transform)
+inline void IParticle::setTransformation(const IRotation& rotation)
 {
     if (!mP_rotation.get()) {
-        mP_rotation.reset(IRotation::createRotation(transform));
-        applyTransformationToSubParticles(transform);
+        mP_rotation.reset(rotation.clone());
+        applyTransformationToSubParticles(rotation);
         return;
     }
-    Geometry::Transform3D inverse_transform = mP_rotation->getTransform3D().getInverse();
-    applyTransformationToSubParticles(inverse_transform);
-    mP_rotation.reset(IRotation::createRotation(transform));
-    applyTransformationToSubParticles(transform);
+    boost::scoped_ptr<IRotation> inverse_rotation(mP_rotation->createInverse());
+    applyTransformationToSubParticles(*inverse_rotation);
+    mP_rotation.reset(rotation.clone());
+    applyTransformationToSubParticles(rotation);
 }
 
-inline void IParticle::applyTransformation(const Geometry::Transform3D &transform)
+inline void IParticle::applyTransformation(const IRotation& rotation)
 {
-    IRotation *p_rotation = IRotation::createRotation(transform);
     if (mP_rotation.get()) {
-        mP_rotation.reset(CreateProduct(*p_rotation, *mP_rotation));
-        delete p_rotation;
+        mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
     }
     else {
-        mP_rotation.reset(p_rotation);
+        mP_rotation.reset(rotation.clone());
     }
-    applyTransformationToSubParticles(transform);
+    applyTransformationToSubParticles(rotation);
 }
 
 #endif // IPARTICLE_H

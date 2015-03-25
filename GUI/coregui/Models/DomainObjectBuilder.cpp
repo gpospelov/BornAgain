@@ -168,9 +168,9 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, doub
                                         "-> Error! ParticleItem's child is"
                                         " not a transformation.");
             }
-            boost::scoped_ptr<Geometry::Transform3D> P_transform(rot_item->createTransform());
-            if (P_transform.get() && !P_transform->isIdentity()) {
-                result->setTransformation(*P_transform);
+            boost::scoped_ptr<IRotation> P_rotation(rot_item->createRotation());
+            if (P_rotation.get()) {
+                result->setTransformation(*P_rotation);
             }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() "

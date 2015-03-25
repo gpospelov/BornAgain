@@ -45,7 +45,7 @@ public:
     }
 
     //! Adds generic particle
-    void addParticle(const IParticle &particle, const Geometry::Transform3D &transform,
+    void addParticle(const IParticle &particle, const IRotation& rotation,
                      double depth = 0.0, double abundance = 1.0);
 
     //! Adds particle without rotation

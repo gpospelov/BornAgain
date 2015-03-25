@@ -143,9 +143,8 @@ IFormFactor* Particle::createTransformedFormFactor() const
     return p_result;
 }
 
-void Particle::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void Particle::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    (void)transform;
+    (void)rotation;
     return;
 }

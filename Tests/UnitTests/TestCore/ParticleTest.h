@@ -106,8 +106,7 @@ TEST_F(ParticleTest, SetParam)
 {
     HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere sphere(2.1);
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
+    RotationY transform(45.*Units::degree);
 
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());

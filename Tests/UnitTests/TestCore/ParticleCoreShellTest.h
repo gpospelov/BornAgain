@@ -74,7 +74,7 @@ TEST_F(ParticleCoreShellTest, CloneInvertB)
 TEST_F(ParticleCoreShellTest, Transform)
 {
     kvector_t zero_vector;
-    Geometry::Transform3D transform = Geometry::Transform3D::createRotateZ(1.0);
+    RotationZ transform(1.0);
     mp_coreshell->setTransformation(transform);
     EXPECT_EQ(NULL, mp_coreshell->getAmbientMaterial());
     EXPECT_EQ(NULL, mp_coreshell->createFormFactor(1.0));

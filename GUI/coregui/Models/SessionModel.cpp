@@ -471,6 +471,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
             this, SLOT(onItemPropertyChange(const QString &)));
     connect(new_item, SIGNAL(subItemChanged(const QString &)),
             this, SLOT(onItemPropertyChange(const QString &)));
+    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
 
     parent->insertChildItem(row, new_item);
 
@@ -746,12 +748,15 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
 }
 
 
-void SessionModel::onItemPropertyChange(const QString & name )
+void SessionModel::onItemPropertyChange(const QString & property_name , const QString &name)
 {
-    if(name == ParameterizedGraphicsItem::P_XPOS || name == ParameterizedGraphicsItem::P_YPOS)
+    Q_UNUSED(name);
+
+    if(property_name == ParameterizedGraphicsItem::P_XPOS
+            || property_name == ParameterizedGraphicsItem::P_YPOS)
         return;
 
-    qDebug() << "SessionModel::onItemPropertyChange()" << name;
+    qDebug() << "SessionModel::onItemPropertyChange()" << property_name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     Q_ASSERT(item);
     QModelIndex itemIndex = indexOfItem(item);

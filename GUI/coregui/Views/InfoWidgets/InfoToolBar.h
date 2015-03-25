@@ -27,6 +27,13 @@ class BA_CORE_API_ InfoToolBar : public QToolBar
 {
     Q_OBJECT
 
+signals:
+    void expandButtonClicked();
+    void closeButtonClicked();
+
+protected slots:
+    void onExpandButtonClicked();
+
 public:
     explicit InfoToolBar(QWidget *parent = 0);
 

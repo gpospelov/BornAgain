@@ -35,9 +35,25 @@ public:
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+signals:
+    void widgetHeightRequest(int);
+
+private slots:
+    void onExpandButtonClicked();
+
+    void setEditorVisible(bool status);
+
+protected:
+    void resizeEvent(QResizeEvent *);
+
 private:
     InfoToolBar *m_infoToolBar;
     PySampleWidget *m_pySampleWidget;
+    QWidget *m_placeHolder;
+    int m_cached_height;
 };
 
 #endif

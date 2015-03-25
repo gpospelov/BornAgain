@@ -29,6 +29,8 @@
 #include <QAction>
 #include <QToolButton>
 #include <QMenu>
+#include <QDebug>
+#include <QTimer>
 
 
 #include <iostream>
@@ -64,6 +66,7 @@ SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentMode
         QWidget *subWindow = m_subWindows[i];
         //subWindow->setWindowTitle(subs[i]->windowTitle());
         m_dockWidgets[i] = addDockForWidget(subWindow);
+        m_widget_to_dock[subWindow] = m_dockWidgets[i];
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
@@ -110,6 +113,8 @@ void SampleView::initSubWindows()
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
     InfoWidget *infoWidget = new InfoWidget(this);
+    connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
+
     infoWidget->setSampleModel(m_sampleModel);
     infoWidget->setInstrumentModel(m_instrumentModel);
     m_subWindows[INFO] = infoWidget;
@@ -187,6 +192,32 @@ void SampleView::deleteItem()
     }
 }
 
+void SampleView::setDockHeightForWidget(int height)
+{
+    qDebug() << "SampleView::setDockHeightForWidget(int height)" << height;
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = m_widget_to_dock[widget];
+    Q_ASSERT(dock);
+
+//    m_dock_to_minsize[dock] = dock->minimumSize();
+//    m_dock_to_maxsize[dock] = dock->maximumSize();
+    m_dock_info.m_dock = dock;
+    m_dock_info.m_min_size = dock->minimumSize();
+    m_dock_info.m_max_size = dock->maximumSize();
+
+    if(height >0) {
+        if(dock->height() < height) {
+            dock->setMinimumHeight(height);
+        } else {
+            dock->setMaximumHeight(height);
+        }
+    }
+
+    QTimer::singleShot(1, this, SLOT(dockToMinMaxSizes()));
+
+}
+
 void SampleView::showContextMenu(const QPoint &pnt)
 {
     QMenu menu;
@@ -227,6 +258,18 @@ void SampleView::showContextMenu(const QPoint &pnt)
 void SampleView::updateUi()
 {
 }
+
+void SampleView::dockToMinMaxSizes()
+{
+    qDebug() << "SampleView::dockToMinMaxSizes()" << m_dock_info.m_min_size << m_dock_info.m_max_size;
+    Q_ASSERT(m_dock_info.m_dock);
+
+    m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+    m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+
+    m_dock_info.m_dock = 0;
+}
+
 
 
 void SampleView::connectSignals()

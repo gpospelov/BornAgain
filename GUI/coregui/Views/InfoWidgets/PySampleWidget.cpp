@@ -43,6 +43,8 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_n_of_sceduled_updates(0)
 //    , m_block_update(false)
 {
+    m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_textEdit);
@@ -76,7 +78,7 @@ void PySampleWidget::setSampleModel(SampleModel *sampleModel)
 
         m_sampleModel = sampleModel;
 
-        updateEditor();
+        //updateEditor();
 
         connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
         connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
@@ -106,6 +108,7 @@ void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
 
 void PySampleWidget::scheduleUpdate()
 {
+    return;
     m_n_of_sceduled_updates++;
     qDebug() << "PySampleWidget::scheduleUpdate()" << m_n_of_sceduled_updates;
     if(!m_timer->isActive()) m_timer->start();

@@ -59,12 +59,22 @@ public slots:
     void deleteItem();
 //    void materialEditorCall();
 
+    void setDockHeightForWidget(int height);
+
 protected slots:
     void showContextMenu(const QPoint &pnt);
     void setDirty(bool dirty=true) { setWindowModified(dirty); }
     void updateUi();
+    void dockToMinMaxSizes();
 
 private:
+    struct DockSizeInfo {
+        DockSizeInfo():m_dock(0){}
+        QDockWidget *m_dock;
+        QSize m_min_size;
+        QSize m_max_size;
+    };
+
     void initSubWindows();
     void initSelectionModel();
     void createActions();
@@ -81,6 +91,8 @@ private:
     QWidget *m_subWindows[NUMBER_OF_SUB_WINDOWS];
     QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
 
+    QMap<QWidget *, QDockWidget *> m_widget_to_dock;
+
     QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
@@ -90,6 +102,11 @@ private:
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;
+
+//    QMap<QDockWidget *, QSize> m_dock_to_minsize;
+//    QMap<QDockWidget *, QSize> m_dock_to_maxsize;
+
+    DockSizeInfo m_dock_info;
 };
 
 

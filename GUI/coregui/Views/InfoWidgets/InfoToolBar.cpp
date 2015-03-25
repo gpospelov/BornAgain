@@ -16,6 +16,7 @@
 #include "InfoToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
+#include <QStyle>
 
 InfoToolBar::InfoToolBar(QWidget *parent)
     : QToolBar(parent)
@@ -24,9 +25,18 @@ InfoToolBar::InfoToolBar(QWidget *parent)
 {
 //    QHBoxLayout *mainLayout = new QHBoxLayout;
 //    mainLayout->setContentsMargins(0, 0, 0, 0);
+//    setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
+    setMovable(false);
+
+    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
+    setIconSize(QSize(size, size));
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+    setMinimumSize(25, 25);
+
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
     m_expandButton->setToolTip("Run currently selected job");
+    connect(m_expandButton, SIGNAL(clicked(bool)), this, SIGNAL(expandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
     m_closeButton->setToolTip("Run currently selected job");
@@ -43,9 +53,15 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     addWidget(m_expandButton);
     addWidget(m_closeButton);
 
-
-    setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
+    //setContentsMargins(0, 0, 0, 0);
+   // setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
 
 //    setLayout(mainLayout);
+}
+
+
+void InfoToolBar::onExpandButtonClicked()
+{
+
 }
 

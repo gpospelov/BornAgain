@@ -38,6 +38,7 @@ InfoToolBar::InfoToolBar(QWidget *parent)
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
     m_closeButton->setToolTip("Close Python script viewer");
+    connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
 
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

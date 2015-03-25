@@ -57,6 +57,7 @@ public slots:
     void addItem(const QString &item_name);
     void deleteItem();
     void setDockHeightForWidget(int height);
+    void onWidgetCloseRequest();
 
 protected slots:
     void showContextMenu(const QPoint &pnt);

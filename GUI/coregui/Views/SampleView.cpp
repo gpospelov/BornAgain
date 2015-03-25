@@ -91,6 +91,7 @@ void SampleView::initSubWindows()
 
     InfoWidget *infoWidget = new InfoWidget(this);
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
+    connect(infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
     infoWidget->setSampleModel(m_sampleModel);
     infoWidget->setInstrumentModel(m_instrumentModel);
     m_subWindows[INFO] = infoWidget;
@@ -194,6 +195,16 @@ void SampleView::setDockHeightForWidget(int height)
     }
 
     QTimer::singleShot(1, this, SLOT(dockToMinMaxSizes()));
+}
+
+void SampleView::onWidgetCloseRequest()
+{
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = m_widget_to_dock[widget];
+    Q_ASSERT(dock);
+
+    dock->toggleViewAction()->trigger();
 }
 
 void SampleView::showContextMenu(const QPoint &pnt)

@@ -50,6 +50,8 @@ InfoWidget::InfoWidget(QWidget *parent)
     setLayout(mainLayout);
 
     connect(m_infoToolBar, SIGNAL(expandButtonClicked()), this, SLOT(onExpandButtonClicked()));
+    connect(m_infoToolBar, SIGNAL(closeButtonClicked()), this, SIGNAL(widgetCloseRequest()));
+
 }
 
 void InfoWidget::setSampleModel(SampleModel *sampleModel)

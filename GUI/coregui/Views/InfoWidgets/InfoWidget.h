@@ -40,6 +40,7 @@ public:
 
 signals:
     void widgetHeightRequest(int);
+    void widgetCloseRequest();
 
 public slots:
     void onDockVisibilityChange(bool is_visible);

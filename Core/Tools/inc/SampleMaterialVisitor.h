@@ -114,6 +114,11 @@ public:
     void visit(const IRoughness *sample);
     void visit(const LayerRoughness *sample);
 
+    void visit(const RotationX *);
+    void visit(const RotationY *);
+    void visit(const RotationZ *);
+    void visit(const RotationEuler *);
+
     //! return vector of material presented in the sample
     std::vector<const IMaterial *> getMaterials() const {
         return m_materials;

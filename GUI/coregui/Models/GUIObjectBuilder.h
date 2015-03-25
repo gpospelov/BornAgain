@@ -89,6 +89,11 @@ public:
 
     void visit(const LayerRoughness *);
 
+    void visit(const RotationX *);
+    void visit(const RotationY *);
+    void visit(const RotationZ *);
+    void visit(const RotationEuler *);
+
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
     void addRotationItem(const IRotation &rotation,

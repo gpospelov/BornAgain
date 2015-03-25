@@ -307,3 +307,19 @@ void SampleMaterialVisitor::visit(const IRoughness *)
 void SampleMaterialVisitor::visit(const LayerRoughness *)
 {
 }
+
+void SampleMaterialVisitor::visit(const RotationX *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationY *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationZ *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationEuler *)
+{
+}

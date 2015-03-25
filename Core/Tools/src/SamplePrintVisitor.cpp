@@ -439,6 +439,26 @@ void SamplePrintVisitor::visit(const LayerRoughness *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const RotationX *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationY *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationZ *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationEuler *sample)
+{
+    print_default(sample);
+}
+
 
 // -----------------------------------------------------------------------------
 //

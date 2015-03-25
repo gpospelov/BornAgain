@@ -80,6 +80,11 @@ std::string LabelSample::getLabel(const ParticleComposition *sample)
     return m_ParticleCompositionLabel[sample];
 }
 
+std::string LabelSample::getLabel(const IRotation *sample)
+{
+    return m_IRotationLabel[sample];
+}
+
 std::map<const IFormFactor *,std::string>* LabelSample::getFormFactorMap()
 {
     return &m_FormFactorLabel;
@@ -128,6 +133,11 @@ std::map<const ILayout *,std::string>* LabelSample::getParticleLayoutMap()
 std::map<const ParticleComposition *, std::string> *LabelSample::getParticleCompositionMap()
 {
     return &m_ParticleCompositionLabel;
+}
+
+std::map<const IRotation *, std::string> *LabelSample::getRotationMap()
+{
+    return &m_IRotationLabel;
 }
 
 void LabelSample::insertMaterial(const IMaterial *sample)
@@ -215,6 +225,13 @@ void LabelSample::setLabel(const ParticleComposition *sample)
     std::ostringstream inter;
     inter << "ParticleComposition_" << m_ParticleCompositionLabel.size()+1;
     m_ParticleCompositionLabel[sample] = inter.str();
+}
+
+void LabelSample::setLabel(const IRotation *sample)
+{
+    std::ostringstream inter;
+    inter << "Rotation_" << m_IRotationLabel.size()+1;
+    m_IRotationLabel[sample] = inter.str();
 }
 
 

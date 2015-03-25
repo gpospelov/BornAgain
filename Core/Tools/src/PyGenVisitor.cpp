@@ -239,6 +239,26 @@ void PyGenVisitor::visit(const ParticleLayout *sample)
     m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const RotationX *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationY *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationZ *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationEuler *sample)
+{
+    m_label->setLabel(sample);
+}
+
 std::string PyGenVisitor::definePreamble() const
 {
     std::ostringstream result;

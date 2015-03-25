@@ -37,6 +37,7 @@ public:
     std::map<const ParticleCoreShell*, std::string>* getParticleCoreShellMap();
     std::map<const ILayout*, std::string>* getParticleLayoutMap();
     std::map<const ParticleComposition*, std::string>* getParticleCompositionMap();
+    std::map<const IRotation*, std::string>* getRotationMap();
     std::string getLabel(const IFormFactor *sample);
     std::string getLabel(const IInterferenceFunction *sample);
     std::string getLabel(const IMaterial *sample);
@@ -47,6 +48,7 @@ public:
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ILayout *sample);
     std::string getLabel(const ParticleComposition *sample);
+    std::string getLabel(const IRotation *sample);
     void insertMaterial(const IMaterial *sample);
     void setLabel(const IFormFactor *sample);
     void setLabel(const IInterferenceFunction *sample);
@@ -57,6 +59,7 @@ public:
     void setLabel(const Particle *sample);
     void setLabel(const ParticleCoreShell *sample);
     void setLabel(const ParticleComposition *sample);
+    void setLabel(const IRotation *sample);
 
 
 private:
@@ -71,6 +74,7 @@ private:
     std::map<const ParticleCoreShell*, std::string> m_ParticleCoreShellLabel;
     std::map<const ILayout*, std::string> m_ILayoutLabel;
     std::map<const ParticleComposition*, std::string> m_ParticleCompositionLabel;
+    std::map<const IRotation*, std::string> m_IRotationLabel;
 };
 
 #endif // LABELSAMPLE_H

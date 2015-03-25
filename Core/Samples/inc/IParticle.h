@@ -80,23 +80,28 @@ inline void IParticle::setTransformation(const IRotation& rotation)
 {
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
+        registerChild(mP_rotation.get());
         applyTransformationToSubParticles(rotation);
         return;
     }
+    deregisterChild(mP_rotation.get());
     boost::scoped_ptr<IRotation> inverse_rotation(mP_rotation->createInverse());
     applyTransformationToSubParticles(*inverse_rotation);
     mP_rotation.reset(rotation.clone());
+    registerChild(mP_rotation.get());
     applyTransformationToSubParticles(rotation);
 }
 
 inline void IParticle::applyTransformation(const IRotation& rotation)
 {
     if (mP_rotation.get()) {
+        deregisterChild(mP_rotation.get());
         mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
     }
     else {
         mP_rotation.reset(rotation.clone());
     }
+    registerChild(mP_rotation.get());
     applyTransformationToSubParticles(rotation);
 }
 

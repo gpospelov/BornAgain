@@ -683,6 +683,68 @@ void GUIObjectBuilder::visit(const LayerRoughness *)
 
 }
 
+void GUIObjectBuilder::visit(const RotationX *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationX *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item =
+            m_sampleModel->insertNewItem(Constants::TransformationType,
+                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::XRotationType);
+    p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE, sample->getAngle());
+}
+
+void GUIObjectBuilder::visit(const RotationY *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationY *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item =
+            m_sampleModel->insertNewItem(Constants::TransformationType,
+                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::YRotationType);
+    p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE, sample->getAngle());
+}
+
+void GUIObjectBuilder::visit(const RotationZ *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationZ *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item =
+            m_sampleModel->insertNewItem(Constants::TransformationType,
+                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::ZRotationType);
+    p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE, sample->getAngle());
+}
+
+void GUIObjectBuilder::visit(const RotationEuler *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationEuler *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item =
+            m_sampleModel->insertNewItem(Constants::TransformationType,
+                                         m_sampleModel->indexOfItem(parent));
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::EulerRotationType);
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA, sample->getAlpha());
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_BETA, sample->getBeta());
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA, sample->getGamma());
+}
+
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
         const IMaterial *material)
 {

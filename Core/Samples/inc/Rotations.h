@@ -61,6 +61,8 @@ public:
 
     RotationX *createInverse() const;
 
+    double getAngle() const { return m_angle; }
+
     Geometry::Transform3D getTransform3D() const;
 
 protected:
@@ -79,6 +81,8 @@ public:
     RotationY *cloneInvertB() const;
 
     RotationY *createInverse() const;
+
+    double getAngle() const { return m_angle; }
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -99,6 +103,8 @@ public:
 
     RotationZ *createInverse() const;
 
+    double getAngle() const { return m_angle; }
+
     Geometry::Transform3D getTransform3D() const;
 
 protected:
@@ -117,6 +123,12 @@ public:
     RotationEuler *cloneInvertB() const;
 
     IRotation *createInverse() const;
+
+    double getAlpha() const { return m_alpha; }
+
+    double getBeta() const { return m_beta; }
+
+    double getGamma() const { return m_gamma; }
 
     Geometry::Transform3D getTransform3D() const;
 

@@ -111,6 +111,11 @@ public:
     void visit(const IRoughness *sample);
     void visit(const LayerRoughness *sample);
 
+    void visit(const RotationX *sample);
+    void visit(const RotationY *sample);
+    void visit(const RotationZ *sample);
+    void visit(const RotationEuler *sample);
+
 private:
     std::string get_indent();
     void print_default(const ISample *sample);

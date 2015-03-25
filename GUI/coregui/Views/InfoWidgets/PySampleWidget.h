@@ -46,6 +46,7 @@ public slots:
 
     void disableEditor();
     void enableEditor();
+    void setEditorEnabled(bool status);
 
 private slots:
     void onTimerTimeout();

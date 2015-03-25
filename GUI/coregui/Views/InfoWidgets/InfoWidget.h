@@ -41,6 +41,9 @@ public:
 signals:
     void widgetHeightRequest(int);
 
+public slots:
+    void onDockVisibilityChange(bool is_visible);
+
 private slots:
     void onExpandButtonClicked();
 

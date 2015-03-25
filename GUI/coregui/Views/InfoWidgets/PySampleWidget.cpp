@@ -163,20 +163,39 @@ void PySampleWidget::disableEditor()
 {
     Q_ASSERT(m_sampleModel);
     m_timer->stop();
-    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-    disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
+    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)),
+               this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)),
+               this, SLOT(onModifiedRow(QModelIndex,int,int)));
+    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+               this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
+    disconnect(m_sampleModel, SIGNAL(modelReset()),
+               this, SLOT(updateEditor()));
 }
 
 void PySampleWidget::enableEditor()
 {
     Q_ASSERT(m_sampleModel);
     updateEditor();
-    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-    connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
+    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)),
+            this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
+    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)),
+            this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
+    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
+    connect(m_sampleModel, SIGNAL(modelReset()),
+            this, SLOT(updateEditor()), Qt::UniqueConnection);
+}
+
+void PySampleWidget::setEditorEnabled(bool status)
+{
+    if(status) {
+        qDebug() << "PySampleWidget::setEditorEnabled() -> enabling";
+        enableEditor();
+    } else {
+        qDebug() << "PySampleWidget::setEditorEnabled() -> disabling";
+        disableEditor();
+    }
 }
 
 //! Triggers the update of the editor

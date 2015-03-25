@@ -62,6 +62,7 @@ protected slots:
     void showContextMenu(const QPoint &pnt);
     void setDirty(bool dirty=true) { setWindowModified(dirty); }
     void dockToMinMaxSizes();
+    void onDockVisibilityChangeV2(bool status);
 
 private:
     //! Stores sizes of dock widget
@@ -89,6 +90,7 @@ private:
     QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
 
     QMap<QWidget *, QDockWidget *> m_widget_to_dock;
+    QMap<QDockWidget *, QWidget *> m_dock_to_widget;
 
     QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;

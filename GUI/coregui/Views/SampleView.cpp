@@ -54,6 +54,7 @@ SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentMode
         //subWindow->setWindowTitle(subs[i]->windowTitle());
         m_dockWidgets[i] = addDockForWidget(subWindow);
         m_widget_to_dock[subWindow] = m_dockWidgets[i];
+        m_dock_to_widget[m_dockWidgets[i]] = subWindow;
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
@@ -240,6 +241,17 @@ void SampleView::dockToMinMaxSizes()
     m_dock_info.m_dock = 0;
 }
 
+void SampleView::onDockVisibilityChangeV2(bool status)
+{
+    QDockWidget *dock = qobject_cast<QDockWidget *>(sender());
+    Q_ASSERT(dock);
+
+    InfoWidget *infoWidget = dynamic_cast<InfoWidget *>(m_dock_to_widget[dock]);
+    Q_ASSERT(infoWidget);
+
+    infoWidget->onDockVisibilityChange(status);
+}
+
 void SampleView::connectSignals()
 {
 
@@ -268,6 +280,15 @@ void SampleView::connectSignals()
             this, SLOT(showContextMenu(const QPoint &)));
 
     addToolBar(m_toolBar);
+
+    for (int i = 0; i < NUMBER_OF_SUB_WINDOWS; i++) {
+        if(i == INFO) {
+            connect(m_dockWidgets[i], SIGNAL(visibilityChanged(bool)),
+                    this, SLOT(onDockVisibilityChangeV2(bool)));
+
+        }
+    }
+
 }
 
 void SampleView::setCurrentIndex(const QModelIndex &index)

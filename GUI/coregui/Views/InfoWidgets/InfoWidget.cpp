@@ -81,6 +81,23 @@ QSize InfoWidget::minimumSizeHint() const
     return QSize(minimum_widget_height, minimum_widget_height);
 }
 
+void InfoWidget::onDockVisibilityChange(bool is_visible)
+{
+    qDebug() << "InfoWidget::onDockVisibilityChange(bool status)" << is_visible << isEditorVisible();
+    Q_ASSERT(m_pySampleWidget);
+    if(isEditorVisible()) {
+        if(!is_visible) {
+            m_pySampleWidget->disableEditor();
+        } else {
+            m_pySampleWidget->scheduleUpdate();
+        }
+    }
+
+
+//    if(status != isEditorVisible())
+//        m_pySampleWidget->setEditorEnabled(status);
+}
+
 void InfoWidget::onExpandButtonClicked()
 {
     qDebug() << "InfoWidget::onExpandButtonClicked()" << m_cached_height;

@@ -48,13 +48,13 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
 
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
-        const Geometry::Transform3D &transform)
+        const IRotation &rotation)
     : mp_material(p_material.clone())
     , mp_ambient_material(0)
     , mp_form_factor(form_factor.clone())
 {
     setName("Particle");
-    mP_rotation.reset(IRotation::createRotation(transform));
+    mP_rotation.reset(rotation.clone());
     registerChild(mp_form_factor);
 }
 

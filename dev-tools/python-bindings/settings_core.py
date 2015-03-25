@@ -130,10 +130,10 @@ include_classes = [
     "IParticle",
     "IResolutionFunction2D",
     "IntensityDataFunctions",
+    "IRotation",
     "ISample",
     "ISampleBuilder",
     "ISelectionRule",
-    "Transform3D",
     "Instrument",
     "InterferenceFunction1DLattice",
     "InterferenceFunctionRadialParaCrystal",
@@ -162,6 +162,10 @@ include_classes = [
 #    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
+    "RotationX",
+    "RotationY",
+    "RotationZ",
+    "RotationEuler",
     "Simulation",
     "SpecularSimulation",
     "SimulationParameters",
@@ -297,7 +301,7 @@ def ManualClassTunings(mb):
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
-        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::Transform3D const & )" in cls.decl_string:
+        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::IRotation const & )" in cls.decl_string:
             cls.include()
 
     #
@@ -348,17 +352,6 @@ def ManualClassTunings(mb):
         call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
-    #
-    mb.class_("Transform3D").member_function("createIdentity").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateX").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateY").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateZ").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateEuler").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
     #
     cl = mb.class_("ParticleCoreShell")
     cl.member_functions().exclude()

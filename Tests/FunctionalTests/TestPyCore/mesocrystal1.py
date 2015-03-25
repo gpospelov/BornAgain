@@ -86,9 +86,9 @@ class MySampleBuilder(ISampleBuilder):
         for i in range(0, n_max_phi_rotation_steps):
             for j in range(0, n_alpha_rotation_steps):
 
-                p_total_transform = Transform3D.createRotateZ(phi_start + i*phi_step)
+                total_transform = RotationZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_layout.addParticle(meso, p_total_transform, self.meso_height.value)
+                particle_layout.addParticle(meso, total_transform, self.meso_height.value)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.addInterferenceFunction(p_interference_funtion)

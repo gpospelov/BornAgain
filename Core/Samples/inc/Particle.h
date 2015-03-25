@@ -32,7 +32,7 @@ public:
     Particle(const IMaterial &p_material);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
-            const Geometry::Transform3D &transform);
+            const IRotation &rotation);
 
     virtual ~Particle();
     virtual Particle *clone() const;

@@ -99,6 +99,12 @@ class InterferenceFunctionNone;
 // -
 class IRoughness;
 class LayerRoughness;
+// -
+class IRotation;
+class RotationX;
+class RotationY;
+class RotationZ;
+class RotationEuler;
 
 //! @class ISampleVisitor
 //! @ingroup samples_internal
@@ -195,6 +201,12 @@ public:
 
     virtual void visit(const IRoughness *);
     virtual void visit(const LayerRoughness *);
+
+    virtual void visit(const IRotation *);
+    virtual void visit(const RotationX *);
+    virtual void visit(const RotationY *);
+    virtual void visit(const RotationZ *);
+    virtual void visit(const RotationEuler *);
 
     // enter and leave methods
     bool visitEnter(const ICompositeSample *);

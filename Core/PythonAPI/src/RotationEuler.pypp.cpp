@@ -306,6 +306,33 @@ void register_RotationEuler_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::RotationEuler::getAlpha
+        
+            typedef double ( ::RotationEuler::*getAlpha_function_type)(  ) const;
+            
+            RotationEuler_exposer.def( 
+                "getAlpha"
+                , getAlpha_function_type( &::RotationEuler::getAlpha ) );
+        
+        }
+        { //::RotationEuler::getBeta
+        
+            typedef double ( ::RotationEuler::*getBeta_function_type)(  ) const;
+            
+            RotationEuler_exposer.def( 
+                "getBeta"
+                , getBeta_function_type( &::RotationEuler::getBeta ) );
+        
+        }
+        { //::RotationEuler::getGamma
+        
+            typedef double ( ::RotationEuler::*getGamma_function_type)(  ) const;
+            
+            RotationEuler_exposer.def( 
+                "getGamma"
+                , getGamma_function_type( &::RotationEuler::getGamma ) );
+        
+        }
         { //::RotationEuler::getTransform3D
         
             typedef ::Geometry::Transform3D ( ::RotationEuler::*getTransform3D_function_type)(  ) const;

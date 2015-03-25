@@ -306,6 +306,15 @@ void register_RotationY_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::RotationY::getAngle
+        
+            typedef double ( ::RotationY::*getAngle_function_type)(  ) const;
+            
+            RotationY_exposer.def( 
+                "getAngle"
+                , getAngle_function_type( &::RotationY::getAngle ) );
+        
+        }
         { //::RotationY::getTransform3D
         
             typedef ::Geometry::Transform3D ( ::RotationY::*getTransform3D_function_type)(  ) const;

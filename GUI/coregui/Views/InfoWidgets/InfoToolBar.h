@@ -31,6 +31,9 @@ signals:
     void expandButtonClicked();
     void closeButtonClicked();
 
+public slots:
+    void setExpandStatus(bool status);
+
 protected slots:
     void onExpandButtonClicked();
 
@@ -40,6 +43,7 @@ public:
 private:
     QToolButton *m_expandButton;
     QToolButton *m_closeButton;
+    bool m_expanded;
 };
 
 #endif

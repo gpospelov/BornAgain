@@ -44,10 +44,11 @@ signals:
 private slots:
     void onExpandButtonClicked();
 
-    void setEditorVisible(bool status);
+    void setEditorVisible(bool editor_status, bool dock_notify = false);
 
 protected:
     void resizeEvent(QResizeEvent *);
+    bool isEditorVisible();
 
 private:
     InfoToolBar *m_infoToolBar;

@@ -20,11 +20,16 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
+namespace {
+const int minimum_widget_height = 25; // height of toolbar
+const int minimum_height_before_collapse = 40;
+}
+
 InfoWidget::InfoWidget(QWidget *parent)
     : QWidget(parent)
     , m_infoToolBar(new InfoToolBar(this))
     , m_pySampleWidget(new PySampleWidget(this))
-//    , m_placeHolder(new QWidget(this))
+    , m_placeHolder(new QWidget(this))
     , m_cached_height(0)
 {
     setWindowTitle(tr("Info Stream"));
@@ -36,10 +41,10 @@ InfoWidget::InfoWidget(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_infoToolBar);
-//    mainLayout->addWidget(m_placeHolder);
+    mainLayout->addWidget(m_placeHolder);
     mainLayout->addWidget(m_pySampleWidget);
 
-//    m_placeHolder->show();
+    m_placeHolder->show();
     m_pySampleWidget->hide();
 
     //mainLayout->addStretch();
@@ -79,43 +84,52 @@ QSize InfoWidget::sizeHint() const
 
 QSize InfoWidget::minimumSizeHint() const
 {
-    return QSize(100, 25);
+    return QSize(minimum_widget_height, minimum_widget_height);
 }
 
 void InfoWidget::onExpandButtonClicked()
 {
     qDebug() << "InfoWidget::onExpandButtonClicked()" << m_cached_height;
-    if(m_pySampleWidget->isHidden()) {
-        if(m_cached_height) {
-            QSize new_size = size();
-            new_size.setHeight(m_cached_height);
-            qDebug() << "xxx 1.1";
-            //resize(new_size);
-            emit widgetHeightRequest(new_size.height());
-        }
+    setEditorVisible(!isEditorVisible(), true);
+
+//    if(m_pySampleWidget->isHidden()) {
+//        if(m_cached_height) {
+//            QSize new_size = size();
+//            new_size.setHeight(m_cached_height);
+//            qDebug() << "xxx 1.1";
+//            //resize(new_size);
+//            emit widgetHeightRequest(new_size.height());
+//        }
 //        m_placeHolder->hide();
-        m_pySampleWidget->show();
-    } else {
-        m_cached_height = height();
-        m_pySampleWidget->hide();
+//        m_pySampleWidget->show();
+//    } else {
+//        m_cached_height = height();
+//        m_pySampleWidget->hide();
 //        m_placeHolder->show();
-        qDebug() << "xxx 1.2 ask for" << m_infoToolBar->size();
-        //resize(m_infoToolBar->size());
-        emit widgetHeightRequest(m_infoToolBar->height());
-    }
-//    layout()->invalidate();
-    layout()->update();
+//        qDebug() << "xxx 1.2 ask for" << m_infoToolBar->size();
+//        //resize(m_infoToolBar->size());
+//        emit widgetHeightRequest(m_infoToolBar->height());
+//    }
+////    layout()->invalidate();
+//    layout()->update();
 //    layout()->activate();
 //    update();
 }
 
-void InfoWidget::setEditorVisible(bool status)
+void InfoWidget::setEditorVisible(bool editor_status, bool dock_notify)
 {
-    if(status && m_pySampleWidget->isHidden()) {
+    m_infoToolBar->setExpandStatus(editor_status);
+    if(editor_status) {
+        if(m_cached_height) {
+            if(dock_notify) emit widgetHeightRequest(m_cached_height);
+        }
+        m_placeHolder->hide();
         m_pySampleWidget->show();
     } else {
-
+        m_cached_height = height();
         m_pySampleWidget->hide();
+        m_placeHolder->show();
+        if(dock_notify) emit widgetHeightRequest(minimum_widget_height);
     }
 }
 
@@ -123,5 +137,25 @@ void InfoWidget::resizeEvent(QResizeEvent *event)
 {
     qDebug() << "InfoWidget::resizeEvent -> current_size"
              << size() << "hint:" << sizeHint() << "event->size" << event->size() << "event->oldsize:" << event->oldSize();
-    //QWidget::resizeEvent(event);
+
+    // widget is schrinking in height
+    if(event->oldSize().height() > event->size().height()) {
+        if(event->size().height() <= minimum_height_before_collapse && isEditorVisible()) {
+            setEditorVisible(false);
+        }
+    }
+
+    // widget is growing
+    if(event->oldSize().height() < event->size().height()) {
+        if(event->size().height() > minimum_height_before_collapse && !isEditorVisible()) {
+            setEditorVisible(true);
+        }
+    }
+
+    QWidget::resizeEvent(event);
+}
+
+bool InfoWidget::isEditorVisible()
+{
+    return m_pySampleWidget->isVisible();
 }

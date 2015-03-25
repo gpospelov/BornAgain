@@ -17,11 +17,13 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QStyle>
+#include <QDebug>
 
 InfoToolBar::InfoToolBar(QWidget *parent)
     : QToolBar(parent)
     , m_expandButton(new QToolButton)
     , m_closeButton(new QToolButton)
+    , m_expanded(false)
 {
 //    QHBoxLayout *mainLayout = new QHBoxLayout;
 //    mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -34,9 +36,9 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     setMinimumSize(25, 25);
 
 
-    m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
+    m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
     m_expandButton->setToolTip("Run currently selected job");
-    connect(m_expandButton, SIGNAL(clicked(bool)), this, SIGNAL(expandButtonClicked()));
+    connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
     m_closeButton->setToolTip("Run currently selected job");
@@ -53,15 +55,24 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     addWidget(m_expandButton);
     addWidget(m_closeButton);
 
-    //setContentsMargins(0, 0, 0, 0);
-   // setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
-
-//    setLayout(mainLayout);
+    setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
 }
 
+void InfoToolBar::setExpandStatus(bool status)
+{
+    m_expanded = status;
+    if(m_expanded) {
+        m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
+    } else {
+        m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
+    }
+}
 
 void InfoToolBar::onExpandButtonClicked()
 {
-
+    qDebug() << "InfoToolBar::onExpandButtonClicked()";
+    m_expanded = !m_expanded;
+    setExpandStatus(m_expanded);
+    emit expandButtonClicked();
 }
 

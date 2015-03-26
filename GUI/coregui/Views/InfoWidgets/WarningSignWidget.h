@@ -26,7 +26,7 @@
 class WarningSignWidget : public QWidget
 {
 public:
-    WarningSignWidget(QWidget *parent);
+    WarningSignWidget(QWidget *parent = 0);
 
     void setPosition(int x, int y);
 

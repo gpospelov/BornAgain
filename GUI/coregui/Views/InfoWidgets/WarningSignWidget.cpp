@@ -18,7 +18,9 @@
 #include <QRect>
 #include <QMessageBox>
 
-WarningSignWidget::WarningSignWidget(QWidget * parent = 0) : QWidget(parent) {
+WarningSignWidget::WarningSignWidget(QWidget * parent)
+    : QWidget(parent)
+{
     setAttribute(Qt::WA_NoSystemBackground);
     //setAttribute(Qt::WA_TransparentForMouseEvents);
     m_pixmap = QPixmap(":/images/warning@2x.png");

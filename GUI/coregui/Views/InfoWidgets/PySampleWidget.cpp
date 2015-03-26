@@ -21,6 +21,7 @@
 #include "MultiLayer.h"
 #include "PyGenVisitor.h"
 #include "WarningSignWidget.h"
+#include "DesignerHelper.h"
 #include <QVBoxLayout>
 #include <QTextEdit>
 #include <QFile>
@@ -75,7 +76,11 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 
     m_textEdit->setHtml(welcome_message);
-
+    m_textEdit->setReadOnly(true);
+    m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
+    QFont textFont("Monospace");
+    m_textEdit->setFont(textFont);
+    m_textEdit->setFontPointSize(DesignerHelper::getPythonEditorFontSize());
 
 }
 

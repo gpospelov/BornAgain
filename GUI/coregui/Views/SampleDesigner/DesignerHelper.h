@@ -104,6 +104,7 @@ public:
     static int getSectionFontSize();
     static int getLabelFontSize();
     static int getPortFontSize();
+    static int getPythonEditorFontSize();
 
     static void setZoomLevel(double value);
 

@@ -30,8 +30,11 @@ public:
 
     void setPosition(int x, int y);
 
+    void setWarningMessage(const QString &message) {m_warning_message = message;}
+
 protected:
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
     QPixmap m_pixmap;

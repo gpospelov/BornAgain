@@ -16,6 +16,7 @@
 #include "WarningSignWidget.h"
 #include <QPainter>
 #include <QRect>
+#include <QMessageBox>
 
 WarningSignWidget::WarningSignWidget(QWidget * parent = 0) : QWidget(parent) {
     setAttribute(Qt::WA_NoSystemBackground);
@@ -34,9 +35,16 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
     painter.drawPixmap(target, m_pixmap);
 }
 
+void WarningSignWidget::mousePressEvent(QMouseEvent *event)
+{
+    QMessageBox::warning(this, tr("Generation failed"),
+        QString("Generation of Python Script failed with the following error message\n\n%1")
+                         .arg(m_warning_message));
+
+}
+
 //! set geometry of widget around center point
 void WarningSignWidget::setPosition(int x, int y)
 {
-//    setGeometry(x, y, m_pixmap.width(), m_pixmap.height());
     setGeometry(x, y, m_pixmap.width(), m_pixmap.height());
 }

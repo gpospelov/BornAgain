@@ -231,6 +231,7 @@ QString PySampleWidget::generateCodeSnippet()
             result.append(QString::fromStdString(ostr.str()));
         } catch(const std::exception &ex) {
             m_warningSign = new WarningSignWidget(this);
+            m_warningSign->setWarningMessage(QString::fromStdString(ex.what()));
             m_warningSign->setPosition(width()-warning_sign_xpos, height()-warning_sign_ypos);
             m_warningSign->show();
 

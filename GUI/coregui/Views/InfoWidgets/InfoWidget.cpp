@@ -30,7 +30,7 @@ InfoWidget::InfoWidget(QWidget *parent)
     , m_infoToolBar(new InfoToolBar(this))
     , m_pySampleWidget(new PySampleWidget(this))
     , m_placeHolder(new QWidget(this))
-    , m_cached_height(150)
+    , m_cached_height(200)
 {
     setWindowTitle(tr("Python Script Viewer"));
     setObjectName(tr("PythonScriptViewer"));

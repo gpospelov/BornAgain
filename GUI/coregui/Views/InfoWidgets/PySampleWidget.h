@@ -24,6 +24,7 @@ class InstrumentModel;
 class QTextEdit;
 class QModelIndex;
 class QTimer;
+class PythonSyntaxHighlighter;
 
 //! The PySampleWidget displays Python script representing a MultiLayer at the bottom of SampleView
 //! Belongs to InfoWidget
@@ -46,7 +47,6 @@ public slots:
 
     void disableEditor();
     void enableEditor();
-    void setEditorEnabled(bool status);
 
 private slots:
     void onTimerTimeout();
@@ -58,6 +58,7 @@ private:
     QTimer *m_timer;
     int m_time_to_update;
     int m_n_of_sceduled_updates;
+    PythonSyntaxHighlighter *m_highlighter;
 };
 
 #endif

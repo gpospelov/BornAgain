@@ -27,11 +27,24 @@
 #include <QModelIndex>
 #include <QScrollBar>
 #include <QTimer>
+#include <QTextCodec>
 #include <QDebug>
 
 namespace {
 const int timer_interval_msec = 10;
 const int update_every_msec = 20.;
+
+const QString welcome_message =
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+"<title>QTextEdit Example</title><style type=\"text/css\">"
+"p, li { white-space: pre-wrap; }"
+"</style></head><body style=\" font-family:'Helvetica'; font-size:9pt; font-weight:400; font-style:normal;\">"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Sample Script View</span></p>"
+"<p align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">The Sample Script View displays Python code corresponding to the sample being constructed. Start building a multilayer and corresponding code snippet will start appear in this window.</span></p>"
+"<ul type=\"circle\" style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" font-size:10pt;\" align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This is an experimental feature and is provided as tech preview only</li>"
+"<li style=\" font-size:10pt;\" align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Only items which are connected to the multilayer will be translated</li></ul>"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>";
 }
 
 PySampleWidget::PySampleWidget(QWidget *parent)
@@ -40,7 +53,8 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_time_to_update(update_every_msec)
-    , m_n_of_sceduled_updates(0)
+    , m_n_of_sceduled_updates(-1)
+    , m_highlighter(0)
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -50,12 +64,11 @@ PySampleWidget::PySampleWidget(QWidget *parent)
 
     setLayout(mainLayout);
 
-    PythonSyntaxHighlighter *highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
-    Q_UNUSED(highlighter);
-
     m_timer = new QTimer(this);
     m_timer->setInterval(timer_interval_msec);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
+
+    m_textEdit->setHtml(welcome_message);
 
 }
 
@@ -64,12 +77,7 @@ void PySampleWidget::setSampleModel(SampleModel *sampleModel)
     Q_ASSERT(sampleModel);
     if(sampleModel != m_sampleModel) {
 
-        if(m_sampleModel) {
-            disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-            disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)));
-            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-            disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
-        }
+        if(m_sampleModel) disableEditor();
 
         m_sampleModel = sampleModel;
 
@@ -112,12 +120,11 @@ void PySampleWidget::scheduleUpdate()
 //! Update the editor with the script content
 void PySampleWidget::updateEditor()
 {
-//    if(m_block_update) return;
-//    m_block_update = true;
+    if(!m_highlighter) {
+        m_highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
+    }
 
-//    Q_ASSERT(m_timer->isActive());
-//    m_timer->stop();
-
+    Q_ASSERT(!m_timer->isActive());
     qDebug() << "PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
     m_n_of_sceduled_updates = 0;
 
@@ -144,13 +151,7 @@ void PySampleWidget::updateEditor()
 
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
 
-
-//    m_time_to_update = update_every_msec;
-
-//    m_block_update = false;
-    qDebug() << "       PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
     m_time_to_update = update_every_msec;
-
 }
 
 //! Disconnect from all signals to prevent editor update
@@ -171,7 +172,14 @@ void PySampleWidget::disableEditor()
 void PySampleWidget::enableEditor()
 {
     Q_ASSERT(m_sampleModel);
-    updateEditor();
+
+    if(m_sampleModel->getSampleMap().empty()) {
+        // negative number would mean that editor was never used and still contains welcome message we want to keep
+        if(m_n_of_sceduled_updates >= 0) updateEditor();
+    } else {
+        updateEditor();
+    }
+
     connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)),
             this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
     connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)),
@@ -180,17 +188,6 @@ void PySampleWidget::enableEditor()
             this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
     connect(m_sampleModel, SIGNAL(modelReset()),
             this, SLOT(updateEditor()), Qt::UniqueConnection);
-}
-
-void PySampleWidget::setEditorEnabled(bool status)
-{
-    if(status) {
-        qDebug() << "PySampleWidget::setEditorEnabled() -> enabling";
-        enableEditor();
-    } else {
-        qDebug() << "PySampleWidget::setEditorEnabled() -> disabling";
-        disableEditor();
-    }
 }
 
 //! Triggers the update of the editor

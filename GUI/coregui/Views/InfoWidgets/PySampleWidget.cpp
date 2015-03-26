@@ -20,6 +20,7 @@
 #include "DomainObjectBuilder.h"
 #include "MultiLayer.h"
 #include "PyGenVisitor.h"
+#include "WarningSignWidget.h"
 #include <QVBoxLayout>
 #include <QTextEdit>
 #include <QFile>
@@ -29,10 +30,14 @@
 #include <QTimer>
 #include <QTextCodec>
 #include <QDebug>
+#include <QPixmap>
+#include <QPainter>
 
 namespace {
 const int timer_interval_msec = 10;
 const int update_every_msec = 20.;
+const int warning_sign_xpos = 52;
+const int warning_sign_ypos = 38;
 
 const QString welcome_message =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
@@ -55,6 +60,7 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_time_to_update(update_every_msec)
     , m_n_of_sceduled_updates(-1)
     , m_highlighter(0)
+    , m_warningSign(0)
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -69,6 +75,7 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 
     m_textEdit->setHtml(welcome_message);
+
 
 }
 
@@ -130,23 +137,13 @@ void PySampleWidget::updateEditor()
 
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
 
-    m_textEdit->clear();
 
-    QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
-    if(!sampleMap.isEmpty()) {
+    QString code_snippet = generateCodeSnippet();
 
-        DomainObjectBuilder builder;
-        ParameterizedItem *sampleItem = sampleMap.first();
-        boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
-        //multilayer->printSampleTree();
+    if(!m_warningSign) m_textEdit->clear();
 
-        PyGenVisitor visitor;
-        VisitSampleTree(*multilayer, visitor);
-
-        std::ostringstream result;
-        result << visitor.defineGetSample();
-
-        m_textEdit->setText(QString::fromStdString(result.str()));
+    if(!code_snippet.isEmpty()) {
+        m_textEdit->setText(code_snippet);
     }
 
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
@@ -200,6 +197,47 @@ void PySampleWidget::onTimerTimeout()
         m_timer->stop();
         updateEditor();
     }
+}
+
+//! adjusts position of warning label on widget move
+void PySampleWidget::resizeEvent(QResizeEvent *event)
+{
+    if(m_warningSign) {
+        m_warningSign->setPosition(event->size().width()-warning_sign_xpos,
+                                   event->size().height()-warning_sign_ypos);
+    }
+}
+
+//! generates string representing code snippet for all multi layers in the model
+QString PySampleWidget::generateCodeSnippet()
+{
+    delete m_warningSign;
+    m_warningSign = 0;
+
+    QString result;
+
+    QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
+    if(!sampleMap.isEmpty()) {
+
+        DomainObjectBuilder builder;
+        PyGenVisitor visitor;
+        ParameterizedItem *sampleItem = sampleMap.first();
+
+        try {
+            boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
+            VisitSampleTree(*multilayer, visitor);
+            std::ostringstream ostr;
+            ostr << visitor.defineGetSample();
+            result.append(QString::fromStdString(ostr.str()));
+        } catch(const std::exception &ex) {
+            m_warningSign = new WarningSignWidget(this);
+            m_warningSign->setPosition(width()-warning_sign_xpos, height()-warning_sign_ypos);
+            m_warningSign->show();
+
+        }
+    }
+
+    return result;
 }
 
 

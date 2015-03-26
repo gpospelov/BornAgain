@@ -247,11 +247,9 @@ void SampleView::showContextMenu(const QPoint &pnt)
 void SampleView::dockToMinMaxSizes()
 {
     Q_ASSERT(m_dock_info.m_dock);
-    qDebug() << "xxx 2.1";
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
     m_dock_info.m_dock = 0;
-    qDebug() << "xxx 2.2";
 }
 
 void SampleView::onDockVisibilityChangeV2(bool status)

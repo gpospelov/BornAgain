@@ -45,5 +45,7 @@
         <file>images/darkarrowdown.png</file>
         <file>images/darkarrowup.png</file>
         <file>images/darkclose.png</file>
+        <file>images/warning@2x.png</file>
+        <file>images/warning.png</file>
     </qresource>
 </RCC>

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/InfoToolBar.h
-//! @brief     Defines class InfoToolBar
+//! @file      coregui/Views/InfoWidgets/WarningSignWidget.h
+//! @brief     Defines class WarningSignWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,37 +13,29 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOTOOLBAR_H
-#define INFOTOOLBAR_H
+#ifndef WARNINGSIGNWIDGET_H
+#define WARNINGSIGNWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QToolBar>
+#include <QPixmap>
+#include <QString>
 
-class QToolButton;
-
-//! The InfoToolBar is a tool bar for InfoWidget
-class BA_CORE_API_ InfoToolBar : public QToolBar
+//! The WarningSignWidget is an transparent widget with warning sign pixmap intended to be
+//! overlayed onto other widget at some arbitrary position.
+class WarningSignWidget : public QWidget
 {
-    Q_OBJECT
-
 public:
-    explicit InfoToolBar(QWidget *parent = 0);
+    WarningSignWidget(QWidget *parent);
 
-signals:
-    void expandButtonClicked();
-    void closeButtonClicked();
+    void setPosition(int x, int y);
 
-public slots:
-    void setExpandStatus(bool status);
-
-protected slots:
-    void onExpandButtonClicked();
+protected:
+    void paintEvent(QPaintEvent *event);
 
 private:
-    QToolButton *m_expandButton;
-    QToolButton *m_closeButton;
-    bool m_expanded;
+    QPixmap m_pixmap;
+    QString m_warning_message;
 };
 
 #endif

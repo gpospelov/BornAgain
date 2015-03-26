@@ -96,8 +96,6 @@ public:
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
-    void addRotationItem(const IRotation &rotation,
-                         ParameterizedItem *transformation_item);
 
     SampleModel *m_sampleModel;
 

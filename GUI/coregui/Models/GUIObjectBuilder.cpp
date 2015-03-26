@@ -215,11 +215,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 ParameterizedItem::PortInfo::PORT_0);
             const IRotation *p_rotation = sample->getRotation();
             if (p_rotation) {
-                ParameterizedItem *transformation_item =
-                        m_sampleModel->insertNewItem(
-                            Constants::TransformationType,
-                            m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(*p_rotation, transformation_item);
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
             }
         }
         else if(sample == coreshell->getShellParticle()) {
@@ -228,11 +225,8 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 ParameterizedItem::PortInfo::PORT_1);
             const IRotation *p_rotation = sample->getRotation();
             if (p_rotation) {
-                ParameterizedItem *transformation_item =
-                        m_sampleModel->insertNewItem(
-                            Constants::TransformationType,
-                            m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(*p_rotation, transformation_item);
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
             }
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit"
@@ -265,10 +259,6 @@ void GUIObjectBuilder::visit(const Particle *sample)
         p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
         p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
         p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
-        const IRotation *p_rotation = sample->getRotation();
-        if (p_rotation) {
-            addRotationItem(*p_rotation, transformation_item);
-        }
     }
     else if(parent->modelType() == Constants::ParticleLayoutType
          || parent->modelType() == Constants::ParticleDistributionType) {
@@ -291,9 +281,6 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 p_position_item->setRegisteredProperty(VectorItem::P_Z,
                      m_propertyToValue[VectorItem::P_Z]);
                 m_sample_encountered[Constants::TransformationType] = false;
-            }
-            if (p_rotation) {
-                addRotationItem(*p_rotation, transformation_item);
             }
         }
     }
@@ -694,6 +681,7 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE, sample->getAngle());
+    m_levelToParentItem[getLevel()] = transformation_item;
 }
 
 void GUIObjectBuilder::visit(const RotationY *sample)
@@ -707,6 +695,7 @@ void GUIObjectBuilder::visit(const RotationY *sample)
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE, sample->getAngle());
+    m_levelToParentItem[getLevel()] = transformation_item;
 }
 
 void GUIObjectBuilder::visit(const RotationZ *sample)
@@ -720,6 +709,7 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE, sample->getAngle());
+    m_levelToParentItem[getLevel()] = transformation_item;
 }
 
 void GUIObjectBuilder::visit(const RotationEuler *sample)
@@ -735,6 +725,7 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA, sample->getAlpha());
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_BETA, sample->getBeta());
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA, sample->getGamma());
+    m_levelToParentItem[getLevel()] = transformation_item;
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
@@ -761,50 +752,3 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 
     return MaterialProperty();
 }
-
-void GUIObjectBuilder::addRotationItem(const IRotation &rotation,
-                                       ParameterizedItem *transformation_item)
-{
-    Geometry::Transform3D transformation = rotation.getTransform3D();
-    Geometry::Transform3D::ERotationType rot_type = transformation.getRotationType();
-    double alpha, beta, gamma;
-    transformation.calculateEulerAngles(&alpha, &beta, &gamma);
-    ParameterizedItem *p_rotation_item = 0;
-    switch (rot_type) {
-    case Geometry::Transform3D::XAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::XRotationType);
-        if (alpha>0.0) beta = -beta;
-        p_rotation_item->setRegisteredProperty(
-                    XRotationItem::P_ANGLE, Units::rad2deg(beta));
-        break;
-    case Geometry::Transform3D::YAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::YRotationType);
-        if (alpha>0.0 && alpha<3.14) beta = -beta;
-        p_rotation_item->setRegisteredProperty(
-                    YRotationItem::P_ANGLE, Units::rad2deg(beta));
-        break;
-    case Geometry::Transform3D::ZAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::ZRotationType);
-        p_rotation_item->setRegisteredProperty(
-                    ZRotationItem::P_ANGLE, Units::rad2deg(alpha));
-        break;
-    default:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::EulerRotationType);
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_ALPHA, Units::rad2deg(alpha));
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_BETA, Units::rad2deg(beta));
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_GAMMA, Units::rad2deg(gamma));
-        break;
-    }
-}
-

@@ -30,53 +30,60 @@
 class BA_CORE_API_ IParticle : public ICompositeSample
 {
 public:
-    virtual ~IParticle() {}
-    virtual IParticle *clone() const=0;
+    virtual ~IParticle()
+    {
+    }
+    virtual IParticle *clone() const = 0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IParticle *cloneInvertB() const=0;
+    virtual IParticle *cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const
+    {
+        visitor->visit(this);
+    }
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial& material) {
+    virtual void setAmbientMaterial(const IMaterial &material)
+    {
         (void)material;
     }
 
     //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const=0;
+    virtual const IMaterial *getAmbientMaterial() const = 0;
 
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const=0;
+    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const = 0;
 
     //! Returns rotation object
-    const IRotation* getRotation() const {
+    const IRotation *getRotation() const
+    {
         return mP_rotation.get();
     }
     //! Returns transformation.
-    const Geometry::Transform3D getTransform3D() const {
-        if (mP_rotation.get()) return mP_rotation->getTransform3D();
+    const Geometry::Transform3D getTransform3D() const
+    {
+        if (mP_rotation.get())
+            return mP_rotation->getTransform3D();
         return Geometry::Transform3D();
     }
 
     //! Sets transformation.
-    void setTransformation(const IRotation& rotation);
+    void setTransformation(const IRotation &rotation);
 
     //! Applies transformation by composing it with the existing one
-    void applyTransformation(const IRotation& roation);
+    void applyTransformation(const IRotation &roation);
 
 protected:
-    virtual void applyTransformationToSubParticles(const IRotation& rotation)=0;
+    virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
     std::auto_ptr<IRotation> mP_rotation;
 };
 
-
-inline void IParticle::setTransformation(const IRotation& rotation)
+inline void IParticle::setTransformation(const IRotation &rotation)
 {
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
@@ -92,13 +99,12 @@ inline void IParticle::setTransformation(const IRotation& rotation)
     applyTransformationToSubParticles(rotation);
 }
 
-inline void IParticle::applyTransformation(const IRotation& rotation)
+inline void IParticle::applyTransformation(const IRotation &rotation)
 {
     if (mP_rotation.get()) {
         deregisterChild(mP_rotation.get());
         mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
-    }
-    else {
+    } else {
         mP_rotation.reset(rotation.clone());
     }
     registerChild(mP_rotation.get());

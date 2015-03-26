@@ -31,7 +31,7 @@ void ICompositeSample::registerChild(ISample *sample)
     }
 }
 
-//! remove registere child from the container
+//! remove registered child from the container
 
 void ICompositeSample::deregisterChild(ISample *sample)
 {

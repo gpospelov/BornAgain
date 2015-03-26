@@ -74,7 +74,7 @@ Particle* Particle::clone() const
     if(mp_form_factor) result->setFormFactor(*mp_form_factor);
     result->setMaterial(*mp_material);
     result->setAmbientMaterial(*mp_ambient_material);
-    if(mP_rotation.get()) result->mP_rotation.reset(mP_rotation->clone());
+    if(mP_rotation.get()) result->setTransformation(*mP_rotation);
     result->setName(getName());
 
     return result;

@@ -51,7 +51,7 @@ std::string ISample::addParametersToExternalPool(
                 sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             std::string children_name = new_path +(*it)->getName();
             strUsageMap2.add(children_name);
-            int ncopy = strUsageMap2[children_name]-1; // staring from 0
+            int ncopy = strUsageMap2[children_name]-1; // starting from 0
 
             // if object is in single exemplar, we do not want any copy number
             if(strUsageMap[children_name] == 1) ncopy = -1;

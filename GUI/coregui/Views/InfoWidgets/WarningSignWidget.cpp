@@ -32,6 +32,7 @@ WarningSignWidget::WarningSignWidget(QWidget * parent)
 }
 
 void WarningSignWidget::paintEvent(QPaintEvent *event) {
+    Q_UNUSED(event);
     QPainter painter(this);
     QRect target(m_pixmap.rect());
     painter.drawPixmap(target, m_pixmap);
@@ -39,10 +40,10 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
 
 void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     QMessageBox::warning(this, tr("Generation failed"),
         QString("Generation of Python Script failed with the following error message\n\n%1")
                          .arg(m_warning_message));
-
 }
 
 //! set geometry of widget around center point

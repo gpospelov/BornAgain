@@ -88,27 +88,15 @@ void PySampleWidget::setSampleModel(SampleModel *sampleModel)
 {
     Q_ASSERT(sampleModel);
     if(sampleModel != m_sampleModel) {
-
         if(m_sampleModel) disableEditor();
-
         m_sampleModel = sampleModel;
-
-        //updateEditor();
-
-//        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
-//        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
-//        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
-//        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()), Qt::UniqueConnection);
-
     }
-
 }
 
 void PySampleWidget::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     Q_ASSERT(instrumentModel);
     m_instrumentModel = instrumentModel;
-
 }
 
 void PySampleWidget::onModifiedRow(const QModelIndex &, int, int)
@@ -142,9 +130,7 @@ void PySampleWidget::updateEditor()
 
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
 
-
     QString code_snippet = generateCodeSnippet();
-
     if(!m_warningSign) m_textEdit->clear();
 
     if(!code_snippet.isEmpty()) {
@@ -176,7 +162,8 @@ void PySampleWidget::enableEditor()
     Q_ASSERT(m_sampleModel);
 
     if(m_sampleModel->getSampleMap().empty()) {
-        // negative number would mean that editor was never used and still contains welcome message we want to keep
+        // negative number would mean that editor was never used and still contains welcome message
+        // which we want to keep
         if(m_n_of_sceduled_updates >= 0) updateEditor();
     } else {
         updateEditor();
@@ -195,7 +182,8 @@ void PySampleWidget::enableEditor()
 //! Triggers the update of the editor
 void PySampleWidget::onTimerTimeout()
 {
-    qDebug() << "PySampleWidget::onTimerTimeout()" << m_time_to_update << "scheduled updates" << m_n_of_sceduled_updates;
+    qDebug() << "PySampleWidget::onTimerTimeout()" << m_time_to_update
+             << "scheduled updates" << m_n_of_sceduled_updates;
     m_time_to_update -= timer_interval_msec;
 
     if(m_time_to_update < 0) {
@@ -222,17 +210,19 @@ QString PySampleWidget::generateCodeSnippet()
     QString result;
 
     QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
-    if(!sampleMap.isEmpty()) {
+    for(QMap<QString, ParameterizedItem *>::iterator it = sampleMap.begin();
+        it!=sampleMap.end(); ++it) {
 
         DomainObjectBuilder builder;
         PyGenVisitor visitor;
-        ParameterizedItem *sampleItem = sampleMap.first();
+        ParameterizedItem *sampleItem = it.value();
 
         try {
             boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
             VisitSampleTree(*multilayer, visitor);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();
+            if(!result.isEmpty()) result.append("\n");
             result.append(QString::fromStdString(ostr.str()));
         } catch(const std::exception &ex) {
             m_warningSign = new WarningSignWidget(this);

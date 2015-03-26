@@ -195,9 +195,10 @@ void PySampleWidget::onTimerTimeout()
 //! adjusts position of warning label on widget move
 void PySampleWidget::resizeEvent(QResizeEvent *event)
 {
+    Q_UNUSED(event);
     if(m_warningSign) {
-        m_warningSign->setPosition(event->size().width()-warning_sign_xpos,
-                                   event->size().height()-warning_sign_ypos);
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(),pos.y());
     }
 }
 
@@ -227,13 +228,26 @@ QString PySampleWidget::generateCodeSnippet()
         } catch(const std::exception &ex) {
             m_warningSign = new WarningSignWidget(this);
             m_warningSign->setWarningMessage(QString::fromStdString(ex.what()));
-            m_warningSign->setPosition(width()-warning_sign_xpos, height()-warning_sign_ypos);
+            QPoint pos = getPositionForWarningSign();
+            m_warningSign->setPosition(pos.x(), pos.y());
             m_warningSign->show();
 
         }
     }
 
     return result;
+}
+
+QPoint PySampleWidget::getPositionForWarningSign()
+{
+    int x = width()-warning_sign_xpos;
+    int y = height()-warning_sign_ypos;
+
+//    if(QScrollBar *bar = m_textEdit->horizontalScrollBar()) {
+//        y -= bar->height();
+//    }
+
+    return QPoint(x, y);
 }
 
 

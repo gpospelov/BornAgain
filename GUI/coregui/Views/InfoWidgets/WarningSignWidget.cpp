@@ -42,7 +42,8 @@ void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     QMessageBox::warning(this, tr("Generation failed"),
-        QString("Generation of Python Script failed with the following error message\n\n%1")
+        QString("Generation of Python Script failed.\n\n"
+                "Sometimes it happens if sample requires further assembling. See details below.\n\n%1")
                          .arg(m_warning_message));
 }
 

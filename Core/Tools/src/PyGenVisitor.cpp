@@ -642,22 +642,22 @@ std::string PyGenVisitor::defineParticles() const
             switch (particle->getTransform3D().getRotationType()) {
             case Geometry::Transform3D::EULER:
                 result << "\t" << it->second
-                       << "_rotation = Transform3D.createRotateEuler("
+                       << "_rotation = RotationEuler("
                        << alpha << ", " << beta << ", " << gamma << ")\n";
                 break;
             case Geometry::Transform3D::XAXIS:
                 result << "\t" << it->second
-                       << "_rotation = Transform3D.createRotateX("
+                       << "_rotation = RotationX("
                        << beta << ")\n";
                 break;
             case Geometry::Transform3D::YAXIS:
                 result << "\t" << it->second
-                       << "_rotation = Transform3D.createRotateY("
+                       << "_rotation = RotationY("
                        << gamma << ")\n";
                 break;
             case Geometry::Transform3D::ZAXIS:
                 result << "\t" << it->second
-                       << "_rotation = Transform3D.createRotateZ("
+                       << "_rotation = RotationZ("
                        << alpha << ")\n";
                 break;
             default:

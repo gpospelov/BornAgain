@@ -20,35 +20,24 @@
 #include "GUIHelpers.h"
 #include "SamplePropertyWidget.h"
 #include "InfoWidget.h"
-#include <ItemFactory.h>
-
-
+#include "ItemFactory.h"
 #include <QDockWidget>
 #include <QAbstractItemView>
 #include <QToolBar>
 #include <QAction>
 #include <QToolButton>
 #include <QMenu>
-
-
-#include <iostream>
-
-#if QT_VERSION < 0x050000
-#define QStringLiteral QString
-#endif
-
+#include <QDebug>
+#include <QTimer>
 
 SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-//    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)
 {
     setObjectName(tr("SampleView"));
-
-//    m_materialBrowser->setParent(this);
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
 
@@ -64,6 +53,8 @@ SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentMode
         QWidget *subWindow = m_subWindows[i];
         //subWindow->setWindowTitle(subs[i]->windowTitle());
         m_dockWidgets[i] = addDockForWidget(subWindow);
+        m_widget_to_dock[subWindow] = m_dockWidgets[i];
+        m_dock_to_widget[m_dockWidgets[i]] = subWindow;
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
@@ -80,18 +71,10 @@ SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentMode
     connectSignals();
 }
 
-
 SampleView::~SampleView()
 {
     delete m_sampleDesigner;
-//    delete m_materialBrowser;
 }
-
-//void SampleView::materialEditorCall()
-//{
-//    std::cout << "SampleView::materialEditorCall() ->" << std::endl;
-//}
-
 
 void SampleView::initSubWindows()
 {
@@ -104,12 +87,13 @@ void SampleView::initSubWindows()
     m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
 
-//    m_subWindows[PROPERTY_EDITOR] =
-//            SampleViewComponents::createPropertyEditor(
-//                m_tree_view->selectionModel(), this);
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
     InfoWidget *infoWidget = new InfoWidget(this);
+    connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
+    connect(infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
+    infoWidget->setSampleModel(m_sampleModel);
+    infoWidget->setInstrumentModel(m_instrumentModel);
     m_subWindows[INFO] = infoWidget;
 
     m_sampleDesigner->setSampleModel(m_sampleModel);
@@ -169,7 +153,6 @@ void SampleView::addItem(const QString &item_name)
                 item_name, currentIndex);
     if (new_item) setCurrentIndex(getSampleModel()->indexOfItem(new_item));
     setDirty();
-    updateUi();
 }
 
 void SampleView::deleteItem()
@@ -181,8 +164,47 @@ void SampleView::deleteItem()
     if (currentIndex.isValid()) {
         getSampleModel()->removeRows(row, 1, parent_index);
         setDirty();
-        updateUi();
     }
+}
+
+//! A hack to request update of QDockWidget size if its child (e.g. InfoWidget) wants it.
+//! The problem bypassed here is that there is no direct method to QMainWindow to recalculate
+//! position of splitters surrounding given QDockWidget. So our child QWidget requests here
+//! the change of Min/Max size of QDockWidget, this will trigger recalculation of QDockWidget
+//! layout and will force QDockWidget to respect sizeHints provided by ChildWidget. Later (in one
+//! single timer shot) we return min/max sizes of QDockWidget back to re-enable splitters
+//! functionality.
+void SampleView::setDockHeightForWidget(int height)
+{
+    qDebug() << "SampleView::setDockHeightForWidget(int height)" << height;
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = m_widget_to_dock[widget];
+    Q_ASSERT(dock);
+
+    m_dock_info.m_dock = dock;
+    m_dock_info.m_min_size = dock->minimumSize();
+    m_dock_info.m_max_size = dock->maximumSize();
+
+    if(height >0) {
+        if(dock->height() < height) {
+            dock->setMinimumHeight(height);
+        } else {
+            dock->setMaximumHeight(height);
+        }
+    }
+
+    QTimer::singleShot(1, this, SLOT(dockToMinMaxSizes()));
+}
+
+void SampleView::onWidgetCloseRequest()
+{
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = m_widget_to_dock[widget];
+    Q_ASSERT(dock);
+
+    dock->toggleViewAction()->trigger();
 }
 
 void SampleView::showContextMenu(const QPoint &pnt)
@@ -222,10 +244,24 @@ void SampleView::showContextMenu(const QPoint &pnt)
     }
 }
 
-void SampleView::updateUi()
+void SampleView::dockToMinMaxSizes()
 {
+    Q_ASSERT(m_dock_info.m_dock);
+    m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+    m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+    m_dock_info.m_dock = 0;
 }
 
+void SampleView::onDockVisibilityChangeV2(bool status)
+{
+    QDockWidget *dock = qobject_cast<QDockWidget *>(sender());
+    Q_ASSERT(dock);
+
+    InfoWidget *infoWidget = dynamic_cast<InfoWidget *>(m_dock_to_widget[dock]);
+    Q_ASSERT(infoWidget);
+
+    infoWidget->onDockVisibilityChange(status);
+}
 
 void SampleView::connectSignals()
 {
@@ -255,6 +291,15 @@ void SampleView::connectSignals()
             this, SLOT(showContextMenu(const QPoint &)));
 
     addToolBar(m_toolBar);
+
+    for (int i = 0; i < NUMBER_OF_SUB_WINDOWS; i++) {
+        if(i == INFO) {
+            connect(m_dockWidgets[i], SIGNAL(visibilityChanged(bool)),
+                    this, SLOT(onDockVisibilityChangeV2(bool)));
+
+        }
+    }
+
 }
 
 void SampleView::setCurrentIndex(const QModelIndex &index)

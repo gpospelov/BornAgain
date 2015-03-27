@@ -24,6 +24,7 @@
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
+#include "ParameterizedGraphicsItem.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -467,8 +468,13 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
 
-    connect(new_item, SIGNAL(propertyChanged(const QString &)), this,
-            SLOT(onItemPropertyChange(const QString &)));
+    connect(new_item, SIGNAL(propertyChanged(const QString &)),
+            this, SLOT(onItemPropertyChange(const QString &)));
+    connect(new_item, SIGNAL(subItemChanged(const QString &)),
+            this, SLOT(onItemPropertyChange(const QString &)));
+    connect(new_item, SIGNAL(subItemPropertyChanged(QString,QString)),
+            this, SLOT(onItemPropertyChange(const QString &, const QString &)));
+
     parent->insertChildItem(row, new_item);
 
     return new_item;
@@ -701,9 +707,15 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer, ParameterizedItem
     writer->writeEndElement(); // ItemTag
 }
 
-void SessionModel::onItemPropertyChange(const QString &name)
+void SessionModel::onItemPropertyChange(const QString & property_name , const QString &name)
 {
-    qDebug() << "SessionModel::onItemPropertyChange()" << name;
+    Q_UNUSED(name);
+
+    if(property_name == ParameterizedGraphicsItem::P_XPOS
+            || property_name == ParameterizedGraphicsItem::P_YPOS)
+        return;
+
+    qDebug() << "SessionModel::onItemPropertyChange()" << property_name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     Q_ASSERT(item);
     QModelIndex itemIndex = indexOfItem(item);

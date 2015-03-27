@@ -132,7 +132,7 @@ public:
     ParameterizedItem *getTopItem(const QString &model_type = QString(), const QString &item_name = QString()) const;
 
 public slots:
-    void onItemPropertyChange(const QString &name);
+    void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 
 protected:

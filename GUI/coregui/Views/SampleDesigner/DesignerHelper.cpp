@@ -250,6 +250,15 @@ int DesignerHelper::getPortFontSize()
 #endif
 }
 
+int DesignerHelper::getPythonEditorFontSize()
+{
+#ifdef Q_OS_MAC
+    return 12;
+#else
+    return 10;
+#endif
+}
+
 void DesignerHelper::setZoomLevel(double value)
 {
     m_current_zoom_level = value;

@@ -19,15 +19,46 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class QTextEdit;
+class InfoToolBar;
+class SampleModel;
+class InstrumentModel;
+class PySampleWidget;
 
+//! The InfoWidget resides at the bottom of SampleView and displays a Python script
 class BA_CORE_API_ InfoWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     explicit InfoWidget(QWidget *parent = 0);
 
+    void setSampleModel(SampleModel *sampleModel);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+signals:
+    void widgetHeightRequest(int);
+    void widgetCloseRequest();
+
+public slots:
+    void onDockVisibilityChange(bool is_visible);
+
+private slots:
+    void onExpandButtonClicked();
+
+    void setEditorVisible(bool editor_status, bool dock_notify = false);
+
+protected:
+    void resizeEvent(QResizeEvent *);
+    bool isEditorVisible();
+
 private:
-    QTextEdit *m_textEdit;
+    InfoToolBar *m_infoToolBar;
+    PySampleWidget *m_pySampleWidget;
+    QWidget *m_placeHolder;
+    int m_cached_height;
 };
 
 #endif

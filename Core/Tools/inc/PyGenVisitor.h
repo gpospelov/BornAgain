@@ -21,7 +21,7 @@
 #include <set>
 
 class IMaterial;
-class LabelSample;
+class SampleLabelHandler;
 class Simulation;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
@@ -71,12 +71,12 @@ public:
     void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
 
+    std::string definePreamble() const;
+    std::string defineGetSimulation(const Simulation *simulation) const;
+    std::string defineGetSample() const;
+    std::string defineMaterials() const;
 
 private:
-    std::string definePreamble() const;
-    std::string defineGetSample() const;
-    std::string defineGetSimulation(const Simulation *simulation) const;
-    std::string defineMaterials() const;
     std::string defineLayers() const;
     std::string defineFormFactors() const;
     std::string defineParticles() const;
@@ -91,7 +91,9 @@ private:
     std::string defineBeam(const Simulation *simulation) const;
     std::string definePlotting(const Simulation *simulation) const;
     std::string defineRunSimulation() const;
-    LabelSample *m_label;
+    SampleLabelHandler *m_label;
+
+    std::string indent() const;
 };
 
 

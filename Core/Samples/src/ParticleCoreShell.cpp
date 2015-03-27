@@ -140,7 +140,7 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
 {
     if (p_particle->getFormFactor() == 0) return 0;
     const IRotation *p_rotation = p_particle->getRotation();
-    const Geometry::Transform3D transform = p_particle->getTransform3D();
+    const Geometry::Transform3D transform = p_particle->getRotation()->getTransform3D();
     IFormFactor *p_transf_ff = 0;
     if (p_rotation) {
         p_transf_ff = new FormFactorDecoratorTransformation(

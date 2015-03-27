@@ -64,13 +64,6 @@ public:
     {
         return mP_rotation.get();
     }
-    //! Returns transformation.
-    const Geometry::Transform3D getTransform3D() const
-    {
-        if (mP_rotation.get())
-            return mP_rotation->getTransform3D();
-        return Geometry::Transform3D();
-    }
 
     //! Sets transformation.
     void setTransformation(const IRotation &rotation);

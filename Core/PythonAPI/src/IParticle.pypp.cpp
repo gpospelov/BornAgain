@@ -335,15 +335,6 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getTransform3D
-        
-            typedef ::Geometry::Transform3D const ( ::IParticle::*getTransform3D_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getTransform3D"
-                , getTransform3D_function_type( &::IParticle::getTransform3D ) );
-        
-        }
         { //::IParticle::setAmbientMaterial
         
             typedef void ( ::IParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;

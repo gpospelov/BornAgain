@@ -78,11 +78,11 @@ TEST_F(ParticleCoreShellTest, Transform)
     mp_coreshell->setTransformation(transform);
     EXPECT_EQ(NULL, mp_coreshell->getAmbientMaterial());
     EXPECT_EQ(NULL, mp_coreshell->createFormFactor(1.0));
-    Geometry::Transform3D transform_2 = mp_coreshell->getTransform3D();
+    Geometry::Transform3D transform_2 = mp_coreshell->getRotation()->getTransform3D();
     EXPECT_EQ(Geometry::Transform3D::ZAXIS, transform_2.getRotationType());
-    transform_2 = mp_coreshell->getCoreParticle()->getTransform3D();
+    transform_2 = mp_coreshell->getCoreParticle()->getRotation()->getTransform3D();
     EXPECT_EQ(Geometry::Transform3D::ZAXIS, transform_2.getRotationType());
-    transform_2 = mp_coreshell->getShellParticle()->getTransform3D();
+    transform_2 = mp_coreshell->getShellParticle()->getRotation()->getTransform3D();
     EXPECT_EQ(Geometry::Transform3D::ZAXIS, transform_2.getRotationType());
     EXPECT_EQ("ParticleCoreShell", mp_coreshell->getName());
     EXPECT_EQ("Particle", mp_coreshell->getCoreParticle()->getName());

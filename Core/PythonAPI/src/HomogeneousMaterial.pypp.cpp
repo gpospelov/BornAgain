@@ -61,16 +61,16 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
         return HomogeneousMaterial::clone( );
     }
 
-    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
+    virtual ::IMaterial const * createTransformedMaterial( ::IRotation const & rotation ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
-            return func_createTransformedMaterial( boost::ref(transform) );
+            return func_createTransformedMaterial( boost::ref(rotation) );
         else{
-            return this->HomogeneousMaterial::createTransformedMaterial( boost::ref(transform) );
+            return this->HomogeneousMaterial::createTransformedMaterial( boost::ref(rotation) );
         }
     }
     
-    ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
-        return HomogeneousMaterial::createTransformedMaterial( boost::ref(transform) );
+    ::IMaterial const * default_createTransformedMaterial( ::IRotation const & rotation ) const  {
+        return HomogeneousMaterial::createTransformedMaterial( boost::ref(rotation) );
     }
 
     virtual ::complex_t getRefractiveIndex(  ) const  {
@@ -122,14 +122,14 @@ void register_HomogeneousMaterial_class(){
         }
         { //::HomogeneousMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::HomogeneousMaterial::*createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
-            typedef ::IMaterial const * ( HomogeneousMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( ::HomogeneousMaterial::*createTransformedMaterial_function_type)( ::IRotation const & ) const;
+            typedef ::IMaterial const * ( HomogeneousMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::IRotation const & ) const;
             
             HomogeneousMaterial_exposer.def( 
                 "createTransformedMaterial"
                 , createTransformedMaterial_function_type(&::HomogeneousMaterial::createTransformedMaterial)
                 , default_createTransformedMaterial_function_type(&HomogeneousMaterial_wrapper::default_createTransformedMaterial)
-                , ( bp::arg("transform") )
+                , ( bp::arg("rotation") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

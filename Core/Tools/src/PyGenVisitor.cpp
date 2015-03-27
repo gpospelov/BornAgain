@@ -34,7 +34,7 @@
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
-#include "Transform3D.h"
+#include "Rotations.h"
 
 PyGenVisitor::PyGenVisitor()
     : m_label(new LabelSample())

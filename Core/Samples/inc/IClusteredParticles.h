@@ -70,14 +70,6 @@ public:
         throw NotImplementedException(
                 "IClusteredParticles::applyTransformation() -> NotImplementedException");
     }
-
-    //! Gets transformation
-    virtual const Geometry::Transform3D getTransform() const
-    {
-        throw NotImplementedException(
-                "IClusteredParticles::getTransform() -> NotImplementedException");
-    }
-
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

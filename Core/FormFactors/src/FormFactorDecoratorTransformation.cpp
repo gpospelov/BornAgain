@@ -15,16 +15,15 @@
 
 #include "FormFactorDecoratorTransformation.h"
 
-
+#include <boost/scoped_ptr.hpp>
 
 FormFactorDecoratorTransformation *FormFactorDecoratorTransformation::clone() const
 {
+    boost::scoped_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
     FormFactorDecoratorTransformation *result =  new FormFactorDecoratorTransformation(
-                mp_form_factor->clone(), *mP_transform.get());
+                mp_form_factor->clone(), *P_rotation);
 
     result->setName(getName());
     return result;
 }
-
-
 

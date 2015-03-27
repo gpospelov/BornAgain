@@ -55,8 +55,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
     complex_t refIndex = complex_t(1.0, 2.0);
     HomogeneousMaterial material("Material1", refIndex);
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = material.createTransformedMaterial(transform);
 
     EXPECT_EQ("Material1", tMaterial->getName());
@@ -100,8 +99,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
 
 
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = clone->createTransformedMaterial(transform);
 
     EXPECT_EQ("Material1", tMaterial->getName());

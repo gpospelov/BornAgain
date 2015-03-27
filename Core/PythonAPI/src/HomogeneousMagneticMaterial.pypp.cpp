@@ -61,16 +61,16 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
         return HomogeneousMagneticMaterial::clone( );
     }
 
-    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
+    virtual ::IMaterial const * createTransformedMaterial( ::IRotation const & rotation ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
-            return func_createTransformedMaterial( boost::ref(transform) );
+            return func_createTransformedMaterial( boost::ref(rotation) );
         else{
-            return this->HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
+            return this->HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(rotation) );
         }
     }
     
-    ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
-        return HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
+    ::IMaterial const * default_createTransformedMaterial( ::IRotation const & rotation ) const  {
+        return HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(rotation) );
     }
 
     virtual bool isScalarMaterial(  ) const  {
@@ -122,14 +122,14 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMagneticMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::HomogeneousMagneticMaterial::*createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
-            typedef ::IMaterial const * ( HomogeneousMagneticMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( ::HomogeneousMagneticMaterial::*createTransformedMaterial_function_type)( ::IRotation const & ) const;
+            typedef ::IMaterial const * ( HomogeneousMagneticMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::IRotation const & ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "createTransformedMaterial"
                 , createTransformedMaterial_function_type(&::HomogeneousMagneticMaterial::createTransformedMaterial)
                 , default_createTransformedMaterial_function_type(&HomogeneousMagneticMaterial_wrapper::default_createTransformedMaterial)
-                , ( bp::arg("transform") )
+                , ( bp::arg("rotation") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

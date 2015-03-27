@@ -74,8 +74,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
     kvector_t magnetism = kvector_t(0.0, 0.0, 0.0);
     HomogeneousMagneticMaterial material("MagMaterial", refIndex, magnetism);
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = material.createTransformedMaterial(transform);
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
@@ -118,8 +117,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     EXPECT_EQ(magnetism2, clone->getMagneticField());
 
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = clone->createTransformedMaterial(transform);
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());

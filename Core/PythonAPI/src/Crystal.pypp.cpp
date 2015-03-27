@@ -181,18 +181,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::Geometry::Transform3D const getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
-        else{
-            return this->IClusteredParticles::getTransform(  );
-        }
-    }
-    
-    ::Geometry::Transform3D const default_getTransform(  ) const  {
-        return IClusteredParticles::getTransform( );
-    }
-
     virtual bool preprocess(  ) {
         if( bp::override func_preprocess = this->get_override( "preprocess" ) )
             return func_preprocess(  );
@@ -497,17 +485,6 @@ void register_Crystal_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&Crystal_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IClusteredParticles::getTransform
-        
-            typedef ::Geometry::Transform3D const ( ::IClusteredParticles::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const ( Crystal_wrapper::*default_getTransform_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::IClusteredParticles::getTransform)
-                , default_getTransform_function_type(&Crystal_wrapper::default_getTransform) );
         
         }
         { //::ISample::preprocess

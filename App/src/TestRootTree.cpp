@@ -415,10 +415,8 @@ void TestRootTree::initializeMesoCrystal(
     ParticleLayout particle_layout;
 
     //double R = nanopart_radius;
-    Geometry::Transform3D transform1 =
-        Geometry::Transform3D::createRotateZ(meso_phi);
-    Geometry::Transform3D transform2 =
-        Geometry::Transform3D::createRotateY(meso_alpha);
+    RotationZ transform1(meso_phi);
+    RotationY transform2(meso_alpha);
 
     particle_layout.setTotalParticleSurfaceDensity(surface_density);
     particle_layout.addInterferenceFunction(p_interference_funtion);

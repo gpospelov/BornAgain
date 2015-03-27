@@ -70,8 +70,7 @@ IFormFactor* Crystal::createTotalFormFactor(
 Lattice Crystal::getTransformedLattice() const
 {
     if (mP_rotation.get()) {
-        Geometry::Transform3D transform = mP_rotation->getTransform3D();
-        return m_lattice.createTransformedLattice(transform);
+        return m_lattice.createTransformedLattice(*mP_rotation);
     } else {
         return m_lattice;
     }

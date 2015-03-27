@@ -81,18 +81,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return func_getAmbientMaterial(  );
     }
 
-    virtual ::Geometry::Transform3D const getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
-        else{
-            return this->IClusteredParticles::getTransform(  );
-        }
-    }
-    
-    ::Geometry::Transform3D const default_getTransform(  ) const  {
-        return IClusteredParticles::getTransform( );
-    }
-
     virtual void setAmbientMaterial( ::IMaterial const & material ){
         bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
         func_setAmbientMaterial( boost::ref(material) );
@@ -358,17 +346,6 @@ void register_IClusteredParticles_class(){
                 "getAmbientMaterial"
                 , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IClusteredParticles::getTransform
-        
-            typedef ::Geometry::Transform3D const ( ::IClusteredParticles::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const ( IClusteredParticles_wrapper::*default_getTransform_function_type)(  ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::IClusteredParticles::getTransform)
-                , default_getTransform_function_type(&IClusteredParticles_wrapper::default_getTransform) );
         
         }
         { //::IClusteredParticles::setAmbientMaterial

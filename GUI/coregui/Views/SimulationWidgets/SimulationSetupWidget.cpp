@@ -25,6 +25,7 @@
 #include "Utils.h"
 #include "PyGenTools.h"
 #include "mainwindow_constants.h"
+#include "PythonScriptWidget.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -229,14 +230,18 @@ void SimulationSetupWidget::onExportToPythonScript()
         return;
     }
 
-    Simulation *simulation(0);
-    try{
-        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
-    } catch(const std::exception &ex) {
-        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
-        return;
-    }
-    exportSimulation(simulation);
+//    Simulation *simulation(0);
+//    try{
+//        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
+//    } catch(const std::exception &ex) {
+//        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
+//        return;
+//    }
+    //exportSimulation(simulation);
+    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
+    pythonWidget->show();
+    pythonWidget->raise();
+    pythonWidget->generatePythonScript(sampleModel, instrumentModel);
 }
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
@@ -307,7 +312,7 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 //    if(samples[getSampleSelection()]) {
 //        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
 //    }
-    // there can be several instruments with same name
+    // there can be several samples with same name
     if(samples[getSampleSelection()]) {
         int index = getSampleCurrentIndex();
         QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;

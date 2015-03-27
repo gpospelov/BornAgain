@@ -36,21 +36,32 @@
 
 namespace {
 const int timer_interval_msec = 10;
-const int update_every_msec = 20.;
+const int accumulate_updates_during_msec = 20.;
 const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 
 const QString welcome_message =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
-"<title>QTextEdit Example</title><style type=\"text/css\">"
-"p, li { white-space: pre-wrap; }"
-"</style></head><body style=\" font-family:'Helvetica'; font-size:9pt; font-weight:400; font-style:normal;\">"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Sample Script View</span></p>"
-"<p align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">The Sample Script View displays Python code corresponding to the sample being constructed. Start building a multilayer and corresponding code snippet will start appear in this window.</span></p>"
-"<ul type=\"circle\" style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" font-size:10pt;\" align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This is an experimental feature and is provided as tech preview only</li>"
-"<li style=\" font-size:10pt;\" align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Only items which are connected to the multilayer will be translated</li></ul>"
-"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>";
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta http-equiv=\"Content-Type\" "
+"content=\"text/html; charset=UTF-8\" /><title>QTextEdit Example</title><style type=\"text/css\">"
+"p, li { white-space: pre-wrap; }</style></head><body style=\" font-family:'Helvetica';"
+" font-size:10pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\""
+" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0;"
+" text-indent:0px;\"><span style=\" font-size:14pt;\">Sample Script View</span></p>"
+"<p align=\"justify\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px;"
+" margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">"
+"The Sample Script View displays Python code corresponding to the sample being constructed."
+" Start building a multilayer and corresponding code snippet will start appear in this window."
+"</span></p>"
+"<ul type=\"circle\" style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right:"
+" 0px; -qt-list-indent: 1;\"><li style=\" font-size:10pt;\" align=\"justify\" style=\""
+" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0;"
+" text-indent:0px;\">This is an experimental feature and is provided as tech preview only</li>"
+"<li style=\" font-size:10pt;\" align=\"justify\" style=\" margin-top:12px; margin-bottom:12px;"
+" margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">"
+"Only items which are connected to the multilayer will be translated</li></ul>"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px;"
+" margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>";
 }
 
 PySampleWidget::PySampleWidget(QWidget *parent)
@@ -58,7 +69,7 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_textEdit(new QTextEdit)
     , m_sampleModel(0)
     , m_instrumentModel(0)
-    , m_time_to_update(update_every_msec)
+    , m_time_to_update(accumulate_updates_during_msec)
     , m_n_of_sceduled_updates(-1)
     , m_highlighter(0)
     , m_warningSign(0)
@@ -75,13 +86,16 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     m_timer->setInterval(timer_interval_msec);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 
-    m_textEdit->setHtml(welcome_message);
+    m_textEdit->setHtml(getWelcomeMessage());
     m_textEdit->setReadOnly(true);
-    m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
     QFont textFont("Monospace");
     m_textEdit->setFont(textFont);
     m_textEdit->setFontPointSize(DesignerHelper::getPythonEditorFontSize());
 
+    // FIXME First appearance of the editor takes ~0.3sec delay which is unconfortable.
+    // It can be made faster, if one uncomment line below. But we would like to have it
+    // commented because of welcome message (we need to wrap welcome message).
+    //m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
 }
 
 void PySampleWidget::setSampleModel(SampleModel *sampleModel)
@@ -122,6 +136,7 @@ void PySampleWidget::updateEditor()
 {
     if(!m_highlighter) {
         m_highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
+        m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
     }
 
     Q_ASSERT(!m_timer->isActive());
@@ -139,7 +154,7 @@ void PySampleWidget::updateEditor()
 
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
 
-    m_time_to_update = update_every_msec;
+    m_time_to_update = accumulate_updates_during_msec;
 }
 
 //! Disconnect from all signals to prevent editor update
@@ -257,6 +272,20 @@ QPoint PySampleWidget::getPositionForWarningSign()
 
 
     return QPoint(x, y);
+}
+
+//! returns welcome message with fonts adjusted to the system
+QString PySampleWidget::getWelcomeMessage()
+{
+    QString result = welcome_message;
+
+    result.replace("font-size:10pt;", QString("font-size:%1pt;")
+                   .arg(DesignerHelper::getPythonEditorFontSize()));
+
+    result.replace("font-size:14pt;", QString("font-size:%1pt;")
+                   .arg(DesignerHelper::getPythonEditorFontSize()+2));
+
+    return result;
 }
 
 

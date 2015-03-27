@@ -58,6 +58,7 @@ protected:
 private:
     QString generateCodeSnippet();
     QPoint getPositionForWarningSign();
+    QString getWelcomeMessage();
 
     QTextEdit *m_textEdit;
     SampleModel *m_sampleModel;

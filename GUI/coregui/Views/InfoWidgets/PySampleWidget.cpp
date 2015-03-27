@@ -37,7 +37,7 @@
 namespace {
 const int timer_interval_msec = 10;
 const int update_every_msec = 20.;
-const int warning_sign_xpos = 52;
+const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 
 const QString welcome_message =
@@ -238,14 +238,23 @@ QString PySampleWidget::generateCodeSnippet()
     return result;
 }
 
+//! Returns position for warning sign at the bottom left corner of the editor. The position will
+//! be adjusted according to the visibility of scroll bars
 QPoint PySampleWidget::getPositionForWarningSign()
 {
     int x = width()-warning_sign_xpos;
     int y = height()-warning_sign_ypos;
 
-//    if(QScrollBar *bar = m_textEdit->horizontalScrollBar()) {
-//        y -= bar->height();
-//    }
+    if(QScrollBar *horizontal = m_textEdit->horizontalScrollBar()) {
+        if(horizontal->isVisible())
+            y -= horizontal->height();
+    }
+
+    if(QScrollBar *vertical = m_textEdit->verticalScrollBar()) {
+        if(vertical->isVisible())
+            x -= vertical->width();
+    }
+
 
     return QPoint(x, y);
 }

@@ -42,16 +42,16 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_accept( boost::python::ptr(visitor) );
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+    virtual void applyTransformation( ::IRotation const & rotation ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
+            func_applyTransformation( boost::ref(rotation) );
         else{
-            this->IClusteredParticles::applyTransformation( boost::ref(transform) );
+            this->IClusteredParticles::applyTransformation( boost::ref(rotation) );
         }
     }
     
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IClusteredParticles::applyTransformation( boost::ref(transform) );
+    void default_applyTransformation( ::IRotation const & rotation ) {
+        IClusteredParticles::applyTransformation( boost::ref(rotation) );
     }
 
     virtual ::IClusteredParticles * clone(  ) const {
@@ -79,18 +79,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
         bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
         return func_getAmbientMaterial(  );
-    }
-
-    virtual ::Geometry::Transform3D const * getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
-        else{
-            return this->IClusteredParticles::getTransform(  );
-        }
-    }
-    
-    ::Geometry::Transform3D const * default_getTransform(  ) const  {
-        return IClusteredParticles::getTransform( );
     }
 
     virtual void setAmbientMaterial( ::IMaterial const & material ){
@@ -307,14 +295,14 @@ void register_IClusteredParticles_class(){
         }
         { //::IClusteredParticles::applyTransformation
         
-            typedef void ( ::IClusteredParticles::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IClusteredParticles::*applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type)( ::IRotation const & ) ;
             
             IClusteredParticles_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type(&::IClusteredParticles::applyTransformation)
                 , default_applyTransformation_function_type(&IClusteredParticles_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IClusteredParticles::clone
@@ -357,18 +345,6 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "getAmbientMaterial"
                 , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IClusteredParticles::getTransform
-        
-            typedef ::Geometry::Transform3D const * ( ::IClusteredParticles::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const * ( IClusteredParticles_wrapper::*default_getTransform_function_type)(  ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::IClusteredParticles::getTransform)
-                , default_getTransform_function_type(&IClusteredParticles_wrapper::default_getTransform)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

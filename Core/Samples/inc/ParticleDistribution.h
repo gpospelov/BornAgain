@@ -84,7 +84,7 @@ protected:
     ParticleInfo m_particle;
     ParameterDistribution m_par_distribution;
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const Geometry::Transform3D &transform);
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 };
 
 #endif // PARTICLEDISTRIBUTION_H

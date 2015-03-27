@@ -59,7 +59,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
-    EXPECT_EQ( NULL, p1->getTransform3D());
+    EXPECT_EQ( NULL, p1->getRotation());
 
     delete p1;
 
@@ -91,19 +91,12 @@ TEST_F(ParticleTest, Transform)
 {
     HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere sphere(1.0);
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(45.*Units::degree);
+    RotationZ transform(45.*Units::degree);
     Particle *particle = new Particle(mat, sphere, transform);
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 
-    EXPECT_TRUE(NULL != particle->getTransform3D());
-
-    const Geometry::Transform3D * rZ3D  = particle->getTransform3D();
-    EXPECT_TRUE( NULL != rZ3D);
-
-    const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
-    EXPECT_TRUE(NULL!=rZ3D2);
+    EXPECT_TRUE(NULL != particle->getRotation());
 
     delete particle;
 }
@@ -112,13 +105,12 @@ TEST_F(ParticleTest, SetParam)
 {
     HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere sphere(2.1);
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateY(45.*Units::degree);
+    RotationY transform(45.*Units::degree);
 
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
     EXPECT_EQ(NULL, particle.getFormFactor());
-    EXPECT_EQ(NULL, particle.getTransform3D());
+    EXPECT_EQ(NULL, particle.getRotation());
 
     particle.setMaterial(mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
@@ -129,19 +121,14 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
     particle.setTransformation(transform);
-    EXPECT_TRUE(NULL != particle.getTransform3D());
-    const Geometry::Transform3D * rY3D  = particle.getTransform3D();
-    EXPECT_TRUE( NULL != rY3D);
-    const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
-    EXPECT_TRUE(NULL!=rY3D2);
-
+    EXPECT_TRUE(NULL != particle.getRotation());
     Particle *particle2 = particle.clone();
     EXPECT_EQ("Particle", particle2->getName());
     EXPECT_EQ("Air", particle2->getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
     EXPECT_TRUE(NULL != particle2->getFormFactor());
     EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
-    EXPECT_TRUE(NULL != particle2->getTransform3D());
+    EXPECT_TRUE(NULL != particle2->getRotation());
 
     delete particle2;
 }

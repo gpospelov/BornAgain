@@ -54,7 +54,7 @@ void IDistribution1D::adjustMinMaxForLimits(double &xmin, double &xmax, const At
 {
     if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
     if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
-    if(xmin >= xmax) {
+    if(xmin > xmax) {
         std::ostringstream ostr;
         ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";
         ostr << "xmin:" << xmin << " xmax:" << xmax << " for given limits " << limits << std::endl;
@@ -88,7 +88,7 @@ std::vector<double> IDistribution1D::generateValues(size_t nbr_samples,
         double xmin, double xmax) const
 {
     std::vector<double> result;
-    if (nbr_samples < 2) {
+    if (nbr_samples < 2 || xmin == xmax) {
         result.push_back(getMean());
     }
     else {
@@ -123,12 +123,13 @@ DistributionGate::DistributionGate(double min, double max)
 double DistributionGate::probabilityDensity(double x) const
 {
     if (x < m_min || x > m_max) return 0.0;
+    if (m_min == m_max) return 1.0;
     return 1.0/(m_max-m_min);
 }
 
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
         double sigma_factor, const AttLimits &limits) const
-{    
+{
     (void)sigma_factor;
     (void)limits;
     return generateValues(nbr_samples, m_min, m_max);
@@ -145,7 +146,6 @@ bool DistributionGate::checkInitialization() const
 {
     bool result = true;
     if (m_max < m_min) result = false;
-    if(m_max == m_min) result = false;
     if (!result) SignalBadInitialization("DistributionGate");
     return result;
 }
@@ -172,6 +172,7 @@ DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 
 double DistributionLorentz::probabilityDensity(double x) const
 {
+    if (m_hwhm == 0.0) return x==m_mean ? 1.0 : 0.0;
     return m_hwhm/(m_hwhm*m_hwhm + (x-m_mean)*(x-m_mean))/M_PI;
 }
 
@@ -195,7 +196,7 @@ void DistributionLorentz::init_parameters()
 bool DistributionLorentz::checkInitialization() const
 {
     bool result = true;
-    if (m_hwhm <= 0.0) result = false;
+    if (m_hwhm < 0.0) result = false;
     if (!result) SignalBadInitialization("DistributionLorentz");
     return result;
 }
@@ -222,6 +223,7 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 
 double DistributionGaussian::probabilityDensity(double x) const
 {
+    if (m_std_dev == 0.0) return x==m_mean ? 1.0 : 0.0;
     double exponential = std::exp(-(x-m_mean)*(x-m_mean)
             /(2.0*m_std_dev*m_std_dev));
     return exponential/m_std_dev/std::sqrt(2.0*M_PI);
@@ -247,7 +249,7 @@ void DistributionGaussian::init_parameters()
 bool DistributionGaussian::checkInitialization() const
 {
     bool result = true;
-    if (m_std_dev <= 0.0) result = false;
+    if (m_std_dev < 0.0) result = false;
     if (!result) SignalBadInitialization("DistributionGaussian");
     return result;
 }
@@ -274,6 +276,7 @@ DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 
 double DistributionLogNormal::probabilityDensity(double x) const
 {
+    if (m_scale_param==0.0) return x==m_median ? 1.0 : 0.0;
     double t = std::log(x/m_median)/m_scale_param;
     return std::exp(-t*t/2.0)/(x*m_scale_param*std::sqrt(2.0*M_PI));
 }
@@ -310,7 +313,7 @@ void DistributionLogNormal::init_parameters()
 bool DistributionLogNormal::checkInitialization() const
 {
     bool result = true;
-    if (m_scale_param <= 0.0) result = false;
+    if (m_scale_param < 0.0) result = false;
     if (m_median <= 0.0) result = false;
     if (!result) SignalBadInitialization("DistributionLogNormal");
     return result;
@@ -338,6 +341,7 @@ DistributionCosine::DistributionCosine(double mean, double sigma)
 
 double DistributionCosine::probabilityDensity(double x) const
 {
+    if (m_sigma == 0.0) return x==m_mean ? 1.0 : 0.0;
     if (std::abs(x-m_mean)>M_PI*m_sigma) return 0.0;
     return (1.0 + std::cos((x-m_mean)/m_sigma))/(m_sigma*2.0*M_PI);
 }
@@ -362,7 +366,7 @@ void DistributionCosine::init_parameters()
 bool DistributionCosine::checkInitialization() const
 {
     bool result = true;
-    if (m_sigma <= 0.0) result = false;
+    if (m_sigma < 0.0) result = false;
     if (!result) SignalBadInitialization("DistributionCosine");
     return result;
 }

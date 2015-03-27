@@ -89,10 +89,13 @@ public:
 
     void visit(const LayerRoughness *);
 
+    void visit(const RotationX *);
+    void visit(const RotationY *);
+    void visit(const RotationZ *);
+    void visit(const RotationEuler *);
+
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
-    void addRotationItem(const Geometry::Transform3D *p_transformation,
-                         ParameterizedItem *transformation_item);
 
     SampleModel *m_sampleModel;
 

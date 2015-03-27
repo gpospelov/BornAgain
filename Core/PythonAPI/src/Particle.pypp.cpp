@@ -51,8 +51,8 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     m_pyobj = 0;
     }
 
-    Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor, ::Geometry::Transform3D const & transform )
-    : Particle( boost::ref(p_material), boost::ref(form_factor), boost::ref(transform) )
+    Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor, ::IRotation const & rotation )
+    : Particle( boost::ref(p_material), boost::ref(form_factor), boost::ref(rotation) )
       , bp::wrapper< Particle >(){
         // constructor
     m_pyobj = 0;
@@ -353,7 +353,7 @@ void register_Particle_class(){
         bp::scope Particle_scope( Particle_exposer );
         Particle_exposer.def( bp::init< IMaterial const & >(( bp::arg("p_material") )) );
         Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
-        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const &, Geometry::Transform3D const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("transform") )) );
+        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const &, IRotation const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("rotation") )) );
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type)(  ) const;

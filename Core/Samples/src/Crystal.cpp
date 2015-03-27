@@ -39,8 +39,8 @@ Crystal* Crystal::clone() const
 {
     Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
     return p_new;
 }
@@ -69,24 +69,23 @@ IFormFactor* Crystal::createTotalFormFactor(
 
 Lattice Crystal::getTransformedLattice() const
 {
-    if (mP_transform.get()) {
-        return m_lattice.createTransformedLattice(*mP_transform);
+    if (mP_rotation.get()) {
+        return m_lattice.createTransformedLattice(*mP_rotation);
     } else {
         return m_lattice;
     }
 }
 
-void Crystal::applyTransformation(const Geometry::Transform3D& transform)
+void Crystal::applyTransformation(const IRotation& rotation)
 {
-    Geometry::Transform3D total_transformation;
-    if (mP_transform.get()) {
-        total_transformation = transform * (*mP_transform);
+    if (mP_rotation.get()) {
+        IRotation *total_rotation = CreateProduct(rotation, *mP_rotation);
+        mP_rotation.reset(total_rotation);
     }
     else {
-        total_transformation = transform;
+        mP_rotation.reset(rotation.clone());
     }
-    mP_transform.reset(total_transformation.clone());
-    applyTransformationToSubParticles(transform);
+    applyTransformationToSubParticles(rotation);
 }
 
 Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
@@ -98,8 +97,7 @@ Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
     registerChild(mp_lattice_basis);
 }
 
-void Crystal::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void Crystal::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    mp_lattice_basis->applyTransformation(transform);
+    mp_lattice_basis->applyTransformation(rotation);
 }

@@ -45,8 +45,8 @@ MesoCrystal* MesoCrystal::clone() const
 {
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
             mp_meso_form_factor->clone());
-    if (mP_transform.get()) {
-        p_result->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_result->mP_rotation.reset(mP_rotation->clone());
     }
     return p_result;
 }
@@ -55,8 +55,8 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
 {
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
             mp_meso_form_factor->clone());
-    if (mP_transform.get()) {
-        p_result->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_result->mP_rotation.reset(mP_rotation->clone());
     }
     return p_result;
 }
@@ -80,8 +80,7 @@ IFormFactor* MesoCrystal::createFormFactor(
             wavevector_scattering_factor);
 }
 
-void MesoCrystal::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void MesoCrystal::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    mp_particle_structure->applyTransformation(transform);
+    mp_particle_structure->applyTransformation(rotation);
 }

@@ -71,6 +71,12 @@ public:
     void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
 
+    void visit(const RotationX *sample);
+    void visit(const RotationY *sample);
+    void visit(const RotationZ *sample);
+    void visit(const RotationEuler *sample);
+
+private:
     std::string definePreamble() const;
     std::string defineGetSimulation(const Simulation *simulation) const;
     std::string defineGetSample() const;

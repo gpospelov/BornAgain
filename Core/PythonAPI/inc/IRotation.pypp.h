@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef Transform3D_hpp__pyplusplus_wrapper
-#define Transform3D_hpp__pyplusplus_wrapper
+#ifndef IRotation_hpp__pyplusplus_wrapper
+#define IRotation_hpp__pyplusplus_wrapper
 
-void register_Transform3D_class();
+void register_IRotation_class();
 
-#endif//Transform3D_hpp__pyplusplus_wrapper
+#endif//IRotation_hpp__pyplusplus_wrapper

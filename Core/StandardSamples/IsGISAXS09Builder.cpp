@@ -108,11 +108,10 @@ ISample *IsGISAXS09BBuilder::buildSample() const
 
     Particle pyramid(particle_material, ff_pyramid);
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(m_zangle);
+    RotationZ z_rotation(m_zangle);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(pyramid, transform);
+    particle_layout.addParticle(pyramid, z_rotation);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

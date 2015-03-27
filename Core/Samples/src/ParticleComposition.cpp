@@ -57,8 +57,8 @@ ParticleComposition* ParticleComposition::clone() const
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
     return p_new;
 }
@@ -75,8 +75,8 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     if(getAmbientMaterial()) {
         p_new->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
     }
-    if (mP_transform.get()) {
-        p_new->mP_transform.reset(mP_transform->clone());
+    if (mP_rotation.get()) {
+        p_new->mP_rotation.reset(mP_rotation->clone());
     }
 
     return p_new;
@@ -126,14 +126,14 @@ IFormFactor* ParticleComposition::createFormFactor(
     return p_ff;
 }
 
-void ParticleComposition::applyTransformationToSubParticles(
-        const Geometry::Transform3D& transform)
+void ParticleComposition::applyTransformationToSubParticles(const IRotation& rotation)
 {
     for (std::vector<IParticle *>::iterator it = m_particles.begin();
             it != m_particles.end(); ++it)
     {
-        (*it)->applyTransformation(transform);
+        (*it)->applyTransformation(rotation);
     }
+    Geometry::Transform3D transform = rotation.getTransform3D();
     for (std::vector<kvector_t>::iterator it_vec =
             m_position_vector.begin(); it_vec != m_position_vector.end();
             ++it_vec) {

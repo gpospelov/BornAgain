@@ -27,11 +27,10 @@ XRotationItem::XRotationItem(ParameterizedItem *parent)
     registerProperty(P_ANGLE, 0.0);
 }
 
-Geometry::Transform3D *XRotationItem::createTransform() const
+IRotation *XRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
-    return new Geometry::Transform3D(
-                Geometry::Transform3D::createRotateX(alpha) );
+    return new RotationX(alpha);
 }
 
 /* ------------------------------------------------ */
@@ -45,11 +44,10 @@ YRotationItem::YRotationItem(ParameterizedItem *parent)
     registerProperty(P_ANGLE, 0.0);
 }
 
-Geometry::Transform3D *YRotationItem::createTransform() const
+IRotation *YRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
-    return new Geometry::Transform3D(
-                Geometry::Transform3D::createRotateY(alpha) );
+    return new RotationY(alpha);
 }
 
 /* ------------------------------------------------ */
@@ -63,11 +61,10 @@ ZRotationItem::ZRotationItem(ParameterizedItem *parent)
     registerProperty(P_ANGLE, 0.0);
 }
 
-Geometry::Transform3D *ZRotationItem::createTransform() const
+IRotation *ZRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getRegisteredProperty(P_ANGLE).toDouble() );
-    return new Geometry::Transform3D(
-                Geometry::Transform3D::createRotateZ(alpha) );
+    return new RotationZ(alpha);
 }
 
 /* ------------------------------------------------ */
@@ -85,14 +82,12 @@ EulerRotationItem::EulerRotationItem(ParameterizedItem *parent)
     registerProperty(P_GAMMA, 0.0);
 }
 
-Geometry::Transform3D *EulerRotationItem::createTransform() const
+IRotation *EulerRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getRegisteredProperty(P_ALPHA).toDouble() );
     double beta = Units::deg2rad(getRegisteredProperty(P_BETA).toDouble() );
     double gamma = Units::deg2rad(getRegisteredProperty(P_GAMMA).toDouble() );
-    return new Geometry::Transform3D(
-                Geometry::Transform3D::createRotateEuler(
-                    alpha, beta, gamma) );
+    return new RotationEuler(alpha, beta, gamma);
 }
 
 /* ------------------------------------------------ */

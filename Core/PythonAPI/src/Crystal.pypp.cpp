@@ -37,16 +37,16 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     m_pyobj = 0;
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+    virtual void applyTransformation( ::IRotation const & rotation ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
+            func_applyTransformation( boost::ref(rotation) );
         else{
-            this->Crystal::applyTransformation( boost::ref(transform) );
+            this->Crystal::applyTransformation( boost::ref(rotation) );
         }
     }
     
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        Crystal::applyTransformation( boost::ref(transform) );
+    void default_applyTransformation( ::IRotation const & rotation ) {
+        Crystal::applyTransformation( boost::ref(rotation) );
     }
 
     virtual ::Crystal * clone(  ) const  {
@@ -95,18 +95,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     ::IMaterial const * default_getAmbientMaterial(  ) const  {
         return Crystal::getAmbientMaterial( );
-    }
-
-    virtual ::Geometry::Transform3D const * getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
-        else{
-            return this->Crystal::getTransform(  );
-        }
-    }
-    
-    ::Geometry::Transform3D const * default_getTransform(  ) const  {
-        return Crystal::getTransform( );
     }
 
     virtual void setAmbientMaterial( ::IMaterial const & material ) {
@@ -320,14 +308,14 @@ void register_Crystal_class(){
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
         
-            typedef void ( ::Crystal::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( Crystal_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::Crystal::*applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( Crystal_wrapper::*default_applyTransformation_function_type)( ::IRotation const & ) ;
             
             Crystal_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type(&::Crystal::applyTransformation)
                 , default_applyTransformation_function_type(&Crystal_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::Crystal::clone
@@ -389,15 +377,13 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::getTransform
+        { //::Crystal::getRotation
         
-            typedef ::Geometry::Transform3D const * ( ::Crystal::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const * ( Crystal_wrapper::*default_getTransform_function_type)(  ) const;
+            typedef ::IRotation const * ( ::Crystal::*getRotation_function_type)(  ) const;
             
             Crystal_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::Crystal::getTransform)
-                , default_getTransform_function_type(&Crystal_wrapper::default_getTransform)
+                "getRotation"
+                , getRotation_function_type( &::Crystal::getRotation )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

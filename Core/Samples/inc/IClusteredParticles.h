@@ -60,25 +60,16 @@ public:
         (void)p_ambient_material;
         (void)wavevector_scattering_factor;
         throw NotImplementedException(
-                "IClusteredParticles::createTotalFormFactor() "
-                "-> NotImplementedException");
+                "IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
     }
 
     //! Composes transformation with existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform)
+    virtual void applyTransformation(const IRotation& rotation)
     {
-        (void)transform;
+        (void)rotation;
         throw NotImplementedException(
-                "IClusteredParticles::applyTransformation() "
-                "-> NotImplementedException");
+                "IClusteredParticles::applyTransformation() -> NotImplementedException");
     }
-
-    //! Gets transformation
-    virtual const Geometry::Transform3D *getTransform() const
-    {
-        return 0;
-    }
-
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

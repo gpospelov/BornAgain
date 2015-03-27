@@ -39,25 +39,34 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
-    EXPECT_THROW(DistributionGate(1.0, 1.0), ClassInitializationException);
-    DistributionGate * distr = new DistributionGate(1.0, 2.0);
-    EXPECT_EQ(1.5, distr->getMean());
-    EXPECT_EQ(1.0, distr->getMin());
-    EXPECT_EQ(2.0, distr->getMax());
-    EXPECT_EQ(1.0, distr->probabilityDensity(1));
-    EXPECT_EQ(0, distr->probabilityDensity(3));
-    EXPECT_EQ("DistributionGate", distr->getName());
+    // Throw error when m_min > m_max:
+    EXPECT_THROW(DistributionGate(1.1, 1.0), ClassInitializationException);
 
-    std::vector<double> list = distr->generateValueList(1, 0.0);
-    EXPECT_EQ(list.size(), size_t(1));
-    EXPECT_EQ(distr->getMean(), list[0]);
+    // When m_min == m_max, only one sample is generated (the mean):
+    DistributionGate distr1(1.0, 1.0);
+    std::vector<double> list1 = distr1.generateValueList(5, 0.0);
+    EXPECT_EQ(size_t(1), list1.size());
+    EXPECT_EQ(1.0, list1[0]);
 
-    list = distr->generateValueList(2, 0.0);
-    EXPECT_EQ(list.size(), size_t(2));
-    EXPECT_EQ(1.0, list[0]);
-    EXPECT_EQ(2.0, list[1]);
+    // Test distribution with m_min < m_max:
+    DistributionGate distr2(1.0, 2.0);
+    EXPECT_EQ(1.5, distr2.getMean());
+    EXPECT_EQ(1.0, distr2.getMin());
+    EXPECT_EQ(2.0, distr2.getMax());
+    EXPECT_EQ(1.0, distr2.probabilityDensity(1));
+    EXPECT_EQ(0, distr2.probabilityDensity(3));
+    EXPECT_EQ("DistributionGate", distr2.getName());
 
-    std::vector<ParameterSample> samples = distr->generateSamples(3);
+    std::vector<double> list2 = distr2.generateValueList(1, 0.0);
+    EXPECT_EQ(list2.size(), size_t(1));
+    EXPECT_EQ(distr2.getMean(), list2[0]);
+
+    list2 = distr2.generateValueList(2, 0.0);
+    EXPECT_EQ(list2.size(), size_t(2));
+    EXPECT_EQ(1.0, list2[0]);
+    EXPECT_EQ(2.0, list2[1]);
+
+    std::vector<ParameterSample> samples = distr2.generateSamples(3);
     EXPECT_EQ(samples.size(), size_t(3));
     EXPECT_EQ(samples[0].value, 1.0);
     EXPECT_EQ(samples[0].weight, 1./3.);
@@ -65,8 +74,6 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
     EXPECT_EQ(samples[1].weight, 1./3.);
     EXPECT_EQ(samples[2].value, 2.0);
     EXPECT_EQ(samples[2].weight, 1./3.);
-
-    delete distr;
 }
 
 TEST_F(DistributionsTest, DistributionGateParameters)
@@ -108,20 +115,25 @@ TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionLorentzConstructor)
 {
-    DistributionLorentz * id1D = new DistributionLorentz(1.0, 1.0);
-    EXPECT_EQ(1.0, id1D->getMean());
-    EXPECT_EQ(1.0, id1D->getHWHM());
-    EXPECT_EQ("DistributionLorentz", id1D->getName());
-    EXPECT_EQ(1.0/M_PI, id1D->probabilityDensity(1.0));
+    // When HWHM == 0.0, only one sample is generated (the mean):
+    DistributionLorentz distr1(1.0, 0.0);
+    std::vector<double> list1 = distr1.generateValueList(5, 0.0);
+    EXPECT_EQ(size_t(1), list1.size());
+    EXPECT_EQ(1.0, list1[0]);
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
+    // Test distribution with HWHM > 0.0:
+    DistributionLorentz distr2(1.0, 1.0);
+    EXPECT_EQ(1.0, distr2.getMean());
+    EXPECT_EQ(1.0, distr2.getHWHM());
+    EXPECT_EQ("DistributionLorentz", distr2.getName());
+    EXPECT_EQ(1.0/M_PI, distr2.probabilityDensity(1.0));
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(-1, list2[0]);
-    EXPECT_EQ(3, list2[1]);
+    std::vector<double> list2 = distr2.generateValueList(1, 0.0);
+    EXPECT_EQ(distr2.getMean(), list2[0]);
 
-    delete id1D;
+    std::vector<double> list3 = distr2.generateValueList(2, 0.0);
+    EXPECT_EQ(-1, list3[0]);
+    EXPECT_EQ(3, list3[1]);
 }
 
 TEST_F(DistributionsTest, DistributionLorentzParameters)
@@ -201,20 +213,25 @@ TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionGaussianConstructor)
 {
-    DistributionGaussian* id1D = new DistributionGaussian(1.0, 1.0);
-    EXPECT_EQ(1.0, id1D->getMean());
-    EXPECT_EQ(1.0, id1D->getStdDev());
-    EXPECT_EQ(1/std::sqrt(2.0*M_PI), id1D->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionGaussian", id1D->getName());
+    // When std_dev == 0.0, only one sample is generated (the mean):
+    DistributionGaussian distr1(1.0, 0.0);
+    std::vector<double> list1 = distr1.generateValueList(5, 0.0);
+    EXPECT_EQ(size_t(1), list1.size());
+    EXPECT_EQ(1.0, list1[0]);
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
+    // Test distribution with std_dev > 0.0:
+    DistributionGaussian distr2(1.0, 1.0);
+    EXPECT_EQ(1.0, distr2.getMean());
+    EXPECT_EQ(1.0, distr2.getStdDev());
+    EXPECT_EQ(1/std::sqrt(2.0*M_PI), distr2.probabilityDensity(1.0));
+    EXPECT_EQ("DistributionGaussian", distr2.getName());
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(-1, list2[0]);
-    EXPECT_EQ(3, list2[1]);
+    std::vector<double> list2 = distr2.generateValueList(1, 0.0);
+    EXPECT_EQ(distr2.getMean(), list2[0]);
 
-    delete id1D;
+    std::vector<double> list3 = distr2.generateValueList(2, 0.0);
+    EXPECT_EQ(-1, list3[0]);
+    EXPECT_EQ(3, list3[1]);
 }
 
 TEST_F(DistributionsTest, DistributionGaussianParameters)
@@ -249,21 +266,26 @@ TEST_F(DistributionsTest, DistributionGaussianClone)
 
 TEST_F(DistributionsTest, DistributionLogNormalConstructorWithOneParameter)
 {
-    DistributionLogNormal* id1D = new DistributionLogNormal(1.0);
-    EXPECT_EQ(1.0, id1D->getMedian());
-    EXPECT_EQ(1.0, id1D->getScalePar());
-    EXPECT_EQ(std::exp(0.5), id1D->getMean());
-    EXPECT_EQ(1.0/std::sqrt(2.0*M_PI), id1D->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionLogNormal", id1D->getName());
+    // When scale_par == 0.0, only one sample is generated (the mean):
+    DistributionLogNormal distr1(1.0, 0.0);
+    std::vector<double> list1 = distr1.generateValueList(5, 0.0);
+    EXPECT_EQ(size_t(1), list1.size());
+    EXPECT_EQ(1.0, list1[0]);
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMedian(), list1[0]);
+    // Test distribution with scale_par > 0.0:
+    DistributionLogNormal distr2(1.0);
+    EXPECT_EQ(1.0, distr2.getMedian());
+    EXPECT_EQ(1.0, distr2.getScalePar());
+    EXPECT_EQ(std::exp(0.5), distr2.getMean());
+    EXPECT_EQ(1.0/std::sqrt(2.0*M_PI), distr2.probabilityDensity(1.0));
+    EXPECT_EQ("DistributionLogNormal", distr2.getName());
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(std::exp(-2), list2[0]);
-    EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list2[1]);
+    std::vector<double> list2 = distr2.generateValueList(1, 0.0);
+    EXPECT_EQ(distr2.getMedian(), list2[0]);
 
-    delete id1D;
+    std::vector<double> list3 = distr2.generateValueList(2, 0.0);
+    EXPECT_EQ(std::exp(-2), list3[0]);
+    EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list3[1]);
 }
 
 TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
@@ -336,21 +358,26 @@ TEST_F(DistributionsTest, DistributionCosineDefaultConstructor)
 
 TEST_F(DistributionsTest, DistributionCosineConstructor)
 {
-    DistributionCosine* id1D = new DistributionCosine(1.0,1.0);
-    EXPECT_EQ(1.0, id1D->getMean());
-    EXPECT_EQ(1.0, id1D->getSigma());
-    EXPECT_EQ(2.0/(2.0*M_PI), id1D->probabilityDensity(1.0));
-    EXPECT_EQ(0, id1D->probabilityDensity(100.0));
-    EXPECT_EQ("DistributionCosine", id1D->getName());
+    // When sigma == 0.0, only one sample is generated (the mean):
+    DistributionCosine distr1(1.0, 0.0);
+    std::vector<double> list1 = distr1.generateValueList(5, 0.0);
+    EXPECT_EQ(size_t(1), list1.size());
+    EXPECT_EQ(1.0, list1[0]);
 
-    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
-    EXPECT_EQ(id1D->getMean(), list1[0]);
+    // Test distribution with sigma > 0.0:
+    DistributionCosine distr2(1.0,1.0);
+    EXPECT_EQ(1.0, distr2.getMean());
+    EXPECT_EQ(1.0, distr2.getSigma());
+    EXPECT_EQ(2.0/(2.0*M_PI), distr2.probabilityDensity(1.0));
+    EXPECT_EQ(0, distr2.probabilityDensity(100.0));
+    EXPECT_EQ("DistributionCosine", distr2.getName());
 
-    std::vector<double> list2 = id1D->generateValueList(2, 0.0);
-    EXPECT_EQ(1-M_PI, list2[0]);
-    EXPECT_EQ(1+M_PI, list2[1]);
+    std::vector<double> list2 = distr2.generateValueList(1, 0.0);
+    EXPECT_EQ(distr2.getMean(), list2[0]);
 
-    delete id1D;
+    std::vector<double> list3 = distr2.generateValueList(2, 0.0);
+    EXPECT_EQ(1-M_PI, list3[0]);
+    EXPECT_EQ(1+M_PI, list3[1]);
 }
 
 TEST_F(DistributionsTest, DistributionCosineParameters)

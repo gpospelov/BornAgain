@@ -16,7 +16,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "RealParameterWrapper.pypp.h"
 #include "vdouble1d_t.pypp.h"
 #include "SimulationParameters.pypp.h"
-#include "Transform3D.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
 #include "LayerInterface.pypp.h"
@@ -62,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "SpecularSimulation.pypp.h"
 #include "ISelectionRule.pypp.h"
 #include "FormFactorRipple2.pypp.h"
+#include "RotationZ.pypp.h"
 #include "LayerRoughness.pypp.h"
 #include "Bin1DCVector.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
@@ -82,6 +82,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ParameterDistribution.pypp.h"
 #include "Layer.pypp.h"
 #include "FormFactorPyramid.pypp.h"
+#include "RotationY.pypp.h"
 #include "CustomBinAxis.pypp.h"
 #include "FTDistribution2DCone.pypp.h"
 #include "IFTDistribution1D.pypp.h"
@@ -101,8 +102,10 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Lattice2DIFParameters.pypp.h"
 #include "IFormFactorDecorator.pypp.h"
 #include "InterferenceFunction1DLattice.pypp.h"
+#include "RotationEuler.pypp.h"
 #include "ISample.pypp.h"
 #include "ISampleBuilder.pypp.h"
+#include "IRotation.pypp.h"
 #include "PythonInterface_global_variables.pypp.h"
 #include "Beam.pypp.h"
 #include "HomogeneousMaterial.pypp.h"
@@ -121,6 +124,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorInfLongBox.pypp.h"
 #include "FormFactorCone.pypp.h"
 #include "ParticleComposition.pypp.h"
+#include "RotationX.pypp.h"
 #include "FTDistribution2DGauss.pypp.h"
 #include "FormFactorTruncatedSphere.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
@@ -218,7 +222,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorWeighted_class();
     register_kvector_t_class();
     register_cvector_t_class();
-    register_Transform3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
@@ -229,6 +232,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IObserver_class();
     register_IParticle_class();
     register_IResolutionFunction2D_class();
+    register_IRotation_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_Instrument_class();
@@ -259,6 +263,10 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleLayout_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DGaussian_class();
+    register_RotationEuler_class();
+    register_RotationX_class();
+    register_RotationY_class();
+    register_RotationZ_class();
     register_SimpleSelectionRule_class();
     register_Simulation_class();
     register_SimulationParameters_class();

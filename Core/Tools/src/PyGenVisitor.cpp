@@ -34,7 +34,7 @@
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
-#include "Transform3D.h"
+#include "Rotations.h"
 
 PyGenVisitor::PyGenVisitor()
     : m_label(new SampleLabelHandler())
@@ -236,6 +236,26 @@ void PyGenVisitor::visit(const ParticleCoreShell *sample)
 }
 
 void PyGenVisitor::visit(const ParticleLayout *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationX *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationY *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationZ *sample)
+{
+    m_label->setLabel(sample);
+}
+
+void PyGenVisitor::visit(const RotationEuler *sample)
 {
     m_label->setLabel(sample);
 }
@@ -616,29 +636,29 @@ std::string PyGenVisitor::defineParticles() const
     {
         const Particle *particle = it->first;
 
-        if(particle->getTransform3D())
+        if(particle->getRotation())
         {
             double alpha, beta, gamma;
-            particle->getTransform3D()->calculateEulerAngles(&alpha,&beta,&gamma);
-            switch (particle->getTransform3D()->getRotationType()) {
+            particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha,&beta,&gamma);
+            switch (particle->getRotation()->getTransform3D().getRotationType()) {
             case Geometry::Transform3D::EULER:
                 result << indent() << it->second
-                       << "_rotation = Transform3D.createRotateEuler("
+                       << "_rotation = RotationEuler("
                        << alpha << ", " << beta << ", " << gamma << ")\n";
                 break;
             case Geometry::Transform3D::XAXIS:
                 result << indent() << it->second
-                       << "_rotation = Transform3D.createRotateX("
+                       << "_rotation = RotationX("
                        << beta << ")\n";
                 break;
             case Geometry::Transform3D::YAXIS:
                 result << indent() << it->second
-                       << "_rotation = Transform3D.createRotateY("
+                       << "_rotation = RotationY("
                        << gamma << ")\n";
                 break;
             case Geometry::Transform3D::ZAXIS:
                 result << indent() << it->second
-                       << "_rotation = Transform3D.createRotateZ("
+                       << "_rotation = RotationZ("
                        << alpha << ")\n";
                 break;
             default:
@@ -649,7 +669,7 @@ std::string PyGenVisitor::defineParticles() const
                << " = Particle(" << m_label->getLabel(particle->getMaterial())
                << ", " << m_label->getLabel(particle->getFormFactor());
 
-        if (particle->getTransform3D())
+        if (particle->getRotation())
         {
             result << ", " << it->second << "_rotation";
         }

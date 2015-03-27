@@ -58,7 +58,7 @@ public:
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
-    //! @param sigma_factor parameter to derive min,max range for sample values
+    //! @param xmin, xmax start and end value of the generated samples
     //! @return vector of generated values
     virtual std::vector<double> generateValues(size_t nbr_samples,
             double xmin, double xmax) const;

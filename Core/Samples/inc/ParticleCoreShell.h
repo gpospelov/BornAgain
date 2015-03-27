@@ -57,8 +57,7 @@ protected:
     void addAndRegisterShell(const Particle &shell);
 
     ParticleCoreShell(kvector_t relative_core_position);
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
     FormFactorDecoratorMaterial *getTransformedFormFactor(
             Particle *p_particle, complex_t wavevector_scattering_factor,
             kvector_t position) const;

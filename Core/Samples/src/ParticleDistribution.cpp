@@ -119,8 +119,8 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
     return result;
 }
 
-void ParticleDistribution::applyTransformationToSubParticles(const Geometry::Transform3D &transform)
+void ParticleDistribution::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    m_particle.applyTransformation(transform);
+    m_particle.applyTransformation(rotation);
     return;
 }

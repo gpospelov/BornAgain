@@ -86,7 +86,7 @@ public:
     }
 
     //! Applies transformation by composing it with the existing one
-    void applyTransformation(const Geometry::Transform3D& transform);
+    void applyTransformation(const IRotation& transform);
 
 protected:
     virtual void init_parameters();

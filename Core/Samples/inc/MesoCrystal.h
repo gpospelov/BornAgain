@@ -55,8 +55,7 @@ public:
 
 protected:
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 
 private:
     IClusteredParticles *mp_particle_structure;

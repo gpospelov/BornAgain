@@ -23,6 +23,7 @@ class QToolBar;
 class QTextEdit;
 class SampleModel;
 class InstrumentModel;
+class WarningSignWidget;
 
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
@@ -36,11 +37,17 @@ public:
 
     void generatePythonScript(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+
 private:
+    QPoint getPositionForWarningSign();
+
     QToolBar *m_toolBar;
     QTextEdit *m_textEdit;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+    WarningSignWidget *m_warningSign;
 };
 
 

@@ -86,6 +86,7 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
     Simulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
+        throw RuntimeErrorException("xxx");
     } catch(const std::exception &ex) {
         QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
         return;
@@ -97,3 +98,37 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
 
 
 }
+
+//! adjusts position of warning label on widget move
+void PythonScriptWidget::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+    if(m_warningSign) {
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(),pos.y());
+    }
+}
+
+//! Returns position for warning sign at the bottom left corner of the editor. The position will
+//! be adjusted according to the visibility of scroll bars
+QPoint PythonScriptWidget::getPositionForWarningSign()
+{
+    const int warning_sign_xpos = 38;
+    const int warning_sign_ypos = 38;
+
+    int x = width()-warning_sign_xpos;
+    int y = height()-warning_sign_ypos;
+
+    if(QScrollBar *horizontal = m_textEdit->horizontalScrollBar()) {
+        if(horizontal->isVisible())
+            y -= horizontal->height();
+    }
+
+    if(QScrollBar *vertical = m_textEdit->verticalScrollBar()) {
+        if(vertical->isVisible())
+            x -= vertical->width();
+    }
+
+    return QPoint(x, y);
+}
+

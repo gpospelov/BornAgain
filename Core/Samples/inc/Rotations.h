@@ -42,7 +42,7 @@ public:
     virtual IRotation *createInverse() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
     virtual Geometry::Transform3D getTransform3D() const=0;
@@ -62,6 +62,8 @@ public:
     RotationX *createInverse() const;
 
     double getAngle() const { return m_angle; }
+
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -84,6 +86,8 @@ public:
 
     double getAngle() const { return m_angle; }
 
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+
     Geometry::Transform3D getTransform3D() const;
 
 protected:
@@ -104,6 +108,8 @@ public:
     RotationZ *createInverse() const;
 
     double getAngle() const { return m_angle; }
+
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -129,6 +135,8 @@ public:
     double getBeta() const { return m_beta; }
 
     double getGamma() const { return m_gamma; }
+
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     Geometry::Transform3D getTransform3D() const;
 

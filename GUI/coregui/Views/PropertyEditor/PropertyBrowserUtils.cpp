@@ -117,7 +117,7 @@ FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
 void FancyGroupPropertyEdit::setFancyGroupProperty(
         FancyGroupProperty_t groupProperty)
 {
-    qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue()  << groupProperty->getValueLabel();
+    qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty;
     if(groupProperty) {
         m_groupProperty = groupProperty;
 

@@ -50,7 +50,6 @@ set(CPACK_SOURCE_IGNORE_FILES
     "/dev-tools/packaging/"
     "/dev-tools/tmp-examples/"
     "/dev-tools/tmp-unsorted/"
-    "/GUI/"
     "/XCode_BornAgain.xcodeproj/"
     "~$"
     "/.git/"

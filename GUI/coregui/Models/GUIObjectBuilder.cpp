@@ -680,7 +680,8 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
-    p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE, sample->getAngle());
+    p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -694,7 +695,8 @@ void GUIObjectBuilder::visit(const RotationY *sample)
     ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::YRotationType);
-    p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE, sample->getAngle());
+    p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -708,7 +710,8 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
-    p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE, sample->getAngle());
+    p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -722,9 +725,12 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
-    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA, sample->getAlpha());
-    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_BETA, sample->getBeta());
-    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA, sample->getGamma());
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA,
+                                          Units::rad2deg(sample->getAlpha()) );
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_BETA,
+                                          Units::rad2deg(sample->getBeta()) );
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA,
+                                          Units::rad2deg(sample->getGamma()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 

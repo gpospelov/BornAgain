@@ -65,7 +65,7 @@ std::string SampleLabelHandler::getLabel(const IParticle *sample)
         return m_ParticleLabel[particle];
     if (const ParticleComposition *lattice_basis = dynamic_cast<const ParticleComposition*>(sample))
         return m_ParticleCompositionLabel[lattice_basis];
-    throw Exceptions::NotImplementedException("LabelSample::getLabel: called"
+    throw Exceptions::NotImplementedException("SampleLabelHandler::getLabel: called"
                                               " for unknown IParticle type");
 }
 
@@ -82,6 +82,11 @@ std::string SampleLabelHandler::getLabel(const ILayout *sample)
 std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
 {
     return m_ParticleCompositionLabel[sample];
+}
+
+std::string SampleLabelHandler::getLabel(const IRotation *sample)
+{
+    return m_RotationsLabel[sample];
 }
 
 SampleLabelHandler::formfactors_t *SampleLabelHandler::getFormFactorMap()
@@ -132,6 +137,11 @@ SampleLabelHandler::layouts_t *SampleLabelHandler::getParticleLayoutMap()
 SampleLabelHandler::particlecompositions_t *SampleLabelHandler::getParticleCompositionMap()
 {
     return &m_ParticleCompositionLabel;
+}
+
+SampleLabelHandler::rotations_t *SampleLabelHandler::getRotationsMap()
+{
+    return &m_RotationsLabel;
 }
 
 void SampleLabelHandler::insertMaterial(const IMaterial *sample)
@@ -232,6 +242,13 @@ void SampleLabelHandler::setLabel(const ParticleComposition *sample)
     m_ParticleCompositionLabel.insert(sample, inter.str());
 }
 
+void SampleLabelHandler::setLabel(const IRotation *sample)
+{
+    std::ostringstream inter;
+    inter << "rotation_" << m_RotationsLabel.size()+1;
+    m_RotationsLabel.insert(sample, inter.str());
+}
+
 
 bool SampleLabelHandler::definesSameMaterial(const IMaterial *left, const IMaterial *right) const
 {
@@ -250,7 +267,7 @@ bool SampleLabelHandler::definesSameMaterial(const IMaterial *left, const IMater
         const HomogeneousMagneticMaterial *p_right =
                 dynamic_cast<const HomogeneousMagneticMaterial *>(right);
         if (!p_left || !p_right) {
-            throw Exceptions::RuntimeErrorException("LabelSample::definesSameMaterial: "
+            throw Exceptions::RuntimeErrorException("SampleLabelHandler::definesSameMaterial: "
                                                     "non-scalar materials should be of type "
                                                     "HomogeneousMagneticMaterial");
         }

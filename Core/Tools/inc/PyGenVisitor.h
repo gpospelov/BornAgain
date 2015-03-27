@@ -76,7 +76,6 @@ public:
     void visit(const RotationZ *sample);
     void visit(const RotationEuler *sample);
 
-private:
     std::string definePreamble() const;
     std::string defineGetSimulation(const Simulation *simulation) const;
     std::string defineGetSample() const;

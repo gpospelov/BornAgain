@@ -31,6 +31,7 @@ class IParticle;
 class ParticleCoreShell;
 class ILayout;
 class ParticleComposition;
+class IRotation;
 
 //! @class SampleLabelHandler
 //! @ingroup tools_internal
@@ -49,6 +50,7 @@ public:
     typedef Utils::OrderedMap<const ParticleCoreShell*, std::string> particlescoreshell_t;
     typedef Utils::OrderedMap<const ILayout*, std::string> layouts_t;
     typedef Utils::OrderedMap<const ParticleComposition*, std::string> particlecompositions_t;
+    typedef Utils::OrderedMap<const IRotation*, std::string> rotations_t;
 
     SampleLabelHandler();
     formfactors_t* getFormFactorMap();
@@ -61,6 +63,7 @@ public:
     particlescoreshell_t* getParticleCoreShellMap();
     layouts_t* getParticleLayoutMap();
     particlecompositions_t* getParticleCompositionMap();
+    rotations_t* getRotationsMap();
 
     std::string getLabel(const IFormFactor *sample);
     std::string getLabel(const IInterferenceFunction *sample);
@@ -72,6 +75,7 @@ public:
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ILayout *sample);
     std::string getLabel(const ParticleComposition *sample);
+    std::string getLabel(const IRotation *sample);
 
     void insertMaterial(const IMaterial *sample);
     void setLabel(const IFormFactor *sample);
@@ -83,6 +87,7 @@ public:
     void setLabel(const Particle *sample);
     void setLabel(const ParticleCoreShell *sample);
     void setLabel(const ParticleComposition *sample);
+    void setLabel(const IRotation *sample);
 
 
 private:
@@ -97,6 +102,7 @@ private:
     particlescoreshell_t m_ParticleCoreShellLabel;
     layouts_t m_ILayoutLabel;
     particlecompositions_t m_ParticleCompositionLabel;
+    rotations_t m_RotationsLabel;
 };
 
 #endif // LABELSAMPLE_H

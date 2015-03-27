@@ -253,7 +253,7 @@ int DesignerHelper::getPortFontSize()
 int DesignerHelper::getPythonEditorFontSize()
 {
 #ifdef Q_OS_MAC
-    return 12;
+    return 13;
 #else
     return 10;
 #endif

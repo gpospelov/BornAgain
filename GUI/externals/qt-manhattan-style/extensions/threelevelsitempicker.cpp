@@ -168,7 +168,7 @@ QString ThreeLevelsItemPicker::level3() const
     return item ? item->text() : QString();
 }
 
-namespace
+namespace helper_namespace
 {
 
 QListWidgetItem* find(const ListWidget* list, const QString& name)
@@ -187,21 +187,21 @@ QListWidgetItem* find(const ListWidget* list, const QString& name)
 
 void ThreeLevelsItemPicker::setLevel1Item(const QString& name)
 {
-    QListWidgetItem* item = ::find(m_level1Items, name);
+    QListWidgetItem* item = helper_namespace::find(m_level1Items, name);
     if (item)
         m_level1Items->setCurrentItem(item);
 }
 
 void ThreeLevelsItemPicker::setLevel2Item(const QString& name)
 {
-    QListWidgetItem* item = ::find(m_level2Items, name);
+    QListWidgetItem* item = helper_namespace::find(m_level2Items, name);
     if (item)
         m_level2Items->setCurrentItem(item);
 }
 
 void ThreeLevelsItemPicker::setLevel3Item(const QString& name)
 {
-    QListWidgetItem* item = ::find(m_level3Items, name);
+    QListWidgetItem* item = helper_namespace::find(m_level3Items, name);
     if (item)
         m_level3Items->setCurrentItem(item);
 }

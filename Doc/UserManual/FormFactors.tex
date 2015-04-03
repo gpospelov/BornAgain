@@ -1380,9 +1380,9 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 
 \begin{figure}[ht]
 \hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxz.eps}}
+\subfigure[Side view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxz.pdf}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxy.eps}}
+\subfigure[Top view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxy.pdf}}
 \hfill
 \caption{Sketch of a Truncated cube.}
 \label{fig:truncatedcube}
@@ -1407,21 +1407,23 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 
 \paragraph{Form factor}
 The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see \SecRef{Box}) minus the form factors of the eight trirectangular tetrahedrons.
+
+\begin{equation*}
+F(\mathbf{q},t) =F_{\rm{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\rm{vertex}_i}(q_x, q_y, q_z, L, t)
+\end{equation*}
+where, thanks to symmetries of the particle's shape (see figure):
 \begin{align*}
-F(\mathbf{q},t) &=F_{\rm{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\rm{vertex_i}}(q_x, q_y, q_z, L, t)
+F_{\rm{vertex}_2}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(q_y, -q_x, q_z, L, t) \\
+F_{\rm{vertex}_3}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(-q_x, -q_y, q_z, L, t) \\
+F_{\rm{vertex}_4}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(-q_y, q_x, q_z, L, t) \\
+F_{\rm{vertex}_5}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(q_x, q_y, -q_z, L, t) \\
+F_{\rm{vertex}_6}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(q_y, -q_x,- q_z, L, t) \\
+F_{\rm{vertex}_7}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(-q_x, -q_y, -q_z, L, t) \\
+F_{\rm{vertex}_8}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(-q_y, q_x, -q_z, L, t) \\
+F_{\rm{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)+ q_y L}{2} \right) \\
+\times \Big\{ \frac{1}{q_y} \sinc\left( \frac{q_x t}{2}\right) &- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left( \frac{(q_x-q_y)t}{2}\right) - \frac{1}{q_y + q_z} \exp\left( i\frac{q_z t}{2} \right) \sinc \left( \frac{(q_x+q_z) t}{2} \right)  \Big\}    
 \end{align*}
-where thanks to symmetries of the particle's shape (see figure):
-\begin{align*}
-F_{\rm{vertex_2}}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex_1}}(q_y, -q_x, q_z, L, t) \\
-F_{\rm{vertex_3}}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex_1}}(-q_x, -q_y, q_z, L, t) \\
-F_{\rm{vertex_4}}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex_1}}(-q_y, q_x, q_z, L, t) \\
-F_{\rm{vertex_5}}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex_1}}(q_x, q_y, -q_z, L, t) \\
-F_{\rm{vertex_6}}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex_1}}(q_y, -q_x,- q_z, L, t) \\
-F_{\rm{vertex_7}}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex_1}}(-q_x, -q_y, -q_z, L, t) \\
-F_{\rm{vertex_8}}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex_1}}(-q_y, q_x, -q_z, L, t) \\
-F_{\rm{vertex_1}}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left(i\frac{q_x(L-t)+ q_y L}{2} \right)\\
-\times\left\{ \frac{1}{q_y}\sinc\left(\frac{q_x t}{2}\right) &- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left(\frac{(q_x-q_y)t}{2}\right) - \frac{1}{q_y + q_z}\exp\left(i\frac{q_z t}{2}\right) \sinc\left(\frac{q_x+q_z) t}{2}\right) \right\}    
-\end{align*}
+
 
 Note that the origin is taken as the centre of the bottom face of the cube.
 

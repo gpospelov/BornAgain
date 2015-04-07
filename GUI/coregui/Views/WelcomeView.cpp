@@ -56,24 +56,24 @@ WelcomeView::WelcomeView(MainWindow *parent)
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
     m_newProjectButton->setFont(buttonFont);
-    QPalette button_palette = m_newProjectButton->palette();
-    button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-    button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-    m_newProjectButton->setPalette(button_palette);
+//    QPalette button_palette = m_newProjectButton->palette();
+//    button_palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+//    button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+//    m_newProjectButton->setPalette(button_palette);
     m_newProjectButton->setToolTip("Create new project");
 
     m_openProjectButton = new QPushButton(tr("Open Project"));
     m_openProjectButton->setMinimumWidth(buttonWidth);
     m_openProjectButton->setMinimumHeight(buttonHeight);
     m_openProjectButton->setFont(buttonFont);
-    m_openProjectButton->setPalette(button_palette);
+//    m_openProjectButton->setPalette(button_palette);
     m_openProjectButton->setToolTip("Open existing project");
 
     m_newUsertButton = new QPushButton(tr("New to BornAgain?"));
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
     m_newUsertButton->setFont(buttonFont);
-    m_newUsertButton->setPalette(button_palette);
+//    m_newUsertButton->setPalette(button_palette);
     m_newUsertButton->setToolTip("Open BornAgain web site");
 
     QVBoxLayout *buttonLayout = new QVBoxLayout;

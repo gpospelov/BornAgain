@@ -97,10 +97,10 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runSimulationButton->setMinimumHeight(50);
     runSimulationButton->setToolTip("Run the simulation using settings above.\n"
                                     " Global shortcut ctrl-r can be used to run from sample view.");
-    QPalette palette = runSimulationButton->palette();
-    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-    runSimulationButton->setPalette(palette);
+//    QPalette palette = runSimulationButton->palette();
+//    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+//    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+//    runSimulationButton->setPalette(palette);
 
     // export simulation to a python script
     exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
@@ -109,7 +109,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     exportToPyScriptButton->setMinimumHeight(50);
     exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
                                        "a python script.\n");
-    exportToPyScriptButton->setPalette(palette);
+//    exportToPyScriptButton->setPalette(palette);
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);

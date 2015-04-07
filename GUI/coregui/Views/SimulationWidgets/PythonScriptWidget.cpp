@@ -21,12 +21,15 @@
 #include "Simulation.h"
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
+#include "WarningSignWidget.h"
+#include <QScrollBar>
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QToolBar>
 #include <QTextEdit>
 #include <QStyle>
 #include <QDebug>
+
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     : QDialog(parent)

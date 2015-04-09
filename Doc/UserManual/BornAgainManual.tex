@@ -83,6 +83,7 @@
 %	OTHER PACKAGES 
 %-------------------------------------------------------------------------------
 \usepackage{makeidx}\makeindex
+
 \usepackage{graphicx}
 \usepackage{subfigure}
 
@@ -90,12 +91,14 @@
 \usepackage{tikz}
 \usepackage{tikz-uml} 
 \usetikzlibrary{trees}
+
+% \usepackage{pifont}
+\usepackage{dingbat}
+% \usepackage{bm} % bold math
+\usepackage[bold-style=ISO]{unicode-math} % -ISO or -TEX
+
 \usepackage{amsmath}
 \usepackage{mathtools} % has \coloneqq for :=
-
-\usepackage{pifont}
-\usepackage{dingbat}
-\usepackage{bm} % bold math
 
 \usepackage{hyperref}
 
@@ -216,7 +219,7 @@
 \newcommand{\vectk}{\vect{k}}
 \newcommand{\vectkt}{\vect{\widetilde{k}}}
 \newcommand{\vectq}{\vect{q}}
-\newcommand{\Nabla}{\bm{\nabla}}
+\newcommand{\Nabla}{\mathbf{\nabla}}
 
 %curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}

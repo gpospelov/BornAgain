@@ -13,89 +13,153 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\let\v=\vect
+\def\r{\v{r}}
+\def\k{\v{k}}
+\def\rD{\r_{\rm D}}
+\def\kD{\k_{\rm D}}
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
 
 \newcommand{\nz}{\overline{n}}
 
+In this chapter,
+we present the theory
+of grazing-incidence small-angle scattering (GISAS)
+that underlies the simulation algorithm implemented in BornAgain.
+Our exposition is largely self contained,
+except for some textbook references.
+For alternative introductions to GISAS theory,
+see e.~g.\ the review \cite{ReLL09} or ....
+
+In sections \ref{Swave}--\ref{Sdwba},
+we develop the theory for the simplest case,
+namely for neutrons with no polarization-dependent interactions.
+The electromagnetic theory of X-ray scattering
+is presented in Sect.~\ref{Sxray},
+polarized neutrons are discussed in Sect.~\ref{Snpol}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wave propagation}
+\section{Neutron wave propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Wave propagation|(}
-
-%===============================================================================
-\subsection{X-ray propagation}
-%===============================================================================
-\index{Wave propagation!X-rays}
-\index{X-rays!wave propagation}
-
-\ldots to come
-
-%===============================================================================
-\subsection{Neutron propagation}
-%===============================================================================
 \index{Wave propagation!neutrons}
 \index{Neutrons!wave propagation}
 
-In a GISANS experiment,
-we are only interested in small scattering vectors~$\vect{q}$,
-and therefore do not register ordinary Bragg scattering
-by crystal lattices or other correlations at atomic level;
-at most, Bragg scattering must be accounted for as a loss channels.
-We therefore describe the neutron-sample interaction
-in continuum approximation by a refractive index~$n$ with
-\begin{equation}\label{eq:nRefrIndx}
-  n^2=1-\frac{4\pi}{K^2}\rho_s
+We start from the Schrödinger equation
+\begin{equation}\label{ESchrodi}
+  i\hbar\partial_t \psi(\r,t)
+  = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
-where $\rho_s$ is an effective scattering length density
-\cite{Lax51,Sea89}.
+We will only consider monochromatic waves with given frequency~$\omega$.
+By assuming a time-independent potential $V(\r)$,
+we have excluded inelastic scattering.
+In consequence, we have a stationary wave function
+\begin{equation}\label{Estationarywave}
+  \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
+\end{equation}
+\index{Sign convention}
+\index{Quantum-mechanical sign convention}
+\index{Crystallographic sign convention}
+This \textit{quantum-mechanical sign convention}
+is used throughout this manual, and implemented in BornAgain,
+including for X-ray scattering.
+This is in conflict with parts of the X-ray literature
+(e.~g.\ \cite{ReLL09})
+where the opposite \textit{crystallographic sign convention}
+with a phase factor ${\rm e}^{+i\omega t}$ is used.
+
+Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
+we obtain the stationary Schrödinger equation
+\begin{equation}\label{EstatSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r,t) = 0.
+\end{equation}
+\index{Potential|see Optical potential}
+\index{Optical potential!nuclear}
+\index{Nuclear optical potential}
+\index{Microscopic optical potential}
+The \textit{nuclear} (or \textit{microscopic})
+\textit{optical potential} $V(\r)$,
+in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
+consists of a sum of delta functions,
+representing Fermi's ``pseudopotential''.
+The superposition of the incident wave with the scattered waves
+originating from each illuminated nucleus
+results in \textit{coherent forward scattering},%
+\index{Coherent forward scattering}
+in line with Huygens' principle.%
+\index{Huygens' principle}
+
+Another form of coherent scattering is \textit{Bragg scattering}.%
+\index{Bragg scattering!by atomic lattices}
+However, Bragg scattering by atomic lattices
+is large-angle, not small-angle scattering;
+it occurs on wavenumbers outside the range covered in GISAS experiments.
+At most, it is taken into account as a loss channel.
+
+Therefore,
+we can neglect the atomic structure of $V(\r)$,
+and perform some \textit{coarse graining} to
+arrive at a \textit{continuum approximation}.%
+\index{Continuum approximation}
+This is 
+similar to the passage from
+the microscopic to the macroscopic Maxwell equations.
+The details are intricate \cite{Sea89,Lax51}.
+As a result \cite[eq.~2.8.32]{Sea89},
+the stationary Schrödinger equation can be rewritten as
+\begin{equation}\label{EmacrSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r,t) = 0,
+\end{equation}
+where $\Psi$ now stands for the coherent superposition of
+incident and forward scattered states,
+and $v(\r)$ is the \textit{macroscopic optical potential},%
+\index{macroscopic optical potential}
+which is weak, and slowly varying compared to atomic length scales.
+It can be rewritten in a number of ways,
+especially in terms of a
+\textit{bound scattering length density}%
+\index{Bound scattering length density}
 \index{Scattering length density}
-
-%TODO: how is absorption taken into account?
-
-%===============================================================================
-\subsection{Helmholtz equation}
-%===============================================================================
-
-X-ray and neutron propagation are both governed by
-the same stationary wave equation,
-the \textit{Helmholtz equation}
-\index{Helmholtz equation}
-\index{Wave equation}
-\begin{equation}\label{eq:Helmholtz}
-  \left(\Nabla^2+K^2n(\vect{r})^2\right)\Psi(\vect{r}),
+$\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
+\begin{equation}
+  v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),  
 \end{equation}
-where $K=2\pi/\lambda_0$ is the vacuum wave number,
-and $n$ is the refractive index.
+or of a \textit{refractive index}~$n(\r)$%
 \index{Refractive index}
-In this equation,
-the time dependence ${\rm e}^{i\omega t}$ of the wave field
-does not appear explicitly.
-In GISAS, we are only interested in elastic scattering.
-Therefore, the wave frequency~$\omega$ is considered constant.
-
-Implicitly, $K$ depends on~$\omega$ through a \textit{dispersion relation}.
-\index{dispersion relation}
-This relation is fundamentally different for
-X-rays (where it is linear, $\omega\propto K$)
-and for thermal neutrons (where it is quadratic, $\omega\propto K^2$).
-However, for stationary problems
-this frequency dependence of~$K$ does not matter.
-Therefore we can use $K$ instead of~$\omega$ as a constant
-that characterizes the incoming radiation.
-In this way, scalar X-ray and neutron scattering can be described by exactly
-the same wave equation~(\ref{eq:Helmholtz}).
+\index{Index of refraction|see Refractive index}
+with
+\begin{equation}\label{EnRefrIndx}
+  n(\r)^2=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
+\end{equation}
+In the latter expression,
+we introduced the \textit{vacuum wavenumber}~$K$,
+which is connected with the frequency~$\omega$ through the
+\textit{dispersion relation}
+\begin{equation}
+  \frac{\hbar^2 K^2}{2m} = \hbar\omega.
+\end{equation}
+Since we only consider stationary situations,
+$\omega$ will not appear any further in our derivations;
+instead, we use~$K$ as the given parameter that characterizes the
+incoming radiation.
+In terms of $K$ and $n$,
+the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
+can be rewritten as
+\begin{equation}\label{EnSchrodi}
+  \left\{\Nabla^2+K^2n(\vect{r})^2\right\}\Psi(\vect{r}).
+\end{equation}
 
 \index{Wave propagation|)}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scalar scattering}
+\section{Neutron scattering in Born approximation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For both X-rays and neutrons the refractive index~$n$ is close to~1.
+For neutrons, as for X-rays, the refractive index~$n$ is close to~1,
+with $1-n$ typically of the order $10^{-5}$ or smaller.
 In the following,
-we shall use this fact to solve the Helmholtz equation 
+we shall use this fact to solve the Schrödinger equation~(\ref{EnSchrodi})
 in a perturbation expansion
 that is known as the Born approximation
 though it goes back to Lord Rayleigh
@@ -103,31 +167,32 @@ who devised it for the scattering of sound,
 and later also applied it to electromagnetic waves.
 
 %===============================================================================
-\subsection{Born approximation}
+\subsection{The Born expansion}
 %===============================================================================
 
-We rewrite the scalar Helmholtz equation~(\ref{eq:Helmholtz}) as
-\begin{equation}\label{eq:HelmholtzInhomog}
+We rewrite the Schrödinger equation~(\ref{EnSchrodi})
+once more so that it takes the form of a Helmholtz equation
+with a perturbation term on the right side:
+\begin{equation}\label{EinhomoSchrodi}
   \left(\Nabla^2+K^2\right)\Psi(\vect{r})
   = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
 \end{equation}
 with
-\begin{equation}\label{eq:ChiDef}
+\begin{equation}\label{EChiDef}
   \chi(\vect{r}) := \frac{4\pi}{K^2}\left(1-n^2(\vect{r})\right).
 \end{equation}
-For neutrons, this definition just compensates (\ref{eq:nRefrIndx})
-so that $\chi=\rho_s$.
-Equation~(\ref{eq:Helmholtz}) looks
+This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
+Equation~(\ref{EinhomoSchrodi}) looks
 like an inhomogenous differential equation ---
 provided we neglect for a moment that unknown function~$\Psi$
 reappears on the right side.
 The homogeneous equation
-\begin{equation}\label{eq:HelmholtzHomog}
+\begin{equation}\label{EHelmholtzHomog}
   \left(\Nabla^2+K^2\right)\Psi_0(\vect{r}) = 0
 \end{equation}
 is solved by plane waves and superpositions thereof.
 For an isolated inhomogeneity,
-\begin{equation}\label{eq:HelmholtzForGreen}
+\begin{equation}\label{EHelmholtzForGreen}
   \left(\Nabla^2+K^2\right)G(\vect{r}) = \delta(\vect{r})
 \end{equation}
 is solved by the Green function\footnote
@@ -135,16 +200,16 @@ is solved by the Green function\footnote
 is a straightforward exercice in vector analysis.
 For the special case $\vect{r}=0$,
 one encloses the origin in a small sphere
-and integrates by means of the Gauß-Ostrogadsky divergence theorem.
+and integrates by means of the Gauss-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
-\begin{equation}\label{eq:Greens1}
+\begin{equation}\label{EGreens1}
   G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r},
 \end{equation}
 which is an outgoing spherical wave originating from $\vect{r}=0$.
 Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
 we obtain the formal solution
-of the full inhomogeneous equation~(\ref{eq:HelmholtzInhomog})
-\begin{equation}\label{eq:PsiFormal}
+of the full inhomogeneous equation~(\ref{EHelmholtzInhomog})
+\begin{equation}\label{EPsiFormal}
   \Psi(\vect{r})
   = \Psi_0(\vect{r})
   + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})
@@ -152,7 +217,7 @@ of the full inhomogeneous equation~(\ref{eq:HelmholtzInhomog})
 \end{equation}
 However, the integral kernel still contains the full solution~$\Psi$.
 If we replace this occurence of $\Psi$
-by the full right-hand side of~(\ref{eq:PsiFormal})
+by the full right-hand side of~(\ref{EPsiFormal})
 we obtain
 \begin{equation}
   \Psi(\vect{r})
@@ -168,7 +233,7 @@ Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
 In first Born approximation,
 only the linear order in $\chi$ is retained,
-\begin{equation}\label{eq:Born}
+\begin{equation}\label{EBorn}
   \Psi(\vect{r})
   \simeq \Psi_0(\vect{r})
   + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})\frac{\chi(\vect{r'})}{4\pi}
@@ -188,7 +253,7 @@ the intensity ${|\Psi(\vect{r})|}^2$ is measured
 at a detector location~$\vect{r}$
 far away from the sample volume.
 We choose the coordinate origin at the nominal center of the sample
-so that the integral in~(\ref{eq:Born}) runs over $\vect{r'}$ with $r'\ll r$.
+so that the integral in~(\ref{EBorn}) runs over $\vect{r'}$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
   \left|\vect{r}-\vect{r'}\right|
@@ -200,7 +265,7 @@ where we have introduced the outgoing wave vector
 \begin{equation}
   \vect{k}_f:=K\frac{\vect{r}}{r}.
 \end{equation}
-We apply this to the Green function~(\ref{eq:Greens1}),
+We apply this to the Green function~(\ref{EGreens1}),
 retaining the first order in $\vect{r'}$ in the exponent,
 but not in the denominator:
 \begin{equation}
@@ -210,13 +275,13 @@ but not in the denominator:
 This is an outgoing spherical wave with respect to $\vect{r}$,
 but a plane wave with respect to~$\vect{r'}$.
 If the incident radiation is also a plane wave,
-\begin{equation}\label{eq:Psi0Plane}
+\begin{equation}\label{EPsi0Plane}
   \Psi_0(\vect{r})={\rm e}^{i \vect{k}_i \vect{r}},
 \end{equation}
-then the Born approximation~(\ref{eq:Born})
+then the Born approximation~(\ref{EBorn})
 becomes essentially a Fourier transform of $\chi$,
   \index{Fourier transform}
-\begin{equation}\label{eq:BornPlane}
+\begin{equation}\label{EBornPlane}
   \Psi(\vect{r})
   \simeq \Psi_0(\vect{r})
   + \frac{{\rm e}^{iKr}}{r}
@@ -241,11 +306,11 @@ We define it in arbitrary relative units as
 \begin{equation}
   \vect{J} := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
 \end{equation}
-With (\ref{eq:Psi0Plane}), the incident flux is
+With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
   \vect{J}_0 = \vect{k}_i.
 \end{equation}
-The scattered wavefield (\ref{eq:BornPlane}) is observed
+The scattered wavefield (\ref{EBornPlane}) is observed
 at a detector position $\vect{r}$ that is not illuminated by the
 incident beam, hence $\Psi_0(\vect{r})=0$.
 This leaves us with
@@ -275,11 +340,11 @@ we find
 The differential cross section is just the squared modulus
 of the Fourier transform $\chi(\vect{q})$
 \index{Fourier transform}
-of the scattering-length distribution~(\ref{eq:ChiDef}).
+of the scattering-length distribution~(\ref{EChiDef}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Distorted Wave Born Approximation} 
+\section{Distorted Wave Born Approximation}\label{Sdwba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Distorted wave Born approximation}
 \index{DWBA|see {Distorted wave Born approximation}}
@@ -316,27 +381,27 @@ air or vacuum half space where the incident radiation comes from.
 
 Refraction and reflection are caused by vertical variations
 of the average refractive index $\nz(z)$.
-We rewrite the Helmholtz equation~(\ref{eq:HelmholtzInhomog} as
-\begin{equation}\label{eq:HelmholtzGraded}
+We rewrite the Helmholtz equation~(\ref{EHelmholtzInhomog} as
+\begin{equation}\label{EHelmholtzGraded}
   \left(\Nabla^2+K^2\nz^2(z)\right)\Psi(\vect{r})
   = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
 \end{equation}
-with (\ref{eq:ChiDef}) replaced by
-\begin{equation}\label{eq:ChiGraded}
+with (\ref{EChiDef}) replaced by
+\begin{equation}\label{EChiGraded}
   \chi(\vect{r}) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\vect{r})\right).
 \end{equation}
 The homogeneous equation
-\begin{equation}\label{eq:HelmholtzGradedHomog}
+\begin{equation}\label{EHelmholtzGradedHomog}
   \left(\Nabla^2+K^2\nz^2(z)\right)\Psi_0(\vect{r}) = 0
 \end{equation}
 suggests the ansatz
-\begin{equation}\label{eq:wave3}
+\begin{equation}\label{Ewave3}
 \psi_0(\vect{r}) = {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel} \phi(z).
 \end{equation}
 The in-plane wave vector $\vect{k}_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
-\begin{equation}\label{eq:wavez}
+\begin{equation}\label{Ewavez}
 \left(\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right) \phi(z) = 0.
 \end{equation}
 Since we are describing scattering in continuum approximation anyway,
@@ -359,7 +424,7 @@ and forward-propagting (transmitted) beam, respectively.
 \subsection{Multilayer systems}
 %===============================================================================
 
-In multilayer systems, the first term of (\ref{eq:tdwba}) denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
+In multilayer systems, the first term of (\ref{Etdwba}) denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
@@ -406,7 +471,7 @@ In the DWBA, the form factor of a particle in a multilayer system is given by
 \begin{align}
 F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
  \nonumber \\
-  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z}, \label{eq:dwbageneral}
+  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
 \end{align}
 where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
 With a tilde (\~{}), these wave vectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
@@ -426,30 +491,17 @@ The main differences with respect to the cross-section in the Born approximation
 \end{enumerate}
 
 %===============================================================================
-\section{Polarization}
+\section{X-ray propagation}\label{Sxray}
 %===============================================================================
+\index{Wave propagation!X-rays}
+\index{X-rays!wave propagation}
 
-ome GISAS experiments are performed with polarized radiation
-or/and involve polarization-dependent interactions.
-Therefore we need also to consider
-the propagation of polarized X-rays and neutrons.
-Electromagnetic field vectors and neutron spinors
-are fundamentally different mathematical objects
-Nevertheless, for our purpose they can be
-mapped onto a uniform .... <to elaborate> ....
-so that one and the same formalism can be applied
-to polarized GISAXS and GISANS.
-This shall be derived in the following.
+\ldots to come
 
 
 %===============================================================================
-\subsection{Polarized X-rays}
+\section{Polarized neutrons}\label{Snpol}
 %===============================================================================
-
-%===============================================================================
-\subsection{Polarized neutrons}
-%===============================================================================
-
 
 
 
@@ -460,7 +512,7 @@ This shall be derived in the following.
 Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
 
 The differential cross-section (per scattering center) is then given by:
-\begin{equation}\label{eq:xsec1}
+\begin{equation}\label{Exsec1}
   \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2.
 \end{equation}
 

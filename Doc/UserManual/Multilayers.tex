@@ -117,7 +117,7 @@ in multilayer systems has been studied by Spiering and Deak [...],
 using Abeles' matrix formalism and matrix exponentials.
 In Abeles' formalism [],
 plane waves are parametrized by $\psi$ and $\partial_z\psi$.
-We prefer a parametrization (\ref{eq:psiz})
+We prefer a parametrization (\ref{Epsiz})
 by the amplitudes of forward and backward propagating plane waves,
 which is mathematically simpler,
 and allows a more direct physical interpretation.
@@ -140,7 +140,7 @@ Within one layer,
 stationary wave propagation with given frequency,
 hence with fixed vacuum wave number~$K$,
 obeys the differential equation
-\begin{equation}\label{eq:scalar_wave}
+\begin{equation}\label{Escalar_wave}
 \left(\Delta + K^2 n_i^2 \right) \psi(\vect{r}) = 0.
 \end{equation}
 At interfaces between layers,
@@ -155,19 +155,19 @@ $\vect{\nabla}\psi(\vect{r})$ must evolve continuously.
 Since our multilayer model has infinite extension
 in $x$ and $y$--directions, we can factorize
 $\psi(\vect{r})$, and assume plane-wave propagation for
-the in-plane component $\vect{r}_\parallel$ (\ref{eq:wave3}):
-\begin{equation}\label{eq:wave3dup}
+the in-plane component $\vect{r}_\parallel$ (\ref{Ewave3}):
+\begin{equation}\label{Ewave3dup}
 \psi(\vect{r}) = \psi(z) {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel}.
 \end{equation}
 From the continuity conditions we infer that $\vect{k}_\parallel$
 is constant across layers.
-The wave equation~(\ref{eq:scalar_wave})
+The wave equation~(\ref{Escalar_wave})
 reduces to a one-dimensional equation in~$z$,
-\begin{equation}\label{eq:wavez}
+\begin{equation}\label{Ewavez}
 \left(\partial_z^2 + K^2n_i^2 - k_\parallel^2 \right) \psi(z) = 0,
 \end{equation}
 which is solved by
-\begin{equation}\label{eq:psiz}
+\begin{equation}\label{Epsiz}
   \psi_i(z) = a_i{\rm e}^{ik_{\perp i}(z-z_i)} + b_i{\rm e}^{-ik_{\perp i}(z-z_i)},
 \end{equation}
 where $z_i$ is the coordinate of the \textit{bottom} interface
@@ -176,9 +176,9 @@ introduced here as a constant offset for later convenience.
 In the case of the semi-infinite bottom layer~$N$,
 $z_N$ can be chosen arbitrarily.
 
-Inserting (\ref{eq:psiz}) into (\ref{eq:wavez}),
+Inserting (\ref{Epsiz}) into (\ref{Ewavez}),
 we obtain the dispersion relation
-\begin{equation}\label{eq:disp}
+\begin{equation}\label{Edisp}
   k_\parallel^2 + k_{\perp i}^2 = K^2 n_i^2.   
 \end{equation}
 If $n_i$ is real and $k_\parallel<K n_i$,
@@ -186,10 +186,10 @@ this is just the Pythagorean equation
 for the perpendicular components of either of
 the two wave vectors:
 vector $\vect{k}_\pm=\vect{k}_\parallel \pm k_{\perp i}\vect{\hat z}$.
-They correspond to the two summands in (\ref{eq:psiz}),
+They correspond to the two summands in (\ref{Epsiz}),
 and describe plane waves propagating upwards or downwards.
 These waves have glancing angles
-\begin{equation}\label{eq:def_alpha}
+\begin{equation}\label{Edef_alpha}
   \alpha_i:=\arctan(k_{\perp i}/k_\parallel).  
 \end{equation}
 Equivalently,
@@ -198,13 +198,13 @@ Equivalently,
 \end{equation}
 Since $k_\parallel$ is constant across layers,
 we have
-\begin{equation}\label{eq:Snell}
+\begin{equation}\label{ESnell}
   n_i \cos\alpha_i = \text{the same for all }i,
 \end{equation}
 which is Snell's refraction law.
 
 For later convenience we abbreviate
-\begin{equation}\label{eq:def_f}
+\begin{equation}\label{Edef_f}
 f_i := \sqrt{ n_i^2 - n_0^2 \cos^2\alpha_0 },
 \end{equation}
 which is a combination of material parameters ($n_0$, $n_i$)
@@ -213,8 +213,8 @@ If $n_i$ is real, and the argument of the square root nonnegative,
 we simply have $f_i=n_i\sin\alpha_i$.
 However, using $f_i$ allows for later generalizations
 to cope with absorbing media or with total reflection and evanescent waves.
-The wave number in (\ref{eq:psiz}) can now be written as
-\begin{equation}\label{eq:kKf}
+The wave number in (\ref{Epsiz}) can now be written as
+\begin{equation}\label{EkKf}
   k_{\perp i} = K f_i.
 \end{equation}
 
@@ -226,10 +226,10 @@ The wave number in (\ref{eq:psiz}) can now be written as
 In this section,
 the continuity of $\psi(z)$ and $\partial_z\psi(z)$ at layer interfaces
 is used to derive a recursion rule
-for the coefficients $a_i$ and $b_i$ of (\ref{eq:psiz}).
+for the coefficients $a_i$ and $b_i$ of (\ref{Epsiz}).
 At the \textit{bottom} interface of layer~$i=0,\ldots,N-1$,
 continuity requires
-\begin{equation}\label{eq:contcond}
+\begin{equation}\label{Econtcond}
   \begin{array}{lcl}
             \psi_{i}(z_i)&=&\psi_{i+1}(z_{i+1}+d_{i+1}),\\
             \partial_z\psi_{i}(z_i)&=&\partial_z\psi_{i+1}(z_{i+1}+d_{i+1}),
@@ -240,8 +240,8 @@ continuity requires
   d_i:=z_{i-1}-z_{i}
 \end{equation}
 is the thickness of layer~$i$.
-With the solution (\ref{eq:psiz}), conditions (\ref{eq:contcond}) become
-\begin{equation}\label{eq:cont2}
+With the solution (\ref{Epsiz}), conditions (\ref{Econtcond}) become
+\begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
   a_i &+& b_i,
   &=&
@@ -253,11 +253,11 @@ With the solution (\ref{eq:psiz}), conditions (\ref{eq:contcond}) become
   \end{array}
 \end{equation}
 We introduce the vector notation
-\begin{equation}\label{eq:vecc}
+\begin{equation}\label{Evecc}
   c_i := \left( \begin{array}{c}a_i\\b_i\end{array} \right),
 \end{equation}
-to write (\ref{eq:cont2}) as
-\begin{equation}\label{eq:FcFDc}
+to write (\ref{Econt2}) as
+\begin{equation}\label{EFcFDc}
   F_i c_i = F_{i+1} D_{i+1} c_{i+1}
 \end{equation}
 with the matrices
@@ -270,12 +270,12 @@ and the phase factor
    \delta_i := {\rm e}^{iKf_id_i}.
 \end{equation}
 We define the transfer matrix
-\begin{equation}\label{eq:def_M}
+\begin{equation}\label{Edef_M}
   M_i
   := F_{i-1}^{-1}F_i D_i,
 \end{equation}
 to obtain the recursion 
-\begin{equation}\label{eq:cMc}
+\begin{equation}\label{EcMc}
   c_i = M_{i+1} c_{i+1}.
 \end{equation}
 Straightforward computation yields
@@ -299,7 +299,7 @@ with the ratio
 The recursion starts from the semi-infinite substrate layer~$N$
 where there is no upwards propagating wave, hence $a_N=0$.
 For layer~$i$, the solution is
-\begin{equation}\label{eq:ci}
+\begin{equation}\label{Eci}
   c_i
   =
   M_{i+1}\cdots M_{N} c_N.
@@ -315,9 +315,9 @@ Currents shall be computed in relative units as
   \vect{J}:=\psi^*(\vect{r})\frac{\Nabla}{2i}\psi(\vect{r})+\text{c.c.}
 \end{equation}
 We are interested in the component $J_z$.
-With (\ref{eq:psiz}),
+With (\ref{Epsiz}),
 we obtain in layer~$i$
-\begin{equation}\label{eq:Jperp}
+\begin{equation}\label{EJperp}
   \begin{array}{lcl}
   J_{zi} &=& \frac{1}{2}
   \left( a_i^*{\rm e}^{-ik_{\perp i}(z-z_i)} + b_i^*{\rm e}^{ik_{\perp i}(z-z_i)} \right)
@@ -335,15 +335,15 @@ and the $|b_i|^2$ term to the downward beam.
 In the absence of absorption we expect that the net current
 is the same in all layers.
 We verify this as follows.
-Using the vector notation~(\ref{eq:vecc}),
-we write~(\ref{eq:Jperp}) as a sesquilinear form
+Using the vector notation~(\ref{Evecc}),
+we write~(\ref{EJperp}) as a sesquilinear form
 \begin{equation}
   J_{zi}
   = c_i^\dagger \left(\begin{array}{cc}Kf_i&0\\0&-Kf_i\end{array}\right) c_i.
 \end{equation}
-Using the recursion (\ref{eq:cMc}) for $c_i$,
+Using the recursion (\ref{EcMc}) for $c_i$,
 we obtain a recursion for $J_{zi}$:
-\begin{equation}\label{eq:Jrec}
+\begin{equation}\label{EJrec}
   \begin{array}{lcl}
     J_{zi} &=&
     c_{i}^\dagger
@@ -375,7 +375,7 @@ wave amplitudes are related by
     \left(\begin{array}{c}f_0-f_1\\f_0+f_1\end{array}\right).
 \end{equation}
 The reflectivity of the interface is
-\begin{equation}\label{eq:R01}
+\begin{equation}\label{ER01}
   R={\left|\frac{a_0}{b_0}\right|}^2
    ={\left|\frac{f_0-f_1}{f_0+f_1}\right|}^2,
 \end{equation}
@@ -389,22 +389,22 @@ which agrees with Fresnel's result for $s$-polarized light.
 
 If layer~$i$ absorbs radiation,
 its index of refraction $n_i$ has a positive imaginary component.
-By~(\ref{eq:disp}),
+By~(\ref{Edisp}),
 $k_\parallel^2+k_{\perp i}^2$ then also has a positive imaginary component.
 From the continuity of $\psi$ and $\Nabla\psi$ across layer interfaces
 it still follows that $\vect{k}_\parallel$ is constant.
 We assume that the top layer~0 is not absorbing.
 Hence $\vect{k}_\parallel$ is real.
-To fulfill~(\ref{eq:disp}),
+To fulfill~(\ref{Edisp}),
 it is necessary that $k_{\perp i}$
 has a positive imaginary component.
 In consequence,
-the intensities of the forward and backward travelling beams (\ref{eq:psiz})
+the intensities of the forward and backward travelling beams (\ref{Epsiz})
 decrease exponentially in~$\pm z$.
 
-Snell's law of refraction (\ref{eq:Snell})
+Snell's law of refraction (\ref{ESnell})
 cannot be fulfilled if
-\begin{equation}\label{eq:totrefcond}
+\begin{equation}\label{Etotrefcond}
   n_i<n_0\cos\alpha_0.  
 \end{equation}
 In this case, total reflection occurs at the top interface of layer~$i$,
@@ -413,10 +413,10 @@ Strictly speaking,
 total reflection is only possible if layer~$i$ is not absorbing.
 Otherwise, some intensity would be dissipated by the evanescent wave,
 and the reflection would not be total.
-Also, the unequality~(\ref{eq:totrefcond}) is undefined
+Also, the unequality~(\ref{Etotrefcond}) is undefined
 if $n_i$ has an imaginary component.
 
-With definition~(\ref{eq:def_f}),
+With definition~(\ref{Edef_f}),
 total reflection occurs if $f_i$ is a pure imaginary number.
 For an absorbing medium, $f_i$ has a positive imaginary part
 and a non-zero real part.
@@ -427,9 +427,9 @@ For complex $f_i$,
 the theory developed above
 remains applicable, with the following exceptions:
 The geometric interpretation of the wave vectors $\vect{k}_\pm$
-in Eqs.~(\ref{eq:def_alpha}--\ref{eq:Snell}) is untenable,
+in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable,
 and the computation of currents in
-Eqs.~(\ref{eq:Jperp}--\ref{eq:Jrec}) is invalid because it
+Eqs.~(\ref{EJperp}--\ref{EJrec}) is invalid because it
 relies on $\Im k_{\perp i}=0$.
 
 
@@ -455,8 +455,8 @@ relies on $\Im k_{\perp i}=0$.
 To allow for polarization-dependent interactions,
 we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
-The wave equation (\ref{eq:scalar_wave}) for layer~$i$ becomes
-\begin{equation}\label{eq:waveqp}  
+The wave equation (\ref{Escalar_wave}) for layer~$i$ becomes
+\begin{equation}\label{Ewaveqp}  
 (\Delta +K^2 +K^2 \uu\chi_i) \u\psi(\vect{r})= 0,
 \end{equation}
 where $\u\psi(\vect{r})$ is a two-component spinor wave function,
@@ -465,14 +465,14 @@ At interfaces between layers,
 both spinor components of $\u\psi(\vect{r})$ and $\Nabla\u\psi(\vect{r})$
 must evolve continuously.
 
-The reasons for the factorization (\ref{eq:wave3}) still apply,
+The reasons for the factorization (\ref{Ewave3}) still apply,
 and so we can write
-\begin{equation}\label{eq:wave3p}
+\begin{equation}\label{Ewave3p}
 \u\psi(\vect{r}) = \u\psi(z) {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel}.
 \end{equation}
 As before, $\vect{k}_\parallel$ is constant across layers.
-The wave equation~(\ref{eq:waveqp}) reduces to 
-\begin{equation}\label{eq:wavezp}
+The wave equation~(\ref{Ewaveqp}) reduces to 
+\begin{equation}\label{Ewavezp}
 \left(\partial_z^2 + K^2 + K^2\uu\chi_i - k_\parallel^2 \right) \u\psi(z) = 0.
 \end{equation}
 We abbreviate
@@ -480,11 +480,11 @@ We abbreviate
   \uu H_i := K^2(1+\uu\chi_i)-k_\parallel^2
 \end{equation}
 so that the wave equation becomes simply
-\begin{equation}\label{eq:waveqp2}
+\begin{equation}\label{Ewaveqp2}
   \left(\partial_z^2 + \uu H_i\right) \u\psi(z) = 0.
 \end{equation}
 The solution is
-\begin{equation}\label{eq:psizp}
+\begin{equation}\label{Epsizp}
   \u\psi_i(z)
   = \sum_{j=1}^2 \u x_{ij}\left(\alpha_{ij}{\rm e}^{i p_{ij}(z-z_i)}
                             + \beta_{ij}{\rm e}^{-i p_{ij}(z-z_i)}\right),
@@ -511,7 +511,7 @@ which includes in particular the case of scalar interactions.
 \subsection{Wave propagation across layers}
 %-------------------------------------------------------------------------------
 
-Generalizing (\ref{eq:vecc}),
+Generalizing (\ref{Evecc}),
 we introduce the coefficient vector
 \begin{equation}
   c_i := {(\alpha_{i1}, \alpha_{i2}, \beta_{i1}, \beta_{i2})}^\text{T}.
@@ -519,8 +519,8 @@ we introduce the coefficient vector
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
 of $\u\psi$ and $\Nabla\u\psi$.
-As before (\ref{eq:FcFDc}), we have at the bottom of layer~$i$
-\begin{equation}\label{eq:FcFDcp}
+As before (\ref{EFcFDc}), we have at the bottom of layer~$i$
+\begin{equation}\label{EFcFDcp}
   F_i c_i = F_{i+1} D_{i+1} c_{i+1},
 \end{equation}
 where the matrices are now
@@ -566,11 +566,11 @@ This facilitates the computation of the inverse
       \cdot\uu x_i^{-1},
 \end{equation}
 which is needed for the transfer matrix $M_i$,
-defined as in (\ref{eq:def_M}).
+defined as in (\ref{Edef_M}).
 With the new meaning of $c_i$ and $M_i$,
-the recursion (\ref{eq:cMc}) and the explicit solution~(\ref{eq:ci})
+the recursion (\ref{EcMc}) and the explicit solution~(\ref{Eci})
 hold as derived above.
-To resolve~(\ref{eq:ci}) for the reflected amplitudes $\alpha_{0j}$
+To resolve~(\ref{Eci}) for the reflected amplitudes $\alpha_{0j}$
 as function of the incident amplitudes $\beta_{0j}$,
 we choose the notations
 \begin{equation}
@@ -583,7 +583,7 @@ we choose the notations
                            \uu m_{21}&\uu m_{22}\end{array}\right),
 \end{equation}
 where the $\uu m_{jk}$ are $2\times2$ matrices.
-Eq.~(\ref{eq:ci}) then takes the form
+Eq.~(\ref{Eci}) then takes the form
 \begin{equation}
   \left(\begin{array}{c}\u\alpha_{0}\\\u\beta_{0}\end{array}\right)
   = 

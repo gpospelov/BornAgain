@@ -130,7 +130,7 @@ This potential is weak, and slowly varying compared to atomic length scales.
 It can be rewritten in a number of ways,
 especially in terms of a
 \textit{bound scattering length density}%
-\index{Bound scattering length density}
+\index{Bound scattering length|see {\sloppy Scattering length}}
 \index{Scattering length density}
 $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
 \begin{equation}
@@ -311,19 +311,25 @@ becomes in far-field approximation
   \Psi_\text{s,far}(\r)
   = \frac{{\rm e}^{iKr}}{r}
     \int\!{\rm d}^3r'
-    \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r').
+    \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r'),
 \end{equation}
-At this point we introduce the standard assumption
-that the incident radiation is also a plane wave,
+or in compact notation
+\begin{equation}\label{EsandwichC}
+  \Psi_\text{s,far}(\r)
+  = \frac{{\rm e}^{iKr}}{r}
+    \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle.
+\end{equation}
+With the standard assumption
+that the incident radiation is a plane wave,
 \begin{equation}\label{EPsi0Plane}
   \Psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
 \end{equation}
-with $k_\text{i}=K$.
-We can then write (\ref{Esandwich}) in more compact form as
+with $k_\text{i}=K$,
+the above matrix element becomes simply
 \begin{equation}\label{EBornQ}
-  \Psi_\text{s,far}(\r)
-  = \frac{{\rm e}^{iKr}}{r}
-    \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r'),
+  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  = \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r')
+  =: \chi(\v{q})
 \end{equation}
 which shows that neutron scattering,
 in first-order Born approximation,
@@ -355,12 +361,11 @@ With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
   \v{J}_\text{i} = \k_\text{i}.
 \end{equation}
-With (\ref{EBornQ}), the scattered flux at the detector is
+With (\ref{EsandwichC}), the scattered flux at the detector is
 \begin{equation}
   \v{J}(\r)
-  = {\left|\frac{1}{r}
-    \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r')
-    \right|}^2 K\frac{\r}{r}.
+  = \v{\hat r}\frac{K}{r^2}
+    {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
 \end{equation}
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
@@ -369,20 +374,18 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
   \index{Differential cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  := \frac{r^2 J(\r)}{J_\text{i}}.
+  := \frac{r^2 J(\r)}{J_\text{i}}
+  =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
 \end{equation}
-Using $k_\text{i}=K$ and changing notation $\r'\to\r$,
-we find
+In the standard case (\ref{EBornQ}),
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  = {\left|
-    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r)
-    \right|}^2 =: {\left| \chi(\v{q}) \right|}^2
+  = {\left| \chi(\v{q}) \right|}^2.
 \end{equation}
 Thus the differential cross section is just the squared modulus
-of the Fourier transform $\chi(\v{q})$
-\index{Fourier transform}
-of the scattering-length distribution~(\ref{EChiDef}).
+of the Fourier transform 
+\index{Scattering length density}
+of the scattering-length density.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -631,9 +634,10 @@ Therefore,
   B_\text{far}(\r,\rD)
   = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\Psi^*_\text{f}(\r).
 \end{equation}
-Thanks to the reciprocity theorem (\ref{Ereci}),
+Applying now the reciprocity theorem (\ref{Ereci}),
 we can conclude that the far-field Green function
-has exactly the same form (\ref{EGreenFar}),
+has exactly the same form (\ref{EGreenFar})
+as for the case of propagation in vacuum,
 except that $\Psi_\text{f}$ is no longer a plane wave.
 Accordingly,
 the scattered far-field is still given by (\ref{EBornQ}).

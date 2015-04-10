@@ -19,7 +19,6 @@
 #include "actionmanager.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
-#include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
@@ -75,7 +74,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_welcomeView(0)
     , m_instrumentView(0)
     , m_sampleView(0)
-    , m_scriptView(0)
     , m_simulationView(0)
     , m_jobView(0)
     , m_fitView(0)
@@ -117,7 +115,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
-    //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
 
 //    m_testView = new TestView(m_sampleModel, this);

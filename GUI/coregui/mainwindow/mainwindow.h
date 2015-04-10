@@ -85,7 +85,6 @@ private:
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
-    PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
 
     JobView *m_jobView;

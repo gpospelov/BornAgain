@@ -60,13 +60,16 @@ In consequence, we have a stationary wave function
 \index{Sign convention}
 \index{Quantum-mechanical sign convention}
 \index{Crystallographic sign convention}
-This \textit{quantum-mechanical sign convention}
-is used throughout this manual, and implemented in BornAgain,
-including for X-ray scattering.
-This is in conflict with parts of the X-ray literature
-(e.~g.\ \cite{ReLL09})
-where the opposite \textit{crystallographic sign convention}
-with a phase factor ${\rm e}^{+i\omega t}$ is used.
+The minus sign in the exponent of the phase factor
+is an inevitable consequence of the standard form of the Schrödinger equation,
+and is therefore called the \textit{quantum-mechanical sign convention}.
+The opposite choice of a phase factor ${\rm e}^{+i\omega t}$ is 
+called the \textit{crystallographic sign convention},
+and is used in much of the literature on X-ray scattering,
+including some important texts on GISAXS (e.~g.\ \cite{ReLL09}).
+Since BornAgain is covering both X-ray and neutron scattering,
+the obvious choice for us was to adopt the quantum-mechanical convention
+throughout the source code as well as in this manual.
 
 Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
 we obtain the stationary Schrödinger equation
@@ -138,9 +141,9 @@ which is connected with the frequency~$\omega$ through the
 \begin{equation}
   \frac{\hbar^2 K^2}{2m} = \hbar\omega.
 \end{equation}
-Since we only consider stationary situations,
-$\omega$ will not appear any further in our derivations;
-instead, we use~$K$ as the given parameter that characterizes the
+Since we only consider stationary solutions~(\ref{Estationarywave}),
+$\omega$ will not appear any further in our derivations.
+Instead, we use~$K$ as the given parameter that characterizes the
 incoming radiation.
 In terms of $K$ and $n$,
 the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
@@ -149,7 +152,7 @@ can be rewritten as
   \left\{\Nabla^2+K^2n(\vect{r})^2\right\}\Psi(\vect{r}).
 \end{equation}
 
-\index{Wave propagation|)}
+%\index{Wave propagation|)}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

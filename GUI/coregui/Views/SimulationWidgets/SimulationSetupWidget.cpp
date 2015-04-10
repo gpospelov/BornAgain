@@ -319,27 +319,3 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
     return result;
 }
 
-void SimulationSetupWidget::exportSimulation(Simulation *simulation)
-{
-    Q_ASSERT(simulation);
-    qDebug() << "SimulationSetupWidget::exportSimulation(const Simulation*)";
-    QString default_path = QDir::homePath();
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), default_path,
-                            tr("Python scipts (*.py)"), 0,
-                            QFileDialog::DontResolveSymlinks);
-    qDebug() << file_name;
-    QFile file(file_name);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "SimulationSetupWidget::exportSimulation: Error! Can't save file";
-        QMessageBox warning_dialog(this);
-        warning_dialog.setIcon(QMessageBox::Warning);
-        warning_dialog.setText(tr("File could not be opened for writing!"));
-        warning_dialog.exec();
-        return;
-    }
-    QTextStream out(&file);
-    out << PyGenTools::genPyScript(simulation).c_str();
-    file.close();
-}
-
-

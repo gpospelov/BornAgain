@@ -59,8 +59,6 @@ private:
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
 
-    void exportSimulation(Simulation *simulation);
-
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

@@ -176,7 +176,7 @@ void register_Simulation_class(){
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
         
-            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double,::AttLimits const & ) ;
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::size_t,double,::AttLimits const & ) ;
             
             Simulation_exposer.def( 
                 "addParameterDistribution"
@@ -352,7 +352,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorParameters
         
-            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::size_t,double,double,::size_t,double,double,bool ) ;
             
             Simulation_exposer.def( 
                 "setDetectorParameters"

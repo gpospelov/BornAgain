@@ -66,7 +66,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -74,7 +74,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -287,8 +287,8 @@ void register_ICompositeSample_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( ICompositeSample_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::size_t ( ICompositeSample_wrapper::*default_size_function_type)(  ) const;
             
             ICompositeSample_exposer.def( 
                 "size"

@@ -28,7 +28,7 @@ namespace bp = boost::python;
 
 struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
 
-    CustomBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
+    CustomBinAxis_wrapper(::std::string const & name, ::size_t nbins, double start, double end )
     : CustomBinAxis( name, nbins, start, end )
       , bp::wrapper< CustomBinAxis >(){
         // constructor
@@ -59,7 +59,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return CustomBinAxis::createClippedAxis( left, right );
     }
 
-    virtual ::Bin1D getBin( ::std::size_t index ) const  {
+    virtual ::Bin1D getBin( ::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
         else{
@@ -67,7 +67,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         }
     }
     
-    ::Bin1D default_getBin( ::std::size_t index ) const  {
+    ::Bin1D default_getBin( ::size_t index ) const  {
         return CustomBinAxis::getBin( index );
     }
 
@@ -107,7 +107,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return IAxis::createDoubleBinSize( );
     }
 
-    virtual ::std::size_t findClosestIndex( double value ) const  {
+    virtual ::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
         else{
@@ -115,7 +115,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         }
     }
     
-    ::std::size_t default_findClosestIndex( double value ) const  {
+    ::size_t default_findClosestIndex( double value ) const  {
         return VariableBinAxis::findClosestIndex( value );
     }
 
@@ -155,7 +155,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return VariableBinAxis::getMin( );
     }
 
-    virtual ::std::size_t getSize(  ) const  {
+    virtual ::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
         else{
@@ -163,7 +163,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         }
     }
     
-    ::std::size_t default_getSize(  ) const  {
+    ::size_t default_getSize(  ) const  {
         return VariableBinAxis::getSize( );
     }
 
@@ -175,7 +175,7 @@ void register_CustomBinAxis_class(){
 
     { //::CustomBinAxis
         typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis >, std::auto_ptr< CustomBinAxis_wrapper >, boost::noncopyable > CustomBinAxis_exposer_t;
-        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
         { //::CustomBinAxis::clone
         
@@ -204,8 +204,8 @@ void register_CustomBinAxis_class(){
         }
         { //::CustomBinAxis::getBin
         
-            typedef ::Bin1D ( ::CustomBinAxis::*getBin_function_type)( ::std::size_t ) const;
-            typedef ::Bin1D ( CustomBinAxis_wrapper::*default_getBin_function_type)( ::std::size_t ) const;
+            typedef ::Bin1D ( ::CustomBinAxis::*getBin_function_type)( ::size_t ) const;
+            typedef ::Bin1D ( CustomBinAxis_wrapper::*default_getBin_function_type)( ::size_t ) const;
             
             CustomBinAxis_exposer.def( 
                 "getBin"
@@ -251,8 +251,8 @@ void register_CustomBinAxis_class(){
         }
         { //::VariableBinAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type)( double ) const;
-            typedef ::std::size_t ( CustomBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
+            typedef ::size_t ( ::VariableBinAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::size_t ( CustomBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
             
             CustomBinAxis_exposer.def( 
                 "findClosestIndex"
@@ -296,8 +296,8 @@ void register_CustomBinAxis_class(){
         }
         { //::VariableBinAxis::getSize
         
-            typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type)(  ) const;
-            typedef ::std::size_t ( CustomBinAxis_wrapper::*default_getSize_function_type)(  ) const;
+            typedef ::size_t ( ::VariableBinAxis::*getSize_function_type)(  ) const;
+            typedef ::size_t ( CustomBinAxis_wrapper::*default_getSize_function_type)(  ) const;
             
             CustomBinAxis_exposer.def( 
                 "getSize"

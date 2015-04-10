@@ -37,7 +37,7 @@ public:
     static const QString P_NTHREADS;
     static const QString P_RUN_POLICY;
     explicit JobItem(ParameterizedItem *parent=0);
-    ~JobItem(){}
+    ~JobItem();
 
     QString getIdentifier() const;
     void setIdentifier(const QString &identifier);

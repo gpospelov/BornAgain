@@ -25,6 +25,7 @@
 #include "Utils.h"
 #include "PyGenTools.h"
 #include "mainwindow_constants.h"
+#include "PythonScriptWidget.h"
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -43,6 +44,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
+    , m_projectManager(0)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
@@ -96,10 +98,10 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     runSimulationButton->setMinimumHeight(50);
     runSimulationButton->setToolTip("Run the simulation using settings above.\n"
                                     " Global shortcut ctrl-r can be used to run from sample view.");
-    QPalette palette = runSimulationButton->palette();
-    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-    runSimulationButton->setPalette(palette);
+//    QPalette palette = runSimulationButton->palette();
+//    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+//    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+//    runSimulationButton->setPalette(palette);
 
     // export simulation to a python script
     exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
@@ -108,7 +110,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     exportToPyScriptButton->setMinimumHeight(50);
     exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
                                        "a python script.\n");
-    exportToPyScriptButton->setPalette(palette);
+//    exportToPyScriptButton->setPalette(palette);
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);
@@ -174,6 +176,11 @@ int SimulationSetupWidget::getSampleCurrentIndex() const
     return sampleSelectionBox->currentIndex();
 }
 
+void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
+{
+    m_projectManager = projectManager;
+}
+
 void SimulationSetupWidget::updateViewElements()
 {
     updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
@@ -229,14 +236,10 @@ void SimulationSetupWidget::onExportToPythonScript()
         return;
     }
 
-    Simulation *simulation(0);
-    try{
-        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
-    } catch(const std::exception &ex) {
-        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
-        return;
-    }
-    exportSimulation(simulation);
+    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this, m_projectManager);
+    pythonWidget->show();
+    pythonWidget->raise();
+    pythonWidget->generatePythonScript(sampleModel, instrumentModel);
 }
 
 void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
@@ -307,7 +310,7 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 //    if(samples[getSampleSelection()]) {
 //        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
 //    }
-    // there can be several instruments with same name
+    // there can be several samples with same name
     if(samples[getSampleSelection()]) {
         int index = getSampleCurrentIndex();
         QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
@@ -315,28 +318,4 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
     }
     return result;
 }
-
-void SimulationSetupWidget::exportSimulation(Simulation *simulation)
-{
-    Q_ASSERT(simulation);
-    qDebug() << "SimulationSetupWidget::exportSimulation(const Simulation*)";
-    QString default_path = QDir::homePath();
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), default_path,
-                            tr("Python scipts (*.py)"), 0,
-                            QFileDialog::DontResolveSymlinks);
-    qDebug() << file_name;
-    QFile file(file_name);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "SimulationSetupWidget::exportSimulation: Error! Can't save file";
-        QMessageBox warning_dialog(this);
-        warning_dialog.setIcon(QMessageBox::Warning);
-        warning_dialog.setText(tr("File could not be opened for writing!"));
-        warning_dialog.exec();
-        return;
-    }
-    QTextStream out(&file);
-    out << PyGenTools::genPyScript(simulation).c_str();
-    file.close();
-}
-
 

@@ -3,8 +3,7 @@ Simulation demo: movie of growing particles on substrate
 '''
 
 import os, sys, numpy, pylab, matplotlib
-
-from libBornAgainCore import *
+from bornagain import *
 
 Nframes = 50
 

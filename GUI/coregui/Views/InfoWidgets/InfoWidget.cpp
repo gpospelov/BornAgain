@@ -91,7 +91,8 @@ void InfoWidget::onDockVisibilityChange(bool is_visible)
         if(!is_visible) {
             m_pySampleWidget->disableEditor();
         } else {
-            m_pySampleWidget->scheduleUpdate();
+            //m_pySampleWidget->scheduleUpdate();
+            m_pySampleWidget->enableEditor();
         }
     }
 

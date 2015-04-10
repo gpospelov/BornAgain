@@ -115,13 +115,13 @@ void PySampleWidget::setInstrumentModel(InstrumentModel *instrumentModel)
 
 void PySampleWidget::onModifiedRow(const QModelIndex &, int, int)
 {
-    if(m_sampleModel->getSampleMap().empty()) return;
+    //if(m_sampleModel->getSampleMap().empty()) return;
     scheduleUpdate();
 }
 
 void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    if(m_sampleModel->getSampleMap().empty()) return;
+    //if(m_sampleModel->getSampleMap().empty()) return;
     scheduleUpdate();
 }
 

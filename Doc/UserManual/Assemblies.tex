@@ -327,11 +327,11 @@ Figure~\ref{fig:spheroidbadwba} shows the intensity contour plot generated using
 
 \newpage
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born (BA) or Distorted Wave Born Approximation (DWBA). The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born (BA) or distorted-wave Born approximation (DWBA). The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
 def get_sample():
     """
     Build and return the sample to calculate form factor of 
-    truncated spheroid in Born or Distorted Wave Born Approximation.
+    truncated spheroid in Born or distorted-wave Born Approximation.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)

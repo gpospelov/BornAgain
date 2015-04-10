@@ -17,6 +17,7 @@
 \def\r{\v{r}}
 \def\k{\v{k}}
 \def\rD{\r_{\rm D}}
+\def\rS{\r_{\rm S}}
 \def\kD{\k_{\rm D}}
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
@@ -42,9 +43,10 @@ polarized neutrons are discussed in Sect.~\ref{Snpol}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron wave propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Wave propagation!neutrons}
-\index{Neutrons!wave propagation}
+\index{Wave propagation!neutrons|(}
+\index{Neutrons!wave propagation|(}
 
+\index{Schrodinger@Schrödinger equation!microscopic}
 We start from the Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
@@ -57,7 +59,8 @@ In consequence, we have a stationary wave function
 \begin{equation}\label{Estationarywave}
   \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
 \end{equation}
-\index{Sign convention}
+\index{Wave propagation!sign convention}
+\index{Sign convention!wave propagation}
 \index{Quantum-mechanical sign convention}
 \index{Crystallographic sign convention}
 The minus sign in the exponent of the phase factor
@@ -74,10 +77,10 @@ throughout the source code as well as in this manual.
 Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
 we obtain the stationary Schrödinger equation
 \begin{equation}\label{EstatSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r,t) = 0.
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
 \end{equation}
-\index{Potential|see Optical potential}
-\index{Optical potential!nuclear}
+\index{Potential|see {Optical potential}}
+\index{Optical potential!nuclear (microscopic)}
 \index{Nuclear optical potential}
 \index{Microscopic optical potential}
 The \textit{nuclear} (or \textit{microscopic})
@@ -85,6 +88,7 @@ The \textit{nuclear} (or \textit{microscopic})
 in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
 consists of a sum of delta functions,
 representing Fermi's ``pseudopotential''.
+\index{Fermi's pseudopotential}
 The superposition of the incident wave with the scattered waves
 originating from each illuminated nucleus
 results in \textit{coherent forward scattering},%
@@ -103,21 +107,24 @@ Therefore,
 we can neglect the atomic structure of $V(\r)$,
 and perform some \textit{coarse graining} to
 arrive at a \textit{continuum approximation}.%
-\index{Continuum approximation}
+\index{Continuum approximation!neutron propagation}
 This is 
 similar to the passage from
 the microscopic to the macroscopic Maxwell equations.
-The details are intricate \cite{Sea89,Lax51}.
-As a result \cite[eq.~2.8.32]{Sea89},
-the stationary Schrödinger equation can be rewritten as
+The details are intricate \cite{Sea89,Lax51},
+but the result \cite[eq.~2.8.32]{Sea89} looks very simple:
+The macroscopic field equation
+has still the form of a stationary Schrödinger equation,
+\index{Schrodinger@Schrödinger equation!macroscopic}
 \begin{equation}\label{EmacrSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r,t) = 0,
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r) = 0,
 \end{equation}
 where $\Psi$ now stands for the coherent superposition of
 incident and forward scattered states,
-and $v(\r)$ is the \textit{macroscopic optical potential},%
-\index{macroscopic optical potential}
-which is weak, and slowly varying compared to atomic length scales.
+and $v(\r)$ is the \textit{macroscopic optical potential}.%
+\index{Optical potential!macroscopic}
+\index{Macroscopic optical potential}
+This potential is weak, and slowly varying compared to atomic length scales.
 It can be rewritten in a number of ways,
 especially in terms of a
 \textit{bound scattering length density}%
@@ -128,8 +135,8 @@ $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
   v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),  
 \end{equation}
 or of a \textit{refractive index}~$n(\r)$%
-\index{Refractive index}
-\index{Index of refraction|see Refractive index}
+\index{Refractive index} % !vs scattering length density}
+\index{Index of refraction|see {Refractive index}}
 with
 \begin{equation}\label{EnRefrIndx}
   n(\r)^2=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
@@ -149,11 +156,11 @@ In terms of $K$ and $n$,
 the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
 can be rewritten as
 \begin{equation}\label{EnSchrodi}
-  \left\{\Nabla^2+K^2n(\vect{r})^2\right\}\Psi(\vect{r}).
+  \left\{\Nabla^2+K^2n(\r)^2\right\}\Psi(\r) = 0.
 \end{equation}
 
-%\index{Wave propagation|)}
-
+\index{Wave propagation!neutrons|)}
+\index{Neutrons!wave propagation|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}
@@ -170,66 +177,70 @@ who devised it for the scattering of sound,
 and later also applied it to electromagnetic waves.
 
 %===============================================================================
-\subsection{The Born expansion}
+\subsection{The Born expansion}\label{SBorn}
 %===============================================================================
+
+\index{Born approximation|(}
 
 We rewrite the Schrödinger equation~(\ref{EnSchrodi})
 once more so that it takes the form of a Helmholtz equation
+\index{Helmholtz equation}
 with a perturbation term on the right side:
-\begin{equation}\label{EinhomoSchrodi}
-  \left(\Nabla^2+K^2\right)\Psi(\vect{r})
-  = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
+\begin{equation}\label{ESchrodiHelmholtz}
+  \left(\Nabla^2+K^2\right)\Psi(\r)
+  = \frac{\chi(\r)}{4\pi}\Psi(\r)
 \end{equation}
 with
 \begin{equation}\label{EChiDef}
-  \chi(\vect{r}) := \frac{4\pi}{K^2}\left(1-n^2(\vect{r})\right).
+  \chi(\r) := \frac{4\pi}{K^2}\left(1-n^2(\r)\right).
 \end{equation}
 This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
-Equation~(\ref{EinhomoSchrodi}) looks
+Equation~(\ref{ESchrodiHelmholtz}) looks
 like an inhomogenous differential equation ---
-provided we neglect for a moment that unknown function~$\Psi$
+provided we neglect for a moment that the unknown function~$\Psi$
 reappears on the right side.
 The homogeneous equation
 \begin{equation}\label{EHelmholtzHomog}
-  \left(\Nabla^2+K^2\right)\Psi_0(\vect{r}) = 0
+  \left(\Nabla^2+K^2\right)\Psi_0(\r) = 0
 \end{equation}
 is solved by plane waves and superpositions thereof.
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
-  \left(\Nabla^2+K^2\right)G(\vect{r}) = \delta(\vect{r})
+  \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
 \end{equation}
+\index{Green function!homogeneous material}
 is solved by the Green function\footnote
-{Verification under the condition $\vect{r}\ne0$
+{Verification under the condition $\r\ne0$
 is a straightforward exercice in vector analysis.
-For the special case $\vect{r}=0$,
+For the special case $\r=0$,
 one encloses the origin in a small sphere
 and integrates by means of the Gauss-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
 \begin{equation}\label{EGreens1}
-  G(\vect{r}) = \frac{{\rm e}^{iKr}}{4\pi r},
+  G(\r,\r') = \frac{{\rm e}^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
-which is an outgoing spherical wave originating from $\vect{r}=0$.
+which is an outgoing spherical wave centered at $\r'$.
 Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
 we obtain the formal solution
-of the full inhomogeneous equation~(\ref{EHelmholtzInhomog})
+of the full inhomogeneous equation~(\ref{ESchrodiHelmholtz})
 \begin{equation}\label{EPsiFormal}
-  \Psi(\vect{r})
-  = \Psi_0(\vect{r})
-  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})
-                     \frac{\chi(\vect{r'})}{4\pi}\Psi(\vect{r'}).
+  \Psi(\r)
+  = \Psi_0(\r)
+  + \int\!{\rm d}^3r' G(\r,\r')
+                     \frac{\chi(\r')}{4\pi}\Psi(\r').
 \end{equation}
 However, the integral kernel still contains the full solution~$\Psi$.
 If we replace this occurence of $\Psi$
 by the full right-hand side of~(\ref{EPsiFormal})
 we obtain
 \begin{equation}
-  \Psi(\vect{r})
-  = \Psi_0(\vect{r})
-  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})\frac{\chi(\vect{r'})}{4\pi}
-  \left(\Psi_0(\vect{r'})
-  + \int\,{\rm d}^3r''
-  G(\vect{r'}-\vect{r''})\frac{\chi(\vect{r''})}{4\pi}
-  \Psi(\vect{r''})\right).
+  \Psi(\r)
+  = \Psi_0(\r)
+  + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
+  \left(\Psi_0(\r')
+  + \int\!{\rm d}^3r''
+  G(\r'-\v{r''})\frac{\chi(\v{r''})}{4\pi}
+  \Psi(\v{r''})\right).
 \end{equation}
 This can be iterated to obtain an infinite series representation of $\Psi$.
 Successive terms in this series contain rising powers of $\chi$.
@@ -237,91 +248,113 @@ Since $\chi$ is assumed to be small, the series is likely to converge.
 In first Born approximation,
 only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
-  \Psi(\vect{r})
-  \simeq \Psi_0(\vect{r})
-  + \int\,{\rm d}^3r' G(\vect{r}-\vect{r'})\frac{\chi(\vect{r'})}{4\pi}
-   \Psi_0(\vect{r'}).
+  \Psi(\r)
+  \doteq \Psi_0(\r)
+  + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
+   \Psi_0(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
 where the aim is to 
-deduce $\chi(\vect{r'})$ from the scattered intensity ${|\Psi(\vect{r})|}^2$.
+deduce $\chi(\r')$ from the scattered intensity ${|\Psi(\r)|}^2$.
+
+\index{Born approximation|)}
 
 %===============================================================================
-\subsection{Far-field expansion}
+\subsection{Far-field approximation}
 %===============================================================================
+
+\index{Far-field approximation|(}
 
 In a scattering experiment,
-the intensity ${|\Psi(\vect{r})|}^2$ is measured
-at a detector location~$\vect{r}$
+the intensity ${|\Psi(\r)|}^2$ is measured
+at a detector location~$\r$
 far away from the sample volume.
 We choose the coordinate origin at the nominal center of the sample
-so that the integral in~(\ref{EBorn}) runs over $\vect{r'}$ with $r'\ll r$.
+so that the integral in~(\ref{EBorn}) runs over $\r'$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
-  \left|\vect{r}-\vect{r'}\right|
-  \simeq \sqrt{r^2-2\vect{r}\,\vect{r'}}
-  \simeq r - \frac{\vect{r}\,\vect{r'}}{r}
-  \equiv r - \frac{\vect{k}_f \vect{r'}}{K},
+  \left|\r-\r'\right|
+  \doteq \sqrt{r^2-2\r\,\r'}
+  \doteq r - \frac{\r\,\r'}{r}
+  \equiv r - \frac{\k_{\rm f} \r'}{K},
 \end{equation}
 where we have introduced the outgoing wave vector
 \begin{equation}
-  \vect{k}_f:=K\frac{\vect{r}}{r}.
+  \k_{\rm f}:=K\frac{\r}{r}.
 \end{equation}
 We apply this to the Green function~(\ref{EGreens1}),
-retaining the first order in $\vect{r'}$ in the exponent,
+\index{Green function!homogeneous material}
+retaining the first order in $\r'$ in the exponent,
 but not in the denominator:
-\begin{equation}
-  G(\vect{r}-\vect{r'})
-  \simeq\frac{{\rm e}^{iKr - i\vect{k}_f \vect{r'}}}{4\pi r}.
+\begin{equation}\label{EGreenFar}
+  G(\r,\r')
+  \doteq\frac{{\rm e}^{iKr}}{4\pi r}{\rm e}^{-i\k_{\rm f} \r'}.
 \end{equation}
-This is an outgoing spherical wave with respect to $\vect{r}$,
-but a plane wave with respect to~$\vect{r'}$.
-If the incident radiation is also a plane wave,
+This is an outgoing spherical wave with respect to $\r$,
+but a plane wave with respect to~$\r'$.
+
+At this point we introduce the standard assumption
+that the incident radiation is also a plane wave,
 \begin{equation}\label{EPsi0Plane}
-  \Psi_0(\vect{r})={\rm e}^{i \vect{k}_i \vect{r}},
+  \Psi_0(\r)={\rm e}^{i \k_{\rm i} \r}.
 \end{equation}
-then the Born approximation~(\ref{EBorn})
-becomes essentially a Fourier transform of $\chi$,
-  \index{Fourier transform}
-\begin{equation}\label{EBornPlane}
-  \Psi(\vect{r})
-  \simeq \Psi_0(\vect{r})
+Then 
+the perturbation $\chi(\r)$ becomes sandwiched between two plane waves
+in the integrand of~(\ref{EBorn})
+\begin{equation}\label{Esandwich}
+  \Psi(\r)
+  \doteq \Psi_0(\r)
   + \frac{{\rm e}^{iKr}}{r}
-    \int\,{\rm d}^3r' {\rm e}^{i\vect{q}\,\vect{r'}}\chi(\vect{r'})
+    \int\!{\rm d}^3r'
+    {\rm e}^{i\k_{\rm i}\r'}\chi(\r'){\rm e}^{-i\k_{\rm f}\r'}.
 \end{equation}
-with the \textit{scattering vector}
+Writing this in more compact form as
+\begin{equation}\label{EBornPlane}
+  \Psi(\r)
+  \doteq \Psi_0(\r)
+  + \frac{{\rm e}^{iKr}}{r}
+    \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r'),
+\end{equation}
+it becomes clear that neutron scattering,
+in first-order Born approximation,
+measures the Fourier transform
+of the optical potential
+\index{Optical potential!Fourier transform}
+with respect to the \textit{scattering vector}
 \index{Scattering vector}
 \begin{equation}
-  \vect{q}:=\vect{k}_i-\vect{k}_f.
+  \v{q}:=\k_{\rm i}-\k_{\rm f}.
 \end{equation}
+
+\index{Far-field approximation|)}
 
 %===============================================================================
 \subsection{Differential cross section}
 %===============================================================================
 
 Above, we said somewhat sloppily
-that a scattering experiment measures intensities~${|\Psi(\vect{r}|}^2$.
+that a scattering experiment measures intensities~${|\Psi(\r)|}^2$.
 We shall now make this more rigorous.
 In the case of neutron scattering,
 one actually measures the probability flux.
 We define it in arbitrary relative units as
 \begin{equation}
-  \vect{J} := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
+  \v{J}(\r) := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
 \end{equation}
 With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
-  \vect{J}_0 = \vect{k}_i.
+  \v{J}_0 = \k_{\rm i}.
 \end{equation}
 The scattered wavefield (\ref{EBornPlane}) is observed
-at a detector position $\vect{r}$ that is not illuminated by the
-incident beam, hence $\Psi_0(\vect{r})=0$.
+at a detector position $\r$ that is not illuminated by the
+incident beam, hence $\Psi_0(\r)=0$.
 This leaves us with
 \begin{equation}
-  \vect{J}(\vect{r})
+  \v{J}(\r)
   = {\left|\frac{1}{r}
-    \int\,{\rm d}^3r' {\rm e}^{i\vect{q}\,\vect{r'}}\chi(\vect{r'})
-    \right|}^2 K\frac{\vect{r}}{r}.
+    \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r')
+    \right|}^2 K\frac{\r}{r}.
 \end{equation}
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
@@ -330,98 +363,287 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
   \index{Differential cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  := \frac{r^2 J(\vect{r})}{J_0}.
+  := \frac{r^2 J(\r)}{J_0}.
 \end{equation}
-Using $k_i=K$ and changing notation $\vect{r'}\to\vect{r}$,
+Using $k_{\rm i}=K$ and changing notation $\r'\to\r$,
 we find
-\begin{equation}
+\begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   = {\left|
-    \int\,{\rm d}^3r {\rm e}^{i\vect{q}\,\vect{r}}\chi(\vect{r})
-    \right|}^2 =: {\left| \chi(\vect{q}) \right|}^2
+    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r)
+    \right|}^2 =: {\left| \chi(\v{q}) \right|}^2
 \end{equation}
-The differential cross section is just the squared modulus
-of the Fourier transform $\chi(\vect{q})$
+Thus the differential cross section is just the squared modulus
+of the Fourier transform $\chi(\v{q})$
 \index{Fourier transform}
 of the scattering-length distribution~(\ref{EChiDef}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Distorted Wave Born Approximation}\label{Sdwba}
+\section{Scattering from layered structures}\label{Sdwba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Distorted wave Born approximation}
-\index{DWBA|see {Distorted wave Born approximation}}
 
-As we have seen
-the Born approximation relies on plane waves,
-which basically means that incoming and scattered radiation
-are assumed to propagate along straight lines,
-with directions expressed by $\vect{k}_i$ and $\vect{k}_f$.
-This is adequate for most experiments with weakly interacting radiation,
-and especially for most X-ray and neutron scattering techniques,
-but not for grazing-incidence small-angle scattering
-where radiation is refracted and reflected by interfaces
- \index{Refraction}
- \index{Reflection}
-and therefore does not propagate along straight lines.
-The Born approximation also fails for collisions of charged particles.
-For them, Massey and Mott devised in the early 1930s
-the distorted wave Born approximation (DWBA).
-% Schiff (^3 1968, p 327) cites
-% Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
-% There are also several papers by Massey and Mott from about 1933.
-A particularly simple variant of this approximation
-is routinely used to account for refraction and reflection
-in grazing-incidence scattering.
+%===============================================================================
+\subsection{Wave propagation in layered structures}
+%===============================================================================
 
-In reflectometry or grazing-incidence scattering,
-samples are usually modelled as being translationally invariant
+Reflectometry and grazing-incidence scattering
+are designed for the investigatation of surfaces, interfaces, and thin layers.
+Such samples can typically be modelled as translationally invariant
 in $x$ and $y$ direction,
 while being nontrivially modulated in $z$ direction.
 The $z$ axis points upwards, hence out of the sample towards the
-air or vacuum half space where the incident radiation comes from.
+vacuum (or air) half space where the incident radiation comes from.
 % TODO: add figure
 
-Refraction and reflection are caused by vertical variations
-of the average refractive index $\nz(z)$.
-We rewrite the Helmholtz equation~(\ref{EHelmholtzInhomog} as
+Vertical modulations of the refractive index $n(\r)$
+cause refraction and reflection of an incident plane wave.
+\index{Glancing angle}
+\index{Refraction}
+\index{Reflection}
+For small glancing angles,
+these distortions can be arbitrary large,
+up to the limiting case of total reflection,
+even though $\delta n$ is only of the order $10^{-5}$ or smaller.
+Such zeroth-order effects cannot be accounted for
+by perturbative scattering theory.
+Instead, we need to deal with refraction and reflection
+at the level of the wave propagation equation.
+We move the vertical variations of the average refractive index $\nz(z)$
+to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
 \begin{equation}\label{EHelmholtzGraded}
-  \left(\Nabla^2+K^2\nz^2(z)\right)\Psi(\vect{r})
-  = \frac{\chi(\vect{r})}{4\pi}\Psi(\vect{r})
+  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi(\r)
+  = \frac{\chi(\r)}{4\pi}\Psi(\r),
 \end{equation}
-with (\ref{EChiDef}) replaced by
+whereas $\chi$, now defined as
 \begin{equation}\label{EChiGraded}
-  \chi(\vect{r}) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\vect{r})\right).
+  \chi(\r) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\r)\right),
 \end{equation}
-The homogeneous equation
+only accounts for horizontal fluctuations of the refractive index.
+Below, we will treat $\chi(\r)$ as a pertubative scattering term.
+Wave propagation, including refraction and reflection effects,
+obyes the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left(\Nabla^2+K^2\nz^2(z)\right)\Psi_0(\vect{r}) = 0
+  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_0(\r) = 0,
 \end{equation}
-suggests the ansatz
+which suggests the factorization ansatz
 \begin{equation}\label{Ewave3}
-\psi_0(\vect{r}) = {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel} \phi(z).
+\psi_0(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
-The in-plane wave vector $\vect{k}_\parallel$ remains constant
+The in-plane wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
 \begin{equation}\label{Ewavez}
-\left(\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right) \phi(z) = 0.
+\left\{\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
 \end{equation}
-Since we are describing scattering in continuum approximation anyway,
-we can safely assume that $\nz(z)$ varies only slowly on the length scale
-of the radiation wavelength.
-Therefore an appropriate ansatz is
+When an incident plane wave,
+travelling downwards with
+$\phi(z)={\rm e}^{-ik_\perp z}$,
+impinges on a sample with $\nz(z)\ne 1$,
+then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
+and partly refracted
+($k_\perp$ changing while $\k_\parallel$ stays constant,
+resulting in a change of glancing angle).
+Similarly, reflection and refraction occur
+whenever $\nz(z)$ varies within the sample.
+As a result, at any $z$ within the zone where $\nz(z)$ varies,
+the vertical wave function $\phi(z)$ is composed of a
+downward travelling component $\phi^-(z)$
+and an upward travelling component $\phi^+(z)$.
+
+For a graded interface, where $\nz$ is a smooth function of~$z$,
+the differential equation~(\ref{Ewavez}) is best solved
+with the WKB method.\footnote
+{Also called \textit{semiclassical approximation} or
+\textit{phase integral method},
+named WKB method after three independent papers by
+Wentzel (1926), Kramers (1926), Brillouin (1926),
+though actually introduced into quantum mechanics by Jeffreys (1923),
+and originally developped by Liouville (1837), Green (1837),
+and Lord Rayleigh (1912).}
+\index{WKB method}
+\index{Semiclassical approximation|see {WKB method}}
+\index{Phase integral method|see {WKB method}}
+If otherwise $\nz(z)$ is discontinuous at some interface $z=z_j$,
+then the limiting values of $\phi^-(z)$ and $\phi^+(z)$
+on approaching $z_j$ from above or below
+are connected to each other through Fresnel's
+transmission and reflection coefficients.
+
+%===============================================================================
+\subsection{Reciprocity and the distorted-wave Born approximation}
+%===============================================================================
+
+\index{Distorted-wave Born approximation|(}
+\index{DWBA|see {Distorted-wave Born approximation}}
+
+The standard form of the Born approximation,
+as presented in Sect.~\ref{SBorn},
+combines an approximation scheme
+(computing (\ref{EPsiFormal}) by iteration)
+with an assumption (the incident field is a plane wave)
+and an analytical result
+(in far-field approximation,
+the Green function of the Helmholtz equation is a plane wave
+with respect to the locus of scattering).
+These three elements must not necessarily go together.
+We can apply the very same approximation scheme,
+even if the incident field is not a plane wave,
+but a \textit{distorted wave},
+namely a superposition of downwards and upwards travelling plane waves,
+as derived in the previous section.
+This is the core idea
+of the \textit{distorted-wave Born approximation} (DWBA).\footnote
+{The distorted-wave Born approximation
+was originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.}
+% Schiff (^3 1968, p 327) cites
+% Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
+% There are also several papers by Massey and Mott from about 1933.
+
+There is one difficulty, though:
+how to substitute the Green function (\ref{EGreens1})?
+\index{Green function!vertically structured material}
+It was derived in Sect.~\ref{SBorn} quite specifically
+for a homogeneous material.
+Computing it in closed form for a more generic wave equation
+like~(\ref{EHelmholtzGradedHomog}) is far more difficult,
+if not outright impossible.
+Fortunately, we do not need the full Green function,
+and computing it would be wasted effort,
+because in the end
+we only need its asymptotic far-field value at a detector position $\rD$.
+Instead of propagating a field from a scattering center $\rS$
+into all directions, and finally evaluating a plane wave asymptote at~$\rD$,
+we better propagate a plane wave backwards from $\rD$
+into our structured material,
+and finally evaluate the field at~$\rS$.
+The equivalence of these two computations is ensured
+by the \textit{reciprocity}
+\index{Reciprocity|(}
+\index{Green function!reciprocity}
+of Green functions for self-adjungated differential equations.
+
+Let us derive the reciprocity theorem
+for a generic stationary Schrödinger equation
+with an isolated inhomogeneity,
+\begin{equation}\label{EgsSchrodi}
+  \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
+\end{equation}
+We assume that $\rS$ lies within a structured material~$\mathcal{M}$.
+Outside $\mathcal{M}$,
+the potential~$v(\r)$ has the constant value~$K^2$
+so that (\ref{EgsSchrodi})
+reduces to the Helmholtz equation
+\begin{equation}\label{EgsSchrodiHelmh}
+  \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0
+  \text{~~for~~}\r\notin\mathcal{M}.
+\end{equation}
+We introduce the adjungated Green function~$B$
+that originates from a source term at the detector location
+and obyes
+\begin{equation}\label{EgsSchrodiAdj}
+  \left\{\Nabla^2+v(\r)\right\}B(\r,\rD) = \delta(\r-\rD).
+\end{equation}
+We also introduce the auxiliary vector field
 \begin{equation}
-  \phi(z) = r(z){\rm e}^{ip(z)z} + t(z){\rm e}^{-ip(z)z}
+  \v{X}(\r,\rS,\rD):=B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
 \end{equation}
-with
+We inscribe $\mathcal{M}$, $\rD$, and the origin of the coordinate system
+into a sphere $\mathcal{V}$ with radius~$R$,
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+  \begin{array}{lcl}
+    I(\rS,\rD)
+  &=& \displaystyle\int_\mathcal{V}\!{\rm d}^3r\,\Nabla \v{X}(\r,\rS,\rD)
+  \\[1.8em]
+  &=& \displaystyle\int_\mathcal{V}\!{\rm d}^3r\,\left(
+    B\Nabla^2 G- G\Nabla^2 B \right)
+  \\[1.4em]
+  &=&  B(\rS,\rD) - G(\rD,\rS).
+  \end{array}
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
 \begin{equation}
-  p(z) := \sqrt{K^2\nz(z)^2 - k_\parallel^2}.
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}\v{\sigma}\,\v{X}(\r,\rS,\rD)
+  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}{\sigma}\,
+       \left(B\partial_R G - G\partial_R B\right).
 \end{equation}
-Since the incoming beam has a vertical component in direction $-z$,
-we identify $r(z)$ and $t(z)$
-as amplitudes of the backward-propagating (reflected)
-and forward-propagting (transmitted) beam, respectively.
+On the surface $\partial\mathcal{S}$, which lies outside $\mathcal{M}$,
+$B$ and $G$ are outgoing wave fields that obye the Helmholtz equation.
+Solutions of this equation in spherical coordinates
+have a well-known series expansion.
+We send $R\to\infty$ so that we need only to retain the lowest order,
+\begin{equation}
+   G(\r(R,\vartheta,\varphi),\rS)
+   \doteq \frac{{\rm e}^{iKR}}{4\pi R} g(\vartheta,\varphi),
+\end{equation}
+and similarly 
+\begin{equation}
+   G(\r(R,\vartheta,\varphi),\rD)
+   \doteq \frac{{\rm e}^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{equation}
+The functions $g$ and $b$ can be further expanded into spherical harmonics,
+but this is of no interest here.
+The decisive point is the factorisation of $G$ and $B$
+and their common $R$ dependence.
+It follow at once that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}\sigma\,
+       (\text{$R$-dependent})(bg-gb)
+  = 0.
+\end{equation}
+From (\ref{Eprerecipro}) we obtain the reciprocity theorem
+\begin{equation}
+  G(\rD,\rS) = B(\rS,\rD).
+\end{equation}
+To obtain the forward-propagating Green function~$G$,
+it is sufficient to determine the adjungate Green function~$B$
+that traces a neutron back from the detector position~$\rD$
+to a scattering center~$\rS$.
+\index{Reciprocity|)}
+
+Choosing the origin inside~$\mathcal{M}$, 
+and assuming that $\rD$ lies far outside~$\mathcal{M}$,
+we can copy the far-field expansion from~(\ref{EGreenFar}):
+\begin{equation}\label{EGreenFar}
+  B(\r,\rD)
+  \doteq\frac{{\rm e}^{iKr_{\rm D}}}{4\pi r_{\rm D}}{\rm e}^{-i\k_{\rm f} \r}.
+\end{equation}
+When this backward propagating plane waves impinges on the sample,
+it undergoes reflection and refraction in exactly the same way as
+the incident plane wave ${\rm e}^{i\k_{\rm i}\r}$.
+
+Coming back to the approximation scheme of the Born expansion,
+we can copy the first-order result (\ref{Esandwich}),
+except that we must replace ${\rm e}^{i\k_{\rm i}\r}$ by
+\begin{equation}
+  \Psi_{\rm i}(\r)
+   = {\rm e}^{i \k_\parallel \r_\parallel}
+     \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right),
+\end{equation}
+and ${\rm e}^{-i\k_{\rm f}\r}$ by
+\begin{equation}
+  \Psi_{\rm f}^*(\r)
+   = {\rm e}^{-i \k_\parallel \r_\parallel}
+     \left(\phi^{+*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right).
+\end{equation}
+Accordingly, the differential cross section (\ref{Ecross1}) becomes
+in distorted-wave Born approximation
+\begin{equation}\label{Ecross2}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  = {\left|
+    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
+    \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right)
+    \chi(\r)
+    \left(\phi^{-*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right)
+    \right|}^2.
+\end{equation}
+
+
+\index{Distorted-wave Born approximation|)}
 
 %===============================================================================
 \subsection{Multilayer systems}
@@ -431,60 +653,60 @@ In multilayer systems, the first term of (\ref{Etdwba}) denotes the specular par
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
-  V_1 & = K^2\left( 1-n_0^2(\vect{r})\right)  \\
-  V_2 & = \sum_i K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right) S^i(\vect{r}) \otimes \delta(\vect{r}-\vect{R}^i),
+  V_1 & = K^2\left( 1-n_0^2(\r)\right)  \\
+  V_2 & = \sum_i K^2\left( n_0^2(\r^i) - n_i^2 \right) S^i(\r) \otimes \delta(\r-\r^i),
 \end{align*}
-where $n_0(\vect{r})$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\vect{R}^i$.
+where $n_0(\r)$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\r^i$.
 
 For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, one only needs the unperturbed solutions in layer $j$:
 \begin{align*}
-  \braketnoop{\vect{r}}{\Psi^+_{1k_i}} &= (2\pi)^{-3/2}\left[ R_j(\vect{k}_i) e^{i \vect{k}_{j,R}(\vect{k}_i)\cdot\vect{r}} + T_j(\vect{k}_i) e^{i \vect{k}_{j,T}(\vect{k}_i)\cdot\vect{r}} \right] \\
-  \braketnoop{\Psi^-_{1k_f}}{\vect{r}} &= (2\pi)^{-3/2}\left[ R_j(-\vect{k}_f) e^{i \vect{k}_{j,R}(-\vect{k}_f)\cdot\vect{r}} + T_j(-\vect{k}_f) e^{i \vect{k}_{j,T}(-\vect{k}_f)\cdot\vectr} \right].
+  \braketnoop{\r}{\Psi^+_{1k_{\rm i}}} &= (2\pi)^{-3/2}\left[ R_j(\k_{\rm i}) e^{i \k_{j,R}(\k_{\rm i})\cdot\r} + T_j(\k_{\rm i}) e^{i \k_{j,T}(\k_{\rm i})\cdot\r} \right] \\
+  \braketnoop{\Psi^-_{1k_{\rm f}}}{\r} &= (2\pi)^{-3/2}\left[ R_j(-\k_{\rm f}) e^{i \k_{j,R}(-\k_{\rm f})\cdot\r} + T_j(-\k_{\rm f}) e^{i \k_{j,T}(-\k_{\rm f})\cdot\vectr} \right].
 \end{align*}
 
 The off-specular contribution to the scattering amplitude then becomes:
 \begin{align*}
-  f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_iT_fe^{i(\vectk_{j,i}-\vectk_{j,f})\cdot\vectr} + R_iT_fe^{i(\vectkt_{j,i}-\vectk_{j,f})\cdot\vectr} \\
-   & + T_iR_fe^{i(\vectk_{j,i}-\vectkt_{j,f})\cdot\vectr} + R_iR_fe^{i(\vectkt_{j,i}-\vectkt_{j,f})\cdot\vectr} \biggr],
+  f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_{\rm i}T_{\rm f}e^{i(\k_{j,i}-\k_{j,f})\cdot\vectr} + R_{\rm i}T_{\rm f}e^{i(\k t_{j,i}-\k_{j,f})\cdot\vectr} \\
+   & + T_{\rm i}R_{\rm f}e^{i(\k_{j,i}-\k t_{j,f})\cdot\vectr} + R_{\rm i}R_{\rm f}e^{i(\k t_{j,i}-\k t_{j,f})\cdot\vectr} \biggr],
 \end{align*}
 where the following shorthand notations were used:
 \begin{align*}
-  T_i &\equiv  T_j(\vect{k}_i) & R_i &\equiv  R_j(\vect{k}_i)  \\
-  T_f &\equiv  T_j(-\vect{k}_f) & R_f &\equiv  R_j(-\vect{k}_f) \\
-  \vectk_{j,i} &\equiv \vectk_{j,T}(\vectk_i) & \vectkt_{j,i} &\equiv \vectk_{j,R}(\vectk_i)  \\
-  \vectk_{j,f} &\equiv -\vectk_{j,T}(-\vectk_f) & \vectkt_{j,f} &\equiv -\vectk_{j,R}(-\vectk_f).
+  T_{\rm i} &\equiv  T_j(\k_{\rm i}) & R_{\rm i} &\equiv  R_j(\k_{\rm i})  \\
+  T_{\rm f} &\equiv  T_j(-\k_{\rm f}) & R_{\rm f} &\equiv  R_j(-\k_{\rm f}) \\
+  \k_{j,i} &\equiv \k_{j,T}(\k_{\rm i}) & \k t_{j,i} &\equiv \k_{j,R}(\k_{\rm i})  \\
+  \k_{j,f} &\equiv -\k_{j,T}(-\k_{\rm f}) & \k t_{j,f} &\equiv -\k_{j,R}(-\k_{\rm f}).
 \end{align*}
 
 From this expression, one sees that the scattering amplitude consists of a weighted sum of Fourier transforms of the potential $V_2$. Using
 \begin{equation*}
-  V_2(\vectr) = \sum_i 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \vect{R}^i),
+  V_2(\vectr) = \sum_{\rm i} 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \r^i),
 \end{equation*}
-with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\vect{R}^i) - n_i^2 \right)/4\pi$, the scattering amplitude becomes
+with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\r^i) - n_{\rm i}^2 \right)/4\pi$, the scattering amplitude becomes
 \begin{equation*}
-  f(\theta, \phi) = -\sum_i  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\vectk_{j,i},\vectk_{j,f},\vect{R}^i_z)e^{i(\vectk_{j,i\parallel}-\vectk_{j,f\parallel})\cdot \vect{R}^{i\parallel} },
+  f(\theta, \phi) = -\sum_{\rm i}  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\k_{j,i},\k_{j,f},\r^i_z)e^{i(\k_{j,i\parallel}-\k_{j,f\parallel})\cdot \r^{i\parallel} },
 \end{equation*}
 with
 \begin{align*}
-  \curlf^i_\text{DWBA}(\vectk_i,\vectk_f,R_z) & \equiv T_iT_fF^i(\vectk_i-\vectk_f)e^{i(k_{iz}-k_{fz})R_z} + R_iT_fF^i(\vectkt_i-\vectk_f)e^{i(-k_{iz}-k_{fz})R_z} \\
-  & + T_iR_fF^i(\vectk_i-\vectkt_f)e^{i(k_{iz}+k_{fz})R_z} + R_iR_fF^i(\vectkt_i-\vectkt_f)e^{i(-k_{iz}+k_{fz})R_z},
+  \curlf^i_\text{DWBA}(\k_{\rm i},\k_{\rm f},R_z) & \equiv T_{\rm i}T_{\rm f}F^i(\k_{\rm i}-\k_{\rm f})e^{i(k_{iz}-k_{fz})R_z} + R_{\rm i}T_{\rm f}F^i(\k t_{\rm i}-\k_{\rm f})e^{i(-k_{iz}-k_{fz})R_z} \\
+  & + T_{\rm i}R_{\rm f}F^i(\k_{\rm i}-\k t_{\rm f})e^{i(k_{iz}+k_{fz})R_z} + R_{\rm i}R_{\rm f}F^i(\k t_{\rm i}-\k t_{\rm f})e^{i(-k_{iz}+k_{fz})R_z},
 \end{align*}
 
 TO MERGE IN:
 In the DWBA, the form factor of a particle in a multilayer system is given by
 \begin{align}
-F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
+F_{\rm{DWBA}} (\k_{\rm i},\k_{\rm f}, r_z) & = T_{\rm i} T_{\rm f} F_{\rm{BA}} (\k_{\rm i}-\k_{\rm f}) e^{i (k_{i,z}-k_{f,z}) r_z} + R_{\rm i} T_{\rm f} F_{\rm{BA}}(\v{\widetilde{k}}_{\rm i}-\k_{\rm f}) e^{i(-k_{i,z}-k_{f,z})r_z}
  \nonumber \\
-  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
+  &+ T_{\rm i} R_{\rm f} F_{\rm{BA}}(\k_{\rm i}-\v{\widetilde{k}}_{\rm f})e^{i(k_{i,z}+k_{f,z})r_z} + R_{\rm i}R_{\rm f}F_{\rm{BA}} (\v{\widetilde{k}}_{\rm i}-\v{\widetilde{k}}_{\rm f})e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
 \end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\k_{\rm i}=(k_{i,x}, k_{i,y}, k_{i,z})$ $\k_{\rm f}=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
 With a tilde (\~{}), these wave vectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
-$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
+$T_{\rm i}$, $T_{\rm f}$, $R_{\rm i}$, $R_{\rm f}$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\k_{\rm i}-\k_{\rm f}$ is equal to the scattering vector $\v{q}$ and the $z$-axis is pointing upwards.\\
 
 With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
-  & \left\langle \frac{d\sigma}{d\Omega}(\vectk_i,\vectk_f) \right\rangle_{\text{Off-specular}}  \\
-  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\vectk_{j,i},\vectk_{j,f}, R_{\alpha,z})\curlf_\beta^*(\vectk_{j,i},\vectk_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2\vect{R}_\alpha^\parallel d^2\vect{R}_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\vect{q}_{j\parallel}\cdot (\vect{R}_\alpha^\parallel - \vect{R}_\beta^\parallel ) \right].
+  & \left\langle \frac{d\sigma}{d\Omega}(\k_{\rm i},\k_{\rm f}) \right\rangle_{\text{Off-specular}}  \\
+  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
+  & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
 \end{align*}
 
 The main differences with respect to the cross-section in the Born approximation are:
@@ -512,10 +734,10 @@ The main differences with respect to the cross-section in the Born approximation
 \section{TO RECYCLE}
 %===============================================================================
 
-Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\vect{r})$, positions $\vect{R}^i$ and scattering length density $\rho_s$ (relative to the ambient material).
+Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\r)$, positions $\r^i$ and scattering length density $\rho_s$ (relative to the ambient material).
 
 The differential cross-section (per scattering center) is then given by:
 \begin{equation}\label{Exsec1}
-  \frac{d\sigma}{d\Omega}(\vect{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\vect{r}) e^{i\vect{q}\cdot\vect{r}} d^3\vect{r} \right\rvert ^2.
+  \frac{d\sigma}{d\Omega}(\v{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\r) e^{i\v{q}\cdot\r} d^3\r \right\rvert ^2.
 \end{equation}
 

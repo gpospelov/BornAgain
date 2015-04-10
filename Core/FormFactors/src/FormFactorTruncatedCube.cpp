@@ -123,7 +123,7 @@ complex_t FormFactorTruncatedCube::FormFactorVertex(const cvector_t& q) const
                 else
                 {
                     if (std::abs(qx) <= Numeric::double_epsilon)
-
+                   {
                          ecke = - expiqyhL*(
                                      qy*t + 2.*im + std::exp(-im*qy*t)*(qy*t - 2.*im)
                                      )/(qy*qy*qy);
@@ -156,7 +156,7 @@ complex_t FormFactorTruncatedCube::FormFactorVertex(const cvector_t& q) const
                                  - qz/(qy*(qy + qz))*std::exp(-.5*im*qy*t)*MathFunctions::Sinc(.5*(qx - qy)*t)
                                  - std::exp(.5*im*qz*t)*MathFunctions::Sinc(.5*(qx + qz)*t)/(qy + qz)
                                  );
-                  }
+                   }
                  }
         }
     }

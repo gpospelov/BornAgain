@@ -42,6 +42,7 @@
 #include "FormFactorSphereUniformRadius.h"
 #include "FormFactorTetrahedron.h"
 #include "FormFactorTrivial.h"
+#include "FormFactorTruncatedCube.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
 #include "FormFactorWeighted.h"

@@ -1393,8 +1393,7 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 \paragraph{Parameters}
 \begin{itemize}
 \item side length $L$ of the full cube, 
-\item side length $t$ of the trirectangular tetrahedron to be removed from the cube's vertices, 
-
+\item side length $t$ of the trirectangular tetrahedron to be removed from the cube's vertices
 \end{itemize}
 
 \paragraph{Restriction on the parameters:} $t < \frac{L}{2} $.
@@ -1406,12 +1405,12 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 \end{itemize}
 
 \paragraph{Form factor}
-The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see \SecRef{Box}) minus the form factors of the eight trirectangular tetrahedrons.
+The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see \SecRef{Box}) minus the form factors of the eight trirectangular tetrahedrons \cite{HeSS74}.
 
 \begin{equation*}
 F(\mathbf{q},t) =F_{\rm{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\rm{vertex}_i}(q_x, q_y, q_z, L, t)
 \end{equation*}
-where, thanks to symmetries of the particle's shape (see figure):
+where, thanks to symmetries of the particle's shape (see fig.~\ref{fig:FFTrcubesketchaxes}):
 \begin{align*}
 F_{\rm{vertex}_2}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(q_y, -q_x, q_z, L, t) \\
 F_{\rm{vertex}_3}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(-q_x, -q_y, q_z, L, t) \\
@@ -1424,18 +1423,22 @@ F_{\rm{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)
 \times \Big\{ \frac{1}{q_y} \sinc\left( \frac{q_x t}{2}\right) &- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left( \frac{(q_x-q_y)t}{2}\right) - \frac{1}{q_y + q_z} \exp\left( i\frac{q_z t}{2} \right) \sinc \left( \frac{(q_x+q_z) t}{2} \right)  \Big\}    
 \end{align*}
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=.5\textwidth]{fig/drawing/SketchTruncatedcube.png}
+\end{center}
+\caption{Sketch of a truncated cube, where $V_i$ marks the vertex, whose form factor is give by $F_{\rm{vertex}_i}$, with $i=1,..., 8$.}
+\label{fig:FFTrcubesketchaxes}
+\end{figure}
 
 Note that the origin is taken as the centre of the bottom face of the cube.
-
-% insert figure and reference to article from 
-
 
 \paragraph{Syntax}\strut\\
 \Code{FormFactorTruncatedCube(length, removed\_length)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFtrunccubeEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=15$~nm,  and $t=6$~nm.
+$|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
 
 \begin{figure}[ht]
 \begin{center}

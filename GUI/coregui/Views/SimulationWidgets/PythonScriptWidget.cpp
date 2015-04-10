@@ -29,6 +29,7 @@
 #include <QTextEdit>
 #include <QStyle>
 #include <QDebug>
+#include <boost/scoped_ptr.hpp>
 
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent)
@@ -37,6 +38,7 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     , m_textEdit(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
+    , m_warningSign(0)
 {
     setWindowTitle("Python Script View");
     setMinimumSize(128, 128);
@@ -86,20 +88,22 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
     delete m_instrumentModel;
     m_instrumentModel = instrumentModel;
 
-    Simulation *simulation(0);
+    delete m_warningSign;
+    m_warningSign = 0;
+
     try{
-        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
-        throw RuntimeErrorException("xxx");
+        boost::scoped_ptr<Simulation> simulation(
+            DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
+        QString code = QString::fromStdString(PyGenTools::genPyScript(simulation.get()));
+        m_textEdit->clear();
+        m_textEdit->setText(code);
     } catch(const std::exception &ex) {
-        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
-        return;
+        m_warningSign = new WarningSignWidget(this);
+        m_warningSign->setWarningMessage(QString::fromStdString(ex.what()));
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(), pos.y());
+        m_warningSign->show();
     }
-
-    QString code = QString::fromStdString(PyGenTools::genPyScript(simulation));
-    m_textEdit->clear();
-    m_textEdit->setText(code);
-
-
 }
 
 //! adjusts position of warning label on widget move

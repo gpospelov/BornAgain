@@ -44,6 +44,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
+    , m_projectManager(0)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
@@ -175,6 +176,11 @@ int SimulationSetupWidget::getSampleCurrentIndex() const
     return sampleSelectionBox->currentIndex();
 }
 
+void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
+{
+    m_projectManager = projectManager;
+}
+
 void SimulationSetupWidget::updateViewElements()
 {
     updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
@@ -230,15 +236,7 @@ void SimulationSetupWidget::onExportToPythonScript()
         return;
     }
 
-//    Simulation *simulation(0);
-//    try{
-//        simulation = DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel);
-//    } catch(const std::exception &ex) {
-//        QMessageBox::warning(this, tr("Could not create simulation"), tr(ex.what()));
-//        return;
-//    }
-    //exportSimulation(simulation);
-    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
+    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this, m_projectManager);
     pythonWidget->show();
     pythonWidget->raise();
     pythonWidget->generatePythonScript(sampleModel, instrumentModel);

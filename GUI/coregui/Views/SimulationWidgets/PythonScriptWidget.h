@@ -24,6 +24,7 @@ class QTextEdit;
 class SampleModel;
 class InstrumentModel;
 class WarningSignWidget;
+class ProjectManager;
 
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
@@ -32,13 +33,16 @@ class BA_CORE_API_ PythonScriptWidget : public QDialog
     Q_OBJECT
 
 public:
-    PythonScriptWidget(QWidget *parent = 0);
+    PythonScriptWidget(QWidget *parent = 0, ProjectManager *projectManager = 0);
     ~PythonScriptWidget();
 
     void generatePythonScript(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
 protected:
     void resizeEvent(QResizeEvent *event);
+
+private slots:
+    void onExportToFileButton();
 
 private:
     QPoint getPositionForWarningSign();
@@ -48,6 +52,7 @@ private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
     WarningSignWidget *m_warningSign;
+    ProjectManager *m_projectManager;
 };
 
 

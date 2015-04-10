@@ -22,23 +22,33 @@
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
 #include "WarningSignWidget.h"
+#include "projectdocument.h"
+#include "projectmanager.h"
 #include <QScrollBar>
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QToolBar>
+#include <QToolButton>
 #include <QTextEdit>
 #include <QStyle>
+#include <QPushButton>
+#include <QDir>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
 #include <QDebug>
+#include <QStandardPaths>
 #include <boost/scoped_ptr.hpp>
 
 
-PythonScriptWidget::PythonScriptWidget(QWidget *parent)
+PythonScriptWidget::PythonScriptWidget(QWidget *parent, ProjectManager *projectManager)
     : QDialog(parent)
     , m_toolBar(0)
     , m_textEdit(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_warningSign(0)
+    , m_projectManager(projectManager)
 {
     setWindowTitle("Python Script View");
     setMinimumSize(128, 128);
@@ -51,6 +61,13 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     m_toolBar->setIconSize(QSize(size, size));
     m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    QPushButton *exportToFileButton = new QPushButton;
+    exportToFileButton->setText("Save to file");
+    exportToFileButton->setToolTip("Opens dialog to save given script into the file");
+    connect(exportToFileButton, SIGNAL(clicked()), this, SLOT(onExportToFileButton()));
+    exportToFileButton->setAutoDefault(false);
+    m_toolBar->addWidget(exportToFileButton);
 
     m_textEdit = new QTextEdit;
     m_textEdit->setReadOnly(true);
@@ -114,6 +131,38 @@ void PythonScriptWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+}
+
+void PythonScriptWidget::onExportToFileButton()
+{
+    QString dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+
+    if(m_projectManager) {
+        ProjectDocument *document  = m_projectManager->getDocument();
+        if(document->hasValidNameAndPath()) {
+            dirname = document->getProjectDir();
+        }
+    }
+
+    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), dirname,
+                            tr("Python scipts (*.py)"), 0,
+                            QFileDialog::DontResolveSymlinks);
+
+    if(file_name.isEmpty()) return;
+
+    QFile file(file_name);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qDebug() << "PythonScriptWidget::onExportToFileButton: Error! Can't save file";
+        QMessageBox warning_dialog(this);
+        warning_dialog.setIcon(QMessageBox::Warning);
+        warning_dialog.setText(tr("File could not be opened for writing!"));
+        warning_dialog.exec();
+        return;
+    }
+    QTextStream out(&file);
+    out << m_textEdit->toPlainText();
+    file.close();
+    raise();
 }
 
 //! Returns position for warning sign at the bottom left corner of the editor. The position will

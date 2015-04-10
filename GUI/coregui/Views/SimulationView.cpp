@@ -37,6 +37,7 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     m_simulationSetupWidget->setJobModel(m_jobModel);
     m_simulationSetupWidget->setSampleModel(m_sampleModel);
     m_simulationSetupWidget->setInstrumentModel(m_instrumentModel);
+    m_simulationSetupWidget->setProjectManager(mainWindow->getProjectManager());
 
     m_toolBar = new StyledToolBar(this);
 
@@ -55,7 +56,6 @@ void SimulationView::updateSimulationViewElements()
     //qDebug() << "SimulationView::updateSimulationViewElements()" << m_sampleModel << m_instrumentModel;
     m_simulationSetupWidget->updateViewElements();
 }
-
 
 void SimulationView::onRunSimulationShortcut()
 {

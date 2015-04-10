@@ -26,6 +26,7 @@ class SampleModel;
 class InstrumentModel;
 class JobModel;
 class Simulation;
+class ProjectManager;
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -43,6 +44,8 @@ public:
 
     QString getSampleSelection() const;
     int getSampleCurrentIndex() const;
+
+    void setProjectManager(ProjectManager *projectManager);
 
 public slots:
     void onRunSimulation();
@@ -67,6 +70,7 @@ private:
     QComboBox *runPolicySelectionBox;
     QComboBox *cpuUsageSelectionBox;
     QPushButton *exportToPyScriptButton;
+    ProjectManager *m_projectManager;
 };
 
 #endif // SIMULATIONSETUPWIDGET_H

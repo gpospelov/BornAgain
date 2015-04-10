@@ -16,9 +16,10 @@
 \let\v=\vect
 \def\r{\v{r}}
 \def\k{\v{k}}
-\def\rD{\r_{\rm D}}
-\def\rS{\r_{\rm S}}
-\def\kD{\k_{\rm D}}
+\def\rD{\r_\text{D}}
+\def\rS{\r_\text{S}}
+\def\kD{\k_\text{D}}
+\def\Sample{\mathcal{M}}
 \def\Sphere{\mathcal{S}}
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
@@ -206,7 +207,7 @@ The homogeneous equation
 \end{equation}
 is solved by plane waves and superpositions thereof.
 It applies in particular to the incident radiation
-$\Psi_{\rm i}$ that must be present in any scattering experiment.
+$\Psi_\text{i}$ that must be present in any scattering experiment.
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
@@ -229,23 +230,15 @@ we obtain the formal solution
 of the full inhomogeneous equation~(\ref{ESchrodiHelmholtz})
 \begin{equation}\label{EPsiFormal}
   \Psi(\r)
-  = \Psi_{\rm i}(\r)
+  = \Psi_\text{i}(\r)
   + \int\!{\rm d}^3r' G(\r,\r')
                      \frac{\chi(\r')}{4\pi}\Psi(\r').
 \end{equation}
 However, the integral kernel still contains the full solution~$\Psi$.
-If we replace this occurence of $\Psi$
-by the full right-hand side of~(\ref{EPsiFormal})
-we obtain
-\begin{equation}
-  \Psi(\r)
-  = \Psi_{\rm i}(\r)
-  + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
-  \left(\Psi_{\rm i}(\r')
-  + \int\!{\rm d}^3r''
-  G(\r'-\v{r''})\frac{\chi(\v{r''})}{4\pi}
-  \Psi(\v{r''})\right).
-\end{equation}
+This implicit equation
+can be resolved into an infinite series
+by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
+for the occurence of $\Psi$ in the integrand.
 This can be iterated to obtain an infinite series representation of $\Psi$.
 Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
@@ -253,9 +246,9 @@ In first Born approximation,
 only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
   \Psi(\r)
-  \doteq \Psi_{\rm i}(\r)
+  \doteq \Psi_\text{i}(\r)
   + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
-   \Psi_{\rm i}(\r').
+   \Psi_\text{i}(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
@@ -265,9 +258,9 @@ Since detectors are always placed at positions $\r$
 that are not illuminated by the incident beam,
 we are only interested in the scattered wavefield
 \begin{equation}\label{EBornS}
-  \Psi_{\rm s}(\r)
+  \Psi_\text{s}(\r)
   \doteq 
-  \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_{\rm i}(\r').
+  \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
 \end{equation}
 
 \index{Born approximation|)}
@@ -278,57 +271,61 @@ we are only interested in the scattered wavefield
 
 \index{Far-field approximation|(}
 
-In a scattering experiment,
-the intensity ${|\Psi(\r)|}^2$ is measured
-at a detector location~$\r$
-far away from the sample volume.
-We choose the coordinate origin at the nominal center of the sample
-so that the integral in~(\ref{EBorn}) runs over $\r'$ with $r'\ll r$.
+We can further simplify (\ref{EBornS})
+by making use of the fact that the detector location~$\r$
+is far away from the sample volume $\Sample$.
+Since the scattered wave $\Psi_\text{s}(\r)$
+only depends on $\r$ through the Green function~$G(\r,\r')$,
+we shall derive a far-field approximation for the latter.
+
+We choose the coordinate origin within $\Sample$
+so that the integral in~(\ref{EBornS}) runs over $\r'$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
   \left|\r-\r'\right|
   \doteq \sqrt{r^2-2\r\,\r'}
   \doteq r - \frac{\r\,\r'}{r}
-  \equiv r - \frac{\k_{\rm f} \r'}{K},
+  \equiv r - \frac{\k_\text{f} \r'}{K},
 \end{equation}
 where we have introduced the outgoing wave vector
 \begin{equation}
-  \k_{\rm f}:=K\frac{\r}{r}.
+  \k_\text{f}:=K\frac{\r}{r}.
 \end{equation}
-We apply this to the Green function~(\ref{EGreens1}),
+We apply this to~(\ref{EGreens1}),
 \index{Green function!homogeneous material}
-retaining the first order in $\r'$ in the exponent,
-but not in the denominator:
+and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
-  G(\r,\r')
-  \doteq\frac{{\rm e}^{iKr}}{4\pi r}{\rm e}^{-i\k_{\rm f} \r'}.
+  G_\text{far}(\r,\r')
+  =\frac{{\rm e}^{iKr}}{4\pi r}\Psi^*_\text{f}(\r')
+  \end{equation}
+where
+\begin{equation}
+  \Psi_\text{f}(\r') := {\rm e}^{i\k_\text{f} \r'}
 \end{equation}
-This is an outgoing spherical wave with respect to $\r$,
-but a plane wave with respect to~$\r'$.
+is a plane wave propagating towards the detector.
+With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 
+The scattered wave~(\ref{EBornS})
+becomes in far-field approximation 
+\begin{equation}\label{Esandwich}
+  \Psi_\text{s,far}(\r)
+  = \frac{{\rm e}^{iKr}}{r}
+    \int\!{\rm d}^3r'
+    \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r').
+\end{equation}
 At this point we introduce the standard assumption
 that the incident radiation is also a plane wave,
 \begin{equation}\label{EPsi0Plane}
-  \Psi_{\rm i}(\r)={\rm e}^{i \k_{\rm i} \r}.
+  \Psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
 \end{equation}
-Then 
-the perturbation $\chi(\r)$ becomes sandwiched between two plane waves
-in the integrand of~(\ref{EBorn})
-\begin{equation}\label{Esandwich}
-  \Psi(\r)
-  \doteq \Psi_{\rm i}(\r)
-  + \frac{{\rm e}^{iKr}}{r}
-    \int\!{\rm d}^3r'
-    {\rm e}^{i\k_{\rm i}\r'}\chi(\r'){\rm e}^{-i\k_{\rm f}\r'}.
-\end{equation}
-Writing this in more compact form as
-\begin{equation}\label{EBornPlane}
-  \Psi(\r)
-  \doteq \Psi_{\rm i}(\r)
-  + \frac{{\rm e}^{iKr}}{r}
+with $k_\text{i}=K$.
+We can then write (\ref{Esandwich}) in more compact form as
+\begin{equation}\label{EBornQ}
+  \Psi_\text{s,far}(\r)
+  = \frac{{\rm e}^{iKr}}{r}
     \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r'),
 \end{equation}
-it becomes clear that neutron scattering,
+which shows that neutron scattering,
 in first-order Born approximation,
 measures the Fourier transform
 of the optical potential
@@ -336,7 +333,7 @@ of the optical potential
 with respect to the \textit{scattering vector}
 \index{Scattering vector}
 \begin{equation}
-  \v{q}:=\k_{\rm i}-\k_{\rm f}.
+  \v{q}:=\k_\text{i}-\k_\text{f}.
 \end{equation}
 
 \index{Far-field approximation|)}
@@ -356,10 +353,9 @@ We define it in arbitrary relative units as
 \end{equation}
 With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
-  \v{J}_{\rm i} = \k_{\rm i}.
+  \v{J}_\text{i} = \k_\text{i}.
 \end{equation}
-..............
-This leaves us with
+With (\ref{EBornQ}), the scattered flux at the detector is
 \begin{equation}
   \v{J}(\r)
   = {\left|\frac{1}{r}
@@ -373,9 +369,9 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
   \index{Differential cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  := \frac{r^2 J(\r)}{J_{\rm i}}.
+  := \frac{r^2 J(\r)}{J_\text{i}}.
 \end{equation}
-Using $k_{\rm i}=K$ and changing notation $\r'\to\r$,
+Using $k_\text{i}=K$ and changing notation $\r'\to\r$,
 we find
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
@@ -434,11 +430,11 @@ Below, we will treat $\chi(\r)$ as a pertubative scattering term.
 Wave propagation, including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_{\rm i}(\r) = 0,
+  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_\text{i}(\r) = 0,
 \end{equation}
 which suggests the factorization ansatz
 \begin{equation}\label{Ewave3}
-\psi_{\rm i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
+\Psi_\text{i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 The in-plane wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
@@ -541,14 +537,14 @@ with an isolated inhomogeneity,
 \begin{equation}\label{EgsSchrodi}
   \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
 \end{equation}
-We assume that $\rS$ lies within a structured material~$\mathcal{M}$.
-Outside $\mathcal{M}$,
+We assume that $\rS$ lies within a structured material~$\Sample$.
+Outside $\Sample$,
 the potential~$v(\r)$ has the constant value~$K^2$
 so that (\ref{EgsSchrodi})
 reduces to the Helmholtz equation
 \begin{equation}\label{EgsSchrodiHelmh}
   \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0
-  \text{~~for~~}\r\notin\mathcal{M}.
+  \text{~~for~~}\r\notin\Sample.
 \end{equation}
 We introduce the adjungated Green function~$B$
 that originates from a source term at the detector location
@@ -560,7 +556,7 @@ We also introduce the auxiliary vector field
 \begin{equation}
   \v{X}(\r,\rS,\rD):=B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
 \end{equation}
-We inscribe $\mathcal{M}$, $\rD$, and the origin of the coordinate system
+We inscribe $\Sample$, $\rD$, and the origin of the coordinate system
 into a sphere $\Sphere$ with radius~$R$,
 and compute the volume integral
 \begin{equation}\label{Eprerecipro}
@@ -581,7 +577,7 @@ Alternatively, we can compute $I$ as a surface integral
   =\displaystyle\int_{\partial\Sphere}{\rm d}{\sigma}\,
        \left(B\partial_R G - G\partial_R B\right).
 \end{equation}
-On the surface $\partial\Sphere$, which lies outside $\mathcal{M}$,
+On the surface $\partial\Sphere$, which lies outside $\Sample$,
 $B$ and $G$ are outgoing wave fields that obey the Helmholtz equation.
 Solutions of this equation in spherical coordinates
 have a well-known series expansion.
@@ -606,8 +602,8 @@ It follows at once that
        (\text{$R$-dependent})(bg-gb)
   = 0.
 \end{equation}
-From (\ref{Eprerecipro}) we obtain the reciprocity theorem
-\begin{equation}
+From (\ref{Eprerecipro}) we obtain the \textit{reciprocity theorem}
+\begin{equation}\label{Ereci}
   G(\rD,\rS) = B(\rS,\rD).
 \end{equation}
 To obtain the forward-propagating Green function~$G$,
@@ -616,56 +612,68 @@ that traces a neutron back from the detector position~$\rD$
 to a scattering center~$\rS$.
 \index{Reciprocity|)}
 
-Choosing the origin inside~$\mathcal{M}$, 
-and assuming that $\rD$ lies far outside~$\mathcal{M}$,
-we can copy the far-field expansion from~(\ref{EGreenFar}):
-\begin{equation}\label{EGreenFar}
-  B(\r,\rD)
-  \doteq\frac{{\rm e}^{iKr_{\rm D}}}{4\pi r_{\rm D}}{\rm e}^{-i\k_{\rm f} \r}.
+The solution $B(\r,\rD)$ of (\ref{EgsSchrodiAdj})
+is analogous to (\ref{EGreens1}).
+Choosing the origin inside~$\Sample$, 
+and assuming that $\rD$ lies far outside~$\Sample$,
+we can copy the far-field expansion from~(\ref{EGreenFar})
+to obtain
+\begin{equation}\label{EBFar}
+  B_\text{far}(\r,\rD)
+  =\frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}{\rm e}^{-i\k_\text{f} \r}.
 \end{equation}
 When this backward propagating plane waves impinges on the sample,
 it undergoes reflection and refraction in exactly the same way as
-the incident plane wave ${\rm e}^{i\k_{\rm i}\r}$.
-
-Coming back to the approximation scheme of the Born expansion,
-we can copy the first-order result (\ref{Esandwich}),
-except that we must replace ${\rm e}^{i\k_{\rm i}\r}$ by
-\begin{equation}
-  \Psi_{\rm i}(\r)
-   = {\rm e}^{i \k_\parallel \r_\parallel}
-     \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right),
+the incident plane wave ${\rm e}^{i\k_\text{i}\r}$.
+Therefore,
+ (\ref{EBFar}) admits a generalization that also holds inside $\Sample$:
+\begin{equation}\label{EBFull}
+  B_\text{far}(\r,\rD)
+  = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\Psi^*_\text{f}(\r).
 \end{equation}
-and ${\rm e}^{-i\k_{\rm f}\r}$ by
-\begin{equation}
-  \Psi_{\rm f}^*(\r)
-   = {\rm e}^{-i \k_\parallel \r_\parallel}
-     \left(\phi^{+*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right).
-\end{equation}
+Thanks to the reciprocity theorem (\ref{Ereci}),
+we can conclude that the far-field Green function
+has exactly the same form (\ref{EGreenFar}),
+except that $\Psi_\text{f}$ is no longer a plane wave.
 Accordingly,
-in distorted-wave Born approximation
+the scattered far-field is still given by (\ref{EBornQ}).
+
+With the decomposition
+\begin{equation}
+  \begin{array}{lcl}
+  \Psi_\text{i}(\r)
+   &=& {\rm e}^{+i \k_\parallel \r_\parallel}
+     \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right),
+  \\
+  \Psi_\text{f}^*(\r)
+   &=& {\rm e}^{-i \k_\parallel \r_\parallel}
+     \left(\phi^{+*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right),
+   \end{array}
+\end{equation}
 the differential cross section (\ref{Ecross1}) becomes
 \begin{equation}\label{Ecross2}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   = {\left|
     \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
-    \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right)
+    \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right)
     \chi(\r)
-    \left(\phi^{-*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right)
+    \left(\phi^{-*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right)
     \right|}^2.
 \end{equation}
-If the average refractive index $\nz(z)$ is constant within a layer~$j$,
-then the contribution of this layer to the scattered intensity
+
+In much of the GISAS theory it is assumed
+that the average refractive index $\nz(z)$ is constant within a layer~$j$.
+In this case, the scattered far-field
 can be written as
 \begin{equation}\label{Ecross3}
   \frac{{\rm d}\sigma_j}{{\rm d}\Omega}
   = {\left|
     \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
-    \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right)
+    \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right)
     \chi(\r)
-    \left(\phi^{-*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right)
+    \left(\phi^{-*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right)
     \right|}^2.
 \end{equation}
-
 
 \index{Distorted-wave Born approximation|)}
 
@@ -684,51 +692,51 @@ where $n_0(\r)$ denotes the refractive index of the unperturbed system (which, i
 
 For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, one only needs the unperturbed solutions in layer $j$:
 \begin{align*}
-  \braketnoop{\r}{\Psi^+_{1k_{\rm i}}} &= (2\pi)^{-3/2}\left[ R_j(\k_{\rm i}) e^{i \k_{j,R}(\k_{\rm i})\cdot\r} + T_j(\k_{\rm i}) e^{i \k_{j,T}(\k_{\rm i})\cdot\r} \right] \\
-  \braketnoop{\Psi^-_{1k_{\rm f}}}{\r} &= (2\pi)^{-3/2}\left[ R_j(-\k_{\rm f}) e^{i \k_{j,R}(-\k_{\rm f})\cdot\r} + T_j(-\k_{\rm f}) e^{i \k_{j,T}(-\k_{\rm f})\cdot\vectr} \right].
+  \braketnoop{\r}{\Psi^+_{1k_\text{i}}} &= (2\pi)^{-3/2}\left[ R_j(\k_\text{i}) e^{i \k_{j,R}(\k_\text{i})\cdot\r} + T_j(\k_\text{i}) e^{i \k_{j,T}(\k_\text{i})\cdot\r} \right] \\
+  \braketnoop{\Psi^-_{1k_\text{f}}}{\r} &= (2\pi)^{-3/2}\left[ R_j(-\k_\text{f}) e^{i \k_{j,R}(-\k_\text{f})\cdot\r} + T_j(-\k_\text{f}) e^{i \k_{j,T}(-\k_\text{f})\cdot\vectr} \right].
 \end{align*}
 
 The off-specular contribution to the scattering amplitude then becomes:
 \begin{align*}
-  f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_{\rm i}T_{\rm f}e^{i(\k_{j,i}-\k_{j,f})\cdot\vectr} + R_{\rm i}T_{\rm f}e^{i(\k t_{j,i}-\k_{j,f})\cdot\vectr} \\
-   & + T_{\rm i}R_{\rm f}e^{i(\k_{j,i}-\k t_{j,f})\cdot\vectr} + R_{\rm i}R_{\rm f}e^{i(\k t_{j,i}-\k t_{j,f})\cdot\vectr} \biggr],
+  f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_\text{i}T_\text{f}e^{i(\k_{j,i}-\k_{j,f})\cdot\vectr} + R_\text{i}T_\text{f}e^{i(\k t_{j,i}-\k_{j,f})\cdot\vectr} \\
+   & + T_\text{i}R_\text{f}e^{i(\k_{j,i}-\k t_{j,f})\cdot\vectr} + R_\text{i}R_\text{f}e^{i(\k t_{j,i}-\k t_{j,f})\cdot\vectr} \biggr],
 \end{align*}
 where the following shorthand notations were used:
 \begin{align*}
-  T_{\rm i} &\equiv  T_j(\k_{\rm i}) & R_{\rm i} &\equiv  R_j(\k_{\rm i})  \\
-  T_{\rm f} &\equiv  T_j(-\k_{\rm f}) & R_{\rm f} &\equiv  R_j(-\k_{\rm f}) \\
-  \k_{j,i} &\equiv \k_{j,T}(\k_{\rm i}) & \k t_{j,i} &\equiv \k_{j,R}(\k_{\rm i})  \\
-  \k_{j,f} &\equiv -\k_{j,T}(-\k_{\rm f}) & \k t_{j,f} &\equiv -\k_{j,R}(-\k_{\rm f}).
+  T_\text{i} &\equiv  T_j(\k_\text{i}) & R_\text{i} &\equiv  R_j(\k_\text{i})  \\
+  T_\text{f} &\equiv  T_j(-\k_\text{f}) & R_\text{f} &\equiv  R_j(-\k_\text{f}) \\
+  \k_{j,i} &\equiv \k_{j,T}(\k_\text{i}) & \k t_{j,i} &\equiv \k_{j,R}(\k_\text{i})  \\
+  \k_{j,f} &\equiv -\k_{j,T}(-\k_\text{f}) & \k t_{j,f} &\equiv -\k_{j,R}(-\k_\text{f}).
 \end{align*}
 
 From this expression, one sees that the scattering amplitude consists of a weighted sum of Fourier transforms of the potential $V_2$. Using
 \begin{equation*}
-  V_2(\vectr) = \sum_{\rm i} 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \r^i),
+  V_2(\vectr) = \sum_\text{i} 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \r^i),
 \end{equation*}
-with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\r^i) - n_{\rm i}^2 \right)/4\pi$, the scattering amplitude becomes
+with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\r^i) - n_\text{i}^2 \right)/4\pi$, the scattering amplitude becomes
 \begin{equation*}
-  f(\theta, \phi) = -\sum_{\rm i}  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\k_{j,i},\k_{j,f},\r^i_z)e^{i(\k_{j,i\parallel}-\k_{j,f\parallel})\cdot \r^{i\parallel} },
+  f(\theta, \phi) = -\sum_\text{i}  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\k_{j,i},\k_{j,f},\r^i_z)e^{i(\k_{j,i\parallel}-\k_{j,f\parallel})\cdot \r^{i\parallel} },
 \end{equation*}
 with
 \begin{align*}
-  \curlf^i_\text{DWBA}(\k_{\rm i},\k_{\rm f},R_z) & \equiv T_{\rm i}T_{\rm f}F^i(\k_{\rm i}-\k_{\rm f})e^{i(k_{iz}-k_{fz})R_z} + R_{\rm i}T_{\rm f}F^i(\k t_{\rm i}-\k_{\rm f})e^{i(-k_{iz}-k_{fz})R_z} \\
-  & + T_{\rm i}R_{\rm f}F^i(\k_{\rm i}-\k t_{\rm f})e^{i(k_{iz}+k_{fz})R_z} + R_{\rm i}R_{\rm f}F^i(\k t_{\rm i}-\k t_{\rm f})e^{i(-k_{iz}+k_{fz})R_z},
+  \curlf^i_\text{DWBA}(\k_\text{i},\k_\text{f},R_z) & \equiv T_\text{i}T_\text{f}F^i(\k_\text{i}-\k_\text{f})e^{i(k_{iz}-k_{fz})R_z} + R_\text{i}T_\text{f}F^i(\k t_\text{i}-\k_\text{f})e^{i(-k_{iz}-k_{fz})R_z} \\
+  & + T_\text{i}R_\text{f}F^i(\k_\text{i}-\k t_\text{f})e^{i(k_{iz}+k_{fz})R_z} + R_\text{i}R_\text{f}F^i(\k t_\text{i}-\k t_\text{f})e^{i(-k_{iz}+k_{fz})R_z},
 \end{align*}
 
 TO MERGE IN:
 In the DWBA, the form factor of a particle in a multilayer system is given by
 \begin{align}
-F_{\rm{DWBA}} (\k_{\rm i},\k_{\rm f}, r_z) & = T_{\rm i} T_{\rm f} F_{\rm{BA}} (\k_{\rm i}-\k_{\rm f}) e^{i (k_{i,z}-k_{f,z}) r_z} + R_{\rm i} T_{\rm f} F_{\rm{BA}}(\v{\widetilde{k}}_{\rm i}-\k_{\rm f}) e^{i(-k_{i,z}-k_{f,z})r_z}
+F_{\rm{DWBA}} (\k_\text{i},\k_\text{f}, r_z) & = T_\text{i} T_\text{f} F_{\rm{BA}} (\k_\text{i}-\k_\text{f}) e^{i (k_{i,z}-k_{f,z}) r_z} + R_\text{i} T_\text{f} F_{\rm{BA}}(\v{\widetilde{k}}_\text{i}-\k_\text{f}) e^{i(-k_{i,z}-k_{f,z})r_z}
  \nonumber \\
-  &+ T_{\rm i} R_{\rm f} F_{\rm{BA}}(\k_{\rm i}-\v{\widetilde{k}}_{\rm f})e^{i(k_{i,z}+k_{f,z})r_z} + R_{\rm i}R_{\rm f}F_{\rm{BA}} (\v{\widetilde{k}}_{\rm i}-\v{\widetilde{k}}_{\rm f})e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
+  &+ T_\text{i} R_\text{f} F_{\rm{BA}}(\k_\text{i}-\v{\widetilde{k}}_\text{f})e^{i(k_{i,z}+k_{f,z})r_z} + R_\text{i}R_\text{f}F_{\rm{BA}} (\v{\widetilde{k}}_\text{i}-\v{\widetilde{k}}_\text{f})e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
 \end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\k_{\rm i}=(k_{i,x}, k_{i,y}, k_{i,z})$ $\k_{\rm f}=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\k_\text{i}=(k_{i,x}, k_{i,y}, k_{i,z})$ $\k_\text{f}=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
 With a tilde (\~{}), these wave vectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
-$T_{\rm i}$, $T_{\rm f}$, $R_{\rm i}$, $R_{\rm f}$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\k_{\rm i}-\k_{\rm f}$ is equal to the scattering vector $\v{q}$ and the $z$-axis is pointing upwards.\\
+$T_\text{i}$, $T_\text{f}$, $R_\text{i}$, $R_\text{f}$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\k_\text{i}-\k_\text{f}$ is equal to the scattering vector $\v{q}$ and the $z$-axis is pointing upwards.\\
 
 With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
-  & \left\langle \frac{d\sigma}{d\Omega}(\k_{\rm i},\k_{\rm f}) \right\rangle_{\text{Off-specular}}  \\
+  & \left\langle \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \right\rangle_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
 \end{align*}

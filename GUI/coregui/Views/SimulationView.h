@@ -43,7 +43,6 @@ private:
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
-
     SimulationSetupWidget *m_simulationSetupWidget;
     StyledToolBar *m_toolBar;
 };

@@ -27,7 +27,6 @@
 #include "FormFactorFullSphere.h"
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorHemiEllipsoid.h"
-//#include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"
 #include "FormFactorPrism6.h"
 #include "FormFactorPyramid.h"
@@ -39,6 +38,7 @@
 #include "FormFactorInfLongBox.h"
 #include "FormFactorInfLongRipple2.h"
 #include "FormFactorInfLongRipple1.h"
+#include "FormFactorTruncatedCube.h"
 
 #include "gtest/gtest.h"
 
@@ -324,29 +324,6 @@ TEST_F(FormFactorTest, FullSpheroid)
     EXPECT_EQ((int)2, fullspheroidclone->getNumberOfStochasticParameters());
 }
 
-// Test form factor of a parallelepiped
-//TEST_F(FormFactorTest, Parallelepiped)
-//{
-//   double length = 12.;
-//   double height = 10.;
-//   double volume = length*length*height;
-
-//   FormFactorParallelepiped parallelepiped(length, height);
-
-//   EXPECT_EQ("FormFactorParallelepiped",parallelepiped.getName());
-//   EXPECT_EQ(10., parallelepiped.getHeight());
-//   EXPECT_EQ(12., parallelepiped.getLength());
-//   EXPECT_DOUBLE_EQ(volume, parallelepiped.getVolume());
-//   EXPECT_EQ((int)2, parallelepiped.getNumberOfStochasticParameters());
-
-//   FormFactorParallelepiped *parallelepipedclone = parallelepiped.clone();
-//   EXPECT_EQ("FormFactorParallelepiped",parallelepipedclone->getName());
-//   EXPECT_EQ(10., parallelepipedclone-> getHeight());
-//   EXPECT_EQ(12., parallelepipedclone-> getLength());
-//   EXPECT_DOUBLE_EQ(volume, parallelepipedclone-> getVolume());
-//   EXPECT_EQ((int)2, parallelepipedclone-> getNumberOfStochasticParameters());
-//}
-
 // Test form factor of a prism3
 TEST_F(FormFactorTest, Prism3)
 {
@@ -623,6 +600,32 @@ TEST_F(FormFactorTest, InfLongRipple2)
     EXPECT_EQ(3, ilripple2clone->getNumberOfStochasticParameters());
     EXPECT_DOUBLE_EQ(50./M_PI, ilripple2clone->getRadius());
 }
+
+// Test form factor of a truncated cube
+TEST_F(FormFactorTest, TruncatedCube)
+{
+    double length = 15.;
+    double t = 6.; // side length of removed trirectangular tetrahedron at each vertex
+    double volume = length*length*length - 4./3.*t*t*t;
+
+    FormFactorTruncatedCube trcube(length, t);
+
+    EXPECT_EQ("FormFactorTruncatedCube",trcube.getName());
+    EXPECT_EQ(length, trcube.getLength());
+    EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
+    // length or length -2t
+    EXPECT_DOUBLE_EQ(trcube.getVolume(), volume);
+    EXPECT_EQ(2, trcube.getNumberOfStochasticParameters());
+
+    FormFactorTruncatedCube *trcubeclone = trcube.clone();
+    EXPECT_EQ("FormFactorTruncatedCube", trcubeclone->getName());
+    EXPECT_EQ(length, trcubeclone->getLength());
+    EXPECT_EQ(t, trcubeclone->getRemovedLength());
+    EXPECT_EQ(trcubeclone->getVolume(), volume);
+    EXPECT_EQ(2, trcubeclone->getNumberOfStochasticParameters());
+}
+
+
 
 #endif // FORMFACTORTEST_H
 

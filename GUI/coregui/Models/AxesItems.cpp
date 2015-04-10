@@ -43,7 +43,7 @@ const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 AmplitudeAxisItem::AmplitudeAxisItem(ParameterizedItem *parent)
     : BasicAxisItem(Constants::AmplitudeAxisType, parent)
 {
-    registerProperty(P_LOCK_MIN_MAX, false);
-    registerProperty(P_IS_LOGSCALE, true, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_LOCK_MIN_MAX, false, PropertyAttribute(PropertyAttribute::HIDDEN));
+    registerProperty(P_IS_LOGSCALE, true);
     setPropertyAppearance(BasicAxisItem::P_TITLE, PropertyAttribute::HIDDEN);
 }

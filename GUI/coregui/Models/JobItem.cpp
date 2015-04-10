@@ -85,6 +85,12 @@ JobItem::JobItem(ParameterizedItem *parent)
 
 }
 
+JobItem::~JobItem()
+{
+    delete m_sampleModel;
+    delete m_instrumentModel;
+}
+
 QString JobItem::getIdentifier() const
 {
     return getRegisteredProperty(P_IDENTIFIER).toString();

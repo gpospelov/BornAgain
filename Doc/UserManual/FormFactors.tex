@@ -107,9 +107,11 @@ Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} & & 
 \includegraphics[width=1in]{fig/blue/Spheroid3d.png} & & 
 \includegraphics[width=1in]{fig/blue/HemiEllipsoid3d.png}\\
 \hline
-Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
+Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}&  & Truncated cube \SecRef{Truncatedcube} & &  \\
 \includegraphics[width=1in]{fig/blue/Ripple13d.png} & & 
-\includegraphics[width=1in]{fig/blue/Ripple23d.png} & &  & & \\
+\includegraphics[width=1in]{fig/blue/Ripple23d.png} & &  
+\includegraphics[width=.75in]{fig/blue/TruncatedCube3d.png}
+& & \\
 \hline 
 \end{tabulary}
 \caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
@@ -469,7 +471,7 @@ $\alpha=60^{\circ}$.
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffcone6.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Cone6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorCone6(10.*nanometer,13.*nanometer, 60.*degree)}.}
+\caption{Normalized intensity for the form factor of a Cone6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorCone6(10.*nanometer, 13.*nanometer, 60.*degree)}.}
 \label{fig:FFCone6Ex}
 \end{figure}
 
@@ -632,7 +634,7 @@ $\alpha=60^{\circ}$.
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffanisopyramid.pdf}
 \end{center}
 \caption{Normalized intensity for the form factor of an anisotropic
-  pyramid $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorAnisoPyramid(20.*nanometer, 16.*nanometer, 60.*degree)}.}
+  pyramid $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorAnisoPyramid(20.*nanometer, 16.*nanometer, 13.*nanometer, 60.*degree)}.}
 \label{fig:FFAnisoPyramidEx}
 \end{figure}
 
@@ -830,7 +832,7 @@ Bessel function of the first kind \cite{AbSt64}.
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFellipscylinderEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
+$|F|^2/V^2$, computed with $r_a=8$~nm, $r_b=13$~nm, and $H=16$~nm.
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffellipscylinder.pdf}
@@ -1363,6 +1365,88 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 \caption{Normalized intensity for the form factor of a ripple2 plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
   computed with \Code{FormFactorRipple2(36.*nanometer, 25.*nanometer, 14.*nanometer, 3.*nanometer)}.}
 \label{fig:FFripple2Ex}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+\newpage
+\subsection{Truncated cube} \SecLabel{Truncatedcube}  
+\index{Cube (form factor)!truncated}
+  \index{Truncated cube (form factor)}
+  \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
+%-------------------------------------------------------------------------------
+
+\paragraph{Real-space geometry}\strut\\
+A cube whose eight vertices have been removed. The truncated part of each vertex is a trirectangular tetrahedron.
+
+\begin{figure}[ht]
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxz.pdf}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{fig/cuts/Truncatedcube2dxy.pdf}}
+\hfill
+\caption{Sketch of a Truncated cube.}
+\label{fig:truncatedcube}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Parameters}
+\begin{itemize}
+\item side length $L$ of the full cube, 
+\item side length $t$ of the trirectangular tetrahedron to be removed from the cube's vertices
+\end{itemize}
+
+\paragraph{Restriction on the parameters:} $t < \frac{L}{2} $.
+
+\paragraph{Properties}
+\begin{itemize}
+\item volume $V = L^3 - \dfrac{4}{3}t^3$,
+\item particle surface seen from above $S = L^2$.
+\end{itemize}
+
+\paragraph{Form factor}
+The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see \SecRef{Box}) minus the form factors of the eight trirectangular tetrahedrons \cite{HeSS74}.
+
+\begin{equation*}
+F(\mathbf{q},t) =F_{\rm{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\rm{vertex}_i}(q_x, q_y, q_z, L, t)
+\end{equation*}
+where, thanks to symmetries of the particle's shape (see fig.~\ref{fig:FFTrcubesketchaxes}):
+\begin{align*}
+F_{\rm{vertex}_2}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(q_y, -q_x, q_z, L, t) \\
+F_{\rm{vertex}_3}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(-q_x, -q_y, q_z, L, t) \\
+F_{\rm{vertex}_4}(q_x, q_y, q_z, L, t) &= F_{\rm{vertex}_1}(-q_y, q_x, q_z, L, t) \\
+F_{\rm{vertex}_5}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(q_x, q_y, -q_z, L, t) \\
+F_{\rm{vertex}_6}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(q_y, -q_x,- q_z, L, t) \\
+F_{\rm{vertex}_7}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(-q_x, -q_y, -q_z, L, t) \\
+F_{\rm{vertex}_8}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\rm{vertex}_1}(-q_y, q_x, -q_z, L, t) \\
+F_{\rm{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)+ q_y L}{2} \right) \\
+\times \Big\{ \frac{1}{q_y} \sinc\left( \frac{q_x t}{2}\right) &- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left( \frac{(q_x-q_y)t}{2}\right) - \frac{1}{q_y + q_z} \exp\left( i\frac{q_z t}{2} \right) \sinc \left( \frac{(q_x+q_z) t}{2} \right)  \Big\}    
+\end{align*}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=.5\textwidth]{fig/drawing/SketchTruncatedcube.png}
+\end{center}
+\caption{Sketch of a truncated cube, where $V_i$ marks the vertex, whose form factor is give by $F_{\rm{vertex}_i}$, with $i=1,..., 8$.}
+\label{fig:FFTrcubesketchaxes}
+\end{figure}
+
+Note that the origin is taken as the centre of the bottom face of the cube.
+
+\paragraph{Syntax}\strut\\
+\Code{FormFactorTruncatedCube(length, removed\_length)}
+
+\paragraph{Examples}
+Figure~\ref{fig:FFtrunccubeEx} shows the normalized intensity
+$|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[angle=-90,width=\textwidth]{fig/ff/figfftruncatedcube.pdf}
+\end{center}
+\caption{Normalized intensity for the form factor of a truncated cube plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
+  computed with \Code{FormFactorTruncatedCube(15.*nanometer, 6.*nanometer)}.}
+\label{fig:FFtrunccubeEx}
 \end{figure}
 
 

@@ -188,7 +188,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -196,7 +196,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -371,8 +371,8 @@ void register_ParticleCoreShell_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleCoreShell_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::size_t ( ParticleCoreShell_wrapper::*default_size_function_type)(  ) const;
             
             ParticleCoreShell_exposer.def( 
                 "size"

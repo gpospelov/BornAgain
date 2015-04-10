@@ -28,7 +28,8 @@ formfactors = [
     FormFactorRipple2(36.0, 25.0, 14.0, 3.0),
     FormFactorTetrahedron(15.0, 6.0, 60.0*degree),
     FormFactorTruncatedSphere(5.0, 7.0),
-    FormFactorTruncatedSpheroid(7.5, 9.0, 1.2)
+    FormFactorTruncatedSpheroid(7.5, 9.0, 1.2),
+    FormFactorTruncatedCube(15.0, 6.0)
 ]
 
 

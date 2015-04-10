@@ -67,6 +67,8 @@ int run_tests()
     test_map[new FormFactorFullSpheroid(5.0, 5.0)] = "ffba_fullspheroid_reference.int.gz";
     test_map[new FormFactorTruncatedSpheroid(5.0, 5.0, 1.0)] = "ffba_spheroid_reference.int.gz";
     test_map[new FormFactorHemiEllipsoid(5.0, 10.0, 5.0)] = "ffba_hemiellipsoid_reference.int.gz";
+    test_map[new FormFactorTruncatedCube(15.0, 6.0)] = "ffba_truncatedcube_reference.int.gz";
+
 
     bool success(true);
     for(std::map<IFormFactor *, std::string>::iterator it = test_map.begin(); it!= test_map.end(); ++it) {

@@ -130,7 +130,6 @@ This potential is weak, and slowly varying compared to atomic length scales.
 It can be rewritten in a number of ways,
 especially in terms of a
 \textit{bound scattering length density}%
-\index{Bound scattering length|see {\sloppy Scattering length}}
 \index{Scattering length density}
 $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
 \begin{equation}
@@ -371,7 +370,6 @@ The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \textit{differential cross section}
   \index{Cross section}
-  \index{Differential cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   := \frac{r^2 J(\r)}{J_\text{i}}
@@ -621,6 +619,7 @@ Choosing the origin inside~$\Sample$,
 and assuming that $\rD$ lies far outside~$\Sample$,
 we can copy the far-field expansion from~(\ref{EGreenFar})
 to obtain
+\index{Far-field approximation}
 \begin{equation}\label{EBFar}
   B_\text{far}(\r,\rD)
   =\frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}{\rm e}^{-i\k_\text{f} \r}.
@@ -640,29 +639,26 @@ has exactly the same form (\ref{EGreenFar})
 as for the case of propagation in vacuum,
 except that $\Psi_\text{f}$ is no longer a plane wave.
 Accordingly,
-the scattered far-field is still given by (\ref{EBornQ}).
+the scattered far-field is still given by (\ref{EsandwichC}).
 
-With the decomposition
+Since both
 \begin{equation}
   \begin{array}{lcl}
   \Psi_\text{i}(\r)
-   &=& {\rm e}^{+i \k_\parallel \r_\parallel}
-     \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right),
+  &=& \Psi^-_\text{i}(z) + \Psi^+_\text{i}(z), \text{ and }
   \\
-  \Psi_\text{f}^*(\r)
-   &=& {\rm e}^{-i \k_\parallel \r_\parallel}
-     \left(\phi^{+*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right),
+  \Psi_\text{f}(\r)
+  &=& \Psi^-_\text{f}(z) + \Psi^+_\text{f}(z)
    \end{array}
 \end{equation}
-the differential cross section (\ref{Ecross1}) becomes
+are composed of downward and upward propagating waves,
+the matrix element in (\ref{EsandwichC}) consists of four components,
 \begin{equation}\label{Ecross2}
-  \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  = {\left|
-    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
-    \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right)
-    \chi(\r)
-    \left(\phi^{-*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right)
-    \right|}^2.
+  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  = \langle \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\rangle
+  + \langle \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\rangle
+  + \langle \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\rangle
+  + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
 \end{equation}
 
 In much of the GISAS theory it is assumed

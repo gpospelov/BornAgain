@@ -205,6 +205,9 @@ The homogeneous equation
   \left(\Nabla^2+K^2\right)\Psi_0(\r) = 0
 \end{equation}
 is solved by plane waves and superpositions thereof.
+It applies in particular to the incident radiation
+$\Psi_{\rm i}$ that must be present in any scattering experiment.
+
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
   \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
@@ -226,7 +229,7 @@ we obtain the formal solution
 of the full inhomogeneous equation~(\ref{ESchrodiHelmholtz})
 \begin{equation}\label{EPsiFormal}
   \Psi(\r)
-  = \Psi_0(\r)
+  = \Psi_{\rm i}(\r)
   + \int\!{\rm d}^3r' G(\r,\r')
                      \frac{\chi(\r')}{4\pi}\Psi(\r').
 \end{equation}
@@ -236,9 +239,9 @@ by the full right-hand side of~(\ref{EPsiFormal})
 we obtain
 \begin{equation}
   \Psi(\r)
-  = \Psi_0(\r)
+  = \Psi_{\rm i}(\r)
   + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
-  \left(\Psi_0(\r')
+  \left(\Psi_{\rm i}(\r')
   + \int\!{\rm d}^3r''
   G(\r'-\v{r''})\frac{\chi(\v{r''})}{4\pi}
   \Psi(\v{r''})\right).
@@ -250,14 +253,22 @@ In first Born approximation,
 only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
   \Psi(\r)
-  \doteq \Psi_0(\r)
+  \doteq \Psi_{\rm i}(\r)
   + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
-   \Psi_0(\r').
+   \Psi_{\rm i}(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
 where the aim is to 
 deduce $\chi(\r')$ from the scattered intensity ${|\Psi(\r)|}^2$.
+Since detectors are always placed at positions $\r$
+that are not illuminated by the incident beam,
+we are only interested in the scattered wavefield
+\begin{equation}\label{EBornS}
+  \Psi_{\rm s}(\r)
+  \doteq 
+  \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_{\rm i}(\r').
+\end{equation}
 
 \index{Born approximation|)}
 
@@ -298,14 +309,14 @@ but a plane wave with respect to~$\r'$.
 At this point we introduce the standard assumption
 that the incident radiation is also a plane wave,
 \begin{equation}\label{EPsi0Plane}
-  \Psi_0(\r)={\rm e}^{i \k_{\rm i} \r}.
+  \Psi_{\rm i}(\r)={\rm e}^{i \k_{\rm i} \r}.
 \end{equation}
 Then 
 the perturbation $\chi(\r)$ becomes sandwiched between two plane waves
 in the integrand of~(\ref{EBorn})
 \begin{equation}\label{Esandwich}
   \Psi(\r)
-  \doteq \Psi_0(\r)
+  \doteq \Psi_{\rm i}(\r)
   + \frac{{\rm e}^{iKr}}{r}
     \int\!{\rm d}^3r'
     {\rm e}^{i\k_{\rm i}\r'}\chi(\r'){\rm e}^{-i\k_{\rm f}\r'}.
@@ -313,7 +324,7 @@ in the integrand of~(\ref{EBorn})
 Writing this in more compact form as
 \begin{equation}\label{EBornPlane}
   \Psi(\r)
-  \doteq \Psi_0(\r)
+  \doteq \Psi_{\rm i}(\r)
   + \frac{{\rm e}^{iKr}}{r}
     \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r'),
 \end{equation}
@@ -345,11 +356,9 @@ We define it in arbitrary relative units as
 \end{equation}
 With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
-  \v{J}_0 = \k_{\rm i}.
+  \v{J}_{\rm i} = \k_{\rm i}.
 \end{equation}
-The scattered wavefield (\ref{EBornPlane}) is observed
-at a detector position $\r$ that is not illuminated by the
-incident beam, hence $\Psi_0(\r)=0$.
+..............
 This leaves us with
 \begin{equation}
   \v{J}(\r)
@@ -364,7 +373,7 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
   \index{Differential cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  := \frac{r^2 J(\r)}{J_0}.
+  := \frac{r^2 J(\r)}{J_{\rm i}}.
 \end{equation}
 Using $k_{\rm i}=K$ and changing notation $\r'\to\r$,
 we find
@@ -425,11 +434,11 @@ Below, we will treat $\chi(\r)$ as a pertubative scattering term.
 Wave propagation, including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_0(\r) = 0,
+  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_{\rm i}(\r) = 0,
 \end{equation}
 which suggests the factorization ansatz
 \begin{equation}\label{Ewave3}
-\psi_0(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
+\psi_{\rm i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 The in-plane wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
@@ -632,10 +641,23 @@ and ${\rm e}^{-i\k_{\rm f}\r}$ by
    = {\rm e}^{-i \k_\parallel \r_\parallel}
      \left(\phi^{+*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right).
 \end{equation}
-Accordingly, the differential cross section (\ref{Ecross1}) becomes
+Accordingly,
 in distorted-wave Born approximation
+the differential cross section (\ref{Ecross1}) becomes
 \begin{equation}\label{Ecross2}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  = {\left|
+    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
+    \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right)
+    \chi(\r)
+    \left(\phi^{-*}_{\rm f}(z) + \phi^{+*}_{\rm f}(z)\right)
+    \right|}^2.
+\end{equation}
+If the average refractive index $\nz(z)$ is constant within a layer~$j$,
+then the contribution of this layer to the scattered intensity
+can be written as
+\begin{equation}\label{Ecross3}
+  \frac{{\rm d}\sigma_j}{{\rm d}\Omega}
   = {\left|
     \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
     \left(\phi^-_{\rm i}(z) + \phi^+_{\rm i}(z)\right)

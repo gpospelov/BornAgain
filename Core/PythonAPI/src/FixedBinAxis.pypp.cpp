@@ -28,7 +28,7 @@ namespace bp = boost::python;
 
 struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
 
-    FixedBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
+    FixedBinAxis_wrapper(::std::string const & name, ::size_t nbins, double start, double end )
     : FixedBinAxis( name, nbins, start, end )
       , bp::wrapper< FixedBinAxis >(){
         // constructor
@@ -59,7 +59,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::createClippedAxis( left, right );
     }
 
-    virtual ::std::size_t findClosestIndex( double value ) const  {
+    virtual ::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
         else{
@@ -67,11 +67,11 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         }
     }
     
-    ::std::size_t default_findClosestIndex( double value ) const  {
+    ::size_t default_findClosestIndex( double value ) const  {
         return FixedBinAxis::findClosestIndex( value );
     }
 
-    virtual ::Bin1D getBin( ::std::size_t index ) const  {
+    virtual ::Bin1D getBin( ::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
         else{
@@ -79,7 +79,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         }
     }
     
-    ::Bin1D default_getBin( ::std::size_t index ) const  {
+    ::Bin1D default_getBin( ::size_t index ) const  {
         return FixedBinAxis::getBin( index );
     }
 
@@ -131,7 +131,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::getMin( );
     }
 
-    virtual ::std::size_t getSize(  ) const  {
+    virtual ::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
         else{
@@ -139,11 +139,11 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         }
     }
     
-    ::std::size_t default_getSize(  ) const  {
+    ::size_t default_getSize(  ) const  {
         return FixedBinAxis::getSize( );
     }
 
-    virtual double operator[]( ::std::size_t index ) const  {
+    virtual double operator[]( ::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
         else{
@@ -151,7 +151,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         }
     }
     
-    double default___getitem__( ::std::size_t index ) const  {
+    double default___getitem__( ::size_t index ) const  {
         return FixedBinAxis::operator[]( index );
     }
 
@@ -187,7 +187,7 @@ void register_FixedBinAxis_class(){
 
     { //::FixedBinAxis
         typedef bp::class_< FixedBinAxis_wrapper, bp::bases< IAxis >, std::auto_ptr< FixedBinAxis_wrapper >, boost::noncopyable > FixedBinAxis_exposer_t;
-        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string const &, size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope FixedBinAxis_scope( FixedBinAxis_exposer );
         { //::FixedBinAxis::clone
         
@@ -216,8 +216,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::FixedBinAxis::*findClosestIndex_function_type)( double ) const;
-            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
+            typedef ::size_t ( ::FixedBinAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::size_t ( FixedBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
             
             FixedBinAxis_exposer.def( 
                 "findClosestIndex"
@@ -228,8 +228,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getBin
         
-            typedef ::Bin1D ( ::FixedBinAxis::*getBin_function_type)( ::std::size_t ) const;
-            typedef ::Bin1D ( FixedBinAxis_wrapper::*default_getBin_function_type)( ::std::size_t ) const;
+            typedef ::Bin1D ( ::FixedBinAxis::*getBin_function_type)( ::size_t ) const;
+            typedef ::Bin1D ( FixedBinAxis_wrapper::*default_getBin_function_type)( ::size_t ) const;
             
             FixedBinAxis_exposer.def( 
                 "getBin"
@@ -284,8 +284,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getSize
         
-            typedef ::std::size_t ( ::FixedBinAxis::*getSize_function_type)(  ) const;
-            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_getSize_function_type)(  ) const;
+            typedef ::size_t ( ::FixedBinAxis::*getSize_function_type)(  ) const;
+            typedef ::size_t ( FixedBinAxis_wrapper::*default_getSize_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getSize"
@@ -295,8 +295,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::operator[]
         
-            typedef double ( ::FixedBinAxis::*__getitem___function_type)( ::std::size_t ) const;
-            typedef double ( FixedBinAxis_wrapper::*default___getitem___function_type)( ::std::size_t ) const;
+            typedef double ( ::FixedBinAxis::*__getitem___function_type)( ::size_t ) const;
+            typedef double ( FixedBinAxis_wrapper::*default___getitem___function_type)( ::size_t ) const;
             
             FixedBinAxis_exposer.def( 
                 "__getitem__"

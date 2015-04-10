@@ -63,7 +63,7 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         return DistributionLorentz::clone( );
     }
 
-    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
+    virtual ::std::vector< double > generateValueList( ::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
         if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
             return func_generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
         else{
@@ -71,7 +71,7 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         }
     }
     
-    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
+    ::std::vector< double > default_generateValueList( ::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
         return DistributionLorentz::generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
     }
 
@@ -135,7 +135,7 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::std::vector< double > generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+    virtual ::std::vector< double > generateValues( ::size_t nbr_samples, double xmin, double xmax ) const  {
         if( bp::override func_generateValues = this->get_override( "generateValues" ) )
             return func_generateValues( nbr_samples, xmin, xmax );
         else{
@@ -143,7 +143,7 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         }
     }
     
-    ::std::vector< double > default_generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+    ::std::vector< double > default_generateValues( ::size_t nbr_samples, double xmin, double xmax ) const  {
         return IDistribution1D::generateValues( nbr_samples, xmin, xmax );
     }
 
@@ -227,8 +227,8 @@ void register_DistributionLorentz_class(){
         }
         { //::DistributionLorentz::generateValueList
         
-            typedef ::std::vector< double > ( ::DistributionLorentz::*generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
-            typedef ::std::vector< double > ( DistributionLorentz_wrapper::*default_generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
+            typedef ::std::vector< double > ( ::DistributionLorentz::*generateValueList_function_type)( ::size_t,double,::AttLimits const & ) const;
+            typedef ::std::vector< double > ( DistributionLorentz_wrapper::*default_generateValueList_function_type)( ::size_t,double,::AttLimits const & ) const;
             
             DistributionLorentz_exposer.def( 
                 "generateValueList"
@@ -305,8 +305,8 @@ void register_DistributionLorentz_class(){
         }
         { //::IDistribution1D::generateValues
         
-            typedef ::std::vector< double > ( ::IDistribution1D::*generateValues_function_type)( ::std::size_t,double,double ) const;
-            typedef ::std::vector< double > ( DistributionLorentz_wrapper::*default_generateValues_function_type)( ::std::size_t,double,double ) const;
+            typedef ::std::vector< double > ( ::IDistribution1D::*generateValues_function_type)( ::size_t,double,double ) const;
+            typedef ::std::vector< double > ( DistributionLorentz_wrapper::*default_generateValues_function_type)( ::size_t,double,double ) const;
             
             DistributionLorentz_exposer.def( 
                 "generateValues"

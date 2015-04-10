@@ -212,7 +212,7 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -220,7 +220,7 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -322,7 +322,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getCrossCorrSpectralFun
         
-            typedef double ( ::MultiLayer::*getCrossCorrSpectralFun_function_type)( ::kvector_t const &,::std::size_t,::std::size_t ) const;
+            typedef double ( ::MultiLayer::*getCrossCorrSpectralFun_function_type)( ::kvector_t const &,::size_t,::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getCrossCorrSpectralFun"
@@ -332,7 +332,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayer
         
-            typedef ::Layer const * ( ::MultiLayer::*getLayer_function_type)( ::std::size_t ) const;
+            typedef ::Layer const * ( ::MultiLayer::*getLayer_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayer"
@@ -343,7 +343,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerBottomInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerBottomInterface_function_type)( ::std::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerBottomInterface_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerBottomInterface"
@@ -354,7 +354,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerBottomZ
         
-            typedef double ( ::MultiLayer::*getLayerBottomZ_function_type)( ::std::size_t ) const;
+            typedef double ( ::MultiLayer::*getLayerBottomZ_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerBottomZ"
@@ -364,7 +364,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerInterface_function_type)( ::std::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerInterface_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerInterface"
@@ -375,7 +375,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerThickness
         
-            typedef double ( ::MultiLayer::*getLayerThickness_function_type)( ::std::size_t ) const;
+            typedef double ( ::MultiLayer::*getLayerThickness_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerThickness"
@@ -385,7 +385,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerTopInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerTopInterface_function_type)( ::std::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerTopInterface_function_type)( ::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerTopInterface"
@@ -396,7 +396,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getNumberOfInterfaces
         
-            typedef ::std::size_t ( ::MultiLayer::*getNumberOfInterfaces_function_type)(  ) const;
+            typedef ::size_t ( ::MultiLayer::*getNumberOfInterfaces_function_type)(  ) const;
             
             MultiLayer_exposer.def( 
                 "getNumberOfInterfaces"
@@ -405,7 +405,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getNumberOfLayers
         
-            typedef ::std::size_t ( ::MultiLayer::*getNumberOfLayers_function_type)(  ) const;
+            typedef ::size_t ( ::MultiLayer::*getNumberOfLayers_function_type)(  ) const;
             
             MultiLayer_exposer.def( 
                 "getNumberOfLayers"
@@ -433,7 +433,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::setLayerThickness
         
-            typedef void ( ::MultiLayer::*setLayerThickness_function_type)( ::std::size_t,double ) ;
+            typedef void ( ::MultiLayer::*setLayerThickness_function_type)( ::size_t,double ) ;
             
             MultiLayer_exposer.def( 
                 "setLayerThickness"
@@ -443,7 +443,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::zToLayerIndex
         
-            typedef ::std::size_t ( ::MultiLayer::*zToLayerIndex_function_type)( double ) ;
+            typedef ::size_t ( ::MultiLayer::*zToLayerIndex_function_type)( double ) ;
             
             MultiLayer_exposer.def( 
                 "zToLayerIndex"
@@ -588,8 +588,8 @@ void register_MultiLayer_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( MultiLayer_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::size_t ( MultiLayer_wrapper::*default_size_function_type)(  ) const;
             
             MultiLayer_exposer.def( 
                 "size"

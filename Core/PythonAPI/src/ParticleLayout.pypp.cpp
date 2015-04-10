@@ -68,7 +68,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::cloneInvertB( );
     }
 
-    virtual double getAbundanceOfParticle( ::std::size_t index ) const  {
+    virtual double getAbundanceOfParticle( ::size_t index ) const  {
         if( bp::override func_getAbundanceOfParticle = this->get_override( "getAbundanceOfParticle" ) )
             return func_getAbundanceOfParticle( index );
         else{
@@ -76,7 +76,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    double default_getAbundanceOfParticle( ::std::size_t index ) const  {
+    double default_getAbundanceOfParticle( ::size_t index ) const  {
         return ParticleLayout::getAbundanceOfParticle( index );
     }
 
@@ -92,7 +92,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getInterferenceFunctions( );
     }
 
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
+    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
         else{
@@ -100,11 +100,11 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return ParticleLayout::getNumberOfInterferenceFunctions( );
     }
 
-    virtual ::std::size_t getNumberOfParticles(  ) const  {
+    virtual ::size_t getNumberOfParticles(  ) const  {
         if( bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" ) )
             return func_getNumberOfParticles(  );
         else{
@@ -112,11 +112,11 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    ::std::size_t default_getNumberOfParticles(  ) const  {
+    ::size_t default_getNumberOfParticles(  ) const  {
         return ParticleLayout::getNumberOfParticles( );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const  {
+    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const  {
         if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
             return func_getParticleInfo( index );
         else{
@@ -124,7 +124,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    ::ParticleInfo const * default_getParticleInfo( ::std::size_t index ) const  {
+    ::ParticleInfo const * default_getParticleInfo( ::size_t index ) const  {
         return ParticleLayout::getParticleInfo( index );
     }
 
@@ -279,7 +279,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -287,7 +287,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -392,8 +392,8 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getAbundanceOfParticle
         
-            typedef double ( ::ParticleLayout::*getAbundanceOfParticle_function_type)( ::std::size_t ) const;
-            typedef double ( ParticleLayout_wrapper::*default_getAbundanceOfParticle_function_type)( ::std::size_t ) const;
+            typedef double ( ::ParticleLayout::*getAbundanceOfParticle_function_type)( ::size_t ) const;
+            typedef double ( ParticleLayout_wrapper::*default_getAbundanceOfParticle_function_type)( ::size_t ) const;
             
             ParticleLayout_exposer.def( 
                 "getAbundanceOfParticle"
@@ -404,7 +404,7 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getInterferenceFunction
         
-            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)( ::std::size_t ) const;
+            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type)( ::size_t ) const;
             
             ParticleLayout_exposer.def( 
                 "getInterferenceFunction"
@@ -426,8 +426,8 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getNumberOfInterferenceFunctions
         
-            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
+            typedef ::size_t ( ::ParticleLayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
+            typedef ::size_t ( ParticleLayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
                 "getNumberOfInterferenceFunctions"
@@ -437,8 +437,8 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getNumberOfParticles
         
-            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfParticles_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfParticles_function_type)(  ) const;
+            typedef ::size_t ( ::ParticleLayout::*getNumberOfParticles_function_type)(  ) const;
+            typedef ::size_t ( ParticleLayout_wrapper::*default_getNumberOfParticles_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
                 "getNumberOfParticles"
@@ -448,8 +448,8 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::ParticleLayout::*getParticleInfo_function_type)( ::std::size_t ) const;
-            typedef ::ParticleInfo const * ( ParticleLayout_wrapper::*default_getParticleInfo_function_type)( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ::ParticleLayout::*getParticleInfo_function_type)( ::size_t ) const;
+            typedef ::ParticleInfo const * ( ParticleLayout_wrapper::*default_getParticleInfo_function_type)( ::size_t ) const;
             
             ParticleLayout_exposer.def( 
                 "getParticleInfo"
@@ -596,8 +596,8 @@ void register_ParticleLayout_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( ParticleLayout_wrapper::*default_size_function_type)(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::size_t ( ParticleLayout_wrapper::*default_size_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
                 "size"

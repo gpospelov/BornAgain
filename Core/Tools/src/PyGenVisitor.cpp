@@ -244,17 +244,17 @@ std::string PyGenVisitor::definePreamble() const
 {
     std::ostringstream result;
     result << "import numpy\n";
-    result << "from libBornAgainCore import *\n";
-    result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "#import pylab\n";
-    result << "#import matplotlib\n\n";
-    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
-    result << "#NOTE: Running this Script by default will write output data"
-           << "to \"output.int\" file\n";
-    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
-           << "given to runSimulation in __main__\n";
-    result << "#NOTE: To read data from a file use the command:"
-           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
+//    result << "#NOTE: Uncomment the next import statements for plotting\n";
+    result << "import pylab\n";
+    result << "import matplotlib\n";
+    result << "from bornagain import *\n\n";
+//    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
+//    result << "#NOTE: Running this Script by default will write output data"
+//           << "to \"output.int\" file\n";
+//    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
+//           << "given to runSimulation in __main__\n";
+//    result << "#NOTE: To read data from a file use the command:"
+//           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
     return result.str();
 }
 
@@ -281,7 +281,7 @@ std::string PyGenVisitor::defineGetSimulation(const Simulation *simulation) cons
 {
     std::ostringstream result;
     result << "def getSimulation():\n";
-    result << indent() << "# Creating and returning GISAXS simulation\n";
+//    result << indent() << "# Creating and returning GISAXS simulation\n";
     result << indent() << "simulation = Simulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
@@ -1503,7 +1503,7 @@ std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
     }
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Defining Detector Parameters\n";
+    //result << indent() << "# Defining Detector Parameters\n";
     result << indent() <<"simulation.setDetectorParameters(" ;
     size_t index = 0;
     while (index < numberOfDetectorDimensions)
@@ -1524,7 +1524,7 @@ std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Defining Beam Parameters\n";
+    //result << indent() << "# Defining Beam Parameters\n";
     result << indent() << "simulation.setBeamParameters(" ;
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
            << simulation->getInstrument().getBeam().getAlpha() << ", "
@@ -1536,12 +1536,12 @@ std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "#NOTE: Uncomment the next function for plotting\n";
-    result << "#NOTE: This requires the presence of matplotlib library\n";
-    result << "#def plotSimulation(simulation):\n";
-    result << "#"<<indent()<<"result = simulation.getIntensityData().getArray()"
+//    result << "#NOTE: Uncomment the next function for plotting\n";
+//    result << "#NOTE: This requires the presence of matplotlib library\n";
+    result << "def plotSimulation(simulation):\n";
+    result << ""<<indent()<<"result = simulation.getIntensityData().getArray()"
            << "+ 1 # +1 for log scale\n";
-    result << "#"<<indent()<<"im = pylab.imshow(numpy.rot90(result, 1), "
+    result << ""<<indent()<<"im = pylab.imshow(numpy.rot90(result, 1), "
            << "norm=matplotlib.colors.LogNorm(), extent=[";
     size_t index = 0;
     size_t numberOfDetectorDimensions =
@@ -1558,8 +1558,8 @@ std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
         index++;
     }
     result << "]) \n";
-    result << "#"<<indent()<<"pylab.colorbar(im)\n";
-    result << "#"<<indent()<<"pylab.show()\n\n";
+    result <<indent()<<"pylab.colorbar(im)\n";
+    result <<indent()<<"pylab.show()\n\n";
     return result.str();
 }
 
@@ -1567,6 +1567,7 @@ std::string PyGenVisitor::defineRunSimulation() const
 {
     std::ostringstream result;
     result << "def runSimulation(filename = ''):\n";
+//    result << "def runSimulation():\n";
     result << indent() << "# Run Simulation\n";
     result << indent() << "sample = getSample()\n";
     result << indent() << "simulation = getSimulation()\n";

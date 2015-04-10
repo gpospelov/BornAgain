@@ -25,9 +25,9 @@
 #include <QDebug>
 
 const QString BeamItem::P_INTENSITY = "Intensity [1/s]";
-const QString BeamItem::P_WAVELENGTH = "Wavelength";
-const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
-const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
+const QString BeamItem::P_WAVELENGTH = "Wavelength [nm]";
+const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle [deg]";
+const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle [deg]";
 
 BeamItem::BeamItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::BeamType, parent)

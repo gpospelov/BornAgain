@@ -19,6 +19,7 @@
 \def\rD{\r_{\rm D}}
 \def\rS{\r_{\rm S}}
 \def\kD{\k_{\rm D}}
+\def\Sphere{\mathcal{S}}
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
 
@@ -422,7 +423,7 @@ whereas $\chi$, now defined as
 only accounts for horizontal fluctuations of the refractive index.
 Below, we will treat $\chi(\r)$ as a pertubative scattering term.
 Wave propagation, including refraction and reflection effects,
-obyes the homogeneous equation
+obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
   \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_0(\r) = 0,
 \end{equation}
@@ -456,11 +457,12 @@ the differential equation~(\ref{Ewavez}) is best solved
 with the WKB method.\footnote
 {Also called \textit{semiclassical approximation} or
 \textit{phase integral method},
-named WKB method after three independent papers by
-Wentzel (1926), Kramers (1926), Brillouin (1926),
-though actually introduced into quantum mechanics by Jeffreys (1923),
-and originally developped by Liouville (1837), Green (1837),
-and Lord Rayleigh (1912).}
+originally developped
+by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
+and named WKB method after three independent
+quantum-mechanical papers by
+Wentzel (1926), Kramers (1926), Brillouin (1926).
+See any textbook on quantum mechanics for more information.}
 \index{WKB method}
 \index{Semiclassical approximation|see {WKB method}}
 \index{Phase integral method|see {WKB method}}
@@ -519,7 +521,7 @@ we better propagate a plane wave backwards from $\rD$
 into our structured material,
 and finally evaluate the field at~$\rS$.
 The equivalence of these two computations is ensured
-by the \textit{reciprocity}
+by the \textit{reciprocity}%
 \index{Reciprocity|(}
 \index{Green function!reciprocity}
 of Green functions for self-adjungated differential equations.
@@ -541,7 +543,7 @@ reduces to the Helmholtz equation
 \end{equation}
 We introduce the adjungated Green function~$B$
 that originates from a source term at the detector location
-and obyes
+and obeys
 \begin{equation}\label{EgsSchrodiAdj}
   \left\{\Nabla^2+v(\r)\right\}B(\r,\rD) = \delta(\r-\rD).
 \end{equation}
@@ -550,14 +552,14 @@ We also introduce the auxiliary vector field
   \v{X}(\r,\rS,\rD):=B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
 \end{equation}
 We inscribe $\mathcal{M}$, $\rD$, and the origin of the coordinate system
-into a sphere $\mathcal{V}$ with radius~$R$,
+into a sphere $\Sphere$ with radius~$R$,
 and compute the volume integral
 \begin{equation}\label{Eprerecipro}
   \begin{array}{lcl}
     I(\rS,\rD)
-  &=& \displaystyle\int_\mathcal{V}\!{\rm d}^3r\,\Nabla \v{X}(\r,\rS,\rD)
+  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\Nabla \v{X}(\r,\rS,\rD)
   \\[1.8em]
-  &=& \displaystyle\int_\mathcal{V}\!{\rm d}^3r\,\left(
+  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\left(
     B\Nabla^2 G- G\Nabla^2 B \right)
   \\[1.4em]
   &=&  B(\rS,\rD) - G(\rD,\rS).
@@ -566,12 +568,12 @@ and compute the volume integral
 Alternatively, we can compute $I$ as a surface integral
 \begin{equation}
   I(\rS,\rD)
-  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}\v{\sigma}\,\v{X}(\r,\rS,\rD)
-  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}{\sigma}\,
+  =\displaystyle\int_{\partial\Sphere}{\rm d}\v{\sigma}\,\v{X}(\r,\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}{\rm d}{\sigma}\,
        \left(B\partial_R G - G\partial_R B\right).
 \end{equation}
-On the surface $\partial\mathcal{S}$, which lies outside $\mathcal{M}$,
-$B$ and $G$ are outgoing wave fields that obye the Helmholtz equation.
+On the surface $\partial\Sphere$, which lies outside $\mathcal{M}$,
+$B$ and $G$ are outgoing wave fields that obey the Helmholtz equation.
 Solutions of this equation in spherical coordinates
 have a well-known series expansion.
 We send $R\to\infty$ so that we need only to retain the lowest order,
@@ -588,10 +590,10 @@ The functions $g$ and $b$ can be further expanded into spherical harmonics,
 but this is of no interest here.
 The decisive point is the factorisation of $G$ and $B$
 and their common $R$ dependence.
-It follow at once that
+It follows at once that
 \begin{equation}
   I(\rS,\rD)
-  =\displaystyle\int_{\partial\mathcal{S}}{\rm d}\sigma\,
+  =\displaystyle\int_{\partial\Sphere}{\rm d}\sigma\,
        (\text{$R$-dependent})(bg-gb)
   = 0.
 \end{equation}

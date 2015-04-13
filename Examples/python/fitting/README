@@ -40,4 +40,6 @@ used for fitting.
     This directory contains examples for importing raw X,Y detector data into BornAgain's
     IntensityData object (phi_f, alpha_f space)
     ImportMariaData.py - in this example we load ASCII data from Maria reflectometer
-    ImportGALAXIDate.py - in this example tiff data from small-angle X-ray diffractometer GALAXI are loaded.
+    ImportGALAXIDate.py - in this example tiff data from small-angle X-ray diffractometer GALAXI are loaded. 
+                          To run this example you may need to install the python gdal module. 
+                          See https://pypi.python.org/pypi/GDAL/ for installation instruction.

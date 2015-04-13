@@ -49,14 +49,16 @@ polarized neutrons are discussed in Sect.~\ref{Snpol}.
 \index{Neutrons!wave propagation|(}
 
 \index{Schrodinger@Schrödinger equation!microscopic}
-We start from the Schrödinger equation
+The scalar wave function $\psi(\r,t)$ of a free thermal neutron
+is governed by the microscopic Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
-We will only consider monochromatic waves with given frequency~$\omega$.
 By assuming a time-independent potential $V(\r)$,
 we have excluded inelastic scattering.
+Therefore we need only to consider monochromatic waves
+with given frequency~$\omega$.
 In consequence, we have a stationary wave function
 \begin{equation}\label{Estationarywave}
   \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
@@ -156,9 +158,15 @@ incoming radiation.
 In terms of $K$ and $n$,
 the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
 can be rewritten as
+
+\Important{\Box{
 \begin{equation}\label{EnSchrodi}
   \left\{\Nabla^2+K^2n(\r)^2\right\}\Psi(\r) = 0.
 \end{equation}
+}}
+This equation is the starting point for the analysis of all
+small-angle scattering experiments,
+whether under grazing incidence (GISAS) or not (regular SAS).
 
 \index{Wave propagation!neutrons|)}
 \index{Neutrons!wave propagation|)}
@@ -373,10 +381,9 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \index{Cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  := \frac{r^2 J(\r)}{J_\text{i}}
+  := \frac{r^2 J(\r)}{J_\text{i}}.
 \end{equation}
-With (\ref{EJr}), we obtain a generic expression
-for the differential cross section of elastic scattering,
+The resulting equation
 
 \Important{\Box{
 \begin{equation}\label{Exsection}
@@ -384,7 +391,14 @@ for the differential cross section of elastic scattering,
   =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
 \end{equation}
 }}
-In the standard case (\ref{EBornQ}),
+yields quite generically the differential cross section of elastic scattering
+in first order Born approximation.
+As we shall see below,
+it holds not only for plane waves governed
+by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
+but also for distorted waves.
+
+In the standard plane-wave case (\ref{EBornQ}),
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   = {\left| \chi(\v{q}) \right|}^2.
@@ -396,19 +410,21 @@ of the scattering-length density.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scattering from surfaces, interfaces, and thin layers}\label{Sdwba}
+\section{Scattering from $\v{2+1}$ dimensional samples}\label{Sdwba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
-\subsection{Wave propagation in $\v{1+2}$ dimensions}
+\subsection{Wave propagation in $\v{2+1}$ dimensions}
 %===============================================================================
 
 Reflectometry and grazing-incidence scattering
-are designed for the investigatation of surfaces, interfaces, and thin layers.
-Such samples can typically be modelled as translationally invariant
-in $x$ and $y$ direction,
+are designed for the investigatation of surfaces, interfaces, and thin layers,
+or most generically:
+samples with a $2+1$ dimensional structure,
+that is translationally invariant in $x$ and $y$ direction,
 while being nontrivially modulated in $z$ direction.
-The $z$ axis points upwards, hence out of the sample towards the
+By convention,
+the $z$ axis points upwards, hence out of the sample towards the
 vacuum (or air) half space where the incident radiation comes from.
 % TODO: add figure
 

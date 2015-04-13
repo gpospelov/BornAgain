@@ -31,7 +31,10 @@ we present the theory
 of grazing-incidence small-angle scattering (GISAS)
 that underlies the simulation algorithm implemented in BornAgain.
 Our exposition is largely self contained,
-except for some textbook references.
+except for the initial passage from the microscopic
+to the macroscopic Schrödinger equation,
+for which we refer to the literature.
+
 For alternative introductions to GISAS theory,
 see e.~g.\ the review \cite{ReLL09} or ....
 
@@ -49,7 +52,7 @@ polarized neutrons are discussed in Sect.~\ref{Snpol}.
 \index{Neutrons!wave propagation|(}
 
 \index{Schrodinger@Schrödinger equation!microscopic}
-The scalar wave function $\psi(\r,t)$ of a free thermal neutron
+The scalar wave function $\psi(\r,t)$ of a slow neutron
 is governed by the microscopic Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
@@ -103,9 +106,11 @@ in line with Huygens' principle.%
 Another form of coherent scattering is \textit{Bragg scattering}.%
 \index{Bragg scattering!by atomic lattices}
 However, Bragg scattering by atomic lattices
-is large-angle, not small-angle scattering;
-it occurs on wavenumbers outside the range covered in GISAS experiments.
-At most, it is taken into account as a loss channel.
+is large-angle, not small-angle scattering,
+and therefore occurs outside the wavenumber range
+covered in GISAS experiments.
+Accordingly, it can be neglected in the analysis of GISAS data,
+or at most, is taken into account as a loss channel.
 
 Therefore,
 we can neglect the atomic structure of $V(\r)$,
@@ -140,9 +145,9 @@ $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
 or of a \textit{refractive index}~$n(\r)$%
 \index{Refractive index} % !vs scattering length density}
 \index{Index of refraction|see {Refractive index}}
-with
+defined by
 \begin{equation}\label{EnRefrIndx}
-  n(\r)^2=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
+  n(\r)^2:=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
 \end{equation}
 In the latter expression,
 we introduced the \textit{vacuum wavenumber}~$K$,
@@ -175,15 +180,15 @@ whether under grazing incidence (GISAS) or not (regular SAS).
 \section{Neutron scattering in Born approximation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For neutrons, as for X-rays, the refractive index~$n$ is close to~1,
-with $1-n$ typically of the order $10^{-5}$ or smaller.
-In the following,
-we shall use this fact to solve the Schrödinger equation~(\ref{EnSchrodi})
-in a perturbation expansion
-that is known as the Born approximation
-though it goes back to Lord Rayleigh
-who devised it for the scattering of sound,
-and later also applied it to electromagnetic waves.
+For slow neutrons, as for X-rays, the refractive index~$n$ is almost always
+very close to~1.
+This suggests a solution of the Schrödinger equation~(\ref{EnSchrodi})
+by means of a perturbation expansion in powers of $n^2-1$.
+This expansion is named after Max Born
+who introduced it in quantum mechanics.\footnote
+{It goes back to Lord Rayleigh
+who devised it for the sound,
+and later also applied it to electromagnetic waves.}
 
 %===============================================================================
 \subsection{The Born expansion}\label{SBorn}
@@ -266,7 +271,7 @@ that are not illuminated by the incident beam,
 we are only interested in the scattered wavefield
 \begin{equation}\label{EBornS}
   \Psi_\text{s}(\r)
-  \doteq 
+  :=
   \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
 \end{equation}
 
@@ -660,9 +665,8 @@ Therefore,
 \end{equation}
 Applying now the reciprocity theorem (\ref{Ereci}),
 we can conclude that the far-field Green function
-has exactly the same form (\ref{EGreenFar})
-as for the case of propagation in vacuum,
-except that $\Psi_\text{f}$ is no longer a plane wave.
+is still given by (\ref{EGreenFar}),
+though $\Psi_\text{f}$ no longer is a plane wave.
 Accordingly,
 the scattered far-field is still given by (\ref{EsandwichC}).
 

@@ -318,6 +318,7 @@ or in compact notation
   = \frac{{\rm e}^{iKr}}{r}
     \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle.
 \end{equation}
+
 With the standard assumption
 that the incident radiation is a plane wave,
 \begin{equation}\label{EPsi0Plane}
@@ -361,7 +362,7 @@ With (\ref{EPsi0Plane}), the incident flux is
   \v{J}_\text{i} = \k_\text{i}.
 \end{equation}
 With (\ref{EsandwichC}), the scattered flux at the detector is
-\begin{equation}
+\begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
     {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
@@ -369,12 +370,20 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \textit{differential cross section}
-  \index{Cross section}
+\index{Cross section}
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   := \frac{r^2 J(\r)}{J_\text{i}}
+\end{equation}
+With (\ref{EJr}), we obtain a generic expression
+for the differential cross section of elastic scattering,
+
+\Important{\Box{
+\begin{equation}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
   =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
 \end{equation}
+}}
 In the standard case (\ref{EBornQ}),
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
@@ -653,6 +662,8 @@ Since both
 \end{equation}
 are composed of downward and upward propagating waves,
 the matrix element in (\ref{EsandwichC}) consists of four components,
+
+\Important{\Box{
 \begin{equation}\label{Ecross2}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
   = \langle \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\rangle
@@ -660,6 +671,7 @@ the matrix element in (\ref{EsandwichC}) consists of four components,
   + \langle \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\rangle
   + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
 \end{equation}
+}}
 
 In much of the GISAS theory it is assumed
 that the average refractive index $\nz(z)$ is constant within a layer~$j$.

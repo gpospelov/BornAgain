@@ -191,6 +191,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Truncated cube" icon="images/ff_truncated_cube_32.png">
+            <widget class="FormFactorTruncatedCube">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Truncated sphere" icon="images/ff_truncsphere_32.png">
             <widget class="FormFactorTruncatedSphere">
                 <property name="objectName">

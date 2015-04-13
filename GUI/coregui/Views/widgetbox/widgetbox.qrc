@@ -35,5 +35,6 @@
         <file>images/Transformation.png</file>
         <file>images/ParticleComposition.png</file>
         <file>images/SizeDistribution.png</file>
+        <file>images/ff_truncated_cube_32.png</file>
     </qresource>
 </RCC>

@@ -379,7 +379,7 @@ With (\ref{EJr}), we obtain a generic expression
 for the differential cross section of elastic scattering,
 
 \Important{\Box{
-\begin{equation}
+\begin{equation}\label{Exsection}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
 \end{equation}
@@ -396,11 +396,11 @@ of the scattering-length density.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scattering from layered structures}\label{Sdwba}
+\section{Scattering from surfaces, interfaces, and thin layers}\label{Sdwba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
-\subsection{Wave propagation in layered structures}
+\subsection{Wave propagation in $\v{1+2}$ dimensions}
 %===============================================================================
 
 Reflectometry and grazing-incidence scattering
@@ -672,6 +672,16 @@ the matrix element in (\ref{EsandwichC}) consists of four components,
   + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
 \end{equation}
 }}
+With differential cross sections still given by (\ref{Exsection}),
+
+This equation fully summarizes the outcome of
+distorted-wave Born approximation
+
+\index{Distorted-wave Born approximation|)}
+
+%===============================================================================
+\subsection{Multilayer systems}
+%===============================================================================
 
 In much of the GISAS theory it is assumed
 that the average refractive index $\nz(z)$ is constant within a layer~$j$.
@@ -687,13 +697,6 @@ can be written as
     \right|}^2.
 \end{equation}
 
-\index{Distorted-wave Born approximation|)}
-
-%===============================================================================
-\subsection{Multilayer systems}
-%===============================================================================
-
-In multilayer systems, the first term of (\ref{Etdwba}) denotes the specular part of the reflection, while the second term is responsible for the off-specular scattering. This off-specular part is caused by deviations from the perfectly smooth layered system, as e.g. interface roughnesses or included nanoparticles. In here only the case of nanoparticles will be treated.
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}

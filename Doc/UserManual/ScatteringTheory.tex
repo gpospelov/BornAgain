@@ -205,7 +205,7 @@ with
 \end{equation}
 This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
 Equation~(\ref{ESchrodiHelmholtz}) looks
-like an inhomogenous differential equation ---
+like an inhomogeneous differential equation ---
 provided we neglect for a moment that the unknown function~$\Psi$
 reappears on the right side.
 The homogeneous equation
@@ -223,7 +223,7 @@ For an isolated inhomogeneity,
 \index{Green function!homogeneous material}
 is solved by the Green function\footnote
 {Verification under the condition $\r\ne0$
-is a straightforward exercice in vector analysis.
+is a straightforward exercise in vector analysis.
 For the special case $\r=0$,
 one encloses the origin in a small sphere
 and integrates by means of the Gauss-Ostrogadsky divergence theorem.
@@ -245,7 +245,7 @@ However, the integral kernel still contains the full solution~$\Psi$.
 This implicit equation
 can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
-for the occurence of $\Psi$ in the integrand.
+for the occurrence of $\Psi$ in the integrand.
 This can be iterated to obtain an infinite series representation of $\Psi$.
 Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
@@ -263,7 +263,7 @@ where the aim is to
 deduce $\chi(\r')$ from the scattered intensity ${|\Psi(\r)|}^2$.
 Since detectors are always placed at positions $\r$
 that are not illuminated by the incident beam,
-we are only interested in the scattered wavefield
+we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \Psi_\text{s}(\r)
   :=
@@ -417,7 +417,7 @@ of the scattering-length density.
 %===============================================================================
 
 Reflectometry and grazing-incidence scattering
-are designed for the investigatation of surfaces, interfaces, and thin layers,
+are designed for the investigation of surfaces, interfaces, and thin layers,
 or most generically:
 samples with a $2+1$ dimensional structure,
 that is translationally invariant in $x$ and $y$ direction,
@@ -451,14 +451,14 @@ whereas $\chi$, now defined as
   \chi(\r) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\r)\right),
 \end{equation}
 only accounts for horizontal fluctuations of the refractive index.
-Below, we will treat $\chi(\r)$ as a pertubative scattering term.
+Below, we will treat $\chi(\r)$ as a perturbative scattering term.
 Wave propagation, including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
   \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_\text{i}(\r) = 0,
 \end{equation}
 which suggests the factorization ansatz
-\begin{equation}\label{Ewave3}
+\begin{equation}\label{Ekpar}
 \Psi_\text{i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 The in-plane wave vector $\k_\parallel$ remains constant
@@ -487,7 +487,7 @@ the differential equation~(\ref{Ewavez}) is best solved
 with the WKB method.\footnote
 {Also called \textit{semiclassical approximation} or
 \textit{phase integral method},
-originally developped
+originally developed
 by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
 and named WKB method after three independent
 quantum-mechanical papers by
@@ -514,7 +514,7 @@ as presented in Sect.~\ref{SBorn},
 combines an approximation scheme
 (computing (\ref{EPsiFormal}) by iteration)
 with an assumption (the incident field is a plane wave)
-and an analytical result
+and an analytic result
 (in far-field approximation,
 the Green function of the Helmholtz equation is a plane wave
 with respect to the locus of scattering).
@@ -554,7 +554,7 @@ The equivalence of these two computations is ensured
 by the \textit{reciprocity}%
 \index{Reciprocity|(}
 \index{Green function!reciprocity}
-of Green functions for self-adjungated differential equations.
+of Green functions for self-adjoint differential equations.
 
 Let us derive the reciprocity theorem
 for a generic stationary Schrödinger equation
@@ -571,7 +571,7 @@ reduces to the Helmholtz equation
   \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0
   \text{~~for~~}\r\notin\Sample.
 \end{equation}
-We introduce the adjungated Green function~$B$
+We introduce the adjoint Green function~$B$
 that originates from a source term at the detector location
 and obeys
 \begin{equation}\label{EgsSchrodiAdj}
@@ -618,7 +618,7 @@ and similarly
 \end{equation}
 The functions $g$ and $b$ can be further expanded into spherical harmonics,
 but this is of no interest here.
-The decisive point is the factorisation of $G$ and $B$
+The decisive point is the factorization of $G$ and $B$
 and their common $R$ dependence.
 It follows at once that
 \begin{equation}
@@ -632,7 +632,7 @@ From (\ref{Eprerecipro}) we obtain the \textit{reciprocity theorem}
   G(\rD,\rS) = B(\rS,\rD).
 \end{equation}
 To obtain the forward-propagating Green function~$G$,
-it is sufficient to determine the adjungate Green function~$B$
+it is sufficient to determine the adjoint Green function~$B$
 that traces a neutron back from the detector position~$\rD$
 to a scattering center~$\rS$.
 \index{Reciprocity|)}
@@ -665,18 +665,15 @@ Accordingly,
 the scattered far-field is still given by (\ref{EsandwichC}),
 and the differential cross section by (\ref{Exsection}).
 
-Since both the incindent
-\begin{equation}
-  \Psi_\text{i}(\r)
-  = \Psi^-_\text{i}(z) + \Psi^+_\text{i}(z),
-\end{equation}
-and the scattered wave function
-\begin{equation}
-  \Psi_\text{f}(\r)
-  = \Psi^-_\text{f}(z) + \Psi^+_\text{f}(z)
-\end{equation}
+Since both the incident
+and the scattered distorted wave function
 are composed of downward and upward propagating waves,
-the matrix element (\ref{Etrama}) consists of four components,
+\begin{equation}
+  \Psi_w(\r)
+  = \Psi^-_w(\r) + \Psi^+_w(\r)\text{~for~}w\in\{\text{i},\text{f}\},
+\end{equation}
+the matrix element (\ref{Etrama})
+can be expanded into four terms,
 
 \Important{\Box{
 \begin{equation}\label{EtmDWBA}
@@ -687,9 +684,10 @@ the matrix element (\ref{Etrama}) consists of four components,
   + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
 \end{equation}
 }}
-This equation fully summarizes the outcome of
-distorted-wave Born approximation
-for small-angle scattering under grazing incidence.
+This equation contains the essence of
+the distorted-wave Born approximation
+for small-angle scattering under grazing incidence,
+and is the base for all scattering models implemented in BornAgain.
 In the following, we will use the shorthand notation
 \begin{equation}\label{EtmDWBAsum}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
@@ -699,7 +697,7 @@ In the following, we will use the shorthand notation
 Note that $\langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle$
 appears as a squared modulus
 in the differential cross section~(\ref{Exsection}).
-Therefore, the four terms of (\ref{EtmDWBA}) can interfer with each other,
+Therefore, the four terms of (\ref{EtmDWBA}) can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
 \index{Distorted-wave Born approximation|)}
@@ -709,22 +707,55 @@ which adds to the complexity of GISAS patterns.
 %===============================================================================
 
 In many applications of GISAS,
-the investigated sample consists of a number of distinct layers~$j$.
-
-In much of the GISAS theory it is assumed
-that the average refractive index $\nz(z)$ is constant within a layer~$j$.
-In this case, the scattered far-field
-can be written as
-\begin{equation}\label{Ecross3}
-  \frac{{\rm d}\sigma_j}{{\rm d}\Omega}
-  = {\left|
-    \int\!{\rm d}^3r\, {\rm e}^{i\v{q}_\parallel\,\r_\parallel}
-    \left(\phi^-_\text{i}(z) + \phi^+_\text{i}(z)\right)
-    \chi(\r)
-    \left(\phi^{-*}_\text{f}(z) + \phi^{+*}_\text{f}(z)\right)
-    \right|}^2.
+the investigated sample consists of a number of distinct layers.
+For the time being,
+no other systems are supported in BornAgain.\footnote
+{Please contact us if need arises for modelling systems with
+smoothly varying~$\nz(z)$.}
+Within one layer~$j$, the average refractive index is constant,
+$\nz(z)=\nz_j$ for $z\in\mathcal{Z}_j$, where
+$\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
+Within a layer,
+the downward and upward propagating waves are plane,
+\begin{equation}
+  \Psi^\pm_{wj}(\r)=A^\pm_{wj}{\rm e}^{i\k^\pm_{wj}\r}.
 \end{equation}
-
+Here and in the following,
+the index~$w$ can take the values i and~f.
+The amplitudes $A$ are often written with distinct letters
+T and~R to designate the transmitted or reflected beam,
+\begin{equation}
+  T_{wj} := A^-_\text{wj},\quad
+  R_{wj} := A^+_\text{wj}.
+\end{equation}
+The wave vector can be decomposed as
+\begin{equation}
+  \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
+\end{equation}
+As explained in connection with~(\ref{Ekpar}),
+the in-plane wave vector $\k_{\parallel w}$ remains constant
+across layer interfaces.
+The vertical wavenumber is obtained from (\ref{Ewavez}),
+\begin{equation}
+  k_{\perp wj} = \sqrt{K^2 \nz_j^2 - k_{\parallel w}^2}.
+\end{equation}
+Restricting (\ref{EBornQ}) to one layer,
+the Fourier transform of the refractive index fluctuations
+shall be written as
+\begin{equation}\label{EBornQ}
+  \chi_j(\v{q})
+  := \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r').
+\end{equation}
+We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
+a sum over all layers,
+\Important{\Box{
+\begin{equation}\label{EtmDWBAft}
+  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  = \sum_{j} \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
+    A^\pm_{\text{i}j} A^{\pm *}_{\text{f}j}
+     \chi_j(\k^\pm_{\text{i}j} - \k^\pm_{\text{f}j}).
+\end{equation}
+}}
 
 In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
 \begin{align*}
@@ -786,7 +817,7 @@ With this last expression, the same techniques as demonstrated in section \ref{s
 
 The main differences with respect to the cross-section in the Born approximation are:
 \begin{enumerate}
-  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wavevectors and also on the $z$-coordinate of the particle;
+  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wave vectors and also on the $z$-coordinate of the particle;
   \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
 \end{enumerate}
 

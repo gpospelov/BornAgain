@@ -67,9 +67,7 @@ In consequence, we have a stationary wave function
   \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
 \end{equation}
 \index{Wave propagation!sign convention}
-\index{Sign convention!wave propagation}
-\index{Quantum-mechanical sign convention}
-\index{Crystallographic sign convention}
+\index{Sign convention}
 The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \textit{quantum-mechanical sign convention}.
@@ -88,8 +86,6 @@ we obtain the stationary Schrödinger equation
 \end{equation}
 \index{Potential|see {Optical potential}}
 \index{Optical potential!nuclear (microscopic)}
-\index{Nuclear optical potential}
-\index{Microscopic optical potential}
 The \textit{nuclear} (or \textit{microscopic})
 \textit{optical potential} $V(\r)$,
 in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
@@ -132,7 +128,6 @@ where $\Psi$ now stands for the coherent superposition of
 incident and forward scattered states,
 and $v(\r)$ is the \textit{macroscopic optical potential}.%
 \index{Optical potential!macroscopic}
-\index{Macroscopic optical potential}
 This potential is weak, and slowly varying compared to atomic length scales.
 It can be rewritten in a number of ways,
 especially in terms of a
@@ -319,41 +314,39 @@ With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 
 The scattered wave~(\ref{EBornS})
 becomes in far-field approximation 
-\begin{equation}\label{Esandwich}
-  \Psi_\text{s,far}(\r)
-  = \frac{{\rm e}^{iKr}}{r}
-    \int\!{\rm d}^3r'
-    \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r'),
-\end{equation}
-or in compact notation
 \begin{equation}\label{EsandwichC}
   \Psi_\text{s,far}(\r)
   = \frac{{\rm e}^{iKr}}{r}
-    \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle.
+    \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle,
 \end{equation}
-
-With the standard assumption
-that the incident radiation is a plane wave,
+where we used Dirac notation for the transition matrix element
+\index{Transition matrix}
+\begin{equation}\label{Etrama}
+  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  := \int\!{\rm d}^3r' \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r').
+\end{equation}
+Making the standard assumption
+that the incident radiation is a plane wave
 \begin{equation}\label{EPsi0Plane}
   \Psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
 \end{equation}
 with $k_\text{i}=K$,
-the above matrix element becomes simply
+and introducing the \textit{scattering vector}
+\index{Scattering vector}
+\begin{equation}
+  \v{q}:=\k_\text{i}-\k_\text{f},
+\end{equation}
+we can rewrite (\ref{EsandwichC}) as
 \begin{equation}\label{EBornQ}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
   = \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r')
-  =: \chi(\v{q})
+  =: \chi(\v{q}),
 \end{equation}
 which shows that neutron scattering,
 in first-order Born approximation,
 measures the Fourier transform
-of the optical potential
+of the optical potential.
 \index{Optical potential!Fourier transform}
-with respect to the \textit{scattering vector}
-\index{Scattering vector}
-\begin{equation}
-  \v{q}:=\k_\text{i}-\k_\text{f}.
-\end{equation}
 
 \index{Far-field approximation|)}
 
@@ -370,6 +363,7 @@ We define it in arbitrary relative units as
 \begin{equation}
   \v{J}(\r) := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
 \end{equation}
+\index{Flux!incident and scattered}
 With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
   \v{J}_\text{i} = \k_\text{i}.
@@ -403,7 +397,7 @@ it holds not only for plane waves governed
 by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
 but also for distorted waves.
 
-In the standard plane-wave case (\ref{EBornQ}),
+In the plane-wave case, we can insert (\ref{EBornQ}) to obtain
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   = {\left| \chi(\v{q}) \right|}^2.
@@ -415,7 +409,7 @@ of the scattering-length density.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scattering from $\v{2+1}$ dimensional samples}\label{Sdwba}
+\section{Scattering under grazing incidence}\label{Sdwba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
@@ -668,23 +662,24 @@ we can conclude that the far-field Green function
 is still given by (\ref{EGreenFar}),
 though $\Psi_\text{f}$ no longer is a plane wave.
 Accordingly,
-the scattered far-field is still given by (\ref{EsandwichC}).
+the scattered far-field is still given by (\ref{EsandwichC}),
+and the differential cross section by (\ref{Exsection}).
 
-Since both
+Since both the incindent
 \begin{equation}
-  \begin{array}{lcl}
   \Psi_\text{i}(\r)
-  &=& \Psi^-_\text{i}(z) + \Psi^+_\text{i}(z), \text{ and }
-  \\
+  = \Psi^-_\text{i}(z) + \Psi^+_\text{i}(z),
+\end{equation}
+and the scattered wave function
+\begin{equation}
   \Psi_\text{f}(\r)
-  &=& \Psi^-_\text{f}(z) + \Psi^+_\text{f}(z)
-   \end{array}
+  = \Psi^-_\text{f}(z) + \Psi^+_\text{f}(z)
 \end{equation}
 are composed of downward and upward propagating waves,
-the matrix element in (\ref{EsandwichC}) consists of four components,
+the matrix element (\ref{Etrama}) consists of four components,
 
 \Important{\Box{
-\begin{equation}\label{Ecross2}
+\begin{equation}\label{EtmDWBA}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
   = \langle \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\rangle
   + \langle \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\rangle
@@ -692,16 +687,29 @@ the matrix element in (\ref{EsandwichC}) consists of four components,
   + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
 \end{equation}
 }}
-With differential cross sections still given by (\ref{Exsection}),
-
 This equation fully summarizes the outcome of
 distorted-wave Born approximation
+for small-angle scattering under grazing incidence.
+In the following, we will use the shorthand notation
+\begin{equation}\label{EtmDWBAsum}
+  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  = \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
+    \langle \Psi^\pm_\text{f}|\chi|\Psi^\pm_\text{i}\rangle.
+\end{equation}
+Note that $\langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle$
+appears as a squared modulus
+in the differential cross section~(\ref{Exsection}).
+Therefore, the four terms of (\ref{EtmDWBA}) can interfer with each other,
+which adds to the complexity of GISAS patterns.
 
 \index{Distorted-wave Born approximation|)}
 
 %===============================================================================
 \subsection{Multilayer systems}
 %===============================================================================
+
+In many applications of GISAS,
+the investigated sample consists of a number of distinct layers~$j$.
 
 In much of the GISAS theory it is assumed
 that the average refractive index $\nz(z)$ is constant within a layer~$j$.

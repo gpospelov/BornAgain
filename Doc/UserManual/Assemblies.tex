@@ -228,6 +228,8 @@ In the case of systems where the particles are aligned in one dimension, this au
   Z(\vectr ) \equiv z_0(\vectr ) + z_+(\vectr ) + z_-(\vectr ).
 \end{equation*}
 Taking $x$ as the coordinate in the direction in which the particles are arranged and $s$ as an orthogonal coordinate ($\vectr \equiv (x,s)$), one obtains:
+BROKEN TODO RESTORE
+\iffalse
 \begin{align*}
   z_0(\vectr ) &= \sum_{\alpha_0} p(\alpha_0) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_0}(x,s)  \\
   z_+(\vectr ) &= \sum_{\alpha_0\alpha_1} p(\alpha_0,\alpha_1) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_1}(x,s) \otimes P_1(x|\alpha_0\alpha_1)  \\
@@ -235,6 +237,7 @@ Taking $x$ as the coordinate in the direction in which the particles are arrange
                &+ \dotsb \\
   z_-(\vectr ) &= z_+(-\vectr ),
 \end{align*}
+\fi
 where $p(\alpha_0,\dotsc ,\alpha_n)$ denotes the probability of having a sequence of particles of the indicated sizes/shapes and $P_n(x|\alpha_0\dotsc\alpha_n)$ is the probability density of having a particle of type $\alpha_n$ at a (positive) distance $x$ of its nearest neighbor of type $\alpha_{n-1}$ in a sequence of the given order.
 
 In the Size-Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
@@ -564,7 +567,7 @@ The interference function is specified when building the sample. It is linked wi
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\ding{253} \Code{InterferenceFunctionNone()}} 
+\subsubsection{\Code{InterferenceFunctionNone()}} 
 %-------------------------------------------------------------------------------
 
 The particles are placed randomly in the dilute limit and are considered as individual, non-interacting scatterers. The scattered intensity is function of the form factors only. 
@@ -612,7 +615,7 @@ def get_sample():
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\ding{253}  \Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
+\subsubsection{\Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
 %-------------------------------------------------------------------------------
 where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
@@ -669,7 +672,7 @@ def get_sample():
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\ding{253} \Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
+\subsubsection{\Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
 %-------------------------------------------------------------------------------
 \begin{itemize}
 \item[where] \Code{peak\_distance} is the average distance to the first neighbor peak, 
@@ -710,7 +713,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\ding{253}  \Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
+\subsubsection{\Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
 %-------------------------------------------------------------------------------
 where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with 
 \begin{itemize}
@@ -770,7 +773,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \newpage%{\cleardoublepage}
 %-------------------------------------------------------------------------------
-\subsubsection{\ding{253} \Code{InterferenceFunction2DParaCrystal(L\_1, L\_2, lattice\_angle, $\xi$, damping\_length)}} 
+\subsubsection{InterferenceFunction2DParaCrystal($L_1$, $L_2$, lattice\_angle, $xi$, damping\_length)} % TODO RESTORE \Code{}, \xi
 %-------------------------------------------------------------------------------
 \begin{itemize}
 \item[where] $L_1$, $L_2$ are the lengths of the lattice cell,

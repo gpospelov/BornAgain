@@ -24,34 +24,37 @@
 
 \chapter{Foundations of GISAS}  \SecLabel{ScatTheory}
 
-\newcommand{\nz}{\overline{n}}
+\def\nz{\overline{n^2}}
+\def\nzj{\overline{n_j^2}}
 
 In this chapter,
 we present the theory
 of grazing-incidence small-angle scattering (GISAS)
 that underlies the simulation algorithm implemented in BornAgain.
-Our exposition is largely self contained,
+We specifically consider the propagation and scattering
+of neutrons with no polarization-dependent interactions,
+so that we can base our exposition on a scalar wave equation.
+The notationally more involved
+vectorial theory needed for X-rays and for polarized neutrons
+is adjourned to the next chapter.
+
+Our exposition is largely self-contained,
 except for the initial passage from the microscopic
 to the macroscopic Schrödinger equation,
-for which we refer to the literature.
+which we outline only briefly.
+This manual is decidedly not the place for renarrating
+the historic development of GISAS theory.
+For ample references to the original literature,
+we refer to the excellent review \cite{ReLL09}.
 
-For alternative introductions to GISAS theory,
-see e.~g.\ the review \cite{ReLL09} or ....
-
-In sections \ref{Swave}--\ref{Sdwba},
-we develop the theory for the simplest case,
-namely for neutrons with no polarization-dependent interactions.
-The electromagnetic theory of X-ray scattering
-is presented in Sect.~\ref{Sxray},
-polarized neutrons are discussed in Sect.~\ref{Snpol}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Neutron wave propagation}\label{Swave}
+\section{Coherent neutron propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Wave propagation!neutrons|(}
-\index{Neutrons!wave propagation|(}
+\index{Wave propagation!neutrons|(}%
+\index{Neutrons!wave propagation|(}%
 
-\index{Schrodinger@Schrödinger equation!microscopic}
+\index{Schrodinger@Schrödinger equation!microscopic}%
 The scalar wave function $\psi(\r,t)$ of a slow neutron
 is governed by the microscopic Schrödinger equation
 \begin{equation}\label{ESchrodi}
@@ -66,11 +69,11 @@ In consequence, we have a stationary wave function
 \begin{equation}\label{Estationarywave}
   \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
 \end{equation}
-\index{Wave propagation!sign convention}
-\index{Sign convention}
 The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \textit{quantum-mechanical sign convention}.
+\index{Wave propagation!sign convention}%
+\index{Sign convention}%
 The opposite choice of a phase factor ${\rm e}^{+i\omega t}$ is 
 called the \textit{crystallographic sign convention},
 and is used in much of the literature on X-ray scattering,
@@ -84,23 +87,23 @@ we obtain the stationary Schrödinger equation
 \begin{equation}\label{EstatSchrodi}
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
 \end{equation}
-\index{Potential|see {Optical potential}}
-\index{Optical potential!nuclear (microscopic)}
+\index{Potential|see {Optical potential}}%
+\index{Optical potential!nuclear (microscopic)}%
 The \textit{nuclear} (or \textit{microscopic})
 \textit{optical potential} $V(\r)$,
 in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
 consists of a sum of delta functions,
 representing Fermi's ``pseudopotential''.
-\index{Fermi's pseudopotential}
+\index{Fermi's pseudopotential}%
 The superposition of the incident wave with the scattered waves
 originating from each illuminated nucleus
-results in \textit{coherent forward scattering},%
-\index{Coherent forward scattering}
-in line with Huygens' principle.%
-\index{Huygens' principle}
+results in \textit{coherent forward scattering},
+\index{Coherent forward scattering}%
+in line with Huygens' principle.
+\index{Huygens' principle}%
 
 Another form of coherent scattering is \textit{Bragg scattering}.%
-\index{Bragg scattering!by atomic lattices}
+\index{Bragg scattering!by atomic lattices}%
 However, Bragg scattering by atomic lattices
 is large-angle, not small-angle scattering,
 and therefore occurs outside the wavenumber range
@@ -111,8 +114,8 @@ or at most, is taken into account as a loss channel.
 Therefore,
 we can neglect the atomic structure of $V(\r)$,
 and perform some \textit{coarse graining} to
-arrive at a \textit{continuum approximation}.%
-\index{Continuum approximation!neutron propagation}
+arrive at a \textit{continuum approximation}.
+\index{Continuum approximation!neutron propagation}%
 This is 
 similar to the passage from
 the microscopic to the macroscopic Maxwell equations.
@@ -120,26 +123,26 @@ The details are intricate \cite{Sea89,Lax51},
 but the result \cite[eq.~2.8.32]{Sea89} looks very simple:
 The macroscopic field equation
 has still the form of a stationary Schrödinger equation,
-\index{Schrodinger@Schrödinger equation!macroscopic}
+\index{Schrodinger@Schrödinger equation!macroscopic}%
 \begin{equation}\label{EmacrSchrodi}
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r) = 0,
 \end{equation}
 where $\Psi$ now stands for the coherent superposition of
 incident and forward scattered states,
-and $v(\r)$ is the \textit{macroscopic optical potential}.%
-\index{Optical potential!macroscopic}
+and $v(\r)$ is the \textit{macroscopic optical potential}.
+\index{Optical potential!macroscopic}%
 This potential is weak, and slowly varying compared to atomic length scales.
 It can be rewritten in a number of ways,
 especially in terms of a
-\textit{bound scattering length density}%
-\index{Scattering length density}
+\textit{bound scattering length density}
+\index{Scattering length density}%
 $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
 \begin{equation}
   v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),  
 \end{equation}
-or of a \textit{refractive index}~$n(\r)$%
-\index{Refractive index} % !vs scattering length density}
-\index{Index of refraction|see {Refractive index}}
+or of a \textit{refractive index}~$n(\r)$
+\index{Refractive index} % !vs scattering length density}%
+\index{Index of refraction|see {Refractive index}}%
 defined by
 \begin{equation}\label{EnRefrIndx}
   n(\r)^2:=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
@@ -168,8 +171,8 @@ This equation is the starting point for the analysis of all
 small-angle scattering experiments,
 whether under grazing incidence (GISAS) or not (regular SAS).
 
-\index{Wave propagation!neutrons|)}
-\index{Neutrons!wave propagation|)}
+\index{Wave propagation!neutrons|)}%
+\index{Neutrons!wave propagation|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}
@@ -189,11 +192,11 @@ and later also applied it to electromagnetic waves.}
 \subsection{The Born expansion}\label{SBorn}
 %===============================================================================
 
-\index{Born approximation|(}
+\index{Born approximation|(}%
 
 We rewrite the Schrödinger equation~(\ref{EnSchrodi})
 once more so that it takes the form of a Helmholtz equation
-\index{Helmholtz equation}
+\index{Helmholtz equation}%
 with a perturbation term on the right side:
 \begin{equation}\label{ESchrodiHelmholtz}
   \left(\Nabla^2+K^2\right)\Psi(\r)
@@ -220,7 +223,7 @@ For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
   \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
 \end{equation}
-\index{Green function!homogeneous material}
+\index{Green function!homogeneous material}%
 is solved by the Green function\footnote
 {Verification under the condition $\r\ne0$
 is a straightforward exercise in vector analysis.
@@ -238,7 +241,7 @@ of the full inhomogeneous equation~(\ref{ESchrodiHelmholtz})
 \begin{equation}\label{EPsiFormal}
   \Psi(\r)
   = \Psi_\text{i}(\r)
-  + \int\!{\rm d}^3r' G(\r,\r')
+  + \int\!{\rm d}^3r'\, G(\r,\r')
                      \frac{\chi(\r')}{4\pi}\Psi(\r').
 \end{equation}
 However, the integral kernel still contains the full solution~$\Psi$.
@@ -254,7 +257,7 @@ only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
   \Psi(\r)
   \doteq \Psi_\text{i}(\r)
-  + \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}
+  + \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
    \Psi_\text{i}(\r').
 \end{equation}
 This is practically always adequate for
@@ -267,16 +270,16 @@ we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \Psi_\text{s}(\r)
   :=
-  \int\!{\rm d}^3r' G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
+  \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
 \end{equation}
 
-\index{Born approximation|)}
+\index{Born approximation|)}%
 
 %===============================================================================
 \subsection{Far-field approximation}
 %===============================================================================
 
-\index{Far-field approximation|(}
+\index{Far-field approximation|(}%
 
 We can further simplify (\ref{EBornS})
 by making use of the fact that the detector location~$\r$
@@ -299,7 +302,7 @@ where we have introduced the outgoing wave vector
   \k_\text{f}:=K\frac{\r}{r}.
 \end{equation}
 We apply this to~(\ref{EGreens1}),
-\index{Green function!homogeneous material}
+\index{Green function!homogeneous material}%
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
   G_\text{far}(\r,\r')
@@ -320,10 +323,10 @@ becomes in far-field approximation
     \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle,
 \end{equation}
 where we used Dirac notation for the transition matrix element
-\index{Transition matrix}
+\index{Transition matrix}%
 \begin{equation}\label{Etrama}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
-  := \int\!{\rm d}^3r' \Psi^*_\text{f}(\r')\chi(\r')\Psi_\text{i}(\r').
+  := \int\!{\rm d}^3r\, \Psi^*_\text{f}(\r)\chi(\r)\Psi_\text{i}(\r).
 \end{equation}
 Making the standard assumption
 that the incident radiation is a plane wave
@@ -332,23 +335,23 @@ that the incident radiation is a plane wave
 \end{equation}
 with $k_\text{i}=K$,
 and introducing the \textit{scattering vector}
-\index{Scattering vector}
+\index{Scattering vector}%
 \begin{equation}
   \v{q}:=\k_\text{i}-\k_\text{f},
 \end{equation}
 we can rewrite (\ref{EsandwichC}) as
 \begin{equation}\label{EBornQ}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
-  = \int\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r')
+  = \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r)
   =: \chi(\v{q}),
 \end{equation}
 which shows that neutron scattering,
 in first-order Born approximation,
 measures the Fourier transform
 of the optical potential.
-\index{Optical potential!Fourier transform}
+\index{Optical potential!Fourier transform}%
 
-\index{Far-field approximation|)}
+\index{Far-field approximation|)}%
 
 %===============================================================================
 \subsection{Differential cross section}
@@ -363,7 +366,7 @@ We define it in arbitrary relative units as
 \begin{equation}
   \v{J}(\r) := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
 \end{equation}
-\index{Flux!incident and scattered}
+\index{Flux!incident and scattered}%
 With (\ref{EPsi0Plane}), the incident flux is
 \begin{equation}
   \v{J}_\text{i} = \k_\text{i}.
@@ -377,7 +380,7 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \textit{differential cross section}
-\index{Cross section}
+\index{Cross section}%
 \begin{equation}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   := \frac{r^2 J(\r)}{J_\text{i}}.
@@ -404,7 +407,7 @@ In the plane-wave case, we can insert (\ref{EBornQ}) to obtain
 \end{equation}
 Thus the differential cross section is just the squared modulus
 of the Fourier transform 
-\index{Scattering length density}
+\index{Scattering length density}%
 of the scattering-length density.
 
 
@@ -429,9 +432,9 @@ vacuum (or air) half space where the incident radiation comes from.
 
 Vertical modulations of the refractive index $n(\r)$
 cause refraction and reflection of an incident plane wave.
-\index{Glancing angle}
-\index{Refraction}
-\index{Reflection}
+\index{Glancing angle}%
+\index{Refraction}%
+\index{Reflection}%
 For small glancing angles,
 these distortions can be arbitrary large,
 up to the limiting case of total reflection,
@@ -440,22 +443,23 @@ Such zeroth-order effects cannot be accounted for
 by perturbative scattering theory.
 Instead, we need to deal with refraction and reflection
 at the level of the wave propagation equation.
-We move the vertical variations of the average refractive index $\nz(z)$
+We move the vertical variations of the squared refractive index
 to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
 \begin{equation}\label{EHelmholtzGraded}
-  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi(\r)
+  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi(\r)
   = \frac{\chi(\r)}{4\pi}\Psi(\r),
 \end{equation}
-whereas $\chi$, now defined as
+where the overline indicates an horizontal average.
+Accordingly, the perturbation
 \begin{equation}\label{EChiGraded}
-  \chi(\r) := \frac{4\pi}{K^2}\left(\nz^2(z)-n^2(\r)\right),
+  \chi(\r) := \frac{4\pi}{K^2}\left(\nz(z)-n^2(\r)\right),
 \end{equation}
 only accounts for horizontal fluctuations of the refractive index.
-Below, we will treat $\chi(\r)$ as a perturbative scattering term.
-Wave propagation, including refraction and reflection effects,
+Wave propagation,
+unperturbed by~$\chi$, but including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz^2(z)\right\}\Psi_\text{i}(\r) = 0,
+  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi_\text{i}(\r) = 0,
 \end{equation}
 which suggests the factorization ansatz
 \begin{equation}\label{Ekpar}
@@ -465,7 +469,7 @@ The in-plane wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
 \begin{equation}\label{Ewavez}
-\left\{\partial_z^2 + K^2\nz(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
+\left\{\partial_z^2 + K^2\nz(z) - k_\parallel^2 \right\} \phi(z) = 0.
 \end{equation}
 When an incident plane wave,
 travelling downwards with
@@ -482,7 +486,9 @@ the vertical wave function $\phi(z)$ is composed of a
 downward travelling component $\phi^-(z)$
 and an upward travelling component $\phi^+(z)$.
 
-For a graded interface, where $\nz$ is a smooth function of~$z$,
+For a graded refractive index
+\index{Refractive index!graded}%
+$\nz$ that is a smooth function of~$z$,
 the differential equation~(\ref{Ewavez}) is best solved
 with the WKB method.\footnote
 {Also called \textit{semiclassical approximation} or
@@ -493,21 +499,22 @@ and named WKB method after three independent
 quantum-mechanical papers by
 Wentzel (1926), Kramers (1926), Brillouin (1926).
 See any textbook on quantum mechanics for more information.}
-\index{WKB method}
-\index{Semiclassical approximation|see {WKB method}}
-\index{Phase integral method|see {WKB method}}
+\index{WKB method}%
+\index{Semiclassical approximation|see {WKB method}}%
+\index{Phase integral method|see {WKB method}}%
 If otherwise $\nz(z)$ is discontinuous at some interface $z=z_j$,
 then the limiting values of $\phi^-(z)$ and $\phi^+(z)$
 on approaching $z_j$ from above or below
 are connected to each other through Fresnel's
 transmission and reflection coefficients.
+\index{Fresnel coefficients}%
 
 %===============================================================================
 \subsection{Reciprocity and the distorted-wave Born approximation}
 %===============================================================================
 
-\index{Distorted-wave Born approximation|(}
-\index{DWBA|see {Distorted-wave Born approximation}}
+\index{Distorted-wave Born approximation|(}%
+\index{DWBA|see {Distorted-wave Born approximation}}%
 
 The standard form of the Born approximation,
 as presented in Sect.~\ref{SBorn},
@@ -535,7 +542,7 @@ for collisions of charged particles.}
 
 There is one difficulty, though:
 how to substitute the Green function (\ref{EGreens1})?
-\index{Green function!vertically structured material}
+\index{Green function!vertically structured material}%
 It was derived in Sect.~\ref{SBorn} quite specifically
 for a homogeneous material.
 Computing it in closed form for a more generic wave equation
@@ -551,9 +558,9 @@ we better propagate a plane wave backwards from $\rD$
 into our structured material,
 and finally evaluate the field at~$\rS$.
 The equivalence of these two computations is ensured
-by the \textit{reciprocity}%
-\index{Reciprocity|(}
-\index{Green function!reciprocity}
+by the \textit{reciprocity}
+\index{Reciprocity|(}%
+\index{Green function!reciprocity}%
 of Green functions for self-adjoint differential equations.
 
 Let us derive the reciprocity theorem
@@ -635,7 +642,7 @@ To obtain the forward-propagating Green function~$G$,
 it is sufficient to determine the adjoint Green function~$B$
 that traces a neutron back from the detector position~$\rD$
 to a scattering center~$\rS$.
-\index{Reciprocity|)}
+\index{Reciprocity|)}%
 
 The solution $B(\r,\rD)$ of (\ref{EgsSchrodiAdj})
 is analogous to (\ref{EGreens1}).
@@ -643,7 +650,7 @@ Choosing the origin inside~$\Sample$,
 and assuming that $\rD$ lies far outside~$\Sample$,
 we can copy the far-field expansion from~(\ref{EGreenFar})
 to obtain
-\index{Far-field approximation}
+\index{Far-field approximation}%
 \begin{equation}\label{EBFar}
   B_\text{far}(\r,\rD)
   =\frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}{\rm e}^{-i\k_\text{f} \r}.
@@ -700,10 +707,16 @@ in the differential cross section~(\ref{Exsection}).
 Therefore, the four terms of (\ref{EtmDWBA}) can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
-\index{Distorted-wave Born approximation|)}
+\index{Distorted-wave Born approximation|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multilayer systems}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Multilayer systems}%
 
 %===============================================================================
-\subsection{Multilayer systems}
+\subsection{DWBA}
 %===============================================================================
 
 In many applications of GISAS,
@@ -711,15 +724,20 @@ the investigated sample consists of a number of distinct layers.
 For the time being,
 no other systems are supported in BornAgain.\footnote
 {Please contact us if need arises for modelling systems with
-smoothly varying~$\nz(z)$.}
+smoothly varying~$\nz(z)$.
+\index{Refractive index!graded}%
+}
 Within one layer~$j$, the average refractive index is constant,
-$\nz(z)=\nz_j$ for $z\in\mathcal{Z}_j$, where
+$\nz(z)=\nzj$ for $z\in\mathcal{Z}_j$, where
 $\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
 Within a layer,
 the downward and upward propagating waves are plane,
 \begin{equation}
   \Psi^\pm_{wj}(\r)=A^\pm_{wj}{\rm e}^{i\k^\pm_{wj}\r}.
 \end{equation}
+\index{Fresnel coefficients}%
+\index{Transmission|see {Fresnel coefficients}}%
+\index{Reflection|seealso {Fresnel coefficients}}%
 Here and in the following,
 the index~$w$ can take the values i and~f.
 The amplitudes $A$ are often written with distinct letters
@@ -737,17 +755,18 @@ the in-plane wave vector $\k_{\parallel w}$ remains constant
 across layer interfaces.
 The vertical wavenumber is obtained from (\ref{Ewavez}),
 \begin{equation}
-  k_{\perp wj} = \sqrt{K^2 \nz_j^2 - k_{\parallel w}^2}.
+  k_{\perp wj} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
 \end{equation}
 Restricting (\ref{EBornQ}) to one layer,
 the Fourier transform of the refractive index fluctuations
 shall be written as
-\begin{equation}\label{EBornQ}
+\begin{equation}\label{Echij}
   \chi_j(\v{q})
-  := \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r' {\rm e}^{i\v{q}\,\r'}\chi(\r').
+  := \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r).
 \end{equation}
 We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
 a sum over all layers,
+\index{Distorted-wave Born approximation!multilayer}%
 \Important{\Box{
 \begin{equation}\label{EtmDWBAft}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
@@ -757,58 +776,98 @@ a sum over all layers,
 \end{equation}
 }}
 
-In the conventions where $H=-\Delta + V$, the potential splits into two parts $V_1$ and $V_2$, where only the second part is treated as a perturbation:
-\begin{align*}
-  V_1 & = K^2\left( 1-n_0^2(\r)\right)  \\
-  V_2 & = \sum_i K^2\left( n_0^2(\r^i) - n_i^2 \right) S^i(\r) \otimes \delta(\r-\r^i),
-\end{align*}
-where $n_0(\r)$ denotes the refractive index of the unperturbed system (which, in case of a multilayer system, will only depend on its $z$-coordinate) and $n_i$ is the refractive index of the nanoparticle with shape function $S^i$ and position $\r^i$.
+%===============================================================================
+\subsection{Transmission and reflection coefficients}
+%===============================================================================
 
-For nanoparticles in a specific layer $j$, i.e. $V_2\neq0$ only in layer $j$, one only needs the unperturbed solutions in layer $j$:
-\begin{align*}
-  \braketnoop{\r}{\Psi^+_{1k_\text{i}}} &= (2\pi)^{-3/2}\left[ R_j(\k_\text{i}) e^{i \k_{j,R}(\k_\text{i})\cdot\r} + T_j(\k_\text{i}) e^{i \k_{j,T}(\k_\text{i})\cdot\r} \right] \\
-  \braketnoop{\Psi^-_{1k_\text{f}}}{\r} &= (2\pi)^{-3/2}\left[ R_j(-\k_\text{f}) e^{i \k_{j,R}(-\k_\text{f})\cdot\r} + T_j(-\k_\text{f}) e^{i \k_{j,T}(-\k_\text{f})\cdot\vectr} \right].
-\end{align*}
+The coefficients $A^\pm_{wj}$
+can be calculated using the Parratt formalism \cite{Par54}
+or the matrix method \cite{BoWo99}.
 
-The off-specular contribution to the scattering amplitude then becomes:
-\begin{align*}
-  f(\theta, \phi) &= -\int d^3\vectr \frac{V_2(\vectr)}{4\pi} \biggl[ T_\text{i}T_\text{f}e^{i(\k_{j,i}-\k_{j,f})\cdot\vectr} + R_\text{i}T_\text{f}e^{i(\k t_{j,i}-\k_{j,f})\cdot\vectr} \\
-   & + T_\text{i}R_\text{f}e^{i(\k_{j,i}-\k t_{j,f})\cdot\vectr} + R_\text{i}R_\text{f}e^{i(\k t_{j,i}-\k t_{j,f})\cdot\vectr} \biggr],
-\end{align*}
-where the following shorthand notations were used:
-\begin{align*}
-  T_\text{i} &\equiv  T_j(\k_\text{i}) & R_\text{i} &\equiv  R_j(\k_\text{i})  \\
-  T_\text{f} &\equiv  T_j(-\k_\text{f}) & R_\text{f} &\equiv  R_j(-\k_\text{f}) \\
-  \k_{j,i} &\equiv \k_{j,T}(\k_\text{i}) & \k t_{j,i} &\equiv \k_{j,R}(\k_\text{i})  \\
-  \k_{j,f} &\equiv -\k_{j,T}(-\k_\text{f}) & \k t_{j,f} &\equiv -\k_{j,R}(-\k_\text{f}).
-\end{align*}
+..... And how are they actually computed in BornAgain? .....
 
-From this expression, one sees that the scattering amplitude consists of a weighted sum of Fourier transforms of the potential $V_2$. Using
-\begin{equation*}
-  V_2(\vectr) = \sum_\text{i} 4\pi \rho_{s,rel,i} S^i(\vectr) \otimes \delta(\vectr - \r^i),
-\end{equation*}
-with $\rho_{s,rel,i}\equiv  K^2\left( n_0^2(\r^i) - n_\text{i}^2 \right)/4\pi$, the scattering amplitude becomes
-\begin{equation*}
-  f(\theta, \phi) = -\sum_\text{i}  \rho_{s,rel,i} \curlf^i_{\text{DWBA}}(\k_{j,i},\k_{j,f},\r^i_z)e^{i(\k_{j,i\parallel}-\k_{j,f\parallel})\cdot \r^{i\parallel} },
-\end{equation*}
-with
-\begin{align*}
-  \curlf^i_\text{DWBA}(\k_\text{i},\k_\text{f},R_z) & \equiv T_\text{i}T_\text{f}F^i(\k_\text{i}-\k_\text{f})e^{i(k_{iz}-k_{fz})R_z} + R_\text{i}T_\text{f}F^i(\k t_\text{i}-\k_\text{f})e^{i(-k_{iz}-k_{fz})R_z} \\
-  & + T_\text{i}R_\text{f}F^i(\k_\text{i}-\k t_\text{f})e^{i(k_{iz}+k_{fz})R_z} + R_\text{i}R_\text{f}F^i(\k t_\text{i}-\k t_\text{f})e^{i(-k_{iz}+k_{fz})R_z},
-\end{align*}
+%===============================================================================
+\subsection{Embedded particles}
+%===============================================================================
 
-TO MERGE IN:
-In the DWBA, the form factor of a particle in a multilayer system is given by
-\begin{align}
-F_{\rm{DWBA}} (\k_\text{i},\k_\text{f}, r_z) & = T_\text{i} T_\text{f} F_{\rm{BA}} (\k_\text{i}-\k_\text{f}) e^{i (k_{i,z}-k_{f,z}) r_z} + R_\text{i} T_\text{f} F_{\rm{BA}}(\v{\widetilde{k}}_\text{i}-\k_\text{f}) e^{i(-k_{i,z}-k_{f,z})r_z}
- \nonumber \\
-  &+ T_\text{i} R_\text{f} F_{\rm{BA}}(\k_\text{i}-\v{\widetilde{k}}_\text{f})e^{i(k_{i,z}+k_{f,z})r_z} + R_\text{i}R_\text{f}F_{\rm{BA}} (\v{\widetilde{k}}_\text{i}-\v{\widetilde{k}}_\text{f})e^{i(-k_{i,z}+k_{f,z})r_z}, \label{Edwbageneral}
-\end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\k_\text{i}=(k_{i,x}, k_{i,y}, k_{i,z})$ $\k_\text{f}=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{RaSS95}.
-With a tilde (\~{}), these wave vectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
-$T_\text{i}$, $T_\text{f}$, $R_\text{i}$, $R_\text{f}$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Par54} or the matrix method \cite{BoWo99}. $\k_\text{i}-\k_\text{f}$ is equal to the scattering vector $\v{q}$ and the $z$-axis is pointing upwards.\\
+\index{Particles!embedded|(}%
+\index{Nanoparticles|see Particles}%
+\index{Mesoparticles|see Particles}%
+In many important GISAS applications,
+fluctuations of the refractive index are due to particles
+of mesoscopic size (nanometer to micrometer).
+These particles are either embedded into a material layer,
+or attached to the surface of the sample.
+In BornAgain, the latter case must be construed as a special form of the former
+by defining an extra layer on top of the regular surface that
+consists of vacuum (or air) with embedded particles.
 
-With this last expression, the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
+For the time being,
+we consider scattering from only one layer;
+therefore we can omit the layer index~$j$ from the following considerations.
+The layer has a thickness~$d$ and contains $N$ particles per area~$A$.
+% hence the particles have a number density of $\nu=N/(Ad)$.
+Particle~$i$, located at $\r_i$,
+has a volume~$V_i$ and scattering length density~$\rho_i(\r-\r_i)$.
+Outside the volumes occupied by particles,
+the scattering length has a constant density of~$\chi_0$.
+The average scattering length density of the entire layer is then
+\begin{equation}\label{Emulaynav}
+  \begin{split}
+  \overline{\rho}
+      &= \frac{\sum_i \int_{V_i}\!{\rm d}^3r\; \rho_i(\r-\r_i)
+               + (Ad-\sum_i V_i)\rho_0}
+             {Ad}\\[1em]
+      &= \rho_0 + \frac{\sum_i \int_{V_i}\!{\rm d}^3r\, [\rho_i(\r-\r_i)-\rho_0]}
+             {Ad}
+  \end{split}
+\end{equation}
+To predict the GISAS pattern,
+we need to compute the Fourier transform (\ref{Echij}) of
+$\chi(\r)=\rho(\r)-\overline{\rho}$.
+There are two contributions to the Fourier integrand:
+from the embedded particles, and from the embedding matrix,
+which has the structure of an Emmental cheese:
+homogeneous except for holes where the particles are.
+Fortunately, we do not need to compute the Fourier transform
+of the cheese:
+Analogous to (\ref{Emulaynav}),
+we can rearrange the Fourier integral as
+\begin{equation}\label{Echijre}
+  \chi_j(\v{q})
+  = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
+    \left\{ \left(\rho_0-\overline{\rho}\right)
+           + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
+  =: \chi^0_j + \chi^\text{p}_j.
+\end{equation}
+The first term is the shape transform of the entire layer
+\begin{equation}
+  \chi^0_j(\v{q})
+   = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
+      \left(\rho_0-\overline{\rho}\right)
+   = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
+\end{equation}
+For the second term,
+we abbreviate
+\begin{equation}
+  \delta\rho_i(\r):=\rho_i(\r)-\rho_0,
+\end{equation}
+and we introduce the form factor of a single particle
+\begin{equation}
+  F_i(\v{q}) = \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r} \delta\rho_i(\r)
+\end{equation}
+We can then rearrange to obtain
+\begin{equation}
+  \chi^\text{p}_j(\v{q})
+  = \sum_i {\rm e}^{i\v{q}\,\r_i} F_i(\v{q}).
+\end{equation}
+
+
+%===============================================================================
+\subsection{OLD STUFF}
+%===============================================================================
+
+... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
   & \left\langle \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \right\rangle_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
@@ -821,25 +880,7 @@ The main differences with respect to the cross-section in the Born approximation
   \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
 \end{enumerate}
 
-%===============================================================================
-\section{X-ray propagation}\label{Sxray}
-%===============================================================================
-\index{Wave propagation!X-rays}
-\index{X-rays!wave propagation}
-
-\ldots to come
-
-
-%===============================================================================
-\section{Polarized neutrons}\label{Snpol}
-%===============================================================================
-
-
-
-%===============================================================================
-\section{TO RECYCLE}
-%===============================================================================
-
+....
 Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\r)$, positions $\r^i$ and scattering length density $\rho_s$ (relative to the ambient material).
 
 The differential cross-section (per scattering center) is then given by:

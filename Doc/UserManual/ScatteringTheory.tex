@@ -102,7 +102,7 @@ results in \textit{coherent forward scattering},
 in line with Huygens' principle.
 \index{Huygens' principle}%
 
-Another form of coherent scattering is \textit{Bragg scattering}.%
+Another form of coherent scattering is \textit{Bragg scattering}.
 \index{Bragg scattering!by atomic lattices}%
 However, Bragg scattering by atomic lattices
 is large-angle, not small-angle scattering,
@@ -162,7 +162,7 @@ In terms of $K$ and $n$,
 the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
 can be rewritten as
 
-\Important{\Box{
+\Highlight{\Box{
 \begin{equation}\label{EnSchrodi}
   \left\{\Nabla^2+K^2n(\r)^2\right\}\Psi(\r) = 0.
 \end{equation}
@@ -178,6 +178,12 @@ whether under grazing incidence (GISAS) or not (regular SAS).
 \section{Neutron scattering in Born approximation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%===============================================================================
+\subsection{The Born expansion}\label{SBorn}
+%===============================================================================
+
+\index{Born approximation|(}%
+
 For slow neutrons, as for X-rays, the refractive index~$n$ is almost always
 very close to~1.
 This suggests a solution of the Schrödinger equation~(\ref{EnSchrodi})
@@ -187,12 +193,6 @@ who introduced it in quantum mechanics.\footnote
 {It goes back to Lord Rayleigh
 who devised it for the sound,
 and later also applied it to electromagnetic waves.}
-
-%===============================================================================
-\subsection{The Born expansion}\label{SBorn}
-%===============================================================================
-
-\index{Born approximation|(}%
 
 We rewrite the Schrödinger equation~(\ref{EnSchrodi})
 once more so that it takes the form of a Helmholtz equation
@@ -387,7 +387,7 @@ $r^2{\rm d}\Omega$ to the incident flux is expressed as a
 \end{equation}
 The resulting equation
 
-\Important{\Box{
+\Highlight{\Box{
 \begin{equation}\label{Exsection}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
   =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
@@ -427,8 +427,26 @@ that is translationally invariant in $x$ and $y$ direction,
 while being nontrivially modulated in $z$ direction.
 By convention,
 the $z$ axis points upwards, hence out of the sample towards the
-vacuum (or air) half space where the incident radiation comes from.
+vacuum (or air) half space where the incident radiation comes from,
+as illustrated in Fig.~\ref{fig:expgeom}.
 % TODO: add figure
+
+\begin{figure}[ht]
+  \centering
+    \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
+  \caption[Conventional GISAS scattering geometry.]{Geometric conventions
+  in GISAS scattering comprise a Cartesian coordinate system
+  and scattering angles.
+  The coordinate system has a $z$ axis normal to the sample plane,
+  and pointing into the halfspace where the beam comes from.
+  The $x$ axis usually points along the incident beam,
+  projected onto the sample plane.
+  The angle $\alpha_i$ is the incident glancing angle;
+  $\phi_i$ is usually zero, unless used to describe a sample rotation;
+  $\alpha_f$ is the exit angle with respect to the sample's surface;
+  and $\phi_f$ is the scattering angle with respect to the scattering plane.}
+  \label{fig:expgeom}
+\end{figure}
 
 Vertical modulations of the refractive index $n(\r)$
 cause refraction and reflection of an incident plane wave.
@@ -682,7 +700,7 @@ are composed of downward and upward propagating waves,
 the matrix element (\ref{Etrama})
 can be expanded into four terms,
 
-\Important{\Box{
+\Highlight{\Box{
 \begin{equation}\label{EtmDWBA}
   \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
   = \langle \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\rangle
@@ -709,182 +727,18 @@ which adds to the complexity of GISAS patterns.
 
 \index{Distorted-wave Born approximation|)}%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multilayer systems}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Multilayer systems}%
-
 %===============================================================================
-\subsection{DWBA}
+\subsection{Detector images}
 %===============================================================================
 
-In many applications of GISAS,
-the investigated sample consists of a number of distinct layers.
-For the time being,
-no other systems are supported in BornAgain.\footnote
-{Please contact us if need arises for modelling systems with
-smoothly varying~$\nz(z)$.
-\index{Refractive index!graded}%
-}
-Within one layer~$j$, the average refractive index is constant,
-$\nz(z)=\nzj$ for $z\in\mathcal{Z}_j$, where
-$\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
-Within a layer,
-the downward and upward propagating waves are plane,
-\begin{equation}
-  \Psi^\pm_{wj}(\r)=A^\pm_{wj}{\rm e}^{i\k^\pm_{wj}\r}.
-\end{equation}
-\index{Fresnel coefficients}%
-\index{Transmission|see {Fresnel coefficients}}%
-\index{Reflection|seealso {Fresnel coefficients}}%
-Here and in the following,
-the index~$w$ can take the values i and~f.
-The amplitudes $A$ are often written with distinct letters
-T and~R to designate the transmitted or reflected beam,
-\begin{equation}
-  T_{wj} := A^-_\text{wj},\quad
-  R_{wj} := A^+_\text{wj}.
-\end{equation}
-The wave vector can be decomposed as
-\begin{equation}
-  \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
-\end{equation}
-As explained in connection with~(\ref{Ekpar}),
-the in-plane wave vector $\k_{\parallel w}$ remains constant
-across layer interfaces.
-The vertical wavenumber is obtained from (\ref{Ewavez}),
-\begin{equation}
-  k_{\perp wj} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
-\end{equation}
-Restricting (\ref{EBornQ}) to one layer,
-the Fourier transform of the refractive index fluctuations
-shall be written as
-\begin{equation}\label{Echij}
-  \chi_j(\v{q})
-  := \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r).
-\end{equation}
-We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
-a sum over all layers,
-\index{Distorted-wave Born approximation!multilayer}%
-\Important{\Box{
-\begin{equation}\label{EtmDWBAft}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
-  = \sum_{j} \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
-    A^\pm_{\text{i}j} A^{\pm *}_{\text{f}j}
-     \chi_j(\k^\pm_{\text{i}j} - \k^\pm_{\text{f}j}).
-\end{equation}
-}}
+In this subsection we describe
+the conversion between the scattering vector~$\v{q}$
+and the experimental coordinates.
+This is unrelated to the previous subsections,
+but belongs nevertheless under the headings
+\textit{foundations of GISAS} and
+\textit{scattering under grazing incidence}.
 
-%===============================================================================
-\subsection{Transmission and reflection coefficients}
-%===============================================================================
+The experimental geometry has already been introduced in Fig.~\ref{fig:expgeom}.
 
-The coefficients $A^\pm_{wj}$
-can be calculated using the Parratt formalism \cite{Par54}
-or the matrix method \cite{BoWo99}.
-
-..... And how are they actually computed in BornAgain? .....
-
-%===============================================================================
-\subsection{Embedded particles}
-%===============================================================================
-
-\index{Particles!embedded|(}%
-\index{Nanoparticles|see Particles}%
-\index{Mesoparticles|see Particles}%
-In many important GISAS applications,
-fluctuations of the refractive index are due to particles
-of mesoscopic size (nanometer to micrometer).
-These particles are either embedded into a material layer,
-or attached to the surface of the sample.
-In BornAgain, the latter case must be construed as a special form of the former
-by defining an extra layer on top of the regular surface that
-consists of vacuum (or air) with embedded particles.
-
-For the time being,
-we consider scattering from only one layer;
-therefore we can omit the layer index~$j$ from the following considerations.
-The layer has a thickness~$d$ and contains $N$ particles per area~$A$.
-% hence the particles have a number density of $\nu=N/(Ad)$.
-Particle~$i$, located at $\r_i$,
-has a volume~$V_i$ and scattering length density~$\rho_i(\r-\r_i)$.
-Outside the volumes occupied by particles,
-the scattering length has a constant density of~$\chi_0$.
-The average scattering length density of the entire layer is then
-\begin{equation}\label{Emulaynav}
-  \begin{split}
-  \overline{\rho}
-      &= \frac{\sum_i \int_{V_i}\!{\rm d}^3r\; \rho_i(\r-\r_i)
-               + (Ad-\sum_i V_i)\rho_0}
-             {Ad}\\[1em]
-      &= \rho_0 + \frac{\sum_i \int_{V_i}\!{\rm d}^3r\, [\rho_i(\r-\r_i)-\rho_0]}
-             {Ad}
-  \end{split}
-\end{equation}
-To predict the GISAS pattern,
-we need to compute the Fourier transform (\ref{Echij}) of
-$\chi(\r)=\rho(\r)-\overline{\rho}$.
-There are two contributions to the Fourier integrand:
-from the embedded particles, and from the embedding matrix,
-which has the structure of an Emmental cheese:
-homogeneous except for holes where the particles are.
-Fortunately, we do not need to compute the Fourier transform
-of the cheese:
-Analogous to (\ref{Emulaynav}),
-we can rearrange the Fourier integral as
-\begin{equation}\label{Echijre}
-  \chi_j(\v{q})
-  = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
-    \left\{ \left(\rho_0-\overline{\rho}\right)
-           + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
-  =: \chi^0_j + \chi^\text{p}_j.
-\end{equation}
-The first term is the shape transform of the entire layer
-\begin{equation}
-  \chi^0_j(\v{q})
-   = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
-      \left(\rho_0-\overline{\rho}\right)
-   = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
-\end{equation}
-For the second term,
-we abbreviate
-\begin{equation}
-  \delta\rho_i(\r):=\rho_i(\r)-\rho_0,
-\end{equation}
-and we introduce the form factor of a single particle
-\begin{equation}
-  F_i(\v{q}) = \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r} \delta\rho_i(\r)
-\end{equation}
-We can then rearrange to obtain
-\begin{equation}
-  \chi^\text{p}_j(\v{q})
-  = \sum_i {\rm e}^{i\v{q}\,\r_i} F_i(\v{q}).
-\end{equation}
-
-
-%===============================================================================
-\subsection{OLD STUFF}
-%===============================================================================
-
-... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
-\begin{align*}
-  & \left\langle \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \right\rangle_{\text{Off-specular}}  \\
-  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
-\end{align*}
-
-The main differences with respect to the cross-section in the Born approximation are:
-\begin{enumerate}
-  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wave vectors and also on the $z$-coordinate of the particle;
-  \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
-\end{enumerate}
-
-....
-Consider a scattering volume $V$, containing $N$ scattering centers with shape functions $S^i(\r)$, positions $\r^i$ and scattering length density $\rho_s$ (relative to the ambient material).
-
-The differential cross-section (per scattering center) is then given by:
-\begin{equation}\label{Exsec1}
-  \frac{d\sigma}{d\Omega}(\v{q}) = \frac{1}{N}\left\lvert \int_V \rho_s(\r) e^{i\v{q}\cdot\r} d^3\r \right\rvert ^2.
-\end{equation}
-
+.... to come soon ....

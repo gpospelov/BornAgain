@@ -22,7 +22,6 @@
 \usepackage{fourier} % must be included before fontspec (upstream bug)
 \usepackage{fontspec}
 \usepackage{placeins}
-%\usepackage[scaled=0.8]{beramono} 
 
 %-------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -32,6 +31,8 @@
 \setcounter{tocdepth}{3}
 \usepackage{titlesec}
 
+\def\myparindent{5ex}
+\setlength{\parindent}{\myparindent} % workaround, for colorboxes
 \textwidth=410pt
 \hoffset=210mm % width of A4
 \advance\hoffset by -1\textwidth
@@ -92,8 +93,8 @@
 \usepackage{tikz-uml} 
 \usetikzlibrary{trees}
 
-% \usepackage{pifont}
 \usepackage{dingbat}
+\usepackage{manfnt} % for \dbend
 % \usepackage{bm} % bold math
 \usepackage[bold-style=ISO]{unicode-math} % -ISO or -TEX
 
@@ -101,7 +102,12 @@
 \usepackage{mathtools} % has \coloneqq for :=
 
 \usepackage{hyperref}
-
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 \usepackage{verbatim}
 
 \usepackage{longtable,tabulary,tabularx}
@@ -185,20 +191,22 @@
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\Python}{\Code{Python}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
-\newcommand{\MakeRemark}[2]
-{ \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
-}
+
+
 \newcommand{\BareRemark}[1]%
-{\noindent\smallpencil\colorbox{Lightgray}%
+{\noindent\smallpencil\colorbox{blue!10}%
 {\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}}
+
+\newcommand{\MakeRemark}[2]{\BareRemark{\underline{#1} #2 }}
 
 \newcommand{\ImportantPoint}[2]
 {\noindent
-  {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
+  {\huge\danger}\colorbox{magenta!40}{\parbox{\dimexpr\linewidth-8\fboxsep}
  {\underline{#1} #2}}}
+
 \newcommand{\BareWarning}[1]%
-{\noindent{\huge\danger}\colorbox{Lightgray}%
-{\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}\vspace*{0.7ex}}
+{\noindent\colorbox{red!30}{\begin{minipage}
+{1\textwidth}\strut\hspace{\myparindent}#1\end{minipage}}}
 
 \newcommand{\mychapter}[2]{
     \setcounter{chapter}{#1}
@@ -240,7 +248,8 @@
 \newcommand{\ensavg}[2]{\ensuremath{\left\langle #2 \right\rangle_{#1} }}
 
 % highlight equations
-\def\Important{\noindent\colorbox{red!20}}
+\def\Warning{\noindent\colorbox{red!30}}
+\def\Highlight{\noindent\colorbox{yellow!30}}
 \def\Box{\parbox{1\textwidth}}
 
 %-------------------------------------------------------------------------------

@@ -85,6 +85,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::Ripple1Type] = &createInstance<Ripple1Item>;
     result[Constants::Ripple2Type] = &createInstance<Ripple2Item>;
     result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
+    result[Constants::TruncatedCubeType] = &createInstance<TruncatedCubeItem>;
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
 

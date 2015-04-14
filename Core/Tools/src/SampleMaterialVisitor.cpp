@@ -232,6 +232,10 @@ void SampleMaterialVisitor::visit(const FormFactorTrivial *)
 {
 }
 
+void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *)
+{
+}
+
 void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
 {
 }

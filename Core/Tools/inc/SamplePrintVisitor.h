@@ -87,6 +87,7 @@ public:
     void visit(const FormFactorSphereLogNormalRadius *sample);
     void visit(const FormFactorTetrahedron *sample);
     void visit(const FormFactorTrivial *sample);
+    void visit(const FormFactorTruncatedCube *sample);
     void visit(const FormFactorTruncatedSphere *sample);
     void visit(const FormFactorTruncatedSpheroid *sample);
     void visit(const IFormFactorBornSeparable *sample);

@@ -53,6 +53,7 @@ public:
     void visit(const FormFactorRipple1 *sample);
     void visit(const FormFactorRipple2 *sample);
     void visit(const FormFactorTetrahedron *sample);
+    void visit(const FormFactorTruncatedCube *sample);
     void visit(const FormFactorTruncatedSphere *sample);
     void visit(const FormFactorTruncatedSpheroid *sample);
     void visit(const InterferenceFunctionNone *sample);

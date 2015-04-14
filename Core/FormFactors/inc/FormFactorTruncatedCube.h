@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorTruncatedCube.h
+//! @brief     Defines class FormFactorTruncatedCube.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORTRUNCATEDCUBE_H
 #define FORMFACTORTRUNCATEDCUBE_H
 
@@ -27,10 +42,10 @@ public:
     virtual double getRemovedLength() const { return m_removed_length; }
     virtual void setRemovedLength(double removed_length) { m_removed_length = removed_length; }
 
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
-
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 private:
     complex_t FormFactorVertex(const cvector_t& q) const;

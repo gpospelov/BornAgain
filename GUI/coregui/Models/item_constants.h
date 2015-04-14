@@ -56,6 +56,7 @@ const ModelType PyramidType = "Pyramid";
 const ModelType Ripple1Type = "Ripple1";
 const ModelType Ripple2Type = "Ripple2";
 const ModelType TetrahedronType = "Tetrahedron";
+const ModelType TruncatedCubeType = "TruncatedCube";
 const ModelType TruncatedSphereType = "TruncatedSphere";
 const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 

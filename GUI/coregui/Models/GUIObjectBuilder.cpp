@@ -595,6 +595,18 @@ void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
+void GUIObjectBuilder::visit(const FormFactorTruncatedCube *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+        ParticleItem::P_FORM_FACTOR, Constants::TruncatedCubeType);
+    ffItem->setRegisteredProperty(TruncatedCubeItem::P_LENGTH,
+                                  sample->getLength());
+    ffItem->setRegisteredProperty(TruncatedCubeItem::P_REMOVED_LENGTH,
+                                  sample->getRemovedLength());
+    m_levelToParentItem[getLevel()] = particleItem;
+}
+
 void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
 {
     ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];

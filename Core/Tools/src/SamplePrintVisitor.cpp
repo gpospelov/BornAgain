@@ -307,6 +307,11 @@ void SamplePrintVisitor::visit(const FormFactorTrivial *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorTruncatedCube *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
 {
     print_default(sample);

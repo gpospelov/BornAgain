@@ -191,7 +191,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Truncated cube" icon="images/ff_truncated_cube_32.png">
+        <categoryentry name="Truncated cube" icon="images/ff_trunccube_32.png">
             <widget class="FormFactorTruncatedCube">
                 <property name="objectName">
                     <string notr="true">somestring</string>

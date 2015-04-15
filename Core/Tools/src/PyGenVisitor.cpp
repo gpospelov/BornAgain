@@ -264,9 +264,9 @@ std::string PyGenVisitor::definePreamble() const
 {
     std::ostringstream result;
     result << "import numpy\n";
-//    result << "#NOTE: Uncomment the next import statements for plotting\n";
-    result << "import pylab\n";
-    result << "import matplotlib\n";
+    result << "#NOTE: Uncomment the next import statements for plotting\n";
+    result << "#import pylab\n";
+    result << "#import matplotlib\n";
     result << "from bornagain import *\n\n";
 //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
 //    result << "#NOTE: Running this Script by default will write output data"

@@ -62,5 +62,7 @@
         <file>images/toolbar_unddo.png</file>
         <file>images/toolbar_align.png</file>
         <file>images/toolbar_recycle_dark.png</file>
+        <file>images/ff_TruncatedCube_32.png</file>
+        <file>images/ff_TruncatedCube_64.png</file>
     </qresource>
 </RCC>

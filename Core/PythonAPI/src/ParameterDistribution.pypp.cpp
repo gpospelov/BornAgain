@@ -30,14 +30,14 @@ namespace bp = boost::python;
 
 struct ParameterDistribution_wrapper : ParameterDistribution, bp::wrapper< ParameterDistribution > {
 
-    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::size_t nbr_samples, double sigma_factor=0.0, ::AttLimits const & limits=::AttLimits( ) )
+    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double sigma_factor=0.0, ::AttLimits const & limits=::AttLimits( ) )
     : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, sigma_factor, boost::ref(limits) )
       , bp::wrapper< ParameterDistribution >(){
         // constructor
     
     }
 
-    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::size_t nbr_samples, double xmin, double xmax )
+    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double xmin, double xmax )
     : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, xmin, xmax )
       , bp::wrapper< ParameterDistribution >(){
         // constructor
@@ -148,9 +148,9 @@ void register_ParameterDistribution_class(){
 
     { //::ParameterDistribution
         typedef bp::class_< ParameterDistribution_wrapper, bp::bases< IParameterized > > ParameterDistribution_exposer_t;
-        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )) );
+        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )) );
         bp::scope ParameterDistribution_scope( ParameterDistribution_exposer );
-        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") )) );
+        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, std::size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") )) );
         ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") )) );
         { //::ParameterDistribution::getDistribution
         
@@ -200,7 +200,7 @@ void register_ParameterDistribution_class(){
         }
         { //::ParameterDistribution::getNbrSamples
         
-            typedef ::size_t ( ::ParameterDistribution::*getNbrSamples_function_type)(  ) const;
+            typedef ::std::size_t ( ::ParameterDistribution::*getNbrSamples_function_type)(  ) const;
             
             ParameterDistribution_exposer.def( 
                 "getNbrSamples"

@@ -73,6 +73,18 @@ struct FormFactorTruncatedSphere_wrapper : FormFactorTruncatedSphere, bp::wrappe
         return FormFactorTruncatedSphere::getNumberOfStochasticParameters( );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorTruncatedSphere::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorTruncatedSphere::getRadius( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -167,18 +179,6 @@ struct FormFactorTruncatedSphere_wrapper : FormFactorTruncatedSphere, bp::wrappe
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -352,6 +352,17 @@ void register_FormFactorTruncatedSphere_class(){
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorTruncatedSphere_wrapper::default_getNumberOfStochasticParameters) );
         
         }
+        { //::FormFactorTruncatedSphere::getRadius
+        
+            typedef double ( ::FormFactorTruncatedSphere::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorTruncatedSphere_wrapper::*default_getRadius_function_type)(  ) const;
+            
+            FormFactorTruncatedSphere_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorTruncatedSphere::getRadius)
+                , default_getRadius_function_type(&FormFactorTruncatedSphere_wrapper::default_getRadius) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
@@ -443,17 +454,6 @@ void register_FormFactorTruncatedSphere_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorTruncatedSphere_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
-            typedef double ( FormFactorTruncatedSphere_wrapper::*default_getRadius_function_type)(  ) const;
-            
-            FormFactorTruncatedSphere_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorTruncatedSphere_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume

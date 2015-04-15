@@ -98,7 +98,7 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         return IChiSquaredModule::getIntensityNormalizer( );
     }
 
-    virtual double getResidualValue( ::size_t arg0 ) const  {
+    virtual double getResidualValue( ::std::size_t arg0 ) const  {
         if( bp::override func_getResidualValue = this->get_override( "getResidualValue" ) )
             return func_getResidualValue( arg0 );
         else{
@@ -106,7 +106,7 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         }
     }
     
-    double default_getResidualValue( ::size_t arg0 ) const  {
+    double default_getResidualValue( ::std::size_t arg0 ) const  {
         return IChiSquaredModule::getResidualValue( arg0 );
     }
 
@@ -245,8 +245,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getResidualValue
         
-            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type)( ::size_t ) const;
-            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::size_t ) const;
+            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type)( ::std::size_t ) const;
+            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::std::size_t ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getResidualValue"

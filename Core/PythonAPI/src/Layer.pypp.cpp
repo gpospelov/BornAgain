@@ -87,7 +87,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::cloneInvertB( );
     }
 
-    virtual ::ILayout const * getLayout( ::size_t i ) const  {
+    virtual ::ILayout const * getLayout( ::std::size_t i ) const  {
         if( bp::override func_getLayout = this->get_override( "getLayout" ) )
             return func_getLayout( i );
         else{
@@ -95,7 +95,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         }
     }
     
-    ::ILayout const * default_getLayout( ::size_t i ) const  {
+    ::ILayout const * default_getLayout( ::std::size_t i ) const  {
         return Layer::getLayout( i );
     }
 
@@ -322,7 +322,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -330,7 +330,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         }
     }
     
-    ::size_t default_size(  ) const  {
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -408,7 +408,7 @@ void register_Layer_class(){
         }
         { //::Layer::createLayoutSimulation
         
-            typedef ::LayerDWBASimulation * ( ::Layer::*createLayoutSimulation_function_type)( ::size_t ) const;
+            typedef ::LayerDWBASimulation * ( ::Layer::*createLayoutSimulation_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "createLayoutSimulation"
@@ -419,8 +419,8 @@ void register_Layer_class(){
         }
         { //::Layer::getLayout
         
-            typedef ::ILayout const * ( ::Layer::*getLayout_function_type)( ::size_t ) const;
-            typedef ::ILayout const * ( Layer_wrapper::*default_getLayout_function_type)( ::size_t ) const;
+            typedef ::ILayout const * ( ::Layer::*getLayout_function_type)( ::std::size_t ) const;
+            typedef ::ILayout const * ( Layer_wrapper::*default_getLayout_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "getLayout"
@@ -444,7 +444,7 @@ void register_Layer_class(){
         }
         { //::Layer::getNumberOfLayers
         
-            typedef ::size_t ( ::Layer::*getNumberOfLayers_function_type)(  ) const;
+            typedef ::std::size_t ( ::Layer::*getNumberOfLayers_function_type)(  ) const;
             
             Layer_exposer.def( 
                 "getNumberOfLayers"
@@ -453,7 +453,7 @@ void register_Layer_class(){
         }
         { //::Layer::getNumberOfLayouts
         
-            typedef ::size_t ( ::Layer::*getNumberOfLayouts_function_type)(  ) const;
+            typedef ::std::size_t ( ::Layer::*getNumberOfLayouts_function_type)(  ) const;
             
             Layer_exposer.def( 
                 "getNumberOfLayouts"
@@ -493,7 +493,7 @@ void register_Layer_class(){
         }
         { //::Layer::getTotalParticleSurfaceDensity
         
-            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)( ::size_t ) const;
+            typedef double ( ::Layer::*getTotalParticleSurfaceDensity_function_type)( ::std::size_t ) const;
             
             Layer_exposer.def( 
                 "getTotalParticleSurfaceDensity"
@@ -527,7 +527,7 @@ void register_Layer_class(){
         }
         { //::Layer::setNumberOfLayers
         
-            typedef void ( ::Layer::*setNumberOfLayers_function_type)( ::size_t ) ;
+            typedef void ( ::Layer::*setNumberOfLayers_function_type)( ::std::size_t ) ;
             
             Layer_exposer.def( 
                 "setNumberOfLayers"
@@ -684,8 +684,8 @@ void register_Layer_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::size_t ( Layer_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( Layer_wrapper::*default_size_function_type)(  ) const;
             
             Layer_exposer.def( 
                 "size"

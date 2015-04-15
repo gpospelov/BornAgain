@@ -49,18 +49,6 @@ struct FormFactorTruncatedCube_wrapper : FormFactorTruncatedCube, bp::wrapper< F
         return FormFactorTruncatedCube::clone( );
     }
 
-    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
-        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
-            return func_evaluate_for_q( boost::ref(q) );
-        else{
-            return this->FormFactorTruncatedCube::evaluate_for_q( boost::ref(q) );
-        }
-    }
-    
-    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorTruncatedCube::evaluate_for_q( boost::ref(q) );
-    }
-
     virtual double getLength(  ) const  {
         if( bp::override func_getLength = this->get_override( "getLength" ) )
             return func_getLength(  );
@@ -388,18 +376,6 @@ void register_FormFactorTruncatedCube_class(){
                 , clone_function_type(&::FormFactorTruncatedCube::clone)
                 , default_clone_function_type(&FormFactorTruncatedCube_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::FormFactorTruncatedCube::evaluate_for_q
-        
-            typedef ::complex_t ( ::FormFactorTruncatedCube::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorTruncatedCube_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
-            
-            FormFactorTruncatedCube_exposer.def( 
-                "evaluate_for_q"
-                , evaluate_for_q_function_type(&::FormFactorTruncatedCube::evaluate_for_q)
-                , default_evaluate_for_q_function_type(&FormFactorTruncatedCube_wrapper::default_evaluate_for_q)
-                , ( bp::arg("q") ) );
         
         }
         { //::FormFactorTruncatedCube::getLength

@@ -76,12 +76,12 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return IAxis::createDoubleBinSize( );
     }
 
-    virtual ::size_t findClosestIndex( double value ) const {
+    virtual ::std::size_t findClosestIndex( double value ) const {
         bp::override func_findClosestIndex = this->get_override( "findClosestIndex" );
         return func_findClosestIndex( value );
     }
 
-    virtual ::Bin1D getBin( ::size_t index ) const {
+    virtual ::Bin1D getBin( ::std::size_t index ) const {
         bp::override func_getBin = this->get_override( "getBin" );
         return func_getBin( index );
     }
@@ -120,12 +120,12 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_getMin(  );
     }
 
-    virtual ::size_t getSize(  ) const {
+    virtual ::std::size_t getSize(  ) const {
         bp::override func_getSize = this->get_override( "getSize" );
         return func_getSize(  );
     }
 
-    virtual double operator[]( ::size_t index ) const {
+    virtual double operator[]( ::std::size_t index ) const {
         bp::override func___getitem__ = this->get_override( "__getitem__" );
         return func___getitem__( index );
     }
@@ -194,7 +194,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::findClosestIndex
         
-            typedef ::size_t ( ::IAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::std::size_t ( ::IAxis::*findClosestIndex_function_type)( double ) const;
             
             IAxis_exposer.def( 
                 "findClosestIndex"
@@ -204,7 +204,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getBin
         
-            typedef ::Bin1D ( ::IAxis::*getBin_function_type)( ::size_t ) const;
+            typedef ::Bin1D ( ::IAxis::*getBin_function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "getBin"
@@ -263,7 +263,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getSize
         
-            typedef ::size_t ( ::IAxis::*getSize_function_type)(  ) const;
+            typedef ::std::size_t ( ::IAxis::*getSize_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getSize"
@@ -272,7 +272,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::operator[]
         
-            typedef double ( ::IAxis::*__getitem___function_type)( ::size_t ) const;
+            typedef double ( ::IAxis::*__getitem___function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "__getitem__"

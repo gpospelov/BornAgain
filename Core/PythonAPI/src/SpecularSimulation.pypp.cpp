@@ -214,7 +214,7 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getLayerRTCoefficients
         
-            typedef ::boost::shared_ptr< const ILayerRTCoefficients > ( ::SpecularSimulation::*getLayerRTCoefficients_function_type)( ::size_t,::size_t ) const;
+            typedef ::boost::shared_ptr< const ILayerRTCoefficients > ( ::SpecularSimulation::*getLayerRTCoefficients_function_type)( ::std::size_t,::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getLayerRTCoefficients"
@@ -243,7 +243,7 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getScalarKz
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarKz_function_type)( ::size_t ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarKz_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarKz"
@@ -253,7 +253,7 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getScalarR
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarR_function_type)( ::size_t ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarR_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarR"
@@ -263,7 +263,7 @@ void register_SpecularSimulation_class(){
         }
         { //::SpecularSimulation::getScalarT
         
-            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarT_function_type)( ::size_t ) const;
+            typedef ::std::vector< std::complex<double> > ( ::SpecularSimulation::*getScalarT_function_type)( ::std::size_t ) const;
             
             SpecularSimulation_exposer.def( 
                 "getScalarT"

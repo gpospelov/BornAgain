@@ -237,7 +237,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -245,7 +245,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::size_t default_size(  ) const  {
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -495,8 +495,8 @@ void register_IClusteredParticles_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::size_t ( IClusteredParticles_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( IClusteredParticles_wrapper::*default_size_function_type)(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "size"

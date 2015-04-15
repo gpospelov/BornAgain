@@ -155,7 +155,7 @@ void register_Detector_class(){
         }
         { //::Detector::getAxis
         
-            typedef ::IAxis const & ( ::Detector::*getAxis_function_type)( ::size_t ) const;
+            typedef ::IAxis const & ( ::Detector::*getAxis_function_type)( ::std::size_t ) const;
             
             Detector_exposer.def( 
                 "getAxis"
@@ -176,7 +176,7 @@ void register_Detector_class(){
         }
         { //::Detector::getDimension
         
-            typedef ::size_t ( ::Detector::*getDimension_function_type)(  ) const;
+            typedef ::std::size_t ( ::Detector::*getDimension_function_type)(  ) const;
             
             Detector_exposer.def( 
                 "getDimension"

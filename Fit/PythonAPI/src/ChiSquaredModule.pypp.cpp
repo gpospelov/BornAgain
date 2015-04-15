@@ -78,7 +78,7 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         return ChiSquaredModule::createChi2DifferenceMap( );
     }
 
-    virtual double getResidualValue( ::size_t index ) const  {
+    virtual double getResidualValue( ::std::size_t index ) const  {
         if( bp::override func_getResidualValue = this->get_override( "getResidualValue" ) )
             return func_getResidualValue( index );
         else{
@@ -86,7 +86,7 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         }
     }
     
-    double default_getResidualValue( ::size_t index ) const  {
+    double default_getResidualValue( ::std::size_t index ) const  {
         return ChiSquaredModule::getResidualValue( index );
     }
 
@@ -222,8 +222,8 @@ void register_ChiSquaredModule_class(){
         }
         { //::ChiSquaredModule::getResidualValue
         
-            typedef double ( ::ChiSquaredModule::*getResidualValue_function_type)( ::size_t ) const;
-            typedef double ( ChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::size_t ) const;
+            typedef double ( ::ChiSquaredModule::*getResidualValue_function_type)( ::std::size_t ) const;
+            typedef double ( ChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::std::size_t ) const;
             
             ChiSquaredModule_exposer.def( 
                 "getResidualValue"

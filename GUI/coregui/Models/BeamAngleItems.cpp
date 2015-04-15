@@ -23,9 +23,8 @@ BeamInclinationAngleItem::BeamInclinationAngleItem(ParameterizedItem *parent)
     : BeamDistributionItem(Constants::BeamInclinationAngleType, parent)
 {
     setItemName(Constants::BeamInclinationAngleType);
-    setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.2);
-
     setPropertyAttribute(BeamDistributionItem::P_CACHED_VALUE, PropertyAttribute(PropertyAttribute::HIDDEN, AttLimits::limited(0.0, 90.0), 2));
+    setRegisteredProperty(BeamDistributionItem::P_CACHED_VALUE, 0.2);
 
     ParameterizedItem *distribution = dynamic_cast<DistributionNoneItem *>(getSubItems()[P_DISTRIBUTION]);
     Q_ASSERT(distribution);

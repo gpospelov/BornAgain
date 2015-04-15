@@ -30,7 +30,7 @@ namespace bp = boost::python;
 
 struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius, bp::wrapper< FormFactorSphereLogNormalRadius > {
 
-    FormFactorSphereLogNormalRadius_wrapper(double mean, double scale_param, ::size_t n_samples )
+    FormFactorSphereLogNormalRadius_wrapper(double mean, double scale_param, ::std::size_t n_samples )
     : FormFactorSphereLogNormalRadius( mean, scale_param, n_samples )
       , bp::wrapper< FormFactorSphereLogNormalRadius >(){
         // constructor
@@ -328,7 +328,7 @@ void register_FormFactorSphereLogNormalRadius_class(){
 
     { //::FormFactorSphereLogNormalRadius
         typedef bp::class_< FormFactorSphereLogNormalRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereLogNormalRadius_wrapper >, boost::noncopyable > FormFactorSphereLogNormalRadius_exposer_t;
-        FormFactorSphereLogNormalRadius_exposer_t FormFactorSphereLogNormalRadius_exposer = FormFactorSphereLogNormalRadius_exposer_t( "FormFactorSphereLogNormalRadius", bp::init< double, double, size_t >(( bp::arg("mean"), bp::arg("scale_param"), bp::arg("n_samples") )) );
+        FormFactorSphereLogNormalRadius_exposer_t FormFactorSphereLogNormalRadius_exposer = FormFactorSphereLogNormalRadius_exposer_t( "FormFactorSphereLogNormalRadius", bp::init< double, double, std::size_t >(( bp::arg("mean"), bp::arg("scale_param"), bp::arg("n_samples") )) );
         bp::scope FormFactorSphereLogNormalRadius_scope( FormFactorSphereLogNormalRadius_exposer );
         { //::FormFactorSphereLogNormalRadius::clone
         

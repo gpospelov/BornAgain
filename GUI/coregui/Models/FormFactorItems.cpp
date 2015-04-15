@@ -392,6 +392,28 @@ IFormFactor *TetrahedronItem::createFormFactor() const
                 );
 }
 
+
+/* ------------------------------------------------ */
+
+const QString TruncatedCubeItem::P_LENGTH = "Length";
+const QString TruncatedCubeItem::P_REMOVED_LENGTH = "Removed length";
+
+TruncatedCubeItem::TruncatedCubeItem(ParameterizedItem *parent)
+    : FormFactorItem(Constants::TruncatedCubeType, parent)
+{
+    setItemName(Constants::TruncatedCubeType);
+    registerProperty(P_LENGTH, 15.0);
+    registerProperty(P_REMOVED_LENGTH, 6.0);
+}
+
+IFormFactor *TruncatedCubeItem::createFormFactor() const
+{
+    return new FormFactorTruncatedCube(
+                getRegisteredProperty(P_LENGTH).toDouble(),
+                getRegisteredProperty(P_REMOVED_LENGTH).toDouble()
+                );
+}
+
 /* ------------------------------------------------ */
 
 const QString TruncatedSphereItem::P_RADIUS = "Radius";

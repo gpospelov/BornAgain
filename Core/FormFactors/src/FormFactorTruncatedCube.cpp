@@ -19,14 +19,12 @@
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(
    double length, double removed_length)
+    : m_length(length)
+    , m_removed_length(removed_length)
 {
     setName("FormFactorTruncatedCube");
-    m_length = length;
-    m_removed_length = removed_length;
-
-    assert(m_removed_length <= 0.5*m_length);
+    check_initialization();
     init_parameters();
-
 }
 
 void FormFactorTruncatedCube::init_parameters()
@@ -41,6 +39,20 @@ FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
     FormFactorTruncatedCube *result =
         new FormFactorTruncatedCube(m_length, m_removed_length);
     result->setName(getName());
+    return result;
+}
+
+bool FormFactorTruncatedCube::check_initialization() const
+{
+    bool result(true);
+    if(m_removed_length > 0.5*m_length) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedCube() -> Error in class initialization ";
+        ostr << "with parameters 'length':" << m_length;
+        ostr << " 'removed_length':" << m_removed_length << "\n\n";
+        ostr << "Check for removed_length <= 0.5*length failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     return result;
 }
 

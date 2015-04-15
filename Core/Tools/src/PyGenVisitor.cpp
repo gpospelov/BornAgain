@@ -161,6 +161,11 @@ void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
      m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
+{
+     m_label->setLabel(sample);
+}
+
 void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
 {
      m_label->setLabel(sample);
@@ -591,6 +596,14 @@ std::string PyGenVisitor::defineFormFactors() const
                    << tetrahedron->getLength() << "*nanometer, "
                    << tetrahedron->getHeight() << "*nanometer, "
                    << tetrahedron->getAlpha() << ")\n";
+        }
+
+        else if (const FormFactorTruncatedCube *truncatedCube =
+                 dynamic_cast<const FormFactorTruncatedCube *>(p_ff))
+        {
+            result << " = FormFactorTruncatedCube("
+                   << truncatedCube->getLength() << "*nanometer, "
+                   << truncatedCube->getRemovedLength() << "*nanometer)\n";
         }
 
         else if (const FormFactorTruncatedSphere *truncatedSphere =

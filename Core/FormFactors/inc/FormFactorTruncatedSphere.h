@@ -39,6 +39,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
+    virtual double getRadius() const { return m_radius; }
     virtual double getHeight() const { return m_height; }
 
 protected:

@@ -295,7 +295,7 @@ void register_OffSpecSimulation_class(){
         }
         { //::OffSpecSimulation::setDetectorParameters
         
-            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::size_t,double,double,::size_t,double,double,bool ) ;
+            typedef void ( ::OffSpecSimulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"

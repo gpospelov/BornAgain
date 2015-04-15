@@ -225,7 +225,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNCalls
         
-            typedef ::size_t ( ::FitSuite::*getNCalls_function_type)(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "getNCalls"
@@ -234,7 +234,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNStrategy
         
-            typedef ::size_t ( ::FitSuite::*getNStrategy_function_type)(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "getNStrategy"

@@ -46,6 +46,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::Ripple1Type] = "Ripple1";
     formfactors[Constants::Ripple2Type] = "Ripple2";
     formfactors[Constants::TetrahedronType] = "Tetrahedron";
+    formfactors[Constants::TruncatedCubeType] = "Truncated Cube";
     formfactors[Constants::TruncatedSphereType] = "Truncated Sphere";
     formfactors[Constants::TruncatedSpheroidType] = "Truncated Spheroid";
     result[Constants::FormFactorGroup] = formfactors;

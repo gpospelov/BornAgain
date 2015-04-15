@@ -219,6 +219,17 @@ public:
 };
 
 
+class BA_CORE_API_ TruncatedCubeItem : public FormFactorItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LENGTH;
+    static const QString P_REMOVED_LENGTH;
+    explicit TruncatedCubeItem(ParameterizedItem *parent=0);
+    IFormFactor *createFormFactor() const;
+};
+
+
 class BA_CORE_API_ TruncatedSphereItem : public FormFactorItem
 {
     Q_OBJECT

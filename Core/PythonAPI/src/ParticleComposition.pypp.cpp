@@ -188,7 +188,7 @@ struct ParticleComposition_wrapper : ParticleComposition, bp::wrapper< ParticleC
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -196,7 +196,7 @@ struct ParticleComposition_wrapper : ParticleComposition, bp::wrapper< ParticleC
         }
     }
     
-    ::size_t default_size(  ) const  {
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -391,8 +391,8 @@ void register_ParticleComposition_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::size_t ( ParticleComposition_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( ParticleComposition_wrapper::*default_size_function_type)(  ) const;
             
             ParticleComposition_exposer.def( 
                 "size"

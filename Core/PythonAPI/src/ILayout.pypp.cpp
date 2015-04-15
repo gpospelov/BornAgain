@@ -52,7 +52,7 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_cloneInvertB(  );
     }
 
-    virtual double getAbundanceOfParticle( ::size_t index ) const {
+    virtual double getAbundanceOfParticle( ::std::size_t index ) const {
         bp::override func_getAbundanceOfParticle = this->get_override( "getAbundanceOfParticle" );
         return func_getAbundanceOfParticle( index );
     }
@@ -62,7 +62,7 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getInterferenceFunctions(  );
     }
 
-    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
+    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
         else{
@@ -70,16 +70,16 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         }
     }
     
-    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return ILayout::getNumberOfInterferenceFunctions( );
     }
 
-    virtual ::size_t getNumberOfParticles(  ) const {
+    virtual ::std::size_t getNumberOfParticles(  ) const {
         bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" );
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const {
+    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const {
         bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
         return func_getParticleInfo( index );
     }
@@ -235,7 +235,7 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
         else{
@@ -243,7 +243,7 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         }
     }
     
-    ::size_t default_size(  ) const  {
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -319,7 +319,7 @@ void register_ILayout_class(){
         }
         { //::ILayout::getAbundanceOfParticle
         
-            typedef double ( ::ILayout::*getAbundanceOfParticle_function_type)( ::size_t ) const;
+            typedef double ( ::ILayout::*getAbundanceOfParticle_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
                 "getAbundanceOfParticle"
@@ -347,8 +347,8 @@ void register_ILayout_class(){
         }
         { //::ILayout::getNumberOfInterferenceFunctions
         
-            typedef ::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
+            typedef ::std::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
+            typedef ::std::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
             
             ILayout_exposer.def( 
                 "getNumberOfInterferenceFunctions"
@@ -358,7 +358,7 @@ void register_ILayout_class(){
         }
         { //::ILayout::getNumberOfParticles
         
-            typedef ::size_t ( ::ILayout::*getNumberOfParticles_function_type)(  ) const;
+            typedef ::std::size_t ( ::ILayout::*getNumberOfParticles_function_type)(  ) const;
             
             ILayout_exposer.def( 
                 "getNumberOfParticles"
@@ -367,7 +367,7 @@ void register_ILayout_class(){
         }
         { //::ILayout::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::ILayout::*getParticleInfo_function_type)( ::size_t ) const;
+            typedef ::ParticleInfo const * ( ::ILayout::*getParticleInfo_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
                 "getParticleInfo"
@@ -551,8 +551,8 @@ void register_ILayout_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::size_t ( ILayout_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( ILayout_wrapper::*default_size_function_type)(  ) const;
             
             ILayout_exposer.def( 
                 "size"

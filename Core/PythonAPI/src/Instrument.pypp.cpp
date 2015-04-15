@@ -164,7 +164,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetectorAxis
         
-            typedef ::IAxis const & ( ::Instrument::*getDetectorAxis_function_type)( ::size_t ) const;
+            typedef ::IAxis const & ( ::Instrument::*getDetectorAxis_function_type)( ::std::size_t ) const;
             
             Instrument_exposer.def( 
                 "getDetectorAxis"
@@ -175,7 +175,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::getDetectorDimension
         
-            typedef ::size_t ( ::Instrument::*getDetectorDimension_function_type)(  ) const;
+            typedef ::std::size_t ( ::Instrument::*getDetectorDimension_function_type)(  ) const;
             
             Instrument_exposer.def( 
                 "getDetectorDimension"
@@ -243,7 +243,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setDetectorParameters
         
-            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::size_t,double,double,::size_t,double,double,bool ) ;
+            typedef void ( ::Instrument::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             Instrument_exposer.def( 
                 "setDetectorParameters"

@@ -12,7 +12,7 @@ include(VERSION.cmake)
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_APP "Build test application" OFF)
-option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
+option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_USERMANUAL "Build the User Manual" OFF)
 option(BORNAGAIN_MANPAGE "Build Unix man page" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)

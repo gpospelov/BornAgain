@@ -116,7 +116,6 @@ if(BUILD_DEBIAN)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/postinst.in" "${destination_runtime_configs}/postinst" @ONLY)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib/${destination_suffix}")
-    #message ("Cmake install rpath is ${CMAKE_INSTALL_RPATH}")
 endif(BUILD_DEBIAN)
 
 

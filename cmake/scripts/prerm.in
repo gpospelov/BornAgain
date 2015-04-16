@@ -3,7 +3,7 @@
 # removes created symbolic links
 
 
-rm -f /usr/lib/python2.7/dist-packages/bornagain
-rm -f /usr/lib/python2.7/dist-packages/libBornAgain*.so
+rm -f @PYTHON_SITE_PACKAGES@/bornagain
+rm -f @PYTHON_SITE_PACKAGES@/libBornAgain*.so
 
 rm -f @CMAKE_INSTALL_PREFIX@/bin/bornagain

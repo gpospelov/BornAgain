@@ -19,9 +19,6 @@
 %-------------------------------------------------------------------------------
 %	FONT
 %-------------------------------------------------------------------------------
-\usepackage{fourier} % must be included before fontspec (upstream bug)
-\usepackage{fontspec}
-\usepackage{placeins}
 
 %-------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -84,21 +81,33 @@
 %	OTHER PACKAGES 
 %-------------------------------------------------------------------------------
 
-\usepackage{makeidx}\makeindex
-\usepackage{nomencl}\makenomenclature
+\usepackage{imakeidx}\makeindex
+\usepackage[refpage]{nomencl}\makenomenclature
 
 \usepackage{graphicx}
 \usepackage{subfigure}
 
+\usepackage{placeins} % defines \FloatBarrier
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{tikz-uml} 
-\usetikzlibrary{trees}
+\usetikzlibrary{trees,matrix,positioning,decorations.pathreplacing,calc}
+\newcommand{\ntikzmark}[2]
+           {#2\thinspace\tikz[overlay,remember picture,baseline=(#1.base)]
+             {\node[inner sep=0pt] (#1) {};}}
+
+\newcommand{\makebrace}[3]{%
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw [decoration={brace,amplitude=0.6em},decorate]
+        let \p1=(#1), \p2=(#2) in
+        ({max(\x1,\x2)}, {\y1+1.5em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
+    \end{tikzpicture}
+}
 
 \usepackage{dingbat}
 \usepackage{manfnt} % for \dbend
 % \usepackage{bm} % bold math
-\usepackage[bold-style=ISO]{unicode-math} % -ISO or -TEX
+\usepackage[bold-style=ISO]{unicode-math} % -ISO or -TeX
 
 \usepackage{amsmath}
 \usepackage{mathtools} % has \coloneqq for :=
@@ -113,25 +122,12 @@
 \usepackage{verbatim}
 
 \usepackage{longtable,tabulary,tabularx}
-\usepackage{pdflscape}
+%\usepackage{pdflscape}
 
 \usepackage{multirow}
 
 \usepackage{booktabs}
 \renewcommand{\arraystretch}{1.3}
-
-\usetikzlibrary{matrix,positioning,decorations.pathreplacing,calc}
-
-\newcommand{\ntikzmark}[2]{#2\thinspace\tikz[overlay,remember picture,baseline=(#1.base)]{\node[inner sep=0pt] (#1) {};}}
-
-\newcommand{\makebrace}[3]{%
-    \begin{tikzpicture}[overlay, remember picture]
-        \draw [decoration={brace,amplitude=0.6em},decorate]
-        let \p1=(#1), \p2=(#2) in
-        ({max(\x1,\x2)}, {\y1+1.5em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
-    \end{tikzpicture}
-}
-
 
 %-------------------------------------------------------------------------------
 %	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
@@ -169,13 +165,6 @@
 \usepackage{lstcustom}
 \usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
-
-%-------------------------------------------------------------------------------
-%	COLORS
-%-------------------------------------------------------------------------------
-
-\definecolor{Lightgray}{gray}{.80}
-\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
 %-------------------------------------------------------------------------------
 %       Commands
@@ -342,12 +331,23 @@ Disclaimer: &Software and documentation are work in progress.\\
 %\input{unused/AppendixListings}
 %\input{unused/FittingGentleIntroduction}
 
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{switch}
 \bibliography{jw7}
 
+\clearpage
 \renewcommand{\nomname}{List of Symbols}
+\phantomsection
+\addcontentsline{toc}{chapter}{\nomname}
+\markboth{\nomname}{\nomname}
 \printnomenclature
 
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Index}
+\markboth{Index}{Index}
 \printindex
 
 \end{document}

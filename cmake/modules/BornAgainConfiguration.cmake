@@ -110,4 +110,13 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${destinati
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAPython.h.in" "${destination_runtime_configs}/BAPython.h" @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${destination_runtime_configs}")
 
+# --- configure postinst and prerm for the debian package
+if(BUILD_DEBIAN)
+    set(CMAKE_INSTALL_PREFIX "/usr")
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/postinst.in" "${destination_runtime_configs}/postinst" @ONLY)
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
+    set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib/${destination_suffix}")
+    #message ("Cmake install rpath is ${CMAKE_INSTALL_RPATH}")
+endif(BUILD_DEBIAN)
+
 

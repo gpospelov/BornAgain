@@ -1,0 +1,7 @@
+#!/bin/sh
+# prerm script for the BornAgain library
+# removes created symbolic links
+
+
+rm -f /usr/lib/python2.7/dist-packages/@destination_suffix@
+rm -f @CMAKE_INSTALL_PREFIX@/bin/bornagain

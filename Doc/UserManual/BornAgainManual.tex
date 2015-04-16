@@ -21,6 +21,10 @@
 %   makeindex -s nomencl.ist BornAgain.nlo -o BornAgain.nls
 %   xelatex BornAgain
 
+%\includeonly{ScatteringTheory}
+%\includeonly{ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness}
+%\includeonly{FormFactors}
+
 \documentclass[a4paper,11pt,twoside,fleqn]{report}
 
 \input{Setup}
@@ -32,16 +36,16 @@
 
 \tableofcontents\cleardoublepage
 
-\input{Introduction}
-\input{OnlineDocs}
-\input{ScatteringTheory}
-\input{PolarizedScattering}
-\input{Multilayers}
-\input{FormFactors}
-\input{Assemblies}
-\input{Domains}
-\input{Roughness}
-\input{Usage}
+\include{Introduction}
+\include{OnlineDocs}
+\include{ScatteringTheory}
+\include{PolarizedScattering}
+\include{Multilayers}
+\include{FormFactors}
+\include{Assemblies}
+\include{Domains}
+\include{Roughness}
+\include{Usage}
 
 %\appendix\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 

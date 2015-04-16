@@ -215,7 +215,6 @@ plane. }
   \label{fig:multil3d}
 \end{figure}
 
-
 The layers are defined by their thicknesses (parallel to the
 $z$-direction), their possible
 roughnesses (equal to 0 by default) and the
@@ -334,8 +333,8 @@ the in-plane component $\vect{r}_\parallel$ (\ref{Ewave3}):
 From the continuity conditions we infer that $\vect{k}_\parallel$
 is constant across layers.
 The wave equation~(\ref{Escalar_wave})
-reduces to a one-dimensional equation in~$z$,
-\begin{equation}\label{Ewavez}
+reduces to a one-dimensional equation in~$z$ [see (\ref{Ewavez})]
+\begin{equation}\label{Ewavezdup}
 \left(\partial_z^2 + K^2n_i^2 - k_\parallel^2 \right) \psi(z) = 0,
 \end{equation}
 which is solved by
@@ -348,7 +347,7 @@ introduced here as a constant offset for later convenience.
 In the case of the semi-infinite bottom layer~$N$,
 $z_N$ can be chosen arbitrarily.
 
-Inserting (\ref{Epsiz}) into (\ref{Ewavez}),
+Inserting (\ref{Epsiz}) into (\ref{Ewavezdup}),
 we obtain the dispersion relation
 \begin{equation}\label{Edisp}
   k_\parallel^2 + k_{\perp i}^2 = K^2 n_i^2.   

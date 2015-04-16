@@ -83,7 +83,9 @@
 %-------------------------------------------------------------------------------
 %	OTHER PACKAGES 
 %-------------------------------------------------------------------------------
+
 \usepackage{makeidx}\makeindex
+\usepackage{nomencl}\makenomenclature
 
 \usepackage{graphicx}
 \usepackage{subfigure}
@@ -342,6 +344,9 @@ Disclaimer: &Software and documentation are work in progress.\\
 
 \bibliographystyle{switch}
 \bibliography{jw7}
+
+\renewcommand{\nomname}{List of Symbols}
+\printnomenclature
 
 \printindex
 

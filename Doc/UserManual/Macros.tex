@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%   
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\Im{\operatorname{Im}}
+\renewcommand\Re{\operatorname{Re}}
+
+\DeclareMathOperator{\sinc}{sinc}
+
+%vector notations
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
+\newcommand{\vectr}{\vect{r}}
+\newcommand{\vectk}{\vect{k}}
+\newcommand{\vectkt}{\vect{\widetilde{k}}}
+\newcommand{\vectq}{\vect{q}}
+\newcommand{\Nabla}{\mathbf{\nabla}}
+
+%curly letters
+\newcommand{\curlf}{\ensuremath{\mathcal{F}}}
+\newcommand{\curlp}{\ensuremath{\mathcal{P}}}
+
+%basic QM notation (bra, ket, operators, ...)
+\newcommand{\oper}[1]{\ensuremath{\mathbf{\hat{#1}}}}
+\newcommand{\bra}[1]{\ensuremath{\langle #1 \vert}}
+\newcommand{\ket}[1]{\ensuremath{\vert #1 \rangle}}
+\newcommand{\braket}[3]{\ensuremath{\left\langle #1 \vert #2 \vert #3 \right\rangle}}
+\newcommand{\braketnoop}[2]{\ensuremath{\left\langle #1 \vert #2 \right\rangle}}
+
+%pair correlation functions
+\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \vect{#3}_{#1} , \vect{#3}_{#2} \right)}}
+\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \vect{#3}_{#1 #2} \right)}}
+
+%ensemble average
+\newcommand{\ensavg}[2]{\ensuremath{\left\langle #2 \right\rangle_{#1} }}
+
+%-------------------------------------------------------------------------------
+%	HYPHENATION
+%-------------------------------------------------------------------------------
+
+\hyphenation{ MacOS }

@@ -19,45 +19,35 @@
 \DeclareMathOperator{\sinc}{sinc}
 
 %vector notations
-\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
-\newcommand{\vectr}{\vect{r}}
-\newcommand{\vectk}{\vect{k}}
-\newcommand{\vectkt}{\vect{\widetilde{k}}}
-\newcommand{\vectq}{\vect{q}}
 \newcommand{\Nabla}{\mathbf{\nabla}}
 
 %curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}
 \newcommand{\curlp}{\ensuremath{\mathcal{P}}}
-
-%basic QM notation (bra, ket, operators, ...)
-\newcommand{\oper}[1]{\ensuremath{\mathbf{\hat{#1}}}}
-\newcommand{\bra}[1]{\ensuremath{\langle #1 \vert}}
-\newcommand{\ket}[1]{\ensuremath{\vert #1 \rangle}}
-\newcommand{\braket}[3]{\ensuremath{\left\langle #1 \vert #2 \vert #3 \right\rangle}}
-\newcommand{\braketnoop}[2]{\ensuremath{\left\langle #1 \vert #2 \right\rangle}}
+\def\Sample{\ensuremath{\mathcal{M}}}
+\def\Sphere{\ensuremath{\mathcal{S}}}
 
 %pair correlation functions
-\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \vect{#3}_{#1} , \vect{#3}_{#2} \right)}}
-\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \vect{#3}_{#1 #2} \right)}}
+\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \v{#3}_{#1} , \v{#3}_{#2} \right)}}
+\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \v{#3}_{#1 #2} \right)}}
 
 %ensemble average
-\newcommand{\ensavg}[2]{\ensuremath{\left\langle #2 \right\rangle_{#1} }}
+\newcommand{\bra}{\ensuremath{\left\langle}}
+\newcommand{\ket}{\ensuremath{\right\rangle}}
 
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\Python}{\Code{Python}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
 
-\let\v=\vect
 \def\r{\v{r}}
 \def\k{\v{k}}
+\def\q{\v{q}}
 \def\rD{\r_\text{D}}
 \def\rS{\r_\text{S}}
 \def\kD{\k_\text{D}}
-\def\Sample{\mathcal{M}}
-\def\Sphere{\mathcal{S}}
 \def\nz{\overline{n^2}}
 \def\nzj{\overline{n_j^2}}
 

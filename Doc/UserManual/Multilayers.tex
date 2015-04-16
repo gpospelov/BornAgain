@@ -78,7 +78,7 @@ a sum over all layers,
 \index{Distorted-wave Born approximation!multilayer}%
 \Highlight{\Box{
 \begin{equation}\label{EtmDWBAft}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
   = \sum_{j} \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
     A^\pm_{\text{i}j} A^{\pm *}_{\text{f}j}
      \chi_j(\k^\pm_{\text{i}j} - \k^\pm_{\text{f}j}).
@@ -182,7 +182,7 @@ that are discussed in chapter~\ref{sec:Assemblies}.
 
 ... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
-  & \left\langle \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \right\rangle_{\text{Off-specular}}  \\
+  & \bra \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \ket_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
 \end{align*}
@@ -314,11 +314,11 @@ stationary wave propagation with given frequency,
 hence with fixed vacuum wave number~$K$,
 obeys the differential equation
 \begin{equation}\label{Escalar_wave}
-\left(\Delta + K^2 n_i^2 \right) \psi(\vect{r}) = 0.
+\left(\Delta + K^2 n_i^2 \right) \psi(\r) = 0.
 \end{equation}
 At interfaces between layers,
-the wave function $\psi(\vect{r})$ and its first derivative
-$\vect{\nabla}\psi(\vect{r})$ must evolve continuously.
+the wave function $\psi(\r)$ and its first derivative
+$\Nabla\psi(\r)$ must evolve continuously.
 
 
 %-------------------------------------------------------------------------------
@@ -327,12 +327,12 @@ $\vect{\nabla}\psi(\vect{r})$ must evolve continuously.
 
 Since our multilayer model has infinite extension
 in $x$ and $y$--directions, we can factorize
-$\psi(\vect{r})$, and assume plane-wave propagation for
-the in-plane component $\vect{r}_\parallel$ (\ref{Ewave3}):
+$\psi(\r)$, and assume plane-wave propagation for
+the in-plane component $\r_\parallel$ (\ref{Ewave3}):
 \begin{equation}\label{Ewave3dup}
-\psi(\vect{r}) = \psi(z) {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel}.
+\psi(\r) = \psi(z) {\rm e}^{i \k_\parallel\r_\parallel}.
 \end{equation}
-From the continuity conditions we infer that $\vect{k}_\parallel$
+From the continuity conditions we infer that $\k_\parallel$
 is constant across layers.
 The wave equation~(\ref{Escalar_wave})
 reduces to a one-dimensional equation in~$z$ [see (\ref{Ewavez})]
@@ -358,7 +358,7 @@ If $n_i$ is real and $k_\parallel<K n_i$,
 this is just the Pythagorean equation
 for the perpendicular components of either of
 the two wave vectors:
-vector $\vect{k}_\pm=\vect{k}_\parallel \pm k_{\perp i}\vect{\hat z}$.
+vector $\k_\pm=\k_\parallel \pm k_{\perp i}\v{\hat z}$.
 They correspond to the two summands in (\ref{Epsiz}),
 and describe plane waves propagating upwards or downwards.
 These waves have glancing angles
@@ -484,7 +484,7 @@ For layer~$i$, the solution is
 
 Currents shall be computed in relative units as
 \begin{equation}
-  \vect{J}:=\psi^*(\vect{r})\frac{\Nabla}{2i}\psi(\vect{r})+\text{c.c.}
+  \v{J}:=\psi^*(\r)\frac{\Nabla}{2i}\psi(\r)+\text{c.c.}
 \end{equation}
 We are interested in the component $J_z$.
 With (\ref{Epsiz}),
@@ -564,9 +564,9 @@ its index of refraction $n_i$ has a positive imaginary component.
 By~(\ref{Edisp}),
 $k_\parallel^2+k_{\perp i}^2$ then also has a positive imaginary component.
 From the continuity of $\psi$ and $\Nabla\psi$ across layer interfaces
-it still follows that $\vect{k}_\parallel$ is constant.
+it still follows that $\k_\parallel$ is constant.
 We assume that the top layer~0 is not absorbing.
-Hence $\vect{k}_\parallel$ is real.
+Hence $\k_\parallel$ is real.
 To fulfill~(\ref{Edisp}),
 it is necessary that $k_{\perp i}$
 has a positive imaginary component.
@@ -598,7 +598,7 @@ case of refraction by a medium with complex~$f_i$.
 For complex $f_i$,
 the theory developed above
 remains applicable, with the following exceptions:
-The geometric interpretation of the wave vectors $\vect{k}_\pm$
+The geometric interpretation of the wave vectors $\k_\pm$
 in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable,
 and the computation of currents in
 Eqs.~(\ref{EJperp}--\ref{EJrec}) is invalid because it
@@ -629,20 +629,20 @@ we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
 The wave equation (\ref{Escalar_wave}) for layer~$i$ becomes
 \begin{equation}\label{Ewaveqp}  
-(\Delta +K^2 +K^2 \uu\chi_i) \u\psi(\vect{r})= 0,
+(\Delta +K^2 +K^2 \uu\chi_i) \u\psi(\r)= 0,
 \end{equation}
-where $\u\psi(\vect{r})$ is a two-component spinor wave function,
-with components $\psi_\t(\vect{r})$ and~$\psi_\d(\vect{r})$.
+where $\u\psi(\r)$ is a two-component spinor wave function,
+with components $\psi_\t(\r)$ and~$\psi_\d(\r)$.
 At interfaces between layers,
-both spinor components of $\u\psi(\vect{r})$ and $\Nabla\u\psi(\vect{r})$
+both spinor components of $\u\psi(\r)$ and $\Nabla\u\psi(\r)$
 must evolve continuously.
 
 The reasons for the factorization (\ref{Ewave3}) still apply,
 and so we can write
 \begin{equation}\label{Ewave3p}
-\u\psi(\vect{r}) = \u\psi(z) {\rm e}^{i \vect{k}_\parallel\vect{r}_\parallel}.
+\u\psi(\r) = \u\psi(z) {\rm e}^{i \k_\parallel\r_\parallel}.
 \end{equation}
-As before, $\vect{k}_\parallel$ is constant across layers.
+As before, $\k_\parallel$ is constant across layers.
 The wave equation~(\ref{Ewaveqp}) reduces to 
 \begin{equation}\label{Ewavezp}
 \left(\partial_z^2 + K^2 + K^2\uu\chi_i - k_\parallel^2 \right) \u\psi(z) = 0.

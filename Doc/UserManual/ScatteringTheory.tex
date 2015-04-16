@@ -315,12 +315,12 @@ becomes in far-field approximation
 \begin{equation}\label{EsandwichC}
   \Psi_\text{s,far}(\r)
   = \frac{{\rm e}^{iKr}}{r}
-    \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle,
+    \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket,
 \end{equation}
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
   := \int\!{\rm d}^3r\, \Psi^*_\text{f}(\r)\chi(\r)\Psi_\text{i}(\r).
 \end{equation}
 Making the standard assumption
@@ -332,13 +332,13 @@ with $k_\text{i}=K$,
 and introducing the \textit{scattering vector}
 \index{Scattering vector}%
 \begin{equation}
-  \v{q}:=\k_\text{i}-\k_\text{f},
+  \q:=\k_\text{i}-\k_\text{f},
 \end{equation}
 we can rewrite (\ref{EsandwichC}) as
 \begin{equation}\label{EBornQ}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
-  = \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r)
-  =: \chi(\v{q}),
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  = \int\!{\rm d}^3r\, {\rm e}^{i\q\,\r}\chi(\r)
+  =: \chi(\q),
 \end{equation}
 which shows that neutron scattering,
 in first-order Born approximation,
@@ -370,7 +370,7 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
+    {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
 \end{equation}
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
@@ -385,7 +385,7 @@ The resulting equation
 \Highlight{\Box{
 \begin{equation}\label{Exsection}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  =  {\left|\langle\Psi_\text{f}|\chi|\Psi_\text{i}\rangle\right|}^2.
+  =  {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
 \end{equation}
 }}
 yields quite generically the differential cross section of elastic scattering
@@ -398,7 +398,7 @@ but also for distorted waves.
 In the plane-wave case, we can insert (\ref{EBornQ}) to obtain
 \begin{equation}\label{Ecross1}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  = {\left| \chi(\v{q}) \right|}^2.
+  = {\left| \chi(\q) \right|}^2.
 \end{equation}
 Thus the differential cross section is just the squared modulus
 of the Fourier transform 
@@ -697,11 +697,11 @@ can be expanded into four terms,
 
 \Highlight{\Box{
 \begin{equation}\label{EtmDWBA}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
-  = \langle \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\rangle
-  + \langle \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\rangle
-  + \langle \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\rangle
-  + \langle \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\rangle.
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  = \bra \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\ket
+  + \bra \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\ket
+  + \bra \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\ket
+  + \bra \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\ket.
 \end{equation}
 }}
 This equation contains the essence of
@@ -710,11 +710,11 @@ for small-angle scattering under grazing incidence,
 and is the base for all scattering models implemented in \BornAgain.
 In the following, we will use the shorthand notation
 \begin{equation}\label{EtmDWBAsum}
-  \langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
   = \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
-    \langle \Psi^\pm_\text{f}|\chi|\Psi^\pm_\text{i}\rangle.
+    \bra \Psi^\pm_\text{f}|\chi|\Psi^\pm_\text{i}\ket.
 \end{equation}
-Note that $\langle \Psi_\text{f}|\chi|\Psi_\text{i}\rangle$
+Note that $\bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket$
 appears as a squared modulus
 in the differential cross section~(\ref{Exsection}).
 Therefore, the four terms of (\ref{EtmDWBA}) can interfere with each other,
@@ -727,7 +727,7 @@ which adds to the complexity of GISAS patterns.
 %===============================================================================
 
 In this subsection we describe
-the conversion between the scattering vector~$\v{q}$
+the conversion between the scattering vector~$\q$
 and the experimental coordinates.
 This is unrelated to the previous subsections,
 but belongs nevertheless under the headings

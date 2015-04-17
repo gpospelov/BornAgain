@@ -28,18 +28,18 @@
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-    result["example01"] = "gui_isgisaxs01";
-    result["example02"] = "gui_isgisaxs04_1DDL";
-    result["example03"] = "gui_isgisaxs04_2DDL";
-    result["example04"] = "gui_isgisaxs11";
+    result["example01"] = "gui_CylinderAndPrisms";
+    result["example02"] = "gui_Interference1DParaCrystal";
+    result["example03"] = "gui_Interference2DParaCrystal";
+    result["example04"] = "gui_CoreShellParticles";
     result["example05"] = "LayerWithRoughness";
-    result["example06"] = "gui_isgisaxs06a";
-    result["example07"] = "gui_isgisaxs07";
+    result["example06"] = "gui_Interference2DSquareLattice";
+    result["example07"] = "gui_RotatedPyramids";
+    result["example08"] = "part_distribution";
     // temporary for testing
 //    result["example08"] = "beam_divergence";
 //    result["example08"] = "detector_resolution";
 //    result["example08"] = "gui_isgisaxs06b";
-    result["example08"] = "part_distribution";
     return result;
 }
 

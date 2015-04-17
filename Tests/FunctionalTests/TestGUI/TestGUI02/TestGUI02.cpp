@@ -2,7 +2,7 @@
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("gui_isgisaxs04_1DDL");
+    return GUI_FUNCTIONAL_TEST("gui_Interference1DParaCrystal");
 }
 
 

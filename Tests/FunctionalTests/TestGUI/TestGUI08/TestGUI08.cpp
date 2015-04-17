@@ -2,7 +2,7 @@
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("gui_isgisaxs06b");
+    return GUI_FUNCTIONAL_TEST("gui_Interference2DCenteredLattice");
 }
 
 

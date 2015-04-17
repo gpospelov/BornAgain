@@ -2,7 +2,7 @@
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("gui_isgisaxs11");
+    return GUI_FUNCTIONAL_TEST("gui_CoreShellParticles");
 }
 
 

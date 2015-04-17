@@ -20,6 +20,7 @@ set(list_of_tests
     "TestGUI08"
     "TestGUIBeamDivergence"
     "TestGUIDetectorResolution"
+    "TestGUIParticleDistribution"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

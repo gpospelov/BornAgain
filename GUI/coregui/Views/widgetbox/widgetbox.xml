@@ -324,6 +324,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Hexagonal latice with basis" icon="images/sample_layers2.png">
+            <widget class="example09">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
 
     </category>
 

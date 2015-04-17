@@ -36,6 +36,7 @@ QMap<QString, QString > init_NameToRegistry()
     result["example06"] = "gui_Interference2DSquareLattice";
     result["example07"] = "gui_RotatedPyramids";
     result["example08"] = "part_distribution";
+    result["example09"] = "gui_ParticleComposition";
     // temporary for testing
 //    result["example08"] = "beam_divergence";
 //    result["example08"] = "detector_resolution";

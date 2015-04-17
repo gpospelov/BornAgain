@@ -571,6 +571,14 @@
             </property>
         </category>
 
+        <category name="example09">
+            <property name="Title">
+                <tooltip>Hexagonal lattice with basis to represent two layers of spheres</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
 
     </context>
 

@@ -154,6 +154,11 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "part_distribution", StandardSimulations::ParticleDistribution,
         "Cylinders with size distribution");
+
+    registerItem(
+        "gui_ParticleComposition", StandardSimulations::gui_ParticleComposition,
+        "GUI: Composition of particles to represent two layers of spheres in hex lattice");
+
 }
 
 

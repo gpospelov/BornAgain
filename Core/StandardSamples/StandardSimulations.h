@@ -59,6 +59,7 @@ Simulation *gui_MultipleLayouts();
 Simulation *BeamDivergence();
 Simulation *DetectorResolution();
 Simulation *ParticleDistribution();
+Simulation *gui_ParticleComposition();
 }
 
 

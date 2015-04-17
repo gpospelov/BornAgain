@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Scattering by embedded particles}  \SecLabel{FormFactors}
+\chapter{Scattering by embedded particles}  \label{sec:FormFactors}
 
 \index{Form factor|(}
 
@@ -27,13 +27,13 @@ These particles are assumed to be of a ``nano'' or ``meso'' size,
 \index{Meso-particles}
 so that their internal atomistic structure does not matter.
 We first consider ``hard-shell'' particles
-that are described by a binary shape function $S(\vect{r})$
+that are described by a binary shape function $S(\r)$
 and a constant coherent scattering-length density $\rho_s$
 \index{Scattering length density}
 that must differ from the environment (air or embedding layer)
 to result in a scattering signal.
-In \SecRef{CoreShell} we briefly discuss ``core-shell'' particles
-that have a two valued scattering-length distribution $\rho_s(\vect{r})$.
+In Sect.~\ref{sec:CoreShell} we briefly discuss ``core-shell'' particles
+that have a two valued scattering-length distribution $\rho_s(\r)$.
 
 In this chapter,
 we present models of isolated particles,
@@ -48,14 +48,14 @@ In the next chapter, we discuss inter-particle correlations.
 The form factor of a particle is the Fourier transform
 of its shape function,
 \begin{equation}
-  F(\mathbf{q})=\int {\rm d}^3r\, {\rm e}^{i\vect{q}\vect{r}} S(\vect{r}).
+  F(\mathbf{q})=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
 \end{equation}
-For hard-shell particles the shape function $S(\vect{r}$ only takes
-the values 0 and~1
+For hard-shell particles the shape function $S(\r)$
+only takes the values 0 and~1
 so that the form factor becomes
 the \textit{shape transform}
 \begin{equation}\label{eq:FFHard}
-  F(\mathbf{q})=\int_V {\rm d}^3r\, {\rm e}^{i\vect{q}\vect{r}}.
+  F(\mathbf{q})=\int_V {\rm d}^3r\, {\rm e}^{i\q\r}.
 \end{equation}
 where $V$ is the volume of the particle.
 In the following,
@@ -81,33 +81,33 @@ The following pages document each implemented form factor in detail.
 \begin{table}[H] 
   \begin{tabulary} {\textwidth}{Lc Lc L c L} 
 \hline 
-Box,\phantom{-} \SecRef{Box} & & Prism3,  \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron} & & Prism6,  \SecRef{Prism6}\\
+Box,\phantom{-} Sect.~\ref{sec:Box} & & Prism3,  Sect.~\ref{sec:Prism3} & & Tetrahedron, Sect.~\ref{sec:Tetrahedron} & & Prism6,  Sect.~\ref{sec:Prism6}\\
 \includegraphics[width=1in]{fig/blue/Box3d.png} & & 
 \includegraphics[width=1in]{fig/blue/Prism33d.png} & & 
 \includegraphics[width=1in]{fig/blue/Tetrahedron3d.png} & & 
 \includegraphics[width=1in]{fig/blue/Prism63d.png} 
 \\
 \hline 
-Cone6,  \SecRef{Cone6} & &  Pyramid, \SecRef{Pyramid} & & Anisotropic pyramid,  \SecRef{AnisoPyramid} & &  {Cuboctahedron}, \SecRef{Cuboctahedron}\\
+Cone6,  Sect.~\ref{sec:Cone6} & &  Pyramid, Sect.~\ref{sec:Pyramid} & & Anisotropic pyramid,  Sect.~\ref{sec:AnisoPyramid} & &  {Cuboctahedron}, Sect.~\ref{sec:Cuboctahedron}\\
 \includegraphics[width=1in]{fig/blue/Cone63d.png}  & & 
 \includegraphics[width=1in]{fig/blue/Pyramid3d.png} & &
 \includegraphics[width=1in]{fig/blue/AnistropicPyramid3d.png} & & 
 \includegraphics[width=1in]{fig/blue/Cuboctahedron3d.png}
 \\
 \hline
-Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder} & &  Cone,\phantom{--} \SecRef{Cone} & & Full Sphere, \SecRef{FullSphere} \\
+Cylinder, Sect.~\ref{sec:Cylinder}  & & Ellipsoidal cylinder, Sect.~\ref{sec:EllipsoidalCylinder} & &  Cone,\phantom{--} Sect.~\ref{sec:Cone} & & Full Sphere, Sect.~\ref{sec:FullSphere} \\
 \includegraphics[width=1in]{fig/blue/Cylinder3d.png} & & 
 \includegraphics[width=1in]{fig/blue/EllipsoidalCylinder3d.png} & & 
 \includegraphics[width=1in]{fig/blue/Cone3d.png} & & 
 \includegraphics[width=1in]{fig/blue/FullSphere3d.png} \\
 \hline
-Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} & & Truncated Spheroid,  \SecRef{Spheroid} & & Hemi Ellipsoid, \SecRef{HemiEllipsoid}\\
+Truncated Sphere, Sect.~\ref{sec:Sphere}  & & Full Spheroid, Sect.~\ref{sec:FullSpheroid} & & Truncated Spheroid,  Sect.~\ref{sec:Spheroid} & & Hemi Ellipsoid, Sect.~\ref{sec:HemiEllipsoid}\\
 \includegraphics[width=1in]{fig/blue/Sphere3d.png}  & & 
 \includegraphics[width=1in]{fig/blue/FullSpheroid3d.png} & & 
 \includegraphics[width=1in]{fig/blue/Spheroid3d.png} & & 
 \includegraphics[width=1in]{fig/blue/HemiEllipsoid3d.png}\\
 \hline
-Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}&  & Truncated cube \SecRef{Truncatedcube} & &  \\
+Ripple1, Sect.~\ref{sec:Ripple1} &  & Ripple2, Sect.~\ref{sec:Ripple2}&  & Truncated cube Sect.~\ref{sec:Truncatedcube} & &  \\
 \includegraphics[width=1in]{fig/blue/Ripple13d.png} & & 
 \includegraphics[width=1in]{fig/blue/Ripple23d.png} & &  
 \includegraphics[width=.75in]{fig/blue/TruncatedCube3d.png}
@@ -123,7 +123,7 @@ Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}&  & Truncated cube \Sec
 %-------------------------------------------------------------------------------
 \newpage
 \ifodd\value{page}\textit{Page intentionally left blank}\newpage\fi
-\subsection{Box (cuboid)} \SecLabel{Box}
+\subsection{Box (cuboid)} \label{sec:Box}
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
   \index{Prism (form factor)!reactangular (Box)}
@@ -190,7 +190,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Prism3 (triangular)} \SecLabel{Prism3}
+\subsection{Prism3 (triangular)} \label{sec:Prism3}
   \index{Prism (form factor)!triangular (Prism3)}
   \index{FormFactorPrism3@\Code{FormFactorPrism3}}
 %-------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Tetrahedron} \SecLabel{Tetrahedron}
+\subsection{Tetrahedron} \label{sec:Tetrahedron}
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
   \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
@@ -336,7 +336,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Prism6 (hexagonal)} \SecLabel{Prism6}
+\subsection{Prism6 (hexagonal)} \label{sec:Prism6}
   \index{Prism (form factor)!hexagonal (Prism6)}
   \index{FormFactorPrism6@\Code{FormFactorPrism6}}
 %-------------------------------------------------------------------------------
@@ -402,7 +402,7 @@ and for a factor $H$ missing in the \Code{IsGISAXS} manual.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Cone6 (hexagonal)} \SecLabel{Cone6}
+\subsection{Cone6 (hexagonal)} \label{sec:Cone6}
   \index{Cone (form factor)!hexagonal (Cone6)}
   \index{Pyramid (form factor)!hexagonal (Cone6)}
   \index{Truncated pyramid (form factor)!hexagonal (Cone6)}
@@ -447,7 +447,7 @@ $\dfrac{2H}{\sqrt{3}R}< \tan{\alpha}$.
 \end{itemize}
 
 \paragraph{Form factor}\strut\\
-The calculation can be derived from ``Prism6'' (\SecRef{Prism6}) by
+The calculation can be derived from ``Prism6'' (Sect.~\ref{sec:Prism6}) by
 considering a side length varying with the vertical position:
 
 \begin{align*}
@@ -479,7 +479,7 @@ Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Pyramid (square-based)}\SecLabel{Pyramid}
+\subsection{Pyramid (square-based)}\label{sec:Pyramid}
   \index{Pyramid (form factor)!square}
   \index{Truncated pyramid (form factor)!square}
   \index{FormFactorPyramid@\Code{FormFactorPyramid}}
@@ -559,7 +559,7 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{AnisoPyramid (rectangle-based)} \SecLabel{AnisoPyramid} 
+\subsection{AnisoPyramid (rectangle-based)} \label{sec:AnisoPyramid} 
   \index{Anisotropic pyramid (form factor)}
   \index{Pyramid (form factor)!rectangular (AnisoPyramid)}
   \index{Truncated pyramid (form factor)!rectangular (AnisoPyramid)}
@@ -652,7 +652,7 @@ except for different parametrization. ???
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Cuboctahedron} \SecLabel{Cuboctahedron}
+\subsection{Cuboctahedron} \label{sec:Cuboctahedron}
   \index{Cuboctahedron (form factor)}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
 %-------------------------------------------------------------------------------
@@ -681,7 +681,7 @@ orientation (the standard one) and an height $r_H \times H$.
 \item height\_ratio $r_H$,
 \item $\alpha$ is the angle between the base and the
   side faces, taken in the middle of the base lines (see
-  fig.~\ref{fig:pyramid} in \SecRef{Pyramid}).
+  fig.~\ref{fig:pyramid} in Sect.~\ref{sec:Pyramid}).
 \end{itemize}
 
 \paragraph{Restrictions on the parameters:} $\dfrac{2H}{L}< \tan(\alpha)$ and $\dfrac{2r_HH}{L}< \tan(\alpha)$.
@@ -721,7 +721,7 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Cylinder} \SecLabel{Cylinder}
+\subsection{Cylinder} \label{sec:Cylinder}
   \index{Cylinder (form factor)}
   \index{FormFactorCylinder@\Code{FormFactorCylinder}}
 %-------------------------------------------------------------------------------
@@ -782,7 +782,7 @@ Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{EllipsoidalCylinder} \SecLabel{EllipsoidalCylinder} 
+\subsection{EllipsoidalCylinder} \label{sec:EllipsoidalCylinder} 
   \index{Ellipsoidal cylinder (form factor)}
   \index{Cylinder (form factor)!ellipsoidal}
   \index{FormFactorEllipsoidalCylinder@\Code{FormFactorEllipsoidalCylinder}}
@@ -847,7 +847,7 @@ Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Cone (circular)} \SecLabel{Cone} 
+\subsection{Cone (circular)} \label{sec:Cone} 
   \index{Cone (form factor)!circular}
   \index{Truncated cone (form factor)}
   \index{FormFactorCone@\Code{FormFactorCone}}
@@ -910,7 +910,7 @@ Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{FullSphere} \SecLabel{FullSphere}
+\subsection{FullSphere} \label{sec:FullSphere}
   \index{Full sphere (form factor)}
   \index{Sphere (form factor)}
   \index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
@@ -968,7 +968,7 @@ Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{TruncatedSphere}\SecLabel{Sphere}
+\subsection{TruncatedSphere}\label{sec:Sphere}
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
   \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
@@ -1033,7 +1033,7 @@ Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{FullSpheroid} \SecLabel{FullSpheroid}
+\subsection{FullSpheroid} \label{sec:FullSpheroid}
   \index{Full spheroid (form factor)}
   \index{Spheroid (form factor)}
   \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
@@ -1105,7 +1105,7 @@ Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\ci
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{TruncatedSpheroid} \SecLabel{Spheroid}
+\subsection{TruncatedSpheroid} \label{sec:Spheroid}
   \index{Spheroid (form factor)!truncated}
   \index{Truncated spheroid (form factor)}
   \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
@@ -1174,7 +1174,7 @@ of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{HemiEllipsoid} \SecLabel{HemiEllipsoid}  
+\subsection{HemiEllipsoid} \label{sec:HemiEllipsoid}  
   \index{Hemi ellipsoid (form factor)}
   \index{Ellipsoid (form factor)!truncated}
   \index{Truncated ellipsoid (form factor)}
@@ -1241,7 +1241,7 @@ which seems to have a sign error in the $z$ dependence.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Ripple1 (sinusoidal)} \SecLabel{Ripple1}  
+\subsection{Ripple1 (sinusoidal)} \label{sec:Ripple1}  
   \index{Ripple (form factor)!sinusoidal (Ripple1)}
   \index{Sinusoidal ripple (form factor)}
   \index{FormFactorRipple1@\Code{FormFactorRipple1}}
@@ -1300,7 +1300,7 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Ripple2 (saw-tooth)} \SecLabel{Ripple2}  
+\subsection{Ripple2 (saw-tooth)} \label{sec:Ripple2}  
   \index{Ripple (form factor)!saw-tooth (Ripple2)}
   \index{Saw-tooth ripple (form factor)}
   \index{FormFactorRipple2@\Code{FormFactorRipple2}}
@@ -1368,7 +1368,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{Truncated cube} \SecLabel{Truncatedcube}  
+\subsection{Truncated cube} \label{sec:Truncatedcube}  
 \index{Cube (form factor)!truncated}
   \index{Truncated cube (form factor)}
   \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
@@ -1404,7 +1404,7 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 \end{itemize}
 
 \paragraph{Form factor}
-The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see \SecRef{Box}) minus the form factors of the eight trirectangular tetrahedrons \cite{HeSS74}.
+The form factor of the truncated cube is equal to the form factor of the full cube of side length $L$ (see Sect.~\ref{sec:Box}) minus the form factors of the eight trirectangular tetrahedrons \cite{HeSS74}.
 
 \begin{equation*}
 F(\mathbf{q},t) =F_{\rm{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\rm{vertex}_i}(q_x, q_y, q_z, L, t)

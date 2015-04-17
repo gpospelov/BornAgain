@@ -1,5 +1,4 @@
 # BornAgain debian packaging 
-
 set(CPACK_GENERATOR "DEB")
 
 # parameters to build a debian package
@@ -25,13 +24,14 @@ set(CPACK_DEBIAN_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
 set(CPACK_STRIP_FILES "TRUE")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl0-dev(>=1.15), libboost-dev(>=1.48), libfftw3-dev(>=3.3.1), python(>=2.7), python-dev(>=2.7), libpython2.7, python-numpy, libc6(>= 2.7)") 
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl0-dev(>=1.15), libboost1.55-all-dev, libfftw3-dev(>=3.3.1), python(>=2.7), python-dev(>=2.7), libpython2.7, python-numpy, libc6(>= 2.7), libqt5widgets5(>=5.1.0)")
 set(CPACK_DEBIAN_PACKAGE_DESCRIPTION    "${CPACK_PACKAGE_DESCRIPTION}")
 set(CPACK_DEBIAN_PACKAGE_VERSION ${BornAgain_VERSION_PATCH})
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}-${CPACK_DEBIAN_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+set(CPACK_DEBIAN_PACKAGE_CONFLICTS "${CPACK_DEBIAN_PACKAGE_NAME}(<=${BORNAGAIN_VERSION})")
 
 # set postinstall and preremove scripts for the debian package
-set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_SOURCE_DIR}/dev-tools/debian/postinst;${CMAKE_SOURCE_DIR}/dev-tools/debian/prerm;")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${destination_runtime_configs}/postinst;${destination_runtime_configs}/prerm;")
 
 # write copyrite file [TODO:] fix the text of copyright
 file(WRITE "${CMAKE_BINARY_DIR}/copyright"

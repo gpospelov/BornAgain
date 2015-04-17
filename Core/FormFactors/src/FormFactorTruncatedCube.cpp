@@ -65,7 +65,7 @@ complex_t FormFactorTruncatedCube::FormFactorVertex(const cvector_t& q) const
     complex_t qz = q.z();
     complex_t qy = q.y();
     complex_t qx = q.x();
-    complex_t expiqyt = std::exp(im*qy*t);
+//    complex_t expiqyt = std::exp(im*qy*t);
     complex_t expiqzt = std::exp(im*qz*t);
     complex_t qxhL = 0.5*qx*L;
     complex_t qyhL = 0.5*qy*L;

@@ -39,5 +39,6 @@ ADD_LATEX_DOCUMENT(BornAgainManual.tex
     INPUTS ${tex_inputs} ${fig_inputs}
     BIBFILES jw7.bib
     USE_INDEX
+    USE_NOMENCL
     DEFAULT_PDF
 )

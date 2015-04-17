@@ -1,0 +1,27 @@
+==== Conventions to force ordering in List of Symbols ====
+
+0 symbol
+1 greek
+2 roman
+
+the symbol/letter
+
+0 lower case
+1 upper case
+
+0 text
+1 index
+2 scalar constant
+3 scalar function
+4 vectorial constant
+5 vectorial function
+6 unit vector
+8 set
+
+[the following can be OR'ed]
+0 raw
+1 decorated
+2 indexed
+4 subscripted
+
+[followed by subscript - index - decoration - funcarg]

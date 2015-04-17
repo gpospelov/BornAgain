@@ -15,7 +15,7 @@
 
 
 \newpage
-\chapter{Using the Python API}  \SecLabel{Usage}
+\chapter{Using the Python API}  \label{sec:Usage}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,7 +41,7 @@ In the following, we describe how to write a
 \Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
 
 
-% More information about the general software architecture and \BornAgain\ internal design are given in \SecRef{SoftwareArchitecture}.
+% More information about the general software architecture and \BornAgain\ internal design are given in Sect.~\ref{sec:SoftwareArchitecture}.
 
 
 %===============================================================================
@@ -56,7 +56,7 @@ parameter like, for example, \Code{20.0*micrometer}.
 
 
 %===============================================================================
-\subsection{A first example} \SecLabel{Example1Python}
+\subsection{A first example} \label{sec:Example1Python}
 %===============================================================================
 
 In this example, we simulate the scattering from a mixture of
@@ -172,19 +172,21 @@ and 50\% of prisms.
 The vertical positions of the particles in a layer are given in relative
 coordinates. For the top layer, the bottom of the layer corresponds to
 \Code{depth}=0 and negative values would correspond to particles
-floating above layer 1 since the vertical axis, shown in \reffig{multil3d} is pointing upwards. But for all the other layers, it is the top of the
+floating above layer 1 since the vertical axis,
+shown in Fig.~\ref{fig:multil3d} is pointing upwards.
+But for all the other layers, it is the top of the
 layer which corresponds to \Code{depth}=0.}\\
 
 
 \noindent Finally, lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
 the waves scattered by these particles. In this case, the intensity is calculated by
-the incoherent sum of the scattered waves: $\langle |F_j|^2\rangle$,
+the incoherent sum of the scattered waves: $\bra |F_j|^2\ket$,
 where $F_j$ is the form factor associated with the particle of type $j$.  The way these waves
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
-particles distribution (see  \SecRef{sect:interf}). On the contrary, the vertical position is
+particles distribution (see  Sect.~\ref{sec:sect:interf}). On the contrary, the vertical position is
 imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
 
 %-------------------------------------------------------------------------------
@@ -248,7 +250,7 @@ parameters (line~\ref{runbeam}). %, which are associated with the
 %the simulation (line~\ref{runsimul}). 
 Those functions are part of the Simulation
 class.  The different incident and exit angles are
-shown in \reffig{multil3d}.
+shown in Fig.~\ref{fig:multil3d}.
 
 The detector parameters are set using ranges of angles via
 the function:
@@ -324,7 +326,7 @@ uses (plots, fits,\ldots) as a \Code{NumPy} array containing
 \Code{n\_phi}$\times$\Code{n\_alpha}
 datapoints. Lines~\ref{plot1}-\ref{plot2} produces the two-dimensional
 contour plot of the intensity as a function of $\alpha_f$ and
-$\phi_f$ shown in \reffig{output_ex1}. 
+$\phi_f$ shown in Fig.~\ref{fig:output_ex1}. 
 
 \begin{figure}[htbp]
   \begin{center}
@@ -347,7 +349,7 @@ is associated with the output intensity in arbitrary units. }
 
 %===============================================================================
 \subsection{Working with sample parameters}
-   \SecLabel{WorkingWithSampleParameters}
+   \label{sec:WorkingWithSampleParameters}
 %===============================================================================
 
 
@@ -364,7 +366,7 @@ their optima.
 
 In \BornAgain\ this is done using the so-called sample parameter pool
 mechanism. We are going to briefly explain this approach using the example
-of \SecRef{Example1Python}.
+of Sect.~\ref{sec:Example1Python}.
 
 In \BornAgain\ a sample is described by a hierarchical tree of objects.
 For the multilayer created in the previous section this tree can be graphically
@@ -526,7 +528,7 @@ The complete example described in this section can be found at
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Fitting} \SecLabel{Fitting}
+\section{Fitting} \label{sec:Fitting}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \index{Fitting|(}
 
@@ -537,22 +539,22 @@ fit the numerical model to reference data by modifying a selection of
 sample parameters from the numerical model.  This aspect
 of the software is discussed in the current chapter.
 
-%\SecRef{FittingGentleIntroducion} gives a short introduction to the
+%Sect.~\ref{sec:FittingGentleIntroducion} gives a short introduction to the
 %basic concepts of data fitting. Users familiar with fitting can
-%directly proceed to \SecRef{FittingImplementation}, which details the
+%directly proceed to Sect.~\ref{sec:FittingImplementation}, which details the
 %implementation of fittings in 
 %\BornAgain\ . 
-\SecRef{FittingImplementation} details the
+Sect.~\ref{sec:FittingImplementation} details the
 implementation of fittings in \BornAgain\ . 
 \Python\ fitting examples with detailed
-explanations of every fitting step are given in \SecRef{FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
+explanations of every fitting step are given in Sect.~\ref{sec:FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
 algorithms, simultaneous fits of different data sets, parameters
 correlation, are covered in
-\SecRef{FittingAdvanced}. \SecRef{FittingRightAnswers} contains some practical advice, which might
+Sect.~\ref{sec:FittingAdvanced}. Sect.~\ref{sec:FittingRightAnswers} contains some practical advice, which might
 help the user to get right answers from \BornAgain\ fitting.
 
 
-\subsubsection{Implementation in BornAgain} \SecLabel{FittingImplementation}
+\subsubsection{Implementation in BornAgain} \label{sec:FittingImplementation}
 
 Fitting in  \BornAgain\ deals with estimating the optimum parameters
 in the numerical model by minimizing the difference between
@@ -614,14 +616,14 @@ After the control is returned, fitting results can be retrieved.
 They consist in the best $\chi^2$ value found, the corresponding
 optimal sample parameters and the intensity map simulated with this set of parameters.
 
-%Details of \Code{FitSuite} class implementation and description of each interface are given in \SecRef{FitSuiteClass}. 
+%Details of \Code{FitSuite} class implementation and description of each interface are given in Sect.~\ref{sec:FitSuiteClass}. 
 The following parts of this section will detail each of
 the main stages necessary to run a fitting procedure.
 
 
 \subsubsection{Preparing the sample and the simulation description}
 
-This step is similar for any simulation using \BornAgain\ (see \SecRef{Simulation}). It consists in first characterizing  the geometry of the system: the particles 
+This step is similar for any simulation using \BornAgain\ (see Sect.~\ref{sec:Simulation}). It consists in first characterizing  the geometry of the system: the particles 
 (shapes, sizes, refractive
 indices), the different layers (thickness,
 order, refractive index, a possible roughness of the interface), the
@@ -642,7 +644,7 @@ heights, radii or the layer's roughness or thickness could be selected
 using the 
 parameter pool mechanism. 
 This mechanism is explained in detail in
-\SecRef{WorkingWithSampleParameters} and it is therefore recommended
+Sect.~\ref{sec:WorkingWithSampleParameters} and it is therefore recommended
 to read it before proceeding any further.
 
 The user specifies selected sample parameters as fit parameters using \Code{FitSuite}
@@ -654,7 +656,7 @@ fit_suite.addFitParameter(<name>, <initial value>, <step>, <limits>)
 where \Code{<name>} corresponds to the parameter name in the sample's parameter pool.
 By using wildcards in the parameter name, a group of sample parameters, corresponding to the given
 pattern, can be associated with a single fitting parameter and 
-fitted simultaneously to get a common optimal value (see \SecRef{WorkingWithSampleParameters}).
+fitted simultaneously to get a common optimal value (see Sect.~\ref{sec:WorkingWithSampleParameters}).
 
 The second parameter \Code <initial value> correspond to the initial value of
 the fitting parameter, while the third one
@@ -712,7 +714,7 @@ some combined data sets are performed.
 
 By using the third parameter, \Code{<chi2\_module>}, different normalizations and weights
 can be applied to give user full control of the way $\chi^2$ is calculated.
-This feature will be explained in \SecRef{FittingAdvanced}.
+This feature will be explained in Sect.~\ref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -809,7 +811,7 @@ namely the maximum number of times the minimizer is allowed to call the simulati
 
 There are also expert-level options common for all minimizers as well
 as a number of options to tune individual minimization algorithms.
-They will be explained in \SecRef{FittingAdvanced}.
+They will be explained in Sect.~\ref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -828,11 +830,11 @@ be printed on the screen using the command
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
 fit_suite.printResults()
 \end{lstlisting}
-\SecRef{FittingExamples} gives more details about how to access the fitting results.
+Sect.~\ref{sec:FittingExamples} gives more details about how to access the fitting results.
 
 
 %===============================================================================
-\subsection{Basic Python fitting example} \SecLabel{FittingExamples}
+\subsection{Basic Python fitting example} \label{sec:FittingExamples}
 %===============================================================================
 
 In this section we are going to go through a complete example of
@@ -846,7 +848,7 @@ The script can also be found at
 \end{lstlisting}
 
 \noindent
-This example uses the same sample geometry as in \SecRef{Example1Python}.
+This example uses the same sample geometry as in Sect.~\ref{sec:Example1Python}.
 Cylindrical and
 prismatic particles in equal proportion are deposited on a substrate layer, with no interference
 between the particles. We consider the following parameters to be unkown
@@ -917,7 +919,7 @@ def get_sample(): @\label{script2::get_sample}@
 \end{lstlisting}
 The function starting at line~\ref{script2::get_sample} creates a multilayered sample
 with cylinders and prisms using arbitrary $1\,{\rm nm}$ value for all size's of particles.
-The details about the generation of this multilayered sample are given in \SecRef{Example1Python}.
+The details about the generation of this multilayered sample are given in Sect.~\ref{sec:Example1Python}.
 
 %-------------------------------------------------------------------------------
 \subsubsection*{Creating the simulation}
@@ -1015,7 +1017,7 @@ following detailed example
 
 
 %===============================================================================
-\subsection {Advanced fitting} \SecLabel{FittingAdvanced}
+\subsection {Advanced fitting} \label{sec:FittingAdvanced}
 %===============================================================================
 
 \subsubsection{Affecting chi-square calculations}
@@ -1028,10 +1030,10 @@ following detailed example
 
 %===============================================================================
 \subsection {How to get the right answer from fitting}
-  \SecLabel{FittingRightAnswers}
+  \label{sec:FittingRightAnswers}
 %===============================================================================
 
-%As it has already been mentioned in \SecRef{FittingGentleIntroducion}, 
+%As it has already been mentioned in Sect.~\ref{sec:FittingGentleIntroducion}, 
 One of the main difficulties in fitting the data with the model 
 is the presence of multiple
 local minima in the objective function. Many problems can cause the

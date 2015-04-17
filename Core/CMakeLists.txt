@@ -160,7 +160,7 @@ else()
             DESTINATION ${destination_libexec})
 
     # creating bin directory for links
-    if(NOT BORNAGAIN_APPLE_BUNDLE)
+    if(NOT BORNAGAIN_APPLE_BUNDLE OR NOT BUILD_DEBIAN)
         install(CODE "
             FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)

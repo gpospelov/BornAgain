@@ -136,7 +136,7 @@ if(UNIX)
         set(fixup_path @rpath)
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
-    else()
+    elseif(NOT BUILD_DEBIAN)
         # creating link to BornAgain gui in bin directory
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink

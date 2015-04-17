@@ -244,20 +244,21 @@ This explains the appearance of the factor $4\pi$.}
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
 Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
-we obtain the formal solution
-of the full inhomogeneous equation~(\ref{ESchrodiHelmholtz})
+we obtain what is known as the Lippmann-Schwinger equation,
+\index{Lippmann-Schwinger equation}%the formal solution
 \begin{equation}\label{EPsiFormal}
   \Psi(\r)
   = \Psi_\text{i}(\r)
   + \int\!{\rm d}^3r'\, G(\r,\r')
                      \frac{\chi(\r')}{4\pi}\Psi(\r').
 \end{equation}
-However, the integral kernel still contains the full solution~$\Psi$.
-This implicit equation
-can be resolved into an infinite series
+This integral equation for $\Psi(\r)$ has the advantage
+over the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
+that it ensures appropriate boundary conditions for
+describing a scattering experiment.
+It can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
-for the occurrence of $\Psi$ in the integrand.
-This can be iterated to obtain an infinite series representation of $\Psi$.
+for $\Psi$ in the integrand.
 Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
 In first Born approximation,
@@ -344,7 +345,7 @@ where we used Dirac notation for the transition matrix element
   \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
   := \int\!{\rm d}^3r\, \Psi^*_\text{f}(\r)\chi(\r)\Psi_\text{i}(\r).
 \end{equation}
-\nomenclature[0$\langle$]{$\bra\ldots\ket$}{Matrix element, defined as a volume integral}%
+\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
 Making the standard assumption
 that the incident radiation is a plane wave
 \begin{equation}\label{EPsi0Plane}
@@ -463,10 +464,17 @@ as illustrated in Fig.~\ref{fig:expgeom}.
   and pointing into the halfspace where the beam comes from.
   The $x$ axis usually points along the incident beam,
   projected onto the sample plane.
-  The angle $\alpha_i$ is the incident glancing angle;
-  $\phi_i$ is usually zero, unless used to describe a sample rotation;
-  $\alpha_f$ is the exit angle with respect to the sample's surface;
-  and $\phi_f$ is the scattering angle with respect to the scattering plane.}
+  The angle $\alpha_\text{i}$ is the incident glancing angle;
+  $\phi_\text{i}$ is usually zero, unless used to describe a sample rotation;
+  $\alpha_\text{f}$ is the exit angle with respect to the sample's surface;
+  and $\phi_\text{f}$ is the scattering angle with respect to the scattering plane.
+\nomenclature[1α024 2i000]{$\alpha_\text{i}$}{Glancing angle of the incident beam}
+\nomenclature[1α024 2f000]{$\alpha_\text{f}$}{Glancing angle of the detected beam}
+\nomenclature[1φ024 2i000]{$\phi_\text{i}$}{Angle between the incident beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[1φ024 2i000]{$\phi_\text{i}$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[2x020]{$x$}{Coordinate in the sample plane, usually chosen along the incoming beam projection}%
+\nomenclature[2y020]{$y$}{Coordinate in the sample plane, chosen normal to $z$ and $x$}%
+  }
   \label{fig:expgeom}
 \end{figure}
 
@@ -489,7 +497,7 @@ to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
   \left\{\Nabla^2+K^2\nz(z)\right\}\Psi(\r)
   = \frac{\chi(\r)}{4\pi}\Psi(\r),
 \end{equation}
-\nomenclature[2z020]{$z$}{Vertizal component of $\r$ (along the sample normal)}%
+\nomenclature[2z020]{$z$}{Coordinate along the sample normal)}%
 \nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
 where the overline indicates an horizontal average.
 Accordingly, the perturbation
@@ -745,7 +753,8 @@ can be expanded into four terms,
   + \bra \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\ket.
 \end{equation}
 }}
-\nomenclature[1ψ141 0\pm 2r040]{$\Psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\Psi$}
+\nomenclature[1ψ141 0\pm 2r040]{$\Psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\Psi$}%
+\nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
 This equation contains the essence of
 the distorted-wave Born approximation
 for small-angle scattering under grazing incidence,

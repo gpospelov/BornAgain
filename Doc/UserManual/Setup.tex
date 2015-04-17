@@ -67,7 +67,7 @@
 }
 
 %-------------------------------------------------------------------------------
-%  Fonts, symbols, hyperref
+%  Fonts, symbols
 %-------------------------------------------------------------------------------
 
 \usepackage[bold-style=ISO]{unicode-math} % -ISO or -TeX
@@ -75,14 +75,6 @@
 \usepackage{mathtools} % has \coloneqq for :=
 \usepackage{manfnt} % for \dbend
 \usepackage{dingbat}
-
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
 
 %-------------------------------------------------------------------------------
 %  Sectioning
@@ -114,6 +106,7 @@
 \usepackage[refpage]{nomencl}\makenomenclature
   \renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
+  \def\pagedeclaration#1{, \hyperpage{#1}}%
   
 \def\otherchapter#1{
   \clearpage
@@ -187,3 +180,15 @@
 \def\Warning{\noindent\colorbox{red!30}}
 \def\Highlight{\noindent\colorbox{yellow!30}}
 \def\Box{\parbox{1\textwidth}}
+
+%-------------------------------------------------------------------------------
+%  Hyperref
+%-------------------------------------------------------------------------------
+
+\usepackage{hyperref} % wants to be included last
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}

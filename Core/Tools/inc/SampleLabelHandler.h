@@ -29,6 +29,7 @@ class IMaterial;
 class Particle;
 class IParticle;
 class ParticleCoreShell;
+class ParticleDistribution;
 class ILayout;
 class ParticleComposition;
 class IRotation;
@@ -48,6 +49,7 @@ public:
     typedef Utils::OrderedMap<const MultiLayer*, std::string> multilayers_t;
     typedef Utils::OrderedMap<const Particle*, std::string> particles_t;
     typedef Utils::OrderedMap<const ParticleCoreShell*, std::string> particlescoreshell_t;
+    typedef Utils::OrderedMap<const ParticleDistribution*, std::string> particledistributions_t;
     typedef Utils::OrderedMap<const ILayout*, std::string> layouts_t;
     typedef Utils::OrderedMap<const ParticleComposition*, std::string> particlecompositions_t;
     typedef Utils::OrderedMap<const IRotation*, std::string> rotations_t;
@@ -61,6 +63,7 @@ public:
     multilayers_t* getMultiLayerMap();
     particles_t* getParticleMap();
     particlescoreshell_t* getParticleCoreShellMap();
+    particledistributions_t* getParticleDistributionsMap();
     layouts_t* getParticleLayoutMap();
     particlecompositions_t* getParticleCompositionMap();
     rotations_t* getRotationsMap();
@@ -73,6 +76,7 @@ public:
     std::string getLabel(const MultiLayer *sample);
     std::string getLabel(const IParticle *sample);
     std::string getLabel(const ParticleCoreShell *sample);
+    std::string getLabel(const ParticleDistribution *sample);
     std::string getLabel(const ILayout *sample);
     std::string getLabel(const ParticleComposition *sample);
     std::string getLabel(const IRotation *sample);
@@ -86,6 +90,7 @@ public:
     void setLabel(const MultiLayer *sample);
     void setLabel(const Particle *sample);
     void setLabel(const ParticleCoreShell *sample);
+    void setLabel(const ParticleDistribution *sample);
     void setLabel(const ParticleComposition *sample);
     void setLabel(const IRotation *sample);
 
@@ -100,6 +105,7 @@ private:
     multilayers_t m_MultiLayerLabel;
     particles_t m_ParticleLabel;
     particlescoreshell_t m_ParticleCoreShellLabel;
+    particledistributions_t m_ParticleDistributionLabel;
     layouts_t m_ILayoutLabel;
     particlecompositions_t m_ParticleCompositionLabel;
     rotations_t m_RotationsLabel;

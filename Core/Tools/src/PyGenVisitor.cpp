@@ -30,15 +30,22 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "ParticleDistribution.h"
 #include "ParticleInfo.h"
 #include "ParticleLayout.h"
 #include "PyGenVisitor.h"
 #include "PyGenTools.h"
+#include "ParameterDistribution.h"
 #include "Rotations.h"
 
 PyGenVisitor::PyGenVisitor()
     : m_label(new SampleLabelHandler())
 {
+}
+
+PyGenVisitor::~PyGenVisitor()
+{
+    delete m_label;
 }
 
 std::string PyGenVisitor::writePyScript(const Simulation *simulation)
@@ -235,6 +242,11 @@ void PyGenVisitor::visit(const Particle *sample)
     m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const ParticleDistribution *sample)
+{
+    m_label->setLabel(sample);
+}
+
 void PyGenVisitor::visit(const ParticleCoreShell *sample)
 {
     m_label->setLabel(sample);
@@ -292,6 +304,7 @@ std::string PyGenVisitor::defineGetSample() const
     result << defineFormFactors();
     result << defineParticles();
     result << defineCoreShellParticles();
+    result << defineParticleDistributions();
     result << defineParticleCompositions();
     result << defineInterferenceFunctions();
     result << defineParticleLayouts();
@@ -716,6 +729,49 @@ std::string PyGenVisitor::defineCoreShellParticles() const
                << m_label->getLabel(it->first->getCoreParticle()) << ", "
                << it->second << "_relPosition)\n";
         it++;
+    }
+    return result.str();
+}
+
+std::string PyGenVisitor::defineParticleDistributions() const
+{
+    if (m_label->getParticleDistributionsMap()->size() == 0) return "";
+
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n"<<indent()<<"# Defining collection of particle with size distribution\n";
+    SampleLabelHandler::particledistributions_t::iterator it =
+            m_label->getParticleDistributionsMap()->begin();
+
+    int index(1);
+    while (it != m_label->getParticleDistributionsMap()->end())
+    {
+        ParameterDistribution par_distr = it->first->getParameterDistribution();
+
+        // building distribution functions
+        std::stringstream s_distr;
+        s_distr << "distr_" << index;
+
+        result << indent() << s_distr.str() << " = "
+               << PyGenTools::getRepresentation(par_distr.getDistribution()) << "\n";
+
+        // building parameter distribution
+        std::stringstream s_par_distr;
+        s_par_distr << "par_distr_" << index;
+
+        result << indent() << s_par_distr.str()
+               << " = ParameterDistribution("
+               << "\"" << par_distr.getMainParameterName() << "\"" << ", "
+               << s_distr.str() << ", "
+               << par_distr.getNbrSamples() << ", "
+               << par_distr.getSigmaFactor()
+               << ")\n";
+        result << indent() << it->second << " = ParticleDistribution("
+               << m_label->getLabel(it->first->getParticle())
+               << ", " << s_par_distr.str()
+               << ")\n";
+        it++;
+        index++;
     }
     return result.str();
 }

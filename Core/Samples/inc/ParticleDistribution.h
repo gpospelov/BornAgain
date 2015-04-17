@@ -80,6 +80,12 @@ public:
         return m_particle.createParameterTree();
     }
 
+    //! Returns particle.
+    const IParticle *getParticle() const
+    {
+        return m_particle.getParticle();
+    }
+
 protected:
     ParticleInfo m_particle;
     ParameterDistribution m_par_distribution;

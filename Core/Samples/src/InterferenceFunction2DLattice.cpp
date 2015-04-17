@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "InterferenceFunction2DLattice.h"
+
 #include <cassert>
+#include <boost/math/special_functions/round.hpp>
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
@@ -129,8 +131,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     double b = m_lattice_params.m_length_2;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
-    int qa_int = (int)( a*(qx*std::cos(xi)+qy*std::sin(xi))/(2*M_PI) );
-    int qb_int = (int)( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/(2*M_PI) );
+    int qa_int = boost::math::iround( a*(qx*std::cos(xi)+qy*std::sin(xi))/(2*M_PI) );
+    int qb_int = boost::math::iround( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/(2*M_PI) );
     qx_frac = qx - qa_int*m_asx - qb_int*m_bsx;
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
@@ -194,8 +196,8 @@ void InterferenceFunction2DLattice::initialize_calc_factors(
             nmax/coherence_length_y, m_lattice_params.m_angle,
             m_lattice_params.m_length_1, m_lattice_params.m_length_2,
             qa_max, qb_max);
-    m_na = (int)(std::abs(qa_max)+0.5);
-    m_nb = (int)(std::abs(qb_max)+0.5);
+    m_na = boost::math::iround(std::abs(qa_max));
+    m_nb = boost::math::iround(std::abs(qb_max));
 }
 
 

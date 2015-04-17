@@ -42,7 +42,7 @@ $\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
 Within a layer,
 the downward and upward propagating waves are plane,
 \begin{equation}
-  \Psi^\pm_{wj}(\r)=A^\pm_{wj}{\rm e}^{i\k^\pm_{wj}\r}.
+  \Psi^\pm_{wj}(\r)=A^\pm_{wj}\e^{i\k^\pm_{wj}\r}.
 \end{equation}
 \nomenclature[2j020]{$j$}{Index of layer in multilayer sample}%
 \nomenclature[2a123 2w010 2j010 \pm]{$A^\pm_{wj}$}{Amplitude of the plane wave $\Psi^\pm_{wj}(\r)$}%
@@ -75,7 +75,7 @@ the Fourier transform of the refractive index fluctuations
 shall be written as
 \begin{equation}\label{Echij}
   \chi_j(\v{q})
-  := \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}\chi(\r).
+  := \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}\chi(\r).
 \end{equation}
 \nomenclature[1χ032 2j010 2q040]{$\chi_j(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
@@ -129,10 +129,10 @@ The average scattering length density of the entire layer is then
 \begin{equation}\label{Emulaynav}
   \begin{split}
   \overline{\rho}
-      &= \frac{\sum_i \int_{V_i}\!{\rm d}^3r\; \rho_i(\r-\r_i)
+      &= \frac{\sum_i \int_{V_i}\!\d^3r\; \rho_i(\r-\r_i)
                + (Ad-\sum_i V_i)\rho_0}
              {Ad}\\[1em]
-      &= \rho_0 + \frac{\sum_i \int_{V_i}\!{\rm d}^3r\, [\rho_i(\r-\r_i)-\rho_0]}
+      &= \rho_0 + \frac{\sum_i \int_{V_i}\!\d^3r\, [\rho_i(\r-\r_i)-\rho_0]}
              {Ad}
   \end{split}
 \end{equation}
@@ -149,7 +149,7 @@ Analogous to (\ref{Emulaynav}),
 we can rearrange the Fourier integral as
 \begin{equation}\label{Echijre}
   \chi_j(\v{q})
-  = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
+  = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
     \left\{ \left(\rho_0-\overline{\rho}\right)
            + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
   =: \chi^0_j + \chi^\text{p}_j.
@@ -157,7 +157,7 @@ we can rearrange the Fourier integral as
 The first term is the shape transform of the entire layer
 \begin{equation}
   \chi^0_j(\v{q})
-   = \int_{z\in\mathcal{Z}_j}\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r}
+   = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
       \left(\rho_0-\overline{\rho}\right)
    = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
 \end{equation}
@@ -168,16 +168,16 @@ we abbreviate
 \end{equation}
 and we introduce the form factor of a single particle
 \begin{equation}
-  F_i(\v{q}) := \int\!{\rm d}^3r\, {\rm e}^{i\v{q}\,\r} \delta\rho_i(\r).
+  F_i(\v{q}) := \int\!\d^3r\, \e^{i\v{q}\,\r} \delta\rho_i(\r).
 \end{equation}
 We can then rearrange to obtain
 \begin{equation}
   \chi^\text{p}_j(\v{q})
-  = \sum_i {\rm e}^{i\v{q}\,\r_i} F_i(\v{q}).
+  = \sum_i \e^{i\v{q}\,\r_i} F_i(\v{q}).
 \end{equation}
 Implemented single-particle form fators $F_i(\v{q})$
 are listed in great detail in chapter~\ref{sec:FormFactors}.
-The positional phase factors ${\rm e}^{i\v{q}\,\r_i}$
+The positional phase factors $\e^{i\v{q}\,\r_i}$
 can give rise to inter-particle interference patterns
 that are discussed in chapter~\ref{sec:Assemblies}.
 
@@ -335,7 +335,7 @@ in $x$ and $y$--directions, we can factorize
 $\psi(\r)$, and assume plane-wave propagation for
 the in-plane component $\r_\parallel$ (\ref{Ewave3}):
 \begin{equation}\label{Ewave3dup}
-\psi(\r) = \psi(z) {\rm e}^{i \k_\parallel\r_\parallel}.
+\psi(\r) = \psi(z) \e^{i \k_\parallel\r_\parallel}.
 \end{equation}
 From the continuity conditions we infer that $\k_\parallel$
 is constant across layers.
@@ -346,7 +346,7 @@ reduces to a one-dimensional equation in~$z$ [see (\ref{Ewavez})]
 \end{equation}
 which is solved by
 \begin{equation}\label{Epsiz}
-  \psi_i(z) = a_i{\rm e}^{ik_{\perp i}(z-z_i)} + b_i{\rm e}^{-ik_{\perp i}(z-z_i)},
+  \psi_i(z) = a_i\e^{ik_{\perp i}(z-z_i)} + b_i\e^{-ik_{\perp i}(z-z_i)},
 \end{equation}
 where $z_i$ is the coordinate of the \textit{bottom} interface
 of layer $i$,
@@ -423,11 +423,11 @@ With the solution (\ref{Epsiz}), conditions (\ref{Econtcond}) become
   \begin{array}{lclclcl}
   a_i &+& b_i,
   &=&
-  a_{i+1}{\rm e}^{iKf_{i+1}d_{i+1}} &+& b_{i+1}{\rm e}^{-iKf_{i+1}d_{i+1}},
+  a_{i+1}\e^{iKf_{i+1}d_{i+1}} &+& b_{i+1}\e^{-iKf_{i+1}d_{i+1}},
   \\
   a_i f_i  &-& b_i f_i,
   &=&
- a_{i+1}{\rm e}^{iKf_{i+1}d_{i+1}} f_{i+1} &-& b_{i+1}{\rm e}^{-iKf_{i+1}d_{i+1}} f_{i+1}.
+ a_{i+1}\e^{iKf_{i+1}d_{i+1}} f_{i+1} &-& b_{i+1}\e^{-iKf_{i+1}d_{i+1}} f_{i+1}.
   \end{array}
 \end{equation}
 We introduce the vector notation
@@ -445,7 +445,7 @@ with the matrices
 \end{equation}
 and the phase factor
 \begin{equation}
-   \delta_i := {\rm e}^{iKf_id_i}.
+   \delta_i := \e^{iKf_id_i}.
 \end{equation}
 We define the transfer matrix
 \begin{equation}\label{Edef_M}
@@ -497,9 +497,9 @@ we obtain in layer~$i$
 \begin{equation}\label{EJperp}
   \begin{array}{lcl}
   J_{zi} &=& \frac{1}{2}
-  \left( a_i^*{\rm e}^{-ik_{\perp i}(z-z_i)} + b_i^*{\rm e}^{ik_{\perp i}(z-z_i)} \right)
+  \left( a_i^*\e^{-ik_{\perp i}(z-z_i)} + b_i^*\e^{ik_{\perp i}(z-z_i)} \right)
   k_{\perp i}
-  \left( a_i{\rm e}^{ik_{\perp i}(z-z_i)} - b_i{\rm e}^{-ik_{\perp i}(z-z_i)} \right)
+  \left( a_i\e^{ik_{\perp i}(z-z_i)} - b_i\e^{-ik_{\perp i}(z-z_i)} \right)
   +\text{c.c.}\\[2ex]
   &=& \left( |a_i|^2 - |b_i|^2 \right) K f_i,
   \end{array}
@@ -645,7 +645,7 @@ must evolve continuously.
 The reasons for the factorization (\ref{Ewave3}) still apply,
 and so we can write
 \begin{equation}\label{Ewave3p}
-\u\psi(\r) = \u\psi(z) {\rm e}^{i \k_\parallel\r_\parallel}.
+\u\psi(\r) = \u\psi(z) \e^{i \k_\parallel\r_\parallel}.
 \end{equation}
 As before, $\k_\parallel$ is constant across layers.
 The wave equation~(\ref{Ewaveqp}) reduces to 
@@ -663,8 +663,8 @@ so that the wave equation becomes simply
 The solution is
 \begin{equation}\label{Epsizp}
   \u\psi_i(z)
-  = \sum_{j=1}^2 \u x_{ij}\left(\alpha_{ij}{\rm e}^{i p_{ij}(z-z_i)}
-                            + \beta_{ij}{\rm e}^{-i p_{ij}(z-z_i)}\right),
+  = \sum_{j=1}^2 \u x_{ij}\left(\alpha_{ij}\e^{i p_{ij}(z-z_i)}
+                            + \beta_{ij}\e^{-i p_{ij}(z-z_i)}\right),
 \end{equation}
 where the $\u x_{ij}$ are eigenvectors of $\uu H_i$
 with eigenvalues $p_{ij}^2$:
@@ -715,7 +715,7 @@ and
 \end{equation}
 with the phase factor
 \begin{equation}
-   \delta_{ij} := {\rm e}^{ip_{ij}d_i}.
+   \delta_{ij} := \e^{ip_{ij}d_i}.
 \end{equation}
 Note that matrix $F_i$ has the block form
 \begin{equation}

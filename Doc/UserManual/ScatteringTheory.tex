@@ -59,7 +59,7 @@ with given frequency~$\omega$.
 \nomenclature[1ω 020]{$\omega$}{Frequency of incident radiation}%
 In consequence, we have a stationary wave function
 \begin{equation}\label{Estationarywave}
-  \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
+  \psi(\r,t) = \psi(\r)\e^{-i\omega t}.
 \end{equation}
 \nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wave function}%
 The minus sign in the exponent of the phase factor
@@ -67,7 +67,7 @@ is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \textit{quantum-mechanical sign convention}.
 \index{Wave propagation!sign convention}%
 \index{Sign convention}%
-The opposite choice of a phase factor ${\rm e}^{+i\omega t}$ is 
+The opposite choice of a phase factor $\e^{+i\omega t}$ is 
 called the \textit{crystallographic sign convention},
 and is used in much of the literature on X-ray scattering,
 including some important texts on GISAXS (e.~g.\ \cite{ReLL09}).
@@ -192,7 +192,7 @@ we need to solve the Schrödinger equation~(\ref{EnSchrodi})
 under the asymptotic boundary condition
 \begin{equation}\label{Escabouco}
   \psi(\r)
-  \to \psi_\ti(\r) + f(\vartheta,\varphi)\frac{{\rm e}^{iKr}}{r}
+  \to \psi_\ti(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{r}
   \text{~for~}r\to\infty,
 \end{equation}
 \nomenclature[1ψ034 2i000 2r040]{$\psi_\ti(\r)$}{Incident wave function}%
@@ -252,7 +252,7 @@ one encloses the origin in a small sphere
 and integrates by means of the Gauss-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
 \begin{equation}\label{EGreens1}
-  G(\r,\r') = \frac{{\rm e}^{iK|\r-\r'|}}{4\pi |\r-\r'|},
+  G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
 Convoluting this function with the given inhomogeneity $(\chi/4\pi)\psi$,
@@ -261,7 +261,7 @@ we obtain what is known as the Lippmann-Schwinger equation,
 \begin{equation}\label{EPsiFormal}
   \psi(\r)
   = \psi_\ti(\r)
-  + \int\!{\rm d}^3r'\, G(\r,\r')
+  + \int\!\d^3r'\, G(\r,\r')
                      \frac{\chi(\r')}{4\pi}\psi(\r').
 \end{equation}
 This integral equation for $\psi(\r)$ has the improves
@@ -277,7 +277,7 @@ only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
   \psi(\r)
   \doteq \psi_\ti(\r)
-  + \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
+  + \int\!\d^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
    \psi_\ti(\r').
 \end{equation}
 This is practically always adequate for
@@ -290,7 +290,7 @@ we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
   :=
-  \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\psi_\ti(\r').
+  \int\!\d^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\psi_\ti(\r').
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wave function}%
 \nomenclature[2s000]{s}{Subscript ``scattered''}%
@@ -304,14 +304,18 @@ we are only interested in the scattered wave field
 \index{Far-field approximation|(}%
 
 We can further simplify (\ref{EBornS})
-by making use of the fact that the detector location~$\r$
-is far away from the sample volume $\Sample$.
-\nomenclature[2m180]{$\Sample$}{Sample volume}%
+under the conditions of Fraunhofer diffraction:
+\index{Fraunhofer approximation}%
+the distance from the sample to the detector location~$\r$
+must be much larger than the size of the sample
+(the \textit{Fresnel number}
+\index{Fresnel number}%
+must be small).
 Since the scattered wave $\psi_\text{s}(\r)$
 only depends on $\r$ through the Green function~$G(\r,\r')$,
 we shall derive a far-field approximation for the latter.
 
-We choose the coordinate origin within $\Sample$
+We choose the coordinate origin within the sample
 so that the integral in~(\ref{EBornS}) runs over $\r'$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
@@ -331,12 +335,12 @@ We apply this to~(\ref{EGreens1}),
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
   G_\text{far}(\r,\r')
-  =\frac{{\rm e}^{iKr}}{4\pi r}\psi^*_\tf(\r')
+  =\frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
 where
 \begin{equation}
-  \psi_\tf(\r) := {\rm e}^{i\k_\tf \r}
+  \psi_\tf(\r) := \e^{i\k_\tf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector.
@@ -346,7 +350,7 @@ The scattered wave~(\ref{EBornS})
 becomes in far-field approximation 
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
-  = \frac{{\rm e}^{iKr}}{r}
+  = \frac{\e^{iKr}}{r}
     \bra \psi_\tf|\chi|\psi_\ti\ket,
 \end{equation}
 \nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field approximation to the scattered wave function $\psi_\text{s}(\r)$}%
@@ -354,13 +358,13 @@ where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
   \bra \psi_\tf|\chi|\psi_\ti\ket
-  := \int\!{\rm d}^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
+  := \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
 \end{equation}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
 Making the standard assumption
 that the incident radiation is a plane wave
 \begin{equation}\label{EPsi0Plane}
-  \psi_\ti(\r)={\rm e}^{i \k_\ti \r}
+  \psi_\ti(\r)=\e^{i \k_\ti \r}
 \end{equation}
 with $k_\ti=K$,
 and introducing the \textit{scattering vector}
@@ -372,7 +376,7 @@ and introducing the \textit{scattering vector}
 we can rewrite (\ref{EsandwichC}) as
 \begin{equation}\label{EBornQ}
   \bra \psi_\tf|\chi|\psi_\ti\ket
-  = \int\!{\rm d}^3r\, {\rm e}^{i\q\,\r}\chi(\r)
+  = \int\!\d^3r\, \e^{i\q\,\r}\chi(\r)
   =: \chi(\q),
 \end{equation}
 \nomenclature[1χ030 2q040]{$\chi(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$}%
@@ -410,11 +414,11 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
     {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
 \end{equation}
 The ratio of the scattered current hitting an infinitesimal detector area
-$r^2{\rm d}\Omega$ to the incident flux is expressed as a
+$r^2\d\Omega$ to the incident flux is expressed as a
 \textit{differential cross section}
 \index{Cross section}%
 \begin{equation}
-  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  \frac{\d\sigma}{\d\Omega}
   := \frac{r^2 J(\r)}{J_\ti}.
 \end{equation}
 \nomenclature[1ω120]{$\Omega$}{Solid angle}%
@@ -423,7 +427,7 @@ The resulting equation
 
 \Highlight{\Box{
 \begin{equation}\label{Exsection}
-  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  \frac{\d\sigma}{\d\Omega}
   =  {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
 \end{equation}
 }}
@@ -436,7 +440,7 @@ but also for distorted waves.
 
 In the plane-wave case, we can insert (\ref{EBornQ}) to obtain
 \begin{equation}\label{Ecross1}
-  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  \frac{\d\sigma}{\d\Omega}
   = {\left| \chi(\q) \right|}^2.
 \end{equation}
 Thus the differential cross section is just the squared modulus
@@ -524,7 +528,7 @@ obeys the homogeneous equation
 \end{equation}
 which suggests the factorization ansatz
 \begin{equation}\label{Ekpar}
-\psi_\ti(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
+\psi_\ti(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
@@ -536,7 +540,7 @@ The vertical wave function must fulfill
 \end{equation}
 When an incident plane wave,
 travelling downwards with
-$\phi(z)={\rm e}^{-ik_\perp z}$,
+$\phi(z)=\e^{-ik_\perp z}$,
 \nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
 
 impinges on a sample with $\nz(z)\ne 1$,
@@ -636,8 +640,9 @@ with an isolated inhomogeneity,
 \begin{equation}\label{EgsSchrodi}
   \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
 \end{equation}
-We assume that $\rS$ lies within a structured material~$\Sample$.
-Outside $\Sample$,
+We assume that $\rS$ lies within our sample.
+Outside the sample volume $\Sample$,
+\nomenclature[2m180]{$\Sample$}{Sample volume}%
 the potential~$v(\r)$ has the constant value~$K^2$
 so that (\ref{EgsSchrodi})
 reduces to the Helmholtz equation
@@ -665,9 +670,9 @@ and compute the volume integral
 \begin{equation}\label{Eprerecipro}
   \begin{array}{lcl}
     I(\rS,\rD)
-  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\Nabla \v{X}(\r,\rS,\rD)
+  &=& \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD)
   \\[1.8em]
-  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\left(
+  &=& \displaystyle\int_\Sphere\!\d^3r\,\left(
     B\Nabla^2 G- G\Nabla^2 B \right)
   \\[1.4em]
   &=&  B(\rS,\rD) - G(\rD,\rS).
@@ -676,8 +681,8 @@ and compute the volume integral
 Alternatively, we can compute $I$ as a surface integral
 \begin{equation}
   I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}{\rm d}\v{\sigma}\,\v{X}(\r,\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}{\rm d}{\sigma}\,
+  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d{\sigma}\,
        \left(B\partial_R G - G\partial_R B\right).
 \end{equation}
 On the surface $\partial\Sphere$, which lies outside $\Sample$,
@@ -687,12 +692,12 @@ have a well-known series expansion.
 We send $R\to\infty$ so that we need only to retain the lowest order,
 \begin{equation}
    G(\r(R,\vartheta,\varphi),\rS)
-   \doteq \frac{{\rm e}^{iKR}}{4\pi R} g(\vartheta,\varphi),
+   \doteq \frac{\e^{iKR}}{4\pi R} g(\vartheta,\varphi),
 \end{equation}
 and similarly 
 \begin{equation}
    G(\r(R,\vartheta,\varphi),\rD)
-   \doteq \frac{{\rm e}^{iKR}}{4\pi R} b(\vartheta,\varphi).
+   \doteq \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
 \end{equation}
 The functions $g$ and $b$ can be further expanded into spherical harmonics,
 but this is of no interest here.
@@ -701,7 +706,7 @@ and their common $R$ dependence.
 It follows at once that
 \begin{equation}
   I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}{\rm d}\sigma\,
+  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
        (\text{$R$-dependent})(bg-gb)
   = 0.
 \end{equation}
@@ -724,16 +729,16 @@ to obtain
 \index{Far-field approximation}%
 \begin{equation}\label{EBFar}
   B_\text{far}(\r,\rD)
-  =\frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}{\rm e}^{-i\k_\tf \r}.
+  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
 \end{equation}
 When this backward propagating plane waves impinges on the sample,
 it undergoes reflection and refraction in exactly the same way as
-the incident plane wave ${\rm e}^{i\k_\ti\r}$.
+the incident plane wave $\e^{i\k_\ti\r}$.
 Therefore,
  (\ref{EBFar}) admits a generalization that also holds inside $\Sample$:
 \begin{equation}\label{EBFull}
   B_\text{far}(\r,\rD)
-  = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
+  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
 \end{equation}
 Applying now the reciprocity theorem (\ref{Ereci}),
 we can conclude that the far-field Green function

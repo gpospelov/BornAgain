@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionBuilder.h"
-#include "FormFactorPyramid.h"
-#include "InterferenceFunctionNone.h"
+#include "FormFactorFullSphere.h"
+#include "InterferenceFunction2DLattice.h"
+#include "ParticleComposition.h"
 #include "Materials.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
+#include "FTDistributions.h"
 #include "Units.h"
 
 
@@ -41,15 +43,29 @@ ISample *ParticleCompositionBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    FormFactorPyramid ff_pyramid(1.0, 1.0, 0.12);
+    double radius(10.0*Units::nanometer);
+    FormFactorFullSphere sphere_ff(radius);
+    Particle sphere(particle_material, sphere_ff);
+    ParticleLayout particle_layout;
 
-    Particle particle(particle_material, ff_pyramid);
-    ParticleLayout particle_layout(particle);
+    kvector_t pos0(0.0, 0.0, 0.0);
+    kvector_t pos1(radius, radius, std::sqrt(3.0)*radius);
+    std::vector<kvector_t> positions;
+    positions.push_back(pos0);
+    positions.push_back(pos1);
 
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+    ParticleComposition basis;
+
+    basis.addParticles(sphere, positions);
+    particle_layout.addParticle(basis);
+
+    InterferenceFunction2DLattice *interference = InterferenceFunction2DLattice::createHexagonal(radius*2.0);
+    FTDistribution2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
+    interference->setProbabilityDistribution(pdf);
+
+    particle_layout.addInterferenceFunction(interference);
 
     air_layer.addLayout(particle_layout);
-
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 

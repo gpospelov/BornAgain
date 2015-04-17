@@ -42,6 +42,7 @@ set(list_of_cpp_python_tests
     "PyScript_isgisaxs11"
     "PyScript_multiplelayoutbuilder"
     "PyScript_ParticleDistribution"
+    "PyScript_ParticleComposition"
 )
 
 foreach(_test ${list_of_tests})

@@ -452,9 +452,9 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 m_aligner->alignSample(topItem, reference, true);
 
                 // building corresponding instrument
-                if(m_instrumentModel) {
-                    GUIExamplesFactory::createInstrumentItems(mimeData->getClassName(), m_instrumentModel);
-                }
+//                if(m_instrumentModel) {
+//                    GUIExamplesFactory::createInstrumentItems(mimeData->getClassName(), m_instrumentModel);
+//                }
             }
             adjustSceneRect();
         }

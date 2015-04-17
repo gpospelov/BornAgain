@@ -28,6 +28,7 @@ class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
 public:
     PyGenVisitor();
+    ~PyGenVisitor();
 
     using ISampleVisitor::visit;
 
@@ -68,6 +69,7 @@ public:
     void visit(const ParticleComposition *sample);
     void visit(const MesoCrystal *sample);
     void visit(const Particle *sample);
+    void visit(const ParticleDistribution *sample);
     void visit(const ParticleCoreShell *sample);
     void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
@@ -87,6 +89,7 @@ private:
     std::string defineFormFactors() const;
     std::string defineParticles() const;
     std::string defineCoreShellParticles() const;
+    std::string defineParticleDistributions() const;
     std::string defineParticleCompositions() const;
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;

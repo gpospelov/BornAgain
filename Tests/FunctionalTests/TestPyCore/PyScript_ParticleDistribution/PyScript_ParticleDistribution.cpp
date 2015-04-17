@@ -5,10 +5,10 @@ int main()
 {
     SimulationRegistry simulationRegistry;
     Simulation *simulation =
-            simulationRegistry.createSimulation("gui_Interference2DCenteredLattice");
+            simulationRegistry.createSimulation("part_distribution");
     bool test = PyGenTools::testPyScript(simulation);
-    std::cout << "Python Script Generation Test for isgisaxs06b"
-              << "(2D lattice centered):"
+    std::cout << "Python Script Generation Test for ParticleDistribution"
               << (test? "[OK]" : "[FAILED]") << std::endl;
     return (test ? 0 : 1);
 }
+

@@ -18,6 +18,7 @@
 #include "Simulation.h"
 #include "PyGenVisitor.h"
 
+class IDistribution1D;
 
 namespace PyGenTools {
     BA_CORE_API_ std::string genPyScript(Simulation *simulation);
@@ -25,6 +26,9 @@ namespace PyGenTools {
     BA_CORE_API_ bool isSquare(double length1, double length2, double angle);
     BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);
     BA_CORE_API_ bool testPyScript(Simulation *simulation);
+    BA_CORE_API_ std::string getRepresentation(const IDistribution1D *distribution);
+
+
 }
 
 #endif // PYSCRIPTTOOLS_H

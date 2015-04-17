@@ -5,7 +5,7 @@ int main()
 {
     SimulationRegistry simulationRegistry;
     Simulation *simulation =
-            simulationRegistry.createSimulation("gui_isgisaxs01");
+            simulationRegistry.createSimulation("gui_CylinderAndPrisms");
     bool test = PyGenTools::testPyScript(simulation);
     std::cout << "Python Script Generation Test for isgisaxs01"
               << "(Mixture of cylinders and prisms without interference):"

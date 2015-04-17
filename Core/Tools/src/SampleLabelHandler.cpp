@@ -20,6 +20,7 @@
 #include "ParticleLayout.h"
 #include "ParticleCoreShell.h"
 #include "ParticleComposition.h"
+#include "ParticleDistribution.h"
 #include <iostream>
 
 SampleLabelHandler::SampleLabelHandler()
@@ -63,6 +64,9 @@ std::string SampleLabelHandler::getLabel(const IParticle *sample)
         return m_ParticleCoreShellLabel[core_shell_particle];
     if (const Particle *particle = dynamic_cast<const Particle*>(sample))
         return m_ParticleLabel[particle];
+    if (const ParticleDistribution *particle = dynamic_cast<const ParticleDistribution*>(sample))
+        return m_ParticleDistributionLabel[particle];
+
     if (const ParticleComposition *lattice_basis = dynamic_cast<const ParticleComposition*>(sample))
         return m_ParticleCompositionLabel[lattice_basis];
     throw Exceptions::NotImplementedException("SampleLabelHandler::getLabel: called"
@@ -72,6 +76,11 @@ std::string SampleLabelHandler::getLabel(const IParticle *sample)
 std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
 {
     return m_ParticleCoreShellLabel[sample];
+}
+
+std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
+{
+    return m_ParticleDistributionLabel[sample];
 }
 
 std::string SampleLabelHandler::getLabel(const ILayout *sample)
@@ -127,6 +136,11 @@ SampleLabelHandler::particles_t *SampleLabelHandler::getParticleMap()
 SampleLabelHandler::particlescoreshell_t *SampleLabelHandler::getParticleCoreShellMap()
 {
     return &m_ParticleCoreShellLabel;
+}
+
+SampleLabelHandler::particledistributions_t *SampleLabelHandler::getParticleDistributionsMap()
+{
+    return &m_ParticleDistributionLabel;
 }
 
 SampleLabelHandler::layouts_t *SampleLabelHandler::getParticleLayoutMap()
@@ -232,6 +246,13 @@ void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
     inter << "particleCoreShell_" << m_ParticleCoreShellLabel.size()+1;
     //m_ParticleCoreShellLabel[sample] = inter.str();
     m_ParticleCoreShellLabel.insert(sample, inter.str());
+}
+
+void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
+{
+    std::ostringstream inter;
+    inter << "particleDistribution_" << m_ParticleDistributionLabel.size()+1;
+    m_ParticleDistributionLabel.insert(sample, inter.str());
 }
 
 void SampleLabelHandler::setLabel(const ParticleComposition *sample)

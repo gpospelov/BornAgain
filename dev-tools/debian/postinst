@@ -1,8 +1,0 @@
-#!/bin/sh
-# postinst script for the BornAgain library
-# creates symbolic links for the library files in the PYTHONPATH
-
-set -e
-
-ln -sf /usr/lib/libBornAgainCore.so /usr/lib/pymodules/python2.7/libBornAgainCore.so 
-ln -sf /usr/lib/libBornAgainFit.so /usr/lib/pymodules/python2.7/libBornAgainFit.so 

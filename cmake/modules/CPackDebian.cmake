@@ -1,5 +1,4 @@
 # BornAgain debian packaging 
-#set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib/${destination_suffix}")
 set(CPACK_GENERATOR "DEB")
 
 # parameters to build a debian package

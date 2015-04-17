@@ -173,6 +173,8 @@ can be rewritten as
 This equation is the starting point for the analysis of all
 small-angle scattering experiments,
 whether under grazing incidence (GISAS) or not (regular SAS).
+\index{SAS|see {Small-angle scattering}}%
+\index{Small-angle scattering}%
 
 \index{Wave propagation!neutrons|)}%
 \index{Neutrons!wave propagation|)}%
@@ -219,11 +221,11 @@ once more so that it takes the form of a Helmholtz equation
 with a perturbation term on the right side:
 \begin{equation}\label{ESchrodiHelmholtz}
   \left(\Nabla^2+K^2\right)\psi(\r)
-  = \frac{\chi(\r)}{4\pi}\psi(\r)
+  = 4\pi\chi(\r)\psi(\r)
 \end{equation}
 with
 \begin{equation}\label{EChiDef}
-  \chi(\r) := \frac{4\pi}{K^2}\left(1-n^2(\r)\right).
+  \chi(\r) := \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
 \end{equation}
 \nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential}%
 This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
@@ -261,8 +263,7 @@ we obtain what is known as the Lippmann-Schwinger equation,
 \begin{equation}\label{EPsiFormal}
   \psi(\r)
   = \psi_\ti(\r)
-  + \int\!\d^3r'\, G(\r,\r')
-                     \frac{\chi(\r')}{4\pi}\psi(\r').
+  + \int\!\d^3r'\, G(\r,\r') 4\pi\chi(\r')\psi(\r').
 \end{equation}
 This integral equation for $\psi(\r)$ has the improves
 upon the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
@@ -277,8 +278,7 @@ only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
   \psi(\r)
   \doteq \psi_\ti(\r)
-  + \int\!\d^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
-   \psi_\ti(\r').
+  + 4\pi \int\!\d^3r'\, G(\r,\r') \chi(\r') \psi_\ti(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
@@ -290,7 +290,7 @@ we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
   :=
-  \int\!\d^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\psi_\ti(\r').
+  4\pi \int\!\d^3r'\, G(\r,\r') \chi(\r') \psi_\ti(\r').
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wave function}%
 \nomenclature[2s000]{s}{Subscript ``scattered''}%
@@ -335,7 +335,7 @@ We apply this to~(\ref{EGreens1}),
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
   G_\text{far}(\r,\r')
-  =\frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
 where
@@ -510,14 +510,14 @@ We move the vertical variations of the squared refractive index
 to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
 \begin{equation}\label{EHelmholtzGraded}
   \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r)
-  = \frac{\chi(\r)}{4\pi}\psi(\r),
+  = 4\pi \chi(\r) \psi(\r),
 \end{equation}
 \nomenclature[2z020]{$z$}{Coordinate along the sample normal)}%
 \nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
 where the overline indicates an horizontal average.
 Accordingly, the perturbation
 \begin{equation}\label{EChiGraded}
-  \chi(\r) := \frac{4\pi}{K^2}\left(\nz(z)-n^2(\r)\right),
+  \chi(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n^2(\r)\right),
 \end{equation}
 only accounts for horizontal fluctuations of the refractive index.
 Wave propagation,
@@ -641,14 +641,12 @@ with an isolated inhomogeneity,
   \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
 \end{equation}
 We assume that $\rS$ lies within our sample.
-Outside the sample volume $\Sample$,
-\nomenclature[2m180]{$\Sample$}{Sample volume}%
+Outside the sample volume
 the potential~$v(\r)$ has the constant value~$K^2$
 so that (\ref{EgsSchrodi})
 reduces to the Helmholtz equation
 \begin{equation}\label{EgsSchrodiHelmh}
-  \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0
-  \text{~~for~~}\r\notin\Sample.
+  \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0.
 \end{equation}
 We introduce the adjoint Green function~$B$
 \nomenclature[2b030 2r040 2r041]{$B(\r,\r')$}{Green function, adjoint of $G$}%
@@ -662,7 +660,7 @@ We also introduce the auxiliary vector field
   \v{X}(\r,\rS,\rD):=B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
 \end{equation}
 \nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
-We inscribe $\Sample$, $\rD$, and the origin of the coordinate system
+We inscribe the sample, the detector, and the origin of the coordinate system
 into a sphere $\Sphere$ with radius~$R$,
 \nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
 \nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
@@ -685,7 +683,7 @@ Alternatively, we can compute $I$ as a surface integral
   =\displaystyle\int_{\partial\Sphere}\d{\sigma}\,
        \left(B\partial_R G - G\partial_R B\right).
 \end{equation}
-On the surface $\partial\Sphere$, which lies outside $\Sample$,
+On the surface $\partial\Sphere$,
 $B$ and $G$ are outgoing wave fields that obey the Helmholtz equation.
 Solutions of this equation in spherical coordinates
 have a well-known series expansion.
@@ -722,8 +720,8 @@ to a scattering center~$\rS$.
 
 The solution $B(\r,\rD)$ of (\ref{EgsSchrodiAdj})
 is analogous to (\ref{EGreens1}).
-Choosing the origin inside~$\Sample$, 
-and assuming that $\rD$ lies far outside~$\Sample$,
+Choosing the origin inside the sample,
+and assuming that $\rD$ lies far outside the sample,
 we can copy the far-field expansion from~(\ref{EGreenFar})
 to obtain
 \index{Far-field approximation}%
@@ -735,7 +733,7 @@ When this backward propagating plane waves impinges on the sample,
 it undergoes reflection and refraction in exactly the same way as
 the incident plane wave $\e^{i\k_\ti\r}$.
 Therefore,
- (\ref{EBFar}) admits a generalization that also holds inside $\Sample$:
+ (\ref{EBFar}) admits a generalization that also holds inside the sample:
 \begin{equation}\label{EBFull}
   B_\text{far}(\r,\rD)
   = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).

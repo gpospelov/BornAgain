@@ -1,6 +1,0 @@
-#!/bin/sh
-# prerm script for the BornAgain library
-# removes created symbolic links
-
-
-rm -f /usr/lib/pymodules/python2.7/libBornAgain*.so

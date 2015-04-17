@@ -342,7 +342,7 @@ TEST_F(DistributionsTest, DistributionCosineDefaultConstructor)
     DistributionCosine* id1D = new DistributionCosine();
     EXPECT_EQ(0.0, id1D->getMean());
     EXPECT_EQ(1.0, id1D->getSigma());
-    EXPECT_EQ((1.0+std::cos(1))/(2.0*M_PI), id1D->probabilityDensity(1.0));
+    EXPECT_DOUBLE_EQ((1.0+std::cos(1.0))/(2.0*M_PI), id1D->probabilityDensity(1.0));
     EXPECT_EQ(0, id1D->probabilityDensity(100.0));
     EXPECT_EQ("DistributionCosine", id1D->getName());
 

@@ -284,7 +284,7 @@ std::string PyGenVisitor::definePreamble() const
     result << "#NOTE: Uncomment the next import statements for plotting\n";
     result << "#import pylab\n";
     result << "#import matplotlib\n";
-    result << "from bornagain import *\n\n";
+    result << "from bornagain import *\n\n\n";
 //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
 //    result << "#NOTE: Running this Script by default will write output data"
 //           << "to \"output.int\" file\n";
@@ -312,6 +312,7 @@ std::string PyGenVisitor::defineGetSample() const
     result << addLayoutsToLayers();
     result << defineMultiLayers();
     result << std::endl;
+    result << std::endl;
     return result.str();
 }
 
@@ -323,7 +324,7 @@ std::string PyGenVisitor::defineGetSimulation(const Simulation *simulation) cons
     result << indent() << "simulation = Simulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
-    result << indent() << "return simulation\n\n";
+    result << indent() << "return simulation\n\n\n";
     return result.str();
 }
 
@@ -739,7 +740,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n"<<indent()<<"# Defining collection of particle with size distribution\n";
+    result << "\n"<<indent()<<"# Defining collection of particles with size distribution\n";
     SampleLabelHandler::particledistributions_t::iterator it =
             m_label->getParticleDistributionsMap()->begin();
 
@@ -764,7 +765,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
                << "\"" << par_distr.getMainParameterName() << "\"" << ", "
                << s_distr.str() << ", "
                << par_distr.getNbrSamples() << ", "
-               << par_distr.getSigmaFactor()
+               << PyGenTools::printDouble(par_distr.getSigmaFactor())
                << ")\n";
         result << indent() << it->second << " = ParticleDistribution("
                << m_label->getLabel(it->first->getParticle())
@@ -1648,7 +1649,7 @@ std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
     }
     result << "]) \n";
     result <<indent()<<"pylab.colorbar(im)\n";
-    result <<indent()<<"pylab.show()\n\n";
+    result <<indent()<<"pylab.show()\n\n\n";
     return result.str();
 }
 
@@ -1664,7 +1665,7 @@ std::string PyGenVisitor::defineRunSimulation() const
     result << indent() << "simulation.runSimulation()\n";
     result << indent() << "if filename != '':\n";
     result << indent() << indent() << "IntensityDataIOFactory.writeIntensityData(simulation."
-           << "getIntensityData(), filename + '.int')\n\n";
+           << "getIntensityData(), filename + '.int')\n\n\n";
     return result.str();
 }
 

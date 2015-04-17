@@ -120,11 +120,11 @@ The macroscopic field equation
 has still the form of a stationary Schrödinger equation,
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \begin{equation}\label{EmacrSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r) = 0,
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \psi(\r) = 0,
 \end{equation}
-\nomenclature[1ψ130 2r040 2t020]{$\Psi(\r,t)$}{Coherent wave function}%
+\nomenclature[1ψ030 2r040 2t020]{$\psi(\r,t)$}{Coherent wave function}%
 \nomenclature[2v020 2r040]{$v(\r)$}{Macrosopic optical potential}%
-where $\Psi$ now stands for the \textit{coherent wave function}
+where $\psi$ now stands for the \textit{coherent wave function}
 \index{Coherent wave function}%
 \index{Wave propagation!coherent}%
 obtained by superposition of
@@ -167,7 +167,7 @@ can be rewritten as
 
 \Highlight{\Box{
 \begin{equation}\label{EnSchrodi}
-  \left\{\Nabla^2+K^2n(\r)^2\right\}\Psi(\r) = 0.
+  \left\{\Nabla^2+K^2n(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
 }}
 This equation is the starting point for the analysis of all
@@ -202,8 +202,8 @@ once more so that it takes the form of a Helmholtz equation
 \index{Helmholtz equation}%
 with a perturbation term on the right side:
 \begin{equation}\label{ESchrodiHelmholtz}
-  \left(\Nabla^2+K^2\right)\Psi(\r)
-  = \frac{\chi(\r)}{4\pi}\Psi(\r)
+  \left(\Nabla^2+K^2\right)\psi(\r)
+  = \frac{\chi(\r)}{4\pi}\psi(\r)
 \end{equation}
 with
 \begin{equation}\label{EChiDef}
@@ -213,17 +213,17 @@ with
 This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
 Equation~(\ref{ESchrodiHelmholtz}) looks
 like an inhomogeneous differential equation ---
-provided we neglect for a moment that the unknown function~$\Psi$
+provided we neglect for a moment that the unknown function~$\psi$
 reappears on the right side.
 The homogeneous equation
 \begin{equation}\label{EHelmholtzHomog}
-  \left(\Nabla^2+K^2\right)\Psi_0(\r) = 0
+  \left(\Nabla^2+K^2\right)\psi_0(\r) = 0
 \end{equation}
-\nomenclature[1ψ132 00 2r040]{$\Psi_0(\r)$}{Solution of the unperturbed stationary Schrödinger equation}
+\nomenclature[1ψ032 00 2r040]{$\psi_0(\r)$}{Solution of the unperturbed stationary Schrödinger equation}
 is solved by plane waves and superpositions thereof.
 It applies in particular to the incident radiation
-$\Psi_\text{i}$ that must be present in any scattering experiment.
-\nomenclature[1ψ134 2i000 2r040]{$\Psi_\text{i}(\r)$}{Incident wave function}%
+$\psi_\text{i}$ that must be present in any scattering experiment.
+\nomenclature[1ψ034 2i000 2r040]{$\psi_\text{i}(\r)$}{Incident wave function}%
 \nomenclature[2i000]{i}{Subscript ``incident''}%
 
 For an isolated inhomogeneity,
@@ -243,45 +243,45 @@ This explains the appearance of the factor $4\pi$.}
   G(\r,\r') = \frac{{\rm e}^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
-Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
+Convoluting this function with the given inhomogeneity $(\chi/4\pi)\psi$,
 we obtain what is known as the Lippmann-Schwinger equation,
 \index{Lippmann-Schwinger equation}%the formal solution
 \begin{equation}\label{EPsiFormal}
-  \Psi(\r)
-  = \Psi_\text{i}(\r)
+  \psi(\r)
+  = \psi_\text{i}(\r)
   + \int\!{\rm d}^3r'\, G(\r,\r')
-                     \frac{\chi(\r')}{4\pi}\Psi(\r').
+                     \frac{\chi(\r')}{4\pi}\psi(\r').
 \end{equation}
-This integral equation for $\Psi(\r)$ has the advantage
+This integral equation for $\psi(\r)$ has the advantage
 over the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
 that it ensures appropriate boundary conditions for
 describing a scattering experiment.
 It can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
-for $\Psi$ in the integrand.
+for $\psi$ in the integrand.
 Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
 In first Born approximation,
 only the linear order in $\chi$ is retained,
 \begin{equation}\label{EBorn}
-  \Psi(\r)
-  \doteq \Psi_\text{i}(\r)
+  \psi(\r)
+  \doteq \psi_\text{i}(\r)
   + \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
-   \Psi_\text{i}(\r').
+   \psi_\text{i}(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
 where the aim is to 
-deduce $\chi(\r')$ from the scattered intensity ${|\Psi(\r)|}^2$.
+deduce $\chi(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
 Since detectors are always placed at positions $\r$
 that are not illuminated by the incident beam,
 we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
-  \Psi_\text{s}(\r)
+  \psi_\text{s}(\r)
   :=
-  \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
+  \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\psi_\text{i}(\r').
 \end{equation}
-\nomenclature[1ψ134 2s000 2r040 0]{$\Psi_\text{s}(\r)$}{Scattered wave function}%
+\nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wave function}%
 \nomenclature[2s000]{s}{Subscript ``scattered''}%
 
 \index{Born approximation|)}%
@@ -296,7 +296,7 @@ We can further simplify (\ref{EBornS})
 by making use of the fact that the detector location~$\r$
 is far away from the sample volume $\Sample$.
 \nomenclature[2m180]{$\Sample$}{Sample volume}%
-Since the scattered wave $\Psi_\text{s}(\r)$
+Since the scattered wave $\psi_\text{s}(\r)$
 only depends on $\r$ through the Green function~$G(\r,\r')$,
 we shall derive a far-field approximation for the latter.
 
@@ -320,36 +320,36 @@ We apply this to~(\ref{EGreens1}),
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
   G_\text{far}(\r,\r')
-  =\frac{{\rm e}^{iKr}}{4\pi r}\Psi^*_\text{f}(\r')
+  =\frac{{\rm e}^{iKr}}{4\pi r}\psi^*_\text{f}(\r')
 \end{equation}
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
 where
 \begin{equation}
-  \Psi_\text{f}(\r) := {\rm e}^{i\k_\text{f} \r}
+  \psi_\text{f}(\r) := {\rm e}^{i\k_\text{f} \r}
 \end{equation}
-\nomenclature[1ψ134 2f000 2r040]{$\Psi_\text{f}(\r)$}{Plane wave propagating from the sample towards the detector}%
+\nomenclature[1ψ034 2f000 2r040]{$\psi_\text{f}(\r)$}{Plane wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 
 The scattered wave~(\ref{EBornS})
 becomes in far-field approximation 
 \begin{equation}\label{EsandwichC}
-  \Psi_\text{s,far}(\r)
+  \psi_\text{s,far}(\r)
   = \frac{{\rm e}^{iKr}}{r}
-    \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket,
+    \bra \psi_\text{f}|\chi|\psi_\text{i}\ket,
 \end{equation}
-\nomenclature[1ψ134 2s000 2far]{$\Psi_\text{s,far}(\r)$}{Far-field approximation to the scattered wave function $\Psi_\text{s}(\r)$}%
+\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field approximation to the scattered wave function $\psi_\text{s}(\r)$}%
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
-  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
-  := \int\!{\rm d}^3r\, \Psi^*_\text{f}(\r)\chi(\r)\Psi_\text{i}(\r).
+  \bra \psi_\text{f}|\chi|\psi_\text{i}\ket
+  := \int\!{\rm d}^3r\, \psi^*_\text{f}(\r)\chi(\r)\psi_\text{i}(\r).
 \end{equation}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
 Making the standard assumption
 that the incident radiation is a plane wave
 \begin{equation}\label{EPsi0Plane}
-  \Psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
+  \psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
 \end{equation}
 with $k_\text{i}=K$,
 and introducing the \textit{scattering vector}
@@ -360,7 +360,7 @@ and introducing the \textit{scattering vector}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
 we can rewrite (\ref{EsandwichC}) as
 \begin{equation}\label{EBornQ}
-  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  \bra \psi_\text{f}|\chi|\psi_\text{i}\ket
   = \int\!{\rm d}^3r\, {\rm e}^{i\q\,\r}\chi(\r)
   =: \chi(\q),
 \end{equation}
@@ -378,13 +378,13 @@ of the optical potential.
 %===============================================================================
 
 Above, we said somewhat sloppily
-that a scattering experiment measures intensities~${|\Psi(\r)|}^2$.
+that a scattering experiment measures intensities~${|\psi(\r)|}^2$.
 We shall now make this more rigorous.
 In the case of neutron scattering,
 one actually measures the probability flux.
 We define it in arbitrary relative units as
 \begin{equation}
-  \v{J}(\r) := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
+  \v{J}(\r) := \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
 \end{equation}
 \nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}
 \index{Flux!incident and scattered}%
@@ -396,7 +396,7 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
+    {\left|\bra\psi_\text{f}|\chi|\psi_\text{i}\ket\right|}^2.
 \end{equation}
 The ratio of the scattered current hitting an infinitesimal detector area
 $r^2{\rm d}\Omega$ to the incident flux is expressed as a
@@ -413,7 +413,7 @@ The resulting equation
 \Highlight{\Box{
 \begin{equation}\label{Exsection}
   \frac{{\rm d}\sigma}{{\rm d}\Omega}
-  =  {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
+  =  {\left|\bra\psi_\text{f}|\chi|\psi_\text{i}\ket\right|}^2.
 \end{equation}
 }}
 yields quite generically the differential cross section of elastic scattering
@@ -494,8 +494,8 @@ at the level of the wave propagation equation.
 We move the vertical variations of the squared refractive index
 to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
 \begin{equation}\label{EHelmholtzGraded}
-  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi(\r)
-  = \frac{\chi(\r)}{4\pi}\Psi(\r),
+  \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r)
+  = \frac{\chi(\r)}{4\pi}\psi(\r),
 \end{equation}
 \nomenclature[2z020]{$z$}{Coordinate along the sample normal)}%
 \nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
@@ -509,14 +509,14 @@ Wave propagation,
 unperturbed by~$\chi$, but including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi_\text{i}(\r) = 0,
+  \left\{\Nabla^2+K^2\nz(z)\right\}\psi_\text{i}(\r) = 0,
 \end{equation}
 which suggests the factorization ansatz
 \begin{equation}\label{Ekpar}
-\Psi_\text{i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
+\psi_\text{i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
-\nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\Psi(\r)$}%
+\nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
 The in-plane wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
@@ -722,12 +722,12 @@ Therefore,
  (\ref{EBFar}) admits a generalization that also holds inside $\Sample$:
 \begin{equation}\label{EBFull}
   B_\text{far}(\r,\rD)
-  = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\Psi^*_\text{f}(\r).
+  = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\text{f}(\r).
 \end{equation}
 Applying now the reciprocity theorem (\ref{Ereci}),
 we can conclude that the far-field Green function
 is still given by (\ref{EGreenFar}),
-though $\Psi_\text{f}$ no longer is a plane wave.
+though $\psi_\text{f}$ no longer is a plane wave.
 Accordingly,
 the scattered far-field is still given by (\ref{EsandwichC}),
 and the differential cross section by (\ref{Exsection}).
@@ -736,8 +736,8 @@ Since both the incident
 and the scattered distorted wave function
 are composed of downward and upward propagating waves,
 \begin{equation}
-  \Psi_w(\r)
-  = \Psi^-_w(\r) + \Psi^+_w(\r)\text{~for~}w\in\{\text{i},\text{f}\},
+  \psi_w(\r)
+  = \psi^-_w(\r) + \psi^+_w(\r)\text{~for~}w\in\{\text{i},\text{f}\},
 \end{equation}
 \nomenclature[2w010]{$w$}{An index that can take the values i (incident)
 or f (final $=$ outgoing)}%
@@ -746,14 +746,14 @@ can be expanded into four terms,
 
 \Highlight{\Box{
 \begin{equation}\label{EtmDWBA}
-  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
-  = \bra \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\ket
-  + \bra \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\ket
-  + \bra \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\ket
-  + \bra \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\ket.
+  \bra \psi_\text{f}|\chi|\psi_\text{i}\ket
+  = \bra \psi^-_\text{f}|\chi|\psi^-_\text{i}\ket
+  + \bra \psi^-_\text{f}|\chi|\psi^+_\text{i}\ket
+  + \bra \psi^+_\text{f}|\chi|\psi^-_\text{i}\ket
+  + \bra \psi^+_\text{f}|\chi|\psi^+_\text{i}\ket.
 \end{equation}
 }}
-\nomenclature[1ψ141 0\pm 2r040]{$\Psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\Psi$}%
+\nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
 \nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
 This equation contains the essence of
 the distorted-wave Born approximation
@@ -761,11 +761,11 @@ for small-angle scattering under grazing incidence,
 and is the base for all scattering models implemented in \BornAgain.
 In the following, we will use the shorthand notation
 \begin{equation}\label{EtmDWBAsum}
-  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  \bra \psi_\text{f}|\chi|\psi_\text{i}\ket
   = \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
-    \bra \Psi^\pm_\text{f}|\chi|\Psi^\pm_\text{i}\ket.
+    \bra \psi^\pm_\text{f}|\chi|\psi^\pm_\text{i}\ket.
 \end{equation}
-Note that $\bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket$
+Note that $\bra \psi_\text{f}|\chi|\psi_\text{i}\ket$
 appears as a squared modulus
 in the differential cross section~(\ref{Exsection}).
 Therefore, the four terms of (\ref{EtmDWBA}) can interfere with each other,

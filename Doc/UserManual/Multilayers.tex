@@ -75,7 +75,8 @@ The vertical wavenumber is obtained from (\ref{Ewavez}),
   k_{\perp wj} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
 \end{equation}
 Restricting (\ref{EBornQ}) to one layer,
-the Fourier transform of the refractive index fluctuations
+the Fourier transform
+of the perturbative potential~(\ref{EChiGraded})
 shall be written as
 \begin{equation}\label{Echij}
   \chi_j(\v{q})
@@ -104,170 +105,6 @@ or the matrix method \cite{BoWo99}.
 
 ..... And how are they actually computed in BornAgain? .....
 
-%===============================================================================
-\subsection{Embedded particles}
-%===============================================================================
-
-\index{Particles!embedded|(}%
-\index{Nanoparticles|see {Particles}}%
-\index{Mesoparticles|see {Particles}}%
-In many important GISAS applications,
-fluctuations of the refractive index are due to particles
-of mesoscopic size (nanometer to micrometer).
-These particles are either embedded into a material layer,
-or attached to the surface of the sample.
-
-\Note{\indent In \BornAgain, there is no explicit support for particles attached
-  to a substrate. Instead, users must construct a layer on top of the
-  substrate that consists of vacuum (or air) plus the embedded particles.}
-
-For the time being,
-we consider scattering from only one layer;
-therefore we can omit the layer index~$j$ from the following considerations.
-The layer has a thickness~$d$ and contains $N$ particles per area~$A$.
-% hence the particles have a number density of $\nu=N/(Ad)$.
-Particle~$i$, located at $\r_i$,
-has a volume~$V_i$ and scattering length density~$\rho_i(\r-\r_i)$.
-Outside the volumes occupied by particles,
-the scattering length has a constant density of~$\chi_0$.
-The average scattering length density of the entire layer is then
-\begin{equation}\label{Emulaynav}
-  \begin{split}
-  \overline{\rho}
-      &= \frac{\sum_i \int_{V_i}\!\d^3r\; \rho_i(\r-\r_i)
-               + (Ad-\sum_i V_i)\rho_0}
-             {Ad}\\[1em]
-      &= \rho_0 + \frac{\sum_i \int_{V_i}\!\d^3r\, [\rho_i(\r-\r_i)-\rho_0]}
-             {Ad}
-  \end{split}
-\end{equation}
-To predict the GISAS pattern,
-we need to compute the Fourier transform (\ref{Echij}) of
-$\chi(\r)=\rho(\r)-\overline{\rho}$.
-There are two contributions to the Fourier integrand:
-from the embedded particles, and from the embedding matrix,
-which has the structure of an Emmental cheese:
-homogeneous except for holes where the particles are.
-Fortunately, we do not need to compute the Fourier transform
-of the cheese:
-Analogous to (\ref{Emulaynav}),
-we can rearrange the Fourier integral as
-\begin{equation}\label{Echijre}
-  \chi_j(\v{q})
-  = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
-    \left\{ \left(\rho_0-\overline{\rho}\right)
-           + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
-  =: \chi^0_j + \chi^\text{p}_j.
-\end{equation}
-The first term is the shape transform of the entire layer
-\begin{equation}
-  \chi^0_j(\v{q})
-   = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
-      \left(\rho_0-\overline{\rho}\right)
-   = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
-\end{equation}
-\nomenclature[2s000 2i000 2n000 2c000 0]{sinc}{Sinus cardinalis: $\text{sinc}(x)=\sin(x)/x$}%
-For the second term,
-we abbreviate
-\begin{equation}
-  \delta\rho_i(\r):=\rho_i(\r)-\rho_0,
-\end{equation}
-and we introduce the form factor of a single particle
-\begin{equation}
-  F_i(\v{q}) := \int\!\d^3r\, \e^{i\v{q}\,\r} \delta\rho_i(\r).
-\end{equation}
-We can then rearrange to obtain
-\begin{equation}
-  \chi^\text{p}_j(\v{q})
-  = \sum_i \e^{i\v{q}\,\r_i} F_i(\v{q}).
-\end{equation}
-Implemented single-particle form factors $F_i(\v{q})$
-are listed in great detail in chapter~\ref{sec:FormFactors}.
-The positional phase factors $\e^{i\v{q}\,\r_i}$
-can give rise to inter-particle interference patterns
-that are discussed in chapter~\ref{sec:Assemblies}.
-
-%===============================================================================
-\subsection{OLD STUFF}
-%===============================================================================
-
-... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
-\begin{align*}
-  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
-  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
-\end{align*}
-
-The main differences with respect to the cross-section in the Born approximation are:
-\begin{enumerate}
-  \item The particle form factor now consists of a more complex expression and now depends on both incoming and outgoing wave vectors and also on the $z$-coordinate of the particle;
-  \item Since the $z$-coordinate of the particles is implicitly included in its formfactor, the position integrals only run over $x$- and $y$-coordinates and the volume and density gets replaced with the surface area and surface density respectively.
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Geometry of the sample}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\noindent The geometry used to describe the sample is
-shown in Fig.~\ref{fig:multil3d}. The $z$-axis is perpendicular to the sample's
-surface and pointing upwards. The $x$-axis  is perpendicular to the
-detector plane. The input and the
-scattered output beams are each characterized by two angles
-$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$, respectively. Our choice of orientation for the
-angles $\alpha_i$ and $\alpha_f$ is so that they are positive
-as shown in Fig.~\ref{fig:multil3d}. \\
-
-\begin{figure}[ht]
-  \centering
-    \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
-  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
-    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
-    angles of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
-$\phi_f$ is the scattering angle with respect to the scattering
-plane. }
-  \label{fig:multil3d}
-\end{figure}
-
-The layers are defined by their thicknesses (parallel to the
-$z$-direction), their possible
-roughnesses (equal to 0 by default) and the
-materials they are made of. They have an infinite extension in the $x$ and $y$
-directions. And, except for roughness, their interfaces are plane and
-perpendicular to the $z$-axis. There is also no limitation to the
-number of layers that could be defined in \BornAgain. Note that the
-thickness of the top and bottom layer are not defined.
-
-%\ImportantPoint{Remark:}{Order of layers: \\
-%When assembling the sample, the layers are defined from top to
-%bottom. So in most cases the first layer will be the air layer.}\\
-
-The nanoparticles are characterized by their form factors
-(\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material. The number of input parameters for the form factor depends on the particle symmetry; it ranges from one parameter for a sphere (its radius) to three for an ellipsoid (its three main axis lengths).
-  
-By placing the particles
-inside or on top of a layer, we impose their vertical positions, whose
-values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
-particles interfere with each other. It is therefore implemented
-when dealing with the interference function.
-
-%\ImportantPoint{Remark:}{Depth of particles\\
-%The vertical positions of particles in a layer are given in relative
-%coordinates. For the top layer, the bottom corresponds to
-%\texttt{depth}=0. But for all the other layers, it is the top of the
-%layer which corresponds to \texttt{depth}=0.}\\
-
-%\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
-%\newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
-%\newcommand{\altc}[1]{\ensuremath{\widetilde{#1}}}
-%\newcommand{\beq}{\begin{equation}}
-%\newcommand{\eeq}{\end{equation}}
-\renewcommand{\u}[1]{\underline{#1}}
-\newcommand{\uu}[1]{\underline{\underline{#1}}}
-\renewcommand{\t}{\uparrow}
-\renewcommand{\d}{\downarrow}
-
-%\renewcommand\Im{\operatorname{Im}}
-%\renewcommand\Re{\operatorname{Re}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -632,7 +469,7 @@ The wave equation (\ref{Escalar_wave}) for layer~$i$ becomes
 (\Delta +K^2 +K^2 \uu\chi_i) \u\psi(\r)= 0,
 \end{equation}
 where $\u\psi(\r)$ is a two-component spinor wave function,
-with components $\psi_\t(\r)$ and~$\psi_\d(\r)$.
+with components $\psi_\UP(\r)$ and~$\psi_\DN(\r)$.
 At interfaces between layers,
 both spinor components of $\u\psi(\r)$ and $\Nabla\u\psi(\r)$
 must evolve continuously.
@@ -672,7 +509,7 @@ the eigenvectors $\u x_{ij}$ must be chosen according to some arbitrary
 normalization rule,
 for instance
 \begin{equation}
-  |\u x_{ij}|=1,\quad x_{ij\t} \text{ real and nonnegative}.
+  |\u x_{ij}|=1,\quad x_{ij\UP} \text{ real and nonnegative}.
 \end{equation}
 Similarly,
 a rule is needed how to handle the case of one degenerate eigenvalue,
@@ -698,10 +535,10 @@ As before (\ref{EFcFDc}), we have at the bottom of layer~$i$
 where the matrices are now
 \begin{equation}
   F_i := \left(\begin{array}{cccc}
-    x_{i1\t}      &x_{i2\t}     &x_{i1\t}       &x_{i2\t}       \\
-    x_{i1\d}      &x_{i2\d}     &x_{i1\d}       &x_{i2\d}       \\
-    x_{i1\t}p_{i1}&x_{i2\t}p_{i2}&-x_{i1\t}p_{i1}&-x_{i2\t}p_{i2}\\
-    x_{i1\d}p_{i1}&x_{i2\d}p_{i2}&-x_{i1\d}p_{i1}&-x_{i2\d}p_{i2}
+    x_{i1\UP}      &x_{i2\UP}     &x_{i1\UP}       &x_{i2\UP}       \\
+    x_{i1\DN}      &x_{i2\DN}     &x_{i1\DN}       &x_{i2\DN}       \\
+    x_{i1\UP}p_{i1}&x_{i2\UP}p_{i2}&-x_{i1\UP}p_{i1}&-x_{i2\UP}p_{i2}\\
+    x_{i1\DN}p_{i1}&x_{i2\DN}p_{i2}&-x_{i1\DN}p_{i1}&-x_{i2\DN}p_{i2}
   \end{array}\right)
 \end{equation}
 and

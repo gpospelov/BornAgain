@@ -18,7 +18,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Particle distributions}
+\section{TO MOVE SOMEWHERE}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In the previous chapter we discussed the form factor of isolated
@@ -30,6 +30,163 @@ In the following,
 we present particle assembly models that are supported in \BornAgain.
 For a more complete theoretical description,
 the user is referred to, for example, reference~\cite{ReLL09}.
+
+\Work{\indent \BornAgain\ does not yet support embedded particles
+  that intersect a layer boundary.
+\index{Particles!intersecting layer boundaries}
+  Collaboration on this often requested feature would be welcome.}
+
+For the time being,
+we consider scattering from only one layer;
+therefore we can omit the layer index~$j$ from the following considerations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Embedded particles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Particles!embedded|(}%
+\index{Nanoparticles|see {Particles}}%
+\index{Mesoparticles|see {Particles}}%
+In many important GISAS applications,
+fluctuations of the refractive index are due to particles
+of mesoscopic size (nanometer to micrometer).
+These particles are either embedded into a material layer,
+or attached to the surface of the sample.
+
+\Note{\indent In \BornAgain, there is no explicit support for particles attached
+  to a substrate. Instead, users must construct a layer on top of the
+  substrate that consists of vacuum (or air) plus the embedded particles.
+  Similarly, an extra layer must be created to describe particles buried in
+  the substrate.}
+
+Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
+that the distinction between refraction and reflection on the one hand
+and scattering on the other hand is not a fundamental one,
+but to a certain degree arbitrary:
+In (\ref{EHelmholtzGraded}) we have some freedom to assign
+inhomogeneities of the scattering length density
+either to the averaged refractive index in the
+homogeneous wave propagation equation,
+or to the perturbative potential.
+Therefore it is legitimate
+to describe \textit{dilute} embedded particles
+as scattering centers that otherwise do not affect the propagating waves.
+For GISAS by \textit{concentrated} particles, however,
+one must expect multiple scattering to invalidate this approach.
+It seems preferable to take the embedded particles into account
+when computing the average refractive index,
+which then leads to refraction and reflection caused conjointly
+by embedding material (``matrix'') and embedded particle.
+\index{Matrix!embedding}%
+The downside is that one has then scattering contribution
+from both the matrix and the particles.
+
+
+The layer has a thickness~$d$ and contains $N$ particles per area~$A$.
+% hence the particles have a number density of $\nu=N/(Ad)$.
+Particle~$i$, located at $\r_i$,
+has a volume~$V_i$ and
+a perturbative potential~$\chi_i(\r-\r_i)$.
+The embedding material has a constant potential~$\chi_0$.
+The average potential of the entire layer is then
+\begin{equation}\label{Emulaynav}
+  \begin{split}
+  \overline{\chi}
+      &= \frac{\sum_i \int_{V_i}\!\d^3r\; \chi_i(\r-\r_i)
+               + (Ad-\sum_i V_i)\chi_0}
+             {Ad}\\[1em]
+      &= \chi_0 + \frac{\sum_i \int_{V_i}\!\d^3r\, [\chi_i(\r-\r_i)-\chi_0]}
+             {Ad}
+  \end{split}
+\end{equation}
+To predict the GISAS pattern,
+we need to compute the Fourier transform (\ref{Echij}) of
+$\chi(\r)=\rho(\r)-\overline{\rho}$.
+There are two contributions to the Fourier integrand:
+from the embedded particles, and from the embedding matrix,
+which has the structure of an Emmental cheese:
+homogeneous except for holes where the particles are.
+Fortunately, we do not need to compute the Fourier transform
+of the cheese:
+Analogous to (\ref{Emulaynav}),
+we can rearrange the Fourier integral as
+\begin{equation}\label{Echijre}
+  \chi_j(\v{q})
+  = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
+    \left\{ \left(\rho_0-\overline{\rho}\right)
+           + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
+  =: \chi^0_j + \chi^\text{p}_j.
+\end{equation}
+The first term is the shape transform of the entire layer
+\begin{equation}
+  \chi^0_j(\v{q})
+   = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
+      \left(\rho_0-\overline{\rho}\right)
+   = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
+\end{equation}
+\nomenclature[2s000 2i000 2n000 2c000 0]{sinc}{Sinus cardinalis: $\text{sinc}(x)=\sin(x)/x$}%
+For the second term,
+we abbreviate
+\begin{equation}
+  \delta\rho_i(\r):=\rho_i(\r)-\rho_0,
+\end{equation}
+and we introduce the form factor of a single particle
+\begin{equation}
+  F_i(\v{q}) := \int\!\d^3r\, \e^{i\v{q}\,\r} \delta\rho_i(\r).
+\end{equation}
+We can then rearrange to obtain
+\begin{equation}
+  \chi^\text{p}_j(\v{q})
+  = \sum_i \e^{i\v{q}\,\r_i} F_i(\v{q}).
+\end{equation}
+Implemented single-particle form factors $F_i(\v{q})$
+are listed in great detail in chapter~\ref{sec:FormFactors}.
+The positional phase factors $\e^{i\v{q}\,\r_i}$
+can give rise to inter-particle interference patterns
+that are discussed in chapter~\ref{sec:Assemblies}.
+
+%===============================================================================
+\subsection{OLD STUFF}
+%===============================================================================
+
+... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
+\begin{align*}
+  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
+  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
+  & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Geometry of the sample}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The layers are defined by their thicknesses (parallel to the
+$z$-direction), their possible
+roughnesses (equal to 0 by default) and the
+materials they are made of. They have an infinite extension in the $x$ and $y$
+directions. And, except for roughness, their interfaces are plane and
+perpendicular to the $z$-axis. There is also no limitation to the
+number of layers that could be defined in \BornAgain. Note that the
+thickness of the top and bottom layer are not defined.
+
+%\ImportantPoint{Remark:}{Order of layers: \\
+%When assembling the sample, the layers are defined from top to
+%bottom. So in most cases the first layer will be the air layer.}\\
+
+The nanoparticles are characterized by their form factors
+(\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material. The number of input parameters for the form factor depends on the particle symmetry; it ranges from one parameter for a sphere (its radius) to three for an ellipsoid (its three main axis lengths).
+  
+By placing the particles
+inside or on top of a layer, we impose their vertical positions, whose
+values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
+particles interfere with each other. It is therefore implemented
+when dealing with the interference function.
+
+%\ImportantPoint{Remark:}{Depth of particles\\
+%The vertical positions of particles in a layer are given in relative
+%coordinates. For the top layer, the bottom corresponds to
+%\texttt{depth}=0. But for all the other layers, it is the top of the
+%layer which corresponds to \texttt{depth}=0.}\\
 
 %===============================================================================
 \subsection{Collection of particles} \label{sec:sect:interf}

@@ -112,20 +112,39 @@ induce a $z$ dependence of $\nz(z)$ in an otherwise homogeneous layer.
   and within one layer~$j$, a constant $\nz(z)=n_j^2$ is used.}
 
 Once $\nz(z)$ is computed in whatever approximation,
-given refractive indices are renormalized to
+the perturbation potential is given by (\ref{EChiGraded}),
+which takes the form
 \begin{equation}
-    \tilde{n}_0^2(z) := n_0^2(z) - \nz(z)
+  \chi_p(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n_p^2(\r)\right)
 \end{equation}
-\nomenclature[2n033 0]{$\tilde{n}_0(z)$}{Renormalized refractive index
-  of an embedding material (``matrix'')}
-and    
+for the particles, and similarly $\chi_0(z)$ for the matrix.
+The overall potential
 \begin{equation}
-    \tilde{n}_p^2(\r) := n_p^2(\r) - n_0^2(z).
+  \chi(\r)=\left\{\begin{array}{ll}
+  \chi_p(\r)&\text{~if $\r$ in particle,}\\[.2ex]
+  \chi_0(z) &\text{~else} \end{array}\right.
 \end{equation}
-\nomenclature[2n033 2]{$\tilde{n}_p(\r)$}{Renormalized refractive index
-  of embedded particle material}
-The latter choice ensures that $\tilde{n}_p^2(\r)=0$ unless
-$\r$ lies in a particle.
+\nomenclature[1χ032 0]{$\chi_0(z)$}{Perturbative potential of embedding material (``matrix'')}%
+\nomenclature[1χ032 2p010]{$\chi_p(\r)$}{Perturbative potential of embedded particles of type~$p$}%
+can be rearranged as
+\begin{equation}\label{Echi0p}
+  \chi(\r)=\chi_0(z) + \left\{\begin{array}{ll}
+  \tilde\chi_p(\r)&\text{~if $\r$ in particle,}\\[.2ex]
+  0 &\text{~else} \end{array}\right.
+\end{equation}
+with the renormalized particle potential
+\begin{equation}
+  \tilde\chi_p(\r)
+  := \chi_p(\r)-\chi_0(z)
+  = \frac{K^2}{4\pi}\left(n_0^2(z)-n_p^2(\r)\right),
+\end{equation}
+\nomenclature[1χ033 2p010]{$\tilde\chi_p(\r)$}{Renormalized perturbative potential of embedded particles of type~$p$}%
+which is 0 unless $\r$ lies within a particle.
+
+Writing the potential as~(\ref{Echi0p}) is a convenient starting point
+for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
+We specialize to the case of a layer~$j$ with constant~$\nz(z)=n_j^2$
+so that the $\psi^\pm_{wj}$ are plane waves.
 
 To predict the GISAS pattern,
 we need to compute the Fourier transform (\ref{Echij}) of

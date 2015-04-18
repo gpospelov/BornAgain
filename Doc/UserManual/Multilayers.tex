@@ -54,9 +54,13 @@ the index~$w$ can take the values i and~f.
 The amplitudes $A$ are often written with distinct letters
 T and~R to designate the transmitted or reflected beam,
 \begin{equation}
-  T_{wj} := A^-_\text{wj},\quad
-  R_{wj} := A^+_\text{wj}.
+  T_{wj} := A^-_{wj},\quad
+  R_{wj} := A^+_{wj}.
 \end{equation}
+\nomenclature[2t126 2w020 2j020 0]{$T_{wj}$}{Partial amplitude of $\psi_w(\r)$
+  in layer $j$ in downward (transmission) direction, also denoted $A^-_{wj}$}%
+\nomenclature[2r126 2w020 2j020 0]{$R_{wj}$}{Partial amplitude of $\psi_w(\r)$
+  in layer $j$ in upward (reflection) direction, also denoted $A^+_{wj}$}%
 The wave vector can be decomposed as
 \begin{equation}
   \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
@@ -83,10 +87,10 @@ a sum over all layers,
 \index{Distorted-wave Born approximation!multilayer}%
 \Emph{
 \begin{equation}\label{EtmDWBAft}
-  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
-  = \sum_{j} \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
-    A^\pm_{\text{i}j} A^{\pm *}_{\text{f}j}
-     \chi_j(\k^\pm_{\text{i}j} - \k^\pm_{\text{f}j}).
+  \bra \Psi_\tf|\chi|\Psi_\ti\ket
+  = \sum_{j} \sum_{\pm_\tf} \sum_{\pm_\ti}
+    A^\pm_{\ti j} A^{\pm *}_{\tf j}
+     \chi_j(\k^\pm_{\ti j} - \k^\pm_{\tf j}).
 \end{equation}\vspace*{-5pt}
 }
 
@@ -112,9 +116,10 @@ fluctuations of the refractive index are due to particles
 of mesoscopic size (nanometer to micrometer).
 These particles are either embedded into a material layer,
 or attached to the surface of the sample.
-In BornAgain, the latter case must be construed as a special form of the former
-by defining an extra layer on top of the regular surface that
-consists of vacuum (or air) with embedded particles.
+
+\Note{\indent In \BornAgain, there is no explicit support for particles attached
+  to a substrate. Instead, users must construct a layer on top of the
+  substrate that consists of vacuum (or air) plus the embedded particles.}
 
 For the time being,
 we consider scattering from only one layer;
@@ -161,6 +166,7 @@ The first term is the shape transform of the entire layer
       \left(\rho_0-\overline{\rho}\right)
    = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
 \end{equation}
+\nomenclature[2s000 2i000 2n000 2c000 0]{sinc}{Sinus cardinalis: $\text{sinc}(x)=\sin(x)/x$}%
 For the second term,
 we abbreviate
 \begin{equation}
@@ -175,7 +181,7 @@ We can then rearrange to obtain
   \chi^\text{p}_j(\v{q})
   = \sum_i \e^{i\v{q}\,\r_i} F_i(\v{q}).
 \end{equation}
-Implemented single-particle form fators $F_i(\v{q})$
+Implemented single-particle form factors $F_i(\v{q})$
 are listed in great detail in chapter~\ref{sec:FormFactors}.
 The positional phase factors $\e^{i\v{q}\,\r_i}$
 can give rise to inter-particle interference patterns
@@ -187,7 +193,7 @@ that are discussed in chapter~\ref{sec:Assemblies}.
 
 ... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
-  & \bra \frac{d\sigma}{d\Omega}(\k_\text{i},\k_\text{f}) \ket_{\text{Off-specular}}  \\
+  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
 \end{align*}
@@ -249,17 +255,6 @@ when dealing with the interference function.
 %coordinates. For the top layer, the bottom corresponds to
 %\texttt{depth}=0. But for all the other layers, it is the top of the
 %layer which corresponds to \texttt{depth}=0.}\\
-
-\index{Refractive index}
-\index{Index of refraction|see {Refractive index}}
-The complex refractive index associated with a layer or a particle
-is written as $n=1-\delta +i\beta$,
-with $\delta, \beta \in \mathbb{R}$.
-In our program, we input $\delta$ and $\beta$ directly.
-
-
-\noindent The input beam is assumed to be monochromatic without any
-spatial divergence.\\ %\textbf{polarization term?}
 
 %\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
 %\newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}

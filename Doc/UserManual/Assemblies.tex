@@ -81,24 +81,52 @@ by embedding material (``matrix'') and embedded particle.
 The downside is that one has then scattering contribution
 from both the matrix and the particles.
 
-
-The layer has a thickness~$d$ and contains $N$ particles per area~$A$.
-% hence the particles have a number density of $\nu=N/(Ad)$.
-Particle~$i$, located at $\r_i$,
-has a volume~$V_i$ and
-a perturbative potential~$\chi_i(\r-\r_i)$.
-The embedding material has a constant potential~$\chi_0$.
-The average potential of the entire layer is then
-\begin{equation}\label{Emulaynav}
-  \begin{split}
-  \overline{\chi}
-      &= \frac{\sum_i \int_{V_i}\!\d^3r\; \chi_i(\r-\r_i)
-               + (Ad-\sum_i V_i)\chi_0}
-             {Ad}\\[1em]
-      &= \chi_0 + \frac{\sum_i \int_{V_i}\!\d^3r\, [\chi_i(\r-\r_i)-\chi_0]}
-             {Ad}
-  \end{split}
+In general, therefore, the average squared refractive index~$\nz(z)$
+used in~(\ref{EHelmholtzGraded})
+does not equal the value $n_0^2(z)$ of the matrix,
+but also includes contributions from the particles.
+If there is but one species $p$ of particles
+\nomenclature[2p010 0]{$p$}{Index of embedded particle species}%
+with constant refractive index $n_p$,
+then
+\begin{equation}
+  \nz(z) = [1-x_p(z)]\,n_0^2(z) + x_p(z)\, n_p^2,
 \end{equation}
+where $x_p(z)$ is the volume fraction occupied by the $p$-type particles
+in a thin layer at depth~$z$.
+This equation can be generalized in obvious ways
+when there are different types of particles,
+or when the refractive index is not constant within the particles.
+
+Since we have some freedom in shuffling inhomogeneity
+between refraction/reflection and scattering,
+we are not obliged to compute $\nz(z)$ \textit{exactly},
+but are allowed to choose some approximation.
+In particular, we do not need to evaluate~$x_p(z)$
+for an infinitesimally thin layer.
+This is convenient in the standard situation where particle shapes
+induce a $z$ dependence of $\nz(z)$ in an otherwise homogeneous layer.
+
+\Note{\indent Presently,
+  in \BornAgain\ particles must be confined to given layers,
+  and within one layer~$j$, a constant $\nz(z)=n_j^2$ is used.}
+
+Once $\nz(z)$ is computed in whatever approximation,
+given refractive indices are renormalized to
+\begin{equation}
+    \tilde{n}_0^2(z) := n_0^2(z) - \nz(z)
+\end{equation}
+\nomenclature[2n033 0]{$\tilde{n}_0(z)$}{Renormalized refractive index
+  of an embedding material (``matrix'')}
+and    
+\begin{equation}
+    \tilde{n}_p^2(\r) := n_p^2(\r) - n_0^2(z).
+\end{equation}
+\nomenclature[2n033 2]{$\tilde{n}_p(\r)$}{Renormalized refractive index
+  of embedded particle material}
+The latter choice ensures that $\tilde{n}_p^2(\r)=0$ unless
+$\r$ lies in a particle.
+
 To predict the GISAS pattern,
 we need to compute the Fourier transform (\ref{Echij}) of
 $\chi(\r)=\rho(\r)-\overline{\rho}$.

@@ -65,15 +65,23 @@ In consequence, we have a stationary wave function
 The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \textit{quantum-mechanical sign convention}.
+It is also used in most optics textbooks.
 \index{Wave propagation!sign convention}%
 \index{Sign convention}%
 The opposite choice of a phase factor $\e^{+i\omega t}$ is 
 called the \textit{crystallographic sign convention},
 and is used in much of the literature on X-ray scattering,
 including some important texts on GISAXS (e.~g.\ \cite{ReLL09}).
-Since \BornAgain is covering both X-ray and neutron scattering,
-the obvious choice for us was to adopt the quantum-mechanical convention
-throughout the source code as well as in this manual.
+Since we are concerned with both X-rays and neutrons,
+we had to make a somewhat arbitrary choice:
+
+\Note
+{In this manual, and in the program code of \BornAgain,
+the quantum-mechanical sign convention~(\ref{Estationarywave}) is chosen.
+This has implications for the sign of the imaginary part of the
+refractive index,
+\index{Refractive index!sign convention}%
+as explained in Sect.~\ref{Sabsorption}.}
 
 Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
 we obtain the stationary Schrödinger equation
@@ -164,12 +172,11 @@ incoming radiation.
 In terms of $K$ and $n$,
 the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
 can be rewritten as
-
-\Highlight{\Box{
+\begin{boxEmph}%
 \begin{equation}\label{EnSchrodi}
   \left\{\Nabla^2+K^2n(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
-}}
+\end{boxEmph}
 This equation is the starting point for the analysis of all
 small-angle scattering experiments,
 whether under grazing incidence (GISAS) or not (regular SAS).
@@ -425,7 +432,7 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
 The resulting equation
 
-\Highlight{\Box{
+\cbEmph{\Box{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
   =  {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
@@ -610,13 +617,14 @@ for collisions of charged particles.}
 % There are also several papers by Massey and Mott from about 1933.
 
 There is one difficulty, though:
-how to substitute the Green function (\ref{EGreens1})?
+how to compute the Green function?
 \index{Green function!vertically structured material}%
-It was derived in Sect.~\ref{SBorn} quite specifically
+Eq.~(\ref{EGreens1}) was derived in Sect.~\ref{SBorn} quite specifically
 for a homogeneous material.
 Computing it in closed form for a more generic wave equation
 like~(\ref{EHelmholtzGradedHomog}) is far more difficult,
 if not outright impossible.
+
 Fortunately, we do not need the full Green function,
 and computing it would be wasted effort,
 because in the end
@@ -758,7 +766,7 @@ or f (final $=$ outgoing)}%
 the matrix element (\ref{Etrama})
 can be expanded into four terms,
 
-\Highlight{\Box{
+\cbEmph{\Box{
 \begin{equation}\label{EtmDWBA}
   \bra \psi_\tf|\chi|\psi_\ti\ket
   = \bra \psi^-_\tf|\chi|\psi^-_\ti\ket
@@ -787,18 +795,9 @@ which adds to the complexity of GISAS patterns.
 
 \index{Distorted-wave Born approximation|)}%
 
-%===============================================================================
-\subsection{Detector images}
-%===============================================================================
 
-In this subsection we describe
-the conversion between the scattering vector~$\q$
-and the experimental coordinates.
-This is unrelated to the previous subsections,
-but belongs nevertheless under the headings
-\textit{foundations of GISAS} and
-\textit{scattering under grazing incidence}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Absorption}\label{Sabsorption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The experimental geometry has already been introduced in Fig.~\ref{fig:expgeom}.
-
-.... to come soon ....
+\MissingSection

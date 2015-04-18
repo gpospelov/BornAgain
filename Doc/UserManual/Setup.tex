@@ -192,7 +192,7 @@
 %-------------------------------------------------------------------------------
 
 \usepackage{mdframed}
-\usepackage{pifont}
+% \usepackage{pifont}
 
 \def\defineBox#1#2#3#4#5{
   \newmdenv[
@@ -212,21 +212,28 @@
     linewidth=2pt,
     ]{#2*}
   \newenvironment{#1}
-    {\begin{#2*}#5\ignorespaces}
+    {\begin{#2*}\makebox[0pt][r]{\smash{#5}}\ignorespaces}
     {\end{#2*}}
 }
 
-\def\defineBoxWithMarginsym#1#2#3#4#5#6#7{
-\defineBox{#1}{#2}{#3}{#4}{\makebox[0pt][r]{\smash{\raisebox{-#7}%
-{\includegraphics[width=#6]{#5}\hspace{10pt}}}}}
-}
+\def\marginSymbolLarge#1{\raisebox{-3ex}%
+{\includegraphics[width=3em]{#1}\hspace{10pt}}}
 
-
-\defineBoxWithMarginsym{boxWork}{boxxWork}{magenta!40}{magenta}{fig/fancymanual/Arbeiten.png}{3em}{3ex}
-\defineBoxWithMarginsym{boxWarn}{boxxWarn}{magenta!40}{magenta}{fig/fancymanual/Achtung.png}{3em}{3ex}
+\defineBox{boxWork}{boxxWork}{magenta!40}{magenta}
+  {\marginSymbolLarge{fig/fancymanual/Arbeiten.png}}
+\defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
+  {\marginSymbolLarge{fig/fancymanual/Achtung.png}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}
 
+\def\Warn#1{\begin{boxWarn}#1\end{boxWarn}}
+\def\Work#1{\begin{boxWork}#1\end{boxWork}}
+\def\Note#1{\begin{boxNote}#1\end{boxNote}}
+\def\Emph#1{\begin{boxEmph}#1\end{boxEmph}}
+
+\def\MissingSection{\begin{boxWork}\ldots\ to be written \ldots\end{boxWork}}
+
+% OLD STYLE:
   
 \newcommand{\BareRemark}[1]%
 {\noindent\smallpencil\colorbox{blue!10}%
@@ -239,30 +246,6 @@
   {\huge\danger}\colorbox{magenta!40}{\parbox{\dimexpr\linewidth-8\fboxsep}
  {\underline{#1} #2}}}
 
-\def\coloredBox#1#2%
-{\noindent\colorbox{#1}{\begin{minipage}
-{1\textwidth}\strut\hspace{\myparindent}#2\end{minipage}}}
-
-\def\ddanger{%
-\raisebox{-.5ex}{\makebox[2.8em][c]{%
-\makebox[0pt][c]{\raisebox{.3em}{\large!}}%
-\makebox[0pt][c]{\color{red}\Huge$\bigtriangleup$}}}}%
-
-\def\colorWarn{red!30}
-\def\colorNote{yellow!30}
-\def\colorEmph{blue!10}
-\def\Warn#1{\begin{boxWarn}#1\end{boxWarn}}
-\def\Work#1{\begin{boxWork}#1\end{boxWork}}
-\def\Note#1{\begin{boxNote}#1\end{boxNote}}
-\def\Emph#1{\begin{boxEmph}#1\end{boxEmph}}
-
-\def\MissingSection{\begin{boxWork}\ldots\ to be written \ldots\end{boxWork}}
-
-%\Warn{\ldots\ to be written \ldots}}
-
-\def\cbNote{\noindent\colorbox{\colorNote}}
-\def\cbEmph{\noindent\colorbox{\colorEmph}}
-\def\Box{\parbox{1\textwidth}}
 
 %-------------------------------------------------------------------------------
 %  Hyperref

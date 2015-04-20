@@ -23,7 +23,7 @@
 
 %\includeonly{Conventions}
 %\includeonly{ScatteringTheory}
-\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
+%\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
 %\includeonly{FormFactors}
 
 \documentclass[a4paper,11pt,twoside,fleqn]{report}
@@ -50,12 +50,8 @@
 \include{Experiment}
 \include{Usage}
 
-%\appendix\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-
-% unused old stuff:
-%\input{unused/SoftwareArchitecture}
-%\input{unused/AppendixListings}
-%\input{unused/FittingGentleIntroduction}
+\appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\include{Proofs}
 
 \otherchapter{Bibliography}
 \bibliographystyle{switch}

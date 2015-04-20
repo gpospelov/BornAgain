@@ -23,20 +23,25 @@ in order not to disrupt the physics narration.
   \label{Sreci1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textit{reciprocity}
+We derive a source-detector reciprocity theorem
 \index{Reciprocity|(}%
 \index{Green function!reciprocity}%
-of Green functions for self-adjoint differential equations.
+for the scalar Schrödinger equation.
+It is needed in the derivation of the distorted-wave Born approximation
+(Sect.~\ref{SDWBA}),
+where it allows us to short-cut the computation of the Green function,
+yielding at once the far-field at the detector position.
 
-Let us derive the reciprocity theorem
-for a generic stationary Schrödinger equation
+We start from a generic stationary Schrödinger equation
 with an isolated inhomogeneity,
 \begin{equation}\label{EgsSchrodi}
   \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
 \end{equation}
-We assume that $\rS$ lies within our sample.
-Outside the sample volume
-the potential~$v(\r)$ has the constant value~$K^2$
+We assume that the source location $\rS$
+\nomenclature[2r041 2s100]{$\rS$}{Position of a scattering center}%
+(which in our application is a scattering center)
+lies within a finite sample volume.
+Outside the sample, the potential~$v(\r)$ has the constant value~$K^2$
 so that (\ref{EgsSchrodi})
 reduces to the Helmholtz equation%
 \begin{equation}\label{EgsSchrodiHelmh}
@@ -108,37 +113,13 @@ From (\ref{Eprerecipro}) we obtain the \textit{reciprocity theorem}
 \begin{equation}\label{Ereci}
   G(\rD,\rS) = B(\rS,\rD).
 \end{equation}
-To obtain the forward-propagating Green function~$G$,
-it is sufficient to determine the adjoint Green function~$B$
-that traces a neutron back from the detector position~$\rD$
-to a scattering center~$\rS$.
+It allows us to obtain the far-field value of the
+forward-propagating Green function~$G$
+at the detector position~$\rD$
+from the adjoint Green function~$B$
+that traces the radiation back from $\rD$
+to the source location~$\rS$.
+The theorem is practically important because
+$B$ is much easier to compute than the unexpanded~$G$.
+
 \index{Reciprocity|)}%
-
-The solution $B(\r,\rD)$ of (\ref{EgsSchrodiAdj})
-is analogous to (\ref{EGreens1}).
-Choosing the origin inside the sample,
-and assuming that $\rD$ lies far outside the sample,
-we can copy the far-field expansion from~(\ref{EGreenFar})
-to obtain
-\index{Far-field approximation}%
-\begin{equation}\label{EBFar}
-  B_\text{far}(\r,\rD)
-  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
-\end{equation}
-When this backward propagating plane waves impinges on the sample,
-it undergoes reflection and refraction in exactly the same way as
-the incident plane wave $\e^{i\k_\ti\r}$.
-Therefore,
- (\ref{EBFar}) admits a generalization that also holds inside the sample:
-\begin{equation}\label{EBFull}
-  B_\text{far}(\r,\rD)
-  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
-\end{equation}
-Applying now the reciprocity theorem (\ref{Ereci}),
-we can conclude that the far-field Green function
-is still given by (\ref{EGreenFar}),
-though $\psi_\tf$ no longer is a plane wave.
-Accordingly,
-the scattered far-field is still given by (\ref{EsandwichC}),
-and the differential cross section by (\ref{Exsection}).
-

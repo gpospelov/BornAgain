@@ -632,36 +632,55 @@ for collisions of charged particles.}
 % Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
 % There are also several papers by Massey and Mott from about 1933.
 
-There is one difficulty, though:
-how to compute the Green function?
+To carry out this idea, we need to determine the Green function~$G$.
 \index{Green function!vertically structured material}%
-Eq.~(\ref{EGreens1}) was derived in Sect.~\ref{SBorn} quite specifically
+In Sect.~\ref{SBorn} we did so quite specifically
 for a homogeneous material.
-Computing it in closed form for a more generic wave equation
+Computing~$G$ in closed form for a more generic wave equation
 like~(\ref{EHelmholtzGradedHomog}) is far more difficult,
 if not outright impossible.
-
-Fortunately, we do not need the full Green function,
-and computing it would be wasted effort,
-because in the end
-we only need its asymptotic far-field value at a detector position $\rD$.
+Fortunately, this computation is not necessary,
+and would be but wasted effort:
+We do not need the full solution~$G(\r,\r')$,
+but only its asymptotic far-field value $G(\rD,\r')$
+at a detector position $\rD$.
 \nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
-Instead of propagating a field from a scattering center $\rS$
-\nomenclature[2r041 2s100]{$\rS$}{Position of a scattering center}%
-into all directions, and finally evaluating a plane wave asymptote at~$\rD$,
-we better propagate a plane wave backwards from $\rD$
-into our structured material,
-and finally evaluate the field at~$\rS$.
-The equivalence of these two computations is ensured
-by a source-detector \textit{reciprocity} theorem
+Thanks to a \textit{source-detector reciprocity theorem}~(\ref{Ereci})
 \index{Reciprocity}%
-that is proven in Appendix~\label{Sreci1}.
-It states that that the far-field Green function
-is still given by (\ref{EGreenFar}),
-\begin{equation}\label{EGreenFar2}
-  G_\text{far}(\r,\r')
-  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r'),
+proven in Appendix~\ref{Sreci1},
+we can compute this value
+as
+\begin{equation}\label{EreciDup}
+  G(\rD,\r) = B(\r,\rD),
 \end{equation}
+where~$B$ is the \textit{adjoint Green function}
+that describes backward propagation from $\rD$ into the sample.
+
+Outside the sample,
+$B$ obyes the Helmholtz equation
+with isolated inhomegeneity (\ref{EHelmholtzForGreen}),
+and therefore has the far-field expansion~(\ref{EGreenFar}),
+\index{Far-field approximation}%
+\begin{equation}\label{EBFar}
+  B_\text{far}(\r,\rD)
+  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
+\end{equation}
+When this backward propagating plane waves impinges on the sample,
+it undergoes reflection and refraction in exactly the same way as
+the incident plane wave $\e^{i\k_\ti\r}$.
+Therefore,
+ (\ref{EBFar}) admits a generalization that also holds inside the sample:
+\begin{equation}\label{EBFull}
+  B_\text{far}(\r,\rD)
+  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
+\end{equation}
+Applying now the reciprocity theorem (\ref{EreciDup}),
+we obtain
+\begin{equation}\label{EGreenFarDWBA}
+  G_\text{far}(\r,\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
+\end{equation}
+which agrees literally with (\ref{EGreenFar}),
 though $\psi_\tf$ no longer is a plane wave.
 Accordingly,
 the scattered far-field is still given by (\ref{EsandwichC}),

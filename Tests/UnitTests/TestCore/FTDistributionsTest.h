@@ -179,7 +179,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
     IFTDistribution2D * iftd2D = new FTDistribution2DCauchy(1.0,-2.0);
     EXPECT_EQ(1.0, iftd2D->getCoherenceLengthX());
     EXPECT_EQ(-2.0, iftd2D->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionCauchy", iftd2D->getName());
     EXPECT_NEAR(0.343206, iftd2D->evaluate(0.2, 0.5),0.000001);
@@ -202,7 +202,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyClone)
 
     EXPECT_EQ(-5.0, iftd2DClone->getCoherenceLengthX());
     EXPECT_EQ(2.3, iftd2DClone->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionCauchy", iftd2DClone->getName());
     EXPECT_NEAR(0.165121078, iftd2DClone->evaluate(0.2, 0.5),0.000001);
@@ -218,7 +218,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussConstructor)
     IFTDistribution2D * iftd2D = new FTDistribution2DGauss(1.0,-2.0);
     EXPECT_EQ(1.0, iftd2D->getCoherenceLengthX());
     EXPECT_EQ(-2.0, iftd2D->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionGauss", iftd2D->getName());
     EXPECT_NEAR(0.5945205, iftd2D->evaluate(0.2, 0.5),0.000001);
@@ -236,7 +236,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussClone)
 
     EXPECT_EQ(-5.0, iftd2DClone->getCoherenceLengthX());
     EXPECT_EQ(2.3, iftd2DClone->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionGauss", iftd2DClone->getName());
     EXPECT_NEAR(0.3130945, iftd2DClone->evaluate(0.2, 0.5),0.000001);
@@ -250,7 +250,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateConstructor)
     IFTDistribution2D * iftd2D = new FTDistribution2DGate(1.0,-2.0);
     EXPECT_EQ(1.0, iftd2D->getCoherenceLengthX());
     EXPECT_EQ(-2.0, iftd2D->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionGate", iftd2D->getName());
     EXPECT_NEAR(0.875513, iftd2D->evaluate(0.2, 0.5),0.000001);
@@ -268,7 +268,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateClone)
 
     EXPECT_EQ(-5.0, iftd2DClone->getCoherenceLengthX());
     EXPECT_EQ(2.3, iftd2DClone->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionGate", iftd2DClone->getName());
     EXPECT_NEAR(0.736461, iftd2DClone->evaluate(0.2, 0.5),0.000001);
@@ -282,7 +282,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeConstructor)
     IFTDistribution2D * iftd2D = new FTDistribution2DCone(1.0,-2.0);
     EXPECT_EQ(1.0, iftd2D->getCoherenceLengthX());
     EXPECT_EQ(-2.0, iftd2D->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionCone", iftd2D->getName());
     EXPECT_NEAR(0.924374, iftd2D->evaluate(0.2, 0.5),0.000001);
@@ -300,7 +300,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeClone)
 
     EXPECT_EQ(-5.0, iftd2DClone->getCoherenceLengthX());
     EXPECT_EQ(2.3, iftd2DClone->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionCone", iftd2DClone->getName());
     EXPECT_NEAR(0.837410, iftd2DClone->evaluate(0.2, 0.5),0.000001);
@@ -314,7 +314,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtConstructor)
     IFTDistribution2D * iftd2D = new FTDistribution2DVoigt(1.0,-2.0,3.5);
     EXPECT_EQ(1.0, iftd2D->getCoherenceLengthX());
     EXPECT_EQ(-2.0, iftd2D->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionVoigt", iftd2D->getName());
     EXPECT_NEAR(1.2228072, iftd2D->evaluate(0.2, 0.5),0.000001);
@@ -332,7 +332,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
 
     EXPECT_EQ(-5.0, iftd2DClone->getCoherenceLengthX());
     EXPECT_EQ(2.3, iftd2DClone->getCoherenceLengthY());
-    EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
+    EXPECT_EQ(Units::PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionVoigt", iftd2DClone->getName());
     EXPECT_NEAR(-0.6635305, iftd2DClone->evaluate(0.2, 0.5),0.000001);

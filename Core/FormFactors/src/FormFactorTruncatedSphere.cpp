@@ -78,13 +78,13 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t& q) const
 {   m_q = q;
     if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
         double HdivR = m_height/m_radius;
-        return M_PI/3.*m_radius*m_radius*m_radius
+        return Units::PI/3.*m_radius*m_radius*m_radius
                 *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
     }
     else {
     complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);
     complex_t integral = m_integrator->integrate(m_radius-m_height, m_radius);
-    return 2*M_PI*integral*std::exp(iqzR);
+    return Units::PI2*integral*std::exp(iqzR);
     }
 }
 

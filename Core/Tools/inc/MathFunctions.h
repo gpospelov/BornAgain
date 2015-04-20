@@ -212,7 +212,7 @@ inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
 
 inline double MathFunctions::Sinc(double value)  // Sin(x)/x
 {
-    return gsl_sf_sinc(value/M_PI);
+    return gsl_sf_sinc(value/Units::PI);
 }
 
 inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
@@ -236,7 +236,7 @@ inline double MathFunctions::FastSin(const double& x) {
     const double P = 0.225f;
     const double A = 16 * std::sqrt(P);
     const double B = (1 - P) / std::sqrt(P);
-    double y = x / (2 * M_PI);
+    double y = x / (2 * Units::PI);
     y = y - std::floor(y + 0.5);  // y in range -0.5..0.5
     y = A * y * (0.5 - std::abs(y));
     return y * (B + std::abs(y));
@@ -247,7 +247,7 @@ inline double MathFunctions::FastCos(const double& x) {
     const double P = 0.225f;
     const double A = 16 * std::sqrt(P);
     const double B = (1 - P) / std::sqrt(P);
-    double y = x / (2 * M_PI)+0.25; // pi/2. shift
+    double y = x / (2 * Units::PI)+0.25; // pi/2. shift
     y = y - std::floor(y + 0.5);  // y in range -0.5..0.5
     y = A * y * (0.5 - std::abs(y));
     return y * (B + std::abs(y));

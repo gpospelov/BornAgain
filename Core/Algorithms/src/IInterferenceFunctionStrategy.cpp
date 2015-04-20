@@ -181,7 +181,7 @@ IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i,
 
     IntegrationParamsAlpha result;
     result.k_i = k_i;
-    result.wavelength = 2.0*M_PI/real_ki.mag();
+    result.wavelength = Units::PI2/real_ki.mag();
     result.alpha_bin = alpha_f_bin;
     result.phi_bin = phi_f_bin;
     return result;

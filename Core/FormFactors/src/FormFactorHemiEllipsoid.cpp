@@ -91,11 +91,11 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t& q) const
 
      if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
 
-         return 2.0*M_PI*R*W*H/3.;
+         return Units::PI2*R*W*H/3.;
 
      } else {
 
-         return 2.0*M_PI*m_integrator->integrate(0.,H );
+         return Units::PI2*m_integrator->integrate(0.,H );
      }
 }
 

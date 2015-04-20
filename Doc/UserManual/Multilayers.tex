@@ -14,28 +14,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Wave propagation through multilayers}  \label{sec:Multilayers}
+\chapter{DWBA for multilayer systems}  \label{sec:Multilayers}
 
-This chapter describes how to calculate the coherent wave solution for neutrons incident on a multilayered sample. In the first section, only scalar interactions will be considered. The second part uses a spinor and matrix formalism to account for neutron polarization.
+
+\index{Multilayer|(}%
+\index{Layer structures|see {Multilayer}}
+
+In Sect.~\ref{Sdwba},
+we have discussed wave propagation and scattering in 2$+$1 dimensional systems
+that are translationally invariant in the horizontal $xy$ plane,
+and have a vertical refractive index profile $\nz(z)$.
+Here we specialize to layered systems
+where $\nz(z)$ is a step function that is constant within one layer.
+First, only scalar interactions are considered.
+Later, the theory is extended to account for polarization effects.
+
+\Note{\indent By convention,
+layers are numbered from top to bottom.
+The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
+the substrate (extending to $z\to-\infty$) is layer~$N$.}
+
+All layer interfaces are assumed to be perfectly smooth.
+For rough interfaces, see Chapter~\ref{sec:Roughness}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multilayer systems}
+\section{Scalar case}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\index{Multilayer systems}%
 
 %===============================================================================
-\subsection{DWBA}
+\subsection{Wave propagation}
 %===============================================================================
 
-In many applications of GISAS,
-the investigated sample consists of a number of distinct layers.
-For the time being,
-no other systems are supported in BornAgain.\footnote
-{Please contact us if need arises for modelling systems with
-smoothly varying~$\nz(z)$.
-\index{Refractive index!graded}%
-}
+\index{Multilayer!Indexing convention}%
+
+
 Within one layer~$j$, the average refractive index is constant,
 $\nz(z)=\nzj$ for $z\in\mathcal{Z}_j$, where
 $\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
@@ -105,53 +118,20 @@ or the matrix method \cite{BoWo99}.
 
 ..... And how are they actually computed in BornAgain? .....
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Basic formalism for scalar index of refraction}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In this section,
-we investigate refraction by a multilayer system
-with flat interfaces and with scalar refraction indices.
-We first develop the basic formalism
-without absorption, and far from total reflection conditions.
-Absorption, total reflection and evanescent waves
-will be discussed in subsection~\ref{s:complex}.
-In section~\ref{s:pol},
-we generalize the formalism to include
-polarization-dependent interaction.
-
-Polarized neutron propagation at glancing incidence
-in multilayer systems has been studied by Spiering and Deak [...],
-using Abeles' matrix formalism and matrix exponentials.
-In Abeles' formalism [],
-plane waves are parametrized by $\psi$ and $\partial_z\psi$.
-We prefer a parametrization (\ref{Epsiz})
-by the amplitudes of forward and backward propagating plane waves,
-which is mathematically simpler,
-and allows a more direct physical interpretation.
+%===============================================================================
+\subsection{OLD STUFF}
+%===============================================================================
 
 %-------------------------------------------------------------------------------
 \subsection{Wave equation for a basic multilayer model}
 %-------------------------------------------------------------------------------
-
-The geometry for reflection by a multilayer sample is shown in figure~\ref{fig:multil3d}. Here we only consider specular reflection, hence the azimuthal angle $\phi_f = 0$.
-
-All layer interfaces are assumed to be perfectly smooth.
-All layers are homogenous; layer~$i$ has the complex refractive index~$n_i$.
-Layer~0 is the air or vacuum on top of the sample;
-layer~$N$ is the substrate; these two layers are assumed semi-inifinite.
-We first consider scalar interactions.
-Polarization-dependent reflection
-will be discussed in section~\ref{s:pol}. 
 
 Within one layer,
 stationary wave propagation with given frequency,
 hence with fixed vacuum wave number~$K$,
 obeys the differential equation
 \begin{equation}\label{Escalar_wave}
-\left(\Delta + K^2 n_i^2 \right) \psi(\r) = 0.
+\left(\Delta + K^2 n_j^2 \right) \psi(\r) = 0.
 \end{equation}
 At interfaces between layers,
 the wave function $\psi(\r)$ and its first derivative
@@ -174,13 +154,13 @@ is constant across layers.
 The wave equation~(\ref{Escalar_wave})
 reduces to a one-dimensional equation in~$z$ [see (\ref{Ewavez})]
 \begin{equation}\label{Ewavezdup}
-\left(\partial_z^2 + K^2n_i^2 - k_\parallel^2 \right) \psi(z) = 0,
+\left(\partial_z^2 + K^2n_j^2 - k_\parallel^2 \right) \psi(z) = 0,
 \end{equation}
 which is solved by
 \begin{equation}\label{Epsiz}
-  \psi_i(z) = a_i\e^{ik_{\perp i}(z-z_i)} + b_i\e^{-ik_{\perp i}(z-z_i)},
+  \psi_j(z) = a_j\e^{ik_{\perp i}(z-z_j)} + b_j\e^{-ik_{\perp i}(z-z_j)},
 \end{equation}
-where $z_i$ is the coordinate of the \textit{bottom} interface
+where $z_j$ is the coordinate of the \textit{bottom} interface
 of layer $i$,
 introduced here as a constant offset for later convenience.
 In the case of the semi-infinite bottom layer~$N$,
@@ -189,9 +169,9 @@ $z_N$ can be chosen arbitrarily.
 Inserting (\ref{Epsiz}) into (\ref{Ewavezdup}),
 we obtain the dispersion relation
 \begin{equation}\label{Edisp}
-  k_\parallel^2 + k_{\perp i}^2 = K^2 n_i^2.   
+  k_\parallel^2 + k_{\perp i}^2 = K^2 n_j^2.   
 \end{equation}
-If $n_i$ is real and $k_\parallel<K n_i$,
+If $n_j$ is real and $k_\parallel<K n_j$,
 this is just the Pythagorean equation
 for the perpendicular components of either of
 the two wave vectors:
@@ -200,32 +180,32 @@ They correspond to the two summands in (\ref{Epsiz}),
 and describe plane waves propagating upwards or downwards.
 These waves have glancing angles
 \begin{equation}\label{Edef_alpha}
-  \alpha_i:=\arctan(k_{\perp i}/k_\parallel).  
+  \alpha_j:=\arctan(k_{\perp i}/k_\parallel).  
 \end{equation}
 Equivalently,
 \begin{equation}
-  k_\parallel=K n_i \cos\alpha_i. 
+  k_\parallel=K n_j \cos\alpha_j. 
 \end{equation}
 Since $k_\parallel$ is constant across layers,
 we have
 \begin{equation}\label{ESnell}
-  n_i \cos\alpha_i = \text{the same for all }i,
+  n_j \cos\alpha_j = \text{the same for all }i,
 \end{equation}
 which is Snell's refraction law.
 
 For later convenience we abbreviate
 \begin{equation}\label{Edef_f}
-f_i := \sqrt{ n_i^2 - n_0^2 \cos^2\alpha_0 },
+f_j := \sqrt{ n_j^2 - n_0^2 \cos^2\alpha_0 },
 \end{equation}
-which is a combination of material parameters ($n_0$, $n_i$)
+which is a combination of material parameters ($n_0$, $n_j$)
 and a geometric parameter ($\alpha_0$) that describes the incident beam.
-If $n_i$ is real, and the argument of the square root nonnegative,
-we simply have $f_i=n_i\sin\alpha_i$.
-However, using $f_i$ allows for later generalizations
+If $n_j$ is real, and the argument of the square root nonnegative,
+we simply have $f_j=n_j\sin\alpha_j$.
+However, using $f_j$ allows for later generalizations
 to cope with absorbing media or with total reflection and evanescent waves.
 The wave number in (\ref{Epsiz}) can now be written as
 \begin{equation}\label{EkKf}
-  k_{\perp i} = K f_i.
+  k_{\perp i} = K f_j.
 \end{equation}
 
 
@@ -236,83 +216,83 @@ The wave number in (\ref{Epsiz}) can now be written as
 In this section,
 the continuity of $\psi(z)$ and $\partial_z\psi(z)$ at layer interfaces
 is used to derive a recursion rule
-for the coefficients $a_i$ and $b_i$ of (\ref{Epsiz}).
-At the \textit{bottom} interface of layer~$i=0,\ldots,N-1$,
+for the coefficients $a_j$ and $b_j$ of (\ref{Epsiz}).
+At the \textit{bottom} interface of layer~$j=0,\ldots,N-1$,
 continuity requires
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
-            \psi_{i}(z_i)&=&\psi_{i+1}(z_{i+1}+d_{i+1}),\\
-            \partial_z\psi_{i}(z_i)&=&\partial_z\psi_{i+1}(z_{i+1}+d_{i+1}),
+            \psi_j(z_j)&=&\psi_{j+1}(z_{j+1}+d_{j+1}),\\
+            \partial_z\psi_j(z_j)&=&\partial_z\psi_{j+1}(z_{j+1}+d_{j+1}),
   \end{array}
 \end{equation}
   where
 \begin{equation}
-  d_i:=z_{i-1}-z_{i}
+  d_j:=z_{j-1}-z_{j}
 \end{equation}
-is the thickness of layer~$i$.
+is the thickness of layer~$j$.
 With the solution (\ref{Epsiz}), conditions (\ref{Econtcond}) become
 \begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
-  a_i &+& b_i,
+  a_j &+& b_j,
   &=&
-  a_{i+1}\e^{iKf_{i+1}d_{i+1}} &+& b_{i+1}\e^{-iKf_{i+1}d_{i+1}},
+  a_{j+1}\e^{iKf_{j+1}d_{j+1}} &+& b_{j+1}\e^{-iKf_{j+1}d_{j+1}},
   \\
-  a_i f_i  &-& b_i f_i,
+  a_j f_j  &-& b_j f_j,
   &=&
- a_{i+1}\e^{iKf_{i+1}d_{i+1}} f_{i+1} &-& b_{i+1}\e^{-iKf_{i+1}d_{i+1}} f_{i+1}.
+ a_{j+1}\e^{iKf_{j+1}d_{j+1}} f_{j+1} &-& b_{j+1}\e^{-iKf_{j+1}d_{j+1}} f_{j+1}.
   \end{array}
 \end{equation}
 We introduce the vector notation
 \begin{equation}\label{Evecc}
-  c_i := \left( \begin{array}{c}a_i\\b_i\end{array} \right),
+  c_j := \left( \begin{array}{c}a_j\\b_j\end{array} \right),
 \end{equation}
 to write (\ref{Econt2}) as
 \begin{equation}\label{EFcFDc}
-  F_i c_i = F_{i+1} D_{i+1} c_{i+1}
+  F_j c_j = F_{j+1} D_{j+1} c_{j+1}
 \end{equation}
 with the matrices
 \begin{equation}
-  F_i := \left(\begin{array}{cc}1&1\\f_i&-f_i\end{array}\right)\text{, and }
-  D_i := \left(\begin{array}{cc}\delta_i&0\\0&\delta_i^*\end{array}\right),
+  F_j := \left(\begin{array}{cc}1&1\\f_j&-f_j\end{array}\right)\text{, and }
+  D_j := \left(\begin{array}{cc}\delta_j&0\\0&\delta_j^*\end{array}\right),
 \end{equation}
 and the phase factor
 \begin{equation}
-   \delta_i := \e^{iKf_id_i}.
+   \delta_j := \e^{iKf_jd_j}.
 \end{equation}
 We define the transfer matrix
 \begin{equation}\label{Edef_M}
-  M_i
-  := F_{i-1}^{-1}F_i D_i,
+  M_j
+  := F_{j-1}^{-1}F_j D_j,
 \end{equation}
 to obtain the recursion 
 \begin{equation}\label{EcMc}
-  c_i = M_{i+1} c_{i+1}.
+  c_j = M_{j+1} c_{j+1}.
 \end{equation}
 Straightforward computation yields
 \begin{equation}
-  M_i
-   = \frac{1}{2f_{i-1}}
+  M_j
+   = \frac{1}{2f_{j-1}}
    \left(\begin{array}{cc}
-       \delta_i(f_{i-1}+f_{i})&\delta_i^*(f_{i-1}-f_{i})\\
-       \delta_i(f_{i-1}-f_{i})&\delta_i^*(f_{i-1}+f_{i})
+       \delta_j(f_{j-1}+f_j)&\delta_j^*(f_{j-1}-f_j)\\
+       \delta_j(f_{j-1}-f_j)&\delta_j^*(f_{j-1}+f_j)
    \end{array}\right)
    = \frac{1}{2}
    \left(\begin{array}{cc}
-       \delta_i(1+\rho_{i})&\delta_i^*(1-\rho_{i})\\
-       \delta_i(1-\rho_{i})&\delta_i^*(1+\rho_{i})
+       \delta_j(1+\rho_j)&\delta_j^*(1-\rho_j)\\
+       \delta_j(1-\rho_j)&\delta_j^*(1+\rho_j)
    \end{array}\right)
 \end{equation}
 with the ratio
 \begin{equation}
-  \rho_i := \frac{f_{i}}{f_{i-1}}.
+  \rho_j := \frac{f_j}{f_{j-1}}.
 \end{equation}
 The recursion starts from the semi-infinite substrate layer~$N$
 where there is no upwards propagating wave, hence $a_N=0$.
 For layer~$i$, the solution is
 \begin{equation}\label{Eci}
-  c_i
+  c_j
   =
-  M_{i+1}.... M_{N} c_N.  % TODO restore \cdots
+  M_{j+1}.... M_{N} c_N.  % TODO restore \cdots
 \end{equation}
 
 %-------------------------------------------------------------------------------
@@ -329,17 +309,17 @@ we obtain in layer~$i$
 \begin{equation}\label{EJperp}
   \begin{array}{lcl}
   J_{zi} &=& \frac{1}{2}
-  \left( a_i^*\e^{-ik_{\perp i}(z-z_i)} + b_i^*\e^{ik_{\perp i}(z-z_i)} \right)
+  \left( a_j^*\e^{-ik_{\perp i}(z-z_j)} + b_j^*\e^{ik_{\perp i}(z-z_j)} \right)
   k_{\perp i}
-  \left( a_i\e^{ik_{\perp i}(z-z_i)} - b_i\e^{-ik_{\perp i}(z-z_i)} \right)
+  \left( a_j\e^{ik_{\perp i}(z-z_j)} - b_j\e^{-ik_{\perp i}(z-z_j)} \right)
   +\text{c.c.}\\[2ex]
-  &=& \left( |a_i|^2 - |b_i|^2 \right) K f_i,
+  &=& \left( |a_j|^2 - |b_j|^2 \right) K f_j,
   \end{array}
 \end{equation}
 provided $k_{\perp i}$ is real.
 Obviously,
-the $|a_i|^2$ term is due to the upward beam
-and the $|b_i|^2$ term to the downward beam.
+the $|a_j|^2$ term is due to the upward beam
+and the $|b_j|^2$ term to the downward beam.
 
 In the absence of absorption we expect that the net current
 is the same in all layers.
@@ -348,25 +328,25 @@ Using the vector notation~(\ref{Evecc}),
 we write~(\ref{EJperp}) as a sesquilinear form
 \begin{equation}
   J_{zi}
-  = c_i^\dagger \left(\begin{array}{cc}Kf_i&0\\0&-Kf_i\end{array}\right) c_i.
+  = c_j^\dagger \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right) c_j.
 \end{equation}
-Using the recursion (\ref{EcMc}) for $c_i$,
+Using the recursion (\ref{EcMc}) for $c_j$,
 we obtain a recursion for $J_{zi}$:
 \begin{equation}\label{EJrec}
   \begin{array}{lcl}
     J_{zi} &=&
-    c_{i}^\dagger
-    \left(\begin{array}{cc}Kf_{i}&0\\0&-Kf_{i}\end{array}\right) c_{i}
+    c_j^\dagger
+    \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right) c_j
     \\[3ex]
     &=&
-    c_{i+1}^\dagger M_{i+1}^\dagger
-    \left(\begin{array}{cc}Kf_{i}&0\\0&-Kf_{i}\end{array}\right)
-    M_{i+1}c_{i+1}
+    c_{j+1}^\dagger M_{j+1}^\dagger
+    \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right)
+    M_{j+1}c_{j+1}
     \\[3ex]
     &=&
-    c_{i+1}^\dagger
-    \left(\begin{array}{cc}Kf_{i+1}&0\\0&-Kf_{i+1}\end{array}\right)
-    c_{i+1}
+    c_{j+1}^\dagger
+    \left(\begin{array}{cc}Kf_{j+1}&0\\0&-Kf_{j+1}\end{array}\right)
+    c_{j+1}
     \\[3ex]
     &=&
     J_{z,i+1},
@@ -397,7 +377,7 @@ which agrees with Fresnel's result for $s$-polarized light.
 %-------------------------------------------------------------------------------
 
 If layer~$i$ absorbs radiation,
-its index of refraction $n_i$ has a positive imaginary component.
+its index of refraction $n_j$ has a positive imaginary component.
 By~(\ref{Edisp}),
 $k_\parallel^2+k_{\perp i}^2$ then also has a positive imaginary component.
 From the continuity of $\psi$ and $\Nabla\psi$ across layer interfaces
@@ -414,7 +394,7 @@ decrease exponentially in~$\pm z$.
 Snell's law of refraction (\ref{ESnell})
 cannot be fulfilled if
 \begin{equation}\label{Etotrefcond}
-  n_i<n_0\cos\alpha_0.  
+  n_j<n_0\cos\alpha_0.  
 \end{equation}
 In this case, total reflection occurs at the top interface of layer~$i$,
 accompanied by an evanescent wave within layer~$i$.
@@ -423,16 +403,16 @@ total reflection is only possible if layer~$i$ is not absorbing.
 Otherwise, some intensity would be dissipated by the evanescent wave,
 and the reflection would not be total.
 Also, the unequality~(\ref{Etotrefcond}) is undefined
-if $n_i$ has an imaginary component.
+if $n_j$ has an imaginary component.
 
 With definition~(\ref{Edef_f}),
-total reflection occurs if $f_i$ is a pure imaginary number.
-For an absorbing medium, $f_i$ has a positive imaginary part
+total reflection occurs if $f_j$ is a pure imaginary number.
+For an absorbing medium, $f_j$ has a positive imaginary part
 and a non-zero real part.
 Therefore it is appropriate to treat total reflection as a special
-case of refraction by a medium with complex~$f_i$.
+case of refraction by a medium with complex~$f_j$.
 
-For complex $f_i$,
+For complex $f_j$,
 the theory developed above
 remains applicable, with the following exceptions:
 The geometric interpretation of the wave vectors $\k_\pm$
@@ -466,7 +446,7 @@ we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
 The wave equation (\ref{Escalar_wave}) for layer~$i$ becomes
 \begin{equation}\label{Ewaveqp}  
-(\Delta +K^2 +K^2 \uu\chi_i) \u\psi(\r)= 0,
+(\Delta +K^2 +K^2 \uu\chi_j) \u\psi(\r)= 0,
 \end{equation}
 where $\u\psi(\r)$ is a two-component spinor wave function,
 with components $\psi_\UP(\r)$ and~$\psi_\DN(\r)$.
@@ -482,26 +462,26 @@ and so we can write
 As before, $\k_\parallel$ is constant across layers.
 The wave equation~(\ref{Ewaveqp}) reduces to 
 \begin{equation}\label{Ewavezp}
-\left(\partial_z^2 + K^2 + K^2\uu\chi_i - k_\parallel^2 \right) \u\psi(z) = 0.
+\left(\partial_z^2 + K^2 + K^2\uu\chi_j - k_\parallel^2 \right) \u\psi(z) = 0.
 \end{equation}
 We abbreviate
 \begin{equation}
-  \uu H_i := K^2(1+\uu\chi_i)-k_\parallel^2
+  \uu H_j := K^2(1+\uu\chi_j)-k_\parallel^2
 \end{equation}
 so that the wave equation becomes simply
 \begin{equation}\label{Ewaveqp2}
-  \left(\partial_z^2 + \uu H_i\right) \u\psi(z) = 0.
+  \left(\partial_z^2 + \uu H_j\right) \u\psi(z) = 0.
 \end{equation}
 The solution is
 \begin{equation}\label{Epsizp}
-  \u\psi_i(z)
-  = \sum_{j=1}^2 \u x_{ij}\left(\alpha_{ij}\e^{i p_{ij}(z-z_i)}
-                            + \beta_{ij}\e^{-i p_{ij}(z-z_i)}\right),
+  \u\psi_j(z)
+  = \sum_{j=1}^2 \u x_{ij}\left(\alpha_{ij}\e^{i p_{ij}(z-z_j)}
+                            + \beta_{ij}\e^{-i p_{ij}(z-z_j)}\right),
 \end{equation}
-where the $\u x_{ij}$ are eigenvectors of $\uu H_i$
+where the $\u x_{ij}$ are eigenvectors of $\uu H_j$
 with eigenvalues $p_{ij}^2$:
 \begin{equation}
-  \left( -p_{ij}^2 + \uu H_i \right) \u x_{ij} = 0
+  \left( -p_{ij}^2 + \uu H_j \right) \u x_{ij} = 0
    \;\text{ for }\;j=1,2.
 \end{equation}
 In a reproducible algorithm,
@@ -523,70 +503,70 @@ which includes in particular the case of scalar interactions.
 Generalizing (\ref{Evecc}),
 we introduce the coefficient vector
 \begin{equation}
-  c_i := {(\alpha_{i1}, \alpha_{i2}, \beta_{i1}, \beta_{i2})}^\text{T}.
+  c_j := {(\alpha_{i1}, \alpha_{j2}, \beta_{i1}, \beta_{j2})}^\text{T}.
 \end{equation}
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
 of $\u\psi$ and $\Nabla\u\psi$.
 As before (\ref{EFcFDc}), we have at the bottom of layer~$i$
 \begin{equation}\label{EFcFDcp}
-  F_i c_i = F_{i+1} D_{i+1} c_{i+1},
+  F_j c_j = F_{j+1} D_{j+1} c_{j+1},
 \end{equation}
 where the matrices are now
 \begin{equation}
-  F_i := \left(\begin{array}{cccc}
+  F_j := \left(\begin{array}{cccc}
     x_{i1\UP}      &x_{i2\UP}     &x_{i1\UP}       &x_{i2\UP}       \\
     x_{i1\DN}      &x_{i2\DN}     &x_{i1\DN}       &x_{i2\DN}       \\
-    x_{i1\UP}p_{i1}&x_{i2\UP}p_{i2}&-x_{i1\UP}p_{i1}&-x_{i2\UP}p_{i2}\\
-    x_{i1\DN}p_{i1}&x_{i2\DN}p_{i2}&-x_{i1\DN}p_{i1}&-x_{i2\DN}p_{i2}
+    x_{i1\UP}p_{j1}&x_{i2\UP}p_{j2}&-x_{i1\UP}p_{j1}&-x_{i2\UP}p_{j2}\\
+    x_{i1\DN}p_{j1}&x_{i2\DN}p_{j2}&-x_{i1\DN}p_{j1}&-x_{i2\DN}p_{j2}
   \end{array}\right)
 \end{equation}
 and
 \begin{equation}
-  D_i := \text{diag}(\delta_{i1}, \delta_{i2}, \delta_{i1}^*, \delta_{i2}^*)
+  D_j := \text{diag}(\delta_{j1}, \delta_{j2}, \delta_{j1}^*, \delta_{j2}^*)
 \end{equation}
 with the phase factor
 \begin{equation}
-   \delta_{ij} := \e^{ip_{ij}d_i}.
+   \delta_{ij} := \e^{ip_{ij}d_j}.
 \end{equation}
-Note that matrix $F_i$ has the block form
+Note that matrix $F_j$ has the block form
 \begin{equation}
-  F_i
-  =\left(\begin{array}{ll}\uu x_i&\hphantom{-}\uu x_i\\[1ex]
-    \uu x_i\; \uu P_i&-\uu x_i\; \uu P_i\end{array}\right)
-    = \uu x_i \cdot
+  F_j
+  =\left(\begin{array}{ll}\uu x_j&\hphantom{-}\uu x_j\\[1ex]
+    \uu x_j\; \uu P_j&-\uu x_j\; \uu P_j\end{array}\right)
+    = \uu x_j \cdot
     \left(\begin{array}{cc}\uu 1&\uu 1\\[1ex]
-    \uu P_i&-\uu P_i\end{array}\right),
+    \uu P_j&-\uu P_j\end{array}\right),
 \end{equation}
 with
 \begin{equation}
-  \uu x_i :=
-  \left(\u x_{i1}, \u x_{i2}\right),
+  \uu x_j :=
+  \left(\u x_{j1}, \u x_{j2}\right),
   \quad
-  \uu P_i :=
-  \text{diag}\left(p_{i1},p_{i2}\right).
+  \uu P_j :=
+  \text{diag}\left(p_{j1},p_{j2}\right).
 \end{equation}
 This facilitates the computation of the inverse
 \begin{equation}
-  F_i^{-1}
+  F_j^{-1}
     = \frac{1}{2}
-    \left(\begin{array}{cc}\uu 1&\hphantom{-}\uu P_i^{-1}\\[1.2ex]
-      \uu 1 &-\uu P_i^{-1}\end{array}\right)
-      \cdot\uu x_i^{-1},
+    \left(\begin{array}{cc}\uu 1&\hphantom{-}\uu P_j^{-1}\\[1.2ex]
+      \uu 1 &-\uu P_j^{-1}\end{array}\right)
+      \cdot\uu x_j^{-1},
 \end{equation}
-which is needed for the transfer matrix $M_i$,
+which is needed for the transfer matrix $M_j$,
 defined as in (\ref{Edef_M}).
-With the new meaning of $c_i$ and $M_i$,
+With the new meaning of $c_j$ and $M_j$,
 the recursion (\ref{EcMc}) and the explicit solution~(\ref{Eci})
 hold as derived above.
 To resolve~(\ref{Eci}) for the reflected amplitudes $\alpha_{0j}$
 as function of the incident amplitudes $\beta_{0j}$,
 we choose the notations
 \begin{equation}
-  \u\alpha_i
-  :=\left(\begin{array}{c}\alpha_{i1}\\\alpha_{i2}\end{array}\right),\quad
-  \u\beta_i
-  :=\left(\begin{array}{c}\beta_{i1}\\\beta_{i2}\end{array}\right),\quad
+  \u\alpha_j
+  :=\left(\begin{array}{c}\alpha_{j1}\\\alpha_{j2}\end{array}\right),\quad
+  \u\beta_j
+  :=\left(\begin{array}{c}\beta_{j1}\\\beta_{j2}\end{array}\right),\quad
   M:=M_1 ... M_N % TODO restore \cdots
   =:\left(\begin{array}{cc}\uu m_{11}&\uu m_{12}\\
                            \uu m_{21}&\uu m_{22}\end{array}\right),
@@ -604,3 +584,5 @@ which immediately yields
 \begin{equation}
   \u\alpha_0 = \uu m_{12}\,\uu m_{22}^{-1}\,\u\beta_0.
 \end{equation}
+
+\index{Multilayer|)}%

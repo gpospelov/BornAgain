@@ -193,13 +193,13 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
             length_1 = latticeItem->getRegisteredProperty(
                         SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            alpha_lattice = M_PI/2.0;
+            alpha_lattice = Units::PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(
                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            alpha_lattice = 2*M_PI/3.0;
+            alpha_lattice = 2*Units::PI/3.0;
         }
         else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
@@ -250,13 +250,13 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
             length_1 = latticeItem->getRegisteredProperty(
                         SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            angle = M_PI/2.0;
+            angle = Units::PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(
                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            angle = 2*M_PI/3.0;
+            angle = 2*Units::PI/3.0;
         }
         else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");

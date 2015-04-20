@@ -522,7 +522,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness *roughness)
 bool TransformFromDomain::isSquareLattice(double length1, double length2,
                                           double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, M_PI/2.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0)) {
         return true;
     }
     return false;
@@ -532,7 +532,7 @@ bool TransformFromDomain::isSquareLattice(double length1, double length2,
 bool TransformFromDomain::isHexagonalLattice(double length1, double length2,
                                              double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*M_PI/3.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0)) {
         return true;
     }
     return false;

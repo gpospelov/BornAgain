@@ -146,7 +146,7 @@ void MultiLayerDWBASimulation::runProtected()
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample
@@ -190,7 +190,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample

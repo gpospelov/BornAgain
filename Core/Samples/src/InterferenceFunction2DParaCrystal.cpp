@@ -80,7 +80,7 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
                     &InterferenceFunction2DParaCrystal::interferenceForXi;
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
             integrator(p_member_function, this);
-        result = integrator.integrate(0.0, M_PI, (void*)0)/M_PI;
+        result = integrator.integrate(0.0, Units::PI, (void*)0)/Units::PI;
    }
     else {
         result = interferenceForXi(m_xi, (void*)0);
@@ -112,7 +112,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
 {
     InterferenceFunction2DParaCrystal *p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    M_PI/2.0, 0.0, corr_length);
+                    Units::PI/2.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
@@ -124,7 +124,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
 {
     InterferenceFunction2DParaCrystal *p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    2.0*M_PI/3.0, 0.0, corr_length);
+                    2.0*Units::PI/3.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;

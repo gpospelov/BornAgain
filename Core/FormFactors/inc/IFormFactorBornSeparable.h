@@ -50,13 +50,13 @@ inline complex_t IFormFactorBornSeparable::evaluate(const cvector_t& k_i,
     complex_t radial, zpart;
     Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
-    if ( delta_qr > M_PI/2.0/getRadius() ) {
+    if ( delta_qr > Units::PID2/getRadius() ) {
         radial = bigRadialPart(q_bin);
     } else {
     radial = evaluate_for_q_radial(q_bin.getMidPoint());
     }
     double delta_qz = std::abs( q_bin.getDelta().z() );
-    if ( delta_qz > M_PI/2.0/getHeight() ) {
+    if ( delta_qz > Units::PID2/getHeight() ) {
         zpart = bigZPart(q_bin);
     } else {
         zpart = evaluate_for_q_z(q_bin.getMidPoint());

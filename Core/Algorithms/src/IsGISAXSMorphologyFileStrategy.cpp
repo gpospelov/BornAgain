@@ -111,6 +111,6 @@ bool IsGISAXSMorphologyFileStrategy::checkVectorSizes()
 
 double IsGISAXSMorphologyFileStrategy::hannFunction(double x, double y) const
 {
-    double result = (M_PI*M_PI/4.0)*std::cos(M_PI*x/m_win_x)*std::cos(M_PI*y/m_win_y);
+    double result = (Units::PI*Units::PI/4.0)*std::cos(Units::PI*x/m_win_x)*std::cos(Units::PI*y/m_win_y);
     return result;
 }

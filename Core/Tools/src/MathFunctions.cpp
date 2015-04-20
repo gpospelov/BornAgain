@@ -36,7 +36,7 @@ double MathFunctions::IntegratedGaussian(double value, double average, double st
 
 double MathFunctions::StandardNormal(double value)
 {
-    return std::exp(-value * value / 2.0) / std::sqrt(2 * M_PI);
+    return std::exp(-value * value / 2.0) / std::sqrt(Units::PI2);
 }
 
 double MathFunctions::GenerateStandardNormalRandom() // using GSL
@@ -185,7 +185,7 @@ complex_t MathFunctions::crbond_bessel_J0(const complex_t &z)
             kz = 10; //   "      "     "  12
         else
             kz = 12; //   "      "     "  14
-        complex_t ct1 = z1 - M_PI_4;
+        complex_t ct1 = z1 - Units::PID4;
         complex_t cp0 = cone;
         complex_t cq0 = -0.125 / z1;
         complex_t ptmp = std::pow(z1, -2.0);
@@ -258,7 +258,7 @@ complex_t MathFunctions::crbond_bessel_J1(const complex_t &z)
             cq1 += b1[k] * ptmp / z1;
             ptmp /= (z1 * z1);
         }
-        complex_t ct2 = z1 - 0.75 * M_PI;
+        complex_t ct2 = z1 - 0.75 * Units::PI;
         cj1 = std::sqrt(M_2_PI / z1) * (cp1 * std::cos(ct2) - cq1 * std::sin(ct2));
     }
     if (std::real(z) < 0.0)

@@ -74,7 +74,7 @@ void TestRootTree::complex_write()
     size_t n_phi_rotation_steps =100;
     size_t n_alpha_rotation_steps = 100;
     size_t n_np_size_steps = 10;
-    double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
+    double phi_step = 2*Units::PI/3.0/n_phi_rotation_steps;
     double alpha_step = 10*Units::degree/n_alpha_rotation_steps;
     double np_size_step = 0.5*Units::nanometer/n_np_size_steps;
     double np_size_start = 6.1*Units::nanometer -
@@ -258,7 +258,7 @@ void TestRootTree::simple_write()
         if(i_ev%10 ==0 ) std::cout << "nevent:" << i_ev << std::endl;
 
         alpha_i = 0.3 - 0.1*mr.Rndm(); // generating random alpha_i in the interval
-        //phi_i = M_PI*2.*mr.Rndm(); // generating random phi_i in the interval
+        //phi_i = Units::PI*2.*mr.Rndm(); // generating random phi_i in the interval
         phi_i = 0;
         nev = i_ev;
 
@@ -387,7 +387,7 @@ void TestRootTree::initializeMesoCrystal(
     // create mesocrystal
     double meso_radius = 300*Units::nanometer;
     double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
+    double surface_density = surface_filling_ratio/Units::PI/meso_radius/meso_radius;
     complex_t n_particle(1.0-1.55e-5, 1.37e-6);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso +

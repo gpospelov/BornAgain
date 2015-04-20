@@ -25,7 +25,7 @@ FormFactorGauss::FormFactorGauss(double volume)
     m_width = m_height;
     check_initialization();
     init_parameters();
-    m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
+    m_max_ql = std::sqrt(-4.0*Units::PI*std::log(Numeric::double_epsilon)
                / 3.0);
 }
 
@@ -36,7 +36,7 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     m_height = height;
     check_initialization();
     init_parameters();
-    m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
+    m_max_ql = std::sqrt(-4.0*Units::PI*std::log(Numeric::double_epsilon)
                / 3.0);
 }
 
@@ -71,9 +71,9 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
 
 
     complex_t z_part = std::exp(complex_t(0.,1.)*qzHdiv2) * m_height
-            * std::exp(-qzh*qzh/4.0/M_PI);
+            * std::exp(-qzh*qzh/4.0/Units::PI);
     double radial_part = m_width * m_width
-            * std::exp(-(qxr*qxr+qyr*qyr)/4.0/M_PI);
+            * std::exp(-(qxr*qxr+qyr*qyr)/4.0/Units::PI);
     complex_t result = radial_part * z_part;
     return result;
 }

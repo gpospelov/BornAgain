@@ -4,7 +4,6 @@
 #include "Beam.h"
 #include "Units.h"
 #include "ParameterPool.h"
-
 #include "gtest/gtest.h"
 
 
@@ -30,7 +29,7 @@ BeamTest::~BeamTest()
 
 TEST_F(BeamTest, BeamInitialState)
 {
-    EXPECT_DOUBLE_EQ(2.0*M_PI, emptyBeam.getCentralK()[0].real());
+    EXPECT_DOUBLE_EQ(2.0*Units::PI, emptyBeam.getCentralK()[0].real());
     EXPECT_DOUBLE_EQ(0.0, emptyBeam.getCentralK()[0].imag());
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[1]);
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[2]);

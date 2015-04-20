@@ -52,7 +52,7 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = M_PI/2.0;
+    lattice_params.m_angle = Units::PI/2.0;
     lattice_params.m_xi = xi;
     return new InterferenceFunction2DLattice(lattice_params);
 }
@@ -63,7 +63,7 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = 2.0*M_PI/3.0;
+    lattice_params.m_angle = 2.0*Units::PI/3.0;
     lattice_params.m_xi = xi;
     return new InterferenceFunction2DLattice(lattice_params);
 }
@@ -131,8 +131,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     double b = m_lattice_params.m_length_2;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
-    int qa_int = boost::math::iround( a*(qx*std::cos(xi)+qy*std::sin(xi))/(2*M_PI) );
-    int qb_int = boost::math::iround( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/(2*M_PI) );
+    int qa_int = boost::math::iround( a*(qx*std::cos(xi)+qy*std::sin(xi))/Units::PI2 );
+    int qb_int = boost::math::iround( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/Units::PI2 );
     qx_frac = qx - qa_int*m_asx - qb_int*m_bsx;
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
@@ -168,8 +168,8 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
                 " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     }
     double sinalpha = std::sin(m_lattice_params.m_angle);
-    double ainv = 2*M_PI/m_lattice_params.m_length_1/sinalpha;
-    double binv = 2*M_PI/m_lattice_params.m_length_2/sinalpha;
+    double ainv = Units::PI2/m_lattice_params.m_length_1/sinalpha;
+    double binv = Units::PI2/m_lattice_params.m_length_2/sinalpha;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
     m_asx = ainv*std::sin(xialpha);
@@ -188,7 +188,7 @@ void InterferenceFunction2DLattice::initialize_calc_factors(
 
     // constant prefactor
     //TODO: for non 2D distributions: check if this still applies
-    m_prefactor = 2.0*M_PI*coherence_length_x*coherence_length_y;
+    m_prefactor = Units::PI2*coherence_length_x*coherence_length_y;
 
     // number of reciprocal lattice points to use
     double qa_max, qb_max;

@@ -89,14 +89,14 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
         double tga = std::tan(m_alpha);
         double HdivRtga = H/tga/R;
 
-        return  M_PI/3.0*tga*R*R*R*
+        return  Units::PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
 
     } else {
 
         complex_t integral = m_integrator->integrate(0., m_height);
 
-        return 2.0*M_PI*integral;
+        return Units::PI2*integral;
     }
 }
 

@@ -118,11 +118,11 @@ FTDistribution1DCosine *FTDistribution1DCosine::clone() const
 double FTDistribution1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/M_PI-1.0) < Numeric::double_epsilon) {
+    if (std::abs(qw/Units::PI-1.0) < Numeric::double_epsilon) {
         return 0.5;
     }
     else {
-        return MathFunctions::Sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
+        return MathFunctions::Sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
     }
 }
 
@@ -172,7 +172,7 @@ double IFTDistribution2D::evaluateLattice(double qx, double qy) const
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
         double alpha, double a, double b, double& qa, double& qb) const
 {
-    double prefactor = 1.0/(2*M_PI); // divide by sin(m_delta)
+    double prefactor = 1.0/Units::PI2; // divide by sin(m_delta)
                                      // for unnormalized X*,Y* basis
     qa = a*prefactor*( std::sin(m_gamma+m_delta)*qX - std::sin(m_gamma)*qY );
     qb = b*prefactor*( -std::sin(alpha-m_gamma-m_delta)*qX + std::sin(alpha-m_gamma)*qY );

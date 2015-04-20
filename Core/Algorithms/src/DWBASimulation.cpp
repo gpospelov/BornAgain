@@ -108,7 +108,7 @@ bool DWBASimulation::checkPolarizationPresent() const
 double DWBASimulation::getWaveLength() const
 {
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    return 2.0*M_PI/real_ki.mag();
+    return Units::PI2/real_ki.mag();
 }
 
 const OutputData<double>& DWBASimulation::getPolarizationData() const

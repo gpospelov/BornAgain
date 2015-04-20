@@ -89,9 +89,9 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
 
 IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vector_in) const
 {
-    double a1_coord = vector_in.dot(m_b1)/2.0/M_PI;
-    double a2_coord = vector_in.dot(m_b2)/2.0/M_PI;
-    double a3_coord = vector_in.dot(m_b3)/2.0/M_PI;
+    double a1_coord = vector_in.dot(m_b1)/2.0/Units::PI;
+    double a2_coord = vector_in.dot(m_b2)/2.0/Units::PI;
+    double a3_coord = vector_in.dot(m_b3)/2.0/Units::PI;
     int c1 = (int)std::floor(a1_coord + 0.5);
     int c2 = (int)std::floor(a2_coord + 0.5);
     int c3 = (int)std::floor(a3_coord + 0.5);
@@ -101,9 +101,9 @@ IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vecto
 IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
         const kvector_t& vector_in) const
 {
-    double b1_coord = vector_in.dot(m_a1)/2.0/M_PI;
-    double b2_coord = vector_in.dot(m_a2)/2.0/M_PI;
-    double b3_coord = vector_in.dot(m_a3)/2.0/M_PI;
+    double b1_coord = vector_in.dot(m_a1)/2.0/Units::PI;
+    double b2_coord = vector_in.dot(m_a2)/2.0/Units::PI;
+    double b3_coord = vector_in.dot(m_a3)/2.0/Units::PI;
     int c1 = (int)std::floor(b1_coord + 0.5);
     int c2 = (int)std::floor(b2_coord + 0.5);
     int c3 = (int)std::floor(b3_coord + 0.5);
@@ -127,7 +127,7 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
 {
     std::vector<double> result;
 //    int granularity = std::max(1000, (int)size); //
-    double brillouin_volume = 8*M_PI*M_PI*M_PI/getVolume();
+    double brillouin_volume = 8*Units::PI*Units::PI*Units::PI/getVolume();
     double max_volume = max_radius*max_radius*phi_range.getDifference()*z_range.getDifference()/2.0;
     int max_nbr_angles = (int)(max_volume/brillouin_volume);
     if (size < (size_t)max_nbr_angles) {
@@ -169,9 +169,9 @@ void Lattice::computeReciprocalVectors() const
     kvector_t a23 = crossProduct(m_a2, m_a3);
     kvector_t a31 = crossProduct(m_a3, m_a1);
     kvector_t a12 = crossProduct(m_a1, m_a2);
-    m_b1 = 2.0*M_PI/dotProduct(m_a1, a23)*a23;
-    m_b2 = 2.0*M_PI/dotProduct(m_a2, a31)*a31;
-    m_b3 = 2.0*M_PI/dotProduct(m_a3, a12)*a12;
+    m_b1 = Units::PI2/dotProduct(m_a1, a23)*a23;
+    m_b2 = Units::PI2/dotProduct(m_a2, a31)*a31;
+    m_b3 = Units::PI2/dotProduct(m_a3, a12)*a12;
 }
 
 void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
@@ -179,9 +179,9 @@ void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
         const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
         const kvector_t& rec2, const kvector_t& rec3) const
 {
-    int max_X = (int)std::floor( rec1.mag()*radius/(2*M_PI) );
-    int max_Y = (int)std::floor( rec2.mag()*radius/(2*M_PI) );
-    int max_Z = (int)std::floor( rec3.mag()*radius/(2*M_PI) );
+    int max_X = (int)std::floor( rec1.mag()*radius/Units::PI2 );
+    int max_Y = (int)std::floor( rec2.mag()*radius/Units::PI2 );
+    int max_Z = (int)std::floor( rec3.mag()*radius/Units::PI2 );
 
     m_kvector_container.clear();
     for (int index_X = -max_X; index_X <= max_X; ++index_X)

@@ -17,8 +17,6 @@
 #include "MathFunctions.h"
 #include "Exceptions.h"
 
-#include <math.h>
-
 std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples,
         double sigma_factor, const AttLimits &limits) const {
     if (nbr_samples == 0) {

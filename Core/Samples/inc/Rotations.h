@@ -48,7 +48,7 @@ public:
     virtual Geometry::Transform3D getTransform3D() const=0;
 };
 
-IRotation *CreateProduct(const IRotation& left, const IRotation &right);
+BA_CORE_API_ IRotation *CreateProduct(const IRotation& left, const IRotation &right);
 
 class BA_CORE_API_ RotationX : public IRotation
 {

@@ -29,7 +29,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 
     // check if there is a roughness and if so, calculate the effective
     // matrix to insert at this interface (else unit matrix)
-    static const double picoeff = std::pow(M_PI/2., 1.5);
+    static const double picoeff = std::pow(Units::PID2, 1.5);
     for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
         double sigma = 0.0;
         if (sample.getLayerInterface(i)->getRoughness()) {

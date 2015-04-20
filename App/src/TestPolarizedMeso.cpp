@@ -99,7 +99,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     size_t n_max_phi_rotation_steps = 1;
     size_t n_sizes = 2;
 
-    double phi_step = M_PI/4.0/n_max_phi_rotation_steps;
+    double phi_step = Units::PI/4.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_sizes; ++j) {

@@ -51,7 +51,7 @@ void MultiLayerRoughnessDWBASimulation::run()
 void MultiLayerRoughnessDWBASimulation::runProtected()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     DWBASimulation::iterator it_intensity = m_dwba_intensity.begin(m_thread_info);
     while ( it_intensity != m_dwba_intensity.end(m_thread_info) )
@@ -113,7 +113,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
+    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./Units::PI;
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(

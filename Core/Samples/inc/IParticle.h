@@ -20,7 +20,6 @@
 #include "IMaterial.h"
 #include "Rotations.h"
 
-#include <memory>
 #include <boost/scoped_ptr.hpp>
 
 //! @class IParticle
@@ -73,7 +72,7 @@ public:
 
 protected:
     virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
-    std::auto_ptr<IRotation> mP_rotation;
+    boost::scoped_ptr<IRotation> mP_rotation;
 };
 
 inline void IParticle::setTransformation(const IRotation &rotation)

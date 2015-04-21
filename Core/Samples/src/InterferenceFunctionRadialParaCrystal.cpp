@@ -20,7 +20,6 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
     : m_peak_distance(peak_distance)
     , m_damping_length(damping_length)
-    , mp_pdf(0)
     , m_use_damping_length(true)
     , m_kappa(0.0)
     , m_domain_size(0.0)
@@ -49,8 +48,8 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
     result->setName(getName());
     result->setDomainSize(getDomainSize());
     result->setKappa(m_kappa);
-    if (mp_pdf) {
-        result->setProbabilityDistribution(*mp_pdf);
+    if (mP_pdf.get()) {
+        result->setProbabilityDistribution(*mP_pdf);
     }
     return result;
 }
@@ -58,7 +57,7 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const cvector_t& q) const
 {
-    if (!mp_pdf) {
+    if (!mP_pdf.get()) {
         throw NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");
@@ -100,7 +99,7 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(
     double qpar) const
 {
     complex_t phase = std::exp(complex_t(0.0, 1.0)*qpar*m_peak_distance);
-    double amplitude = mp_pdf->evaluate(qpar);
+    double amplitude = mP_pdf->evaluate(qpar);
     complex_t result = phase*amplitude;
     if (m_use_damping_length) {
         result *= std::exp(-m_peak_distance/m_damping_length);
@@ -111,16 +110,15 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(
 void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
         const IFTDistribution1D &pdf)
 {
-    if (mp_pdf != &pdf) {
-        delete mp_pdf;
-        mp_pdf = pdf.clone();
+    if (mP_pdf.get() != &pdf) {
+        mP_pdf.reset(pdf.clone());
     }
 }
 
 const IFTDistribution1D
     *InterferenceFunctionRadialParaCrystal::getPropabilityDistribution() const
 {
-    return mp_pdf;
+    return mP_pdf.get();
 }
 
 

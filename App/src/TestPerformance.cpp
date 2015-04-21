@@ -40,9 +40,9 @@ TestPerformance::TestPerformance()
     m_tests.push_back(new PerformanceTest("isgisaxs11",50));
     m_tests.push_back(new PerformanceTest("isgisaxs15",20));
     m_tests.push_back(new PerformanceTest("mesocrystal01",1));
-//    m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
-//    m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
-//    m_tests.push_back(new PerformanceTest("polmagcylinders2",50));
+    m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
+    m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
+    m_tests.push_back(new PerformanceTest("polmagcylinders2",50));
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
 }
 

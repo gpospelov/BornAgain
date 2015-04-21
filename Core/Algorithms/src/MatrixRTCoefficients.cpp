@@ -15,6 +15,11 @@
 
 #include "MatrixRTCoefficients.h"
 
+MatrixRTCoefficients *MatrixRTCoefficients::clone() const
+{
+    return new MatrixRTCoefficients(*this);
+}
+
 void MatrixRTCoefficients::calculateTRMatrices()
 {
     if (m_b_mag == 0.0) {

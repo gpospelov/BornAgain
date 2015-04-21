@@ -22,8 +22,8 @@ LayerSpecularInfo::LayerSpecularInfo()
 LayerSpecularInfo* LayerSpecularInfo::clone() const
 {
     LayerSpecularInfo *p_result = new LayerSpecularInfo;
-    p_result->mP_out_coeff_map = this->mP_out_coeff_map;
-    p_result->mP_in_coeffs = this->mP_in_coeffs;
+    p_result->mP_out_coeff_map.reset(this->mP_out_coeff_map->clone());
+    p_result->mP_in_coeffs.reset(this->mP_in_coeffs->clone());
     return p_result;
 }
 

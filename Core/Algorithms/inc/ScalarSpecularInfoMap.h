@@ -34,6 +34,8 @@ public:
                           double wavelength);
     virtual ~ScalarSpecularInfoMap() {}
 
+    virtual ScalarSpecularInfoMap* clone() const;
+
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ScalarRTCoefficients *getCoefficients(
             double alpha_f, double phi_f) const;

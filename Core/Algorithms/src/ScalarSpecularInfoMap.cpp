@@ -25,6 +25,11 @@ ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer,
 {
 }
 
+ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
+{
+    return new ScalarSpecularInfoMap(mp_multilayer, m_layer, m_wavelength);
+}
+
 const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(
         double alpha_f, double phi_f) const
 {

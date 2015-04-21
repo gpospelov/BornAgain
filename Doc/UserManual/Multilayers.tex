@@ -48,6 +48,12 @@ For rough interfaces, see Chapter~\ref{sec:Roughness}.
 
 \index{Multilayer!Indexing convention}%
 
+To compute scattering cross sections in DWBA,
+we first need to determine the distorted wave functions~$\psi_w(\r)$
+for $\r$ inside the sample.
+The following derivation holds for the incoming wave ($w=\ti$)
+as well as for the back-traced detected wave ($w=\tf$).
+
 We consider wave propagation in one layer~$j$
 \nomenclature[2j020]{$j$}{Index of layer in multilayer sample}%
 with constant average refractive index $\nz(z)=\nzj$.
@@ -58,11 +64,16 @@ has an upward and a downward propagating component,
 as per~(\ref{Epsipm}).
 Each component is a plane wave,
 \begin{equation}
-  \psi^\pm_{wj}(\r)=A^\pm_{wj}\e^{i\k^\pm_{wj}\r}.
+  \psi^\pm_{wj}(\r)=\e^{i\k^\pm_{\parallel w}\r_\parallel}\phi^\pm_{wj}(z)
 \end{equation}
-\nomenclature[2a123 2w010 2j010 \pm]{$A^\pm_{wj}$}{Amplitude of the plane wave $\Psi^\pm_{wj}(\r)$}%
-Here and in the following,
-the index~$w$ can take the values i and~f.
+with
+\begin{equation}\label{Ephizwj}
+  \phi^\pm_{wj}(\r)=A^\pm_{wj}\e^{\pm i\k_{\perp wj}(z-z_j)}.
+\end{equation}
+\nomenclature[2a123 2w010 2j010 \pm]{$A^\pm_{wj}$}{Amplitude of the plane wave $\phi^\pm_{wj}(\r)$}%
+For later convenience,
+the phase factor in (\ref{Ephizwj}) includes an offset
+given by~$z_j$, the $z$ coordinate at the bottom of layer~$j$.
 The amplitudes $A$ are often written with distinct letters
 T and~R to designate the transmitted or reflected beam,
 \begin{equation}
@@ -73,7 +84,11 @@ T and~R to designate the transmitted or reflected beam,
   in layer $j$ in downward (transmission) direction, also denoted $A^-_{wj}$}%
 \nomenclature[2r126 2w020 2j020 0]{$R_{wj}$}{Partial amplitude of $\psi_w(\r)$
   in layer $j$ in upward (reflection) direction, also denoted $A^+_{wj}$}%
-The wave vector can be decomposed as
+They need to be computed recursively,
+as described in the following subsection~\ref{Sacrolay}.
+
+Each plane wave component $\psi^\pm_{wj}(\r)$ has
+a three-dimensional wave vector
 \begin{equation}
   \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
 \end{equation}
@@ -88,44 +103,48 @@ The vertical wavenumber is obtained from (\ref{Ewavez}),
 \end{equation}
 The glancing angle is
 \begin{equation}\label{Edef_alpha}
-  \alpha_j:=\arctan(k_{\perp i}/k_\parallel).  
+  \alpha_{wj}:=\arctan(k_{\perp wj}/k_{\parallel w}).  
 \end{equation}
 Equivalently,
 \begin{equation}
-  k_\parallel=K n_j \cos\alpha_j. 
+  k_{\parallel w}=K n_j \cos\alpha_{wj}. 
 \end{equation}
-Since $k_\parallel$ is constant across layers,
+Since $k_{\parallel w}$ is constant across layers,
 we have
 \begin{equation}\label{ESnell}
-  n_j \cos\alpha_j = \text{the same for all }j,
+  n_j \cos\alpha_{wj} = \text{the same for all }j,
 \end{equation}
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
 
 %-------------------------------------------------------------------------------
-\subsection{Wave propagation across layers}
+\subsection{Wave propagation across layers}\label{Sacrolay}
 %-------------------------------------------------------------------------------
 
 \index{Fresnel coefficients}%
 \index{Transmission|see {Fresnel coefficients}}%
 \index{Reflection|seealso {Fresnel coefficients}}%
 
-At interfaces between layers,
-the wave function $\psi(\r)$ and its first derivative
-$\Nabla\psi(\r)$ must evolve continuously.
+The plane-wave amplitudes $A^\pm_{wj}$ need to be computed recursively
+from layer to layer,
+taking into account two boundary conditions:
+In the top layer, $A^-_{w0}=1$ is given by the
+incident or back-traced final plane wave.
+In the substrate, $A^+_{wN}=0$ because there is no radiation
+coming from $z\to-\infty$.
 
-
-In this section,
-the continuity of $\psi(z)$ and $\partial_z\psi(z)$ at layer interfaces
-is used to derive a recursion rule
-for the coefficients $a_j$ and $b_j$ of (\ref{Epsiz}).
-At the \textit{bottom} interface of layer~$j=0,\ldots,N-1$,
-continuity requires
+At layer interfaces, the optical potential changes discontinuously.
+From elementary quantum mechanics we know that
+piecewise solutions of the Schrödinger equations must be connected
+such that the wave function $\phi(\r)$ and its first derivative
+$\Nabla\phi(\r)$ evolve continuously.
+This means for the interface
+at the \textit{bottom} of layer~$j=0,\ldots,N-1$:%
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
-            \psi_j(z_j)&=&\psi_{j+1}(z_{j+1}+d_{j+1}),\\
-            \partial_z\psi_j(z_j)&=&\partial_z\psi_{j+1}(z_{j+1}+d_{j+1}),
+            \phi_j(z_j)&=&\phi_{j+1}(z_{j+1}+d_{j+1}),\\
+            \partial_z\phi_j(z_j)&=&\partial_z\phi_{j+1}(z_{j+1}+d_{j+1}),
   \end{array}
 \end{equation}
   where
@@ -133,21 +152,29 @@ continuity requires
   d_j:=z_{j-1}-z_{j}
 \end{equation}
 is the thickness of layer~$j$.
-With the solution (\ref{Epsiz}), conditions (\ref{Econtcond}) become
+
+To alleviate the notation,
+we omit the subscript~$w$ in the remainder of this section,
+and we abbreviate
+\begin{equation}
+  f_j := k_{\perp j}/K = \sqrt{\overline{n_j^2}-(k_\parallel/K)^2}.
+\end{equation}
+For the plane waves (\ref{Ephizwj}),
+the conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
-  a_j &+& b_j,
+  A^+_j &+& A^-_j,
   &=&
-  a_{j+1}\e^{iKf_{j+1}d_{j+1}} &+& b_{j+1}\e^{-iKf_{j+1}d_{j+1}},
+  a_{j+1}\e^{iKf_{j+1}d_{j+1}} &+& A^-_{j+1}\e^{-iKf_{j+1}d_{j+1}},
   \\
-  a_j f_j  &-& b_j f_j,
+  A^+_j f_j  &-& A^-_j f_j,
   &=&
- a_{j+1}\e^{iKf_{j+1}d_{j+1}} f_{j+1} &-& b_{j+1}\e^{-iKf_{j+1}d_{j+1}} f_{j+1}.
+ a_{j+1}\e^{iKf_{j+1}d_{j+1}} f_{j+1} &-& A^-_{j+1}\e^{-iKf_{j+1}d_{j+1}} f_{j+1}.
   \end{array}
 \end{equation}
 We introduce the vector notation
 \begin{equation}\label{Evecc}
-  c_j := \left( \begin{array}{c}a_j\\b_j\end{array} \right),
+  c_j := \left( \begin{array}{c}A^+_j\\A^-_j\end{array} \right),
 \end{equation}
 to write (\ref{Econt2}) as
 \begin{equation}\label{EFcFDc}
@@ -178,24 +205,30 @@ Straightforward computation yields
    \left(\begin{array}{cc}
        \delta_j(f_{j-1}+f_j)&\delta_j^*(f_{j-1}-f_j)\\
        \delta_j(f_{j-1}-f_j)&\delta_j^*(f_{j-1}+f_j)
-   \end{array}\right)
-   = \frac{1}{2}
-   \left(\begin{array}{cc}
-       \delta_j(1+\rho_j)&\delta_j^*(1-\rho_j)\\
-       \delta_j(1-\rho_j)&\delta_j^*(1+\rho_j)
-   \end{array}\right)
+   \end{array}\right).
 \end{equation}
-with the ratio
+We write
 \begin{equation}
-  \rho_j := \frac{f_j}{f_{j-1}}.
+   M = M_1 \cdots M_N
 \end{equation}
-The recursion starts from the semi-infinite substrate layer~$N$
-where there is no upwards propagating wave, hence $a_N=0$.
-For layer~$i$, the solution is
-\begin{equation}\label{Eci}
-  c_j
-  =
-  M_{j+1}.... M_{N} c_N.  % TODO restore \cdots
+for combined transfer matrix of the entire layer stack.
+
+The boundary conditions in the top and in the bottom layer
+leave us with two unkown amplitudes connected by
+\begin{equation}
+  \left( \begin{array}{c}A^+_0\\1\end{array} \right)
+  = M \left( \begin{array}{c}0\\A^-_N\end{array} \right).
+\end{equation}
+With vector
+\begin{equation}
+  m := M \left( \begin{array}{c}0\\1\end{array} \right),
+\end{equation}
+we obtain the solutions
+\begin{equation}
+  \begin{array}{lcl}
+    A^-_N &=& 1/m_2,\\[.2ex]
+    A^+_0 &=& m_1/m_1.
+  \end{array}
 \end{equation}
 
 %-------------------------------------------------------------------------------
@@ -355,7 +388,7 @@ of the perturbative potential~(\ref{EChiGraded})
 shall be written as
 \begin{equation}\label{Echij}
   \chi_j(\v{q})
-  := \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}\chi(\r).
+  := \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r).
 \end{equation}
 \nomenclature[1χ032 2j010 2q040]{$\chi_j(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
@@ -369,9 +402,6 @@ a sum over all layers,
      \chi_j(\k^\pm_{\ti j} - \k^\pm_{\tf j}).
 \end{equation}\vspace*{-5pt}
 }
-where
-$\mathcal{Z}_j$ denotes an interval on the vertical coordinate axis.
-
 
 
 

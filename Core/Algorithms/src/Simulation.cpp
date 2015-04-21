@@ -158,7 +158,7 @@ void Simulation::runSimulation()
     total_polarized_intensity.copyShapeFrom(m_polarization_output);
     total_intensity.setAllTo(0.);
     total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
-    ParameterPool *p_param_pool = createParameterTree();
+    boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
     for (size_t index=0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(
                 p_param_pool, index);

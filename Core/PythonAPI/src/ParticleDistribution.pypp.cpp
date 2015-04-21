@@ -370,6 +370,16 @@ void register_ParticleDistribution_class(){
                 , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
         
         }
+        { //::ParticleDistribution::getParticle
+        
+            typedef ::IParticle const * ( ::ParticleDistribution::*getParticle_function_type)(  ) const;
+            
+            ParticleDistribution_exposer.def( 
+                "getParticle"
+                , getParticle_function_type( &::ParticleDistribution::getParticle )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::ParticleDistribution::setAmbientMaterial
         
             typedef void ( ::ParticleDistribution::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;

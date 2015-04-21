@@ -41,9 +41,8 @@ For rough interfaces, see Chapter~\ref{sec:Roughness}.
 \section{Scalar case}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 %===============================================================================
-\subsection{Wave propagation}
+\subsection{Wave propagation and DWBA matrix element}
 %===============================================================================
 
 \index{Multilayer!Indexing convention}%
@@ -117,6 +116,27 @@ we have
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
+
+Since the $\psi^\pm_{wj}$ are plane waves within layer~$j$,
+we can at once write down the DWBA transition matrix~(\ref{EtmDWBAsum})
+\index{Distorted-wave Born approximation!multilayer}%
+\Emph{
+\begin{equation}\label{EtmDWBAft}
+  \bra \Psi_\tf|\chi|\Psi_\ti\ket
+  = \sum_{j} \sum_{\pm_\tf} \sum_{\pm_\ti}
+    A^\pm_{\ti j} A^{\pm *}_{\tf j}
+     \chi_j(\k^\pm_{\ti j} - \k^\pm_{\tf j})
+\end{equation}\vspace*{-5pt}
+}
+where
+\begin{equation}\label{Echij}
+  \chi_j(\v{q})
+  := \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
+\end{equation}
+\nomenclature[1χ032 2j010 2q040]{$\chi_j(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
+is the Fourier transform
+of the perturbative potential~(\ref{EChiGraded}),
+restricted to one layer.
 
 %-------------------------------------------------------------------------------
 \subsection{Wave propagation across layers}\label{Sacrolay}
@@ -227,92 +247,29 @@ we obtain the solutions
 \begin{equation}
   \begin{array}{lcl}
     A^-_N &=& 1/m_2,\\[.2ex]
-    A^+_0 &=& m_1/m_1.
+    A^+_0 &=& m_1/m_2.
   \end{array}
 \end{equation}
-
-%-------------------------------------------------------------------------------
-\subsection{Currents}
-%-------------------------------------------------------------------------------
-
-Currents shall be computed in relative units as
+It is a straightforward exercice to verify
+that for a single interface between two semi-infinite media,
+the reflection and transmission probabilities
+agree with Fresnel's result for $s$-polarized light,
 \begin{equation}
-  \v{J}:=\psi^*(\r)\frac{\Nabla}{2i}\psi(\r)+\text{c.c.}
+  \left| A^+_0\right|^2
+  = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2,
+  \quad
+  \left| A^-_N\right|^2
+  = TODO.
 \end{equation}
-We are interested in the component $J_z$.
-With (\ref{Epsiz}),
-we obtain in layer~$i$
-\begin{equation}\label{EJperp}
-  \begin{array}{lcl}
-  J_{zi} &=& \frac{1}{2}
-  \left( a_j^*\e^{-ik_{\perp i}(z-z_j)} + b_j^*\e^{ik_{\perp i}(z-z_j)} \right)
-  k_{\perp i}
-  \left( a_j\e^{ik_{\perp i}(z-z_j)} - b_j\e^{-ik_{\perp i}(z-z_j)} \right)
-  +\text{c.c.}\\[2ex]
-  &=& \left( |a_j|^2 - |b_j|^2 \right) K f_j,
-  \end{array}
-\end{equation}
-provided $k_{\perp i}$ is real.
-Obviously,
-the $|a_j|^2$ term is due to the upward beam
-and the $|b_j|^2$ term to the downward beam.
 
-In the absence of absorption we expect that the net current
-is the same in all layers.
-We verify this as follows.
-Using the vector notation~(\ref{Evecc}),
-we write~(\ref{EJperp}) as a sesquilinear form
-\begin{equation}
-  J_{zi}
-  = c_j^\dagger \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right) c_j.
-\end{equation}
-Using the recursion (\ref{EcMc}) for $c_j$,
-we obtain a recursion for $J_{zi}$:
-\begin{equation}\label{EJrec}
-  \begin{array}{lcl}
-    J_{zi} &=&
-    c_j^\dagger
-    \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right) c_j
-    \\[3ex]
-    &=&
-    c_{j+1}^\dagger M_{j+1}^\dagger
-    \left(\begin{array}{cc}Kf_j&0\\0&-Kf_j\end{array}\right)
-    M_{j+1}c_{j+1}
-    \\[3ex]
-    &=&
-    c_{j+1}^\dagger
-    \left(\begin{array}{cc}Kf_{j+1}&0\\0&-Kf_{j+1}\end{array}\right)
-    c_{j+1}
-    \\[3ex]
-    &=&
-    J_{z,j+1},
-  \end{array}
-\end{equation}
-which means that the net current is constant.
-
-For a single interface between two semi-infinite media,
-wave amplitudes are related by
-\begin{equation}
-    \left(\begin{array}{c}a_0\\b_0\end{array}\right)
-  = M_1
-    \left(\begin{array}{c}0\\b_1\end{array}\right)
-  = \frac{\delta_1^* b_1}{2 f_0}
-    \left(\begin{array}{c}f_0-f_1\\f_0+f_1\end{array}\right).
-\end{equation}
-The reflectivity of the interface is
-\begin{equation}\label{ER01}
-  R={\left|\frac{a_0}{b_0}\right|}^2
-   ={\left|\frac{f_0-f_1}{f_0+f_1}\right|}^2,
-\end{equation}
-which agrees with Fresnel's result for $s$-polarized light.
-
+\Work{How does the above relate to what is actually computed in BornAgain?}
 
 %-------------------------------------------------------------------------------
 \subsection{Damped waves in absorbing media
-  or under total reflection conditions}\label{s:complex}
+  or under total reflection}\label{s:complex}
 %-------------------------------------------------------------------------------
 
-If layer~$i$ absorbs radiation,
+If layer~$j$ absorbs radiation,
 its index of refraction $n_j$ has a positive imaginary component.
 By~(\ref{Edisp}),
 $k_\parallel^2+k_{\perp i}^2$ then also has a positive imaginary component.
@@ -321,7 +278,7 @@ it still follows that $\k_\parallel$ is constant.
 We assume that the top layer~0 is not absorbing.
 Hence $\k_\parallel$ is real.
 To fulfill~(\ref{Edisp}),
-it is necessary that $k_{\perp i}$
+it is necessary that $k_{\perp j}$
 has a positive imaginary component.
 In consequence,
 the intensities of the forward and backward travelling beams (\ref{Epsiz})
@@ -332,10 +289,10 @@ cannot be fulfilled if
 \begin{equation}\label{Etotrefcond}
   n_j<n_0\cos\alpha_0.  
 \end{equation}
-In this case, total reflection occurs at the top interface of layer~$i$,
-accompanied by an evanescent wave within layer~$i$.
+In this case, total reflection occurs at the top interface of layer~$j$,
+accompanied by an evanescent wave within layer~$j$.
 Strictly speaking,
-total reflection is only possible if layer~$i$ is not absorbing.
+total reflection is only possible if layer~$j$ is not absorbing.
 Otherwise, some intensity would be dissipated by the evanescent wave,
 and the reflection would not be total.
 Also, the unequality~(\ref{Etotrefcond}) is undefined
@@ -353,7 +310,7 @@ However, using $f_j$ allows for later generalizations
 to cope with absorbing media or with total reflection and evanescent waves.
 The wave number in (\ref{Epsiz}) can now be written as
 \begin{equation}\label{EkKf}
-  k_{\perp i} = K f_j.
+  k_{\perp j} = K f_j.
 \end{equation}
 
 With definition~(\ref{Edef_f}),
@@ -370,44 +327,17 @@ The geometric interpretation of the wave vectors $\k_\pm$
 in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable,
 and the computation of currents in
 Eqs.~(\ref{EJperp}--\ref{EJrec}) is invalid because it
-relies on $\Im k_{\perp i}=0$.
+relies on $\Im k_{\perp j}=0$.
 
-
-%-------------------------------------------------------------------------------
-\subsection{Numerical considerations}
-%-------------------------------------------------------------------------------
-
-...
-
-%-------------------------------------------------------------------------------
-\subsection{Scattering}
-%-------------------------------------------------------------------------------
-Restricting (\ref{EBornQ}) to one layer,
-the Fourier transform
-of the perturbative potential~(\ref{EChiGraded})
-shall be written as
-\begin{equation}\label{Echij}
-  \chi_j(\v{q})
-  := \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r).
-\end{equation}
-\nomenclature[1χ032 2j010 2q040]{$\chi_j(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
-We can then write the DWBA transition matrix~(\ref{EtmDWBAsum}) as
-a sum over all layers,
-\index{Distorted-wave Born approximation!multilayer}%
-\Emph{
-\begin{equation}\label{EtmDWBAft}
-  \bra \Psi_\tf|\chi|\Psi_\ti\ket
-  = \sum_{j} \sum_{\pm_\tf} \sum_{\pm_\ti}
-    A^\pm_{\ti j} A^{\pm *}_{\tf j}
-     \chi_j(\k^\pm_{\ti j} - \k^\pm_{\tf j}).
-\end{equation}\vspace*{-5pt}
-}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Reflection with polarization-dependent interactions}\label{s:pol}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Work{\indent The following draft must be reworked once
+  the chapter on polarized waves propagation is written.}
 
 %\cite{Deak_ppt, PhysRevB.76.224420, Deak2001113, PhysRevB.53.6158}.
 %\cite{RevModPhys.23.287}

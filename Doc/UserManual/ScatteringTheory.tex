@@ -66,7 +66,7 @@ The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \textit{quantum-mechanical sign convention}.
 It is also used in most optics textbooks.
-\index{Wave propagation!sign convention}%
+\index{Wave propagation!seealso {Sign convention}}%
 \index{Sign convention}%
 The opposite choice of a phase factor $\e^{+i\omega t}$ is 
 called the \textit{crystallographic sign convention},
@@ -472,28 +472,7 @@ of the scattering-length density.
 \subsection[Wave propagation in $2+1$ dimensions]{Wave propagation in $\v{2+1}$ dimensions}\label{Swave21}
 %===============================================================================
 
-Reflectometry and grazing-incidence scattering
-are designed for the investigation of surfaces, interfaces, and thin layers,
-or most generically:
-samples with a $2+1$ dimensional structure,
-on average translationally invariant in $x$ and $y$ direction,
-but structured in $z$ direction.
-By convention,
-we designate the \textit{sample plane} ($xy$) as \textit{horizontal},
-\index{Sample plane}%
-\index{Horizontal plane}%
-and the \textit{sample normal} ($z$) as \textit{vertical},
-\index{Sample normal}%
-\index{Vertical direction}%
-even if this does not correspond to the actual experimental geometry.\footnote
-{In many reflectometers,
- the scattering plane and the sample normal are horizontal in laboratory space.}
-The $z$ axis points upwards, hence out of the sample towards the
-vacuum (or air) half space where the incident radiation comes from,
-as illustrated in Fig.~\ref{fig:expgeom}.
-% TODO: add figure
-
-\begin{figure}[ht]
+\begin{figure}[tb]
   \centering
     \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
   \caption[Conventional GISAS scattering geometry.]{Geometric conventions
@@ -518,6 +497,27 @@ as illustrated in Fig.~\ref{fig:expgeom}.
   }
   \label{fig:expgeom}
 \end{figure}
+
+Reflectometry and grazing-incidence scattering
+are designed for the investigation of surfaces, interfaces, and thin layers,
+or most generically:
+samples with a $2+1$ dimensional structure,
+on average translationally invariant in $x$ and $y$ direction,
+but structured in $z$ direction.
+By convention,
+we designate the \textit{sample plane} ($xy$) as \textit{horizontal},
+\index{Sample plane}%
+\index{Horizontal plane}%
+and the \textit{sample normal} ($z$) as \textit{vertical},
+\index{Sample normal}%
+\index{Vertical direction}%
+even if this does not correspond to the actual experimental geometry.\footnote
+{In many reflectometers,
+ the scattering plane and the sample normal are horizontal in laboratory space.}
+The $z$ axis points upwards, hence out of the sample towards the
+vacuum (or air) half space where the incident radiation comes from,
+as illustrated in Fig.~\ref{fig:expgeom}.
+% TODO: add figure
 
 Vertical modulations of the refractive index $n(\r)$
 cause refraction and reflection of an incident plane wave.
@@ -551,21 +551,25 @@ Wave propagation,
 unperturbed by~$\chi$, but including refraction and reflection effects,
 obeys the homogeneous equation
 \begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz(z)\right\}\psi_\ti(\r) = 0.
+  \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r) = 0.
 \end{equation}
 It is solved for the horizontal coordinate~$\r_\parallel$
 by the factorization ansatz
+\Emph{
 \begin{equation}\label{Ekpar}
-\psi_\ti(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
-\end{equation}
+\psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
+\end{equation}\vspace*{-10pt}
+}
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
 The horizontal wave vector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
+\Emph{
 \begin{equation}\label{Ewavez}
 \left\{\partial_z^2 + K^2\nz(z) - k_\parallel^2 \right\} \phi(z) = 0.
-\end{equation}
+\end{equation}\vspace*{-10pt}
+}
 When an incident plane wave,
 travelling downwards with
 $\phi(z)=\e^{-ik_\perp z}$,
@@ -586,12 +590,12 @@ For a graded refractive index
 \index{Refractive index!graded}%
 $\nz$ that is a smooth function of~$z$,
 the differential equation~(\ref{Ewavez}) is best solved
-with the WKB method.\footnote
+using the WKB method.\footnote
 {Also called \textit{semiclassical approximation} or
 \textit{phase integral method},
-originally developed
-by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
-and named WKB method after Wentzel (1926), Kramers (1926), Brillouin (1926).
+%originally developed
+%by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
+named after Wentzel (1926), Kramers (1926), Brillouin (1926).
 See any textbook on quantum mechanics.}
 \index{WKB method}%
 \index{Semiclassical approximation|see {WKB method}}%
@@ -737,9 +741,37 @@ which adds to the complexity of GISAS patterns.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Refractive index!sign convention}%
-The complex refractive index 
-shall be written as $n=1-\delta +i\beta$,
-with two small real parameters $\delta, \beta$.
+The complex refractive index of a given material
+shall be written as
+\begin{equation}\label{Endb1}
+  n\doteq 1-\delta +i\beta,  
+\end{equation}
+\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
+   $n=1-\delta +i\beta$}%
+\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
+introducing two small real parameters $\delta, \beta$.
+However, 
+in our derivations, which are all rooted in~(\ref{EnSchrodi}),
+$n$ only appears as $n^2$. 
+Therefore, we actually \textit{define}
+\begin{equation}\label{Endb2}
+  n^2:=1-2\delta+2i\beta,
+\end{equation}
+and read (\ref{Endb1}) as an excellent approximation.
 
-\MissingSection
+While the real part of $n$ is responsible for refraction, reflection,
+and scattering,
+the imaginary part describes absorption
+and leds to a damping of propagating waves.
+The plus sign in from of the imaginary part is a consequence of
+the quantum-mechanical sign convention;
+in the X-ray crystallography convention it would be a minus sign.
+\index{Sign convention}%
+
+The factorization ansatz (\ref{Ekpar}) leaves us some freedom
+how to deal with an imaginary part of~$n$.
+We \textit{choose} that horizontal wavevectors $\k_\parallel$
+shall always be real.
+The damping then appears in the vertical wave function~$\phi(z)$
+that is governed by the complex wave equation (\ref{Ewavez}).
 

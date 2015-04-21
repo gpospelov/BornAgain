@@ -18,17 +18,24 @@
 
 #include <boost/scoped_ptr.hpp>
 
-
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer,
-                                             int layer, double wavelength)
-: m_layer(layer)
-, m_wavelength(wavelength)
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer,
+                                             double wavelength)
+    : m_layer(layer), m_wavelength(wavelength)
 {
-    mP_inverted_multilayer.reset(multilayer->cloneInvertB());
+    if (multilayer)
+        mP_inverted_multilayer.reset(multilayer->cloneInvertB());
 }
 
-const MatrixRTCoefficients *MatrixSpecularInfoMap::getCoefficients(
-        double alpha_f, double phi_f) const
+MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
+{
+    MatrixSpecularInfoMap *result = new MatrixSpecularInfoMap(0, m_layer, m_wavelength);
+    if (mP_inverted_multilayer.get())
+        result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
+    return result;
+}
+
+const MatrixRTCoefficients *MatrixSpecularInfoMap::getCoefficients(double alpha_f,
+                                                                   double phi_f) const
 {
     SpecularMagnetic specular_calculator;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;

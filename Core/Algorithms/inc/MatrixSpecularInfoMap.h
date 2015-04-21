@@ -34,6 +34,8 @@ public:
                           double wavelength);
     virtual ~MatrixSpecularInfoMap() {}
 
+    virtual MatrixSpecularInfoMap* clone() const;
+
     //! Retrieves the amplitude coefficients for the given angles
     virtual const MatrixRTCoefficients *getCoefficients(
             double alpha_f, double phi_f) const;

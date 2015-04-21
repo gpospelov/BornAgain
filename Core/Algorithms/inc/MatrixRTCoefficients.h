@@ -31,6 +31,8 @@ public:
     MatrixRTCoefficients() : m_kt(0.0) {}
     virtual ~MatrixRTCoefficients() {}
 
+    virtual MatrixRTCoefficients* clone() const;
+
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
     virtual Eigen::Vector2cd T1plus() const;

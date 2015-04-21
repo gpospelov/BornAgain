@@ -31,6 +31,8 @@ public:
     ScalarRTCoefficients();
     virtual ~ScalarRTCoefficients() {}
 
+    virtual ScalarRTCoefficients* clone() const;
+
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
     virtual Eigen::Vector2cd T1plus() const;
@@ -70,6 +72,11 @@ inline ScalarRTCoefficients::ScalarRTCoefficients()
     m_min(0) = 0.0;
     m_min(1) = complex_t(1.0, 0.0);
     t_r << complex_t(1.0, 0.0), complex_t(0.0, 0.0);
+}
+
+inline ScalarRTCoefficients *ScalarRTCoefficients::clone() const
+{
+    return new ScalarRTCoefficients(*this);
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const

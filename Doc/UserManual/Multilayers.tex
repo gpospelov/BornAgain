@@ -88,7 +88,7 @@ as described in the following subsection~\ref{Sacrolay}.
 
 Each plane wave component $\psi^\pm_{wj}(\r)$ has
 a three-dimensional wave vector
-\begin{equation}
+\begin{equation}\label{Ekpmwj3}
   \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
 \end{equation}
 \nomenclature[2z060]{$\v{\hat z}$}{Unit vector along the sample normal}%
@@ -97,7 +97,7 @@ As explained in connection with~(\ref{Ekpar}),
 the in-plane wave vector $\k_{\parallel w}$ remains constant
 across layer interfaces.
 The vertical wavenumber is obtained from (\ref{Ewavez}),
-\begin{equation}
+\begin{equation}\label{Ekperpwj}
   k_{\perp wj} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
 \end{equation}
 The glancing angle is
@@ -269,70 +269,65 @@ agree with Fresnel's result for $s$-polarized light,
   or under total reflection}\label{s:complex}
 %-------------------------------------------------------------------------------
 
-If layer~$j$ absorbs radiation,
-its index of refraction $n_j$ has a positive imaginary component.
-By~(\ref{Edisp}),
-$k_\parallel^2+k_{\perp i}^2$ then also has a positive imaginary component.
-From the continuity of $\psi$ and $\Nabla\psi$ across layer interfaces
-it still follows that $\k_\parallel$ is constant.
-We assume that the top layer~0 is not absorbing.
-Hence $\k_\parallel$ is real.
-To fulfill~(\ref{Edisp}),
-it is necessary that $k_{\perp j}$
-has a positive imaginary component.
-In consequence,
-the intensities of the forward and backward travelling beams (\ref{Epsiz})
-decrease exponentially in~$\pm z$.
+In Sect.~\ref{Sabsorption},
+we have chosen the horizontal wave vector $\k_{\parallel}$
+to be always real and constant.
+In contrast, the vertical wave number $k_{\perp j}$,
+given by (\ref{Ekperpwj}),
+can become imaginary or complex.
+If $\overline{n_j^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
+then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
+and the radicand in (\ref{Ekperpwj}) becomes negative
+so that $k_{\perp j}$ becomes pure imaginary.
+\index{Wave vector!complex}%
+If the layer is absorbing,
+described by an positive imaginary part of $\overline{n_j^2}$,
+then the radicand in (\ref{Ekperpwj}) becomes complex,
+and the wave number $k_{\perp j}$ as well.
+For complex $k_{\perp j}$,
+the theory developed above remains applicable,
+except that the geometric interpretation of the wave vectors $\k_\pm$
+in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable.
 
-Snell's law of refraction (\ref{ESnell})
-cannot be fulfilled if
-\begin{equation}\label{Etotrefcond}
-  n_j<n_0\cos\alpha_0.  
+Writing
+\begin{equation}
+  k_\perp = k_\perp' + i k_\perp''
 \end{equation}
-In this case, total reflection occurs at the top interface of layer~$j$,
-accompanied by an evanescent wave within layer~$j$.
-Strictly speaking,
-total reflection is only possible if layer~$j$ is not absorbing.
-Otherwise, some intensity would be dissipated by the evanescent wave,
-and the reflection would not be total.
-Also, the unequality~(\ref{Etotrefcond}) is undefined
-if $n_j$ has an imaginary component.
-
-We abbreviate
-\begin{equation}\label{Edef_f}
-f_j := \sqrt{ n_j^2 - n_0^2 \cos^2\alpha_0 },
+for a decomposition into a real and an imaginary part,
+we find an exponential decay of the plane wave amplitudes
+\begin{equation}\label{Ephidamp}
+  \left|\phi^\pm_j(z)\right|
+  = \e{\mp k_{\perp j}'' z}
 \end{equation}
-which is a combination of material parameters ($n_0$, $n_j$)
-and a geometric parameter ($\alpha_0$) that describes the incident beam.
-If $n_j$ is real, and the argument of the square root nonnegative,
-we simply have $f_j=n_j\sin\alpha_j$.
-However, using $f_j$ allows for later generalizations
-to cope with absorbing media or with total reflection and evanescent waves.
-The wave number in (\ref{Epsiz}) can now be written as
-\begin{equation}\label{EkKf}
-  k_{\perp j} = K f_j.
+along their propagation direction~$\pm z$.
+With an analogous decomposition
+of the three-dimensional wave vector (\ref{Ekpmwj3}),
+we obtain for the flux, defined as in~(\ref{EdefJ}),
+\begin{equation}
+  \v{J}_j(\r) = \k' \e^{-2k_{\perp j}z}.
 \end{equation}
+In the special case of a pure imaginary~$k_{\perp j}$,
+the flux direction is $\k'=\k_\parallel$:
+$\psi_j(\r)$ is an \textit{evanescent wave},
+\index{Evanescent wave}%
+travelling horizontally,
+and therefore transmitting no radiation intensity to lower layers.
+In the stationary state,
+all incoming radiation undergoes \textit{total reflection}.
+\index{Total reflection}%
 
-With definition~(\ref{Edef_f}),
-total reflection occurs if $f_j$ is a pure imaginary number.
-For an absorbing medium, $f_j$ has a positive imaginary part
-and a non-zero real part.
-Therefore it is appropriate to treat total reflection as a special
-case of refraction by a medium with complex~$f_j$.
-
-For complex $f_j$,
-the theory developed above
-remains applicable, with the following exceptions:
-The geometric interpretation of the wave vectors $\k_\pm$
-in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable,
-and the computation of currents in
-Eqs.~(\ref{EJperp}--\ref{EJrec}) is invalid because it
-relies on $\Im k_{\perp j}=0$.
-
-
+In the generic case of a complex~$k_{\perp j}$,
+the flux has a vertical component.
+Accordingly, the total reflection is not perfect.
+Some intensity is dissipated in layer $j$.
+\index{Dissipation}%
+And if layer $j>N$ is not too thick,
+then some radiation intensity also tunnels into the adjecent layer $j+1$.
+\index{Tunneling}%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage % TEMPORARY
 \section{Reflection with polarization-dependent interactions}\label{s:pol}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

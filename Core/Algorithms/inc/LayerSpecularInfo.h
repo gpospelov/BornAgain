@@ -44,9 +44,7 @@ public:
     void addOutCoefficients(ISpecularInfoMap *rt_coefficient_map);
 
     //! Adds the amplitude coefficients for the incoming wavevector
-    void addInCoefficients(ILayerRTCoefficients *rt_coefficients) {
-        mP_in_coeffs.reset(rt_coefficients);
-    }
+    void addInCoefficients(ILayerRTCoefficients *rt_coefficients);
 
     //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles

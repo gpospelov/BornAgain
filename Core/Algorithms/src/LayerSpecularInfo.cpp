@@ -34,6 +34,12 @@ void LayerSpecularInfo::addOutCoefficients(ISpecularInfoMap* rt_coefficient_map)
     }
 }
 
+void LayerSpecularInfo::addInCoefficients(ILayerRTCoefficients *rt_coefficients) {
+    if(mP_in_coeffs.get() != rt_coefficients) {
+        mP_in_coeffs.reset(rt_coefficients);
+    }
+}
+
 const ILayerRTCoefficients* LayerSpecularInfo::getOutCoefficients(
         double alpha_f, double phi_f) const
 {

@@ -23,7 +23,6 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
         SimulationParameters sim_params)
 : m_sim_params(sim_params)
-, mp_specular_info(0)
 {
 }
 
@@ -38,9 +37,8 @@ void IInterferenceFunctionStrategy::init(
 void IInterferenceFunctionStrategy::setSpecularInfo(
         const LayerSpecularInfo &specular_info)
 {
-    if (mp_specular_info != &specular_info) {
-        delete mp_specular_info;
-        mp_specular_info = specular_info.clone();
+    if (mP_specular_info.get() != &specular_info) {
+        mP_specular_info.reset(specular_info.clone());
     }
 }
 
@@ -76,9 +74,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
 {
     clearFormFactorLists();
     const ILayerRTCoefficients *p_in_coeffs =
-            mp_specular_info->getInCoefficients();
+            mP_specular_info->getInCoefficients();
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-            mp_specular_info->getOutCoefficients(
+            mP_specular_info->getOutCoefficients(
                     alpha_f_bin.getMidPoint(), 0.0) );
     SafePointerVector<FormFactorInfo>::const_iterator it =
             m_ff_infos.begin();
@@ -96,9 +94,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
 {
     clearFormFactorLists();
     const ILayerRTCoefficients *p_in_coeffs =
-            mp_specular_info->getInCoefficients();
+            mP_specular_info->getInCoefficients();
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-            mp_specular_info->getOutCoefficients(
+            mP_specular_info->getOutCoefficients(
                     alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint()) );
     SafePointerVector<FormFactorInfo>::const_iterator it =
             m_ff_infos.begin();
@@ -203,7 +201,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
             + par1*(pars->phi_bin.m_upper - pars->phi_bin.m_lower);
     k_f.setLambdaAlphaPhi(pars->wavelength, alpha, phi);
     boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
-                mp_specular_info->getOutCoefficients(alpha, phi));
+                mP_specular_info->getOutCoefficients(alpha, phi));
     k_f.setZ(out_coeff->getScalarKz());
 
     Bin1DCVector k_f_bin(k_f, k_f);
@@ -228,7 +226,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
             + par1*(pars->phi_bin.m_upper - pars->phi_bin.m_lower);
     k_f.setLambdaAlphaPhi(pars->wavelength, alpha, phi);
     boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
-                mp_specular_info->getOutCoefficients(alpha, phi));
+                mP_specular_info->getOutCoefficients(alpha, phi));
     k_f.setZ(out_coeff->getScalarKz());
 
     Bin1DCVector k_f_bin(k_f, k_f);

@@ -1,3 +1,63 @@
+BornAgain-1.1.0, released 2015.04.15
+  > Summary:
+    1) New form factor of truncated cube
+    2) New features in Graphical User Interface
+       a) Beam divergence, detector resolution function
+       b) ParticleComposition (particle composed from other particles)
+       c) ParticleDistribution (particle with size distribution)
+       d) Export of GUI simulation into a Python script for novice users
+    3) Changes in PythonAPI:
+       a) LatticeBasis now is called a ParticleComposition
+       b) Transform3D object is removed in the favor of RotationX, RotationY, RotationZ and RotationEuler objects
+  > Details of Sprint #26 (see http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues)
+  * Bug #951: Unit tests failing with boost-1.57
+  * Bug #968: Merge forked bibliography files
+  * Bug #969: Let user manual version be same as software version
+  * Bug #974: rename BORNAGAIN_MAN
+  * Bug #997: GUI: progress bar shows wrong progress in the case of beam divergence
+  * Bug #998: GUI: beam wavelength with wide gaussian distribution cause crash
+  * Bug #999: GUI: Mouse wheel events on InstrumentView affects values in combo widgets
+  * Bug #1001: GUI: Applying LogNormal distribution to inclination angle causes simulation job failure
+  * Bug #1011: GUI crashes at wrong formfactor parameters
+  * Bug #1037: Doubling of unit cell in hexagonal lattice yields wrong results
+  * Bug #1038: GUI: python script generation fails for the distributed particle
+  * Bug #1041: GUI: depth of particles cannot be negative
+  * Bug #1043: Check R,T coefficients provided by SpecularSimulation class
+  * Feature #827: Forbid in-source build
+  * Feature #834: Integrate python script generation in GUI
+  * Feature #883: Provide the Simulation with possibility to post process IntensityData with the detector resolution function
+  * Feature #895: GUI: implement Python script viewer in SampleView
+  * Feature #924: GUI: update list of saved projects
+  * Feature #937: Revise content and behaviour of GUI's widgetbox for standard samples
+  * Feature #941: GUI: implement detector resolution function
+  * Feature #943: Implement beam divergence in GUI
+  * Feature #972: Setup and describe GUI-version as the default program, add Qt5 dependences to online installation instructions, and use the distributions' native Qt5
+  * Feature #973: GUI invocation: 'BornAgain' -> 'bornagain' (Unix commands must be all lowercase)
+  * Feature #977: Implement GUI version of LatticeBasis
+  * Feature #1006: Make icon for Particle Collection in GUI
+  * Feature #1007: Implement support for Particle Collection in python script generation
+  * Feature #1008: Provide GUI functional test for ParticleComposition
+  * Feature #1010: GUI: provide possibility to fix min, max intensity values while tuning parameters in RealTimeView
+  * Feature #1017: Provide basic working GUI version of ParticleDistribution with single parameter distribution
+  * Feature #1018: Refactor GUI (and possibly core) version of Transformation to enable a distribution of position/rotation
+  * Feature #1036: Implement FormFactorTruncatedCube in GUI
+  * Documentation #394: Write man page(s)
+  * Documentation #659: Extend introduction of User manual
+  * Documentation #942: Write release 1.0.0 news letter for extended mailing list
+  * Documentation #944: Drupal: add small gallery on Welcome page
+  * Documentation #946: Drupal: write how to get help and how to request a new feature in FAQ section
+  * Documentation #949: Drupal: implement tracking of BornAgain downloads number in Google Analytics
+  * Documentation #952: Mention python gdal module in the description of the load tiff data example
+  * Documentation #956: FormFactorTetrahedron: difference in equations in .cpp file and the manual
+  * Documentation #965: convert user manual to xelatex
+  * Documentation #978: Make index for User Manual
+  * Refactoring #950: Refactor JobQueueModel to rely on standard SessionModel
+  * Refactoring #960: GUI: refactor SampleDesigner to use UniversalPropertyEditor
+  * Testing #555: Implement ParticleCoreShell unit test
+  * Testing #1000: Implement ParameterDistribution and DistributionHandler unit tests
+  * Testing #1003: Implement LatticeBasis unit test
+  * Support #577: Implement form factor of truncated cubes
+
 BornAgain-1.0.0, released 2015.01.29
   > Summary:
     1) Graphical User Interface officially included into the Release

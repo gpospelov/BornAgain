@@ -20,50 +20,40 @@
 
 
 Particle::Particle()
-    : mp_material(0)
-    , mp_ambient_material(0)
-    , mp_form_factor(0)
 {
     setName("Particle");
 }
 
 
 Particle::Particle(const IMaterial &p_material)
-    : mp_material(p_material.clone())
-    , mp_ambient_material(0)
-    , mp_form_factor(0)
+    : mP_material(p_material.clone())
 {
     setName("Particle");
 }
 
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
-    : mp_material(p_material.clone())
-    , mp_ambient_material(0)
-    , mp_form_factor(form_factor.clone())
+    : mP_material(p_material.clone())
+    , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
-    registerChild(mp_form_factor);
+    registerChild(mP_form_factor.get());
 }
 
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
         const IRotation &rotation)
-    : mp_material(p_material.clone())
-    , mp_ambient_material(0)
-    , mp_form_factor(form_factor.clone())
+    : mP_material(p_material.clone())
+    , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
     mP_rotation.reset(rotation.clone());
-    registerChild(mp_form_factor);
+    registerChild(mP_form_factor.get());
 }
 
 
 Particle::~Particle()
 {
-    delete mp_material;
-    delete mp_ambient_material;
-    delete mp_form_factor;
 }
 
 
@@ -71,9 +61,9 @@ Particle* Particle::clone() const
 {
     Particle *result = new Particle();
 
-    if(mp_form_factor) result->setFormFactor(*mp_form_factor);
-    result->setMaterial(*mp_material);
-    result->setAmbientMaterial(*mp_ambient_material);
+    if(mP_form_factor.get()) result->setFormFactor(*mP_form_factor);
+    result->setMaterial(*mP_material);
+    result->setAmbientMaterial(*mP_ambient_material);
     if(mP_rotation.get()) result->setTransformation(*mP_rotation);
     result->setName(getName());
 
@@ -84,11 +74,12 @@ Particle* Particle::clone() const
 Particle* Particle::cloneInvertB() const
 {
     Particle *result = new Particle();
-    if(mp_form_factor) result->setFormFactor(*mp_form_factor);
+    if(mP_form_factor.get()) result->setFormFactor(*mP_form_factor);
 
-    if(mp_material) result->mp_material = Materials::createInvertedMaterial(mp_material);
-    if(mp_ambient_material)
-        result->mp_ambient_material = Materials::createInvertedMaterial(mp_ambient_material);
+    if(mP_material.get())
+        result->mP_material.reset(Materials::createInvertedMaterial(mP_material.get()));
+    if(mP_ambient_material)
+        result->mP_ambient_material.reset(Materials::createInvertedMaterial(mP_ambient_material.get()));
 
     if(mP_rotation.get()) result->mP_rotation.reset(mP_rotation->clone());
 
@@ -107,36 +98,35 @@ IFormFactor* Particle::createFormFactor(
             new FormFactorDecoratorMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
     if (mP_rotation.get()) {
-        boost::scoped_ptr<const IMaterial> transformed_material(mp_material->
+        boost::scoped_ptr<const IMaterial> transformed_material(mP_material->
                 createTransformedMaterial(*mP_rotation));
         p_ff->setMaterial(*transformed_material);
     } else {
-        p_ff->setMaterial(*mp_material);
+        p_ff->setMaterial(*mP_material);
     }
-    p_ff->setAmbientMaterial(*mp_ambient_material);
+    p_ff->setAmbientMaterial(*mP_ambient_material);
     return p_ff;
 }
 
 void Particle::setFormFactor(const IFormFactor &form_factor)
 {
-    if (&form_factor != mp_form_factor) {
-        deregisterChild(mp_form_factor);
-        delete mp_form_factor;
-        mp_form_factor = form_factor.clone();
-        registerChild(mp_form_factor);
+    if (&form_factor != mP_form_factor.get()) {
+        deregisterChild(mP_form_factor.get());
+        mP_form_factor.reset(form_factor.clone());
+        registerChild(mP_form_factor.get());
     }
 }
 
 IFormFactor* Particle::createTransformedFormFactor() const
 {
-    if(!mp_form_factor) return 0;
+    if(!mP_form_factor.get()) return 0;
     IFormFactor *p_result;
     if(mP_rotation.get()) {
         p_result = new FormFactorDecoratorTransformation(
-                    mp_form_factor->clone(), *mP_rotation);
+                    mP_form_factor->clone(), *mP_rotation);
     }
     else {
-        p_result = mp_form_factor->clone();
+        p_result = mP_form_factor->clone();
     }
     return p_result;
 }

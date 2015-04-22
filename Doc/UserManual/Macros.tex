@@ -13,30 +13,34 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\renewcommand\Im{\operatorname{Im}}
-\renewcommand\Re{\operatorname{Re}}
+% Math operators
+%\renewcommand\Im{\operatorname{Im}}
+%\renewcommand\Re{\operatorname{Re}}
+\def\Re{\ensuremath{\text{Re}\,}}
+%\renewcommand{\Im}{\ensuremath{\text{Im}\,}}
 
 \DeclareMathOperator{\sinc}{sinc}
 
-%vector notations
+% Vectors
 \renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
 \newcommand{\Nabla}{\mathbf{\nabla}}
 
-%curly letters
+% Curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}
 \newcommand{\curlp}{\ensuremath{\mathcal{P}}}
 \def\Sample{\ensuremath{\mathcal{M}}}
 \def\Sphere{\ensuremath{\mathcal{S}}}
 
-%pair correlation functions
-\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \v{#3}_{#1} , \v{#3}_{#2} \right)}}
-\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \v{#3}_{#1 #2} \right)}}
-
-%ensemble average
+% Ensemble average
 \newcommand{\bra}{\ensuremath{\left\langle}}
 \newcommand{\ket}{\ensuremath{\right\rangle}}
 
+% Pair correlation functions
+\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \v{#3}_{#1} , \v{#3}_{#2} \right)}}
+\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \v{#3}_{#1 #2} \right)}}
+
+% Fixed-font words
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\Python}{\Code{Python}}%

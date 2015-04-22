@@ -104,6 +104,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
         (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin,
                 alpha_f_bin, phi_f_bin);
+        m_ff_pol.push_back(ff_mat);
         m_ff00.push_back((complex_t)ff_mat(0,0));
         m_ff01.push_back((complex_t)ff_mat(0,1));
         m_ff10.push_back((complex_t)ff_mat(1,0));

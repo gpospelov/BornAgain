@@ -105,6 +105,9 @@ private:
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;
+
+    //! cached polarized form factors
+    mutable std::vector<Eigen::Matrix2cd> m_ff_pol;
 };
 
 inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t& k_i,

@@ -147,13 +147,9 @@ restricted to one layer.
 \index{Reflection|seealso {Fresnel coefficients}}%
 
 The plane-wave amplitudes $A^\pm_{wj}$ need to be computed recursively
-from layer to layer,
-taking into account two boundary conditions:
-In the top layer, $A^-_{w0}=1$ is given by the
-incident or back-traced final plane wave.
-In the substrate, $A^+_{wN}=0$ because there is no radiation
-coming from $z\to-\infty$.
-
+from layer to layer.
+Since these computations are identical for incident and final waves,
+we omit the subscript~$w$ in the remainder of this section.
 At layer interfaces, the optical potential changes discontinuously.
 From elementary quantum mechanics we know that
 piecewise solutions of the Schrödinger equations must be connected
@@ -173,52 +169,34 @@ at the \textit{bottom} of layer~$j=0,\ldots,N-1$:%
 \end{equation}
 is the thickness of layer~$j$.
 
-To alleviate the notation,
-we omit the subscript~$w$ in the remainder of this section,
-and we abbreviate
+We abbreviate
 \begin{equation}
-  f_j := k_{\perp j}/K = \sqrt{\overline{n_j^2}-(k_\parallel/K)^2}.
+  f_j := k_{\perp j}/K = \sqrt{\overline{n_j^2}-(k_\parallel/K)^2}
+\end{equation}
+and
+\begin{equation}
+   \delta_j := \e^{iKf_jd_j}.
 \end{equation}
 For the plane waves (\ref{Ephizwj}),
-the conditions~(\ref{Econtcond}) take the form
+the continuity conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
   A^+_j &+& A^-_j,
   &=&
-  a_{j+1}\e^{iKf_{j+1}d_{j+1}} &+& A^-_{j+1}\e^{-iKf_{j+1}d_{j+1}},
+  a_{j+1}\delta_{j+1} &+& A^-_{j+1}\delta_{j+1}^*,
   \\
   A^+_j f_j  &-& A^-_j f_j,
   &=&
- a_{j+1}\e^{iKf_{j+1}d_{j+1}} f_{j+1} &-& A^-_{j+1}\e^{-iKf_{j+1}d_{j+1}} f_{j+1}.
+ a_{j+1}\delta_{j+1} f_{j+1} &-& A^-_{j+1}\delta_{j+1}^* f_{j+1}.
   \end{array}
 \end{equation}
-We introduce the vector notation
-\begin{equation}\label{Evecc}
-  c_j := \left( \begin{array}{c}A^+_j\\A^-_j\end{array} \right),
-\end{equation}
-to write (\ref{Econt2}) as
-\begin{equation}\label{EFcFDc}
-  F_j c_j = F_{j+1} D_{j+1} c_{j+1}
-\end{equation}
-with the matrices
-\begin{equation}
-  F_j := \left(\begin{array}{cc}1&1\\f_j&-f_j\end{array}\right)\text{, and }
-  D_j := \left(\begin{array}{cc}\delta_j&0\\0&\delta_j^*\end{array}\right),
-\end{equation}
-and the phase factor
-\begin{equation}
-   \delta_j := \e^{iKf_jd_j}.
-\end{equation}
-We define the transfer matrix
-\begin{equation}\label{Edef_M}
-  M_j
-  := F_{j-1}^{-1}F_j D_j,
-\end{equation}
-to obtain the recursion 
+After some lines of linear algebra,
+we can rewrite this equation system as
 \begin{equation}\label{EcMc}
-  c_j = M_{j+1} c_{j+1}.
+  \left( \begin{array}{c}A^+_j\\A^-_j\end{array} \right)
+  = M_{j+1} \left( \begin{array}{c}A^+_{j+1}\\A^-_{j+1}\end{array} \right)
 \end{equation}
-Straightforward computation yields
+with the transfer matrix
 \begin{equation}
   M_j
    = \frac{1}{2f_{j-1}}
@@ -227,42 +205,45 @@ Straightforward computation yields
        \delta_j(f_{j-1}-f_j)&\delta_j^*(f_{j-1}+f_j)
    \end{array}\right).
 \end{equation}
-We write
+To study wave propagation across the entire stack of layers,
+we use the combined transfer matrix
 \begin{equation}
-   M = M_1 \cdots M_N
+   M = M_1 \cdots M_N.
 \end{equation}
-for combined transfer matrix of the entire layer stack.
-
-The boundary conditions in the top and in the bottom layer
-leave us with two unkown amplitudes connected by
+In our scattering setup,
+plane-wave amplitudes are subject to two boundary conditions:
+In the top layer, $A^-_{w0}=1$ is given by the
+incident or back-traced final plane wave.
+In the substrate, $A^+_{wN}=0$ because there is no radiation
+coming from $z\to-\infty$.
+This leaves us with two unkown amplitudes connected by
 \begin{equation}
   \left( \begin{array}{c}A^+_0\\1\end{array} \right)
-  = M \left( \begin{array}{c}0\\A^-_N\end{array} \right).
+  = M \left( \begin{array}{c}0\\A^-_N\end{array} \right),
 \end{equation}
-With vector
-\begin{equation}
-  m := M \left( \begin{array}{c}0\\1\end{array} \right),
-\end{equation}
-we obtain the solutions
+which is solved by
 \begin{equation}
   \begin{array}{lcl}
-    A^-_N &=& 1/m_2,\\[.2ex]
-    A^+_0 &=& m_1/m_2.
+    A^-_N &=& 1/M_{22},\\[.2ex]
+    A^+_0 &=& M_{12}/M_{22}.
   \end{array}
 \end{equation}
 It is a straightforward exercice to verify
 that for a single interface between two semi-infinite media,
 the reflection and transmission probabilities
-agree with Fresnel's result for $s$-polarized light,
+agree with Fresnel's result for $s$-polarized light,\footnote
+{See any optics textbook, e.~g. Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
+  or Hecht \cite[ch.~4.6.2]{Hec02}.}
 \begin{equation}
   \left| A^+_0\right|^2
   = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2,
   \quad
   \left| A^-_N\right|^2
-  = TODO.
+  = \left| \frac{2f_0}{f_0+f_1}\right|^2.
 \end{equation}
 
-\Work{How does the above relate to what is actually computed in BornAgain?}
+\Work{How does the above relate to what is actually computed in BornAgain?
+And how to Abeles matrices, Parrat's formalism, Deak's papers?}
 
 %-------------------------------------------------------------------------------
 \subsection{Damped waves in absorbing media

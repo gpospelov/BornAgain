@@ -13,11 +13,9 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Math operators
-%\renewcommand\Im{\operatorname{Im}}
-%\renewcommand\Re{\operatorname{Re}}
-\def\Re{\ensuremath{\text{Re}\,}}
-%\renewcommand{\Im}{\ensuremath{\text{Im}\,}}
+% Math operators (AtBeginDocument to prevent unicode-math from overwriting)
+\AtBeginDocument{\renewcommand{\Re}{\operatorname{Re}}}
+\AtBeginDocument{\renewcommand{\Im}{\operatorname{Im}}}
 
 \DeclareMathOperator{\sinc}{sinc}
 

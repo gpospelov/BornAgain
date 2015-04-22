@@ -18,29 +18,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{TO MOVE SOMEWHERE}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In the previous chapter we discussed the form factor of isolated
-nano- or meso-particles.
-Unless these particles are dilute like an ideal gas,
-their positions are somehow correlated,
-which leads to interference patterns in the scattered radiation.
-In the following,
-we present particle assembly models that are supported in \BornAgain.
-For a more complete theoretical description,
-the user is referred to, for example, reference~\cite{ReLL09}.
-
-\Work{\indent \BornAgain\ does not yet support embedded particles
-  that intersect a layer boundary.
-\index{Particles!intersecting layer boundaries}
-  Collaboration on this often requested feature would be welcome.}
-
-For the time being,
-we consider scattering from only one layer;
-therefore we can omit the layer index~$j$ from the following considerations.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Embedded particles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,12 +29,6 @@ fluctuations of the refractive index are due to particles
 of mesoscopic size (nanometer to micrometer).
 These particles are either embedded into a material layer,
 or attached to the surface of the sample.
-
-\Note{\indent In \BornAgain, there is no explicit support for particles attached
-  to a substrate. Instead, users must construct a layer on top of the
-  substrate that consists of vacuum (or air) plus the embedded particles.
-  Similarly, an extra layer must be created to describe particles buried in
-  the substrate.}
 
 Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
@@ -83,118 +54,138 @@ from both the matrix and the particles.
 
 In general, therefore, the average squared refractive index~$\nz(z)$
 used in~(\ref{EHelmholtzGraded})
-does not equal the value $n_0^2(z)$ of the matrix,
+does not equal the value $n_\text{m}^2(z)$ of the matrix,
 but also includes contributions from the particles.
 If there is but one species $p$ of particles
 \nomenclature[2p010 0]{$p$}{Index of embedded particle species}%
-with constant refractive index $n_p$,
+with constant refractive index $n_\text{p}$,
 then
-\begin{equation}
-  \nz(z) = [1-x_p(z)]\,n_0^2(z) + x_p(z)\, n_p^2,
+\begin{equation}\label{Enzx}
+  \nz(z) = [1-x_\text{p}(z)]\,n_\text{m}^2(z) + x_\text{p}(z)\, n_\text{p}^2,
 \end{equation}
-where $x_p(z)$ is the volume fraction occupied by the $p$-type particles
-in a thin layer at depth~$z$.
+where $x_\text{p}(z)$ is the volume fraction occupied by the particles.
 This equation can be generalized in obvious ways
 when there are different types of particles,
 or when the refractive index is not constant within the particles.
+
+\Note{\indent \BornAgain\ only supports discrete layers.
+  Within one layer~$j$,
+  the refractive index of the matrix must be constant,
+  $n_\text{m}(z)\equiv n_\text{m}$.}
+%\footnote
+%  {The same holds for \IsGisaxs.
+%    We are not aware of any software that implements (\ref{Enzx}).}}
 
 Since we have some freedom in shuffling inhomogeneity
 between refraction/reflection and scattering,
 we are not obliged to compute $\nz(z)$ \textit{exactly},
 but are allowed to choose some approximation.
-In particular, we do not need to evaluate~$x_p(z)$
-for an infinitesimally thin layer.
-This is convenient in the standard situation where particle shapes
-induce a $z$ dependence of $\nz(z)$ in an otherwise homogeneous layer.
+In particular, we may average~$x_\text{p}(z)$
+over one layer
+so that $\nz(z)=:\overline{n_j^2}$ becomes $z$ independent.
 
-\Note{\indent Presently,
-  in \BornAgain\ particles must be confined to given layers,
-  and within one layer~$j$, a constant $\nz(z)=n_j^2$ is used.}
+\Warn{\indent Currently, \BornAgain\ only supports
+  the dilute-particle limit. Whatever the actual particle concentration,
+  the approximation $x_\text{p}(z)=0$ is used so that $\overline{n_j^2}\equiv n_j^2$.}
 
 Once $\nz(z)$ is computed in whatever approximation,
 the perturbation potential is given by (\ref{EChiGraded}),
 which takes the form
 \begin{equation}
-  \chi_p(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n_p^2(\r)\right)
+  \chi_\text{p}(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n_\text{p}^2(\r)\right)
 \end{equation}
-for the particles, and similarly $\chi_0(z)$ for the matrix.
+for the particles, and similarly $\chi_\text{m}(z)$ for the matrix.
 The overall potential
 \begin{equation}
   \chi(\r)=\left\{\begin{array}{ll}
-  \chi_p(\r)&\text{~if $\r$ in particle,}\\[.2ex]
-  \chi_0(z) &\text{~else} \end{array}\right.
+  \chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
+  \chi_\text{m}(z) &\text{~else} \end{array}\right.
 \end{equation}
-\nomenclature[1χ032 0]{$\chi_0(z)$}{Perturbative potential of embedding material (``matrix'')}%
-\nomenclature[1χ032 2p010]{$\chi_p(\r)$}{Perturbative potential of embedded particles of type~$p$}%
+\nomenclature[1χ032 0]{$\chi_\text{m}(z)$}{Perturbative potential of embedding material (``matrix'')}%
+\nomenclature[1χ032 2p010]{$\chi_\text{p}(\r)$}{Perturbative potential of embedded particles of type~$p$}%
 can be rearranged as
 \begin{equation}\label{Echi0p}
-  \chi(\r)=\chi_0(z) + \left\{\begin{array}{ll}
-  \tilde\chi_p(\r)&\text{~if $\r$ in particle,}\\[.2ex]
+  \chi(\r)=\chi_\text{m}(z) + \left\{\begin{array}{ll}
+  \tilde\chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
   0 &\text{~else} \end{array}\right.
 \end{equation}
 with the renormalized particle potential
 \begin{equation}
-  \tilde\chi_p(\r)
-  := \chi_p(\r)-\chi_0(z)
-  = \frac{K^2}{4\pi}\left(n_0^2(z)-n_p^2(\r)\right),
+  \tilde\chi_\text{p}(\r)
+  := \chi_\text{p}(\r)-\chi_\text{m}(z)
+  = \frac{K^2}{4\pi}\left(n_\text{m}^2(z)-n_\text{p}^2(\r)\right),
 \end{equation}
-\nomenclature[1χ033 2p010]{$\tilde\chi_p(\r)$}{Renormalized perturbative potential of embedded particles of type~$p$}%
-which is 0 unless $\r$ lies within a particle.
+\nomenclature[1χ033 2p010]{$\tilde\chi_\text{p}(\r)$}{Renormalized perturbative potential of embedded particles of type~$p$}%
+which vanishes unless $\r$ lies within a particle.
 
 Writing the potential as~(\ref{Echi0p}) is a convenient starting point
 for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
-We specialize to the case of a layer~$j$ with constant~$\nz(z)=n_j^2$
-so that the $\psi^\pm_{wj}$ are plane waves.
+We now definitively specialize to the case of discrete layers~$j$
+with constant~$\nz(z)=n_j^2$.
+Hence the $\psi_{w}$ consist of plane waves,
+and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{EtmDWBAft}).
+We only need to compute the restricted Fourier transform
+$\chi_j(\q)$ introduced in (\ref{Echij}).
+According to (\ref{Echi0p}),
+it has two contributions,
+\begin{equation}\label{Echijmp}
+  \chi_j(\q) = \chi_\text{m}(\q) + \chi_\text{p}(\q).
+\end{equation}
+The first one is the shape transform of the entire layer,
+\begin{equation}
+  \chi_\text{m}(\q)
+  = \chi_\text{m} \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}
+  = \chi_\text{m} \delta(\q_\parallel) \sinc\left( q_\perp z \right).
+\end{equation}
+Thanks to the delta function,
+this term only contributes to the off-specular scattering,
+adding diffuse wings to the transmitted and to the reflected beam.
+\Work{But what about the mixed terms
+  $\chi_\text{p}^*\chi_\text{m} + \text{c.c.}$?}
+\Warn{Since $\chi_\text{m}=0$ in BornAgain,
+  $\chi_\text{m}(\q)$ is not considered any further.}
 
-To predict the GISAS pattern,
-we need to compute the Fourier transform (\ref{Echij}) of
-$\chi(\r)=\rho(\r)-\overline{\rho}$.
-There are two contributions to the Fourier integrand:
-from the embedded particles, and from the embedding matrix,
-which has the structure of an Emmental cheese:
-homogeneous except for holes where the particles are.
-Fortunately, we do not need to compute the Fourier transform
-of the cheese:
-Analogous to (\ref{Emulaynav}),
-we can rearrange the Fourier integral as
-\begin{equation}\label{Echijre}
-  \chi_j(\v{q})
-  = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
-    \left\{ \left(\rho_0-\overline{\rho}\right)
-           + \sum_i \left[(\rho_i(\r-\r_i)-\rho_0\right] \right\}
-  =: \chi^0_j + \chi^\text{p}_j.
-\end{equation}
-The first term is the shape transform of the entire layer
+For the second term in (\ref{Echijmp}),
+we introduce the potential $\chi_\alpha(\r)$
+of a single particle $\alpha$ located at the origin,
+and the particle location $\R_\alpha$,
+to write
 \begin{equation}
-  \chi^0_j(\v{q})
-   = \int_{z\in\mathcal{Z}_j}\!\d^3r\, \e^{i\v{q}\,\r}
-      \left(\rho_0-\overline{\rho}\right)
-   = \delta(\v{q}_\parallel)\;d\;\text{sinc}(q_\parallel d/2).
+  \chi_\text{p}(\r) = \sum_\alpha \chi_\alpha(\r-\R_\alpha).
 \end{equation}
-\nomenclature[2s000 2i000 2n000 2c000 0]{sinc}{Sinus cardinalis: $\text{sinc}(x)=\sin(x)/x$}%
-For the second term,
-we abbreviate
+We further introduce the \textit{form factor}
+\index{Form factor}%
+of the particle,
 \begin{equation}
-  \delta\rho_i(\r):=\rho_i(\r)-\rho_0,
+  F_\alpha(\q) := \int\!\d^3r\,\e^{i\q\r}\chi_\alpha(\r).
 \end{equation}
-and we introduce the form factor of a single particle
+We obtain
 \begin{equation}
-  F_i(\v{q}) := \int\!\d^3r\, \e^{i\v{q}\,\r} \delta\rho_i(\r).
+  \chi_\text{p}(\q) = \sum_\alpha \e^{i\q\R_\alpha} F_\alpha(\q).
 \end{equation}
-We can then rearrange to obtain
-\begin{equation}
-  \chi^\text{p}_j(\v{q})
-  = \sum_i \e^{i\v{q}\,\r_i} F_i(\v{q}).
-\end{equation}
-Implemented single-particle form factors $F_i(\v{q})$
+Implemented single-particle form factors 
 are listed in great detail in chapter~\ref{sec:FormFactors}.
-The positional phase factors $\e^{i\v{q}\,\r_i}$
+The positional phase factors $\e^{i\q\R_\alpha}$
 can give rise to inter-particle interference patterns
-that are discussed in chapter~\ref{sec:Assemblies}.
+that are discussed in the following.
 
-%===============================================================================
-\subsection{OLD STUFF}
-%===============================================================================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{OLD STUFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Unless embedded particles are dilute like an ideal gas,
+their positions are somehow correlated,
+which leads to interference patterns in the scattered radiation.
+In the following,
+we present particle assembly models that are supported in \BornAgain.
+% For a more complete theoretical description,
+% the user is referred to, for example, reference~\cite{ReLL09}.
+
+\Work{\indent \BornAgain\ does not yet support embedded particles
+  that intersect a layer boundary.
+\index{Particles!intersecting layer boundaries}
+  Collaboration on this often requested feature would be welcome.}
 
 ... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
 \begin{align*}
@@ -207,21 +198,9 @@ that are discussed in chapter~\ref{sec:Assemblies}.
 \section{Geometry of the sample}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The layers are defined by their thicknesses (parallel to the
-$z$-direction), their possible
-roughnesses (equal to 0 by default) and the
-materials they are made of. They have an infinite extension in the $x$ and $y$
-directions. And, except for roughness, their interfaces are plane and
-perpendicular to the $z$-axis. There is also no limitation to the
-number of layers that could be defined in \BornAgain. Note that the
-thickness of the top and bottom layer are not defined.
-
-%\ImportantPoint{Remark:}{Order of layers: \\
-%When assembling the sample, the layers are defined from top to
-%bottom. So in most cases the first layer will be the air layer.}\\
-
 The nanoparticles are characterized by their form factors
-(\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material. The number of input parameters for the form factor depends on the particle symmetry; it ranges from one parameter for a sphere (its radius) to three for an ellipsoid (its three main axis lengths).
+(\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material.
+
   
 By placing the particles
 inside or on top of a layer, we impose their vertical positions, whose
@@ -298,7 +277,7 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 \end{equation*}
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{fig/drawing/drawingDA.pdf}
 \end{center}
@@ -323,7 +302,7 @@ One has to remember that in most cases, this approximation corresponds to an unp
 
 DA and LMA separate the contributions of the form factors and of the interference function. For disordered systems DA and LMA give the same result as the scattering vector gets larger \textit{i.e.} the scattered intensity is dominated by the contribution of the form factor.
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{fig/drawing/drawingLMA.pdf}
 \end{center}
@@ -374,7 +353,7 @@ where $\Lambda$ is a damping length used in order to introduce some finite-size 
 
 Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of $\omega /D$. 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{fig/funcplot/S_q_1Dparacrystal.eps}
 \end{center}
@@ -406,7 +385,7 @@ introduces correlations between polydisperse particles, more precisely between t
 %\end{equation*}
 %where $\curlf$ denotes the Fourier transform and $\curlp$ the Patterson function
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{fig/drawing/drawingSSCA.pdf}
 \end{center}
@@ -436,8 +415,6 @@ In the case of systems where the particles are aligned in one dimension, this au
   Z(\r ) \equiv z_0(\r ) + z_+(\r ) + z_-(\r ).
 \end{equation*}
 Taking $x$ as the coordinate in the direction in which the particles are arranged and $s$ as an orthogonal coordinate ($\r \equiv (x,s)$), one obtains:
-BROKEN TODO RESTORE
-\iffalse
 \begin{align*}
   z_0(\r ) &= \sum_{\alpha_0} p(\alpha_0) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_0}(x,s)  \\
   z_+(\r ) &= \sum_{\alpha_0\alpha_1} p(\alpha_0,\alpha_1) S_{\alpha_0}(-x,-s) \otimes S_{\alpha_1}(x,s) \otimes P_1(x|\alpha_0\alpha_1)  \\
@@ -445,7 +422,6 @@ BROKEN TODO RESTORE
                &+ \dotsb \\
   z_-(\r ) &= z_+(-\r ),
 \end{align*}
-\fi
 where $p(\alpha_0,\dotsc ,\alpha_n)$ denotes the probability of having a sequence of particles of the indicated sizes/shapes and $P_n(x|\alpha_0\dotsc\alpha_n)$ is the probability density of having a particle of type $\alpha_n$ at a (positive) distance $x$ of its nearest neighbor of type $\alpha_{n-1}$ in a sequence of the given order.
 
 In the Size-Spacing Correlation Approximation, one assumes that the particle sequence probabilities are just a product of their individual fractions:
@@ -522,7 +498,7 @@ where $q_{\parallel}$ is the component of the scattering beam in the plane of th
 
 Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{Edwbaair}  corresponds to the Born approximation. Each term of $F_{\rm{DWBA}}$ is weighted by a Fresnel coefficient. 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=\textwidth]{fig/drawing/drawingDWBA.pdf}
 \end{center}
@@ -577,7 +553,7 @@ def get_sample():
 \end{lstlisting}
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \hfill
 \subfigure[Born Approximation]{\includegraphics[angle=-90,width=6cm]{fig/gisasmap/ffspheroidBA.pdf}}
 \hfill
@@ -614,7 +590,7 @@ r^j_{n,n+1}=\frac{k_{j,z,n}-k_{j,z,n+1}}{k_{j,z,n}-k_{j,z,n+1}}, \qquad t^j_{n,n
 \end{equation*}
 where index $n$ is related to the layers, $z$ to the vertical component, and $j$ to the beams (incident and outgoing).
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=\textwidth]{fig/drawing/drawingDWBAburied.pdf}
 \end{center}
@@ -660,7 +636,7 @@ def get_sample():
 \end{lstlisting}
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \centering
 \includegraphics[angle=-90,width=0.6\textwidth]{fig/gisasmap/figIntBuriedPart.pdf}
 \caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
@@ -672,7 +648,7 @@ def get_sample():
 \ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\textit{i.e.} the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \centering
 \includegraphics[width=0.5\textwidth]{fig/drawing/drawingDepthParticle.pdf}
 \caption{Illustration of the convention about \Code{depth} used in \BornAgain\ to encapsulate particles in layers.}
@@ -788,7 +764,7 @@ The particles are placed randomly in the dilute limit and are considered as indi
 \paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate such a sample. Figure~\ref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector's + input beam's characterizations.
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[angle=-90,width=0.5\textwidth]{fig/gisasmap/HSphere_NoInterf.pdf}
 \end{center}
@@ -832,7 +808,7 @@ def get_sample():
 %-------------------------------------------------------------------------------
 where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.75\textwidth]{fig/drawing/1DGrating.pdf}
 \end{center}
@@ -914,7 +890,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
 
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[angle=-90,width=0.5\textwidth]{fig/gisasmap/HSphere_1DDL.pdf}
 \end{center}
@@ -935,7 +911,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 \item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\mathbf{a}$ vector of the lattice basis and the $\mathbf{x}$ axis of the reference Cartesian frame (as shown in figure~\ref{fig:multil3d}).
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{fig/drawing/2Dlattice.pdf}
 \end{center}
@@ -974,7 +950,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 %\end{lstlisting}
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[angle=-90,width=0.5\textwidth]{fig/gisasmap/HSphere_2Dlattice.pdf}
 \end{center}
@@ -1008,7 +984,7 @@ where
 Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent one-dimensional paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
 
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.75\textwidth]{fig/drawing/drawing2Dparacrystal.pdf}
 \end{center}
@@ -1026,7 +1002,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
     particle_layout.addInterferenceFunction(interference)
 \end{lstlisting}
 
-\begin{figure}[ht]
+\begin{figure}[tb]
 \begin{center}
 \includegraphics[angle=-90,width=0.5\textwidth]{fig/gisasmap/HSphere_2DDL.pdf}
 \end{center}

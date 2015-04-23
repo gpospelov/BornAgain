@@ -17,8 +17,7 @@
 
 
 DWBASimulation::DWBASimulation()
-: mp_polarization_output(0)
-, m_alpha_i(0)
+    : m_alpha_i(0)
 , m_thread_info()
 , mp_simulation(0)
 {
@@ -28,7 +27,6 @@ DWBASimulation::DWBASimulation()
 
 DWBASimulation::~DWBASimulation()
 {
-       delete mp_polarization_output;
        delete mp_simulation;
 }
 
@@ -37,10 +35,6 @@ void DWBASimulation::init(const Simulation& simulation)
     if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
-    }
-    if (mp_polarization_output) {
-        delete mp_polarization_output;
-        mp_polarization_output = 0;
     }
     m_dwba_intensity.clear();
     Detector detector = simulation.getInstrument().getDetector();
@@ -59,25 +53,12 @@ void DWBASimulation::init(const Simulation& simulation)
     m_beam_polarization = beam.getPolarization();
     m_sim_params = simulation.getSimulationParameters();
 
-    // initialize polarization output if needed
-    if (checkPolarizationPresent()) {
-        mp_polarization_output = new OutputData<Eigen::Matrix2d>();
-        for (size_t dim=0; dim<detector_dimension; ++dim) {
-            mp_polarization_output->addAxis(detector.getAxis(dim));
-        }
-        if (simulation.getOutputData()->getMask()) {
-            mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
-        }
-        mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
-    }
-
     // initialising call backs
     mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
 const OutputData<double>& DWBASimulation::getDWBAIntensity() const
 {
-    if (mp_polarization_output) return getPolarizationData();
     return m_dwba_intensity;
 }
 
@@ -112,21 +93,4 @@ double DWBASimulation::getWaveLength() const
 {
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     return Units::PI2/real_ki.mag();
-}
-
-const OutputData<double>& DWBASimulation::getPolarizationData() const
-{
-    Eigen::Matrix2cd pol_density = mp_simulation->getInstrument()
-            .getBeam().getPolarization();
-    OutputData<double>::iterator it = m_dwba_intensity.begin();
-    OutputData<Eigen::Matrix2d>::const_iterator mat_it =
-            mp_polarization_output->begin();
-    while (it != m_dwba_intensity.end()) {
-        *it = std::abs((complex_t)pol_density(0,0))
-                  * ( (*mat_it)(0,0) + (*mat_it)(0,1) )
-            + std::abs((complex_t)pol_density(1,1))
-                  * ( (*mat_it)(1,0) + (*mat_it)(1,1) );
-        ++it, ++mat_it;
-    }
-    return m_dwba_intensity;
 }

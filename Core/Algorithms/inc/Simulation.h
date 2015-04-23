@@ -75,16 +75,6 @@ public:
     //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
     OutputData<double>* getIntensityData() const;
 
-    //! returns component of polarized intensity map (apply detector resolution first)
-    OutputData<double>* getPolarizedIntensityData(int row, int column) const;
-
-#ifndef GCCXML_SKIP_THIS
-    //! Returns polarized intensity map (no detector resolution)
-    const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
-        return &m_polarization_output;
-    }
-#endif
-
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
 
@@ -136,7 +126,7 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-	//! add a sampled parameter distribution
+    //! add a sampled parameter distribution
     void addParameterDistribution(const std::string &param_name,
             const IDistribution1D &distribution, size_t nbr_samples,
             double sigma_factor=0.0,
@@ -168,13 +158,12 @@ protected:
 
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
-    void updatePolarizationMapAxes();
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Add the intensity maps from the DWBA simulation to the member maps
-    void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
+    //! Add the intensity map from the DWBA simulation to the member map
+    void addToIntensityMap(DWBASimulation *p_dwba_simulation);
 
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
@@ -189,9 +178,6 @@ protected:
     ThreadInfo m_thread_info;
 
     OutputData<double> m_intensity_map;
-#ifndef GCCXML_SKIP_THIS
-    OutputData<Eigen::Matrix2d> m_polarization_output;
-#endif
     bool m_is_normalized;
     const ProgramOptions *mp_options;
 

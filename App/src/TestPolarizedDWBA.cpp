@@ -40,7 +40,7 @@ void TestPolarizedDWBA::execute()
     simulation->runSimulation();
     simulation->normalize();
 
-    IsGISAXSTools::drawLogOutputDataPol(*simulation->getPolarizedOutputData(),
+    IsGISAXSTools::drawLogOutputData(*simulation->getOutputData(),
             "c1_polDWBA", "Polarized DWBA", "CONT4 Z", "Polarized DWBA");
 
     delete simulation;

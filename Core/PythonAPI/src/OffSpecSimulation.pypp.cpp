@@ -214,7 +214,7 @@ void register_OffSpecSimulation_class(){
                 "getPolarizedIntensityData"
                 , getPolarizedIntensityData_function_type( &::OffSpecSimulation::getPolarizedIntensityData )
                 , ( bp::arg("row"), bp::arg("column") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::OffSpecSimulation::getSample

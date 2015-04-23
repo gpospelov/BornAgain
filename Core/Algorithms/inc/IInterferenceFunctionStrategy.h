@@ -26,7 +26,6 @@
 #include <vector>
 #include <boost/scoped_ptr.hpp>
 
-
 //! @class IInterferenceFunctionStrategy
 //! @ingroup algorithms_internal
 //! @brief Algorithm to apply one of interference function strategies (LMA, SCCA etc)
@@ -35,34 +34,53 @@ class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
     IInterferenceFunctionStrategy(SimulationParameters sim_params);
-    virtual ~IInterferenceFunctionStrategy() {}
-    virtual void init(const SafePointerVector<FormFactorInfo>&
-                      form_factor_infos,
-                      const SafePointerVector<IInterferenceFunction>& ifs);
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
-    double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    virtual ~IInterferenceFunctionStrategy()
+    {
+    }
+
+    //! Initializes the object with form factors and interference functions
+    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+                      const SafePointerVector<IInterferenceFunction> &ifs);
+
+    //! Provides the R,T coefficients information
+    void setSpecularInfo(const LayerSpecularInfo &specular_info);
+
+    //! Calculates the intensity for scalar particles/interactions
+    double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin,
+                    Bin1D phi_f_bin) const;
+
+    //! Calculates the intensity in the presence of polarization of beam and detector
+    double evaluate(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
+                    const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_density,
+                    Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+
     //! Calculates a matrix valued intensity
-    Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-            Bin1D phi_f_bin) const;
+    Eigen::Matrix2d evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                                Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin,
-            const std::vector<complex_t> &ff_list) const=0;
+    virtual double evaluateForList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                                   const std::vector<complex_t> &ff_list) const = 0;
+
+    //! Evaluates the intensity for given list of evaluated form factors
+    //! in the presence of polarization of beam and detector
+    virtual double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
+                                   const Bin1DCVector &k_f_bin,
+                                   const Eigen::Matrix2cd &detector_density,
+                                   const std::vector<Eigen::Matrix2cd> &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
-    cvector_t getQ(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
+    cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
 
-    SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
-    SafePointerVector<IInterferenceFunction> m_ifs; //!< interference functions
-    SimulationParameters m_sim_params; //!< simulation parameters
+    SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
+    SafePointerVector<IInterferenceFunction> m_ifs;        //!< interference functions
+    SimulationParameters m_sim_params;                     //!< simulation parameters
     boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-    struct IntegrationParamsAlpha {
+    struct IntegrationParamsAlpha
+    {
         cvector_t k_i;
         double wavelength;
         Bin1D alpha_bin;
@@ -72,36 +90,35 @@ private:
 
     //! Constructs one list of evaluated form factors to be used in subsequent
     //! calculations
-    void calculateFormFactorList(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+    void calculateFormFactorList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                                 Bin1D alpha_f_bin) const;
 
     //! Constructs lists of evaluated form factors to be used in subsequent
     //! calculations
-    void calculateFormFactorLists(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    void calculateFormFactorLists(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                                  Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
-    double MCIntegratedEvaluate(const cvector_t& k_i,
-        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    double MCIntegratedEvaluate(const cvector_t &k_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
-    Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t& k_i,
-        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t &k_i, Bin1D alpha_f_bin,
+                                            Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region
-    IntegrationParamsAlpha getIntegrationParams(const cvector_t& k_i,
-        Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    IntegrationParamsAlpha getIntegrationParams(const cvector_t &k_i, Bin1D alpha_f_bin,
+                                                Bin1D phi_f_bin) const;
 
     //! Evaluate for fixed angles
-    double evaluate_for_fixed_angles(double *fractions, size_t dim, void* params) const;
+    double evaluate_for_fixed_angles(double *fractions, size_t dim, void *params) const;
 
     //! Evaluate polarized for fixed angles
-    double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void* params) const;
+    double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void *params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;
@@ -110,8 +127,8 @@ private:
     mutable std::vector<Eigen::Matrix2cd> m_ff_pol;
 };
 
-inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin) const
+inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t &k_i,
+                                                     const Bin1DCVector &k_f_bin) const
 {
     return k_i - k_f_bin.getMidPoint();
 }

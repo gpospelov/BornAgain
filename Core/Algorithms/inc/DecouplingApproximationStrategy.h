@@ -46,7 +46,7 @@ protected:
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                           const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_density,
+                           const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_operator,
                            const MatrixFFVector &ff_list) const;
 
 private:

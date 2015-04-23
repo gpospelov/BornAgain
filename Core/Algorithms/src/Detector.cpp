@@ -29,7 +29,7 @@ Detector::Detector() : m_axes(), mp_detector_resolution(0)
 {
     setName("Detector");
     init_parameters();
-    initPolarization();
+    initPolarizationOperator();
 }
 
 Detector::Detector(const Detector &other)
@@ -205,7 +205,7 @@ double Detector::getSolidAngle(OutputData<double> *p_data, size_t index) const
     return dsinalpha * dphi;
 }
 
-void Detector::initPolarization()
+void Detector::initPolarizationOperator()
 {
     m_polarization = Eigen::Matrix2cd::Identity();
 }

@@ -61,7 +61,7 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
 
 double DecouplingApproximationStrategy::evaluateForMatrixList(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_density, const MatrixFFVector &ff_list) const
+    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
@@ -82,9 +82,9 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * beam_density * ff.adjoint());
     }
-    Eigen::Matrix2cd amplitude_matrix = detector_density * mean_amplitude * beam_density
+    Eigen::Matrix2cd amplitude_matrix = detector_operator * mean_amplitude * beam_density
                                         * mean_amplitude.adjoint();
-    Eigen::Matrix2cd intensity_matrix = detector_density * mean_intensity;
+    Eigen::Matrix2cd intensity_matrix = detector_operator * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());

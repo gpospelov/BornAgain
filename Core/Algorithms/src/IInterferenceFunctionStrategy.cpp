@@ -53,15 +53,15 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1D
 double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i,
                                                const Eigen::Matrix2cd &beam_density,
                                                const Bin1DCVector &k_f_bin,
-                                               const Eigen::Matrix2cd &detector_density,
+                                               const Eigen::Matrix2cd &detector_operator,
                                                Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluatePol(k_i, beam_density, detector_density, alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluatePol(k_i, beam_density, detector_operator, alpha_f_bin, phi_f_bin);
     }
     double result;
     calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
-    result = evaluateForMatrixList(k_i, beam_density, k_f_bin, detector_density, m_ff_pol);
+    result = evaluateForMatrixList(k_i, beam_density, k_f_bin, detector_operator, m_ff_pol);
     return result;
 }
 
@@ -130,12 +130,12 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-    const Eigen::Matrix2cd &detector_density, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+    const Eigen::Matrix2cd &detector_operator, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     double result;
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, alpha_f_bin, phi_f_bin);
     mc_int_pars.beam_density = beam_density;
-    mc_int_pars.detector_density = detector_density;
+    mc_int_pars.detector_operator = detector_operator;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
         = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy> mc_integrator(p_function, this,
@@ -211,6 +211,6 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
 
     double result = 0.0;
     result
-        = evaluateForMatrixList(k_i, pars->beam_density, k_f_bin, pars->detector_density, m_ff_pol);
+        = evaluateForMatrixList(k_i, pars->beam_density, k_f_bin, pars->detector_operator, m_ff_pol);
     return std::cos(alpha) * result;
 }

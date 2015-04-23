@@ -92,7 +92,7 @@ double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t &k_i,
 
 double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_density, const MatrixFFVector &ff_list) const
+    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
 
@@ -103,7 +103,7 @@ double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
         double hann_value = hannFunction(m_x_positions[i], m_y_positions[i]);
         coherent_amplitude += fraction * ff_list[i] * hann_value;
     }
-    Eigen::Matrix2cd coh_amplitude_matrix = detector_density * coherent_amplitude * beam_density
+    Eigen::Matrix2cd coh_amplitude_matrix = detector_operator * coherent_amplitude * beam_density
                                         * coherent_amplitude.adjoint();
     double coherent_intensity = std::abs(coh_amplitude_matrix.trace());
 
@@ -118,7 +118,7 @@ double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
                                  * (ff_i * beam_density * ff_j.adjoint());
         }
     }
-    Eigen::Matrix2cd intensity_matrix = detector_density * diffuse_matrix;
+    Eigen::Matrix2cd intensity_matrix = detector_operator * diffuse_matrix;
     double diffuse_intensity = std::abs(intensity_matrix.trace());
     return coherent_intensity + diffuse_intensity;
 }

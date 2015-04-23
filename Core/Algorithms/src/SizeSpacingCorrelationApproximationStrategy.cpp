@@ -62,7 +62,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_density, const MatrixFFVector &ff_list) const
+    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
 {
     double qp = getqp(k_i, k_f_bin);
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
@@ -82,8 +82,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     Eigen::Matrix2cd interference_matrix = (2.0 * omega / (1.0 - p2kappa * omega))
-                                           * (detector_density * mcff * beam_density * mcffc);
-    Eigen::Matrix2cd diffuse_matrix2 = detector_density * diffuse_matrix;
+                                           * (detector_operator * mcff * beam_density * mcffc);
+    Eigen::Matrix2cd diffuse_matrix2 = detector_operator * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
     return total_abundance * (diffuse_trace + interference_trace);

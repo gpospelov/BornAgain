@@ -45,7 +45,7 @@ void DWBASimulation::init(const Simulation& simulation)
     if (simulation.getOutputData()->getMask()) {
         m_dwba_intensity.setMask(*simulation.getOutputData()->getMask());
     }
-    m_detector_polarization = detector.getPolarization();
+    m_detector_polarization = detector.getPolarizationOperator();
     Beam beam = simulation.getInstrument().getBeam();
     m_ki = beam.getCentralK();
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());

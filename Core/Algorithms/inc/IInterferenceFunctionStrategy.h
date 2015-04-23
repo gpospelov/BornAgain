@@ -54,7 +54,7 @@ public:
 
     //! Calculates the intensity in the presence of polarization of beam and detector
     double evaluate(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                    const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_density,
+                    const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_operator,
                     Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
 protected:
@@ -66,7 +66,7 @@ protected:
     //! in the presence of polarization of beam and detector
     virtual double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
                                          const Bin1DCVector &k_f_bin,
-                                         const Eigen::Matrix2cd &detector_density,
+                                         const Eigen::Matrix2cd &detector_operator,
                                          const MatrixFFVector &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
@@ -85,7 +85,7 @@ private:
         Bin1D alpha_bin;
         Bin1D phi_bin;
         Eigen::Matrix2cd beam_density;
-        Eigen::Matrix2cd detector_density;
+        Eigen::Matrix2cd detector_operator;
     };
 
     //! Constructs one list of evaluated form factors to be used in subsequent
@@ -108,7 +108,7 @@ private:
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
     double MCIntegratedEvaluatePol(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                                   const Eigen::Matrix2cd &detector_density, Bin1D alpha_f_bin,
+                                   const Eigen::Matrix2cd &detector_operator, Bin1D alpha_f_bin,
                                    Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region

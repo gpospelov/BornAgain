@@ -79,7 +79,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
+    Eigen::Matrix2cd getPolarizationOperator() const { return m_polarization; }
 #endif
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
@@ -116,7 +116,7 @@ private:
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
     //! Initialize polarization (for constructors)
-    void initPolarization();
+    void initPolarizationOperator();
 
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;

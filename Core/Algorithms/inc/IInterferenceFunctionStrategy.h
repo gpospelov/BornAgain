@@ -34,7 +34,8 @@
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
-    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> > MatrixFFVector;
+    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
+        MatrixFFVector;
     IInterferenceFunctionStrategy(SimulationParameters sim_params);
     virtual ~IInterferenceFunctionStrategy()
     {
@@ -56,10 +57,6 @@ public:
                     const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_density,
                     Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
-    //! Calculates a matrix valued intensity
-    Eigen::Matrix2d evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
-
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
     virtual double evaluateForList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
@@ -68,9 +65,9 @@ protected:
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     virtual double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                                   const Bin1DCVector &k_f_bin,
-                                   const Eigen::Matrix2cd &detector_density,
-                                   const MatrixFFVector &ff_list) const = 0;
+                                         const Bin1DCVector &k_f_bin,
+                                         const Eigen::Matrix2cd &detector_density,
+                                         const MatrixFFVector &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
@@ -87,7 +84,8 @@ private:
         double wavelength;
         Bin1D alpha_bin;
         Bin1D phi_bin;
-        int index;
+        Eigen::Matrix2cd beam_density;
+        Eigen::Matrix2cd detector_density;
     };
 
     //! Constructs one list of evaluated form factors to be used in subsequent
@@ -109,8 +107,9 @@ private:
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
-    Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t &k_i, Bin1D alpha_f_bin,
-                                            Bin1D phi_f_bin) const;
+    double MCIntegratedEvaluatePol(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
+                                   const Eigen::Matrix2cd &detector_density, Bin1D alpha_f_bin,
+                                   Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region
     IntegrationParamsAlpha getIntegrationParams(const cvector_t &k_i, Bin1D alpha_f_bin,
@@ -123,7 +122,7 @@ private:
     double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void *params) const;
 
     //! cached form factor evaluations
-    mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;
+    mutable std::vector<complex_t> m_ff;
 
     //! cached polarized form factors
     mutable MatrixFFVector m_ff_pol;

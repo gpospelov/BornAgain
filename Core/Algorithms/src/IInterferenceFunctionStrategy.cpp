@@ -47,7 +47,7 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1D
         return MCIntegratedEvaluate(k_i, alpha_f_bin, phi_f_bin);
     }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
-    return evaluateForList(k_i, k_f_bin, m_ff00);
+    return evaluateForList(k_i, k_f_bin, m_ff);
 }
 
 double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i,
@@ -56,28 +56,12 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i,
                                                const Eigen::Matrix2cd &detector_density,
                                                Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
-//    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-//        return MCIntegratedEvaluatePol(k_i, alpha_f_bin, phi_f_bin);
-//    }
+    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
+        return MCIntegratedEvaluatePol(k_i, beam_density, detector_density, alpha_f_bin, phi_f_bin);
+    }
     double result;
     calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
     result = evaluateForMatrixList(k_i, beam_density, k_f_bin, detector_density, m_ff_pol);
-    return result;
-}
-
-Eigen::Matrix2d IInterferenceFunctionStrategy::evaluatePol(const cvector_t &k_i,
-                                                           const Bin1DCVector &k_f_bin,
-                                                           Bin1D alpha_f_bin, Bin1D phi_f_bin) const
-{
-    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluatePol(k_i, alpha_f_bin, phi_f_bin);
-    }
-    Eigen::Matrix2d result;
-    calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
-    result(0, 0) = evaluateForList(k_i, k_f_bin, m_ff00);
-    result(0, 1) = evaluateForList(k_i, k_f_bin, m_ff01);
-    result(1, 0) = evaluateForList(k_i, k_f_bin, m_ff10);
-    result(1, 1) = evaluateForList(k_i, k_f_bin, m_ff11);
     return result;
 }
 
@@ -93,7 +77,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(const cvector_t &k_i
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
-        m_ff00.push_back(ff_mat);
+        m_ff.push_back(ff_mat);
         ++it;
     }
 }
@@ -112,20 +96,14 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(const cvector_t &k_
         (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
         m_ff_pol.push_back(ff_mat);
-        m_ff00.push_back((complex_t)ff_mat(0, 0));
-        m_ff01.push_back((complex_t)ff_mat(0, 1));
-        m_ff10.push_back((complex_t)ff_mat(1, 0));
-        m_ff11.push_back((complex_t)ff_mat(1, 1));
         ++it;
     }
 }
 
 void IInterferenceFunctionStrategy::clearFormFactorLists() const
 {
-    m_ff00.clear();
-    m_ff01.clear();
-    m_ff10.clear();
-    m_ff11.clear();
+    m_ff.clear();
+    m_ff_pol.clear();
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i, Bin1D alpha_f_bin,
@@ -150,12 +128,14 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
     return result * std::abs(integration_constant);
 }
 
-Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(const cvector_t &k_i,
-                                                                       Bin1D alpha_f_bin,
-                                                                       Bin1D phi_f_bin) const
+double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
+    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
+    const Eigen::Matrix2cd &detector_density, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
-    Eigen::Matrix2d result;
+    double result;
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, alpha_f_bin, phi_f_bin);
+    mc_int_pars.beam_density = beam_density;
+    mc_int_pars.detector_density = detector_density;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
         = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy> mc_integrator(p_function, this,
@@ -163,18 +143,8 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(const cve
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
 
-    mc_int_pars.index = 0;
-    result(0, 0) = mc_integrator.integrate(min_array, max_array, (void *)&mc_int_pars,
-                                           m_sim_params.m_mc_points);
-    mc_int_pars.index = 1;
-    result(0, 1) = mc_integrator.integrate(min_array, max_array, (void *)&mc_int_pars,
-                                           m_sim_params.m_mc_points);
-    mc_int_pars.index = 2;
-    result(1, 0) = mc_integrator.integrate(min_array, max_array, (void *)&mc_int_pars,
-                                           m_sim_params.m_mc_points);
-    mc_int_pars.index = 3;
-    result(1, 1) = mc_integrator.integrate(min_array, max_array, (void *)&mc_int_pars,
-                                           m_sim_params.m_mc_points);
+    result = mc_integrator.integrate(min_array, max_array, (void *)&mc_int_pars,
+                                     m_sim_params.m_mc_points);
     return result;
 }
 
@@ -213,7 +183,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     Bin1DCVector k_f_bin(k_f, k_f);
     Bin1D alpha_bin(alpha, alpha);
     calculateFormFactorList(k_i, k_f_bin, alpha_bin);
-    return std::cos(alpha) * evaluateForList(k_i, k_f_bin, m_ff00);
+    return std::cos(alpha) * evaluateForList(k_i, k_f_bin, m_ff);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *fractions, size_t dim,
@@ -240,19 +210,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
     calculateFormFactorLists(k_i, k_f_bin, alpha_bin, phi_bin);
 
     double result = 0.0;
-    switch (pars->index) {
-    case 0:
-        result = evaluateForList(k_i, k_f_bin, m_ff00);
-        break;
-    case 1:
-        result = evaluateForList(k_i, k_f_bin, m_ff01);
-        break;
-    case 2:
-        result = evaluateForList(k_i, k_f_bin, m_ff10);
-        break;
-    case 3:
-        result = evaluateForList(k_i, k_f_bin, m_ff11);
-        break;
-    }
+    result
+        = evaluateForMatrixList(k_i, pars->beam_density, k_f_bin, pars->detector_density, m_ff_pol);
     return std::cos(alpha) * result;
 }

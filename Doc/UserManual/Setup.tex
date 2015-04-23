@@ -74,6 +74,8 @@
 %  Symbols, fonts
 %-------------------------------------------------------------------------------
 
+% \usepackage[final]{graphicx} % loaded by unicode-math
+
 \usepackage{amsmath}
 \usepackage{mathtools} % has \coloneqq for :=
 \usepackage{manfnt} % for \dbend
@@ -147,7 +149,6 @@
 %  Floats
 %-------------------------------------------------------------------------------
 
-\usepackage{graphicx}
 \usepackage{subfigure}
 
 \usepackage{placeins} % defines \FloatBarrier
@@ -163,7 +164,7 @@
 % see http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
 \usepackage{tabulary}
 
-\usepackage{listings}
+\usepackage[final]{listings}
 \usepackage{lstcustom}
 \usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
@@ -192,6 +193,7 @@
 %  Highlighting
 %-------------------------------------------------------------------------------
 
+\usepackage{ifdraft}
 \usepackage{mdframed}
 % \usepackage{pifont}
 
@@ -217,8 +219,8 @@
     {\end{#2*}}
 }
 
-\def\marginSymbolLarge#1{\raisebox{-3ex}%
-{\includegraphics[width=3em]{#1}\hspace{10pt}}}
+\def\marginSymbolLarge#1{\ifdraft{}{\raisebox{-3ex}%
+{\includegraphics[width=3em]{#1}\hspace{10pt}}}}
 
 \defineBox{boxWork}{boxxWork}{magenta!40}{magenta}
   {\marginSymbolLarge{fig/fancymanual/Arbeiten.png}}
@@ -257,5 +259,6 @@
     colorlinks,
     linkcolor={red!50!black},
     citecolor={blue!50!black},
-    urlcolor={blue!80!black}
+    urlcolor={blue!80!black},
+    pdftitle={BornAgain User Manual} % seems to be ignored
 }

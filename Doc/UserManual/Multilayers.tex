@@ -118,16 +118,14 @@ which is Snell's refraction law.
 \index{Snell's law}
 
 Since the $\psi^\pm_{wj}$ are plane waves within layer~$j$,
-we can at once write down the DWBA transition matrix~(\ref{EtmDWBAsum})
+we can at once write down the DWBA transition matrix~(\ref{EtmDWBA})
 \index{Distorted-wave Born approximation!multilayer}%
-\Emph{
-\begin{equation}\label{EtmDWBAft}
+\begin{equation}\label{EtmDWBAft0}
   \bra \Psi_\tf|\chi|\Psi_\ti\ket
   = \sum_{j} \sum_{\pm_\tf} \sum_{\pm_\ti}
-    A^\pm_{\ti j} A^{\pm *}_{\tf j}
-     \chi_j(\k^\pm_{\ti j} - \k^\pm_{\tf j})
-\end{equation}\vspace*{-5pt}
-}
+    A^{\pm *}_{\tf j} A^\pm_{\ti j} 
+     \chi_j(\k^\pm_{\ti j}-\k^\pm_{\tf j}),
+\end{equation}
 where
 \begin{equation}\label{Echij}
   \chi_j(\v{q})
@@ -137,6 +135,25 @@ where
 is the Fourier transform
 of the perturbative potential~(\ref{EChiGraded}),
 restricted to one layer.
+
+To alleviate later calculations,
+we now number the four DWBA terms from 1 to 4,
+and define the corresponding wavenumbers and amplitude factors and as
+\begin{equation}
+  \begin{array}{l@{\hspace{2em}}l}
+    \q^1 := \k^-_\ti - \k^-_\tf,& C^1 := A^{-*}_\tf A^-_\ti, \\[.6ex]
+    \q^2 := \k^-_\ti - \k^+_\tf,& C^2 := A^{-*}_\tf A^+_\ti, \\[.6ex]
+    \q^3 := \k^+_\ti - \k^-_\tf,& C^3 := A^{+*}_\tf A^-_\ti, \\[.6ex]
+    \q^4 := \k^+_\ti - \k^+_\tf,& C^4 := A^{+*}_\tf A^+_\ti.
+  \end{array}
+\end{equation}
+Accordingly, we can write (\ref{EtmDWBAft0}) as
+\Emph{
+\begin{equation}\label{EtmDWBAft}
+  \bra \Psi_\tf|\chi|\Psi_\ti\ket
+  = \sum_{j} \sum_{u} C^u_j \chi_j(\q_j^u).
+\end{equation}
+\vspace*{-5pt}}
 
 %-------------------------------------------------------------------------------
 \subsection{Wave propagation across layers}\label{Sacrolay}
@@ -278,7 +295,7 @@ for a decomposition into a real and an imaginary part,
 we find an exponential decay of the plane wave amplitudes
 \begin{equation}\label{Ephidamp}
   \left|\phi^\pm_j(z)\right|
-  = \e{\mp k_{\perp j}'' z}
+  = \e^{\mp k_{\perp j}'' z}
 \end{equation}
 along their propagation direction~$\pm z$.
 With an analogous decomposition
@@ -288,12 +305,12 @@ we obtain for the flux, defined as in~(\ref{EdefJ}),
   \v{J}_j(\r) = \k' \e^{-2k_{\perp j}z}.
 \end{equation}
 In the special case of a pure imaginary~$k_{\perp j}$,
-the flux direction is $\k'=\k_\parallel$:
-$\psi_j(\r)$ is an \textit{evanescent wave},
+the flux direction is $\k'=\k_\parallel$.
+Then $\psi_j(\r)$ is an \textit{evanescent wave},
 \index{Evanescent wave}%
-travelling horizontally,
-and therefore transmitting no radiation intensity to lower layers.
-In the stationary state,
+travelling horizontally.
+Since a stationary evanescent wave implies that there is
+no vertical energy transport,
 all incoming radiation undergoes \textit{total reflection}.
 \index{Total reflection}%
 

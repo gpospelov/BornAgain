@@ -705,28 +705,27 @@ are composed of downward and upward propagating waves,
 or f (final)}%
 the matrix element (\ref{Etrama})
 can be expanded into four terms,
-
-\Emph{
 \begin{equation}\label{EtmDWBA}
   \bra \psi_\tf|\chi|\psi_\ti\ket
   = \bra \psi^-_\tf|\chi|\psi^-_\ti\ket
   + \bra \psi^-_\tf|\chi|\psi^+_\ti\ket
   + \bra \psi^+_\tf|\chi|\psi^-_\ti\ket
-  + \bra \psi^+_\tf|\chi|\psi^+_\ti\ket.
-\end{equation}\vspace*{-10pt}
-}
+  + \bra \psi^+_\tf|\chi|\psi^+_\ti\ket,
+\end{equation}
 \nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
 \nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
-This equation contains the essence of
-the distorted-wave Born approximation
-for small-angle scattering under grazing incidence,
-and is the base for all scattering models implemented in \BornAgain.
-In the following, we will use the shorthand notation
+or in an obvious shorthand notation
+\Emph{
 \begin{equation}\label{EtmDWBAsum}
   \bra \psi_\tf|\chi|\psi_\ti\ket
   = \sum_{\pm_\tf} \sum_{\pm_\ti}
     \bra \psi^\pm_\tf|\chi|\psi^\pm_\ti\ket.
 \end{equation}
+\vspace*{-10pt}}
+This equation contains the essence of
+the distorted-wave Born approximation
+for small-angle scattering under grazing incidence,
+and is the base for all scattering models implemented in \BornAgain.
 Note that $\bra \psi_\tf|\chi|\psi_\ti\ket$
 appears as a squared modulus
 in the differential cross section~(\ref{Exsection}).

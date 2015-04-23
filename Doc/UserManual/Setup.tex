@@ -218,13 +218,13 @@
     {\end{#2*}}
 }
 
-\def\marginSymbolLarge#1{\ifdraft{}{\raisebox{-3ex}%
+\def\marginSymbolLarge#1#2{\ifdraft{\textbf{#2~~~~}}{\raisebox{-3ex}%
 {\includegraphics[width=3em]{#1}\hspace{10pt}}}}
 
 \defineBox{boxWork}{boxxWork}{magenta!40}{magenta}
-  {\marginSymbolLarge{fig/fancymanual/Arbeiten.png}}
+  {\marginSymbolLarge{fig/fancymanual/Arbeiten.png}{TODO}}
 \defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
-  {\marginSymbolLarge{fig/fancymanual/Achtung.png}}
+  {\marginSymbolLarge{fig/fancymanual/Achtung.png}{WARN}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}
 

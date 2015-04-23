@@ -71,7 +71,7 @@ or when the refractive index is not constant within the particles.
 \Note{\indent \BornAgain\ only supports discrete layers.
   Within one layer~$\il$,
   the refractive index of the matrix must be constant,
-  $n_\text{m}(z)\equiv n_\text{m}$.}
+  $n_\text{m}(z)\equiv n_l$.}
 %\footnote
 %  {The same holds for \IsGisaxs.
 %    We are not aware of any software that implements (\ref{Enzx}).}}
@@ -209,7 +209,18 @@ sum over contributions from different layers,
 \end{equation}
 \vspace*{-5pt}}
 
-  
+If the morphology of a sample is known from experiments
+(e.~g.\ transmission electron microscopy) or from simulations,
+one could use a straightforward evaluation of~(\ref{Eass3})
+to predict the scattering pattern
+for a given set of particle coordinates $\{\R_i,\v\tau_i\}$.
+
+\Note{Simulations based on morphology data,
+  known from \IsGISAXS\ \cite[pp.~9, 65-66]{Laz08},
+  have not yet been reimplemented in \BornAgain,
+  and are not on our agenda.
+  Please contact us if you have a use case.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

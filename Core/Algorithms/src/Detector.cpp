@@ -20,17 +20,21 @@
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
+#include "Beam.h"
 
 #include <iostream>
+#include <Eigen/LU>
 
 Detector::Detector() : m_axes(), mp_detector_resolution(0)
 {
     setName("Detector");
     init_parameters();
+    initPolarization();
 }
 
 Detector::Detector(const Detector &other)
-    : IParameterized(), m_axes(other.m_axes), mp_detector_resolution(0)
+    : IParameterized(), m_axes(other.m_axes), mp_detector_resolution(0),
+      m_polarization(other.m_polarization)
 {
     setName(other.getName());
     if (other.mp_detector_resolution)
@@ -51,6 +55,7 @@ void Detector::swapContent(Detector &other)
 {
     std::swap(this->m_axes, other.m_axes);
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
+    std::swap(this->m_polarization, other.m_polarization);
 }
 
 void Detector::addAxis(const AxisParameters &axis_params)
@@ -103,6 +108,15 @@ void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
         msglog(MSG::WARNING) << "Detector::applyDetectorResolution() -> "
                                 "No detector resolution function found";
     }
+}
+
+void Detector::setPolarization(const kvector_t &bloch_vector)
+{
+    if (bloch_vector.mag()>1.0) {
+        throw Exceptions::ClassInitializationException(
+            "The given Bloch vector cannot represent a real physical ensemble");
+    }
+    m_polarization = Beam::calculatePolarization(bloch_vector);
 }
 
 bool Detector::dataShapeMatches(const OutputData<double> *p_data) const
@@ -189,6 +203,12 @@ double Detector::getSolidAngle(OutputData<double> *p_data, size_t index) const
         dphi = std::abs(phi_bin.m_upper - phi_bin.m_lower);
     }
     return dsinalpha * dphi;
+}
+
+void Detector::initPolarization()
+{
+    kvector_t zero;
+    setPolarization(zero);
 }
 
 void Detector::print(std::ostream &ostr) const

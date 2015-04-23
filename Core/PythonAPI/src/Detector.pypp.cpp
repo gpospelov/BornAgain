@@ -194,6 +194,16 @@ void register_Detector_class(){
                 , bp::return_self< >() );
         
         }
+        { //::Detector::setPolarization
+        
+            typedef void ( ::Detector::*setPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Detector_exposer.def( 
+                "setPolarization"
+                , setPolarization_function_type( &::Detector::setPolarization )
+                , ( bp::arg("bloch_vector") ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

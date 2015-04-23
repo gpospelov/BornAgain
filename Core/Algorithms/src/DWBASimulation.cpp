@@ -22,6 +22,8 @@ DWBASimulation::DWBASimulation()
 , m_thread_info()
 , mp_simulation(0)
 {
+    m_beam_polarization.setZero();
+    m_detector_polarization.setZero();
 }
 
 DWBASimulation::~DWBASimulation()
@@ -49,12 +51,13 @@ void DWBASimulation::init(const Simulation& simulation)
     if (simulation.getOutputData()->getMask()) {
         m_dwba_intensity.setMask(*simulation.getOutputData()->getMask());
     }
+    m_detector_polarization = detector.getPolarization();
     Beam beam = simulation.getInstrument().getBeam();
     m_ki = beam.getCentralK();
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
+    m_beam_polarization = beam.getPolarization();
     m_sim_params = simulation.getSimulationParameters();
-//    m_dwba_intensity.setAllTo(0.);
 
     // initialize polarization output if needed
     if (checkPolarizationPresent()) {

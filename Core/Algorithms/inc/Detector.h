@@ -74,6 +74,14 @@ public:
         return mp_detector_resolution;
     }
 
+    //! Sets the polarization density matrix according to the given Bloch vector
+    void setPolarization(const kvector_t &bloch_vector);
+
+#ifndef GCCXML_SKIP_THIS
+    //! Gets the polarization density matrix (in spin basis along z-axis)
+    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
+#endif
+
     //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
@@ -107,8 +115,14 @@ private:
     //! Returns the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
+    //! Initialize polarization (for constructors)
+    void initPolarization();
+
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;
+#ifndef GCCXML_SKIP_THIS
+    Eigen::Matrix2cd m_polarization; //!< polarization density matrix
+#endif
 };
 
 #endif /* DETECTOR_H_ */

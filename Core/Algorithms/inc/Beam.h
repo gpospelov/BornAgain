@@ -46,28 +46,21 @@ public:
     //! Sets the beam intensity in neutrons/sec
     void setIntensity(double intensity) { m_intensity = intensity; }
 
+    //! Sets the polarization density matrix according to the given Bloch vector
+    void setPolarization(const kvector_t &bloch_vector);
+
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getPolarization() const { return m_polarization; }
 #endif
 
-#ifndef GCCXML_SKIP_THIS
-    //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd &polarization);
-#endif
-
-    //! Sets the polarization density matrix to a value representing
-    //! a mixed ensemble with the given fraction of positive z spin
-    void SetSpinUpFraction(double up_fraction);
-
-#ifndef GCCXML_SKIP_THIS
-    //! Checks if the given matrix can represent a physical density matrix
-    bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
-#endif
-
     double getWavelength() const { return m_wavelength; }
     double getAlpha() const { return m_alpha; }
     double getPhi() const { return m_phi;}
+
+#ifndef GCCXML_SKIP_THIS
+    static Eigen::Matrix2cd calculatePolarization(const kvector_t &bloch_vector);
+#endif
 
 protected:
     virtual void print(std::ostream& ostr) const;

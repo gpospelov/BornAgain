@@ -106,6 +106,8 @@ protected:
     mutable OutputData<double> m_dwba_intensity;
 #ifndef GCCXML_SKIP_THIS
     OutputData<Eigen::Matrix2d> *mp_polarization_output;
+    Eigen::Matrix2cd m_beam_polarization;
+    Eigen::Matrix2cd m_detector_polarization;
 #endif
     cvector_t m_ki;
     double m_alpha_i;

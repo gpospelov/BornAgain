@@ -92,7 +92,7 @@ double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t &k_i,
 
 double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_density, const std::vector<Eigen::Matrix2cd> &ff_list) const
+    const Eigen::Matrix2cd &detector_density, const MatrixFFVector &ff_list) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
 

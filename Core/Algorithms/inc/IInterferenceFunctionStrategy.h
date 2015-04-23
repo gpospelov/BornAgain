@@ -25,6 +25,7 @@
 
 #include <vector>
 #include <boost/scoped_ptr.hpp>
+#include <Eigen/StdVector>
 
 //! @class IInterferenceFunctionStrategy
 //! @ingroup algorithms_internal
@@ -33,6 +34,7 @@
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
+    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> > MatrixFFVector;
     IInterferenceFunctionStrategy(SimulationParameters sim_params);
     virtual ~IInterferenceFunctionStrategy()
     {
@@ -68,7 +70,7 @@ protected:
     virtual double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
                                    const Bin1DCVector &k_f_bin,
                                    const Eigen::Matrix2cd &detector_density,
-                                   const std::vector<Eigen::Matrix2cd> &ff_list) const = 0;
+                                   const MatrixFFVector &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
@@ -124,7 +126,7 @@ private:
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;
 
     //! cached polarized form factors
-    mutable std::vector<Eigen::Matrix2cd> m_ff_pol;
+    mutable MatrixFFVector m_ff_pol;
 };
 
 inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t &k_i,

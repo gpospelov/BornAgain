@@ -44,7 +44,7 @@ protected:
     double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
                                  const Bin1DCVector &k_f_bin,
                                  const Eigen::Matrix2cd &detector_density,
-                                 const std::vector<Eigen::Matrix2cd> &ff_list) const;
+                                 const MatrixFFVector &ff_list) const;
 
 private:
     bool checkVectorSizes() const;
@@ -52,12 +52,12 @@ private:
                                       const std::vector<complex_t> &ff_list) const;
     Eigen::Matrix2cd
     getMeanCharacteristicMatrixFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                  const std::vector<Eigen::Matrix2cd> &ff_list) const;
+                                  const MatrixFFVector &ff_list) const;
     complex_t getMeanConjCharacteristicFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
                                           const std::vector<complex_t> &ff_list) const;
     Eigen::Matrix2cd
     getMeanConjCharacteristicMatrixFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                      const std::vector<Eigen::Matrix2cd> &ff_list) const;
+                                      const MatrixFFVector &ff_list) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;

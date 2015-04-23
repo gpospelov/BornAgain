@@ -61,7 +61,7 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
 
 double DecouplingApproximationStrategy::evaluateForMatrixList(
     const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_density, const std::vector<Eigen::Matrix2cd> &ff_list) const
+    const Eigen::Matrix2cd &detector_density, const MatrixFFVector &ff_list) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();

@@ -182,17 +182,9 @@ we present particle assembly models that are supported in \BornAgain.
 % For a more complete theoretical description,
 % the user is referred to, for example, reference~\cite{ReLL09}.
 
-\Work{\indent \BornAgain\ does not yet support embedded particles
-  that intersect a layer boundary.
-\index{Particles!intersecting layer boundaries}
-  Collaboration on this often requested feature would be welcome.}
-
-... the same techniques as demonstrated in section \ref{sec:ba} can be applied, leading to the following expression for the expectation value of the scattering cross-section:
-\begin{align*}
-  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
-  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2\r_\alpha^\parallel d^2\r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
-\end{align*}
+%\Work{\indent \BornAgain\ does not yet support embedded particles
+%  that intersect a layer boundary.
+%\index{Particles!intersecting layer boundaries}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Geometry of the sample}
@@ -231,7 +223,17 @@ Since in most experimental conditions only the statistical properties of the par
   & \times \iint_V d^3\v{R}_\alpha d^3\v{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\q\cdot (\v{R}_\alpha - \v{R}_\beta ) \right],
 \end{align*}
 
+
 where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation function}. It represents the normalized probability of finding particles of type $\alpha$ and $\beta$ in positions $\v{R}_\alpha$ and $\v{R}_\beta$ respectively. 
+
+TO MERGE IN:
+
+\begin{align*}
+  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
+  & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
+  & \times \iint_S d^2r_\alpha^\parallel d^2r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
+\end{align*}
+
 
 TO MERGE IN:
 This expression can be split into a diffuse part, which by definition should be zero for the case of only one particle type, and a coherent part, resulting from the coherent superposition of scattering amplitudes for particles at different positions:
@@ -257,13 +259,15 @@ More precisely, the probability density for finding a particle $\alpha$ at posit
 \end{equation*}
 
 
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Horizontal particle distributions}
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To proceed further, when the morphology and topology are not exactly known, some hypotheses need to be made since the correlation between the kinds of scatterers and their relative positions included in the pair correlation functions are difficult to estimate. Several options are available:
 
-\paragraph{Decoupling approximation (DA)}
+%===============================================================================
+\subsection{Decoupling approximation (DA)}
+%===============================================================================
 \index{Decoupling approximation}
 neglects all correlations. It supposes that the particles are positioned in a way that is completely independent on their kinds (shapes, sizes). An example is given in figure~\ref{fig:da}. Thus the kind of scattering objects and their positions are not correlated and the partial pair correlation function is independent of the particle class $\alpha$. We can therefore replace $ \ppcfb{\alpha}{\beta}{R}$ by  $g(\v{R}_{\alpha\beta})$.
 
@@ -288,7 +292,9 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 
 In concentrated systems, DA breaks down because of correlations. One solution is to reintroduce some correlations between particles sizes and distributions using, for example, the size spacing correlation approximation described below. 
 
-\paragraph{Local monodisperse approximation (LMA)}
+%===============================================================================
+\subsection{Local monodisperse approximation (LMA)}
+%===============================================================================
 \index{Local monodisperse approximation}
 partially accounts for some coupling between the positions and the kinds of the particles \cite{Ped94}. 
  It requires a subdivision of the layers of particles into monodisperse domains. The contributions of these subdomains are then  incoherently summed up and weighted by the size-shape probabilities.\\ In this approximation, a particle is supposed to be surrounded by particles of the same size and shape, within the coherence length of the input beam (see fig.~\ref{fig:lma}). The scattering cross-section is expressed as
@@ -318,18 +324,21 @@ For collections of particles, the scattered intensity contains contributions fro
 }
 
 
-%===============================================================================
-\subsection{Layout of particles}\label{sec:partlayout}
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Layout of particles}\label{sec:partlayout}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{The uncorrelated or disordered lattice}
+%===============================================================================
+\subsection{The uncorrelated or disordered lattice}
+%===============================================================================
 For very diluted distributions of particles, the particles are too far apart from each other to lead to any interference between the waves scattered by each of them. In this case the interference function is equal to 1. The scattered intensity is then entirely determined by the form factors of the particles distributed in the sample.
 
-\subsubsection{The regular  lattice}\mbox{}\\
+%===============================================================================
+\subsection{The regular lattice and the ideal paracrystal}
+%===============================================================================
 The particles are positioned at regular intervals generating a layout characterized by its base vectors $\mathbf{a}$ and $\mathbf{b}$ (in direct space) and the angle between these two vectors.
 This lattice can be two or one-dimensional depending on the characteristics of the particles. For example when they are infinitely long, the implementation can be simplified and reduced to a "pseudo" 1D system.
 
-\paragraph{The ideal paracrystal} \mbox{}\\
 \index{Paracrystal}
 A paracrystal, whose notion was developed by Hosemann\cite{Hos51}, allows fluctuations of the lengths and orientations of lattice vectors. Paracrystals can be defined as distorted crystals in which the crystalline order has not disappeared and for which the behavior of the interference functions  at small angles is coherent.
 It is a transition between the regular lattice and the disordered state.\\
@@ -361,17 +370,15 @@ Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of
 \label{fig:1dparas_q}
 \end{figure}
 
-In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\mathbf{a}$ and $\mathbf{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\mathbf{a}}(\r)d^2\r=\int p_{\mathbf{b}}(\r)d^2\r=1$, $\int \r p_{\mathbf{a}}(\r)d^2\r=\mathbf{a}$, $\int \r p_{\mathbf{b}}(\r)d^2\r=\mathbf{b}$.\\
+In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\mathbf{a}$ and $\mathbf{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\mathbf{a}}(\r)d^2r=\int p_{\mathbf{b}}(\r)d^2r=1$, $\int \r p_{\mathbf{a}}(\r)d^2r=\mathbf{a}$, $\int \r p_{\mathbf{b}}(\r)d^2r=\mathbf{b}$.\\
 In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\parallel})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\parallel})}{1-P_k(q_{\parallel})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
 
 \paragraph{Probability distributions} \mbox{}\\
 The scattering by an ordered lattice gives rise to a series of Bragg peaks situated at the nodes of the reciprocal lattice. Any divergence from the ideal crystalline case modifies the output spectrum by, for example, widening or attenuating the Bragg peaks. The influence of these "defects" can be accounted for 
  in direct space by using correlation functions or by truncating the lattice or, in reciprocal space with structure factors or interference functions by convoluting the scattered peaks with a function which could reproduce the experimental shapes.
 
-
-
 %===============================================================================
-\subsubsection{Size-Spacing Correlation Approximation}
+\subsection{Size-Spacing Correlation Approximation}
 %===============================================================================
 \index{Size-spacing correlation approximation}
 \index{SSCA|see {Size-spacing correlation approximation}}
@@ -475,15 +482,15 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 \end{equation*}
 
 
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Vertical location of particles}
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
  \ImportantPoint{Remark:}{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
 
-%-------------------------------------------------------------------------------
+%===============================================================================
 \subsection{Particles deposited on a substrate}
-%-------------------------------------------------------------------------------
+%===============================================================================
 %Substrate modified Born approximation
 In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in fig.~\ref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes 
 \begin{align}
@@ -567,9 +574,9 @@ def get_sample():
 
 \ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
 
-%-------------------------------------------------------------------------------
+%===============================================================================
 \subsection{Buried particles} 
-%-------------------------------------------------------------------------------
+%===============================================================================
 
 The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see fig.~\ref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
 
@@ -656,17 +663,16 @@ def get_sample():
 \end{figure}
 
 
-
-%===============================================================================
-\subsection{Implementation in \BornAgain}
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation in \BornAgain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section describes the implementation of the interference functions in \BornAgain. For an implementation of all the components of a simulation, the use is referred, for example, to Sect.~\ref{sec:Example1Python}.\\
 
 
 \ImportantPoint{Remark:}{In \BornAgain\ the particles are positioned in the same vertical layer.}
 
-\subsubsection{Size-distribution models}
+\subsection{Size-distribution models}
 \index{Size-distribution models}
 The decoupling approximation (DA), local monodisperse approximation (LMA) and size spacing correlation approximation (SSCA) can be used in \BornAgain.
 The selection between DA and SSCA is made using\\ 
@@ -695,7 +701,7 @@ For the LMA, its implementation is automatically done when using more than one l
 %%ADD EXPLANATION ABOUT LMA
 
 %-------------------------------------------------------------------------------
-\subsubsection{Probability distribution functions}\label{baftd}
+\subsection{Probability distribution functions}\label{baftd}
 %-------------------------------------------------------------------------------
 
 The probability distribution functions have been implemented in the reciprocal space in \BornAgain. Their expressions are given in Table~\ref{table:pdf}.
@@ -736,7 +742,7 @@ where $cl_{x,y}$ are the coherence lengths in the $x$ or $y$ direction, respecti
 These functions can be used with all interference functions, except the case without any interference.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Interferences}
+\subsection{Interferences}
 %-------------------------------------------------------------------------------
 \index{Interference function}
 
@@ -756,7 +762,7 @@ The interference function is specified when building the sample. It is linked wi
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\Code{InterferenceFunctionNone()}} 
+\subsection{InterferenceFunctionNone} 
 %-------------------------------------------------------------------------------
 
 The particles are placed randomly in the dilute limit and are considered as individual, non-interacting scatterers. The scattered intensity is function of the form factors only. 
@@ -804,7 +810,7 @@ def get_sample():
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
+\subsection{\Code{InterferenceFunction1DLattice(lattice\_length, xi)}} 
 %-------------------------------------------------------------------------------
 where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\mathbf{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
 
@@ -861,7 +867,7 @@ def get_sample():
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
+\subsection{\Code{InterferenceFunctionRadialParaCrystal(peak\_distance, damping\_length)}}  
 %-------------------------------------------------------------------------------
 \begin{itemize}
 \item[where] \Code{peak\_distance} is the average distance to the first neighbor peak, 
@@ -902,7 +908,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
 
 \newpage
 %-------------------------------------------------------------------------------
-\subsubsection{\Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
+\subsection{\Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}} 
 %-------------------------------------------------------------------------------
 where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with 
 \begin{itemize}
@@ -962,7 +968,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
 
 \newpage%{\cleardoublepage}
 %-------------------------------------------------------------------------------
-\subsubsection{InterferenceFunction2DParaCrystal($L_1$, $L_2$, lattice\_angle, $xi$, damping\_length)} % TODO RESTORE \Code{}, \xi
+\subsection{InterferenceFunction2DParaCrystal($L_1$, $L_2$, lattice\_angle, $xi$, damping\_length)} % TODO RESTORE \Code{}, \xi
 %-------------------------------------------------------------------------------
 \begin{itemize}
 \item[where] $L_1$, $L_2$ are the lengths of the lattice cell,

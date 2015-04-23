@@ -118,9 +118,9 @@ which is Snell's refraction law.
 \index{Snell's law}
 
 Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
-we can at once write down the DWBA transition matrix~(\ref{EtmDWBA})
+we can at once write down the DWBA transition matrix~(\ref{Edwba})
 \index{Distorted-wave Born approximation!multilayer}%
-\begin{equation}\label{EtmDWBAft0}
+\begin{equation}\label{Edwba_ml0}
   \bra \Psi_\tf|\chi|\Psi_\ti\ket
   = \sum_{\il} \sum_{\pm_\tf} \sum_{\pm_\ti}
     A^{\pm *}_{\tf \il} A^\pm_{\ti \il} 
@@ -147,13 +147,27 @@ and define the corresponding wavenumbers and amplitude factors and as
     \q^4 := \k^+_\ti - \k^+_\tf,& C^4 := A^{+*}_\tf A^+_\ti.
   \end{array}
 \end{equation}
-Accordingly, we can write (\ref{EtmDWBAft0}) as
+Accordingly, we can write (\ref{Edwba_ml0}) as
 \Emph{
-\begin{equation}\label{EtmDWBAft}
+\begin{equation}\label{Edwba_ml}
   \bra \Psi_\tf|\chi|\Psi_\ti\ket
   = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
+From~(\ref{Ekpmwj3}) we see that all four wave vectors $\q^u$
+have the same horizontal component,
+\begin{equation}\label{Eqpp}
+  \q^u = \q_\parallel + q^u_\perp \v{\hat z}
+\end{equation}
+whence the vertical components
+\begin{equation}
+    \begin{array}{l}
+  q^1_\perp = +k_{\ti\perp  } -k_{\tf\perp},\\[.6ex]
+  q^2_\perp = +k_{\ti\perp  } +k_{\tf\perp},\\[.6ex]
+  q^3_\perp = -k_{\ti\perp  } -k_{\tf\perp},\\[.6ex]
+  q^4_\perp = -k_{\ti\perp  } +k_{\tf\perp}.
+    \end{array}
+\end{equation}
 
 %-------------------------------------------------------------------------------
 \subsection{Wave propagation across layers}\label{Sacrolay}
@@ -188,7 +202,7 @@ is the thickness of layer~$\il$.
 
 We abbreviate
 \begin{equation}
-  f_\il := k_{\perp \il}/K = \sqrt{\overline{n_\il^2}-(k_\parallel/K)^2}
+  f_\il := k_{\perp \il}/K = \sqrt{\nzj-(k_\parallel/K)^2}
 \end{equation}
 and
 \begin{equation}

@@ -121,7 +121,7 @@ which vanishes unless $\r$ lies within a particle.
 Writing the potential as~(\ref{Echi0p}) is a convenient starting point
 for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
 We now definitively specialize to the case of discrete layers~$\il$
-with constant~$\nz(z)=n_\il^2$.
+with constant~$\nz(z)=\nzj$.
 Hence the $\psi_{w}$ consist of plane waves,
 and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{EtmDWBAft}).
 We only need to compute the restricted Fourier transform
@@ -145,30 +145,53 @@ adding diffuse wings to the transmitted and to the reflected beam.
 \Warn{Since $\chi_\text{m}=0$ in BornAgain,
   $\chi_\text{m}(\q)$ is not considered any further.}
 
-For the second term in (\ref{Echijmp}),
-we introduce the potential $\chi_\alpha(\r)$
-of a single particle $\alpha$ located at the origin,
-and the particle location $\R_\alpha$,
-to write
+The second term in (\ref{Echijmp}) describes the scattering
+by the embedded particles.
+To proceed, we need to model their scattering properties
+and spatial distribution.
+A single particle~$i$ shall be characterized by its location~$\R_i$,
+and by a parameter vector~$\v\tau_i$ that collects
+characteristics like shape, size, orientation, and refractive index profile.
+The potential of all particles can then be written as a sum
 \begin{equation}
-  \chi_\text{p}(\r) = \sum_\alpha \chi_\alpha(\r-\R_\alpha).
+  \chi_\text{p}(\r) = \sum_i \chi(\r-\R_i,\v\tau_i).
 \end{equation}
 We further introduce the \textit{form factor}
 \index{Form factor}%
 of the particle,
 \begin{equation}
-  F_\alpha(\q) := \int\!\d^3r\,\e^{i\q\r}\chi_\alpha(\r).
+  F(\q,\v\tau_i) := \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v\tau_i),
 \end{equation}
-We obtain
+and obtain
 \begin{equation}
-  \chi_\text{p}(\q) = \sum_\alpha \e^{i\q\R_\alpha} F_\alpha(\q).
+  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} F(\q,\v\tau_i).
 \end{equation}
-Implemented single-particle form factors 
-are listed in great detail in chapter~\ref{sec:FormFactors}.
-The positional phase factors $\e^{i\q\R_\alpha}$
-can give rise to inter-particle interference patterns
-that are discussed in the following.
-
+With (\ref{Exsection}) and (\ref{Edwba_ml}), 
+the differential cross section due to scattering from embedded particles is
+given by double sums over layers, DWBA terms, and particles:
+\begin{equation}\label{Eass6}
+  \frac{\partial\sigma}{\partial\Omega}
+  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij}
+    \e^{i(\q^u \R_i - \q^v \R_j)} F^*(\q^u,\v\tau_i) F(\q^v,\v\tau_j).
+\end{equation}
+Motivated by the $\q$ decomposition (\ref{Eqpp}),
+we absorb the vertical particle coordinate~$\R_{i\perp}$
+into the parameter vector~$\v\tau_i$.
+We then collect several terms into the \textit{DWBA form factor}
+\begin{equation}
+  \FD_l(\k_\ti,\k_\tf;\v\tau_i)
+  := \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v\tau_i).
+\end{equation}
+In the following, the dependence on the external parameters
+$\k_\ti$ and $\k_\tf$ shall be understood implicitly.
+Hence (\ref{Eass6}) can be written as
+\Emph{
+\begin{equation}
+  \frac{\partial\sigma}{\partial\Omega}
+  = \sum_{lm} \sum_{ij} \e^{i(\q_{l\parallel}\R_i-\q_{m\parallel}\R_j)}
+    \FD^*_l(\v\tau_i) \FD_m(\v\tau_j).
+\end{equation}
+\vspace*{-5pt}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}

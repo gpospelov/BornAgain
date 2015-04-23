@@ -134,8 +134,8 @@ it has two contributions,
 The first one is the shape transform of the entire layer,
 \begin{equation}
   \chi_\text{m}(\q)
-  = \chi_\text{m} \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}
-  = \chi_\text{m} \delta(\q_\parallel) \sinc\left( q_\perp z \right).
+  = \chi_\text{m} \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
+  = \chi_\text{m} \delta(\q_\plll) \sinc\left( q_\perp z \right).
 \end{equation}
 Thanks to the delta function,
 this term only contributes to the off-specular scattering,
@@ -185,14 +185,28 @@ We then collect several terms into the \textit{DWBA form factor}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
 Hence (\ref{Eass6}) can be written as
-\Emph{
-\begin{equation}
+\begin{equation}\label{Eass4}
   \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{lm} \sum_{ij} \e^{i(\q_{l\parallel}\R_i-\q_{m\parallel}\R_j)}
+  = \sum_{lm} \sum_{ij} \e^{i(\q_{l\plll}\R_{i\plll}-\q_{m\plll}\R_{j\plll})}
+    \FD^*_l(\v\tau_i) \FD_m(\v\tau_j).
+\end{equation}
+
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.
+  This means in particular, that there is no way to model particles
+  that extend beyond layer interfaces.}
+
+With this restriction, (\ref{Eass4}) becomes an incoherent
+sum over contributions from different layers,
+\Emph{
+\begin{equation}\label{Eass3}
+  \frac{\partial\sigma}{\partial\Omega}
+  = \sum_{l} \sum_{ij} \e^{i\q_{l\plll}(\R_{i\plll}-\R_{j\plll})}
     \FD^*_l(\v\tau_i) \FD_m(\v\tau_j).
 \end{equation}
 \vspace*{-5pt}}
 
+  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -254,7 +268,7 @@ TO MERGE IN:
 \begin{align*}
   & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
-  & \times \iint_S d^2r_\alpha^\parallel d^2r_\beta^\parallel \ppcf{\alpha}{\beta}{R^\parallel} \exp \left[ i\v{q}_{j\parallel}\cdot (\r_\alpha^\parallel - \r_\beta^\parallel ) \right].
+  & \times \iint_S d^2r_\alpha^\plll d^2r_\beta^\plll \ppcf{\alpha}{\beta}{R^\plll} \exp \left[ i\v{q}_{j\plll}\cdot (\r_\alpha^\plll - \r_\beta^\plll ) \right].
 \end{align*}
 
 
@@ -298,7 +312,7 @@ This leads to the following expression of the scattering cross-section:
 \begin{equation*}
 \bra \frac{d\sigma}{d\Omega}(\q) \ket  = I_d(\q) + \left\lvert \bra F_\alpha(\q) \ket_\alpha \right\rvert ^2 \times S(\q),
 \end{equation*}
-where $I_d$ is the diffuse part of the scattering. It is the signature of the fluctuations of shapes, sizes or orientations of the particles; its maximum is located in $q_{\parallel}=0$. In the second term of the expression of the scattering cross-section, $S(\q)$ is the interference function and is given by
+where $I_d$ is the diffuse part of the scattering. It is the signature of the fluctuations of shapes, sizes or orientations of the particles; its maximum is located in $q_{\plll}=0$. In the second term of the expression of the scattering cross-section, $S(\q)$ is the interference function and is given by
 \begin{equation*} 
   S(\q) = 1+ \rho_V \int_V d^3\r g(\r) \exp \left[ i\q\cdot \r \right].
 \end{equation*}
@@ -394,7 +408,7 @@ Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of
 \end{figure}
 
 In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\mathbf{a}$ and $\mathbf{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\mathbf{a}}(\r)d^2r=\int p_{\mathbf{b}}(\r)d^2r=1$, $\int \r p_{\mathbf{a}}(\r)d^2r=\mathbf{a}$, $\int \r p_{\mathbf{b}}(\r)d^2r=\mathbf{b}$.\\
-In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\parallel})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\parallel})}{1-P_k(q_{\parallel})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
+In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\plll})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\plll})}{1-P_k(q_{\plll})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
 
 \paragraph{Probability distributions} \mbox{}\\
 The scattering by an ordered lattice gives rise to a series of Bragg peaks situated at the nodes of the reciprocal lattice. Any divergence from the ideal crystalline case modifies the output spectrum by, for example, widening or attenuating the Bragg peaks. The influence of these "defects" can be accounted for 
@@ -517,10 +531,10 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 %Substrate modified Born approximation
 In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in fig.~\ref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes 
 \begin{align}
-F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z}) \nonumber \\
-&+ R_f F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z}), \label{Edwbaair}
+F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z}) \nonumber \\
+&+ R_f F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z}), \label{Edwbaair}
 \end{align}
-where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\text{f}$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\parallel}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\parallel}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\parallel}$ are the $z$-component and the in-plane component of $\k_\text{i}$ or $\k_\text{f}$. \\
+where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\text{f}$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\text{i}$ or $\k_\text{f}$. \\
 
 \ImportantPoint{Remark:}{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
 
@@ -604,17 +618,17 @@ def get_sample():
 The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see fig.~\ref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
 
 \begin{align}
-  F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z})
-  &= T_\text{i} T_\text{f} F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
-  &+ R_\text{i} T_\text{f} F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z})e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
-  &+ R_\text{f} T_\text{i} F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
-  &+ R_\text{f} R_\text{i}F_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z})e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
+  F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z})
+  &= T_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
+  &+ R_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z})e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
+  &+ R_\text{f} T_\text{i} F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
+  &+ R_\text{f} R_\text{i}F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z})e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
 \end{align}
 
 \begin{equation*}
 R_j =\frac{t^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, \quad T_j=\frac{t^{j}_{0,1}}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, j=i,f 
 \end{equation*}
-where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface, $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beams, respectively.  $d$ is the depth at which the particles are sitting in the layer. Note that this value is given relative to the top of this layer and it is not the coordinate in the absolute referential (linked with the full sample) and it is measured up to the bottom of the particle. $t$ is the thickness of the intermediate layer containing the particles. $R_{i,f}$ and $T_{i,f}$  are the reflection  and transmission coefficients in incidence and reflection (they can be calculated using Parratt or matrix formalism). $r^j_{0,1}$, $r^j_{1,2}$ $t^j_{0,1}$ are the reflection and transmission coefficients between layers; the indices are related to different boundaries with 0: air, 1: intermediate layer and 2: substrate layer and the superscript $j$ is associated with the incident or scattered beams:
+where $q_{\plll}$ is the component of the scattering beam in the plane of the interface, $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beams, respectively.  $d$ is the depth at which the particles are sitting in the layer. Note that this value is given relative to the top of this layer and it is not the coordinate in the absolute referential (linked with the full sample) and it is measured up to the bottom of the particle. $t$ is the thickness of the intermediate layer containing the particles. $R_{i,f}$ and $T_{i,f}$  are the reflection  and transmission coefficients in incidence and reflection (they can be calculated using Parratt or matrix formalism). $r^j_{0,1}$, $r^j_{1,2}$ $t^j_{0,1}$ are the reflection and transmission coefficients between layers; the indices are related to different boundaries with 0: air, 1: intermediate layer and 2: substrate layer and the superscript $j$ is associated with the incident or scattered beams:
 \begin{equation*}
 r^j_{n,n+1}=\frac{k_{j,z,n}-k_{j,z,n+1}}{k_{j,z,n}-k_{j,z,n+1}}, \qquad t^j_{n,n+1}= \frac{2k_{j,z,n}}{k_{j,z,n}-k_{j,z,n+1}}, \quad n=0,1, \quad j=i,f,
 \end{equation*}

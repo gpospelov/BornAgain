@@ -69,7 +69,7 @@ when there are different types of particles,
 or when the refractive index is not constant within the particles.
 
 \Note{\indent \BornAgain\ only supports discrete layers.
-  Within one layer~$j$,
+  Within one layer~$\il$,
   the refractive index of the matrix must be constant,
   $n_\text{m}(z)\equiv n_\text{m}$.}
 %\footnote
@@ -82,11 +82,11 @@ we are not obliged to compute $\nz(z)$ \textit{exactly},
 but are allowed to choose some approximation.
 In particular, we may average~$x_\text{p}(z)$
 over one layer
-so that $\nz(z)=:\overline{n_j^2}$ becomes $z$ independent.
+so that $\nz(z)=:\overline{n_\il^2}$ becomes $z$ independent.
 
 \Warn{\indent Currently, \BornAgain\ only supports
   the dilute-particle limit. Whatever the actual particle concentration,
-  the approximation $x_\text{p}(z)=0$ is used so that $\overline{n_j^2}\equiv n_j^2$.}
+  the approximation $x_\text{p}(z)=0$ is used so that $\overline{n_\il^2}\equiv n_\il^2$.}
 
 Once $\nz(z)$ is computed in whatever approximation,
 the perturbation potential is given by (\ref{EChiGraded}),
@@ -120,21 +120,21 @@ which vanishes unless $\r$ lies within a particle.
 
 Writing the potential as~(\ref{Echi0p}) is a convenient starting point
 for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
-We now definitively specialize to the case of discrete layers~$j$
-with constant~$\nz(z)=n_j^2$.
+We now definitively specialize to the case of discrete layers~$\il$
+with constant~$\nz(z)=n_\il^2$.
 Hence the $\psi_{w}$ consist of plane waves,
 and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{EtmDWBAft}).
 We only need to compute the restricted Fourier transform
-$\chi_j(\q)$ introduced in (\ref{Echij}).
+$\chi_\il(\q)$ introduced in (\ref{Echij}).
 According to (\ref{Echi0p}),
 it has two contributions,
 \begin{equation}\label{Echijmp}
-  \chi_j(\q) = \chi_\text{m}(\q) + \chi_\text{p}(\q).
+  \chi_\il(\q) = \chi_\text{m}(\q) + \chi_\text{p}(\q).
 \end{equation}
 The first one is the shape transform of the entire layer,
 \begin{equation}
   \chi_\text{m}(\q)
-  = \chi_\text{m} \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}
+  = \chi_\text{m} \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}
   = \chi_\text{m} \delta(\q_\parallel) \sinc\left( q_\perp z \right).
 \end{equation}
 Thanks to the delta function,

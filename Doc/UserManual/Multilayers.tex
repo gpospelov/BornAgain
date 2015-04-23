@@ -53,8 +53,8 @@ for $\r$ inside the sample.
 The following derivation holds for the incoming wave ($w=\ti$)
 as well as for the back-traced detected wave ($w=\tf$).
 
-We consider wave propagation in one layer~$j$
-\nomenclature[2j020]{$j$}{Index of layer in multilayer sample}%
+We consider wave propagation in one layer~$\il$
+\nomenclature[2l020]{$\il$}{Index of layer in multilayer sample}%
 with constant average refractive index $\nz(z)=\nzj$.
 A vacuum plane wave, impinging on a layered structure,
 is at each interface partly reflected, partly refracted,
@@ -63,75 +63,75 @@ has an upward and a downward propagating component,
 as per~(\ref{Epsipm}).
 Each component is a plane wave,
 \begin{equation}
-  \psi^\pm_{wj}(\r)=\e^{i\k^\pm_{\parallel w}\r_\parallel}\phi^\pm_{wj}(z)
+  \psi^\pm_{w\il}(\r)=\e^{i\k^\pm_{\parallel w}\r_\parallel}\phi^\pm_{w\il}(z)
 \end{equation}
 with
 \begin{equation}\label{Ephizwj}
-  \phi^\pm_{wj}(\r)=A^\pm_{wj}\e^{\pm i\k_{\perp wj}(z-z_j)}.
+  \phi^\pm_{w\il}(\r)=A^\pm_{w\il}\e^{\pm i\k_{\perp w\il}(z-z_\il)}.
 \end{equation}
-\nomenclature[2a123 2w010 2j010 \pm]{$A^\pm_{wj}$}{Amplitude of the plane wave $\phi^\pm_{wj}(\r)$}%
+\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
 For later convenience,
 the phase factor in (\ref{Ephizwj}) includes an offset
-given by~$z_j$, the $z$ coordinate at the bottom of layer~$j$.
+given by~$z_\il$, the $z$ coordinate at the bottom of layer~$\il$.
 The amplitudes $A$ are often written with distinct letters
 T and~R to designate the transmitted or reflected beam,
 \begin{equation}
-  T_{wj} := A^-_{wj},\quad
-  R_{wj} := A^+_{wj}.
+  T_{w\il} := A^-_{w\il},\quad
+  R_{w\il} := A^+_{w\il}.
 \end{equation}
-\nomenclature[2t126 2w020 2j020 0]{$T_{wj}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $j$ in downward (transmission) direction, also denoted $A^-_{wj}$}%
-\nomenclature[2r126 2w020 2j020 0]{$R_{wj}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $j$ in upward (reflection) direction, also denoted $A^+_{wj}$}%
+\nomenclature[2t126 2w020 2l020 0]{$T_{w\il}$}{Partial amplitude of $\psi_w(\r)$
+  in layer $\il$ in downward (transmission) direction, also denoted $A^-_{w\il}$}%
+\nomenclature[2r126 2w020 2l020 0]{$R_{w\il}$}{Partial amplitude of $\psi_w(\r)$
+  in layer $\il$ in upward (reflection) direction, also denoted $A^+_{w\il}$}%
 They need to be computed recursively,
 as described in the following subsection~\ref{Sacrolay}.
 
-Each plane wave component $\psi^\pm_{wj}(\r)$ has
+Each plane wave component $\psi^\pm_{w\il}(\r)$ has
 a three-dimensional wave vector
 \begin{equation}\label{Ekpmwj3}
-  \k^\pm_{wj}= \k_{\parallel w} \pm k_{\perp wj}\v{\hat z}.
+  \k^\pm_{w\il}= \k_{\parallel w} \pm k_{\perp w\il}\v{\hat z}.
 \end{equation}
 \nomenclature[2z060]{$\v{\hat z}$}{Unit vector along the sample normal}%
-\nomenclature[2k043 2w010 2j010 \pm]{$\k^\pm_{wj}$}{Wave vector of the plane wave $\Psi^\pm_{wj}(\r)$}%
+\nomenclature[2k043 2w010 2l010 \pm]{$\k^\pm_{w\il}$}{Wave vector of the plane wave $\Psi^\pm_{w\il}(\r)$}%
 As explained in connection with~(\ref{Ekpar}),
 the in-plane wave vector $\k_{\parallel w}$ remains constant
 across layer interfaces.
 The vertical wavenumber is obtained from (\ref{Ewavez}),
 \begin{equation}\label{Ekperpwj}
-  k_{\perp wj} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
+  k_{\perp w\il} = \sqrt{K^2 \nzj - k_{\parallel w}^2}.
 \end{equation}
 The glancing angle is
 \begin{equation}\label{Edef_alpha}
-  \alpha_{wj}:=\arctan(k_{\perp wj}/k_{\parallel w}).  
+  \alpha_{w\il}:=\arctan(k_{\perp w\il}/k_{\parallel w}).  
 \end{equation}
 Equivalently,
 \begin{equation}
-  k_{\parallel w}=K n_j \cos\alpha_{wj}. 
+  k_{\parallel w}=K n_\il \cos\alpha_{w\il}. 
 \end{equation}
 Since $k_{\parallel w}$ is constant across layers,
 we have
 \begin{equation}\label{ESnell}
-  n_j \cos\alpha_{wj} = \text{the same for all }j,
+  n_\il \cos\alpha_{w\il} = \text{the same for all }\il,
 \end{equation}
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
 
-Since the $\psi^\pm_{wj}$ are plane waves within layer~$j$,
+Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
 we can at once write down the DWBA transition matrix~(\ref{EtmDWBA})
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{EtmDWBAft0}
   \bra \Psi_\tf|\chi|\Psi_\ti\ket
-  = \sum_{j} \sum_{\pm_\tf} \sum_{\pm_\ti}
-    A^{\pm *}_{\tf j} A^\pm_{\ti j} 
-     \chi_j(\k^\pm_{\ti j}-\k^\pm_{\tf j}),
+  = \sum_{\il} \sum_{\pm_\tf} \sum_{\pm_\ti}
+    A^{\pm *}_{\tf \il} A^\pm_{\ti \il} 
+     \chi_\il(\k^\pm_{\ti \il}-\k^\pm_{\tf \il}),
 \end{equation}
 where
 \begin{equation}\label{Echij}
-  \chi_j(\v{q})
-  := \int_{z_j}^{z_{j-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
+  \chi_\il(\v{q})
+  := \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
 \end{equation}
-\nomenclature[1χ032 2j010 2q040]{$\chi_j(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
+\nomenclature[1χ032 2l010 2q040]{$\chi_\il(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 is the Fourier transform
 of the perturbative potential~(\ref{EChiGraded}),
 restricted to one layer.
@@ -151,7 +151,7 @@ Accordingly, we can write (\ref{EtmDWBAft0}) as
 \Emph{
 \begin{equation}\label{EtmDWBAft}
   \bra \Psi_\tf|\chi|\Psi_\ti\ket
-  = \sum_{j} \sum_{u} C^u_j \chi_j(\q_j^u).
+  = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
 
@@ -163,7 +163,7 @@ Accordingly, we can write (\ref{EtmDWBAft0}) as
 \index{Transmission|see {Fresnel coefficients}}%
 \index{Reflection|seealso {Fresnel coefficients}}%
 
-The plane-wave amplitudes $A^\pm_{wj}$ need to be computed recursively
+The plane-wave amplitudes $A^\pm_{w\il}$ need to be computed recursively
 from layer to layer.
 Since these computations are identical for incident and final waves,
 we omit the subscript~$w$ in the remainder of this section.
@@ -173,53 +173,53 @@ piecewise solutions of the Schrödinger equations must be connected
 such that the wave function $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
 This means for the interface
-at the \textit{bottom} of layer~$j=0,\ldots,N-1$:%
+at the \textit{bottom} of layer~$\il=0,\ldots,N-1$:%
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
-            \phi_j(z_j)&=&\phi_{j+1}(z_{j+1}+d_{j+1}),\\
-            \partial_z\phi_j(z_j)&=&\partial_z\phi_{j+1}(z_{j+1}+d_{j+1}),
+            \phi_\il(z_\il)&=&\phi_{\il+1}(z_{\il+1}+d_{\il+1}),\\
+            \partial_z\phi_\il(z_\il)&=&\partial_z\phi_{\il+1}(z_{\il+1}+d_{\il+1}),
   \end{array}
 \end{equation}
   where
 \begin{equation}
-  d_j:=z_{j-1}-z_{j}
+  d_\il:=z_{\il-1}-z_{\il}
 \end{equation}
-is the thickness of layer~$j$.
+is the thickness of layer~$\il$.
 
 We abbreviate
 \begin{equation}
-  f_j := k_{\perp j}/K = \sqrt{\overline{n_j^2}-(k_\parallel/K)^2}
+  f_\il := k_{\perp \il}/K = \sqrt{\overline{n_\il^2}-(k_\parallel/K)^2}
 \end{equation}
 and
 \begin{equation}
-   \delta_j := \e^{iKf_jd_j}.
+   \delta_\il := \e^{iKf_\il d_\il}.
 \end{equation}
 For the plane waves (\ref{Ephizwj}),
 the continuity conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
-  A^+_j &+& A^-_j,
+  A^+_\il &+& A^-_\il,
   &=&
-  a_{j+1}\delta_{j+1} &+& A^-_{j+1}\delta_{j+1}^*,
+  a_{\il+1}\delta_{\il+1} &+& A^-_{\il+1}\delta_{\il+1}^*,
   \\
-  A^+_j f_j  &-& A^-_j f_j,
+  A^+_\il f_\il  &-& A^-_\il f_\il,
   &=&
- a_{j+1}\delta_{j+1} f_{j+1} &-& A^-_{j+1}\delta_{j+1}^* f_{j+1}.
+ a_{\il+1}\delta_{\il+1} f_{\il+1} &-& A^-_{\il+1}\delta_{\il+1}^* f_{\il+1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
 we can rewrite this equation system as
 \begin{equation}\label{EcMc}
-  \left( \begin{array}{c}A^+_j\\A^-_j\end{array} \right)
-  = M_{j+1} \left( \begin{array}{c}A^+_{j+1}\\A^-_{j+1}\end{array} \right)
+  \left( \begin{array}{c}A^+_\il\\A^-_\il\end{array} \right)
+  = M_{\il+1} \left( \begin{array}{c}A^+_{\il+1}\\A^-_{\il+1}\end{array} \right)
 \end{equation}
 with the transfer matrix
 \begin{equation}
-  M_j
-   = \frac{1}{2f_{j-1}}
+  M_\il
+   = \frac{1}{2f_{\il-1}}
    \left(\begin{array}{cc}
-       \delta_j(f_{j-1}+f_j)&\delta_j^*(f_{j-1}-f_j)\\
-       \delta_j(f_{j-1}-f_j)&\delta_j^*(f_{j-1}+f_j)
+       \delta_\il(f_{\il-1}+f_\il)&\delta_\il^*(f_{\il-1}-f_\il)\\
+       \delta_\il(f_{\il-1}-f_\il)&\delta_\il^*(f_{\il-1}+f_\il)
    \end{array}\right).
 \end{equation}
 To study wave propagation across the entire stack of layers,
@@ -270,19 +270,19 @@ And how to Abeles matrices, Parrat's formalism, Deak's papers?}
 In Sect.~\ref{Sabsorption},
 we have chosen the horizontal wave vector $\k_{\parallel}$
 to be always real and constant.
-In contrast, the vertical wave number $k_{\perp j}$,
+In contrast, the vertical wave number $k_{\perp \il}$,
 given by (\ref{Ekperpwj}),
 can become imaginary or complex.
-If $\overline{n_j^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
+If $\overline{n_\il^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
 then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
 and the radicand in (\ref{Ekperpwj}) becomes negative
-so that $k_{\perp j}$ becomes pure imaginary.
+so that $k_{\perp \il}$ becomes pure imaginary.
 \index{Wave vector!complex}%
 If the layer is absorbing,
-described by an positive imaginary part of $\overline{n_j^2}$,
+described by an positive imaginary part of $\overline{n_\il^2}$,
 then the radicand in (\ref{Ekperpwj}) becomes complex,
-and the wave number $k_{\perp j}$ as well.
-For complex $k_{\perp j}$,
+and the wave number $k_{\perp \il}$ as well.
+For complex $k_{\perp \il}$,
 the theory developed above remains applicable,
 except that the geometric interpretation of the wave vectors $\k_\pm$
 in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable.
@@ -294,19 +294,19 @@ Writing
 for a decomposition into a real and an imaginary part,
 we find an exponential decay of the plane wave amplitudes
 \begin{equation}\label{Ephidamp}
-  \left|\phi^\pm_j(z)\right|
-  = \e^{\mp k_{\perp j}'' z}
+  \left|\phi^\pm_\il(z)\right|
+  = \e^{\mp k_{\perp \il}'' z}
 \end{equation}
 along their propagation direction~$\pm z$.
 With an analogous decomposition
 of the three-dimensional wave vector (\ref{Ekpmwj3}),
 we obtain for the flux, defined as in~(\ref{EdefJ}),
 \begin{equation}
-  \v{J}_j(\r) = \k' \e^{-2k_{\perp j}z}.
+  \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.
 \end{equation}
-In the special case of a pure imaginary~$k_{\perp j}$,
+In the special case of a pure imaginary~$k_{\perp \il}$,
 the flux direction is $\k'=\k_\parallel$.
-Then $\psi_j(\r)$ is an \textit{evanescent wave},
+Then $\psi_\il(\r)$ is an \textit{evanescent wave},
 \index{Evanescent wave}%
 travelling horizontally.
 Since a stationary evanescent wave implies that there is
@@ -314,13 +314,13 @@ no vertical energy transport,
 all incoming radiation undergoes \textit{total reflection}.
 \index{Total reflection}%
 
-In the generic case of a complex~$k_{\perp j}$,
+In the generic case of a complex~$k_{\perp \il}$,
 the flux has a vertical component.
 Accordingly, the total reflection is not perfect.
-Some intensity is dissipated in layer $j$.
+Some intensity is dissipated in layer $\il$.
 \index{Dissipation}%
-And if layer $j>N$ is not too thick,
-then some radiation intensity also tunnels into the adjecent layer $j+1$.
+And if layer $\il>N$ is not too thick,
+then some radiation intensity also tunnels into the adjecent layer $\il+1$.
 \index{Tunneling}%
 
 
@@ -342,9 +342,9 @@ then some radiation intensity also tunnels into the adjecent layer $j+1$.
 To allow for polarization-dependent interactions,
 we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
-The wave equation (\ref{Escalar_wave}) for layer~$j$ becomes
+The wave equation (\ref{Escalar_wave}) for layer~$\il$ becomes
 \begin{equation}\label{Ewaveqp}  
-(\Delta +K^2 +K^2 \uu\chi_j) \u\psi(\r)= 0,
+(\Delta +K^2 +K^2 \uu\chi_\il) \u\psi(\r)= 0,
 \end{equation}
 where $\u\psi(\r)$ is a two-component spinor wave function,
 with components $\psi_\UP(\r)$ and~$\psi_\DN(\r)$.
@@ -360,34 +360,34 @@ and so we can write
 As before, $\k_\parallel$ is constant across layers.
 The wave equation~(\ref{Ewaveqp}) reduces to 
 \begin{equation}\label{Ewavezp}
-\left(\partial_z^2 + K^2 + K^2\uu\chi_j - k_\parallel^2 \right) \u\psi(z) = 0.
+\left(\partial_z^2 + K^2 + K^2\uu\chi_\il - k_\parallel^2 \right) \u\psi(z) = 0.
 \end{equation}
 We abbreviate
 \begin{equation}
-  \uu H_j := K^2(1+\uu\chi_j)-k_\parallel^2
+  \uu H_\il := K^2(1+\uu\chi_\il)-k_\parallel^2
 \end{equation}
 so that the wave equation becomes simply
 \begin{equation}\label{Ewaveqp2}
-  \left(\partial_z^2 + \uu H_j\right) \u\psi(z) = 0.
+  \left(\partial_z^2 + \uu H_\il\right) \u\psi(z) = 0.
 \end{equation}
 The solution is
 \begin{equation}\label{Epsizp}
-  \u\psi_j(z)
-  = \sum_{k=1}^2 \u x_{jk}\left(\alpha_{jk}\e^{i p_{jk}(z-z_k)}
-                            + \beta_{jk}\e^{-i p_{jk}(z-z_k)}\right),
+  \u\psi_\il(z)
+  = \sum_{k=1}^2 \u x_{\il k}\left(\alpha_{\il k}\e^{i p_{\il k}(z-z_k)}
+                            + \beta_{\il k}\e^{-i p_{\il k}(z-z_k)}\right),
 \end{equation}
-where the $\u x_{jk}$ are eigenvectors of $\uu H_j$
-with eigenvalues $p_{jk}^2$:
+where the $\u x_{\il k}$ are eigenvectors of $\uu H_\il$
+with eigenvalues $p_{\il k}^2$:
 \begin{equation}
-  \left( -p_{jk}^2 + \uu H_j \right) \u x_{jk} = 0
-   \;\text{ for }\;j=1,2.
+  \left( -p_{\il k}^2 + \uu H_\il \right) \u x_{\il k} = 0
+   \;\text{ for }\;\il=1,2.
 \end{equation}
 In a reproducible algorithm,
-the eigenvectors $\u x_{jk}$ must be chosen according to some arbitrary
+the eigenvectors $\u x_{\il k}$ must be chosen according to some arbitrary
 normalization rule,
 for instance
 \begin{equation}
-  |\u x_{jk}|=1,\quad x_{ij\UP} \text{ real and nonnegative}.
+  |\u x_{\il k}|=1,\quad x_{i\il\UP} \text{ real and nonnegative}.
 \end{equation}
 Similarly,
 a rule is needed how to handle the case of one degenerate eigenvalue,
@@ -401,75 +401,75 @@ which includes in particular the case of scalar interactions.
 Generalizing (\ref{Evecc}),
 we introduce the coefficient vector
 \begin{equation}
-  c_j := {(\alpha_{j1}, \alpha_{j2}, \beta_{j1}, \beta_{j2})}^\text{T}.
+  c_\il := {(\alpha_{\il1}, \alpha_{\il2}, \beta_{\il1}, \beta_{\il2})}^\text{T}.
 \end{equation}
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
 of $\u\psi$ and $\Nabla\u\psi$.
-As before (\ref{EFcFDc}), we have at the bottom of layer~$j$
+As before (\ref{EFcFDc}), we have at the bottom of layer~$\il$
 \begin{equation}\label{EFcFDcp}
-  F_j c_j = F_{j+1} D_{j+1} c_{j+1},
+  F_\il c_\il = F_{\il+1} D_{\il+1} c_{\il+1},
 \end{equation}
 where the matrices are now
 \begin{equation}
-  F_j := \left(\begin{array}{cccc}
+  F_\il := \left(\begin{array}{cccc}
     x_{i1\UP}      &x_{i2\UP}     &x_{i1\UP}       &x_{i2\UP}       \\
     x_{i1\DN}      &x_{i2\DN}     &x_{i1\DN}       &x_{i2\DN}       \\
-    x_{i1\UP}p_{j1}&x_{i2\UP}p_{j2}&-x_{i1\UP}p_{j1}&-x_{i2\UP}p_{j2}\\
-    x_{i1\DN}p_{j1}&x_{i2\DN}p_{j2}&-x_{i1\DN}p_{j1}&-x_{i2\DN}p_{j2}
+    x_{i1\UP}p_{\il1}&x_{i2\UP}p_{\il2}&-x_{i1\UP}p_{\il1}&-x_{i2\UP}p_{\il2}\\
+    x_{i1\DN}p_{\il1}&x_{i2\DN}p_{\il2}&-x_{i1\DN}p_{\il1}&-x_{i2\DN}p_{\il2}
   \end{array}\right)
 \end{equation}
 and
 \begin{equation}
-  D_j := \text{diag}(\delta_{j1}, \delta_{j2}, \delta_{j1}^*, \delta_{j2}^*)
+  D_\il := \text{diag}(\delta_{\il1}, \delta_{\il2}, \delta_{\il1}^*, \delta_{\il2}^*)
 \end{equation}
 with the phase factor
 \begin{equation}
-   \delta_{jk} := \e^{ip_{jk}d_k}.
+   \delta_{\il k} := \e^{ip_{\il k}d_k}.
 \end{equation}
-Note that matrix $F_j$ has the block form
+Note that matrix $F_\il$ has the block form
 \begin{equation}
-  F_j
-  =\left(\begin{array}{ll}\uu x_j&\hphantom{-}\uu x_j\\[1ex]
-    \uu x_j\; \uu P_j&-\uu x_j\; \uu P_j\end{array}\right)
-    = \uu x_j \cdot
+  F_\il
+  =\left(\begin{array}{ll}\uu x_\il&\hphantom{-}\uu x_\il\\[1ex]
+    \uu x_\il\; \uu P_\il&-\uu x_\il\; \uu P_\il\end{array}\right)
+    = \uu x_\il \cdot
     \left(\begin{array}{cc}\uu 1&\uu 1\\[1ex]
-    \uu P_j&-\uu P_j\end{array}\right),
+    \uu P_\il&-\uu P_\il\end{array}\right),
 \end{equation}
 with
 \begin{equation}
-  \uu x_j :=
-  \left(\u x_{j1}, \u x_{j2}\right),
+  \uu x_\il :=
+  \left(\u x_{\il1}, \u x_{\il2}\right),
   \quad
-  \uu P_j :=
-  \text{diag}\left(p_{j1},p_{j2}\right).
+  \uu P_\il :=
+  \text{diag}\left(p_{\il1},p_{\il2}\right).
 \end{equation}
 This facilitates the computation of the inverse
 \begin{equation}
-  F_j^{-1}
+  F_\il^{-1}
     = \frac{1}{2}
-    \left(\begin{array}{cc}\uu 1&\hphantom{-}\uu P_j^{-1}\\[1.2ex]
-      \uu 1 &-\uu P_j^{-1}\end{array}\right)
-      \cdot\uu x_j^{-1},
+    \left(\begin{array}{cc}\uu 1&\hphantom{-}\uu P_\il^{-1}\\[1.2ex]
+      \uu 1 &-\uu P_\il^{-1}\end{array}\right)
+      \cdot\uu x_\il^{-1},
 \end{equation}
-which is needed for the transfer matrix $M_j$,
+which is needed for the transfer matrix $M_\il$,
 defined as in (\ref{Edef_M}).
-With the new meaning of $c_j$ and $M_j$,
+With the new meaning of $c_\il$ and $M_\il$,
 the recursion (\ref{EcMc}) and the explicit solution~(\ref{Eci})
 hold as derived above.
-To resolve~(\ref{Eci}) for the reflected amplitudes $\alpha_{0j}$
-as function of the incident amplitudes $\beta_{0j}$,
+To resolve~(\ref{Eci}) for the reflected amplitudes $\alpha_{0\il}$
+as function of the incident amplitudes $\beta_{0\il}$,
 we choose the notations
 \begin{equation}
-  \u\alpha_j
-  :=\left(\begin{array}{c}\alpha_{j1}\\\alpha_{j2}\end{array}\right),\quad
-  \u\beta_j
-  :=\left(\begin{array}{c}\beta_{j1}\\\beta_{j2}\end{array}\right),\quad
+  \u\alpha_\il
+  :=\left(\begin{array}{c}\alpha_{\il1}\\\alpha_{\il2}\end{array}\right),\quad
+  \u\beta_\il
+  :=\left(\begin{array}{c}\beta_{\il1}\\\beta_{\il2}\end{array}\right),\quad
   M:=M_1 ... M_N % TODO restore \cdots
   =:\left(\begin{array}{cc}\uu m_{11}&\uu m_{12}\\
                            \uu m_{21}&\uu m_{22}\end{array}\right),
 \end{equation}
-where the $\uu m_{jk}$ are $2\times2$ matrices.
+where the $\uu m_{\il k}$ are $2\times2$ matrices.
 Eq.~(\ref{Eci}) then takes the form
 \begin{equation}
   \left(\begin{array}{c}\u\alpha_{0}\\\u\beta_{0}\end{array}\right)

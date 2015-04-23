@@ -207,8 +207,7 @@ double Detector::getSolidAngle(OutputData<double> *p_data, size_t index) const
 
 void Detector::initPolarization()
 {
-    kvector_t zero;
-    setPolarization(zero);
+    m_polarization = Eigen::Matrix2cd::Identity();
 }
 
 void Detector::print(std::ostream &ostr) const

@@ -329,6 +329,16 @@ void register_Simulation_class(){
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
+        { //::Simulation::setBeamPolarization
+        
+            typedef void ( ::Simulation::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Simulation_exposer.def( 
+                "setBeamPolarization"
+                , setBeamPolarization_function_type( &::Simulation::setBeamPolarization )
+                , ( bp::arg("bloch_vector") ) );
+        
+        }
         { //::Simulation::setDetectorParameters
         
             typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;
@@ -357,6 +367,16 @@ void register_Simulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
                 , ( bp::arg("params") ) );
+        
+        }
+        { //::Simulation::setDetectorPolarization
+        
+            typedef void ( ::Simulation::*setDetectorPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Simulation_exposer.def( 
+                "setDetectorPolarization"
+                , setDetectorPolarization_function_type( &::Simulation::setDetectorPolarization )
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Simulation::setDetectorResolutionFunction

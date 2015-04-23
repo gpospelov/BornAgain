@@ -87,6 +87,9 @@ public:
     //! Sets beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);
 
+    //! Sets the beam polarization according to the given Bloch vector
+    void setBeamPolarization(const kvector_t& bloch_vector);
+
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
 
@@ -107,6 +110,9 @@ public:
 
     //! Removes detector resolution function
     void removeDetectorResolutionFunction();
+
+    //! Sets the detector's polarization with the given Bloch vector
+    void setDetectorPolarization(const kvector_t& bloch_vector);
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)

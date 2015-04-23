@@ -231,6 +231,16 @@ void register_Instrument_class(){
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
+        { //::Instrument::setBeamPolarization
+        
+            typedef void ( ::Instrument::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Instrument_exposer.def( 
+                "setBeamPolarization"
+                , setBeamPolarization_function_type( &::Instrument::setBeamPolarization )
+                , ( bp::arg("bloch_vector") ) );
+        
+        }
         { //::Instrument::setDetectorAxes
         
             typedef void ( ::Instrument::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
@@ -259,6 +269,16 @@ void register_Instrument_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
                 , ( bp::arg("params") ) );
+        
+        }
+        { //::Instrument::setDetectorPolarization
+        
+            typedef void ( ::Instrument::*setDetectorPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetectorPolarization"
+                , setDetectorPolarization_function_type( &::Instrument::setDetectorPolarization )
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Instrument::setDetectorResolutionFunction

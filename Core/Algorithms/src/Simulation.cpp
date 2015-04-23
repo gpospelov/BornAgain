@@ -221,6 +221,11 @@ void Simulation::setBeamIntensity(double intensity)
     m_instrument.setBeamIntensity(intensity);
 }
 
+void Simulation::setBeamPolarization(const kvector_t &bloch_vector)
+{
+    m_instrument.setBeamPolarization(bloch_vector);
+}
+
 std::string Simulation::addParametersToExternalPool(
     std::string path, ParameterPool* external_pool, int copy_number) const
 {
@@ -323,6 +328,11 @@ void Simulation::setDetectorResolutionFunction(
 void Simulation::removeDetectorResolutionFunction()
 {
     m_instrument.setDetectorResolutionFunction(0);
+}
+
+void Simulation::setDetectorPolarization(const kvector_t &bloch_vector)
+{
+    m_instrument.setDetectorPolarization(bloch_vector);
 }
 
 void Simulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)

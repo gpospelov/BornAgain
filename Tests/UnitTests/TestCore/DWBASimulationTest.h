@@ -34,7 +34,6 @@ DWBASimulationTest::DWBASimulationTest()
 TEST_F(DWBASimulationTest, InitialState)
 {
     DWBASimulation dwbasim;
-    EXPECT_FALSE(dwbasim.hasPolarizedOutputData());
     EXPECT_EQ( size_t(1), dwbasim.getDWBAIntensity().getAllocatedSize());
 }
 
@@ -113,30 +112,6 @@ TEST_F(DWBASimulationTest, MaskedThreadIterator)
     }
 
 }
-
-
-TEST_F(DWBASimulationTest, PolarizedIntensity)
-{
-    MultiLayer ml;
-
-    kvector_t magnetic_field(0.0, 0.0, 0.0);
-    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
-    Layer layer(magMaterial0, 20*Units::nanometer);
-    ml.addLayer(layer);
-    m_sim.setSample(ml);
-
-    DWBASimulation dwbasim;
-    dwbasim.init(m_sim);
-
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity().getAllocatedSize(), m_data.getAllocatedSize());
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity().getRank(), m_data.getRank());
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity()[0](0,0), 0.0);
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity()[0](0,1), 0.0);
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity()[0](1,0), 0.0);
-    EXPECT_EQ(dwbasim.getPolarizedDWBAIntensity()[0](1,1), 0.0);
-}
-
-
 
 
 #endif // DETECTORTEST_H

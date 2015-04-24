@@ -144,16 +144,6 @@ void register_Beam_class(){
         Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", bp::init< >() );
         bp::scope Beam_scope( Beam_exposer );
         Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
-        { //::Beam::SetSpinUpFraction
-        
-            typedef void ( ::Beam::*SetSpinUpFraction_function_type)( double ) ;
-            
-            Beam_exposer.def( 
-                "SetSpinUpFraction"
-                , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
-                , ( bp::arg("up_fraction") ) );
-        
-        }
         { //::Beam::getAlpha
         
             typedef double ( ::Beam::*getAlpha_function_type)(  ) const;
@@ -228,6 +218,16 @@ void register_Beam_class(){
                 "setIntensity"
                 , setIntensity_function_type( &::Beam::setIntensity )
                 , ( bp::arg("intensity") ) );
+        
+        }
+        { //::Beam::setPolarization
+        
+            typedef void ( ::Beam::*setPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Beam_exposer.def( 
+                "setPolarization"
+                , setPolarization_function_type( &::Beam::setPolarization )
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::IParameterized::areParametersChanged

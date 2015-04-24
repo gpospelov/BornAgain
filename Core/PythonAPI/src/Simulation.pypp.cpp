@@ -236,17 +236,6 @@ void register_Simulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Simulation::getPolarizedIntensityData
-        
-            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type)( int,int ) const;
-            
-            Simulation_exposer.def( 
-                "getPolarizedIntensityData"
-                , getPolarizedIntensityData_function_type( &::Simulation::getPolarizedIntensityData )
-                , ( bp::arg("row"), bp::arg("column") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Simulation::getSample
         
             typedef ::ISample * ( ::Simulation::*getSample_function_type)(  ) const;
@@ -320,6 +309,16 @@ void register_Simulation_class(){
                 , runSimulation_function_type( &::Simulation::runSimulation ) );
         
         }
+        { //::Simulation::setAnalyzerProperties
+        
+            typedef void ( ::Simulation::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Simulation_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Simulation::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+        
+        }
         { //::Simulation::setBeamIntensity
         
             typedef void ( ::Simulation::*setBeamIntensity_function_type)( double ) ;
@@ -338,6 +337,16 @@ void register_Simulation_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::Simulation::setBeamParameters )
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
+        
+        }
+        { //::Simulation::setBeamPolarization
+        
+            typedef void ( ::Simulation::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Simulation_exposer.def( 
+                "setBeamPolarization"
+                , setBeamPolarization_function_type( &::Simulation::setBeamPolarization )
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Simulation::setDetectorParameters

@@ -45,27 +45,9 @@ public:
     //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const;
 
-#ifndef GCCXML_SKIP_THIS
-    //! Returns output data containing calculated polarized intensity.
-    const OutputData<Eigen::Matrix2d>& getPolarizedDWBAIntensity() const
-    { return *mp_polarization_output; }
-
-    //! Indicates if polarized output data is present
-    bool hasPolarizedOutputData() const {
-        return mp_polarization_output!=0;
-    }
-#endif
-
     //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }
-
-#ifndef GCCXML_SKIP_THIS
-    //! Adds polarized intensity to current polarized dwba intensity
-    void addPolarizedDWBAIntensity(const OutputData<Eigen::Matrix2d>
-        &data_to_add)
-    { (*mp_polarization_output) += data_to_add; }
-#endif
 
     virtual DWBASimulation *clone() const;
 
@@ -100,12 +82,10 @@ protected:
     //! Returns the wavelength of the incoming beam
     double getWaveLength() const;
 
-    //! apply beam polarization to get specific polarized intensity map
-    const OutputData<double>&  getPolarizationData() const;
-
     mutable OutputData<double> m_dwba_intensity;
 #ifndef GCCXML_SKIP_THIS
-    OutputData<Eigen::Matrix2d> *mp_polarization_output;
+    Eigen::Matrix2cd m_beam_polarization;
+    Eigen::Matrix2cd m_detector_polarization;
 #endif
     cvector_t m_ki;
     double m_alpha_i;

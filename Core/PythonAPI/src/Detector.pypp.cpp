@@ -194,6 +194,16 @@ void register_Detector_class(){
                 , bp::return_self< >() );
         
         }
+        { //::Detector::setAnalyzerProperties
+        
+            typedef void ( ::Detector::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Detector_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Detector::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;

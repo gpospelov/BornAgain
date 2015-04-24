@@ -67,7 +67,7 @@ void TestPolarizedMeso::execute()
 
     simulation.normalize();
 
-    IsGISAXSTools::drawLogOutputDataPol(*simulation.getPolarizedOutputData(),
+    IsGISAXSTools::drawLogOutputData(*simulation.getOutputData(),
             "c1_polMeso", "Polarized Mesocrystal", "CONT4 Z",
             "Polarized Mesocrystal");
 //    IsGISAXSTools::drawLogOutputData(*simulation.getOutputData(), "c1_test_meso_crystal", "mesocrystal",

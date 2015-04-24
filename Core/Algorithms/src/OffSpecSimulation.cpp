@@ -97,15 +97,6 @@ OutputData<double> *OffSpecSimulation::getIntensityData() const
     return result;
 }
 
-OutputData<double>* OffSpecSimulation::getPolarizedIntensityData(
-        int row, int column) const
-{
-    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
-    OutputData<double > *result =
-            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
-    return result;
-}
-
 void OffSpecSimulation::setInstrument(const Instrument& instrument) {
     m_simulation.setInstrument(instrument);
     updateIntensityMapAxes();
@@ -171,11 +162,9 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
 , m_lambda(other.m_lambda)
 , m_phi(other.m_phi)
 , m_intensity_map()
-, m_polarized_intensity()
 {
     if(other.mp_alpha_i_axis) mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
-    m_polarized_intensity.copyFrom(other.m_polarized_intensity);
 
     init_parameters();
 }

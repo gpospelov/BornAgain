@@ -206,17 +206,6 @@ void register_OffSpecSimulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::OffSpecSimulation::getPolarizedIntensityData
-        
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getPolarizedIntensityData_function_type)( int,int ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "getPolarizedIntensityData"
-                , getPolarizedIntensityData_function_type( &::OffSpecSimulation::getPolarizedIntensityData )
-                , ( bp::arg("row"), bp::arg("column") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::OffSpecSimulation::getSample
         
             typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type)(  ) const;
@@ -263,6 +252,16 @@ void register_OffSpecSimulation_class(){
                 , runSimulation_function_type( &::OffSpecSimulation::runSimulation ) );
         
         }
+        { //::OffSpecSimulation::setAnalyzerProperties
+        
+            typedef void ( ::OffSpecSimulation::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            OffSpecSimulation_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::OffSpecSimulation::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+        
+        }
         { //::OffSpecSimulation::setBeamIntensity
         
             typedef void ( ::OffSpecSimulation::*setBeamIntensity_function_type)( double ) ;
@@ -281,6 +280,16 @@ void register_OffSpecSimulation_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::OffSpecSimulation::setBeamParameters )
                 , ( bp::arg("lambda"), bp::arg("alpha_axis"), bp::arg("phi_i") ) );
+        
+        }
+        { //::OffSpecSimulation::setBeamPolarization
+        
+            typedef void ( ::OffSpecSimulation::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
+            
+            OffSpecSimulation_exposer.def( 
+                "setBeamPolarization"
+                , setBeamPolarization_function_type( &::OffSpecSimulation::setBeamPolarization )
+                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::OffSpecSimulation::setDetectorParameters

@@ -123,7 +123,7 @@ for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
 We now definitively specialize to the case of discrete layers~$\il$
 with constant~$\nz(z)=\nzj$.
 Hence the $\psi_{w}$ consist of plane waves,
-and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{EtmDWBAft}).
+and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{Edwba_ml}).
 We only need to compute the restricted Fourier transform
 $\chi_\il(\q)$ introduced in (\ref{Echij}).
 According to (\ref{Echi0p}),
@@ -150,21 +150,21 @@ by the embedded particles.
 To proceed, we need to model their scattering properties
 and spatial distribution.
 A single particle~$i$ shall be characterized by its location~$\R_i$,
-and by a parameter vector~$\v\tau_i$ that collects
+and by a parameter vector~$\v{T}_i$ that collects
 characteristics like shape, size, orientation, and refractive index profile.
 The potential of all particles can then be written as a sum
 \begin{equation}
-  \chi_\text{p}(\r) = \sum_i \chi(\r-\R_i,\v\tau_i).
+  \chi_\text{p}(\r) = \sum_i \chi(\r-\R_i,\v{T}_i).
 \end{equation}
 We further introduce the \textit{form factor}
 \index{Form factor}%
 of the particle,
 \begin{equation}
-  F(\q,\v\tau_i) := \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v\tau_i),
+  F(\q,\v{T}_i) := \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i),
 \end{equation}
 and obtain
 \begin{equation}
-  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} F(\q,\v\tau_i).
+  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i).
 \end{equation}
 With (\ref{Exsection}) and (\ref{Edwba_ml}), 
 the differential cross section due to scattering from embedded particles is
@@ -172,18 +172,18 @@ given by double sums over layers, DWBA terms, and particles:
 \begin{equation}\label{Eass6}
   \frac{\partial\sigma}{\partial\Omega}
   = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij}
-    \e^{i(\q^u \R_i - \q^v \R_j)} F^*(\q^u,\v\tau_i) F(\q^v,\v\tau_j).
+    \e^{i(\q^u \R_i - \q^v \R_j)} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
 \end{equation}
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
 we absorb the vertical particle coordinate~$\R_{i\perp}$
-into the parameter vector~$\v\tau_i$.
+into the parameter vector~$\v{T}_i$.
 We then collect several terms into the \textit{DWBA form factor}\footnote
 {This generalizes the definition in \IsGISAXS\ \cite[ch.~2.4.1]{Laz08}
   and in the literature \cite[p.~292]{ReLL09},
 which does not include a depth factor.}
 \begin{equation}
-  \FD_l(\k_\ti,\k_\tf;\v\tau_i)
-  := \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v\tau_i).
+  \FD_l(\k_\ti,\k_\tf;\v{T}_i)
+  := \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
 \end{equation}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
@@ -191,7 +191,7 @@ Hence (\ref{Eass6}) can be written as
 \begin{equation}\label{Eass4}
   \frac{\partial\sigma}{\partial\Omega}
   = \sum_{lm} \sum_{ij} \e^{i(\q_{l\plll}\R_{i\plll}-\q_{m\plll}\R_{j\plll})}
-    \FD^*_l(\v\tau_i) \FD_m(\v\tau_j).
+    \FD^*_l(\v{T}_i) \FD_m(\v{T}_j).
 \end{equation}
 
 \Warn{\indent Currently, \BornAgain\ does not support interferences
@@ -199,13 +199,17 @@ Hence (\ref{Eass6}) can be written as
   This means in particular, that there is no way to model particles
   that extend beyond layer interfaces.}
 
-With this restriction, (\ref{Eass4}) becomes an incoherent
-sum over contributions from different layers,
+With this restriction, (\ref{Eass4}) becomes an incoherent sum
+\begin{equation}
+  \frac{\partial\sigma}{\partial\Omega}
+  = \sum_{l} \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+\end{equation}
+over contributions from different layers,
 \Emph{
 \begin{equation}\label{Eass3}
-  \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{l} \sum_{ij} \e^{i\q_{l\plll}(\R_{i\plll}-\R_{j\plll})}
-    \FD^*_l(\v\tau_i) \FD_m(\v\tau_j).
+  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  = \sum_{ij} \e^{i\q_{l\plll}(\R_{i\plll}-\R_{j\plll})}
+    \FD^*_l(\v{T}_i) \FD_l(\v{T}_j).
 \end{equation}
 \vspace*{-5pt}}
 
@@ -213,13 +217,55 @@ If the morphology of a sample is known from experiments
 (e.~g.\ transmission electron microscopy) or from simulations,
 one could use a straightforward evaluation of~(\ref{Eass3})
 to predict the scattering pattern
-for a given set of particle coordinates $\{\R_i,\v\tau_i\}$.
+for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
 
-\Note{Simulations based on morphology data,
+\Note{\indent Simulations based on morphology data,
+\index{Morphology!as input data}%
   known from \IsGISAXS\ \cite[pp.~9, 65-66]{Laz08},
   have not yet been implemented in \BornAgain,
   and are not on our agenda.
   Please contact us if you have a use case.}
+
+Anyway, the standard approach to interpreting GISAS data
+is rather in terms of statistical models for
+the distribution of $\R_i$ and $\v{T}_i$.
+Such models shall be introduced in the following.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Particle distribution models}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To prepare a statistical formulation,
+we encode the particle coordinates in a distribution function
+\begin{equation}\label{EPDdeltas}
+  \PD_{l,ij}(\r_i,\r_j,\v\tau_i,\v\tau_j)
+  = \delta^{(2)}(\r_i-\R_{i\plll})\delta^{(2)}(\r_j-\R_{j\plll})
+  \delta^{(d_T)}(\v\tau_i-\v{T}_i)\delta^{(d_T)}(\v\tau_j-\v{T}_j)
+\end{equation}
+where the superscript indicates the dimensionality of the delta function.
+The vector~$\v{T}$ comprises $d_T$ different parameters.
+Some of them may only take discrete values;
+for them the delta function must be read as a Kronecker delta,
+and the integral in the following equation as a sum.
+
+The differential cross section~\ref{Eass3} can now
+be rewritten as
+\begin{equation}\label{Epdm1}
+  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  = \sum_{ij}
+  \int\!\d^2r_i d^2r_j \d^{d_T}\tau_i \d^{d_T}\tau_j
+    \PD_{l,ij}(\r_i,\r_j,\v\tau_i,\v\tau_j)
+  \e^{i\q_{l\plll}(\r_i-\r_j)}
+    \FD^*_l(\v\tau_i) \FD_l(\v\tau_j).
+\end{equation}
+The integration over $\r$ is restricted to the horizontal plane.
+Since all of the following models are concerned with only one layer,
+we will from now on
+omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
+
+We assume that the horizontal structure,
+averaged over many particles, is translationally invariant.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
@@ -237,36 +283,19 @@ we present particle assembly models that are supported in \BornAgain.
 %  that intersect a layer boundary.
 %\index{Particles!intersecting layer boundaries}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Geometry of the sample}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 The nanoparticles are characterized by their form factors
 (\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material.
 
-  
-By placing the particles
-inside or on top of a layer, we impose their vertical positions, whose
-values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
-particles interfere with each other. It is therefore implemented
-when dealing with the interference function.
 
-%\ImportantPoint{Remark:}{Depth of particles\\
-%The vertical positions of particles in a layer are given in relative
-%coordinates. For the top layer, the bottom corresponds to
-%\texttt{depth}=0. But for all the other layers, it is the top of the
-%layer which corresponds to \texttt{depth}=0.}\\
+\Note{\indent
+The vertical positions of particles in a layer are given in relative
+coordinates. For the top layer, the bottom corresponds to
+\texttt{depth}=0. But for all the other layers, it is the top of the
+layer which corresponds to \texttt{depth}=0.}
 
 %===============================================================================
 \subsection{Collection of particles} \label{sec:sect:interf}
 %===============================================================================
-
-Let us consider the general geometry of a scattering experiment. An incident neutron with a wave vector $\k_\text{i}$ is scattered in a new direction $\k_\text{f}$ after interacting with a particle. This scattering occurs in a cone of solid angle $d\Omega$ around the direction of the scattered wave vector $\k_\text{f}$.
-Considering a set of $N$ particles labeled with index $i$, located at $\r_i$ and having shapes $S_i(\r)$ ($S_i=0$ outside the particle and 1 inside), occupying a total volume $V$, the differential cross-section per particle is given by:
-\begin{equation*}
-  \frac{d\sigma}{d\Omega}(\q) = \frac{1}{N}\left\lbrace \sum_i \left\lvert F_i(\q) \right\rvert ^2 + \sum_{i\neq j} F_i(\q) F_{j}^*(\q) \exp \left[i\q\cdot (\v{R}_i-\v{R}_j)\right] \right\rbrace.
-\end{equation*}
-where  $\q=\k_\text{i} - \k_\text{f}$ is the wave vector transfer and $F_i$ is the form factor of particle $i$ (see Sect.~\ref{sec:sect:ff} for a description).
 
 Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \textit{i.e.} its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}

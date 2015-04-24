@@ -76,9 +76,6 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    cvector_t k_ij = m_ki;
-    k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
-
     DWBASimulation::iterator it = begin();
     while (it != end()) {
         if (!m_progress.update())
@@ -97,10 +94,12 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         // each ffdwba: 1 call to getOutCoeffs
         if (checkPolarizationPresent()) {
             // matrix dwba calculation
-            *it = p_strategy->evaluate(k_ij, m_beam_polarization, k_f_bin, m_detector_polarization,
+            *it = p_strategy->evaluate(m_ki, m_beam_polarization, k_f_bin, m_detector_polarization,
                                        alpha_bin, phi_bin) * total_surface_density;
         } else {
             // scalar dwba calculation
+            cvector_t k_ij = m_ki;
+            k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
             *it = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
         }
         ++it;

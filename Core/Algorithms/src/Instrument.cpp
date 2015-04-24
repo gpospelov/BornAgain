@@ -150,9 +150,8 @@ void Instrument::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {
     m_detector.setDetectorResolution(
-        new ConvolutionDetectorResolution(p_resolution_function) );
+                new ConvolutionDetectorResolution(p_resolution_function) );
 }
-
 
 void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map,
         OutputData<Eigen::Matrix2d> *p_matrix_intensity) const

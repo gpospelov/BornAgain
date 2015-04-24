@@ -66,24 +66,25 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 
 void Beam::setPolarization(const kvector_t &bloch_vector)
 {
-    if (bloch_vector.mag()>1.0) {
-        throw Exceptions::ClassInitializationException(
-            "The given Bloch vector cannot represent a real physical ensemble");
+    if (bloch_vector.mag() > 1.0) {
+        throw Exceptions::ClassInitializationException("Beam::setPolarization: The given Bloch "
+                                                       "vector cannot represent a real physical "
+                                                       "ensemble");
     }
     m_polarization = calculatePolarization(bloch_vector);
 }
 
-Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t &bloch_vector)
+Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t &bloch_vector) const
 {
     Eigen::Matrix2cd result;
     double x = bloch_vector.x();
     double y = bloch_vector.y();
     double z = bloch_vector.z();
     complex_t im(0.0, 1.0);
-    result(0,0) = (1.0 + z)/2.0;
-    result(0,1) = (x - im*y)/2.0;
-    result(1,0) = (x + im*y)/2.0;
-    result(1,1) = (1.0 - z)/2.0;
+    result(0, 0) = (1.0 + z) / 2.0;
+    result(0, 1) = (x - im * y) / 2.0;
+    result(1, 0) = (x + im * y) / 2.0;
+    result(1, 1) = (1.0 - z) / 2.0;
     return result;
 }
 

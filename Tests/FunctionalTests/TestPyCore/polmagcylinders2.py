@@ -17,7 +17,7 @@ from libBornAgainCore import *
 # ----------------------------------
 # describe sample and run simulation
 # ----------------------------------
-def getSimulationIntensity(rho_beam, rho_detector):
+def getSimulationIntensity(rho_beam, efficiency):
     # defining materials
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
     mSubstrate = HomogeneousMaterial("Substrate", 15e-6, 0.0)
@@ -45,7 +45,8 @@ def getSimulationIntensity(rho_beam, rho_detector):
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100, -1*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
-    simulation.setDetectorPolarization(rho_detector)
+    zplus = kvector_t(0.0, 0.0, 1.0)
+    simulation.setAnalyzerProperties(zplus, efficiency, 0.5)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setBeamPolarization(rho_beam)
     simulation.setSample(multi_layer)
@@ -63,10 +64,10 @@ def run_test():
     zmin = kvector_t(0.0, 0.0, -1.0)
 
     diff = 0.0
-    diff += get_difference(getSimulationIntensity(zplus, zplus), get_reference_data('polmagcylinders2_reference_00.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zplus, zmin), get_reference_data('polmagcylinders2_reference_01.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, zplus), get_reference_data('polmagcylinders2_reference_10.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, zmin), get_reference_data('polmagcylinders2_reference_11.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zplus, 1.0), get_reference_data('polmagcylinders2_reference_00.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zplus, -1.0), get_reference_data('polmagcylinders2_reference_01.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zmin, 1.0), get_reference_data('polmagcylinders2_reference_10.int.gz').getArray())
+    diff += get_difference(getSimulationIntensity(zmin, -1.0), get_reference_data('polmagcylinders2_reference_11.int.gz').getArray())
 
     diff /= 4.0
     status = "OK"

@@ -111,8 +111,9 @@ public:
     //! Removes detector resolution function
     void removeDetectorResolutionFunction();
 
-    //! Sets the detector's polarization with the given Bloch vector
-    void setDetectorPolarization(const kvector_t& bloch_vector);
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                               double total_transmission=1.0);
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)

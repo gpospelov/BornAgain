@@ -58,10 +58,6 @@ public:
     double getAlpha() const { return m_alpha; }
     double getPhi() const { return m_phi;}
 
-#ifndef GCCXML_SKIP_THIS
-    static Eigen::Matrix2cd calculatePolarization(const kvector_t &bloch_vector);
-#endif
-
 protected:
     virtual void print(std::ostream& ostr) const;
     //! Registers some class members for later access via parameter pool
@@ -73,6 +69,10 @@ private:
 
     //! Initialize polarization (for constructors)
     void initPolarization();
+
+#ifndef GCCXML_SKIP_THIS
+    Eigen::Matrix2cd calculatePolarization(const kvector_t &bloch_vector) const;
+#endif
 
     double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
     double m_intensity;     //!< beam intensity (neutrons/sec)

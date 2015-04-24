@@ -24,25 +24,25 @@ int main(int argc, char **argv)
     kvector_t zmin(0.0, 0.0, -1.0);
 
     simulation->setBeamPolarization(zplus);
-    simulation->setDetectorPolarization(zplus);
+    simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
     boost::scoped_ptr<OutputData<double> > data00(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zplus);
-    simulation->setDetectorPolarization(zmin);
+    simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
     boost::scoped_ptr<OutputData<double> > data01(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zmin);
-    simulation->setDetectorPolarization(zplus);
+    simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
     boost::scoped_ptr<OutputData<double> > data10(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zmin);
-    simulation->setDetectorPolarization(zmin);
+    simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
     boost::scoped_ptr<OutputData<double> > data11(simulation->getIntensityData());

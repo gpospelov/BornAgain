@@ -194,14 +194,14 @@ void register_Detector_class(){
                 , bp::return_self< >() );
         
         }
-        { //::Detector::setPolarization
+        { //::Detector::setAnalyzerProperties
         
-            typedef void ( ::Detector::*setPolarization_function_type)( ::kvector_t const & ) ;
+            typedef void ( ::Detector::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
             
             Detector_exposer.def( 
-                "setPolarization"
-                , setPolarization_function_type( &::Detector::setPolarization )
-                , ( bp::arg("bloch_vector") ) );
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Detector::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
         
         }
         { //::IParameterized::areParametersChanged

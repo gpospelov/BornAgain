@@ -330,9 +330,10 @@ void Simulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void Simulation::setDetectorPolarization(const kvector_t &bloch_vector)
+void Simulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                       double total_transmission)
 {
-    m_instrument.setDetectorPolarization(bloch_vector);
+    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 void Simulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)

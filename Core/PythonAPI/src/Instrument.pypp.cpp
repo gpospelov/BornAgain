@@ -201,6 +201,16 @@ void register_Instrument_class(){
                 , ( bp::arg("output_data") ) );
         
         }
+        { //::Instrument::setAnalyzerProperties
+        
+            typedef void ( ::Instrument::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Instrument_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Instrument::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+        
+        }
         { //::Instrument::setBeam
         
             typedef void ( ::Instrument::*setBeam_function_type)( ::Beam const & ) ;
@@ -269,16 +279,6 @@ void register_Instrument_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
                 , ( bp::arg("params") ) );
-        
-        }
-        { //::Instrument::setDetectorPolarization
-        
-            typedef void ( ::Instrument::*setDetectorPolarization_function_type)( ::kvector_t const & ) ;
-            
-            Instrument_exposer.def( 
-                "setDetectorPolarization"
-                , setDetectorPolarization_function_type( &::Instrument::setDetectorPolarization )
-                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Instrument::setDetectorResolutionFunction

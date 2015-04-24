@@ -90,9 +90,10 @@ public:
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
 
-    //! Sets the detector's polarization with the given Bloch vector
-    void setDetectorPolarization(const kvector_t& bloch_vector) {
-        m_detector.setPolarization(bloch_vector);
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                               double total_transmission=1.0) {
+        m_detector.setAnalyzerProperties(direction, efficiency, total_transmission);
     }
 
 #ifndef GCCXML_SKIP_THIS

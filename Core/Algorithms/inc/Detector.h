@@ -74,12 +74,16 @@ public:
         return mp_detector_resolution;
     }
 
-    //! Sets the polarization density matrix according to the given Bloch vector
-    void setPolarization(const kvector_t &bloch_vector);
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                               double total_transmission=1.0);
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarizationOperator() const { return m_polarization; }
+    Eigen::Matrix2cd getPolarizationOperator() const
+    {
+        return m_analyzer_operator;
+    }
 #endif
 
     //! Adds parameters from local pool to external pool and call recursion over direct children.
@@ -118,10 +122,19 @@ private:
     //! Initialize polarization (for constructors)
     void initPolarizationOperator();
 
+    //! Verify if the given analyzer properties are physical
+    bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                 double total_transmission) const;
+
+#ifndef GCCXML_SKIP_THIS
+    Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t &direction, double efficiency,
+                                               double total_transmission = 1.0) const;
+#endif
+
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd m_polarization; //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization density matrix
 #endif
 };
 

@@ -309,6 +309,16 @@ void register_Simulation_class(){
                 , runSimulation_function_type( &::Simulation::runSimulation ) );
         
         }
+        { //::Simulation::setAnalyzerProperties
+        
+            typedef void ( ::Simulation::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Simulation_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Simulation::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+        
+        }
         { //::Simulation::setBeamIntensity
         
             typedef void ( ::Simulation::*setBeamIntensity_function_type)( double ) ;
@@ -367,16 +377,6 @@ void register_Simulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
                 , ( bp::arg("params") ) );
-        
-        }
-        { //::Simulation::setDetectorPolarization
-        
-            typedef void ( ::Simulation::*setDetectorPolarization_function_type)( ::kvector_t const & ) ;
-            
-            Simulation_exposer.def( 
-                "setDetectorPolarization"
-                , setDetectorPolarization_function_type( &::Simulation::setDetectorPolarization )
-                , ( bp::arg("bloch_vector") ) );
         
         }
         { //::Simulation::setDetectorResolutionFunction

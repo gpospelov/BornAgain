@@ -101,9 +101,9 @@ void register_FitSuite_class(){
 
     { //::FitSuite
         typedef bp::class_< FitSuite_wrapper, bp::bases< IObservable >, boost::noncopyable > FitSuite_exposer_t;
-        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", bp::no_init );
+        FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", "", bp::no_init );
         bp::scope FitSuite_scope( FitSuite_exposer );
-        FitSuite_exposer.def( bp::init< >() );
+        FitSuite_exposer.def( bp::init< >("") );
         { //::FitSuite::addFitParameter
         
             typedef void ( ::FitSuite::*addFitParameter_function_type)( ::std::string const &,double,double,::AttLimits const &,double ) ;
@@ -111,7 +111,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "addFitParameter"
                 , addFitParameter_function_type( &::FitSuite::addFitParameter )
-                , ( bp::arg("name"), bp::arg("value"), bp::arg("step"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 ) );
+                , ( bp::arg("name"), bp::arg("value"), bp::arg("step"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 )
+                , "    //! Adds fit parameter" );
         
         }
         { //::FitSuite::addFitParameter
@@ -121,7 +122,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "addFitParameter"
                 , addFitParameter_function_type( &::FitSuite::addFitParameter )
-                , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 ) );
+                , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 )
+                , "" );
         
         }
         { //::FitSuite::addFitStrategy
@@ -131,7 +133,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "addFitStrategy"
                 , addFitStrategy_function_type( &::FitSuite::addFitStrategy )
-                , ( bp::arg("strategy") ) );
+                , ( bp::arg("strategy") )
+                , "" );
         
         }
         { //::FitSuite::addSimulationAndRealData
@@ -141,7 +144,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
                 , addSimulationAndRealData_function_type( &::FitSuite::addSimulationAndRealData )
-                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() ) );
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() )
+                , "" );
         
         }
         { //::FitSuite::clear
@@ -150,7 +154,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "clear"
-                , clear_function_type( &::FitSuite::clear ) );
+                , clear_function_type( &::FitSuite::clear )
+                , "    //! clear all and prepare for the next fit" );
         
         }
         { //::FitSuite::fixAllParameters
@@ -159,7 +164,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "fixAllParameters"
-                , fixAllParameters_function_type( &::FitSuite::fixAllParameters ) );
+                , fixAllParameters_function_type( &::FitSuite::fixAllParameters )
+                , "    //! Set all parameters to fixed" );
         
         }
         { //::FitSuite::getAttributes
@@ -169,7 +175,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getAttributes"
                 , getAttributes_function_type( &::FitSuite::getAttributes )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::FitSuite::getFitObjects
@@ -179,7 +186,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitObjects"
                 , getFitObjects_function_type( &::FitSuite::getFitObjects )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns reference to the kit with data" );
         
         }
         { //::FitSuite::getFitParameter
@@ -190,7 +198,8 @@ void register_FitSuite_class(){
                 "getFitParameter"
                 , getFitParameter_function_type( &::FitSuite::getFitParameter )
                 , ( bp::arg("name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns fit parameter with given name" );
         
         }
         { //::FitSuite::getFitParameters
@@ -200,7 +209,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitParameters"
                 , getFitParameters_function_type( &::FitSuite::getFitParameters )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns reference to fit parameters" );
         
         }
         { //::FitSuite::getFitStrategies
@@ -210,7 +220,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitStrategies"
                 , getFitStrategies_function_type( &::FitSuite::getFitStrategies )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns reference to fit parameters" );
         
         }
         { //::FitSuite::getMinimizer
@@ -220,7 +231,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getMinimizer"
                 , getMinimizer_function_type( &::FitSuite::getMinimizer )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns minimizer" );
         
         }
         { //::FitSuite::getNCalls
@@ -229,7 +241,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "getNCalls"
-                , getNCalls_function_type( &::FitSuite::getNCalls ) );
+                , getNCalls_function_type( &::FitSuite::getNCalls )
+                , "    //! Returns current number of minimization function calls" );
         
         }
         { //::FitSuite::getNStrategy
@@ -238,7 +251,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "getNStrategy"
-                , getNStrategy_function_type( &::FitSuite::getNStrategy ) );
+                , getNStrategy_function_type( &::FitSuite::getNStrategy )
+                , "    //! Returns the number of current strategy" );
         
         }
         { //::FitSuite::getRunTime
@@ -247,7 +261,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "getRunTime"
-                , getRunTime_function_type( &::FitSuite::getRunTime ) );
+                , getRunTime_function_type( &::FitSuite::getRunTime )
+                , "    //! Returns total wall time in seconds which was spend for run fit" );
         
         }
         { //::FitSuite::initPrint
@@ -257,7 +272,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "initPrint"
                 , initPrint_function_type( &::FitSuite::initPrint )
-                , ( bp::arg("print_every_nth") ) );
+                , ( bp::arg("print_every_nth") )
+                , "    //! set print level" );
         
         }
         { //::FitSuite::isLastIteration
@@ -266,7 +282,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "isLastIteration"
-                , isLastIteration_function_type( &::FitSuite::isLastIteration ) );
+                , isLastIteration_function_type( &::FitSuite::isLastIteration )
+                , "    //! if the last iteration is done (used by observers to print summary)" );
         
         }
         { //::FitSuite::link_fit_parameters
@@ -297,7 +314,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "printResults"
-                , printResults_function_type( &::FitSuite::printResults ) );
+                , printResults_function_type( &::FitSuite::printResults )
+                , "    //! Prints results of the screen" );
         
         }
         { //::FitSuite::releaseAllParameters
@@ -306,7 +324,8 @@ void register_FitSuite_class(){
             
             FitSuite_exposer.def( 
                 "releaseAllParameters"
-                , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters ) );
+                , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters )
+                , "    //! Set all parameters to released" );
         
         }
         { //::FitSuite::runFit
@@ -327,7 +346,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "setAttributes"
                 , setAttributes_function_type( &::FitSuite::setAttributes )
-                , ( bp::arg("fit_attributes") ) );
+                , ( bp::arg("fit_attributes") )
+                , "" );
         
         }
         { //::FitSuite::setMinimizer
@@ -337,7 +357,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
-                , ( bp::arg("minimizer") ) );
+                , ( bp::arg("minimizer") )
+                , "    //! Sets minimizer" );
         
         }
         { //::FitSuite::setParametersFixed
@@ -347,7 +368,8 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "setParametersFixed"
                 , setParametersFixed_function_type( &::FitSuite::setParametersFixed )
-                , ( bp::arg("pars"), bp::arg("is_fixed") ) );
+                , ( bp::arg("pars"), bp::arg("is_fixed") )
+                , "    //! Set fixed flag for parameters from the list" );
         
         }
         { //::IObservable::attachObserver

@@ -30,7 +30,7 @@ void register_IntensityDataIOFactory_class(){
 
     { //::IntensityDataIOFactory
         typedef bp::class_< IntensityDataIOFactory > IntensityDataIOFactory_exposer_t;
-        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory" );
+        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory", "" );
         bp::scope IntensityDataIOFactory_scope( IntensityDataIOFactory_exposer );
         { //::IntensityDataIOFactory::getReader
         
@@ -39,7 +39,8 @@ void register_IntensityDataIOFactory_class(){
             IntensityDataIOFactory_exposer.def( 
                 "getReader"
                 , getReader_function_type( &::IntensityDataIOFactory::getReader )
-                , ( bp::arg("file_name") ) );
+                , ( bp::arg("file_name") )
+                , "" );
         
         }
         { //::IntensityDataIOFactory::getWriter
@@ -49,7 +50,8 @@ void register_IntensityDataIOFactory_class(){
             IntensityDataIOFactory_exposer.def( 
                 "getWriter"
                 , getWriter_function_type( &::IntensityDataIOFactory::getWriter )
-                , ( bp::arg("file_name") ) );
+                , ( bp::arg("file_name") )
+                , "" );
         
         }
         { //::IntensityDataIOFactory::readIntensityData
@@ -60,7 +62,8 @@ void register_IntensityDataIOFactory_class(){
                 "readIntensityData"
                 , readIntensityData_function_type( &::IntensityDataIOFactory::readIntensityData )
                 , ( bp::arg("file_name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::IntensityDataIOFactory::writeIntensityData
@@ -70,7 +73,8 @@ void register_IntensityDataIOFactory_class(){
             IntensityDataIOFactory_exposer.def( 
                 "writeIntensityData"
                 , writeIntensityData_function_type( &::IntensityDataIOFactory::writeIntensityData )
-                , ( bp::arg("data"), bp::arg("file_name") ) );
+                , ( bp::arg("data"), bp::arg("file_name") )
+                , "" );
         
         }
         IntensityDataIOFactory_exposer.staticmethod( "getReader" );

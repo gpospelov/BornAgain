@@ -388,7 +388,7 @@ void register_FormFactorPyramid_class(){
 
     { //::FormFactorPyramid
         typedef bp::class_< FormFactorPyramid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorPyramid_wrapper >, boost::noncopyable > FormFactorPyramid_exposer_t;
-        FormFactorPyramid_exposer_t FormFactorPyramid_exposer = FormFactorPyramid_exposer_t( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") )) );
+        FormFactorPyramid_exposer_t FormFactorPyramid_exposer = FormFactorPyramid_exposer_t( "FormFactorPyramid", "", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") ), "    //! @brief Pyramid constructor\n    //! @param length of one side of Pyramid's square base\n    //! @param height of Pyramid\n    //! @param angle in radians between base and facet") );
         bp::scope FormFactorPyramid_scope( FormFactorPyramid_exposer );
         { //::FormFactorPyramid::clone
         
@@ -649,7 +649,8 @@ void register_FormFactorPyramid_class(){
             FormFactorPyramid_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorPyramid_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

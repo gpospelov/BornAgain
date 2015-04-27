@@ -141,16 +141,17 @@ void register_Detector_class(){
 
     { //::Detector
         typedef bp::class_< Detector_wrapper, bp::bases< IParameterized > > Detector_exposer_t;
-        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", bp::init< >() );
+        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "", bp::init< >("") );
         bp::scope Detector_scope( Detector_exposer );
-        Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
+        Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") ), "") );
         { //::Detector::clear
         
             typedef void ( ::Detector::*clear_function_type)(  ) ;
             
             Detector_exposer.def( 
                 "clear"
-                , clear_function_type( &::Detector::clear ) );
+                , clear_function_type( &::Detector::clear )
+                , "" );
         
         }
         { //::Detector::getAxis
@@ -161,7 +162,8 @@ void register_Detector_class(){
                 "getAxis"
                 , getAxis_function_type( &::Detector::getAxis )
                 , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::copy_const_reference >()
+                , "" );
         
         }
         { //::Detector::getDetectorResolutionFunction
@@ -171,7 +173,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "getDetectorResolutionFunction"
                 , getDetectorResolutionFunction_function_type( &::Detector::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::Detector::getDimension
@@ -180,7 +183,8 @@ void register_Detector_class(){
             
             Detector_exposer.def( 
                 "getDimension"
-                , getDimension_function_type( &::Detector::getDimension ) );
+                , getDimension_function_type( &::Detector::getDimension )
+                , "" );
         
         }
         { //::Detector::operator=
@@ -191,7 +195,8 @@ void register_Detector_class(){
                 "assign"
                 , assign_function_type( &::Detector::operator= )
                 , ( bp::arg("other") )
-                , bp::return_self< >() );
+                , bp::return_self< >()
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -246,7 +251,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Detector_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

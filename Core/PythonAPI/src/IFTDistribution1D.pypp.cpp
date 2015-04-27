@@ -146,7 +146,7 @@ void register_IFTDistribution1D_class(){
 
     { //::IFTDistribution1D
         typedef bp::class_< IFTDistribution1D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution1D_wrapper >, boost::noncopyable > IFTDistribution1D_exposer_t;
-        IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", bp::init< double >(( bp::arg("omega") )) );
+        IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", "", bp::init< double >(( bp::arg("omega") ), "") );
         bp::scope IFTDistribution1D_scope( IFTDistribution1D_exposer );
         { //::IFTDistribution1D::clone
         
@@ -155,7 +155,8 @@ void register_IFTDistribution1D_class(){
             IFTDistribution1D_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFTDistribution1D::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IFTDistribution1D::evaluate
@@ -165,7 +166,8 @@ void register_IFTDistribution1D_class(){
             IFTDistribution1D_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFTDistribution1D::evaluate) )
-                , ( bp::arg("q") ) );
+                , ( bp::arg("q") )
+                , "" );
         
         }
         { //::IFTDistribution1D::getOmega
@@ -174,7 +176,8 @@ void register_IFTDistribution1D_class(){
             
             IFTDistribution1D_exposer.def( 
                 "getOmega"
-                , getOmega_function_type( &::IFTDistribution1D::getOmega ) );
+                , getOmega_function_type( &::IFTDistribution1D::getOmega )
+                , "" );
         
         }
         { //::IFTDistribution1D::setOmega
@@ -184,7 +187,8 @@ void register_IFTDistribution1D_class(){
             IFTDistribution1D_exposer.def( 
                 "setOmega"
                 , setOmega_function_type( &::IFTDistribution1D::setOmega )
-                , ( bp::arg("omega") ) );
+                , ( bp::arg("omega") )
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -239,7 +243,8 @@ void register_IFTDistribution1D_class(){
             IFTDistribution1D_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFTDistribution1D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

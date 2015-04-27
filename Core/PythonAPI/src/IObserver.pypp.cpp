@@ -60,7 +60,7 @@ void register_IObserver_class(){
 
     { //::IObserver
         typedef bp::class_< IObserver_wrapper > IObserver_exposer_t;
-        IObserver_exposer_t IObserver_exposer = IObserver_exposer_t( "IObserver" );
+        IObserver_exposer_t IObserver_exposer = IObserver_exposer_t( "IObserver", "" );
         bp::scope IObserver_scope( IObserver_exposer );
         { //::IObserver::update
         

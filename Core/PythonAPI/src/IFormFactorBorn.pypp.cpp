@@ -314,7 +314,7 @@ void register_IFormFactorBorn_class(){
 
     { //::IFormFactorBorn
         typedef bp::class_< IFormFactorBorn_wrapper, bp::bases< IFormFactor >, std::auto_ptr< IFormFactorBorn_wrapper >, boost::noncopyable > IFormFactorBorn_exposer_t;
-        IFormFactorBorn_exposer_t IFormFactorBorn_exposer = IFormFactorBorn_exposer_t( "IFormFactorBorn", bp::init< >() );
+        IFormFactorBorn_exposer_t IFormFactorBorn_exposer = IFormFactorBorn_exposer_t( "IFormFactorBorn", "", bp::init< >("") );
         bp::scope IFormFactorBorn_scope( IFormFactorBorn_exposer );
         { //::IFormFactorBorn::clone
         
@@ -323,7 +323,8 @@ void register_IFormFactorBorn_class(){
             IFormFactorBorn_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFormFactorBorn::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IFormFactorBorn::evaluate
@@ -345,7 +346,8 @@ void register_IFormFactorBorn_class(){
             IFormFactorBorn_exposer.def( 
                 "evaluate_for_q"
                 , bp::pure_virtual( evaluate_for_q_function_type(&::IFormFactorBorn::evaluate_for_q) )
-                , ( bp::arg("q") ) );
+                , ( bp::arg("q") )
+                , "    //! evaluate scattering amplitude for complex wavevector\n    //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$" );
         
         }
         { //::IFormFactorBorn::getVolume
@@ -513,7 +515,8 @@ void register_IFormFactorBorn_class(){
             IFormFactorBorn_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactorBorn_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

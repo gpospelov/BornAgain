@@ -43,7 +43,7 @@ void register_IntensityData_class(){
 
     { //::OutputData< double >
         typedef bp::class_< OutputData_less__double__greater__wrapper, std::auto_ptr< OutputData_less__double__greater__wrapper >, boost::noncopyable > IntensityData_exposer_t;
-        IntensityData_exposer_t IntensityData_exposer = IntensityData_exposer_t( "IntensityData", bp::init< >() );
+        IntensityData_exposer_t IntensityData_exposer = IntensityData_exposer_t( "IntensityData", "", bp::init< >("") );
         bp::scope IntensityData_scope( IntensityData_exposer );
         { //::OutputData< double >::addAxis
         
@@ -53,7 +53,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "addAxis"
                 , addAxis_function_type( &::OutputData< double >::addAxis )
-                , ( bp::arg("new_axis") ) );
+                , ( bp::arg("new_axis") )
+                , "" );
         
         }
         { //::OutputData< double >::addAxis
@@ -64,7 +65,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "addAxis"
                 , addAxis_function_type( &::OutputData< double >::addAxis )
-                , ( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") ) );
+                , ( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") )
+                , "" );
         
         }
         { //::OutputData< double >::clear
@@ -74,7 +76,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "clear"
-                , clear_function_type( &::OutputData< double >::clear ) );
+                , clear_function_type( &::OutputData< double >::clear )
+                , "" );
         
         }
         { //::OutputData< double >::clone
@@ -85,7 +88,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "clone"
                 , clone_function_type( &::OutputData< double >::clone )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::OutputData< double >::copyFrom
@@ -96,7 +100,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "copyFrom"
                 , copyFrom_function_type( &::OutputData< double >::copyFrom )
-                , ( bp::arg("other") ) );
+                , ( bp::arg("other") )
+                , "" );
         
         }
         { //::OutputData< double >::getAllSizes
@@ -106,7 +111,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getAllSizes"
-                , getAllSizes_function_type( &::OutputData< double >::getAllSizes ) );
+                , getAllSizes_function_type( &::OutputData< double >::getAllSizes )
+                , "" );
         
         }
         { //::OutputData< double >::getAllocatedSize
@@ -116,7 +122,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getAllocatedSize"
-                , getAllocatedSize_function_type( &::OutputData< double >::getAllocatedSize ) );
+                , getAllocatedSize_function_type( &::OutputData< double >::getAllocatedSize )
+                , "   //! Returns total size of data buffer (product of bin number in every dimension)." );
         
         }
         { //::OutputData< double >::getArray
@@ -126,7 +133,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getArray"
-                , getArray_function_type( &::OutputData< double >::getArray ) );
+                , getArray_function_type( &::OutputData< double >::getArray )
+                , "" );
         
         }
         { //::OutputData< double >::getAxis
@@ -138,7 +146,8 @@ void register_IntensityData_class(){
                 "getAxis"
                 , getAxis_function_type( &::OutputData< double >::getAxis )
                 , ( bp::arg("index") )
-                , bp::return_internal_reference< >() );
+                , bp::return_internal_reference< >()
+                , "" );
         
         }
         { //::OutputData< double >::getAxis
@@ -150,7 +159,8 @@ void register_IntensityData_class(){
                 "getAxis"
                 , getAxis_function_type( &::OutputData< double >::getAxis )
                 , ( bp::arg("label") )
-                , bp::return_internal_reference< >() );
+                , bp::return_internal_reference< >()
+                , "" );
         
         }
         { //::OutputData< double >::getAxisIndex
@@ -161,7 +171,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getAxisIndex"
                 , getAxisIndex_function_type( &::OutputData< double >::getAxisIndex )
-                , ( bp::arg("label") ) );
+                , ( bp::arg("label") )
+                , "" );
         
         }
         { //::OutputData< double >::getIndexOfAxis
@@ -172,7 +183,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getIndexOfAxis"
                 , getIndexOfAxis_function_type( &::OutputData< double >::getIndexOfAxis )
-                , ( bp::arg("axis_name"), bp::arg("total_index") ) );
+                , ( bp::arg("axis_name"), bp::arg("total_index") )
+                , "" );
         
         }
         { //::OutputData< double >::getRank
@@ -182,7 +194,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getRank"
-                , getRank_function_type( &::OutputData< double >::getRank ) );
+                , getRank_function_type( &::OutputData< double >::getRank )
+                , "    //! Returns number of dimensions." );
         
         }
         { //::OutputData< double >::getRawDataVector
@@ -192,7 +205,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getRawDataVector"
-                , getRawDataVector_function_type( &::OutputData< double >::getRawDataVector ) );
+                , getRawDataVector_function_type( &::OutputData< double >::getRawDataVector )
+                , "" );
         
         }
         { //::OutputData< double >::getValueOfAxis
@@ -203,7 +217,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getValueOfAxis"
                 , getValueOfAxis_function_type( &::OutputData< double >::getValueOfAxis )
-                , ( bp::arg("axis_name"), bp::arg("index") ) );
+                , ( bp::arg("axis_name"), bp::arg("index") )
+                , "" );
         
         }
         { //::OutputData< double >::getValueOfAxis
@@ -214,7 +229,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "getValueOfAxis"
                 , getValueOfAxis_function_type( &::OutputData< double >::getValueOfAxis )
-                , ( bp::arg("axis_number"), bp::arg("index") ) );
+                , ( bp::arg("axis_number"), bp::arg("index") )
+                , "" );
         
         }
         { //::OutputData< double >::hasSameDimensions
@@ -225,7 +241,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "hasSameDimensions"
                 , hasSameDimensions_function_type( &::OutputData< double >::hasSameDimensions )
-                , ( bp::arg("right") ) );
+                , ( bp::arg("right") )
+                , "" );
         
         }
         { //::OutputData< double >::hasSameShape
@@ -236,7 +253,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "hasSameShape"
                 , hasSameShape_function_type( &::OutputData< double >::hasSameShape )
-                , ( bp::arg("right") ) );
+                , ( bp::arg("right") )
+                , "" );
         
         }
         IntensityData_exposer.def( bp::self *= bp::self );
@@ -252,7 +270,8 @@ void register_IntensityData_class(){
                 "__getitem__"
                 , __getitem___function_type( &::OutputData< double >::operator[] )
                 , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_non_const_reference >() );
+                , bp::return_value_policy< bp::copy_non_const_reference >()
+                , "    //! indexed accessor" );
         
         }
         { //::OutputData< double >::operator[]
@@ -264,7 +283,8 @@ void register_IntensityData_class(){
                 "__getitem__"
                 , __getitem___function_type( &::OutputData< double >::operator[] )
                 , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::copy_const_reference >()
+                , "    //! indexed accessor (const)" );
         
         }
         { //::OutputData< double >::removeAllMasks
@@ -274,7 +294,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "removeAllMasks"
-                , removeAllMasks_function_type( &::OutputData< double >::removeAllMasks ) );
+                , removeAllMasks_function_type( &::OutputData< double >::removeAllMasks )
+                , "" );
         
         }
         { //::OutputData< double >::scaleAll
@@ -285,7 +306,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "scaleAll"
                 , scaleAll_function_type( &::OutputData< double >::scaleAll )
-                , ( bp::arg("factor") ) );
+                , ( bp::arg("factor") )
+                , "" );
         
         }
         { //::OutputData< double >::setAllTo
@@ -296,7 +318,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "setAllTo"
                 , setAllTo_function_type( &::OutputData< double >::setAllTo )
-                , ( bp::arg("value") ) );
+                , ( bp::arg("value") )
+                , "" );
         
         }
         { //::OutputData< double >::setRawDataVector
@@ -307,7 +330,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "setRawDataVector"
                 , setRawDataVector_function_type( &::OutputData< double >::setRawDataVector )
-                , ( bp::arg("data_vector") ) );
+                , ( bp::arg("data_vector") )
+                , "" );
         
         }
         { //::OutputData< double >::toCoordinate
@@ -318,7 +342,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "toCoordinate"
                 , toCoordinate_function_type( &::OutputData< double >::toCoordinate )
-                , ( bp::arg("index"), bp::arg("i_selected_axis") ) );
+                , ( bp::arg("index"), bp::arg("i_selected_axis") )
+                , "" );
         
         }
         { //::OutputData< double >::toCoordinates
@@ -329,7 +354,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "toCoordinates"
                 , toCoordinates_function_type( &::OutputData< double >::toCoordinates )
-                , ( bp::arg("index") ) );
+                , ( bp::arg("index") )
+                , "" );
         
         }
         { //::OutputData< double >::toIndex
@@ -340,7 +366,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "toIndex"
                 , toIndex_function_type( &::OutputData< double >::toIndex )
-                , ( bp::arg("coordinates") ) );
+                , ( bp::arg("coordinates") )
+                , "" );
         
         }
         { //::OutputData< double >::totalSum
@@ -350,7 +377,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "totalSum"
-                , totalSum_function_type( &::OutputData< double >::totalSum ) );
+                , totalSum_function_type( &::OutputData< double >::totalSum )
+                , "" );
         
         }
         IntensityData_exposer.def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> );

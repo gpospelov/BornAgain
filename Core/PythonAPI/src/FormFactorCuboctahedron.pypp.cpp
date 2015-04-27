@@ -412,7 +412,7 @@ void register_FormFactorCuboctahedron_class(){
 
     { //::FormFactorCuboctahedron
         typedef bp::class_< FormFactorCuboctahedron_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCuboctahedron_wrapper >, boost::noncopyable > FormFactorCuboctahedron_exposer_t;
-        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
+        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", "", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") ), "") );
         bp::scope FormFactorCuboctahedron_scope( FormFactorCuboctahedron_exposer );
         { //::FormFactorCuboctahedron::clone
         
@@ -696,7 +696,8 @@ void register_FormFactorCuboctahedron_class(){
             FormFactorCuboctahedron_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCuboctahedron_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

@@ -167,7 +167,7 @@ void register_FTDistribution1DTriangle_class(){
 
     { //::FTDistribution1DTriangle
         typedef bp::class_< FTDistribution1DTriangle_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DTriangle_wrapper > > FTDistribution1DTriangle_exposer_t;
-        FTDistribution1DTriangle_exposer_t FTDistribution1DTriangle_exposer = FTDistribution1DTriangle_exposer_t( "FTDistribution1DTriangle", bp::init< double >(( bp::arg("omega") )) );
+        FTDistribution1DTriangle_exposer_t FTDistribution1DTriangle_exposer = FTDistribution1DTriangle_exposer_t( "FTDistribution1DTriangle", "", bp::init< double >(( bp::arg("omega") ), "") );
         bp::scope FTDistribution1DTriangle_scope( FTDistribution1DTriangle_exposer );
         { //::FTDistribution1DTriangle::clone
         
@@ -245,7 +245,8 @@ void register_FTDistribution1DTriangle_class(){
             FTDistribution1DTriangle_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DTriangle_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

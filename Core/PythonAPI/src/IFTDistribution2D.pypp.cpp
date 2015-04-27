@@ -158,7 +158,7 @@ void register_IFTDistribution2D_class(){
 
     { //::IFTDistribution2D
         typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution2D_wrapper >, boost::noncopyable > IFTDistribution2D_exposer_t;
-        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
+        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", "", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") ), "") );
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone
         
@@ -167,7 +167,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFTDistribution2D::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IFTDistribution2D::evaluate
@@ -177,7 +178,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFTDistribution2D::evaluate) )
-                , ( bp::arg("qx"), bp::arg("qy") ) );
+                , ( bp::arg("qx"), bp::arg("qy") )
+                , "    //! evaluate Fourier transformed distribution for q in X,Y coordinates\n    //! the original distribution (in real space) is assumed to be normalized:\n    //! total integral is equal to 1" );
         
         }
         { //::IFTDistribution2D::evaluateLattice
@@ -198,7 +200,8 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "getCoherenceLengthX"
-                , getCoherenceLengthX_function_type( &::IFTDistribution2D::getCoherenceLengthX ) );
+                , getCoherenceLengthX_function_type( &::IFTDistribution2D::getCoherenceLengthX )
+                , "" );
         
         }
         { //::IFTDistribution2D::getCoherenceLengthY
@@ -207,7 +210,8 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "getCoherenceLengthY"
-                , getCoherenceLengthY_function_type( &::IFTDistribution2D::getCoherenceLengthY ) );
+                , getCoherenceLengthY_function_type( &::IFTDistribution2D::getCoherenceLengthY )
+                , "" );
         
         }
         { //::IFTDistribution2D::getDelta
@@ -216,7 +220,8 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "getDelta"
-                , getDelta_function_type( &::IFTDistribution2D::getDelta ) );
+                , getDelta_function_type( &::IFTDistribution2D::getDelta )
+                , "" );
         
         }
         { //::IFTDistribution2D::getGamma
@@ -225,7 +230,8 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "getGamma"
-                , getGamma_function_type( &::IFTDistribution2D::getGamma ) );
+                , getGamma_function_type( &::IFTDistribution2D::getGamma )
+                , "" );
         
         }
         { //::IFTDistribution2D::setGamma
@@ -235,7 +241,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "setGamma"
                 , setGamma_function_type( &::IFTDistribution2D::setGamma )
-                , ( bp::arg("gamma") ) );
+                , ( bp::arg("gamma") )
+                , "" );
         
         }
         { //::IFTDistribution2D::transformToStarBasis
@@ -245,7 +252,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "transformToStarBasis"
                 , transformToStarBasis_function_type( &::IFTDistribution2D::transformToStarBasis )
-                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
+                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") )
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -300,7 +308,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFTDistribution2D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

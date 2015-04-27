@@ -179,7 +179,7 @@ void register_FTDistribution2DCone_class(){
 
     { //::FTDistribution2DCone
         typedef bp::class_< FTDistribution2DCone_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DCone_wrapper > > FTDistribution2DCone_exposer_t;
-        FTDistribution2DCone_exposer_t FTDistribution2DCone_exposer = FTDistribution2DCone_exposer_t( "FTDistribution2DCone", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
+        FTDistribution2DCone_exposer_t FTDistribution2DCone_exposer = FTDistribution2DCone_exposer_t( "FTDistribution2DCone", "", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") ), "") );
         bp::scope FTDistribution2DCone_scope( FTDistribution2DCone_exposer );
         { //::FTDistribution2DCone::clone
         
@@ -269,7 +269,8 @@ void register_FTDistribution2DCone_class(){
             FTDistribution2DCone_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution2DCone_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

@@ -175,7 +175,7 @@ void register_CustomBinAxis_class(){
 
     { //::CustomBinAxis
         typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis >, std::auto_ptr< CustomBinAxis_wrapper >, boost::noncopyable > CustomBinAxis_exposer_t;
-        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", "", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") ), "    //! @brief CustomBinAxis constructor\n    //! @param name Axis name\n    //! @param nbins number of bins\n    //! @param start center of first bin (IsGisaxs convention)\n    //! @param end center of last bin (IsGisaxs convention)") );
         bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
         { //::CustomBinAxis::clone
         

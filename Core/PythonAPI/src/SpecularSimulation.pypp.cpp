@@ -186,10 +186,10 @@ void register_SpecularSimulation_class(){
 
     { //::SpecularSimulation
         typedef bp::class_< SpecularSimulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< SpecularSimulation_wrapper >, boost::noncopyable > SpecularSimulation_exposer_t;
-        SpecularSimulation_exposer_t SpecularSimulation_exposer = SpecularSimulation_exposer_t( "SpecularSimulation", bp::init< >() );
+        SpecularSimulation_exposer_t SpecularSimulation_exposer = SpecularSimulation_exposer_t( "SpecularSimulation", "", bp::init< >("") );
         bp::scope SpecularSimulation_scope( SpecularSimulation_exposer );
-        SpecularSimulation_exposer.def( bp::init< ISample const & >(( bp::arg("sample") )) );
-        SpecularSimulation_exposer.def( bp::init< SampleBuilder_t >(( bp::arg("sample_builder") )) );
+        SpecularSimulation_exposer.def( bp::init< ISample const & >(( bp::arg("sample") ), "") );
+        SpecularSimulation_exposer.def( bp::init< SampleBuilder_t >(( bp::arg("sample_builder") ), "") );
         { //::SpecularSimulation::clone
         
             typedef ::SpecularSimulation * ( ::SpecularSimulation::*clone_function_type)(  ) const;
@@ -209,7 +209,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getAlphaAxis"
                 , getAlphaAxis_function_type( &::SpecularSimulation::getAlphaAxis )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! returns alpha_i axis" );
         
         }
         { //::SpecularSimulation::getLayerRTCoefficients
@@ -219,7 +220,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getLayerRTCoefficients"
                 , getLayerRTCoefficients_function_type( &::SpecularSimulation::getLayerRTCoefficients )
-                , ( bp::arg("i_alpha"), bp::arg("i_layer") ) );
+                , ( bp::arg("i_alpha"), bp::arg("i_layer") )
+                , "" );
         
         }
         { //::SpecularSimulation::getSample
@@ -229,7 +231,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getSample"
                 , getSample_function_type( &::SpecularSimulation::getSample )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns the sample" );
         
         }
         { //::SpecularSimulation::getSampleBuilder
@@ -238,7 +241,8 @@ void register_SpecularSimulation_class(){
             
             SpecularSimulation_exposer.def( 
                 "getSampleBuilder"
-                , getSampleBuilder_function_type( &::SpecularSimulation::getSampleBuilder ) );
+                , getSampleBuilder_function_type( &::SpecularSimulation::getSampleBuilder )
+                , "    //! return sample builder" );
         
         }
         { //::SpecularSimulation::getScalarKz
@@ -248,7 +252,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getScalarKz"
                 , getScalarKz_function_type( &::SpecularSimulation::getScalarKz )
-                , ( bp::arg("i_layer") ) );
+                , ( bp::arg("i_layer") )
+                , "    //! returns vector containing Kz coefficients for all alpha_i angles for given layer index" );
         
         }
         { //::SpecularSimulation::getScalarR
@@ -258,7 +263,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getScalarR"
                 , getScalarR_function_type( &::SpecularSimulation::getScalarR )
-                , ( bp::arg("i_layer") ) );
+                , ( bp::arg("i_layer") )
+                , "    //! returns vector containing reflection coefficients for all alpha_i angles for given layer index" );
         
         }
         { //::SpecularSimulation::getScalarT
@@ -268,7 +274,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "getScalarT"
                 , getScalarT_function_type( &::SpecularSimulation::getScalarT )
-                , ( bp::arg("i_layer") ) );
+                , ( bp::arg("i_layer") )
+                , "    //! returns vector containing transmission coefficients for all alpha_i angles for given layer index" );
         
         }
         { //::SpecularSimulation::prepareSimulation
@@ -277,7 +284,8 @@ void register_SpecularSimulation_class(){
             
             SpecularSimulation_exposer.def( 
                 "prepareSimulation"
-                , prepareSimulation_function_type( &::SpecularSimulation::prepareSimulation ) );
+                , prepareSimulation_function_type( &::SpecularSimulation::prepareSimulation )
+                , "    //! Put into a clean state for running a simulation" );
         
         }
         { //::SpecularSimulation::runSimulation
@@ -286,7 +294,8 @@ void register_SpecularSimulation_class(){
             
             SpecularSimulation_exposer.def( 
                 "runSimulation"
-                , runSimulation_function_type( &::SpecularSimulation::runSimulation ) );
+                , runSimulation_function_type( &::SpecularSimulation::runSimulation )
+                , "    //! Run a simulation with the current parameter settings" );
         
         }
         { //::SpecularSimulation::setBeamParameters
@@ -296,7 +305,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::SpecularSimulation::setBeamParameters )
-                , ( bp::arg("lambda"), bp::arg("alpha_axis") ) );
+                , ( bp::arg("lambda"), bp::arg("alpha_axis") )
+                , "    //! Sets beam parameters with alpha_i of the beam defined in the range" );
         
         }
         { //::SpecularSimulation::setBeamParameters
@@ -306,7 +316,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::SpecularSimulation::setBeamParameters )
-                , ( bp::arg("lambda"), bp::arg("nbins"), bp::arg("alpha_i_min"), bp::arg("alpha_i_max") ) );
+                , ( bp::arg("lambda"), bp::arg("nbins"), bp::arg("alpha_i_min"), bp::arg("alpha_i_max") )
+                , "" );
         
         }
         { //::SpecularSimulation::setEvanescentWaveAxis
@@ -316,7 +327,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setEvanescentWaveAxis"
                 , setEvanescentWaveAxis_function_type( &::SpecularSimulation::setEvanescentWaveAxis )
-                , ( bp::arg("z_axis") ) );
+                , ( bp::arg("z_axis") )
+                , "    //! set axis for evanescent wave axis" );
         
         }
         { //::SpecularSimulation::setEvanescentWaveAxis
@@ -326,7 +338,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setEvanescentWaveAxis"
                 , setEvanescentWaveAxis_function_type( &::SpecularSimulation::setEvanescentWaveAxis )
-                , ( bp::arg("nbins"), bp::arg("z_min"), bp::arg("z_max") ) );
+                , ( bp::arg("nbins"), bp::arg("z_min"), bp::arg("z_max") )
+                , "" );
         
         }
         { //::SpecularSimulation::setSample
@@ -336,7 +349,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setSample"
                 , setSample_function_type( &::SpecularSimulation::setSample )
-                , ( bp::arg("sample") ) );
+                , ( bp::arg("sample") )
+                , "    //! Sets the sample to be tested" );
         
         }
         { //::SpecularSimulation::setSampleBuilder
@@ -346,7 +360,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "setSampleBuilder"
                 , setSampleBuilder_function_type( &::SpecularSimulation::setSampleBuilder )
-                , ( bp::arg("sample_builder") ) );
+                , ( bp::arg("sample_builder") )
+                , "    //! Sets the sample builder" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -401,7 +416,8 @@ void register_SpecularSimulation_class(){
             SpecularSimulation_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &SpecularSimulation_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

@@ -349,11 +349,11 @@ void register_Particle_class(){
 
     { //::Particle
         typedef bp::class_< Particle_wrapper, bp::bases< IParticle >, std::auto_ptr< Particle_wrapper >, boost::noncopyable > Particle_exposer_t;
-        Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
+        Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", "", bp::init< >("") );
         bp::scope Particle_scope( Particle_exposer );
-        Particle_exposer.def( bp::init< IMaterial const & >(( bp::arg("p_material") )) );
-        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
-        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const &, IRotation const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("rotation") )) );
+        Particle_exposer.def( bp::init< IMaterial const & >(( bp::arg("p_material") ), "") );
+        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") ), "") );
+        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const &, IRotation const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("rotation") ), "") );
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type)(  ) const;
@@ -410,7 +410,8 @@ void register_Particle_class(){
             Particle_exposer.def( 
                 "getFormFactor"
                 , getFormFactor_function_type( &::Particle::getFormFactor )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns the form factor" );
         
         }
         { //::Particle::getMaterial
@@ -455,7 +456,8 @@ void register_Particle_class(){
             Particle_exposer.def( 
                 "setFormFactor"
                 , setFormFactor_function_type( &::Particle::setFormFactor )
-                , ( bp::arg("form_factor") ) );
+                , ( bp::arg("form_factor") )
+                , "    //! Sets the form factor" );
         
         }
         { //::Particle::setMaterial
@@ -579,7 +581,8 @@ void register_Particle_class(){
             Particle_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Particle_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

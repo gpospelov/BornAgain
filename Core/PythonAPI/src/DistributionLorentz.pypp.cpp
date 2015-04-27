@@ -210,9 +210,9 @@ void register_DistributionLorentz_class(){
 
     { //::DistributionLorentz
         typedef bp::class_< DistributionLorentz_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionLorentz_wrapper > > DistributionLorentz_exposer_t;
-        DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", bp::init< >() );
+        DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", "", bp::init< >("") );
         bp::scope DistributionLorentz_scope( DistributionLorentz_exposer );
-        DistributionLorentz_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
+        DistributionLorentz_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") ), "") );
         { //::DistributionLorentz::clone
         
             typedef ::DistributionLorentz * ( ::DistributionLorentz::*clone_function_type)(  ) const;
@@ -243,7 +243,8 @@ void register_DistributionLorentz_class(){
             
             DistributionLorentz_exposer.def( 
                 "getHWHM"
-                , getHWHM_function_type( &::DistributionLorentz::getHWHM ) );
+                , getHWHM_function_type( &::DistributionLorentz::getHWHM )
+                , "    //! get the half width at half maximum" );
         
         }
         { //::DistributionLorentz::getMean
@@ -333,7 +334,8 @@ void register_DistributionLorentz_class(){
             DistributionLorentz_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionLorentz_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

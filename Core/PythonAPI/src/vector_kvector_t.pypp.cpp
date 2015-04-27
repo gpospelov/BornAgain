@@ -31,7 +31,7 @@ void register_vector_kvector_t_class(){
 
     { //::std::vector< Geometry::BasicVector3D<double> >
         typedef bp::class_< std::vector< Geometry::BasicVector3D<double> > > vector_kvector_t_exposer_t;
-        vector_kvector_t_exposer_t vector_kvector_t_exposer = vector_kvector_t_exposer_t( "vector_kvector_t" );
+        vector_kvector_t_exposer_t vector_kvector_t_exposer = vector_kvector_t_exposer_t( "vector_kvector_t", "" );
         bp::scope vector_kvector_t_scope( vector_kvector_t_exposer );
         //WARNING: the next line of code will not compile, because "::Geometry::BasicVector3D<double>" does not have operator== !
         vector_kvector_t_exposer.def( bp::vector_indexing_suite< ::std::vector< Geometry::BasicVector3D<double> > >() );

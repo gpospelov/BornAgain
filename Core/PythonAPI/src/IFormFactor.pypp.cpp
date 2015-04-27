@@ -302,7 +302,7 @@ void register_IFormFactor_class(){
 
     { //::IFormFactor
         typedef bp::class_< IFormFactor_wrapper, bp::bases< ISample >, std::auto_ptr< IFormFactor_wrapper >, boost::noncopyable > IFormFactor_exposer_t;
-        IFormFactor_exposer_t IFormFactor_exposer = IFormFactor_exposer_t( "IFormFactor", bp::init< >() );
+        IFormFactor_exposer_t IFormFactor_exposer = IFormFactor_exposer_t( "IFormFactor", "", bp::init< >("") );
         bp::scope IFormFactor_scope( IFormFactor_exposer );
         { //::IFormFactor::clone
         
@@ -311,7 +311,8 @@ void register_IFormFactor_class(){
             IFormFactor_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFormFactor::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IFormFactor::evaluate
@@ -321,7 +322,8 @@ void register_IFormFactor_class(){
             IFormFactor_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") )
+                , "" );
         
         }
         { //::IFormFactor::getHeight
@@ -501,7 +503,8 @@ void register_IFormFactor_class(){
             IFormFactor_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactor_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

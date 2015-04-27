@@ -226,7 +226,7 @@ void register_IMinimizer_class(){
 
     { //::IMinimizer
         typedef bp::class_< IMinimizer_wrapper, boost::noncopyable > IMinimizer_exposer_t;
-        IMinimizer_exposer_t IMinimizer_exposer = IMinimizer_exposer_t( "IMinimizer", bp::init< >() );
+        IMinimizer_exposer_t IMinimizer_exposer = IMinimizer_exposer_t( "IMinimizer", "", bp::init< >("") );
         bp::scope IMinimizer_scope( IMinimizer_exposer );
         { //::IMinimizer::clear
         
@@ -355,7 +355,8 @@ void register_IMinimizer_class(){
             
             IMinimizer_exposer.def( 
                 "minimize"
-                , bp::pure_virtual( minimize_function_type(&::IMinimizer::minimize) ) );
+                , bp::pure_virtual( minimize_function_type(&::IMinimizer::minimize) )
+                , "    //! run minimization" );
         
         }
         { //::IMinimizer::printResults

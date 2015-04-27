@@ -72,7 +72,7 @@ void register_ICloneable_class(){
 
     { //::ICloneable
         typedef bp::class_< ICloneable_wrapper, std::auto_ptr< ICloneable_wrapper >, boost::noncopyable > ICloneable_exposer_t;
-        ICloneable_exposer_t ICloneable_exposer = ICloneable_exposer_t( "ICloneable", bp::init< >() );
+        ICloneable_exposer_t ICloneable_exposer = ICloneable_exposer_t( "ICloneable", "", bp::init< >("") );
         bp::scope ICloneable_scope( ICloneable_exposer );
         { //::ICloneable::clone
         
@@ -81,7 +81,8 @@ void register_ICloneable_class(){
             ICloneable_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ICloneable::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::ICloneable::transferToCPP

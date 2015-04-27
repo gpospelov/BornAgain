@@ -340,7 +340,7 @@ void register_FormFactorFullSphere_class(){
 
     { //::FormFactorFullSphere
         typedef bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorFullSphere_wrapper >, boost::noncopyable > FormFactorFullSphere_exposer_t;
-        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) );
+        FormFactorFullSphere_exposer_t FormFactorFullSphere_exposer = FormFactorFullSphere_exposer_t( "FormFactorFullSphere", "", bp::init< double >(( bp::arg("radius") ), "    //! @brief Full Sphere constructor\n    //! @param radius of Sphere") );
         bp::scope FormFactorFullSphere_scope( FormFactorFullSphere_exposer );
         { //::FormFactorFullSphere::clone
         
@@ -555,7 +555,8 @@ void register_FormFactorFullSphere_class(){
             FormFactorFullSphere_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorFullSphere_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

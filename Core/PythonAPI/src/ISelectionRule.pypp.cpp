@@ -53,7 +53,7 @@ void register_ISelectionRule_class(){
 
     { //::ISelectionRule
         typedef bp::class_< ISelectionRule_wrapper, std::auto_ptr< ISelectionRule_wrapper >, boost::noncopyable > ISelectionRule_exposer_t;
-        ISelectionRule_exposer_t ISelectionRule_exposer = ISelectionRule_exposer_t( "ISelectionRule" );
+        ISelectionRule_exposer_t ISelectionRule_exposer = ISelectionRule_exposer_t( "ISelectionRule", "" );
         bp::scope ISelectionRule_scope( ISelectionRule_exposer );
         { //::ISelectionRule::clone
         
@@ -62,7 +62,8 @@ void register_ISelectionRule_class(){
             ISelectionRule_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ISelectionRule::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::ISelectionRule::coordinateSelected
@@ -72,7 +73,8 @@ void register_ISelectionRule_class(){
             ISelectionRule_exposer.def( 
                 "coordinateSelected"
                 , bp::pure_virtual( coordinateSelected_function_type(&::ISelectionRule::coordinateSelected) )
-                , ( bp::arg("coordinate") ) );
+                , ( bp::arg("coordinate") )
+                , "" );
         
         }
     }

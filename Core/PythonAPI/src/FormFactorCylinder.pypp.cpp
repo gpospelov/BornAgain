@@ -352,7 +352,7 @@ void register_FormFactorCylinder_class(){
 
     { //::FormFactorCylinder
         typedef bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCylinder_wrapper >, boost::noncopyable > FormFactorCylinder_exposer_t;
-        FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
+        FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", "", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") ), "    //! @brief Cylinder constructor\n    //! @param radius of Cylinder's base\n    //! @param height of Cylinder") );
         bp::scope FormFactorCylinder_scope( FormFactorCylinder_exposer );
         { //::FormFactorCylinder::clone
         
@@ -579,7 +579,8 @@ void register_FormFactorCylinder_class(){
             FormFactorCylinder_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCylinder_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

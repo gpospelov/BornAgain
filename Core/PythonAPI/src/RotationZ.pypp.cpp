@@ -268,7 +268,7 @@ void register_RotationZ_class(){
 
     { //::RotationZ
         typedef bp::class_< RotationZ_wrapper, bp::bases< IRotation >, std::auto_ptr< RotationZ_wrapper >, boost::noncopyable > RotationZ_exposer_t;
-        RotationZ_exposer_t RotationZ_exposer = RotationZ_exposer_t( "RotationZ", bp::init< double >(( bp::arg("angle") )) );
+        RotationZ_exposer_t RotationZ_exposer = RotationZ_exposer_t( "RotationZ", "", bp::init< double >(( bp::arg("angle") ), "") );
         bp::scope RotationZ_scope( RotationZ_exposer );
         { //::RotationZ::clone
         
@@ -312,7 +312,8 @@ void register_RotationZ_class(){
             
             RotationZ_exposer.def( 
                 "getAngle"
-                , getAngle_function_type( &::RotationZ::getAngle ) );
+                , getAngle_function_type( &::RotationZ::getAngle )
+                , "" );
         
         }
         { //::RotationZ::getTransform3D
@@ -435,7 +436,8 @@ void register_RotationZ_class(){
             RotationZ_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &RotationZ_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

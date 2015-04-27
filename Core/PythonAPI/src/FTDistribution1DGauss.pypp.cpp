@@ -167,7 +167,7 @@ void register_FTDistribution1DGauss_class(){
 
     { //::FTDistribution1DGauss
         typedef bp::class_< FTDistribution1DGauss_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DGauss_wrapper > > FTDistribution1DGauss_exposer_t;
-        FTDistribution1DGauss_exposer_t FTDistribution1DGauss_exposer = FTDistribution1DGauss_exposer_t( "FTDistribution1DGauss", bp::init< double >(( bp::arg("omega") )) );
+        FTDistribution1DGauss_exposer_t FTDistribution1DGauss_exposer = FTDistribution1DGauss_exposer_t( "FTDistribution1DGauss", "", bp::init< double >(( bp::arg("omega") ), "") );
         bp::scope FTDistribution1DGauss_scope( FTDistribution1DGauss_exposer );
         { //::FTDistribution1DGauss::clone
         
@@ -245,7 +245,8 @@ void register_FTDistribution1DGauss_class(){
             FTDistribution1DGauss_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DGauss_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

@@ -335,9 +335,9 @@ void register_FormFactorLorentz_class(){
 
     { //::FormFactorLorentz
         typedef bp::class_< FormFactorLorentz_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorLorentz_wrapper >, boost::noncopyable > FormFactorLorentz_exposer_t;
-        FormFactorLorentz_exposer_t FormFactorLorentz_exposer = FormFactorLorentz_exposer_t( "FormFactorLorentz", bp::init< double >(( bp::arg("volume") )) );
+        FormFactorLorentz_exposer_t FormFactorLorentz_exposer = FormFactorLorentz_exposer_t( "FormFactorLorentz", "", bp::init< double >(( bp::arg("volume") ), "") );
         bp::scope FormFactorLorentz_scope( FormFactorLorentz_exposer );
-        FormFactorLorentz_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
+        FormFactorLorentz_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") ), "") );
         { //::FormFactorLorentz::clone
         
             typedef ::FormFactorLorentz * ( ::FormFactorLorentz::*clone_function_type)(  ) const;
@@ -539,7 +539,8 @@ void register_FormFactorLorentz_class(){
             FormFactorLorentz_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorLorentz_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

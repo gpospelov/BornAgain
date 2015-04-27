@@ -31,7 +31,7 @@ void register_vector_integer_t_class(){
 
     { //::std::vector< int >
         typedef bp::class_< std::vector< int > > vector_integer_t_exposer_t;
-        vector_integer_t_exposer_t vector_integer_t_exposer = vector_integer_t_exposer_t( "vector_integer_t" );
+        vector_integer_t_exposer_t vector_integer_t_exposer = vector_integer_t_exposer_t( "vector_integer_t", "" );
         bp::scope vector_integer_t_scope( vector_integer_t_exposer );
         vector_integer_t_exposer.def( bp::vector_indexing_suite< ::std::vector< int >, true >() );
     }

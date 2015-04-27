@@ -143,7 +143,7 @@ void register_IAxis_class(){
 
     { //::IAxis
         typedef bp::class_< IAxis_wrapper, std::auto_ptr< IAxis_wrapper >, boost::noncopyable > IAxis_exposer_t;
-        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string const & >(( bp::arg("name") )) );
+        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", "", bp::init< std::string const & >(( bp::arg("name") ), "    //! constructors") );
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone
         
@@ -152,7 +152,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IAxis::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "    //! clone function" );
         
         }
         { //::IAxis::contains
@@ -199,7 +200,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "findClosestIndex"
                 , bp::pure_virtual( findClosestIndex_function_type(&::IAxis::findClosestIndex) )
-                , ( bp::arg("value") ) );
+                , ( bp::arg("value") )
+                , "    //! find bin index which is best match for given value" );
         
         }
         { //::IAxis::getBin
@@ -209,7 +211,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "getBin"
                 , bp::pure_virtual( getBin_function_type(&::IAxis::getBin) )
-                , ( bp::arg("index") ) );
+                , ( bp::arg("index") )
+                , "    //! retrieve a 1d bin for the given index" );
         
         }
         { //::IAxis::getBinBoundaries
@@ -240,7 +243,8 @@ void register_IAxis_class(){
             
             IAxis_exposer.def( 
                 "getMax"
-                , bp::pure_virtual( getMax_function_type(&::IAxis::getMax) ) );
+                , bp::pure_virtual( getMax_function_type(&::IAxis::getMax) )
+                , "    //! Returns value of last point of axis" );
         
         }
         { //::IAxis::getMin
@@ -249,7 +253,8 @@ void register_IAxis_class(){
             
             IAxis_exposer.def( 
                 "getMin"
-                , bp::pure_virtual( getMin_function_type(&::IAxis::getMin) ) );
+                , bp::pure_virtual( getMin_function_type(&::IAxis::getMin) )
+                , "    //! Returns value of first point of axis" );
         
         }
         { //::IAxis::getName
@@ -258,7 +263,8 @@ void register_IAxis_class(){
             
             IAxis_exposer.def( 
                 "getName"
-                , getName_function_type( &::IAxis::getName ) );
+                , getName_function_type( &::IAxis::getName )
+                , "    //! retrieve the label of the axis" );
         
         }
         { //::IAxis::getSize
@@ -267,7 +273,8 @@ void register_IAxis_class(){
             
             IAxis_exposer.def( 
                 "getSize"
-                , bp::pure_virtual( getSize_function_type(&::IAxis::getSize) ) );
+                , bp::pure_virtual( getSize_function_type(&::IAxis::getSize) )
+                , "    //! retrieve the number of bins" );
         
         }
         { //::IAxis::operator[]
@@ -277,7 +284,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "__getitem__"
                 , bp::pure_virtual( __getitem___function_type(&::IAxis::operator[]) )
-                , ( bp::arg("index") ) );
+                , ( bp::arg("index") )
+                , "    //! indexed accessor retrieves a sample" );
         
         }
         { //::IAxis::print
@@ -287,7 +295,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "print"
                 , print_function_type( &IAxis_wrapper::print )
-                , ( bp::arg("ostr") ) );
+                , ( bp::arg("ostr") )
+                , "" );
         
         }
         { //::IAxis::setName
@@ -297,7 +306,8 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "setName"
                 , setName_function_type( &::IAxis::setName )
-                , ( bp::arg("name") ) );
+                , ( bp::arg("name") )
+                , "    //! Sets the axis label" );
         
         }
         IAxis_exposer.def( bp::self != bp::self );

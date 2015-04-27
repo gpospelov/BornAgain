@@ -79,7 +79,7 @@ void register_SquaredFunctionMeanSquaredError_class(){
 
     { //::SquaredFunctionMeanSquaredError
         typedef bp::class_< SquaredFunctionMeanSquaredError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionMeanSquaredError_wrapper >, boost::noncopyable > SquaredFunctionMeanSquaredError_exposer_t;
-        SquaredFunctionMeanSquaredError_exposer_t SquaredFunctionMeanSquaredError_exposer = SquaredFunctionMeanSquaredError_exposer_t( "SquaredFunctionMeanSquaredError", bp::init< >() );
+        SquaredFunctionMeanSquaredError_exposer_t SquaredFunctionMeanSquaredError_exposer = SquaredFunctionMeanSquaredError_exposer_t( "SquaredFunctionMeanSquaredError", "", bp::init< >("") );
         bp::scope SquaredFunctionMeanSquaredError_scope( SquaredFunctionMeanSquaredError_exposer );
         { //::SquaredFunctionMeanSquaredError::calculateSquaredDifference
         

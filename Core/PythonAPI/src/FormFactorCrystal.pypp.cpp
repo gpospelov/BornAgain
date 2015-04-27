@@ -328,7 +328,7 @@ void register_FormFactorCrystal_class(){
 
     { //::FormFactorCrystal
         typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCrystal_wrapper >, boost::noncopyable > FormFactorCrystal_exposer_t;
-        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") )) );
+        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", "", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") ), "") );
         bp::scope FormFactorCrystal_scope( FormFactorCrystal_exposer );
         { //::FormFactorCrystal::clone
         
@@ -543,7 +543,8 @@ void register_FormFactorCrystal_class(){
             FormFactorCrystal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCrystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

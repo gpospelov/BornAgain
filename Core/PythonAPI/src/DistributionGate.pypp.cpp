@@ -210,9 +210,9 @@ void register_DistributionGate_class(){
 
     { //::DistributionGate
         typedef bp::class_< DistributionGate_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGate_wrapper > > DistributionGate_exposer_t;
-        DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", bp::init< >() );
+        DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", "", bp::init< >("") );
         bp::scope DistributionGate_scope( DistributionGate_exposer );
-        DistributionGate_exposer.def( bp::init< double, double >(( bp::arg("min"), bp::arg("max") )) );
+        DistributionGate_exposer.def( bp::init< double, double >(( bp::arg("min"), bp::arg("max") ), "") );
         { //::DistributionGate::clone
         
             typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type)(  ) const;
@@ -243,7 +243,8 @@ void register_DistributionGate_class(){
             
             DistributionGate_exposer.def( 
                 "getMax"
-                , getMax_function_type( &::DistributionGate::getMax ) );
+                , getMax_function_type( &::DistributionGate::getMax )
+                , "    //! get the maximum value of the distribution" );
         
         }
         { //::DistributionGate::getMean
@@ -263,7 +264,8 @@ void register_DistributionGate_class(){
             
             DistributionGate_exposer.def( 
                 "getMin"
-                , getMin_function_type( &::DistributionGate::getMin ) );
+                , getMin_function_type( &::DistributionGate::getMin )
+                , "    //! get the minimum value of the distribution" );
         
         }
         { //::DistributionGate::probabilityDensity
@@ -342,7 +344,8 @@ void register_DistributionGate_class(){
             DistributionGate_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionGate_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

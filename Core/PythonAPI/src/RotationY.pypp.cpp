@@ -268,7 +268,7 @@ void register_RotationY_class(){
 
     { //::RotationY
         typedef bp::class_< RotationY_wrapper, bp::bases< IRotation >, std::auto_ptr< RotationY_wrapper >, boost::noncopyable > RotationY_exposer_t;
-        RotationY_exposer_t RotationY_exposer = RotationY_exposer_t( "RotationY", bp::init< double >(( bp::arg("angle") )) );
+        RotationY_exposer_t RotationY_exposer = RotationY_exposer_t( "RotationY", "", bp::init< double >(( bp::arg("angle") ), "") );
         bp::scope RotationY_scope( RotationY_exposer );
         { //::RotationY::clone
         
@@ -312,7 +312,8 @@ void register_RotationY_class(){
             
             RotationY_exposer.def( 
                 "getAngle"
-                , getAngle_function_type( &::RotationY::getAngle ) );
+                , getAngle_function_type( &::RotationY::getAngle )
+                , "" );
         
         }
         { //::RotationY::getTransform3D
@@ -435,7 +436,8 @@ void register_RotationY_class(){
             RotationY_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &RotationY_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

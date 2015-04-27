@@ -364,7 +364,7 @@ void register_FormFactorPrism3_class(){
 
     { //::FormFactorPrism3
         typedef bp::class_< FormFactorPrism3_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorPrism3_wrapper >, boost::noncopyable > FormFactorPrism3_exposer_t;
-        FormFactorPrism3_exposer_t FormFactorPrism3_exposer = FormFactorPrism3_exposer_t( "FormFactorPrism3", bp::init< double, double >(( bp::arg("length"), bp::arg("height") )) );
+        FormFactorPrism3_exposer_t FormFactorPrism3_exposer = FormFactorPrism3_exposer_t( "FormFactorPrism3", "", bp::init< double, double >(( bp::arg("length"), bp::arg("height") ), "    //! @brief Prism3 constructor\n    //! @param length of a side of Prism3's base\n    //! @param height of Prism3") );
         bp::scope FormFactorPrism3_scope( FormFactorPrism3_exposer );
         { //::FormFactorPrism3::clone
         
@@ -602,7 +602,8 @@ void register_FormFactorPrism3_class(){
             FormFactorPrism3_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorPrism3_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

@@ -316,7 +316,7 @@ void register_FormFactorTruncatedSphere_class(){
 
     { //::FormFactorTruncatedSphere
         typedef bp::class_< FormFactorTruncatedSphere_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTruncatedSphere_wrapper >, boost::noncopyable > FormFactorTruncatedSphere_exposer_t;
-        FormFactorTruncatedSphere_exposer_t FormFactorTruncatedSphere_exposer = FormFactorTruncatedSphere_exposer_t( "FormFactorTruncatedSphere", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
+        FormFactorTruncatedSphere_exposer_t FormFactorTruncatedSphere_exposer = FormFactorTruncatedSphere_exposer_t( "FormFactorTruncatedSphere", "", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") ), "    //! @brief TruncatedSphere constructor\n    //! @param radius of Truncated Sphere\n    //! @param height of Truncated Sphere") );
         bp::scope FormFactorTruncatedSphere_scope( FormFactorTruncatedSphere_exposer );
         { //::FormFactorTruncatedSphere::clone
         
@@ -507,7 +507,8 @@ void register_FormFactorTruncatedSphere_class(){
             FormFactorTruncatedSphere_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorTruncatedSphere_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

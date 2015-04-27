@@ -352,7 +352,7 @@ void register_FormFactorInfLongRipple2_class(){
 
     { //::FormFactorInfLongRipple2
         typedef bp::class_< FormFactorInfLongRipple2_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorInfLongRipple2_wrapper >, boost::noncopyable > FormFactorInfLongRipple2_exposer_t;
-        FormFactorInfLongRipple2_exposer_t FormFactorInfLongRipple2_exposer = FormFactorInfLongRipple2_exposer_t( "FormFactorInfLongRipple2", bp::init< double, double, double >(( bp::arg("width"), bp::arg("height"), bp::arg("asymetry") )) );
+        FormFactorInfLongRipple2_exposer_t FormFactorInfLongRipple2_exposer = FormFactorInfLongRipple2_exposer_t( "FormFactorInfLongRipple2", "", bp::init< double, double, double >(( bp::arg("width"), bp::arg("height"), bp::arg("asymetry") ), "    //! @brief InfLongRipple2 constructor\n    //! @param width of triangular cross section\n    //! @param height of triangular cross section\n    //! @param asymmetry length of triangular cross section") );
         bp::scope FormFactorInfLongRipple2_scope( FormFactorInfLongRipple2_exposer );
         { //::FormFactorInfLongRipple2::clone
         
@@ -577,7 +577,8 @@ void register_FormFactorInfLongRipple2_class(){
             FormFactorInfLongRipple2_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorInfLongRipple2_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

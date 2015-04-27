@@ -154,7 +154,7 @@ void register_IChiSquaredModule_class(){
 
     { //::IChiSquaredModule
         typedef bp::class_< IChiSquaredModule_wrapper, std::auto_ptr< IChiSquaredModule_wrapper >, boost::noncopyable > IChiSquaredModule_exposer_t;
-        IChiSquaredModule_exposer_t IChiSquaredModule_exposer = IChiSquaredModule_exposer_t( "IChiSquaredModule", bp::init< >() );
+        IChiSquaredModule_exposer_t IChiSquaredModule_exposer = IChiSquaredModule_exposer_t( "IChiSquaredModule", "", bp::init< >("") );
         bp::scope IChiSquaredModule_scope( IChiSquaredModule_exposer );
         { //::IChiSquaredModule::calculateChiSquared
         
@@ -162,7 +162,8 @@ void register_IChiSquaredModule_class(){
             
             IChiSquaredModule_exposer.def( 
                 "calculateChiSquared"
-                , bp::pure_virtual( calculateChiSquared_function_type(&::IChiSquaredModule::calculateChiSquared) ) );
+                , bp::pure_virtual( calculateChiSquared_function_type(&::IChiSquaredModule::calculateChiSquared) )
+                , "    //! Returns chi squared value." );
         
         }
         { //::IChiSquaredModule::clone
@@ -172,7 +173,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IChiSquaredModule::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "    //! clone method" );
         
         }
         { //::IChiSquaredModule::createChi2DifferenceMap
@@ -182,7 +184,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "createChi2DifferenceMap"
                 , bp::pure_virtual( createChi2DifferenceMap_function_type(&::IChiSquaredModule::createChi2DifferenceMap) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "    //! Returns output data which contains chi^2 values" );
         
         }
         { //::IChiSquaredModule::getFittingDataSelector
@@ -240,7 +243,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "getRealData"
                 , getRealData_function_type( &::IChiSquaredModule::getRealData )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns real data" );
         
         }
         { //::IChiSquaredModule::getResidualValue
@@ -262,7 +266,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "getSimulationData"
                 , getSimulationData_function_type( &::IChiSquaredModule::getSimulationData )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns simulated data" );
         
         }
         { //::IChiSquaredModule::getSquaredFunction
@@ -272,7 +277,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "getSquaredFunction"
                 , getSquaredFunction_function_type( &::IChiSquaredModule::getSquaredFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns squared function" );
         
         }
         { //::IChiSquaredModule::setChiSquaredFunction
@@ -282,7 +288,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "setChiSquaredFunction"
                 , setChiSquaredFunction_function_type( &::IChiSquaredModule::setChiSquaredFunction )
-                , ( bp::arg("squared_function") ) );
+                , ( bp::arg("squared_function") )
+                , "" );
         
         }
         { //::IChiSquaredModule::setFittingDataSelector
@@ -328,7 +335,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "setNdegreeOfFreedom"
                 , setNdegreeOfFreedom_function_type( &::IChiSquaredModule::setNdegreeOfFreedom )
-                , ( bp::arg("ndegree_of_freedom") ) );
+                , ( bp::arg("ndegree_of_freedom") )
+                , "    //! Sets number of degree of freedom." );
         
         }
         { //::IChiSquaredModule::setRealAndSimulatedData
@@ -338,7 +346,8 @@ void register_IChiSquaredModule_class(){
             IChiSquaredModule_exposer.def( 
                 "setRealAndSimulatedData"
                 , setRealAndSimulatedData_function_type( &::IChiSquaredModule::setRealAndSimulatedData )
-                , ( bp::arg("real_data"), bp::arg("simulation_data") ) );
+                , ( bp::arg("real_data"), bp::arg("simulation_data") )
+                , "" );
         
         }
     }

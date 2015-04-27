@@ -187,7 +187,7 @@ void register_FixedBinAxis_class(){
 
     { //::FixedBinAxis
         typedef bp::class_< FixedBinAxis_wrapper, bp::bases< IAxis >, std::auto_ptr< FixedBinAxis_wrapper >, boost::noncopyable > FixedBinAxis_exposer_t;
-        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", "", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") ), "    //! @brief FixedBinAxis constructor\n    //! @param name Axis name\n    //! @param nbins number of bins\n    //! @param start low edge of first bin\n    //! @param end upper edge of last bin") );
         bp::scope FixedBinAxis_scope( FixedBinAxis_exposer );
         { //::FixedBinAxis::clone
         

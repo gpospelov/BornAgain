@@ -15,6 +15,8 @@ from pyplusplus.function_transformers import transformers
 from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
 
+import utils_docstring
+
 balanced_files_t.HEADER_EXT = '.h'
 balanced_files_t.SOURCE_EXT = '.cpp'
 multiple_files_t.HEADER_EXT = '.pypp.h'
@@ -29,6 +31,16 @@ if( !this->m_pyobj) {
 }
 """
 
+
+extractor = utils_docstring.DoxygenDocExtractor()
+
+def my_doc_extractor( decl ):
+    print "-----------"
+    print decl.name
+    print decl.location.file_name + str(decl.location.line)
+    print "-----------"
+    print extractor(decl)
+    return extractor(decl)
 
 def ExcludeConstructorsArgPtr(mb):
     '''Excludes constructors which have pointers in argument list.'''
@@ -306,8 +318,7 @@ def MakePythonAPI(prj):
     )
 
     # generate output
-
-    mb.build_code_creator( module_name="PythonInterface" )
+    mb.build_code_creator( module_name="PythonInterface", doc_extractor=my_doc_extractor)
     mb.code_creator.license = prj.license
 
     mb.code_creator.user_defined_directories.append(os.path.abspath('./'))

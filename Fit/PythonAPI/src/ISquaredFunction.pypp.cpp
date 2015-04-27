@@ -58,7 +58,7 @@ void register_ISquaredFunction_class(){
 
     { //::ISquaredFunction
         typedef bp::class_< ISquaredFunction_wrapper, std::auto_ptr< ISquaredFunction_wrapper >, boost::noncopyable > ISquaredFunction_exposer_t;
-        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", bp::init< >() );
+        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", "", bp::init< >("") );
         bp::scope ISquaredFunction_scope( ISquaredFunction_exposer );
         { //::ISquaredFunction::calculateSquaredDifference
         
@@ -67,7 +67,8 @@ void register_ISquaredFunction_class(){
             ISquaredFunction_exposer.def( 
                 "calculateSquaredDifference"
                 , bp::pure_virtual( calculateSquaredDifference_function_type(&::ISquaredFunction::calculateSquaredDifference) )
-                , ( bp::arg("real_value"), bp::arg("simulated_value") ) );
+                , ( bp::arg("real_value"), bp::arg("simulated_value") )
+                , "" );
         
         }
         { //::ISquaredFunction::calculateSquaredError
@@ -77,7 +78,8 @@ void register_ISquaredFunction_class(){
             ISquaredFunction_exposer.def( 
                 "calculateSquaredError"
                 , bp::pure_virtual( calculateSquaredError_function_type(&::ISquaredFunction::calculateSquaredError) )
-                , ( bp::arg("real_value"), bp::arg("simulated_value")=0.0 ) );
+                , ( bp::arg("real_value"), bp::arg("simulated_value")=0.0 )
+                , "" );
         
         }
         { //::ISquaredFunction::clone
@@ -87,7 +89,8 @@ void register_ISquaredFunction_class(){
             ISquaredFunction_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ISquaredFunction::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
     }

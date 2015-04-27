@@ -31,7 +31,7 @@ void register_vector_longinteger_t_class(){
 
     { //::std::vector< unsigned long >
         typedef bp::class_< std::vector< unsigned long > > vector_longinteger_t_exposer_t;
-        vector_longinteger_t_exposer_t vector_longinteger_t_exposer = vector_longinteger_t_exposer_t( "vector_longinteger_t" );
+        vector_longinteger_t_exposer_t vector_longinteger_t_exposer = vector_longinteger_t_exposer_t( "vector_longinteger_t", "" );
         bp::scope vector_longinteger_t_scope( vector_longinteger_t_exposer );
         vector_longinteger_t_exposer.def( bp::vector_indexing_suite< ::std::vector< unsigned long >, true >() );
     }

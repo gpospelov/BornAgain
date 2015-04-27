@@ -79,7 +79,7 @@ void register_SquaredFunctionGaussianError_class(){
 
     { //::SquaredFunctionGaussianError
         typedef bp::class_< SquaredFunctionGaussianError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionGaussianError_wrapper >, boost::noncopyable > SquaredFunctionGaussianError_exposer_t;
-        SquaredFunctionGaussianError_exposer_t SquaredFunctionGaussianError_exposer = SquaredFunctionGaussianError_exposer_t( "SquaredFunctionGaussianError", bp::init< bp::optional< double > >(( bp::arg("sigma")=1.00000000000000002081668171172168513294309377670288085938e-2 )) );
+        SquaredFunctionGaussianError_exposer_t SquaredFunctionGaussianError_exposer = SquaredFunctionGaussianError_exposer_t( "SquaredFunctionGaussianError", "", bp::init< bp::optional< double > >(( bp::arg("sigma")=1.00000000000000002081668171172168513294309377670288085938e-2 ), "") );
         bp::scope SquaredFunctionGaussianError_scope( SquaredFunctionGaussianError_exposer );
         { //::SquaredFunctionGaussianError::calculateSquaredDifference
         

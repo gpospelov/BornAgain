@@ -352,7 +352,7 @@ void register_FormFactorHemiEllipsoid_class(){
 
     { //::FormFactorHemiEllipsoid
         typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorHemiEllipsoid_wrapper >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
-        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
+        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", "", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") ), "") );
         bp::scope FormFactorHemiEllipsoid_scope( FormFactorHemiEllipsoid_exposer );
         { //::FormFactorHemiEllipsoid::clone
         
@@ -577,7 +577,8 @@ void register_FormFactorHemiEllipsoid_class(){
             FormFactorHemiEllipsoid_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorHemiEllipsoid_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

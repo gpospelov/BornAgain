@@ -127,9 +127,9 @@ void register_FitParameter_class(){
 
     { //::FitParameter
         typedef bp::class_< FitParameter_wrapper, bp::bases< INamed > > FitParameter_exposer_t;
-        FitParameter_exposer_t FitParameter_exposer = FitParameter_exposer_t( "FitParameter", bp::init< >() );
+        FitParameter_exposer_t FitParameter_exposer = FitParameter_exposer_t( "FitParameter", "", bp::init< >("") );
         bp::scope FitParameter_scope( FitParameter_exposer );
-        FitParameter_exposer.def( bp::init< std::string const &, double, bp::optional< double, AttLimits const &, double > >(( bp::arg("name"), bp::arg("value"), bp::arg("step")=0.0, bp::arg("limits")=AttLimits::limitless( ), bp::arg("error")=0.0 )) );
+        FitParameter_exposer.def( bp::init< std::string const &, double, bp::optional< double, AttLimits const &, double > >(( bp::arg("name"), bp::arg("value"), bp::arg("step")=0.0, bp::arg("limits")=AttLimits::limitless( ), bp::arg("error")=0.0 ), "") );
         { //::FitParameter::getError
         
             typedef double ( ::FitParameter::*getError_function_type)(  ) const;

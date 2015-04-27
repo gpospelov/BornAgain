@@ -281,7 +281,7 @@ void register_IClusteredParticles_class(){
 
     { //::IClusteredParticles
         typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IClusteredParticles_wrapper >, boost::noncopyable > IClusteredParticles_exposer_t;
-        IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", bp::init< >() );
+        IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", "", bp::init< >("") );
         bp::scope IClusteredParticles_scope( IClusteredParticles_exposer );
         { //::IClusteredParticles::accept
         
@@ -290,7 +290,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "accept"
                 , bp::pure_virtual( accept_function_type(&::IClusteredParticles::accept) )
-                , ( bp::arg("visitor") ) );
+                , ( bp::arg("visitor") )
+                , "    //! calls the ISampleVisitor's visit method" );
         
         }
         { //::IClusteredParticles::applyTransformation
@@ -312,7 +313,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IClusteredParticles::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "    //! clone method to allow for polymorphic copying" );
         
         }
         { //::IClusteredParticles::cloneInvertB
@@ -322,7 +324,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "cloneInvertB"
                 , bp::pure_virtual( cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns a clone with inverted magnetic fields" );
         
         }
         { //::IClusteredParticles::createTotalFormFactor
@@ -345,7 +348,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "getAmbientMaterial"
                 , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::IClusteredParticles::setAmbientMaterial
@@ -355,7 +359,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "setAmbientMaterial"
                 , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
-                , ( bp::arg("material") ) );
+                , ( bp::arg("material") )
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -467,7 +472,8 @@ void register_IClusteredParticles_class(){
             IClusteredParticles_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IClusteredParticles_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

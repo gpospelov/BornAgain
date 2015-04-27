@@ -130,7 +130,7 @@ void register_IIntensityNormalizer_class(){
 
     { //::IIntensityNormalizer
         typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, std::auto_ptr< IIntensityNormalizer_wrapper >, boost::noncopyable > IIntensityNormalizer_exposer_t;
-        IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer" );
+        IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer", "" );
         bp::scope IIntensityNormalizer_scope( IIntensityNormalizer_exposer );
         { //::IIntensityNormalizer::clone
         
@@ -139,7 +139,8 @@ void register_IIntensityNormalizer_class(){
             IIntensityNormalizer_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IIntensityNormalizer::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IIntensityNormalizer::createNormalizedData
@@ -150,7 +151,8 @@ void register_IIntensityNormalizer_class(){
                 "createNormalizedData"
                 , bp::pure_virtual( createNormalizedData_function_type(&::IIntensityNormalizer::createNormalizedData) )
                 , ( bp::arg("data") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::IIntensityNormalizer::setMaximumIntensity
@@ -160,7 +162,8 @@ void register_IIntensityNormalizer_class(){
             IIntensityNormalizer_exposer.def( 
                 "setMaximumIntensity"
                 , bp::pure_virtual( setMaximumIntensity_function_type(&::IIntensityNormalizer::setMaximumIntensity) )
-                , ( bp::arg("arg0") ) );
+                , ( bp::arg("arg0") )
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged

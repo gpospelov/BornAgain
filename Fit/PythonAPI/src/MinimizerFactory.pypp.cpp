@@ -30,7 +30,7 @@ void register_MinimizerFactory_class(){
 
     { //::MinimizerFactory
         typedef bp::class_< MinimizerFactory > MinimizerFactory_exposer_t;
-        MinimizerFactory_exposer_t MinimizerFactory_exposer = MinimizerFactory_exposer_t( "MinimizerFactory" );
+        MinimizerFactory_exposer_t MinimizerFactory_exposer = MinimizerFactory_exposer_t( "MinimizerFactory", "" );
         bp::scope MinimizerFactory_scope( MinimizerFactory_exposer );
         { //::MinimizerFactory::createMinimizer
         
@@ -40,7 +40,8 @@ void register_MinimizerFactory_class(){
                 "createMinimizer"
                 , createMinimizer_function_type( &::MinimizerFactory::createMinimizer )
                 , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::MinimizerFactory::printCatalogue
@@ -49,7 +50,8 @@ void register_MinimizerFactory_class(){
             
             MinimizerFactory_exposer.def( 
                 "printCatalogue"
-                , printCatalogue_function_type( &::MinimizerFactory::printCatalogue ) );
+                , printCatalogue_function_type( &::MinimizerFactory::printCatalogue )
+                , "" );
         
         }
         MinimizerFactory_exposer.staticmethod( "createMinimizer" );

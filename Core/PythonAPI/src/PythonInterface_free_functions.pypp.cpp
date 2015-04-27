@@ -35,7 +35,8 @@ void register_free_functions(){
         bp::def( 
             "GenerateNormalRandom"
             , GenerateNormalRandom_function_type( &::MathFunctions::GenerateNormalRandom )
-            , ( bp::arg("average"), bp::arg("std_dev") ) );
+            , ( bp::arg("average"), bp::arg("std_dev") )
+            , "" );
     
     }
 
@@ -45,7 +46,8 @@ void register_free_functions(){
         
         bp::def( 
             "GetMajorVersionNumber"
-            , GetMajorVersionNumber_function_type( &::BornAgain::GetMajorVersionNumber ) );
+            , GetMajorVersionNumber_function_type( &::BornAgain::GetMajorVersionNumber )
+            , "" );
     
     }
 
@@ -55,7 +57,8 @@ void register_free_functions(){
         
         bp::def( 
             "GetMinorVersionNumber"
-            , GetMinorVersionNumber_function_type( &::BornAgain::GetMinorVersionNumber ) );
+            , GetMinorVersionNumber_function_type( &::BornAgain::GetMinorVersionNumber )
+            , "" );
     
     }
 
@@ -65,7 +68,8 @@ void register_free_functions(){
         
         bp::def( 
             "GetName"
-            , GetName_function_type( &::BornAgain::GetName ) );
+            , GetName_function_type( &::BornAgain::GetName )
+            , "" );
     
     }
 
@@ -75,7 +79,8 @@ void register_free_functions(){
         
         bp::def( 
             "GetPatchVersionNumber"
-            , GetPatchVersionNumber_function_type( &::BornAgain::GetPatchVersionNumber ) );
+            , GetPatchVersionNumber_function_type( &::BornAgain::GetPatchVersionNumber )
+            , "" );
     
     }
 
@@ -85,7 +90,8 @@ void register_free_functions(){
         
         bp::def( 
             "GetVersionNumber"
-            , GetVersionNumber_function_type( &::BornAgain::GetVersionNumber ) );
+            , GetVersionNumber_function_type( &::BornAgain::GetVersionNumber )
+            , "" );
     
     }
 
@@ -96,7 +102,8 @@ void register_free_functions(){
         bp::def( 
             "SetMessageLevel"
             , SetMessageLevel_function_type( &::MSG::SetLevel )
-            , ( bp::arg("levelname") ) );
+            , ( bp::arg("levelname") )
+            , "" );
     
     }
 
@@ -107,7 +114,8 @@ void register_free_functions(){
         bp::def( 
             "SetMessageLevel"
             , SetMessageLevel_function_type( &::MSG::SetLevel )
-            , ( bp::arg("level") ) );
+            , ( bp::arg("level") )
+            , "" );
     
     }
 
@@ -118,7 +126,8 @@ void register_free_functions(){
         bp::def( 
             "deg2rad"
             , deg2rad_function_type( &::Units::deg2rad )
-            , ( bp::arg("angle") ) );
+            , ( bp::arg("angle") )
+            , "" );
     
     }
 
@@ -129,7 +138,8 @@ void register_free_functions(){
         bp::def( 
             "rad2deg"
             , rad2deg_function_type( &::Units::rad2deg )
-            , ( bp::arg("angle") ) );
+            , ( bp::arg("angle") )
+            , "" );
     
     }
 

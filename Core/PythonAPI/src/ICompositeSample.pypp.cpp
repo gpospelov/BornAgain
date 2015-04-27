@@ -249,7 +249,7 @@ void register_ICompositeSample_class(){
 
     { //::ICompositeSample
         typedef bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, std::auto_ptr< ICompositeSample_wrapper >, boost::noncopyable > ICompositeSample_exposer_t;
-        ICompositeSample_exposer_t ICompositeSample_exposer = ICompositeSample_exposer_t( "ICompositeSample", bp::init< >() );
+        ICompositeSample_exposer_t ICompositeSample_exposer = ICompositeSample_exposer_t( "ICompositeSample", "", bp::init< >("") );
         bp::scope ICompositeSample_scope( ICompositeSample_exposer );
         { //::ICompositeSample::clone
         
@@ -258,7 +258,8 @@ void register_ICompositeSample_class(){
             ICompositeSample_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ICompositeSample::clone) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "" );
         
         }
         { //::ICompositeSample::getCompositeSample
@@ -393,7 +394,8 @@ void register_ICompositeSample_class(){
             ICompositeSample_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ICompositeSample_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

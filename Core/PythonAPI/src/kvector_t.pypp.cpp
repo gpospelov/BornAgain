@@ -30,9 +30,9 @@ void register_kvector_t_class(){
 
     { //::Geometry::BasicVector3D< double >
         typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
-        kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", bp::init< >() );
+        kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", "", bp::init< >("    //! Default constructor.\n    //! It is protected - this class should not be instantiated directly.") );
         bp::scope kvector_t_scope( kvector_t_exposer );
-        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "    //! Constructor from three numbers.") );
         { //::Geometry::BasicVector3D< double >::mag
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
@@ -40,7 +40,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag"
-                , mag_function_type( &::Geometry::BasicVector3D< double >::mag ) );
+                , mag_function_type( &::Geometry::BasicVector3D< double >::mag )
+                , "" );
         
         }
         { //::Geometry::BasicVector3D< double >::mag2
@@ -50,7 +51,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag2"
-                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 ) );
+                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 )
+                , "" );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy
@@ -60,7 +62,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy ) );
+                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy )
+                , "" );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy2
@@ -70,7 +73,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy2"
-                , magxy2_function_type( &::Geometry::BasicVector3D< double >::magxy2 ) );
+                , magxy2_function_type( &::Geometry::BasicVector3D< double >::magxy2 )
+                , "" );
         
         }
         kvector_t_exposer.def( bp::self *= bp::other< double >() );
@@ -86,7 +90,8 @@ void register_kvector_t_class(){
                 "assign"
                 , assign_function_type( &::Geometry::BasicVector3D< double >::operator= )
                 , ( bp::arg("v") )
-                , bp::return_self< >() );
+                , bp::return_self< >()
+                , "    //! Assignment." );
         
         }
         { //::Geometry::BasicVector3D< double >::operator[]
@@ -97,7 +102,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "__getitem__"
                 , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
-                , ( bp::arg("i") ) );
+                , ( bp::arg("i") )
+                , "    //! Returns components by index." );
         
         }
         { //::Geometry::BasicVector3D< double >::operator[]
@@ -109,7 +115,8 @@ void register_kvector_t_class(){
                 "__getitem__"
                 , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
                 , ( bp::arg("i") )
-                , bp::return_value_policy< bp::copy_non_const_reference >() );
+                , bp::return_value_policy< bp::copy_non_const_reference >()
+                , "    //! Sets components by index." );
         
         }
         { //::Geometry::BasicVector3D< double >::setLambdaAlphaPhi
@@ -120,7 +127,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "setLambdaAlphaPhi"
                 , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
-                , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") ) );
+                , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") )
+                , "" );
         
         }
         { //::Geometry::BasicVector3D< double >::setX
@@ -131,7 +139,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "setX"
                 , setX_function_type( &::Geometry::BasicVector3D< double >::setX )
-                , ( bp::arg("a") ) );
+                , ( bp::arg("a") )
+                , "    //! Sets x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::setXYZ
@@ -142,7 +151,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "setXYZ"
                 , setXYZ_function_type( &::Geometry::BasicVector3D< double >::setXYZ )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
+                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )
+                , "    //! Sets components in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::setY
@@ -153,7 +163,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "setY"
                 , setY_function_type( &::Geometry::BasicVector3D< double >::setY )
-                , ( bp::arg("a") ) );
+                , ( bp::arg("a") )
+                , "    //! Sets y-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::setZ
@@ -164,7 +175,8 @@ void register_kvector_t_class(){
             kvector_t_exposer.def( 
                 "setZ"
                 , setZ_function_type( &::Geometry::BasicVector3D< double >::setZ )
-                , ( bp::arg("a") ) );
+                , ( bp::arg("a") )
+                , "    //! Sets z-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::x
@@ -174,7 +186,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "x"
-                , x_function_type( &::Geometry::BasicVector3D< double >::x ) );
+                , x_function_type( &::Geometry::BasicVector3D< double >::x )
+                , "    //! Returns x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::y
@@ -184,7 +197,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "y"
-                , y_function_type( &::Geometry::BasicVector3D< double >::y ) );
+                , y_function_type( &::Geometry::BasicVector3D< double >::y )
+                , "    //! Returns y-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< double >::z
@@ -194,7 +208,8 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "z"
-                , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
+                , z_function_type( &::Geometry::BasicVector3D< double >::z )
+                , "    //! Returns z-component in cartesian coordinate system." );
         
         }
         kvector_t_exposer.def( bp::self - bp::self );

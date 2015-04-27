@@ -148,10 +148,10 @@ void register_IParameterized_class(){
 
     { //::IParameterized
         typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
-        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::init< >() );
+        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", "", bp::init< >("") );
         bp::scope IParameterized_scope( IParameterized_exposer );
-        IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
-        IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
+        IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") ), "") );
+        IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") ), "") );
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
@@ -193,7 +193,8 @@ void register_IParameterized_class(){
             IParameterized_exposer.def( 
                 "getParameterPool"
                 , getParameterPool_function_type( &::IParameterized::getParameterPool )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns pointer to the parameter pool." );
         
         }
         { //::IParameterized::operator=
@@ -204,7 +205,8 @@ void register_IParameterized_class(){
                 "assign"
                 , assign_function_type( &::IParameterized::operator= )
                 , ( bp::arg("other") )
-                , bp::return_self< >() );
+                , bp::return_self< >()
+                , "" );
         
         }
         { //::IParameterized::printParameters
@@ -225,7 +227,8 @@ void register_IParameterized_class(){
             IParameterized_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IParameterized_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

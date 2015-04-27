@@ -316,7 +316,7 @@ void register_FormFactorWeighted_class(){
 
     { //::FormFactorWeighted
         typedef bp::class_< FormFactorWeighted_wrapper, bp::bases< IFormFactor >, std::auto_ptr< FormFactorWeighted_wrapper >, boost::noncopyable > FormFactorWeighted_exposer_t;
-        FormFactorWeighted_exposer_t FormFactorWeighted_exposer = FormFactorWeighted_exposer_t( "FormFactorWeighted", bp::init< >() );
+        FormFactorWeighted_exposer_t FormFactorWeighted_exposer = FormFactorWeighted_exposer_t( "FormFactorWeighted", "", bp::init< >("") );
         bp::scope FormFactorWeighted_scope( FormFactorWeighted_exposer );
         { //::FormFactorWeighted::addFormFactor
         
@@ -325,7 +325,8 @@ void register_FormFactorWeighted_class(){
             FormFactorWeighted_exposer.def( 
                 "addFormFactor"
                 , addFormFactor_function_type( &::FormFactorWeighted::addFormFactor )
-                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 ) );
+                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 )
+                , "" );
         
         }
         { //::FormFactorWeighted::clone
@@ -529,7 +530,8 @@ void register_FormFactorWeighted_class(){
             FormFactorWeighted_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorWeighted_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

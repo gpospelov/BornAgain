@@ -187,7 +187,7 @@ void register_VariableBinAxis_class(){
 
     { //::VariableBinAxis
         typedef bp::class_< VariableBinAxis_wrapper, bp::bases< IAxis >, std::auto_ptr< VariableBinAxis_wrapper >, boost::noncopyable > VariableBinAxis_exposer_t;
-        VariableBinAxis_exposer_t VariableBinAxis_exposer = VariableBinAxis_exposer_t( "VariableBinAxis", bp::init< std::string const &, std::size_t, std::vector< double > const & >(( bp::arg("name"), bp::arg("nbins"), bp::arg("bin_boundaries") )) );
+        VariableBinAxis_exposer_t VariableBinAxis_exposer = VariableBinAxis_exposer_t( "VariableBinAxis", "", bp::init< std::string const &, std::size_t, std::vector< double > const & >(( bp::arg("name"), bp::arg("nbins"), bp::arg("bin_boundaries") ), "    //! @brief VariableBinAxis constructor\n    //! @param name Axis name\n    //! @param nbins number of bins\n    //! @param bin_boundaries Array of size nbins+1 containing low-edges for each\n    //! bin and upper edge of last bin.") );
         bp::scope VariableBinAxis_scope( VariableBinAxis_exposer );
         { //::VariableBinAxis::clone
         

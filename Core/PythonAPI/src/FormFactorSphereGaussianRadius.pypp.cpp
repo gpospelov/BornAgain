@@ -328,7 +328,7 @@ void register_FormFactorSphereGaussianRadius_class(){
 
     { //::FormFactorSphereGaussianRadius
         typedef bp::class_< FormFactorSphereGaussianRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereGaussianRadius_wrapper >, boost::noncopyable > FormFactorSphereGaussianRadius_exposer_t;
-        FormFactorSphereGaussianRadius_exposer_t FormFactorSphereGaussianRadius_exposer = FormFactorSphereGaussianRadius_exposer_t( "FormFactorSphereGaussianRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) );
+        FormFactorSphereGaussianRadius_exposer_t FormFactorSphereGaussianRadius_exposer = FormFactorSphereGaussianRadius_exposer_t( "FormFactorSphereGaussianRadius", "", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") ), "") );
         bp::scope FormFactorSphereGaussianRadius_scope( FormFactorSphereGaussianRadius_exposer );
         { //::FormFactorSphereGaussianRadius::clone
         
@@ -531,7 +531,8 @@ void register_FormFactorSphereGaussianRadius_class(){
             FormFactorSphereGaussianRadius_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorSphereGaussianRadius_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

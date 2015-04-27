@@ -79,7 +79,7 @@ void register_SquaredFunctionDefault_class(){
 
     { //::SquaredFunctionDefault
         typedef bp::class_< SquaredFunctionDefault_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionDefault_wrapper >, boost::noncopyable > SquaredFunctionDefault_exposer_t;
-        SquaredFunctionDefault_exposer_t SquaredFunctionDefault_exposer = SquaredFunctionDefault_exposer_t( "SquaredFunctionDefault", bp::init< >() );
+        SquaredFunctionDefault_exposer_t SquaredFunctionDefault_exposer = SquaredFunctionDefault_exposer_t( "SquaredFunctionDefault", "", bp::init< >("") );
         bp::scope SquaredFunctionDefault_scope( SquaredFunctionDefault_exposer );
         { //::SquaredFunctionDefault::calculateSquaredDifference
         

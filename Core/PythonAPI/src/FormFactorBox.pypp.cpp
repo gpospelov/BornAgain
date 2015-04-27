@@ -328,7 +328,7 @@ void register_FormFactorBox_class(){
 
     { //::FormFactorBox
         typedef bp::class_< FormFactorBox_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorBox_wrapper >, boost::noncopyable > FormFactorBox_exposer_t;
-        FormFactorBox_exposer_t FormFactorBox_exposer = FormFactorBox_exposer_t( "FormFactorBox", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") )) );
+        FormFactorBox_exposer_t FormFactorBox_exposer = FormFactorBox_exposer_t( "FormFactorBox", "", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") ), "    //! @brief Box constructor\n    //! @param length of Box's base\n    //! @param width of Box's base\n    //! @param height of Box") );
         bp::scope FormFactorBox_scope( FormFactorBox_exposer );
         { //::FormFactorBox::clone
         
@@ -371,7 +371,8 @@ void register_FormFactorBox_class(){
             
             FormFactorBox_exposer.def( 
                 "getLength"
-                , getLength_function_type( &::FormFactorBox::getLength ) );
+                , getLength_function_type( &::FormFactorBox::getLength )
+                , "    //! Returns length of Box" );
         
         }
         { //::FormFactorBox::getNumberOfStochasticParameters
@@ -402,7 +403,8 @@ void register_FormFactorBox_class(){
             
             FormFactorBox_exposer.def( 
                 "getWidth"
-                , getWidth_function_type( &::FormFactorBox::getWidth ) );
+                , getWidth_function_type( &::FormFactorBox::getWidth )
+                , "    //! Returns width of Box" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -549,7 +551,8 @@ void register_FormFactorBox_class(){
             FormFactorBox_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorBox_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

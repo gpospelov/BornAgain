@@ -299,9 +299,9 @@ void register_ParticleDistribution_class(){
 
     { //::ParticleDistribution
         typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
-        ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
+        ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", "", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") ), "") );
         bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
-        ParticleDistribution_exposer.def( bp::init< IParticle const &, ParameterDistribution const &, kvector_t >(( bp::arg("prototype"), bp::arg("par_distr"), bp::arg("position") )) );
+        ParticleDistribution_exposer.def( bp::init< IParticle const &, ParameterDistribution const &, kvector_t >(( bp::arg("prototype"), bp::arg("par_distr"), bp::arg("position") ), "") );
         { //::ParticleDistribution::clone
         
             typedef ::ParticleDistribution * ( ::ParticleDistribution::*clone_function_type)(  ) const;
@@ -333,7 +333,8 @@ void register_ParticleDistribution_class(){
             ParticleDistribution_exposer.def( 
                 "createDistributedParameterPool"
                 , createDistributedParameterPool_function_type( &::ParticleDistribution::createDistributedParameterPool )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "    //! Returns the parameter pool that can be used for parameter distributions" );
         
         }
         { //::ParticleDistribution::createFormFactor
@@ -367,7 +368,8 @@ void register_ParticleDistribution_class(){
             
             ParticleDistribution_exposer.def( 
                 "getParameterDistribution"
-                , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
+                , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution )
+                , "    //! Returns the distributed parameter data" );
         
         }
         { //::ParticleDistribution::getParticle
@@ -377,7 +379,8 @@ void register_ParticleDistribution_class(){
             ParticleDistribution_exposer.def( 
                 "getParticle"
                 , getParticle_function_type( &::ParticleDistribution::getParticle )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "    //! Returns particle." );
         
         }
         { //::ParticleDistribution::setAmbientMaterial
@@ -501,7 +504,8 @@ void register_ParticleDistribution_class(){
             ParticleDistribution_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleDistribution_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

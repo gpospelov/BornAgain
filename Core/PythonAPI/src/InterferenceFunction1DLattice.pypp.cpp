@@ -268,7 +268,7 @@ void register_InterferenceFunction1DLattice_class(){
 
     { //::InterferenceFunction1DLattice
         typedef bp::class_< InterferenceFunction1DLattice_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction1DLattice_wrapper >, boost::noncopyable > InterferenceFunction1DLattice_exposer_t;
-        InterferenceFunction1DLattice_exposer_t InterferenceFunction1DLattice_exposer = InterferenceFunction1DLattice_exposer_t( "InterferenceFunction1DLattice", bp::init< double, double >(( bp::arg("length"), bp::arg("xi") )) );
+        InterferenceFunction1DLattice_exposer_t InterferenceFunction1DLattice_exposer = InterferenceFunction1DLattice_exposer_t( "InterferenceFunction1DLattice", "", bp::init< double, double >(( bp::arg("length"), bp::arg("xi") ), "    //! @brief constructor\n    //! @param lattice_params Lattice parameters\n    //! @param length Lattice length\n    //! @param xi rotation of lattice with respect to x-axis") );
         bp::scope InterferenceFunction1DLattice_scope( InterferenceFunction1DLattice_exposer );
         { //::InterferenceFunction1DLattice::clone
         
@@ -300,7 +300,8 @@ void register_InterferenceFunction1DLattice_class(){
             
             InterferenceFunction1DLattice_exposer.def( 
                 "getLatticeParameters"
-                , getLatticeParameters_function_type( &::InterferenceFunction1DLattice::getLatticeParameters ) );
+                , getLatticeParameters_function_type( &::InterferenceFunction1DLattice::getLatticeParameters )
+                , "" );
         
         }
         { //::InterferenceFunction1DLattice::getProbabilityDistribution
@@ -310,7 +311,8 @@ void register_InterferenceFunction1DLattice_class(){
             InterferenceFunction1DLattice_exposer.def( 
                 "getProbabilityDistribution"
                 , getProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::getProbabilityDistribution )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "" );
         
         }
         { //::InterferenceFunction1DLattice::setProbabilityDistribution
@@ -320,7 +322,8 @@ void register_InterferenceFunction1DLattice_class(){
             InterferenceFunction1DLattice_exposer.def( 
                 "setProbabilityDistribution"
                 , setProbabilityDistribution_function_type( &::InterferenceFunction1DLattice::setProbabilityDistribution )
-                , ( bp::arg("pdf") ) );
+                , ( bp::arg("pdf") )
+                , "" );
         
         }
         { //::IParameterized::areParametersChanged
@@ -455,7 +458,8 @@ void register_InterferenceFunction1DLattice_class(){
             InterferenceFunction1DLattice_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction1DLattice_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IParameterized::setParameterValue

@@ -328,7 +328,7 @@ void register_FormFactorSphereUniformRadius_class(){
 
     { //::FormFactorSphereUniformRadius
         typedef bp::class_< FormFactorSphereUniformRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereUniformRadius_wrapper >, boost::noncopyable > FormFactorSphereUniformRadius_exposer_t;
-        FormFactorSphereUniformRadius_exposer_t FormFactorSphereUniformRadius_exposer = FormFactorSphereUniformRadius_exposer_t( "FormFactorSphereUniformRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("full_width") )) );
+        FormFactorSphereUniformRadius_exposer_t FormFactorSphereUniformRadius_exposer = FormFactorSphereUniformRadius_exposer_t( "FormFactorSphereUniformRadius", "", bp::init< double, double >(( bp::arg("mean"), bp::arg("full_width") ), "") );
         bp::scope FormFactorSphereUniformRadius_scope( FormFactorSphereUniformRadius_exposer );
         { //::FormFactorSphereUniformRadius::clone
         
@@ -531,7 +531,8 @@ void register_FormFactorSphereUniformRadius_class(){
             FormFactorSphereUniformRadius_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorSphereUniformRadius_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "    //! main method to register data address in the pool" );
         
         }
         { //::IFormFactor::setAmbientMaterial

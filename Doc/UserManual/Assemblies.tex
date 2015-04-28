@@ -238,31 +238,60 @@ Such models shall be introduced in the following.
 To prepare a statistical formulation,
 we encode the particle coordinates in a distribution function
 \begin{equation}\label{EPDdeltas}
-  \PD_{l,ij}(\r_i,\r_j,\v\tau_i,\v\tau_j)
-  = \delta^{(2)}(\r_i-\R_{i\plll})\delta^{(2)}(\r_j-\R_{j\plll})
-  \delta^{(d_T)}(\v\tau_i-\v{T}_i)\delta^{(d_T)}(\v\tau_j-\v{T}_j)
+  \PD_{l,ij}(\r,\r',\v\tau,\v\tau')
+  = \delta^{(2)}(\r-\R_{i\plll})\delta^{(2)}(\r'-\R_{j\plll})
+  \delta^{(d_T)}(\v\tau-\v{T}_i)\delta^{(d_T)}(\v\tau'-\v{T}_j),
 \end{equation}
 where the superscript indicates the dimensionality of the delta function.
 The vector~$\v{T}$ comprises $d_T$ different parameters.
 Some of them may only take discrete values;
 for them the delta function must be read as a Kronecker delta,
 and the integral in the following equation as a sum.
-
-The differential cross section~\ref{Eass3} can now
-be rewritten as
+Since in the following we are concerned with only one layer,
+we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
+The differential cross section~(\ref{Eass3}) becomes
 \begin{equation}\label{Epdm1}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
   = \sum_{ij}
-  \int\!\d^2r_i d^2r_j \d^{d_T}\tau_i \d^{d_T}\tau_j
-    \PD_{l,ij}(\r_i,\r_j,\v\tau_i,\v\tau_j)
-  \e^{i\q_{l\plll}(\r_i-\r_j)}
-    \FD^*_l(\v\tau_i) \FD_l(\v\tau_j).
+  \int\!\d^2r\, \d^2r' \d^{d_T}\tau\, \d^{d_T}\tau'
+    \PD_{ij}(\r,\r',\v\tau,\v\tau')
+  \e^{i\q_{\plll}(\r-\r')}
+    \FD^*(\v\tau) \FD(\v\tau'),
 \end{equation}
-The integration over $\r$ is restricted to the horizontal plane.
-Since all of the following models are concerned with only one layer,
-we will from now on
-omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
+where the integration over $\r$ is restricted to the horizontal plane.
 
+To proceed any further,
+we need to replace the formally exact, but useless
+distribution function~(\ref{EPDdeltas})
+by a statistical model.
+A standard assumption is that the particle parameters $\v\tau$
+all have the same distribution~$p(\v\tau)$,
+which implies that there are no inter-particle correlations.
+Let us denote averages under the distribution~$p(\v\tau)$ as
+\begin{equation}
+  \bra\FD\ket := \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
+\end{equation}
+The case $i=j$ in (\ref{Epdm1}) needs special consideration,
+and leads to the \textit{diffuse scattering}
+\index{Diffuse scattering}%
+\index{Scattering!diffuse}%
+\begin{equation}
+  I_\text{d} = \bra\FD^2\ket-{\bra\FD\ket}^2
+\end{equation}
+in the decomposition
+\begin{equation}
+  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  = I_\text{d}+I_\text{c}.
+\end{equation}
+With the conditional pair correlation function $\GD_{ij}$,
+the coherent term is
+\begin{equation}
+  I_\text{c} = \sum_{ij}
+  \int\!\d^2r\, \d^{d_T}\tau\, \d^{d_T}\tau'
+    \GD_{ij}(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau')
+  \e^{i\q_{\plll}\r}
+    \FD^*(\v\tau) \FD(\v\tau').
+\end{equation}
 We assume that the horizontal structure,
 averaged over many particles, is translationally invariant.
 

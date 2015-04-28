@@ -38,8 +38,6 @@ OutputData<double > *IntensityDataIOFactory::readIntensityData(
 OutputDataReader* IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
-    OutputDataReader *reader = new OutputDataReader( file_name );
-
     IOutputDataReadStrategy *read_strategy(0);
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamINT();
@@ -48,6 +46,7 @@ OutputDataReader* IntensityDataIOFactory::getReader(
                 "Don't know how to read file '" + file_name+std::string("'"));
     }
 
+    OutputDataReader *reader = new OutputDataReader( file_name );
     if( Utils::FileSystem::isGZipped(file_name) ) {
         reader->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
     } else {
@@ -70,8 +69,6 @@ void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
 OutputDataWriter* IntensityDataIOFactory::getWriter(
         const std::string& file_name)
 {
-    OutputDataWriter *writer = new OutputDataWriter( file_name );
-
     IOutputDataWriteStrategy *write_strategy(0);
     if( Utils::FileSystem::GetFileExtension(file_name) == ".int") {
         write_strategy = new OutputDataWriteStreamINT();
@@ -80,6 +77,7 @@ OutputDataWriter* IntensityDataIOFactory::getWriter(
                 "Don't know how to write file '" + file_name+std::string("'"));
     }
 
+    OutputDataWriter *writer = new OutputDataWriter( file_name );
     writer->setStrategy( write_strategy );
 
     return writer;

@@ -328,7 +328,7 @@ void register_FormFactorFullSpheroid_class(){
 
     { //::FormFactorFullSpheroid
         typedef bp::class_< FormFactorFullSpheroid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorFullSpheroid_wrapper >, boost::noncopyable > FormFactorFullSpheroid_exposer_t;
-        FormFactorFullSpheroid_exposer_t FormFactorFullSpheroid_exposer = FormFactorFullSpheroid_exposer_t( "FormFactorFullSpheroid", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
+        FormFactorFullSpheroid_exposer_t FormFactorFullSpheroid_exposer = FormFactorFullSpheroid_exposer_t( "FormFactorFullSpheroid", "The formfactor of a full spheroid.", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") ), "Full Spheroid constructor.\n\n:Parameters:\n  - 'radius' - of spheroid\n  - 'height' - of spheroid\n") );
         bp::scope FormFactorFullSpheroid_scope( FormFactorFullSpheroid_exposer );
         { //::FormFactorFullSpheroid::clone
         
@@ -531,7 +531,8 @@ void register_FormFactorFullSpheroid_class(){
             FormFactorFullSpheroid_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorFullSpheroid_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

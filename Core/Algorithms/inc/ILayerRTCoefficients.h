@@ -29,6 +29,8 @@ class BA_CORE_API_ ILayerRTCoefficients
 public:
     virtual ~ILayerRTCoefficients() {}
 
+    virtual ILayerRTCoefficients* clone() const=0;
+
 #ifndef GCCXML_SKIP_THIS
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes

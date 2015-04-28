@@ -113,7 +113,7 @@ void register_FitSuiteObjects_class(){
 
     { //::FitSuiteObjects
         typedef bp::class_< FitSuiteObjects_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitSuiteObjects_exposer_t;
-        FitSuiteObjects_exposer_t FitSuiteObjects_exposer = FitSuiteObjects_exposer_t( "FitSuiteObjects", bp::init< >() );
+        FitSuiteObjects_exposer_t FitSuiteObjects_exposer = FitSuiteObjects_exposer_t( "FitSuiteObjects", "class containing vector FitObject's (simulation and real data) to fi.", bp::init< >() );
         bp::scope FitSuiteObjects_scope( FitSuiteObjects_exposer );
         { //::FitSuiteObjects::add
         
@@ -122,7 +122,8 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "add"
                 , add_function_type( &::FitSuiteObjects::add )
-                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module"), bp::arg("weight")=1.0e+0 ) );
+                , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module"), bp::arg("weight")=1.0e+0 )
+                , "Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module." );
         
         }
         { //::FitSuiteObjects::calculateChiSquaredValue
@@ -131,7 +132,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "calculateChiSquaredValue"
-                , calculateChiSquaredValue_function_type( &::FitSuiteObjects::calculateChiSquaredValue ) );
+                , calculateChiSquaredValue_function_type( &::FitSuiteObjects::calculateChiSquaredValue )
+                , "Returns sum of chi squared values for all fit objects." );
         
         }
         { //::FitSuiteObjects::clear
@@ -140,7 +142,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "clear"
-                , clear_function_type( &::FitSuiteObjects::clear ) );
+                , clear_function_type( &::FitSuiteObjects::clear )
+                , "clear all data." );
         
         }
         { //::FitSuiteObjects::getChiSquaredMap
@@ -151,7 +154,8 @@ void register_FitSuiteObjects_class(){
                 "getChiSquaredMap"
                 , getChiSquaredMap_function_type( &::FitSuiteObjects::getChiSquaredMap )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Returns chi-squared map." );
         
         }
         { //::FitSuiteObjects::getChiSquaredValue
@@ -160,7 +164,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "getChiSquaredValue"
-                , getChiSquaredValue_function_type( &::FitSuiteObjects::getChiSquaredValue ) );
+                , getChiSquaredValue_function_type( &::FitSuiteObjects::getChiSquaredValue )
+                , "Returns sum of chi squared values for all fit objects." );
         
         }
         { //::FitSuiteObjects::getObject
@@ -171,7 +176,8 @@ void register_FitSuiteObjects_class(){
                 "getObject"
                 , getObject_function_type( &::FitSuiteObjects::getObject )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns fit object." );
         
         }
         { //::FitSuiteObjects::getObject
@@ -193,7 +199,8 @@ void register_FitSuiteObjects_class(){
                 "getRealData"
                 , getRealData_function_type( &::FitSuiteObjects::getRealData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns real data." );
         
         }
         { //::FitSuiteObjects::getResidualValue
@@ -203,7 +210,8 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getResidualValue"
                 , getResidualValue_function_type( &::FitSuiteObjects::getResidualValue )
-                , ( bp::arg("global_index") ) );
+                , ( bp::arg("global_index") )
+                , "Returns residuals for single data element @pars global_index index accross all OutputData defined " );
         
         }
         { //::FitSuiteObjects::getSimulation
@@ -214,7 +222,8 @@ void register_FitSuiteObjects_class(){
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns simulation for read access." );
         
         }
         { //::FitSuiteObjects::getSimulation
@@ -225,7 +234,8 @@ void register_FitSuiteObjects_class(){
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns simulation for write access." );
         
         }
         { //::FitSuiteObjects::getSimulationData
@@ -236,7 +246,8 @@ void register_FitSuiteObjects_class(){
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitSuiteObjects::getSimulationData )
                 , ( bp::arg("i_item")=(::std::size_t)(0) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns simulated data." );
         
         }
         { //::FitSuiteObjects::getSizeOfDataSet
@@ -245,7 +256,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "getSizeOfDataSet"
-                , getSizeOfDataSet_function_type( &::FitSuiteObjects::getSizeOfDataSet ) );
+                , getSizeOfDataSet_function_type( &::FitSuiteObjects::getSizeOfDataSet )
+                , "Returns total number of data points." );
         
         }
         { //::FitSuiteObjects::runSimulations
@@ -254,7 +266,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "runSimulations"
-                , runSimulations_function_type( &::FitSuiteObjects::runSimulations ) );
+                , runSimulations_function_type( &::FitSuiteObjects::runSimulations )
+                , "loop through all defined simulations and run them." );
         
         }
         { //::FitSuiteObjects::setNfreeParameters
@@ -274,7 +287,8 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "setRealData"
                 , setRealData_function_type( &::FitSuiteObjects::setRealData )
-                , ( bp::arg("real_data"), bp::arg("i_item")=(::std::size_t)(0) ) );
+                , ( bp::arg("real_data"), bp::arg("i_item")=(::std::size_t)(0) )
+                , "Sets real data." );
         
         }
         { //::FitSuiteObjects::setSimulationNormalize
@@ -284,7 +298,8 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "setSimulationNormalize"
                 , setSimulationNormalize_function_type( &::FitSuiteObjects::setSimulationNormalize )
-                , ( bp::arg("simulation_normalize") ) );
+                , ( bp::arg("simulation_normalize") )
+                , "Sets simulation normalize flag." );
         
         }
         { //::FitSuiteObjects::size
@@ -293,7 +308,8 @@ void register_FitSuiteObjects_class(){
             
             FitSuiteObjects_exposer.def( 
                 "size"
-                , size_function_type( &::FitSuiteObjects::size ) );
+                , size_function_type( &::FitSuiteObjects::size )
+                , "Returns number of fit items." );
         
         }
         { //::IParameterized::areParametersChanged

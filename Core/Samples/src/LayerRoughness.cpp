@@ -63,7 +63,7 @@ double LayerRoughness::getSpectralFun(const kvector_t& kvec) const
     double H = m_hurstParameter;
     double clength2 = m_latteralCorrLength*m_latteralCorrLength;
     double Qpar2 = kvec.x()*kvec.x() + kvec.y()*kvec.y();
-    return 4.0*M_PI*H * m_sigma*m_sigma * clength2 * std::pow( (1.0 + Qpar2*clength2), (-1-H) );
+    return 4.0*Units::PI*H * m_sigma*m_sigma * clength2 * std::pow( (1.0 + Qpar2*clength2), (-1-H) );
 }
 
 //! Correlation function of the roughness profile

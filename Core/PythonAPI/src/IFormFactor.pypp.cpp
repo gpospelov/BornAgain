@@ -302,7 +302,7 @@ void register_IFormFactor_class(){
 
     { //::IFormFactor
         typedef bp::class_< IFormFactor_wrapper, bp::bases< ISample >, std::auto_ptr< IFormFactor_wrapper >, boost::noncopyable > IFormFactor_exposer_t;
-        IFormFactor_exposer_t IFormFactor_exposer = IFormFactor_exposer_t( "IFormFactor", bp::init< >() );
+        IFormFactor_exposer_t IFormFactor_exposer = IFormFactor_exposer_t( "IFormFactor", "The basic interface for form factors.", bp::init< >() );
         bp::scope IFormFactor_scope( IFormFactor_exposer );
         { //::IFormFactor::clone
         
@@ -321,7 +321,8 @@ void register_IFormFactor_class(){
             IFormFactor_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") )
+                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin @param alpha_f outgoing angle wrt scattering surface \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n  - 'alpha_f' - outgoing angle wrt scattering surface\n" );
         
         }
         { //::IFormFactor::getHeight
@@ -501,7 +502,8 @@ void register_IFormFactor_class(){
             IFormFactor_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactor_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -149,6 +149,6 @@ void FormFactorCrystal::calculateLargestReciprocalDistance()
     kvector_t a2 = m_lattice.getBasisVectorB();
     kvector_t a3 = m_lattice.getBasisVectorC();
 
-    m_max_rec_length = std::max(M_PI / a1.mag(), M_PI / a2.mag());
-    m_max_rec_length = std::max(m_max_rec_length, M_PI / a3.mag());
+    m_max_rec_length = std::max(Units::PI / a1.mag(), Units::PI / a2.mag());
+    m_max_rec_length = std::max(m_max_rec_length, Units::PI / a3.mag());
 }

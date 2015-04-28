@@ -16,6 +16,7 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
+#include "Units.h"
 #include "IMaterial.h"
 #include "ISample.h"
 #include "Bin.h"
@@ -114,7 +115,7 @@ inline double IFormFactor::getHeight() const
 
 inline double IFormFactor::getRadius() const
 {
-    return std::sqrt(getVolume()/getHeight()/M_PI);
+    return std::sqrt(getVolume()/getHeight()/Units::PI);
 }
 
 #endif // IFORMFACTOR_H

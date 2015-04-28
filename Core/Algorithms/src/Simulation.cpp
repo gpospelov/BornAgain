@@ -29,7 +29,7 @@ GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
-
+#include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -37,7 +37,6 @@ Simulation::Simulation()
 //, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
-, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(0)
 {
@@ -50,7 +49,6 @@ Simulation::Simulation(const ProgramOptions *p_options)
 //, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
-, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -64,7 +62,6 @@ Simulation::Simulation(
 //, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
-, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -78,7 +75,6 @@ Simulation::Simulation(
 , mp_sample_builder(p_sample_builder)
 , m_instrument()
 , m_intensity_map()
-, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -93,7 +89,6 @@ Simulation::Simulation(const Simulation& other)
 , m_sim_params(other.m_sim_params)
 , m_thread_info(other.m_thread_info)
 , m_intensity_map()
-, m_polarization_output()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
 , m_distribution_handler(other.m_distribution_handler)
@@ -101,7 +96,6 @@ Simulation::Simulation(const Simulation& other)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
-    m_polarization_output.copyFrom(other.m_polarization_output);
 
     init_parameters();
 }
@@ -124,9 +118,6 @@ void Simulation::prepareSimulation()
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
-    if(getSample()->containsMagneticMaterial()) {
-        updatePolarizationMapAxes();
-    }
 }
 
 //! Run simulation with possible averaging over parameter distributions
@@ -143,8 +134,8 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        ParameterPool *p_param_pool = createParameterTree();
-        m_distribution_handler.setParameterValues(p_param_pool, 0);
+        boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
+        m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
         updateSample();
         runSingleSimulation();
         //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
@@ -153,24 +144,18 @@ void Simulation::runSimulation()
 
     // average over parameter distributions:
     OutputData<double> total_intensity;
-    OutputData<Eigen::Matrix2d> total_polarized_intensity;
     total_intensity.copyShapeFrom(m_intensity_map);
-    total_polarized_intensity.copyShapeFrom(m_polarization_output);
     total_intensity.setAllTo(0.);
-    total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
-    ParameterPool *p_param_pool = createParameterTree();
+    boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
     for (size_t index=0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(
-                p_param_pool, index);
+                p_param_pool.get(), index);
         updateSample();
         runSingleSimulation();
         m_intensity_map.scaleAll(weight);
-        m_polarization_output.scaleAll(Eigen::Matrix2d::Identity()*weight);
         total_intensity += m_intensity_map;
-        total_polarized_intensity += m_polarization_output;
     }
     m_intensity_map.copyFrom(total_intensity);
-    m_polarization_output.copyFrom(total_polarized_intensity);
 }
 
 void Simulation::runOMPISimulation()
@@ -183,11 +168,7 @@ void Simulation::runOMPISimulation()
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        if(getSample() && getSample()->containsMagneticMaterial()) {
-            m_instrument.normalize(&m_intensity_map, &m_polarization_output);
-        } else {
-            m_instrument.normalize(&m_intensity_map);
-        }
+        m_instrument.normalize(&m_intensity_map);
         m_is_normalized = true;
     }
 }
@@ -218,16 +199,6 @@ OutputData<double> *Simulation::getIntensityData() const
     return result;
 }
 
-OutputData<double>* Simulation::getPolarizedIntensityData(
-        int row, int column) const
-{
-    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
-    OutputData<double > *result =
-            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
-    m_instrument.applyDetectorResolution(result);
-    return result;
-}
-
 void Simulation::setInstrument(const Instrument& instrument)
 {
     m_instrument = instrument;
@@ -248,6 +219,11 @@ void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi
 void Simulation::setBeamIntensity(double intensity)
 {
     m_instrument.setBeamIntensity(intensity);
+}
+
+void Simulation::setBeamPolarization(const kvector_t &bloch_vector)
+{
+    m_instrument.setBeamPolarization(bloch_vector);
 }
 
 std::string Simulation::addParametersToExternalPool(
@@ -299,17 +275,7 @@ void Simulation::updateIntensityMapAxes()
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
-    m_intensity_map.setAllTo(0.);    
-}
-
-void Simulation::updatePolarizationMapAxes()
-{
-    m_polarization_output.clear();
-    size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
-    }
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
+    m_intensity_map.setAllTo(0.);
 }
 
 void Simulation::updateSample()
@@ -335,10 +301,6 @@ void Simulation::setDetectorParameters(const OutputData<double >& output_data)
     m_intensity_map.clear();
     m_intensity_map.copyShapeFrom(output_data); // to copy mask too
     m_intensity_map.setAllTo(0.);
-
-    m_polarization_output.clear();
-    m_polarization_output.copyShapeFrom(output_data);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
 void Simulation::setDetectorParameters(
@@ -368,12 +330,15 @@ void Simulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
+void Simulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                       double total_transmission)
+{
+    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
+}
+
+void Simulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)
 {
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-    if (p_dwba_simulation->hasPolarizedOutputData()) {
-        m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
-    }
 }
 
 //! Run single simulation with fixed parameter values.
@@ -381,7 +346,6 @@ void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
 void Simulation::runSingleSimulation()
 {
     m_intensity_map.setAllTo(0.);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
     // retrieve batch and threading information
     if (mp_options) {
         if (mp_options->find("nbatches")) {
@@ -406,7 +370,7 @@ void Simulation::runSingleSimulation()
         p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
         if(p_dwba_simulation->isCompleted()) {
-            addToIntensityMaps(p_dwba_simulation);
+            addToIntensityMap(p_dwba_simulation);
             delete p_dwba_simulation;
         } else {
             std::string message = p_dwba_simulation->getRunMessage();
@@ -462,7 +426,7 @@ void Simulation::runSingleSimulation()
         std::string failure_message;
         for(size_t i=0; i<simulations.size(); ++i) {
             if(simulations[i]->isCompleted()) {
-                addToIntensityMaps(simulations[i]);
+                addToIntensityMap(simulations[i]);
             } else {
                 isSuccess = false;
                 failure_message = simulations[i]->getRunMessage();

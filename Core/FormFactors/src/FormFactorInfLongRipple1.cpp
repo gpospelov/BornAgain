@@ -70,7 +70,7 @@ complex_t FormFactorInfLongRipple1::Integrand(double Z, void* params) const
     (void)params;  // to avoid unused-variable warning
     complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(2*M_PI));
+    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(Units::PI2));
 }
 
 //! Complex formfactor.
@@ -104,7 +104,6 @@ complex_t FormFactorInfLongRipple1::evaluate(const cvector_t& k_i,
 }
 
 double FormFactorInfLongRipple1::getVolume() const {
-    // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
                 "FormFactorInfLongRipple1::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");

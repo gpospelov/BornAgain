@@ -61,6 +61,7 @@ def run_simulation():
     Run simulation and plot results
     """
     sample = get_sample()
+    sample.printSampleTree()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()

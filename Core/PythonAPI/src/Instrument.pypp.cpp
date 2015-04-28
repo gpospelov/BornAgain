@@ -141,7 +141,7 @@ void register_Instrument_class(){
 
     { //::Instrument
         typedef bp::class_< Instrument_wrapper, bp::bases< IParameterized > > Instrument_exposer_t;
-        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", bp::init< >() );
+        Instrument_exposer_t Instrument_exposer = Instrument_exposer_t( "Instrument", "Assembles beam, detector and their relative positions wrt the sample.", bp::init< >() );
         bp::scope Instrument_scope( Instrument_exposer );
         Instrument_exposer.def( bp::init< Instrument const & >(( bp::arg("other") )) );
         { //::Instrument::getBeam
@@ -179,7 +179,8 @@ void register_Instrument_class(){
             
             Instrument_exposer.def( 
                 "getDetectorDimension"
-                , getDetectorDimension_function_type( &::Instrument::getDetectorDimension ) );
+                , getDetectorDimension_function_type( &::Instrument::getDetectorDimension )
+                , "Returns the detector's dimension." );
         
         }
         { //::Instrument::getIntensity
@@ -188,7 +189,8 @@ void register_Instrument_class(){
             
             Instrument_exposer.def( 
                 "getIntensity"
-                , getIntensity_function_type( &::Instrument::getIntensity ) );
+                , getIntensity_function_type( &::Instrument::getIntensity )
+                , "Returns the beam's intensity." );
         
         }
         { //::Instrument::matchDetectorParameters
@@ -198,7 +200,19 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "matchDetectorParameters"
                 , matchDetectorParameters_function_type( &::Instrument::matchDetectorParameters )
-                , ( bp::arg("output_data") ) );
+                , ( bp::arg("output_data") )
+                , "Sets detector parameters using axes of output data." );
+        
+        }
+        { //::Instrument::setAnalyzerProperties
+        
+            typedef void ( ::Instrument::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Instrument_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Instrument::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::Instrument::setBeam
@@ -218,7 +232,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeamIntensity"
                 , setBeamIntensity_function_type( &::Instrument::setBeamIntensity )
-                , ( bp::arg("intensity") ) );
+                , ( bp::arg("intensity") )
+                , "Sets the beam's intensity." );
         
         }
         { //::Instrument::setBeamParameters
@@ -231,6 +246,17 @@ void register_Instrument_class(){
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
+        { //::Instrument::setBeamPolarization
+        
+            typedef void ( ::Instrument::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
+            
+            Instrument_exposer.def( 
+                "setBeamPolarization"
+                , setBeamPolarization_function_type( &::Instrument::setBeamPolarization )
+                , ( bp::arg("bloch_vector") )
+                , "Sets the beam's polarization according to the given Bloch vector." );
+        
+        }
         { //::Instrument::setDetectorAxes
         
             typedef void ( ::Instrument::*setDetectorAxes_function_type)( ::IAxis const &,::IAxis const & ) ;
@@ -238,7 +264,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setDetectorAxes"
                 , setDetectorAxes_function_type( &::Instrument::setDetectorAxes )
-                , ( bp::arg("axis0"), bp::arg("axis1") ) );
+                , ( bp::arg("axis0"), bp::arg("axis1") )
+                , "Sets detector parameters using axes." );
         
         }
         { //::Instrument::setDetectorParameters
@@ -248,7 +275,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) );
+                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , "Sets detector parameters using angle ranges." );
         
         }
         { //::Instrument::setDetectorParameters
@@ -258,7 +286,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Instrument::setDetectorParameters )
-                , ( bp::arg("params") ) );
+                , ( bp::arg("params") )
+                , "Sets detector parameters using parameter object." );
         
         }
         { //::Instrument::setDetectorResolutionFunction
@@ -268,7 +297,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setDetectorResolutionFunction"
                 , setDetectorResolutionFunction_function_type( &::Instrument::setDetectorResolutionFunction )
-                , ( bp::arg("p_resolution_function") ) );
+                , ( bp::arg("p_resolution_function") )
+                , "Sets detector resolution function." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -323,7 +353,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Instrument_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

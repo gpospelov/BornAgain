@@ -59,7 +59,7 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
     complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ?
         MathFunctions::Bessel_C1(qrR) :
         0.5;
-    complex_t radial_part = 2*M_PI*R*R*J1_qrR_div_qrR;
+    complex_t radial_part = Units::PI2*R*R*J1_qrR_div_qrR;
 
     complex_t result = radial_part*z_part;
 

@@ -4,7 +4,6 @@
 #include "Beam.h"
 #include "Units.h"
 #include "ParameterPool.h"
-
 #include "gtest/gtest.h"
 
 
@@ -30,7 +29,7 @@ BeamTest::~BeamTest()
 
 TEST_F(BeamTest, BeamInitialState)
 {
-    EXPECT_DOUBLE_EQ(2.0*M_PI, emptyBeam.getCentralK()[0].real());
+    EXPECT_DOUBLE_EQ(2.0*Units::PI, emptyBeam.getCentralK()[0].real());
     EXPECT_DOUBLE_EQ(0.0, emptyBeam.getCentralK()[0].imag());
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[1]);
     EXPECT_EQ(complex_t(0.0,0.0), emptyBeam.getCentralK()[2]);
@@ -42,16 +41,12 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_EQ(double(0.0), emptyBeam.getParameterPool()->getParameter("phi").getValue() );
     EXPECT_EQ(complex_t(0.5,0.0), emptyBeam.getPolarization()(0,0));
     EXPECT_EQ(complex_t(0.5,0.0), emptyBeam.getPolarization()(1,1));
-    EXPECT_TRUE(emptyBeam.checkPolarization(emptyBeam.getPolarization()));
 }
 
 
 TEST_F(BeamTest, BeamAssignment)
 {
-    Eigen::Matrix2cd polarization;
-    polarization.setZero();
-    polarization(0,0) = 0.6;
-    polarization(1,1) = 0.4;
+    kvector_t polarization(0.0, 0.0, 0.2);
 
     Beam *originalBeam = new Beam();
 
@@ -68,11 +63,6 @@ TEST_F(BeamTest, BeamAssignment)
     EXPECT_EQ(double(2.0), assignedBeam.getParameterPool()->getParameter("intensity").getValue() );
     EXPECT_EQ(complex_t(0.6,0.0), assignedBeam.getPolarization()(0,0));
     EXPECT_EQ(complex_t(0.4,0.0), assignedBeam.getPolarization()(1,1));
-    EXPECT_TRUE(assignedBeam.checkPolarization(assignedBeam.getPolarization()));
-
-    assignedBeam.SetSpinUpFraction(0.3);
-    EXPECT_EQ(complex_t(0.3,0.0), assignedBeam.getPolarization()(0,0));
-    EXPECT_EQ(complex_t(0.7,0.0), assignedBeam.getPolarization()(1,1));
 
     delete originalBeam;
 }

@@ -435,7 +435,8 @@ void register_RotationZ_class(){
             RotationZ_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &RotationZ_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

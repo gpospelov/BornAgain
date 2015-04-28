@@ -376,7 +376,7 @@ void register_FormFactorEllipsoidalCylinder_class(){
 
     { //::FormFactorEllipsoidalCylinder
         typedef bp::class_< FormFactorEllipsoidalCylinder_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorEllipsoidalCylinder_wrapper >, boost::noncopyable > FormFactorEllipsoidalCylinder_exposer_t;
-        FormFactorEllipsoidalCylinder_exposer_t FormFactorEllipsoidalCylinder_exposer = FormFactorEllipsoidalCylinder_exposer_t( "FormFactorEllipsoidalCylinder", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
+        FormFactorEllipsoidalCylinder_exposer_t FormFactorEllipsoidalCylinder_exposer = FormFactorEllipsoidalCylinder_exposer_t( "FormFactorEllipsoidalCylinder", "The formfactor of an ellipsoidal cylinder.", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") ), "Ellipsoidal Cylinder constructor.\n\n:Parameters:\n  - 'radius_a' - half length of one horizontal main axes\n  - 'radius_b' - half length of the other horizontal main axes\n  - 'height' - of Ellipsoidal Cylinder\n") );
         bp::scope FormFactorEllipsoidalCylinder_scope( FormFactorEllipsoidalCylinder_exposer );
         { //::FormFactorEllipsoidalCylinder::clone
         
@@ -635,7 +635,8 @@ void register_FormFactorEllipsoidalCylinder_class(){
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorEllipsoidalCylinder_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

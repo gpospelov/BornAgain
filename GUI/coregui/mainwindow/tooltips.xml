@@ -498,6 +498,88 @@
            </property>
         </category>
 
+
+        <category name="example01">
+            <property name="Title">
+                <tooltip>Mixture of cylinders and prisms without interference</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example02">
+            <property name="Title">
+                <tooltip>Interference 1D radial paracrystal</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example03">
+            <property name="Title">
+                <tooltip>Interference 2D paracrystal</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example04">
+            <property name="Title">
+                <tooltip>Core shell particles</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example05">
+            <property name="Title">
+                <tooltip>Multilayer with correlated roughness</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example06">
+            <property name="Title">
+                <tooltip>Interference 2D lattice</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example07">
+            <property name="Title">
+                <tooltip>Rotated pyramids on top of substrate</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example08">
+            <property name="Title">
+                <tooltip>Cylinders with size distribution</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
+        <category name="example09">
+            <property name="Title">
+                <tooltip>Hexagonal lattice with basis to represent two layers of spheres</tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Some lengthy description here if necessary</tooltip>
+            </property>
+        </category>
+
     </context>
 
 </ToolTipsData>

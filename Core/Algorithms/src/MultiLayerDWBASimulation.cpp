@@ -107,9 +107,6 @@ void MultiLayerDWBASimulation::runProtected()
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected() -> Running thread "
                        << m_thread_info.current_thread;
     m_dwba_intensity.setAllTo(0.0);
-    if (mp_polarization_output) {
-        mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
-    }
 
     if (requiresMatrixRTCoefficients()) {
         collectRTCoefficientsMatrix();
@@ -126,17 +123,11 @@ void MultiLayerDWBASimulation::runProtected()
         for (size_t i=0; i<it->second.size(); ++i) {
             LayerDWBASimulation *p_layer_dwba_sim = it->second[i];
             p_layer_dwba_sim->run();
-            if (mp_polarization_output) {
-                addPolarizedDWBAIntensity(
-                    p_layer_dwba_sim->getPolarizedDWBAIntensity() );
-            }
-            else {
-                addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
-            }
+            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
     }
 
-    if (!mp_polarization_output && mp_roughness_dwba_simulation) {
+    if (!requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
         mp_roughness_dwba_simulation->run();
         addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
@@ -146,7 +137,7 @@ void MultiLayerDWBASimulation::runProtected()
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample
@@ -190,7 +181,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample

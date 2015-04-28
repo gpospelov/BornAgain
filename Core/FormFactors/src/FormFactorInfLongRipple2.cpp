@@ -75,7 +75,6 @@ FormFactorInfLongRipple2 *FormFactorInfLongRipple2::clone() const
 }
 
 double FormFactorInfLongRipple2::getVolume() const {
-    // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
                 "FormFactorInfLongRipple2::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
@@ -106,7 +105,7 @@ complex_t FormFactorInfLongRipple2::evaluate(const cvector_t& k_i,
 
     m_q = k_i - k_f_bin.getMidPoint();
 
-    complex_t factor = 2.0*M_PI*m_width;
+    complex_t factor = Units::PI2*m_width;
     complex_t result = 0;
     complex_t iqzH = complex_t(0.0, 1.0)*m_q.z()*m_height;
     complex_t iqyW = complex_t(0.0, 1.0)*m_q.y()*m_width;

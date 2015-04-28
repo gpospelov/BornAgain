@@ -167,7 +167,7 @@ void register_FTDistribution1DCosine_class(){
 
     { //::FTDistribution1DCosine
         typedef bp::class_< FTDistribution1DCosine_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DCosine_wrapper > > FTDistribution1DCosine_exposer_t;
-        FTDistribution1DCosine_exposer_t FTDistribution1DCosine_exposer = FTDistribution1DCosine_exposer_t( "FTDistribution1DCosine", bp::init< double >(( bp::arg("omega") )) );
+        FTDistribution1DCosine_exposer_t FTDistribution1DCosine_exposer = FTDistribution1DCosine_exposer_t( "FTDistribution1DCosine", "1 dimensional triangle distribution in Fourier space.", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DCosine_scope( FTDistribution1DCosine_exposer );
         { //::FTDistribution1DCosine::clone
         
@@ -245,7 +245,8 @@ void register_FTDistribution1DCosine_class(){
             FTDistribution1DCosine_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DCosine_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

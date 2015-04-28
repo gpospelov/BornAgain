@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <math.h>
 #include <iostream>
 #include "BasicVector3D.h"
 

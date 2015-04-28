@@ -30,7 +30,7 @@ void register_RealParameterWrapper_class(){
 
     { //::RealParameterWrapper
         typedef bp::class_< RealParameterWrapper > RealParameterWrapper_exposer_t;
-        RealParameterWrapper_exposer_t RealParameterWrapper_exposer = RealParameterWrapper_exposer_t( "RealParameterWrapper", bp::no_init );
+        RealParameterWrapper_exposer_t RealParameterWrapper_exposer = RealParameterWrapper_exposer_t( "RealParameterWrapper", "Wrapper to real parameter for remote access to its value and callback abilitie.", bp::no_init );
         bp::scope RealParameterWrapper_scope( RealParameterWrapper_exposer );
         RealParameterWrapper_exposer.def( bp::init< RealParameterWrapper const & >(( bp::arg("other") )) );
         { //::RealParameterWrapper::getValue
@@ -71,7 +71,8 @@ void register_RealParameterWrapper_class(){
             RealParameterWrapper_exposer.def( 
                 "setValue"
                 , setValue_function_type( &::RealParameterWrapper::setValue )
-                , ( bp::arg("value") ) );
+                , ( bp::arg("value") )
+                , "Sets value of wrapped parameter and emmit signal." );
         
         }
     }

@@ -179,7 +179,7 @@ void register_FTDistribution2DGate_class(){
 
     { //::FTDistribution2DGate
         typedef bp::class_< FTDistribution2DGate_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DGate_wrapper > > FTDistribution2DGate_exposer_t;
-        FTDistribution2DGate_exposer_t FTDistribution2DGate_exposer = FTDistribution2DGate_exposer_t( "FTDistribution2DGate", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
+        FTDistribution2DGate_exposer_t FTDistribution2DGate_exposer = FTDistribution2DGate_exposer_t( "FTDistribution2DGate", "2 dimensional gate distribution in Fourier space Corresponds to normalized constant if r<1 (and 0 otherwise) in real space.", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DGate_scope( FTDistribution2DGate_exposer );
         { //::FTDistribution2DGate::clone
         
@@ -269,7 +269,8 @@ void register_FTDistribution2DGate_class(){
             FTDistribution2DGate_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution2DGate_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -146,7 +146,7 @@ void register_IFTDistribution1D_class(){
 
     { //::IFTDistribution1D
         typedef bp::class_< IFTDistribution1D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution1D_wrapper >, boost::noncopyable > IFTDistribution1D_exposer_t;
-        IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", bp::init< double >(( bp::arg("omega") )) );
+        IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", "Interface for 1 dimensional distributions in Fourier spac.", bp::init< double >(( bp::arg("omega") )) );
         bp::scope IFTDistribution1D_scope( IFTDistribution1D_exposer );
         { //::IFTDistribution1D::clone
         
@@ -239,7 +239,8 @@ void register_IFTDistribution1D_class(){
             IFTDistribution1D_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFTDistribution1D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

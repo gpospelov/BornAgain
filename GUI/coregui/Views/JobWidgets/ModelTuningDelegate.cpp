@@ -65,7 +65,7 @@ int ModelTuningDelegate::SliderData::value_to_slider(double value)
     if(value == 0.0) {
         dr = 1.0*m_range_factor/100.;
     } else {
-        dr = value*m_range_factor/100.;
+        dr = std::abs(value)*m_range_factor/100.;
     }
     m_rmin = value - dr;
     m_rmax = value + dr;

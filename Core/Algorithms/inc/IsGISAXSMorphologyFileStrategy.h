@@ -31,14 +31,20 @@ public:
     IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);
     virtual ~IsGISAXSMorphologyFileStrategy() {}
 
-    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
             const SafePointerVector<IInterferenceFunction>& ifs);
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t& k_i,
+     double evaluateForList(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin,
         const std::vector<complex_t> &ff_list) const;
+
+    //! Evaluates the intensity for given list of evaluated form factors
+    //! in the presence of polarization of beam and detector
+    double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
+                           const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_operator,
+                           const MatrixFFVector &ff_list) const;
 
 private:
     void initPositions();

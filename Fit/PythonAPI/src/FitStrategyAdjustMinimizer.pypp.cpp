@@ -74,7 +74,7 @@ void register_FitStrategyAdjustMinimizer_class(){
 
     { //::FitStrategyAdjustMinimizer
         typedef bp::class_< FitStrategyAdjustMinimizer_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyAdjustMinimizer_wrapper > > FitStrategyAdjustMinimizer_exposer_t;
-        FitStrategyAdjustMinimizer_exposer_t FitStrategyAdjustMinimizer_exposer = FitStrategyAdjustMinimizer_exposer_t( "FitStrategyAdjustMinimizer", bp::init< >() );
+        FitStrategyAdjustMinimizer_exposer_t FitStrategyAdjustMinimizer_exposer = FitStrategyAdjustMinimizer_exposer_t( "FitStrategyAdjustMinimizer", "Strategy modifies mimimizer settings before running minimization roun.", bp::init< >() );
         bp::scope FitStrategyAdjustMinimizer_scope( FitStrategyAdjustMinimizer_exposer );
         { //::FitStrategyAdjustMinimizer::clone
         

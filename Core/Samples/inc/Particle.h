@@ -21,6 +21,8 @@
 #include "FormFactorDecoratorTransformation.h"
 #include "IMaterial.h"
 
+#include <boost/scoped_ptr.hpp>
+
 //! @class Particle
 //! @ingroup samples
 //! @brief A particle with a form factor and refractive index
@@ -47,14 +49,13 @@ public:
     //! scattering power)
     virtual void setAmbientMaterial(const IMaterial& material)
     {
-        if(mp_ambient_material != &material) {
-            delete mp_ambient_material;
-            mp_ambient_material = material.clone();
+        if(mP_ambient_material.get() != &material) {
+            mP_ambient_material.reset(material.clone());
         }
     }
 
     //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const { return mp_ambient_material; }
+    virtual const IMaterial* getAmbientMaterial() const { return mP_ambient_material.get(); }
 
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
@@ -64,19 +65,18 @@ public:
 
     //! Sets _material_.
     virtual void setMaterial(const IMaterial& material) {
-        if(mp_material != &material) {
-            delete mp_material;
-            mp_material = material.clone();
+        if(mP_material.get() != &material) {
+            mP_material.reset(material.clone());
         }
     }
 
     //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const { return mp_material; }
+    virtual const IMaterial* getMaterial() const { return mP_material.get(); }
 
     //! Returns refractive index of the particle
     virtual complex_t getRefractiveIndex() const
     {
-        return (mp_material ? mp_material->getRefractiveIndex()
+        return (mP_material.get() ? mP_material->getRefractiveIndex()
                             : complex_t(0,0));
     }
 
@@ -85,16 +85,16 @@ public:
 
     //! Returns the form factor
     const IFormFactor* getFormFactor() const {
-        return mp_form_factor;
+        return mP_form_factor.get();
     }
 
 protected:
     IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles
     virtual void applyTransformationToSubParticles(const IRotation& rotation);
-    IMaterial* mp_material;
-    IMaterial* mp_ambient_material;
-    IFormFactor* mp_form_factor;
+    boost::scoped_ptr<IMaterial> mP_material;
+    boost::scoped_ptr<IMaterial> mP_ambient_material;
+    boost::scoped_ptr<IFormFactor> mP_form_factor;
 };
 
 #endif // PARTICLE_H

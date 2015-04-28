@@ -27,6 +27,7 @@
 #include "MultiLayer.h"
 #include "PyGenTools.h"
 #include "Simulation.h"
+#include "Distributions.h"
 #include "BAPython.h"
 
 std::string PyGenTools::genPyScript(Simulation *simulation)
@@ -43,7 +44,7 @@ std::string PyGenTools::genPyScript(Simulation *simulation)
 
 bool PyGenTools::isSquare(double length1, double length2, double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, M_PI/2.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0)) {
         return true;
     }
     return false;
@@ -52,7 +53,7 @@ bool PyGenTools::isSquare(double length1, double length2, double angle)
 
 bool PyGenTools::isHexagonal(double length1, double length2, double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*M_PI/3.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0)) {
         return true;
     }
     return false;
@@ -110,4 +111,43 @@ bool PyGenTools::testPyScript(Simulation *simulation)
         std::cout << "Relative Difference between python script and"
                      " reference sample: = " << diff << std::endl;
         return false;
+}
+
+
+std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
+{
+     std::ostringstream result;
+     result << std::setprecision(12);
+
+     if(const DistributionGate *d = dynamic_cast<const DistributionGate *>(distribution)) {
+        result << "DistributionGate("
+               << PyGenTools::printDouble(d->getMin()) << ", "
+               << PyGenTools::printDouble(d->getMax()) << ")";
+     }
+     else if(const DistributionLorentz *d = dynamic_cast<const DistributionLorentz *>(distribution)) {
+         result << "DistributionLorentz("
+                << PyGenTools::printDouble(d->getMean()) << ", "
+                << PyGenTools::printDouble(d->getHWHM()) << ")";
+     }
+     else if(const DistributionGaussian *d = dynamic_cast<const DistributionGaussian *>(distribution)) {
+         result << "DistributionGaussian("
+                << PyGenTools::printDouble(d->getMean()) << ", "
+                << PyGenTools::printDouble(d->getStdDev()) << ")";
+     }
+     else if(const DistributionLogNormal *d = dynamic_cast<const DistributionLogNormal *>(distribution)) {
+         result << "DistributionLogNormal("
+                << PyGenTools::printDouble(d->getMedian()) << ", "
+                << PyGenTools::printDouble(d->getScalePar()) << ")";
+     }
+     else if(const DistributionCosine *d = dynamic_cast<const DistributionCosine *>(distribution)) {
+         result << "DistributionCosine("
+                << PyGenTools::printDouble(d->getMean()) << ", "
+                << PyGenTools::printDouble(d->getSigma()) << ")";
+     }
+     else {
+         throw RuntimeErrorException(
+            "PyGenTools::getRepresentation(const IDistribution1D *distribution) "
+            "-> Error. Unknown distribution type");
+     }
+     return result.str();
 }

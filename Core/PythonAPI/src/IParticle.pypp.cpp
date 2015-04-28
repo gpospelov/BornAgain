@@ -262,7 +262,7 @@ void register_IParticle_class(){
 
     { //::IParticle
         typedef bp::class_< IParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
-        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", bp::no_init );
+        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a generic particl.", bp::no_init );
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyTransformation
         
@@ -301,7 +301,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "cloneInvertB"
                 , bp::pure_virtual( cloneInvertB_function_type(&::IParticle::cloneInvertB) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns a clone with inverted magnetic fields." );
         
         }
         { //::IParticle::createFormFactor
@@ -312,7 +313,8 @@ void register_IParticle_class(){
                 "createFormFactor"
                 , bp::pure_virtual( createFormFactor_function_type(&::IParticle::createFormFactor) )
                 , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Create a form factor which includes the particle's shape, material, ambient material, an optional transformation and an extra scattering factor " );
         
         }
         { //::IParticle::getAmbientMaterial
@@ -322,7 +324,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "getAmbientMaterial"
                 , bp::pure_virtual( getAmbientMaterial_function_type(&::IParticle::getAmbientMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns particle's material." );
         
         }
         { //::IParticle::getRotation
@@ -332,7 +335,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "getRotation"
                 , getRotation_function_type( &::IParticle::getRotation )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns rotation object." );
         
         }
         { //::IParticle::setAmbientMaterial
@@ -466,7 +470,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IParticle_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

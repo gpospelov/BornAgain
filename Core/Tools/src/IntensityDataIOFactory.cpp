@@ -22,21 +22,22 @@
 #include "Utils.h"
 #include "FileSystem.h"
 
+#include <boost/scoped_ptr.hpp>
+
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
 OutputData<double > *IntensityDataIOFactory::readIntensityData(
         const std::string& file_name)
 {
-    return getReader(file_name)->getOutputData();
+    boost::scoped_ptr<OutputDataReader> reader(getReader(file_name));
+    return reader->getOutputData();
 }
 
 
-IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
+OutputDataReader* IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
-    OutputDataReader *reader = new OutputDataReader( file_name );
-
     IOutputDataReadStrategy *read_strategy(0);
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamINT();
@@ -45,13 +46,14 @@ IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
                 "Don't know how to read file '" + file_name+std::string("'"));
     }
 
+    OutputDataReader *reader = new OutputDataReader( file_name );
     if( Utils::FileSystem::isGZipped(file_name) ) {
         reader->setStrategy( new OutputDataReadStreamGZip( read_strategy ) );
     } else {
         reader->setStrategy( read_strategy );
     }
 
-    return OutputDataReader_t(reader);
+    return reader;
 }
 
 /* ************************************************************************* */
@@ -60,14 +62,13 @@ IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
 void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
         const std::string& file_name)
 {
-    return getWriter(file_name)->writeOutputData(data);
+    boost::scoped_ptr<OutputDataWriter> writer(getWriter(file_name));
+    return writer->writeOutputData(data);
 }
 
-IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
+OutputDataWriter* IntensityDataIOFactory::getWriter(
         const std::string& file_name)
 {
-    OutputDataWriter *writer = new OutputDataWriter( file_name );
-
     IOutputDataWriteStrategy *write_strategy(0);
     if( Utils::FileSystem::GetFileExtension(file_name) == ".int") {
         write_strategy = new OutputDataWriteStreamINT();
@@ -76,9 +77,10 @@ IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
                 "Don't know how to write file '" + file_name+std::string("'"));
     }
 
+    OutputDataWriter *writer = new OutputDataWriter( file_name );
     writer->setStrategy( write_strategy );
 
-    return OutputDataWriter_t(writer);
+    return writer;
 }
 
 

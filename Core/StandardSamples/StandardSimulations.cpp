@@ -471,7 +471,7 @@ Simulation *StandardSimulations::Ripple1()
 // -----------------------------------------------------------------------------
 
 
-Simulation *StandardSimulations::gui_IsGISAXS01()
+Simulation *StandardSimulations::gui_CylinderAndPrisms()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
@@ -490,7 +490,7 @@ Simulation *StandardSimulations::gui_IsGISAXS01()
 }
 
 
-Simulation *StandardSimulations::gui_IsGISAXS041DDL()
+Simulation *StandardSimulations::gui_Interference1DParaCrystal()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
@@ -507,7 +507,7 @@ Simulation *StandardSimulations::gui_IsGISAXS041DDL()
     return result;
 }
 
-Simulation *StandardSimulations::gui_IsGISAXS042DDL()
+Simulation *StandardSimulations::gui_Interference2DParaCrystal()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
@@ -524,7 +524,7 @@ Simulation *StandardSimulations::gui_IsGISAXS042DDL()
     return result;
 }
 
-Simulation *StandardSimulations::gui_IsGISAXS11()
+Simulation *StandardSimulations::gui_CoreShellParticles()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
@@ -541,7 +541,7 @@ Simulation *StandardSimulations::gui_IsGISAXS11()
     return result;
 }
 
-Simulation *StandardSimulations::gui_IsGISAXS06L1()
+Simulation *StandardSimulations::gui_Interference2DSquareLattice()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
@@ -558,7 +558,7 @@ Simulation *StandardSimulations::gui_IsGISAXS06L1()
     return result;
 }
 
-Simulation *StandardSimulations::gui_IsGISAXS06L2()
+Simulation *StandardSimulations::gui_Interference2DCenteredLattice()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
@@ -575,7 +575,7 @@ Simulation *StandardSimulations::gui_IsGISAXS06L2()
     return result;
 }
 
-Simulation *StandardSimulations::gui_IsGISAXS07()
+Simulation *StandardSimulations::gui_RotatedPyramids()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
@@ -658,7 +658,6 @@ Simulation *StandardSimulations::DetectorResolution()
     return result;
 }
 
-
 Simulation *StandardSimulations::ParticleDistribution()
 {
     SampleBuilderFactory factory;
@@ -676,3 +675,22 @@ Simulation *StandardSimulations::ParticleDistribution()
 
     return result;
 }
+
+Simulation *StandardSimulations::gui_ParticleComposition()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("ParticleComposition");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                100, 0.0*Units::degree, 1.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+

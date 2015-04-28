@@ -18,7 +18,7 @@
 
 #include "FormFactorDecoratorFactor.h"
 #include "HomogeneousMaterial.h"
-#include <memory>
+#include <boost/scoped_ptr.hpp>
 
 //! @class FormFactorDecoratorMaterial
 //! @ingroup formfactors_decorations
@@ -56,8 +56,8 @@ private:
     complex_t getRefractiveIndexFactor() const;
 
     complex_t m_wavevector_scattering_factor;
-    std::auto_ptr<IMaterial> mP_material;
-    std::auto_ptr<IMaterial> mP_ambient_material;
+    boost::scoped_ptr<IMaterial> mP_material;
+    boost::scoped_ptr<IMaterial> mP_ambient_material;
 };
 
 #endif /* FORMFACTORDECORATORMATERIAL_H_ */

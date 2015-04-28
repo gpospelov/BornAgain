@@ -53,7 +53,7 @@ void register_ISelectionRule_class(){
 
     { //::ISelectionRule
         typedef bp::class_< ISelectionRule_wrapper, std::auto_ptr< ISelectionRule_wrapper >, boost::noncopyable > ISelectionRule_exposer_t;
-        ISelectionRule_exposer_t ISelectionRule_exposer = ISelectionRule_exposer_t( "ISelectionRule" );
+        ISelectionRule_exposer_t ISelectionRule_exposer = ISelectionRule_exposer_t( "ISelectionRule", "Pure virtual base class for selection rules." );
         bp::scope ISelectionRule_scope( ISelectionRule_exposer );
         { //::ISelectionRule::clone
         

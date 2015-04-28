@@ -242,7 +242,7 @@ void register_ISample_class(){
 
     { //::ISample
         typedef bp::class_< ISample_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< ISample_wrapper >, boost::noncopyable > ISample_exposer_t;
-        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::init< >() );
+        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", "Interface for objects related to scattering.", bp::init< >() );
         bp::scope ISample_scope( ISample_exposer );
         { //::ISample::accept
         
@@ -251,7 +251,8 @@ void register_ISample_class(){
             ISample_exposer.def( 
                 "accept"
                 , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
+                , ( bp::arg("p_visitor") )
+                , "\internal Calls the ISampleVisitor's visit method." );
         
         }
         { //::ISample::clone
@@ -385,7 +386,8 @@ void register_ISample_class(){
             ISample_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ISample_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

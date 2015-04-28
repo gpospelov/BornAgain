@@ -112,32 +112,33 @@ SimulationRegistry::SimulationRegistry()
 
     // GUI examples
     registerItem(
-        "gui_isgisaxs01", StandardSimulations::gui_IsGISAXS01,
+        "gui_CylinderAndPrisms", StandardSimulations::gui_CylinderAndPrisms,
         "GUI: Mixture of cylinders and prisms without interference");
 
     registerItem(
-        "gui_isgisaxs04_1DDL", StandardSimulations::gui_IsGISAXS041DDL,
+        "gui_Interference1DParaCrystal", StandardSimulations::gui_Interference1DParaCrystal,
         "GUI: IsGISAXS04 example, 1DDL structure factor");
 
     registerItem(
-        "gui_isgisaxs04_2DDL", StandardSimulations::gui_IsGISAXS042DDL,
+        "gui_Interference2DParaCrystal", StandardSimulations::gui_Interference2DParaCrystal,
         "GUI: IsGISAXS04 example, 2DDL structure factor");
 
     registerItem(
-        "gui_isgisaxs11", StandardSimulations::gui_IsGISAXS11,
+        "gui_CoreShellParticles", StandardSimulations::gui_CoreShellParticles,
         "GUI: Core shell nanoparticles");
 
     registerItem(
-        "gui_isgisaxs06a", StandardSimulations::gui_IsGISAXS06L1,
+        "gui_Interference2DSquareLattice", StandardSimulations::gui_Interference2DSquareLattice,
         "GUI: 2D lattice with disorders");
 
     registerItem(
-        "gui_isgisaxs06b", StandardSimulations::gui_IsGISAXS06L2,
+        "gui_Interference2DCenteredLattice", StandardSimulations::gui_Interference2DCenteredLattice,
         "GUI: 2D lattice centered");
 
     registerItem(
-        "gui_isgisaxs07", StandardSimulations::gui_IsGISAXS07,
-        "GUI: Mixture of fixed particles");
+        "gui_RotatedPyramids", StandardSimulations::gui_RotatedPyramids,
+        "GUI: Rotated pyramids");
+
     registerItem(
         "gui_multiple_layouts", StandardSimulations::gui_MultipleLayouts,
         "GUI: Mixture of Cylinders and Prisms using Multiple Layouts");
@@ -153,6 +154,11 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "part_distribution", StandardSimulations::ParticleDistribution,
         "Cylinders with size distribution");
+
+    registerItem(
+        "gui_ParticleComposition", StandardSimulations::gui_ParticleComposition,
+        "GUI: Composition of particles to represent two layers of spheres in hex lattice");
+
 }
 
 

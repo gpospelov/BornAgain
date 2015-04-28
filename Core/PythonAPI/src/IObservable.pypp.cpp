@@ -72,7 +72,7 @@ void register_IObservable_class(){
 
     { //::IObservable
         typedef bp::class_< IObservable_wrapper > IObservable_exposer_t;
-        IObservable_exposer_t IObservable_exposer = IObservable_exposer_t( "IObservable" );
+        IObservable_exposer_t IObservable_exposer = IObservable_exposer_t( "IObservable", "Observable interface from %Observer pattern, for 1:n object dependencies." );
         bp::scope IObservable_scope( IObservable_exposer );
         { //::IObservable::attachObserver
         

@@ -1,6 +1,7 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
+#include "Units.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixSpecularInfoMap.h"
 #include "gtest/gtest.h"
@@ -34,7 +35,7 @@ MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 
 TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
-    MatrixSpecularInfoMap map(mp_multilayer, 0, 2.0*M_PI);
+    MatrixSpecularInfoMap map(mp_multilayer, 0, 2.0*Units::PI);
     boost::scoped_ptr<const MatrixRTCoefficients> rt_coeffs(
                 map.getCoefficients(1.0, 1.0));
     complex_t R0 = complex_t(0.1750375, -0.0222467);

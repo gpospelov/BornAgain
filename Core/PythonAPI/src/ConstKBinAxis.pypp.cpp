@@ -175,7 +175,7 @@ void register_ConstKBinAxis_class(){
 
     { //::ConstKBinAxis
         typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis >, std::auto_ptr< ConstKBinAxis_wrapper >, boost::noncopyable > ConstKBinAxis_exposer_t;
-        ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", "Axis with fixed bin size in sin(angle) space.", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") ), "ConstKBinAxis constructor.\n\n:Parameters:\n  - 'name' - Axis name\n  - 'nbins' - number of bins\n  - 'start' - low edge of first bin\n  - 'end' - upper edge of last bin\n") );
         bp::scope ConstKBinAxis_scope( ConstKBinAxis_exposer );
         { //::ConstKBinAxis::clone
         

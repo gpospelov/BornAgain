@@ -167,7 +167,7 @@ void register_FTDistribution1DCauchy_class(){
 
     { //::FTDistribution1DCauchy
         typedef bp::class_< FTDistribution1DCauchy_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DCauchy_wrapper > > FTDistribution1DCauchy_exposer_t;
-        FTDistribution1DCauchy_exposer_t FTDistribution1DCauchy_exposer = FTDistribution1DCauchy_exposer_t( "FTDistribution1DCauchy", bp::init< double >(( bp::arg("omega") )) );
+        FTDistribution1DCauchy_exposer_t FTDistribution1DCauchy_exposer = FTDistribution1DCauchy_exposer_t( "FTDistribution1DCauchy", "1 dimensional Cauchy distribution in Fourier space.", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DCauchy_scope( FTDistribution1DCauchy_exposer );
         { //::FTDistribution1DCauchy::clone
         
@@ -245,7 +245,8 @@ void register_FTDistribution1DCauchy_class(){
             FTDistribution1DCauchy_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DCauchy_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

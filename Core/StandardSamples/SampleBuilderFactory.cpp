@@ -29,6 +29,7 @@
 #include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
 #include "LayerRoughnessBuilder.h"
+#include "ParticleCompositionBuilder.h"
 #include "Ripple2Builder.h"
 #include "Ripple1Builder.h"
 
@@ -156,6 +157,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ripple1",
         IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "ParticleComposition",
+        IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
+        "Composition of particles to represent two layers of spheres in hex lattice");
 
 }
 

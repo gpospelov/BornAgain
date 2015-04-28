@@ -5,7 +5,7 @@ int main()
 {
     SimulationRegistry simulationRegistry;
     Simulation *simulation =
-            simulationRegistry.createSimulation("gui_isgisaxs11");
+            simulationRegistry.createSimulation("gui_CoreShellParticles");
     bool test = PyGenTools::testPyScript(simulation);
     std::cout << "Python Script Generation Test for isgisaxs11"
               << "(Core shell nanoparticles):"

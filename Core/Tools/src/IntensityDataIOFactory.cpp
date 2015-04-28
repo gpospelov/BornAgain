@@ -22,17 +22,20 @@
 #include "Utils.h"
 #include "FileSystem.h"
 
+#include <boost/scoped_ptr.hpp>
+
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
 OutputData<double > *IntensityDataIOFactory::readIntensityData(
         const std::string& file_name)
 {
-    return getReader(file_name)->getOutputData();
+    boost::scoped_ptr<OutputDataReader> reader(getReader(file_name));
+    return reader->getOutputData();
 }
 
 
-IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
+OutputDataReader* IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
@@ -51,7 +54,7 @@ IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
         reader->setStrategy( read_strategy );
     }
 
-    return OutputDataReader_t(reader);
+    return reader;
 }
 
 /* ************************************************************************* */
@@ -60,10 +63,11 @@ IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
 void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
         const std::string& file_name)
 {
-    return getWriter(file_name)->writeOutputData(data);
+    boost::scoped_ptr<OutputDataWriter> writer(getWriter(file_name));
+    return writer->writeOutputData(data);
 }
 
-IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
+OutputDataWriter* IntensityDataIOFactory::getWriter(
         const std::string& file_name)
 {
     OutputDataWriter *writer = new OutputDataWriter( file_name );
@@ -78,7 +82,7 @@ IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
 
     writer->setStrategy( write_strategy );
 
-    return OutputDataWriter_t(writer);
+    return writer;
 }
 
 

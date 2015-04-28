@@ -36,6 +36,7 @@ public:
 protected:
 };
 
+// Shared pointer is used when passing these objects from python to c++
 typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
 
 #endif /* ISAMPLEBUILDER_H_ */

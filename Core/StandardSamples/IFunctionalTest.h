@@ -86,7 +86,4 @@ private:
     OutputData<double> *m_reference;
 };
 
-typedef boost::shared_ptr<FunctionalTest> FunctionalTest_t;
-
-
 #endif

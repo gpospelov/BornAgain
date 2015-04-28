@@ -44,9 +44,7 @@ public:
 
     void printCatalogue() { m_catalogue.print(); }
 
-    FunctionalTest_t getTest(const std::string &name);
-
-    //FunctionalTest_t runTest(const std::string &name);
+    FunctionalTest* getTest(const std::string &name);
 
     bool isRegisteredName(const std::string &name);
 

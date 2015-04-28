@@ -106,12 +106,10 @@ results in \textit{coherent forward scattering},
 in line with Huygens' principle.
 \index{Huygens' principle}%
 
-Another form of coherent scattering is \textit{Bragg scattering}.
+Coherent superposition also leads to \textit{Bragg scattering}.
 \index{Bragg scattering!by atomic lattices}%
-However, Bragg scattering by atomic lattices
-is large-angle, not small-angle scattering,
-and therefore occurs outside the wavenumber range
-covered in GISAS experiments.
+However, Bragg scattering by atomic lattices only occurs at angles
+far above the small-angle range covered in GISAS experiments.
 Accordingly, it can be neglected in the analysis of GISAS data,
 or at most, is taken into account as a loss channel.
 
@@ -219,7 +217,7 @@ by means of a perturbation expansion in powers of $n^2-1$.
 This expansion is named after Max Born
 who introduced it in quantum mechanics.\footnote
 {It goes back to Lord Rayleigh
-who devised it for the sound,
+who devised it for sound,
 and later also applied it to electromagnetic waves,
 which resulted in his famous explanation of the blue sky.}
 
@@ -272,7 +270,7 @@ This explains the appearance of the factor $4\pi$.}
   G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
-Convoluting this function with the given inhomogeneity $(\chi/4\pi)\psi$,
+Convoluting this function with the given inhomogeneity $4\pi\chi\psi$,
 we obtain what is known as the Lippmann-Schwinger equation,
 \index{Lippmann-Schwinger equation}%the formal solution
 \begin{equation}\label{EPsiFormal}
@@ -280,7 +278,7 @@ we obtain what is known as the Lippmann-Schwinger equation,
   = \psi_\ti(\r)
   + \int\!\d^3r'\, G(\r,\r') 4\pi\chi(\r')\psi(\r').
 \end{equation}
-This integral equation for $\psi(\r)$ has the improves
+This integral equation for $\psi(\r)$ improves
 upon the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
 in that it ensures the boundary condition~(\ref{Escabouco}).
 It can be resolved into an infinite series
@@ -665,7 +663,7 @@ where~$B$ is the \textit{adjoint Green function}
 that describes backward propagation from $\rD$ into the sample.
 
 Outside the sample,
-$B$ obyes the Helmholtz equation
+$B$ obeys the Helmholtz equation
 with isolated inhomegeneity (\ref{EHelmholtzForGreen}),
 and therefore has the far-field expansion~(\ref{EGreenFar}),
 \index{Far-field approximation}%
@@ -761,8 +759,8 @@ and read (\ref{Endb1}) as an excellent approximation.
 While the real part of $n$ is responsible for refraction, reflection,
 and scattering,
 the imaginary part describes absorption
-and leds to a damping of propagating waves.
-The plus sign in from of the imaginary part is a consequence of
+and leads to a damping of propagating waves.
+The plus sign in front of the imaginary part is a consequence of
 the quantum-mechanical sign convention;
 in the X-ray crystallography convention it would be a minus sign.
 \index{Sign convention}%

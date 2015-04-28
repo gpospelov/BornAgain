@@ -67,7 +67,7 @@ Each component is a plane wave,
 \end{equation}
 with
 \begin{equation}\label{Ephizwj}
-  \phi^\pm_{w\il}(\r)=A^\pm_{w\il}\e^{\pm i\k_{\perp w\il}(z-z_\il)}.
+  \phi^\pm_{w\il}(z)=A^\pm_{w\il}\e^{\pm i\k_{\perp w\il}(z-z_\il)}.
 \end{equation}
 \nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
 For later convenience,
@@ -214,11 +214,11 @@ the continuity conditions~(\ref{Econtcond}) take the form
   \begin{array}{lclclcl}
   A^+_\il &+& A^-_\il,
   &=&
-  a_{\il+1}\delta_{\il+1} &+& A^-_{\il+1}\delta_{\il+1}^*,
+  A_{\il+1}\delta_{\il+1} &+& A^-_{\il+1}\delta_{\il+1}^*,
   \\
   A^+_\il f_\il  &-& A^-_\il f_\il,
   &=&
- a_{\il+1}\delta_{\il+1} f_{\il+1} &-& A^-_{\il+1}\delta_{\il+1}^* f_{\il+1}.
+  A_{\il+1}\delta_{\il+1} f_{\il+1} &-& A^-_{\il+1}\delta_{\il+1}^* f_{\il+1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
@@ -293,7 +293,7 @@ and the radicand in (\ref{Ekperpwj}) becomes negative
 so that $k_{\perp \il}$ becomes pure imaginary.
 \index{Wave vector!complex}%
 If the layer is absorbing,
-described by an positive imaginary part of $\overline{n_\il^2}$,
+described by a positive imaginary part of $\overline{n_\il^2}$,
 then the radicand in (\ref{Ekperpwj}) becomes complex,
 and the wave number $k_{\perp \il}$ as well.
 For complex $k_{\perp \il}$,
@@ -333,7 +333,7 @@ the flux has a vertical component.
 Accordingly, the total reflection is not perfect.
 Some intensity is dissipated in layer $\il$.
 \index{Dissipation}%
-And if layer $\il>N$ is not too thick,
+And if layer $\il<N$ is not too thick,
 then some radiation intensity also tunnels into the adjecent layer $\il+1$.
 \index{Tunneling}%
 

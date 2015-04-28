@@ -79,7 +79,7 @@ void register_ParameterPool_class(){
 
     { //::ParameterPool
         typedef bp::class_< ParameterPool_wrapper, bp::bases< ICloneable >, std::auto_ptr< ParameterPool_wrapper >, boost::noncopyable > ParameterPool_exposer_t;
-        ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
+        ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", "Holds a map of pointers to parameters (which must have different names).", bp::init< >("Constructs an empty parameter pool.") );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
         { //::ParameterPool::addParameter
         
@@ -88,7 +88,8 @@ void register_ParameterPool_class(){
             ParameterPool_exposer.def( 
                 "addParameter"
                 , addParameter_function_type( &::ParameterPool::addParameter )
-                , ( bp::arg("name"), bp::arg("par") ) );
+                , ( bp::arg("name"), bp::arg("par") )
+                , "Adds parameter to the pool." );
         
         }
         { //::ParameterPool::clear
@@ -97,7 +98,8 @@ void register_ParameterPool_class(){
             
             ParameterPool_exposer.def( 
                 "clear"
-                , clear_function_type( &::ParameterPool::clear ) );
+                , clear_function_type( &::ParameterPool::clear )
+                , "Deletes parameter map." );
         
         }
         { //::ParameterPool::clone
@@ -120,7 +122,8 @@ void register_ParameterPool_class(){
                 "cloneWithPrefix"
                 , cloneWithPrefix_function_type( &::ParameterPool::cloneWithPrefix )
                 , ( bp::arg("prefix") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns a clone with _prefix_ added to every parameter key." );
         
         }
         { //::ParameterPool::getParameter
@@ -130,7 +133,8 @@ void register_ParameterPool_class(){
             ParameterPool_exposer.def( 
                 "getParameter"
                 , getParameter_function_type( &::ParameterPool::getParameter )
-                , ( bp::arg("name") ) );
+                , ( bp::arg("name") )
+                , "Returns parameter named _name_." );
         
         }
         { //::ParameterPool::setMatchedParametersValue
@@ -140,7 +144,8 @@ void register_ParameterPool_class(){
             ParameterPool_exposer.def( 
                 "setMatchedParametersValue"
                 , setMatchedParametersValue_function_type( &::ParameterPool::setMatchedParametersValue )
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
+                , ( bp::arg("wildcards"), bp::arg("value") )
+                , "Sets parameter value, return number of changed parameters." );
         
         }
         { //::ParameterPool::setParameterValue
@@ -150,7 +155,8 @@ void register_ParameterPool_class(){
             ParameterPool_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type( &::ParameterPool::setParameterValue )
-                , ( bp::arg("name"), bp::arg("value") ) );
+                , ( bp::arg("name"), bp::arg("value") )
+                , "Sets parameter value, return true in the case of success." );
         
         }
         { //::ParameterPool::size
@@ -159,7 +165,8 @@ void register_ParameterPool_class(){
             
             ParameterPool_exposer.def( 
                 "size"
-                , size_function_type( &::ParameterPool::size ) );
+                , size_function_type( &::ParameterPool::size )
+                , "Returns size of parameter container." );
         
         }
         { //::ICloneable::transferToCPP

@@ -49,8 +49,8 @@ protected:
 
 //! @class FTDistribution1DCauchy
 //! @ingroup algorithms
-//! @brief 1 dimensional Cauchy distribution in Fourier space
-//! corresponds to a normalized exp(-|x|) in real space
+//! @brief 1 dimensional Cauchy distribution in Fourier space.
+//! Corresponds to a normalized exp(-|x|) in real space
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
@@ -65,8 +65,8 @@ public:
 
 //! @class FTDistribution1DGauss
 //! @ingroup algorithms
-//! @brief 1 dimensional Gauss distribution in Fourier space
-//! corresponds to a normalized exp(-x^2) in real space
+//! @brief 1 dimensional Gauss distribution in Fourier space.
+//! Corresponds to a normalized exp(-x^2) in real space
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
@@ -82,8 +82,8 @@ public:
 
 //! @class FTDistribution1DGate
 //! @ingroup algorithms
-//! @brief 1 dimensional Gate distribution in Fourier space
-//! corresponds to a normalized constant if |x|<omega (and 0 otherwise)
+//! @brief 1 dimensional Gate distribution in Fourier space.
+//! Corresponds to a normalized constant if |x|<omega (and 0 otherwise)
 //! in real space
 
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
@@ -100,8 +100,8 @@ public:
 
 //! @class FTDistribution1DTriangle
 //! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space
-//! corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise)
+//! @brief 1 dimensional triangle distribution in Fourier space.
+//! Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise)
 //! in real space
 
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
@@ -118,8 +118,8 @@ public:
 
 //! @class FTDistribution1DCosine
 //! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space
-//! corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise)
+//! @brief 1 dimensional triangle distribution in Fourier space.
+//! Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise)
 //! in real space
 
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
@@ -136,7 +136,7 @@ public:
 
 //! @class FTDistribution1DVoigt
 //! @ingroup algorithms
-//! @brief 1 dimensional Voigt distribution in Fourier space
+//! @brief 1 dimensional Voigt distribution in Fourier space.
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
 
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
@@ -159,7 +159,7 @@ protected:
 
 //! @class IFTDistribution2D
 //! @ingroup algorithms_internal
-//! @brief Interface for 2 dimensional distributions in Fourier space
+//! @brief Interface for 2 dimensional distributions in Fourier space.
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
@@ -216,8 +216,8 @@ protected:
 
 //! @class FTDistribution2DCauchy
 //! @ingroup algorithms
-//! @brief 2 dimensional Cauchy distribution in Fourier space
-//! corresponds to a normalized exp(-r) in real space
+//! @brief 2 dimensional Cauchy distribution in Fourier space.
+//! Corresponds to a normalized exp(-r) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
@@ -236,8 +236,8 @@ public:
 
 //! @class FTDistribution2DGauss
 //! @ingroup algorithms
-//! @brief 2 dimensional Gauss distribution in Fourier space
-//! corresponds to normalized exp(-r^2/2) in real space
+//! @brief 2 dimensional Gauss distribution in Fourier space.
+//! Corresponds to normalized exp(-r^2/2) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
@@ -257,7 +257,7 @@ public:
 //! @class FTDistribution2DGate
 //! @ingroup algorithms
 //! @brief 2 dimensional gate distribution in Fourier space
-//! corresponds to normalized constant if r<1 (and 0 otherwise) in real space
+//! Corresponds to normalized constant if r<1 (and 0 otherwise) in real space.
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
@@ -274,8 +274,8 @@ public:
 
 //! @class FTDistribution2DCone
 //! @ingroup algorithms
-//! @brief 2 dimensional cone distribution in Fourier space
-//! corresponds to 1-r if r<1 (and 0 otherwise) in real space
+//! @brief 2 dimensional cone distribution in Fourier space.
+//! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
@@ -297,7 +297,7 @@ private:
 
 //! @class FTDistribution2DVoigt
 //! @ingroup algorithms
-//! @brief 2 dimensional Voigt distribution in Fourier space
+//! @brief 2 dimensional Voigt distribution in Fourier space.
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
 
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D

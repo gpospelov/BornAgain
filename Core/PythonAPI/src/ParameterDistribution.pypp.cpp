@@ -177,7 +177,8 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getMainParameterName"
-                , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName ) );
+                , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName )
+                , "get the main parameter's name." );
         
         }
         { //::ParameterDistribution::getMaxValue
@@ -204,7 +205,8 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getNbrSamples"
-                , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples ) );
+                , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples )
+                , "get number of samples for this distribution." );
         
         }
         { //::ParameterDistribution::getSigmaFactor
@@ -213,7 +215,8 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getSigmaFactor"
-                , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor ) );
+                , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor )
+                , "get the sigma factor." );
         
         }
         { //::ParameterDistribution::linkParameter
@@ -224,7 +227,8 @@ void register_ParameterDistribution_class(){
                 "linkParameter"
                 , linkParameter_function_type( &::ParameterDistribution::linkParameter )
                 , ( bp::arg("par_name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Overload assignment operator." );
         
         }
         { //::ParameterDistribution::operator=
@@ -235,7 +239,8 @@ void register_ParameterDistribution_class(){
                 "assign"
                 , assign_function_type( &::ParameterDistribution::operator= )
                 , ( bp::arg("other") )
-                , bp::return_self< >() );
+                , bp::return_self< >()
+                , "Overload assignment operator." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -290,7 +295,8 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParameterDistribution_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

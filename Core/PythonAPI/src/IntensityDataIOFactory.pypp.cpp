@@ -30,7 +30,7 @@ void register_IntensityDataIOFactory_class(){
 
     { //::IntensityDataIOFactory
         typedef bp::class_< IntensityDataIOFactory > IntensityDataIOFactory_exposer_t;
-        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory" );
+        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory", "Reads OutputData from files in different forma." );
         bp::scope IntensityDataIOFactory_scope( IntensityDataIOFactory_exposer );
         { //::IntensityDataIOFactory::readIntensityData
         

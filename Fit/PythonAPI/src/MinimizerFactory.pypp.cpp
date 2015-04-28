@@ -30,7 +30,7 @@ void register_MinimizerFactory_class(){
 
     { //::MinimizerFactory
         typedef bp::class_< MinimizerFactory > MinimizerFactory_exposer_t;
-        MinimizerFactory_exposer_t MinimizerFactory_exposer = MinimizerFactory_exposer_t( "MinimizerFactory" );
+        MinimizerFactory_exposer_t MinimizerFactory_exposer = MinimizerFactory_exposer_t( "MinimizerFactory", "Factory to create minimizer." );
         bp::scope MinimizerFactory_scope( MinimizerFactory_exposer );
         { //::MinimizerFactory::createMinimizer
         

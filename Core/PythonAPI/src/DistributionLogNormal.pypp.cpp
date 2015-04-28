@@ -210,7 +210,7 @@ void register_DistributionLogNormal_class(){
 
     { //::DistributionLogNormal
         typedef bp::class_< DistributionLogNormal_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionLogNormal_wrapper > > DistributionLogNormal_exposer_t;
-        DistributionLogNormal_exposer_t DistributionLogNormal_exposer = DistributionLogNormal_exposer_t( "DistributionLogNormal", bp::init< double >(( bp::arg("scale_param") )) );
+        DistributionLogNormal_exposer_t DistributionLogNormal_exposer = DistributionLogNormal_exposer_t( "DistributionLogNormal", "Log-normal distributio.", bp::init< double >(( bp::arg("scale_param") )) );
         bp::scope DistributionLogNormal_scope( DistributionLogNormal_exposer );
         DistributionLogNormal_exposer.def( bp::init< double, double >(( bp::arg("median"), bp::arg("scale_param") )) );
         { //::DistributionLogNormal::clone
@@ -254,7 +254,8 @@ void register_DistributionLogNormal_class(){
             
             DistributionLogNormal_exposer.def( 
                 "getMedian"
-                , getMedian_function_type( &::DistributionLogNormal::getMedian ) );
+                , getMedian_function_type( &::DistributionLogNormal::getMedian )
+                , "get the median of the distribution." );
         
         }
         { //::DistributionLogNormal::getScalePar
@@ -263,7 +264,8 @@ void register_DistributionLogNormal_class(){
             
             DistributionLogNormal_exposer.def( 
                 "getScalePar"
-                , getScalePar_function_type( &::DistributionLogNormal::getScalePar ) );
+                , getScalePar_function_type( &::DistributionLogNormal::getScalePar )
+                , "get the scale parameter of the distribution." );
         
         }
         { //::DistributionLogNormal::probabilityDensity
@@ -342,7 +344,8 @@ void register_DistributionLogNormal_class(){
             DistributionLogNormal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionLogNormal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -304,7 +304,7 @@ void register_Crystal_class(){
 
     { //::Crystal
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
-        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
+        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "A crystal structure with a form factor as a basis.", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
         
@@ -384,7 +384,8 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "getRotation"
                 , getRotation_function_type( &::Crystal::getRotation )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Gets transformation." );
         
         }
         { //::Crystal::getTransformedLattice
@@ -527,7 +528,8 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Crystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

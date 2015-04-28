@@ -30,7 +30,7 @@ void register_ThreadInfo_class(){
 
     { //::ThreadInfo
         typedef bp::class_< ThreadInfo > ThreadInfo_exposer_t;
-        ThreadInfo_exposer_t ThreadInfo_exposer = ThreadInfo_exposer_t( "ThreadInfo", bp::init< >() );
+        ThreadInfo_exposer_t ThreadInfo_exposer = ThreadInfo_exposer_t( "ThreadInfo", "Information to run simulation with dedicated number of thread.", bp::init< >() );
         bp::scope ThreadInfo_scope( ThreadInfo_exposer );
         { //::ThreadInfo::getBeginIndex
         

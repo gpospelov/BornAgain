@@ -172,7 +172,7 @@ void register_OffSpecSimulation_class(){
 
     { //::OffSpecSimulation
         typedef bp::class_< OffSpecSimulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< OffSpecSimulation_wrapper >, boost::noncopyable > OffSpecSimulation_exposer_t;
-        OffSpecSimulation_exposer_t OffSpecSimulation_exposer = OffSpecSimulation_exposer_t( "OffSpecSimulation", bp::init< >() );
+        OffSpecSimulation_exposer_t OffSpecSimulation_exposer = OffSpecSimulation_exposer_t( "OffSpecSimulation", "Main class to run an off-specular simulation.", bp::init< >() );
         bp::scope OffSpecSimulation_scope( OffSpecSimulation_exposer );
         { //::OffSpecSimulation::clone
         
@@ -193,7 +193,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "getInstrument"
                 , getInstrument_function_type( &::OffSpecSimulation::getInstrument )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::copy_const_reference >()
+                , "Returns the instrument containing beam and detector information." );
         
         }
         { //::OffSpecSimulation::getIntensityData
@@ -203,9 +204,25 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "getIntensityData"
                 , getIntensityData_function_type( &::OffSpecSimulation::getIntensityData )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Clone detector intensity map for all scan parameters." );
         
         }
+<<<<<<< HEAD
+=======
+        { //::OffSpecSimulation::getPolarizedIntensityData
+        
+            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getPolarizedIntensityData_function_type)( int,int ) const;
+            
+            OffSpecSimulation_exposer.def( 
+                "getPolarizedIntensityData"
+                , getPolarizedIntensityData_function_type( &::OffSpecSimulation::getPolarizedIntensityData )
+                , ( bp::arg("row"), bp::arg("column") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "returns component of polarized intensity map." );
+        
+        }
+>>>>>>> DoxyXML
         { //::OffSpecSimulation::getSample
         
             typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type)(  ) const;
@@ -213,7 +230,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "getSample"
                 , getSample_function_type( &::OffSpecSimulation::getSample )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns the sample." );
         
         }
         { //::OffSpecSimulation::getSampleBuilder
@@ -222,7 +240,8 @@ void register_OffSpecSimulation_class(){
             
             OffSpecSimulation_exposer.def( 
                 "getSampleBuilder"
-                , getSampleBuilder_function_type( &::OffSpecSimulation::getSampleBuilder ) );
+                , getSampleBuilder_function_type( &::OffSpecSimulation::getSampleBuilder )
+                , "return sample builder." );
         
         }
         { //::OffSpecSimulation::getSimulationParameters
@@ -231,7 +250,8 @@ void register_OffSpecSimulation_class(){
             
             OffSpecSimulation_exposer.def( 
                 "getSimulationParameters"
-                , getSimulationParameters_function_type( &::OffSpecSimulation::getSimulationParameters ) );
+                , getSimulationParameters_function_type( &::OffSpecSimulation::getSimulationParameters )
+                , "Returns simulation parameters." );
         
         }
         { //::OffSpecSimulation::prepareSimulation
@@ -240,7 +260,8 @@ void register_OffSpecSimulation_class(){
             
             OffSpecSimulation_exposer.def( 
                 "prepareSimulation"
-                , prepareSimulation_function_type( &::OffSpecSimulation::prepareSimulation ) );
+                , prepareSimulation_function_type( &::OffSpecSimulation::prepareSimulation )
+                , "Put into a clean state for running a simulation." );
         
         }
         { //::OffSpecSimulation::runSimulation
@@ -249,7 +270,8 @@ void register_OffSpecSimulation_class(){
             
             OffSpecSimulation_exposer.def( 
                 "runSimulation"
-                , runSimulation_function_type( &::OffSpecSimulation::runSimulation ) );
+                , runSimulation_function_type( &::OffSpecSimulation::runSimulation )
+                , "Run a simulation with the current parameter settings." );
         
         }
         { //::OffSpecSimulation::setAnalyzerProperties
@@ -269,7 +291,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setBeamIntensity"
                 , setBeamIntensity_function_type( &::OffSpecSimulation::setBeamIntensity )
-                , ( bp::arg("intensity") ) );
+                , ( bp::arg("intensity") )
+                , "Sets beam intensity from here (forwarded to Instrument)." );
         
         }
         { //::OffSpecSimulation::setBeamParameters
@@ -279,7 +302,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::OffSpecSimulation::setBeamParameters )
-                , ( bp::arg("lambda"), bp::arg("alpha_axis"), bp::arg("phi_i") ) );
+                , ( bp::arg("lambda"), bp::arg("alpha_axis"), bp::arg("phi_i") )
+                , "Sets beam parameters from here (forwarded to Instrument)." );
         
         }
         { //::OffSpecSimulation::setBeamPolarization
@@ -299,7 +323,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("output_data") ) );
+                , ( bp::arg("output_data") )
+                , "Sets detector parameters using axes of output data." );
         
         }
         { //::OffSpecSimulation::setDetectorParameters
@@ -309,7 +334,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) );
+                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
+                , "Sets detector parameters using angle ranges." );
         
         }
         { //::OffSpecSimulation::setDetectorParameters
@@ -319,7 +345,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::OffSpecSimulation::setDetectorParameters )
-                , ( bp::arg("params") ) );
+                , ( bp::arg("params") )
+                , "Sets detector parameters using parameter object." );
         
         }
         { //::OffSpecSimulation::setDetectorResolutionFunction
@@ -339,7 +366,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setInstrument"
                 , setInstrument_function_type( &::OffSpecSimulation::setInstrument )
-                , ( bp::arg("instrument") ) );
+                , ( bp::arg("instrument") )
+                , "Sets the instrument containing beam and detector information." );
         
         }
         { //::OffSpecSimulation::setSample
@@ -349,7 +377,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setSample"
                 , setSample_function_type( &::OffSpecSimulation::setSample )
-                , ( bp::arg("sample") ) );
+                , ( bp::arg("sample") )
+                , "Sets the sample to be tested." );
         
         }
         { //::OffSpecSimulation::setSampleBuilder
@@ -359,7 +388,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setSampleBuilder"
                 , setSampleBuilder_function_type( &::OffSpecSimulation::setSampleBuilder )
-                , ( bp::arg("sample_builder") ) );
+                , ( bp::arg("sample_builder") )
+                , "Sets the sample builder." );
         
         }
         { //::OffSpecSimulation::setSimulationParameters
@@ -369,7 +399,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setSimulationParameters"
                 , setSimulationParameters_function_type( &::OffSpecSimulation::setSimulationParameters )
-                , ( bp::arg("sim_params") ) );
+                , ( bp::arg("sim_params") )
+                , "Sets simulation parameters." );
         
         }
         { //::OffSpecSimulation::setThreadInfo
@@ -379,7 +410,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setThreadInfo"
                 , setThreadInfo_function_type( &::OffSpecSimulation::setThreadInfo )
-                , ( bp::arg("thread_info") ) );
+                , ( bp::arg("thread_info") )
+                , "Sets the batch and thread information to be used." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -434,7 +466,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &OffSpecSimulation_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -30,7 +30,7 @@ void register_MinimizerOptions_class(){
 
     { //::MinimizerOptions
         typedef bp::class_< MinimizerOptions > MinimizerOptions_exposer_t;
-        MinimizerOptions_exposer_t MinimizerOptions_exposer = MinimizerOptions_exposer_t( "MinimizerOptions", bp::init< >() );
+        MinimizerOptions_exposer_t MinimizerOptions_exposer = MinimizerOptions_exposer_t( "MinimizerOptions", "The %MinimizerOptions class contains options for minimization algorithms It allows to set values only if they have been already registered.", bp::init< >() );
         bp::scope MinimizerOptions_scope( MinimizerOptions_exposer );
         { //::MinimizerOptions::addValue
         
@@ -78,7 +78,8 @@ void register_MinimizerOptions_class(){
             
             MinimizerOptions_exposer.def( 
                 "getMaxFunctionCalls"
-                , getMaxFunctionCalls_function_type( &::MinimizerOptions::getMaxFunctionCalls ) );
+                , getMaxFunctionCalls_function_type( &::MinimizerOptions::getMaxFunctionCalls )
+                , "return maximum number of allowed function calls." );
         
         }
         { //::MinimizerOptions::getMaxIterations
@@ -87,7 +88,8 @@ void register_MinimizerOptions_class(){
             
             MinimizerOptions_exposer.def( 
                 "getMaxIterations"
-                , getMaxIterations_function_type( &::MinimizerOptions::getMaxIterations ) );
+                , getMaxIterations_function_type( &::MinimizerOptions::getMaxIterations )
+                , "return maximum number of allowed iterations." );
         
         }
         { //::MinimizerOptions::getNamedValue
@@ -106,7 +108,8 @@ void register_MinimizerOptions_class(){
             
             MinimizerOptions_exposer.def( 
                 "getPrecision"
-                , getPrecision_function_type( &::MinimizerOptions::getPrecision ) );
+                , getPrecision_function_type( &::MinimizerOptions::getPrecision )
+                , "return minimizer precision." );
         
         }
         { //::MinimizerOptions::getPrintLevel
@@ -115,7 +118,8 @@ void register_MinimizerOptions_class(){
             
             MinimizerOptions_exposer.def( 
                 "getPrintLevel"
-                , getPrintLevel_function_type( &::MinimizerOptions::getPrintLevel ) );
+                , getPrintLevel_function_type( &::MinimizerOptions::getPrintLevel )
+                , "return internal print level of the minimizer." );
         
         }
         { //::MinimizerOptions::getRealValue
@@ -134,7 +138,8 @@ void register_MinimizerOptions_class(){
             
             MinimizerOptions_exposer.def( 
                 "getTolerance"
-                , getTolerance_function_type( &::MinimizerOptions::getTolerance ) );
+                , getTolerance_function_type( &::MinimizerOptions::getTolerance )
+                , "return minimizer tolerance." );
         
         }
         { //::MinimizerOptions::print
@@ -153,7 +158,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setMaxFunctionCalls"
                 , setMaxFunctionCalls_function_type( &::MinimizerOptions::setMaxFunctionCalls )
-                , ( bp::arg("max_function_calls") ) );
+                , ( bp::arg("max_function_calls") )
+                , "return maximum number of allowed function calls." );
         
         }
         { //::MinimizerOptions::setMaxIterations
@@ -163,7 +169,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setMaxIterations"
                 , setMaxIterations_function_type( &::MinimizerOptions::setMaxIterations )
-                , ( bp::arg("max_iterations") ) );
+                , ( bp::arg("max_iterations") )
+                , "return maximum number of allowed iterations." );
         
         }
         { //::MinimizerOptions::setPrecision
@@ -173,7 +180,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setPrecision"
                 , setPrecision_function_type( &::MinimizerOptions::setPrecision )
-                , ( bp::arg("precision") ) );
+                , ( bp::arg("precision") )
+                , "return minimizer precision." );
         
         }
         { //::MinimizerOptions::setPrintLevel
@@ -183,7 +191,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setPrintLevel"
                 , setPrintLevel_function_type( &::MinimizerOptions::setPrintLevel )
-                , ( bp::arg("print_level") ) );
+                , ( bp::arg("print_level") )
+                , "return internal print level of the minimizer." );
         
         }
         { //::MinimizerOptions::setTolerance
@@ -193,7 +202,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setTolerance"
                 , setTolerance_function_type( &::MinimizerOptions::setTolerance )
-                , ( bp::arg("tolerance") ) );
+                , ( bp::arg("tolerance") )
+                , "return minimizer tolerance." );
         
         }
         { //::MinimizerOptions::setValue
@@ -203,7 +213,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setValue"
                 , setValue_function_type( &::MinimizerOptions::setValue )
-                , ( bp::arg("name"), bp::arg("val") ) );
+                , ( bp::arg("name"), bp::arg("val") )
+                , "set option value." );
         
         }
         { //::MinimizerOptions::setValue
@@ -213,7 +224,8 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "setValue"
                 , setValue_function_type( &::MinimizerOptions::setValue )
-                , ( bp::arg("name"), bp::arg("val") ) );
+                , ( bp::arg("name"), bp::arg("val") )
+                , "set option value." );
         
         }
         { //::MinimizerOptions::setValue

@@ -268,7 +268,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
 
     { //::InterferenceFunction2DParaCrystal
         typedef bp::class_< InterferenceFunction2DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction2DParaCrystal_wrapper >, boost::noncopyable > InterferenceFunction2DParaCrystal_exposer_t;
-        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 )) );
+        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", "Interference function of 2D paracrystal.", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 ), "constructor of 2D paracrystal interference function @param length_1 Lattice length 1.\n\n:Parameters:\n  - 'length_1' - Lattice length 1.\n  - 'length_2' - Lattice length 2.\n  - 'alpha_lattice' - Angle between lattice basis vectors.\n  - 'xi' - Angle between first basis vector and the x-axis of incoming beam.\n  - 'm_corr_length' - correlation length of paracrystal\n") );
         bp::scope InterferenceFunction2DParaCrystal_scope( InterferenceFunction2DParaCrystal_exposer );
         { //::InterferenceFunction2DParaCrystal::clone
         
@@ -377,7 +377,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setDomainSizes"
                 , setDomainSizes_function_type( &::InterferenceFunction2DParaCrystal::setDomainSizes )
-                , ( bp::arg("size_1"), bp::arg("size_2") ) );
+                , ( bp::arg("size_1"), bp::arg("size_2") )
+                , "Sets sizes of coherence domain.\n\n:Parameters:\n  - 'size_1:' - size in first lattice direction\n  - 'size_2:' - size in second lattice direction\n" );
         
         }
         { //::InterferenceFunction2DParaCrystal::setIntegrationOverXi
@@ -532,7 +533,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction2DParaCrystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

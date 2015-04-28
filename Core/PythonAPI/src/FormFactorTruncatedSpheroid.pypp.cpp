@@ -352,7 +352,7 @@ void register_FormFactorTruncatedSpheroid_class(){
 
     { //::FormFactorTruncatedSpheroid
         typedef bp::class_< FormFactorTruncatedSpheroid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTruncatedSpheroid_wrapper >, boost::noncopyable > FormFactorTruncatedSpheroid_exposer_t;
-        FormFactorTruncatedSpheroid_exposer_t FormFactorTruncatedSpheroid_exposer = FormFactorTruncatedSpheroid_exposer_t( "FormFactorTruncatedSpheroid", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("height_flattening") )) );
+        FormFactorTruncatedSpheroid_exposer_t FormFactorTruncatedSpheroid_exposer = FormFactorTruncatedSpheroid_exposer_t( "FormFactorTruncatedSpheroid", "The formfactor of a truncated spheroid.", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("height_flattening") ), "TruncatedSpheroid constructor.\n\n:Parameters:\n  - 'radius' - of Truncated Spheroid\n  - 'height' - of Truncated Spheroid\n  - 'flattening' - parameter in vertical direction (full height: 2 x flattening x radius)\n") );
         bp::scope FormFactorTruncatedSpheroid_scope( FormFactorTruncatedSpheroid_exposer );
         { //::FormFactorTruncatedSpheroid::clone
         
@@ -577,7 +577,8 @@ void register_FormFactorTruncatedSpheroid_class(){
             FormFactorTruncatedSpheroid_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorTruncatedSpheroid_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

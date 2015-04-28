@@ -366,9 +366,9 @@ void register_Layer_class(){
 
     { //::Layer
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< Layer_wrapper >, boost::noncopyable > Layer_exposer_t;
-        Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
+        Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", "A layer with thickness and materia.", bp::init< >("Constructs empty layer.") );
         bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
+        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 ), "Constructs layer made of _material_ with _thickness_ in nanometers and decoration.") );
         Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::addLayout
         
@@ -414,7 +414,8 @@ void register_Layer_class(){
                 "createLayoutSimulation"
                 , createLayoutSimulation_function_type( &::Layer::createLayoutSimulation )
                 , ( bp::arg("layout_index") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "creates and returns a LayerDWBASimulation for the given layout." );
         
         }
         { //::Layer::getLayout
@@ -457,7 +458,8 @@ void register_Layer_class(){
             
             Layer_exposer.def( 
                 "getNumberOfLayouts"
-                , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts ) );
+                , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts )
+                , "gets number of layouts present." );
         
         }
         { //::Layer::getRefractiveIndex
@@ -656,7 +658,8 @@ void register_Layer_class(){
             Layer_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Layer_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

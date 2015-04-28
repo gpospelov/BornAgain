@@ -30,7 +30,7 @@ void register_Lattice2DIFParameters_class(){
 
     { //::Lattice2DIFParameters
         typedef bp::class_< Lattice2DIFParameters > Lattice2DIFParameters_exposer_t;
-        Lattice2DIFParameters_exposer_t Lattice2DIFParameters_exposer = Lattice2DIFParameters_exposer_t( "Lattice2DIFParameters", bp::init< >() );
+        Lattice2DIFParameters_exposer_t Lattice2DIFParameters_exposer = Lattice2DIFParameters_exposer_t( "Lattice2DIFParameters", "Additional parameters for 2D lattic.", bp::init< >() );
         bp::scope Lattice2DIFParameters_scope( Lattice2DIFParameters_exposer );
         Lattice2DIFParameters_exposer.def_readwrite( "m_angle", &Lattice2DIFParameters::m_angle );
         Lattice2DIFParameters_exposer.def_readwrite( "m_length_1", &Lattice2DIFParameters::m_length_1 );

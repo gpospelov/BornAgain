@@ -72,7 +72,7 @@ void register_ICloneable_class(){
 
     { //::ICloneable
         typedef bp::class_< ICloneable_wrapper, std::auto_ptr< ICloneable_wrapper >, boost::noncopyable > ICloneable_exposer_t;
-        ICloneable_exposer_t ICloneable_exposer = ICloneable_exposer_t( "ICloneable", bp::init< >() );
+        ICloneable_exposer_t ICloneable_exposer = ICloneable_exposer_t( "ICloneable", "Interface for objects that must not be copied, except by cloning.", bp::init< >() );
         bp::scope ICloneable_scope( ICloneable_exposer );
         { //::ICloneable::clone
         

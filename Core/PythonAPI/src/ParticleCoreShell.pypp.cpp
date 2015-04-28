@@ -232,7 +232,7 @@ void register_ParticleCoreShell_class(){
 
     { //::ParticleCoreShell
         typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
-        ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
+        ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", "A particle with a core/shell geometr.", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
         { //::IParameterized::areParametersChanged
         
@@ -343,7 +343,8 @@ void register_ParticleCoreShell_class(){
             ParticleCoreShell_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleCoreShell_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

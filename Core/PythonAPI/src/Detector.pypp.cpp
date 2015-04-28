@@ -141,7 +141,7 @@ void register_Detector_class(){
 
     { //::Detector
         typedef bp::class_< Detector_wrapper, bp::bases< IParameterized > > Detector_exposer_t;
-        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", bp::init< >() );
+        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "The detector with axes and resolution function.", bp::init< >() );
         bp::scope Detector_scope( Detector_exposer );
         Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
         { //::Detector::clear
@@ -256,7 +256,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Detector_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

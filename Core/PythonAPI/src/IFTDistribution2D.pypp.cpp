@@ -158,7 +158,7 @@ void register_IFTDistribution2D_class(){
 
     { //::IFTDistribution2D
         typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IFTDistribution2D_wrapper >, boost::noncopyable > IFTDistribution2D_exposer_t;
-        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
+        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", "Interface for 2 dimensional distributions in Fourier space.", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone
         
@@ -177,7 +177,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFTDistribution2D::evaluate) )
-                , ( bp::arg("qx"), bp::arg("qy") ) );
+                , ( bp::arg("qx"), bp::arg("qy") )
+                , "evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 " );
         
         }
         { //::IFTDistribution2D::evaluateLattice
@@ -245,7 +246,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "transformToStarBasis"
                 , transformToStarBasis_function_type( &::IFTDistribution2D::transformToStarBasis )
-                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
+                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") )
+                , "transform back to a*, b* basis:." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -300,7 +302,8 @@ void register_IFTDistribution2D_class(){
             IFTDistribution2D_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFTDistribution2D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

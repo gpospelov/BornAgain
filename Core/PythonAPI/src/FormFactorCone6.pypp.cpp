@@ -376,7 +376,7 @@ void register_FormFactorCone6_class(){
 
     { //::FormFactorCone6
         typedef bp::class_< FormFactorCone6_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCone6_wrapper >, boost::noncopyable > FormFactorCone6_exposer_t;
-        FormFactorCone6_exposer_t FormFactorCone6_exposer = FormFactorCone6_exposer_t( "FormFactorCone6", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("alpha") )) );
+        FormFactorCone6_exposer_t FormFactorCone6_exposer = FormFactorCone6_exposer_t( "FormFactorCone6", "The formfactor of a cone6.", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("alpha") ), "Cone6 constructor.\n\n:Parameters:\n  - 'radius' - of hexagonal base (different from R in IsGisaxs)\n  - 'height' - of Cone6\n  - 'angle' - in radians between base and facet\n") );
         bp::scope FormFactorCone6_scope( FormFactorCone6_exposer );
         { //::FormFactorCone6::clone
         
@@ -626,7 +626,8 @@ void register_FormFactorCone6_class(){
             FormFactorCone6_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCone6_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

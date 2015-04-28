@@ -208,21 +208,6 @@ void register_OffSpecSimulation_class(){
                 , "Clone detector intensity map for all scan parameters." );
         
         }
-<<<<<<< HEAD
-=======
-        { //::OffSpecSimulation::getPolarizedIntensityData
-        
-            typedef ::OutputData< double > * ( ::OffSpecSimulation::*getPolarizedIntensityData_function_type)( int,int ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "getPolarizedIntensityData"
-                , getPolarizedIntensityData_function_type( &::OffSpecSimulation::getPolarizedIntensityData )
-                , ( bp::arg("row"), bp::arg("column") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "returns component of polarized intensity map." );
-        
-        }
->>>>>>> DoxyXML
         { //::OffSpecSimulation::getSample
         
             typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type)(  ) const;
@@ -281,7 +266,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setAnalyzerProperties"
                 , setAnalyzerProperties_function_type( &::OffSpecSimulation::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::OffSpecSimulation::setBeamIntensity
@@ -313,7 +299,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setBeamPolarization"
                 , setBeamPolarization_function_type( &::OffSpecSimulation::setBeamPolarization )
-                , ( bp::arg("bloch_vector") ) );
+                , ( bp::arg("bloch_vector") )
+                , "Sets the beam polarization according to the given Bloch vector." );
         
         }
         { //::OffSpecSimulation::setDetectorParameters
@@ -356,7 +343,8 @@ void register_OffSpecSimulation_class(){
             OffSpecSimulation_exposer.def( 
                 "setDetectorResolutionFunction"
                 , setDetectorResolutionFunction_function_type( &::OffSpecSimulation::setDetectorResolutionFunction )
-                , ( bp::arg("resolution_function") ) );
+                , ( bp::arg("resolution_function") )
+                , "Define resolution function for detector." );
         
         }
         { //::OffSpecSimulation::setInstrument

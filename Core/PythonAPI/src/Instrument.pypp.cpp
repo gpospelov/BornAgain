@@ -211,7 +211,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setAnalyzerProperties"
                 , setAnalyzerProperties_function_type( &::Instrument::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::Instrument::setBeam
@@ -252,7 +253,8 @@ void register_Instrument_class(){
             Instrument_exposer.def( 
                 "setBeamPolarization"
                 , setBeamPolarization_function_type( &::Instrument::setBeamPolarization )
-                , ( bp::arg("bloch_vector") ) );
+                , ( bp::arg("bloch_vector") )
+                , "Sets the beam's polarization according to the given Bloch vector." );
         
         }
         { //::Instrument::setDetectorAxes

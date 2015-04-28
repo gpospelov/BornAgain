@@ -240,21 +240,6 @@ void register_Simulation_class(){
                 , "Clone detector intensity map for all scan parameters (apply detector resolution function first)." );
         
         }
-<<<<<<< HEAD
-=======
-        { //::Simulation::getPolarizedIntensityData
-        
-            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type)( int,int ) const;
-            
-            Simulation_exposer.def( 
-                "getPolarizedIntensityData"
-                , getPolarizedIntensityData_function_type( &::Simulation::getPolarizedIntensityData )
-                , ( bp::arg("row"), bp::arg("column") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "returns component of polarized intensity map (apply detector resolution first)." );
-        
-        }
->>>>>>> DoxyXML
         { //::Simulation::getSample
         
             typedef ::ISample * ( ::Simulation::*getSample_function_type)(  ) const;
@@ -343,7 +328,8 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "setAnalyzerProperties"
                 , setAnalyzerProperties_function_type( &::Simulation::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::Simulation::setBeamIntensity
@@ -375,7 +361,8 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "setBeamPolarization"
                 , setBeamPolarization_function_type( &::Simulation::setBeamPolarization )
-                , ( bp::arg("bloch_vector") ) );
+                , ( bp::arg("bloch_vector") )
+                , "Sets the beam polarization according to the given Bloch vector." );
         
         }
         { //::Simulation::setDetectorParameters

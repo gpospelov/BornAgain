@@ -201,7 +201,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "setAnalyzerProperties"
                 , setAnalyzerProperties_function_type( &::Detector::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 ) );
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::IParameterized::areParametersChanged

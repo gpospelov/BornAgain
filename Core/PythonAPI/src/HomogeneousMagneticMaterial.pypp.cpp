@@ -105,9 +105,9 @@ void register_HomogeneousMagneticMaterial_class(){
 
     { //::HomogeneousMagneticMaterial
         typedef bp::class_< HomogeneousMagneticMaterial_wrapper, bp::bases< HomogeneousMaterial >, std::auto_ptr< HomogeneousMagneticMaterial_wrapper > > HomogeneousMagneticMaterial_exposer_t;
-        HomogeneousMagneticMaterial_exposer_t HomogeneousMagneticMaterial_exposer = HomogeneousMagneticMaterial_exposer_t( "HomogeneousMagneticMaterial", "", bp::init< std::string const &, complex_t const &, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index"), bp::arg("magnetic_field") ), "") );
+        HomogeneousMagneticMaterial_exposer_t HomogeneousMagneticMaterial_exposer = HomogeneousMagneticMaterial_exposer_t( "HomogeneousMagneticMaterial", "An homogeneous material with magnetization.", bp::init< std::string const &, complex_t const &, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index"), bp::arg("magnetic_field") ), "Constructs a material with _name_, _refractive_index_ and _magnetic_field_ ") );
         bp::scope HomogeneousMagneticMaterial_scope( HomogeneousMagneticMaterial_exposer );
-        HomogeneousMagneticMaterial_exposer.def( bp::init< std::string const &, double, double, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta"), bp::arg("magnetic_field") ), "") );
+        HomogeneousMagneticMaterial_exposer.def( bp::init< std::string const &, double, double, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta"), bp::arg("magnetic_field") ), "Constructs a material with _name_, refractive_index parameters and _magnetic_field_ ") );
         { //::HomogeneousMagneticMaterial::clone
         
             typedef ::HomogeneousMagneticMaterial * ( ::HomogeneousMagneticMaterial::*clone_function_type)(  ) const;
@@ -140,7 +140,7 @@ void register_HomogeneousMagneticMaterial_class(){
             HomogeneousMagneticMaterial_exposer.def( 
                 "getMagneticField"
                 , getMagneticField_function_type( &::HomogeneousMagneticMaterial::getMagneticField )
-                , "    //! Get the magnetic field (in Tesla)" );
+                , "Get the magnetic field (in Tesla)." );
         
         }
         { //::HomogeneousMagneticMaterial::isScalarMaterial
@@ -162,7 +162,7 @@ void register_HomogeneousMagneticMaterial_class(){
                 "setMagneticField"
                 , setMagneticField_function_type( &::HomogeneousMagneticMaterial::setMagneticField )
                 , ( bp::arg("magnetic_field") )
-                , "    //! Set the magnetic field (in Tesla)" );
+                , "Set the magnetic field (in Tesla)." );
         
         }
         { //::HomogeneousMaterial::getRefractiveIndex

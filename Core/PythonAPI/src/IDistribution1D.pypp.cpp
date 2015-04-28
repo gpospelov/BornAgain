@@ -175,7 +175,7 @@ void register_IDistribution1D_class(){
 
     { //::IDistribution1D
         typedef bp::class_< IDistribution1D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IDistribution1D_wrapper >, boost::noncopyable > IDistribution1D_exposer_t;
-        IDistribution1D_exposer_t IDistribution1D_exposer = IDistribution1D_exposer_t( "IDistribution1D", "", bp::init< >("") );
+        IDistribution1D_exposer_t IDistribution1D_exposer = IDistribution1D_exposer_t( "IDistribution1D", "Interface for 1 dimensional distribution.", bp::init< >() );
         bp::scope IDistribution1D_scope( IDistribution1D_exposer );
         { //::IDistribution1D::clone
         
@@ -197,7 +197,7 @@ void register_IDistribution1D_class(){
                 "generateValueList"
                 , bp::pure_virtual( generateValueList_function_type(&::IDistribution1D::generateValueList) )
                 , ( bp::arg("nbr_samples"), bp::arg("sigma_factor"), bp::arg("limits")=::AttLimits( ) )
-                , "" );
+                , "generate list of sample values @param nbr_samples number of values to generate @param sigma_factor parameter to derive min,max range for sample values @return vector of generated values \n\n:Parameters:\n  - 'nbr_samples' - number of values to generate\n  - 'sigma_factor' - parameter to derive min,max range for sample values\n" );
         
         }
         { //::IDistribution1D::generateValues
@@ -219,7 +219,7 @@ void register_IDistribution1D_class(){
             IDistribution1D_exposer.def( 
                 "getMean"
                 , bp::pure_virtual( getMean_function_type(&::IDistribution1D::getMean) )
-                , "    //! get the mean of the distribution" );
+                , "get the mean of the distribution." );
         
         }
         { //::IDistribution1D::probabilityDensity
@@ -230,7 +230,7 @@ void register_IDistribution1D_class(){
                 "probabilityDensity"
                 , bp::pure_virtual( probabilityDensity_function_type(&::IDistribution1D::probabilityDensity) )
                 , ( bp::arg("x") )
-                , "    //! get the probability density for value x" );
+                , "get the probability density for value x." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -286,7 +286,7 @@ void register_IDistribution1D_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IDistribution1D_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

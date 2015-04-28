@@ -304,7 +304,7 @@ void register_Crystal_class(){
 
     { //::Crystal
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
-        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") ), "") );
+        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "A crystal structure with a form factor as a basis.", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
         
@@ -374,8 +374,7 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "getLatticeBasis"
                 , getLatticeBasis_function_type( &::Crystal::getLatticeBasis )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Crystal::getRotation
@@ -386,7 +385,7 @@ void register_Crystal_class(){
                 "getRotation"
                 , getRotation_function_type( &::Crystal::getRotation )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Gets transformation" );
+                , "Gets transformation." );
         
         }
         { //::Crystal::getTransformedLattice
@@ -395,8 +394,7 @@ void register_Crystal_class(){
             
             Crystal_exposer.def( 
                 "getTransformedLattice"
-                , getTransformedLattice_function_type( &::Crystal::getTransformedLattice )
-                , "" );
+                , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
         
         }
         { //::Crystal::setAmbientMaterial
@@ -418,8 +416,7 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "setDWFactor"
                 , setDWFactor_function_type( &::Crystal::setDWFactor )
-                , ( bp::arg("dw_factor") )
-                , "" );
+                , ( bp::arg("dw_factor") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -532,7 +529,7 @@ void register_Crystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Crystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

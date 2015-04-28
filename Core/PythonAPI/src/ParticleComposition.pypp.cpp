@@ -232,7 +232,7 @@ void register_ParticleComposition_class(){
 
     { //::ParticleComposition
         typedef bp::class_< ParticleComposition_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleComposition_wrapper >, boost::noncopyable > ParticleComposition_exposer_t;
-        ParticleComposition_exposer_t ParticleComposition_exposer = ParticleComposition_exposer_t( "ParticleComposition", "", bp::init< >("") );
+        ParticleComposition_exposer_t ParticleComposition_exposer = ParticleComposition_exposer_t( "ParticleComposition", "A composition of particles at fixed position.", bp::init< >() );
         bp::scope ParticleComposition_scope( ParticleComposition_exposer );
         { //::ParticleComposition::addParticle
         
@@ -242,7 +242,7 @@ void register_ParticleComposition_class(){
                 "addParticle"
                 , addParticle_function_type( &::ParticleComposition::addParticle )
                 , ( bp::arg("particle"), bp::arg("position") )
-                , "" );
+                , "Calls the ISampleVisitor's visit method." );
         
         }
         { //::ParticleComposition::addParticles
@@ -252,8 +252,7 @@ void register_ParticleComposition_class(){
             ParticleComposition_exposer.def( 
                 "addParticles"
                 , addParticles_function_type( &::ParticleComposition::addParticles )
-                , ( bp::arg("particle"), bp::arg("positions") )
-                , "" );
+                , ( bp::arg("particle"), bp::arg("positions") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -366,7 +365,7 @@ void register_ParticleComposition_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleComposition_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

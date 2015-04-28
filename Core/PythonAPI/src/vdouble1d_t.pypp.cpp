@@ -31,7 +31,7 @@ void register_vdouble1d_t_class(){
 
     { //::std::vector< double >
         typedef bp::class_< std::vector< double > > vdouble1d_t_exposer_t;
-        vdouble1d_t_exposer_t vdouble1d_t_exposer = vdouble1d_t_exposer_t( "vdouble1d_t", "" );
+        vdouble1d_t_exposer_t vdouble1d_t_exposer = vdouble1d_t_exposer_t( "vdouble1d_t" );
         bp::scope vdouble1d_t_scope( vdouble1d_t_exposer );
         vdouble1d_t_exposer.def( bp::vector_indexing_suite< ::std::vector< double >, true >() );
     }

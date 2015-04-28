@@ -364,7 +364,7 @@ void register_FormFactorTruncatedCube_class(){
 
     { //::FormFactorTruncatedCube
         typedef bp::class_< FormFactorTruncatedCube_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTruncatedCube_wrapper >, boost::noncopyable > FormFactorTruncatedCube_exposer_t;
-        FormFactorTruncatedCube_exposer_t FormFactorTruncatedCube_exposer = FormFactorTruncatedCube_exposer_t( "FormFactorTruncatedCube", "", bp::init< double, double >(( bp::arg("length"), bp::arg("removed_length") ), "    //! @brief Truncated cube constructor\n    //! @param side length of the full cube\n    //! @param side length of the trirectangular tetrahedron removed from each vertex of the cube") );
+        FormFactorTruncatedCube_exposer_t FormFactorTruncatedCube_exposer = FormFactorTruncatedCube_exposer_t( "FormFactorTruncatedCube", "The formfactor of a truncated cube.", bp::init< double, double >(( bp::arg("length"), bp::arg("removed_length") ), "Truncated cube constructor.\n\n:Parameters:\n  - 'side' - length of the full cube\n  - 'side' - length of the trirectangular tetrahedron removed from each vertex of the cube\n") );
         bp::scope FormFactorTruncatedCube_scope( FormFactorTruncatedCube_exposer );
         { //::FormFactorTruncatedCube::clone
         
@@ -602,7 +602,7 @@ void register_FormFactorTruncatedCube_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorTruncatedCube_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

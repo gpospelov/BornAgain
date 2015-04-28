@@ -323,9 +323,9 @@ void register_ParticleLayout_class(){
 
     { //::ParticleLayout
         typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
-        ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", "", bp::init< >("") );
+        ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", "Decorator class that adds particles to ISample object.", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
-        ParticleLayout_exposer.def( bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ), "") );
+        ParticleLayout_exposer.def( bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleLayout::addInterferenceFunction
         
             typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type)( ::IInterferenceFunction const & ) ;
@@ -334,7 +334,7 @@ void register_ParticleLayout_class(){
                 "addInterferenceFunction"
                 , addInterferenceFunction_function_type( &::ParticleLayout::addInterferenceFunction )
                 , ( bp::arg("interference_function") )
-                , "" );
+                , "Adds interference function." );
         
         }
         { //::ParticleLayout::addParticle
@@ -345,7 +345,7 @@ void register_ParticleLayout_class(){
                 "addParticle"
                 , addParticle_function_type( &::ParticleLayout::addParticle )
                 , ( bp::arg("particle"), bp::arg("rotation"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )
-                , "" );
+                , "Adds generic particle." );
         
         }
         { //::ParticleLayout::addParticle
@@ -356,7 +356,7 @@ void register_ParticleLayout_class(){
                 "addParticle"
                 , addParticle_function_type( &::ParticleLayout::addParticle )
                 , ( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )
-                , "    //! Adds particle without rotation" );
+                , "Adds particle without rotation." );
         
         }
         { //::ParticleLayout::addParticleInfo
@@ -367,7 +367,7 @@ void register_ParticleLayout_class(){
                 "addParticleInfo"
                 , addParticleInfo_function_type( &::ParticleLayout::addParticleInfo )
                 , ( bp::arg("info") )
-                , "    //! Adds particle info" );
+                , "Adds particle info." );
         
         }
         { //::ParticleLayout::clone
@@ -415,7 +415,7 @@ void register_ParticleLayout_class(){
                 , getInterferenceFunction_function_type( &::ParticleLayout::getInterferenceFunction )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns interference function with index" );
+                , "Returns interference function with index." );
         
         }
         { //::ParticleLayout::getInterferenceFunctions
@@ -574,7 +574,7 @@ void register_ParticleLayout_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleLayout_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

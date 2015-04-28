@@ -74,7 +74,7 @@ void register_IntensityFunctionLog_class(){
 
     { //::IntensityFunctionLog
         typedef bp::class_< IntensityFunctionLog_wrapper, bp::bases< IIntensityFunction >, std::auto_ptr< IntensityFunctionLog_wrapper > > IntensityFunctionLog_exposer_t;
-        IntensityFunctionLog_exposer_t IntensityFunctionLog_exposer = IntensityFunctionLog_exposer_t( "IntensityFunctionLog", "" );
+        IntensityFunctionLog_exposer_t IntensityFunctionLog_exposer = IntensityFunctionLog_exposer_t( "IntensityFunctionLog", "Algorithm for applying log function to the measured intensit." );
         bp::scope IntensityFunctionLog_scope( IntensityFunctionLog_exposer );
         { //::IntensityFunctionLog::clone
         

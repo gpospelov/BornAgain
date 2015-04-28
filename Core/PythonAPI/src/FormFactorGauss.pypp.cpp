@@ -335,9 +335,9 @@ void register_FormFactorGauss_class(){
 
     { //::FormFactorGauss
         typedef bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorGauss_wrapper >, boost::noncopyable > FormFactorGauss_exposer_t;
-        FormFactorGauss_exposer_t FormFactorGauss_exposer = FormFactorGauss_exposer_t( "FormFactorGauss", "", bp::init< double >(( bp::arg("volume") ), "") );
+        FormFactorGauss_exposer_t FormFactorGauss_exposer = FormFactorGauss_exposer_t( "FormFactorGauss", "The formfactor of a gaussian.", bp::init< double >(( bp::arg("volume") )) );
         bp::scope FormFactorGauss_scope( FormFactorGauss_exposer );
-        FormFactorGauss_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") ), "") );
+        FormFactorGauss_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
         { //::FormFactorGauss::clone
         
             typedef ::FormFactorGauss * ( ::FormFactorGauss::*clone_function_type)(  ) const;
@@ -540,7 +540,7 @@ void register_FormFactorGauss_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorGauss_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

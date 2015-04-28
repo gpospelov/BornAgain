@@ -254,7 +254,7 @@ void register_IInterferenceFunction_class(){
 
     { //::IInterferenceFunction
         typedef bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, std::auto_ptr< IInterferenceFunction_wrapper >, boost::noncopyable > IInterferenceFunction_exposer_t;
-        IInterferenceFunction_exposer_t IInterferenceFunction_exposer = IInterferenceFunction_exposer_t( "IInterferenceFunction", "" );
+        IInterferenceFunction_exposer_t IInterferenceFunction_exposer = IInterferenceFunction_exposer_t( "IInterferenceFunction", "Interface to interference functions." );
         bp::scope IInterferenceFunction_scope( IInterferenceFunction_exposer );
         { //::IInterferenceFunction::clone
         
@@ -264,7 +264,7 @@ void register_IInterferenceFunction_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IInterferenceFunction::clone) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , "Evaluates the interference function for a given wavevector transfer." );
         
         }
         { //::IInterferenceFunction::evaluate
@@ -275,7 +275,7 @@ void register_IInterferenceFunction_class(){
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IInterferenceFunction::evaluate) )
                 , ( bp::arg("q") )
-                , "    //! Evaluates the interference function for a given wavevector transfer" );
+                , "Evaluates the interference function for a given wavevector transfer." );
         
         }
         { //::IInterferenceFunction::getKappa
@@ -411,7 +411,7 @@ void register_IInterferenceFunction_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IInterferenceFunction_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

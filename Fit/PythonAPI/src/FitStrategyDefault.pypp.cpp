@@ -74,7 +74,7 @@ void register_FitStrategyDefault_class(){
 
     { //::FitStrategyDefault
         typedef bp::class_< FitStrategyDefault_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyDefault_wrapper > > FitStrategyDefault_exposer_t;
-        FitStrategyDefault_exposer_t FitStrategyDefault_exposer = FitStrategyDefault_exposer_t( "FitStrategyDefault", "", bp::init< >("") );
+        FitStrategyDefault_exposer_t FitStrategyDefault_exposer = FitStrategyDefault_exposer_t( "FitStrategyDefault", "Default fit strategy just let FitSuite to run it's minimization roun.", bp::init< >() );
         bp::scope FitStrategyDefault_scope( FitStrategyDefault_exposer );
         { //::FitStrategyDefault::clone
         

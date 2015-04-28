@@ -376,7 +376,7 @@ void register_FormFactorCone_class(){
 
     { //::FormFactorCone
         typedef bp::class_< FormFactorCone_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCone_wrapper >, boost::noncopyable > FormFactorCone_exposer_t;
-        FormFactorCone_exposer_t FormFactorCone_exposer = FormFactorCone_exposer_t( "FormFactorCone", "", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("alpha") ), "    //! @brief Cone constructor\n    //! @param radius of Cone's base\n    //! @param height of Cone\n    //! @param angle in radians between base and facet") );
+        FormFactorCone_exposer_t FormFactorCone_exposer = FormFactorCone_exposer_t( "FormFactorCone", "The formfactor of a cone.", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("alpha") ), "Cone constructor.\n\n:Parameters:\n  - 'radius' - of Cone's base\n  - 'height' - of Cone\n  - 'angle' - in radians between base and facet\n") );
         bp::scope FormFactorCone_scope( FormFactorCone_exposer );
         { //::FormFactorCone::clone
         
@@ -627,7 +627,7 @@ void register_FormFactorCone_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCone_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

@@ -240,7 +240,7 @@ void register_IRotation_class(){
 
     { //::IRotation
         typedef bp::class_< IRotation_wrapper, bp::bases< ISample >, std::auto_ptr< IRotation_wrapper >, boost::noncopyable > IRotation_exposer_t;
-        IRotation_exposer_t IRotation_exposer = IRotation_exposer_t( "IRotation", "" );
+        IRotation_exposer_t IRotation_exposer = IRotation_exposer_t( "IRotation", "An interface for classes representing a rotatio." );
         bp::scope IRotation_scope( IRotation_exposer );
         { //::IRotation::clone
         
@@ -250,7 +250,7 @@ void register_IRotation_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IRotation::clone) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! Returns a clone" );
+                , "Returns a clone." );
         
         }
         { //::IRotation::cloneInvertB
@@ -261,7 +261,7 @@ void register_IRotation_class(){
                 "cloneInvertB"
                 , bp::pure_virtual( cloneInvertB_function_type(&::IRotation::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns a clone with inverted magnetic fields" );
+                , "Returns a clone with inverted magnetic fields." );
         
         }
         { //::IRotation::createInverse
@@ -272,7 +272,7 @@ void register_IRotation_class(){
                 "createInverse"
                 , bp::pure_virtual( createInverse_function_type(&::IRotation::createInverse) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! Returns a new IRotation object that is the current object's inverse" );
+                , "Returns a new IRotation object that is the current object's inverse." );
         
         }
         { //::IRotation::createRotation
@@ -283,8 +283,7 @@ void register_IRotation_class(){
                 "createRotation"
                 , createRotation_function_type( &::IRotation::createRotation )
                 , ( bp::arg("transform") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IRotation::getTransform3D
@@ -294,7 +293,7 @@ void register_IRotation_class(){
             IRotation_exposer.def( 
                 "getTransform3D"
                 , bp::pure_virtual( getTransform3D_function_type(&::IRotation::getTransform3D) )
-                , "    //! Returns transformation." );
+                , "Returns transformation." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -407,7 +406,7 @@ void register_IRotation_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IRotation_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

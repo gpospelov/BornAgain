@@ -179,7 +179,7 @@ void register_FTDistribution2DCauchy_class(){
 
     { //::FTDistribution2DCauchy
         typedef bp::class_< FTDistribution2DCauchy_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DCauchy_wrapper > > FTDistribution2DCauchy_exposer_t;
-        FTDistribution2DCauchy_exposer_t FTDistribution2DCauchy_exposer = FTDistribution2DCauchy_exposer_t( "FTDistribution2DCauchy", "", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") ), "") );
+        FTDistribution2DCauchy_exposer_t FTDistribution2DCauchy_exposer = FTDistribution2DCauchy_exposer_t( "FTDistribution2DCauchy", "2 dimensional Cauchy distribution in Fourier space.", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DCauchy_scope( FTDistribution2DCauchy_exposer );
         { //::FTDistribution2DCauchy::clone
         
@@ -270,7 +270,7 @@ void register_FTDistribution2DCauchy_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution2DCauchy_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

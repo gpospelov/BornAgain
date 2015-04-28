@@ -98,9 +98,9 @@ void register_FitStrategyAdjustParameters_class(){
 
     { //::FitStrategyAdjustParameters
         typedef bp::class_< FitStrategyAdjustParameters_wrapper, bp::bases< IFitStrategy >, std::auto_ptr< FitStrategyAdjustParameters_wrapper >, boost::noncopyable > FitStrategyAdjustParameters_exposer_t;
-        FitStrategyAdjustParameters_exposer_t FitStrategyAdjustParameters_exposer = FitStrategyAdjustParameters_exposer_t( "FitStrategyAdjustParameters", "", bp::init< std::string const & >(( bp::arg("name") ), "") );
+        FitStrategyAdjustParameters_exposer_t FitStrategyAdjustParameters_exposer = FitStrategyAdjustParameters_exposer_t( "FitStrategyAdjustParameters", "Strategy which fixes/releases fit parameters and call minimize.", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope FitStrategyAdjustParameters_scope( FitStrategyAdjustParameters_exposer );
-        FitStrategyAdjustParameters_exposer.def( bp::init< >("") );
+        FitStrategyAdjustParameters_exposer.def( bp::init< >() );
         { //::FitStrategyAdjustParameters::clear
         
             typedef void ( ::FitStrategyAdjustParameters::*clear_function_type)(  ) ;

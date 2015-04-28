@@ -60,9 +60,9 @@ void register_IFitStrategy_class(){
 
     { //::IFitStrategy
         typedef bp::class_< IFitStrategy_wrapper, bp::bases< INamed >, std::auto_ptr< IFitStrategy_wrapper >, boost::noncopyable > IFitStrategy_exposer_t;
-        IFitStrategy_exposer_t IFitStrategy_exposer = IFitStrategy_exposer_t( "IFitStrategy", "", bp::init< >("") );
+        IFitStrategy_exposer_t IFitStrategy_exposer = IFitStrategy_exposer_t( "IFitStrategy", "Interface to concrete fit strategy.", bp::init< >() );
         bp::scope IFitStrategy_scope( IFitStrategy_exposer );
-        IFitStrategy_exposer.def( bp::init< std::string const & >(( bp::arg("name") ), "") );
+        IFitStrategy_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         { //::IFitStrategy::clone
         
             typedef ::IFitStrategy * ( ::IFitStrategy::*clone_function_type)(  ) const;
@@ -70,8 +70,7 @@ void register_IFitStrategy_class(){
             IFitStrategy_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFitStrategy::clone) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFitStrategy::execute
@@ -80,8 +79,7 @@ void register_IFitStrategy_class(){
             
             IFitStrategy_exposer.def( 
                 "execute"
-                , bp::pure_virtual( execute_function_type(&::IFitStrategy::execute) )
-                , "" );
+                , bp::pure_virtual( execute_function_type(&::IFitStrategy::execute) ) );
         
         }
     }

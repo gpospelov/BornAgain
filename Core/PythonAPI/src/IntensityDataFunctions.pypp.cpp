@@ -30,7 +30,7 @@ void register_IntensityDataFunctions_class(){
 
     { //::IntensityDataFunctions
         typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
-        IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions", "" );
+        IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions", "Class holding collection of static methods to work with intensity data." );
         bp::scope IntensityDataFunctions_scope( IntensityDataFunctions_exposer );
         { //::IntensityDataFunctions::addEllipticMask
         
@@ -40,7 +40,7 @@ void register_IntensityDataFunctions_class(){
                 "addEllipticMask"
                 , addEllipticMask_function_type( &::IntensityDataFunctions::addEllipticMask )
                 , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) )
-                , "" );
+                , "Adds elliptic mask to IntensityData to exclude all points outside the mask from analysis " );
         
         }
         { //::IntensityDataFunctions::addRectangularMask
@@ -51,7 +51,7 @@ void register_IntensityDataFunctions_class(){
                 "addRectangularMask"
                 , addRectangularMask_function_type( &::IntensityDataFunctions::addRectangularMask )
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) )
-                , "" );
+                , "Adds rectangular mask to IntensityData to exclude all points outside the mask from analysi." );
         
         }
         { //::IntensityDataFunctions::applyDetectorResolution
@@ -63,7 +63,7 @@ void register_IntensityDataFunctions_class(){
                 , applyDetectorResolution_function_type( &::IntensityDataFunctions::applyDetectorResolution )
                 , ( bp::arg("origin"), bp::arg("resolution_function") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Applies detector resolution function and returns new IntensityData object" );
+                , "Applies detector resolution function and returns new IntensityData object." );
         
         }
         { //::IntensityDataFunctions::createClippedDataSet
@@ -75,7 +75,7 @@ void register_IntensityDataFunctions_class(){
                 , createClippedDataSet_function_type( &::IntensityDataFunctions::createClippedDataSet )
                 , ( bp::arg("origin"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! Returns new IntensityData objects which axes clipped to represent the specified rectangle" );
+                , "Returns new IntensityData objects which axes clipped to represent the specified rectangle." );
         
         }
         { //::IntensityDataFunctions::getRelativeDifference
@@ -86,7 +86,7 @@ void register_IntensityDataFunctions_class(){
                 "getRelativeDifference"
                 , getRelativeDifference_function_type( &::IntensityDataFunctions::getRelativeDifference )
                 , ( bp::arg("result"), bp::arg("reference") )
-                , "" );
+                , "Returns relative difference between two data sets sum(result[i] - reference[i])/reference[i]) " );
         
         }
         { //::IntensityDataFunctions::setEllipticMask
@@ -97,7 +97,7 @@ void register_IntensityDataFunctions_class(){
                 "setEllipticMask"
                 , setEllipticMask_function_type( &::IntensityDataFunctions::setEllipticMask )
                 , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry"), bp::arg("invert_flag")=(bool)(false) )
-                , "" );
+                , "Sets elliptic mask to IntensityData to exclude all points outside the mask from analysis " );
         
         }
         { //::IntensityDataFunctions::setRectangularMask
@@ -108,7 +108,7 @@ void register_IntensityDataFunctions_class(){
                 "setRectangularMask"
                 , setRectangularMask_function_type( &::IntensityDataFunctions::setRectangularMask )
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2"), bp::arg("invert_flag")=(bool)(false) )
-                , "" );
+                , "Sets rectangular mask to IntensityData to exclude all points outside the mask from analysis.\n\n:Parameters:\n  - 'data' - Intensity data object to set the mask\n  - 'x1' - x-cordinate of lower left corner of the rectangle\n  - 'y1' - y-cordinate of lower left corner of the rectangle\n  - 'x2' - x-cordinate of top right corner of the rectangle\n  - 'y2' - y-cordinate of top right corner of the rectangle\n  - 'invert_flag' - if true the area will be included in the analysis\n" );
         
         }
         IntensityDataFunctions_exposer.staticmethod( "addEllipticMask" );

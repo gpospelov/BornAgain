@@ -179,7 +179,7 @@ void register_FTDistribution2DGauss_class(){
 
     { //::FTDistribution2DGauss
         typedef bp::class_< FTDistribution2DGauss_wrapper, bp::bases< IFTDistribution2D >, std::auto_ptr< FTDistribution2DGauss_wrapper > > FTDistribution2DGauss_exposer_t;
-        FTDistribution2DGauss_exposer_t FTDistribution2DGauss_exposer = FTDistribution2DGauss_exposer_t( "FTDistribution2DGauss", "", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") ), "") );
+        FTDistribution2DGauss_exposer_t FTDistribution2DGauss_exposer = FTDistribution2DGauss_exposer_t( "FTDistribution2DGauss", "2 dimensional Gauss distribution in Fourier space.", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DGauss_scope( FTDistribution2DGauss_exposer );
         { //::FTDistribution2DGauss::clone
         
@@ -270,7 +270,7 @@ void register_FTDistribution2DGauss_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution2DGauss_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

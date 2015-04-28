@@ -256,7 +256,7 @@ void register_MultiLayer_class(){
 
     { //::MultiLayer
         typedef bp::class_< MultiLayer_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< MultiLayer_wrapper >, boost::noncopyable > MultiLayer_exposer_t;
-        MultiLayer_exposer_t MultiLayer_exposer = MultiLayer_exposer_t( "MultiLayer", "", bp::init< >("") );
+        MultiLayer_exposer_t MultiLayer_exposer = MultiLayer_exposer_t( "MultiLayer", bp::init< >() );
         bp::scope MultiLayer_scope( MultiLayer_exposer );
         { //::MultiLayer::addLayer
         
@@ -266,7 +266,7 @@ void register_MultiLayer_class(){
                 "addLayer"
                 , addLayer_function_type( &::MultiLayer::addLayer )
                 , ( bp::arg("p_child") )
-                , "    //! Adds object to multilayer, overrides from ISample" );
+                , "Adds object to multilayer, overrides from ISample." );
         
         }
         { //::MultiLayer::addLayerWithTopRoughness
@@ -277,7 +277,7 @@ void register_MultiLayer_class(){
                 "addLayerWithTopRoughness"
                 , addLayerWithTopRoughness_function_type( &::MultiLayer::addLayerWithTopRoughness )
                 , ( bp::arg("layer"), bp::arg("roughness") )
-                , "" );
+                , "Adds layer with top roughness." );
         
         }
         { //::MultiLayer::clear
@@ -287,7 +287,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "clear"
                 , clear_function_type( &::MultiLayer::clear )
-                , "    //! Destructs allocated objects" );
+                , "Destructs allocated objects." );
         
         }
         { //::MultiLayer::clone
@@ -321,7 +321,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "getCrossCorrLength"
                 , getCrossCorrLength_function_type( &::MultiLayer::getCrossCorrLength )
-                , "    //! Returns cross correlation length of roughnesses between interfaces" );
+                , "Returns cross correlation length of roughnesses between interfaces." );
         
         }
         { //::MultiLayer::getCrossCorrSpectralFun
@@ -332,7 +332,7 @@ void register_MultiLayer_class(){
                 "getCrossCorrSpectralFun"
                 , getCrossCorrSpectralFun_function_type( &::MultiLayer::getCrossCorrSpectralFun )
                 , ( bp::arg("kvec"), bp::arg("j"), bp::arg("k") )
-                , "" );
+                , "Fourier transform of the correlation function of roughnesses between the interfaces " );
         
         }
         { //::MultiLayer::getLayer
@@ -344,7 +344,7 @@ void register_MultiLayer_class(){
                 , getLayer_function_type( &::MultiLayer::getLayer )
                 , ( bp::arg("i_layer") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns layer with given index" );
+                , "Returns layer with given index." );
         
         }
         { //::MultiLayer::getLayerBottomInterface
@@ -356,7 +356,7 @@ void register_MultiLayer_class(){
                 , getLayerBottomInterface_function_type( &::MultiLayer::getLayerBottomInterface )
                 , ( bp::arg("i_layer") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns bottom interface of layer" );
+                , "Returns bottom interface of layer." );
         
         }
         { //::MultiLayer::getLayerBottomZ
@@ -367,7 +367,7 @@ void register_MultiLayer_class(){
                 "getLayerBottomZ"
                 , getLayerBottomZ_function_type( &::MultiLayer::getLayerBottomZ )
                 , ( bp::arg("i_layer") )
-                , "    //! Returns z-coordinate of the layer's bottom" );
+                , "Returns z-coordinate of the layer's bottom." );
         
         }
         { //::MultiLayer::getLayerInterface
@@ -379,7 +379,7 @@ void register_MultiLayer_class(){
                 , getLayerInterface_function_type( &::MultiLayer::getLayerInterface )
                 , ( bp::arg("i_interface") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns layer with given index" );
+                , "Returns layer with given index." );
         
         }
         { //::MultiLayer::getLayerThickness
@@ -390,7 +390,7 @@ void register_MultiLayer_class(){
                 "getLayerThickness"
                 , getLayerThickness_function_type( &::MultiLayer::getLayerThickness )
                 , ( bp::arg("i_layer") )
-                , "    //! Returns thickness of layer" );
+                , "Returns thickness of layer." );
         
         }
         { //::MultiLayer::getLayerTopInterface
@@ -402,7 +402,7 @@ void register_MultiLayer_class(){
                 , getLayerTopInterface_function_type( &::MultiLayer::getLayerTopInterface )
                 , ( bp::arg("i_layer") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns top interface of layer" );
+                , "Returns top interface of layer." );
         
         }
         { //::MultiLayer::getNumberOfInterfaces
@@ -412,7 +412,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "getNumberOfInterfaces"
                 , getNumberOfInterfaces_function_type( &::MultiLayer::getNumberOfInterfaces )
-                , "    //! Returns number of interfaces in multilayer" );
+                , "Returns number of interfaces in multilayer." );
         
         }
         { //::MultiLayer::getNumberOfLayers
@@ -422,7 +422,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "getNumberOfLayers"
                 , getNumberOfLayers_function_type( &::MultiLayer::getNumberOfLayers )
-                , "    //! Returns number of layers in multilayer" );
+                , "Returns number of layers in multilayer." );
         
         }
         { //::MultiLayer::requiresMatrixRTCoefficients
@@ -432,7 +432,7 @@ void register_MultiLayer_class(){
             MultiLayer_exposer.def( 
                 "requiresMatrixRTCoefficients"
                 , requiresMatrixRTCoefficients_function_type( &::MultiLayer::requiresMatrixRTCoefficients )
-                , "    //! returns true if contains magnetic materials and matrix calculations are required" );
+                , "returns true if contains magnetic materials and matrix calculations are required." );
         
         }
         { //::MultiLayer::setCrossCorrLength
@@ -443,7 +443,7 @@ void register_MultiLayer_class(){
                 "setCrossCorrLength"
                 , setCrossCorrLength_function_type( &::MultiLayer::setCrossCorrLength )
                 , ( bp::arg("crossCorrLength") )
-                , "    //! Sets cross correlation length of roughnesses between interfaces" );
+                , "Sets cross correlation length of roughnesses between interfaces." );
         
         }
         { //::MultiLayer::setLayerThickness
@@ -454,7 +454,7 @@ void register_MultiLayer_class(){
                 "setLayerThickness"
                 , setLayerThickness_function_type( &::MultiLayer::setLayerThickness )
                 , ( bp::arg("i_layer"), bp::arg("thickness") )
-                , "    //! Sets thickness of layer." );
+                , "Sets thickness of layer." );
         
         }
         { //::MultiLayer::zToLayerIndex
@@ -465,7 +465,7 @@ void register_MultiLayer_class(){
                 "zToLayerIndex"
                 , zToLayerIndex_function_type( &::MultiLayer::zToLayerIndex )
                 , ( bp::arg("z_value") )
-                , "    //! returns layer index corresponding to given global z coordinate" );
+                , "returns layer index corresponding to given global z coordinate." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -578,7 +578,7 @@ void register_MultiLayer_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &MultiLayer_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -182,9 +182,9 @@ void register_ChiSquaredModule_class(){
 
     { //::ChiSquaredModule
         typedef bp::class_< ChiSquaredModule_wrapper, bp::bases< IChiSquaredModule >, std::auto_ptr< ChiSquaredModule_wrapper > > ChiSquaredModule_exposer_t;
-        ChiSquaredModule_exposer_t ChiSquaredModule_exposer = ChiSquaredModule_exposer_t( "ChiSquaredModule", "", bp::init< >("") );
+        ChiSquaredModule_exposer_t ChiSquaredModule_exposer = ChiSquaredModule_exposer_t( "ChiSquaredModule", "Calculation of chi2 between two data set.", bp::init< >() );
         bp::scope ChiSquaredModule_scope( ChiSquaredModule_exposer );
-        ChiSquaredModule_exposer.def( bp::init< ChiSquaredModule const & >(( bp::arg("other") ), "") );
+        ChiSquaredModule_exposer.def( bp::init< ChiSquaredModule const & >(( bp::arg("other") )) );
         { //::ChiSquaredModule::calculateChiSquared
         
             typedef double ( ::ChiSquaredModule::*calculateChiSquared_function_type)(  ) ;

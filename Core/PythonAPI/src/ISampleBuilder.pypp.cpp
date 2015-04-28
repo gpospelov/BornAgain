@@ -153,7 +153,7 @@ void register_ISampleBuilder_class(){
 
     { //::ISampleBuilder
         typedef bp::class_< ISampleBuilder_wrapper, bp::bases< IParameterized > > ISampleBuilder_exposer_t;
-        ISampleBuilder_exposer_t ISampleBuilder_exposer = ISampleBuilder_exposer_t( "ISampleBuilder", "", bp::init< >("") );
+        ISampleBuilder_exposer_t ISampleBuilder_exposer = ISampleBuilder_exposer_t( "ISampleBuilder", bp::init< >() );
         bp::scope ISampleBuilder_scope( ISampleBuilder_exposer );
         { //::ISampleBuilder::buildSample
         
@@ -220,7 +220,7 @@ void register_ISampleBuilder_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ISampleBuilder_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

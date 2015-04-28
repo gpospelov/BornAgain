@@ -328,7 +328,7 @@ void register_FormFactorInfLongBox_class(){
 
     { //::FormFactorInfLongBox
         typedef bp::class_< FormFactorInfLongBox_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorInfLongBox_wrapper >, boost::noncopyable > FormFactorInfLongBox_exposer_t;
-        FormFactorInfLongBox_exposer_t FormFactorInfLongBox_exposer = FormFactorInfLongBox_exposer_t( "FormFactorInfLongBox", "", bp::init< double, double >(( bp::arg("width"), bp::arg("height") ), "") );
+        FormFactorInfLongBox_exposer_t FormFactorInfLongBox_exposer = FormFactorInfLongBox_exposer_t( "FormFactorInfLongBox", "The formfactor for a infinite long rectangular box.", bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
         bp::scope FormFactorInfLongBox_scope( FormFactorInfLongBox_exposer );
         { //::FormFactorInfLongBox::clone
         
@@ -417,7 +417,7 @@ void register_FormFactorInfLongBox_class(){
             FormFactorInfLongBox_exposer.def( 
                 "getWidth"
                 , getWidth_function_type( &::FormFactorInfLongBox::getWidth )
-                , "    //! Returns width of Box" );
+                , "Returns width of Box." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -542,7 +542,7 @@ void register_FormFactorInfLongBox_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorInfLongBox_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

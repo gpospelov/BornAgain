@@ -30,7 +30,7 @@ void register_ThreadInfo_class(){
 
     { //::ThreadInfo
         typedef bp::class_< ThreadInfo > ThreadInfo_exposer_t;
-        ThreadInfo_exposer_t ThreadInfo_exposer = ThreadInfo_exposer_t( "ThreadInfo", "", bp::init< >("") );
+        ThreadInfo_exposer_t ThreadInfo_exposer = ThreadInfo_exposer_t( "ThreadInfo", "Information to run simulation with dedicated number of thread.", bp::init< >() );
         bp::scope ThreadInfo_scope( ThreadInfo_exposer );
         { //::ThreadInfo::getBeginIndex
         
@@ -39,8 +39,7 @@ void register_ThreadInfo_class(){
             ThreadInfo_exposer.def( 
                 "getBeginIndex"
                 , getBeginIndex_function_type( &::ThreadInfo::getBeginIndex )
-                , ( bp::arg("total_size") )
-                , "" );
+                , ( bp::arg("total_size") ) );
         
         }
         { //::ThreadInfo::getEndIndex
@@ -50,14 +49,13 @@ void register_ThreadInfo_class(){
             ThreadInfo_exposer.def( 
                 "getEndIndex"
                 , getEndIndex_function_type( &::ThreadInfo::getEndIndex )
-                , ( bp::arg("total_size") )
-                , "" );
+                , ( bp::arg("total_size") ) );
         
         }
-        ThreadInfo_exposer.def_readwrite( "current_batch", &ThreadInfo::current_batch, "" );
-        ThreadInfo_exposer.def_readwrite( "current_thread", &ThreadInfo::current_thread, "" );
-        ThreadInfo_exposer.def_readwrite( "n_batches", &ThreadInfo::n_batches, "" );
-        ThreadInfo_exposer.def_readwrite( "n_threads", &ThreadInfo::n_threads, "" );
+        ThreadInfo_exposer.def_readwrite( "current_batch", &ThreadInfo::current_batch );
+        ThreadInfo_exposer.def_readwrite( "current_thread", &ThreadInfo::current_thread );
+        ThreadInfo_exposer.def_readwrite( "n_batches", &ThreadInfo::n_batches );
+        ThreadInfo_exposer.def_readwrite( "n_threads", &ThreadInfo::n_threads );
     }
 
 }

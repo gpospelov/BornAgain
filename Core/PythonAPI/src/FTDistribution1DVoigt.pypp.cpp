@@ -179,7 +179,7 @@ void register_FTDistribution1DVoigt_class(){
 
     { //::FTDistribution1DVoigt
         typedef bp::class_< FTDistribution1DVoigt_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DVoigt_wrapper > > FTDistribution1DVoigt_exposer_t;
-        FTDistribution1DVoigt_exposer_t FTDistribution1DVoigt_exposer = FTDistribution1DVoigt_exposer_t( "FTDistribution1DVoigt", "", bp::init< double, double >(( bp::arg("omega"), bp::arg("eta") ), "") );
+        FTDistribution1DVoigt_exposer_t FTDistribution1DVoigt_exposer = FTDistribution1DVoigt_exposer_t( "FTDistribution1DVoigt", "1 dimensional Voigt distribution in Fourier space.", bp::init< double, double >(( bp::arg("omega"), bp::arg("eta") )) );
         bp::scope FTDistribution1DVoigt_scope( FTDistribution1DVoigt_exposer );
         { //::FTDistribution1DVoigt::clone
         
@@ -269,7 +269,7 @@ void register_FTDistribution1DVoigt_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DVoigt_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -30,18 +30,17 @@ void register_Bin1DCVector_class(){
 
     { //::Bin1DCVector
         typedef bp::class_< Bin1DCVector > Bin1DCVector_exposer_t;
-        Bin1DCVector_exposer_t Bin1DCVector_exposer = Bin1DCVector_exposer_t( "Bin1DCVector", "", bp::init< >("") );
+        Bin1DCVector_exposer_t Bin1DCVector_exposer = Bin1DCVector_exposer_t( "Bin1DCVector", "An one-dimensional range of cvector_t'.", bp::init< >() );
         bp::scope Bin1DCVector_scope( Bin1DCVector_exposer );
-        Bin1DCVector_exposer.def( bp::init< cvector_t const &, cvector_t const & >(( bp::arg("lower"), bp::arg("upper") ), "") );
-        Bin1DCVector_exposer.def( bp::init< double, Bin1D const &, Bin1D const & >(( bp::arg("wavelength"), bp::arg("alpha_bin"), bp::arg("phi_bin") ), "") );
+        Bin1DCVector_exposer.def( bp::init< cvector_t const &, cvector_t const & >(( bp::arg("lower"), bp::arg("upper") )) );
+        Bin1DCVector_exposer.def( bp::init< double, Bin1D const &, Bin1D const & >(( bp::arg("wavelength"), bp::arg("alpha_bin"), bp::arg("phi_bin") ), "creation on Bin1DCVector from alpha and phi bins.") );
         { //::Bin1DCVector::getDelta
         
             typedef ::cvector_t ( ::Bin1DCVector::*getDelta_function_type)(  ) const;
             
             Bin1DCVector_exposer.def( 
                 "getDelta"
-                , getDelta_function_type( &::Bin1DCVector::getDelta )
-                , "" );
+                , getDelta_function_type( &::Bin1DCVector::getDelta ) );
         
         }
         { //::Bin1DCVector::getMidPoint
@@ -50,12 +49,11 @@ void register_Bin1DCVector_class(){
             
             Bin1DCVector_exposer.def( 
                 "getMidPoint"
-                , getMidPoint_function_type( &::Bin1DCVector::getMidPoint )
-                , "" );
+                , getMidPoint_function_type( &::Bin1DCVector::getMidPoint ) );
         
         }
-        Bin1DCVector_exposer.def_readwrite( "m_q_lower", &Bin1DCVector::m_q_lower, "" );
-        Bin1DCVector_exposer.def_readwrite( "m_q_upper", &Bin1DCVector::m_q_upper, "" );
+        Bin1DCVector_exposer.def_readwrite( "m_q_lower", &Bin1DCVector::m_q_lower );
+        Bin1DCVector_exposer.def_readwrite( "m_q_upper", &Bin1DCVector::m_q_upper );
     }
 
 }

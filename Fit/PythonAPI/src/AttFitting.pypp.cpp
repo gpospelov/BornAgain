@@ -30,7 +30,7 @@ void register_AttFitting_class(){
 
     { //::AttFitting
         typedef bp::class_< AttFitting > AttFitting_exposer_t;
-        AttFitting_exposer_t AttFitting_exposer = AttFitting_exposer_t( "AttFitting", "", bp::init< >("") );
+        AttFitting_exposer_t AttFitting_exposer = AttFitting_exposer_t( "AttFitting", "General fitting attributes.", bp::init< >() );
         bp::scope AttFitting_scope( AttFitting_exposer );
         { //::AttFitting::getDerivEpsilon
         
@@ -38,8 +38,7 @@ void register_AttFitting_class(){
             
             AttFitting_exposer.def( 
                 "getDerivEpsilon"
-                , getDerivEpsilon_function_type( &::AttFitting::getDerivEpsilon )
-                , "" );
+                , getDerivEpsilon_function_type( &::AttFitting::getDerivEpsilon ) );
         
         }
         { //::AttFitting::getStepFactor
@@ -48,8 +47,7 @@ void register_AttFitting_class(){
             
             AttFitting_exposer.def( 
                 "getStepFactor"
-                , getStepFactor_function_type( &::AttFitting::getStepFactor )
-                , "" );
+                , getStepFactor_function_type( &::AttFitting::getStepFactor ) );
         
         }
         { //::AttFitting::setDerivEpsilon
@@ -59,8 +57,7 @@ void register_AttFitting_class(){
             AttFitting_exposer.def( 
                 "setDerivEpsilon"
                 , setDerivEpsilon_function_type( &::AttFitting::setDerivEpsilon )
-                , ( bp::arg("deriv_epsilon") )
-                , "" );
+                , ( bp::arg("deriv_epsilon") ) );
         
         }
         { //::AttFitting::setStepFactor
@@ -70,8 +67,7 @@ void register_AttFitting_class(){
             AttFitting_exposer.def( 
                 "setStepFactor"
                 , setStepFactor_function_type( &::AttFitting::setStepFactor )
-                , ( bp::arg("step_factor") )
-                , "" );
+                , ( bp::arg("step_factor") ) );
         
         }
     }

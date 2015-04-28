@@ -113,7 +113,7 @@ void register_FitObject_class(){
 
     { //::FitObject
         typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
-        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "", bp::init< Simulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 ), "") );
+        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< Simulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 )) );
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::calculateChiSquared
         
@@ -122,7 +122,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "calculateChiSquared"
                 , calculateChiSquared_function_type( &::FitObject::calculateChiSquared )
-                , "    //! Returns chi squared value" );
+                , "Returns chi squared value." );
         
         }
         { //::FitObject::getChiSquaredModule
@@ -133,7 +133,7 @@ void register_FitObject_class(){
                 "getChiSquaredModule"
                 , getChiSquaredModule_function_type( &::FitObject::getChiSquaredModule )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns chi2 module" );
+                , "Returns chi2 module." );
         
         }
         { //::FitObject::getChiSquaredModule
@@ -143,8 +143,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "getChiSquaredModule"
                 , getChiSquaredModule_function_type( &::FitObject::getChiSquaredModule )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitObject::getRealData
@@ -155,7 +154,7 @@ void register_FitObject_class(){
                 "getRealData"
                 , getRealData_function_type( &::FitObject::getRealData )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns real data" );
+                , "Returns real data." );
         
         }
         { //::FitObject::getSimulation
@@ -166,7 +165,7 @@ void register_FitObject_class(){
                 "getSimulation"
                 , getSimulation_function_type( &::FitObject::getSimulation )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns simulation" );
+                , "Returns simulation." );
         
         }
         { //::FitObject::getSimulation
@@ -177,7 +176,7 @@ void register_FitObject_class(){
                 "getSimulation"
                 , getSimulation_function_type( &::FitObject::getSimulation )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , "Returns simulation." );
         
         }
         { //::FitObject::getSimulationData
@@ -188,7 +187,7 @@ void register_FitObject_class(){
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitObject::getSimulationData )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , "Returns simulated data." );
         
         }
         { //::FitObject::getSizeOfData
@@ -198,7 +197,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "getSizeOfData"
                 , getSizeOfData_function_type( &::FitObject::getSizeOfData )
-                , "    //! Returns size of data" );
+                , "Returns size of data." );
         
         }
         { //::FitObject::getWeight
@@ -208,7 +207,7 @@ void register_FitObject_class(){
             FitObject_exposer.def( 
                 "getWeight"
                 , getWeight_function_type( &::FitObject::getWeight )
-                , "    //! Returns weight of data set in chi2 calculations" );
+                , "Returns weight of data set in chi2 calculations." );
         
         }
         { //::FitObject::setChiSquaredModule
@@ -219,7 +218,7 @@ void register_FitObject_class(){
                 "setChiSquaredModule"
                 , setChiSquaredModule_function_type( &::FitObject::setChiSquaredModule )
                 , ( bp::arg("chi2_module") )
-                , "    //! Sets chi2 module" );
+                , "Sets chi2 module." );
         
         }
         { //::FitObject::setRealData
@@ -230,7 +229,7 @@ void register_FitObject_class(){
                 "setRealData"
                 , setRealData_function_type( &::FitObject::setRealData )
                 , ( bp::arg("real_data") )
-                , "    //! Sets real data" );
+                , "Returns real data." );
         
         }
         { //::FitObject::setSimulation
@@ -241,7 +240,7 @@ void register_FitObject_class(){
                 "setSimulation"
                 , setSimulation_function_type( &::FitObject::setSimulation )
                 , ( bp::arg("simulation") )
-                , "    //! Sets simulation" );
+                , "Sets simulation." );
         
         }
         { //::IParameterized::areParametersChanged

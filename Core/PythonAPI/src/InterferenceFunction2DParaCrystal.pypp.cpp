@@ -268,7 +268,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
 
     { //::InterferenceFunction2DParaCrystal
         typedef bp::class_< InterferenceFunction2DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction2DParaCrystal_wrapper >, boost::noncopyable > InterferenceFunction2DParaCrystal_exposer_t;
-        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", "", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 ), "") );
+        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", "Interference function of 2D paracrystal.", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 ), "constructor of 2D paracrystal interference function @param length_1 Lattice length 1.\n\n:Parameters:\n  - 'length_1' - Lattice length 1.\n  - 'length_2' - Lattice length 2.\n  - 'alpha_lattice' - Angle between lattice basis vectors.\n  - 'xi' - Angle between first basis vector and the x-axis of incoming beam.\n  - 'm_corr_length' - correlation length of paracrystal\n") );
         bp::scope InterferenceFunction2DParaCrystal_scope( InterferenceFunction2DParaCrystal_exposer );
         { //::InterferenceFunction2DParaCrystal::clone
         
@@ -290,8 +290,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "createHexagonal"
                 , createHexagonal_function_type( &::InterferenceFunction2DParaCrystal::createHexagonal )
                 , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::InterferenceFunction2DParaCrystal::createSquare
@@ -302,8 +301,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "createSquare"
                 , createSquare_function_type( &::InterferenceFunction2DParaCrystal::createSquare )
                 , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::InterferenceFunction2DParaCrystal::evaluate
@@ -324,8 +322,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getAlphaLattice"
-                , getAlphaLattice_function_type( &::InterferenceFunction2DParaCrystal::getAlphaLattice )
-                , "" );
+                , getAlphaLattice_function_type( &::InterferenceFunction2DParaCrystal::getAlphaLattice ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::getDampingLength
@@ -334,8 +331,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getDampingLength"
-                , getDampingLength_function_type( &::InterferenceFunction2DParaCrystal::getDampingLength )
-                , "" );
+                , getDampingLength_function_type( &::InterferenceFunction2DParaCrystal::getDampingLength ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::getDomainSizes
@@ -344,8 +340,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getDomainSizes"
-                , getDomainSizes_function_type( &::InterferenceFunction2DParaCrystal::getDomainSizes )
-                , "" );
+                , getDomainSizes_function_type( &::InterferenceFunction2DParaCrystal::getDomainSizes ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::getIntegrationOverXi
@@ -354,8 +349,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getIntegrationOverXi"
-                , getIntegrationOverXi_function_type( &::InterferenceFunction2DParaCrystal::getIntegrationOverXi )
-                , "" );
+                , getIntegrationOverXi_function_type( &::InterferenceFunction2DParaCrystal::getIntegrationOverXi ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::getLatticeLengths
@@ -364,8 +358,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeLengths"
-                , getLatticeLengths_function_type( &::InterferenceFunction2DParaCrystal::getLatticeLengths )
-                , "" );
+                , getLatticeLengths_function_type( &::InterferenceFunction2DParaCrystal::getLatticeLengths ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::getLatticeOrientation
@@ -374,8 +367,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeOrientation"
-                , getLatticeOrientation_function_type( &::InterferenceFunction2DParaCrystal::getLatticeOrientation )
-                , "" );
+                , getLatticeOrientation_function_type( &::InterferenceFunction2DParaCrystal::getLatticeOrientation ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes
@@ -386,7 +378,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "setDomainSizes"
                 , setDomainSizes_function_type( &::InterferenceFunction2DParaCrystal::setDomainSizes )
                 , ( bp::arg("size_1"), bp::arg("size_2") )
-                , "    //! @brief Sets sizes of coherence domain\n    //! @param size_1: size in first lattice direction\n    //! @param size_2: size in second lattice direction" );
+                , "Sets sizes of coherence domain.\n\n:Parameters:\n  - 'size_1:' - size in first lattice direction\n  - 'size_2:' - size in second lattice direction\n" );
         
         }
         { //::InterferenceFunction2DParaCrystal::setIntegrationOverXi
@@ -396,8 +388,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setIntegrationOverXi"
                 , setIntegrationOverXi_function_type( &::InterferenceFunction2DParaCrystal::setIntegrationOverXi )
-                , ( bp::arg("integrate_xi") )
-                , "" );
+                , ( bp::arg("integrate_xi") ) );
         
         }
         { //::InterferenceFunction2DParaCrystal::setProbabilityDistributions
@@ -407,8 +398,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setProbabilityDistributions"
                 , setProbabilityDistributions_function_type( &::InterferenceFunction2DParaCrystal::setProbabilityDistributions )
-                , ( bp::arg("pdf_1"), bp::arg("pdf_2") )
-                , "" );
+                , ( bp::arg("pdf_1"), bp::arg("pdf_2") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -544,7 +534,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction2DParaCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

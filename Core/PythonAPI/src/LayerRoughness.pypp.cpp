@@ -251,9 +251,9 @@ void register_LayerRoughness_class(){
 
     { //::LayerRoughness
         typedef bp::class_< LayerRoughness_wrapper, std::auto_ptr< LayerRoughness_wrapper >, boost::noncopyable > LayerRoughness_exposer_t;
-        LayerRoughness_exposer_t LayerRoughness_exposer = LayerRoughness_exposer_t( "LayerRoughness", "", bp::init< >("") );
+        LayerRoughness_exposer_t LayerRoughness_exposer = LayerRoughness_exposer_t( "LayerRoughness", "A Roughness of interface between two layers.", bp::init< >() );
         bp::scope LayerRoughness_scope( LayerRoughness_exposer );
-        LayerRoughness_exposer.def( bp::init< double, double, double >(( bp::arg("sigma"), bp::arg("hurstParameter"), bp::arg("latteralCorrLength") ), "") );
+        LayerRoughness_exposer.def( bp::init< double, double, double >(( bp::arg("sigma"), bp::arg("hurstParameter"), bp::arg("latteralCorrLength") )) );
         { //::LayerRoughness::clone
         
             typedef ::LayerRoughness * ( ::LayerRoughness::*clone_function_type)(  ) const;
@@ -274,7 +274,7 @@ void register_LayerRoughness_class(){
                 "getCorrFun"
                 , getCorrFun_function_type( &::LayerRoughness::getCorrFun )
                 , ( bp::arg("k") )
-                , "" );
+                , "Returns power spectral density of the surface roughness." );
         
         }
         { //::LayerRoughness::getHurstParameter
@@ -284,7 +284,7 @@ void register_LayerRoughness_class(){
             LayerRoughness_exposer.def( 
                 "getHurstParameter"
                 , getHurstParameter_function_type( &::LayerRoughness::getHurstParameter )
-                , "    //! Returns hurst parameter" );
+                , "Sets hurst parameter. It describes how jagged the surface is." );
         
         }
         { //::LayerRoughness::getLatteralCorrLength
@@ -294,7 +294,7 @@ void register_LayerRoughness_class(){
             LayerRoughness_exposer.def( 
                 "getLatteralCorrLength"
                 , getLatteralCorrLength_function_type( &::LayerRoughness::getLatteralCorrLength )
-                , "    //! Returns latteral correlation length" );
+                , "Sets lateral correlation length." );
         
         }
         { //::LayerRoughness::getSigma
@@ -304,7 +304,7 @@ void register_LayerRoughness_class(){
             LayerRoughness_exposer.def( 
                 "getSigma"
                 , getSigma_function_type( &::LayerRoughness::getSigma )
-                , "    //! Returns rms of roughness" );
+                , "Sets rms of roughness." );
         
         }
         { //::LayerRoughness::getSpectralFun
@@ -315,7 +315,7 @@ void register_LayerRoughness_class(){
                 "getSpectralFun"
                 , getSpectralFun_function_type( &::LayerRoughness::getSpectralFun )
                 , ( bp::arg("kvec") )
-                , "    //! Returns power spectral density of the surface roughness" );
+                , "Returns power spectral density of the surface roughness." );
         
         }
         { //::LayerRoughness::setHurstParameter
@@ -326,7 +326,7 @@ void register_LayerRoughness_class(){
                 "setHurstParameter"
                 , setHurstParameter_function_type( &::LayerRoughness::setHurstParameter )
                 , ( bp::arg("hurstParameter") )
-                , "    //! Sets hurst parameter. It describes how jagged the surface is." );
+                , "Sets hurst parameter. It describes how jagged the surface is." );
         
         }
         { //::LayerRoughness::setLatteralCorrLength
@@ -337,7 +337,7 @@ void register_LayerRoughness_class(){
                 "setLatteralCorrLength"
                 , setLatteralCorrLength_function_type( &::LayerRoughness::setLatteralCorrLength )
                 , ( bp::arg("latteralCorrLength") )
-                , "    //! Sets lateral correlation length" );
+                , "Sets lateral correlation length." );
         
         }
         { //::LayerRoughness::setSigma
@@ -348,7 +348,7 @@ void register_LayerRoughness_class(){
                 "setSigma"
                 , setSigma_function_type( &::LayerRoughness::setSigma )
                 , ( bp::arg("sigma") )
-                , "    //! Sets rms of roughness" );
+                , "Sets rms of roughness." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -473,7 +473,7 @@ void register_LayerRoughness_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &LayerRoughness_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

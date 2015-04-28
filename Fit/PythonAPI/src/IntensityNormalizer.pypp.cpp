@@ -158,7 +158,7 @@ void register_IntensityNormalizer_class(){
 
     { //::IntensityNormalizer
         typedef bp::class_< IntensityNormalizer_wrapper, bp::bases< IIntensityNormalizer >, std::auto_ptr< IntensityNormalizer_wrapper > > IntensityNormalizer_exposer_t;
-        IntensityNormalizer_exposer_t IntensityNormalizer_exposer = IntensityNormalizer_exposer_t( "IntensityNormalizer", "", bp::init< bp::optional< double, double > >(( bp::arg("scale")=1.0e+0, bp::arg("shift")=0.0 ), "") );
+        IntensityNormalizer_exposer_t IntensityNormalizer_exposer = IntensityNormalizer_exposer_t( "IntensityNormalizer", "Standard OutputData normalizer, with configurable max_intensity.", bp::init< bp::optional< double, double > >(( bp::arg("scale")=1.0e+0, bp::arg("shift")=0.0 )) );
         bp::scope IntensityNormalizer_scope( IntensityNormalizer_exposer );
         { //::IntensityNormalizer::clone
         

@@ -148,10 +148,10 @@ void register_ParameterDistribution_class(){
 
     { //::ParameterDistribution
         typedef bp::class_< ParameterDistribution_wrapper, bp::bases< IParameterized > > ParameterDistribution_exposer_t;
-        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", "", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) ), "") );
+        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )) );
         bp::scope ParameterDistribution_scope( ParameterDistribution_exposer );
-        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, std::size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") ), "") );
-        ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") ), "") );
+        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, std::size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") )) );
+        ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") )) );
         { //::ParameterDistribution::getDistribution
         
             typedef ::IDistribution1D const * ( ::ParameterDistribution::*getDistribution_function_type)(  ) const;
@@ -159,8 +159,7 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getDistribution"
                 , getDistribution_function_type( &::ParameterDistribution::getDistribution )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ParameterDistribution::getLimits
@@ -169,8 +168,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getLimits"
-                , getLimits_function_type( &::ParameterDistribution::getLimits )
-                , "" );
+                , getLimits_function_type( &::ParameterDistribution::getLimits ) );
         
         }
         { //::ParameterDistribution::getMainParameterName
@@ -180,7 +178,7 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getMainParameterName"
                 , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName )
-                , "    //! get the main parameter's name" );
+                , "get the main parameter's name." );
         
         }
         { //::ParameterDistribution::getMaxValue
@@ -189,8 +187,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getMaxValue"
-                , getMaxValue_function_type( &::ParameterDistribution::getMaxValue )
-                , "" );
+                , getMaxValue_function_type( &::ParameterDistribution::getMaxValue ) );
         
         }
         { //::ParameterDistribution::getMinValue
@@ -199,8 +196,7 @@ void register_ParameterDistribution_class(){
             
             ParameterDistribution_exposer.def( 
                 "getMinValue"
-                , getMinValue_function_type( &::ParameterDistribution::getMinValue )
-                , "" );
+                , getMinValue_function_type( &::ParameterDistribution::getMinValue ) );
         
         }
         { //::ParameterDistribution::getNbrSamples
@@ -210,7 +206,7 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getNbrSamples"
                 , getNbrSamples_function_type( &::ParameterDistribution::getNbrSamples )
-                , "    //! get number of samples for this distribution" );
+                , "get number of samples for this distribution." );
         
         }
         { //::ParameterDistribution::getSigmaFactor
@@ -220,7 +216,7 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getSigmaFactor"
                 , getSigmaFactor_function_type( &::ParameterDistribution::getSigmaFactor )
-                , "    //! get the sigma factor" );
+                , "get the sigma factor." );
         
         }
         { //::ParameterDistribution::linkParameter
@@ -232,7 +228,7 @@ void register_ParameterDistribution_class(){
                 , linkParameter_function_type( &::ParameterDistribution::linkParameter )
                 , ( bp::arg("par_name") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , "Overload assignment operator." );
         
         }
         { //::ParameterDistribution::operator=
@@ -244,7 +240,7 @@ void register_ParameterDistribution_class(){
                 , assign_function_type( &::ParameterDistribution::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >()
-                , "    //! Overload assignment operator" );
+                , "Overload assignment operator." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -300,7 +296,7 @@ void register_ParameterDistribution_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ParameterDistribution_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

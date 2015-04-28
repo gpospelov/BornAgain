@@ -30,17 +30,16 @@ void register_RealParameterWrapper_class(){
 
     { //::RealParameterWrapper
         typedef bp::class_< RealParameterWrapper > RealParameterWrapper_exposer_t;
-        RealParameterWrapper_exposer_t RealParameterWrapper_exposer = RealParameterWrapper_exposer_t( "RealParameterWrapper", "", bp::no_init );
+        RealParameterWrapper_exposer_t RealParameterWrapper_exposer = RealParameterWrapper_exposer_t( "RealParameterWrapper", "Wrapper to real parameter for remote access to its value and callback abilitie.", bp::no_init );
         bp::scope RealParameterWrapper_scope( RealParameterWrapper_exposer );
-        RealParameterWrapper_exposer.def( bp::init< RealParameterWrapper const & >(( bp::arg("other") ), "") );
+        RealParameterWrapper_exposer.def( bp::init< RealParameterWrapper const & >(( bp::arg("other") )) );
         { //::RealParameterWrapper::getValue
         
             typedef double ( ::RealParameterWrapper::*getValue_function_type)(  ) const;
             
             RealParameterWrapper_exposer.def( 
                 "getValue"
-                , getValue_function_type( &::RealParameterWrapper::getValue )
-                , "" );
+                , getValue_function_type( &::RealParameterWrapper::getValue ) );
         
         }
         { //::RealParameterWrapper::isNull
@@ -49,8 +48,7 @@ void register_RealParameterWrapper_class(){
             
             RealParameterWrapper_exposer.def( 
                 "isNull"
-                , isNull_function_type( &::RealParameterWrapper::isNull )
-                , "" );
+                , isNull_function_type( &::RealParameterWrapper::isNull ) );
         
         }
         RealParameterWrapper_exposer.def( bp::self != bp::self );
@@ -62,8 +60,7 @@ void register_RealParameterWrapper_class(){
                 "assign"
                 , assign_function_type( &::RealParameterWrapper::operator= )
                 , ( bp::arg("other") )
-                , bp::return_self< >()
-                , "" );
+                , bp::return_self< >() );
         
         }
         RealParameterWrapper_exposer.def( bp::self == bp::self );
@@ -75,7 +72,7 @@ void register_RealParameterWrapper_class(){
                 "setValue"
                 , setValue_function_type( &::RealParameterWrapper::setValue )
                 , ( bp::arg("value") )
-                , "    //! Sets value of wrapped parameter and emmit signal" );
+                , "Sets value of wrapped parameter and emmit signal." );
         
         }
     }

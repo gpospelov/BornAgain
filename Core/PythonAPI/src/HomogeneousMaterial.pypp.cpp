@@ -105,9 +105,9 @@ void register_HomogeneousMaterial_class(){
 
     { //::HomogeneousMaterial
         typedef bp::class_< HomogeneousMaterial_wrapper, bp::bases< IMaterial >, std::auto_ptr< HomogeneousMaterial_wrapper > > HomogeneousMaterial_exposer_t;
-        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", "", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") ), "    //! Constructs a material with _name_ and _refractive_index_.") );
+        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", "An homogeneous material with a refractive index.", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") ), "Constructs a material with _name_ and _refractive_index_.") );
         bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") ), "") );
+        HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") ), "Constructs a material with _name_ and refractive_index parameters delta and beta (n = 1 - delta + i*beta). ") );
         { //::HomogeneousMaterial::clone
         
             typedef ::HomogeneousMaterial * ( ::HomogeneousMaterial::*clone_function_type)(  ) const;
@@ -152,7 +152,7 @@ void register_HomogeneousMaterial_class(){
                 "setRefractiveIndex"
                 , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
                 , ( bp::arg("refractive_index") )
-                , "    //! Set refractive index." );
+                , "Set refractive index." );
         
         }
         { //::IMaterial::isScalarMaterial

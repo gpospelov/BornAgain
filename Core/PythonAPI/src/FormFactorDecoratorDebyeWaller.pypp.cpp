@@ -316,7 +316,7 @@ void register_FormFactorDecoratorDebyeWaller_class(){
 
     { //::FormFactorDecoratorDebyeWaller
         typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, std::auto_ptr< FormFactorDecoratorDebyeWaller_wrapper >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
-        FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", "", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") ), "") );
+        FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", "Debye-Waller factors in radial and z directions.", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") ), "Why the hell do we need this alternative form?.") );
         bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
         { //::FormFactorDecoratorDebyeWaller::clone
         
@@ -508,7 +508,7 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorDecoratorDebyeWaller_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactorDecorator::setAmbientMaterial

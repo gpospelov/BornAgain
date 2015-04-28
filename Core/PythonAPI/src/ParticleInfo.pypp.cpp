@@ -263,9 +263,9 @@ void register_ParticleInfo_class(){
 
     { //::ParticleInfo
         typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ParticleInfo_wrapper >, boost::noncopyable > ParticleInfo_exposer_t;
-        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", "", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ), "") );
+        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", "Holds additional information about particle.", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
-        ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 ), "") );
+        ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleInfo::applyTransformation
         
             typedef void ( ::ParticleInfo::*applyTransformation_function_type)( ::IRotation const & ) ;
@@ -274,7 +274,7 @@ void register_ParticleInfo_class(){
                 "applyTransformation"
                 , applyTransformation_function_type( &::ParticleInfo::applyTransformation )
                 , ( bp::arg("transform") )
-                , "    //! Applies transformation by composing it with the existing one" );
+                , "Applies transformation by composing it with the existing one." );
         
         }
         { //::ParticleInfo::clone
@@ -308,7 +308,7 @@ void register_ParticleInfo_class(){
             ParticleInfo_exposer.def( 
                 "getAbundance"
                 , getAbundance_function_type( &::ParticleInfo::getAbundance )
-                , "    //! Returns abundance." );
+                , "Returns abundance." );
         
         }
         { //::ParticleInfo::getDepth
@@ -318,7 +318,7 @@ void register_ParticleInfo_class(){
             ParticleInfo_exposer.def( 
                 "getDepth"
                 , getDepth_function_type( &::ParticleInfo::getDepth )
-                , "    //! Returns depth." );
+                , "Returns depth." );
         
         }
         { //::ParticleInfo::getParticle
@@ -329,7 +329,7 @@ void register_ParticleInfo_class(){
                 "getParticle"
                 , getParticle_function_type( &::ParticleInfo::getParticle )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns particle." );
+                , "Returns particle." );
         
         }
         { //::ParticleInfo::getPosition
@@ -339,7 +339,7 @@ void register_ParticleInfo_class(){
             ParticleInfo_exposer.def( 
                 "getPosition"
                 , getPosition_function_type( &::ParticleInfo::getPosition )
-                , "    //! Returns particle position, including depth." );
+                , "Returns particle position, including depth." );
         
         }
         { //::ParticleInfo::setAbundance
@@ -350,7 +350,7 @@ void register_ParticleInfo_class(){
                 "setAbundance"
                 , setAbundance_function_type( &::ParticleInfo::setAbundance )
                 , ( bp::arg("abundance") )
-                , "    //! Sets abundance." );
+                , "Sets abundance." );
         
         }
         { //::ParticleInfo::setAmbientMaterial
@@ -361,7 +361,7 @@ void register_ParticleInfo_class(){
                 "setAmbientMaterial"
                 , setAmbientMaterial_function_type( &::ParticleInfo::setAmbientMaterial )
                 , ( bp::arg("material") )
-                , "    //! Sets the ambient material" );
+                , "Sets the ambient material." );
         
         }
         { //::ParticleInfo::setPosition
@@ -372,7 +372,7 @@ void register_ParticleInfo_class(){
                 "setPosition"
                 , setPosition_function_type( &::ParticleInfo::setPosition )
                 , ( bp::arg("position") )
-                , "    //! Sets particle position, including depth." );
+                , "Sets particle position, including depth." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -485,7 +485,7 @@ void register_ParticleInfo_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleInfo_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -268,7 +268,7 @@ void register_RotationX_class(){
 
     { //::RotationX
         typedef bp::class_< RotationX_wrapper, bp::bases< IRotation >, std::auto_ptr< RotationX_wrapper >, boost::noncopyable > RotationX_exposer_t;
-        RotationX_exposer_t RotationX_exposer = RotationX_exposer_t( "RotationX", "", bp::init< double >(( bp::arg("angle") ), "") );
+        RotationX_exposer_t RotationX_exposer = RotationX_exposer_t( "RotationX", bp::init< double >(( bp::arg("angle") )) );
         bp::scope RotationX_scope( RotationX_exposer );
         { //::RotationX::clone
         
@@ -312,8 +312,7 @@ void register_RotationX_class(){
             
             RotationX_exposer.def( 
                 "getAngle"
-                , getAngle_function_type( &::RotationX::getAngle )
-                , "" );
+                , getAngle_function_type( &::RotationX::getAngle ) );
         
         }
         { //::RotationX::getTransform3D
@@ -437,7 +436,7 @@ void register_RotationX_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &RotationX_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

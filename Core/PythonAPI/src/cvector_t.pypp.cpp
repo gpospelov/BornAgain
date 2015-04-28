@@ -30,9 +30,9 @@ void register_cvector_t_class(){
 
     { //::Geometry::BasicVector3D< std::complex< double > >
         typedef bp::class_< Geometry::BasicVector3D< std::complex< double > > > cvector_t_exposer_t;
-        cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", "", bp::init< >("    //! Default constructor.\n    //! It is protected - this class should not be instantiated directly.") );
+        cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", "Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.", bp::init< >("Default constructor. It is protected - this class should not be instantiated directly. ") );
         bp::scope cvector_t_scope( cvector_t_exposer );
-        cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "    //! Constructor from three numbers.") );
+        cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ), "Constructor from three numbers.") );
         { //::Geometry::BasicVector3D< std::complex< double > >::mag
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
@@ -41,7 +41,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "mag"
                 , mag_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag )
-                , "    //! Returns magnitude of the vector." );
+                , "Returns magnitude of the vector." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::mag2
@@ -52,7 +52,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "mag2"
                 , mag2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag2 )
-                , "    //! Returns squared magnitude squared of the vector." );
+                , "Returns squared magnitude squared of the vector." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy
@@ -62,8 +62,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy )
-                , "" );
+                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy2
@@ -74,7 +73,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "magxy2"
                 , magxy2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy2 )
-                , "    //! Returns squared distance from z axis." );
+                , "Returns squared distance from z axis." );
         
         }
         cvector_t_exposer.def( bp::self *= bp::other< double >() );
@@ -91,7 +90,7 @@ void register_cvector_t_class(){
                 , assign_function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator= )
                 , ( bp::arg("v") )
                 , bp::return_self< >()
-                , "    //! Assignment." );
+                , "Assignment." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::operator[]
@@ -103,7 +102,7 @@ void register_cvector_t_class(){
                 "__getitem__"
                 , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
                 , ( bp::arg("i") )
-                , "    //! Returns components by index." );
+                , "Returns components by index." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::operator[]
@@ -116,7 +115,7 @@ void register_cvector_t_class(){
                 , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_internal_reference< >()
-                , "    //! Sets components by index." );
+                , "Sets components by index." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi
@@ -128,7 +127,7 @@ void register_cvector_t_class(){
                 "setLambdaAlphaPhi"
                 , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi )
                 , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") )
-                , "" );
+                , "Sets wave vector for given wavelength and angles/." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setX
@@ -140,7 +139,7 @@ void register_cvector_t_class(){
                 "setX"
                 , setX_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setX )
                 , ( bp::arg("a") )
-                , "    //! Sets x-component in cartesian coordinate system." );
+                , "Sets x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setXYZ
@@ -152,7 +151,7 @@ void register_cvector_t_class(){
                 "setXYZ"
                 , setXYZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setXYZ )
                 , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )
-                , "    //! Sets components in cartesian coordinate system." );
+                , "Sets components in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setY
@@ -164,7 +163,7 @@ void register_cvector_t_class(){
                 "setY"
                 , setY_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setY )
                 , ( bp::arg("a") )
-                , "    //! Sets y-component in cartesian coordinate system." );
+                , "Sets x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setZ
@@ -176,7 +175,7 @@ void register_cvector_t_class(){
                 "setZ"
                 , setZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setZ )
                 , ( bp::arg("a") )
-                , "    //! Sets z-component in cartesian coordinate system." );
+                , "Sets y-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::x
@@ -187,7 +186,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "x"
                 , x_function_type( &::Geometry::BasicVector3D< std::complex< double > >::x )
-                , "    //! Returns x-component in cartesian coordinate system." );
+                , "Returns x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::y
@@ -198,7 +197,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "y"
                 , y_function_type( &::Geometry::BasicVector3D< std::complex< double > >::y )
-                , "    //! Returns y-component in cartesian coordinate system." );
+                , "Returns x-component in cartesian coordinate system." );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::z
@@ -209,7 +208,7 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "z"
                 , z_function_type( &::Geometry::BasicVector3D< std::complex< double > >::z )
-                , "    //! Returns z-component in cartesian coordinate system." );
+                , "Returns y-component in cartesian coordinate system." );
         
         }
     }

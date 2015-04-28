@@ -98,7 +98,7 @@ void register_IMaterial_class(){
 
     { //::IMaterial
         typedef bp::class_< IMaterial_wrapper, std::auto_ptr< IMaterial_wrapper > > IMaterial_exposer_t;
-        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", "", bp::init< std::string const & >(( bp::arg("name") ), "    //! Constructor that sets _name_.") );
+        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", "Interface to a named material.", bp::init< std::string const & >(( bp::arg("name") ), "Constructor that sets _name_.") );
         bp::scope IMaterial_scope( IMaterial_exposer );
         { //::IMaterial::clone
         

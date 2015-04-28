@@ -141,9 +141,9 @@ void register_Beam_class(){
 
     { //::Beam
         typedef bp::class_< Beam_wrapper, bp::bases< IParameterized > > Beam_exposer_t;
-        Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", "", bp::init< >("") );
+        Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", "Ideal collimated beam defined by wavelength, direction and intensity.", bp::init< >() );
         bp::scope Beam_scope( Beam_exposer );
-        Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") ), "") );
+        Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
         { //::Beam::SetSpinUpFraction
         
             typedef void ( ::Beam::*SetSpinUpFraction_function_type)( double ) ;
@@ -152,7 +152,7 @@ void register_Beam_class(){
                 "SetSpinUpFraction"
                 , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
                 , ( bp::arg("up_fraction") )
-                , "    //! Sets the polarization density matrix to a value representing\n    //! a mixed ensemble with the given fraction of positive z spin" );
+                , "Sets the polarization density matrix to a value representing a mixed ensemble with the given fraction of positive z spin " );
         
         }
         { //::Beam::getAlpha
@@ -161,8 +161,7 @@ void register_Beam_class(){
             
             Beam_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type( &::Beam::getAlpha )
-                , "" );
+                , getAlpha_function_type( &::Beam::getAlpha ) );
         
         }
         { //::Beam::getCentralK
@@ -172,7 +171,7 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "getCentralK"
                 , getCentralK_function_type( &::Beam::getCentralK )
-                , "    //! Get the value of the wavevector" );
+                , "Get the value of the wavevector." );
         
         }
         { //::Beam::getIntensity
@@ -182,7 +181,7 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "getIntensity"
                 , getIntensity_function_type( &::Beam::getIntensity )
-                , "    //! Gets the beam intensity in neutrons/sec" );
+                , "Gets the beam intensity in neutrons/sec." );
         
         }
         { //::Beam::getPhi
@@ -191,8 +190,7 @@ void register_Beam_class(){
             
             Beam_exposer.def( 
                 "getPhi"
-                , getPhi_function_type( &::Beam::getPhi )
-                , "" );
+                , getPhi_function_type( &::Beam::getPhi ) );
         
         }
         { //::Beam::getWavelength
@@ -201,8 +199,7 @@ void register_Beam_class(){
             
             Beam_exposer.def( 
                 "getWavelength"
-                , getWavelength_function_type( &::Beam::getWavelength )
-                , "" );
+                , getWavelength_function_type( &::Beam::getWavelength ) );
         
         }
         { //::Beam::operator=
@@ -213,8 +210,7 @@ void register_Beam_class(){
                 "assign"
                 , assign_function_type( &::Beam::operator= )
                 , ( bp::arg("other") )
-                , bp::return_self< >()
-                , "" );
+                , bp::return_self< >() );
         
         }
         { //::Beam::setCentralK
@@ -225,7 +221,7 @@ void register_Beam_class(){
                 "setCentralK"
                 , setCentralK_function_type( &::Beam::setCentralK )
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") )
-                , "    //! Sets the value of the incoming wavevector in terms of wavelength\n    //! and incoming angles" );
+                , "Sets the value of the incoming wavevector in terms of wavelength and incoming angles " );
         
         }
         { //::Beam::setIntensity
@@ -236,7 +232,7 @@ void register_Beam_class(){
                 "setIntensity"
                 , setIntensity_function_type( &::Beam::setIntensity )
                 , ( bp::arg("intensity") )
-                , "    //! Sets the beam intensity in neutrons/sec" );
+                , "Sets the beam intensity in neutrons/sec." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -292,7 +288,7 @@ void register_Beam_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Beam_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -30,10 +30,10 @@ void register_Lattice_class(){
 
     { //::Lattice
         typedef bp::class_< Lattice > Lattice_exposer_t;
-        Lattice_exposer_t Lattice_exposer = Lattice_exposer_t( "Lattice", "", bp::init< >("") );
+        Lattice_exposer_t Lattice_exposer = Lattice_exposer_t( "Lattice", "A lattice with three basis vectors.", bp::init< >() );
         bp::scope Lattice_scope( Lattice_exposer );
-        Lattice_exposer.def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") ), "") );
-        Lattice_exposer.def( bp::init< Lattice const & >(( bp::arg("lattice") ), "") );
+        Lattice_exposer.def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) );
+        Lattice_exposer.def( bp::init< Lattice const & >(( bp::arg("lattice") )) );
         { //::Lattice::createTrigonalLattice
         
             typedef ::Lattice ( *createTrigonalLattice_function_type )( double,double );
@@ -42,8 +42,7 @@ void register_Lattice_class(){
                 "createTrigonalLattice"
                 , createTrigonalLattice_function_type( &::Lattice::createTrigonalLattice )
                 , ( bp::arg("a"), bp::arg("c") )
-                , bp::return_value_policy< bp::return_by_value >()
-                , "" );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::Lattice::getBasisVectorA
@@ -53,7 +52,7 @@ void register_Lattice_class(){
             Lattice_exposer.def( 
                 "getBasisVectorA"
                 , getBasisVectorA_function_type( &::Lattice::getBasisVectorA )
-                , "    //! Returns basis vector a" );
+                , "Returns basis vector a." );
         
         }
         { //::Lattice::getBasisVectorB
@@ -63,7 +62,7 @@ void register_Lattice_class(){
             Lattice_exposer.def( 
                 "getBasisVectorB"
                 , getBasisVectorB_function_type( &::Lattice::getBasisVectorB )
-                , "    //! Returns basis vector b" );
+                , "Returns basis vector b." );
         
         }
         { //::Lattice::getBasisVectorC
@@ -73,7 +72,7 @@ void register_Lattice_class(){
             Lattice_exposer.def( 
                 "getBasisVectorC"
                 , getBasisVectorC_function_type( &::Lattice::getBasisVectorC )
-                , "    //! Returns basis vector c" );
+                , "Returns basis vector c." );
         
         }
         { //::Lattice::setSelectionRule
@@ -84,7 +83,7 @@ void register_Lattice_class(){
                 "setSelectionRule"
                 , setSelectionRule_function_type( &::Lattice::setSelectionRule )
                 , ( bp::arg("p_selection_rule") )
-                , "    //! Sets a selection rule for the reciprocal vectors" );
+                , "Sets a selection rule for the reciprocal vectors." );
         
         }
         Lattice_exposer.staticmethod( "createTrigonalLattice" );

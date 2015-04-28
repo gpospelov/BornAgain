@@ -210,9 +210,9 @@ void register_DistributionGaussian_class(){
 
     { //::DistributionGaussian
         typedef bp::class_< DistributionGaussian_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionGaussian_wrapper > > DistributionGaussian_exposer_t;
-        DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", "", bp::init< >("") );
+        DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", "Gaussian distribution with standard deviation std_de.", bp::init< >() );
         bp::scope DistributionGaussian_scope( DistributionGaussian_exposer );
-        DistributionGaussian_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") ), "") );
+        DistributionGaussian_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
         { //::DistributionGaussian::clone
         
             typedef ::DistributionGaussian * ( ::DistributionGaussian::*clone_function_type)(  ) const;
@@ -255,7 +255,7 @@ void register_DistributionGaussian_class(){
             DistributionGaussian_exposer.def( 
                 "getStdDev"
                 , getStdDev_function_type( &::DistributionGaussian::getStdDev )
-                , "    //! get the standard deviation" );
+                , "get the standard deviation." );
         
         }
         { //::DistributionGaussian::probabilityDensity
@@ -335,7 +335,7 @@ void register_DistributionGaussian_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionGaussian_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -30,7 +30,7 @@ void register_AttLimits_class(){
 
     { //::AttLimits
         typedef bp::class_< AttLimits > AttLimits_exposer_t;
-        AttLimits_exposer_t AttLimits_exposer = AttLimits_exposer_t( "AttLimits", "", bp::init< >("") );
+        AttLimits_exposer_t AttLimits_exposer = AttLimits_exposer_t( "AttLimits", "Limits for fit parameter.", bp::init< >() );
         bp::scope AttLimits_scope( AttLimits_exposer );
         { //::AttLimits::fixed
         
@@ -39,7 +39,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "fixed"
                 , fixed_function_type( &::AttLimits::fixed )
-                , "    //! Creates a fixed value object" );
+                , "Creates a fixed value object." );
         
         }
         { //::AttLimits::getLowerLimit
@@ -49,7 +49,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "getLowerLimit"
                 , getLowerLimit_function_type( &::AttLimits::getLowerLimit )
-                , "    //! Returns lower limit" );
+                , "Returns lower limit." );
         
         }
         { //::AttLimits::getUpperLimit
@@ -59,7 +59,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "getUpperLimit"
                 , getUpperLimit_function_type( &::AttLimits::getUpperLimit )
-                , "    //! Returns upper limit" );
+                , "Returns upper limit." );
         
         }
         { //::AttLimits::hasLowerAndUpperLimits
@@ -69,7 +69,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "hasLowerAndUpperLimits"
                 , hasLowerAndUpperLimits_function_type( &::AttLimits::hasLowerAndUpperLimits )
-                , "    //! if has lower and upper limit" );
+                , "if has lower and upper limit." );
         
         }
         { //::AttLimits::hasLowerLimit
@@ -79,7 +79,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "hasLowerLimit"
                 , hasLowerLimit_function_type( &::AttLimits::hasLowerLimit )
-                , "    //! if has lower limit" );
+                , "if has lower limit." );
         
         }
         { //::AttLimits::hasUpperLimit
@@ -89,7 +89,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "hasUpperLimit"
                 , hasUpperLimit_function_type( &::AttLimits::hasUpperLimit )
-                , "    //! if has upper limit" );
+                , "if has upper limit." );
         
         }
         { //::AttLimits::isFixed
@@ -99,7 +99,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "isFixed"
                 , isFixed_function_type( &::AttLimits::isFixed )
-                , "    //! if object is fixed at some value" );
+                , "if object is fixed at some value." );
         
         }
         { //::AttLimits::isInRange
@@ -109,8 +109,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "isInRange"
                 , isInRange_function_type( &::AttLimits::isInRange )
-                , ( bp::arg("value") )
-                , "" );
+                , ( bp::arg("value") ) );
         
         }
         { //::AttLimits::limited
@@ -121,7 +120,7 @@ void register_AttLimits_class(){
                 "limited"
                 , limited_function_type( &::AttLimits::limited )
                 , ( bp::arg("left_bound_value"), bp::arg("right_bound_value") )
-                , "    //! Creates an object bounded from the left and right" );
+                , "Creates an object bounded from the left and right." );
         
         }
         { //::AttLimits::limitless
@@ -131,7 +130,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "limitless"
                 , limitless_function_type( &::AttLimits::limitless )
-                , "    //! Creates an object withoud bounds (default)" );
+                , "Creates an object withoud bounds (default)." );
         
         }
         { //::AttLimits::lowerLimited
@@ -142,7 +141,7 @@ void register_AttLimits_class(){
                 "lowerLimited"
                 , lowerLimited_function_type( &::AttLimits::lowerLimited )
                 , ( bp::arg("bound_value") )
-                , "    //! Creates an object bounded from the left" );
+                , "Creates an object bounded from the left." );
         
         }
         { //::AttLimits::n_positive
@@ -152,7 +151,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "n_positive"
                 , n_positive_function_type( &::AttLimits::n_positive )
-                , "    //! Creates an object which can have only positive values with 0.0 included" );
+                , "Creates an object which can have only positive values with 0.0 included." );
         
         }
         AttLimits_exposer.def( bp::self != bp::self );
@@ -164,7 +163,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "positive"
                 , positive_function_type( &::AttLimits::positive )
-                , "    //! Creates an object which can have only positive values (>0.0, zero is not included)" );
+                , "Creates an object which can have only positive values (>0.0, zero is not included)." );
         
         }
         { //::AttLimits::removeLimits
@@ -174,7 +173,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "removeLimits"
                 , removeLimits_function_type( &::AttLimits::removeLimits )
-                , "    //! remove limits" );
+                , "remove limits." );
         
         }
         { //::AttLimits::removeLowerLimit
@@ -184,7 +183,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "removeLowerLimit"
                 , removeLowerLimit_function_type( &::AttLimits::removeLowerLimit )
-                , "    //! remove lower limit" );
+                , "remove lower limit." );
         
         }
         { //::AttLimits::removeUpperLimit
@@ -194,7 +193,7 @@ void register_AttLimits_class(){
             AttLimits_exposer.def( 
                 "removeUpperLimit"
                 , removeUpperLimit_function_type( &::AttLimits::removeUpperLimit )
-                , "    //! remove upper limit" );
+                , "remove upper limit." );
         
         }
         { //::AttLimits::setFixed
@@ -205,7 +204,7 @@ void register_AttLimits_class(){
                 "setFixed"
                 , setFixed_function_type( &::AttLimits::setFixed )
                 , ( bp::arg("is_fixed") )
-                , "    //! Sets object fixed" );
+                , "Sets object fixed." );
         
         }
         { //::AttLimits::setLimits
@@ -216,7 +215,7 @@ void register_AttLimits_class(){
                 "setLimits"
                 , setLimits_function_type( &::AttLimits::setLimits )
                 , ( bp::arg("xmin"), bp::arg("xmax") )
-                , "    //! Sets lower and upper limits" );
+                , "Sets lower and upper limits." );
         
         }
         { //::AttLimits::setLowerLimit
@@ -227,7 +226,7 @@ void register_AttLimits_class(){
                 "setLowerLimit"
                 , setLowerLimit_function_type( &::AttLimits::setLowerLimit )
                 , ( bp::arg("value") )
-                , "    //! Sets lower limit" );
+                , "Sets lower limit." );
         
         }
         { //::AttLimits::setUpperLimit
@@ -238,7 +237,7 @@ void register_AttLimits_class(){
                 "setUpperLimit"
                 , setUpperLimit_function_type( &::AttLimits::setUpperLimit )
                 , ( bp::arg("value") )
-                , "    //! Sets upper limit" );
+                , "Sets upper limit." );
         
         }
         { //::AttLimits::upperLimited
@@ -249,7 +248,7 @@ void register_AttLimits_class(){
                 "upperLimited"
                 , upperLimited_function_type( &::AttLimits::upperLimited )
                 , ( bp::arg("bound_value") )
-                , "    //! Creates an object bounded from the right" );
+                , "Creates an object bounded from the right." );
         
         }
         AttLimits_exposer.staticmethod( "fixed" );

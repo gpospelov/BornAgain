@@ -388,7 +388,7 @@ void register_FormFactorTetrahedron_class(){
 
     { //::FormFactorTetrahedron
         typedef bp::class_< FormFactorTetrahedron_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTetrahedron_wrapper >, boost::noncopyable > FormFactorTetrahedron_exposer_t;
-        FormFactorTetrahedron_exposer_t FormFactorTetrahedron_exposer = FormFactorTetrahedron_exposer_t( "FormFactorTetrahedron", "", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") ), "    //! @brief Tetrahedron constructor\n    //! @param length of a side of Tetrahedron's base\n    //! @param height of Tetrahedron\n    //! @param angle in radians between base and facet") );
+        FormFactorTetrahedron_exposer_t FormFactorTetrahedron_exposer = FormFactorTetrahedron_exposer_t( "FormFactorTetrahedron", "The formfactor of tetrahedron.", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") ), "Tetrahedron constructor.\n\n:Parameters:\n  - 'length' - of a side of Tetrahedron's base\n  - 'height' - of Tetrahedron\n  - 'angle' - in radians between base and facet\n") );
         bp::scope FormFactorTetrahedron_scope( FormFactorTetrahedron_exposer );
         { //::FormFactorTetrahedron::clone
         
@@ -650,7 +650,7 @@ void register_FormFactorTetrahedron_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorTetrahedron_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

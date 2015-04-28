@@ -53,7 +53,7 @@ void register_IIntensityFunction_class(){
 
     { //::IIntensityFunction
         typedef bp::class_< IIntensityFunction_wrapper, std::auto_ptr< IIntensityFunction_wrapper >, boost::noncopyable > IIntensityFunction_exposer_t;
-        IIntensityFunction_exposer_t IIntensityFunction_exposer = IIntensityFunction_exposer_t( "IIntensityFunction", "" );
+        IIntensityFunction_exposer_t IIntensityFunction_exposer = IIntensityFunction_exposer_t( "IIntensityFunction", "Interface for applying arbitrary function to the measured intensit." );
         bp::scope IIntensityFunction_scope( IIntensityFunction_exposer );
         { //::IIntensityFunction::clone
         
@@ -62,8 +62,7 @@ void register_IIntensityFunction_class(){
             IIntensityFunction_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IIntensityFunction::clone) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IIntensityFunction::evaluate
@@ -73,8 +72,7 @@ void register_IIntensityFunction_class(){
             IIntensityFunction_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IIntensityFunction::evaluate) )
-                , ( bp::arg("value") )
-                , "" );
+                , ( bp::arg("value") ) );
         
         }
     }

@@ -300,7 +300,7 @@ void register_IFormFactorDecorator_class(){
 
     { //::IFormFactorDecorator
         typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, std::auto_ptr< IFormFactorDecorator_wrapper >, boost::noncopyable > IFormFactorDecorator_exposer_t;
-        IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", "", bp::no_init );
+        IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", "Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor,.", bp::no_init );
         bp::scope IFormFactorDecorator_scope( IFormFactorDecorator_exposer );
         { //::IFormFactorDecorator::accept
         
@@ -309,8 +309,7 @@ void register_IFormFactorDecorator_class(){
             IFormFactorDecorator_exposer.def( 
                 "accept"
                 , bp::pure_virtual( accept_function_type(&::IFormFactorDecorator::accept) )
-                , ( bp::arg("visitor") )
-                , "" );
+                , ( bp::arg("visitor") ) );
         
         }
         { //::IFormFactorDecorator::clone
@@ -320,8 +319,7 @@ void register_IFormFactorDecorator_class(){
             IFormFactorDecorator_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IFormFactorDecorator::clone) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFormFactorDecorator::getHeight
@@ -434,7 +432,7 @@ void register_IFormFactorDecorator_class(){
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") )
-                , "" );
+                , "Returns scattering amplitude for complex wavevector bin @param k_i   incoming wavevector @param k_f_bin   outgoing wavevector bin @param alpha_f outgoing angle wrt scattering surface \n\n:Parameters:\n  - 'k_i' - incoming wavevector\n  - 'k_f_bin' - outgoing wavevector bin\n  - 'alpha_f' - outgoing angle wrt scattering surface\n" );
         
         }
         { //::ISample::getCompositeSample
@@ -513,7 +511,7 @@ void register_IFormFactorDecorator_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactorDecorator_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

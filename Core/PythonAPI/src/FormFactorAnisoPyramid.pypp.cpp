@@ -412,7 +412,7 @@ void register_FormFactorAnisoPyramid_class(){
 
     { //::FormFactorAnisoPyramid
         typedef bp::class_< FormFactorAnisoPyramid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorAnisoPyramid_wrapper >, boost::noncopyable > FormFactorAnisoPyramid_exposer_t;
-        FormFactorAnisoPyramid_exposer_t FormFactorAnisoPyramid_exposer = FormFactorAnisoPyramid_exposer_t( "FormFactorAnisoPyramid", "", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("alpha") ), "    //! @brief Anisotropic Pyramid constructor\n    //! @param length of Anisotropic Pyramid's base\n    //! @param width of Anisotropic Pyramid's base\n    //! @param height of Anisotropic Pyramid\n    //! @param alpha angle in radians between base and facet") );
+        FormFactorAnisoPyramid_exposer_t FormFactorAnisoPyramid_exposer = FormFactorAnisoPyramid_exposer_t( "FormFactorAnisoPyramid", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("alpha") ), "Anisotropic Pyramid constructor.\n\n:Parameters:\n  - 'length' - of Anisotropic Pyramid's base\n  - 'width' - of Anisotropic Pyramid's base\n  - 'height' - of Anisotropic Pyramid\n  - 'alpha' - angle in radians between base and facet\n") );
         bp::scope FormFactorAnisoPyramid_scope( FormFactorAnisoPyramid_exposer );
         { //::FormFactorAnisoPyramid::clone
         
@@ -697,7 +697,7 @@ void register_FormFactorAnisoPyramid_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorAnisoPyramid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

@@ -366,10 +366,10 @@ void register_Layer_class(){
 
     { //::Layer
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< Layer_wrapper >, boost::noncopyable > Layer_exposer_t;
-        Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", "", bp::init< >("    //! Constructs empty layer.") );
+        Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", "A layer with thickness and materia.", bp::init< >("Constructs empty layer.") );
         bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 ), "") );
-        Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") ), "") );
+        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 ), "Constructs layer made of _material_ with _thickness_ in nanometers and decoration.") );
+        Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::addLayout
         
             typedef void ( ::Layer::*addLayout_function_type)( ::ILayout const & ) ;
@@ -415,7 +415,7 @@ void register_Layer_class(){
                 , createLayoutSimulation_function_type( &::Layer::createLayoutSimulation )
                 , ( bp::arg("layout_index") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! creates and returns a LayerDWBASimulation for the given layout" );
+                , "creates and returns a LayerDWBASimulation for the given layout." );
         
         }
         { //::Layer::getLayout
@@ -449,8 +449,7 @@ void register_Layer_class(){
             
             Layer_exposer.def( 
                 "getNumberOfLayers"
-                , getNumberOfLayers_function_type( &::Layer::getNumberOfLayers )
-                , "" );
+                , getNumberOfLayers_function_type( &::Layer::getNumberOfLayers ) );
         
         }
         { //::Layer::getNumberOfLayouts
@@ -460,7 +459,7 @@ void register_Layer_class(){
             Layer_exposer.def( 
                 "getNumberOfLayouts"
                 , getNumberOfLayouts_function_type( &::Layer::getNumberOfLayouts )
-                , "    //! gets number of layouts present" );
+                , "gets number of layouts present." );
         
         }
         { //::Layer::getRefractiveIndex
@@ -491,8 +490,7 @@ void register_Layer_class(){
             
             Layer_exposer.def( 
                 "getTotalAbundance"
-                , getTotalAbundance_function_type( &::Layer::getTotalAbundance )
-                , "" );
+                , getTotalAbundance_function_type( &::Layer::getTotalAbundance ) );
         
         }
         { //::Layer::getTotalParticleSurfaceDensity
@@ -502,8 +500,7 @@ void register_Layer_class(){
             Layer_exposer.def( 
                 "getTotalParticleSurfaceDensity"
                 , getTotalParticleSurfaceDensity_function_type( &::Layer::getTotalParticleSurfaceDensity )
-                , ( bp::arg("layout_index") )
-                , "" );
+                , ( bp::arg("layout_index") ) );
         
         }
         { //::Layer::setMaterial
@@ -537,8 +534,7 @@ void register_Layer_class(){
             Layer_exposer.def( 
                 "setNumberOfLayers"
                 , setNumberOfLayers_function_type( &::Layer::setNumberOfLayers )
-                , ( bp::arg("n_layers") )
-                , "" );
+                , ( bp::arg("n_layers") ) );
         
         }
         { //::Layer::setThickness
@@ -663,7 +659,7 @@ void register_Layer_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Layer_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

@@ -30,10 +30,10 @@ void register_SimulationParameters_class(){
 
     { //::SimulationParameters
         typedef bp::class_< SimulationParameters > SimulationParameters_exposer_t;
-        SimulationParameters_exposer_t SimulationParameters_exposer = SimulationParameters_exposer_t( "SimulationParameters", "", bp::init< >("") );
+        SimulationParameters_exposer_t SimulationParameters_exposer = SimulationParameters_exposer_t( "SimulationParameters", "Collect the different options for simulation.", bp::init< >() );
         bp::scope SimulationParameters_scope( SimulationParameters_exposer );
-        SimulationParameters_exposer.def_readwrite( "m_mc_integration", &SimulationParameters::m_mc_integration, "" );
-        SimulationParameters_exposer.def_readwrite( "m_mc_points", &SimulationParameters::m_mc_points, "" );
+        SimulationParameters_exposer.def_readwrite( "m_mc_integration", &SimulationParameters::m_mc_integration );
+        SimulationParameters_exposer.def_readwrite( "m_mc_points", &SimulationParameters::m_mc_points );
     }
 
 }

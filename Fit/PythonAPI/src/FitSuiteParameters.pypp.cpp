@@ -30,7 +30,7 @@ void register_FitSuiteParameters_class(){
 
     { //::FitSuiteParameters
         typedef bp::class_< FitSuiteParameters > FitSuiteParameters_exposer_t;
-        FitSuiteParameters_exposer_t FitSuiteParameters_exposer = FitSuiteParameters_exposer_t( "FitSuiteParameters", "", bp::init< >("") );
+        FitSuiteParameters_exposer_t FitSuiteParameters_exposer = FitSuiteParameters_exposer_t( "FitSuiteParameters", "Holds vector of parameters for FitSuit.", bp::init< >() );
         bp::scope FitSuiteParameters_scope( FitSuiteParameters_exposer );
         { //::FitSuiteParameters::addParameter
         
@@ -40,7 +40,7 @@ void register_FitSuiteParameters_class(){
                 "addParameter"
                 , addParameter_function_type( &::FitSuiteParameters::addParameter )
                 , ( bp::arg("name"), bp::arg("value"), bp::arg("step"), bp::arg("attlim"), bp::arg("error")=0.0 )
-                , "    //! Adds fit parameter" );
+                , "Adds fit parameter." );
         
         }
         { //::FitSuiteParameters::clear
@@ -50,7 +50,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "clear"
                 , clear_function_type( &::FitSuiteParameters::clear )
-                , "    //! clear all defined parameters" );
+                , "clear all defined parameters." );
         
         }
         { //::FitSuiteParameters::fixAll
@@ -60,7 +60,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "fixAll"
                 , fixAll_function_type( &::FitSuiteParameters::fixAll )
-                , "    //! Fix all parameters" );
+                , "Fix all parameters." );
         
         }
         { //::FitSuiteParameters::getErrors
@@ -70,7 +70,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "getErrors"
                 , getErrors_function_type( &::FitSuiteParameters::getErrors )
-                , "    //! Returns errors of all defined parameters" );
+                , "Returns errors of all defined parameters." );
         
         }
         { //::FitSuiteParameters::getNfreeParameters
@@ -80,7 +80,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "getNfreeParameters"
                 , getNfreeParameters_function_type( &::FitSuiteParameters::getNfreeParameters )
-                , "    //! Returns number of free parameters" );
+                , "Returns number of free parameters." );
         
         }
         { //::FitSuiteParameters::getParameter
@@ -92,7 +92,7 @@ void register_FitSuiteParameters_class(){
                 , getParameter_function_type( &::FitSuiteParameters::getParameter )
                 , ( bp::arg("name") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns fit parameter with given name" );
+                , "Returns fit parameter with given name." );
         
         }
         { //::FitSuiteParameters::getParameter
@@ -104,7 +104,7 @@ void register_FitSuiteParameters_class(){
                 , getParameter_function_type( &::FitSuiteParameters::getParameter )
                 , ( bp::arg("name") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "" );
+                , "Returns fit parameter with given name." );
         
         }
         { //::FitSuiteParameters::getValues
@@ -114,7 +114,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "getValues"
                 , getValues_function_type( &::FitSuiteParameters::getValues )
-                , "    //! Returns values of all defined parameters" );
+                , "Returns values of all defined parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -126,7 +126,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "    //! access to parameters" );
+                , "access to parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -138,7 +138,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("index") )
                 , bp::return_internal_reference< >()
-                , "" );
+                , "access to parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -150,7 +150,7 @@ void register_FitSuiteParameters_class(){
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
                 , bp::return_internal_reference< >()
-                , "" );
+                , "access to parameters." );
         
         }
         { //::FitSuiteParameters::operator[]
@@ -161,8 +161,7 @@ void register_FitSuiteParameters_class(){
                 "__getitem__"
                 , __getitem___function_type( &::FitSuiteParameters::operator[] )
                 , ( bp::arg("name") )
-                , bp::return_internal_reference< >()
-                , "" );
+                , bp::return_internal_reference< >() );
         
         }
         { //::FitSuiteParameters::printParameters
@@ -172,7 +171,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "printParameters"
                 , printParameters_function_type( &::FitSuiteParameters::printParameters )
-                , "    //! Print defined parameters" );
+                , "Print defined parameters." );
         
         }
         { //::FitSuiteParameters::releaseAll
@@ -182,7 +181,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "releaseAll"
                 , releaseAll_function_type( &::FitSuiteParameters::releaseAll )
-                , "    //! Release all parameters" );
+                , "Release all parameters." );
         
         }
         { //::FitSuiteParameters::setErrors
@@ -193,7 +192,7 @@ void register_FitSuiteParameters_class(){
                 "setErrors"
                 , setErrors_function_type( &::FitSuiteParameters::setErrors )
                 , ( bp::arg("pars_errors") )
-                , "    //! set errors to all parameters" );
+                , "set errors to all parameters." );
         
         }
         { //::FitSuiteParameters::setParametersFixed
@@ -204,7 +203,7 @@ void register_FitSuiteParameters_class(){
                 "setParametersFixed"
                 , setParametersFixed_function_type( &::FitSuiteParameters::setParametersFixed )
                 , ( bp::arg("pars"), bp::arg("is_fixed") )
-                , "    //! Set fixed flag for parameters from the list" );
+                , "Set fixed flag for parameters from the list." );
         
         }
         { //::FitSuiteParameters::setValues
@@ -215,7 +214,7 @@ void register_FitSuiteParameters_class(){
                 "setValues"
                 , setValues_function_type( &::FitSuiteParameters::setValues )
                 , ( bp::arg("pars_values") )
-                , "" );
+                , "Sets values for all defined parameters." );
         
         }
         { //::FitSuiteParameters::size
@@ -225,7 +224,7 @@ void register_FitSuiteParameters_class(){
             FitSuiteParameters_exposer.def( 
                 "size"
                 , size_function_type( &::FitSuiteParameters::size )
-                , "    //! Returns number of parameters" );
+                , "Returns number of parameters." );
         
         }
     }

@@ -31,7 +31,7 @@ void register_vector_complex_t_class(){
 
     { //::std::vector< std::complex<double> >
         typedef bp::class_< std::vector< std::complex<double> > > vector_complex_t_exposer_t;
-        vector_complex_t_exposer_t vector_complex_t_exposer = vector_complex_t_exposer_t( "vector_complex_t", "" );
+        vector_complex_t_exposer_t vector_complex_t_exposer = vector_complex_t_exposer_t( "vector_complex_t" );
         bp::scope vector_complex_t_scope( vector_complex_t_exposer );
         //WARNING: the next line of code will not compile, because "::std::complex<double>" does not have operator== !
         vector_complex_t_exposer.def( bp::vector_indexing_suite< ::std::vector< std::complex<double> > >() );

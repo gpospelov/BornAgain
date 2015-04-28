@@ -352,7 +352,7 @@ void register_FormFactorPrism6_class(){
 
     { //::FormFactorPrism6
         typedef bp::class_< FormFactorPrism6_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorPrism6_wrapper >, boost::noncopyable > FormFactorPrism6_exposer_t;
-        FormFactorPrism6_exposer_t FormFactorPrism6_exposer = FormFactorPrism6_exposer_t( "FormFactorPrism6", "", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") ), "    //! @brief Prism6 constructor\n    //! @param radius of hexagonal base (different from R in IsGisaxs)\n    //! @param height of Prism6") );
+        FormFactorPrism6_exposer_t FormFactorPrism6_exposer = FormFactorPrism6_exposer_t( "FormFactorPrism6", "The formfactor of a prism based on a regular hexagonal.", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") ), "Prism6 constructor.\n\n:Parameters:\n  - 'radius' - of hexagonal base (different from R in IsGisaxs)\n  - 'height' - of Prism6\n") );
         bp::scope FormFactorPrism6_scope( FormFactorPrism6_exposer );
         { //::FormFactorPrism6::clone
         
@@ -580,7 +580,7 @@ void register_FormFactorPrism6_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorPrism6_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

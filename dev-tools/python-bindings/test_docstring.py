@@ -85,13 +85,15 @@ class DocObject:
         " - angle (float) - in radians between base and facet\n"
         """
         brief = self.getBriefDescription()
+
         params = self.getParamList()
         eol = "\n"
 
         result = ""
         if len(brief):
-            result += brief + eol + eol
+            result += brief
         if len(params):
+            result += eol + eol
             result += ":Parameters:" + eol
             for p in params:
                 param_name = p.split()[0]
@@ -113,7 +115,6 @@ class DoxygenDocExtractor:
     def parse_file(self, filename):
         self.file_name = filename
         self.source = open(filename).readlines()
-        print self.source
 
         docObject = DocObject()
         for i_line in range(0, len(self.source)):
@@ -143,7 +144,7 @@ class DoxygenDocExtractor:
 
 if __name__ == '__main__':
 
-    # filename = "/home/pospelov/development/BornAgain/source/Core/Tools/inc/CustomBinAxis.h"
+    #filename = "/home/pospelov/development/BornAgain/source/Core/Tools/inc/CustomBinAxis.h"
     # filename = "/home/pospelov/development/BornAgain/source/Core/FormFactors/inc/FormFactorCone.h"
 
     filename = "/home/pospelov/development/BornAgain/source/Core/Samples/inc/ParticleLayout.h"
@@ -151,4 +152,6 @@ if __name__ == '__main__':
     extractor = DoxygenDocExtractor()
     extractor.parse_file(filename)
 
+    print "---"
     print extractor.getDocObject(27).getPythonDocString()
+    print "---"

@@ -352,7 +352,7 @@ void register_FormFactorRipple1_class(){
 
     { //::FormFactorRipple1
         typedef bp::class_< FormFactorRipple1_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorRipple1_wrapper >, boost::noncopyable > FormFactorRipple1_exposer_t;
-        FormFactorRipple1_exposer_t FormFactorRipple1_exposer = FormFactorRipple1_exposer_t( "FormFactorRipple1", "", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") ), "    //! @brief Ripple1 constructor\n    //! @param length of Ripple1\n    //! @param width of cosine cross section\n    //! @param height of cosine cross section") );
+        FormFactorRipple1_exposer_t FormFactorRipple1_exposer = FormFactorRipple1_exposer_t( "FormFactorRipple1", "The formfactor for a cosine ripple.", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") ), "Ripple1 constructor.\n\n:Parameters:\n  - 'length' - of Ripple1\n  - 'width' - of cosine cross section\n  - 'height' - of cosine cross section\n") );
         bp::scope FormFactorRipple1_scope( FormFactorRipple1_exposer );
         { //::FormFactorRipple1::clone
         
@@ -578,7 +578,7 @@ void register_FormFactorRipple1_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorRipple1_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

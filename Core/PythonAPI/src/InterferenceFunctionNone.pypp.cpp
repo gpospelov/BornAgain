@@ -268,7 +268,7 @@ void register_InterferenceFunctionNone_class(){
 
     { //::InterferenceFunctionNone
         typedef bp::class_< InterferenceFunctionNone_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunctionNone_wrapper >, boost::noncopyable > InterferenceFunctionNone_exposer_t;
-        InterferenceFunctionNone_exposer_t InterferenceFunctionNone_exposer = InterferenceFunctionNone_exposer_t( "InterferenceFunctionNone", "", bp::init< >("") );
+        InterferenceFunctionNone_exposer_t InterferenceFunctionNone_exposer = InterferenceFunctionNone_exposer_t( "InterferenceFunctionNone", "Default interference function (i.", bp::init< >() );
         bp::scope InterferenceFunctionNone_scope( InterferenceFunctionNone_exposer );
         { //::InterferenceFunctionNone::clone
         
@@ -427,7 +427,7 @@ void register_InterferenceFunctionNone_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunctionNone_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

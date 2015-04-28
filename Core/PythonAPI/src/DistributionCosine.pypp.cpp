@@ -210,9 +210,9 @@ void register_DistributionCosine_class(){
 
     { //::DistributionCosine
         typedef bp::class_< DistributionCosine_wrapper, bp::bases< IDistribution1D >, std::auto_ptr< DistributionCosine_wrapper > > DistributionCosine_exposer_t;
-        DistributionCosine_exposer_t DistributionCosine_exposer = DistributionCosine_exposer_t( "DistributionCosine", "", bp::init< >("") );
+        DistributionCosine_exposer_t DistributionCosine_exposer = DistributionCosine_exposer_t( "DistributionCosine", "Cosine distributio.", bp::init< >() );
         bp::scope DistributionCosine_scope( DistributionCosine_exposer );
-        DistributionCosine_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") ), "") );
+        DistributionCosine_exposer.def( bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) );
         { //::DistributionCosine::clone
         
             typedef ::DistributionCosine * ( ::DistributionCosine::*clone_function_type)(  ) const;
@@ -255,7 +255,7 @@ void register_DistributionCosine_class(){
             DistributionCosine_exposer.def( 
                 "getSigma"
                 , getSigma_function_type( &::DistributionCosine::getSigma )
-                , "    //! get the sigma parameter of the distribution" );
+                , "get the sigma parameter of the distribution." );
         
         }
         { //::DistributionCosine::probabilityDensity
@@ -335,7 +335,7 @@ void register_DistributionCosine_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionCosine_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

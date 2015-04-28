@@ -79,7 +79,7 @@ void register_SquaredFunctionSystematicError_class(){
 
     { //::SquaredFunctionSystematicError
         typedef bp::class_< SquaredFunctionSystematicError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionSystematicError_wrapper >, boost::noncopyable > SquaredFunctionSystematicError_exposer_t;
-        SquaredFunctionSystematicError_exposer_t SquaredFunctionSystematicError_exposer = SquaredFunctionSystematicError_exposer_t( "SquaredFunctionSystematicError", "", bp::init< bp::optional< double > >(( bp::arg("epsilon")=8.000000000000000166533453693773481063544750213623046875e-2 ), "") );
+        SquaredFunctionSystematicError_exposer_t SquaredFunctionSystematicError_exposer = SquaredFunctionSystematicError_exposer_t( "SquaredFunctionSystematicError", "Squared difference between two values normalized by systematic error value = (a-b)*(a-b)/norm, where norm = max(error, 1.", bp::init< bp::optional< double > >(( bp::arg("epsilon")=8.000000000000000166533453693773481063544750213623046875e-2 )) );
         bp::scope SquaredFunctionSystematicError_scope( SquaredFunctionSystematicError_exposer );
         { //::SquaredFunctionSystematicError::calculateSquaredDifference
         

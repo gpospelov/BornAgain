@@ -279,7 +279,7 @@ void register_ILayout_class(){
 
     { //::ILayout
         typedef bp::class_< ILayout_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ILayout_wrapper >, boost::noncopyable > ILayout_exposer_t;
-        ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", "", bp::init< >("") );
+        ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", "Interface to equip a sample component with various properties.", bp::init< >() );
         bp::scope ILayout_scope( ILayout_exposer );
         bp::enum_< ILayout::EInterferenceApproximation>("EInterferenceApproximation")
             .value("DA", ILayout::DA)
@@ -295,7 +295,7 @@ void register_ILayout_class(){
                 "accept"
                 , bp::pure_virtual( accept_function_type(&::ILayout::accept) )
                 , ( bp::arg("visitor") )
-                , "    //! calls the ISampleVisitor's visit method" );
+                , "calls the ISampleVisitor's visit method." );
         
         }
         { //::ILayout::clone
@@ -305,8 +305,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ILayout::clone) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ILayout::cloneInvertB
@@ -317,7 +316,7 @@ void register_ILayout_class(){
                 "cloneInvertB"
                 , bp::pure_virtual( cloneInvertB_function_type(&::ILayout::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns a clone with inverted magnetic fields" );
+                , "Returns a clone with inverted magnetic fields." );
         
         }
         { //::ILayout::getAbundanceOfParticle
@@ -327,8 +326,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getAbundanceOfParticle"
                 , bp::pure_virtual( getAbundanceOfParticle_function_type(&::ILayout::getAbundanceOfParticle) )
-                , ( bp::arg("index") )
-                , "" );
+                , ( bp::arg("index") ) );
         
         }
         { //::ILayout::getApproximation
@@ -338,7 +336,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getApproximation"
                 , getApproximation_function_type( &::ILayout::getApproximation )
-                , "    //! Gets the used approximation for particles and interference functions" );
+                , "Gets the used approximation for particles and interference functions." );
         
         }
         { //::ILayout::getInterferenceFunctions
@@ -348,7 +346,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getInterferenceFunctions"
                 , bp::pure_virtual( getInterferenceFunctions_function_type(&::ILayout::getInterferenceFunctions) )
-                , "" );
+                , "Returns interference functions." );
         
         }
         { //::ILayout::getNumberOfInterferenceFunctions
@@ -369,7 +367,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getNumberOfParticles"
                 , bp::pure_virtual( getNumberOfParticles_function_type(&::ILayout::getNumberOfParticles) )
-                , "    //! Returns number of particles" );
+                , "Returns number of particles." );
         
         }
         { //::ILayout::getParticleInfo
@@ -381,7 +379,7 @@ void register_ILayout_class(){
                 , bp::pure_virtual( getParticleInfo_function_type(&::ILayout::getParticleInfo) )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns information about particle with index" );
+                , "Returns information about particle with index." );
         
         }
         { //::ILayout::getTotalAbundance
@@ -390,8 +388,7 @@ void register_ILayout_class(){
             
             ILayout_exposer.def( 
                 "getTotalAbundance"
-                , getTotalAbundance_function_type( &::ILayout::getTotalAbundance )
-                , "" );
+                , getTotalAbundance_function_type( &::ILayout::getTotalAbundance ) );
         
         }
         { //::ILayout::getTotalParticleSurfaceDensity
@@ -401,7 +398,7 @@ void register_ILayout_class(){
             ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
                 , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity )
-                , "    //! Returns surface density of all particles" );
+                , "Returns surface density of all particles." );
         
         }
         { //::ILayout::setApproximation
@@ -412,7 +409,7 @@ void register_ILayout_class(){
                 "setApproximation"
                 , setApproximation_function_type( &::ILayout::setApproximation )
                 , ( bp::arg("approximation") )
-                , "    //! Sets the used approximation for particles and interference functions" );
+                , "Sets the used approximation for particles and interference functions." );
         
         }
         { //::ILayout::setTotalParticleSurfaceDensity
@@ -423,7 +420,7 @@ void register_ILayout_class(){
                 "setTotalParticleSurfaceDensity"
                 , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
                 , ( bp::arg("surface_density") )
-                , "    //! Sets surface density of all particles" );
+                , "Sets surface density of all particles." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -536,7 +533,7 @@ void register_ILayout_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ILayout_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

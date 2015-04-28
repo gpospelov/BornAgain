@@ -170,7 +170,7 @@ void register_IDetectorResolution_class(){
 
     { //::IDetectorResolution
         typedef bp::class_< IDetectorResolution_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< IDetectorResolution_wrapper >, boost::noncopyable > IDetectorResolution_exposer_t;
-        IDetectorResolution_exposer_t IDetectorResolution_exposer = IDetectorResolution_exposer_t( "IDetectorResolution", "" );
+        IDetectorResolution_exposer_t IDetectorResolution_exposer = IDetectorResolution_exposer_t( "IDetectorResolution", "Interface for detector resolution algorithm." );
         bp::scope IDetectorResolution_scope( IDetectorResolution_exposer );
         { //::IDetectorResolution::applyDetectorResolution
         
@@ -180,7 +180,7 @@ void register_IDetectorResolution_class(){
                 "applyDetectorResolution"
                 , bp::pure_virtual( applyDetectorResolution_function_type(&::IDetectorResolution::applyDetectorResolution) )
                 , ( bp::arg("p_intensity_map") )
-                , "    //! Apply the resolution function to the intensity data" );
+                , "Apply the resolution function to the intensity data." );
         
         }
         { //::IDetectorResolution::clone
@@ -190,8 +190,7 @@ void register_IDetectorResolution_class(){
             IDetectorResolution_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IDetectorResolution::clone) )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "" );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::areParametersChanged
@@ -247,7 +246,7 @@ void register_IDetectorResolution_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IDetectorResolution_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

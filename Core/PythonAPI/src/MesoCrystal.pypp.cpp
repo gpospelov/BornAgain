@@ -232,7 +232,7 @@ void register_MesoCrystal_class(){
 
     { //::MesoCrystal
         typedef bp::class_< MesoCrystal_wrapper, bp::bases< IParticle >, std::auto_ptr< MesoCrystal_wrapper >, boost::noncopyable > MesoCrystal_exposer_t;
-        MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", "", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") ), "") );
+        MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", "A particle with an internal structure of smaller particle.", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
         { //::IParameterized::areParametersChanged
         
@@ -344,7 +344,7 @@ void register_MesoCrystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &MesoCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

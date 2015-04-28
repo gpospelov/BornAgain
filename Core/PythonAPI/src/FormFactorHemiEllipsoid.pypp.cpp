@@ -352,7 +352,7 @@ void register_FormFactorHemiEllipsoid_class(){
 
     { //::FormFactorHemiEllipsoid
         typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorHemiEllipsoid_wrapper >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
-        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", "", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") ), "") );
+        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", "The formfactor of an hemi ellipsoid.", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") ), "Hemi Ellipsoid constructor.\n\n:Parameters:\n  - 'radius_a' - half length of one horizontal main axes\n  - 'radius_b' - half length of the other horizontal main axes\n  - 'height' - of Hemi Ellipsoid\n") );
         bp::scope FormFactorHemiEllipsoid_scope( FormFactorHemiEllipsoid_exposer );
         { //::FormFactorHemiEllipsoid::clone
         
@@ -578,7 +578,7 @@ void register_FormFactorHemiEllipsoid_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorHemiEllipsoid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

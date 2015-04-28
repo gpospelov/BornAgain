@@ -268,7 +268,7 @@ void register_RotationEuler_class(){
 
     { //::RotationEuler
         typedef bp::class_< RotationEuler_wrapper, bp::bases< IRotation >, std::auto_ptr< RotationEuler_wrapper >, boost::noncopyable > RotationEuler_exposer_t;
-        RotationEuler_exposer_t RotationEuler_exposer = RotationEuler_exposer_t( "RotationEuler", "", bp::init< double, double, double >(( bp::arg("alpha"), bp::arg("beta"), bp::arg("gamma") ), "") );
+        RotationEuler_exposer_t RotationEuler_exposer = RotationEuler_exposer_t( "RotationEuler", bp::init< double, double, double >(( bp::arg("alpha"), bp::arg("beta"), bp::arg("gamma") )) );
         bp::scope RotationEuler_scope( RotationEuler_exposer );
         { //::RotationEuler::clone
         
@@ -312,8 +312,7 @@ void register_RotationEuler_class(){
             
             RotationEuler_exposer.def( 
                 "getAlpha"
-                , getAlpha_function_type( &::RotationEuler::getAlpha )
-                , "" );
+                , getAlpha_function_type( &::RotationEuler::getAlpha ) );
         
         }
         { //::RotationEuler::getBeta
@@ -322,8 +321,7 @@ void register_RotationEuler_class(){
             
             RotationEuler_exposer.def( 
                 "getBeta"
-                , getBeta_function_type( &::RotationEuler::getBeta )
-                , "" );
+                , getBeta_function_type( &::RotationEuler::getBeta ) );
         
         }
         { //::RotationEuler::getGamma
@@ -332,8 +330,7 @@ void register_RotationEuler_class(){
             
             RotationEuler_exposer.def( 
                 "getGamma"
-                , getGamma_function_type( &::RotationEuler::getGamma )
-                , "" );
+                , getGamma_function_type( &::RotationEuler::getGamma ) );
         
         }
         { //::RotationEuler::getTransform3D
@@ -457,7 +454,7 @@ void register_RotationEuler_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &RotationEuler_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

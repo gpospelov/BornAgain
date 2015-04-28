@@ -328,7 +328,7 @@ void register_FormFactorSphereLogNormalRadius_class(){
 
     { //::FormFactorSphereLogNormalRadius
         typedef bp::class_< FormFactorSphereLogNormalRadius_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorSphereLogNormalRadius_wrapper >, boost::noncopyable > FormFactorSphereLogNormalRadius_exposer_t;
-        FormFactorSphereLogNormalRadius_exposer_t FormFactorSphereLogNormalRadius_exposer = FormFactorSphereLogNormalRadius_exposer_t( "FormFactorSphereLogNormalRadius", "", bp::init< double, double, std::size_t >(( bp::arg("mean"), bp::arg("scale_param"), bp::arg("n_samples") ), "") );
+        FormFactorSphereLogNormalRadius_exposer_t FormFactorSphereLogNormalRadius_exposer = FormFactorSphereLogNormalRadius_exposer_t( "FormFactorSphereLogNormalRadius", "The formfactor of sphere with log normal radius distribution.", bp::init< double, double, std::size_t >(( bp::arg("mean"), bp::arg("scale_param"), bp::arg("n_samples") )) );
         bp::scope FormFactorSphereLogNormalRadius_scope( FormFactorSphereLogNormalRadius_exposer );
         { //::FormFactorSphereLogNormalRadius::clone
         
@@ -532,7 +532,7 @@ void register_FormFactorSphereLogNormalRadius_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorSphereLogNormalRadius_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

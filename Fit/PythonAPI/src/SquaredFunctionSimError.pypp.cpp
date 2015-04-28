@@ -79,7 +79,7 @@ void register_SquaredFunctionSimError_class(){
 
     { //::SquaredFunctionSimError
         typedef bp::class_< SquaredFunctionSimError_wrapper, bp::bases< ISquaredFunction >, std::auto_ptr< SquaredFunctionSimError_wrapper >, boost::noncopyable > SquaredFunctionSimError_exposer_t;
-        SquaredFunctionSimError_exposer_t SquaredFunctionSimError_exposer = SquaredFunctionSimError_exposer_t( "SquaredFunctionSimError", "", bp::init< >("") );
+        SquaredFunctionSimError_exposer_t SquaredFunctionSimError_exposer = SquaredFunctionSimError_exposer_t( "SquaredFunctionSimError", "Squared difference between two values.", bp::init< >() );
         bp::scope SquaredFunctionSimError_scope( SquaredFunctionSimError_exposer );
         { //::SquaredFunctionSimError::calculateSquaredDifference
         

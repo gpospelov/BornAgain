@@ -35,11 +35,12 @@ if( !this->m_pyobj) {
 extractor = utils_docstring.DoxygenDocExtractor()
 
 def my_doc_extractor( decl ):
-    print "-----------"
-    print decl.name
-    print decl.location.file_name + str(decl.location.line)
-    print "-----------"
-    print extractor(decl)
+    # print "========================"
+    # print decl.name
+    # print decl.location.file_name + str(decl.location.line)
+    # print "-----------"
+    # print extractor(decl)
+    # print "-----------"
     return extractor(decl)
 
 def ExcludeConstructorsArgPtr(mb):

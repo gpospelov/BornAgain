@@ -249,7 +249,7 @@ void register_LayerInterface_class(){
 
     { //::LayerInterface
         typedef bp::class_< LayerInterface_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< LayerInterface_wrapper >, boost::noncopyable > LayerInterface_exposer_t;
-        LayerInterface_exposer_t LayerInterface_exposer = LayerInterface_exposer_t( "LayerInterface", "", bp::no_init );
+        LayerInterface_exposer_t LayerInterface_exposer = LayerInterface_exposer_t( "LayerInterface", "Interface between two layers, possibly with roughness.", bp::no_init );
         bp::scope LayerInterface_scope( LayerInterface_exposer );
         { //::LayerInterface::clone
         
@@ -271,7 +271,7 @@ void register_LayerInterface_class(){
                 "getLayerBottom"
                 , getLayerBottom_function_type( &::LayerInterface::getLayerBottom )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns bottom layer." );
+                , "Returns bottom layer." );
         
         }
         { //::LayerInterface::getLayerTop
@@ -282,7 +282,7 @@ void register_LayerInterface_class(){
                 "getLayerTop"
                 , getLayerTop_function_type( &::LayerInterface::getLayerTop )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns top layer." );
+                , "Returns top layer." );
         
         }
         { //::LayerInterface::getRoughness
@@ -293,7 +293,7 @@ void register_LayerInterface_class(){
                 "getRoughness"
                 , getRoughness_function_type( &::LayerInterface::getRoughness )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns roughness of the interface." );
+                , "Returns roughness of the interface." );
         
         }
         { //::LayerInterface::setRoughness
@@ -304,7 +304,7 @@ void register_LayerInterface_class(){
                 "setRoughness"
                 , setRoughness_function_type( &::LayerInterface::setRoughness )
                 , ( bp::arg("roughness") )
-                , "    //! Sets roughness of the interface." );
+                , "Sets roughness of the interface." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -429,7 +429,7 @@ void register_LayerInterface_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &LayerInterface_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

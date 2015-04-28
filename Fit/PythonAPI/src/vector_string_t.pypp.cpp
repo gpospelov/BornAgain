@@ -31,7 +31,7 @@ void register_vector_string_t_class(){
 
     { //::std::vector< std::string >
         typedef bp::class_< std::vector< std::string > > vector_string_t_exposer_t;
-        vector_string_t_exposer_t vector_string_t_exposer = vector_string_t_exposer_t( "vector_string_t", "" );
+        vector_string_t_exposer_t vector_string_t_exposer = vector_string_t_exposer_t( "vector_string_t" );
         bp::scope vector_string_t_scope( vector_string_t_exposer );
         vector_string_t_exposer.def( bp::vector_indexing_suite< ::std::vector< std::string >, true >() );
     }

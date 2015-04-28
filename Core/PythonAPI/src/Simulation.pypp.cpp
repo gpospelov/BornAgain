@@ -172,7 +172,7 @@ void register_Simulation_class(){
 
     { //::Simulation
         typedef bp::class_< Simulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< Simulation_wrapper >, boost::noncopyable > Simulation_exposer_t;
-        Simulation_exposer_t Simulation_exposer = Simulation_exposer_t( "Simulation", "", bp::init< >("") );
+        Simulation_exposer_t Simulation_exposer = Simulation_exposer_t( "Simulation", "Main class to run the simulation.", bp::init< >() );
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
         
@@ -181,8 +181,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "addParameterDistribution"
                 , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
-                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )
-                , "" );
+                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) ) );
         
         }
         { //::Simulation::addParameterDistribution
@@ -193,7 +192,7 @@ void register_Simulation_class(){
                 "addParameterDistribution"
                 , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
                 , ( bp::arg("par_distr") )
-                , "    //! add a sampled parameter distribution" );
+                , "add a sampled parameter distribution." );
         
         }
         { //::Simulation::clone
@@ -216,7 +215,7 @@ void register_Simulation_class(){
                 "getDistributionHandler"
                 , getDistributionHandler_function_type( &::Simulation::getDistributionHandler )
                 , bp::return_value_policy< bp::copy_const_reference >()
-                , "" );
+                , "add a sampled parameter distribution." );
         
         }
         { //::Simulation::getInstrument
@@ -227,7 +226,7 @@ void register_Simulation_class(){
                 "getInstrument"
                 , getInstrument_function_type( &::Simulation::getInstrument )
                 , bp::return_value_policy< bp::copy_const_reference >()
-                , "    //! Returns the instrument containing beam and detector information" );
+                , "Returns the instrument containing beam and detector information." );
         
         }
         { //::Simulation::getIntensityData
@@ -238,7 +237,7 @@ void register_Simulation_class(){
                 "getIntensityData"
                 , getIntensityData_function_type( &::Simulation::getIntensityData )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)" );
+                , "Clone detector intensity map for all scan parameters (apply detector resolution function first)." );
         
         }
         { //::Simulation::getPolarizedIntensityData
@@ -250,7 +249,7 @@ void register_Simulation_class(){
                 , getPolarizedIntensityData_function_type( &::Simulation::getPolarizedIntensityData )
                 , ( bp::arg("row"), bp::arg("column") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "    //! returns component of polarized intensity map (apply detector resolution first)" );
+                , "returns component of polarized intensity map (apply detector resolution first)." );
         
         }
         { //::Simulation::getSample
@@ -261,7 +260,7 @@ void register_Simulation_class(){
                 "getSample"
                 , getSample_function_type( &::Simulation::getSample )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "    //! Returns the sample" );
+                , "Returns the sample." );
         
         }
         { //::Simulation::getSampleBuilder
@@ -271,7 +270,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "getSampleBuilder"
                 , getSampleBuilder_function_type( &::Simulation::getSampleBuilder )
-                , "    //! return sample builder" );
+                , "return sample builder." );
         
         }
         { //::Simulation::getSimulationParameters
@@ -281,7 +280,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "getSimulationParameters"
                 , getSimulationParameters_function_type( &::Simulation::getSimulationParameters )
-                , "    //! Returns simulation parameters" );
+                , "Sets detector parameters using parameter object." );
         
         }
         { //::Simulation::normalize
@@ -291,7 +290,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "normalize"
                 , normalize_function_type( &::Simulation::normalize )
-                , "    //! Normalize the detector counts" );
+                , "Normalize the detector counts." );
         
         }
         { //::Simulation::prepareSimulation
@@ -301,7 +300,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "prepareSimulation"
                 , prepareSimulation_function_type( &::Simulation::prepareSimulation )
-                , "    //! Put into a clean state for running a simulation" );
+                , "Put into a clean state for running a simulation." );
         
         }
         { //::Simulation::removeDetectorResolutionFunction
@@ -311,7 +310,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "removeDetectorResolutionFunction"
                 , removeDetectorResolutionFunction_function_type( &::Simulation::removeDetectorResolutionFunction )
-                , "    //! Removes detector resolution function" );
+                , "Removes detector resolution function." );
         
         }
         { //::Simulation::runOMPISimulation
@@ -321,7 +320,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "runOMPISimulation"
                 , runOMPISimulation_function_type( &::Simulation::runOMPISimulation )
-                , "    //! Run an OpenMPI simulation" );
+                , "Run an OpenMPI simulation." );
         
         }
         { //::Simulation::runSimulation
@@ -331,7 +330,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "runSimulation"
                 , runSimulation_function_type( &::Simulation::runSimulation )
-                , "    //! Run a simulation, possibly averaged over parameter distributions" );
+                , "Run a simulation, possibly averaged over parameter distributions." );
         
         }
         { //::Simulation::setBeamIntensity
@@ -342,7 +341,7 @@ void register_Simulation_class(){
                 "setBeamIntensity"
                 , setBeamIntensity_function_type( &::Simulation::setBeamIntensity )
                 , ( bp::arg("intensity") )
-                , "    //! Sets beam intensity from here (forwarded to Instrument)" );
+                , "Sets beam intensity from here (forwarded to Instrument)." );
         
         }
         { //::Simulation::setBeamParameters
@@ -353,7 +352,7 @@ void register_Simulation_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::Simulation::setBeamParameters )
                 , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") )
-                , "    //! Sets beam parameters from here (forwarded to Instrument)" );
+                , "Sets beam parameters from here (forwarded to Instrument)." );
         
         }
         { //::Simulation::setDetectorParameters
@@ -364,7 +363,7 @@ void register_Simulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
                 , ( bp::arg("output_data") )
-                , "    //! Sets detector parameters using axes of output data" );
+                , "Sets detector parameters using axes of output data." );
         
         }
         { //::Simulation::setDetectorParameters
@@ -375,7 +374,7 @@ void register_Simulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
                 , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
-                , "" );
+                , "Sets detector parameters using angle ranges." );
         
         }
         { //::Simulation::setDetectorParameters
@@ -386,7 +385,7 @@ void register_Simulation_class(){
                 "setDetectorParameters"
                 , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
                 , ( bp::arg("params") )
-                , "    //! Sets detector parameters using parameter object" );
+                , "Sets detector parameters using parameter object." );
         
         }
         { //::Simulation::setDetectorResolutionFunction
@@ -397,7 +396,7 @@ void register_Simulation_class(){
                 "setDetectorResolutionFunction"
                 , setDetectorResolutionFunction_function_type( &::Simulation::setDetectorResolutionFunction )
                 , ( bp::arg("resolution_function") )
-                , "" );
+                , "Define resolution function for detector." );
         
         }
         { //::Simulation::setInstrument
@@ -408,7 +407,7 @@ void register_Simulation_class(){
                 "setInstrument"
                 , setInstrument_function_type( &::Simulation::setInstrument )
                 , ( bp::arg("instrument") )
-                , "    //! Sets the instrument containing beam and detector information" );
+                , "Sets the instrument containing beam and detector information." );
         
         }
         { //::Simulation::setSample
@@ -419,7 +418,7 @@ void register_Simulation_class(){
                 "setSample"
                 , setSample_function_type( &::Simulation::setSample )
                 , ( bp::arg("sample") )
-                , "    //! Sets the sample to be tested" );
+                , "Sets the sample to be tested." );
         
         }
         { //::Simulation::setSampleBuilder
@@ -430,7 +429,7 @@ void register_Simulation_class(){
                 "setSampleBuilder"
                 , setSampleBuilder_function_type( &::Simulation::setSampleBuilder )
                 , ( bp::arg("sample_builder") )
-                , "    //! Sets the sample builder" );
+                , "Sets the sample builder." );
         
         }
         { //::Simulation::setSimulationParameters
@@ -441,7 +440,7 @@ void register_Simulation_class(){
                 "setSimulationParameters"
                 , setSimulationParameters_function_type( &::Simulation::setSimulationParameters )
                 , ( bp::arg("sim_params") )
-                , "    //! Sets simulation parameters" );
+                , "Sets simulation parameters." );
         
         }
         { //::Simulation::setThreadInfo
@@ -452,7 +451,7 @@ void register_Simulation_class(){
                 "setThreadInfo"
                 , setThreadInfo_function_type( &::Simulation::setThreadInfo )
                 , ( bp::arg("thread_info") )
-                , "    //! Sets the batch and thread information to be used" );
+                , "Sets the batch and thread information to be used." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -508,7 +507,7 @@ void register_Simulation_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Simulation_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
-                , "    //! main method to register data address in the pool" );
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

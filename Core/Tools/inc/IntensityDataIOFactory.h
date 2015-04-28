@@ -21,7 +21,6 @@
 #include "OutputDataWriter.h"
 
 #include <string>
-#include <boost/shared_ptr.hpp>
 
 template <class T> class OutputData;
 

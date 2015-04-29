@@ -24,15 +24,19 @@
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "DesignerHelper.h"
+#include "WarningSignWidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QCommandLinkButton>
 #include <QDebug>
-#include <QMessageBox>
+#include <QScrollBar>
 
+namespace {
+const int warning_sign_xpos = 38;
+const int warning_sign_ypos = 38;
+}
 
 ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
     : QWidget(parent)
@@ -43,7 +47,7 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     , m_delegate(new ModelTuningDelegate)
     , m_sampleModelBackup(0)
     , m_instrumentModelBackup(0)
-    , m_infoPanel(0)
+    , m_warningSign(0)
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -71,31 +75,9 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    // setting up bottom info panel
-    m_infoPanel = new QWidget;
-    m_infoPanel->setStyleSheet("background-color:white;");
-    QHBoxLayout *infoPanelLayout = new QHBoxLayout;
-    infoPanelLayout->setContentsMargins(0, 0, 0, 0);
-
-    QFont font;
-    font.setPointSize(DesignerHelper::getSectionFontSize());
-    font.setBold(true);
-    QPalette palette;
-    palette.setColor(QPalette::ButtonText,QColor(41,73,150));
-
-    m_infoLinkButton = new QCommandLinkButton;
-    m_infoLinkButton->setFont(font);
-    m_infoLinkButton->setPalette(palette);
-    m_infoLinkButton->setText("Houston, we have a problem ...");
-    infoPanelLayout->addWidget(m_infoLinkButton);
-    m_infoPanel->setLayout(infoPanelLayout);
-    m_infoPanel->hide();
-    connect(m_infoLinkButton, SIGNAL(clicked()), this, SLOT(onInfoLinkButtonClicked()));
-
     // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
-    mainLayout->addWidget(m_infoPanel);
 
     setLayout(mainLayout);
 }
@@ -224,26 +206,52 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
 }
 
-void ModelTuningWidget::onInfoLinkButtonClicked()
+void ModelTuningWidget::resizeEvent(QResizeEvent *event)
 {
-    if(m_currentJobItem && !m_currentJobItem->getComments().isEmpty()) {
-        QString message;
-        message.append("Current parameter values cause simulation failure.\n\n");
-        message.append(m_currentJobItem->getComments());
-
-        QMessageBox::warning(this, tr("Simulation failed"), message);
+    Q_UNUSED(event);
+    if(m_warningSign) {
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(),pos.y());
     }
 }
 
 void ModelTuningWidget::onPropertyChanged(const QString &property_name)
 {
     if(property_name == JobItem::P_STATUS) {
+        delete m_warningSign;
+        m_warningSign = 0;
+
         if(m_currentJobItem->isFailed()) {
-            m_infoPanel->show();
-        } else {
-            m_infoPanel->hide();
+            QString message;
+            message.append("Current parameter values cause simulation failure.\n\n");
+            message.append(m_currentJobItem->getComments());
+
+            m_warningSign = new WarningSignWidget(this);
+            m_warningSign->setWarningMessage(message);
+            QPoint pos = getPositionForWarningSign();
+            m_warningSign->setPosition(pos.x(), pos.y());
+            m_warningSign->show();
         }
     }
 }
 
+//! Returns position for warning sign at the bottom left corner of the editor. The position will
+//! be adjusted according to the visibility of scroll bars
+QPoint ModelTuningWidget::getPositionForWarningSign()
+{
+    int x = width()-warning_sign_xpos;
+    int y = height()-warning_sign_ypos;
+
+    if(QScrollBar *horizontal = m_treeView->horizontalScrollBar()) {
+        if(horizontal->isVisible())
+            y -= horizontal->height();
+    }
+
+    if(QScrollBar *vertical = m_treeView->verticalScrollBar()) {
+        if(vertical->isVisible())
+            x -= vertical->width();
+    }
+
+    return QPoint(x, y);
+}
 

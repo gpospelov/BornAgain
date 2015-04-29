@@ -138,12 +138,12 @@ void JobQueueData::runJob(JobItem *jobItem)
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
                                                             jobItem->getInstrumentModel());
     } catch(const std::exception &ex) {
-        jobItem->setStatus(Constants::STATUS_FAILED);
-        jobItem->setProgress(100);
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
         message += QString(ex.what());
         jobItem->setComments(message);
+        jobItem->setProgress(100);
+        jobItem->setStatus(Constants::STATUS_FAILED);
         emit focusRequest(identifier);
         emit jobIsFinished(identifier);
         return;

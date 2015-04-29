@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "appoptions.h"
 #include "mainwindow.h"
 #include "SplashScreen.h"
 
@@ -29,6 +30,8 @@ void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &m
 
 int main(int argc, char *argv[])
 {
+    ApplicationOptions options(argc, argv);
+    if(!options.isConsistent()) return 0;
 
     QApplication a(argc, argv);
 
@@ -36,18 +39,10 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(messageHandler);
     }
 
-    if(a.arguments().contains(QLatin1String("--help")) || a.arguments().contains(QLatin1String("-h"))) {
-        std::cout << "Available options:" << std::endl;
-        std::cout << "--help          print available options" << std::endl;
-        std::cout << "--with-debug    print debug information" << std::endl;
-        std::cout << "--no-splash     do not use splash screen" << std::endl;
-        return 0;
-    }
-
     MainWindow w;
 
     SplashScreen *splash(0);
-    if(!a.arguments().contains(QLatin1String("--no-splash"))) {
+    if(!options.find("no-splash")) {
         splash = new SplashScreen();
         splash->show();
 

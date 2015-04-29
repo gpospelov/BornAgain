@@ -72,6 +72,8 @@ public:
     int getNumberOfThreads() const;
     void setNumberOfThreads(int number_of_threads);
 
+    void setRunPolicy(const QString &run_policy);
+
     static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     bool runImmediately() const;

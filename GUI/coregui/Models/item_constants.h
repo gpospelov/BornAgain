@@ -160,6 +160,10 @@ const ModelType GRADIENT_HUES = "Hues";
 const ModelType AXIS_FIXED_BINNING = "Fixed";
 const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 
+const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
+const ModelType JOB_RUN_IN_BACKGROUND = "In background";
+const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
+
 }
 
 

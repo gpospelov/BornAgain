@@ -75,9 +75,10 @@ JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentM
     jobItem->setIdentifier(generateJobIdentifier());
     jobItem->setNumberOfThreads(numberOfThreads);
 
-    ComboProperty combo_property = jobItem->getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
-    combo_property.setValue(run_policy);
-    jobItem->setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+//    ComboProperty combo_property = jobItem->getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
+//    combo_property.setValue(run_policy);
+//    jobItem->setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    jobItem->setRunPolicy(run_policy);
 
     if(jobItem->runImmediately() || jobItem->runInBackground())
         m_queue_data->runJob(jobItem);
@@ -91,7 +92,9 @@ JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentM
 void JobModel::runJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::runJob(const QModelIndex &index)";
-    m_queue_data->runJob(getJobItemForIndex(index));
+    JobItem *jobItem = getJobItemForIndex(index);
+    jobItem->setRunPolicy(Constants::JOB_RUN_IMMEDIATELY);
+    m_queue_data->runJob(jobItem);
 }
 
 void JobModel::cancelJob(const QModelIndex &index)

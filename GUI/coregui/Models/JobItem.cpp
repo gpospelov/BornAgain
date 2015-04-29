@@ -22,16 +22,17 @@
 
 namespace
 {
-const QString RUN_IMMEDIATELY = "Immediately";
-const QString RUN_IN_BACKGROUND = "In background";
-const QString RUN_SUBMIT_ONLY = "Submit only";
 
 QMap<QString, QString> initializeRunPolicies()
 {
     QMap<QString, QString> result;
-    result[RUN_IMMEDIATELY] = QString("Start simulation immediately, switch to Jobs view automatically when completed");
-    result[RUN_IN_BACKGROUND] = QString("Start simulation immediately, do not switch to Jobs view when completed");
-    result[RUN_SUBMIT_ONLY] = QString("Only submit simulation for consequent execution, has to be started from Jobs view explicitely");
+    result[Constants::JOB_RUN_IMMEDIATELY] =
+        QString("Start simulation immediately, switch to Jobs view automatically when completed");
+    result[Constants::JOB_RUN_IN_BACKGROUND] =
+        QString("Start simulation immediately, do not switch to Jobs view when completed");
+    result[Constants::JOB_RUN_SUBMIT_ONLY] =
+        QString("Only submit simulation for consequent execution,"
+                " has to be started from Jobs view explicitely");
     return result;
 }
 
@@ -75,7 +76,9 @@ JobItem::JobItem(ParameterizedItem *parent)
     registerProperty(P_NTHREADS, -1, PropertyAttribute(PropertyAttribute::HIDDEN));
 
     ComboProperty policy;
-    policy << RUN_IMMEDIATELY <<RUN_IN_BACKGROUND << RUN_SUBMIT_ONLY;
+    policy << Constants::JOB_RUN_IMMEDIATELY
+           << Constants::JOB_RUN_IN_BACKGROUND
+           << Constants::JOB_RUN_SUBMIT_ONLY;
     registerProperty(P_RUN_POLICY, policy.getVariant(), PropertyAttribute(PropertyAttribute::HIDDEN));
 
     addToValidChildren(Constants::IntensityDataType);
@@ -228,14 +231,21 @@ void JobItem::setNumberOfThreads(int number_of_threads)
     setRegisteredProperty(P_NTHREADS, number_of_threads);
 }
 
+void JobItem::setRunPolicy(const QString &run_policy)
+{
+    ComboProperty combo_property = getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
+    combo_property.setValue(run_policy);
+    setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+}
+
 bool JobItem::runImmediately() const
 {
     ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == RUN_IMMEDIATELY;
+    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
 }
 
 bool JobItem::runInBackground() const
 {
     ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == RUN_IN_BACKGROUND;
+    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }

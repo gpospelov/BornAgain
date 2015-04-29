@@ -237,6 +237,9 @@ Such models shall be introduced in the following.
 
 To prepare a statistical formulation,
 we encode the particle coordinates in a distribution function
+\index{Distribution function!embedded particles}%
+\index{Particles!distribution function}%
+\index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD_{l,ij}(\r,\r',\v\tau,\v\tau')
   = \delta^{(2)}(\r-\R_{i\plll})\delta^{(2)}(\r'-\R_{j\plll})
@@ -260,10 +263,22 @@ The differential cross section~(\ref{Eass3}) becomes
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
-To proceed any further,
-we need to replace the formally exact, but useless
-distribution function~(\ref{EPDdeltas})
-by a statistical model.
+Unless the particle coordinates are given one by one,
+the formally exact distribution function~(\ref{EPDdeltas})
+is useless, and needs to be replaced by a statistical model.
+Before we can discuss statistical averages,
+we must first agree on relevant \textit{length scales},
+\index{Length scales}%
+related to sample size, beam size, and coherence volume.
+Given the highly anisotropic geometry of GISAS experiments,
+we refer to \textit{areas} rather than \textit{volumes}.
+By the \textit{illuminated sample area}
+\index{Illuminated sample area}%
+\index{Sample!illuminated area}%
+we understand the intersection of the sample surface
+with the surface illuminated by the incident beam
+and the surface from which scattered radiation can reach the detector.
+By the \textit{coherence area} we understand
 
 %===============================================================================
 \subsection{Homogeneous particle distributions}

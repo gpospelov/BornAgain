@@ -17,6 +17,10 @@
 #include "JobItem.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -25,6 +29,8 @@
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
     , m_queue_data(0)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
 {
     m_queue_data = new JobQueueData(this);
     connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
@@ -66,27 +72,90 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
     return 0;
 }
 
-JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
+//JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
+//{
+//    JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
+//    jobItem->setItemName(generateJobName());
+//    jobItem->setSampleModel(sampleModel);
+//    jobItem->setInstrumentModel(instrumentModel);
+//    jobItem->setIdentifier(generateJobIdentifier());
+//    jobItem->setNumberOfThreads(numberOfThreads);
+
+//    jobItem->setRunPolicy(run_policy);
+
+//    if(jobItem->runImmediately() || jobItem->runInBackground())
+//        m_queue_data->runJob(jobItem);
+
+//    return jobItem;
+//}
+
+JobItem *JobModel::addJob(const QString &sample_name, const QString &instrument_name, const QString &run_policy, int numberOfThreads)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
-    jobItem->setSampleModel(sampleModel);
-    jobItem->setInstrumentModel(instrumentModel);
     jobItem->setIdentifier(generateJobIdentifier());
     jobItem->setNumberOfThreads(numberOfThreads);
-
-//    ComboProperty combo_property = jobItem->getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
-//    combo_property.setValue(run_policy);
-//    jobItem->setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
     jobItem->setRunPolicy(run_policy);
+
+    setSampleForJobItem(jobItem, sample_name);
+    setInstrumentForJobItem(jobItem, instrument_name);
 
     if(jobItem->runImmediately() || jobItem->runInBackground())
         m_queue_data->runJob(jobItem);
 
-//    if( jobItem->getRunPolicy() & (JobItem::RUN_IMMEDIATELY | JobItem::RUN_IN_BACKGROUND)  && jobItem->getStatus()!=JobItem::COMPLETED)
-//        runJob(queue_item->getIdentifier());
-
     return jobItem;
+}
+
+void JobModel::setSampleModel(SampleModel *sampleModel)
+{
+    m_sampleModel = sampleModel;
+}
+
+void JobModel::setInstrumentModel(InstrumentModel *instrumentModel)
+{
+    m_instrumentModel = instrumentModel;
+}
+
+//! The copy of sample with 'sample_name' from m_sampleModel will become a child of given job item
+void JobModel::setSampleForJobItem(JobItem *jobItem, const QString &sample_name)
+{
+    Q_ASSERT(m_sampleModel);
+    Q_ASSERT(jobItem);
+
+    // removing old multilayer from children of given jobItem
+    MultiLayerItem *old_sample = jobItem->getMultiLayerItem();
+    if(old_sample) {
+        removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
+    }
+
+    // copying multilayer to jobItem
+    MultiLayerItem *multilayer = m_sampleModel->getMultiLayerItem(sample_name);
+    Q_ASSERT(multilayer);
+
+    copyParameterizedItem(multilayer, jobItem);
+
+    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, multilayer->itemName());
+}
+
+//! The copy of instrument with 'instrument_name' from m_instrumentModel will become a child of
+//! given job item
+void JobModel::setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name)
+{
+    Q_ASSERT(m_instrumentModel);
+    Q_ASSERT(jobItem);
+
+    // removing old instrument from children of given jobItem
+    InstrumentItem *old = jobItem->getInstrumentItem();
+    if (old) {
+        removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
+    }
+
+    // copying instrument to jobItem
+    InstrumentItem *instrument = m_instrumentModel->getInstrumentItem(instrument_name);
+    Q_ASSERT(instrument);
+    copyParameterizedItem(instrument, jobItem);
+
+    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, instrument->itemName());
 }
 
 void JobModel::runJob(const QModelIndex &index)

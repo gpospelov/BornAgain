@@ -160,7 +160,8 @@ ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 //! it is not already running and it has valid models
 bool JobRealTimeWidget::isValidJobItem(JobItem *item)
 {
- return (item->isCompleted() || item->isCanceled()) && item->getSampleModel() && item->getInstrumentModel();
+//    return (item->isCompleted() || item->isCanceled()) && item->getSampleModel() && item->getInstrumentModel();
+    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
 }
 
 void JobRealTimeWidget::onJobItemDelete(JobItem *item)

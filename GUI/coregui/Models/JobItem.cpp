@@ -18,6 +18,8 @@
 #include "IntensityDataItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
 
 
 namespace
@@ -55,8 +57,8 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 
 JobItem::JobItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::JobItemType, parent)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
+//    , m_sampleModel(0)
+//    , m_instrumentModel(0)
 {
     setItemName(Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
@@ -91,8 +93,8 @@ JobItem::JobItem(ParameterizedItem *parent)
 
 JobItem::~JobItem()
 {
-    delete m_sampleModel;
-    delete m_instrumentModel;
+//    delete m_sampleModel;
+//    delete m_instrumentModel;
 }
 
 QString JobItem::getIdentifier() const
@@ -114,33 +116,33 @@ IntensityDataItem *JobItem::getIntensityDataItem()
     return 0;
 }
 
-SampleModel *JobItem::getSampleModel()
-{
-    return m_sampleModel;
-}
+//SampleModel *JobItem::getSampleModel()
+//{
+//    return m_sampleModel;
+//}
 
-void JobItem::setSampleModel(SampleModel *sampleModel)
-{
-    delete m_sampleModel;
-    m_sampleModel = sampleModel;
-    if(m_sampleModel) {
-        setRegisteredProperty(P_SAMPLE_NAME, m_sampleModel->getSampleMap().firstKey());
-    }
-}
+//void JobItem::setSampleModel(SampleModel *sampleModel)
+//{
+//    delete m_sampleModel;
+//    m_sampleModel = sampleModel;
+//    if(m_sampleModel) {
+//        setRegisteredProperty(P_SAMPLE_NAME, m_sampleModel->getSampleMap().firstKey());
+//    }
+//}
 
-InstrumentModel *JobItem::getInstrumentModel()
-{
-    return m_instrumentModel;
-}
+//InstrumentModel *JobItem::getInstrumentModel()
+//{
+//    return m_instrumentModel;
+//}
 
-void JobItem::setInstrumentModel(InstrumentModel *instrumentModel)
-{
-    delete m_instrumentModel;
-    m_instrumentModel = instrumentModel;
-    if(m_instrumentModel) {
-        setRegisteredProperty(P_INSTRUMENT_NAME, m_instrumentModel->getInstrumentMap().firstKey());
-    }
-}
+//void JobItem::setInstrumentModel(InstrumentModel *instrumentModel)
+//{
+//    delete m_instrumentModel;
+//    m_instrumentModel = instrumentModel;
+//    if(m_instrumentModel) {
+//        setRegisteredProperty(P_INSTRUMENT_NAME, m_instrumentModel->getInstrumentMap().firstKey());
+//    }
+//}
 
 QString JobItem::getStatus() const
 {
@@ -253,18 +255,28 @@ bool JobItem::runInBackground() const
 
 MultiLayerItem *JobItem::getMultiLayerItem()
 {
-    MultiLayerItem *result(0);
-    if(m_sampleModel) {
-        result = m_sampleModel->getMultiLayerItem();
+    foreach(ParameterizedItem *item, childItems()) {
+        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item))
+            return multilayer;
     }
-    return result;
+    return 0;
+//    MultiLayerItem *result(0);
+//    if(m_sampleModel) {
+//        result = m_sampleModel->getMultiLayerItem();
+//    }
+//    return result;
 }
 
 InstrumentItem *JobItem::getInstrumentItem()
 {
-    InstrumentItem *result(0);
-    if(m_instrumentModel) {
-        result = m_instrumentModel->getInstrumentItem();
+    foreach(ParameterizedItem *item, childItems()) {
+        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item))
+            return instrument;
     }
-    return result;
+    return 0;
+//    InstrumentItem *result(0);
+//    if(m_instrumentModel) {
+//        result = m_instrumentModel->getInstrumentItem();
+//    }
+//    return result;
 }

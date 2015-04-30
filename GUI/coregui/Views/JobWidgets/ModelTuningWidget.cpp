@@ -161,12 +161,20 @@ void ModelTuningWidget::updateParameterModel()
 
     if(!m_currentJobItem) return;
 
-    if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
+//    if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
+//        throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
+//                                "JobItem doesn't have sample or instrument model.");
+
+//    m_parameterModel = ParameterModelBuilder::createParameterModel(
+//                m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
+
+
+    if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = ParameterModelBuilder::createParameterModel(
-                m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
+    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel);
+
     m_treeView->setModel(m_parameterModel);
     m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
@@ -176,14 +184,15 @@ void ModelTuningWidget::updateParameterModel()
 //! Creates backup copies of JobItem's sample and instrument models
 void ModelTuningWidget::backupModels()
 {
+    Q_ASSERT(0);
     qDebug() << "ModelTuningWidget::backupModels()";
     if(!m_currentJobItem) return;
 
-    if(!m_sampleModelBackup)
-        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
+//    if(!m_sampleModelBackup)
+//        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
 
-    if(!m_instrumentModelBackup)
-        m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
+//    if(!m_instrumentModelBackup)
+//        m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
@@ -200,8 +209,11 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 //             << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
 //             << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
 
-    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
-    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
+    Q_ASSERT(0);
+//    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
+//    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
+
+
     updateParameterModel();
 
 //    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());

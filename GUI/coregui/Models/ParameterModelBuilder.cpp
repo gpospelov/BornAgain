@@ -29,6 +29,13 @@
 #include <QDebug>
 
 
+QStandardItemModel *ParameterModelBuilder::createParameterModel(JobModel *jobModel)
+{
+    QStandardItemModel *result(0);
+    Q_ASSERT(result);
+    return result;
+}
+
 QStandardItemModel *ParameterModelBuilder::createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel)
 {
     QStandardItemModel *result(0);

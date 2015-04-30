@@ -23,6 +23,7 @@
 class QModelIndex;
 class SampleModel;
 class InstrumentModel;
+class JobModel;
 class QStandardItem;
 class QStandardItemModel;
 class ParameterizedItem;
@@ -33,6 +34,8 @@ class ParameterizedItem;
 class ParameterModelBuilder
 {
 public:
+
+    static QStandardItemModel *createParameterModel(JobModel *jobModel);
 
     static QStandardItemModel *createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 

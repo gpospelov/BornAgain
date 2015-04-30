@@ -241,13 +241,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 //! creates and initializes models
 void MainWindow::createModels()
 {
-    createMaterialModel(); // should be first
+    // the order is important
+    createMaterialModel();
 
     createSampleModel();
 
-    createJobModel();
-
     createInstrumentModel();
+
+    createJobModel();
 
     //createFitModel();
 
@@ -278,6 +279,8 @@ void MainWindow::createJobModel()
 {
     delete m_jobModel;
     m_jobModel = new JobModel(this);
+    m_jobModel->setSampleModel(m_sampleModel);
+    m_jobModel->setInstrumentModel(m_instrumentModel);
 }
 
 void MainWindow::createInstrumentModel()

@@ -37,8 +37,19 @@ public:
 
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    JobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+//    JobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+//            const QString &run_policy = QString(), int numberOfThreads=-1);
+
+    JobItem *addJob(const QString &sample_name, const QString &instrument_name,
             const QString &run_policy = QString(), int numberOfThreads=-1);
+
+    void setSampleModel(SampleModel *sampleModel);
+
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+
+    void setSampleForJobItem(JobItem *jobItem, const QString &sample_name);
+
+    void setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name);
 
 signals:
     void selectionChanged(JobItem *item);
@@ -58,6 +69,8 @@ private:
     QString generateJobIdentifier();
 
     JobQueueData *m_queue_data;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
 };
 
 #endif

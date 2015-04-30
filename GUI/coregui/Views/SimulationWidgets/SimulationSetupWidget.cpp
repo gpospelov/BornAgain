@@ -210,7 +210,9 @@ void SimulationSetupWidget::onRunSimulation()
         return;
     }
 
-    m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
+//    m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
+    // FIXME !!! same sample names
+    m_jobModel->addJob(getSampleSelection(), getInstrumentSelection(), runPolicySelectionBox->currentText(), getNumberOfThreads());
 }
 
 void SimulationSetupWidget::onExportToPythonScript()

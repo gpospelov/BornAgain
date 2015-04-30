@@ -117,6 +117,9 @@ public:
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
 
+    void copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent = 0, int row = -1);
+
+
     void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
 
 //    struct ItemToInsert {

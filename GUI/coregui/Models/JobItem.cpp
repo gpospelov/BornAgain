@@ -85,7 +85,8 @@ JobItem::JobItem(ParameterizedItem *parent)
 
     setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
-
+    addToValidChildren(Constants::MultiLayerType);
+    addToValidChildren(Constants::InstrumentType);
 }
 
 JobItem::~JobItem()

@@ -7,6 +7,7 @@
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "MaterialEditor.h"
+#include "JobModel.h"
 #include <QXmlStreamWriter>
 
 class TestSessionModel : public QObject {
@@ -17,8 +18,8 @@ private slots:
     void test_SampleModel_CreatePartialCopy();
     void test_InstrumentModel_CreateCopy();
     void test_InstrumentModel_CreatePartialCopy();
+    void test_copyParameterizedItem();
 };
-
 
 inline void TestSessionModel::test_SampleModel_CreateCopy()
 {
@@ -47,7 +48,6 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
     delete model2;
 }
 
-
 inline void TestSessionModel::test_SampleModel_CreatePartialCopy()
 {
     boost::scoped_ptr<MaterialModel> materialModel(new MaterialModel());
@@ -70,7 +70,6 @@ inline void TestSessionModel::test_SampleModel_CreatePartialCopy()
     delete model1;
     delete model2;
 }
-
 
 inline void TestSessionModel::test_InstrumentModel_CreateCopy()
 {
@@ -100,7 +99,6 @@ inline void TestSessionModel::test_InstrumentModel_CreateCopy()
     delete model2;
 }
 
-
 inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 {
     InstrumentModel *model1 = new InstrumentModel();
@@ -125,6 +123,38 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
     delete model2;
 }
 
+//! Test if ParameterizedItem can be copied from one model to another. Particularly, we test
+//! here if a MultiLayerItem can be copied from SampleModel to the JobItem of JobModel
+inline void TestSessionModel::test_copyParameterizedItem()
+{
+    boost::scoped_ptr<MaterialModel> materialModel(new MaterialModel());
+    boost::scoped_ptr<MaterialEditor> materialEditor(new MaterialEditor(materialModel.get()));
+
+    SampleModel *sampleModel = new SampleModel();
+    ParameterizedItem *multilayer1 = sampleModel->insertNewItem(Constants::MultiLayerType);
+    multilayer1->setItemName("multilayer1");
+    sampleModel->insertNewItem(Constants::LayerType, sampleModel->indexOfItem(multilayer1));
+
+    InstrumentModel *instrumentModel = new InstrumentModel();
+    ParameterizedItem *instrument1 = instrumentModel->insertNewItem(Constants::InstrumentType);
+    instrument1->setItemName("instrument1");
+    instrumentModel->insertNewItem(Constants::DetectorType, instrumentModel->indexOfItem(instrument1));
+    instrumentModel->insertNewItem(Constants::BeamType, instrumentModel->indexOfItem(instrument1));
+
+    JobModel *jobModel = new JobModel();
+    ParameterizedItem *jobItem = jobModel->insertNewItem(Constants::JobItemType);
+    QCOMPARE(jobItem->childItemCount(), 0);
+
+    jobModel->copyParameterizedItem(multilayer1, jobItem);
+    QCOMPARE(jobItem->childItemCount(), 1);
+
+    jobModel->copyParameterizedItem(instrument1, jobItem);
+    QCOMPARE(jobItem->childItemCount(), 2);
+
+    delete sampleModel;
+    delete instrumentModel;
+    delete jobModel;
+}
 
 
 #endif

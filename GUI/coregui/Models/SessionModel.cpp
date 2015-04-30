@@ -359,6 +359,8 @@ void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
     writer->writeEndElement(); // m_model_tag
 }
 
+//! Move given parameterized item to the new_parent at given raw. If new_parent is not defined,
+//! use root_item as a new parent.
 void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent,
                                          int row)
 {
@@ -400,6 +402,30 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 
     cleanItem(indexOfItem(new_parent), row, row);
+}
+
+//! Copy given item to the new_parent at given raw. Item indended for copying can belong to
+//! another model and it will remains intact.
+void SessionModel::copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
+{
+    if (new_parent) {
+        if (!new_parent->acceptsAsChild(item_to_copy->modelType()))
+            return;
+    } else {
+        new_parent = m_root_item;
+    }
+
+    QByteArray xml_data;
+    QXmlStreamWriter writer(&xml_data);
+    writeItemAndChildItems(&writer, item_to_copy);
+
+    QXmlStreamReader reader(xml_data);
+    if (row == -1)
+        row = new_parent->childItemCount();
+
+    beginInsertRows(indexOfItem(new_parent), row, row);
+    readItems(&reader, new_parent, row);
+    endInsertRows();
 }
 
 SessionModel *SessionModel::createCopy(ParameterizedItem *parent)

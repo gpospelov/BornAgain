@@ -734,6 +734,40 @@ which adds to the complexity of GISAS patterns.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Coherence length}\label{Scoherlen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The matrix elements $\bra \psi^\pm_\tf|\chi|\psi^\pm_\ti\ket$
+are given by three-dimensional integrals~(\ref{Etrama}),
+\begin{equation}\label{Etrama3}
+  \bra \psi_\tf^\pm|\chi|\psi_\ti^\pm\ket
+  := \int\!\d^3r\, \psi^{\pm*}_\tf(\r)\chi(\r)\psi^\pm_\ti(\r).
+\end{equation}
+The integrand factor $\chi$ is zero for
+the top vacuum (or air) layer as well as for the bottom substrate,
+which is assumed to have a horizontally constant refractive index.
+Hence the $z$ extension of the integral is effectively limited
+to a finite interval.
+In contrast, the integral has infinite extension in the horizontal plane.
+This is of course an idealization.
+
+Obvious limitations of the $xy$ integral come
+from the finite sample area $A_\text{sample}$,
+and from the instrument geometry.
+For a given instrument setup,
+the incoming beam illuminates a finite area~$A_\ti$ in the sample plane,
+and similarly, scattered radiation must originate from a an area~$A_\tf$
+where a beam traced back from the detectors intersects the sample plane.
+In a well aligned instrument, $A_\ti$ and $A_\tf$ are nearly the same,
+and in a well aligned experiment, $A_\text{beam}:=A_\ti\cap A_\tf$
+is equal to or a subset of $A_\text{sample}$.\footnote
+{If the sample is smaller than the area normally illuminated by the beam,
+  it is advisable to collimate the beam so that only the sample is illuminated,
+  which ought to reduce the background.}
+Anyhow, the $xy$ integral is limited to the illuminated sample are
+$A_{xy}:=A_\text{sample}\cap A_\text{beam}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Absorption}\label{Sabsorption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

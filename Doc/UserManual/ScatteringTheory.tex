@@ -47,14 +47,15 @@ The scalar wave function $\psi(\r,t)$
 \nomenclature[2t020]{$t$}{Time}%
 \nomenclature[2r040]{$\r$}{Position}%
 \nomenclature[1ψ030 2r040 2t02]{$\psi(\r,t)$}{Microscopic neutron wave function}%
-of a slow neutron is governed by the microscopic Schrödinger equation
+of a free neutron
+is governed by the microscopic Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
 By assuming a time-independent potential $V(\r)$,
 we have excluded inelastic scattering.
-Therefore we need only to consider monochromatic waves
+Therefore we only need to consider monochromatic waves
 with given frequency~$\omega$.
 \nomenclature[1ω 020]{$\omega$}{Frequency of incident radiation}%
 In consequence, we have a stationary wave function
@@ -208,9 +209,12 @@ under the asymptotic boundary condition
 where $\psi_\ti(\r)$ is the incident wave
 as prepared by the experimental apparatus,
 and the second term on the right-hand side is
-the outgoing scattered wave.
+the outgoing scattered wave
+that carries information in form of the angular distribution
+$f(\vartheta,\varphi)$.
 
-For slow neutrons, as for X-rays, the refractive index~$n$ is almost always
+For thermal or cold neutrons,
+as for X-rays, the refractive index~$n$ is almost always
 very close to~1.
 This suggests a solution of the Schrödinger equation
 by means of a perturbation expansion in powers of $n^2-1$.
@@ -320,10 +324,7 @@ We can further simplify (\ref{EBornS})
 under the conditions of Fraunhofer diffraction:
 \index{Fraunhofer approximation}%
 the distance from the sample to the detector location~$\r$
-must be much larger than the size of the sample
-(the \textit{Fresnel number}
-\index{Fresnel number}%
-must be small).
+must be much larger than the size of the sample.
 Since the scattered wave $\psi_\text{s}(\r)$
 only depends on $\r$ through the Green function~$G(\r,\r')$,
 we shall derive a far-field approximation for the latter.
@@ -338,8 +339,8 @@ This allows us to expand
   \equiv r - \frac{\k_\tf \r'}{K},
 \end{equation}
 \nomenclature[2f000]{f}{Subscript ``final'', for outgoing waves scattered into the direction of the detector}%
-\nomenclature[2k040]{$\k$}{Wave vector}
-where we have introduced the outgoing wave vector
+\nomenclature[2k040]{$\k$}{wavevector}
+where we have introduced the outgoing wavevector
 \begin{equation}
   \k_\tf:=K\frac{\r}{r}.
 \end{equation}
@@ -356,11 +357,12 @@ where
   \psi_\tf(\r) := \e^{i\k_\tf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane wave propagating from the sample towards the detector}%
-is a plane wave propagating towards the detector.
+is a plane wave propagating towards the detector,
+and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 
 The scattered wave~(\ref{EBornS})
-becomes in far-field approximation 
+becomes in the far-field approximation 
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
@@ -405,11 +407,11 @@ of the optical potential.
 \subsection{Differential cross section}
 %===============================================================================
 
-Above, we said somewhat sloppily
+In connection with (\ref{EBorn}) we mentioned
 that a scattering experiment measures intensities~${|\psi(\r)|}^2$.
-We shall now make this more rigorous.
+We shall now restate this in a more rigorous way.
 In the case of neutron scattering,
-one actually measures the probability flux.
+one actually measures a \textit{probability flux}.
 We define it in arbitrary relative units as
 \begin{equation}\label{EdefJ}
   \v{J}(\r) := \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
@@ -480,14 +482,16 @@ of the scattering-length density.
   and pointing into the halfspace where the beam comes from.
   The $x$ axis usually points along the incident beam,
   projected onto the sample plane.
-  The angle $\alpha_\ti$ is the incident glancing angle;
+  Incident and final plane waves are characterized
+  by wavevectors $\k_\ti$, $\k_\tf$;
+  the angle $\alpha_\ti$ is the incident glancing angle;
   $\phi_\ti$ is usually zero, unless used to describe a sample rotation;
   $\alpha_\tf$ is the exit angle with respect to the sample's surface;
   and $\phi_\tf$ is the scattering angle with respect to the scattering plane.
 \nomenclature[1α024 2i000]{$\alpha_\ti$}{Glancing angle of the incident beam}
 \nomenclature[1α024 2f000]{$\alpha_\tf$}{Glancing angle of the detected beam}
 \nomenclature[1φ024 2i000]{$\phi_\ti$}{Angle between the incident beam, projected into the sample plane, and the $x$ axis}%
-\nomenclature[1φ024 2i000]{$\phi_\ti$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[1φ024 2f000]{$\phi_\tf$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
 \nomenclature[2x020]{$x$}{Horizontal coordinate, usually chosen along the incoming beam projection}%
 \nomenclature[2y020]{$y$}{Horizontal oordinate, chosen normal to $z$ and $x$}%
   The numbered layers illustrate a multilayer system as dicussed
@@ -499,8 +503,8 @@ of the scattering-length density.
 Reflectometry and grazing-incidence scattering
 are designed for the investigation of surfaces, interfaces, and thin layers,
 or most generically:
-samples with a $2+1$ dimensional structure,
-on average translationally invariant in $x$ and $y$ direction,
+samples with a $2+1$ dimensional structure
+that are on average translationally invariant in $x$ and $y$ direction,
 but structured in $z$ direction.
 By convention,
 we designate the \textit{sample plane} ($xy$) as \textit{horizontal},
@@ -513,7 +517,7 @@ even if this does not correspond to the actual experimental geometry.\footnote
 {In many reflectometers,
  the scattering plane and the sample normal are horizontal in laboratory space.}
 The $z$ axis points upwards, hence out of the sample towards the
-vacuum (or air) half space where the incident radiation comes from,
+vacuum (or air) halfspace where the incident radiation comes from,
 as illustrated in Fig.~\ref{fig:expgeom}.
 % TODO: add figure
 
@@ -525,7 +529,7 @@ cause refraction and reflection of an incident plane wave.
 For small glancing angles,
 these distortions can be arbitrary large,
 up to the limiting case of total reflection,
-even though $\delta n$ is only of the order $10^{-5}$ or smaller.
+even though $1-n$ is only of the order $10^{-5}$ or smaller.
 Such zeroth-order effects cannot be accounted for
 by perturbative scattering theory.
 Instead, we need to deal with refraction and reflection
@@ -560,7 +564,7 @@ by the factorization ansatz
 }
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-The horizontal wave vector $\k_\parallel$ remains constant
+The horizontal wavevector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
 The vertical wave function must fulfill
 \Emph{
@@ -687,7 +691,7 @@ we obtain
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
 which agrees literally with (\ref{EGreenFar}),
-though $\psi_\tf$ no longer is a plane wave.
+though $\psi_\tf$ is not any longer a plane wave.
 Accordingly,
 the scattered far-field is still given by (\ref{EsandwichC}),
 and the differential cross section by (\ref{Exsection}).
@@ -765,8 +769,9 @@ In a well aligned experiment,
 $A_\text{beam}$ is equal to or a subset of $A_\text{sample}$
 (if $A_\ti$ or $A_\tf$ are larger than $A_\text{sample}$,
 collimation slits should be narrowed
-lest unused rays cause avoidable noise).
-Anyhow, the $xy$ integral is limited to the illuminated sample area
+lest useless rays cause avoidable noise).
+Anyhow, the horizontal integration domain
+is limited to the illuminated sample area
 $A_{xy}:=A_\text{sample}\cap A_\text{beam}$.}
 \index{Sample area}%
 Another limitation comes from the finite \textit{coherence length}
@@ -778,7 +783,7 @@ are much larger than the relevant coherence length,
 which is of the order 10\ldots100~$\upmu$m \cite{HaPR10,MaMM14}.\footnote
 {These two references also make clear that
   the theoretical description and the experimental determination of
-  coherence lengths are difficult tasks and subject of ongoing research.}
+  coherence lengths are difficult problems and subject of ongoing research.}
 The contrary is true for the scattering of synchrotron radiation,
 where the coherence length typically exceeds the size
 of the illuminated sample spot.

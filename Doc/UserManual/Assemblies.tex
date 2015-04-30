@@ -47,7 +47,7 @@ one must expect multiple scattering to invalidate this approach.
 It seems preferable to take the embedded particles into account
 when computing the average refractive index,
 which then leads to refraction and reflection caused conjointly
-by embedding material (``matrix'') and embedded particle.
+by embedding material (``matrix'') and embedded particles.
 \index{Matrix!embedding}%
 The downside is that one has then scattering contribution
 from both the matrix and the particles.
@@ -99,7 +99,7 @@ The overall potential
 \begin{equation}
   \chi(\r)=\left\{\begin{array}{ll}
   \chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
-  \chi_\text{m}(z) &\text{~else} \end{array}\right.
+  \chi_\text{m}(z) &\text{~else,} \end{array}\right.
 \end{equation}
 \nomenclature[1χ032 0]{$\chi_\text{m}(z)$}{Perturbative potential of embedding material (``matrix'')}%
 \nomenclature[1χ032 2p010]{$\chi_\text{p}(\r)$}{Perturbative potential of embedded particles of type~$p$}%
@@ -107,7 +107,7 @@ can be rearranged as
 \begin{equation}\label{Echi0p}
   \chi(\r)=\chi_\text{m}(z) + \left\{\begin{array}{ll}
   \tilde\chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
-  0 &\text{~else} \end{array}\right.
+  0 &\text{~else,} \end{array}\right.
 \end{equation}
 with the renormalized particle potential
 \begin{equation}
@@ -196,7 +196,7 @@ Hence (\ref{Eass6}) can be written as
 
 \Warn{\indent Currently, \BornAgain\ does not support interferences
   between particles in different layers.
-  This means in particular, that there is no way to model particles
+  This means in particular that there is no way to model particles
   that extend beyond layer interfaces.}
 
 With this restriction, (\ref{Eass4}) becomes an incoherent sum
@@ -248,7 +248,7 @@ we encode the particle coordinates in a distribution function
 where the superscript indicates the dimensionality of the delta function.
 The vector~$\v{T}$ comprises $d_T$ different parameters.
 Some of them may only take discrete values;
-for them the delta function must be read as a Kronecker delta,
+for them the delta function must be read as Kronecker's delta,
 and the integral in the following equation as a sum.
 Since in the following we are concerned with only one layer,
 we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.

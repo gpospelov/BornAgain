@@ -30,7 +30,7 @@ First, only scalar interactions are considered.
 Later, the theory is extended to account for polarization effects.
 
 \Note{\indent By convention,
-layers are numbered from top to bottom.
+layers are numbered from top to bottom (see Fig.~\ref{fig:expgeom}).
 The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
 the substrate (extending to $z\to-\infty$) is layer~$N$.}
 
@@ -87,14 +87,14 @@ They need to be computed recursively,
 as described in the following subsection~\ref{Sacrolay}.
 
 Each plane wave component $\psi^\pm_{w\il}(\r)$ has
-a three-dimensional wave vector
+a three-dimensional wavevector
 \begin{equation}\label{Ekpmwj3}
   \k^\pm_{w\il}= \k_{\parallel w} \pm k_{\perp w\il}\v{\hat z}.
 \end{equation}
 \nomenclature[2z060]{$\v{\hat z}$}{Unit vector along the sample normal}%
-\nomenclature[2k043 2w010 2l010 \pm]{$\k^\pm_{w\il}$}{Wave vector of the plane wave $\Psi^\pm_{w\il}(\r)$}%
+\nomenclature[2k043 2w010 2l010 \pm]{$\k^\pm_{w\il}$}{wavevector of the plane wave $\Psi^\pm_{w\il}(\r)$}%
 As explained in connection with~(\ref{Ekpar}),
-the in-plane wave vector $\k_{\parallel w}$ remains constant
+the in-plane wavevector $\k_{\parallel w}$ remains constant
 across layer interfaces.
 The vertical wavenumber is obtained from (\ref{Ewavez}),
 \begin{equation}\label{Ekperpwj}
@@ -154,7 +154,7 @@ Accordingly, we can write (\ref{Edwba_ml0}) as
   = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
-From~(\ref{Ekpmwj3}) we see that all four wave vectors $\q^u$
+From~(\ref{Ekpmwj3}) we see that all four wavevectors $\q^u$
 have the same horizontal component,
 \begin{equation}\label{Eqpp}
   \q^u = \q_\parallel + q^u_\perp \v{\hat z}
@@ -212,11 +212,11 @@ For the plane waves (\ref{Ephizwj}),
 the continuity conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
   \begin{array}{lclclcl}
-  A^+_\il &+& A^-_\il,
+  A^+_\il &+& A^-_\il
   &=&
   A_{\il+1}\delta_{\il+1} &+& A^-_{\il+1}\delta_{\il+1}^*,
   \\
-  A^+_\il f_\il  &-& A^-_\il f_\il,
+  A^+_\il f_\il  &-& A^-_\il f_\il
   &=&
   A_{\il+1}\delta_{\il+1} f_{\il+1} &-& A^-_{\il+1}\delta_{\il+1}^* f_{\il+1}.
   \end{array}
@@ -282,23 +282,23 @@ And how to Abeles matrices, Parrat's formalism, Deak's papers?}
 %-------------------------------------------------------------------------------
 
 In Sect.~\ref{Sabsorption},
-we have chosen the horizontal wave vector $\k_{\parallel}$
+we have chosen the horizontal wavevector $\k_{\parallel}$
 to be always real and constant.
-In contrast, the vertical wave number $k_{\perp \il}$,
+In contrast, the vertical wavenumber $k_{\perp \il}$,
 given by (\ref{Ekperpwj}),
 can become imaginary or complex.
 If $\overline{n_\il^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
 then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
 and the radicand in (\ref{Ekperpwj}) becomes negative
 so that $k_{\perp \il}$ becomes pure imaginary.
-\index{Wave vector!complex}%
+\index{wavevector!complex}%
 If the layer is absorbing,
 described by a positive imaginary part of $\overline{n_\il^2}$,
 then the radicand in (\ref{Ekperpwj}) becomes complex,
-and the wave number $k_{\perp \il}$ as well.
+and the wavenumber $k_{\perp \il}$ as well.
 For complex $k_{\perp \il}$,
 the theory developed above remains applicable,
-except that the geometric interpretation of the wave vectors $\k_\pm$
+except that the geometric interpretation of the wavevectors $\k_\pm$
 in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable.
 
 Writing
@@ -313,7 +313,7 @@ we find an exponential decay of the plane wave amplitudes
 \end{equation}
 along their propagation direction~$\pm z$.
 With an analogous decomposition
-of the three-dimensional wave vector (\ref{Ekpmwj3}),
+of the three-dimensional wavevector (\ref{Ekpmwj3}),
 we obtain for the flux, defined as in~(\ref{EdefJ}),
 \begin{equation}
   \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.

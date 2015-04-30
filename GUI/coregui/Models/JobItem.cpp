@@ -250,3 +250,21 @@ bool JobItem::runInBackground() const
     ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
     return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
+
+MultiLayerItem *JobItem::getMultiLayerItem()
+{
+    MultiLayerItem *result(0);
+    if(m_sampleModel) {
+        result = m_sampleModel->getMultiLayerItem();
+    }
+    return result;
+}
+
+InstrumentItem *JobItem::getInstrumentItem()
+{
+    InstrumentItem *result(0);
+    if(m_instrumentModel) {
+        result = m_instrumentModel->getInstrumentItem();
+    }
+    return result;
+}

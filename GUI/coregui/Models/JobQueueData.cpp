@@ -135,8 +135,10 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     Simulation *simulation(0);
     try{
-        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
-                                                            jobItem->getInstrumentModel());
+//        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
+//                                                            jobItem->getInstrumentModel());
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
+                                                            jobItem->getInstrumentItem());
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");

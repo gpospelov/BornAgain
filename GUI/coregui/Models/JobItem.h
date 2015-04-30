@@ -21,6 +21,8 @@ class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
 class Simulation;
+class MultiLayerItem;
+class InstrumentItem;
 
 class BA_CORE_API_ JobItem : public ParameterizedItem
 {
@@ -78,6 +80,10 @@ public:
 
     bool runImmediately() const;
     bool runInBackground() const;
+
+    MultiLayerItem *getMultiLayerItem();
+
+    InstrumentItem *getInstrumentItem();
 
 private:
     SampleModel *m_sampleModel;

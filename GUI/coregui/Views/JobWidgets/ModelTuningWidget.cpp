@@ -19,7 +19,7 @@
 #include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
 #include "ModelTuningDelegate.h"
-#include "JobQueueData.h"
+#include "JobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
@@ -38,9 +38,9 @@ const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 }
 
-ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
+ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueData(jobQueueData)
+    , m_jobModel(jobModel)
     , m_currentJobItem(0)
     , m_sliderSettingsWidget(0)
     , m_parameterModel(0)
@@ -129,7 +129,8 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(link.getItem()) {
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
         link.updateItem();
-        m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+//        m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+        m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
     }
 }
 
@@ -203,7 +204,8 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
     updateParameterModel();
 
-    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+//    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+    m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 
 void ModelTuningWidget::resizeEvent(QResizeEvent *event)
@@ -235,8 +237,8 @@ void ModelTuningWidget::onPropertyChanged(const QString &property_name)
     }
 }
 
-//! Returns position for warning sign at the bottom left corner of the editor. The position will
-//! be adjusted according to the visibility of scroll bars
+//! Returns position for warning sign at the bottom right corner of the tree view.
+//! The position will be adjusted according to the visibility of scroll bars
 QPoint ModelTuningWidget::getPositionForWarningSign()
 {
     int x = width()-warning_sign_xpos;

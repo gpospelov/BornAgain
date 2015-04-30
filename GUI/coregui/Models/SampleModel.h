@@ -33,7 +33,7 @@ public:
 
     QMap<QString, ParameterizedItem *> getSampleMap() const;
 
-    MultiLayerItem *getMultiLayerItem(const QString &item_name);
+    MultiLayerItem *getMultiLayerItem(const QString &item_name=QString());
 
 public slots:
     void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);

@@ -199,8 +199,8 @@
 \def\defineBox#1#2#3#4#5{
   \newmdenv[
     usetwoside=false,
-    skipabove=2pt,
-    skipbelow=2pt,
+    skipabove=3pt minus 1pt plus 3pt,
+    skipbelow=3pt minus 1pt plus 3pt,
     leftmargin=-4pt,
     rightmargin=-4pt,
     innerleftmargin=2pt,
@@ -212,6 +212,7 @@
     bottomline=false,
     linecolor=#4,
     linewidth=2pt,
+    nobreak=true,
     ]{#2*}
   \newenvironment{#1}
     {\begin{#2*}\makebox[0pt][r]{\smash{#5}}\ignorespaces}

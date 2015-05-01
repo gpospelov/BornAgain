@@ -186,6 +186,7 @@
 
 \usepackage{ifdraft}
 \usepackage{mdframed}
+\input FixMdframed % prevents erroneous page breaks
 
 \def\defineBox#1#2#3#4#5{
   \newmdenv[
@@ -203,7 +204,6 @@
     bottomline=false,
     linecolor=#4,
     linewidth=2pt,
-%    nobreak=true,
     ]{#2*}
   \newenvironment{#1}
     {\begin{#2*}\makebox[0pt][r]{\smash{#5}}\ignorespaces}

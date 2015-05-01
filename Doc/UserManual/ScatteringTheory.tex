@@ -155,7 +155,7 @@ or of a \textit{refractive index}~$n(\r)$
 \index{Index of refraction|see {Refractive index}}%
 defined by
 \begin{equation}\label{EnRefrIndx}
-  n(\r)^2:=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
+  n(\r)^2\coloneqq 1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
 \end{equation}
 In the latter expression,
 we introduced the \textit{vacuum wavenumber}~$K$,
@@ -235,7 +235,7 @@ with a perturbation term on the right side:
 \end{equation}
 with
 \begin{equation}\label{EChiDef}
-  \chi(\r) := \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
+  \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
 \end{equation}
 \nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential, for neutrons equal to the scattering-length density~$\rho_s$}%
 This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
@@ -306,7 +306,7 @@ that are not illuminated by the incident beam,
 we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
-  :=
+  \coloneqq 
   4\pi \int\!\d^3r'\, G(\r,\r') \chi(\r') \psi_\ti(\r').
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
@@ -342,7 +342,7 @@ This allows us to expand
 \nomenclature[2k040]{$\k$}{wavevector}
 where we have introduced the outgoing wavevector
 \begin{equation}
-  \k_\tf:=K\frac{\r}{r}.
+  \k_\tf\coloneqq K\frac{\r}{r}.
 \end{equation}
 We apply this to~(\ref{EGreens1}),
 \index{Green function!homogeneous material}%
@@ -354,7 +354,7 @@ and obtain in leading order the far-field Green function
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
 where
 \begin{equation}
-  \psi_\tf(\r) := \e^{i\k_\tf \r}
+  \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector,
@@ -373,7 +373,7 @@ where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
   \bra \psi_\tf|\chi|\psi_\ti\ket
-  := \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
+  \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
 \end{equation}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
 Making the standard assumption
@@ -385,7 +385,7 @@ with $k_\ti=K$,
 and introducing the \textit{scattering vector}
 \index{Scattering vector}%
 \begin{equation}
-  \q:=\k_\ti-\k_\tf,
+  \q\coloneqq \k_\ti-\k_\tf,
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
 we can rewrite (\ref{EsandwichC}) as
@@ -414,7 +414,7 @@ In the case of neutron scattering,
 one actually measures a \textit{probability flux}.
 We define it in arbitrary relative units as
 \begin{equation}\label{EdefJ}
-  \v{J}(\r) := \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
+  \v{J}(\r) \coloneqq  \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
 \end{equation}
 \nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}
 \index{Flux!incident and scattered}%
@@ -434,7 +434,7 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \index{Cross section}%
 \begin{equation}
   \frac{\d\sigma}{\d\Omega}
-  := \frac{r^2 J(\r)}{J_\ti}.
+  \coloneqq  \frac{r^2 J(\r)}{J_\ti}.
 \end{equation}
 \nomenclature[1ω120]{$\Omega$}{Solid angle}%
 \nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
@@ -546,7 +546,7 @@ where the overline indicates an horizontal average.
 Deviating from (\ref{EChiDef}),
 the perturbation has been redefined as
 \begin{equation}\label{EChiGraded}
-  \chi(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n^2(\r)\right),
+  \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(\nz(z)-n^2(\r)\right),
 \end{equation}
 which only accounts for horizontal fluctuations of the refractive index.
 Wave propagation,
@@ -746,7 +746,7 @@ The matrix elements $\bra \psi^\pm_\tf|\chi|\psi^\pm_\ti\ket$
 are given by three-dimensional integrals~(\ref{Etrama}),
 \begin{equation}\label{Etrama3}
   \bra \psi_\tf^\pm|\chi|\psi_\ti^\pm\ket
-  := \int\!\d^3r\, \psi^{\pm*}_\tf(\r)\chi(\r)\psi^\pm_\ti(\r).
+  \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\tf(\r)\chi(\r)\psi^\pm_\ti(\r).
 \end{equation}
 The integrand factor $\chi$ is zero for
 the top vacuum (or air) layer as well as for the bottom substrate,
@@ -765,7 +765,7 @@ from an area~$A_\tf$ that can be determined
 by tracing back rays from the detector
 to their intersection with the sample plane.
 In a well aligned instrument, $A_\ti$ and $A_\tf$ are nearly the same.
-Let $A_\text{beam}:=A_\ti\cap A_\tf$.
+Let $A_\text{beam}\coloneqq A_\ti\cap A_\tf$.
 In a well aligned experiment,
 $A_\text{beam}$ is equal to or a subset of $A_\text{sample}$
 (if $A_\ti$ or $A_\tf$ are larger than $A_\text{sample}$,
@@ -773,7 +773,7 @@ collimation slits should be narrowed
 lest useless rays cause avoidable noise).
 Anyhow, the horizontal integration domain
 is limited to the \textit{illuminated sample area}
-$A_{xy}:=A_\text{sample}\cap A_\text{beam}$.}
+$A_{xy}\coloneqq A_\text{sample}\cap A_\text{beam}$.}
 \index{Sample area}%
 \index{Illumination}%
 Another limitation comes from the finite \textit{coherence length}
@@ -801,6 +801,13 @@ the final detector statistics
 is given by an \textit{incoherent} sum
 over the differential cross sections (and not the wavefunctions)
 of individual neutrons.
+In the conventional approach followed here,
+each incoming neutron wavefunction is a plane wave,
+characterized by a wavenumber $K$ and a direction~$\v{\hat k}_\ti$.
+The detector location determines the outgoing direction~$\v{\hat k}_\tf$.
+The finite experimental \textit{resolution}
+\index{Resolution}%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Absorption}\label{Sabsorption}
@@ -821,7 +828,7 @@ in our derivations, which are all rooted in~(\ref{EnSchrodi}),
 $n$ only appears as $n^2$. 
 Therefore, we actually \textit{define}
 \begin{equation}\label{Endb2}
-  n^2:=1-2\delta+2i\beta,
+  n^2\coloneqq 1-2\delta+2i\beta,
 \end{equation}
 and read (\ref{Endb1}) as an excellent approximation.
 

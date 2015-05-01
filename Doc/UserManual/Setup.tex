@@ -49,35 +49,25 @@
 \fancyhead[LO,RE]{Page \thepage}
 \fancyhead[LE]{\nouppercase{\leftmark}}
 \fancyhead[RO]{\nouppercase{\rightmark}}
-
-
-\headwidth=1.1\textwidth
-\renewcommand{\headrulewidth}{1pt}%{1.5pt}
-\renewcommand{\footrulewidth}{0pt}%{1.5pt}
-\fancyhfoffset[L]{24pt}
-\fancyhfoffset[R]{24pt}
-
 \fancypagestyle{plain}{%
-\fancyhf{} % clear all header and footer fields
-\headwidth=1.1\textwidth
-\renewcommand{\headrulewidth}{1pt}%{1.5pt}
-\renewcommand{\footrulewidth}{0pt}
-\fancyhead[LO,RE]{Page \thepage}
-\fancyhead[LE]{\nouppercase{\leftmark}}
-\fancyhead[RO]{\nouppercase{\rightmark}}
-
-\fancyhfoffset[L]{24pt}
-\fancyhfoffset[R]{24pt}
+  \fancyhf{} % clear all header and footer fields
+  \headwidth=1.1\textwidth
+  \renewcommand{\headrulewidth}{1pt}%{1.5pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhead[LO,RE]{Page \thepage}
+  \fancyhead[LE]{\nouppercase{\leftmark}}
+  \fancyhead[RO]{\nouppercase{\rightmark}}
+  \fancyhfoffset[L]{24pt}
+  \fancyhfoffset[R]{24pt}
 }
 
 %-------------------------------------------------------------------------------
 %  Symbols, fonts
 %-------------------------------------------------------------------------------
 
-
 \usepackage{amsmath}
 \usepackage{mathtools} % has \coloneqq for :=
-\usepackage{manfnt} % for \dbend
+% \usepackage{manfnt} % for \dbend
 \usepackage{dingbat}
 
 \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
@@ -116,27 +106,30 @@
 \usepackage{titlesec}
 
 \newcommand{\mysection}[2]{%
-                         \sectionmark{#1}%
-                         \section{#2}%
-                         \sectionmark{#1}%
-                       }
+  \sectionmark{#1}%
+  \section{#2}%
+  \sectionmark{#1}%
+}
 
 \newcommand{\mychapter}[2]{
-    \setcounter{chapter}{#1}
-    \setcounter{section}{0}
-    \chapter*{#2}
-    \addcontentsline{toc}{chapter}{#2}
+  \setcounter{chapter}{#1}
+  \setcounter{section}{0}
+  \chapter*{#2}
+  \addcontentsline{toc}{chapter}{#2}
 }
 
 %-------------------------------------------------------------------------------
 %  Index, List of Symbols
 %-------------------------------------------------------------------------------
 
-\usepackage{imakeidx}\makeindex
-\usepackage[refpage]{nomencl}\makenomenclature
-  \renewcommand{\nomname}{List of Symbols}
+\usepackage{imakeidx}
+\makeindex
+
+\usepackage[refpage]{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
-  \def\pagedeclaration#1{, \hyperpage{#1}}%
+\def\pagedeclaration#1{, \hyperpage{#1}}%
   
 \def\otherchapter#1{
   \clearpage
@@ -165,7 +158,6 @@
 
 \usepackage[final]{listings}
 \usepackage{lstcustom}
-\usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
 
 %-------------------------------------------------------------------------------
@@ -173,7 +165,7 @@
 %-------------------------------------------------------------------------------
 
 \usepackage{tikz}
-\usepackage{tikz-uml} 
+%\usepackage{tikz-uml} 
 \usetikzlibrary{trees,matrix,positioning,decorations.pathreplacing,calc}
 
 \newcommand{\ntikzmark}[2]
@@ -194,7 +186,6 @@
 
 \usepackage{ifdraft}
 \usepackage{mdframed}
-% \usepackage{pifont}
 
 \def\defineBox#1#2#3#4#5{
   \newmdenv[
@@ -212,7 +203,7 @@
     bottomline=false,
     linecolor=#4,
     linewidth=2pt,
-    nobreak=true,
+%    nobreak=true,
     ]{#2*}
   \newenvironment{#1}
     {\begin{#2*}\makebox[0pt][r]{\smash{#5}}\ignorespaces}

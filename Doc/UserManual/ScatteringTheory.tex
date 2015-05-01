@@ -798,25 +798,79 @@ different scattering contributions,
 the final detector statistics
 \index{Detector statistics}%
 is given by an \textit{incoherent} sum
-over the differential cross sections (and not the wavefunctions)
-of individual neutrons.
-Since different neutrons have different wavenumbers,
+over the differential cross sections of individual neutrons.
+The finite \textit{resolution}
+\index{Resolution|(}%
+of an experimental setup is in part due to the fact that
+different neutrons have different wavenumbers,
 originate\footnote
 {It is reasonable to take the last collision in the moderator
   as the \textit{origin} of a neutron ray,
   since collisions between neutrons and hydrogen nuclei bound in
   disordered matter lead to almost perfect decoherence.}
 at different points in the moderator,
-and are detected at slightly different points within one detector pixel,
+and are detected at slightly different points within one detector pixel.
+This can be modelled by computing expected scattering intensities as
+averages over different neutrons with 
+$K$, $\v{\hat k}_\ti$, and $\v{\hat k}_\tf$ drawn at random
+from appropriate distributions.
 
+However, this is not the full story.
+In the above introduction to the Born approximation
+we have made the standard assumption
+that an incoming neutron can be described by a plane wave
+$\psi_\ti=\e^{i\k_\ti\r}$.
+The wavefunction $\psi_\tf$ traced back from the detector is also
+approximated by a plane wave.
+In the DWBA we allow these waves to be distorted within the sample,
+but when impinging on the sample they still are plane.
+A plane wave obviously is an idealized concept,
+since it has infinite lateral extension.
+The \textit{transverse coherence length} indicates the scale
+beyond which this approximation becomes invalid.
+At larger scales, the wave fonts appear randomly distorted.
+Physical causes of these distortions include
+reflections in the neutron guide,
+diffraction by guide windows and other slits,
+and diffraction by imperfect monochromator crystals.
+Of course the distorted wave still admits a Fourier decomposition
+into plane waves with slightly different wavevectors.
+In practice, it is impossibly to distinguish this spread of wavevectors
+from the incoherent spread described in the previous paragraph.
+The instrumental resolution function therefore
+accounts for both causes of wavevector distortion.
+\index{Resolution|)}%
 
-In the conventional approach followed here,
-each incoming neutron wavefunction is a plane wave,
-characterized by a wavenumber $K$ and a direction~$\v{\hat k}_\ti$.
-The detector location determines the outgoing direction~$\v{\hat k}_\tf$.
-The finite experimental \textit{resolution}
-\index{Resolution}%
+Usually, therefore, a GISANS image is an incoherent average
+over coherent diffraction patterns collected from 
+many small subareas of the sample.
+Only horizontal sample structures on scales smaller the coherence length
+yield interference patterns.
+Structure fluctuations on larger scales
+produce said incoherent average of different GISANS images.
 
+The crossover from coherent to incoherent scattering is of course
+a gradual one.
+The coherence length, however defined,
+indicates where a certain, somewhat arbitrary degree
+of decoherence is reached.
+Under these reservations
+one define a \textit{coherence spot}
+in the cross section of an approximately plane wave
+as an area where the coherence is above a certain threshold.
+Unless the wave has been prepared in a highly anisotropic guide and slit system,
+this spot is about circular.
+Under grazing incidence conditions however,
+the projection of this spot onto the sample surface
+yields a very elongated ellipse.
+Therefore, the coherence length is much larger in $x$ than
+in $y$ or $z$ direction.\footnote
+{This has nothing to do with the distinction of
+  \textit{transverse} and \textit{longitudinal} coherence length.
+  Longitudinal coherence has to do with wavelength stability
+  and is of no importance for elastic scattering.
+  We are talking here about \textit{horizontal} and \textit{vertical}
+  projections of the \textit{transverse} coherence length.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Absorption}\label{Sabsorption}

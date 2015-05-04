@@ -25,10 +25,14 @@
 \index{Nanoparticles|see {Particles}}%
 \index{Mesoparticles|see {Particles}}%
 In many important GISAS applications,
-fluctuations of the refractive index are due to particles
-of mesoscopic size (nanometer to micrometer).
-These particles are either embedded into a material layer,
-or attached to the surface of the sample.
+fluctuations of the refractive index are due to
+\E{islands}, \E{inclusions} or \E{holes}
+\index{Island}%
+\index{Inclusion}%
+\index{Hole}%
+of a mesoscopic size (nanometer to micrometer).
+In the following, all such inhomogeneities will be described as
+\E{particles} that are embedded in a material layer.
 
 Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
@@ -40,9 +44,9 @@ either to the averaged refractive index in the
 homogeneous wave propagation equation,
 or to the perturbative potential.
 Therefore it is legitimate
-to describe \textit{dilute} embedded particles
+to describe \E{dilute} embedded particles
 as scattering centers that otherwise do not affect the propagating waves.
-For GISAS by \textit{concentrated} particles, however,
+For GISAS by \E{concentrated} particles, however,
 one must expect multiple scattering to invalidate this approach.
 It seems preferable to take the embedded particles into account
 when computing the average refractive index,
@@ -78,7 +82,7 @@ or when the refractive index is not constant within the particles.
 
 Since we have some freedom in shuffling inhomogeneity
 between refraction/reflection and scattering,
-we are not obliged to compute $\nz(z)$ \textit{exactly},
+we are not obliged to compute $\nz(z)$ \E{exactly},
 but are allowed to choose some approximation.
 In particular, we may average~$x_\text{p}(z)$
 over one layer
@@ -99,7 +103,7 @@ The overall potential
 \begin{equation}
   \chi(\r)=\left\{\begin{array}{ll}
   \chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
-  \chi_\text{m}(z) &\text{~else,} \end{array}\right.
+  \chi_\text{m}(z) &\text{~otherwise,} \end{array}\right.
 \end{equation}
 \nomenclature[1χ032 0]{$\chi_\text{m}(z)$}{Perturbative potential of embedding material (``matrix'')}%
 \nomenclature[1χ032 2p010]{$\chi_\text{p}(\r)$}{Perturbative potential of embedded particles of type~$p$}%
@@ -107,7 +111,7 @@ can be rearranged as
 \begin{equation}\label{Echi0p}
   \chi(\r)=\chi_\text{m}(z) + \left\{\begin{array}{ll}
   \tilde\chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
-  0 &\text{~else,} \end{array}\right.
+  0 &\text{~otherwise,} \end{array}\right.
 \end{equation}
 with the renormalized particle potential
 \begin{equation}
@@ -156,7 +160,7 @@ The potential of all particles can then be written as a sum
 \begin{equation}
   \chi_\text{p}(\r) = \sum_i \chi(\r-\R_i,\v{T}_i).
 \end{equation}
-We further introduce the \textit{form factor}
+We further introduce the \E{form factor}
 \index{Form factor}%
 of the particle,
 \begin{equation}
@@ -177,7 +181,7 @@ given by double sums over layers, DWBA terms, and particles:
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
 we absorb the vertical particle coordinate~$\R_{i\perp}$
 into the parameter vector~$\v{T}_i$.
-We then collect several terms into the \textit{DWBA form factor}\footnote
+We then collect several terms into the \E{DWBA form factor}\footnote
 {This generalizes the definition in \IsGISAXS\ \cite[ch.~2.4.1]{Laz08}
   and in the literature \cite[p.~292]{ReLL09},
 which does not include a depth factor.}
@@ -204,7 +208,30 @@ With this restriction, (\ref{Eass4}) becomes an incoherent sum
   \frac{\partial\sigma}{\partial\Omega}
   = \sum_{l} \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
 \end{equation}
-over contributions from different layers,
+  \index{IsGISAXS@\IsGISAXS!particle assemblies}%
+over contributions from different layers,\footnote
+{This generalizes Eq.~(2.6) of the \IsGISAXS\ manual \cite{Laz08}.
+Shortly after, that manual introduces three approximations,
+namely
+the \E{local monodisperse approximation} (LMA),
+\index{Local monodisperse approximation}%,
+\index{LMA|see {Local monodisperse approximation}}%,
+the \E{Decoupling Approximation} (DA),
+\index{Decoupling approximation}%
+\index{DA|see {Decoupling approximation}}%
+and the \E{Size-Spacing Correlation Approximation} (SSCA).
+\index{Size-spacing correlation approximation}%
+\index{SSCA|see {Size-spacing correlation approximation}}%
+In \BornAgain, we have reassigned these approximations
+to different levels in the hierarchical setup of a simulation.
+The LMA (incoherent scattering from different spatial domains)
+can be implemented by averaging over different simulated GISAS images
+(as described in Sect.~\ref{Scoherlen}),
+or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
+The DA (uncorrelated $\v T_i$, correlated $\R_i$) is the default,
+as will be discussed below in Sect.~\ref{}.
+Finally, the SSCA, being relevant only for paracrystals,
+is relegated there (Sect.~\ref{}).}
 \Emph{
 \begin{equation}\label{Eass3}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
@@ -219,9 +246,10 @@ one could use a straightforward evaluation of~(\ref{Eass3})
 to predict the scattering pattern
 for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
 
-\Note{\indent Simulations based on morphology data,
+\Note{\indent Simulations based on \E{morphology data}
 \index{Morphology!as input data}%
-  known from \IsGISAXS\ \cite[pp.~9, 65-66]{Laz08},
+  % known from \IsGISAXS\
+  \cite[pp.~9, 65-66]{Laz08},
   have not yet been implemented in \BornAgain,
   and are not on our agenda.
   Please contact us if you have a use case.}
@@ -267,18 +295,18 @@ Unless the particle coordinates are given one by one,
 the formally exact distribution function~(\ref{EPDdeltas})
 is useless, and needs to be replaced by a statistical model.
 Before we can discuss statistical averages,
-we must first agree on relevant \textit{length scales},
+we must first agree on relevant \E{length scales},
 \index{Length scales}%
 related to sample size, beam size, and coherence volume.
 Given the highly anisotropic geometry of GISAS experiments,
-we refer to \textit{areas} rather than \textit{volumes}.
-By the \textit{illuminated sample area}
+we refer to \E{areas} rather than \E{volumes}.
+By the \E{illuminated sample area}
 \index{Illuminated sample area}%
 \index{Sample!illuminated area}%
 we understand the intersection of the sample surface
 with the surface illuminated by the incident beam
 and the surface from which scattered radiation can reach the detector.
-By the \textit{coherence area} we understand
+By the \E{coherence area} we understand
 
 %===============================================================================
 \subsection{Homogeneous particle distributions}
@@ -297,7 +325,7 @@ Let us denote averages under the distribution~$p(\v\tau)$ as
   \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
 \end{equation}
 The case $i=j$ in (\ref{Epdm1}) needs special consideration,
-and leads to the \textit{diffuse scattering}
+and leads to the \E{diffuse scattering}
 \index{Diffuse scattering}%
 \index{Scattering!diffuse}%
 \begin{equation}
@@ -341,7 +369,7 @@ we present particle assembly models that are supported in \BornAgain.
 %\index{Particles!intersecting layer boundaries}}
 
 The nanoparticles are characterized by their form factors
-(\textit{i.e.} the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material.
+(\idest the Fourier transform of the shape function - see Appendix~\ref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material.
 
 
 \Note{\indent
@@ -354,7 +382,7 @@ layer which corresponds to \texttt{depth}=0.}
 \subsection{Collection of particles} \label{sec:sect:interf}
 %===============================================================================
 
-Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \textit{i.e.} its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
+Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \idest its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}
   \bra \frac{d\sigma}{d\Omega}(\q) \ket  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\q)\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\q)F_\beta^*(\q)  \\
   & \times \iint_V d^3\v{R}_\alpha d^3\v{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\q\cdot (\v{R}_\alpha - \v{R}_\beta ) \right],
@@ -443,7 +471,7 @@ Contrary to the Decoupling Approximation, the Local Monodisperse Approximation c
 
 One has to remember that in most cases, this approximation corresponds to an unphysical description of the investigated systems. \\ 
 
-DA and LMA separate the contributions of the form factors and of the interference function. For disordered systems DA and LMA give the same result as the scattering vector gets larger \textit{i.e.} the scattered intensity is dominated by the contribution of the form factor.
+DA and LMA separate the contributions of the form factors and of the interference function. For disordered systems DA and LMA give the same result as the scattering vector gets larger \idest the scattered intensity is dominated by the contribution of the form factor.
 
 \begin{figure}[tb]
 \begin{center}
@@ -518,7 +546,6 @@ The scattering by an ordered lattice gives rise to a series of Bragg peaks situa
 \subsection{Size-Spacing Correlation Approximation}
 %===============================================================================
 \index{Size-spacing correlation approximation}
-\index{SSCA|see {Size-spacing correlation approximation}}
 
 TO MERGE IN:
 introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
@@ -789,7 +816,7 @@ def get_sample():
 
 \newpage
 
-\ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\textit{i.e.} the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
+\ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
 
 
 \begin{figure}[tb]
@@ -1208,3 +1235,5 @@ Function  & Parameters & Comments\\
 \end{tabular}
 \caption{List of interference functions implemented in \BornAgain. pdf : probability distribution function, $\mathbf{a}, \mathbf{b}$ are the lattice base vectors, and $\mathbf{x}$ is the axis vector perpendicular to the detector plane.}
 \end{table}
+
+\index{Particles!embedded|)}%

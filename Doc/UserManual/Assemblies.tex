@@ -82,7 +82,7 @@ we are not obliged to compute $\nz(z)$ \textit{exactly},
 but are allowed to choose some approximation.
 In particular, we may average~$x_\text{p}(z)$
 over one layer
-so that $\nz(z)=:\overline{n_\il^2}$ becomes $z$ independent.
+so that $\nz(z)\eqqcolon \overline{n_\il^2}$ becomes $z$ independent.
 
 \Warn{\indent Currently, \BornAgain\ only supports
   the dilute-particle limit. Whatever the actual particle concentration,
@@ -92,7 +92,7 @@ Once $\nz(z)$ is computed in whatever approximation,
 the perturbation potential is given by (\ref{EChiGraded}),
 which takes the form
 \begin{equation}
-  \chi_\text{p}(\r) := \frac{K^2}{4\pi}\left(\nz(z)-n_\text{p}^2(\r)\right)
+  \chi_\text{p}(\r) \coloneqq  \frac{K^2}{4\pi}\left(\nz(z)-n_\text{p}^2(\r)\right)
 \end{equation}
 for the particles, and similarly $\chi_\text{m}(z)$ for the matrix.
 The overall potential
@@ -112,7 +112,7 @@ can be rearranged as
 with the renormalized particle potential
 \begin{equation}
   \tilde\chi_\text{p}(\r)
-  := \chi_\text{p}(\r)-\chi_\text{m}(z)
+  \coloneqq  \chi_\text{p}(\r)-\chi_\text{m}(z)
   = \frac{K^2}{4\pi}\left(n_\text{m}^2(z)-n_\text{p}^2(\r)\right),
 \end{equation}
 \nomenclature[1χ033 2p010]{$\tilde\chi_\text{p}(\r)$}{Renormalized perturbative potential of embedded particles of type~$p$}%
@@ -160,7 +160,7 @@ We further introduce the \textit{form factor}
 \index{Form factor}%
 of the particle,
 \begin{equation}
-  F(\q,\v{T}_i) := \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i),
+  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i),
 \end{equation}
 and obtain
 \begin{equation}
@@ -183,7 +183,7 @@ We then collect several terms into the \textit{DWBA form factor}\footnote
 which does not include a depth factor.}
 \begin{equation}
   \FD_l(\k_\ti,\k_\tf;\v{T}_i)
-  := \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
+  \coloneqq  \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
 \end{equation}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
@@ -294,7 +294,7 @@ all have the same distribution~$p(\v\tau)$,
 which implies that there are no inter-particle correlations.
 Let us denote averages under the distribution~$p(\v\tau)$ as
 \begin{equation}
-  \bra\FD\ket := \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
+  \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
 \end{equation}
 The case $i=j$ in (\ref{Epdm1}) needs special consideration,
 and leads to the \textit{diffuse scattering}

@@ -76,8 +76,8 @@ given by~$z_\il$, the $z$ coordinate at the bottom of layer~$\il$.
 The amplitudes $A$ are often written with distinct letters
 T and~R to designate the transmitted or reflected beam,
 \begin{equation}
-  T_{w\il} := A^-_{w\il},\quad
-  R_{w\il} := A^+_{w\il}.
+  T_{w\il} \coloneqq  A^-_{w\il},\quad
+  R_{w\il} \coloneqq  A^+_{w\il}.
 \end{equation}
 \nomenclature[2t126 2w020 2l020 0]{$T_{w\il}$}{Partial amplitude of $\psi_w(\r)$
   in layer $\il$ in downward (transmission) direction, also denoted $A^-_{w\il}$}%
@@ -102,7 +102,7 @@ The vertical wavenumber is obtained from (\ref{Ewavez}),
 \end{equation}
 The glancing angle is
 \begin{equation}\label{Edef_alpha}
-  \alpha_{w\il}:=\arctan(k_{\perp w\il}/k_{\parallel w}).  
+  \alpha_{w\il}\coloneqq \arctan(k_{\perp w\il}/k_{\parallel w}).  
 \end{equation}
 Equivalently,
 \begin{equation}
@@ -129,7 +129,7 @@ we can at once write down the DWBA transition matrix~(\ref{Edwba})
 where
 \begin{equation}\label{Echij}
   \chi_\il(\v{q})
-  := \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
+  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\parallel\, \e^{i\v{q}\,\r}\chi(\r)
 \end{equation}
 \nomenclature[1χ032 2l010 2q040]{$\chi_\il(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 is the Fourier transform
@@ -141,10 +141,10 @@ we now number the four DWBA terms from 1 to 4,
 and define the corresponding wavenumbers and amplitude factors and as
 \begin{equation}
   \begin{array}{l@{\hspace{2em}}l}
-    \q^1 := \k^-_\ti - \k^-_\tf,& C^1 := A^{-*}_\tf A^-_\ti, \\[.6ex]
-    \q^2 := \k^-_\ti - \k^+_\tf,& C^2 := A^{-*}_\tf A^+_\ti, \\[.6ex]
-    \q^3 := \k^+_\ti - \k^-_\tf,& C^3 := A^{+*}_\tf A^-_\ti, \\[.6ex]
-    \q^4 := \k^+_\ti - \k^+_\tf,& C^4 := A^{+*}_\tf A^+_\ti.
+    \q^1 \coloneqq  \k^-_\ti - \k^-_\tf,& C^1 \coloneqq  A^{-*}_\tf A^-_\ti, \\[.6ex]
+    \q^2 \coloneqq  \k^-_\ti - \k^+_\tf,& C^2 \coloneqq  A^{-*}_\tf A^+_\ti, \\[.6ex]
+    \q^3 \coloneqq  \k^+_\ti - \k^-_\tf,& C^3 \coloneqq  A^{+*}_\tf A^-_\ti, \\[.6ex]
+    \q^4 \coloneqq  \k^+_\ti - \k^+_\tf,& C^4 \coloneqq  A^{+*}_\tf A^+_\ti.
   \end{array}
 \end{equation}
 Accordingly, we can write (\ref{Edwba_ml0}) as
@@ -196,17 +196,17 @@ at the \textit{bottom} of layer~$\il=0,\ldots,N-1$:%
 \end{equation}
   where
 \begin{equation}
-  d_\il:=z_{\il-1}-z_{\il}
+  d_\il\coloneqq z_{\il-1}-z_{\il}
 \end{equation}
 is the thickness of layer~$\il$.
 
 We abbreviate
 \begin{equation}
-  f_\il := k_{\perp \il}/K = \sqrt{\nzj-(k_\parallel/K)^2}
+  f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\parallel/K)^2}
 \end{equation}
 and
 \begin{equation}
-   \delta_\il := \e^{iKf_\il d_\il}.
+   \delta_\il \coloneqq  \e^{iKf_\il d_\il}.
 \end{equation}
 For the plane waves (\ref{Ephizwj}),
 the continuity conditions~(\ref{Econtcond}) take the form
@@ -379,7 +379,7 @@ The wave equation~(\ref{Ewaveqp}) reduces to
 \end{equation}
 We abbreviate
 \begin{equation}
-  \uu H_\il := K^2(1+\uu\chi_\il)-k_\parallel^2
+  \uu H_\il \coloneqq  K^2(1+\uu\chi_\il)-k_\parallel^2
 \end{equation}
 so that the wave equation becomes simply
 \begin{equation}\label{Ewaveqp2}
@@ -416,7 +416,7 @@ which includes in particular the case of scalar interactions.
 Generalizing (\ref{Evecc}),
 we introduce the coefficient vector
 \begin{equation}
-  c_\il := {(\alpha_{\il1}, \alpha_{\il2}, \beta_{\il1}, \beta_{\il2})}^\text{T}.
+  c_\il \coloneqq  {(\alpha_{\il1}, \alpha_{\il2}, \beta_{\il1}, \beta_{\il2})}^\text{T}.
 \end{equation}
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
@@ -427,7 +427,7 @@ As before (\ref{EFcFDc}), we have at the bottom of layer~$\il$
 \end{equation}
 where the matrices are now
 \begin{equation}
-  F_\il := \left(\begin{array}{cccc}
+  F_\il \coloneqq  \left(\begin{array}{cccc}
     x_{i1\UP}      &x_{i2\UP}     &x_{i1\UP}       &x_{i2\UP}       \\
     x_{i1\DN}      &x_{i2\DN}     &x_{i1\DN}       &x_{i2\DN}       \\
     x_{i1\UP}p_{\il1}&x_{i2\UP}p_{\il2}&-x_{i1\UP}p_{\il1}&-x_{i2\UP}p_{\il2}\\
@@ -436,11 +436,11 @@ where the matrices are now
 \end{equation}
 and
 \begin{equation}
-  D_\il := \text{diag}(\delta_{\il1}, \delta_{\il2}, \delta_{\il1}^*, \delta_{\il2}^*)
+  D_\il \coloneqq  \text{diag}(\delta_{\il1}, \delta_{\il2}, \delta_{\il1}^*, \delta_{\il2}^*)
 \end{equation}
 with the phase factor
 \begin{equation}
-   \delta_{\il k} := \e^{ip_{\il k}d_k}.
+   \delta_{\il k} \coloneqq  \e^{ip_{\il k}d_k}.
 \end{equation}
 Note that matrix $F_\il$ has the block form
 \begin{equation}
@@ -453,10 +453,10 @@ Note that matrix $F_\il$ has the block form
 \end{equation}
 with
 \begin{equation}
-  \uu x_\il :=
+  \uu x_\il \coloneqq 
   \left(\u x_{\il1}, \u x_{\il2}\right),
   \quad
-  \uu P_\il :=
+  \uu P_\il \coloneqq 
   \text{diag}\left(p_{\il1},p_{\il2}\right).
 \end{equation}
 This facilitates the computation of the inverse
@@ -477,11 +477,11 @@ as function of the incident amplitudes $\beta_{0\il}$,
 we choose the notations
 \begin{equation}
   \u\alpha_\il
-  :=\left(\begin{array}{c}\alpha_{\il1}\\\alpha_{\il2}\end{array}\right),\quad
+  \coloneqq \left(\begin{array}{c}\alpha_{\il1}\\\alpha_{\il2}\end{array}\right),\quad
   \u\beta_\il
-  :=\left(\begin{array}{c}\beta_{\il1}\\\beta_{\il2}\end{array}\right),\quad
-  M:=M_1 ... M_N % TODO restore \cdots
-  =:\left(\begin{array}{cc}\uu m_{11}&\uu m_{12}\\
+  \coloneqq \left(\begin{array}{c}\beta_{\il1}\\\beta_{\il2}\end{array}\right),\quad
+  M\coloneqq M_1 ... M_N % TODO restore \cdots
+  \eqqcolon \left(\begin{array}{cc}\uu m_{11}&\uu m_{12}\\
                            \uu m_{21}&\uu m_{22}\end{array}\right),
 \end{equation}
 where the $\uu m_{\il k}$ are $2\times2$ matrices.

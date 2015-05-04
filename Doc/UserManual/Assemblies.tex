@@ -254,10 +254,12 @@ for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
   and are not on our agenda.
   Please contact us if you have a use case.}
 
-Anyway, the standard approach to interpreting GISAS data
-is rather in terms of statistical models for
-the distribution of $\R_i$ and $\v{T}_i$.
-Such models shall be introduced in the following.
+Instead, \BornAgain\ provides various physical models 
+for the distribution of $\R_i$ and $\v{T}_i$.
+Except if uniform particles form a perfect two-dimensional crystal,
+some degrees of freedom will be more or less disordered.
+Therefore models need to be formulated in statistical language.
+That formalism is versatile enough to also cover any degree of order.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Particle distribution models}
@@ -273,54 +275,39 @@ we encode the particle coordinates in a distribution function
   = \delta^{(2)}(\r-\R_{i\plll})\delta^{(2)}(\r'-\R_{j\plll})
   \delta^{(d_T)}(\v\tau-\v{T}_i)\delta^{(d_T)}(\v\tau'-\v{T}_j),
 \end{equation}
-where the superscript indicates the dimensionality of the delta function.
+where superscripts indicate the dimensionality of the delta function.
 The vector~$\v{T}$ comprises $d_T$ different parameters.
-Some of them may only take discrete values;
-for them the delta function must be read as Kronecker's delta,
-and the integral in the following equation as a sum.
+% Some of them may only take discrete values;
+% for them the delta function must be read as Kronecker's delta,
+% and the integral in the following equation as a sum.
 Since in the following we are concerned with only one layer,
 we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
 The differential cross section~(\ref{Eass3}) becomes
 \begin{equation}\label{Epdm1}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = \sum_{ij}
+  = 
   \int\!\d^2r\, \d^2r' \d^{d_T}\tau\, \d^{d_T}\tau'
-    \PD_{ij}(\r,\r',\v\tau,\v\tau')
+    \sum_{ij}\PD_{ij}(\r,\r',\v\tau,\v\tau')
   \e^{i\q_{\plll}(\r-\r')}
     \FD^*(\v\tau) \FD(\v\tau'),
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
-Unless the particle coordinates are given one by one,
-the formally exact distribution function~(\ref{EPDdeltas})
-is useless, and needs to be replaced by a statistical model.
-Before we can discuss statistical averages,
-we must first agree on relevant \E{length scales},
-\index{Length scales}%
-related to sample size, beam size, and coherence volume.
-Given the highly anisotropic geometry of GISAS experiments,
-we refer to \E{areas} rather than \E{volumes}.
-By the \E{illuminated sample area}
-\index{Illuminated sample area}%
-\index{Sample!illuminated area}%
-we understand the intersection of the sample surface
-with the surface illuminated by the incident beam
-and the surface from which scattered radiation can reach the detector.
-By the \E{coherence area} we understand
+\Note{\indent In all of the following, we make the assumption
+  that all particle properties like shape, size, and orientation,
+  are independent and identically distributed (\E{i.i.d.}) random variables.}
 
-%===============================================================================
-\subsection{Homogeneous particle distributions}
-%===============================================================================
-
-In most applications, it can be assumed that the particle distribution,
-averaged over the coherence volume of the scattering setup,
-is constant within the illuminated volume
-(if not, the Local Monodisperse Approximation might be appropriate,
-see below Sect.~\ref{Slma}).
-It is further standard to assume that the particle parameters $\v\tau$
-all have the same distribution~$p(\v\tau)$,
-which implies that there are no inter-particle correlations.
-Let us denote averages under the distribution~$p(\v\tau)$ as
+This is one ingredient of the \E{decoupling approximation} of \IsGISAXS\
+\cite[ch.~2.2.1]{Laz08}.\footnote
+{Another ingredient of the decoupling approximation
+is the condition that there be no relevant
+fluctuations on scales beyond the coherence length.
+We have dealt with this at another stage (Sect.~\ref{Scoherlen}).}
+\index{Decoupling approximation}%
+Since the $\v T_i$ are i.i.d.\ random variables,
+they all have the same distribution~$p(\v\tau)$,
+and there are no inter-particle correlations.
+Let us denote averages under~$p(\v\tau)$ as
 \begin{equation}
   \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
 \end{equation}
@@ -456,31 +443,6 @@ where $I_d$ is the diffuse part of the scattering. It is the signature of the fl
 
 
 In concentrated systems, DA breaks down because of correlations. One solution is to reintroduce some correlations between particles sizes and distributions using, for example, the size spacing correlation approximation described below. 
-
-%===============================================================================
-\subsection{Local monodisperse approximation (LMA)}
-%===============================================================================
-\index{Local monodisperse approximation}
-partially accounts for some coupling between the positions and the kinds of the particles \cite{Ped94}. 
- It requires a subdivision of the layers of particles into monodisperse domains. The contributions of these subdomains are then  incoherently summed up and weighted by the size-shape probabilities.\\ In this approximation, a particle is supposed to be surrounded by particles of the same size and shape, within the coherence length of the input beam (see fig.~\ref{fig:lma}). The scattering cross-section is expressed as
-\begin{equation*}
-  \bra \frac{d\sigma}{d\Omega}(\q) \ket \simeq \bra \left\lvert F_\alpha(\q)\right\rvert ^2 S_\alpha(\q) \ket_\alpha.
-\end{equation*}
-
-Contrary to the Decoupling Approximation, the Local Monodisperse Approximation can account for particle class/size/shape-dependent pair correlation functions by having distinct interference functions $S_\alpha(\q)$.
-
-One has to remember that in most cases, this approximation corresponds to an unphysical description of the investigated systems. \\ 
-
-DA and LMA separate the contributions of the form factors and of the interference function. For disordered systems DA and LMA give the same result as the scattering vector gets larger \idest the scattered intensity is dominated by the contribution of the form factor.
-
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{fig/drawing/drawingLMA.pdf}
-\end{center}
-\caption{Sketch of a collection of particles deposited on a substrate whose scattering could be described by the local monodisperse correlation approximation. The dashed areas mark the coherent domains. In this case, the total scattering intensity is the incoherent sum from all these domains.}
-\label{fig:lma}
-\end{figure}
-
 
 
 \MakeRemark{Terminology}{
@@ -1186,27 +1148,6 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 %===============================================================================
 \subsection{Summary}
 %===============================================================================
-
-\begin{table}[h]
-  \scriptsize
-\begin{tabular}{lll}
-\hline
-Name & Characteristics &  Comments \\
-\hline
-DA & no correlations& implemented with \Code{setApproximation} \\
-     & & default option \\
-\hline
-LMA & sample = groups of particles & automatic implementation if several \\ 
- & of identical sizes and shapes & \Code{ParticleLayout}s are defined \\
-\hline
-SSCA & distance between particles =  &  - implemented with \Code{setApproximation} \\
- &function of their sizes&  - dimensionless coupling coefficient $\kappa$ is \\
- & & required using \Code{setKappa}.\\
-\hline
-\hline
-\end{tabular}
-\caption{List of size-distribution models implemented in \BornAgain.}
-\end{table}
 
 \begin{table}[h]
   \footnotesize

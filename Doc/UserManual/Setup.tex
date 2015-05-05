@@ -78,26 +78,43 @@
 
 % Add rubber to white space around chapter header
 \makeatletter
+% from report.cls
 \def\@makechapterhead#1{%
-  \vspace*{50\p@ plus 5\p@ minus 5\p@}%
+  \vspace*{50\p@ plus 10\p@ minus 10\p@}%
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
         \huge\bfseries \@chapapp\space \thechapter
         \par\nobreak
-        \vskip 20\p@ plus 2\p@ minus 2\p@
+        \vskip 20\p@ plus 4\p@ minus 4\p@
     \fi
     \interlinepenalty\@M
     \Huge \bfseries #1\par\nobreak
-    \vskip 40\p@ plus 5\p@ minus 5\p@
+    \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
 \def\@makeschapterhead#1{%
-  \vspace*{50\p@ plus 5\p@ minus 5\p@}%
+  \vspace*{50\p@ plus 10\p@ minus 10\p@}%
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
     \Huge \bfseries  #1\par\nobreak
-    \vskip 40\p@ plus 5\p@ minus 5\p@
+    \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1.5ex \@minus -.5ex}%
+                                   {2.3ex \@plus .8ex \@minus .5ex}%
+                                   {\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1.3ex \@minus -.4ex}%
+                                     {1.5ex \@plus .5ex \@minus .3ex}%
+                                     {\normalfont\large\bfseries}}
+% from size11.clo
+\renewcommand\normalsize{
+   \@setfontsize\normalsize\@xipt{13.6}%
+   \abovedisplayskip 11\p@ \@plus7\p@ \@minus6\p@
+   \abovedisplayshortskip \z@ \@plus3\p@
+   \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}
 \makeatother
 
 \setcounter{secnumdepth}{3}
@@ -187,7 +204,12 @@
 
 \usepackage{ifdraft}
 \usepackage{mdframed}
-\input FixMdframed % prevents erroneous page breaks
+\input FixMdframed % bug fix to prevent erroneous page breaks
+% doesnt work:
+%\newcommand\widow{%
+%  \widowpenalty=10000
+%
+%  \widowpenalty=150}
 
 \def\defineBox#1#2#3#4#5{
   \newmdenv[
@@ -208,8 +230,11 @@
     ]{#2*}
   \newenvironment{#1}
     {\begin{#2*}\makebox[0pt][r]{\smash{#5}}\ignorespaces}
-    {\end{#2*}}
+    {\end{#2*}\mdbreakon}
 }
+
+\def\mdbreakoff{\makeatletter\booltrue{mdf@nobreak}\makeatother}
+\def\mdbreakon{\makeatletter\boolfalse{mdf@nobreak}\makeatother}
 
 \def\marginSymbolLarge#1#2{\ifdraft{\textbf{#2~~~~}}{\raisebox{-3ex}%
 {\includegraphics[width=3em]{#1}\hspace{10pt}}}}

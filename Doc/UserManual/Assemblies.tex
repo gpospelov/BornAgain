@@ -72,6 +72,7 @@ This equation can be generalized in obvious ways
 when there are different types of particles,
 or when the refractive index is not constant within the particles.
 
+\mdbreakoff
 \Note{\indent \BornAgain\ only supports discrete layers.
   Within one layer~$\il$,
   the refractive index of the matrix must be constant,
@@ -243,7 +244,7 @@ Therefore models need to be formulated in statistical language.
 That formalism is versatile enough to also cover any degree of order.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Particle distribution models}\label{Spartidis}
+\section{Decoupling approximations}\label{Spartidis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To prepare a statistical formulation,
@@ -252,42 +253,106 @@ we encode the particle coordinates in a distribution function
 \index{Particles!distribution function}%
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
-  \PD_{l,ij}(\r,\r',\v\tau,\v\tau')
-  = \delta(\r-\R_{i\plll})\delta(\r'-\R_{j\plll})
+  \PD_{l}(\r,\v\tau,\v\tau')
+  = \sum_{ij} \delta(\r-(\R_{i\plll}-\R_{j\plll}))
   \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
 \end{equation}
 Since in the following we are concerned with only one layer,
-we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
+we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_l$, and $\FD_l$.
 Let $d_T$ be the dimensionality of~$\v{T}$.
 The differential cross section~(\ref{Eass3}) becomes
 \begin{equation}\label{Epdm1}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
   = 
-  \int\!\d^2r\, \d^2r' \d^{d_T}\tau\, \d^{d_T}\tau'
-    \sum_{ij}\PD_{ij}(\r,\r',\v\tau,\v\tau')
-  \e^{i\q_{\plll}(\r-\r')}
+  \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
+  \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
+    \PD(\r,\v\tau,\v\tau')
     \FD^*(\v\tau) \FD(\v\tau'),
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
-\Note{\indent
-In the remainder of this chapter,
-we assume that the particle distribution allows
-the following approximations:
-\begin{itemize}[leftmargin=2\parindent,rightmargin=\parindent]
-\item[\textbf{(PD1)}] On the length scales considered here
-(below the coherence length),
-the sample structure is translation invariant.
-\item[\textbf{(PD2)}] All particle properties
-(like shape, size, and orientation, but excluding position)
-are independent and identically distributed (\E{i.i.d.})
-random variables.
-\end{itemize}
-Unless otherwise said, we further assume:
-\begin{itemize}[leftmargin=2\parindent,rightmargin=\parindent]
-\item[\textbf{(PD3)}] Particle positions do not depend on particle properties.
-\end{itemize}}
-Altogether, PD1--3 make up the \E{decoupling approximation} 
+In the following, we will present different physical models
+that provide computable approximations
+for the formally exact distribution~(\ref{EPDdeltas}).
+All these models are based on the following assumptions
+about the particle \E{properties} like shape, size, and orientation
+(but \E{not} position) that are  encoded in the vector~$\v T_i$:
+\Note{\textbf{T-T decoupling approximation:}
+Properties of different particles are not correlated.}
+\index{T-T decoupling approximation}%
+\Note{\textbf{T-R decoupling approximation:}
+Particle properties do not depend on position.}
+\index{T-R decoupling approximation}%
+In consequence, the $\v T_i$
+are independent and identically distributed (\E{i.i.d.}) random variables.
+They all have the same distribution~$p(\v\tau)$.
+For $\r\ne0$, the distribution $\PD$ factorizes as
+\begin{equation}
+  \PD(\r,\v\tau,\v\tau')\eqqcolon\GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
+\end{equation}
+which defines the conditional position correlation function~$\GD$.
+The case $\r=0$ (equivalent with $i=j$) needs special consideration,
+which leads the decomposition
+\Emph
+{\begin{equation}
+  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  = I_\text{d}+I_\text{c}.
+\end{equation}\vskip -5pt}
+We denote averages under~$p(\v\tau)$ as
+\begin{equation}
+  \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau),
+\end{equation}
+so that the \E{diffuse} scattering intensity assumes the simple form
+\index{Diffuse scattering}%
+\index{Scattering!diffuse}%
+\Emph
+{\begin{equation}
+  I_\text{d} = \bra\FD^2\ket-{\bra\FD\ket}^2.
+\end{equation}\vskip -5pt}
+The \E{coherent} scattering intensity is given by
+\Emph
+{\begin{equation}
+  I_\text{c} = 
+  \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
+  \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
+    \GD(\r|\v\tau,\v\tau')p(\v\tau)\FD(\tau)
+    \FD^*(\v\tau) \FD(\v\tau').
+\end{equation}\vskip -5pt}
+
+Only a few paracrystal models actually specify
+a conditioning of~$\GD$ on the particle properties~$\v\tau,\v\tau'$.
+For all other models, we assume the
+\Note{\textbf{R-T decoupling approximation:}
+\index{R-T decoupling approximation}%
+Particle positions do not depend on properties.}
+Hence simply $\GD(\r|\v\tau,\v\tau')=\GD(\r)$.
+To distinguish $\GD(\r)$ from the standard \E{pair correlation function}
+\index{Pair correlation function}%
+at atomic level, we will call it the 
+\E{particle position correlation function}.
+\index{Particle position correlation function}%
+Its Fourier transform
+\begin{equation}
+  \SD(\q)\coloneqq   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
+\end{equation}
+shall be called the \E{interference function}.
+\index{Interference function}%.
+It is the two-dimensional, mesoscale equivalent of 
+the atomic \E{static structure factor}
+\index{Static structure factor}%
+(in crystallography also called \E{lattice factor}).
+\index{Lattice factor}%
+The coherent scattering intensity then takes the simple form
+and therefore
+\Emph
+{\begin{equation}
+  I_\text{c} = \SD(\q) {\bra\FD\ket}^2.
+\end{equation}\vskip -5pt}
+
+Altogether, the approximations introduced so far
+(coherent superposition; uncorrelated particle properties;
+R-T decoupling)
+make up the \E{decoupling approximation} 
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
 {In the \IsGISAXS\ manual \cite[Sect.~2.2]{Laz08},
@@ -299,74 +364,24 @@ is opposed to the
 \index{Local monodisperse approximation}%
 \index{LMA|see {Local monodisperse approximation}}%
 and the 
-\E{Size-Spacing Correlation Approximation} (SSCA).
+\E{size-spacing correlation approximation} (SSCA).
 \index{Size-spacing correlation approximation}%
 \index{SSCA|see {Size-spacing correlation approximation}}%
 We can now disentangle this skew trichotomy:
-The LMA
-is an alternative to PD1.
-It describes the incoherent average of
+The LMA is opposite to coherent superposition;
+it describes the incoherent average of
 scattering from different coherence domains.
 In \BornAgain,
-it can be implemented by averaging over different simulated GISAS images
+it can be emulated by averaging over different simulated GISAS images
 (as described in Sect.~\ref{Scoherlen}),
 or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
-The SSCA is an alternative to PD3.
+The SSCA is an alternative to the R-T decoupling approximation.
 In \IsGISAXS, and similarly in \BornAgain,
 it is only available for paracrystals,
 and will therefore be discussed later (Sect.~\ref{}).}
+% end footnote
 
-Translation invariance (PD1)
-allows us to replace $\sum_{ij}\PD_{ij}$ by a distribution function
-$\PD(\r-\r',\v\tau,\v\tau')$,
-and to get rid of one of the two integrals over particle positions.
-After substituting $\r-\r'\to\r$,
-the cross section (\ref{Epdm1}) takes the form
-\begin{equation}\label{Epdm1}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = 
-  \int\!\d^2r\,   \e^{i\q_{\plll}\r}
-  \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
-    \PD(\r,\v\tau,\v\tau')
-    \FD^*(\v\tau) \FD(\v\tau').
-\end{equation}
-
-
-Since the $\v T_i$ are i.i.d.\ random variables,
-they all have the same distribution~$p(\v\tau)$,
-and there are no inter-particle correlations.
-Let us denote averages under~$p(\v\tau)$ as
-\begin{equation}
-  \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau).
-\end{equation}
-The case $i=j$ in (\ref{Epdm1}) needs special consideration,
-and leads to the \E{diffuse scattering}
-\index{Diffuse scattering}%
-\index{Scattering!diffuse}%
-\begin{equation}
-  I_\text{d} = \bra\FD^2\ket-{\bra\FD\ket}^2
-\end{equation}
-in the decomposition
-\begin{equation}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = I_\text{d}+I_\text{c}.
-\end{equation}
-With the conditional pair correlation function $\GD_{ij}$,
-the coherent term is
-\begin{equation}
-  I_\text{c} = \sum_{ij}
-  \int\!\d^2r\, \d^{d_T}\tau\, \d^{d_T}\tau'
-    \GD_{ij}(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau')
-  \e^{i\q_{\plll}\r}
-    \FD^*(\v\tau) \FD(\v\tau').
-\end{equation}
-
-\MissingSection
-
-We assume that the horizontal structure,
-averaged over many particles, is translationally invariant.
-
-
+\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -445,38 +460,6 @@ More precisely, the probability density for finding a particle $\alpha$ at posit
 
 To proceed further, when the morphology and topology are not exactly known, some hypotheses need to be made since the correlation between the kinds of scatterers and their relative positions included in the pair correlation functions are difficult to estimate. Several options are available:
 
-%===============================================================================
-\subsection{Decoupling approximation (DA)}
-%===============================================================================
-\index{Decoupling approximation}
-neglects all correlations. It supposes that the particles are positioned in a way that is completely independent on their kinds (shapes, sizes). An example is given in figure~\ref{fig:da}. Thus the kind of scattering objects and their positions are not correlated and the partial pair correlation function is independent of the particle class $\alpha$. We can therefore replace $ \ppcfb{\alpha}{\beta}{R}$ by  $g(\v{R}_{\alpha\beta})$.
-
-This leads to the following expression of the scattering cross-section:
-\begin{equation*}
-\bra \frac{d\sigma}{d\Omega}(\q) \ket  = I_d(\q) + \left\lvert \bra F_\alpha(\q) \ket_\alpha \right\rvert ^2 \times S(\q),
-\end{equation*}
-where $I_d$ is the diffuse part of the scattering. It is the signature of the fluctuations of shapes, sizes or orientations of the particles; its maximum is located in $q_{\plll}=0$. In the second term of the expression of the scattering cross-section, $S(\q)$ is the interference function and is given by
-\begin{equation*} 
-  S(\q) = 1+ \rho_V \int_V d^3\r g(\r) \exp \left[ i\q\cdot \r \right].
-\end{equation*}
-
-
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{fig/drawing/drawingDA.pdf}
-\end{center}
-\caption{Sketch of a collection of particles deposited on a substrate whose scattering  could be described by the decoupling approximation.}
-\label{fig:da}
-\end{figure}
-
-
-In concentrated systems, DA breaks down because of correlations. One solution is to reintroduce some correlations between particles sizes and distributions using, for example, the size spacing correlation approximation described below. 
-
-
-\MakeRemark{Terminology}{
-\\
-For collections of particles, the scattered intensity contains contributions from neighboring particles. This additional pattern can be called the structure factor, the interference function or even in crystallography, the lattice factor. In this manual, we use the term "interference function" or interferences.
-}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1206,3 +1189,4 @@ Function  & Parameters & Comments\\
 \end{table}
 
 \index{Particles!embedded|)}%
+\fi

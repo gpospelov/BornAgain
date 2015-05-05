@@ -252,7 +252,7 @@ void register_ISample_class(){
                 "accept"
                 , bp::pure_virtual( accept_function_type(&::ISample::accept) )
                 , ( bp::arg("p_visitor") )
-                , "\internal Calls the ISampleVisitor's visit method." );
+                , "Calls the ISampleVisitor's visit method." );
         
         }
         { //::ISample::clone

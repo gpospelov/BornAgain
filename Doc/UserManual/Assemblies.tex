@@ -182,7 +182,8 @@ Motivated by the $\q$ decomposition (\ref{Eqpp}),
 we absorb the vertical particle coordinate~$\R_{i\perp}$
 into the parameter vector~$\v{T}_i$.
 We then collect several terms into the \E{DWBA form factor}\footnote
-{This generalizes the definition in \IsGISAXS\ \cite[ch.~2.4.1]{Laz08}
+{This generalizes the definition in \IsGISAXS\ \cite[Sect.~2.4.1]{Laz08}
+  \index{IsGISAXS@\string\IsGISAXS!DWBA form factor}%
   and in the literature \cite[p.~292]{ReLL09},
 which does not include a depth factor.}
 \begin{equation}
@@ -202,7 +203,6 @@ Hence (\ref{Eass6}) can be written as
   between particles in different layers.
   This means in particular that there is no way to model particles
   that extend beyond layer interfaces.}
-
 With this restriction, (\ref{Eass4}) becomes an incoherent sum
 \begin{equation}
   \frac{\partial\sigma}{\partial\Omega}
@@ -225,13 +225,15 @@ one could use a straightforward evaluation of~(\ref{Eass3})
 to predict the scattering pattern
 for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
 
-\Note{\indent Simulations based on \E{morphology data}
+\addtocounter{footnote}{1}
+% see http://tex.stackexchange.com/questions/35298 how to repair hyperref
+\Note{\indent Simulations based on \E{morphology data}\footnotemark[\value{footnote}]
 \index{Morphology!as input data}%
-  % known from \IsGISAXS\
-  \cite[pp.~9, 65-66]{Laz08},
   have not yet been implemented in \BornAgain,
   and are not on our agenda.
   Please contact us if you have a use case.}
+\footnotetext[\value{footnote}]{Known from \IsGISAXS\ \cite[Sect.~3.3]{Laz08}.
+\index{IsGISAXS@\string\IsGISAXS!morphology data}}
 
 Instead, \BornAgain\ provides various physical models 
 for the distribution of $\R_i$ and $\v{T}_i$.
@@ -251,16 +253,12 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD_{l,ij}(\r,\r',\v\tau,\v\tau')
-  = \delta^{(2)}(\r-\R_{i\plll})\delta^{(2)}(\r'-\R_{j\plll})
-  \delta^{(d_T)}(\v\tau-\v{T}_i)\delta^{(d_T)}(\v\tau'-\v{T}_j),
+  = \delta(\r-\R_{i\plll})\delta(\r'-\R_{j\plll})
+  \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
 \end{equation}
-where superscripts indicate the dimensionality of the delta function.
-The vector~$\v{T}$ comprises $d_T$ different parameters.
-% Some of them may only take discrete values;
-% for them the delta function must be read as Kronecker's delta,
-% and the integral in the following equation as a sum.
 Since in the following we are concerned with only one layer,
 we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_{l,ij}$, and $\FD_l$.
+Let $d_T$ be the dimensionality of~$\v{T}$.
 The differential cross section~(\ref{Eass3}) becomes
 \begin{equation}\label{Epdm1}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
@@ -289,9 +287,10 @@ Unless otherwise said, we further assume:
 \begin{itemize}[leftmargin=2\parindent,rightmargin=\parindent]
 \item[\textbf{(PD3)}] Particle positions do not depend on particle properties.
 \end{itemize}}
-Altogether, PD1--3 make up the \E{decoupling approximation} of \IsGISAXS\
-\cite[ch.~2.2.1]{Laz08}.\footnote
-{In the \IsGISAXS\ manual,
+Altogether, PD1--3 make up the \E{decoupling approximation} 
+\index{IsGISAXS@\IsGISAXS!decoupling approximation}
+of \IsGISAXS.\footnote
+{In the \IsGISAXS\ manual \cite[Sect.~2.2]{Laz08},
 the \E{decoupling approximation} (DA), 
 \index{Decoupling approximation}%
 \index{DA|see {Decoupling approximation}}%
@@ -306,7 +305,8 @@ and the
 We can now disentangle this skew trichotomy:
 The LMA
 is an alternative to PD1.
-It describes incoherent scattering from different spatial domains.
+It describes the incoherent average of
+scattering from different coherence domains.
 In \BornAgain,
 it can be implemented by averaging over different simulated GISAS images
 (as described in Sect.~\ref{Scoherlen}),
@@ -316,11 +316,22 @@ In \IsGISAXS, and similarly in \BornAgain,
 it is only available for paracrystals,
 and will therefore be discussed later (Sect.~\ref{}).}
 
-{Another ingredient of the decoupling approximation
-is the condition that there be no relevant
-fluctuations on scales beyond the coherence length.
-We have dealt with this at another stage (Sect.~\ref{Scoherlen}).}
-\index{Decoupling approximation}%
+Translation invariance (PD1)
+allows us to replace $\sum_{ij}\PD_{ij}$ by a distribution function
+$\PD(\r-\r',\v\tau,\v\tau')$,
+and to get rid of one of the two integrals over particle positions.
+After substituting $\r-\r'\to\r$,
+the cross section (\ref{Epdm1}) takes the form
+\begin{equation}\label{Epdm1}
+  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  = 
+  \int\!\d^2r\,   \e^{i\q_{\plll}\r}
+  \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
+    \PD(\r,\v\tau,\v\tau')
+    \FD^*(\v\tau) \FD(\v\tau').
+\end{equation}
+
+
 Since the $\v T_i$ are i.i.d.\ random variables,
 they all have the same distribution~$p(\v\tau)$,
 and there are no inter-particle correlations.

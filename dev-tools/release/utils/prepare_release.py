@@ -61,7 +61,7 @@ def update_upload_dir():
     print "\nUpdating directory for upload ..."
     run_command("mv %s/BornAgain*.tar.gz %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("mv %s/BornAgain*-win32.exe %s/old" % (get_upload_dir(), get_upload_dir()))
-    #run_command("mv %s/BornAgain-*-macosx64-*.dmg %s/old" % (get_upload_dir(), get_upload_dir()))
+    run_command("mv %s/BornAgain-*-macosx64-*.dmg %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("mv %s/*Manual-*.pdf %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("cp %s/BornAgain-%s.tar.gz %s" % (get_build_dir(), get_version(), get_upload_dir()))
     run_command("cp %s/CHANGELOG %s" % (get_source_dir(), get_upload_dir()))

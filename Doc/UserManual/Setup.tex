@@ -138,9 +138,10 @@
   \markboth{#1}{#1}}
 
 %-------------------------------------------------------------------------------
-%  Floats
+%  Improve LaTeX basics
 %-------------------------------------------------------------------------------
 
+\usepackage{enumitem}
 \usepackage{subfigure}
 
 \usepackage{placeins} % defines \FloatBarrier
@@ -254,3 +255,5 @@
     pdftitle={BornAgain User Manual} % seems to be ignored
 }
 \ifdraft{\usepackage[right]{showlabels}}{}
+
+\usepackage{bigfoot} % wants to be included after certain other packages

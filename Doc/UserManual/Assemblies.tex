@@ -210,28 +210,7 @@ With this restriction, (\ref{Eass4}) becomes an incoherent sum
 \end{equation}
   \index{IsGISAXS@\IsGISAXS!particle assemblies}%
 over contributions from different layers,\footnote
-{This generalizes Eq.~(2.6) of the \IsGISAXS\ manual \cite{Laz08}.
-Shortly after, that manual introduces three approximations,
-namely
-the \E{local monodisperse approximation} (LMA),
-\index{Local monodisperse approximation}%,
-\index{LMA|see {Local monodisperse approximation}}%,
-the \E{Decoupling Approximation} (DA),
-\index{Decoupling approximation}%
-\index{DA|see {Decoupling approximation}}%
-and the \E{Size-Spacing Correlation Approximation} (SSCA).
-\index{Size-spacing correlation approximation}%
-\index{SSCA|see {Size-spacing correlation approximation}}%
-In \BornAgain, we have reassigned these approximations
-to different levels in the hierarchical setup of a simulation.
-The LMA (incoherent scattering from different spatial domains)
-can be implemented by averaging over different simulated GISAS images
-(as described in Sect.~\ref{Scoherlen}),
-or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
-The DA (uncorrelated $\v T_i$, correlated $\R_i$) is the default,
-as will be discussed below in Sect.~\ref{}.
-Finally, the SSCA, being relevant only for paracrystals,
-is relegated there (Sect.~\ref{}).}
+{This generalizes Eq.~(2.6) of the \IsGISAXS\ manual \cite{Laz08}.}
 \Emph{
 \begin{equation}\label{Eass3}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
@@ -262,7 +241,7 @@ Therefore models need to be formulated in statistical language.
 That formalism is versatile enough to also cover any degree of order.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Particle distribution models}
+\section{Particle distribution models}\label{Spartidis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To prepare a statistical formulation,
@@ -293,12 +272,50 @@ The differential cross section~(\ref{Eass3}) becomes
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
-\Note{\indent In all of the following, we make the assumption
-  that all particle properties like shape, size, and orientation,
-  are independent and identically distributed (\E{i.i.d.}) random variables.}
-
-This is one ingredient of the \E{decoupling approximation} of \IsGISAXS\
+\Note{\indent
+In the remainder of this chapter,
+we assume that the particle distribution allows
+the following approximations:
+\begin{itemize}[leftmargin=2\parindent,rightmargin=\parindent]
+\item[\textbf{(PD1)}] On the length scales considered here
+(below the coherence length),
+the sample structure is translation invariant.
+\item[\textbf{(PD2)}] All particle properties
+(like shape, size, and orientation, but excluding position)
+are independent and identically distributed (\E{i.i.d.})
+random variables.
+\end{itemize}
+Unless otherwise said, we further assume:
+\begin{itemize}[leftmargin=2\parindent,rightmargin=\parindent]
+\item[\textbf{(PD3)}] Particle positions do not depend on particle properties.
+\end{itemize}}
+Altogether, PD1--3 make up the \E{decoupling approximation} of \IsGISAXS\
 \cite[ch.~2.2.1]{Laz08}.\footnote
+{In the \IsGISAXS\ manual,
+the \E{decoupling approximation} (DA), 
+\index{Decoupling approximation}%
+\index{DA|see {Decoupling approximation}}%
+is opposed to the 
+\E{local monodisperse approximation} (LMA)
+\index{Local monodisperse approximation}%
+\index{LMA|see {Local monodisperse approximation}}%
+and the 
+\E{Size-Spacing Correlation Approximation} (SSCA).
+\index{Size-spacing correlation approximation}%
+\index{SSCA|see {Size-spacing correlation approximation}}%
+We can now disentangle this skew trichotomy:
+The LMA
+is an alternative to PD1.
+It describes incoherent scattering from different spatial domains.
+In \BornAgain,
+it can be implemented by averaging over different simulated GISAS images
+(as described in Sect.~\ref{Scoherlen}),
+or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
+The SSCA is an alternative to PD3.
+In \IsGISAXS, and similarly in \BornAgain,
+it is only available for paracrystals,
+and will therefore be discussed later (Sect.~\ref{}).}
+
 {Another ingredient of the decoupling approximation
 is the condition that there be no relevant
 fluctuations on scales beyond the coherence length.

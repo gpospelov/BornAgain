@@ -32,5 +32,12 @@ private:
     QHBoxLayout *m_mainLayout;
     ParameterizedItem *m_item;
     QCustomPlot *m_plot;
+    DistributionItem *m_distribution;
+    DistributionCosine *m_cosine;
+    DistributionGate *m_gate;
+    DistributionGaussian *m_gaussian;
+    DistributionLogNormal *m_logNormal;
+    DistributionLorentz *m_lorentz;
+    std::string m_itemName;
 
 };

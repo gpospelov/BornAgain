@@ -1,13 +1,11 @@
-#include "TestView.h"
-#include "TestItem.h"
-#include "LayerItem.h"
+#ifndef DISTRIBUTIONEDITOR_H_
+#define DISTRIBUTIONEDITOR_H_
+
 #include "AwesomePropertyEditor.h"
 #include "BeamWavelengthItem.h"
 #include "ParameterizedItem.h"
-#include <QGroupBox>
-#include <QGridLayout>
 #include <QDebug>
-#include "qcustomplot.h"
+#include "DistributionWidget.h"
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
@@ -24,20 +22,13 @@ public:
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
 private slots:
-    void onPropertyChanged(const QString &property_name);
     void onSubItemChanged(const QString &property_name);
-    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
 private:
     AwesomePropertyEditor *m_propertyEditor;
     QHBoxLayout *m_mainLayout;
     ParameterizedItem *m_item;
-    QCustomPlot *m_plot;
-    DistributionItem *m_distribution;
-    DistributionCosine *m_cosine;
-    DistributionGate *m_gate;
-    DistributionGaussian *m_gaussian;
-    DistributionLogNormal *m_logNormal;
-    DistributionLorentz *m_lorentz;
-    std::string m_itemName;
+    DistributionWidget *m_plotwidget;
 
 };
+
+#endif

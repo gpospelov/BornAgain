@@ -134,10 +134,8 @@ Shape&Name&Parameters&Reference\\\hline
 \end{center}
 
 
-\FloatBarrier
-
 %-------------------------------------------------------------------------------
-\newpage
+\FloatBarrier\newpage
 \subsection{AnisoPyramid (rectangle-based)} \label{sec:AnisoPyramid} 
   \index{Anisotropic pyramid (form factor)}
   \index{Pyramid (form factor)!rectangular (AnisoPyramid)}
@@ -158,16 +156,16 @@ A truncated right pyramid with a rectangular base.
 
 \FloatBarrier
 
-\paragraph{Syntax and Parameters}
+\paragraph{Syntax and parameters}
 \begin{quote}
 \Code{FormFactorAnisoPyramid(length, width, height, alpha)}
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{length} $=L$ is the full length of the base,
-\item \texttt{width} $=W$ is the full width of the base,
-\item \texttt{height} $=H$ is the height,
-\item \texttt{alpha} $=\alpha$ is the angle between the base and a side face.
+\item \texttt{length} of the base, $L$,
+\item \texttt{width} of the base, $W$,
+\item \texttt{height}, $H$
+\item \texttt{alpha}, angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -229,8 +227,8 @@ except for different parametrization. ???
 %W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
 
 %-------------------------------------------------------------------------------
-\newpage
-\ifodd\value{page}\textit{Page intentionally left blank}\newpage\fi
+\FloatBarrier\newpage
+\ifodd\value{page}\textit{Page intentionally left blank}\FloatBarrier\newpage\fi
 \subsection{Box (cuboid)} \label{sec:Box}
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
@@ -251,11 +249,15 @@ A rectangular cuboid.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorBox(length, width, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length of the base $L$,
-\item width of the base $W$,
-\item height  $H$.
+\item \texttt{length} of the base, $L$,
+\item \texttt{width} of the base, $W$,
+\item \texttt{height}, $H$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -275,10 +277,6 @@ where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 \nomenclature[2s030 2i030 2n030 2c030]{$\sinc$}{Cardinal sine,
    $\sinc(x)\coloneqq\sin(x)/x$}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorBox(length, width, height)}
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFBoxEx} shows the normalized intensity
@@ -297,7 +295,7 @@ Agrees with \lq\lq Box\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Cone (circular)} \label{sec:Cone} 
   \index{Cone (form factor)!circular}
   \index{Truncated cone (form factor)}
@@ -315,11 +313,15 @@ A truncated cone with circular base.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorCone(radius, height, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius $R$,
-\item height $H$,
-\item $\alpha$ is the angle between the side and the circular base.
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$,
+\item \texttt{alpha}, angle between the side and the base, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -341,8 +343,6 @@ F(\mathbf{q}, R, H, \alpha) = \int_0 ^H 2\pi R_z^2
 with $R_z =R-\dfrac{z}{\tan \alpha}$, $\mathbf{q}_{\parallel}=\sqrt{q_x^2+ q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorCone(radius, height, alpha)}. 
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFConeEx} shows the normalized intensity
@@ -360,7 +360,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Cone6 (hexagonal)} \label{sec:Cone6}
   \index{Cone (form factor)!hexagonal (Cone6)}
   \index{Pyramid (form factor)!hexagonal (Cone6)}
@@ -381,11 +381,15 @@ A truncated hexagonal pyramid.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorCone6(radius,height, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius of the regular hexagonal base $R$,
-\item height $H$,
-\item angle $\alpha$ between the base and a side face.
+\item \texttt{radius} of the regular hexagonal base, $R$,
+\item \texttt{height}, $H$,
+\item \texttt{alpha}, between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -415,8 +419,6 @@ R_z}{2}\right)\\
 \end{align*}
 with $R_z=R-\dfrac{2z}{\sqrt{3}\tan\alpha}$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorCone6(radius,height, alpha)} 
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFCone6Ex} shows the normalized intensity
@@ -435,7 +437,7 @@ $\alpha=60^{\circ}$.
 Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Cuboctahedron} \label{sec:Cuboctahedron}
   \index{Cuboctahedron (form factor)}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
@@ -455,12 +457,16 @@ and opposite orientations.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorCuboctahedron(length, height, height\_ratio, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length of the shared square base $L$,
-\item height $H$ of the bottom pyramid,
-\item height ratio $r_H$ bewteen the top and the bottom pyramid,
-\item angle $\alpha$ between the base and a side face.
+\item \texttt{length} of the shared square base, $L$,
+\item \texttt{height} of the bottom pyramid, $H$,
+\item \texttt{height\_ratio} between the top and the bottom pyramid, $r_H$,
+\item \texttt{alpha}, angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -483,8 +489,6 @@ H)\Big[F_{\rm{Pyramid}}(q_x,q_y, q_z, L, r_H H,
 \alpha)+F_{\rm{Pyramid}}(q_x, q_y, -q_z, L, H, \alpha))\Big]
 \end{equation*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorCuboctahedron(length, height, height\_ratio, alpha)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm, $r_H=0.7$, and $\alpha=60^{\circ}$.
@@ -501,7 +505,7 @@ Agrees with \lq\lq Cuboctahedron\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Cylinder} \label{sec:Cylinder}
   \index{Cylinder (form factor)}
   \index{FormFactorCylinder@\Code{FormFactorCylinder}}
@@ -518,10 +522,14 @@ An upright circular cylinder.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorCylinder(radius, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius of the circular base $R$, 
-\item height $H$.
+\item \texttt{radius} of the circular base, $R$, 
+\item \texttt{height}, $H$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -539,10 +547,6 @@ F(\mathbf{q},R, H)=  2\pi
 with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorCylinder(radius, height)}
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFcylinderEx} shows the normalized intensity
@@ -560,7 +564,7 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{EllipsoidalCylinder} \label{sec:EllipsoidalCylinder} 
   \index{Ellipsoidal cylinder (form factor)}
   \index{Cylinder (form factor)!ellipsoidal}
@@ -578,10 +582,14 @@ A cylinder whose cross section is an ellipse.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorEllipsoidalCylinder(radius\_a, radius\_b, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item $r_a$ = half length of the ellipse main axis parallel to $x$,
-\item$r_b$ = half length of the ellipse main axis parallel to $y$, 
+\item \texttt{radius\_a}, in $x$ direction, $r_a$,
+\item \texttt{radius\_b}, in $y$ direction, $r_b$,
 \item height $H$.
 \end{itemize}
 
@@ -599,11 +607,6 @@ F(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac{q_z
 \end{equation*}
 with $\gamma=\sqrt{(q_x r_a)^2+(q_y r_b)^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
-
-\paragraph{Syntax}\strut\\
-\Code{FormFactorEllipsoidalCylinder($r_a$, $r_b$, height)}
-
-\newpage
 
 
 \paragraph{Example}\strut\\
@@ -623,7 +626,7 @@ $|F|^2/V^2$, computed with $r_a=8$~nm, $r_b=13$~nm, and $H=16$~nm.
 Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{FullSphere} \label{sec:FullSphere}
   \index{Full sphere (form factor)}
   \index{Sphere (form factor)}
@@ -643,9 +646,13 @@ A full sphere.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorFullSphere(radius)}
+\end{quote}
+with the parameter
 \begin{itemize}
-\item radius $R$.
+\item \texttt{radius}, $R$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -661,10 +668,6 @@ F(\mathbf{q},R) = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
 \end{equation*}
 where $q=\sqrt{q_x^2 + q_y^2 + q_z^2}$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorFullSphere(radius)}
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=8$~nm.
@@ -681,7 +684,7 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{HemiEllipsoid} \label{sec:HemiEllipsoid}  
   \index{Hemi ellipsoid (form factor)}
   \index{Ellipsoid (form factor)!truncated}
@@ -700,11 +703,15 @@ An ellipsoid, truncated at the central plane.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorHemiEllipsoid(radius\_a, radius\_b, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item $r_a$ = half length of the ellipse main axis parallel to $x$,
-\item$r_b$ = half length of the ellipse main axis parallel to $y$, 
-\item $H$ = height (half length of the vertical main axis of a full ellipsoid).
+\item \texttt{radius\_a}, in $x$ direction, $r_a$,
+\item \texttt{radius\_b}, in $y$ direction, $r_b$,
+\item \texttt{height}, equal to radius in $z$ direction, $H$
 \end{itemize}
 
 \paragraph{Properties}
@@ -722,10 +729,6 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $r_{a,z} = r_a \sqrt{1-\left(\dfrac{z}{H} \right)^2}$, ${r_{b,z} = r_b
 \sqrt{1-\left(\dfrac{z}{H} \right)^2}}$ and $\gamma_z =\sqrt{(q_x r_{a,z})^2+(q_y r_{b,z})^2}$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorHemiEllipsoid($r_a$, $r_b$, height)}
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFhemiellipsEx} shows the normalized intensity
@@ -745,7 +748,7 @@ Called \lq\lq Anisotropic hemi ellipsoid\rq\rq in \Code{ISGISAXS},
 which seems to have a sign error in the $z$ dependence.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{FullSpheroid} \label{sec:FullSpheroid}
   \index{Full spheroid (form factor)}
   \index{Spheroid (form factor)}
@@ -765,10 +768,14 @@ A full spheroid, generated by rotating an ellipse around the vertical axis.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorFullSpheroid(radius,height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius $R$,
-\item height $H$.
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -786,10 +793,6 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64},
 $R_z = R\sqrt{1-\frac{4z^2}{H^2}}$, $\gamma_z = \sqrt{(q_x R_z)^2+(q_y R_z)^2}$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorFullSpheroid(radius,height)}
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFfspheroidEx} shows the normalized intensity
@@ -815,7 +818,7 @@ Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\ci
 
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Prism3 (triangular)} \label{sec:Prism3}
   \index{Prism (form factor)!triangular (Prism3)}
   \index{FormFactorPrism3@\Code{FormFactorPrism3}}
@@ -835,10 +838,14 @@ triangle.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorPrism3(length, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length $L$ of one side of the base, 
-\item height $H$.
+\item \texttt{length} of one side of the base, $L$,
+\item \texttt{height}, $H$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -855,8 +862,6 @@ F(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{
 \times  H \sinc\left(q_z \frac{H}{2} \right) \exp\left(i q_z \frac{H}{2}\right).
 \end{align*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorPrism3(length, height)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFprism3Ex} shows the normalized intensity
@@ -876,7 +881,7 @@ Agrees with \lq\lq Prism3\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Prism6 (hexagonal)} \label{sec:Prism6}
   \index{Prism (form factor)!hexagonal (Prism6)}
   \index{FormFactorPrism6@\Code{FormFactorPrism6}}
@@ -895,10 +900,14 @@ A hexagonal prism.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorPrism6(radius, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius of the hexagonal base $R$,
-\item height $H$.
+\item \texttt{radius} of the hexagonal base, $R$,
+\item \texttt{height}, $H$.
 \end{itemize}
 
 \paragraph{Properties}
@@ -917,10 +926,6 @@ F(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
 \end{align*}
 with $\sinc(x)=\sin(x)/x$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorPrism6(radius, height)} 
-
-\newpage
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFprism6Ex} shows the normalized intensity
@@ -940,7 +945,7 @@ except for different parametrization,
 and for a factor $H$ missing in the \Code{IsGISAXS} manual. 
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Pyramid (square-based)}\label{sec:Pyramid}
   \index{Pyramid (form factor)!square}
   \index{Truncated pyramid (form factor)!square}
@@ -960,11 +965,15 @@ A truncated pyramid with a square base.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorPyramid(length, height, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length of one side of the square base $L$,  
-\item height $H$,
-\item angle $\alpha$ the base and a side face.
+\item \texttt{length} of one side of the square base, $L$,  
+\item \texttt{height}, $H$,
+\item \texttt{alpha}, angle between the base and a side face, $\alpha$,
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -995,8 +1004,6 @@ with $\sinc(x)=\sin(x)/x$,
         K_4 &= -i \sinc(q_3 H) \exp(i q_3 H) + i \sinc(q_4 H) \exp(-i q_4 H) 
    \end{align*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorPyramid(length, height, alpha)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFPyramidEx} shows the normalized intensity
@@ -1020,7 +1027,7 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
 [and sign problem??]
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Ripple1 (sinusoidal)} \label{sec:Ripple1}  
   \index{Ripple (form factor)!sinusoidal (Ripple1)}
   \index{Sinusoidal ripple (form factor)}
@@ -1038,11 +1045,15 @@ An infinite ripple with a sinusoidal profile.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorRipple1(length, width, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length $L$, 
-\item width $W$, 
-\item height $H$. 
+\item \texttt{length}, $L$, 
+\item \texttt{width}, $W$, 
+\item \texttt{height}, $H$. 
 \end{itemize}
 
 \paragraph{Properties}
@@ -1056,8 +1067,6 @@ An infinite ripple with a sinusoidal profile.
 F(\mathbf{q},L,W,H) &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\ &\int_0^H{dz \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right)}.
 \end{align*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorRipple1(length, width, height)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFripple1Ex} shows the normalized intensity
@@ -1075,7 +1084,7 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Ripple2 (saw-tooth)} \label{sec:Ripple2}  
   \index{Ripple (form factor)!saw-tooth (Ripple2)}
   \index{Saw-tooth ripple (form factor)}
@@ -1095,12 +1104,16 @@ An infinite ripple with an asymmetric saw-tooth profile.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorRipple2(length, width, height, asymmetry)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length $L$, 
-\item width $W$, 
-\item height $H$,
-\item asymmetry $d$. 
+\item \texttt{length}, $L$, 
+\item \texttt{width}, $W$, 
+\item \texttt{height}, $H$. 
+\item \texttt{asymmetry}, $d$. 
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -1126,8 +1139,6 @@ F(\mathbf{q},L,W,H,d) &=L W
 dz
 \end{align*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorRipple2(length, width, height, asymmetry)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFripple2Ex} shows the normalized intensity
@@ -1143,7 +1154,7 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 \end{figure}
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{Tetrahedron} \label{sec:Tetrahedron}
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
@@ -1163,12 +1174,15 @@ A truncated tetrahedron.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorTetrahedron(length, height, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item length of one side of the equilateral triangular base $L$,
-\item height $H$,
-\item angle $\alpha$ is the angle between the base and the
-  side faces.
+\item \texttt{length} of one side of the equilateral triangular base, $L$,
+\item \texttt{height}, $H$,
+\item \texttt{alpha}, angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -1202,8 +1216,6 @@ q_1  =\frac{1}{2}\left[\frac{q_x\sqrt{3} -q_y}{\tan \alpha}-q_z \right],
 q_3 = \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad D = \frac{L \tan \alpha}{\sqrt{3}} -H.
 \end{equation*}
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorTetrahedron(length, height, alpha)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFtetrahEx} shows the normalized intensity
@@ -1224,7 +1236,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 ??
 
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{TruncatedCube} \label{sec:TruncatedCube}  
 \index{Cube (form factor)!truncated}
   \index{Truncated cube (form factor)}
@@ -1244,10 +1256,14 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorTruncatedCube(length, removed\_length)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item side length $L$ of the full cube, 
-\item side length $t$ of the trirectangular tetrahedron to be removed from the cube's vertices
+\item \texttt{length} of the full cube, $L$,
+\item \texttt{removed\_length}, side length of the trirectangular tetrahedron removed from the cube's vertices, $t$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -1289,8 +1305,6 @@ F_{\rm{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)
 
 Note that the origin is taken as the centre of the bottom face of the cube.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorTruncatedCube(length, removed\_length)}
 
 \paragraph{Examples}
 Figure~\ref{fig:FFtrunccubeEx} shows the normalized intensity
@@ -1305,10 +1319,8 @@ $|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
 \label{fig:FFtrunccubeEx}
 \end{figure}
 
-\FloatBarrier
-
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{TruncatedSphere}\label{sec:TruncatedSphere}
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
@@ -1327,10 +1339,14 @@ A spherical dome: a portion of a sphere cut off by a horizontal plane.
 \end{figure}
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorTruncatedSphere(radius, height)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius $R$,
-\item height $H$.
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -1354,8 +1370,6 @@ with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 \sqrt{q_x^2+q_y^2}$, and $R_z = \sqrt{R^2-z^2}$
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorTruncatedSphere(radius, height)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
@@ -1371,10 +1385,8 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \paragraph{References}\strut\\
 Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
-\FloatBarrier
-
 %-------------------------------------------------------------------------------
-\newpage
+\clearpage
 \subsection{TruncatedSpheroid} \label{sec:TruncatedSpheroid}
   \index{Spheroid (form factor)!truncated}
   \index{Truncated spheroid (form factor)}
@@ -1393,11 +1405,15 @@ by a horizontal plane perpendicular.
 \hfill
 \end{figure}
 
-\paragraph{Parameters}
+\paragraph{Syntax and parameters}
+\begin{quote}
+\Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item radius $R$,
-\item height $H$,
-\item shape parameter $f_p$.
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
+\item \texttt{height\_flattening}, $f_p$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -1419,8 +1435,6 @@ F(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel}=\sqrt{q_x^2+q_y^2} $ and $R_z=\sqrt{R^2-z^2/f_p^2}$.
 
-\paragraph{Syntax}\strut\\
-\Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFspheroidEx} shows the normalized intensity
@@ -1445,7 +1459,7 @@ of \IsGISAXS~\cite{Laz02}.
 \index{Shape transform|)}
 
 %===============================================================================
-\newpage
+\clearpage
 \section{Core-shell particles} \label{sec:CoreShell}
 %===============================================================================
 \index{Core-shell particles}
@@ -1466,7 +1480,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \label{fig:coreshell}
 \end{figure}
 
-\newpage
+\clearpage
 
 \begin{lstlisting}[language=python,
   style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
@@ -1488,6 +1502,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \label{fig:FFCoreShellBA}
 \end{figure}
 
+\clearpage
 %===============================================================================
 \section{Rotation of particles}
 %===============================================================================

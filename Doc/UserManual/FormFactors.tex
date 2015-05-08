@@ -179,25 +179,40 @@ They must fulfill
 \item particle surface seen from above $S = LW$.
 \end{itemize}
 
+\clearpage
 \paragraph{Form factor}
-\begin{align*}
-&F(\mathbf{q}, L, W, H, \alpha)=
-\frac{H}{q_xq_y} \times \\
-&\Big\{
-K_1\cos\Big(q_x \frac{L}{2} -q_y \frac{W}{2}\Big)+  K_2 \sin \Big (q_x
-\frac{L}{2}- q_y \frac{W}{2}\Big) - K_3 \cos \Big (q_x \frac{L}{2} +q_y \frac{W}{2}\Big)-
-K_4 \sin \Big (q_x \frac{L}{2} + q_y \frac{W}{2}\Big)
-\Big\},
-\end{align*}
-with
-\begin{align*}
-K_1 &= \exp(-i q_2 H) \sinc(q_2 H) + \exp(iq_1 H) \sinc(q_1 H) \\
-K_2 &= i \exp(-iq_2 H) \sinc(q_2 H) -i \exp(iq_1 H) \sinc(q_1 H) \\
-K_3 &= \exp(-iq_4 H) \sinc(q_4 H) + \exp(iq_3 H) \sinc(q_3 H) \\
-K_4 &= i \exp(i q_4 H) \sinc(q_4 H) -i \exp(iq_3 H) \sinc(q_3 H)\\
-q_1 &= \frac{1}{2}\left[\frac{q_x -q_y}{\tan \alpha} +q_z \right],\quad q_2 = \frac{1}{2}\left[\frac{q_x -q_y}{\tan \alpha} -q_z \right]\\
-q_3 &= \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} +q_z \right] , \quad q_4 = \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} -q_z \right]
-\end{align*}
+With the half lengths
+$\ell\coloneqq L/2$, $w\coloneqq W/2$, $h\coloneqq H/2$,
+and the function
+\begin{displaymath}
+  f(z)\coloneqq \exp(i z)\sinc(z),
+\end{displaymath}
+which also appears in complex conjugated form $f^*(z)$,
+the form factor is
+\Work{NEEDS CORRECTION}
+\begin{equation*}
+\begin{array}{l}
+\DS F(\mathbf{q}, L, W, H, \alpha)=
+\frac{H}{q_xq_y} \Big\{\\[3.6ex]
+\begin{array}{@{\qquad}lll}
+ & &\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
+       + f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
+ \cos(q_x\ell-q_y w)
+\\[3.6ex]
++& i&\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
+       - f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
+ \cos(q_x\ell-q_y w)
+\\[3.6ex]
++& &\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
+       + f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
+ \cos(q_x\ell-q_y w)
+\\[3.6ex]
++& i&\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
+       - f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
+ \cos(q_x\ell-q_y w)\Big\}.
+\end{array}
+\end{array}
+\end{equation*}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFAnisoPyramidEx} shows the normalized intensity
@@ -678,7 +693,8 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq ?? \rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with the \E{full sphere} form factor of \IsGISAXS
+\cite[Eq.~2.36]{Laz08}, \cite[Eq.~226]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage

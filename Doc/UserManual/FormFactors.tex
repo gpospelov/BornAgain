@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Scattering by embedded particles}  \label{SFF}
+\chapter{Particle form factors}  \label{SFF}
 
 \makeatletter
 \renewcommand{\@thesubfigure}{\relax}
@@ -22,106 +22,117 @@
 
 \index{Form factor|(}
 
-In this and the next chapter we consider scattering by particles
-that are attached to a substrate or embedded in a layer.
-These particles are assumed to be of a ``nano'' or ``meso'' size,
-\index{Particles!on substrate}%
-\index{Particles!embedded in layer}%
-so that their internal atomistic structure does not matter.
-We first consider ``hard-shell'' particles
-that are described by a binary shape function $S(\r)$
-and a constant coherent scattering-length density $\rho_s$
-\index{Scattering length density}
-that must differ from the environment (air or embedding layer)
-to result in a scattering signal.
-In Sect.~\ref{sec:CoreShell} we briefly discuss ``core-shell'' particles
-that have a two valued scattering-length distribution $\rho_s(\r)$.
-
-In this chapter,
-we present models of isolated particles,
-and compute their form factors.
-In the next chapter, we discuss inter-particle correlations.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Particle shapes}
+\section{Shape transforms}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\index{Shape transform}
+\index{Shape transform|(}
 The form factor of a particle is the Fourier transform
 of its shape function,
 \begin{equation}
-  F(\mathbf{q})=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
+  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
 \end{equation}
 For hard-shell particles the shape function $S(\r)$
 only takes the values 0 and~1
 so that the form factor becomes
 the \textit{shape transform}
 \begin{equation}\label{eq:FFHard}
-  F(\mathbf{q})=\int_V {\rm d}^3r\, {\rm e}^{i\q\r}.
+  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
 \end{equation}
 where $V$ is the volume of the particle.
-In the following,
-we compute form factors in a Cartesian frame,
-with the $z$-axis pointing upwards and
-the origin at the center of the bottom of the particle.
 
-The number of input parameters for the form factor depends
-on the particle symmetry;
-it ranges from one parameter for a sphere (its radius)
-to three for an ellipsoid (its three main axis lengths).
+\BornAgain\ comes with a collection of hard-coded 
+shape transform for standard particle geometries like
+spheres, cylinders, prisms, pyramids or ripples.
+This collection is documented in the following.
+For each shape,
+the real-space geometry is shown in orthogonal projections,
+the parameters of the \BornAgain\ method are defined,
+an analytical expression for the form factor is given,
+and exemplary results for $\left|F(\q)\right|^2$ versus
+$\alpha_\tf,\phi_\tf$ are shown for small-angle scattering conditions
+($\alpha_\ti=\phi_\ti=0$).
 
-All form factors have been implemented with complex scattering vectors
-in order to take any material absorption into account.
+The computation of $F(\q)$ is based on
+shapes $S(\r)$ given in Cartesian coordinates,
+as defined in the orthogonal projections.
+Typically, the vertical ($z$) direction is chosen
+along a symmetry axis of the particle.
+The origin is always at the center of the bottom side of the particle.
+Different parametrization or a different choice of the origin
+cause our analytic form factors to trivially deviate
+from expressions given in the \IsGISAXS\ manual \cite[Sect.~2.3]{Laz08}
+or in the literature \cite[Appendix]{ReLL09}.
 
-%===============================================================================
-\newpage
-\section{Implemented form factors}
-%===============================================================================
+We recomputed all expressions to make sure
+that they also hold for complex scattering vectors,
+used to describe in order to take any material absorption into account.
+The implementation in \BornAgain\ allows all three components
+of~$\q$ to be complex.
+According to Sect.~\ref{Smulayabs},
+only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
+However,
+to account for a tilt of the particle,
+it may be necessary to evaluate $F(\v{\tilde q})$ with
+a rotated scattering vector~$\v{\tilde q}$
+that has complex $\tilde q_x$ or~$\tilde q_y$.
 
-Table~\ref{tab:formfactors} lists the shapes whose form
-factors have been implemented in \BornAgain.
-The following pages document each implemented form factor in detail.
+\E{Ripples}
+\index{Ripple (form factor)}%
+ are particles with infinite extension in one dimension
+(by convention in $x$ direction).
+They have the shape transform 
+\begin{equation}\label{eq:FFHard}
+  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_x x+q_y y)},
+\end{equation}
+where $A$ is the cross section.
+To avoid an extra distinction of cases,
+\BornAgain\ requests that ripples have a \E{finite} length~$L$,
+which users may keep fixed at a very large value.
 
-\def\xx{\hspace{2em}}
-\begin{table}[H] \small
-  \begin{tabulary} {\textwidth}{L@{\xx}L@{\xx}L@{\xx}L} 
-\hline 
-Box,\phantom{-} Sect.~\ref{sec:Box} & Prism3,  Sect.~\ref{sec:Prism3} & Tetrahedron, Sect.~\ref{sec:Tetrahedron} & Prism6,  Sect.~\ref{sec:Prism6}\\
-\includegraphics[width=1in]{fig/blue/Box3d.png} & 
-\includegraphics[width=1in]{fig/blue/Prism33d.png} & 
-\includegraphics[width=1in]{fig/blue/Tetrahedron3d.png} & 
-\includegraphics[width=1in]{fig/blue/Prism63d.png} 
-\\
-\hline 
-Cone6,  Sect.~\ref{sec:Cone6} &  Pyramid, Sect.~\ref{sec:Pyramid} & Anisotropic pyramid,  Sect.~\ref{sec:AnisoPyramid} &  {Cuboctahedron}, Sect.~\ref{sec:Cuboctahedron}\\
-\includegraphics[width=1in]{fig/blue/Cone63d.png}  & 
-\includegraphics[width=1in]{fig/blue/Pyramid3d.png} &
-\includegraphics[width=1in]{fig/blue/AnistropicPyramid3d.png} & 
-\includegraphics[width=1in]{fig/blue/Cuboctahedron3d.png}
-\\
+The following tables summarize the implemented particle geometries,
+ ordered by ascending number of parameters.
+Afterwards, the detailed documentation is in alphabetical order.
+
+\def\entry#1#2#3#4{%
+\raisebox{-3.8ex}{\includegraphics[width=5em]{fig/blue/#2.png}} &
+\texttt{#1} &
+#4 &
+Page~\pageref{sec:#3}, Sect.~\ref{sec:#3}\\}
+\begin{center}
+\small
+\begin{longtable}
+  {@{}p{.15\textwidth}
+   @{}p{.35\textwidth}
+   @{}p{.2\textwidth}
+   @{}p{.25\textwidth}@{}}
+Shape&Name&Parameters&Reference\\\hline
+\entry{FullSphere}{FullSphere3d}{FullSphere}{$R$}
 \hline
-Cylinder, Sect.~\ref{sec:Cylinder}  & Ellipsoidal cylinder, Sect.~\ref{sec:EllipsoidalCylinder} &  Cone,\phantom{--} Sect.~\ref{sec:Cone} & Full Sphere, Sect.~\ref{sec:FullSphere} \\
-\includegraphics[width=1in]{fig/blue/Cylinder3d.png} & 
-\includegraphics[width=1in]{fig/blue/EllipsoidalCylinder3d.png} & 
-\includegraphics[width=1in]{fig/blue/Cone3d.png} & 
-\includegraphics[width=1in]{fig/blue/FullSphere3d.png} \\
+\entry{FullSpheroid}{FullSpheroid3d}{FullSpheroid}{$R$, $H$}
+\entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}
+\entry{Cylinder}{Cylinder3d}{Cylinder}{$R$, $H$}
+\entry{Prism3}{Prism33d}{Prism3}{$L$, $H$}
+\entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}
+\entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}
 \hline
-Truncated Sphere, Sect.~\ref{sec:Sphere}  & Full Spheroid, Sect.~\ref{sec:FullSpheroid} & Truncated Spheroid,  Sect.~\ref{sec:Spheroid} & Hemi Ellipsoid, Sect.~\ref{sec:HemiEllipsoid}\\
-\includegraphics[width=1in]{fig/blue/Sphere3d.png}  & 
-\includegraphics[width=1in]{fig/blue/FullSpheroid3d.png} & 
-\includegraphics[width=1in]{fig/blue/Spheroid3d.png} & 
-\includegraphics[width=1in]{fig/blue/HemiEllipsoid3d.png}\\
+\entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$r_a$, $r_b$, $H$}
+\entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$r_a$, $r_b$, $H$}
+\entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}
+\entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}
+\entry{Box}{Box3d}{Box}{$L$, $W$, $H$}
+\entry{Pyramid}{Pyramid3d}{Pyramid}{$L$, $H$, $\alpha$}
+\entry{Tetrahedron}{Tetrahedron3d}{Tetrahedron}{$L$, $H$, $\alpha$}
+\entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}
+\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}
 \hline
-Ripple1, Sect.~\ref{sec:Ripple1} & Ripple2, Sect.~\ref{sec:Ripple2}& Truncated cube Sect.~\ref{sec:Truncatedcube} &  \\
-\includegraphics[width=1in]{fig/blue/Ripple13d.png} & 
-\includegraphics[width=1in]{fig/blue/Ripple23d.png} &  
-\includegraphics[width=.75in]{fig/blue/TruncatedCube3d.png}
-& \\
-\hline 
-\end{tabulary}
-\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
-\index{Form factor!table of implemented models}
-\end{table}
+\entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}
+\entry{Cuboctahedron}{Cuboctahedron3d}{Cuboctahedron}{$L$, $H$, $r_H$, $\alpha$}
+\entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}
+\hline
+\end{longtable}
+\end{center}
+
 
 \FloatBarrier
 
@@ -147,12 +158,16 @@ A truncated right pyramid with a rectangular base.
 
 \FloatBarrier
 
-\paragraph{Parameters}
+\paragraph{Syntax and Parameters}
+\begin{quote}
+\Code{FormFactorAnisoPyramid(length, width, height, alpha)}
+\end{quote}
+with the parameters
 \begin{itemize}
-\item full length of the base $L$,
-\item full width of the base $W$,
-\item height $H$,
-\item $\alpha$ is the angle between the base and a side face.
+\item \texttt{length} $=L$ is the full length of the base,
+\item \texttt{width} $=W$ is the full width of the base,
+\item \texttt{height} $=H$ is the height,
+\item \texttt{alpha} $=\alpha$ is the angle between the base and a side face.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
@@ -185,9 +200,6 @@ K_4 &= i \exp(i q_4 H) \sinc(q_4 H) -i \exp(iq_3 H) \sinc(q_3 H)\\
 q_1 &= \frac{1}{2}\left[\frac{q_x -q_y}{\tan \alpha} +q_z \right],\quad q_2 = \frac{1}{2}\left[\frac{q_x -q_y}{\tan \alpha} -q_z \right]\\
 q_3 &= \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} +q_z \right] , \quad q_4 = \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} -q_z \right]
 \end{align*}
-
-\paragraph{Syntax}\strut\\
-\Code{FormFactorAnisoPyramid(length, width, height, alpha)}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFAnisoPyramidEx} shows the normalized intensity
@@ -1213,7 +1225,7 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{TruncatedCube} \label{sec:Truncatedcube}  
+\subsection{TruncatedCube} \label{sec:TruncatedCube}  
 \index{Cube (form factor)!truncated}
   \index{Truncated cube (form factor)}
   \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
@@ -1293,10 +1305,11 @@ $|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
 \label{fig:FFtrunccubeEx}
 \end{figure}
 
+\FloatBarrier
 
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{TruncatedSphere}\label{sec:Sphere}
+\subsection{TruncatedSphere}\label{sec:TruncatedSphere}
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
   \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
@@ -1358,9 +1371,11 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \paragraph{References}\strut\\
 Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
 
+\FloatBarrier
+
 %-------------------------------------------------------------------------------
 \newpage
-\subsection{TruncatedSpheroid} \label{sec:Spheroid}
+\subsection{TruncatedSpheroid} \label{sec:TruncatedSpheroid}
   \index{Spheroid (form factor)!truncated}
   \index{Truncated spheroid (form factor)}
   \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
@@ -1426,6 +1441,8 @@ of \IsGISAXS~\cite{Laz02}.
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.
 
+
+\index{Shape transform|)}
 
 %===============================================================================
 \newpage

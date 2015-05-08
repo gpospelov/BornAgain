@@ -61,8 +61,8 @@ private:
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
 
-    MultiLayerItem *getSelectedMultiLayerItem();
-    InstrumentItem *getSelectedInstrumentItem();
+    const MultiLayerItem *getSelectedMultiLayerItem() const;
+    const InstrumentItem *getSelectedInstrumentItem() const;
 
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;

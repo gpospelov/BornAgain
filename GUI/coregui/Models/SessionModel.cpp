@@ -406,7 +406,7 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
 //! Copy given item to the new_parent at given raw. Item indended for copying can belong to
 //! another model and it will remains intact. Returns pointer to the new child.
-ParameterizedItem *SessionModel::copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
+ParameterizedItem *SessionModel::copyParameterizedItem(const ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
 {
     if (new_parent) {
         if (!new_parent->acceptsAsChild(item_to_copy->modelType()))
@@ -632,7 +632,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     return parameter_name;
 }
 
-void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, ParameterizedItem *item) const
+void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, const ParameterizedItem *item) const
 {
     if (!m_root_item)
         return;
@@ -656,7 +656,7 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, Parameterize
     }
 }
 
-void SessionModel::writeProperty(QXmlStreamWriter *writer, ParameterizedItem *item,
+void SessionModel::writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
                                  const char *property_name) const
 {
     QMap<QString, ParameterizedItem *> sub_items = item->getSubItems();

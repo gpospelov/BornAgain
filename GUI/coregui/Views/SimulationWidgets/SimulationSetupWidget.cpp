@@ -315,13 +315,13 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 
 //! Returns selected MultiLayerItem taking into account that there might be several
 //! multilayers with same name
-MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem()
+const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
 {
-    MultiLayerItem *result(0);
+    const MultiLayerItem *result(0);
     QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
+        QMap<QString, ParameterizedItem *>::const_iterator it = samples.begin()+index;
         result = dynamic_cast<MultiLayerItem *>(it.value());
     }
     return result;
@@ -329,13 +329,13 @@ MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem()
 
 //! Returns selected InstrumentItem taking into account that there might be several
 //! insturments with same name
-InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem()
+const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
 {
-    InstrumentItem *result(0);
+    const InstrumentItem *result(0);
     QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
+        QMap<QString, ParameterizedItem *>::const_iterator it = instruments.begin()+index;
         result = dynamic_cast<InstrumentItem *>(it.value());
     }
     return result;

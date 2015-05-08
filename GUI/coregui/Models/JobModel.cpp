@@ -68,7 +68,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 
 //! Main method to add a job
-JobItem *JobModel::addJob(MultiLayerItem *multiLayerItem, InstrumentItem *instrumentItem,
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
                           const QString &run_policy, int numberOfThreads)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
@@ -88,7 +88,7 @@ JobItem *JobModel::addJob(MultiLayerItem *multiLayerItem, InstrumentItem *instru
 
 //! Adds a multilayer to children of given JobItem.
 //! The same method is used to set either original multilayer or its backup version.
-void JobModel::setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem, bool backup)
+void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup)
 {
     Q_ASSERT(jobItem);
     Q_ASSERT(multiLayerItem);
@@ -116,7 +116,7 @@ void JobModel::setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerI
 
 //! Adds an instrument to children of given JobItem.
 //! The same method is used to set either original instrument or its backup version.
-void JobModel::setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem, bool backup)
+void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup)
 {
     Q_ASSERT(jobItem);
     Q_ASSERT(instrumentItem);

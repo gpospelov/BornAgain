@@ -39,12 +39,12 @@ public:
 
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    JobItem *addJob(MultiLayerItem *multiLayerItem, InstrumentItem *instrumentItem,
+    JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
             const QString &run_policy = QString(), int numberOfThreads=-1);
 
-    void setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem, bool backup = false);
+    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup = false);
 
-    void setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem, bool backup=false);
+    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup=false);
 
     void backup(JobItem *jobItem);
 

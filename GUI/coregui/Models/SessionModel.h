@@ -117,7 +117,7 @@ public:
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
 
-    ParameterizedItem *copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent = 0, int row = -1);
+    ParameterizedItem *copyParameterizedItem(const ParameterizedItem *item_to_copy, ParameterizedItem *new_parent = 0, int row = -1);
 
 
     void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
@@ -152,8 +152,8 @@ private:
                    int row=-1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
     void writeItemAndChildItems(QXmlStreamWriter *writer,
-                                ParameterizedItem *item) const;
-    void writeProperty(QXmlStreamWriter *writer, ParameterizedItem *item,
+                                const ParameterizedItem *item) const;
+    void writeProperty(QXmlStreamWriter *writer, const ParameterizedItem *item,
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;

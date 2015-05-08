@@ -163,6 +163,7 @@ const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
+const ModelType JOB_BACKUP = "_backup";
 
 }
 

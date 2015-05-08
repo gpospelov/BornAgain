@@ -18,6 +18,9 @@
 #include "IntensityDataItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
+#include <QDebug>
 
 
 namespace
@@ -55,8 +58,6 @@ const QString JobItem::P_RUN_POLICY = "Run Policy";
 
 JobItem::JobItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::JobItemType, parent)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
 {
     setItemName(Constants::JobItemType);
     registerProperty(P_IDENTIFIER, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
@@ -85,13 +86,12 @@ JobItem::JobItem(ParameterizedItem *parent)
 
     setPropertyAppearance(ParameterizedItem::P_NAME, PropertyAttribute::VISIBLE);
 
-
+    addToValidChildren(Constants::MultiLayerType);
+    addToValidChildren(Constants::InstrumentType);
 }
 
 JobItem::~JobItem()
 {
-    delete m_sampleModel;
-    delete m_instrumentModel;
 }
 
 QString JobItem::getIdentifier() const
@@ -111,34 +111,6 @@ IntensityDataItem *JobItem::getIntensityDataItem()
         if(data) return data;
     }
     return 0;
-}
-
-SampleModel *JobItem::getSampleModel()
-{
-    return m_sampleModel;
-}
-
-void JobItem::setSampleModel(SampleModel *sampleModel)
-{
-    delete m_sampleModel;
-    m_sampleModel = sampleModel;
-    if(m_sampleModel) {
-        setRegisteredProperty(P_SAMPLE_NAME, m_sampleModel->getSampleMap().firstKey());
-    }
-}
-
-InstrumentModel *JobItem::getInstrumentModel()
-{
-    return m_instrumentModel;
-}
-
-void JobItem::setInstrumentModel(InstrumentModel *instrumentModel)
-{
-    delete m_instrumentModel;
-    m_instrumentModel = instrumentModel;
-    if(m_instrumentModel) {
-        setRegisteredProperty(P_INSTRUMENT_NAME, m_instrumentModel->getInstrumentMap().firstKey());
-    }
 }
 
 QString JobItem::getStatus() const
@@ -249,3 +221,38 @@ bool JobItem::runInBackground() const
     ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
     return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
+
+//! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
+//! multilayer will be used
+MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
+{
+    foreach(ParameterizedItem *item, childItems()) {
+        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
+            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return multilayer;
+            }
+            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return multilayer;
+            }
+        }
+    }
+    return 0;
+}
+
+//! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
+//! the instruyment will be used
+InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
+{
+    foreach(ParameterizedItem *item, childItems()) {
+        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
+            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return instrument;
+            }
+            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return instrument;
+            }
+        }
+    }
+    return 0;
+}
+

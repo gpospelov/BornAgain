@@ -255,16 +255,18 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 
 void ParameterizedItem::removeRegisteredProperty(const QString &name)
 {
-    qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
-    if (m_sub_items.contains(name)) {
-        qDebug()
-            << "       ParameterizedItem::removeRegisteredProperty() -> Removing property iteme";
-        delete m_sub_items[name];
-        m_sub_items.remove(name);
+    if(isRegisteredProperty(name)) {
+        qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
+        if (m_sub_items.contains(name)) {
+            qDebug()
+                << "       ParameterizedItem::removeRegisteredProperty() -> Removing property iteme";
+            delete m_sub_items[name];
+            m_sub_items.remove(name);
+        }
+        m_registered_properties.removeOne(name);
+        m_property_attribute.remove(name);
+        setProperty(name.toUtf8().constData(), QVariant());
     }
-    m_registered_properties.removeOne(name);
-    m_property_attribute.remove(name);
-    setProperty(name.toUtf8().constData(), QVariant());
 }
 
 void ParameterizedItem::setPropertyAttribute(const QString &name,

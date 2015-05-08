@@ -22,7 +22,7 @@
 class JobItem;
 class SliderSettingsWidget;
 class ModelTuningDelegate;
-class JobQueueData;
+class JobModel;
 class QTreeView;
 class QStandardItemModel;
 class SampleModel;
@@ -34,7 +34,7 @@ class ModelTuningWidget : public QWidget
     Q_OBJECT
 
 public:
-    ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
+    ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 
     void setCurrentItem(JobItem *item);
@@ -56,7 +56,7 @@ private:
     void backupModels();
     QPoint getPositionForWarningSign();
 
-    JobQueueData *m_jobQueueData;
+    JobModel *m_jobModel;
     JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;

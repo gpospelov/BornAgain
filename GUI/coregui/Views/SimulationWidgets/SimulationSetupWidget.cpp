@@ -192,30 +192,27 @@ void SimulationSetupWidget::updateViewElements()
 void SimulationSetupWidget::onRunSimulation()
 {
     InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
-    if(!jobInstrumentModel) {
+    if (!jobInstrumentModel) {
         QMessageBox::warning(this, tr("No Instrument Selected"),
                              tr("You must select an instrument first."));
         return;
     }
 
     SampleModel *jobSampleModel = getJobSampleModel();
-    if(!jobSampleModel) {
-        QMessageBox::warning(this, tr("No Sample Selected"),
-                             tr("You must select a sample first."));
+    if (!jobSampleModel) {
+        QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
         return;
     }
 
     SampleValidator sampleValidator;
-    if(!sampleValidator.isVaildSampleModel(jobSampleModel)) {
+    if (!sampleValidator.isVaildSampleModel(jobSampleModel)) {
         QMessageBox::warning(this, tr("Not suitable MultiLayer"),
                              sampleValidator.getValidationMessage());
         return;
     }
 
-//    m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
-    // FIXME !!! same sample names
-//    m_jobModel->addJob(getSelectedSampleName(), getSelectedInstrumentName(), runPolicySelectionBox->currentText(), getNumberOfThreads());
-    m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(), runPolicySelectionBox->currentText(), getNumberOfThreads());
+    m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
+                       runPolicySelectionBox->currentText(), getNumberOfThreads());
 }
 
 void SimulationSetupWidget::onExportToPythonScript()
@@ -294,10 +291,6 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 {
     InstrumentModel *result(0);
     QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
-//    if(instruments[getInstrumentSelection()]) {
-//        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
-//    }
-    // there can be several instruments with same name
     if(instruments[getSelectedInstrumentName()]) {
         int index = getSelectedInstrumentIndex();
         QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
@@ -312,10 +305,6 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 {
     SampleModel *result(0);
     QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
-//    if(samples[getSampleSelection()]) {
-//        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
-//    }
-    // there can be several samples with same name
     if(samples[getSelectedSampleName()]) {
         int index = getSelectedSampleIndex();
         QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;

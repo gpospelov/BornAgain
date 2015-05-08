@@ -40,8 +40,6 @@ public:
 
     static QStandardItemModel *createParameterModel(JobModel *jobModel, JobItem *jobItem);
 
-    static QStandardItemModel *createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel);
-
 private:
     static QStandardItem *iterateSessionModel(SessionModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
     static QStandardItem *iterateInstrumentModel(InstrumentModel *instrumentModel);

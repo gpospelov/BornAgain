@@ -46,12 +46,6 @@ public:
 
     IntensityDataItem *getIntensityDataItem();
 
-//    SampleModel *getSampleModel();
-//    void setSampleModel(SampleModel *sampleModel);
-
-//    InstrumentModel *getInstrumentModel();
-//    void setInstrumentModel(InstrumentModel *instrumentModel);
-
     QString getStatus() const;
     void setStatus(const QString &status);
 
@@ -86,8 +80,6 @@ public:
     InstrumentItem *getInstrumentItem(bool from_backup = false);
 
 private:
-//    SampleModel *m_sampleModel;
-//    InstrumentModel *m_instrumentModel;
     static QMap<QString, QString> m_run_policies; // run policy, policy description
 };
 

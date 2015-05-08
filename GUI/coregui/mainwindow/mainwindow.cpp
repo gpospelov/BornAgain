@@ -19,6 +19,7 @@
 #include "actionmanager.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
+#include "JobQueueData.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
@@ -279,8 +280,6 @@ void MainWindow::createJobModel()
 {
     delete m_jobModel;
     m_jobModel = new JobModel(this);
-    m_jobModel->setSampleModel(m_sampleModel);
-    m_jobModel->setInstrumentModel(m_instrumentModel);
 }
 
 void MainWindow::createInstrumentModel()

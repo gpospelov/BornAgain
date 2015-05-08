@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ModelTuningWidget.h"
+#include "JobQueueData.h"
 #include "JobItem.h"
 #include "SliderSettingsWidget.h"
 #include "ParameterModelBuilder.h"
@@ -91,13 +92,6 @@ ModelTuningWidget::~ModelTuningWidget()
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
-    qDebug() << "ModelTuningWidget::setCurrentItem" << item;
-//    if(m_currentJobItem != item) {
-//        m_currentJobItem = item;
-//        updateParameterModel();
-//        backupModels();
-//    }
-
     if (m_currentJobItem == item) return;
 
     if (m_currentJobItem) {
@@ -112,8 +106,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     updateParameterModel();
     backupModels();
 
-    //updateItem(m_currentJobItem);
-
     connect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
 }
@@ -126,14 +118,13 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(m_currentJobItem->isRunning())
         return;
 
-    if(link.getItem()) {
-        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
+    if (link.getItem()) {
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model"
+                 << link.getItem()->modelType() << link.getPropertyName();
         link.updateItem();
-//        m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
         m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
     }
 }
-
 
 void ModelTuningWidget::onSliderValueChanged(double value)
 {
@@ -149,7 +140,6 @@ void ModelTuningWidget::onLockZValueChanged(bool value)
     }
 }
 
-
 void ModelTuningWidget::updateParameterModel()
 {
     qDebug() << "ModelTuningWidget::updateParameterModel()";
@@ -160,14 +150,6 @@ void ModelTuningWidget::updateParameterModel()
     }
 
     if(!m_currentJobItem) return;
-
-//    if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
-//        throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
-//                                "JobItem doesn't have sample or instrument model.");
-
-//    m_parameterModel = ParameterModelBuilder::createParameterModel(
-//                m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
-
 
     if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
@@ -188,37 +170,19 @@ void ModelTuningWidget::backupModels()
     if(!m_currentJobItem) return;
 
     m_jobModel->backup(m_currentJobItem);
-
-//    if(!m_sampleModelBackup)
-//        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
-
-//    if(!m_instrumentModelBackup)
-//        m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 {
+    Q_ASSERT(m_currentJobItem);
+
     if(m_currentJobItem->isRunning())
         return;
 
-//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
-//    Q_ASSERT(m_sampleModelBackup);
-//    Q_ASSERT(m_instrumentModelBackup);
-    Q_ASSERT(m_currentJobItem);
-
     m_jobModel->restore(m_currentJobItem);
-
-//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current"
-//             << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
-//             << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
-
-//    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
-//    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
-
 
     updateParameterModel();
 
-//    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 

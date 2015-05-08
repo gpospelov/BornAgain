@@ -16,6 +16,7 @@
 #include "JobRealTimeWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
+#include "JobQueueData.h"
 #include "ModelTuningWidget.h"
 #include "JobRealTimeToolBar.h"
 #include <QVBoxLayout>

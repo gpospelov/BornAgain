@@ -23,7 +23,6 @@ class JobItem;
 class SliderSettingsWidget;
 class ModelTuningDelegate;
 class JobModel;
-//class JobQueueData;
 class QTreeView;
 class QStandardItemModel;
 class SampleModel;
@@ -58,7 +57,6 @@ private:
     QPoint getPositionForWarningSign();
 
     JobModel *m_jobModel;
-//    JobQueueData *m_jobQueueData;
     JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;

@@ -18,6 +18,8 @@
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
 #include "JobModel.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
@@ -156,22 +158,22 @@ void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
     }
 }
 
-QString SimulationSetupWidget::getInstrumentSelection() const
+QString SimulationSetupWidget::getSelectedInstrumentName() const
 {
     return instrumentSelectionBox->currentText();
 }
 
-int SimulationSetupWidget::getInstrumentCurrentIndex() const
+int SimulationSetupWidget::getSelectedInstrumentIndex() const
 {
     return instrumentSelectionBox->currentIndex();
 }
 
-QString SimulationSetupWidget::getSampleSelection() const
+QString SimulationSetupWidget::getSelectedSampleName() const
 {
     return sampleSelectionBox->currentText();
 }
 
-int SimulationSetupWidget::getSampleCurrentIndex() const
+int SimulationSetupWidget::getSelectedSampleIndex() const
 {
     return sampleSelectionBox->currentIndex();
 }
@@ -212,7 +214,8 @@ void SimulationSetupWidget::onRunSimulation()
 
 //    m_jobModel->addJob(jobSampleModel, jobInstrumentModel, runPolicySelectionBox->currentText(), getNumberOfThreads());
     // FIXME !!! same sample names
-    m_jobModel->addJob(getSampleSelection(), getInstrumentSelection(), runPolicySelectionBox->currentText(), getNumberOfThreads());
+//    m_jobModel->addJob(getSelectedSampleName(), getSelectedInstrumentName(), runPolicySelectionBox->currentText(), getNumberOfThreads());
+    m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(), runPolicySelectionBox->currentText(), getNumberOfThreads());
 }
 
 void SimulationSetupWidget::onExportToPythonScript()
@@ -295,8 +298,8 @@ InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
 //        result = m_instrumentModel->createCopy(instruments[getInstrumentSelection()]);
 //    }
     // there can be several instruments with same name
-    if(instruments[getInstrumentSelection()]) {
-        int index = getInstrumentCurrentIndex();
+    if(instruments[getSelectedInstrumentName()]) {
+        int index = getSelectedInstrumentIndex();
         QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
         result = m_instrumentModel->createCopy(it.value());
     }
@@ -313,11 +316,40 @@ SampleModel *SimulationSetupWidget::getJobSampleModel()
 //        result = m_sampleModel->createCopy(samples[getSampleSelection()]);
 //    }
     // there can be several samples with same name
-    if(samples[getSampleSelection()]) {
-        int index = getSampleCurrentIndex();
+    if(samples[getSelectedSampleName()]) {
+        int index = getSelectedSampleIndex();
         QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
         result = m_sampleModel->createCopy(it.value());
     }
     return result;
+}
+
+//! Returns selected MultiLayerItem taking into account that there might be several
+//! multilayers with same name
+MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem()
+{
+    MultiLayerItem *result(0);
+    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
+    if(samples[getSelectedSampleName()]) {
+        int index = getSelectedSampleIndex();
+        QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
+        result = dynamic_cast<MultiLayerItem *>(it.value());
+    }
+    return result;
+}
+
+//! Returns selected InstrumentItem taking into account that there might be several
+//! insturments with same name
+InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem()
+{
+    InstrumentItem *result(0);
+    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
+    if(instruments[getSelectedInstrumentName()]) {
+        int index = getSelectedInstrumentIndex();
+        QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
+        result = dynamic_cast<InstrumentItem *>(it.value());
+    }
+    return result;
+
 }
 

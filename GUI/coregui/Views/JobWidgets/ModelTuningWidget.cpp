@@ -173,7 +173,7 @@ void ModelTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel);
+    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
 
     m_treeView->setModel(m_parameterModel);
     m_treeView->setColumnWidth(0, 170);
@@ -184,7 +184,6 @@ void ModelTuningWidget::updateParameterModel()
 //! Creates backup copies of JobItem's sample and instrument models
 void ModelTuningWidget::backupModels()
 {
-    Q_ASSERT(0);
     qDebug() << "ModelTuningWidget::backupModels()";
     if(!m_currentJobItem) return;
 

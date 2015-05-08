@@ -22,8 +22,11 @@
 
 class QModelIndex;
 class SampleModel;
+class SessionModel;
 class InstrumentModel;
 class JobModel;
+class JobItem;
+class InstrumentItem;
 class QStandardItem;
 class QStandardItemModel;
 class ParameterizedItem;
@@ -35,13 +38,15 @@ class ParameterModelBuilder
 {
 public:
 
-    static QStandardItemModel *createParameterModel(JobModel *jobModel);
+    static QStandardItemModel *createParameterModel(JobModel *jobModel, JobItem *jobItem);
 
     static QStandardItemModel *createParameterModel(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
 private:
-    static QStandardItem *iterateSessionModel(SampleModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
+    static QStandardItem *iterateSessionModel(SessionModel *sampleModel, const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
     static QStandardItem *iterateInstrumentModel(InstrumentModel *instrumentModel);
+    static QStandardItem *iterateInstrumentItem(InstrumentItem *instrument);
+
     static void InsertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
     static void addPropertyToParameterModel(QStandardItem *parentItem, const QString &title, const QString &property_name, QVariant value, ParameterizedItem *parameterizedItem);
     static void addDisabledProperty(QStandardItem *parentItem, const QString &title);

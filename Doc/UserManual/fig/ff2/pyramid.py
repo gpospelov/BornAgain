@@ -96,5 +96,5 @@ if __name__ == '__main__':
     cbar_ax = fig.add_axes([0.825, 0.19, 0.014, 0.62])
     cb = fig.colorbar(im, cax=cbar_ax)
     cb.set_label(r'Intensity (arb. units)', fontsize=24)
-    plt.savefig("test.png", format="png", bbox_inches = 'tight')
+    plt.savefig("test.pdf", format="pdf", bbox_inches = 'tight')
 #    plt.show()

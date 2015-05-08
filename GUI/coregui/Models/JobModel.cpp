@@ -89,22 +89,22 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 //    return jobItem;
 //}
 
-JobItem *JobModel::addJob(const QString &sample_name, const QString &instrument_name, const QString &run_policy, int numberOfThreads)
-{
-    JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
-    jobItem->setItemName(generateJobName());
-    jobItem->setIdentifier(generateJobIdentifier());
-    jobItem->setNumberOfThreads(numberOfThreads);
-    jobItem->setRunPolicy(run_policy);
+//JobItem *JobModel::addJob(const QString &sample_name, const QString &instrument_name, const QString &run_policy, int numberOfThreads)
+//{
+//    JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
+//    jobItem->setItemName(generateJobName());
+//    jobItem->setIdentifier(generateJobIdentifier());
+//    jobItem->setNumberOfThreads(numberOfThreads);
+//    jobItem->setRunPolicy(run_policy);
 
-    setSampleForJobItem(jobItem, sample_name);
-    setInstrumentForJobItem(jobItem, instrument_name);
+//    setSampleForJobItem(jobItem, sample_name);
+//    setInstrumentForJobItem(jobItem, instrument_name);
 
-    if(jobItem->runImmediately() || jobItem->runInBackground())
-        m_queue_data->runJob(jobItem);
+//    if(jobItem->runImmediately() || jobItem->runInBackground())
+//        m_queue_data->runJob(jobItem);
 
-    return jobItem;
-}
+//    return jobItem;
+//}
 
 JobItem *JobModel::addJob(MultiLayerItem *multiLayerItem, InstrumentItem *instrumentItem, const QString &run_policy, int numberOfThreads)
 {
@@ -134,79 +134,145 @@ void JobModel::setInstrumentModel(InstrumentModel *instrumentModel)
 }
 
 //! The copy of sample with 'sample_name' from m_sampleModel will become a child of given job item
-void JobModel::setSampleForJobItem(JobItem *jobItem, const QString &sample_name)
+//void JobModel::setSampleForJobItem(JobItem *jobItem, const QString &sample_name)
+//{
+//    Q_ASSERT(m_sampleModel);
+//    Q_ASSERT(jobItem);
+
+//    // removing old multilayer from children of given jobItem
+//    MultiLayerItem *old_sample = jobItem->getMultiLayerItem();
+//    if(old_sample) {
+//        removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
+//    }
+
+//    // copying multilayer to jobItem
+//    MultiLayerItem *multilayer = m_sampleModel->getMultiLayerItem(sample_name);
+//    Q_ASSERT(multilayer);
+
+//    copyParameterizedItem(multilayer, jobItem);
+
+//    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, multilayer->itemName());
+//}
+
+
+//! Adds a multilayer to children of given JobItem. If backup=true then multilayer will be added
+//! as a backup.
+void JobModel::setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem, bool backup)
 {
-    Q_ASSERT(m_sampleModel);
-    Q_ASSERT(jobItem);
-
-    // removing old multilayer from children of given jobItem
-    MultiLayerItem *old_sample = jobItem->getMultiLayerItem();
-    if(old_sample) {
-        removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
-    }
-
-    // copying multilayer to jobItem
-    MultiLayerItem *multilayer = m_sampleModel->getMultiLayerItem(sample_name);
-    Q_ASSERT(multilayer);
-
-    copyParameterizedItem(multilayer, jobItem);
-
-    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, multilayer->itemName());
-}
-
-void JobModel::setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem)
-{
+    qDebug() << "WWW 1.1";
     Q_ASSERT(m_sampleModel);
     Q_ASSERT(jobItem);
     Q_ASSERT(multiLayerItem);
 
-    // removing old multilayer from children of given jobItem
-    MultiLayerItem *old_sample = jobItem->getMultiLayerItem();
+    // removing old multilayer (or its backup version) from children of given jobItem
+    qDebug() << "WWW 1.2";
+    MultiLayerItem *old_sample = jobItem->getMultiLayerItem(backup);
     if(old_sample) {
         removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
     }
 
-    copyParameterizedItem(multiLayerItem, jobItem);
+    qDebug() << "WWW 1.3";
+    ParameterizedItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
+    QString name = new_item->itemName();
+    qDebug() << "WWW 1.4";
+    qDebug() << "OOO ";
+    qDebug() << "000 " << backup << name << name.remove(Constants::JOB_BACKUP);
+    name.remove(Constants::JOB_BACKUP);
+    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
 
-    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, multiLayerItem->itemName());
+    if(backup) {
+        name.append(Constants::JOB_BACKUP);
+    }
+
+    new_item->setItemName(name);
+
+
 }
 
 //! The copy of instrument with 'instrument_name' from m_instrumentModel will become a child of
 //! given job item
-void JobModel::setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name)
-{
-    Q_ASSERT(m_instrumentModel);
-    Q_ASSERT(jobItem);
+//void JobModel::setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name)
+//{
+//    Q_ASSERT(m_instrumentModel);
+//    Q_ASSERT(jobItem);
 
-    // removing old instrument from children of given jobItem
-    InstrumentItem *old = jobItem->getInstrumentItem();
-    if (old) {
-        removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
-    }
+//    // removing old instrument from children of given jobItem
+//    InstrumentItem *old = jobItem->getInstrumentItem();
+//    if (old) {
+//        removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
+//    }
 
-    // copying instrument to jobItem
-    InstrumentItem *instrument = m_instrumentModel->getInstrumentItem(instrument_name);
-    Q_ASSERT(instrument);
-    copyParameterizedItem(instrument, jobItem);
+//    // copying instrument to jobItem
+//    InstrumentItem *instrument = m_instrumentModel->getInstrumentItem(instrument_name);
+//    Q_ASSERT(instrument);
+//    copyParameterizedItem(instrument, jobItem);
 
-    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, instrument->itemName());
-}
+//    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, instrument->itemName());
+//}
 
-void JobModel::setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem)
+void JobModel::setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem, bool backup)
 {
     Q_ASSERT(m_instrumentModel);
     Q_ASSERT(jobItem);
     Q_ASSERT(instrumentItem);
 
     // removing old instrument from children of given jobItem
-    InstrumentItem *old = jobItem->getInstrumentItem();
+    InstrumentItem *old = jobItem->getInstrumentItem(backup);
     if (old) {
         removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
     }
 
-    copyParameterizedItem(instrumentItem, jobItem);
+    ParameterizedItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
+    QString name = new_item->itemName();
+    name.remove(Constants::JOB_BACKUP);
+    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
 
-    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, instrumentItem->itemName());
+    if(backup) {
+        name.append(Constants::JOB_BACKUP);
+    }
+
+    new_item->setItemName(name);
+
+}
+
+//! Backup instrument and sample model for given JobItem. If backup already exists, do nothing.
+void JobModel::backup(JobItem *jobItem)
+{
+    if(!jobItem->getMultiLayerItem(true)) {
+        MultiLayerItem *multilayer = jobItem->getMultiLayerItem();
+        Q_ASSERT(multilayer);
+
+        setSampleForJobItem(jobItem, multilayer, true);
+    }
+
+    if(!jobItem->getInstrumentItem(true)) {
+        InstrumentItem *instrument = jobItem->getInstrumentItem();
+        Q_ASSERT(instrument);
+
+        setInstrumentForJobItem(jobItem, instrument, true);
+    }
+}
+
+//! restore instrument and sample model from backup for given JobItem
+void JobModel::restore(JobItem *jobItem)
+{
+    jobItem->blockSignals(true);
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+
+    MultiLayerItem *multilayer = jobItem->getMultiLayerItem(true);
+    qDebug() << "QQQ" << multilayer->itemName();
+    Q_ASSERT(multilayer);
+
+    setSampleForJobItem(jobItem, multilayer);
+
+    InstrumentItem *instrument = jobItem->getInstrumentItem(true);
+    Q_ASSERT(instrument);
+
+    setInstrumentForJobItem(jobItem, instrument);
+
+    jobItem->blockSignals(false);
 }
 
 void JobModel::runJob(const QModelIndex &index)

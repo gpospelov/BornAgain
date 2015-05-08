@@ -405,12 +405,12 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 }
 
 //! Copy given item to the new_parent at given raw. Item indended for copying can belong to
-//! another model and it will remains intact.
-void SessionModel::copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
+//! another model and it will remains intact. Returns pointer to the new child.
+ParameterizedItem *SessionModel::copyParameterizedItem(ParameterizedItem *item_to_copy, ParameterizedItem *new_parent, int row)
 {
     if (new_parent) {
         if (!new_parent->acceptsAsChild(item_to_copy->modelType()))
-            return;
+            return 0;
     } else {
         new_parent = m_root_item;
     }
@@ -426,6 +426,8 @@ void SessionModel::copyParameterizedItem(ParameterizedItem *item_to_copy, Parame
     beginInsertRows(indexOfItem(new_parent), row, row);
     readItems(&reader, new_parent, row);
     endInsertRows();
+
+    return new_parent->childAt(row);
 }
 
 SessionModel *SessionModel::createCopy(ParameterizedItem *parent)

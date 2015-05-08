@@ -20,6 +20,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include <QDebug>
 
 
 namespace
@@ -253,30 +254,38 @@ bool JobItem::runInBackground() const
     return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 
-MultiLayerItem *JobItem::getMultiLayerItem()
+//! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
+//! multilayer will be used
+MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
 {
     foreach(ParameterizedItem *item, childItems()) {
-        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item))
-            return multilayer;
+        qDebug() << "XXX" << item->itemName();
+        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
+            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return multilayer;
+            }
+            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return multilayer;
+            }
+        }
     }
     return 0;
-//    MultiLayerItem *result(0);
-//    if(m_sampleModel) {
-//        result = m_sampleModel->getMultiLayerItem();
-//    }
-//    return result;
 }
 
-InstrumentItem *JobItem::getInstrumentItem()
+//! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
+//! the instruyment will be used
+InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
 {
     foreach(ParameterizedItem *item, childItems()) {
-        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item))
-            return instrument;
+        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
+            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return instrument;
+            }
+            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
+                return instrument;
+            }
+        }
     }
     return 0;
-//    InstrumentItem *result(0);
-//    if(m_instrumentModel) {
-//        result = m_instrumentModel->getInstrumentItem();
-//    }
-//    return result;
 }
+

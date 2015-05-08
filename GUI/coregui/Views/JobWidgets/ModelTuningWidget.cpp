@@ -187,6 +187,8 @@ void ModelTuningWidget::backupModels()
     qDebug() << "ModelTuningWidget::backupModels()";
     if(!m_currentJobItem) return;
 
+    m_jobModel->backup(m_currentJobItem);
+
 //    if(!m_sampleModelBackup)
 //        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
 
@@ -200,15 +202,16 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
         return;
 
 //    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
-    Q_ASSERT(m_sampleModelBackup);
-    Q_ASSERT(m_instrumentModelBackup);
+//    Q_ASSERT(m_sampleModelBackup);
+//    Q_ASSERT(m_instrumentModelBackup);
     Q_ASSERT(m_currentJobItem);
+
+    m_jobModel->restore(m_currentJobItem);
 
 //    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current"
 //             << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
 //             << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
 
-    Q_ASSERT(0);
 //    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
 //    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
 

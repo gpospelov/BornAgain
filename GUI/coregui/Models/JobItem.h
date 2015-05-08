@@ -81,9 +81,9 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *getMultiLayerItem();
+    MultiLayerItem *getMultiLayerItem(bool from_backup = false);
 
-    InstrumentItem *getInstrumentItem();
+    InstrumentItem *getInstrumentItem(bool from_backup = false);
 
 private:
 //    SampleModel *m_sampleModel;

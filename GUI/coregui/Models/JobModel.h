@@ -42,8 +42,8 @@ public:
 //    JobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
 //            const QString &run_policy = QString(), int numberOfThreads=-1);
 
-    JobItem *addJob(const QString &sample_name, const QString &instrument_name,
-            const QString &run_policy = QString(), int numberOfThreads=-1);
+//    JobItem *addJob(const QString &sample_name, const QString &instrument_name,
+//            const QString &run_policy = QString(), int numberOfThreads=-1);
 
     JobItem *addJob(MultiLayerItem *multiLayerItem, InstrumentItem *instrumentItem,
             const QString &run_policy = QString(), int numberOfThreads=-1);
@@ -52,13 +52,17 @@ public:
 
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
-    void setSampleForJobItem(JobItem *jobItem, const QString &sample_name);
+//    void setSampleForJobItem(JobItem *jobItem, const QString &sample_name);
 
-    void setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem);
+    void setSampleForJobItem(JobItem *jobItem, MultiLayerItem *multiLayerItem, bool backup = false);
 
 
-    void setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name);
-    void setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem);
+//    void setInstrumentForJobItem(JobItem *jobItem, const QString &instrument_name);
+    void setInstrumentForJobItem(JobItem *jobItem, InstrumentItem *instrumentItem, bool backup=false);
+
+    void backup(JobItem *jobItem);
+
+    void restore(JobItem *jobItem);
 
 signals:
     void selectionChanged(JobItem *item);

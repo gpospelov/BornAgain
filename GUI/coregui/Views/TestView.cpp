@@ -31,15 +31,16 @@ TestView::TestView(QWidget *parent)
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-//    BeamWavelengthItem *item = new BeamWavelengthItem;
-
+    BeamWavelengthItem *item = new BeamWavelengthItem;
+    DistributionEditor *distributionEditor = new DistributionEditor;
+    distributionEditor->setItem(item);
 //    m_propertyEditor = new AwesomePropertyEditor(this);
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
 //    mainLayout->addWidget(m_propertyEditor);
-    mainLayout->addWidget(new DistributionEditor);
+    mainLayout->addWidget(distributionEditor);
     setLayout(mainLayout);
 }
 

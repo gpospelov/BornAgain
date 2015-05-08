@@ -25,8 +25,8 @@ private slots:
     void onSubItemChanged(const QString &property_name);
 private:
     AwesomePropertyEditor *m_propertyEditor;
-    QHBoxLayout *m_mainLayout;
     ParameterizedItem *m_item;
+    QHBoxLayout *m_mainLayout;
     DistributionWidget *m_plotwidget;
 
 };

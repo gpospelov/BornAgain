@@ -15,17 +15,22 @@ class DistributionWidget : public QWidget
 public:
     DistributionWidget(QWidget *parent = 0);
     virtual ~DistributionWidget() {}
-
-    QCustomPlot *getPlot() const;
     void setItem(DistributionItem *item);
-    void plotItem(DistributionItem *item);
+    void plotItem();
+    double getWidthOfBars(double min, double max, int samples);
+    void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
+    int getMaxYPosition(int y);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
+    void onPropertyChanged();
+    void movePoint(QMouseEvent *e);
+
 
 private:
     QCustomPlot *m_plot;
     DistributionItem *m_item;
+    double m_x;
+    double m_y;
 
 };
 

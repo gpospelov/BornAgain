@@ -5,6 +5,7 @@ import numpy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import bornagain as ba
+from bornagain import nanometer, degree, angstrom, deg2rad
 
 class Detector:
     def __init__(self, bins_per_dimension, phi_min, phi_max, alpha_min, alpha_max):
@@ -13,8 +14,8 @@ class Detector:
         self.p_max = phi_max
         self.a_min = alpha_min
         self.a_max = alpha_max
-    def rectangle:
-        return [p_min, p_max, a_min, a_max],
+    def rectangle(self):
+        return (self.p_min, self.p_max, self.a_min, self.a_max)
 
 class Result:
     def __init__(self, idx, pars, data, title ):
@@ -29,7 +30,7 @@ def make_plot( results ):
         ax = (axes.flat)[res.idx]
         im = ax.imshow(numpy.rot90(data, 1),
                        norm=norm,
-                       extent=det.rectangle()
+                       extent=det.rectangle(),
                        aspect=1)
         ax.set_xlabel(r'$\phi_{\rm f} (^{\circ})$', fontsize=24)
         if i==0:
@@ -40,10 +41,12 @@ def make_plot( results ):
     cb = fig.colorbar(im, cax=cbar_ax)
     cb.set_label(r'Intensity (arb. units)', fontsize=24)
 
-def get_sample(omega):
+def get_sample(pars):
     """
     Build and return the sample representing rotated pyramids on top of substrate
     """
+    omega = pars[0]
+    
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = ba.HomogeneousMaterial("Particle", 1e-3, 0)
@@ -68,18 +71,18 @@ def get_simulation(det):
     Create and return GISAXS simulation with beam and det defined
     """
     simulation = ba.Simulation()
-    simulation.setDetParameters(
+    simulation.setDetectorParameters(
         det.m, det.p_min*degree, det.p_max*degree,
         det.m, det.a_min*degree, det.a_max*degree )
     simulation.setBeamParameters(1.0*angstrom, 0, 0)
     return simulation
 
 
-def run_simulation(det,omega):
+def run_simulation(det,pars):
     """
     Run simulation and plot results
     """
-    sample = get_sample(omega)
+    sample = get_sample(pars)
     simulation = get_simulation(det)
     simulation.setSample(sample)
     simulation.runSimulation()

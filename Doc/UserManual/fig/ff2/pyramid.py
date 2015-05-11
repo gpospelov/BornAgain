@@ -16,4 +16,4 @@ for i in range(n):
     data = bp.run_simulation(det,ff,trafo)
     results.append( bp.Result(i, data, title) )
     
-bp.make_plot( results, det, "pyramid" )
+bp.make_plot( results, det, "ff_pyramid" )

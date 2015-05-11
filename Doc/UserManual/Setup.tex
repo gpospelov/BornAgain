@@ -13,6 +13,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\let\angstrom=\AA
+
 %-------------------------------------------------------------------------------
 %  Page layout
 %-------------------------------------------------------------------------------
@@ -71,6 +73,12 @@
 \usepackage{dingbat}
 
 \usepackage[bold-style=ISO]{unicode-math} % must come after ams and symbols
+% prevent unicode-math from overwriting
+\AtBeginDocument{\renewcommand{\Re}{\operatorname{Re}}}
+\AtBeginDocument{\renewcommand{\Im}{\operatorname{Im}}}
+
+% Math operators 
+\DeclareMathOperator{\sinc}{sinc}
 
 %-------------------------------------------------------------------------------
 %  Sectioning

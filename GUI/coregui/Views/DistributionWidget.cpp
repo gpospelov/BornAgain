@@ -8,6 +8,19 @@ double gap_between_bars = 0.05;
 std::string noneDistribution = "DistributionNone";
 }
 
+// FIXME When first time shown (and distribution is None by default) plot is not updated. I.e.
+//       it is updated first only when switched to some other distribution
+
+// FIXME Add status label at the bottom displaying current cursor position in axes coordinates
+
+// FIXME Distribution Gate is not working (one have to zoom around to start to see it)
+
+// FIXME Different distributions occupies different width on the plot
+
+// FIXME Move DistributionWidget and DistributionEditor files into Views/InfoWidgets
+
+// FIXME distributionLorentz is shown with shifted yaxis
+
 DistributionWidget::DistributionWidget(QWidget *parent)
     : QWidget(parent)
     , m_plot(new QCustomPlot)
@@ -65,12 +78,16 @@ void DistributionWidget::plotItem()
     m_plot->xAxis2->setTicks(false);
     m_plot->yAxis2->setTicks(false);
 
+    // FIXME use boost::scoped_ptr instead, to not to delete after
     IDistribution1D *distribution;
 
+    // FIXME Use  Constnants::DistributionNoneType instead of your own noneDistribution
     std::cout << m_item->itemName().toStdString() << " " << noneDistribution << std::endl;
 
     if(m_item->itemName().toStdString() != noneDistribution) {
         distribution = m_item->createDistribution();
+
+        // FIXME respect max length of line 100 characters
         int numberOfSamples = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor = m_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
 
@@ -101,6 +118,7 @@ void DistributionWidget::plotItem()
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(getWidthOfBars(xBar[0], xBar[xBar.length()-1], xBar.length()));
         bars->setData(xBar, yBar);
+        // FIXME replace hard coded values with constants
         m_plot->xAxis->setRange(x[0]*0.9, x[x.size()-1]*1.1);
         m_plot->yAxis->setRange(0, y[getMaxYPosition(y.size())]*1.1);
         m_plot->addPlottable(bars);

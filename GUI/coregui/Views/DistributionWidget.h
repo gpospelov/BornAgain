@@ -30,10 +30,10 @@ private slots:
     void onPropertyChanged();
     void movePoint(QMouseEvent *e);
 
-
 private:
     QCustomPlot *m_plot;
     DistributionItem *m_item;
+    // FIXME Do you need m_x and m_y to be class members?
     double m_x;
     double m_y;
     QLabel *m_label;

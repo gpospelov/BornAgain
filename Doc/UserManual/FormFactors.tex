@@ -40,6 +40,7 @@ the \textit{shape transform}
   F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
 \end{equation}
 where $V$ is the volume of the particle.
+\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
 
 \BornAgain\ comes with a collection of hard-coded 
 shape transform for standard particle geometries like
@@ -133,6 +134,18 @@ Shape&Name&Parameters&Reference\\\hline
 \end{longtable}
 \end{center}
 
+In the following subsections,
+information about the implemented geometries is given in standardized form.
+Analytical expressions are given for the form factor $F(\q)$,
+for the volume $V=F(0)$,
+and for the maximum horizontal section $S$
+(the area of the particle as seen from above).
+\nomenclature[2s130 0]{$S$}{Maximum horizontal section of embedded particle}%
+
+%-------------------------------------------------------------------------------
+% Start the series of standardized double pages.
+\ifodd\value{page}\else\FloatBarrier\newpage\textit{Page intentionally left blank}\fi
+%-------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------
 \FloatBarrier\newpage
@@ -172,46 +185,38 @@ They must fulfill
 \dfrac{2H}{L}\le\tan\alpha\quad\text{and}\quad\dfrac{2H}{W}\le\tan\alpha.
 \end{displaymath}
 
-\paragraph{Properties}
-\begin{itemize}
-\item volume $V= H \Big[LW - \dfrac{(L + W)H}{\tan\alpha}
-   + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big]$,
-\item particle surface seen from above $S = LW$.
-\end{itemize}
-
-\clearpage
-\paragraph{Form factor}
-With the half lengths
-$\ell\coloneqq L/2$, $w\coloneqq W/2$, $h\coloneqq H/2$,
-and the function
+\paragraph{Form factor etc}\strut\\
+Notations:
 \begin{displaymath}
-  f(z)\coloneqq \exp(i z)\sinc(z),
+  \ell\coloneqq L/2,\quad
+  w\coloneqq W/2,\quad
+  h\coloneqq H/2,\quad
+  f(z)\coloneqq \exp(i z)\sinc(z).
 \end{displaymath}
-which also appears in complex conjugated form $f^*(z)$,
-the form factor is
-\Work{NEEDS CORRECTION}
+Results:
 \begin{equation*}
-\begin{array}{l}
+\begin{array}{@{}l@{}l@{}}
 \DS F(\mathbf{q}, L, W, H, \alpha)=
-\frac{H}{q_xq_y} \Big\{\\[3.6ex]
-\begin{array}{@{\qquad}lll}
- & &\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
-       + f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
- \cos(q_x\ell-q_y w)
+\frac{H}{q_xq_y} \Big\{
+   &+\DS  f\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
+        \exp(-i(q_x\ell-q_y w))
 \\[3.6ex]
-+& i&\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
-       - f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
- \cos(q_x\ell-q_y w)
+   &\DS+ f^*\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
+        \exp(+i(q_x\ell-q_y w))
 \\[3.6ex]
-+& &\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
-       + f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
- \cos(q_x\ell-q_y w)
+   &\DS+ f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
+        \exp(-i(q_x\ell+q_y w))
 \\[3.6ex]
-+& i&\DS\left[  f\left[\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right]
-       - f^*\left[\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right] \right]
- \cos(q_x\ell-q_y w)\Big\}.
+   &\DS+ f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
+        \exp(+i(q_x\ell+q_y w))
+\Big\}.
 \end{array}
-\end{array}
+\end{equation*}
+\begin{equation*}
+  V= H \Big[LW - \dfrac{(L + W)H}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
+\end{equation*}
+\begin{equation*}
+  S=LW.
 \end{equation*}
 
 \paragraph{Example}\strut\\
@@ -229,21 +234,13 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq AnisoPyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
-except for different parametrization. ???
-
-%\subsection{References}
-%Like in \Code{IsGISAXS}, the base angle $\alpha$ is the same for both unequal
-%side. This means that a full anisotropic pyramid is not a limit case. \\
-%But \BornAgain\ uses a different convention of the parameters relative
-%to the base. We input the full length and width instead of half values.
-%Condition on the parameters: 
-%Should not it be: H/R < tan(alpha) and  H/W < tan(alpha) instead of H/R < tan(alpha) and  
-%W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
+Agrees with the \E{plane anisotropic pyramid} form factor of \IsGISAXS\
+\cite[Eq.~2.40]{Laz08} \cite[Eq.~217]{ReLL09},
+except for different parametrization and
+for a refactoring of the analytical expression for $F(\q)$.
 
 %-------------------------------------------------------------------------------
 \FloatBarrier\newpage
-\ifodd\value{page}\textit{Page intentionally left blank}\FloatBarrier\newpage\fi
 \subsection{Box (cuboid)} \label{sec:Box}
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
@@ -694,7 +691,7 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 
 \paragraph{References}\strut\\
 Agrees with the \E{full sphere} form factor of \IsGISAXS
-\cite[Eq.~2.36]{Laz08}, \cite[Eq.~226]{ReLL09}.
+\cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage

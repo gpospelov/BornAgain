@@ -143,7 +143,8 @@ and for the maximum horizontal section $S$
 \nomenclature[2s130 0]{$S$}{Maximum horizontal section of embedded particle}%
 Mathematical notation in the form factor expressions includes
 the cardinal sine functions $\sinc(z)\coloneqq\sin(z)/z$
-and the Bessel function of first kind and first order $J_1(z)$ \cite{AbSt64}.
+and the Bessel function of first kind and first order $J_1(z)$
+\cite[Ch.~9]{AbSt64}.
 \nomenclature[2j132 01]{$J_1$}{Bessel function of first kind and first order}%
 If results contain an integral,
 then no analytical form was found,
@@ -203,7 +204,7 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor etc}\strut\\
-Notations:
+Notation:
 \begin{displaymath}
   \ell\coloneqq L/2,\quad
   w\coloneqq W/2,\quad
@@ -221,10 +222,10 @@ Results:
    &\DS+ f^*\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x\ell-q_y w))
 \\[3.6ex]
-   &\DS+ f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
+   &\DS- f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
         \exp(-i(q_x\ell+q_y w))
 \\[3.6ex]
-   &\DS+ f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
+   &\DS- f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x\ell+q_y w))
 \Big\},
 \end{array}
@@ -354,24 +355,25 @@ with the parameters
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-  \dfrac{H}{R}\le \tan\alpha.
+  H\le R\tan\alpha.
 \end{displaymath}
 
 
 \paragraph{Form factor etc}\strut\\
-Notations:
+Notation:
 \begin{equation*}
-  R_z \coloneqq R-\dfrac{z}{\tan \alpha}, \quad
-  q_{\parallel} \coloneqq \sqrt{q_x^2+ q_y^2}
+  R_H \coloneqq R-\dfrac{H}{\tan \alpha}, \quad
+  q_{\parallel} \coloneqq \sqrt{q_x^2+ q_y^2}, \quad
+  \tilde{q}_z \coloneqq q_z \tan\alpha.
 \end{equation*}
 Results:
 \begin{equation*}
-F = \int_0^H \!\d z\, 2\pi R_z^2
-        \frac{J_1(q_{\parallel}R_z)}{q_{\parallel} R_z}\exp(iq_z z),
+  F = 2\pi \tan\alpha\; \e^{i\tilde{q}_z R}
+      \int_{R_H}^R \!\d\rho\, \rho^2
+        \frac{J_1(q_{\parallel}\rho)}{q_{\parallel}\rho}\,\e^{-i\tilde{q}_z \rho},
 \end{equation*}
 \begin{equation*}
-  V = \dfrac{\pi}{3} R^3\tan\alpha  \left[ 
-            1 - \left(1- \dfrac{H}{R\tan\alpha}\right)^3\right],
+  V = \dfrac{\pi}{3}\tan\alpha  \left( R^3 - R_H^3\right),
 \end{equation*}
 \begin{equation*}
   S=\pi R^2.
@@ -415,7 +417,6 @@ A truncated hexagonal pyramid.
 \end{figure}
 
 \FloatBarrier
-
 \paragraph{Syntax and parameters}
 \begin{quote}
 \Code{FormFactorCone6(radius,height, alpha)}
@@ -426,32 +427,32 @@ with the parameters
 \item \texttt{height}, $H$,
 \item \texttt{alpha}, between the base and a side face, $\alpha$.
 \end{itemize}
-They must fulfill
-\begin{displaymath}
-  \dfrac{2H}{\sqrt{3}R}\le \tan{\alpha}.
-\end{displaymath}
-Note that the above side view does not show~$\alpha$,
+Note that the orthographic projection does not show~$\alpha$,
 but the angle~$\beta$ between the base and a side edge.
-They are related through $\sqrt{3}\tan \alpha = 2 \tan \beta$. 
+They are related through $\sqrt{3}\tan \alpha = 2 \tan \beta$.
+The following is written more conveniently in terms of~$\beta$.
+The parameters must fulfill
+\begin{displaymath}
+  H \le (\tan\beta)R.
+\end{displaymath}
 
-
-\paragraph{Form factor etc}\strut\\\strut\\
-The calculation can be derived from ``Prism6'' (Sect.~\ref{sec:Prism6}) by
-considering a side length varying with the vertical position:
-
-\begin{align*}
-F = \frac{4\sqrt{3}}{3q_y ^2 - q_x^2}
-    \int_0^H\!\d z &\exp(iq_z z)
-\Big[\frac{3}{4}R_z^2q_y^2 \sinc\left(\frac{q_xR_z}{2}\right)\sinc\left(\frac{\sqrt{3}q_y
-R_z}{2}\right)\\
-&+\cos(q_xR_z)-\cos\left(\frac{\sqrt{3}q_y R_z}{2}\right)\cos\left(\frac{q_xR_z}{2}\right) \Big]
-\end{align*}
-with $R_z=R-\dfrac{2z}{\sqrt{3}\tan\alpha}$.
-
+\paragraph{Form factor etc}\strut\\
+Notation:
 \begin{equation*}
-  V = \dfrac{3}{4} R^3 \tan\alpha  \left[
-            1 - \left(1- \dfrac{2H}{ R\sqrt{3}\tan\alpha}\right)^3
-            \right],
+  R_H \coloneqq R-\frac{H}{\tan\beta},\quad
+  \tilde{q}_x \coloneqq \frac{1}{2}q_y,\quad
+  \tilde{q}_y \coloneqq \frac{\sqrt{3}}{2}q_y,\quad
+  \tilde{q}_z \coloneqq (\tan\beta) q_z.
+\end{equation*}
+Results:
+\begin{equation*}
+  F = \frac{\sqrt{3}\, \e^{i\tilde q_z R}}{\tilde q_y ^2 - \tilde q_x^2}
+    \int_{R_H}^R\!\d\rho\, \e^{-i\tilde q_z \rho}
+\Big[\rho\tilde q_y \sinc(\tilde q_x\rho)\sin(\tilde q_y\rho)
++\cos(2\tilde q_x\rho)-\cos(\tilde q_y \rho)\cos(\tilde q_x\rho) \Big],
+\end{equation*}
+\begin{equation*}
+  V = \tan\beta  \left( R^3- R_H^3 \right),
 \end{equation*}
 \begin{equation*}
   S =\dfrac{3\sqrt{3}R^2}{2}.
@@ -644,6 +645,7 @@ Notation:
 \begin{equation*}
   \gamma \coloneqq \sqrt{(q_x r_a)^2+(q_y r_b)^2}  
 \end{equation*}
+Results:
 \begin{equation*}
 F = 2\pi r_a r_b H \exp\left(i\frac{q_z H}{2}\right)
    \sinc\left(\frac{q_z H}{2}\right) \frac{J_1(\gamma)}{\gamma},

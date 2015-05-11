@@ -50,6 +50,7 @@ void DistributionEditor::onSubItemChanged(const QString &property_name)
 
     if(property_name == BeamDistributionItem::P_DISTRIBUTION) {
         DistributionItem *distrItem = dynamic_cast<DistributionItem *>(m_item->getSubItems()[property_name]);
+        // FIXME check is necessary if distrItem exists, at least an Q_ASSERT
         m_plotwidget->setItem(distrItem);
     }
 //    else {

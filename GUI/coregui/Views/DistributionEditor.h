@@ -13,22 +13,22 @@ class AwesomePropertyEditor;
 class DistributionEditor : public QWidget
 {
     Q_OBJECT
-
 public:
-
     DistributionEditor(QWidget *parent = 0);
     virtual ~DistributionEditor() {}
 
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
+
 private slots:
     void onSubItemChanged(const QString &property_name);
+
 private:
     AwesomePropertyEditor *m_propertyEditor;
     ParameterizedItem *m_item;
+    // FIXME m_mainLayout should not be the class member
     QHBoxLayout *m_mainLayout;
     DistributionWidget *m_plotwidget;
-
 };
 
 #endif

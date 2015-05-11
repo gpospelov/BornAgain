@@ -1,12 +1,15 @@
-#ifndef DISTRIBUTIONPLOTWIDGET_H_
-#define DISTRIBUTIONPLOTWIDGET_H_
+#ifndef DISTRIBUTIONWIDGET_H_
+#define DISTRIBUTIONWIDGET_H_
 
 
 #include "qcustomplot.h"
 #include "DistributionItem.h"
+#include <QLabel>
+#include <sstream>
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
+class QLabel;
 
 class DistributionWidget : public QWidget
 {
@@ -21,6 +24,8 @@ public:
     void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
     int getMaxYPosition(int y);
 
+public slots:
+    void onMouseMove(QMouseEvent *event);
 private slots:
     void onPropertyChanged();
     void movePoint(QMouseEvent *e);
@@ -31,6 +36,7 @@ private:
     DistributionItem *m_item;
     double m_x;
     double m_y;
+    QLabel *m_label;
 
 };
 

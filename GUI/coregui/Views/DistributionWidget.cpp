@@ -14,12 +14,15 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     , m_item(0)
     , m_x(0)
     , m_y(0)
+    , m_label(new QLabel("[x: 0,  y: 0]"))
 {
+
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *event)),
             this, SLOT(movePoint(QMouseEvent *e)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(m_plot);
+    mainLayout->addWidget(m_plot,1);
+    mainLayout->addWidget(m_label);
     setLayout(mainLayout);
 
 }
@@ -39,7 +42,6 @@ void DistributionWidget::setItem(DistributionItem *item)
     if (!m_item) return;
 
     plotItem();
-
     connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged()));
 }
@@ -96,13 +98,13 @@ void DistributionWidget::plotItem()
 
         m_plot->addGraph();
         m_plot->graph(0)->setData(x,y);
-        setVerticalDashedLine(xBar[0],0,xBar[xBar.length()-1],yBar[getMaxYPosition(yBar.size())]);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(getWidthOfBars(xBar[0], xBar[xBar.length()-1], xBar.length()));
         bars->setData(xBar, yBar);
         m_plot->xAxis->setRange(x[0]*0.9, x[x.size()-1]*1.1);
-        m_plot->yAxis->setRange(y[0], y[getMaxYPosition(y.size())]*1.1);
+        m_plot->yAxis->setRange(0, y[getMaxYPosition(y.size())]*1.1);
         m_plot->addPlottable(bars);
+        setVerticalDashedLine(xBar[0],0,xBar[xBar.length()-1],m_plot->yAxis->range().upper);
 
         delete distribution;
 
@@ -116,15 +118,16 @@ void DistributionWidget::plotItem()
         bars->setWidth(xPos[0]/10);
         bars->setData(xPos, yPos);
         m_plot->addPlottable(bars);
-        setVerticalDashedLine(xPos[0],0,xPos[xPos.size()-1],yPos[getMaxYPosition(yPos.size())]);
         m_plot->xAxis->setRange(xPos[0]*0.9, xPos[0]*1.1);
         m_plot->yAxis->setRange(0, yPos[0]*1.1);
+        setVerticalDashedLine(xPos[0],0,xPos[xPos.size()-1],m_plot->yAxis->range().upper);
 
 
 
     }
 
     m_plot->replot();
+    connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
 
 
 }
@@ -150,24 +153,25 @@ double DistributionWidget::getWidthOfBars(double min, double max, int samples)
 
 void DistributionWidget::setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax)
 {
-    QCPItemLine *min1 = new QCPItemLine(m_plot);
-    QCPItemLine *max1 = new QCPItemLine(m_plot);
+    QCPItemLine *min = new QCPItemLine(m_plot);
+    QCPItemLine *max = new QCPItemLine(m_plot);
 
     QPen pen(Qt::blue, 1, Qt::DashLine);
-    min1->setPen(pen); max1->setPen(pen);
+    min->setPen(pen);
+    max->setPen(pen);
 
-    min1->setSelectable(true);
-    max1->setSelectable(true);
+    min->setSelectable(true);
+    max->setSelectable(true);
 
 
     //Adding the vertical lines to the plot
-    m_plot->addItem(min1);
-    min1->start->setCoords(xMin, yMin);
-    min1->end->setCoords(xMin, yMax);
+    m_plot->addItem(min);
+    min->start->setCoords(xMin, yMin);
+    min->end->setCoords(xMin, yMax);
 
-    m_plot->addItem(max1);
-    max1->start->setCoords(xMax, yMin);
-    max1->end->setCoords(xMax, yMax);
+    m_plot->addItem(max);
+    max->start->setCoords(xMax, yMin);
+    max->end->setCoords(xMax, yMax);
 }
 
 
@@ -181,10 +185,19 @@ int DistributionWidget::getMaxYPosition(int y)
     }
 }
 
-void DistributionWidget::movePoint(QMouseEvent *e)
-{
-    m_x = m_plot->xAxis->pixelToCoord(e->pos().x());
-    m_y = m_plot->yAxis->pixelToCoord(e->pos().y());
 
-    std::cout << m_x << " " << m_y << std::endl;
+void DistributionWidget::onMouseMove(QMouseEvent *event)
+{
+
+    QPoint point = event->pos();
+    double xPos = m_plot->xAxis->pixelToCoord(point.x());
+    double yPos = m_plot->yAxis->pixelToCoord(point.y());
+
+    if(m_plot->xAxis->range().contains(xPos) && m_plot->yAxis->range().contains(yPos)) {
+        m_x = xPos;
+        m_y = yPos;
+        std::stringstream labelText;
+        labelText << "[x: " << m_x << ",  y: " << m_y << "]";
+        m_label->setText(labelText.str().c_str());
+    }
 }

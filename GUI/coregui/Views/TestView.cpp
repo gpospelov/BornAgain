@@ -19,10 +19,11 @@
 #include "AwesomePropertyEditor.h"
 #include "BeamWavelengthItem.h"
 #include "ParameterizedItem.h"
-#include <QGroupBox>
+//#include <QGroupBox>
 #include <QGridLayout>
 #include <QDebug>
 #include "DistributionEditor.h"
+#include "qgroupbox.h"
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent)

@@ -16,11 +16,13 @@
 
 \chapter{Particle form factors}  \label{SFF}
 
+  \index{Form factor|(}
+
+% Don't number subfigures in this chapter.
 \makeatletter
 \renewcommand{\@thesubfigure}{\relax}
 \makeatother
 
-\index{Form factor|(}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Shape transforms}
@@ -178,19 +180,21 @@ All plots of $|F(q)|^2/V^2$ versus $\alpha_\tf$ and $\phi_\tf$
 are shown for the same angular range $0\ldots5^\circ$
 and on the same logarithmic color scale.
 
-%-------------------------------------------------------------------------------
-% Start the series of standardized double pages.
-\ifodd\value{page}\else\FloatBarrier\newpage\textit{Page intentionally left blank}\fi
-%-------------------------------------------------------------------------------
 
-%-------------------------------------------------------------------------------
+%===============================================================================
+% Start the series of standardized double pages.
+%===============================================================================
+\ifodd\value{page}\else\FloatBarrier\newpage\textit{Page intentionally left blank}\fi
 \FloatBarrier\newpage
+
+
+%===============================================================================
 \subsection{AnisoPyramid (rectangle-based)} \label{sec:AnisoPyramid} 
+%===============================================================================
   \index{Anisotropic pyramid (form factor)}
   \index{Pyramid (form factor)!rectangular (AnisoPyramid)}
   \index{Truncated pyramid (form factor)!rectangular (AnisoPyramid)}
   \index{FormFactorAnisoPyramid@\Code{FormFactorAnisoPyramid}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -277,14 +281,15 @@ Agrees with the \E{In-plane anisotropic pyramid} form factor of \IsGISAXS\
 except for different parametrization and
 for a refactoring of the analytical expression for $F(\q)$.
 
-%-------------------------------------------------------------------------------
+
 \FloatBarrier\newpage
+%===============================================================================
 \subsection{Box (cuboid)} \label{sec:Box}
+%===============================================================================
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
   \index{Prism (form factor)!reactangular (Box)}
   \index{FormFactorBox@\Code{FormFactorBox}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -311,7 +316,6 @@ with the parameters
 \item \texttt{width} of the base, $W$,
 \item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}
 
@@ -342,13 +346,14 @@ Agrees with \E{Box} form factor of \IsGISAXS\
 \cite[Eq.~2.38]{Laz08} \cite[Eq.~214]{ReLL09},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Cone (circular)} \label{sec:Cone} 
+%===============================================================================
   \index{Cone (form factor)!circular}
   \index{Truncated cone (form factor)}
   \index{FormFactorCone@\Code{FormFactorCone}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}
 
@@ -377,7 +382,6 @@ They must fulfill
 \begin{displaymath}
   H\le R\tan\alpha.
 \end{displaymath}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -416,14 +420,14 @@ Agrees with \E{Cone} form factor of \IsGISAXS\
 except for a substitution $z\to\rho$ in our expression for~$F$.
 
 
-%-------------------------------------------------------------------------------
 \clearpage
+%===============================================================================
 \subsection{Cone6 (hexagonal)} \label{sec:Cone6}
+%===============================================================================
   \index{Cone (form factor)!hexagonal (Cone6)}
   \index{Pyramid (form factor)!hexagonal (Cone6)}
   \index{Truncated pyramid (form factor)!hexagonal (Cone6)}
   \index{FormFactorCone6@\Code{FormFactorCone6}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -496,12 +500,13 @@ Hopefully agrees with \E{Cone6} form factor of \IsGISAXS\
 \cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09},
 except for different parametrization.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Cuboctahedron} \label{sec:Cuboctahedron}
+%===============================================================================
   \index{Cuboctahedron (form factor)}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -537,7 +542,6 @@ They must fulfill
   r_h H \le \frac{\tan\alpha}{2} L.
 \end{displaymath}
 
-
 \paragraph{Form factor etc}\strut\\
 Using the form factor of a square pyramid $F_\text{Py}$
 (Sect.~\ref{sec:Pyramid}):
@@ -571,12 +575,13 @@ Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
 \cite[Eq.~2.34]{Laz08} \cite[Eq.~218]{ReLL09},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Cylinder} \label{sec:Cylinder}
+%===============================================================================
   \index{Cylinder (form factor)}
   \index{FormFactorCylinder@\Code{FormFactorCylinder}}
-%-------------------------------------------------------------------------------
  
 \paragraph{Real-space geometry}\strut\\
 
@@ -600,7 +605,6 @@ with the parameters
 \item \texttt{radius} of the circular base, $R$, 
 \item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -634,13 +638,14 @@ for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 Agrees with \E{Cylinder} form factor of \IsGISAXS\
 \cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09}.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{EllipsoidalCylinder} \label{sec:EllipsoidalCylinder} 
+%===============================================================================
   \index{Ellipsoidal cylinder (form factor)}
   \index{Cylinder (form factor)!ellipsoidal}
   \index{FormFactorEllipsoidalCylinder@\Code{FormFactorEllipsoidalCylinder}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -663,9 +668,8 @@ with the parameters
 \begin{itemize}
 \item \texttt{radius\_a}, in $x$ direction, $R_a$,
 \item \texttt{radius\_b}, in $y$ direction, $R_b$,
-\item height $H$.
+\item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -700,13 +704,14 @@ Agrees with the \IsGISAXS\ form factor
 \E{Ellipsoid} \cite[Eq.~2.41, wrongly labeled in Fig.~2.4]{Laz08}
 or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{FullSphere} \label{sec:FullSphere}
+%===============================================================================
   \index{Full sphere (form factor)}
   \index{Sphere (form factor)}
   \index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -731,7 +736,6 @@ with the parameter
 \begin{itemize}
 \item \texttt{radius}, $R$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 \begin{equation*}
@@ -759,14 +763,15 @@ This form factor, which certainly goes back at least to Lord Rayleigh,
 agrees with the \E{Full sphere} of \IsGISAXS
 \cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{HemiEllipsoid} \label{sec:HemiEllipsoid}  
+%===============================================================================
   \index{Hemi ellipsoid (form factor)}
   \index{Ellipsoid (form factor)!truncated}
   \index{Truncated ellipsoid (form factor)}
   \index{FormFactorHemiEllipsoid@\Code{FormFactorHemiEllipsoid}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -791,7 +796,6 @@ with the parameters
 \item \texttt{radius\_b}, in $y$ direction, $R_b$,
 \item \texttt{height}, equal to radius in $z$ direction, $H$
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -829,13 +833,14 @@ Agrees with the \IsGISAXS\ form factor
 \cite[Eq.~2.42, with wrong sign in the $z$-dependent phase factor]{Laz08}
 or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{FullSpheroid} \label{sec:FullSpheroid}
+%===============================================================================
   \index{Full spheroid (form factor)}
   \index{Spheroid (form factor)}
   \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -861,7 +866,6 @@ with the parameters
 \item \texttt{radius}, $R$,
 \item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -889,6 +893,7 @@ Results:
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.5$~nm and $H=9.8$~nm.}
+% changes very little under tilt !
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -904,12 +909,12 @@ with corrected volume formula.
 %volume. In the code there is also a problem with an extra factor 2 in the function to integrate.
 
 
-%-------------------------------------------------------------------------------
 \clearpage
+%===============================================================================
 \subsection{Prism3 (triangular)} \label{sec:Prism3}
+%===============================================================================
   \index{Prism (form factor)!triangular (Prism3)}
   \index{FormFactorPrism3@\Code{FormFactorPrism3}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -937,7 +942,6 @@ with the parameters
 \item \texttt{length} of one base edge, $L$,
 \item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 \begin{align*}
@@ -972,12 +976,13 @@ Agrees with \E{Prism3} form factor of \IsGISAXS\
 \cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Prism6 (hexagonal)} \label{sec:Prism6}
+%===============================================================================
   \index{Prism (form factor)!hexagonal (Prism6)}
   \index{FormFactorPrism6@\Code{FormFactorPrism6}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1003,7 +1008,6 @@ with the parameters
 \item \texttt{radius} of the hexagonal base, $R$,
 \item \texttt{height}, $H$.
 \end{itemize}
-
 
 \paragraph{Form factor etc}\strut\\
 \begin{align*}
@@ -1038,13 +1042,14 @@ Corresponds to \E{Prism6} form factor of \IsGISAXS\
 which has different parametrization
 and lacks a factor $H$ in $F(\q)$.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Pyramid (square-based)}\label{sec:Pyramid}
+%===============================================================================
   \index{Pyramid (form factor)!square}
   \index{Truncated pyramid (form factor)!square}
   \index{FormFactorPyramid@\Code{FormFactorPyramid}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1075,7 +1080,6 @@ They must fulfill
 \begin{displaymath}
   H \le \frac{\tan\alpha}{2}L.
 \end{displaymath}
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -1136,13 +1140,14 @@ with different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$,
 with correction of a sign error,
 and with a more compact form of $F(\q)$.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Ripple1 (sinusoidal)} \label{sec:Ripple1}  
+%===============================================================================
   \index{Ripple (form factor)!sinusoidal (Ripple1)}
   \index{Sinusoidal ripple (form factor)}
   \index{FormFactorRipple1@\Code{FormFactorRipple1}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1168,7 +1173,6 @@ with the parameters
 \item \texttt{height}, $H$. 
 \end{itemize}
 
-
 \paragraph{Form factor etc}\strut\\
 \begin{align*}
 F &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\
@@ -1193,13 +1197,13 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 
-%-------------------------------------------------------------------------------
 \clearpage
+%===============================================================================
 \subsection{Ripple2 (saw-tooth)} \label{sec:Ripple2}  
+%===============================================================================
   \index{Ripple (form factor)!saw-tooth (Ripple2)}
   \index{Saw-tooth ripple (form factor)}
   \index{FormFactorRipple2@\Code{FormFactorRipple2}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1232,7 +1236,6 @@ They must fulfill
   |d| \le W/2.
 \end{displaymath}
 
-
 \paragraph{Form factor etc}\strut\\
 \begin{align*}
 F &=L W
@@ -1263,13 +1266,14 @@ for four different angles~$\omega$ of rotation around the $z$ axis.
 The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{Tetrahedron} \label{sec:Tetrahedron}
+%===============================================================================
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
   \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
-%-------------------------------------------------------------------------------
  
 \paragraph{Real-space geometry}\strut\\
 
@@ -1303,7 +1307,6 @@ They must fulfill
 Note that the orthographic projection does not show~$\alpha$,
 but the angle~$\beta$ between the base and a side edge.
 They are related through $\tan \alpha = 2 \tan \beta$. 
-
 
 \paragraph{Form factor etc}\strut\\
 Notation:
@@ -1347,13 +1350,13 @@ Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
 \cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09}.
 
 
-%-------------------------------------------------------------------------------
 \clearpage
+%===============================================================================
 \subsection{TruncatedCube} \label{sec:TruncatedCube}  
-\index{Cube (form factor)!truncated}
-  \index{Truncated cube (form factor)}
+%===============================================================================
+  \index{Cube (form factor)!facetted}
+  \index{Facetted cube (form factor)}
   \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1432,20 +1435,24 @@ F =F_{\text{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\text{vertex}_i}(q_x, 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figfftruncatedcube.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedCube.pdf}
 \end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
 \cite{HeSS74}
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{TruncatedSphere}\label{sec:TruncatedSphere}
+%===============================================================================
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
   \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
-%-------------------------------------------------------------------------------
   
 \paragraph{Real-space geometry}\strut\\
 
@@ -1475,7 +1482,6 @@ They must fulfill
    0 < H\leq 2R.
 \end{displaymath}
 
-
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{equation*}
@@ -1499,8 +1505,11 @@ F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffsphere.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSphere.pdf}
 \end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=4.2$~nm and $H=6.1$~nm,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -1508,13 +1517,14 @@ Agrees with the \IsGISAXS\ form factor
 \E{Sphere} \cite[Eq.~2.33]{Laz08} or
 \E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
 
-%-------------------------------------------------------------------------------
+
 \clearpage
+%===============================================================================
 \subsection{TruncatedSpheroid} \label{sec:TruncatedSpheroid}
+%===============================================================================
   \index{Spheroid (form factor)!truncated}
   \index{Truncated spheroid (form factor)}
   \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
-%-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1544,7 +1554,6 @@ They must fulfill
   0< \dfrac{H}{R}\le 2f_p.
 \end{displaymath}
 
-
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{equation*} 
@@ -1568,8 +1577,11 @@ F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffspheroid.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSpheroid.pdf}
 \end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -1649,9 +1661,11 @@ the $z$-axis:\\
     particle_layout.addParticle(pyramid, transform) 
 \end{lstlisting}
 
+
 %===============================================================================
 \section{Polydispersity}
 %===============================================================================
 
 ... to come
+
 \index{Form factor|)}

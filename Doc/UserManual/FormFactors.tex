@@ -155,6 +155,16 @@ certain values of $\q$.
 All these singularities are removable.
 Our implementation comprises appropriate case distinctions.
 
+Geometrical objects can be parametrized in different ways.
+Concerns about user experience and about code readability
+sometimes lead to different choices.
+For the \BornAgain\ user interfaces (GUI and API)
+we have chosen the most standard parameters,
+as used in elementary geometry, like length, height, radius,
+even if this is at variance from the \IsGISAXS\ precedent.
+Where our parametrization made analytic expressions too tedious,
+we use alternate internal parameters to alleviate the formul\ae.
+
 Examplary form factors are numerically computed in Born approximation.
 The particles are assigned a refractive index of $n=10^{-5}$.
 The incident wavelength is 1~\AA.
@@ -215,23 +225,23 @@ Notation:
   \ell\coloneqq L/2,\quad
   w\coloneqq W/2,\quad
   h\coloneqq H/2,\quad
-  f(z)\coloneqq \exp(i z)\sinc(z).
+  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
 \end{displaymath}
 Results:
 \begin{equation*}
 \begin{array}{@{}l@{}l@{}}
 \DS F=
 \frac{H}{q_xq_y} \Big\{
-   &+\DS  f\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
+   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
         \exp(-i(q_x\ell-q_y w))
 \\[3.6ex]
-   &\DS+ f^*\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
+   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x\ell-q_y w))
 \\[3.6ex]
-   &\DS- f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
+   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
         \exp(-i(q_x\ell+q_y w))
 \\[3.6ex]
-   &\DS- f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
+   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x\ell+q_y w))
 \Big\},
 \end{array}
@@ -258,7 +268,7 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with the \E{plane anisotropic pyramid} form factor of \IsGISAXS\
+Agrees with the \E{In-plane anisotropic pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.40]{Laz08} \cite[Eq.~217]{ReLL09},
 except for different parametrization and
 for a refactoring of the analytical expression for $F(\q)$.
@@ -325,7 +335,8 @@ $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Box\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \E{Box} form factor of \IsGISAXS\
+\cite[Eq.~2.38]{Laz08} \cite[Eq.~214]{ReLL09},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 %-------------------------------------------------------------------------------
@@ -398,7 +409,10 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Cone\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \E{Cone} form factor of \IsGISAXS\
+\cite[Eq.~2.28]{Laz08} \cite[Eq.~225]{ReLL09},
+except for a substitution $z\to\rho$ in our expression for~$F$.
+
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -478,7 +492,9 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Cone6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02} ???
+Hopefully agrees with \E{Cone6} form factor of \IsGISAXS\
+\cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09},
+except for different parametrization.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -550,7 +566,8 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Cuboctahedron\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
+\cite[Eq.~2.34]{Laz08} \cite[Eq.~218]{ReLL09},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
@@ -614,7 +631,8 @@ has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Cylinder\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with \E{Cylinder} form factor of \IsGISAXS\
+\cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -680,7 +698,9 @@ $|F|^2/V^2$, computed with $R_a=8$~nm, $R_b=13$~nm, and $H=16$~nm.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Ellipsoid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with the \IsGISAXS\ form factor
+\E{Ellipsoid} \cite[Eq.~2.41, wrongly labeled in Fig.~2.4]{Laz08}
+or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -738,7 +758,8 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with the \E{full sphere} form factor of \IsGISAXS
+This form factor, which certainly goes back at least to Lord Rayleigh,
+agrees with the \E{Full sphere} of \IsGISAXS
 \cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
 %-------------------------------------------------------------------------------
@@ -808,8 +829,10 @@ $|F|^2/V^2$, computed with $R_a=10$~nm, $R_b=6$~nm and $H=8$~nm.
 \end{figure}
 
 \paragraph{References}\strut\\
-Called \lq\lq Anisotropic hemi ellipsoid\rq\rq in \Code{ISGISAXS},
-which seems to have a sign error in the $z$ dependence.
+Agrees with the \IsGISAXS\ form factor
+\E{Anisotropic hemi-ellipsoid}
+\cite[Eq.~2.42, with wrong sign in the $z$-dependent phase factor]{Laz08}
+or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -950,7 +973,8 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Prism3\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
+Agrees with \E{Prism3} form factor of \IsGISAXS\
+\cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 
 %-------------------------------------------------------------------------------
@@ -1014,9 +1038,10 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Prism6\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
-except for different parametrization,
-and for a factor $H$ missing in the \Code{IsGISAXS} manual. 
+Corresponds to \E{Prism6} form factor of \IsGISAXS\
+\cite[Eq.~2.31]{Laz08} \cite[Eq.~221]{ReLL09},
+which has different parametrization
+and lacks a factor $H$ in $F(\q)$.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -1062,23 +1087,23 @@ Notation:
 \begin{displaymath}
   \ell\coloneqq L/2,\quad
   h\coloneqq H/2,\quad
-  f(z)\coloneqq \exp(i z)\sinc(z).
+  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
 \end{displaymath}
 Results:
 \begin{equation*}
 \begin{array}{@{}l@{}l@{}}
 \DS F=
 \frac{H}{q_xq_y} \Big\{
-   &+\DS  f\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
+   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
         \exp(-i(q_x-q_y)\ell)
 \\[3.6ex]
-   &\DS+ f^*\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
+   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x-q_y)\ell)
 \\[3.6ex]
-   &\DS- f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
+   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
         \exp(-i(q_x+q_y)\ell)
 \\[3.6ex]
-   &\DS- f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
+   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
         \exp(+i(q_x+q_y)\ell)
 \Big\},
 \end{array}
@@ -1089,23 +1114,6 @@ Results:
 \begin{equation*}
   S=L^2.
 \end{equation*}
-\Work{COMPARE WITH}
-\begin{align*}
-&F = 
-\frac{H}{q_x q_y} \times \nonumber \\ &\left\{ K_1 \cos\left[
-  (q_x-q_y)\frac{L}{2} \right] + K_2 \sin\left[ (q_x-q_y)\frac{L}{2} \right]
-- K_3 \cos\left[ (q_x+q_y) \frac{L}{2} \right] - K_4 \sin\left[ (q_x+q_y)\frac{L}{2} \right]\right\},
-\end{align*}
-with
-\begin{align*}
-       q_1 &=\frac{1}{2}\Big[\frac{q_x-q_y}{\tan(\alpha)} + q_z\Big],\quad       q_2 =\frac{1}{2}\Big[\frac{q_x-q_y}{\tan(\alpha)} - q_z\Big]\\
-        q_3 &=\frac{1}{2}\Big[\frac{q_x+q_y}{\tan(\alpha)} + q_z\Big],\quad       q_4 =\frac{1}{2}\Big[\frac{q_x+q_y}{\tan(\alpha)} - q_z\Big]\\
-        K_1 &= \sinc(q_1 H)\exp(i q_1 H)  + \sinc(q_2 H) \exp(-i q_2 H)\\
-        K_2 &= -i \sinc(q_1 H) \exp(i q_1 H) +i \sinc(q_2 H) \exp(-i q_2 H)\\
-        K_3 &= \sinc(q_3 H) \exp(i q_3 H)    + \sinc(q_4 H) \exp(-i q_4 H)\\
-        K_4 &= -i \sinc(q_3 H) \exp(i q_3 H) + i \sinc(q_4 H) \exp(-i q_4 H) 
-   \end{align*}
-
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1
              - \left(1 - \dfrac{2H}{L\tan\alpha}\right)^3 \right],,
@@ -1131,9 +1139,11 @@ $\alpha=60^{\circ}$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Pyramid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02},
-except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$.
-[and sign problem??]
+Corresponds to \E{Pyramid} form factor of \IsGISAXS\
+\cite[Eq.~2.31]{Laz08} \cite[Eq.~221]{ReLL09},
+with different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$,
+with correction of a sign error,
+and with a more compact form of $F(\q)$.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -1349,7 +1359,9 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 \end{figure}
 
 \paragraph{References}\strut\\
-??
+Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
+\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09}.
+
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -1516,7 +1528,9 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq Sphere\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with the \IsGISAXS\ form factor
+\E{Sphere} \cite[Eq.~2.33]{Laz08} or
+\E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
 
 %-------------------------------------------------------------------------------
 \clearpage
@@ -1589,8 +1603,9 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 \end{figure}
 
 \paragraph{References}\strut\\
-Agrees with \lq\lq TruncatedSpheroid\rq\rq\ form factor
-of \IsGISAXS~\cite{Laz02}.
+Agrees with the \IsGISAXS\ form factor
+\E{Sphere} \cite[Eq.~2.33]{Laz08} or
+\E{TruncatedSpheroid} \cite[Eq.~228]{ReLL09}.
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.
 

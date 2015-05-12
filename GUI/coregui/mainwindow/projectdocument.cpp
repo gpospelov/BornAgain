@@ -16,6 +16,7 @@
 #include "projectdocument.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
+#include "JobQueueData.h"
 #include "JobModel.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "JobView.h"
+#include "JobQueueData.h"
 #include "TestView.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"

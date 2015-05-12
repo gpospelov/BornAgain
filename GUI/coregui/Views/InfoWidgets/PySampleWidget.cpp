@@ -244,7 +244,13 @@ QString PySampleWidget::generateCodeSnippet()
             result.append(QString::fromStdString(ostr.str()));
         } catch(const std::exception &ex) {
             m_warningSign = new WarningSignWidget(this);
-            m_warningSign->setWarningMessage(QString::fromStdString(ex.what()));
+
+            QString message = QString(
+                "Generation of Python Script failed. Code is not complete.\n\n"
+                "It can happen if sample requires further assembling or some of sample parameters "
+                "are not valid. See details below.\n\n%1").arg(QString::fromStdString(ex.what()));
+
+            m_warningSign->setWarningMessage(message);
             QPoint pos = getPositionForWarningSign();
             m_warningSign->setPosition(pos.x(), pos.y());
             m_warningSign->show();
@@ -255,7 +261,7 @@ QString PySampleWidget::generateCodeSnippet()
     return result;
 }
 
-//! Returns position for warning sign at the bottom left corner of the editor. The position will
+//! Returns position for warning sign at the bottom right corner of the editor. The position will
 //! be adjusted according to the visibility of scroll bars
 QPoint PySampleWidget::getPositionForWarningSign()
 {

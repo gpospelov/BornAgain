@@ -158,8 +158,8 @@ def run_simulation_variants():
         single_output.scaleAll(probability)
         outputdata_total += single_output
     outputdata_total.scaleAll(1.0/total_weight)
-dhich java
-sdfdfxport LD_LIBRARYe
+    return outputdata_total
+
 
 # IsGISAXS6 functional test sample builder for varying xi angle
 def build_sample(xi_value):

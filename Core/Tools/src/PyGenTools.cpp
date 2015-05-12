@@ -42,6 +42,38 @@ std::string PyGenTools::genPyScript(Simulation *simulation)
     return result.str();
 }
 
+std::string PyGenTools::printDouble(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(11);
+    if((input-floor(input)) == 0.0)
+    {
+        inter << input << ".0";
+    }
+    else
+    {
+        inter << input;
+    }
+    return inter.str();
+}
+
+std::string PyGenTools::printDegrees(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(11);
+    double in_degrees = input*180.0/M_PI;
+    if((in_degrees - floor(in_degrees)) == 0.0)
+    {
+        inter << in_degrees << ".0";
+    }
+    else
+    {
+        inter << in_degrees;
+    }
+    inter << "*degree";
+    return inter.str();
+}
+
 bool PyGenTools::isSquare(double length1, double length2, double angle)
 {
     if(length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0)) {
@@ -57,21 +89,6 @@ bool PyGenTools::isHexagonal(double length1, double length2, double angle)
         return true;
     }
     return false;
-}
-
-std::string PyGenTools::printDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(11);
-    if((input-floor(input)) == 0.0)
-    {
-        inter << input << ".0";
-    }
-    else
-    {
-        inter << input;
-    }
-    return inter.str();
 }
 
 bool PyGenTools::testPyScript(Simulation *simulation)
@@ -151,3 +168,4 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
      }
      return result.str();
 }
+

@@ -27,6 +27,8 @@ class InstrumentModel;
 class JobModel;
 class Simulation;
 class ProjectManager;
+class MultiLayerItem;
+class InstrumentItem;
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -39,11 +41,11 @@ public:
     void setSampleModel(SampleModel *model);
     void setInstrumentModel(InstrumentModel *model);
 
-    QString getInstrumentSelection() const;
-    int getInstrumentCurrentIndex() const;
+    QString getSelectedInstrumentName() const;
+    int getSelectedInstrumentIndex() const;
 
-    QString getSampleSelection() const;
-    int getSampleCurrentIndex() const;
+    QString getSelectedSampleName() const;
+    int getSelectedSampleIndex() const;
 
     void setProjectManager(ProjectManager *projectManager);
 
@@ -58,6 +60,9 @@ private:
 
     InstrumentModel *getJobInstrumentModel();
     SampleModel *getJobSampleModel();
+
+    const MultiLayerItem *getSelectedMultiLayerItem() const;
+    const InstrumentItem *getSelectedInstrumentItem() const;
 
     JobModel *m_jobModel;
     SampleModel *m_sampleModel;

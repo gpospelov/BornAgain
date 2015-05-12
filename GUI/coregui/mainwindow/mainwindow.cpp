@@ -19,6 +19,7 @@
 #include "actionmanager.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
+#include "JobQueueData.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
@@ -241,13 +242,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 //! creates and initializes models
 void MainWindow::createModels()
 {
-    createMaterialModel(); // should be first
+    // the order is important
+    createMaterialModel();
 
     createSampleModel();
 
-    createJobModel();
-
     createInstrumentModel();
+
+    createJobModel();
 
     //createFitModel();
 

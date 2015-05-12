@@ -1,7 +1,7 @@
 #ifndef SIMULATIONTEST_H
 #define SIMULATIONTEST_H
 
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "Beam.h"
 #include "MultiLayer.h"

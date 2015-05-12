@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "JobQueueData.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "AngleProperty.h"
 #include "InstrumentItem.h"
 #include "InstrumentModel.h"

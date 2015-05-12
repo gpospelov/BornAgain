@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Simulation.h"
+#include "GISASSimulation.h"
 
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
@@ -32,9 +32,8 @@ GCC_DIAG_ON(strict-aliasing);
 #include <boost/scoped_ptr.hpp>
 
 GISASSimulation::GISASSimulation()
-: IParameterized("Simulation")
+: IParameterized("GISASSimulation")
 , mp_sample(0)
-//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
@@ -44,9 +43,8 @@ GISASSimulation::GISASSimulation()
 }
 
 GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
-: IParameterized("Simulation")
+: IParameterized("GISASSimulation")
 , mp_sample(0)
-//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
@@ -57,9 +55,8 @@ GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
 
 GISASSimulation::GISASSimulation(
     const ISample& p_sample, const ProgramOptions *p_options)
-: IParameterized("Simulation")
+: IParameterized("GISASSimulation")
 , mp_sample(p_sample.clone())
-//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
@@ -70,7 +67,7 @@ GISASSimulation::GISASSimulation(
 
 GISASSimulation::GISASSimulation(
     SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-: IParameterized("Simulation")
+: IParameterized("GISASSimulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_instrument()

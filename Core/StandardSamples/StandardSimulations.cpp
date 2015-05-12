@@ -15,7 +15,7 @@
 
 #include "StandardSimulations.h"
 #include "SampleBuilderFactory.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "FileSystem.h"

@@ -18,7 +18,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "DesignerHelper.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
 #include "WarningSignWidget.h"

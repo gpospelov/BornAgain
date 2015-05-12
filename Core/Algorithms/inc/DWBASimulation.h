@@ -17,7 +17,7 @@
 #define DWBASIMULATION_H_
 
 #include "ISimulation.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "ThreadInfo.h"
 #include "Types.h"

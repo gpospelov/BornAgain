@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SimulationSetupWidget.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
 #include "JobModel.h"

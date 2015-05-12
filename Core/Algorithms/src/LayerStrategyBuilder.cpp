@@ -16,7 +16,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Layer.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"

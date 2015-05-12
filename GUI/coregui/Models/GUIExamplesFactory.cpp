@@ -20,7 +20,7 @@
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
 

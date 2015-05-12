@@ -16,7 +16,7 @@
 #ifndef OFFSPECSIMULATION_H_
 #define OFFSPECSIMULATION_H_
 
-#include "Simulation.h"
+#include "GISASSimulation.h"
 
 //! @class OffSpecSimulation
 //! @ingroup simulation

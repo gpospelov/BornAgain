@@ -26,7 +26,7 @@
 #include "ISample.h"
 #include "MultiLayer.h"
 #include "PyGenTools.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Distributions.h"
 #include "BAPython.h"
 

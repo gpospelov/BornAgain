@@ -19,7 +19,7 @@
 /*
 #include <Python.h>
 #include "OutputData.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 
 #include <string>
 

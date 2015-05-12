@@ -15,7 +15,7 @@
 
 #include "ProgressHandler.h"
 #include "Exceptions.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "LayerInterface.h"
 #include <boost/thread.hpp>

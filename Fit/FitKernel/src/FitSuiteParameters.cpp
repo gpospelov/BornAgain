@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteParameters.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "MessageService.h"
 #include "MathFunctions.h"
 

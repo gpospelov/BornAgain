@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "JobRunner.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
 #include "item_constants.h"

@@ -15,7 +15,7 @@
 
 #ifndef PYSCRIPTTOOLS_H
 #define PYSCRIPTTOOLS_H
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "PyGenVisitor.h"
 
 class IDistribution1D;

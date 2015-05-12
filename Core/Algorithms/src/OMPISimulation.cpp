@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "OMPISimulation.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "Exceptions.h"
 #include "MessageService.h"

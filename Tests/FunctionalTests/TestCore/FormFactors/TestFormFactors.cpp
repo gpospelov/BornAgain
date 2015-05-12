@@ -1,4 +1,4 @@
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Units.h"
 #include "Utils.h"
 #include "FileSystem.h"

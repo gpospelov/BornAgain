@@ -17,7 +17,7 @@
 #define _IFUNCTIONALTEST_H
 
 
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include <boost/shared_ptr.hpp>
 #include <string>
 

@@ -17,7 +17,7 @@
 #define SIMULATIONREGISTRY_H
 
 #include "IFactory.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 
 
 //! @class SimulationRegistry

@@ -17,7 +17,7 @@
 #define FITSUITEOBJECTS_H
 
 #include "IParameterized.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "FitObject.h"
 #include "SafePointerVector.h"

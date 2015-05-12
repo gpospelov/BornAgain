@@ -97,7 +97,7 @@ void JobRunner::runFakeSimulation()
     }
 }
 
-//! function which is called by the Simulation to report its progress
+//! function which is called by the simulation to report its progress
 bool JobRunner::similationProgressCallback(int progress)
 {
     if(progress >= m_progress) {

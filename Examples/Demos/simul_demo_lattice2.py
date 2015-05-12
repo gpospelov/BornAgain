@@ -51,7 +51,7 @@ def RunSimulation():
     multi_layer.addLayer(substrate_layer)
 
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -2.0*degree, 2.0*degree, 100, 0.0*degree, 4.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 

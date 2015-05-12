@@ -40,7 +40,7 @@ def get_simulation():
     """
     Create and return GISAXS simulation with detector resolution function defined
     """
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.0025, 0.0025))

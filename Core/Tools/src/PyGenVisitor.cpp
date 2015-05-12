@@ -320,7 +320,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     std::ostringstream result;
     result << "def getSimulation():\n";
     //    result << indent() << "# Creating and returning GISAXS simulation\n";
-    result << indent() << "simulation = Simulation()\n";
+    result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
     result << indent() << "return simulation\n\n\n";

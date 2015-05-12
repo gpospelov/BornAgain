@@ -76,7 +76,7 @@ def runTest():
 
 # create simulation
 def createSimulation():
-    simulation = Simulation();
+    simulation = GISASSimulation();
     simulation.setDetectorParameters(50, 0.0*degree, 2.0*degree, 50 , 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     #simulation.setBeamIntensity(1e10);

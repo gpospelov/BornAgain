@@ -43,7 +43,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     multi_layer.addLayer(substrate_layer)
 
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -1*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     zplus = kvector_t(0.0, 0.0, 1.0)
     simulation.setAnalyzerProperties(zplus, efficiency, 0.5)

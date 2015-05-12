@@ -6,7 +6,6 @@
 DistributionEditor::DistributionEditor(QWidget *parent)
     : QWidget(parent)
     , m_item(0)
-    , m_mainLayout(new QHBoxLayout)
     , m_plotwidget(0)
 {
     setMinimumSize(128, 128);
@@ -17,9 +16,10 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     m_propertyEditor = new AwesomePropertyEditor(this);
 
 //    setItem(item);
-    m_mainLayout->addWidget(m_plotwidget, 1);
-    m_mainLayout->addWidget(m_propertyEditor);
-    setLayout(m_mainLayout);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(m_plotwidget, 1);
+    mainLayout->addWidget(m_propertyEditor);
+    setLayout(mainLayout);
 
 
 }
@@ -45,21 +45,9 @@ void DistributionEditor::setItem(ParameterizedItem *item)
 
 void DistributionEditor::onSubItemChanged(const QString &property_name)
 {
-    // if property_name == BeamDistributionItem::P_DISTRIBUTION
-    // property_name => BeamDistributionItem::P_DISTRIBUTION
-
     if(property_name == BeamDistributionItem::P_DISTRIBUTION) {
         DistributionItem *distrItem = dynamic_cast<DistributionItem *>(m_item->getSubItems()[property_name]);
-        // FIXME check is necessary if distrItem exists, at least an Q_ASSERT
+        Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }
-//    else {
-//        DistributionNoneItem *distrItem = dynamic_cast<DistributionNoneItem *>(m_item->getSubItems()[property_name]);
-//        m_plotwidget->setItem(distrItem);
-//    }
-
-
-//    std::cout << distrItem->getRegisteredProperty(DistributionItem::P_NAME).toString().toStdString() << std::endl;
-//*/    qDebug() << "TestView::onSubItemChanged() ->" << property_name << distrItem->modelType();*/
-//        std::cout << property_name.toStdString() << std::endl;
 }

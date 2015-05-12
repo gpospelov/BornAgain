@@ -26,8 +26,6 @@ private slots:
 private:
     AwesomePropertyEditor *m_propertyEditor;
     ParameterizedItem *m_item;
-    // FIXME m_mainLayout should not be the class member
-    QHBoxLayout *m_mainLayout;
     DistributionWidget *m_plotwidget;
 };
 

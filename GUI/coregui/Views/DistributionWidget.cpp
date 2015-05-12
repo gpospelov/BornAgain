@@ -4,17 +4,9 @@ namespace {
 int number_of_points_for_smooth_plot = 100;
 double sigmafactor_for_smooth_plot = 4;
 double gap_between_bars = 0.05;
-
-std::string noneDistribution = "DistributionNone";
+double percentage_for_xRange = 0.9;
+double percentage_for_yRange =1.1;
 }
-
-// FIXME When first time shown (and distribution is None by default) plot is not updated. I.e.
-//       it is updated first only when switched to some other distribution
-
-// FIXME Add status label at the bottom displaying current cursor position in axes coordinates
-
-// FIXME Distribution Gate is not working (one have to zoom around to start to see it)
-
 // FIXME Different distributions occupies different width on the plot
 
 // FIXME Move DistributionWidget and DistributionEditor files into Views/InfoWidgets
@@ -25,14 +17,8 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     : QWidget(parent)
     , m_plot(new QCustomPlot)
     , m_item(0)
-    , m_x(0)
-    , m_y(0)
     , m_label(new QLabel("[x: 0,  y: 0]"))
 {
-
-    connect(m_plot, SIGNAL(mousePress(QMouseEvent *event)),
-            this, SLOT(movePoint(QMouseEvent *e)));
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_plot,1);
     mainLayout->addWidget(m_label);
@@ -78,14 +64,10 @@ void DistributionWidget::plotItem()
     m_plot->xAxis2->setTicks(false);
     m_plot->yAxis2->setTicks(false);
 
-    // FIXME use boost::scoped_ptr instead, to not to delete after
-    IDistribution1D *distribution;
+    boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
 
-    // FIXME Use  Constnants::DistributionNoneType instead of your own noneDistribution
-    std::cout << m_item->itemName().toStdString() << " " << noneDistribution << std::endl;
+    if(m_item->itemName() != Constants::DistributionNoneType) {
 
-    if(m_item->itemName().toStdString() != noneDistribution) {
-        distribution = m_item->createDistribution();
 
         // FIXME respect max length of line 100 characters
         int numberOfSamples = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
@@ -118,13 +100,10 @@ void DistributionWidget::plotItem()
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(getWidthOfBars(xBar[0], xBar[xBar.length()-1], xBar.length()));
         bars->setData(xBar, yBar);
-        // FIXME replace hard coded values with constants
-        m_plot->xAxis->setRange(x[0]*0.9, x[x.size()-1]*1.1);
-        m_plot->yAxis->setRange(0, y[getMaxYPosition(y.size())]*1.1);
+        m_plot->xAxis->setRange(x[0]*percentage_for_xRange, x[x.size()-1]*percentage_for_yRange);
+        m_plot->yAxis->setRange(0, y[getMaxYPosition(y.size())]*percentage_for_yRange);
         m_plot->addPlottable(bars);
         setVerticalDashedLine(xBar[0],0,xBar[xBar.length()-1],m_plot->yAxis->range().upper);
-
-        delete distribution;
 
     }
     else {
@@ -136,8 +115,8 @@ void DistributionWidget::plotItem()
         bars->setWidth(xPos[0]/10);
         bars->setData(xPos, yPos);
         m_plot->addPlottable(bars);
-        m_plot->xAxis->setRange(xPos[0]*0.9, xPos[0]*1.1);
-        m_plot->yAxis->setRange(0, yPos[0]*1.1);
+        m_plot->xAxis->setRange(xPos[0]*percentage_for_xRange, xPos[0]*percentage_for_yRange);
+        m_plot->yAxis->setRange(0, yPos[0]*percentage_for_yRange);
         setVerticalDashedLine(xPos[0],0,xPos[xPos.size()-1],m_plot->yAxis->range().upper);
 
 
@@ -146,7 +125,6 @@ void DistributionWidget::plotItem()
 
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
-
 
 }
 
@@ -181,7 +159,6 @@ void DistributionWidget::setVerticalDashedLine(double xMin, double yMin, double 
     min->setSelectable(true);
     max->setSelectable(true);
 
-
     //Adding the vertical lines to the plot
     m_plot->addItem(min);
     min->start->setCoords(xMin, yMin);
@@ -203,19 +180,16 @@ int DistributionWidget::getMaxYPosition(int y)
     }
 }
 
-
+// get current mouse position in plot
 void DistributionWidget::onMouseMove(QMouseEvent *event)
 {
-
     QPoint point = event->pos();
     double xPos = m_plot->xAxis->pixelToCoord(point.x());
     double yPos = m_plot->yAxis->pixelToCoord(point.y());
 
     if(m_plot->xAxis->range().contains(xPos) && m_plot->yAxis->range().contains(yPos)) {
-        m_x = xPos;
-        m_y = yPos;
         std::stringstream labelText;
-        labelText << "[x: " << m_x << ",  y: " << m_y << "]";
+        labelText << "[x: " << xPos << ",  y: " << yPos << "]";
         m_label->setText(labelText.str().c_str());
     }
 }

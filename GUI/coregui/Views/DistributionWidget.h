@@ -6,6 +6,7 @@
 #include "DistributionItem.h"
 #include <QLabel>
 #include <sstream>
+#include <boost/scoped_ptr.hpp>
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
@@ -33,9 +34,6 @@ private slots:
 private:
     QCustomPlot *m_plot;
     DistributionItem *m_item;
-    // FIXME Do you need m_x and m_y to be class members?
-    double m_x;
-    double m_y;
     QLabel *m_label;
 
 };

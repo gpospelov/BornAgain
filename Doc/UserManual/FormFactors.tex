@@ -187,7 +187,6 @@ Unless otherwise said, the incident glancing angle is $\alpha_\ti=1^\circ$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A truncated right pyramid with a rectangular base.
 
 \begin{figure}[H]
 \hfill
@@ -197,14 +196,15 @@ A truncated right pyramid with a rectangular base.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/AnisoPyramid2dxz.pdf}}}
 \hfill
+\caption{A truncated right pyramid with a rectangular base.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorAnisoPyramid(length, width, height, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorAnisoPyramid(length, width, height, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of the base, $L$,
@@ -283,7 +283,6 @@ for a refactoring of the analytical expression for $F(\q)$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A rectangular cuboid.
 
 \begin{figure}[H]
 \hfill
@@ -293,14 +292,15 @@ A rectangular cuboid.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
 \hfill
+\caption{A rectangular cuboid.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorBox(length, width, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorBox(length, width, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of the base, $L$,
@@ -348,7 +348,6 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}
-A truncated cone with circular base.
 
 \begin{figure}[H]
 \hfill
@@ -358,12 +357,13 @@ A truncated cone with circular base.
 \hfill
 \subfigure[Side view]{\raisebox{3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone2dxz.pdf}}}
 \hfill
+\caption{A truncated cone with circular base.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorCone(radius, height, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorCone(radius, height, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius}, $R$,
@@ -424,7 +424,6 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A truncated hexagonal pyramid.
 
 \begin{figure}[H]
 \hfill
@@ -434,13 +433,14 @@ A truncated hexagonal pyramid.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxz.pdf}}}
 \hfill
+\caption{A truncated hexagonal pyramid.}
 \end{figure}
 
 \FloatBarrier
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorCone6(radius,height, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorCone6(radius,height, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius} of the regular hexagonal base, $R$,
@@ -504,8 +504,6 @@ except for different parametrization.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A compound of two truncated pyramids with a common square base
-and opposite orientations.
 
 \begin{figure}[H]
 \hfill
@@ -515,14 +513,16 @@ and opposite orientations.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cuboctahedron2dxz.pdf}}}
 \hfill
+\caption{A compound of two truncated pyramids with a common square base
+and opposite orientations.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorCuboctahedron(length, height, height\_ratio, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorCuboctahedron(length, height, height_ratio, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of the shared square base, $L$,
@@ -578,7 +578,6 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 %-------------------------------------------------------------------------------
  
 \paragraph{Real-space geometry}\strut\\
-An upright circular cylinder.
 
 \begin{figure}[H]
 \hfill
@@ -588,12 +587,13 @@ An upright circular cylinder.
 \hfill
 \subfigure[Side view]{\raisebox{-2.5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cylinder2dxz.pdf}}}
 \hfill
+\caption{An upright circular cylinder.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorCylinder(radius, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorCylinder(radius, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius} of the circular base, $R$, 
@@ -643,7 +643,6 @@ Agrees with \E{Cylinder} form factor of \IsGISAXS\
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A cylinder whose cross section is an ellipse.
 
 \begin{figure}[H]
 \hfill
@@ -653,12 +652,13 @@ A cylinder whose cross section is an ellipse.
 \hfill
 \subfigure[Side view]{\raisebox{4mm}{\includegraphics[width=.30\textwidth]{fig/cuts/EllipsoidalCylinder2dxz.pdf}}}
 \hfill
+\caption{A upright cylinder whose cross section is an ellipse.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorEllipsoidalCylinder(radius\_a, radius\_b, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorEllipsoidalCylinder(radius_a, radius_b, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius\_a}, in $x$ direction, $R_a$,
@@ -711,7 +711,6 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A full sphere.
 
 \begin{figure}[H]
 \hfill
@@ -721,14 +720,15 @@ A full sphere.
 \hfill
 \subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSphere2dxz.pdf}}}
 \hfill
+\caption{A full sphere.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorFullSphere(radius)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorFullSphere(radius)
+\end{lstlisting}
 with the parameter
 \begin{itemize}
 \item \texttt{radius}, $R$.
@@ -772,7 +772,6 @@ agrees with the \E{Full sphere} of \IsGISAXS
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-An ellipsoid, truncated at the central plane.
 
 \begin{figure}[H]
 \hfill
@@ -782,12 +781,13 @@ An ellipsoid, truncated at the central plane.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/HemiEllipsoid2dxz.pdf}}}
 \hfill
+\caption{An horizontally oriented ellipsoid, truncated at the central plane.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorHemiEllipsoid(radius\_a, radius\_b, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorHemiEllipsoid(radius_a, radius_b, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius\_a}, in $x$ direction, $R_a$,
@@ -843,7 +843,6 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A full spheroid, generated by rotating an ellipse around the vertical axis.
 
 \begin{figure}[H]
 \hfill
@@ -853,14 +852,15 @@ A full spheroid, generated by rotating an ellipse around the vertical axis.
 \hfill
 \subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxz.pdf}}}
 \hfill
+\caption{A full spheroid, generated by rotating an ellipse around the vertical axis.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorFullSpheroid(radius,height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorFullSpheroid(radius,height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius}, $R$,
@@ -917,8 +917,6 @@ Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\ci
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A triangular prism, whose base is an equilateral
-triangle.
 
 \begin{figure}[H]
 \hfill
@@ -928,14 +926,15 @@ triangle.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.pdf}}}
 \hfill
+\caption{A prism based on an equilateral triangle.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorPrism3(length, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorPrism3(length, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of one base edge, $L$,
@@ -985,7 +984,6 @@ except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A hexagonal prism.
 
 \begin{figure}[H]
 \hfill
@@ -995,14 +993,15 @@ A hexagonal prism.
 \hfill
 \subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism62dxz.pdf}}}
 \hfill
+\caption{A prism based on a regular hexagon.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorPrism6(radius, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorPrism6(radius, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius} of the hexagonal base, $R$,
@@ -1052,7 +1051,6 @@ and lacks a factor $H$ in $F(\q)$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A truncated pyramid with a square base.
 
 \begin{figure}[H]
 \hfill
@@ -1062,14 +1060,15 @@ A truncated pyramid with a square base.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Pyramid2dxz.pdf}}}
 \hfill
+\caption{A truncated pyramid with a square base.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorPyramid(length, height, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorPyramid(length, height, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of one edge of the square base, $L$,  
@@ -1154,7 +1153,6 @@ and with a more compact form of $F(\q)$.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-An infinite ripple with a sinusoidal profile.
 
 \begin{figure}[H]
 \hfill
@@ -1164,12 +1162,13 @@ An infinite ripple with a sinusoidal profile.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dyz.pdf}}
 \hfill
+\caption{An infinite ripple with a sinusoidal profile.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorRipple1(length, width, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorRipple1(length, width, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length}, $L$, 
@@ -1214,7 +1213,6 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-An infinite ripple with an asymmetric saw-tooth profile.
 
 \begin{figure}[H]
 \hfill
@@ -1224,14 +1222,15 @@ An infinite ripple with an asymmetric saw-tooth profile.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dyz.pdf}}
 \hfill
+\caption{An infinite ripple with an asymmetric saw-tooth profile.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorRipple2(length, width, height, asymmetry)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorRipple2(length, width, height, asymmetry)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length}, $L$, 
@@ -1285,7 +1284,6 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 %-------------------------------------------------------------------------------
  
 \paragraph{Real-space geometry}\strut\\
-A truncated tetrahedron.
 
 \begin{figure}[H]
 \hfill
@@ -1295,14 +1293,15 @@ A truncated tetrahedron.
 \hfill
 \subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.pdf}}}
 \hfill
+\caption{A truncated tetrahedron.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorTetrahedron(length, height, alpha)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorTetrahedron(length, height, alpha)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of one edge of the equilateral triangular base, $L$,
@@ -1372,7 +1371,6 @@ Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A cube whose eight vertices have been removed. The truncated part of each vertex is a trirectangular tetrahedron.
 
 \begin{figure}[H]
 \hfill
@@ -1382,14 +1380,16 @@ A cube whose eight vertices have been removed. The truncated part of each vertex
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Truncatedcube2dxz.pdf}}
 \hfill
+\caption{A cube whose eight vertices have been removed.
+The truncated part of each vertex is a trirectangular tetrahedron.}
 \end{figure}
 
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorTruncatedCube(length, removed\_length)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorTruncatedCube(length, removed_length)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{length} of the full cube, $L$,
@@ -1469,7 +1469,6 @@ $|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
 %-------------------------------------------------------------------------------
   
 \paragraph{Real-space geometry}\strut\\
-A spherical dome: a portion of a sphere cut off by a horizontal plane.
 
 \begin{figure}[H]
 \hfill
@@ -1479,13 +1478,14 @@ A spherical dome: a portion of a sphere cut off by a horizontal plane.
 \hfill
 \subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Sphere2dxz.pdf}}}
 \hfill
+\caption{A truncated sphere.}
 \end{figure}
 \FloatBarrier
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorTruncatedSphere(radius, height)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorTruncatedSphere(radius, height)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius}, $R$,
@@ -1541,8 +1541,6 @@ Agrees with the \IsGISAXS\ form factor
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
-A spheroidal dome: a portion of a full spheroid cut off
-by a horizontal plane perpendicular.
 
 \begin{figure}[H]
 \hfill
@@ -1552,12 +1550,13 @@ by a horizontal plane perpendicular.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Spheroid2dxz.pdf}}
 \hfill
+\caption{A vertically oriented, horizontally truncated spheroid.}
 \end{figure}
 
-\paragraph{Syntax and parameters}
-\begin{quote}
-\Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
-\end{quote}
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+  FormFactorTruncatedSpheroid(radius, height, height_flattening)
+\end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius}, $R$,

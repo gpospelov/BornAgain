@@ -26,7 +26,7 @@
 #include <boost/scoped_ptr.hpp>
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-        const Layer& decorated_layer, const Simulation& simulation,
+        const Layer& decorated_layer, const GISASSimulation& simulation,
         const SimulationParameters& sim_params, size_t layout_index)
 : mp_layer(decorated_layer.clone())
 , mp_simulation(simulation.clone())

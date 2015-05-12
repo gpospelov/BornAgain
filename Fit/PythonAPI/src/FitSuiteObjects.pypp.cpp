@@ -117,7 +117,7 @@ void register_FitSuiteObjects_class(){
         bp::scope FitSuiteObjects_scope( FitSuiteObjects_exposer );
         { //::FitSuiteObjects::add
         
-            typedef void ( ::FitSuiteObjects::*add_function_type)( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const &,double ) ;
+            typedef void ( ::FitSuiteObjects::*add_function_type)( ::GISASSimulation const &,::OutputData< double > const &,::IChiSquaredModule const &,double ) ;
             
             FitSuiteObjects_exposer.def( 
                 "add"
@@ -216,7 +216,7 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getSimulation
         
-            typedef ::Simulation const * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) const;
+            typedef ::GISASSimulation const * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getSimulation"
@@ -228,7 +228,7 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getSimulation
         
-            typedef ::Simulation * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) ;
+            typedef ::GISASSimulation * ( ::FitSuiteObjects::*getSimulation_function_type)( ::std::size_t ) ;
             
             FitSuiteObjects_exposer.def( 
                 "getSimulation"

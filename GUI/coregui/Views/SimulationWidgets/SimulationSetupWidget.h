@@ -25,7 +25,7 @@ class QPushButton;
 class SampleModel;
 class InstrumentModel;
 class JobModel;
-class Simulation;
+class GISASSimulation;
 class ProjectManager;
 class MultiLayerItem;
 class InstrumentItem;

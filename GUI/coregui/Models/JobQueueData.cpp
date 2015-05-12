@@ -63,9 +63,9 @@ JobRunner *JobQueueData::getRunner(QString identifier)
 
 
 //! returns the simulation (if exists) for given identifier
-Simulation *JobQueueData::getSimulation(QString identifier)
+GISASSimulation *JobQueueData::getSimulation(QString identifier)
 {
-    QMap<QString, Simulation *>::const_iterator it = m_simulations.find(identifier);
+    QMap<QString, GISASSimulation *>::const_iterator it = m_simulations.find(identifier);
     if(it != m_simulations.end()) {
         return it.value();
     }
@@ -77,7 +77,7 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
+void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
 {
     //qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
     if(!simulation)
@@ -133,7 +133,7 @@ void JobQueueData::runJob(JobItem *jobItem)
     if(getSimulation(identifier))
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
-    Simulation *simulation(0);
+    GISASSimulation *simulation(0);
     try{
 //        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
 //                                                            jobItem->getInstrumentModel());
@@ -237,7 +237,7 @@ void JobQueueData::onFinishedJob()
         jobItem->setComments(runner->getFailureMessage());
     } else {
         // propagating simulation results
-        Simulation *simulation = getSimulation(runner->getIdentifier());
+        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
         setResults(jobItem, simulation);
     }
 
@@ -338,7 +338,7 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 
 void JobQueueData::clearSimulation(const QString &identifier)
 {
-    Simulation *simulation = getSimulation(identifier);
+    GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
 }

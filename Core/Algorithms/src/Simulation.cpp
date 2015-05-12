@@ -31,7 +31,7 @@ GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
 #include <boost/scoped_ptr.hpp>
 
-Simulation::Simulation()
+GISASSimulation::GISASSimulation()
 : IParameterized("Simulation")
 , mp_sample(0)
 //, mp_sample_builder(0)
@@ -43,7 +43,7 @@ Simulation::Simulation()
     init_parameters();
 }
 
-Simulation::Simulation(const ProgramOptions *p_options)
+GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
 //, mp_sample_builder(0)
@@ -55,7 +55,7 @@ Simulation::Simulation(const ProgramOptions *p_options)
     init_parameters();
 }
 
-Simulation::Simulation(
+GISASSimulation::GISASSimulation(
     const ISample& p_sample, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(p_sample.clone())
@@ -68,7 +68,7 @@ Simulation::Simulation(
     init_parameters();
 }
 
-Simulation::Simulation(
+GISASSimulation::GISASSimulation(
     SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
@@ -81,7 +81,7 @@ Simulation::Simulation(
     init_parameters();
 }
 
-Simulation::Simulation(const Simulation& other)
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
 : ICloneable(), IParameterized(other)
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
@@ -100,16 +100,16 @@ Simulation::Simulation(const Simulation& other)
     init_parameters();
 }
 
-void Simulation::init_parameters()
+void GISASSimulation::init_parameters()
 {
 }
 
-Simulation *Simulation::clone() const
+GISASSimulation *GISASSimulation::clone() const
 {
-    return new Simulation(*this);
+    return new GISASSimulation(*this);
 }
 
-void Simulation::prepareSimulation()
+void GISASSimulation::prepareSimulation()
 {
     if(!m_instrument.getDetectorDimension()) {
         throw LogicErrorException("Simulation::prepareSimulation() "
@@ -121,7 +121,7 @@ void Simulation::prepareSimulation()
 }
 
 //! Run simulation with possible averaging over parameter distributions
-void Simulation::runSimulation()
+void GISASSimulation::runSimulation()
 {
     prepareSimulation();
     if( !mp_sample)
@@ -158,14 +158,14 @@ void Simulation::runSimulation()
     m_intensity_map.copyFrom(total_intensity);
 }
 
-void Simulation::runOMPISimulation()
+void GISASSimulation::runOMPISimulation()
 {
     OMPISimulation ompi;
     ompi.runSimulation(this);
 }
 
 
-void Simulation::normalize()
+void GISASSimulation::normalize()
 {
     if (!m_is_normalized) {
         m_instrument.normalize(&m_intensity_map);
@@ -174,13 +174,13 @@ void Simulation::normalize()
 }
 
 //! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample& sample)
+void GISASSimulation::setSample(const ISample& sample)
 {
     delete mp_sample;
     mp_sample = sample.clone();
 }
 
-void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
+void GISASSimulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
 {
     if( !p_sample_builder.get() )
         throw NullPointerException(
@@ -192,20 +192,20 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
     mp_sample = 0;
 }
 
-OutputData<double> *Simulation::getIntensityData() const
+OutputData<double> *GISASSimulation::getIntensityData() const
 {
     OutputData<double> *result = m_intensity_map.clone();
     m_instrument.applyDetectorResolution(result);
     return result;
 }
 
-void Simulation::setInstrument(const Instrument& instrument)
+void GISASSimulation::setInstrument(const Instrument& instrument)
 {
     m_instrument = instrument;
     updateIntensityMapAxes();
 }
 
-void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
+void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     if (wavelength<=0.0) {
         throw ClassInitializationException(
@@ -216,17 +216,17 @@ void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
-void Simulation::setBeamIntensity(double intensity)
+void GISASSimulation::setBeamIntensity(double intensity)
 {
     m_instrument.setBeamIntensity(intensity);
 }
 
-void Simulation::setBeamPolarization(const kvector_t &bloch_vector)
+void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
 {
     m_instrument.setBeamPolarization(bloch_vector);
 }
 
-std::string Simulation::addParametersToExternalPool(
+std::string GISASSimulation::addParametersToExternalPool(
     std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
@@ -249,7 +249,7 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
-void Simulation::addParameterDistribution(const std::string &param_name,
+void GISASSimulation::addParameterDistribution(const std::string &param_name,
                                           const IDistribution1D &distribution,
                                           size_t nbr_samples,
                                           double sigma_factor,
@@ -258,17 +258,17 @@ void Simulation::addParameterDistribution(const std::string &param_name,
                                                     distribution, nbr_samples, sigma_factor, limits);
 }
 
-void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
+void GISASSimulation::addParameterDistribution(const ParameterDistribution &par_distr)
 {
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
-const DistributionHandler &Simulation::getDistributionHandler() const
+const DistributionHandler &GISASSimulation::getDistributionHandler() const
 {
     return m_distribution_handler;
 }
 
-void Simulation::updateIntensityMapAxes()
+void GISASSimulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
@@ -278,7 +278,7 @@ void Simulation::updateIntensityMapAxes()
     m_intensity_map.setAllTo(0.);
 }
 
-void Simulation::updateSample()
+void GISASSimulation::updateSample()
 {
     if (mp_sample_builder.get()) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
@@ -294,7 +294,7 @@ void Simulation::updateSample()
     }
 }
 
-void Simulation::setDetectorParameters(const OutputData<double >& output_data)
+void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
 {
     m_instrument.matchDetectorParameters(output_data);
 
@@ -303,7 +303,7 @@ void Simulation::setDetectorParameters(const OutputData<double >& output_data)
     m_intensity_map.setAllTo(0.);
 }
 
-void Simulation::setDetectorParameters(
+void GISASSimulation::setDetectorParameters(
     size_t n_phi, double phi_f_min, double phi_f_max,
     size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
@@ -313,37 +313,37 @@ void Simulation::setDetectorParameters(
     updateIntensityMapAxes();
 }
 
-void Simulation::setDetectorParameters(const DetectorParameters& params)
+void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
 {
     m_instrument.setDetectorParameters(params);
     updateIntensityMapAxes();
 }
 
-void Simulation::setDetectorResolutionFunction(
+void GISASSimulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
-void Simulation::removeDetectorResolutionFunction()
+void GISASSimulation::removeDetectorResolutionFunction()
 {
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void Simulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                        double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void Simulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)
+void GISASSimulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)
 {
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
 }
 
 //! Run single simulation with fixed parameter values.
 //! Also manage threads.
-void Simulation::runSingleSimulation()
+void GISASSimulation::runSingleSimulation()
 {
     m_intensity_map.setAllTo(0.);
     // retrieve batch and threading information
@@ -464,7 +464,7 @@ void Simulation::runSingleSimulation()
 }
 
 
-void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
+void GISASSimulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
 {
     if (!dwbaSimulation)
         throw RuntimeErrorException(
@@ -475,7 +475,7 @@ void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
 
 
 //! initializes DWBA progress handler
-void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
+void GISASSimulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
 {
     // if we have external ProgressHandler (which is normally coming from GUI),
     // then we will create special callbacks for every DWBASimulation.

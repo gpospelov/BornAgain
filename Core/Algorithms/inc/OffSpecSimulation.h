@@ -163,7 +163,7 @@ protected:
     void addIntegratedIntensity(size_t index);
 
     // components describing an off-specular experiment and its simulation:
-    Simulation m_simulation;
+    GISASSimulation m_simulation;
     IAxis *mp_alpha_i_axis;
     double m_lambda;
     double m_phi;

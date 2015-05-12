@@ -21,7 +21,7 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 
-class Simulation;
+class GISASSimulation;
 
 //! @class ProgressHandler
 //! @ingroup algorithms_internal
@@ -45,7 +45,7 @@ public:
     long getProgress() const { return m_current_progress; }
     long getNitems() const { return m_nitems; }
 
-    void init(Simulation *simulation, int param_combinations = 1);
+    void init(GISASSimulation *simulation, int param_combinations = 1);
 
     void reset();
 private:

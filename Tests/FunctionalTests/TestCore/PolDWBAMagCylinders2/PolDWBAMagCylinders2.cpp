@@ -19,7 +19,7 @@ int main(int argc, char **argv)
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
 
     SimulationRegistry sim_registry;
-    Simulation* simulation = sim_registry.createSimulation("polmagcylinders2");
+    GISASSimulation* simulation = sim_registry.createSimulation("polmagcylinders2");
     kvector_t zplus(0.0, 0.0, 1.0);
     kvector_t zmin(0.0, 0.0, -1.0);
 

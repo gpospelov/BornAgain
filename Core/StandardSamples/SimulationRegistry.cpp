@@ -162,9 +162,9 @@ SimulationRegistry::SimulationRegistry()
 }
 
 
-Simulation *SimulationRegistry::createSimulation(const std::string& name)
+GISASSimulation *SimulationRegistry::createSimulation(const std::string& name)
 {
-    Simulation *result = createItem(name);
+    GISASSimulation *result = createItem(name);
     return result;
 }
 

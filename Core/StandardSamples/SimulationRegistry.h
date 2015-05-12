@@ -25,12 +25,12 @@
 //! @brief Registry to create standard pre-defined simulations.
 //! Used in functional tests, performance measurements, etc.
 
-class BA_CORE_API_ SimulationRegistry : public IFactory<std::string, Simulation>
+class BA_CORE_API_ SimulationRegistry : public IFactory<std::string, GISASSimulation>
 {
 public:
     SimulationRegistry();
 
-    Simulation *createSimulation(const std::string& name);
+    GISASSimulation *createSimulation(const std::string& name);
 };
 
 

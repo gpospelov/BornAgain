@@ -17,49 +17,49 @@
 #define STANDARDSIMULATIONS_H
 
 
-class Simulation;
+class GISASSimulation;
 
 //! Standard pre-defined simulations.
 
 namespace StandardSimulations{
 
-Simulation *IsGISAXS01();
-Simulation *IsGISAXS02();
-Simulation *CylindersInBA();
-Simulation *CylindersInDWBA();
-Simulation *CylindersWithSizeDistribution();
-Simulation *IsGISAXS041DDL();
-Simulation *IsGISAXS042DDL();
-Simulation *IsGISAXS06L1();
-Simulation *IsGISAXS06L2();
-Simulation *IsGISAXS06L3();
-Simulation *IsGISAXS06L4();
-Simulation *IsGISAXS07();
-Simulation *IsGISAXS08a();
-Simulation *IsGISAXS08b();
-Simulation *IsGISAXS09a();
-Simulation *IsGISAXS09b();
-Simulation *IsGISAXS10();
-Simulation *IsGISAXS11();
-Simulation *IsGISAXS15();
-Simulation *MesoCrystal01();
-Simulation *PolarizedDWBAMagCylinders1();
-Simulation *PolarizedDWBAMagCylinders2();
-Simulation *LayerWithRoughness();
-Simulation *Ripple2();
-Simulation *Ripple1();
-Simulation *gui_CylinderAndPrisms();
-Simulation *gui_Interference1DParaCrystal();
-Simulation *gui_Interference2DParaCrystal();
-Simulation *gui_CoreShellParticles();
-Simulation *gui_Interference2DSquareLattice();
-Simulation *gui_Interference2DCenteredLattice();
-Simulation *gui_RotatedPyramids();
-Simulation *gui_MultipleLayouts();
-Simulation *BeamDivergence();
-Simulation *DetectorResolution();
-Simulation *ParticleDistribution();
-Simulation *gui_ParticleComposition();
+GISASSimulation *IsGISAXS01();
+GISASSimulation *IsGISAXS02();
+GISASSimulation *CylindersInBA();
+GISASSimulation *CylindersInDWBA();
+GISASSimulation *CylindersWithSizeDistribution();
+GISASSimulation *IsGISAXS041DDL();
+GISASSimulation *IsGISAXS042DDL();
+GISASSimulation *IsGISAXS06L1();
+GISASSimulation *IsGISAXS06L2();
+GISASSimulation *IsGISAXS06L3();
+GISASSimulation *IsGISAXS06L4();
+GISASSimulation *IsGISAXS07();
+GISASSimulation *IsGISAXS08a();
+GISASSimulation *IsGISAXS08b();
+GISASSimulation *IsGISAXS09a();
+GISASSimulation *IsGISAXS09b();
+GISASSimulation *IsGISAXS10();
+GISASSimulation *IsGISAXS11();
+GISASSimulation *IsGISAXS15();
+GISASSimulation *MesoCrystal01();
+GISASSimulation *PolarizedDWBAMagCylinders1();
+GISASSimulation *PolarizedDWBAMagCylinders2();
+GISASSimulation *LayerWithRoughness();
+GISASSimulation *Ripple2();
+GISASSimulation *Ripple1();
+GISASSimulation *gui_CylinderAndPrisms();
+GISASSimulation *gui_Interference1DParaCrystal();
+GISASSimulation *gui_Interference2DParaCrystal();
+GISASSimulation *gui_CoreShellParticles();
+GISASSimulation *gui_Interference2DSquareLattice();
+GISASSimulation *gui_Interference2DCenteredLattice();
+GISASSimulation *gui_RotatedPyramids();
+GISASSimulation *gui_MultipleLayouts();
+GISASSimulation *BeamDivergence();
+GISASSimulation *DetectorResolution();
+GISASSimulation *ParticleDistribution();
+GISASSimulation *gui_ParticleComposition();
 }
 
 

@@ -53,7 +53,7 @@ GUIObjectBuilder::GUIObjectBuilder()
 
 
 ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
-                                       const Simulation &simulation, const QString &sampleName)
+                                       const GISASSimulation &simulation, const QString &sampleName)
 {
     boost::scoped_ptr<ISample> sample;
     if(simulation.getSampleBuilder()) {
@@ -86,7 +86,7 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 }
 
 ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
-                                           const Simulation &simulation, const QString &instrumentName)
+                                           const GISASSimulation &simulation, const QString &instrumentName)
 {
     Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =

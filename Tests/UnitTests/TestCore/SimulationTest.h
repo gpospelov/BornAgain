@@ -27,8 +27,8 @@ class SimulationTest : public ::testing::Test
 
     SampleBuilder_t sample_builder;
 
-    Simulation emptySimulation;
-    Simulation constructedSimulation;
+    GISASSimulation emptySimulation;
+    GISASSimulation constructedSimulation;
     OutputData<double> test_data;
 };
 
@@ -84,7 +84,7 @@ TEST_F(SimulationTest, SimulationConstruction)
 
 TEST_F(SimulationTest, SimulationInitialStateOfClone)
 {
-    Simulation *emptyClonedSimulation = emptySimulation.clone();
+    GISASSimulation *emptyClonedSimulation = emptySimulation.clone();
     EXPECT_EQ( NULL, emptyClonedSimulation->getSample());
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
@@ -96,11 +96,11 @@ TEST_F(SimulationTest, SimulationInitialStateOfClone)
 TEST_F(SimulationTest, SimulationClone)
 {
     EXPECT_EQ(1,1);
-    Simulation *originalSimulation = new Simulation();
+    GISASSimulation *originalSimulation = new GISASSimulation();
     originalSimulation->setBeamIntensity(10);
     originalSimulation->setDetectorParameters(test_data);
     originalSimulation->setSampleBuilder(sample_builder);
-    Simulation *clonedSimulation = originalSimulation->clone();
+    GISASSimulation *clonedSimulation = originalSimulation->clone();
     delete originalSimulation;
 
     EXPECT_TRUE( clonedSimulation->getOutputData()->hasSameShape(test_data));

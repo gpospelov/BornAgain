@@ -43,7 +43,7 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
     delete mp_roughness_dwba_simulation;
 }
 
-void MultiLayerDWBASimulation::init(const Simulation& simulation,
+void MultiLayerDWBASimulation::init(const GISASSimulation& simulation,
                                     std::vector<SimulationElement>::iterator begin_it,
                                     std::vector<SimulationElement>::iterator end_it)
 {

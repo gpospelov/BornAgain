@@ -28,7 +28,7 @@ namespace bp = boost::python;
 
 struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
 
-    FitObject_wrapper(::Simulation const & simulation, ::OutputData< double > const & real_data, ::IChiSquaredModule const & chi2_module=ChiSquaredModule(), double weight=1 )
+    FitObject_wrapper(::GISASSimulation const & simulation, ::OutputData< double > const & real_data, ::IChiSquaredModule const & chi2_module=ChiSquaredModule(), double weight=1 )
     : FitObject( boost::ref(simulation), boost::ref(real_data), boost::ref(chi2_module), weight )
       , bp::wrapper< FitObject >(){
         // constructor
@@ -113,7 +113,7 @@ void register_FitObject_class(){
 
     { //::FitObject
         typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
-        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< Simulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 )) );
+        FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", "Single simulation description, real data and chi2 module (used by FitSuite.", bp::init< GISASSimulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 )) );
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::calculateChiSquared
         
@@ -159,7 +159,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSimulation
         
-            typedef ::Simulation const * ( ::FitObject::*getSimulation_function_type)(  ) const;
+            typedef ::GISASSimulation const * ( ::FitObject::*getSimulation_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getSimulation"
@@ -170,7 +170,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSimulation
         
-            typedef ::Simulation * ( ::FitObject::*getSimulation_function_type)(  ) ;
+            typedef ::GISASSimulation * ( ::FitObject::*getSimulation_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "getSimulation"
@@ -234,7 +234,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::setSimulation
         
-            typedef void ( ::FitObject::*setSimulation_function_type)( ::Simulation const & ) ;
+            typedef void ( ::FitObject::*setSimulation_function_type)( ::GISASSimulation const & ) ;
             
             FitObject_exposer.def( 
                 "setSimulation"

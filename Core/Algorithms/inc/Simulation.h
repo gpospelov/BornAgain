@@ -33,17 +33,17 @@ class ProgressHandlerDWBA;
 //! @ingroup simulation
 //! @brief Main class to run the simulation.
 
-class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
+class BA_CORE_API_ GISASSimulation : public ICloneable, public IParameterized
 {
 public:
-    Simulation();
-    Simulation(const ProgramOptions *p_options);
-    Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(SampleBuilder_t p_sample_builder,
+    GISASSimulation();
+    GISASSimulation(const ProgramOptions *p_options);
+    GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
+    GISASSimulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    ~Simulation() { delete mp_sample; }
+    ~GISASSimulation() { delete mp_sample; }
 
-    Simulation *clone() const;
+    GISASSimulation *clone() const;
 
     //! Put into a clean state for running a simulation
     void prepareSimulation();
@@ -158,7 +158,7 @@ public:
     friend class OMPISimulation;
 
 protected:
-    Simulation(const Simulation& other);
+    GISASSimulation(const GISASSimulation& other);
 
     //! Registers some class members for later access via parameter pool
     void init_parameters();

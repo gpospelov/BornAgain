@@ -23,7 +23,7 @@
 #include <QDebug>
 
 
-JobRunner::JobRunner(QString identifier, Simulation *simulation)
+JobRunner::JobRunner(QString identifier, GISASSimulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)

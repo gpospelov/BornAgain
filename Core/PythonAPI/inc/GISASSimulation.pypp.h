@@ -15,9 +15,9 @@
 //
 // ************************************************************************** //
 
-#ifndef Simulation_hpp__pyplusplus_wrapper
-#define Simulation_hpp__pyplusplus_wrapper
+#ifndef GISASSimulation_hpp__pyplusplus_wrapper
+#define GISASSimulation_hpp__pyplusplus_wrapper
 
-void register_Simulation_class();
+void register_GISASSimulation_class();
 
-#endif//Simulation_hpp__pyplusplus_wrapper
+#endif//GISASSimulation_hpp__pyplusplus_wrapper

@@ -26,7 +26,7 @@
 #include <string>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-class Simulation;
+class GISASSimulation;
 class ParameterPool;
 
 
@@ -45,7 +45,7 @@ class BA_CORE_API_ FitSuite : public IObservable
 
     //! Adds pair of (simulation, real data) for consecutive simulation
     void addSimulationAndRealData(
-        const Simulation& simulation,
+        const GISASSimulation& simulation,
         const OutputData<double>& real_data,
         const IChiSquaredModule& chi2_module=ChiSquaredModule());
 

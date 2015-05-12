@@ -109,6 +109,7 @@ include_classes = [
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "FormFactorWeighted",
+    "GISASSimulation",
     "HomogeneousMaterial",
     "HomogeneousMagneticMaterial",
     "IAxis",
@@ -167,7 +168,6 @@ include_classes = [
     "RotationY",
     "RotationZ",
     "RotationEuler",
-    "Simulation",
     "SpecularSimulation",
     "SimulationParameters",
     "SimpleSelectionRule",
@@ -323,7 +323,7 @@ def ManualClassTunings(mb):
             fun.exclude()
     cl.constructors().include()  # including back constructors with pointers
     #
-    cl = mb.class_("Simulation")
+    cl = mb.class_("GISASSimulation")
     cl.member_function("setSampleBuilder").include()
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \

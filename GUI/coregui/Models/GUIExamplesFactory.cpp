@@ -56,7 +56,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
 {
     QString exampleName = m_name_to_registry[name];
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createSimulation(exampleName.toStdString()));
+    boost::scoped_ptr<GISASSimulation> simulation(registry.createSimulation(exampleName.toStdString()));
     Q_ASSERT(simulation.get());
 
     GUIObjectBuilder guiBuilder;
@@ -67,7 +67,7 @@ ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name
 {
     QString exampleName = m_name_to_registry[name];
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createSimulation(exampleName.toStdString()));
+    boost::scoped_ptr<GISASSimulation> simulation(registry.createSimulation(exampleName.toStdString()));
     Q_ASSERT(simulation.get());
 
     QString instrumentName = name + "_instrument";

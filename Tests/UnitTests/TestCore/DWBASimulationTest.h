@@ -15,7 +15,7 @@ class DWBASimulationTest : public ::testing::Test
     DWBASimulationTest();
     virtual ~DWBASimulationTest(){}
 
-    Simulation m_sim;
+    GISASSimulation m_sim;
     OutputData<double> m_data;
     std::vector<SimulationElement> m_sim_elements;
 };

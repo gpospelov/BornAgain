@@ -31,7 +31,7 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
 }
 
-void DecoratedLayerDWBASimulation::init(const Simulation &simulation,
+void DecoratedLayerDWBASimulation::init(const GISASSimulation &simulation,
                                         std::vector<SimulationElement>::iterator begin_it,
                                         std::vector<SimulationElement>::iterator end_it)
 {

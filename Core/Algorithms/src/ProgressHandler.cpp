@@ -66,7 +66,7 @@ bool ProgressHandler::update(int n)
 
 //! Initialize ProgressHandler, estimates number of items to be calculated
 //! by DWBASimulation's.
-void ProgressHandler::init(Simulation *simulation, int param_combinations)
+void ProgressHandler::init(GISASSimulation *simulation, int param_combinations)
 {
     m_nitems = 0;
     m_current_progress = 0;

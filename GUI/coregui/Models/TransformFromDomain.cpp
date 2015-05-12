@@ -560,7 +560,7 @@ QString TransformFromDomain::getDetectorBinning(const Detector *detector)
 }
 
 
-void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const Simulation &simulation)
+void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation)
 {
     Q_ASSERT(beamItem);
     Beam beam = simulation.getInstrument().getBeam();
@@ -591,7 +591,7 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const Simulation
 }
 
 
-void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation)
+void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const GISASSimulation &simulation)
 {
     Q_ASSERT(detectorItem);
     Detector detector = simulation.getInstrument().getDetector();

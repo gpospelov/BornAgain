@@ -28,7 +28,7 @@
 class BA_CORE_API_ FitObject : public IParameterized
 {
  public:
-    FitObject(const Simulation& simulation,
+    FitObject(const GISASSimulation& simulation,
               const OutputData<double >& real_data,
               const IChiSquaredModule& chi2_module=ChiSquaredModule(),
               double weight = 1);
@@ -36,12 +36,12 @@ class BA_CORE_API_ FitObject : public IParameterized
     ~FitObject();
 
     //! Returns simulation
-    const Simulation *getSimulation() const { return m_simulation; }
+    const GISASSimulation *getSimulation() const { return m_simulation; }
 
-    Simulation *getSimulation() { return m_simulation; }
+    GISASSimulation *getSimulation() { return m_simulation; }
 
     //! Sets simulation
-    void setSimulation(const Simulation& simulation) {
+    void setSimulation(const GISASSimulation& simulation) {
         delete m_simulation; m_simulation = simulation.clone(); }
 
     //! Returns real data
@@ -88,7 +88,7 @@ class BA_CORE_API_ FitObject : public IParameterized
     FitObject(const FitObject& );
     FitObject& operator=(const FitObject& );
 
-    Simulation* m_simulation;       //!< external simulation (not owned by this)
+    GISASSimulation* m_simulation;       //!< external simulation (not owned by this)
     OutputData<double>* m_real_data;  //!< real data
     IChiSquaredModule* m_chi2_module; //!< chi2 module
     double m_weight;                //!< weight of data set in chi2 calculations

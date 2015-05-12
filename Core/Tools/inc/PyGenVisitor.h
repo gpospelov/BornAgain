@@ -22,7 +22,7 @@
 
 class IMaterial;
 class SampleLabelHandler;
-class Simulation;
+class GISASSimulation;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
@@ -32,7 +32,7 @@ public:
 
     using ISampleVisitor::visit;
 
-    std::string writePyScript(const Simulation *simulation);
+    std::string writePyScript(const GISASSimulation *simulation);
     void visit(const FormFactorAnisoPyramid *sample);
     void visit(const FormFactorBox *sample);
     void visit(const FormFactorCone *sample);
@@ -80,7 +80,7 @@ public:
     void visit(const RotationEuler *sample);
 
     std::string definePreamble() const;
-    std::string defineGetSimulation(const Simulation *simulation) const;
+    std::string defineGetSimulation(const GISASSimulation *simulation) const;
     std::string defineGetSample() const;
     std::string defineMaterials() const;
 
@@ -96,9 +96,9 @@ private:
     std::string defineRoughnesses() const;
     std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
-    std::string defineDetector(const Simulation *simulation) const;
-    std::string defineBeam(const Simulation *simulation) const;
-    std::string definePlotting(const Simulation *simulation) const;
+    std::string defineDetector(const GISASSimulation *simulation) const;
+    std::string defineBeam(const GISASSimulation *simulation) const;
+    std::string definePlotting(const GISASSimulation *simulation) const;
     std::string defineRunSimulation() const;
     SampleLabelHandler *m_label;
 

@@ -37,7 +37,7 @@ public:
     virtual ~DWBASimulation();
 
     //! Initializes the simulation with the parameters from simulation
-    virtual void init(const Simulation &simulation,
+    virtual void init(const GISASSimulation &simulation,
                       std::vector<SimulationElement>::iterator begin_it,
                       std::vector<SimulationElement>::iterator end_it);
 
@@ -112,7 +112,7 @@ protected:
     double m_alpha_i;
     ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
-    Simulation *mp_simulation;
+    GISASSimulation *mp_simulation;
 
     ProgressHandlerDWBA m_progress;
 };

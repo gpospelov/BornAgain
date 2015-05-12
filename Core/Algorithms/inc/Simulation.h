@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/GISASSimulation.h
-//! @brief     Defines class GISASSimulation.
+//! @file      Algorithms/inc/Simulation.h
+//! @brief     Defines class Simulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,17 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASSIMULATION_H_
-#define GISASSIMULATION_H_
+#ifndef SIMULATION_H_
+#define SIMULATION_H_
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
-#include "Simulation.h"
 
 #include "EigenCore.h"
+#include "SimulationElement.h"
 
 #include <boost/function.hpp>
 
@@ -34,17 +34,17 @@ class ProgressHandlerDWBA;
 //! @ingroup simulation
 //! @brief Main class to run the simulation.
 
-class BA_CORE_API_ GISASSimulation : public ICloneable, public IParameterized
+class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
-    GISASSimulation();
-    GISASSimulation(const ProgramOptions *p_options);
-    GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    GISASSimulation(SampleBuilder_t p_sample_builder,
+    Simulation();
+    Simulation(const ProgramOptions *p_options);
+    Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
+    Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    ~GISASSimulation() { delete mp_sample; }
+    virtual ~Simulation() { delete mp_sample; }
 
-    GISASSimulation *clone() const;
+    virtual Simulation *clone() const=0;
 
     //! Put into a clean state for running a simulation
     void prepareSimulation();
@@ -70,52 +70,6 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Returns detector intensity map for all scan parameters (no detector resolution)
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
-
-    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
-    OutputData<double>* getIntensityData() const;
-
-    //! Sets the instrument containing beam and detector information
-    void setInstrument(const Instrument& instrument);
-
-    //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
-
-    //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
-
-    //! Sets beam intensity from here (forwarded to Instrument)
-    void setBeamIntensity(double intensity);
-
-    //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t& bloch_vector);
-
-    //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double> &output_data);
-
-    //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-        size_t n_alpha, double alpha_f_min, double alpha_f_max,
-        bool isgisaxs_style=false);
-
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters& params);
-    //! Returns simulation parameters
-    SimulationParameters getSimulationParameters() const
-    { return m_sim_params; }
-
-    //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        const IResolutionFunction2D &resolution_function);
-
-    //! Removes detector resolution function
-    void removeDetectorResolutionFunction();
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
-                               double total_transmission=1.0);
-
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
     { m_sim_params = sim_params; }
@@ -127,6 +81,9 @@ public:
     //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
+
+    //! Clone simulated intensity map
+    virtual OutputData<double>* getIntensityData() const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
@@ -145,9 +102,6 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-    //! OffSpecSimulation needs protected copy constructor
-    friend class OffSpecSimulation;
-
 #ifndef GCCXML_SKIP_THIS
     //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
@@ -159,38 +113,41 @@ public:
     friend class OMPISimulation;
 
 protected:
-    GISASSimulation(const GISASSimulation& other);
-
+    Simulation(const Simulation& other);
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
-    //! Default implementation only adds the detector axes
-    void updateIntensityMapAxes();
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector()=0;
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Add the intensity map from the DWBA simulation to the member map
-    void addToIntensityMap(DWBASimulation *p_dwba_simulation);
-
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
 
+    //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
+
+    //! Add element vector to element vector with weight
+    void addElementsWithWeight(std::vector<SimulationElement>& dest,
+                               const std::vector<SimulationElement>& src, double weight);
+
+    //! Set all element intensities to given value
+    void setAllElementIntensities(std::vector<SimulationElement>& elem_vector, double intensity);
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     SampleBuilder_t mp_sample_builder;
-    Instrument m_instrument;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
 
-    OutputData<double> m_intensity_map;
     bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;
+    std::vector<SimulationElement> m_sim_elements;
 };
 
-#endif /* GISASSIMULATION_H_ */
+#endif /* SIMULATION_H_ */

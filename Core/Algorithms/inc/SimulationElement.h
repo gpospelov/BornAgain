@@ -94,7 +94,10 @@ public:
     {
         m_intensity = intensity;
     }
-
+    void addIntensity(double intensity)
+    {
+        m_intensity += intensity;
+    }
     double getIntensity() const
     {
         return m_intensity;

@@ -134,7 +134,7 @@ private:
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
 };
 

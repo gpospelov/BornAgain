@@ -49,6 +49,30 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::clone( );
     }
 
+    virtual ::OutputData< double > * getIntensityData(  ) const  {
+        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
+            return func_getIntensityData(  );
+        else{
+            return this->GISASSimulation::getIntensityData(  );
+        }
+    }
+    
+    ::OutputData< double > * default_getIntensityData(  ) const  {
+        return GISASSimulation::getIntensityData( );
+    }
+
+    virtual void prepareSimulation(  ) {
+        if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
+            func_prepareSimulation(  );
+        else{
+            this->GISASSimulation::prepareSimulation(  );
+        }
+    }
+    
+    void default_prepareSimulation(  ) {
+        GISASSimulation::prepareSimulation( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -171,30 +195,9 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
 void register_GISASSimulation_class(){
 
     { //::GISASSimulation
-        typedef bp::class_< GISASSimulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< GISASSimulation_wrapper >, boost::noncopyable > GISASSimulation_exposer_t;
+        typedef bp::class_< GISASSimulation_wrapper, bp::bases< Simulation >, std::auto_ptr< GISASSimulation_wrapper >, boost::noncopyable > GISASSimulation_exposer_t;
         GISASSimulation_exposer_t GISASSimulation_exposer = GISASSimulation_exposer_t( "GISASSimulation", "Main class to run the simulation.", bp::init< >() );
         bp::scope GISASSimulation_scope( GISASSimulation_exposer );
-        { //::GISASSimulation::addParameterDistribution
-        
-            typedef void ( ::GISASSimulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double,::AttLimits const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "addParameterDistribution"
-                , addParameterDistribution_function_type( &::GISASSimulation::addParameterDistribution )
-                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) ) );
-        
-        }
-        { //::GISASSimulation::addParameterDistribution
-        
-            typedef void ( ::GISASSimulation::*addParameterDistribution_function_type)( ::ParameterDistribution const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "addParameterDistribution"
-                , addParameterDistribution_function_type( &::GISASSimulation::addParameterDistribution )
-                , ( bp::arg("par_distr") )
-                , "add a sampled parameter distribution." );
-        
-        }
         { //::GISASSimulation::clone
         
             typedef ::GISASSimulation * ( ::GISASSimulation::*clone_function_type)(  ) const;
@@ -205,17 +208,6 @@ void register_GISASSimulation_class(){
                 , clone_function_type(&::GISASSimulation::clone)
                 , default_clone_function_type(&GISASSimulation_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::GISASSimulation::getDistributionHandler
-        
-            typedef ::DistributionHandler const & ( ::GISASSimulation::*getDistributionHandler_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getDistributionHandler"
-                , getDistributionHandler_function_type( &::GISASSimulation::getDistributionHandler )
-                , bp::return_value_policy< bp::copy_const_reference >()
-                , "add a sampled parameter distribution." );
         
         }
         { //::GISASSimulation::getInstrument
@@ -232,43 +224,13 @@ void register_GISASSimulation_class(){
         { //::GISASSimulation::getIntensityData
         
             typedef ::OutputData< double > * ( ::GISASSimulation::*getIntensityData_function_type)(  ) const;
+            typedef ::OutputData< double > * ( GISASSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
             
             GISASSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type( &::GISASSimulation::getIntensityData )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "Clone detector intensity map for all scan parameters (apply detector resolution function first)." );
-        
-        }
-        { //::GISASSimulation::getSample
-        
-            typedef ::ISample * ( ::GISASSimulation::*getSample_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getSample"
-                , getSample_function_type( &::GISASSimulation::getSample )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns the sample." );
-        
-        }
-        { //::GISASSimulation::getSampleBuilder
-        
-            typedef ::SampleBuilder_t ( ::GISASSimulation::*getSampleBuilder_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getSampleBuilder"
-                , getSampleBuilder_function_type( &::GISASSimulation::getSampleBuilder )
-                , "return sample builder." );
-        
-        }
-        { //::GISASSimulation::getSimulationParameters
-        
-            typedef ::SimulationParameters ( ::GISASSimulation::*getSimulationParameters_function_type)(  ) const;
-            
-            GISASSimulation_exposer.def( 
-                "getSimulationParameters"
-                , getSimulationParameters_function_type( &::GISASSimulation::getSimulationParameters )
-                , "Sets detector parameters using parameter object." );
+                , getIntensityData_function_type(&::GISASSimulation::getIntensityData)
+                , default_getIntensityData_function_type(&GISASSimulation_wrapper::default_getIntensityData)
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::GISASSimulation::normalize
@@ -284,11 +246,12 @@ void register_GISASSimulation_class(){
         { //::GISASSimulation::prepareSimulation
         
             typedef void ( ::GISASSimulation::*prepareSimulation_function_type)(  ) ;
+            typedef void ( GISASSimulation_wrapper::*default_prepareSimulation_function_type)(  ) ;
             
             GISASSimulation_exposer.def( 
                 "prepareSimulation"
-                , prepareSimulation_function_type( &::GISASSimulation::prepareSimulation )
-                , "Put into a clean state for running a simulation." );
+                , prepareSimulation_function_type(&::GISASSimulation::prepareSimulation)
+                , default_prepareSimulation_function_type(&GISASSimulation_wrapper::default_prepareSimulation) );
         
         }
         { //::GISASSimulation::removeDetectorResolutionFunction
@@ -299,26 +262,6 @@ void register_GISASSimulation_class(){
                 "removeDetectorResolutionFunction"
                 , removeDetectorResolutionFunction_function_type( &::GISASSimulation::removeDetectorResolutionFunction )
                 , "Removes detector resolution function." );
-        
-        }
-        { //::GISASSimulation::runOMPISimulation
-        
-            typedef void ( ::GISASSimulation::*runOMPISimulation_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "runOMPISimulation"
-                , runOMPISimulation_function_type( &::GISASSimulation::runOMPISimulation )
-                , "Run an OpenMPI simulation." );
-        
-        }
-        { //::GISASSimulation::runSimulation
-        
-            typedef void ( ::GISASSimulation::*runSimulation_function_type)(  ) ;
-            
-            GISASSimulation_exposer.def( 
-                "runSimulation"
-                , runSimulation_function_type( &::GISASSimulation::runSimulation )
-                , "Run a simulation, possibly averaged over parameter distributions." );
         
         }
         { //::GISASSimulation::setAnalyzerProperties
@@ -418,50 +361,6 @@ void register_GISASSimulation_class(){
                 , setInstrument_function_type( &::GISASSimulation::setInstrument )
                 , ( bp::arg("instrument") )
                 , "Sets the instrument containing beam and detector information." );
-        
-        }
-        { //::GISASSimulation::setSample
-        
-            typedef void ( ::GISASSimulation::*setSample_function_type)( ::ISample const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setSample"
-                , setSample_function_type( &::GISASSimulation::setSample )
-                , ( bp::arg("sample") )
-                , "Sets the sample to be tested." );
-        
-        }
-        { //::GISASSimulation::setSampleBuilder
-        
-            typedef void ( ::GISASSimulation::*setSampleBuilder_function_type)( ::SampleBuilder_t ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setSampleBuilder"
-                , setSampleBuilder_function_type( &::GISASSimulation::setSampleBuilder )
-                , ( bp::arg("sample_builder") )
-                , "Sets the sample builder." );
-        
-        }
-        { //::GISASSimulation::setSimulationParameters
-        
-            typedef void ( ::GISASSimulation::*setSimulationParameters_function_type)( ::SimulationParameters const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setSimulationParameters"
-                , setSimulationParameters_function_type( &::GISASSimulation::setSimulationParameters )
-                , ( bp::arg("sim_params") )
-                , "Sets simulation parameters." );
-        
-        }
-        { //::GISASSimulation::setThreadInfo
-        
-            typedef void ( ::GISASSimulation::*setThreadInfo_function_type)( ::ThreadInfo const & ) ;
-            
-            GISASSimulation_exposer.def( 
-                "setThreadInfo"
-                , setThreadInfo_function_type( &::GISASSimulation::setThreadInfo )
-                , ( bp::arg("thread_info") )
-                , "Sets the batch and thread information to be used." );
         
         }
         { //::IParameterized::areParametersChanged

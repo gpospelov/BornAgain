@@ -34,7 +34,7 @@ void TestPolarizedDWBA::execute()
     std::cout << "TestPolarizedDWBA::execute() -> Info." << std::endl;
 
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("magcyl2");
+    GISASSimulation *simulation = sim_registry.createSimulation("magcyl2");
     simulation->setProgramOptions(mp_options);
 
     simulation->runSimulation();

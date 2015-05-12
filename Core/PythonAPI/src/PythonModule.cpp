@@ -55,6 +55,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorSphereUniformRadius.pypp.h"
 #include "OffSpecSimulation.pypp.h"
 #include "FormFactorRipple1.pypp.h"
+#include "Simulation.pypp.h"
 #include "IObservable.pypp.h"
 #include "FormFactorLorentz.pypp.h"
 #include "SpecularSimulation.pypp.h"
@@ -222,6 +223,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorTruncatedSphere_class();
     register_FormFactorTruncatedSpheroid_class();
     register_FormFactorWeighted_class();
+    register_Simulation_class();
     register_GISASSimulation_class();
     register_kvector_t_class();
     register_cvector_t_class();

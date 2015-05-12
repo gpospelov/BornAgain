@@ -53,7 +53,7 @@ void TestPolarizedMeso::execute()
     mp_sample = createSample();
 
     // calculate scattered intensity from sample
-    Simulation simulation(mp_options);
+    GISASSimulation simulation(mp_options);
     simulation.setDetectorParameters(
         100, -1.0*Units::degree, 6.5*Units::degree, 100,
         -1.0*Units::degree, 6.5*Units::degree);

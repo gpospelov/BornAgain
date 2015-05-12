@@ -161,7 +161,6 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "ParticleInfo",
-#    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "RotationX",
@@ -169,6 +168,7 @@ include_classes = [
     "RotationZ",
     "RotationEuler",
     "SpecularSimulation",
+    "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
     "ThreadInfo",
@@ -323,8 +323,12 @@ def ManualClassTunings(mb):
             fun.exclude()
     cl.constructors().include()  # including back constructors with pointers
     #
-    cl = mb.class_("GISASSimulation")
+    cl = mb.class_("Simulation")
     cl.member_function("setSampleBuilder").include()
+    cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    #
+    cl = mb.class_("GISASSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)

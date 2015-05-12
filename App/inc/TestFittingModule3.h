@@ -19,7 +19,7 @@
 #include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "ISampleBuilder.h"
 #include "SafePointerVector.h"
 #include <vector>
@@ -44,7 +44,7 @@ private:
     void initializeSimulation();
     void initializeRealData();
 
-    Simulation *m_simulation;
+    GISASSimulation *m_simulation;
     ISample *m_sample;
     FitSuite *m_fitSuite;
     OutputData<double > *m_real_data;

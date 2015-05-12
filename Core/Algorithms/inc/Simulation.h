@@ -47,16 +47,13 @@ public:
     virtual Simulation *clone() const=0;
 
     //! Put into a clean state for running a simulation
-    void prepareSimulation();
+    virtual void prepareSimulation();
 
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
     //! Run an OpenMPI simulation
     void runOMPISimulation();
-
-    //! Normalize the detector counts
-    void normalize();
 
     //! Sets the sample to be tested
     void setSample(const ISample& sample);
@@ -69,6 +66,10 @@ public:
 
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
+
+    //! Returns simulation parameters
+    SimulationParameters getSimulationParameters() const
+    { return m_sim_params; }
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)

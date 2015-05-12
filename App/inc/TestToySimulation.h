@@ -17,7 +17,7 @@
 #define TESTTOYSIMULATION_H
 
 #include "IApplicationTest.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "TestFumiliLMA.h"
 #include "FitSuite.h"
@@ -27,7 +27,7 @@
 
 //! Toy simulation to test whole fitting chain with simple 2D functions.
 
-class ToySimulation : public Simulation
+class ToySimulation : public GISASSimulation
 {
 public:
     ToySimulation(TF2 *func)
@@ -46,7 +46,7 @@ protected:
     virtual void init_parameters();
 private:
     ToySimulation(const ToySimulation& other)
-        : Simulation(other), m_func(other.m_func), pars(other.pars)
+        : GISASSimulation(other), m_func(other.m_func), pars(other.pars)
     {
         setName("ToySimulation");
         init_parameters();

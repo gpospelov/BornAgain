@@ -19,7 +19,7 @@
 #include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "ISampleBuilder.h"
 
 class FitSuite;
@@ -75,7 +75,7 @@ private:
 
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
-    Simulation *mp_simulation;
+    GISASSimulation *mp_simulation;
     SampleBuilder_t mp_sample_builder;
     FitSuite *m_fitSuite;
 };

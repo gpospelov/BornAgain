@@ -117,6 +117,12 @@ void Simulation::runSimulation()
     m_sim_elements = total_intensity;
 }
 
+void Simulation::runOMPISimulation()
+{
+    OMPISimulation ompi;
+    ompi.runSimulation(this);
+}
+
 //! The ISample object will not be owned by the Simulation object
 void Simulation::setSample(const ISample &sample)
 {

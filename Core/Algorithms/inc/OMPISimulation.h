@@ -17,13 +17,13 @@
 #define OMPISIMULATION_H
 
 
-class GISASSimulation;
+class Simulation;
 
 class OMPISimulation
 {
 public:
 
-    void runSimulation(GISASSimulation *simulation);
+    void runSimulation(Simulation *simulation);
 
 };
 

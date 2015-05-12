@@ -32,68 +32,50 @@ GCC_DIAG_ON(strict-aliasing);
 #include <boost/scoped_ptr.hpp>
 
 GISASSimulation::GISASSimulation()
-: IParameterized("GISASSimulation")
-, mp_sample(0)
-, m_instrument()
+: m_instrument()
 , m_intensity_map()
-, m_is_normalized(false)
-, mp_options(0)
 {
+    setName("GISASSimulation");
     init_parameters();
 }
 
 GISASSimulation::GISASSimulation(const ProgramOptions *p_options)
-: IParameterized("GISASSimulation")
-, mp_sample(0)
+: Simulation(p_options)
 , m_instrument()
 , m_intensity_map()
-, m_is_normalized(false)
-, mp_options(p_options)
 {
+    setName("GISASSimulation");
     init_parameters();
 }
 
 GISASSimulation::GISASSimulation(
     const ISample& p_sample, const ProgramOptions *p_options)
-: IParameterized("GISASSimulation")
-, mp_sample(p_sample.clone())
+: Simulation(p_sample, p_options)
 , m_instrument()
 , m_intensity_map()
-, m_is_normalized(false)
-, mp_options(p_options)
 {
+    setName("GISASSimulation");
     init_parameters();
 }
 
 GISASSimulation::GISASSimulation(
     SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
-: IParameterized("GISASSimulation")
-, mp_sample(0)
-, mp_sample_builder(p_sample_builder)
+: Simulation(p_sample_builder, p_options)
 , m_instrument()
 , m_intensity_map()
-, m_is_normalized(false)
-, mp_options(p_options)
 {
+    setName("GISASSimulation");
     init_parameters();
 }
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
-: ICloneable(), IParameterized(other)
-, mp_sample(0)
-, mp_sample_builder(other.mp_sample_builder)
+: Simulation(other)
 , m_instrument(other.m_instrument)
-, m_sim_params(other.m_sim_params)
-, m_thread_info(other.m_thread_info)
 , m_intensity_map()
-, m_is_normalized(other.m_is_normalized)
-, mp_options(other.mp_options)
-, m_distribution_handler(other.m_distribution_handler)
-, m_progress(other.m_progress)
 {
-    if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
 
+    setName("GISASSimulation");
     init_parameters();
 }
 
@@ -112,55 +94,8 @@ void GISASSimulation::prepareSimulation()
         throw LogicErrorException("Simulation::prepareSimulation() "
                 "-> Error. The detector was not configured.");
     }
-    gsl_set_error_handler_off();
-    m_is_normalized = false;
-    updateSample();
+    Simulation::prepareSimulation();
 }
-
-//! Run simulation with possible averaging over parameter distributions
-void GISASSimulation::runSimulation()
-{
-    prepareSimulation();
-    if( !mp_sample)
-        throw NullPointerException(
-            "Simulation::runSimulation() -> Error! No sample set.");
-
-    size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
-
-    if(m_progress) m_progress->init(this, param_combinations);
-
-    // no averaging needed:
-    if (param_combinations == 1) {
-        boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
-        m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
-        updateSample();
-        runSingleSimulation();
-        //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
-        return;
-    }
-
-    // average over parameter distributions:
-    OutputData<double> total_intensity;
-    total_intensity.copyShapeFrom(m_intensity_map);
-    total_intensity.setAllTo(0.);
-    boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
-    for (size_t index=0; index < param_combinations; ++index) {
-        double weight = m_distribution_handler.setParameterValues(
-                p_param_pool.get(), index);
-        updateSample();
-        runSingleSimulation();
-        m_intensity_map.scaleAll(weight);
-        total_intensity += m_intensity_map;
-    }
-    m_intensity_map.copyFrom(total_intensity);
-}
-
-void GISASSimulation::runOMPISimulation()
-{
-    OMPISimulation ompi;
-    ompi.runSimulation(this);
-}
-
 
 void GISASSimulation::normalize()
 {
@@ -168,25 +103,6 @@ void GISASSimulation::normalize()
         m_instrument.normalize(&m_intensity_map);
         m_is_normalized = true;
     }
-}
-
-//! The ISample object will not be owned by the Simulation object
-void GISASSimulation::setSample(const ISample& sample)
-{
-    delete mp_sample;
-    mp_sample = sample.clone();
-}
-
-void GISASSimulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
-{
-    if( !p_sample_builder.get() )
-        throw NullPointerException(
-            "Simulation::setSampleBuilder() -> "
-            "Error! Attempt to set null sample builder.");
-
-    mp_sample_builder = p_sample_builder;
-    delete mp_sample;
-    mp_sample = 0;
 }
 
 OutputData<double> *GISASSimulation::getIntensityData() const
@@ -246,25 +162,6 @@ std::string GISASSimulation::addParametersToExternalPool(
     return new_path;
 }
 
-void GISASSimulation::addParameterDistribution(const std::string &param_name,
-                                          const IDistribution1D &distribution,
-                                          size_t nbr_samples,
-                                          double sigma_factor,
-                                          const AttLimits &limits) {
-    m_distribution_handler.addParameterDistribution(param_name,
-                                                    distribution, nbr_samples, sigma_factor, limits);
-}
-
-void GISASSimulation::addParameterDistribution(const ParameterDistribution &par_distr)
-{
-    m_distribution_handler.addParameterDistribution(par_distr);
-}
-
-const DistributionHandler &GISASSimulation::getDistributionHandler() const
-{
-    return m_distribution_handler;
-}
-
 void GISASSimulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
@@ -273,22 +170,6 @@ void GISASSimulation::updateIntensityMapAxes()
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.);
-}
-
-void GISASSimulation::updateSample()
-{
-    if (mp_sample_builder.get()) {
-        ISample *p_new_sample = mp_sample_builder->buildSample();
-        std::string builder_type = typeid(*mp_sample_builder).name();
-        if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
-                "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample);
-        } else {
-            delete mp_sample;
-            mp_sample = p_new_sample;
-        }
-    }
 }
 
 void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
@@ -333,152 +214,7 @@ void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double e
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void GISASSimulation::addToIntensityMap(DWBASimulation* p_dwba_simulation)
+void GISASSimulation::initSimulationElementVector()
 {
-    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-}
-
-//! Run single simulation with fixed parameter values.
-//! Also manage threads.
-void GISASSimulation::runSingleSimulation()
-{
-    m_intensity_map.setAllTo(0.);
-    // retrieve batch and threading information
-    if (mp_options) {
-        if (mp_options->find("nbatches")) {
-            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
-        }
-        if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch =
-                    (*mp_options)["currentbatch"].as<int>();
-        }
-        if (mp_options->find("threads")) {
-            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
-        }
-    }
-
-    // Create vector of simulation elements
-    std::vector<SimulationElement> sim_elements;
-
-    if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
-    if(m_thread_info.n_threads==1) {
-        // Single thread.
-        DWBASimulation *p_dwba_simulation =
-                mp_sample->createDWBASimulation();
-        verifyDWBASimulation(p_dwba_simulation);
-        p_dwba_simulation->init(*this, sim_elements.begin(), sim_elements.end());
-        p_dwba_simulation->setThreadInfo(m_thread_info);
-        p_dwba_simulation->run();  // the work is done here
-        if(p_dwba_simulation->isCompleted()) {
-            addToIntensityMap(p_dwba_simulation);
-            delete p_dwba_simulation;
-        } else {
-            std::string message = p_dwba_simulation->getRunMessage();
-            delete p_dwba_simulation;
-            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+message);
-        }
-    } else {
-        // Multithreading.
-        if(m_thread_info.n_threads == 0 )  {
-            // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads =
-                    (int)boost::thread::hardware_concurrency();
-            msglog(MSG::DEBUG)
-                << "Simulation::runSimulation() -> Info. Number of threads "
-                << m_thread_info.n_threads << " (taken from hardware concurrency)"
-                << ", n_batches = " << m_thread_info.n_batches
-                << ", current_batch = " << m_thread_info.current_batch;
-        } else {
-            msglog(MSG::DEBUG)
-                << "Simulation::runSimulation() -> Info. Number of threads "
-                << m_thread_info.n_threads << " (ordered by user)"
-                << ", n_batches = " << m_thread_info.n_batches
-                << ", current_batch = " << m_thread_info.current_batch;
-        }
-        std::vector<boost::thread*> threads;
-        std::vector<DWBASimulation*> simulations;
-
-        // Initialize n simulations.
-        int total_nbr_elements = sim_elements.size();
-        int element_thread_step = total_nbr_elements/m_thread_info.n_threads;
-        for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
-            DWBASimulation *p_dwba_simulation =
-                mp_sample->createDWBASimulation();
-            verifyDWBASimulation(p_dwba_simulation);
-            std::vector<SimulationElement>::iterator begin_it =
-                    sim_elements.begin() + i_thread*element_thread_step;
-            std::vector<SimulationElement>::iterator end_it;
-            if (i_thread == m_thread_info.n_threads - 1) {
-                end_it = sim_elements.end();
-            } else {
-                end_it = sim_elements.begin() + (i_thread+1)*element_thread_step;
-            }
-            p_dwba_simulation->init(*this, begin_it, end_it);
-            m_thread_info.current_thread = i_thread;
-            p_dwba_simulation->setThreadInfo(m_thread_info);
-            simulations.push_back(p_dwba_simulation);
-        }
-
-        // Run simulations in n threads.
-        for (std::vector<DWBASimulation*>::iterator it=
-                 simulations.begin(); it!=simulations.end(); ++it) {
-            threads.push_back
-                (new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
-        }
-
-        // Wait for threads to complete.
-        for(size_t i=0; i<threads.size(); ++i) {
-            threads[i]->join();
-        }
-
-        // Merge simulated data.
-        bool isSuccess(true);
-        std::string failure_message;
-        for(size_t i=0; i<simulations.size(); ++i) {
-            if(simulations[i]->isCompleted()) {
-                addToIntensityMap(simulations[i]);
-            } else {
-                isSuccess = false;
-                failure_message = simulations[i]->getRunMessage();
-            }
-            delete simulations[i];
-            delete threads[i];
-        }
-        if(!isSuccess) {
-            throw Exceptions::RuntimeErrorException(
-                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
-                "with the following error message.\n" + failure_message);
-        }
-    }
-//    if( mp_sample->containsMagneticMaterial() ) {
-//        m_instrument.applyDetectorResolution(&m_intensity_map,
-//                &m_polarization_output);
-//    }
-//    else {
-//        m_instrument.applyDetectorResolution(&m_intensity_map);
-//    }
-
-}
-
-
-void GISASSimulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
-{
-    if (!dwbaSimulation)
-        throw RuntimeErrorException(
-            "Simulation::runSimulation() -> Can't create the simulation for given sample."
-            "It should be either the MultiLayer with more than one layer (with or without particles),"
-            "or MultiLayer with single Layer containing particles.");
-}
-
-
-//! initializes DWBA progress handler
-void GISASSimulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
-{
-    // if we have external ProgressHandler (which is normally coming from GUI),
-    // then we will create special callbacks for every DWBASimulation.
-    // These callback will be used to report DWBASimulation progress to the Simulation.
-    if(m_progress) {
-        ProgressHandler::Callback_t callback = boost::bind(&ProgressHandler::update, m_progress.get(), _1);
-        dwba_progress->setCallback(callback);
-    }
+    // TODO!
 }

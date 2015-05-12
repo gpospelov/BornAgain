@@ -17,7 +17,7 @@
 
 
 DWBASimulation::DWBASimulation()
-    : m_alpha_i(0)
+: m_alpha_i(0)
 , m_thread_info()
 , mp_simulation(0)
 {

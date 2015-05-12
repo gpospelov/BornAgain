@@ -34,7 +34,7 @@ class ProgressHandlerDWBA;
 //! @ingroup simulation
 //! @brief Main class to run the simulation.
 
-class BA_CORE_API_ GISASSimulation : public ICloneable, public IParameterized
+class BA_CORE_API_ GISASSimulation : public Simulation
 {
 public:
     GISASSimulation();
@@ -42,33 +42,15 @@ public:
     GISASSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
     GISASSimulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    ~GISASSimulation() { delete mp_sample; }
+    ~GISASSimulation() {}
 
     GISASSimulation *clone() const;
 
     //! Put into a clean state for running a simulation
-    void prepareSimulation();
-
-    //! Run a simulation, possibly averaged over parameter distributions
-    void runSimulation();
-
-    //! Run an OpenMPI simulation
-    void runOMPISimulation();
+    virtual void prepareSimulation();
 
     //! Normalize the detector counts
     void normalize();
-
-    //! Sets the sample to be tested
-    void setSample(const ISample& sample);
-
-    //! Returns the sample
-    ISample *getSample() const { return mp_sample; }
-
-    //! Sets the sample builder
-    void setSampleBuilder(SampleBuilder_t sample_builder);
-
-    //! return sample builder
-    SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
     //! Returns detector intensity map for all scan parameters (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -101,9 +83,6 @@ public:
 
     //! Sets detector parameters using parameter object
     void setDetectorParameters(const DetectorParameters& params);
-    //! Returns simulation parameters
-    SimulationParameters getSimulationParameters() const
-    { return m_sim_params; }
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(
@@ -116,47 +95,14 @@ public:
     void setAnalyzerProperties(const kvector_t &direction, double efficiency,
                                double total_transmission=1.0);
 
-    //! Sets simulation parameters
-    void setSimulationParameters(const SimulationParameters& sim_params)
-    { m_sim_params = sim_params; }
-
-    //! Sets the batch and thread information to be used
-    void setThreadInfo(const ThreadInfo &thread_info)
-    { m_thread_info = thread_info; }
-
-    //! Sets the program options
-    void setProgramOptions(ProgramOptions *p_options)
-    { mp_options = p_options; }
-
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
         std::string path,
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    //! add a sampled parameter distribution
-    void addParameterDistribution(const std::string &param_name,
-            const IDistribution1D &distribution, size_t nbr_samples,
-            double sigma_factor=0.0,
-            const AttLimits &limits = AttLimits());
-
-    //! add a sampled parameter distribution
-    void addParameterDistribution(const ParameterDistribution &par_distr);
-
-    const DistributionHandler& getDistributionHandler() const;
-
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
-
-#ifndef GCCXML_SKIP_THIS
-    //! sets progress handler (used by GUI)
-    void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
-
-    //! initializes DWBA progress handler
-    void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
-#endif
-
-    friend class OMPISimulation;
 
 protected:
     GISASSimulation(const GISASSimulation& other);
@@ -164,33 +110,15 @@ protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector();
+
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
-
-    //! Add the intensity map from the DWBA simulation to the member map
-    void addToIntensityMap(DWBASimulation *p_dwba_simulation);
-
-    //! Run a single simulation with the current parameter settings
-    void runSingleSimulation();
-
-    void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
-
-    // components describing an experiment and its simulation:
-    ISample *mp_sample;
-    SampleBuilder_t mp_sample_builder;
+    // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
-    SimulationParameters m_sim_params;
-    ThreadInfo m_thread_info;
-
     OutputData<double> m_intensity_map;
-    bool m_is_normalized;
-    const ProgramOptions *mp_options;
-
-    DistributionHandler m_distribution_handler;
-    ProgressHandler_t m_progress;
 };
 
 #endif /* GISASSIMULATION_H_ */

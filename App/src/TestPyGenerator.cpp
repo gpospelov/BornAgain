@@ -51,7 +51,7 @@ void TestPyGenerator::execute()
     for (std::list<std::string>::iterator it = testSamples.begin();
          it != testSamples.end(); it++)
     {
-        Simulation *simulation = simulationRegistry.createSimulation(*it);
+        GISASSimulation *simulation = simulationRegistry.createSimulation(*it);
         bool test = PyGenTools::testPyScript(simulation);
         std::cout << *it << " Python Script Generation Test: ";
         if (test == true)

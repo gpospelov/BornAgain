@@ -43,10 +43,12 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
     delete mp_roughness_dwba_simulation;
 }
 
-void MultiLayerDWBASimulation::init(const Simulation& simulation)
+void MultiLayerDWBASimulation::init(const Simulation& simulation,
+                                    std::vector<SimulationElement>::iterator begin_it,
+                                    std::vector<SimulationElement>::iterator end_it)
 {
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::init()";
-    DWBASimulation::init(simulation);
+    DWBASimulation::init(simulation, begin_it, end_it);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
             LayerDWBASimulation *p_layer_dwba_sim =
@@ -58,7 +60,7 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
                             SafePointerVector<LayerDWBASimulation>();
                 }
                 m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
-                p_layer_dwba_sim->init(simulation);
+                p_layer_dwba_sim->init(simulation, begin_it, end_it);
             }
         }
 
@@ -68,7 +70,7 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
             mp_roughness_dwba_simulation =
                 new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
-            mp_roughness_dwba_simulation->init(simulation);
+            mp_roughness_dwba_simulation->init(simulation, begin_it, end_it);
             break;
         }
     }

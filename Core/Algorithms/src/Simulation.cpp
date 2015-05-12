@@ -360,13 +360,16 @@ void Simulation::runSingleSimulation()
         }
     }
 
+    // Create vector of simulation elements
+    std::vector<SimulationElement> sim_elements;
+
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
         // Single thread.
         DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
         verifyDWBASimulation(p_dwba_simulation);
-        p_dwba_simulation->init(*this);
+        p_dwba_simulation->init(*this, sim_elements.begin(), sim_elements.end());
         p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
         if(p_dwba_simulation->isCompleted()) {
@@ -399,11 +402,21 @@ void Simulation::runSingleSimulation()
         std::vector<DWBASimulation*> simulations;
 
         // Initialize n simulations.
+        int total_nbr_elements = sim_elements.size();
+        int element_thread_step = total_nbr_elements/m_thread_info.n_threads;
         for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
             DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
             verifyDWBASimulation(p_dwba_simulation);
-            p_dwba_simulation->init(*this);
+            std::vector<SimulationElement>::iterator begin_it =
+                    sim_elements.begin() + i_thread*element_thread_step;
+            std::vector<SimulationElement>::iterator end_it;
+            if (i_thread == m_thread_info.n_threads - 1) {
+                end_it = sim_elements.end();
+            } else {
+                end_it = sim_elements.begin() + (i_thread+1)*element_thread_step;
+            }
+            p_dwba_simulation->init(*this, begin_it, end_it);
             m_thread_info.current_thread = i_thread;
             p_dwba_simulation->setThreadInfo(m_thread_info);
             simulations.push_back(p_dwba_simulation);

@@ -17,6 +17,7 @@ class DWBASimulationTest : public ::testing::Test
 
     Simulation m_sim;
     OutputData<double> m_data;
+    std::vector<SimulationElement> m_sim_elements;
 };
 
 
@@ -42,7 +43,7 @@ TEST_F(DWBASimulationTest, InitialWithSimulation)
 {
 
     DWBASimulation dwbasim;
-    dwbasim.init(m_sim);
+    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
     EXPECT_EQ(m_data.getAllocatedSize(), dwbasim.getDWBAIntensity().getAllocatedSize());
     EXPECT_EQ(dwbasim.getDWBAIntensity().totalSum(), 0.0);
     m_data.setAllTo(1.0);
@@ -54,7 +55,7 @@ TEST_F(DWBASimulationTest, InitialWithSimulation)
 TEST_F(DWBASimulationTest, ThreadIterator)
 {
     DWBASimulation dwbasim;
-    dwbasim.init(m_sim);
+    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
 
     int index(0);
     for(DWBASimulation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
@@ -88,7 +89,7 @@ TEST_F(DWBASimulationTest, MaskedThreadIterator)
     m_sim.setDetectorParameters(m_data);
 
     DWBASimulation dwbasim;
-    dwbasim.init(m_sim);
+    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
 
     dwbasim.addDWBAIntensity(m_data);
 

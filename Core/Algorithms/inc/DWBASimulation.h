@@ -23,6 +23,7 @@
 #include "Types.h"
 #include "EigenCore.h"
 #include "ProgressHandlerDWBA.h"
+#include "SimulationElement.h"
 
 //! @class DWBASimulation
 //! @ingroup algorithms_internal
@@ -36,18 +37,24 @@ public:
     virtual ~DWBASimulation();
 
     //! Initializes the simulation with the parameters from simulation
-    virtual void init(const Simulation& simulation);
+    virtual void init(const Simulation &simulation,
+                      std::vector<SimulationElement>::iterator begin_it,
+                      std::vector<SimulationElement>::iterator end_it);
 
     //! Sets thread information for masking
-    virtual void setThreadInfo(const ThreadInfo& thread_info)
-    { m_thread_info = thread_info; }
+    virtual void setThreadInfo(const ThreadInfo &thread_info)
+    {
+        m_thread_info = thread_info;
+    }
 
     //! Returns output data containing calculated intensity.
-    const OutputData<double>& getDWBAIntensity() const;
+    const OutputData<double> &getDWBAIntensity() const;
 
     //! Adds intensity to current dwba intensity
-    void addDWBAIntensity(const OutputData<double>& data_to_add)
-    { m_dwba_intensity += data_to_add; }
+    void addDWBAIntensity(const OutputData<double> &data_to_add)
+    {
+        m_dwba_intensity += data_to_add;
+    }
 
     virtual DWBASimulation *clone() const;
 
@@ -56,24 +63,35 @@ public:
     // ---------------------------------
 
     typedef OutputDataIterator<double, OutputData<double> > iterator;
-    typedef OutputDataIterator<const double, const OutputData<double> >
-        const_iterator;
+    typedef OutputDataIterator<const double, const OutputData<double> > const_iterator;
 
     //! Returns read/write iterator that points to the first element
     //! The iterator takes the member ThreadInfo object into consideration.
-    iterator begin() { return m_dwba_intensity.begin(m_thread_info); }
+    iterator begin()
+    {
+        return m_dwba_intensity.begin(m_thread_info);
+    }
 
     //! Returns read-only iterator that points to the first element
     //! The iterator takes the member ThreadInfo object into consideration.
-    const_iterator begin() const  { return m_dwba_intensity.begin(m_thread_info); }
+    const_iterator begin() const
+    {
+        return m_dwba_intensity.begin(m_thread_info);
+    }
 
     //! Returns  read/write iterator that points to the one past last element
     //! The iterator takes the member ThreadInfo object into consideration.
-    const iterator end() { return m_dwba_intensity.end(m_thread_info); }
+    const iterator end()
+    {
+        return m_dwba_intensity.end(m_thread_info);
+    }
 
     //! Returns  read-only iterator that points to the one past last element
     //! The iterator takes the member ThreadInfo object into consideration.
-    const const_iterator end() const { return m_dwba_intensity.end(m_thread_info); }
+    const const_iterator end() const
+    {
+        return m_dwba_intensity.end(m_thread_info);
+    }
 
 protected:
     //! Checks if the sample requires a polarized calculation
@@ -81,6 +99,9 @@ protected:
 
     //! Returns the wavelength of the incoming beam
     double getWaveLength() const;
+
+    //! Iterators that defines the sequence of elements that this simulation will work on
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     mutable OutputData<double> m_dwba_intensity;
 #ifndef GCCXML_SKIP_THIS

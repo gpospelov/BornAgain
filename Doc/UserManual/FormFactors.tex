@@ -167,10 +167,14 @@ we use alternate internal parameters to alleviate the formul\ae.
 
 Examplary form factors are numerically computed in Born approximation.
 The particles are assigned a refractive index of $n=10^{-5}$.
+Parameters are chosen such that within $\pm5$~\%
+the particle volume~$V$ is 250~nm$^3$.
 The incident wavelength is 1~\AA.
-The incident beam is always in the $xz$ plane, hence $\phi_\ti=0$.
-Unless otherwise said, the incident glancing angle is $\alpha_\ti=1^\circ$.
-
+The incident beam is always in $x$ direction, hence $\alpha_\ti=\phi_\ti=0$.
+Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$.
+All plots of $|F(q)|^2/V^2$ versus $\alpha_\tf$ and $\phi_\tf$
+are shown for the same angular range $0\ldots5^\circ$
+and on the same logarithmic color scale.
 
 %-------------------------------------------------------------------------------
 % Start the series of standardized double pages.
@@ -815,17 +819,15 @@ Results:
   S =\pi R_a R_b.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFhemiellipsEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R_a=10$~nm, $R_b=6$~nm and $H=8$~nm.
+\paragraph{Example}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffhemiellips.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_HemiEllipsoid.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of an Hemi-Ellipsoid plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
-  computed with \Code{FormFactorHemiEllipsoid(10.*nanometer, 6.*nanometer, 8.*nanometer)}.}
-\label{fig:FFhemiellipsEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R_a=10$~nm, $R_b=3.8$~nm and $H=3.2$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -872,7 +874,7 @@ with the parameters
 Notation:
 \begin{equation*}
  R_z \coloneqq R\sqrt{1-\frac{4z^2}{H^2}},\quad
- \gamma_z \coloneqq \sqrt{(q_x R_z)^2+(q_y R_z)^2}.  
+ q_\plll \coloneqq \sqrt{q_x^2+q_y^2}.
 \end{equation*}
 Results:
 \begin{equation*}
@@ -886,20 +888,20 @@ Results:
   S =\pi R^2.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFfspheroidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
+\paragraph{Example}\strut
+
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figfffspheroid.pdf}
+\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSpheroid.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a full spheroid plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and
-  computed with \Code{FormFactorFullSpheroid(10.*nanometer, 13.*nanometer)}.}
-\label{fig:FFfspheroidEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=3.5$~nm and $H=9.8$~nm.}
 \end{figure}
 
 \paragraph{References}\strut\\
-Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\cite{Laz02}.
+Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
+\cite[Eq.~2.37]{Laz08} \cite[Eq.~227]{ReLL09},
+with corrected volume formula.
 
 %\subsection{References}
 %The expression is identical to \Code{IsGISAXS} manual. In the code,
@@ -917,6 +919,8 @@ Corrected version of the \lq\lq FullSpheroid\rq\rq\ form factor of \IsGISAXS~\ci
 %-------------------------------------------------------------------------------
 
 \paragraph{Real-space geometry}\strut\\
+
+\Work{probably the $xy$ view needs to be rotated by 30$^\circ$}
 
 \begin{figure}[H]
 \hfill
@@ -958,16 +962,15 @@ F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
   S =\dfrac{\sqrt{3}}{4}L^2.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFprism3Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
+\paragraph{Example}\strut
+
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffprism3.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_prism3.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Prism3
- plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and
-  computed with \Code{FormFactorPrism3(10.*nanometer, 13.*nanometer)}.}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=13.8$~nm and $H=3$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFprism3Ex}
 \end{figure}
 
@@ -1024,15 +1027,15 @@ F &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
   S =\dfrac{3\sqrt{3}R^2}{2}.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFprism6Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffprism6.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_prism6.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Prism6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorPrism6(5.*nanometer, 11.*nanometer)}.}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=5.7$~nm and $H=3$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFprism6Ex}
 \end{figure}
 
@@ -1121,20 +1124,16 @@ Results:
   S = L^2.
 \end{equation*}
 
-\paragraph{Examples}
-Figure~\ref{fig:FFPyramidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=18$~nm, $H=13$~nm and
-$\alpha=60^{\circ}$.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
 %\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffpyramid.pdf}
 \includegraphics[width=\textwidth]{fig/ff2/ff_pyramid.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a
-  pyramid plotted against ($q_y$, $q_z$) and  
-  ($q_x$, $q_y$) and computed with  \Code{FormFactorPyramid(18.*nanometer, 13.*nanometer, 60.*degree)}.}
-\label{fig:FFPyramidEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=10$~nm, $H=4.2$~nm and $\alpha=60^{\circ}$,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\

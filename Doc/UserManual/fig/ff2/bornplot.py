@@ -7,18 +7,23 @@ import matplotlib.pyplot as plt
 import bornagain as ba
 from bornagain import nanometer, degree, angstrom, deg2rad
 
+class BinRange:
+    def __init__(self, vmin, vmax, n):
+        self.vmin = vmin
+        self.vmax = vmax
+        self.n = n
+    def central_index(self):
+        return int( (0.-self.vmin)/(self.vmax-self.vmin)*(self.n-1)+.5 )
+        
 class Detector:
     def __init__(self, bins_per_dimension, phi_min, phi_max, alpha_min, alpha_max):
-        self.m = bins_per_dimension
-        self.p_min = phi_min
-        self.p_max = phi_max
-        self.a_min = alpha_min
-        self.a_max = alpha_max
+        self.phi = BinRange( phi_min, phi_max, bins_per_dimension )
+        self.alpha = BinRange( alpha_min, alpha_max, bins_per_dimension )
     def rectangle(self):
-        return (self.p_min, self.p_max, self.a_min, self.a_max)
+        return (self.phi.vmin, self.phi.vmax, self.alpha.vmin, self.alpha.vmax)
 
 class Result:
-    def __init__(self, idx, data, title ):
+    def __init__(self, idx, data, title="" ):
         self.idx = idx
         self.data = data
         self.title = title
@@ -51,12 +56,14 @@ def make_plot( results, det, name, nrow=1 ):
         axes = tmp.flat
     else:
         axes = [tmp]
-    vmin = None
-    vmax = None
-    for res in results:
-        vmin = vmin and min(vmin,res.data.min()) or res.data.min()
-        vmax = vmax and max(vmin,res.data.max()) or res.data.max()
-    norm = mpl.colors.LogNorm(vmin,vmax)
+    if False:
+        vmin = None
+        vmax = None
+        for res in results:
+            vmin = vmin and min(vmin,res.data.min()) or res.data.min()
+            vmax = vmax and max(vmin,res.data.max()) or res.data.max()
+        norm = mpl.colors.LogNorm(vmin,vmax)
+    norm = mpl.colors.LogNorm(1e-10,1)
     for res in results:
         data = res.data
         ax = axes[res.idx]
@@ -67,7 +74,8 @@ def make_plot( results, det, name, nrow=1 ):
         ax.set_xlabel(r'$\phi_{\rm f} (^{\circ})$', fontsize=fontsize)
         if res.idx%ncol==0:
             ax.set_ylabel(r'$\alpha_{\rm f} (^{\circ})$', fontsize=fontsize)
-        ax.set_title(res.title, fontsize=fontsize)
+        if res.title!="":
+            ax.set_title(res.title, fontsize=fontsize)
         ax.tick_params(axis='both', which='major', labelsize=fontsize*21/24)
     plt.subplots_adjust(wspace=xskip, hspace=yskip,
                         left=leftskip, right=1-rightskip,
@@ -75,7 +83,7 @@ def make_plot( results, det, name, nrow=1 ):
     cbar_ax = fig.add_axes([1-rightskip+0.4*xskip, bottomskip,
                             0.25*xskip, 1-bottomskip-topskip])
     cb = fig.colorbar(im, cax=cbar_ax)
-    cb.set_label(r'Intensity (arb. units)', fontsize=fontsize)
+    cb.set_label(r'$\left|F(q)\right|^2/V^{\,2}$', fontsize=fontsize)
     plt.savefig( name+".pdf", format="pdf", bbox_inches = 'tight')
     plt.show()
 
@@ -91,7 +99,10 @@ def get_sample(ff,trafo):
     # collection of particles
     particle = ba.Particle(m_particle, ff)
     particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(particle, trafo)
+    if trafo is not None:
+        particle_layout.addParticle(particle, trafo)
+    else:
+        particle_layout.addParticle(particle)
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -107,19 +118,25 @@ def get_simulation(det):
     """
     simulation = ba.Simulation()
     simulation.setDetectorParameters(
-        det.m, det.p_min*degree, det.p_max*degree,
-        det.m, det.a_min*degree, det.a_max*degree )
+        det.phi.n, det.phi.vmin*degree, det.phi.vmax*degree,
+        det.alpha.n, det.alpha.vmin*degree, det.alpha.vmax*degree )
     simulation.setBeamParameters(1.0*angstrom, 0, 0)
     return simulation
 
 
-def run_simulation(det,ff,trafo):
+def run_simulation(det,ff,trafo=None):
     """
     Run simulation and plot results
     """
+    zero = ba.cvector_t(0,0,0)
+    V = abs(ff.evaluate_for_q(zero))
+    print( "Volume: %g" % V )
     sample = get_sample(ff,trafo)
     simulation = get_simulation(det)
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray() + 1e-80  # for log scale
+    data = simulation.getIntensityData().getArray()
+    nor = data[det.alpha.central_index(),det.phi.central_index()]
+    data /= nor
+    return data + 1e-80  # for log scale
 

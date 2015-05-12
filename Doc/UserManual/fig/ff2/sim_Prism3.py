@@ -1,5 +1,5 @@
 """
-Plot form factors of pyramids for different rotations.
+Plot form factors.
 """
 import bornagain as ba
 from   bornagain import nanometer, degree
@@ -16,4 +16,4 @@ for i in range(n):
     data = bp.run_simulation(det,ff,trafo)
     results.append( bp.Result(i, data, title) )
     
-bp.make_plot( results, det, "ff_prism3" )
+bp.make_plot( results, det, "ff_Prism3" )

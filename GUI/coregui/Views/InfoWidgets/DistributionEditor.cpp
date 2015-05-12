@@ -15,10 +15,10 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     m_plotwidget = new DistributionWidget(this);
     m_propertyEditor = new AwesomePropertyEditor(this);
 
-//    setItem(item);
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_plotwidget, 1);
     mainLayout->addWidget(m_propertyEditor);
+    setStyleSheet("background-color:white;");
     setLayout(mainLayout);
 
 
@@ -40,6 +40,10 @@ void DistributionEditor::setItem(ParameterizedItem *item)
 
     connect(m_item, SIGNAL(subItemChanged(QString)),
             this, SLOT(onSubItemChanged(QString)));
+
+    DistributionItem *distrItem = dynamic_cast<DistributionItem *>(m_item->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION]);
+    Q_ASSERT(distrItem);
+    m_plotwidget->setItem(distrItem);
 
 }
 

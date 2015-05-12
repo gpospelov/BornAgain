@@ -2,16 +2,13 @@
 
 namespace {
 int number_of_points_for_smooth_plot = 100;
-double sigmafactor_for_smooth_plot = 4;
+double sigmafactor_for_smooth_plot = 3.5;
 double gap_between_bars = 0.05;
-double percentage_for_xRange = 0.9;
+double xRangeDivisor = 9;
+double xBarRangeFactor = 5;
+double percentage_for_upper_xRange = 1.1;
 double percentage_for_yRange =1.1;
 }
-// FIXME Different distributions occupies different width on the plot
-
-// FIXME Move DistributionWidget and DistributionEditor files into Views/InfoWidgets
-
-// FIXME distributionLorentz is shown with shifted yaxis
 
 DistributionWidget::DistributionWidget(QWidget *parent)
     : QWidget(parent)
@@ -19,10 +16,13 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     , m_item(0)
     , m_label(new QLabel("[x: 0,  y: 0]"))
 {
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_plot,1);
     mainLayout->addWidget(m_label);
     setLayout(mainLayout);
+    mainLayout->setSpacing(0);
+    setStyleSheet("background-color:white;");
 
 }
 
@@ -100,7 +100,8 @@ void DistributionWidget::plotItem()
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(getWidthOfBars(xBar[0], xBar[xBar.length()-1], xBar.length()));
         bars->setData(xBar, yBar);
-        m_plot->xAxis->setRange(x[0]*percentage_for_xRange, x[x.size()-1]*percentage_for_yRange);
+        double xRange = (x[x.size()-1] - x[0])/xRangeDivisor;
+        m_plot->xAxis->setRange(x[0] - xRange, x[x.size()-1] + xRange);
         m_plot->yAxis->setRange(0, y[getMaxYPosition(y.size())]*percentage_for_yRange);
         m_plot->addPlottable(bars);
         setVerticalDashedLine(xBar[0],0,xBar[xBar.length()-1],m_plot->yAxis->range().upper);
@@ -115,7 +116,7 @@ void DistributionWidget::plotItem()
         bars->setWidth(xPos[0]/10);
         bars->setData(xPos, yPos);
         m_plot->addPlottable(bars);
-        m_plot->xAxis->setRange(xPos[0]*percentage_for_xRange, xPos[0]*percentage_for_yRange);
+        m_plot->xAxis->setRange(xPos[0] - xPos[0]*xBarRangeFactor, xPos[0] + xPos[0]*xBarRangeFactor);
         m_plot->yAxis->setRange(0, yPos[0]*percentage_for_yRange);
         setVerticalDashedLine(xPos[0],0,xPos[xPos.size()-1],m_plot->yAxis->range().upper);
 

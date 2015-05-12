@@ -117,8 +117,8 @@ Shape&Name&Parameters&Reference\\\hline
 \entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}
 \entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}
 \hline
-\entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$r_a$, $r_b$, $H$}
-\entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$r_a$, $r_b$, $H$}
+\entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}
+\entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}
 \entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}
 \entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}
 \entry{Box}{Box3d}{Box}{$L$, $W$, $H$}
@@ -150,6 +150,10 @@ If results contain an integral,
 then no analytical form was found,
 and the integral is evaluated by numeric quadrature.
 \index{Quadrature}%
+The analytical expressions for $F(\q)$ contain singularities for
+certain values of $\q$.
+All these singularities are removable.
+Our implementation comprises appropriate case distinctions.
 
 Examplary form factors are numerically computed in Born approximation.
 The particles are assigned a refractive index of $n=10^{-5}$.
@@ -200,7 +204,9 @@ with the parameters
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-\dfrac{2H}{L}\le\tan\alpha\quad\text{and}\quad\dfrac{2H}{W}\le\tan\alpha.
+  H \le \frac{\tan\alpha}{2} L
+  \quad\text{and}\quad
+  H \le \frac{\tan\alpha}{2} W
 \end{displaymath}
 
 \paragraph{Form factor etc}\strut\\
@@ -510,12 +516,15 @@ with the parameters
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-  \dfrac{2H}{L}\le\tan\alpha\quad\text{and}\quad\dfrac{2r_HH}{L}\le\tan\alpha.
+  H \le \frac{\tan\alpha}{2} L
+  \quad\text{and}\quad
+  r_h H \le \frac{\tan\alpha}{2} L.
 \end{displaymath}
 
 
 \paragraph{Form factor etc}\strut\\
-Using the form factor of a square pyramid $F_\text{Py}$:
+Using the form factor of a square pyramid $F_\text{Py}$
+(Sect.~\ref{sec:Pyramid}):
 \begin{equation*}
 F=\exp(iq_zH)\Big[F_\text{Py}(q_x,q_y, q_z, L, r_H H,\alpha)
                  +F_\text{Py}(q_x, q_y, -q_z, L, H, \alpha))\Big],
@@ -634,8 +643,8 @@ A cylinder whose cross section is an ellipse.
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{radius\_a}, in $x$ direction, $r_a$,
-\item \texttt{radius\_b}, in $y$ direction, $r_b$,
+\item \texttt{radius\_a}, in $x$ direction, $R_a$,
+\item \texttt{radius\_b}, in $y$ direction, $R_b$,
 \item height $H$.
 \end{itemize}
 
@@ -643,23 +652,23 @@ with the parameters
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{equation*}
-  \gamma \coloneqq \sqrt{(q_x r_a)^2+(q_y r_b)^2}  
+  \gamma \coloneqq \sqrt{(q_x R_a)^2+(q_y R_b)^2}  
 \end{equation*}
 Results:
 \begin{equation*}
-F = 2\pi r_a r_b H \exp\left(i\frac{q_z H}{2}\right)
+F = 2\pi R_a R_b H \exp\left(i\frac{q_z H}{2}\right)
    \sinc\left(\frac{q_z H}{2}\right) \frac{J_1(\gamma)}{\gamma},
 \end{equation*}
 \begin{equation*}
-  V = \pi r_a r_bH,
+  V = \pi R_a R_bH,
 \end{equation*}
 \begin{equation*}
-  S = r_a r_b.
+  S = R_a R_b.
 \end{equation*}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFellipscylinderEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $r_a=8$~nm, $r_b=13$~nm, and $H=16$~nm.
+$|F|^2/V^2$, computed with $R_a=8$~nm, $R_b=13$~nm, and $H=16$~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffellipscylinder.pdf}
@@ -707,7 +716,6 @@ with the parameter
 
 
 \paragraph{Form factor etc}\strut\\
-With the standard notation $q=\sqrt{q_x^2 + q_y^2 + q_z^2}$.
 \begin{equation*}
 F = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
 \end{equation*}
@@ -761,8 +769,8 @@ An ellipsoid, truncated at the central plane.
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{radius\_a}, in $x$ direction, $r_a$,
-\item \texttt{radius\_b}, in $y$ direction, $r_b$,
+\item \texttt{radius\_a}, in $x$ direction, $R_a$,
+\item \texttt{radius\_b}, in $y$ direction, $R_b$,
 \item \texttt{height}, equal to radius in $z$ direction, $H$
 \end{itemize}
 
@@ -770,8 +778,8 @@ with the parameters
 \paragraph{Form factor etc}\strut\\
 Notation:
 \begin{equation*}
- r_{a,z} \coloneqq r_a \sqrt{1-\left(\dfrac{z}{H} \right)^2},\quad
- r_{b,z} \coloneqq r_b \sqrt{1-\left(\dfrac{z}{H} \right)^2}, \quad
+ r_{a,z} \coloneqq R_a \sqrt{1-\left(\dfrac{z}{H} \right)^2},\quad
+ r_{b,z} \coloneqq R_b \sqrt{1-\left(\dfrac{z}{H} \right)^2}, \quad
  \gamma_z =\sqrt{(q_x r_{a,z})^2+(q_y r_{b,z})^2}.
 \end{equation*}
 Results:
@@ -780,15 +788,15 @@ Results:
                                \frac{J_1(\gamma_z)}{\gamma_z}\exp(iq_z z),
 \end{equation*}
 \begin{equation*}
-  V = \dfrac{2}{3}\pi r_a r_bH,
+  V = \dfrac{2}{3}\pi R_a R_bH,
 \end{equation*}
 \begin{equation*}
-  S =\pi r_a r_b.
+  S =\pi R_a R_b.
 \end{equation*}
 
 \paragraph{Example}\strut\\
 Figure~\ref{fig:FFhemiellipsEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
+$|F|^2/V^2$, computed with $R_a=10$~nm, $R_b=6$~nm and $H=8$~nm.
 
 \begin{figure}[h]
 \begin{center}
@@ -907,7 +915,7 @@ triangle.
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{length} of one side of the base, $L$,
+\item \texttt{length} of one base edge, $L$,
 \item \texttt{height}, $H$.
 \end{itemize}
 
@@ -1039,17 +1047,49 @@ A truncated pyramid with a square base.
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{length} of one side of the square base, $L$,  
+\item \texttt{length} of one edge of the square base, $L$,  
 \item \texttt{height}, $H$,
 \item \texttt{alpha}, angle between the base and a side face, $\alpha$,
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-  \dfrac{2H}{L} \le \tan\alpha.
+  H \le \frac{\tan\alpha}{2}L.
 \end{displaymath}
 
 
 \paragraph{Form factor etc}\strut\\
+Notation:
+\begin{displaymath}
+  \ell\coloneqq L/2,\quad
+  h\coloneqq H/2,\quad
+  f(z)\coloneqq \exp(i z)\sinc(z).
+\end{displaymath}
+Results:
+\begin{equation*}
+\begin{array}{@{}l@{}l@{}}
+\DS F=
+\frac{H}{q_xq_y} \Big\{
+   &+\DS  f\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
+        \exp(-i(q_x-q_y)\ell)
+\\[3.6ex]
+   &\DS+ f^*\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
+        \exp(+i(q_x-q_y)\ell)
+\\[3.6ex]
+   &\DS- f\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
+        \exp(-i(q_x+q_y)\ell)
+\\[3.6ex]
+   &\DS- f^*\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
+        \exp(+i(q_x+q_y)\ell)
+\Big\},
+\end{array}
+\end{equation*}
+\begin{equation*}
+  V= H \Big[L^2 - \frac{2LH}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
+\end{equation*}
+\begin{equation*}
+  S=L^2.
+\end{equation*}
+\Work{COMPARE WITH}
 \begin{align*}
 &F = 
 \frac{H}{q_x q_y} \times \nonumber \\ &\left\{ K_1 \cos\left[
@@ -1255,15 +1295,15 @@ A truncated tetrahedron.
 \end{quote}
 with the parameters
 \begin{itemize}
-\item \texttt{length} of one side of the equilateral triangular base, $L$,
+\item \texttt{length} of one edge of the equilateral triangular base, $L$,
 \item \texttt{height}, $H$,
 \item \texttt{alpha}, angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
-\dfrac{H}{L}\le \dfrac{\tan{\alpha}}{2\sqrt{3}}.
+  H\le \frac{\tan{\alpha}}{2\sqrt{3}} L.
 \end{displaymath}
-Note that the above side view does not show~$\alpha$,
+Note that the orthographic projection does not show~$\alpha$,
 but the angle~$\beta$ between the base and a side edge.
 They are related through $\tan \alpha = 2 \tan \beta$. 
 
@@ -1438,12 +1478,16 @@ They must fulfill
 
 
 \paragraph{Form factor etc}\strut\\
+Notation:
+\begin{equation*}
+  q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2},\quad
+  R_z \coloneqq \sqrt{R^2-z^2}.
+\end{equation*}
+Results:
 \begin{equation*}  
 F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
        \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
 \end{equation*}
-$q_{\parallel} =\sqrt{q_x^2+q_y^2}$, and $R_z = \sqrt{R^2-z^2}$
-
 \begin{equation*}
   V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right],
 \end{equation*}

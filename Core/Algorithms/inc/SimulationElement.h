@@ -90,6 +90,15 @@ public:
     {
         return m_phi_max;
     }
+    void setIntensity(double intensity)
+    {
+        m_intensity = intensity;
+    }
+
+    double getIntensity() const
+    {
+        return m_intensity;
+    }
 
 private:
     //! swap function
@@ -100,6 +109,7 @@ private:
 
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
     double m_alpha_min, m_alpha_max, m_phi_min, m_phi_max; //!< detector cell angles
+    double m_intensity;  //!< simulated intensity for detector cell
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator

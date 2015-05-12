@@ -9,11 +9,11 @@ det = bp.Detector( 200, 0, 5, 0, 5 )
 n    = 4
 results = []
 for i in range(n):
-    omega=30*i/(n-1)
+    omega=90*i/(n-1)
     title = r'$\omega=%d^\circ$' % omega
-    ff = ba.FormFactorPrism3(13.8*nanometer, 3*nanometer)
+    ff = ba.FormFactorRipple1(25*nanometer, 10*nanometer, 8*nanometer )
     trafo = ba.RotationZ(omega*degree)
     data = bp.run_simulation(det,ff,trafo)
     results.append( bp.Result(i, data, title) )
     
-bp.make_plot( results, det, "ff_Prism3" )
+bp.make_plot( results, det, "ff_Ripple1" )

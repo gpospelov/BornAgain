@@ -167,8 +167,10 @@ we use alternate internal parameters to alleviate the formul\ae.
 
 Examplary form factors are numerically computed in Born approximation.
 The particles are assigned a refractive index of $n=10^{-5}$.
-Parameters are chosen such that within $\pm5$~\%
-the particle volume~$V$ is 250~nm$^3$.
+Parameters are chosen such that 
+the particle volume~$V$ is about 250~nm$^3$ (within $\pm5$~\%);
+except ripples, which are chosen with a vertical section $V/L$ of 40~nm$^2$
+and a length of 25~nm.
 The incident wavelength is 1~\AA.
 The incident beam is always in $x$ direction, hence $\alpha_\ti=\phi_\ti=0$.
 Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$.
@@ -200,7 +202,7 @@ and on the same logarithmic color scale.
 \hfill
 \subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/AnisoPyramid2dxz.pdf}}}
 \hfill
-\caption{A truncated right pyramid with a rectangular base.}
+\caption{A truncated pyramid with a rectangular base.}
 \end{figure}
 
 \FloatBarrier
@@ -257,17 +259,15 @@ Results:
   S=LW.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFAnisoPyramidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, $H=13$~nm, and
-$\alpha=60^{\circ}$.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffanisopyramid.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_AnisoPyramid.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of an anisotropic
-  pyramid $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorAnisoPyramid(20.*nanometer, 16.*nanometer, 13.*nanometer, 60.*degree)}.}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=13$~nm, $W=8$~nm, $H=4.2$~nm, and $\alpha=60^\circ$,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFAnisoPyramidEx}
 \end{figure}
 
@@ -326,16 +326,15 @@ F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
   S = LW.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFBoxEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffbox.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Box.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Box plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorBox(20.*nanometer, 16.*nanometer, 13.*nanometer)}.}
-\label{fig:FFBoxEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -400,16 +399,15 @@ Results:
   S=\pi R^2.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFConeEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
+\paragraph{Examples}\strut
+
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffcone.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Cone.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Cone plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$.) It
-  has been  computed with \Code{FormFactorCone(10.*nanometer,13.*nanometer, 60.*degree)}.}
-\label{fig:FFConeEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=4$~nm, $H=11$~nm, and $\alpha=75^\circ$,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -482,17 +480,15 @@ Results:
   S =\dfrac{3\sqrt{3}R^2}{2}.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFCone6Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and
-$\alpha=60^{\circ}$.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffcone6.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Cone6.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Cone6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorCone6(10.*nanometer, 13.*nanometer, 60.*degree)}.}
-\label{fig:FFCone6Ex}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=6$~nm, $H=5$~nm, and $\alpha=60^\circ$,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -559,14 +555,15 @@ F=\exp(iq_zH)\Big[F_\text{Py}(q_x,q_y, q_z, L, r_H H,\alpha)
   S =L^2.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm, $r_H=0.7$, and $\alpha=60^{\circ}$.
+\paragraph{Examples}\strut
+
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffcuboctah.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Cuboctahedron.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a cuboctahedron plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorCuboctahedron(20.*nanometer, 13.*nanometer, 0.7, 60.*degree)}.}
-\label{fig:FFcuboctahEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=8$~nm, $H=5$~nm, $r_H=0.5$, and $\alpha=60^\circ$,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -687,7 +684,7 @@ F = 2\pi R_a R_b H \exp\left(i\frac{q_z H}{2}\right)
   S = R_a R_b.
 \end{equation*}
 
-\paragraph{Example}\strut
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
@@ -815,7 +812,7 @@ Results:
   S =\pi R_a R_b.
 \end{equation*}
 
-\paragraph{Example}\strut
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
@@ -958,7 +955,7 @@ F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
   S =\dfrac{\sqrt{3}}{4}L^2.
 \end{equation*}
 
-\paragraph{Example}\strut
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
@@ -1184,18 +1181,15 @@ F &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\
   S = L W.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFripple1Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffripple1.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple1.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a ripple1
-  $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
-  computed with \Code{FormFactorRipple1(27.*nanometer, 20.*nanometer, 14.*nanometer)}.}
-\label{fig:FFripple1Ex}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 
@@ -1257,17 +1251,16 @@ F &=L W
   S = L W.
 \end{equation*}
 
-\paragraph{Examples}
-Figure~\ref{fig:FFripple2Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffripple2.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple2.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a ripple2 plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
-  computed with \Code{FormFactorRipple2(36.*nanometer, 25.*nanometer, 14.*nanometer, 3.*nanometer)}.}
-\label{fig:FFripple2Ex}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.
+The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
 %-------------------------------------------------------------------------------
@@ -1337,19 +1330,16 @@ Results:
   S =\dfrac{\sqrt{3}}{4}L^2.
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFtetrahEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
-^{\circ}$.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[angle=-90,width=\textwidth]{fig/ff/figfftetrahedron.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Tetrahedron.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Tetrahedron
-  plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and
-  computed with \Code{FormFactorTetrahedron(15.*nanometer, 6.*nanometer, 60.*degree)}.}
-\label{fig:FFtetrahEx}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=12$~nm, $H=8$~nm, and $\alpha=75^\circ$,
+for four different angles~$\omega$ of rotation around the $z$ axis.
+The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -1395,7 +1385,6 @@ They must fulfill
   t \le L/2.
 \end{displaymath}
 
-
 \paragraph{Form factor etc}\strut\\
 Notation:\\
 Besides the form factor $F_\text{Box}(\q)$
@@ -1439,17 +1428,12 @@ F =F_{\text{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\text{vertex}_i}(q_x, 
   S = L^2.
 \end{equation*}
 
-\paragraph{Examples}
-Figure~\ref{fig:FFtrunccubeEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=15$~nm  and $t=6$~nm.
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figfftruncatedcube.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a truncated cube plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
-  computed with \Code{FormFactorTruncatedCube(15.*nanometer, 6.*nanometer)}.}
-\label{fig:FFtrunccubeEx}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -1511,15 +1495,12 @@ F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
          \pi\left(2RH-H^2\right), & H < R \end{array}\right..
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
+\paragraph{Example}\strut
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffsphere.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Truncated Sphere plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and
-  computed with \Code{FormFactorTruncatedSphere(5.*nanometer, 7.*nanometer)}.}
-\label{fig:SphereEx}
 \end{figure}
 
 \paragraph{References}\strut\\
@@ -1583,17 +1564,12 @@ F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
          \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right..
 \end{equation*}
 
-\paragraph{Example}\strut\\
-Figure~\ref{fig:FFspheroidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
+\paragraph{Example}\strut
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[angle=-90,width=\textwidth]{fig/ff/figffspheroid.pdf}
 \end{center}
-\caption{Normalized intensity for the form factor of a Truncated Spheroid plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
-  computed with \Code{FormFactorTruncatedSpheroid(7.5*nanometer, 9.*nanometer, 1.2)}.}
-\label{fig:FFspheroidEx}
 \end{figure}
 
 \paragraph{References}\strut\\

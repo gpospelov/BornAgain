@@ -978,7 +978,7 @@ The wavevectors, incident and elastically scattered, have the coordinates
 Ultimately,
 we need to convert pixel coordinates into scattering wavevectors.
 This is done through the following elementary steps:
-\begin{equation}
+\begin{equation}\label{Eqalgo}
   \begin{array}{cl}
       (i,j)&\\
       \downarrow&\mbox{linear relations}\\
@@ -991,4 +991,25 @@ This is done through the following elementary steps:
       \q&\\
   \end{array}
 \end{equation}
-Hence 
+Furthermore,
+we need to compute the solid angle under which our detector pixel
+is seen from the sample.
+It is perfectly adequate to do this in linear order
+by computing
+\begin{equation}
+  \Delta\Omega
+  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
+  = \cos\alpha_\tf
+    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
+    \Delta y \,\Delta z,
+  = \cos^3\alpha_\tf\, \cos^3\phi_\tf \frac{\Delta y \,\Delta z}{L^2}.
+\end{equation}
+Altogether,
+the expected count rate in detector pixel $(i,j)$ is proportional to
+\begin{equation}
+  I_{ij} = \cos^3\alpha_\tf\, \cos^3\phi_\tf\,
+          \frac{\partial\sigma}{\partial\Omega}(\q_{ij})
+\end{equation}
+where $\q_{ij}$ must be determined according to (\ref{Eqalgo}),
+and
+where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.

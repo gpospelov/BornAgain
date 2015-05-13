@@ -5,7 +5,7 @@ import bornagain as ba
 from   bornagain import nanometer, degree
 import bornplot as bp
 
-det = bp.Detector( 200, 0, 5, 0, 5 )
+det = bp.Detector( 200, -5, 5, -5, 5 )
 n    = 4
 results = []
 for i in range(n):

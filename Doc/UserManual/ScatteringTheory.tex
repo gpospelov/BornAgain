@@ -404,7 +404,7 @@ of the optical potential.
 \index{Far-field approximation|)}%
 
 %===============================================================================
-\subsection{Differential cross section}
+\subsection{Differential cross section}\label{SdiffCross}
 %===============================================================================
 
 In connection with (\ref{EBorn}) we mentioned
@@ -419,7 +419,7 @@ We define it in arbitrary relative units as
 \nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}
 \index{Flux!incident and scattered}%
 With (\ref{EPsi0Plane}), the incident flux is
-\begin{equation}
+\begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
 With (\ref{EsandwichC}), the scattered flux at the detector is
@@ -438,16 +438,17 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \end{equation}
 \nomenclature[1ω120]{$\Omega$}{Solid angle}%
 \nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
-The resulting equation
+The geometric factors that needed to
+convert $\d\sigma/\d\Omega$ into detector counts shall be discussed later in Sect.~\ref{SdetImg}.
 
+Here we insert (\ref{EJi}) and (\ref{EJr}) to obtain 
+the generic differential cross section of elastic scattering in first order Born approximation,
 \Emph{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
   =  {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
 \end{equation}\vspace*{-5pt}
 }
-yields quite generically the differential cross section of elastic scattering
-in first order Born approximation.
 As we shall see below,
 it holds not only for plane waves governed
 by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
@@ -462,7 +463,6 @@ Thus the differential cross section is just the squared modulus
 of the Fourier transform 
 \index{Scattering length density}%
 of the scattering-length density.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scattering under grazing incidence}\label{Sdwba}
@@ -923,13 +923,48 @@ that is governed by the complex wave equation (\ref{Ewavez}).
 \index{Absorption|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Detector images}\label{Sdetimg}
+\section{Detector images}\label{SdetImg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Let us conclude this chapter on the foundations of GISAS with a section
-%that is closer 
+\def\tc{\text{c}}
 
-In \BornAgain\ we assume that
-scattered radiation is detected in a flat, two-dimensional detector.
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=.6\textwidth]{fig/drawing/experimental_geometry.png}
+\end{center}
+\caption{Experimental geometry with a twodimensional pixel detector.}
+\label{FexpGeom}
+\end{figure}
 
+To conclude this chapter on the foundations of GISAS,
+let us catch up on a detail we skipped in Sect.~\ref{SdiffCross}:
+we still need to derive the geometric factors
+that allow us to convert differential cross sections into detector counts.
+We assume that scattered radiation is detected in a flat, two-dimensional detector
+that generates histograms on a rectangular grid,
+consisting of $n\cdot m$ pixels of constant width and height,
+as sketched in Fig.~\ref{FexpGeom}.
 
+We choose the origin of the coordinate system at the sample position
+(as for $x$ and $y$ at the center of the sample;
+as for $z$ typically at the surface of the sample).
+We suppose that the detector is mounted perpendicular to the $x$ axis
+at a distance $L$ from the sample position.
+%the $x$ axis intersects the detector plane at $(L,y_\tc,z_\tc)$.
+The real-space coordinate at the center of pixel $(i,j)$ is $(L,y_i,z_i)$.
+Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
+
+Scattered radiation is characterized by the horizontal declination angle~$\phi_\tf$
+and the vertical glancing angle $\alpha_\tf$.
+
+The wavevectors, incident and elastically scattered, have the coordinates
+\begin{equation}
+  \k_\ti=K\left(\begin{array}{c}
+   \cos\alpha_\ti\cos\phi_\ti\\
+   \cos\alpha_\ti\sin\phi_\ti\\
+   -\sin\alpha_\ti\end{array}\right),\quad
+  \k_\tf=K\left(\begin{array}{c}
+   \cos\alpha_\tf\cos\phi_\tf\\
+   \cos\alpha_\tf\sin\phi_\tf\\
+   \sin\alpha_\tf\end{array}\right).
+\end{equation}

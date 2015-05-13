@@ -21,6 +21,7 @@
 
 class BeamItem;
 class AwesomePropertyEditor;
+class AwesomePropertyPresenter;
 class QGridLayout;
 
 class BA_CORE_API_ BeamEditorWidget : public QWidget
@@ -35,7 +36,8 @@ public:
 
 private:
     AwesomePropertyEditor *m_intensityEditor;
-    AwesomePropertyEditor *m_wavelengthEditor;
+//    AwesomePropertyEditor *m_wavelengthEditor;
+    AwesomePropertyPresenter *m_wavelengthPresenter;
     AwesomePropertyEditor *m_inclinationAngleEditor;
     AwesomePropertyEditor *m_azimuthalAngleEditor;
     QGridLayout *m_gridLayout;

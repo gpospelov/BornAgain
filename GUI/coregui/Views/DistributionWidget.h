@@ -29,7 +29,7 @@ public slots:
     void onMouseMove(QMouseEvent *event);
 private slots:
     void onPropertyChanged();
-    void movePoint(QMouseEvent *e);
+//    void movePoint(QMouseEvent *e);
 
 private:
     QCustomPlot *m_plot;

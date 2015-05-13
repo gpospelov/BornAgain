@@ -16,17 +16,17 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 //    BeamWavelengthItem *item = new BeamWavelengthItem;
     m_plotwidget = new DistributionWidget(this);
     m_propertyEditor = new AwesomePropertyEditor(this);
-    GroupBox *box = new GroupBox;
-    box->setTitle("Wavelength dfgfdgfd gdf");
+//    GroupBox *box = new GroupBox;
+//    box->setTitle("Wavelength dfgfdgfd gdf");
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_plotwidget, 1);
-    mainLayout->addWidget(m_propertyEditor,1);
-    mainLayout->addWidget(box,1);
+    mainLayout->addWidget(m_propertyEditor);
+//    mainLayout->addWidget(box,1);
     setLayout(mainLayout);
 
-    connect(box, SIGNAL(clicked()),
-                        this, SLOT(infoButton()));
+//    connect(box, SIGNAL(clicked()),
+//                        this, SLOT(infoButton()));
 }
 
 void DistributionEditor::setItem(ParameterizedItem *item)
@@ -61,9 +61,9 @@ void DistributionEditor::onSubItemChanged(const QString &property_name)
     }
 }
 
-void DistributionEditor::infoButton()
-{
-    std::cout << "here" << std::endl;
-    DistributionDialog *dialog= new DistributionDialog;
+//void DistributionEditor::infoButton()
+//{
+//    std::cout << "here" << std::endl;
+//    DistributionDialog *dialog= new DistributionDialog;
 
-}
+//}

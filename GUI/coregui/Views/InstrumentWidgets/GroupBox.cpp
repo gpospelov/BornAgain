@@ -24,7 +24,15 @@
 #include <QPixmap>
 #include <QApplication>
 
-GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent ), m_collapsed( false ) {} GroupBox::GroupBox( const QString &title, QWidget *parent ): QGroupBox( title, parent ), m_collapsed( false ) {}
+GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
+  , m_collapsed( false ) {}
+GroupBox::GroupBox( const QString &title
+                    , QWidget *parent ): QGroupBox( title, parent )
+  , m_collapsed( false ), m_title(title)
+{
+    QGroupBox::setTitle("");
+//    m_title = title;
+}
 
 bool GroupBox::isCollapsed() { return m_collapsed; }
 

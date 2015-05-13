@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include "GroupBox.h"
 
 class AwesomePropertyEditor;
 class QGroupBox;
@@ -30,11 +31,16 @@ class BA_CORE_API_ AwesomePropertyPresenter : public QWidget
 
 public:
     AwesomePropertyPresenter(const QString &title, QWidget *parent = 0);
-
     AwesomePropertyEditor *getEditor() { return m_editor; }
 
+signals:
+    void onDialogRequest();
+
+
+private slots:
+    void dialogRequest();
 private:
-    QGroupBox *m_groupBox;
+    GroupBox *m_groupBox;
     AwesomePropertyEditor *m_editor;
 };
 

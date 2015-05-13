@@ -17,22 +17,30 @@
 #include "AwesomePropertyEditor.h"
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <iostream>
 
 AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget *parent)
     : QWidget(parent)
-    , m_groupBox(new QGroupBox(title))
+    , m_groupBox(new GroupBox(title))
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
 {
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-
     QVBoxLayout *groupBoxLayout = new QVBoxLayout;
     groupBoxLayout->setContentsMargins( 0, 0, 0, 0 );
     groupBoxLayout->addWidget(m_editor);
     m_groupBox->setLayout(groupBoxLayout);
 
+    connect(m_groupBox, SIGNAL(clicked()), this, SLOT(dialogRequest()));
+
     mainLayout->addWidget(m_groupBox);
     mainLayout->addStretch();
 
     setLayout(mainLayout);
+}
+
+void AwesomePropertyPresenter::dialogRequest()
+{
+    emit onDialogRequest();
+
 }

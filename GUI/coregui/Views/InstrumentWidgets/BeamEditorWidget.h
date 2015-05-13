@@ -34,6 +34,8 @@ public:
 
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
+private slots:
+    void onDialogRequest();
 private:
     AwesomePropertyEditor *m_intensityEditor;
 //    AwesomePropertyEditor *m_wavelengthEditor;

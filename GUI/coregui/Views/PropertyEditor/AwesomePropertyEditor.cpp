@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QComboBox>
+#include <QGroupBox>
 #include <cmath>
 
 
@@ -103,7 +104,8 @@ AwesomePropertyEditor::AwesomePropertyEditor(QWidget *parent, EBrowserType brows
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("AwesomePropertyEditor"));
 
-    m_d->m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //m_d->m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_d->m_browser->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
@@ -513,4 +515,13 @@ bool AwesomePropertyEditor::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QObject::eventFilter(obj, event);
+}
+
+QGroupBox *AwesomePropertyEditor::getGroupBox()
+{
+    const QObjectList list = children();
+    foreach(QObject *obj, list) {
+        return dynamic_cast<QGroupBox *>(obj);
+    }
+    return 0;
 }

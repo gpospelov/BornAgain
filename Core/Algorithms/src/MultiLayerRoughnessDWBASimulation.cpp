@@ -50,22 +50,21 @@ void MultiLayerRoughnessDWBASimulation::run()
 
 void MultiLayerRoughnessDWBASimulation::runProtected()
 {
-    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = Units::PI2/m_ki_real.mag();
-
-    DWBASimulation::iterator it_intensity = m_dwba_intensity.begin(m_thread_info);
-    while ( it_intensity != m_dwba_intensity.end(m_thread_info) )
+    std::vector<SimulationElement>::iterator it = m_begin_it;
+    while ( it != m_end_it )
     {
         if( !m_progress.update()) break;
 
-        double phi_f = getDWBAIntensity().getValueOfAxis(
-            BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis(
-            BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
-        cvector_t k_f;
+        double lambda = it->getWavelength();
+        double alpha_i = it->getAlphaI();
+        double phi_i = it->getPhiI();
+        double alpha_f = it->getAlphaMean();
+        double phi_f = it->getPhiMean();
+        cvector_t k_i, k_f;
+        k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
-        ++it_intensity;
+        it->setIntensity(evaluate(k_i, k_f, alpha_i, alpha_f));
+        ++it;
     }
     m_progress.finished();
 }

@@ -31,7 +31,7 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
 }
 
-void DecoratedLayerDWBASimulation::init(const GISASSimulation &simulation,
+void DecoratedLayerDWBASimulation::init(const Simulation &simulation,
                                         std::vector<SimulationElement>::iterator begin_it,
                                         std::vector<SimulationElement>::iterator end_it)
 {
@@ -75,34 +75,37 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
-    double wavelength = getWaveLength();
+    double lambda = m_begin_it->getWavelength();
+    double alpha_i = m_begin_it->getAlphaI();
+    double phi_i = m_begin_it->getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    DWBASimulation::iterator it = begin();
-    while (it != end()) {
+    std::vector<SimulationElement>::iterator it = m_begin_it;
+    while (it != m_end_it) {
         if (!m_progress.update())
             break;
-
-        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(BornAgain::PHI_AXIS_NAME, it.getIndex());
-        Bin1D alpha_bin
-            = getDWBAIntensity().getBinOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
+        Bin1D alpha_bin(it->getAlphaMin(), it->getAlphaMax());
+        Bin1D phi_bin(it->getPhiMin(), it->getPhiMax());
         double alpha_f = alpha_bin.getMidPoint();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
             ++it;
             continue;
         }
-        Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
+        Bin1DCVector k_f_bin = getKfBin(lambda, alpha_bin, phi_bin);
         // each ffdwba: 1 call to getOutCoeffs
         if (checkPolarizationPresent()) {
             // matrix dwba calculation
-            *it = p_strategy->evaluate(m_ki, m_beam_polarization, k_f_bin, m_detector_polarization,
-                                       alpha_bin, phi_bin) * total_surface_density;
+            it->setIntensity(p_strategy->evaluate(k_i, m_beam_polarization, k_f_bin,
+                                                  m_detector_polarization, alpha_bin, phi_bin)
+                             * total_surface_density);
         } else {
             // scalar dwba calculation
-            cvector_t k_ij = m_ki;
-            k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
-            *it = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
+            k_i.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
+            it->setIntensity(p_strategy->evaluate(k_i, k_f_bin, alpha_bin, phi_bin)
+                             * total_surface_density);
         }
         ++it;
     }

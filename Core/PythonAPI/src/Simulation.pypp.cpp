@@ -47,6 +47,18 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_getIntensityData(  );
     }
 
+    virtual double getWavelength(  ) const  {
+        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
+            return func_getWavelength(  );
+        else{
+            return this->Simulation::getWavelength(  );
+        }
+    }
+    
+    double default_getWavelength(  ) const  {
+        return Simulation::getWavelength( );
+    }
+
     virtual void initSimulationElementVector(  ){
         bp::override func_initSimulationElementVector = this->get_override( "initSimulationElementVector" );
         func_initSimulationElementVector(  );
@@ -62,6 +74,11 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     
     void default_prepareSimulation(  ) {
         Simulation::prepareSimulation( );
+    }
+
+    virtual void transferResultsToIntensityMap(  ){
+        bp::override func_transferResultsToIntensityMap = this->get_override( "transferResultsToIntensityMap" );
+        func_transferResultsToIntensityMap(  );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -273,6 +290,17 @@ void register_Simulation_class(){
                 , "Returns simulation parameters." );
         
         }
+        { //::Simulation::getWavelength
+        
+            typedef double ( ::Simulation::*getWavelength_function_type)(  ) const;
+            typedef double ( Simulation_wrapper::*default_getWavelength_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getWavelength"
+                , getWavelength_function_type(&::Simulation::getWavelength)
+                , default_getWavelength_function_type(&Simulation_wrapper::default_getWavelength) );
+        
+        }
         { //::Simulation::initSimulationElementVector
         
             typedef void ( Simulation_wrapper::*initSimulationElementVector_function_type)(  ) ;
@@ -356,6 +384,16 @@ void register_Simulation_class(){
                 , setThreadInfo_function_type( &::Simulation::setThreadInfo )
                 , ( bp::arg("thread_info") )
                 , "Sets the batch and thread information to be used." );
+        
+        }
+        { //::Simulation::transferResultsToIntensityMap
+        
+            typedef void ( Simulation_wrapper::*transferResultsToIntensityMap_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "transferResultsToIntensityMap"
+                , transferResultsToIntensityMap_function_type( &Simulation_wrapper::transferResultsToIntensityMap )
+                , "Creates the appropriate data structure (e.g. 2D intensity map) from the calculated SimulationElement objects " );
         
         }
         { //::IParameterized::areParametersChanged

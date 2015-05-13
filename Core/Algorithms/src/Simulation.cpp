@@ -89,11 +89,11 @@ void Simulation::runSimulation()
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    if (m_progress)
-// TODO:       m_progress->init(this, param_combinations);
-
-    // Initialize vector of simulation elements
     initSimulationElementVector();
+    if (m_progress)
+        // TODO:       m_progress->init(this, param_combinations);
+
+        // Initialize vector of simulation elements
 
     // no averaging needed:
     if (param_combinations == 1) {
@@ -101,20 +101,22 @@ void Simulation::runSimulation()
         m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
         updateSample();
         runSingleSimulation();
+        transferResultsToIntensityMap();
         return;
     }
 
     // average over parameter distributions:
     std::vector<SimulationElement> total_intensity = m_sim_elements;
-    // TODO: total_intensity.setAllTo(0.);
     boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(p_param_pool.get(), index);
         updateSample();
         runSingleSimulation();
-        addElementsWithWeight(total_intensity, m_sim_elements, weight);
+        AddElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
+                              weight);
     }
     m_sim_elements = total_intensity;
+    transferResultsToIntensityMap();
 }
 
 void Simulation::runOMPISimulation()
@@ -177,6 +179,12 @@ const DistributionHandler &Simulation::getDistributionHandler() const
     return m_distribution_handler;
 }
 
+double Simulation::getWavelength() const
+{
+    throw RuntimeErrorException(
+        "Simulation::getWavelength: not uniquely defined for this type of Simulation");
+}
+
 void Simulation::updateSample()
 {
     if (mp_sample_builder.get()) {
@@ -216,7 +224,7 @@ void Simulation::runSingleSimulation()
         // Single thread.
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
         verifyDWBASimulation(p_dwba_simulation);
-//        p_dwba_simulation->init(*this, m_sim_elements.begin(), m_sim_elements.end());
+        p_dwba_simulation->init(*this, m_sim_elements.begin(), m_sim_elements.end());
         p_dwba_simulation->run(); // the work is done here
         if (!p_dwba_simulation->isCompleted()) {
             std::string message = p_dwba_simulation->getRunMessage();
@@ -258,7 +266,7 @@ void Simulation::runSingleSimulation()
             } else {
                 end_it = m_sim_elements.begin() + (i_thread + 1) * element_thread_step;
             }
-//            p_dwba_simulation->init(*this, begin_it, end_it);
+            p_dwba_simulation->init(*this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
@@ -313,24 +321,3 @@ void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
             "particles),"
             "or MultiLayer with single Layer containing particles.");
 }
-
-void Simulation::addElementsWithWeight(std::vector<SimulationElement> &dest,
-                                       const std::vector<SimulationElement> &src, double weight)
-{
-    if (dest.size()!=src.size()) {
-        throw RuntimeErrorException(
-                    "Simulation::addElementsWithWeight() -> Can't copy when sizes differ.");
-    }
-    for (size_t i=0; i<src.size(); ++i) {
-        dest[i].addIntensity(src[i].getIntensity()*weight);
-    }
-}
-
-void Simulation::setAllElementIntensities(std::vector<SimulationElement> &elem_vector,
-                                          double intensity)
-{
-    for (size_t i=0; i<elem_vector.size(); ++i) {
-        elem_vector[i].setIntensity(intensity);
-    }
-}
-

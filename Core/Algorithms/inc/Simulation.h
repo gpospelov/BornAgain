@@ -103,6 +103,9 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
+    //! returns wavelength if this is uniquely defined for the current simulation
+    virtual double getWavelength() const;
+
 #ifndef GCCXML_SKIP_THIS
     //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
@@ -121,6 +124,10 @@ protected:
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector()=0;
 
+    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
+    //! SimulationElement objects
+    virtual void transferResultsToIntensityMap()=0;
+
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
@@ -129,13 +136,6 @@ protected:
 
     //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
-
-    //! Add element vector to element vector with weight
-    void addElementsWithWeight(std::vector<SimulationElement>& dest,
-                               const std::vector<SimulationElement>& src, double weight);
-
-    //! Set all element intensities to given value
-    void setAllElementIntensities(std::vector<SimulationElement>& elem_vector, double intensity);
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;

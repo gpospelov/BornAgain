@@ -26,7 +26,7 @@ class FormFactorInfo;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class Layer;
-class GISASSimulation;
+class Simulation;
 class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
@@ -42,7 +42,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 public:
     LayerStrategyBuilder(
         const Layer& decorated_layer,
-        const GISASSimulation& simulation,
+        const Simulation& simulation,
         const SimulationParameters& sim_params,
         size_t layout_index);
 
@@ -56,7 +56,7 @@ public:
 
 protected:
     Layer *mp_layer;                            //!< decorated layer
-    GISASSimulation *mp_simulation;                  //!< simulation
+    Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer

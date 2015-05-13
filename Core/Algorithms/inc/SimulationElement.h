@@ -27,6 +27,7 @@
 class BA_CORE_API_ SimulationElement
 {
 public:
+    SimulationElement();
     SimulationElement(double wavelength, double alpha_i, double phi_i, double alpha_min,
                       double alpha_max, double phi_min, double phi_max);
     SimulationElement(const SimulationElement &other);
@@ -82,6 +83,10 @@ public:
     {
         return m_alpha_max;
     }
+    double getAlphaMean() const
+    {
+        return (m_alpha_min + m_alpha_max)/2.0;
+    }
     double getPhiMin() const
     {
         return m_phi_min;
@@ -89,6 +94,10 @@ public:
     double getPhiMax() const
     {
         return m_phi_max;
+    }
+    double getPhiMean() const
+    {
+        return (m_phi_min + m_phi_max)/2.0;
     }
     void setIntensity(double intensity)
     {
@@ -118,5 +127,17 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
 };
+
+//! Add element vector to element vector with weight
+void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
+                           std::vector<SimulationElement>::const_iterator last,
+                           std::vector<SimulationElement>::iterator result,
+                           double weight);
+
+//! Set all element intensities to given value
+void setAllElementIntensities(std::vector<SimulationElement>::iterator first,
+                              std::vector<SimulationElement>::iterator last, double intensity);
+
+
 
 #endif /* SIMULATIONELEMENT_H_ */

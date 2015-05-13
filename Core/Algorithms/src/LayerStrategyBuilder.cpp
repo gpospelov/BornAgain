@@ -16,7 +16,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Layer.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
@@ -26,7 +26,7 @@
 #include <boost/scoped_ptr.hpp>
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-        const Layer& decorated_layer, const GISASSimulation& simulation,
+        const Layer& decorated_layer, const Simulation& simulation,
         const SimulationParameters& sim_params, size_t layout_index)
 : mp_layer(decorated_layer.clone())
 , mp_simulation(simulation.clone())
@@ -137,9 +137,7 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
 
 double LayerStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
-    kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return Units::PI2/ki_real.mag();
+    return mp_simulation->getWavelength();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(

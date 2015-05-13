@@ -37,7 +37,7 @@ public:
                                       "Error: not implemented.");
     }
 
-    virtual void init(const GISASSimulation& simulation,
+    virtual void init(const Simulation& simulation,
                       std::vector<SimulationElement>::iterator begin_it,
                       std::vector<SimulationElement>::iterator end_it);
 

@@ -104,6 +104,9 @@ public:
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
 
+    //! returns wavelength
+    virtual double getWavelength() const;
+
 protected:
     GISASSimulation(const GISASSimulation& other);
 
@@ -112,6 +115,10 @@ protected:
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector();
+
+    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
+    //! SimulationElement objects
+    virtual void transferResultsToIntensityMap();
 
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();

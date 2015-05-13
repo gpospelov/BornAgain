@@ -43,7 +43,7 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
     delete mp_roughness_dwba_simulation;
 }
 
-void MultiLayerDWBASimulation::init(const GISASSimulation& simulation,
+void MultiLayerDWBASimulation::init(const Simulation& simulation,
                                     std::vector<SimulationElement>::iterator begin_it,
                                     std::vector<SimulationElement>::iterator end_it)
 {
@@ -138,14 +138,17 @@ void MultiLayerDWBASimulation::runProtected()
 
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
-    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = Units::PI2/m_ki_real.mag();
+    double lambda = m_begin_it->getWavelength();
+    double alpha_i = m_begin_it->getAlphaI();
+    double phi_i = m_begin_it->getPhiI();
+    kvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample
     SpecularMatrix specularCalculator;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
-    specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
+    specularCalculator.execute(*mp_multi_layer, k_i, coeffs);
 
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
@@ -182,14 +185,17 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
-    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = Units::PI2/m_ki_real.mag();
+    double lambda = m_begin_it->getWavelength();
+    double alpha_i = m_begin_it->getAlphaI();
+    double phi_i = m_begin_it->getPhiI();
+    kvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
 
     // the coefficients for the incoming wavevector are calculated on the
     // original sample
     SpecularMagnetic specularCalculator;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
+    specularCalculator.execute(*mp_multi_layer, k_i, coeffs);
 
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0;

@@ -940,11 +940,18 @@ To conclude this chapter on the foundations of GISAS,
 let us catch up on a detail we skipped in Sect.~\ref{SdiffCross}:
 we still need to derive the geometric factors
 that allow us to convert differential cross sections into detector counts.
-We assume that scattered radiation is detected in a flat, two-dimensional detector
+We shall also discuss how to compare measured data with simulations,
+and how to present data on a physically meaningful scale.
+
+%===============================================================================
+\subsection{Coordinate transform}
+%===============================================================================
+
+We assume that scattered radiation is detected in a flat,
+two-dimensional detector
 that generates histograms on a rectangular grid,
 consisting of $n\cdot m$ pixels of constant width and height,
 as sketched in Fig.~\ref{FexpGeom}.
-
 We choose the origin of the coordinate system at the sample position
 (as for $x$ and $y$ at the center of the sample;
 as for $z$ typically at the surface of the sample).
@@ -981,7 +988,7 @@ This is done through the following elementary steps:
 \begin{equation}\label{Eqalgo}
   \begin{array}{cl}
       (i,j)&\\
-      \downarrow&\mbox{linear relations}\\
+      \downarrow&\mbox{trivial linear relations}\\
       (y,z)\\
       \downarrow&\mbox{resolve (\protect\ref{Eyzdet})}\\
       (\phi_\tf,\alpha_\tf)&\\
@@ -1013,3 +1020,8 @@ the expected count rate in detector pixel $(i,j)$ is proportional to
 where $\q_{ij}$ must be determined according to (\ref{Eqalgo}),
 and
 where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
+
+%===============================================================================
+\subsection{Data reduction versus virtual experiment}
+%===============================================================================
+

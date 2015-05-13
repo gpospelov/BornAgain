@@ -394,6 +394,7 @@ QtVariantProperty *AwesomePropertyEditor::createQtVariantProperty(ParameterizedI
 }
 
 //! inserts QtVariantProperty in proper place of the browser
+//! FIXME Hercules, clean this Augean stable one day.
 void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariantItem, QtVariantProperty *parent_qtproperty, AwesomePropertyEditor::EInsertMode insert_mode)
 {
     qDebug() << "AwesomePropertyEditor::insertQtVariantProperty qtVariantItem:" << qtVariantItem << " parent_property" << parent_qtproperty << insert_mode;
@@ -406,15 +407,28 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
         else if(insert_mode == INSERT_AFTER) {
             if(m_d->m_browser->items(parent_qtproperty).size() == 1) {
                 // inserting qtVariantItem after parent property, so we need to know parent of parent
-                QtProperty *new_parent = m_d->m_browser->items(parent_qtproperty).at(0)->parent()->property();
-                //new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
-                //new_parent->insertSubProperty(qtVariantItem, new_parent->subProperties().back());
-                if(m_d->m_qtvariant_to_dependend[parent_qtproperty].size()) {
-                    if(!new_parent->subProperties().contains(m_d->m_qtvariant_to_dependend[parent_qtproperty].back())) throw 1;
-                    new_parent->insertSubProperty(qtVariantItem, m_d->m_qtvariant_to_dependend[parent_qtproperty].back());
+                QList<QtBrowserItem *> associated = m_d->m_browser->items(parent_qtproperty);
+                if(associated.size()) {
+                    QtBrowserItem *parent_browser_item = associated.at(0)->parent();
+                    if(parent_browser_item) {
+                        QtProperty *new_parent = parent_browser_item->property();
+                        //new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+                        //new_parent->insertSubProperty(qtVariantItem, new_parent->subProperties().back());
+                        if(m_d->m_qtvariant_to_dependend[parent_qtproperty].size()) {
+                            if(!new_parent->subProperties().contains(m_d->m_qtvariant_to_dependend[parent_qtproperty].back())) throw 1;
+                            new_parent->insertSubProperty(qtVariantItem, m_d->m_qtvariant_to_dependend[parent_qtproperty].back());
+                        } else {
+//                      new_parent->insertSubProperty(qtVariantItem, new_parent->subProperties().back());
+                        new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+                        }
+                    } else {
+                        QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+                        if(!browserItem) {
+                            throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Failed while inserting property");
+                        }
+                    }
                 } else {
-//                    new_parent->insertSubProperty(qtVariantItem, new_parent->subProperties().back());
-                    new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
+                    throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Unexpected place");
                 }
             } else {
                 // our parent property is already at the top, so need to add into the browser

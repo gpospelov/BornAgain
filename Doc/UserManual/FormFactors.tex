@@ -13,39 +13,15 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\chapter{Particle form factors}  \label{SFF}
-
-  \index{Form factor|(}
+\chapter{Form factor library}  \label{SFF}
 
 % Don't number subfigures in this chapter.
 \makeatletter
 \renewcommand{\@thesubfigure}{\relax}
 \makeatother
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Shape transforms}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Shape transform|(}
-The form factor of a particle is the Fourier transform
-of its shape function,
-\begin{equation}
-  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
-\end{equation}
-For hard-shell particles the shape function $S(\r)$
-only takes the values 0 and~1
-so that the form factor becomes
-the \textit{shape transform}
-\begin{equation}\label{eq:FFHard}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
-\end{equation}
-where $V$ is the volume of the particle.
-\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
-
 \BornAgain\ comes with a collection of hard-coded 
-shape transform for standard particle geometries like
+shape transforms for standard particle geometries like
 spheres, cylinders, prisms, pyramids or ripples.
 This collection is documented in the following.
 For each shape,
@@ -79,19 +55,6 @@ to account for a tilt of the particle,
 it may be necessary to evaluate $F(\v{\tilde q})$ with
 a rotated scattering vector~$\v{\tilde q}$
 that has complex $\tilde q_x$ or~$\tilde q_y$.
-
-\E{Ripples}
-\index{Ripple (form factor)}%
- are particles with infinite extension in one dimension
-(by convention in $x$ direction).
-They have the shape transform 
-\begin{equation}\label{eq:FFHard}
-  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_x x+q_y y)},
-\end{equation}
-where $A$ is the cross section.
-To avoid an extra distinction of cases,
-\BornAgain\ requests that ripples have a \E{finite} length~$L$,
-which users may keep fixed at a very large value.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -130,8 +93,8 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}{D$_{2\h}$}
 \entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}
 \entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}
-\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}
 \entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}
+\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}
 \entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}
 \hline
 \end{longtable}
@@ -472,6 +435,7 @@ Notation:
   \tilde{q}_z \coloneqq (\tan\beta) q_z.
 \end{equation*}
 Results:
+\Work{The integral in $F$ could be worked out algebraically.}
 \begin{equation*}
   F = \frac{\sqrt{3}\, \e^{i\tilde q_z R}}{\tilde q_y ^2 - \tilde q_x^2}
     \int_{R_H}^R\!\d\rho\, \e^{-i\tilde q_z \rho}

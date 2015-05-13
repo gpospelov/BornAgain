@@ -199,11 +199,6 @@ Hence (\ref{Eass6}) can be written as
   = \sum_{lm} \sum_{ij} \e^{i(\q_{l\plll}\R_{i\plll}-\q_{m\plll}\R_{j\plll})}
     \FD^*_l(\v{T}_i) \FD_m(\v{T}_j).
 \end{equation}
-Implemented form factors will be presented in Chapter~\ref{SFF}.
-In the following,
-we will discuss interferences due the exponential term in (\ref{Eass4})
-that carry information about the two-dimensional arrangement of
-particles in a layer.
 
 \Warn{\indent Currently, \BornAgain\ does not support interferences
   between particles in different layers.
@@ -385,6 +380,43 @@ In \IsGISAXS, and similarly in \BornAgain,
 it is only available for paracrystals,
 and will therefore be discussed later (Sect.~\ref{}).}
 % end footnote
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Shape transforms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor|(}
+\index{Shape transform|(}
+The form factor of a particle is the Fourier transform
+of its shape function,
+\begin{equation}
+  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
+\end{equation}
+For hard-shell particles the shape function $S(\r)$
+only takes the values 0 and~1
+so that the form factor becomes
+the \textit{shape transform}
+\begin{equation}\label{eq:FFHard}
+  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
+\end{equation}
+where $V$ is the volume of the particle.
+\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
+
+\E{Ripples}
+\index{Ripple (form factor)}%
+ are particles with infinite extension in one dimension
+(by convention in $x$ direction).
+They have the shape transform 
+\begin{equation}\label{eq:FFHard}
+  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_y y + q_z z)},
+\end{equation}
+where $A$ is the cross section.
+To avoid an extra distinction of cases,
+\BornAgain\ requests that ripples have a \E{finite} length~$L$,
+which users may keep fixed at a very large value.
+
+\index{Form factor|)}
+\index{Shape transform|)}
 
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

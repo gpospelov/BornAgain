@@ -4,7 +4,10 @@
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)
 {
-    QHBoxLayout *mainLayout;
-    mainLayout->addWidget(new DistributionEditor);
-    setLayout(mainLayout);
+    QVBoxLayout *layout = new QVBoxLayout;
+    DistributionEditor *editor = new DistributionEditor;
+    layout->addWidget(editor);
+    setLayout(layout);
+    this->show();
+
 }

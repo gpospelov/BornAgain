@@ -22,6 +22,7 @@ public:
 
 private slots:
     void onSubItemChanged(const QString &property_name);
+    void infoButton();
 
 private:
     AwesomePropertyEditor *m_propertyEditor;

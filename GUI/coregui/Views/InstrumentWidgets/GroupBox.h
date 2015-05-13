@@ -28,15 +28,24 @@ public:
 
         bool isCollapsed();
         void setCollapse( bool collapse );
+//        void setTitle(const QString &title);
+        QPixmap mergeSideBySide(const QPixmap& pix, const QString txt);
+        void setTitle(const QString &title);
+signals:
+        void mousePressEvent( QMouseEvent *e );
 
 protected:
-        void mousePressEvent( QMouseEvent *e );
-        void mouseReleaseEvent( QMouseEvent *e );
+//        void mousePressEvent( QMouseEvent *e );
+//        void mouseMoveEvent(QMouseEvent *event);
+//        void mouseReleaseEvent( QMouseEvent *e );
         void paintEvent( QPaintEvent * );
 
 private:
         QPoint  clickPos;
         bool    m_collapsed;
+        QString m_title;
+        int m_xImage;
+        int m_yImage;
 };
 
 #endif

@@ -20,7 +20,13 @@
 \renewcommand{\@thesubfigure}{\relax}
 \makeatother
 
-\BornAgain\ comes with a collection of hard-coded 
+\def\ffsection#1{\ifodd\value{page}\else
+\clearpage\textit{Page intentionally left blank}\fi
+\clearpage
+\section{#1}}
+
+
+\BornAgain\ comes with a comprehensive collection of hard-coded 
 shape transforms for standard particle geometries like
 spheres, cylinders, prisms, pyramids or ripples.
 This collection is documented in the following.
@@ -60,12 +66,13 @@ The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
 Afterwards, the detailed documentation is in alphabetical order.
 
-\def\entry#1#2#3#4#5{%
+%\clearpage\thispagestyle{empty}
+\def\entry#1#2#3#4#5#6{%
 \raisebox{-3.8ex}{\includegraphics[width=5em]{fig/blue/#2.png}} &
-\texttt{#1} &
+\texttt{#6}\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
-Page~\pageref{sec:#3}\\} % , Sect.~\ref{sec:#3}
+Page~\pageref{S#3}\\} % , Sect.~\ref{S#3}
 \begin{center}
   \def\h{\text{h}}
   \def\v{\text{v}}
@@ -76,29 +83,30 @@ Page~\pageref{sec:#3}\\} % , Sect.~\ref{sec:#3}
    @{}p{.17\textwidth}
    @{}p{.19\textwidth}
    @{}p{.15\textwidth}@{}}
-Shape&Name&Symmetry&Parameters&Reference\\\hline
-\entry{FullSphere}{FullSphere3d}{FullSphere}{$R$}{R$_3$}
-\entry{FullSpheroid}{FullSpheroid3d}{FullSpheroid}{$R$, $H$}{D$_{\infty\h}$}
-\entry{Cylinder}{Cylinder3d}{Cylinder}{$R$, $H$}{D$_{\infty\h}$}
-\entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}{C$_{\infty\v}$}
-\entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}{C$_{\infty\v}$}
-\entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}
-\entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}
-\entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}
-\entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}
-\entry{Pyramid}{Pyramid3d}{Pyramid}{$L$, $H$, $\alpha$}{C$_{4\v}$}
-\entry{Cuboctahedron}{Cuboctahedron3d}{Cuboctahedron}{$L$, $H$, $r_H$, $\alpha$}{C$_{4\v}$}
-\entry{Prism3}{Prism33d}{Prism3}{$L$, $H$}{D$_{3\h}$}
-\entry{Tetrahedron}{Tetrahedron3d}{Tetrahedron}{$L$, $H$, $\alpha$}{C$_{3\v}$}
-\entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}{D$_{2\h}$}
-\entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}
-\entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}
-\entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}
-\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}
-\entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}
+Shape&{Name\newline \textsl{Legacy Name}}&Symmetry&Parameters&Reference\\\hline
+\entry{FullSphere}{FullSphere3d}{FullSphere}{$R$}{R$_3$}{Sphere}
+\entry{FullSpheroid}{FullSpheroid3d}{FullSpheroid}{$R$, $H$}{D$_{\infty\h}$}{Spheroid}
+\entry{}{Cylinder3d}{Cylinder}{$R$, $H$}{D$_{\infty\h}$}{Cylinder}
+\entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}{C$_{\infty\v}$}{SphericalCap}
+\entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}{C$_{\infty\v}$}{SpheroidalCap}
+\entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}{ConicalFrustum}
+\entry{}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
+\entry{}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
+\entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}{Frustum6}
+\entry{Pyramid}{Pyramid3d}{Pyramid}{$L$, $H$, $\alpha$}{C$_{4\v}$}{Frustum4}
+\entry{Cuboctahedron}{Cuboctahedron3d}{Cuboctahedron}{$L$, $H$, $r_H$, $\alpha$}{C$_{4\v}$}{BiFrustum4}
+\entry{}{Prism33d}{Prism3}{$L$, $H$}{D$_{3\h}$}{Prism3}
+\entry{Tetrahedron}{Tetrahedron3d}{Tetrahedron}{$L$, $H$, $\alpha$}{C$_{3\v}$}{Frustum3}
+\entry{}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}{D$_{2\h}$}{EllipsoidalCylinder}
+\entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}{Prism2}
+\entry{}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}{HemiEllipsoid}
+\entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}{Frustum2}
+\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}{Sinewave}
+\entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}{Sawtooth}
 \hline
 \end{longtable}
 \end{center}
+%\thispagestyle{empty}\clearpage
 
 In the following subsections,
 information about the implemented geometries is given in standardized form.
@@ -121,6 +129,18 @@ certain values of $\q$.
 All these singularities are removable.
 Our implementation comprises appropriate case distinctions.
 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/ff2/ff_demo_1quadrants.pdf}
+\end{center}
+\caption{Normalized intensity $I(\alpha_\tf,\phi_\tf)$
+for small-angle scattering by a truncated sphere with $R=4.2$~nm and $H=6.1$~nm,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).
+Since $I$ possess the standard symmetry (\protect\ref{EFq4sym}),
+data are only shown for first quadrant $0^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$.}
+\label{F1quadrants}
+\end{figure}
+
 Geometrical objects can be parametrized in different ways.
 Concerns about user experience and about code readability
 sometimes lead to different choices.
@@ -139,21 +159,47 @@ except ripples, which are chosen with a vertical section $V/L$ of 40~nm$^2$
 and a length of 25~nm.
 The incident wavelength is 1~\AA.
 The incident beam is always in $x$ direction, hence $\alpha_\ti=\phi_\ti=0$.
-Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$.
-All plots of $|F(q)|^2/V^2$ versus $\alpha_\tf$ and $\phi_\tf$
-are shown for the same angular range $0\ldots5^\circ$
-and on the same logarithmic color scale.
+Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$,
+\begin{equation}
+  I(\alpha_\tf,\phi_\tf)\coloneqq |F(q(\alpha_\tf,\phi_\tf))|^2/V^2.
+\end{equation}
+All plots have the same logarithmic color scale,
+extending over ten decades from $10^{-1)}$ to~1.
+Plot ranges in $\alpha_\tf$ and $\phi_\tf$ are also standardized as far as 
+reasonably possible.
+For most particle geometries,
+$I$ has horizontal and vertical mirror planes:
+\begin{equation}\label{EFq4sym}
+  I(\alpha_\tf,\phi_\tf)
+  = I(\alpha_\tf,-\phi_\tf)
+  = I(-\alpha_\tf,-\phi_\tf)
+  = I(\alpha_\tf,-\phi_\tf).
+\end{equation}
+The physical origin this symmetry is discussed in Sect.~\ref{Ssym}.
+For these particles,
+plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
+However, it requires some experience to fully appreciate the
+information content of these plots.
+For a demonstration of this,
+try to capture the main features of Fig.~\ref{F1quadrants}.
+Then compare with Fig.~\ref{F4quadrants}.
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/ff2/ff_demo_4quadrants.pdf}
+\end{center}
+\caption{Same data as in Fig.~\protect\ref{F1quadrants},
+but now shown for all four quadrants ($-5^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$).
+The vertical interference pattern,
+which gradually disappears with increasing tilt angle,
+ is much more salient in this plot 
+than in the preceding one-quadrant representation.}
+\label{F4quadrants}
+\end{figure}
 
 
 %===============================================================================
-% Start the series of standardized double pages.
-%===============================================================================
-\ifodd\value{page}\else\FloatBarrier\newpage\textit{Page intentionally left blank}\fi
-\FloatBarrier\newpage
-
-
-%===============================================================================
-\subsection{AnisoPyramid (rectangle-based)} \label{sec:AnisoPyramid} 
+\ffsection{AnisoPyramid (rectangle-based)} \label{SAnisoPyramid} 
 %===============================================================================
   \index{Anisotropic pyramid (form factor)}
   \index{Pyramid (form factor)!rectangular (AnisoPyramid)}
@@ -244,11 +290,12 @@ Agrees with the \E{In-plane anisotropic pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.40]{Laz08} \cite[Eq.~217]{ReLL09},
 except for different parametrization and
 for a refactoring of the analytical expression for $F(\q)$.
+This is \E{not} the \E{anisotropic pyramid} of \FitGISAXS,
+which is a true pyramid with an off-center apex \cite{Bab13}.
 
 
-\FloatBarrier\newpage
 %===============================================================================
-\subsection{Box (cuboid)} \label{sec:Box}
+\ffsection{Box (cuboid)} \label{SBox}
 %===============================================================================
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
@@ -311,9 +358,8 @@ Agrees with \E{Box} form factor of \IsGISAXS\
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 
-\clearpage
 %===============================================================================
-\subsection{Cone (circular)} \label{sec:Cone} 
+\ffsection{Cone (circular)} \label{SCone} 
 %===============================================================================
   \index{Cone (form factor)!circular}
   \index{Truncated cone (form factor)}
@@ -384,9 +430,8 @@ Agrees with \E{Cone} form factor of \IsGISAXS\
 except for a substitution $z\to\rho$ in our expression for~$F$.
 
 
-\clearpage
 %===============================================================================
-\subsection{Cone6 (hexagonal)} \label{sec:Cone6}
+\ffsection{Cone6 (hexagonal)} \label{SCone6}
 %===============================================================================
   \index{Cone (form factor)!hexagonal (Cone6)}
   \index{Pyramid (form factor)!hexagonal (Cone6)}
@@ -466,9 +511,8 @@ Hopefully agrees with \E{Cone6} form factor of \IsGISAXS\
 except for different parametrization.
 
 
-\clearpage
 %===============================================================================
-\subsection{Cuboctahedron} \label{sec:Cuboctahedron}
+\ffsection{Cuboctahedron} \label{SCuboctahedron}
 %===============================================================================
   \index{Cuboctahedron (form factor)}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
@@ -509,7 +553,7 @@ They must fulfill
 
 \paragraph{Form factor etc}\strut\\
 Using the form factor of a square pyramid $F_\text{Py}$
-(Sect.~\ref{sec:Pyramid}):
+(Sect.~\ref{SPyramid}):
 \begin{equation*}
 F=\exp(iq_zH)\Big[F_\text{Py}(q_x,q_y, q_z, L, r_H H,\alpha)
                  +F_\text{Py}(q_x, q_y, -q_z, L, H, \alpha))\Big],
@@ -541,9 +585,8 @@ Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 
 
-\clearpage
 %===============================================================================
-\subsection{Cylinder} \label{sec:Cylinder}
+\ffsection{Cylinder} \label{SCylinder}
 %===============================================================================
   \index{Cylinder (form factor)}
   \index{FormFactorCylinder@\Code{FormFactorCylinder}}
@@ -604,9 +647,8 @@ Agrees with \E{Cylinder} form factor of \IsGISAXS\
 \cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09}.
 
 
-\clearpage
 %===============================================================================
-\subsection{EllipsoidalCylinder} \label{sec:EllipsoidalCylinder} 
+\ffsection{EllipsoidalCylinder} \label{SEllipsoidalCylinder} 
 %===============================================================================
   \index{Ellipsoidal cylinder (form factor)}
   \index{Cylinder (form factor)!ellipsoidal}
@@ -670,9 +712,8 @@ Agrees with the \IsGISAXS\ form factor
 or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 
-\clearpage
 %===============================================================================
-\subsection{FullSphere} \label{sec:FullSphere}
+\ffsection{FullSphere} \label{SFullSphere}
 %===============================================================================
   \index{Full sphere (form factor)}
   \index{Sphere (form factor)}
@@ -729,9 +770,8 @@ agrees with the \E{Full sphere} of \IsGISAXS
 \cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
 
 
-\clearpage
 %===============================================================================
-\subsection{HemiEllipsoid} \label{sec:HemiEllipsoid}  
+\ffsection{HemiEllipsoid} \label{SHemiEllipsoid}  
 %===============================================================================
   \index{Hemi ellipsoid (form factor)}
   \index{Ellipsoid (form factor)!truncated}
@@ -799,9 +839,8 @@ Agrees with the \IsGISAXS\ form factor
 or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
 
-\clearpage
 %===============================================================================
-\subsection{FullSpheroid} \label{sec:FullSpheroid}
+\ffsection{FullSpheroid} \label{SFullSpheroid}
 %===============================================================================
   \index{Full spheroid (form factor)}
   \index{Spheroid (form factor)}
@@ -865,18 +904,11 @@ computed with $R=3.5$~nm and $H=9.8$~nm.}
 Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
 \cite[Eq.~2.37]{Laz08} \cite[Eq.~227]{ReLL09},
 with corrected volume formula.
-
-%\subsection{References}
-%The expression is identical to \Code{IsGISAXS} manual. In the code,
-%the integration is over $[-H/2, H/2]$ with $\exp(iq_z z)$ instead of
-%the cosine.
-%In \Code{IsGISAXS}, factor 4 instead of 2 in the expression of the
-%volume. In the code there is also a problem with an extra factor 2 in the function to integrate.
+We also discovered a wrong factor of~2 in the \IsGISAXS\ code. 
 
 
-\clearpage
 %===============================================================================
-\subsection{Prism3 (triangular)} \label{sec:Prism3}
+\ffsection{Prism3 (triangular)} \label{SPrism3}
 %===============================================================================
   \index{Prism (form factor)!triangular (Prism3)}
   \index{FormFactorPrism3@\Code{FormFactorPrism3}}
@@ -940,11 +972,10 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 Agrees with \E{Prism3} form factor of \IsGISAXS\
 \cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09},
 except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
+In \FitGISAXS\ just called \E{Prism} \cite{Bab13}.
 
-
-\clearpage
 %===============================================================================
-\subsection{Prism6 (hexagonal)} \label{sec:Prism6}
+\ffsection{Prism6 (hexagonal)} \label{SPrism6}
 %===============================================================================
   \index{Prism (form factor)!hexagonal (Prism6)}
   \index{FormFactorPrism6@\Code{FormFactorPrism6}}
@@ -1008,9 +1039,8 @@ which has different parametrization
 and lacks a factor $H$ in $F(\q)$.
 
 
-\clearpage
 %===============================================================================
-\subsection{Pyramid (square-based)}\label{sec:Pyramid}
+\ffsection{Pyramid (square-based)}\label{SPyramid}
 %===============================================================================
   \index{Pyramid (form factor)!square}
   \index{Truncated pyramid (form factor)!square}
@@ -1106,9 +1136,8 @@ with correction of a sign error,
 and with a more compact form of $F(\q)$.
 
 
-\clearpage
 %===============================================================================
-\subsection{Ripple1 (sinusoidal)} \label{sec:Ripple1}  
+\ffsection{Ripple1 (sinusoidal)} \label{SRipple1}  
 %===============================================================================
   \index{Ripple (form factor)!sinusoidal (Ripple1)}
   \index{Sinusoidal ripple (form factor)}
@@ -1161,10 +1190,11 @@ computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
+\paragraph{References}\strut\\
+Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
-\clearpage
 %===============================================================================
-\subsection{Ripple2 (saw-tooth)} \label{sec:Ripple2}  
+\ffsection{Ripple2 (saw-tooth)} \label{SRipple2}  
 %===============================================================================
   \index{Ripple (form factor)!saw-tooth (Ripple2)}
   \index{Saw-tooth ripple (form factor)}
@@ -1231,10 +1261,12 @@ for four different angles~$\omega$ of rotation around the $z$ axis.
 The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
+\paragraph{References}\strut\\
+Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 
-\clearpage
+
 %===============================================================================
-\subsection{Tetrahedron} \label{sec:Tetrahedron}
+\ffsection{Tetrahedron} \label{STetrahedron}
 %===============================================================================
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
@@ -1313,11 +1345,11 @@ The low symmetry requires other angular ranges than used in most other figures.}
 \paragraph{References}\strut\\
 Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
 \cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09}.
+In \FitGISAXS\ correctly called \E{Truncated tetrahedron} \cite{Bab13}.
 
 
-\clearpage
 %===============================================================================
-\subsection{TruncatedCube} \label{sec:TruncatedCube}  
+\ffsection{TruncatedCube} \label{STruncatedCube}  
 %===============================================================================
   \index{Cube (form factor)!facetted}
   \index{Facetted cube (form factor)}
@@ -1356,7 +1388,7 @@ They must fulfill
 \paragraph{Form factor etc}\strut\\
 Notation:\\
 Besides the form factor $F_\text{Box}(\q)$
-of the full cube of side length $L$ (Sect.~\ref{sec:Box}),
+of the full cube of side length $L$ (Sect.~\ref{SBox}),
 we need the form factor of a trirectangular tetrahedrons
 as cut from the cube:
 \begin{align*}
@@ -1411,9 +1443,8 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \cite{HeSS74}
 
 
-\clearpage
 %===============================================================================
-\subsection{TruncatedSphere}\label{sec:TruncatedSphere}
+\ffsection{TruncatedSphere}\label{STruncatedSphere}
 %===============================================================================
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
@@ -1483,9 +1514,8 @@ Agrees with the \IsGISAXS\ form factor
 \E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
 
 
-\clearpage
 %===============================================================================
-\subsection{TruncatedSpheroid} \label{sec:TruncatedSpheroid}
+\ffsection{TruncatedSpheroid} \label{STruncatedSpheroid}
 %===============================================================================
   \index{Spheroid (form factor)!truncated}
   \index{Truncated spheroid (form factor)}
@@ -1558,79 +1588,4 @@ Agrees with the \IsGISAXS\ form factor
 
 
 \index{Shape transform|)}
-
-%===============================================================================
-\clearpage
-\section{Core-shell particles} \label{sec:CoreShell}
-%===============================================================================
-\index{Core-shell particles}
-
-To generate a core-shell particle, the combination is performed using the following command:\\
-\Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
-where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the center of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
-
-Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. 
-
-\begin{figure}[ht]
-\hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxz.pdf}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxy.pdf}}
-\hfill
-\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centers of the bases. }
-\label{fig:coreshell}
-\end{figure}
-
-\clearpage
-
-\begin{lstlisting}[language=python,
-  style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
-    to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
-    outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
-    inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
-    shell_particle = Particle(m_shell, outer_ff)
-    core_particle = Particle(m_core, inner_ff)
-    core_position = kvector_t(1.5, 0.0, 0.0)
-
-    particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-\end{lstlisting}
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[angle=-90,width=0.6\textwidth]{fig/gisasmap/CoreShellParallPyr.pdf}
-\end{center}
-\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the center of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
-\label{fig:FFCoreShellBA}
-\end{figure}
-
-\clearpage
-%===============================================================================
-\section{Rotation of particles}
-%===============================================================================
-\index{Rotation of particles}
-\index{Orientation of particles}
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform) 
-\end{lstlisting}
-
-
-%===============================================================================
-\section{Polydispersity}
-%===============================================================================
-
-... to come
-
 \index{Form factor|)}

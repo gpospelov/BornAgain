@@ -382,10 +382,15 @@ and will therefore be discussed later (Sect.~\ref{}).}
 % end footnote
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Shape transforms}
+\section{Form factors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Form factor|(}
+
+%===============================================================================
+\subsection{Shape transform} \label{Sshapetrafo}
+%===============================================================================
+
 \index{Shape transform|(}
 The form factor of a particle is the Fourier transform
 of its shape function,
@@ -401,7 +406,6 @@ the \textit{shape transform}
 \end{equation}
 where $V$ is the volume of the particle.
 \nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
-
 \E{Ripples}
 \index{Ripple (form factor)}%
  are particles with infinite extension in one dimension
@@ -412,11 +416,92 @@ They have the shape transform
 \end{equation}
 where $A$ is the cross section.
 To avoid an extra distinction of cases,
-\BornAgain\ requests that ripples have a \E{finite} length~$L$,
+\BornAgain\ implements ripples as particles with a \E{finite} length~$L$,
 which users may keep fixed at a very large value.
 
-\index{Form factor|)}
+\BornAgain\ comes with a comprehensive collection of hard-coded 
+shape transforms for standard particle geometries like
+spheres, cylinders, prisms, or pyramids,
+plus some ripples.
+Each geometry is is documented in standardized form in Appendix~\ref{SFF}.
+
 \index{Shape transform|)}
+
+
+%===============================================================================
+\subsection{Core-shell particles} \label{sec:CoreShell}
+%===============================================================================
+\index{Core-shell particles}
+
+To generate a core-shell particle, the combination is performed using the following command:\\
+\Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
+where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the center of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
+
+Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. 
+
+\begin{figure}[ht]
+\hfill
+\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxz.pdf}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxy.pdf}}
+\hfill
+\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centers of the bases. }
+\label{fig:coreshell}
+\end{figure}
+
+\clearpage
+
+\begin{lstlisting}[language=python,
+  style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
+    to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
+    outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
+    inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
+    shell_particle = Particle(m_shell, outer_ff)
+    core_particle = Particle(m_core, inner_ff)
+    core_position = kvector_t(1.5, 0.0, 0.0)
+
+    particle = ParticleCoreShell(shell_particle, core_particle, core_position)
+\end{lstlisting}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[angle=-90,width=0.6\textwidth]{fig/gisasmap/CoreShellParallPyr.pdf}
+\end{center}
+\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the center of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
+\label{fig:FFCoreShellBA}
+\end{figure}
+
+\clearpage
+%===============================================================================
+\subsection{Rotation of particles}
+%===============================================================================
+\index{Rotation of particles}
+\index{Orientation of particles}
+
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid = Particle(m_particle, pyramid_ff)
+    angle_around_z = 45.*degree
+    transform = Transform3D.createRotateZ(angle_around_z)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform) 
+\end{lstlisting}
+
+
+%===============================================================================
+\subsection{Polydispersity}
+%===============================================================================
+
+... to come
+
+\index{Form factor|)}
 
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

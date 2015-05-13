@@ -384,7 +384,7 @@ that the incident radiation is a plane wave
 with $k_\ti=K$,
 and introducing the \E{scattering vector}
 \index{Scattering vector}%
-\begin{equation}
+\begin{equation}\label{Eq}
   \q\coloneqq \k_\ti-\k_\tf,
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
@@ -954,11 +954,18 @@ at a distance $L$ from the sample position.
 The real-space coordinate at the center of pixel $(i,j)$ is $(L,y_i,z_i)$.
 Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
 
-Scattered radiation is characterized by the horizontal declination angle~$\phi_\tf$
+Scattered radiation is characterized
+by the horizontal declination angle~$\phi_\tf$
 and the vertical glancing angle $\alpha_\tf$.
-
+The corresponding detector coordinates are
+\begin{equation}\label{Eyzdet}
+  \begin{array}{lcl}
+  y &=& L \tan\phi_\tf,\\
+  z &=& (L/ \cos\phi_\tf) \tan\alpha_\tf.
+  \end{array}
+\end{equation}
 The wavevectors, incident and elastically scattered, have the coordinates
-\begin{equation}
+\begin{equation}\label{Ekifdet}
   \k_\ti=K\left(\begin{array}{c}
    \cos\alpha_\ti\cos\phi_\ti\\
    \cos\alpha_\ti\sin\phi_\ti\\
@@ -968,3 +975,20 @@ The wavevectors, incident and elastically scattered, have the coordinates
    \cos\alpha_\tf\sin\phi_\tf\\
    \sin\alpha_\tf\end{array}\right).
 \end{equation}
+Ultimately,
+we need to convert pixel coordinates into scattering wavevectors.
+This is done through the following elementary steps:
+\begin{equation}
+  \begin{array}{cl}
+      (i,j)&\\
+      \downarrow&\mbox{linear relations}\\
+      (y,z)\\
+      \downarrow&\mbox{resolve (\protect\ref{Eyzdet})}\\
+      (\phi_\tf,\alpha_\tf)&\\
+      \downarrow&\mbox{use (\protect\ref{Ekifdet})}\\
+      \k_\tf&\\
+      \downarrow&\mbox{use (\protect\ref{Eq})}\\
+      \q&\\
+  \end{array}
+\end{equation}
+Hence 

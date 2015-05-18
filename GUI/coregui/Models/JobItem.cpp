@@ -256,3 +256,12 @@ InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
     return 0;
 }
 
+void JobItem::onPropertyChange(const QString &name)
+{
+    if(name == ParameterizedItem::P_NAME) {
+        if(IntensityDataItem *intensityDataItem = getIntensityDataItem()) {
+            intensityDataItem->setNameFromProposed(itemName());
+        }
+    }
+}
+

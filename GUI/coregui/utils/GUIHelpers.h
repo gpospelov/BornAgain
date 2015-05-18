@@ -54,6 +54,8 @@ BA_CORE_API_ int getVariantType(const QVariant &variant);
 
 BA_CORE_API_ QString getBornAgainVersionString();
 
+BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
+
 }
 
 #endif // GUIHELPERS_H

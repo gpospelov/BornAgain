@@ -18,6 +18,7 @@
 #include "AngleProperty.h"
 #include "AxesItems.h"
 #include "Units.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
@@ -220,6 +221,14 @@ bool IntensityDataItem::isZAxisLocked() const
 void IntensityDataItem::setZAxisLocked(bool state)
 {
     return getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
+}
+
+//! Sets the name of intensity data item from proposed name. This name will be used to save file
+//! on disk, so it has to be cleaned from special character.
+void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
+{
+    QString valid_name = GUIHelpers::getValidFileName(proposed_name);
+    setItemName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
 }
 
 void IntensityDataItem::setLowerX(double xmin)

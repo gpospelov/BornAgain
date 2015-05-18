@@ -3,7 +3,10 @@
 
 
 // FIXME Take care of "QPainter::fontMetrics: Painter not active" warning
-//
+
+// FIXME Implement tooltip for an icon which calls DistributionDialog
+
+// Implement "close" button for Right Bottom corner of the distribution dialog
 
 
 DistributionDialog::DistributionDialog(QWidget *parent)

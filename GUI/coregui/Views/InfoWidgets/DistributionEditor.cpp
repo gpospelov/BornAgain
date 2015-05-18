@@ -15,7 +15,7 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 
 //    BeamWavelengthItem *item = new BeamWavelengthItem;
     m_plotwidget = new DistributionWidget(this);
-    m_propertyEditor = new AwesomePropertyEditor(this);
+    m_propertyEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
 //    GroupBox *box = new GroupBox;
 //    box->setTitle("Wavelength dfgfdgfd gdf");
 
@@ -31,7 +31,11 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 
 void DistributionEditor::setItem(ParameterizedItem *item)
 {
-    m_propertyEditor->setItem(item);
+//    m_propertyEditor->setItem(item);
+    m_propertyEditor->clearEditor();
+
+
+    m_propertyEditor->addItemProperties(item, item->itemName(), AwesomePropertyEditor::INSERT_AFTER);
 
     if (m_item == item) return;
 

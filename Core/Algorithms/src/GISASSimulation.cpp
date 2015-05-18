@@ -224,10 +224,10 @@ void GISASSimulation::initSimulationElementVector()
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
     double wavelength = beam.getWavelength();
-    double alpha_i = beam.getAlpha();
+    double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector().getPolarizationOperator();
+    Eigen::Matrix2cd analyzer_operator = m_instrument.getDetector().getAnalyzerOperator();
 
     if (m_instrument.getDetectorDimension()!=2) {
         throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
@@ -250,7 +250,7 @@ void GISASSimulation::initSimulationElementVector()
             SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
                                           alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
             sim_element.setPolarization(beam_polarization);
-            sim_element.setPolarizationOperator(analyzer_operator);
+            sim_element.setAnalyzerOperator(analyzer_operator);
             m_sim_elements.push_back(sim_element);
         }
     }

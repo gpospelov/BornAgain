@@ -80,7 +80,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarizationOperator() const
+    Eigen::Matrix2cd getAnalyzerOperator() const
     {
         return m_analyzer_operator;
     }

@@ -93,8 +93,6 @@ void Simulation::runSimulation()
     if (m_progress)
         // TODO:       m_progress->init(this, param_combinations);
 
-        // Initialize vector of simulation elements
-
     // no averaging needed:
     if (param_combinations == 1) {
         boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());

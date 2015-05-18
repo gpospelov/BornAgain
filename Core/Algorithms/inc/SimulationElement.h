@@ -51,13 +51,13 @@ public:
     }
 
     //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setPolarizationOperator(const Eigen::Matrix2cd& polarization_operator)
+    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator)
     {
         m_analyzer_operator = polarization_operator;
     }
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarizationOperator() const
+    Eigen::Matrix2cd getAnalyzerOperator() const
     {
         return m_analyzer_operator;
     }

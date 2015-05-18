@@ -66,10 +66,6 @@ protected:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     mutable OutputData<double> m_dwba_intensity;
-#ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd m_beam_polarization;
-    Eigen::Matrix2cd m_detector_polarization;
-#endif
     ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;

@@ -20,8 +20,6 @@ DWBASimulation::DWBASimulation()
 : m_thread_info()
 , mp_simulation(0)
 {
-    m_beam_polarization.setZero();
-    m_detector_polarization.setZero();
 }
 
 DWBASimulation::~DWBASimulation()

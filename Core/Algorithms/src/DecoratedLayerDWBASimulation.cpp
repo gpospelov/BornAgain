@@ -98,8 +98,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         // each ffdwba: 1 call to getOutCoeffs
         if (checkPolarizationPresent()) {
             // matrix dwba calculation
-            it->setIntensity(p_strategy->evaluate(k_i, m_beam_polarization, k_f_bin,
-                                                  m_detector_polarization, alpha_bin, phi_bin)
+            it->setIntensity(p_strategy->evaluate(k_i, it->getPolarization(), k_f_bin,
+                                                  it->getAnalyzerOperator(), alpha_bin, phi_bin)
                              * total_surface_density);
         } else {
             // scalar dwba calculation

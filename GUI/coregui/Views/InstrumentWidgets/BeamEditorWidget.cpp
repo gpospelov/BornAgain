@@ -97,6 +97,8 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
 void BeamEditorWidget::onDialogRequest(ParameterizedItem *item)
 {
-    DistributionDialog *dialog = new DistributionDialog;
+    DistributionDialog *dialog = new DistributionDialog(this);
+    dialog->show();
+    dialog->raise();
     dialog->setItem(item);
 }

@@ -1,6 +1,11 @@
 
 #include "DistributionDialog.h"
 
+
+// FIXME Take care of "QPainter::fontMetrics: Painter not active" warning
+//
+
+
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)
     , m_editor(new DistributionEditor)

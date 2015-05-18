@@ -30,6 +30,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_tabWidget(new QTabWidget)
     , m_propertyEditor(0)
     , m_commentsEditor(0)
+    , m_block_update(false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Job Properties"));
@@ -40,9 +41,9 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     m_propertyEditor = new AwesomePropertyEditor(this);
-    //m_propertyEditor->setCreateGroupProperty(false);
 
     m_commentsEditor = new QTextEdit();
+    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
     QWidget *commentsWidget = new QWidget();
     QVBoxLayout * vlayout = new QVBoxLayout;
@@ -107,8 +108,19 @@ void JobPropertiesWidget::onPropertyChanged(const QString &property_name)
     }
 }
 
+void JobPropertiesWidget::onTextChanged()
+{
+    m_block_update = true;
+    Q_ASSERT(m_currentItem);
+
+    m_currentItem->setComments(m_commentsEditor->toPlainText());
+    m_block_update = false;
+}
+
 void JobPropertiesWidget::updateItem(JobItem *jobItem)
 {
+    if(m_block_update) return;
+
     if(jobItem) {
         if(jobItem->getStatus() == Constants::STATUS_FAILED) {
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
@@ -117,9 +129,4 @@ void JobPropertiesWidget::updateItem(JobItem *jobItem)
         }
         m_commentsEditor->setText(jobItem->getComments());
     }
-
 }
-
-
-
-

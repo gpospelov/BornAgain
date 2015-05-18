@@ -45,6 +45,7 @@ public slots:
 
 private slots:
     void onPropertyChanged(const QString &property_name);
+    void onTextChanged();
 
 private:
     void updateItem(JobItem *item);
@@ -54,6 +55,7 @@ private:
     QTabWidget *m_tabWidget;
     AwesomePropertyEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
+    bool m_block_update;
 };
 
 #endif

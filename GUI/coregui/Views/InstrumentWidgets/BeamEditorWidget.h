@@ -43,8 +43,8 @@ private:
     AwesomePropertyPresenter *m_wavelengthPresenter;
     AwesomePropertyPresenter *m_inclinationAnglePresenter;
     AwesomePropertyPresenter *m_azimuthalAnglePresenter;
-    AwesomePropertyEditor *m_inclinationAngleEditor;
-    AwesomePropertyEditor *m_azimuthalAngleEditor;
+//    AwesomePropertyEditor *m_inclinationAngleEditor;
+//    AwesomePropertyEditor *m_azimuthalAngleEditor;
     QGridLayout *m_gridLayout;
     BeamItem *m_beamItem;
 };

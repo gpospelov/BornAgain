@@ -32,7 +32,7 @@ class BA_CORE_API_ AwesomePropertyPresenter : public QWidget
 
 public:
     AwesomePropertyPresenter(const QString &title, QWidget *parent = 0);
-    AwesomePropertyEditor *getEditor() { return m_editor; }
+//    AwesomePropertyEditor *getEditor() { return m_editor; }
     void setItem(ParameterizedItem *item);
 
 signals:

@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 #include "GroupBox.h"
+#include "ParameterizedItem.h"
 
 class AwesomePropertyEditor;
 class QGroupBox;
@@ -32,9 +33,10 @@ class BA_CORE_API_ AwesomePropertyPresenter : public QWidget
 public:
     AwesomePropertyPresenter(const QString &title, QWidget *parent = 0);
     AwesomePropertyEditor *getEditor() { return m_editor; }
+    void setItem(ParameterizedItem *item);
 
 signals:
-    void onDialogRequest();
+    void onDialogRequest(ParameterizedItem *item);
 
 
 private slots:
@@ -42,6 +44,7 @@ private slots:
 private:
     GroupBox *m_groupBox;
     AwesomePropertyEditor *m_editor;
+    ParameterizedItem *m_item;
 };
 
 #endif

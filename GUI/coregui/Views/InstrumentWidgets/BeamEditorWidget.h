@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include "ParameterizedItem.h"
 
 class BeamItem;
 class AwesomePropertyEditor;
@@ -35,11 +36,13 @@ public:
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
 private slots:
-    void onDialogRequest();
+    void onDialogRequest(ParameterizedItem *item);
 private:
     AwesomePropertyEditor *m_intensityEditor;
 //    AwesomePropertyEditor *m_wavelengthEditor;
     AwesomePropertyPresenter *m_wavelengthPresenter;
+    AwesomePropertyPresenter *m_inclinationAnglePresenter;
+    AwesomePropertyPresenter *m_azimuthalAnglePresenter;
     AwesomePropertyEditor *m_inclinationAngleEditor;
     AwesomePropertyEditor *m_azimuthalAngleEditor;
     QGridLayout *m_gridLayout;

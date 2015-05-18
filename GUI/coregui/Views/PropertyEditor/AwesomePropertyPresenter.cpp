@@ -23,6 +23,7 @@ AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget
     : QWidget(parent)
     , m_groupBox(new GroupBox(title))
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
+    , m_item(new ParameterizedItem)
 {
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -39,8 +40,14 @@ AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget
     setLayout(mainLayout);
 }
 
+void AwesomePropertyPresenter::setItem(ParameterizedItem *item)
+{
+    m_editor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
+    m_item = item;
+}
+
 void AwesomePropertyPresenter::dialogRequest()
 {
-    emit onDialogRequest();
+    emit onDialogRequest(m_item);
 
 }

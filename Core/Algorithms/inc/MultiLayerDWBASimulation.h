@@ -47,9 +47,6 @@ public:
                       std::vector<SimulationElement>::iterator begin_it,
                       std::vector<SimulationElement>::iterator end_it);
 
-    //! Sets thread information for masking
-    virtual void setThreadInfo(const ThreadInfo& thread_info);
-
     virtual void run();
 
 protected:

@@ -74,21 +74,6 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
     }
 }
 
-void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
-{
-    DWBASimulation::setThreadInfo(thread_info);
-    for (std::map<size_t, SafePointerVector<LayerDWBASimulation> >::iterator it =
-             m_layer_dwba_simulations_map.begin();
-         it != m_layer_dwba_simulations_map.end(); ++it) {
-        for (size_t i=0; i < it->second.size(); ++i) {
-            it->second[i]->setThreadInfo(thread_info);
-        }
-    }
-    if (mp_roughness_dwba_simulation) {
-        mp_roughness_dwba_simulation->setThreadInfo(thread_info);
-    }
-}
-
 void MultiLayerDWBASimulation::run()
 {
     setStatus(RUNNING);
@@ -104,8 +89,7 @@ void MultiLayerDWBASimulation::run()
 
 void MultiLayerDWBASimulation::runProtected()
 {
-    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected() -> Running thread "
-                       << m_thread_info.current_thread;
+    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";
     m_dwba_intensity.setAllTo(0.0);
 
     if (requiresMatrixRTCoefficients()) {

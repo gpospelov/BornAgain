@@ -17,8 +17,7 @@
 
 
 DWBASimulation::DWBASimulation()
-: m_thread_info()
-, mp_simulation(0)
+: mp_simulation(0)
 {
 }
 
@@ -52,7 +51,6 @@ DWBASimulation *DWBASimulation::clone() const
 {
     DWBASimulation *p_result = new DWBASimulation();
     p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);
-    p_result->m_thread_info = m_thread_info;
     p_result->m_progress.setCallback(m_progress.getCallback());
     if (mp_simulation)
         p_result->mp_simulation = mp_simulation->clone();

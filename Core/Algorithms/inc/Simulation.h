@@ -137,6 +137,12 @@ protected:
     //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
 
+    //! Returns the start iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
+
+    //! Returns the end iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     SampleBuilder_t mp_sample_builder;
@@ -149,6 +155,9 @@ protected:
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;
     std::vector<SimulationElement> m_sim_elements;
+
+private:
+    void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 };
 
 #endif /* SIMULATION_H_ */

@@ -41,12 +41,6 @@ public:
                       std::vector<SimulationElement>::iterator begin_it,
                       std::vector<SimulationElement>::iterator end_it);
 
-    //! Sets thread information for masking
-    virtual void setThreadInfo(const ThreadInfo &thread_info)
-    {
-        m_thread_info = thread_info;
-    }
-
     //! Returns output data containing calculated intensity.
     const OutputData<double> &getDWBAIntensity() const;
 
@@ -60,7 +54,6 @@ protected:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     mutable OutputData<double> m_dwba_intensity;
-    ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;
 

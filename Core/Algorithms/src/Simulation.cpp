@@ -217,6 +217,11 @@ void Simulation::runSingleSimulation()
             m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
         }
     }
+    // restrict calculation to current batch
+    std::vector<SimulationElement>::iterator batch_start
+        = getBatchStart(m_thread_info.n_batches, m_thread_info.current_batch);
+    std::vector<SimulationElement>::iterator batch_end
+        = getBatchEnd(m_thread_info.n_batches, m_thread_info.current_batch);
 
     if (m_thread_info.n_threads < 0)
         m_thread_info.n_threads = 1;
@@ -224,7 +229,7 @@ void Simulation::runSingleSimulation()
         // Single thread.
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
         verifyDWBASimulation(p_dwba_simulation);
-        p_dwba_simulation->init(*this, m_sim_elements.begin(), m_sim_elements.end());
+        p_dwba_simulation->init(*this, batch_start, batch_end);
         p_dwba_simulation->run(); // the work is done here
         if (!p_dwba_simulation->isCompleted()) {
             std::string message = p_dwba_simulation->getRunMessage();
@@ -253,18 +258,21 @@ void Simulation::runSingleSimulation()
         std::vector<DWBASimulation *> simulations;
 
         // Initialize n simulations.
-        int total_nbr_elements = m_sim_elements.size();
-        int element_thread_step = total_nbr_elements / m_thread_info.n_threads;
+        int total_batch_elements = batch_end - batch_start;
+        int element_thread_step = total_batch_elements / m_thread_info.n_threads;
+        if (total_batch_elements % m_thread_info.n_threads) ++element_thread_step;
         for (int i_thread = 0; i_thread < m_thread_info.n_threads; ++i_thread) {
+            if (i_thread*element_thread_step >= total_batch_elements) break;
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
             verifyDWBASimulation(p_dwba_simulation);
-            std::vector<SimulationElement>::iterator begin_it = m_sim_elements.begin()
+            std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            if (i_thread == m_thread_info.n_threads - 1) {
-                end_it = m_sim_elements.end();
+            int end_thread_index = (i_thread + 1)*element_thread_step;
+            if (end_thread_index >= total_batch_elements) {
+                end_it = batch_end;
             } else {
-                end_it = m_sim_elements.begin() + (i_thread + 1) * element_thread_step;
+                end_it = batch_start + end_thread_index;
             }
             p_dwba_simulation->init(*this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
@@ -320,4 +328,38 @@ void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
             "It should be either the MultiLayer with more than one layer (with or without "
             "particles),"
             "or MultiLayer with single Layer containing particles.");
+}
+
+std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
+{
+    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
+    int total_size = m_sim_elements.size();
+    int size_per_batch = total_size/n_batches;
+    if (total_size%n_batches) ++size_per_batch;
+    if (current_batch*size_per_batch >= total_size) return m_sim_elements.end();
+    return m_sim_elements.begin() + current_batch*size_per_batch;
+}
+
+std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
+{
+    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
+    int total_size = m_sim_elements.size();
+    int size_per_batch = total_size/n_batches;
+    if (total_size%n_batches) ++size_per_batch;
+    int end_index = (current_batch + 1)*size_per_batch;
+    if (end_index >= total_size) return m_sim_elements.end();
+    return m_sim_elements.begin() + end_index;
+}
+
+void Simulation::imposeConsistencyOfBatchNumbers(int &n_batches, int &current_batch)
+{
+    if (n_batches < 2) {
+        n_batches = 1;
+        current_batch = 0;
+    }
+    if (current_batch >= n_batches) {
+        throw ClassInitializationException(
+            "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
+            "number of batches.");
+    }
 }

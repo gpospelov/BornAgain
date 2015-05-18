@@ -32,7 +32,6 @@ GroupBox::GroupBox( const QString &title
   , m_collapsed( false ), m_title(title)
 {
     QGroupBox::setTitle("");
-//    m_title = title;
 }
 
 bool GroupBox::isCollapsed() { return m_collapsed; }
@@ -44,40 +43,21 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
         QStyleOptionGroupBox option;
         initStyleOption( &option );
         QRect buttonArea( m_xImage, m_yImage, 16, 16 );
-//        buttonArea.moveTopRight( option.rect.adjusted( 0, 0, -10, 0 ).topRight());
-        if( buttonArea.contains( e->pos() ) )
-        {
+        if( buttonArea.contains( e->pos() ) ) {
             emit clicked(true);
         }
     }
 }
 
-//void GroupBox::mouseReleaseEvent( QMouseEvent *e )
-//{
-//    if( e->button() == Qt::LeftButton && clickPos == e->pos() )
-//        setCollapse( !isCollapsed() );
-//        std::cout << "here" << std::endl;
-//}
-
 void GroupBox::paintEvent( QPaintEvent * )
 {
-//    QPushButton *button = new QPushButton(this);
-//    QIcon icon("/home/sezer/Downloads/qt-creator-opensource-src-3.4.0/share/qtcreator/qmlicons/Qt/16x16/InfoBanner.png");
-//    button->setIcon(icon);
-
-    QStylePainter paint( this );
+    QStylePainter paint(this);
     QStyleOptionGroupBox option;
-    initStyleOption( &option );
-    paint.drawComplexControl( QStyle::CC_GroupBox, option );
-    QPixmap pix = mergeSideBySide(QPixmap(":/images/expand_arrow.png").scaled(16,16,Qt::KeepAspectRatio), m_title);
-    paint.drawItemPixmap(
-                option.rect.adjusted( 0, 0, -10, 0 ),
-                Qt::AlignTop | Qt::AlignLeft,
-                pix);
-
-//                QPixmap( m_collapsed ?
-//                             ":/images/expand_arrow.png" :
-//                             ":/images/collapse_arrow.png" ).scaled(16, 16, Qt::KeepAspectRatio));
+    initStyleOption(&option);
+    paint.drawComplexControl(QStyle::CC_GroupBox, option);
+    QPixmap pix = mergeSideBySide(
+        QPixmap(":/images/expand_arrow.png").scaled(16, 16, Qt::KeepAspectRatio), m_title);
+    paint.drawItemPixmap(option.rect.adjusted(0, 0, -10, 0), Qt::AlignTop | Qt::AlignLeft, pix);
 }
 
 void GroupBox::setCollapse( bool collapse )
@@ -86,21 +66,6 @@ void GroupBox::setCollapse( bool collapse )
     foreach( QWidget *widget, findChildren<QWidget*>() )
         widget->setHidden( collapse );
 }
-
-//void GroupBox::mouseMoveEvent(QMouseEvent * event)
-//{
-//    double xPos = event->x();
-//    double yPos = event->y();
-//    QPointF *pointF = new QPointF(xPos, yPos);
-
-//    if( 50 <= xPos && xPos <= 66 && 3 <=  yPos && yPos <= 19) {
-//        emit mousePressedButton(event->pos());
-//        emit mousePressEvent(new QMouseEvent(QMouseEvent::MouseButtonPress
-//                                             ,pointF
-//                                             ,Qt::LeftButton
-//                                             ,Qt::NoModifier));
-//    }
-//}
 
 QPixmap GroupBox::mergeSideBySide( const QPixmap& pix, const QString txt )
 {

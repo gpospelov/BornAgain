@@ -46,6 +46,11 @@ void AwesomePropertyPresenter::setItem(ParameterizedItem *item)
     m_item = item;
 }
 
+void AwesomePropertyPresenter::clearEditor()
+{
+    m_editor->clearEditor();
+}
+
 void AwesomePropertyPresenter::dialogRequest()
 {
     emit onDialogRequest(m_item);

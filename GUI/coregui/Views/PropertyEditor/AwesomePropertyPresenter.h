@@ -29,18 +29,21 @@ class QGroupBox;
 class BA_CORE_API_ AwesomePropertyPresenter : public QWidget
 {
     Q_OBJECT
-
 public:
+
     AwesomePropertyPresenter(const QString &title, QWidget *parent = 0);
-//    AwesomePropertyEditor *getEditor() { return m_editor; }
+    AwesomePropertyEditor *getEditor() { return m_editor; }
+
     void setItem(ParameterizedItem *item);
+
+    void clearEditor();
 
 signals:
     void onDialogRequest(ParameterizedItem *item);
 
-
 private slots:
     void dialogRequest();
+
 private:
     GroupBox *m_groupBox;
     AwesomePropertyEditor *m_editor;

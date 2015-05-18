@@ -1,10 +1,5 @@
 
-
-
-
-
 #include "DistributionDialog.h"
-
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)
@@ -14,11 +9,9 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     layout->addWidget(m_editor);
     setLayout(layout);
     setAttribute(Qt::WA_DeleteOnClose, true);
-//    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::ExpandFlag);
     setMinimumSize(800, 600);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->show();
-
 }
 
 void DistributionDialog::setItem(ParameterizedItem *item)

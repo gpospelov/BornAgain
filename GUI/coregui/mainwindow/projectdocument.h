@@ -88,6 +88,7 @@ private:
     bool writeTo(QIODevice *device);
     bool readFrom(QIODevice *device);
 
+    void reviseOutputData();
     void saveOutputData();
     void loadOutputData();
 

@@ -138,6 +138,8 @@ bool ProjectDocument::save()
 {
     qDebug() << "ProjectDocument::save() -> " << getProjectName() << getProjectPath() << getProjectFileName();
 
+    reviseOutputData();
+
     QString filename = getProjectFileName();
 
     QFile file(filename);
@@ -253,7 +255,6 @@ bool ProjectDocument::readFrom(QIODevice *device)
     return true;
 }
 
-
 bool ProjectDocument::writeTo(QIODevice *device)
 {
     QXmlStreamWriter writer(device);
@@ -303,23 +304,32 @@ QString ProjectDocument::getProjectDir()
     return result;
 }
 
+//! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
+//! *.int files in project directory
+void ProjectDocument::reviseOutputData()
+{
+    for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
+        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
+        if(dataItem) {
+            // handling case when user has renamed jobItem and we have to clean previous
+            // *.int file
+            QString filename = getProjectDir() + "/" + dataItem->itemName();
+            QFile fin(filename);
+            if(fin.exists()) {
+                fin.remove();
+            }
+
+            // making new name of *.int file from jobItem name
+            dataItem->setNameFromProposed(jobItem->itemName());
+        }
+    }
+}
 
 //! saves OutputData into project directory
 void ProjectDocument::saveOutputData()
 {
     Q_ASSERT(m_jobModel);
-
-//    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
-//        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
-//        OutputDataItem *dataItem = jobItem->getOutputDataItem();
-//        if(dataItem) {
-//            QString filename = getProjectDir() + "/" + dataItem->getName();
-//            const OutputData<double> *data = dataItem->getOutputData();
-//            if(data) {
-//                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
-//            }
-//        }
-//    }
     for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
@@ -331,7 +341,6 @@ void ProjectDocument::saveOutputData()
             }
         }
     }
-
 }
 
 
@@ -340,17 +349,6 @@ void ProjectDocument::loadOutputData()
 {
     Q_ASSERT(m_jobModel);
 
-//    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
-//        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
-//        OutputDataItem *dataItem = jobItem->getOutputDataItem();
-//        if(dataItem) {
-//            QString filename = getProjectDir() + "/" + dataItem->getName();
-//            QFileInfo info(filename);
-//            if(info.exists()) {
-//                jobItem->getOutputDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
-//            }
-//        }
-//    }
     for(int i=0; i<m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i,0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();

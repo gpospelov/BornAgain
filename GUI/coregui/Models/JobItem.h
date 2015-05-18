@@ -79,7 +79,7 @@ public:
 
     InstrumentItem *getInstrumentItem(bool from_backup = false);
 
-    void onPropertyChange(const QString &name);
+//    void onPropertyChange(const QString &name);
 
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description

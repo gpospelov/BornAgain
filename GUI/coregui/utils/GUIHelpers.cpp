@@ -25,13 +25,13 @@ namespace {
 QMap<QString, QString> initializeCharacterMap()
 {
     QMap<QString, QString> result;
-    result["\\"]= QString("backslash");
-    result["/"] = QString("slash");
-    result["\""] = QString("quote");
-    result["<"] = QString("lessthan");
-    result[">"] = QString("greaterthan");
-    result["|"] = QString("pipe");
-    result["?"] = QString("questionmark");
+    result["\\"]= QString("_backslash_");
+    result["/"] = QString("_slash_");
+    result["\""] = QString("_quote_");
+    result["<"] = QString("_lessthan_");
+    result[">"] = QString("_greaterthan_");
+    result["|"] = QString("_pipe_");
+    result["?"] = QString("_questionmark_");
     return result;
 }
 

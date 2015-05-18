@@ -1,15 +1,27 @@
+
+
+
+
+
 #include "DistributionDialog.h"
 
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)
+    , m_editor(new DistributionEditor)
 {
     QVBoxLayout *layout = new QVBoxLayout;
-    DistributionEditor *editor = new DistributionEditor;
-    layout->addWidget(editor,1);
+    layout->addWidget(m_editor);
     setLayout(layout);
     setAttribute(Qt::WA_DeleteOnClose, true);
 //    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::ExpandFlag);
+    setMinimumSize(800, 600);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->show();
 
+}
+
+void DistributionDialog::setItem(ParameterizedItem *item)
+{
+    m_editor->setItem(item);
 }

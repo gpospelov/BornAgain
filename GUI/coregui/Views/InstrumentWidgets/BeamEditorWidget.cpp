@@ -20,6 +20,7 @@
 #include "BeamItem.h"
 #include "LayerItem.h"
 #include "GroupBox.h"
+#include "GUIHelpers.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -71,6 +72,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
 
     m_wavelengthPresenter = new AwesomePropertyPresenter("Wavelength [nm] X", this);
     m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
+    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest()), this, SLOT(onDialogRequest()));
     //
     // connect(m_wavelengthPresenter, SIGNAL(dialogRequest), this, onDialogRequest);
     //
@@ -107,7 +109,6 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
 //    m_wavelengthEditor->addItemProperties(wavelengthItem, QString(), AwesomePropertyEditor::INSERT_AFTER);
     m_wavelengthPresenter->getEditor()->addItemProperties(wavelengthItem, QString(), AwesomePropertyEditor::INSERT_AFTER);
-    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest()), this, SLOT(onDialogRequest()));
 
     ParameterizedItem *inclinationAngleItem = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
     m_inclinationAngleEditor->addItemProperties(inclinationAngleItem, QString("Inclination angle [deg]"), AwesomePropertyEditor::INSERT_AFTER);
@@ -121,7 +122,20 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 
 void BeamEditorWidget::onDialogRequest()
 {
+    AwesomePropertyPresenter *presenter = qobject_cast<AwesomePropertyPresenter *>(sender());
+    Q_ASSERT(presenter);
+
     DistributionDialog *dialog= new DistributionDialog;
+    if(presenter == m_wavelengthPresenter) {
+        dialog->setItem(m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH]);
+    }
+    else if(presenter == m_inclinationAngleEditor) {
+
+    }
+    else {
+        throw GUIHelpers::Error("BeamEditorWidget::onDialogRequest() -> Unknown sender");
+    }
+
 }
 
 /*

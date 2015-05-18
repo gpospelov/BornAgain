@@ -12,6 +12,9 @@ class DistributionDialog : public QDialog
 public:
     DistributionDialog(QWidget *parent = 0);
     virtual ~DistributionDialog() {}
+    void setItem(ParameterizedItem *item);
+private:
+    DistributionEditor *m_editor;
 };
 
 #endif

@@ -50,12 +50,6 @@ public:
     //! Returns output data containing calculated intensity.
     const OutputData<double> &getDWBAIntensity() const;
 
-    //! Adds intensity to current dwba intensity
-    void addDWBAIntensity(const OutputData<double> &data_to_add)
-    {
-        m_dwba_intensity += data_to_add;
-    }
-
     virtual DWBASimulation *clone() const;
 
 protected:

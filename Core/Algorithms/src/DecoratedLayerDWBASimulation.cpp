@@ -31,14 +31,6 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
 }
 
-void DecoratedLayerDWBASimulation::init(const Simulation &simulation,
-                                        std::vector<SimulationElement>::iterator begin_it,
-                                        std::vector<SimulationElement>::iterator end_it)
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
-    DWBASimulation::init(simulation, begin_it, end_it);
-}
-
 void DecoratedLayerDWBASimulation::run()
 {
     setStatus(RUNNING);

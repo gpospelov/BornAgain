@@ -60,7 +60,6 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
                             SafePointerVector<LayerDWBASimulation>();
                 }
                 m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
-                p_layer_dwba_sim->init(simulation, begin_it, end_it);
             }
         }
 
@@ -70,7 +69,6 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
             mp_roughness_dwba_simulation =
                 new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
-            mp_roughness_dwba_simulation->init(simulation, begin_it, end_it);
             break;
         }
     }
@@ -118,21 +116,26 @@ void MultiLayerDWBASimulation::runProtected()
     }
 
     // run through layers and run layer simulations
+    std::vector<SimulationElement> layer_elements;
+    std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     for (std::map<size_t, SafePointerVector<LayerDWBASimulation> >::
          iterator it = m_layer_dwba_simulations_map.begin();
             it != m_layer_dwba_simulations_map.end(); ++it)
     {
         for (size_t i=0; i<it->second.size(); ++i) {
             LayerDWBASimulation *p_layer_dwba_sim = it->second[i];
+            p_layer_dwba_sim->init(*mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
-            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
+            AddElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
     }
 
     if (!requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
+        mp_roughness_dwba_simulation->init(*mp_simulation, layer_elements.begin(),
+                                           layer_elements.end());
         mp_roughness_dwba_simulation->run();
-        addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
+        AddElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 }
 

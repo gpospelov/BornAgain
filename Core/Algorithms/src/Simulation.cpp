@@ -89,7 +89,6 @@ void Simulation::runSimulation()
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    initSimulationElementVector();
     if (m_progress)
         // TODO:       m_progress->init(this, param_combinations);
 
@@ -98,17 +97,20 @@ void Simulation::runSimulation()
         boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());
         m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
         updateSample();
+        initSimulationElementVector();
         runSingleSimulation();
         transferResultsToIntensityMap();
         return;
     }
 
     // average over parameter distributions:
+    initSimulationElementVector();
     std::vector<SimulationElement> total_intensity = m_sim_elements;
     boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(p_param_pool.get(), index);
         updateSample();
+        initSimulationElementVector();
         runSingleSimulation();
         AddElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
                               weight);

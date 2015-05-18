@@ -15,7 +15,7 @@
 
 #include "ProgressHandler.h"
 #include "Exceptions.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "LayerInterface.h"
 #include <boost/thread.hpp>
@@ -66,7 +66,7 @@ bool ProgressHandler::update(int n)
 
 //! Initialize ProgressHandler, estimates number of items to be calculated
 //! by DWBASimulation's.
-void ProgressHandler::init(GISASSimulation *simulation, int param_combinations)
+void ProgressHandler::init(Simulation *simulation, int param_combinations)
 {
     m_nitems = 0;
     m_current_progress = 0;
@@ -85,6 +85,6 @@ void ProgressHandler::init(GISASSimulation *simulation, int param_combinations)
     }
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = roughness_factor*param_combinations*simulation->getOutputData()->getAllocatedSize();
+    m_nitems_max = roughness_factor*param_combinations*simulation->getNumberOfSimulationElements();
 
 }

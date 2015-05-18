@@ -83,6 +83,9 @@ public:
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
 
+    //! Gets the number of elements this simulation needs to calculate
+    virtual int getNumberOfSimulationElements() const=0;
+
     //! Clone simulated intensity map
     virtual OutputData<double>* getIntensityData() const=0;
 

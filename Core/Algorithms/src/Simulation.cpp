@@ -89,8 +89,7 @@ void Simulation::runSimulation()
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    if (m_progress)
-        // TODO:       m_progress->init(this, param_combinations);
+    if (m_progress) m_progress->init(this, param_combinations);
 
     // no averaging needed:
     if (param_combinations == 1) {

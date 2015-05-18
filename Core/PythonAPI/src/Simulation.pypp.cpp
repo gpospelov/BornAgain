@@ -47,6 +47,11 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return func_getIntensityData(  );
     }
 
+    virtual int getNumberOfSimulationElements(  ) const {
+        bp::override func_getNumberOfSimulationElements = this->get_override( "getNumberOfSimulationElements" );
+        return func_getNumberOfSimulationElements(  );
+    }
+
     virtual double getWavelength(  ) const  {
         if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
             return func_getWavelength(  );
@@ -257,6 +262,16 @@ void register_Simulation_class(){
                 , bp::pure_virtual( getIntensityData_function_type(&::Simulation::getIntensityData) )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "Clone simulated intensity map." );
+        
+        }
+        { //::Simulation::getNumberOfSimulationElements
+        
+            typedef int ( ::Simulation::*getNumberOfSimulationElements_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getNumberOfSimulationElements"
+                , bp::pure_virtual( getNumberOfSimulationElements_function_type(&::Simulation::getNumberOfSimulationElements) )
+                , "Gets the number of elements this simulation needs to calculate." );
         
         }
         { //::Simulation::getSample

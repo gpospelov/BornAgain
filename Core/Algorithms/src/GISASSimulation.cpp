@@ -105,6 +105,25 @@ void GISASSimulation::normalize()
     }
 }
 
+int GISASSimulation::getNumberOfSimulationElements() const
+{
+    if (m_instrument.getDetectorDimension()!=2) {
+        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+                                    "detector is not two-dimensional");
+    }
+    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
+    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
+        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+                                    "phi-axis is not correct");
+    }
+    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
+    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
+        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+                                    "alpha-axis is not correct");
+    }
+    return phi_axis.getSize()*alpha_axis.getSize();
+}
+
 OutputData<double> *GISASSimulation::getIntensityData() const
 {
     OutputData<double> *result = m_intensity_map.clone();
@@ -115,7 +134,7 @@ OutputData<double> *GISASSimulation::getIntensityData() const
 void GISASSimulation::setInstrument(const Instrument& instrument)
 {
     m_instrument = instrument;
-    updateIntensityMapAxes();
+    updateIntensityMap();
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -167,7 +186,7 @@ double GISASSimulation::getWavelength() const
     return m_instrument.getBeam().getWavelength();
 }
 
-void GISASSimulation::updateIntensityMapAxes()
+void GISASSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
@@ -193,13 +212,13 @@ void GISASSimulation::setDetectorParameters(
     m_instrument.setDetectorParameters(
         n_phi, phi_f_min, phi_f_max,
         n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
-    updateIntensityMapAxes();
+    updateIntensityMap();
 }
 
 void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
 {
     m_instrument.setDetectorParameters(params);
-    updateIntensityMapAxes();
+    updateIntensityMap();
 }
 
 void GISASSimulation::setDetectorResolutionFunction(

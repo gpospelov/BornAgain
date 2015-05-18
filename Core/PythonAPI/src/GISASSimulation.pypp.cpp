@@ -61,6 +61,18 @@ struct GISASSimulation_wrapper : GISASSimulation, bp::wrapper< GISASSimulation >
         return GISASSimulation::getIntensityData( );
     }
 
+    virtual int getNumberOfSimulationElements(  ) const  {
+        if( bp::override func_getNumberOfSimulationElements = this->get_override( "getNumberOfSimulationElements" ) )
+            return func_getNumberOfSimulationElements(  );
+        else{
+            return this->GISASSimulation::getNumberOfSimulationElements(  );
+        }
+    }
+    
+    int default_getNumberOfSimulationElements(  ) const  {
+        return GISASSimulation::getNumberOfSimulationElements( );
+    }
+
     virtual double getWavelength(  ) const  {
         if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
             return func_getWavelength(  );
@@ -243,6 +255,17 @@ void register_GISASSimulation_class(){
                 , getIntensityData_function_type(&::GISASSimulation::getIntensityData)
                 , default_getIntensityData_function_type(&GISASSimulation_wrapper::default_getIntensityData)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::GISASSimulation::getNumberOfSimulationElements
+        
+            typedef int ( ::GISASSimulation::*getNumberOfSimulationElements_function_type)(  ) const;
+            typedef int ( GISASSimulation_wrapper::*default_getNumberOfSimulationElements_function_type)(  ) const;
+            
+            GISASSimulation_exposer.def( 
+                "getNumberOfSimulationElements"
+                , getNumberOfSimulationElements_function_type(&::GISASSimulation::getNumberOfSimulationElements)
+                , default_getNumberOfSimulationElements_function_type(&GISASSimulation_wrapper::default_getNumberOfSimulationElements) );
         
         }
         { //::GISASSimulation::getWavelength

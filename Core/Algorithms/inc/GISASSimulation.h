@@ -52,6 +52,9 @@ public:
     //! Normalize the detector counts
     void normalize();
 
+    //! Gets the number of elements this simulation needs to calculate
+    virtual int getNumberOfSimulationElements() const;
+
     //! Returns detector intensity map for all scan parameters (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
@@ -121,7 +124,7 @@ protected:
     virtual void transferResultsToIntensityMap();
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMapAxes();
+    void updateIntensityMap();
 
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;

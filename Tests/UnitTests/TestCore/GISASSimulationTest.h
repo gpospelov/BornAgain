@@ -1,5 +1,5 @@
-#ifndef SIMULATIONTEST_H
-#define SIMULATIONTEST_H
+#ifndef GISASSIMULATIONTEST_H
+#define GISASSIMULATIONTEST_H
 
 #include "GISASSimulation.h"
 #include "OutputData.h"
@@ -13,11 +13,11 @@
 #include "gtest/gtest.h"
 
 
-class SimulationTest : public ::testing::Test
+class GISASSimulationTest : public ::testing::Test
 {
  protected:
-    SimulationTest();
-    virtual ~SimulationTest();
+    GISASSimulationTest();
+    virtual ~GISASSimulationTest();
 
     class SampleBuilder : public ISampleBuilder
     {
@@ -33,7 +33,7 @@ class SimulationTest : public ::testing::Test
 };
 
 
-SimulationTest::SimulationTest()
+GISASSimulationTest::GISASSimulationTest()
     : sample_builder(new SampleBuilder)
 {
     test_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
@@ -41,12 +41,12 @@ SimulationTest::SimulationTest()
     test_data.setAllTo(2.0);
 }
 
-SimulationTest::~SimulationTest()
+GISASSimulationTest::~GISASSimulationTest()
 {
 }
 
 
-TEST_F(SimulationTest, SimulationInitialState)
+TEST_F(GISASSimulationTest, SimulationInitialState)
 {
     EXPECT_EQ( NULL, emptySimulation.getSample());
     EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
@@ -56,7 +56,7 @@ TEST_F(SimulationTest, SimulationInitialState)
 }
 
 
-TEST_F(SimulationTest, SimulationConstruction)
+TEST_F(GISASSimulationTest, SimulationConstruction)
 {
     EXPECT_FALSE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     constructedSimulation.setDetectorParameters(test_data);
@@ -82,7 +82,7 @@ TEST_F(SimulationTest, SimulationConstruction)
     EXPECT_EQ( double(0), dynamic_cast<Layer *>(constructedSimulation.getSample())->getThickness());
 }
 
-TEST_F(SimulationTest, SimulationInitialStateOfClone)
+TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
 {
     GISASSimulation *emptyClonedSimulation = emptySimulation.clone();
     EXPECT_EQ( NULL, emptyClonedSimulation->getSample());
@@ -93,7 +93,7 @@ TEST_F(SimulationTest, SimulationInitialStateOfClone)
     delete emptyClonedSimulation;
 }
 
-TEST_F(SimulationTest, SimulationClone)
+TEST_F(GISASSimulationTest, SimulationClone)
 {
     EXPECT_EQ(1,1);
     GISASSimulation *originalSimulation = new GISASSimulation();
@@ -112,4 +112,4 @@ TEST_F(SimulationTest, SimulationClone)
     delete clonedSimulation;
 }
 
-#endif // SIMULATIONTEST_H
+#endif // GISASSIMULATIONTEST_H

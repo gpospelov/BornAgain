@@ -26,6 +26,7 @@
 
 GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
   , m_collapsed( false ) {}
+
 GroupBox::GroupBox( const QString &title
                     , QWidget *parent ): QGroupBox( title, parent )
   , m_collapsed( false ), m_title(title)
@@ -119,10 +120,5 @@ QPixmap GroupBox::mergeSideBySide( const QPixmap& pix, const QString txt )
     m_yImage = 0;
     return res;
 
-}
-
-void GroupBox::setTitle(const QString &title)
-{
-    m_title = title;
 }
 

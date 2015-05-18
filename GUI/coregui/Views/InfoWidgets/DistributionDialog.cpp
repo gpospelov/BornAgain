@@ -1,13 +1,21 @@
 
 #include "DistributionDialog.h"
 
+// FIXME Fix layout of DistributionEditor
+
+// FIXME Fix title of groupBox in DistributionEditor
 
 // FIXME Take care of "QPainter::fontMetrics: Painter not active" warning
 
 // FIXME Implement tooltip for an icon which calls DistributionDialog
 
-// Implement "close" button for Right Bottom corner of the distribution dialog
+// FIXME Implement "close" button for Right Bottom corner of the distribution dialog
 
+// FIXME Implement right mouse button -> "reset"
+
+// FIXME unused variable pixHeight In member function 'QPixmap GroupBox::mergeSideBySide(const QPixmap&, QString)':
+
+// FIXME try another icon (look http://glyphicons.com/ or similar)
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)

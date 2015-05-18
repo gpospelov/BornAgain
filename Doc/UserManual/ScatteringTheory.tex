@@ -68,7 +68,7 @@ is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
 It is also used in most optics textbooks.
 \index{Wave propagation|seealso {Sign convention}}%
-\index{Sign convention}%
+\index{Sign convention!wave propagation}%
 The opposite choice of a phase factor $\e^{+i\omega t}$ is 
 called the \E{crystallographic sign convention},
 and is used in much of the literature on X-ray scattering,
@@ -382,7 +382,13 @@ that the incident radiation is a plane wave
   \psi_\ti(\r)=\e^{i \k_\ti \r}
 \end{equation}
 with $k_\ti=K$,
-and introducing the \E{scattering vector}
+and introducing the \E{scattering vector}\footnote
+{With this choice of sign,
+\index{Sign convention!scattering vector}%
+$\hbar\q$ is the momentum 
+\index{Momentum transfer|see {Scattering vector}}%
+\E{lost} by the scattered neutron,
+and \E{gained} by the sample.}
 \index{Scattering vector}%
 \begin{equation}\label{Eq}
   \q\coloneqq \k_\ti-\k_\tf,
@@ -432,7 +438,7 @@ The ratio of the scattered flux hitting an infinitesimal detector area
 $r^2\d\Omega$ to the incident flux is expressed as a
 \E{differential cross section}
 \index{Cross section}%
-\begin{equation}
+\begin{equation}\label{Exsectiondef}
   \frac{\d\sigma}{\d\Omega}
   \coloneqq  \frac{r^2 J(\r)}{J_\ti}.
 \end{equation}
@@ -923,6 +929,7 @@ that is governed by the complex wave equation (\ref{Ewavez}).
 \index{Absorption|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage % TEMP
 \section{Detector images}\label{SdetImg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -960,66 +967,82 @@ at a distance $L$ from the sample position.
 %the $x$ axis intersects the detector plane at $(L,y_\tc,z_\tc)$.
 The real-space coordinate at the center of pixel $(i,j)$ is $(L,y_i,z_i)$.
 Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
+\index{Detector pixel!coordinate}%
+\index{Pixel|see {Detector pixel}}%
 
-Scattered radiation is characterized
-by the horizontal declination angle~$\phi_\tf$
+Since the differential scattering cross section (\ref{Exsectiondef})
+is given with respect to a solid-angle element $\d\Omega$,
+we need to express scattered wavevector $\k_\tf$ in spherical coordinates,
+using the horizontal declination angle~$\phi_\tf$
 and the vertical glancing angle $\alpha_\tf$.
-The corresponding detector coordinates are
+The stereographic projection of $(\alpha_\tf,\phi_\tf)$ into
+\index{Stereographic projection}%
+the detector plane~$(y,z)$ is known as the \E{gnomic projection}.
+\index{Gnomic projection}%
+\index{Projection!wave vector to pixel coordinate}%
+From elementary trigonometry one finds
 \begin{equation}\label{Eyzdet}
   \begin{array}{lcl}
   y &=& L \tan\phi_\tf,\\
   z &=& (L/ \cos\phi_\tf) \tan\alpha_\tf.
   \end{array}
 \end{equation}
-The wavevectors, incident and elastically scattered, have the coordinates
+The solid angle under which a detector pixel
+\index{Detector pixel!solid angle}%
+is seen from the sample is in linear approximation
+\begin{equation}
+  \Delta\Omega
+  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
+  = \cos\alpha_\tf
+    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
+    \Delta y \,\Delta z
+  = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\: \frac{\Delta y \,\Delta z}{L^2}.
+\end{equation}
+Altogether,
+the expected count rate in detector pixel $(i,j)$ is proportional to
+\Emph{%
+\begin{equation}\label{EItrafo}
+  I_{ij} = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\:
+          \frac{\partial\sigma}{\partial\Omega}(\q_{ij})
+\end{equation}
+\vspace*{-5pt}}
+where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
+
+To determine the scattering vector $\q_{ij}$ 
+that corresponds to a pixel $(i,j)$,
+we need to express the outgoing wavevector~$\k_\tf$ as function of $y$ and~$z$.
+This can be done either by inverting (\ref{Eyzdet})
+and inserting the so obtained $\alpha_\tf(y,z)$ and $\phi_\tf(y)$ in
 \begin{equation}\label{Ekifdet}
-  \k_\ti=K\left(\begin{array}{c}
-   \cos\alpha_\ti\cos\phi_\ti\\
-   \cos\alpha_\ti\sin\phi_\ti\\
-   -\sin\alpha_\ti\end{array}\right),\quad
   \k_\tf=K\left(\begin{array}{c}
    \cos\alpha_\tf\cos\phi_\tf\\
    \cos\alpha_\tf\sin\phi_\tf\\
-   \sin\alpha_\tf\end{array}\right).
+   \sin\alpha_\tf\end{array}\right),
 \end{equation}
-Ultimately,
-we need to convert pixel coordinates into scattering wavevectors.
-This is done through the following elementary steps:
+or much more directly by using geometric similarity in Cartesian coordinates.
+The result is rather simple:
+\begin{equation}\label{Ekifdet}
+  \k_\tf=\frac{K}{L^2+y^2+z^2}\left(\begin{array}{c}
+   L\\
+   y\\
+   z\end{array}\right).
+\end{equation}
+The wavevector $\q_{ij}$ can then be determined through the following steps:
 \begin{equation}\label{Eqalgo}
   \begin{array}{cl}
       (i,j)&\\
-      \downarrow&\mbox{trivial linear relations}\\
+      \downarrow&\mbox{affine-linear relations}\\
       (y,z)\\
-      \downarrow&\mbox{resolve (\protect\ref{Eyzdet})}\\
-      (\phi_\tf,\alpha_\tf)&\\
       \downarrow&\mbox{use (\protect\ref{Ekifdet})}\\
       \k_\tf&\\
       \downarrow&\mbox{use (\protect\ref{Eq})}\\
       \q&\\
   \end{array}
 \end{equation}
-Furthermore,
-we need to compute the solid angle under which our detector pixel
-is seen from the sample.
-It is perfectly adequate to do this in linear order
-by computing
-\begin{equation}
-  \Delta\Omega
-  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
-  = \cos\alpha_\tf
-    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
-    \Delta y \,\Delta z,
-  = \cos^3\alpha_\tf\, \cos^3\phi_\tf \frac{\Delta y \,\Delta z}{L^2}.
-\end{equation}
-Altogether,
-the expected count rate in detector pixel $(i,j)$ is proportional to
-\begin{equation}\Elabel{EItrafo}
-  I_{ij} = \cos^3\alpha_\tf\, \cos^3\phi_\tf\,
-          \frac{\partial\sigma}{\partial\Omega}(\q_{ij})
-\end{equation}
-where $\q_{ij}$ must be determined according to (\ref{Eqalgo}),
-and
-where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
+where the first step is mathematically trivial,
+but requires an experimental calibration of the origin of the $(x,y)$ scale
+(usually as the centre between the transmitted
+and the specularly reflected beam spot).
 
 %===============================================================================
 \subsection{Data representation without ``data reduction''}

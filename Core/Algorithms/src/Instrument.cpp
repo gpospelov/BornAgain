@@ -114,16 +114,11 @@ std::string Instrument::addParametersToExternalPool(
     return new_path;
 }
 
-void Instrument::normalize(OutputData<double> *p_intensity,
-        OutputData<Eigen::Matrix2d> *p_polarized_intensity) const
+void Instrument::normalize(OutputData<double> *p_intensity) const
 {
     // normalize by intensity, if strictly positive
     if (getIntensity()>0.0) {
         p_intensity->scaleAll(getIntensity());
-        if (p_polarized_intensity) {
-            p_polarized_intensity->scaleAll(
-                    Eigen::Matrix2d::Identity() * getIntensity());
-        }
     }
     kvector_t realpart(getBeam().getCentralK().x().real(),
                    getBeam().getCentralK().y().real(),
@@ -131,7 +126,7 @@ void Instrument::normalize(OutputData<double> *p_intensity,
 
     // normalize by detector cell sizes
     double sin_alpha_i = std::abs(realpart.cosTheta());
-    m_detector.normalize(p_intensity, p_polarized_intensity, sin_alpha_i);
+    m_detector.normalize(p_intensity, sin_alpha_i);
 }
 
 void Instrument::setDetectorResolutionFunction(

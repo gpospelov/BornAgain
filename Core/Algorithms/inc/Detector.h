@@ -90,11 +90,8 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
-#ifndef GCCXML_SKIP_THIS
     //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d> *p_polarized_data,
-                   double sin_alpha_i) const;
-#endif
+    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 
 protected:
     virtual void print(std::ostream &ostr) const;

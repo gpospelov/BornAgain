@@ -91,8 +91,13 @@ GISASSimulation *GISASSimulation::clone() const
 void GISASSimulation::prepareSimulation()
 {
     if(!m_instrument.getDetectorDimension()) {
-        throw LogicErrorException("Simulation::prepareSimulation() "
+        throw LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not configured.");
+    }
+    if (getWavelength() <= 0.0) {
+        throw ClassInitializationException(
+                "GISASSimulation::prepareSimulation() "
+                "-> Error. Incoming wavelength <= 0.");
     }
     Simulation::prepareSimulation();
 }

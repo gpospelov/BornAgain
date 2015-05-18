@@ -107,8 +107,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! normalize a detector image
-    void normalize(OutputData<double> *p_intensity,
-                   OutputData<Eigen::Matrix2d> *p_polarized_intensity = 0) const;
+    void normalize(OutputData<double> *p_intensity) const;
 #endif
 
 protected:

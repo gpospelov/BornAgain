@@ -1013,7 +1013,7 @@ by computing
 \end{equation}
 Altogether,
 the expected count rate in detector pixel $(i,j)$ is proportional to
-\begin{equation}
+\begin{equation}\Elabel{EItrafo}
   I_{ij} = \cos^3\alpha_\tf\, \cos^3\phi_\tf\,
           \frac{\partial\sigma}{\partial\Omega}(\q_{ij})
 \end{equation}
@@ -1022,6 +1022,11 @@ and
 where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
 
 %===============================================================================
-\subsection{Data reduction versus virtual experiment}
+\subsection{Data representation without ``data reduction''}
 %===============================================================================
 
+Tradition wants that raw data be \E{treated} or \E{reduced}
+before they are \E{analyzed}.
+In our case, raw data reduction would comprise 
+the transform (\ref{Eqalgo}) of pixel coordinates into scattering vectors,
+and the accompanying renormalization (\ref{EItrafo}) of pixel counts.

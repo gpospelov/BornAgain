@@ -22,6 +22,7 @@
 AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupBox(title))
+    , m_title(title)
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
     , m_item(new ParameterizedItem)
 {
@@ -38,6 +39,7 @@ AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget
     mainLayout->addStretch();
 
     setLayout(mainLayout);
+    std::cout << m_groupBox->title().toStdString() << std::endl;
 }
 
 void AwesomePropertyPresenter::setItem(ParameterizedItem *item)
@@ -53,6 +55,6 @@ void AwesomePropertyPresenter::clearEditor()
 
 void AwesomePropertyPresenter::dialogRequest()
 {
-    emit onDialogRequest(m_item);
+    emit onDialogRequest(m_item, m_title);
 
 }

@@ -22,7 +22,12 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     , m_editor(new DistributionEditor)
 {
     QVBoxLayout *layout = new QVBoxLayout;
+    QPushButton *button = new QPushButton("Close" , this);
+    connect(button, SIGNAL(pressed()),this, SLOT(closeDialog()));
     layout->addWidget(m_editor);
+    layout->addWidget(button,0, Qt::AlignBottom | Qt::AlignRight);
+//    button->move(700, 500);
+    layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
     setAttribute(Qt::WA_DeleteOnClose, true);
     setMinimumSize(800, 600);
@@ -33,4 +38,14 @@ DistributionDialog::DistributionDialog(QWidget *parent)
 void DistributionDialog::setItem(ParameterizedItem *item)
 {
     m_editor->setItem(item);
+}
+
+void DistributionDialog::setNameOfEditor(QString name)
+{
+    m_editor->setNameOfEditor(name);
+}
+
+void DistributionDialog::closeDialog()
+{
+    this->close();
 }

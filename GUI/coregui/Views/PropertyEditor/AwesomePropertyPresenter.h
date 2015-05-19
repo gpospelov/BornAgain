@@ -39,7 +39,7 @@ public:
     void clearEditor();
 
 signals:
-    void onDialogRequest(ParameterizedItem *item);
+    void onDialogRequest(ParameterizedItem *item, QString names);
 
 private slots:
     void dialogRequest();
@@ -48,6 +48,7 @@ private:
     GroupBox *m_groupBox;
     AwesomePropertyEditor *m_editor;
     ParameterizedItem *m_item;
+    QString m_title;
 };
 
 #endif

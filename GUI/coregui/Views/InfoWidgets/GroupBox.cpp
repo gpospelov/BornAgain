@@ -23,6 +23,14 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QApplication>
+#include <QToolTip>
+
+namespace
+{
+    int imageWidth = 16;
+    int imageheigth = 16;
+    int offset_of_tooltip_position = 20;
+}
 
 GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
   , m_collapsed( false ) {}
@@ -32,6 +40,7 @@ GroupBox::GroupBox( const QString &title
   , m_collapsed( false ), m_title(title)
 {
     QGroupBox::setTitle("");
+    setMouseTracking(true);
 }
 
 bool GroupBox::isCollapsed() { return m_collapsed; }
@@ -42,10 +51,19 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
     {
         QStyleOptionGroupBox option;
         initStyleOption( &option );
-        QRect buttonArea( m_xImage, m_yImage, 16, 16 );
+        QRect buttonArea( m_xImage, m_yImage, imageWidth , imageheigth );
         if( buttonArea.contains( e->pos() ) ) {
             emit clicked(true);
         }
+    }
+}
+void GroupBox::mouseMoveEvent(QMouseEvent *event)
+{
+    QRect buttonArea(m_xImage, m_yImage, imageWidth ,imageheigth);
+
+    if (buttonArea.contains(event->pos()))
+    {
+        QToolTip::showText(this->mapToGlobal(QPoint(m_xImage + offset_of_tooltip_position , m_yImage)), "show plot");
     }
 }
 
@@ -55,9 +73,11 @@ void GroupBox::paintEvent( QPaintEvent * )
     QStyleOptionGroupBox option;
     initStyleOption(&option);
     paint.drawComplexControl(QStyle::CC_GroupBox, option);
+    paint.end();
     QPixmap pix = mergeSideBySide(
-        QPixmap(":/images/expand_arrow.png").scaled(16, 16, Qt::KeepAspectRatio), m_title);
+        QPixmap(":/images/expand_arrow.png").scaled(imageWidth , imageheigth, Qt::KeepAspectRatio));
     paint.drawItemPixmap(option.rect.adjusted(0, 0, -10, 0), Qt::AlignTop | Qt::AlignLeft, pix);
+    paint.end();
 }
 
 void GroupBox::setCollapse( bool collapse )
@@ -67,18 +87,18 @@ void GroupBox::setCollapse( bool collapse )
         widget->setHidden( collapse );
 }
 
-QPixmap GroupBox::mergeSideBySide( const QPixmap& pix, const QString txt )
+QPixmap GroupBox::mergeSideBySide( const QPixmap& pix)
 {
-    QPainter p;
-    int strWidth = p.fontMetrics().width( txt );
+    QPainter p(this);
+    int strWidth = p.fontMetrics().width(m_title);
     int strHeight = p.fontMetrics().height();
     int pixWidth = pix.width();
-    int pixHeight = pix.height();
+//    int pixHeight = pix.height();
     QPixmap res( strWidth + 3 + pixWidth, strHeight);
     res.fill(Qt::transparent);
     p.begin( &res );
     p.drawPixmap(strWidth,0, pix );
-    p.drawText( QRect(0, 0, strWidth, strHeight), 0, txt );
+    p.drawText( QRect(0, 0, strWidth, strHeight), 0, m_title);
     p.end();
 
     m_xImage = strWidth;

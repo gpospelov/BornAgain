@@ -9,20 +9,33 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     : QWidget(parent)
     , m_item(0)
     , m_plotwidget(0)
+    , m_box(new QGroupBox)
 {
-    setMinimumSize(128, 128);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 //    BeamWavelengthItem *item = new BeamWavelengthItem;
     m_plotwidget = new DistributionWidget(this);
-    m_propertyEditor = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_propertyEditor = new AwesomePropertyEditor(this,AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
 //    GroupBox *box = new GroupBox;
 //    box->setTitle("Wavelength dfgfdgfd gdf");
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(m_plotwidget, 1);
-    mainLayout->addWidget(m_propertyEditor);
+    mainLayout->addWidget(m_plotwidget,1);
+//    mainLayout->addWidget(m_propertyEditor);
 //    mainLayout->addWidget(box,1);
+
+    QWidget *widget = new QWidget(this);
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    QVBoxLayout *widgetLayout = new QVBoxLayout;
+    m_propertyEditor->setMaximumWidth(250);
+    verticalLayout->addWidget(m_propertyEditor);
+    m_box->setLayout(verticalLayout);
+    widgetLayout->addWidget(m_box);
+    widgetLayout->addStretch(1);
+    widget->setLayout(widgetLayout);
+
+    widget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+    mainLayout->addWidget(widget);
     setLayout(mainLayout);
 
 //    connect(box, SIGNAL(clicked()),
@@ -35,7 +48,7 @@ void DistributionEditor::setItem(ParameterizedItem *item)
     m_propertyEditor->clearEditor();
 
 
-    m_propertyEditor->addItemProperties(item, item->itemName(), AwesomePropertyEditor::INSERT_AFTER);
+    m_propertyEditor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
 
     if (m_item == item) return;
 
@@ -65,9 +78,8 @@ void DistributionEditor::onSubItemChanged(const QString &property_name)
     }
 }
 
-//void DistributionEditor::infoButton()
-//{
-//    std::cout << "here" << std::endl;
-//    DistributionDialog *dialog= new DistributionDialog;
 
-//}
+void DistributionEditor::setNameOfEditor(QString name)
+{
+    m_box->setTitle(name);
+}

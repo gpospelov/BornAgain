@@ -36,7 +36,7 @@ public:
     QGridLayout *getGridLayout() { return m_gridLayout;}
 
 private slots:
-    void onDialogRequest(ParameterizedItem *item);
+    void onDialogRequest(ParameterizedItem *item, QString name);
 
 private:
     AwesomePropertyEditor *m_intensityEditor;

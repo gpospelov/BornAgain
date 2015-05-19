@@ -20,6 +20,7 @@ public:
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
 
+    void setNameOfEditor(QString name);
 private slots:
     void onSubItemChanged(const QString &property_name);
 //    void infoButton();
@@ -28,6 +29,8 @@ private:
     AwesomePropertyEditor *m_propertyEditor;
     ParameterizedItem *m_item;
     DistributionWidget *m_plotwidget;
+    QString m_nameOfEditor;
+    QGroupBox *m_box;
 };
 
 #endif

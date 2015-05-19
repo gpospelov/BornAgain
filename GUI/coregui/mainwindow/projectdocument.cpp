@@ -74,39 +74,64 @@ void ProjectDocument::onJobModelChanged(const QString &)
     emit modified();
 }
 
+void ProjectDocument::onRowsRemoved(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    m_modified = true;
+    emit modified();
+}
+
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
     if (materialModel != m_materialModel) {
-        if (m_materialModel)
+        if (m_materialModel) {
             disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                        SLOT(onDataChanged(QModelIndex, QModelIndex)));
+            disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+        }
+
         m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onRowsRemoved(QModelIndex, int, int)));
     }
 }
 
 void ProjectDocument::setInstrumentModel(InstrumentModel *model)
 {
     if (model != m_instrumentModel) {
-        if (m_instrumentModel)
+        if (m_instrumentModel) {
             disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                        SLOT(onDataChanged(QModelIndex, QModelIndex)));
+            disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+        }
         m_instrumentModel = model;
         connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onRowsRemoved(QModelIndex, int, int)));
     }
 }
 
 void ProjectDocument::setSampleModel(SampleModel *model)
 {
     if (model != m_sampleModel) {
-        if (m_sampleModel)
+        if (m_sampleModel) {
             disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                        SLOT(onDataChanged(QModelIndex, QModelIndex)));
+            disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+        }
         m_sampleModel = model;
         connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onRowsRemoved(QModelIndex, int, int)));
     }
 }
 
@@ -116,11 +141,15 @@ void ProjectDocument::setJobModel(JobModel *model)
         if (m_jobModel) {
             disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                        SLOT(onJobModelChanged(QString)));
+            disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                       SLOT(onRowsRemoved(QModelIndex, int, int)));
         }
         m_jobModel = model;
 
         connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                 SLOT(onJobModelChanged(QString)));
+        connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onRowsRemoved(QModelIndex, int, int)));
     }
 }
 

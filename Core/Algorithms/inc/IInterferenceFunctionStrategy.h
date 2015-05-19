@@ -106,9 +106,7 @@ private:
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
-    double MCIntegratedEvaluatePol(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                                   const Eigen::Matrix2cd &detector_operator, Bin1D alpha_f_bin,
-                                   Bin1D phi_f_bin) const;
+    double MCIntegratedEvaluatePol(const SimulationElement& sim_element) const;
 
     //! Get the reciprocal integration region
     IntegrationParamsAlpha getIntegrationParams(const cvector_t &k_i, Bin1D alpha_f_bin,

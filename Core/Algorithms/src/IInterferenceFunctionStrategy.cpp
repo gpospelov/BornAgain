@@ -61,8 +61,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
 
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluatePol(k_i, sim_element.getPolarization(),
-                                       sim_element.getAnalyzerOperator(), alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluatePol(sim_element);
     }
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
     double result;
@@ -136,13 +135,20 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
-    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-    const Eigen::Matrix2cd &detector_operator, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const SimulationElement& sim_element) const
 {
     double result;
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, alpha_f_bin, phi_f_bin);
-    mc_int_pars.beam_density = beam_density;
-    mc_int_pars.detector_operator = detector_operator;
+    mc_int_pars.beam_density = sim_element.getPolarization();
+    mc_int_pars.detector_operator = sim_element.getAnalyzerOperator();
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
         = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy> mc_integrator(p_function, this,

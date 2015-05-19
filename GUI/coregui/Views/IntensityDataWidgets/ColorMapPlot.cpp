@@ -451,6 +451,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
 //! calculate zmin, zmax for nicely looking linear, and logariphic z-axis
 QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
 {
+    qDebug() << "XXX ColorMapPlot::calculateDataRange()";
     const OutputData<double> *data = intensityItem->getOutputData();
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
     OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());

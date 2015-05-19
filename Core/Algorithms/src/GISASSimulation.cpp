@@ -68,21 +68,6 @@ GISASSimulation::GISASSimulation(
     init_parameters();
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-: Simulation(other)
-, m_instrument(other.m_instrument)
-, m_intensity_map()
-{
-    m_intensity_map.copyFrom(other.m_intensity_map);
-
-    setName("GISASSimulation");
-    init_parameters();
-}
-
-void GISASSimulation::init_parameters()
-{
-}
-
 GISASSimulation *GISASSimulation::clone() const
 {
     return new GISASSimulation(*this);
@@ -90,9 +75,9 @@ GISASSimulation *GISASSimulation::clone() const
 
 void GISASSimulation::prepareSimulation()
 {
-    if(!m_instrument.getDetectorDimension()) {
+    if(m_instrument.getDetectorDimension() != 2) {
         throw LogicErrorException("GISASSimulation::prepareSimulation() "
-                "-> Error. The detector was not configured.");
+                "-> Error. The detector was not properly configured.");
     }
     if (getWavelength() <= 0.0) {
         throw ClassInitializationException(
@@ -113,17 +98,17 @@ void GISASSimulation::normalize()
 int GISASSimulation::getNumberOfSimulationElements() const
 {
     if (m_instrument.getDetectorDimension()!=2) {
-        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+        throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "detector is not two-dimensional");
     }
     const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
     if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
-        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+        throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "phi-axis is not correct");
     }
     const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
     if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
-        throw RuntimeErrorException("GISASSimulation::initSimulationElementVector: "
+        throw RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "alpha-axis is not correct");
     }
     return phi_axis.getSize()*alpha_axis.getSize();
@@ -163,6 +148,47 @@ void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
     m_instrument.setBeamPolarization(bloch_vector);
 }
 
+void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
+{
+    m_instrument.matchDetectorParameters(output_data);
+
+    m_intensity_map.clear();
+    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
+    m_intensity_map.setAllTo(0.);
+}
+
+void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
+                                            size_t n_alpha, double alpha_f_min, double alpha_f_max,
+                                            bool isgisaxs_style)
+{
+    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min,
+                                       alpha_f_max, isgisaxs_style);
+    updateIntensityMap();
+}
+
+void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
+{
+    m_instrument.setDetectorParameters(params);
+    updateIntensityMap();
+}
+
+void GISASSimulation::setDetectorResolutionFunction(
+    const IResolutionFunction2D &resolution_function)
+{
+    m_instrument.setDetectorResolutionFunction(resolution_function);
+}
+
+void GISASSimulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(0);
+}
+
+void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                       double total_transmission)
+{
+    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
+}
+
 std::string GISASSimulation::addParametersToExternalPool(
     std::string path, ParameterPool* external_pool, int copy_number) const
 {
@@ -191,56 +217,19 @@ double GISASSimulation::getWavelength() const
     return m_instrument.getBeam().getWavelength();
 }
 
-void GISASSimulation::updateIntensityMap()
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+: Simulation(other)
+, m_instrument(other.m_instrument)
+, m_intensity_map()
 {
-    m_intensity_map.clear();
-    size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
-    }
-    m_intensity_map.setAllTo(0.);
+    m_intensity_map.copyFrom(other.m_intensity_map);
+
+    setName("GISASSimulation");
+    init_parameters();
 }
 
-void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
+void GISASSimulation::init_parameters()
 {
-    m_instrument.matchDetectorParameters(output_data);
-
-    m_intensity_map.clear();
-    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
-    m_intensity_map.setAllTo(0.);
-}
-
-void GISASSimulation::setDetectorParameters(
-    size_t n_phi, double phi_f_min, double phi_f_max,
-    size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
-{
-    m_instrument.setDetectorParameters(
-        n_phi, phi_f_min, phi_f_max,
-        n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
-    updateIntensityMap();
-}
-
-void GISASSimulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
-    updateIntensityMap();
-}
-
-void GISASSimulation::setDetectorResolutionFunction(
-    const IResolutionFunction2D &p_resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-}
-
-void GISASSimulation::removeDetectorResolutionFunction()
-{
-    m_instrument.setDetectorResolutionFunction(0);
-}
-
-void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
-                                       double total_transmission)
-{
-    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 void GISASSimulation::initSimulationElementVector()
@@ -282,15 +271,12 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::transferResultsToIntensityMap()
 {
-    m_intensity_map.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     if (detector_dimension!=2) {
         throw RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
                                     "detector is not two-dimensional");
     }
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
-    }
+    updateIntensityMap();
     if (m_intensity_map.getAllocatedSize()!=m_sim_elements.size()) {
         throw RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
                                     "intensity map has different size than number of "
@@ -299,4 +285,14 @@ void GISASSimulation::transferResultsToIntensityMap()
     for (size_t i=0; i<m_sim_elements.size(); ++i) {
         m_intensity_map[i] = m_sim_elements[i].getIntensity();
     }
+}
+
+void GISASSimulation::updateIntensityMap()
+{
+    m_intensity_map.clear();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
+        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    m_intensity_map.setAllTo(0.);
 }

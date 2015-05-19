@@ -49,6 +49,54 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
         return OffSpecSimulation::clone( );
     }
 
+    virtual ::OutputData< double > * getIntensityData(  ) const  {
+        if( bp::override func_getIntensityData = this->get_override( "getIntensityData" ) )
+            return func_getIntensityData(  );
+        else{
+            return this->OffSpecSimulation::getIntensityData(  );
+        }
+    }
+    
+    ::OutputData< double > * default_getIntensityData(  ) const  {
+        return OffSpecSimulation::getIntensityData( );
+    }
+
+    virtual int getNumberOfSimulationElements(  ) const  {
+        if( bp::override func_getNumberOfSimulationElements = this->get_override( "getNumberOfSimulationElements" ) )
+            return func_getNumberOfSimulationElements(  );
+        else{
+            return this->OffSpecSimulation::getNumberOfSimulationElements(  );
+        }
+    }
+    
+    int default_getNumberOfSimulationElements(  ) const  {
+        return OffSpecSimulation::getNumberOfSimulationElements( );
+    }
+
+    virtual double getWavelength(  ) const  {
+        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
+            return func_getWavelength(  );
+        else{
+            return this->OffSpecSimulation::getWavelength(  );
+        }
+    }
+    
+    double default_getWavelength(  ) const  {
+        return OffSpecSimulation::getWavelength( );
+    }
+
+    virtual void prepareSimulation(  ) {
+        if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
+            func_prepareSimulation(  );
+        else{
+            this->OffSpecSimulation::prepareSimulation(  );
+        }
+    }
+    
+    void default_prepareSimulation(  ) {
+        OffSpecSimulation::prepareSimulation( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -171,7 +219,7 @@ struct OffSpecSimulation_wrapper : OffSpecSimulation, bp::wrapper< OffSpecSimula
 void register_OffSpecSimulation_class(){
 
     { //::OffSpecSimulation
-        typedef bp::class_< OffSpecSimulation_wrapper, bp::bases< ICloneable, IParameterized >, std::auto_ptr< OffSpecSimulation_wrapper >, boost::noncopyable > OffSpecSimulation_exposer_t;
+        typedef bp::class_< OffSpecSimulation_wrapper, bp::bases< Simulation >, std::auto_ptr< OffSpecSimulation_wrapper >, boost::noncopyable > OffSpecSimulation_exposer_t;
         OffSpecSimulation_exposer_t OffSpecSimulation_exposer = OffSpecSimulation_exposer_t( "OffSpecSimulation", "Main class to run an off-specular simulation.", bp::init< >() );
         bp::scope OffSpecSimulation_scope( OffSpecSimulation_exposer );
         { //::OffSpecSimulation::clone
@@ -200,63 +248,56 @@ void register_OffSpecSimulation_class(){
         { //::OffSpecSimulation::getIntensityData
         
             typedef ::OutputData< double > * ( ::OffSpecSimulation::*getIntensityData_function_type)(  ) const;
+            typedef ::OutputData< double > * ( OffSpecSimulation_wrapper::*default_getIntensityData_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type( &::OffSpecSimulation::getIntensityData )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "Clone detector intensity map for all scan parameters." );
+                , getIntensityData_function_type(&::OffSpecSimulation::getIntensityData)
+                , default_getIntensityData_function_type(&OffSpecSimulation_wrapper::default_getIntensityData)
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::OffSpecSimulation::getSample
+        { //::OffSpecSimulation::getNumberOfSimulationElements
         
-            typedef ::ISample * ( ::OffSpecSimulation::*getSample_function_type)(  ) const;
+            typedef int ( ::OffSpecSimulation::*getNumberOfSimulationElements_function_type)(  ) const;
+            typedef int ( OffSpecSimulation_wrapper::*default_getNumberOfSimulationElements_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
-                "getSample"
-                , getSample_function_type( &::OffSpecSimulation::getSample )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns the sample." );
+                "getNumberOfSimulationElements"
+                , getNumberOfSimulationElements_function_type(&::OffSpecSimulation::getNumberOfSimulationElements)
+                , default_getNumberOfSimulationElements_function_type(&OffSpecSimulation_wrapper::default_getNumberOfSimulationElements) );
         
         }
-        { //::OffSpecSimulation::getSampleBuilder
+        { //::OffSpecSimulation::getWavelength
         
-            typedef ::SampleBuilder_t ( ::OffSpecSimulation::*getSampleBuilder_function_type)(  ) const;
+            typedef double ( ::OffSpecSimulation::*getWavelength_function_type)(  ) const;
+            typedef double ( OffSpecSimulation_wrapper::*default_getWavelength_function_type)(  ) const;
             
             OffSpecSimulation_exposer.def( 
-                "getSampleBuilder"
-                , getSampleBuilder_function_type( &::OffSpecSimulation::getSampleBuilder )
-                , "return sample builder." );
-        
-        }
-        { //::OffSpecSimulation::getSimulationParameters
-        
-            typedef ::SimulationParameters ( ::OffSpecSimulation::*getSimulationParameters_function_type)(  ) const;
-            
-            OffSpecSimulation_exposer.def( 
-                "getSimulationParameters"
-                , getSimulationParameters_function_type( &::OffSpecSimulation::getSimulationParameters )
-                , "Returns simulation parameters." );
+                "getWavelength"
+                , getWavelength_function_type(&::OffSpecSimulation::getWavelength)
+                , default_getWavelength_function_type(&OffSpecSimulation_wrapper::default_getWavelength) );
         
         }
         { //::OffSpecSimulation::prepareSimulation
         
             typedef void ( ::OffSpecSimulation::*prepareSimulation_function_type)(  ) ;
+            typedef void ( OffSpecSimulation_wrapper::*default_prepareSimulation_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
                 "prepareSimulation"
-                , prepareSimulation_function_type( &::OffSpecSimulation::prepareSimulation )
-                , "Put into a clean state for running a simulation." );
+                , prepareSimulation_function_type(&::OffSpecSimulation::prepareSimulation)
+                , default_prepareSimulation_function_type(&OffSpecSimulation_wrapper::default_prepareSimulation) );
         
         }
-        { //::OffSpecSimulation::runSimulation
+        { //::OffSpecSimulation::removeDetectorResolutionFunction
         
-            typedef void ( ::OffSpecSimulation::*runSimulation_function_type)(  ) ;
+            typedef void ( ::OffSpecSimulation::*removeDetectorResolutionFunction_function_type)(  ) ;
             
             OffSpecSimulation_exposer.def( 
-                "runSimulation"
-                , runSimulation_function_type( &::OffSpecSimulation::runSimulation )
-                , "Run a simulation with the current parameter settings." );
+                "removeDetectorResolutionFunction"
+                , removeDetectorResolutionFunction_function_type( &::OffSpecSimulation::removeDetectorResolutionFunction )
+                , "Removes detector resolution function." );
         
         }
         { //::OffSpecSimulation::setAnalyzerProperties
@@ -356,50 +397,6 @@ void register_OffSpecSimulation_class(){
                 , setInstrument_function_type( &::OffSpecSimulation::setInstrument )
                 , ( bp::arg("instrument") )
                 , "Sets the instrument containing beam and detector information." );
-        
-        }
-        { //::OffSpecSimulation::setSample
-        
-            typedef void ( ::OffSpecSimulation::*setSample_function_type)( ::ISample const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setSample"
-                , setSample_function_type( &::OffSpecSimulation::setSample )
-                , ( bp::arg("sample") )
-                , "Sets the sample to be tested." );
-        
-        }
-        { //::OffSpecSimulation::setSampleBuilder
-        
-            typedef void ( ::OffSpecSimulation::*setSampleBuilder_function_type)( ::SampleBuilder_t ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setSampleBuilder"
-                , setSampleBuilder_function_type( &::OffSpecSimulation::setSampleBuilder )
-                , ( bp::arg("sample_builder") )
-                , "Sets the sample builder." );
-        
-        }
-        { //::OffSpecSimulation::setSimulationParameters
-        
-            typedef void ( ::OffSpecSimulation::*setSimulationParameters_function_type)( ::SimulationParameters const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setSimulationParameters"
-                , setSimulationParameters_function_type( &::OffSpecSimulation::setSimulationParameters )
-                , ( bp::arg("sim_params") )
-                , "Sets simulation parameters." );
-        
-        }
-        { //::OffSpecSimulation::setThreadInfo
-        
-            typedef void ( ::OffSpecSimulation::*setThreadInfo_function_type)( ::ThreadInfo const & ) ;
-            
-            OffSpecSimulation_exposer.def( 
-                "setThreadInfo"
-                , setThreadInfo_function_type( &::OffSpecSimulation::setThreadInfo )
-                , ( bp::arg("thread_info") )
-                , "Sets the batch and thread information to be used." );
         
         }
         { //::IParameterized::areParametersChanged

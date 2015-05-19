@@ -88,8 +88,7 @@ public:
     void setDetectorParameters(const DetectorParameters& params);
 
     //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        const IResolutionFunction2D &resolution_function);
+    void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
 
     //! Removes detector resolution function
     void removeDetectorResolutionFunction();
@@ -99,13 +98,8 @@ public:
                                double total_transmission=1.0);
 
     //! Adds parameters from local to external pool, and call recursion over direct children
-    std::string addParametersToExternalPool(
-        std::string path,
-        ParameterPool *external_pool,
-        int copy_number=-1) const;
-
-    //! OffSpecSimulation needs protected copy constructor
-    friend class OffSpecSimulation;
+    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                            int copy_number=-1) const;
 
     //! returns wavelength
     virtual double getWavelength() const;

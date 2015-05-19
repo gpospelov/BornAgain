@@ -16,8 +16,11 @@
 #include "GUIHelpers.h"
 #include "BAVersion.h"
 #include <QApplication>
+#include <QFile>
+#include <QRegExp>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QDebug>
 
 namespace GUIHelpers {
 
@@ -145,7 +148,6 @@ QString getValidFileName(const QString &proposed_name)
     }
     return result;
 }
-
 
 
 } // namespace GUIHelpers

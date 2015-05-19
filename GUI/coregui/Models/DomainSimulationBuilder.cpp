@@ -23,6 +23,7 @@
 #include "BeamItem.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 
@@ -34,6 +35,8 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
                                                    InstrumentModel *instrumentModel,
                                                    const QString &instrument_name)
 {
+    Q_ASSERT(sampleModel);
+    Q_ASSERT(instrumentModel);
     MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
     InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
     return getSimulation(sampleItem, instrumentItem);
@@ -51,6 +54,12 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
 Simulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
                                                    InstrumentItem *instrumentItem)
 {
+    if(!sampleItem || !instrumentItem) {
+        QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
+                        " or InstrumentItem is not defined.");
+        throw GUIHelpers::Error(message);
+    }
+
     DomainObjectBuilder builder;
 
     Simulation *result = new Simulation;

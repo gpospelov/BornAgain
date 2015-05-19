@@ -125,7 +125,7 @@ void JobQueueData::runJob(JobItem *jobItem)
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
-        message += QString(ex.what());
+        message += QString::fromStdString(std::string(ex.what()));
         jobItem->setComments(message);
         jobItem->setProgress(100);
         jobItem->setStatus(Constants::STATUS_FAILED);

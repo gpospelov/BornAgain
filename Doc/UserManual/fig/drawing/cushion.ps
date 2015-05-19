@@ -1689,6 +1689,7 @@ BoxBackground
   0 10 11 1 SetTicVecLin
   {(y / L)}
    0 10   0  0     0  90 OneAxx Axx  Tic Tac xNumL %% low x axis
+   0 10   0 10     0 270 OneAxx Axx  Tic Tac       %% top x axis
   xCL
 
   [
@@ -1701,37 +1702,9 @@ BoxBackground
   0 10 11 1 SetTicVecLin
    {(z / L)}
    0 10   0  0    90   0 OneAxx Axx Tic Tac yNumL %% left y axis
+   0 10  10  0    90 180 OneAxx Axx Tic Tac       %% right y axis
   yCL
 
-%% k axes
-
-/linsetTic {0.7 setline} def
-/linsetTac {0.7 setline} def
-  [
-    -.4 .5 fuy wx {(-0.4)}
-    -.2 .5 fuy wx {(-0.2)}
-     0  .5 fuy wx {(0)}
-     .2 .5 fuy wx {(0.2)}
-     .4 .5 fuy wx {(0.4)}
-  ] SetTacVec
-  0 10 11 1 SetTicVecLin
-  {(k)(y) sb( / K)}
-   0 10   0 10     0 270 OneAxx Axx siemensred Tac xNumH   %% top x axis
-  xCH
-  black
-
-  [
-    .5 -.4 fuz wy {(-0.4)}
-    .5 -.2 fuz wy {(-0.2)}
-    .5  0  fuz wy {(0)}
-    .5  .2 fuz wy {(0.2)}
-    .5  .4 fuz wy {(0.4)}
-  ] SetTacVec
-  0 10 11 1 SetTicVecLin
-  {(k)(z) sb( / K)}
-   0 10  10  0    90 180 OneAxx Axx siemensblue Tac yNumH      %% right y axis
-  yCH
-  black
 
 siemensblue
 1 cstyle
@@ -1756,5 +1729,19 @@ siemensred
     } for
     st
 } for
+
+/bgx 1.8 def
+/bgy .5 def
+/bg {
+    3 copy /angl x def { translate angl rotate 1.0 bgx -.5 mul bgy -.5 mul bgx bgy graybox } G
+} def
+
+black
+18 setown
+-.32 dup .4 fuz wxy -6   bg {()(k)hut()(fz)sb( = 0.4)} rtextCM
+% -.32 dup .3 fuz wxy -4.2 bg {()(k)hut()(fz)sb( = 0.3)} rtextCM
+-.32 dup .2 fuz wxy -2.8 bg {()(k)hut()(fz)sb( = 0.2)} rtextCM
+% -.32 dup .1 fuz wxy -1.3 bg {()(k)hut()(fz)sb( = 0.1)} rtextCM
+-.32 dup 0  fuz wxy  0   bg {()(k)hut()(fz)sb( = 0.0)} rtextCM
 
 EndFrame

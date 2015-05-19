@@ -386,7 +386,8 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     Q_ASSERT(intensityItem == m_item);
 
     const OutputData<double> *data = intensityItem->getOutputData();
-    Q_ASSERT(data);
+    //Q_ASSERT(data);
+    if(!data) return;
 
     if(data->getRank() != 2) {
         throw NullPointerException("ColorMapPlot::plotItem() -> Error. Zero pointer to the data to draw");

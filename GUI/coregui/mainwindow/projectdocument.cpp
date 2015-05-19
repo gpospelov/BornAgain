@@ -219,18 +219,26 @@ bool ProjectDocument::readFrom(QIODevice *device)
     Q_ASSERT(m_materialModel);
     disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
 
     Q_ASSERT(m_instrumentModel);
     disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
 
     Q_ASSERT(m_sampleModel);
     disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
 
     Q_ASSERT(m_jobModel);
     disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                SLOT(onJobModelChanged(QString)));
+    disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
 
     QXmlStreamReader reader(device);
 
@@ -275,12 +283,20 @@ bool ProjectDocument::readFrom(QIODevice *device)
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
     connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
     connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
+    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
     connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
             SLOT(onJobModelChanged(QString)));
+    connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsRemoved(QModelIndex, int, int)));
     return true;
 }
 
@@ -396,6 +412,12 @@ void ProjectDocument::loadOutputData()
             if (info.exists()) {
                 jobItem->getIntensityDataItem()->setOutputData(
                     IntensityDataIOFactory::readIntensityData(filename.toStdString()));
+            } else {
+                jobItem->setStatus(Constants::STATUS_FAILED);
+                QString warning("Error while loading job from file, intensity data file '");
+                warning.append(filename);
+                warning.append("' was not found");
+                jobItem->setComments(warning);
             }
         }
     }

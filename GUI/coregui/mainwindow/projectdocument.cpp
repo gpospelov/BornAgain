@@ -74,7 +74,7 @@ void ProjectDocument::onJobModelChanged(const QString &)
     emit modified();
 }
 
-void ProjectDocument::onRowsRemoved(const QModelIndex &parent, int first, int last)
+void ProjectDocument::onRowsChanged(const QModelIndex &parent, int first, int last)
 {
     Q_UNUSED(parent);
     Q_UNUSED(first);
@@ -90,18 +90,18 @@ void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
             disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                        SLOT(onDataChanged(QModelIndex, QModelIndex)));
             disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+                       SLOT(onRowsChanged(QModelIndex, int, int)));
             disconnect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int,int)));
+                       SLOT(onRowsChanged(QModelIndex, int,int)));
         }
 
         m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
         connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsRemoved(QModelIndex, int, int)));
+                SLOT(onRowsChanged(QModelIndex, int, int)));
         connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int,int)));
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
     }
 }
 
@@ -112,17 +112,17 @@ void ProjectDocument::setInstrumentModel(InstrumentModel *model)
             disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                        SLOT(onDataChanged(QModelIndex, QModelIndex)));
             disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+                       SLOT(onRowsChanged(QModelIndex, int, int)));
             disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int,int)));
+                       SLOT(onRowsChanged(QModelIndex, int,int)));
         }
         m_instrumentModel = model;
         connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
         connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsRemoved(QModelIndex, int, int)));
+                SLOT(onRowsChanged(QModelIndex, int, int)));
         connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int,int)));
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
     }
 }
 
@@ -141,9 +141,9 @@ void ProjectDocument::setSampleModel(SampleModel *model)
         connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                 SLOT(onDataChanged(QModelIndex, QModelIndex)));
         connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsRemoved(QModelIndex, int, int)));
+                SLOT(onRowsChanged(QModelIndex, int, int)));
         connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int,int)));
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
     }
 }
 
@@ -154,18 +154,18 @@ void ProjectDocument::setJobModel(JobModel *model)
             disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                        SLOT(onJobModelChanged(QString)));
             disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
+                       SLOT(onRowsChanged(QModelIndex, int, int)));
             disconnect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int,int)));
+                       SLOT(onRowsChanged(QModelIndex, int,int)));
         }
         m_jobModel = model;
 
         connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                 SLOT(onJobModelChanged(QString)));
         connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsRemoved(QModelIndex, int, int)));
+                SLOT(onRowsChanged(QModelIndex, int, int)));
         connect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int,int)));
+                   SLOT(onRowsChanged(QModelIndex, int,int)));
     }
 }
 
@@ -236,33 +236,33 @@ bool ProjectDocument::readFrom(QIODevice *device)
     disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
     disconnect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     disconnect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     Q_ASSERT(m_instrumentModel);
     disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
     disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     Q_ASSERT(m_sampleModel);
     disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
                SLOT(onDataChanged(QModelIndex, QModelIndex)));
     disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     Q_ASSERT(m_jobModel);
     disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
                SLOT(onJobModelChanged(QString)));
     disconnect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     disconnect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     QXmlStreamReader reader(device);
 
@@ -308,30 +308,30 @@ bool ProjectDocument::readFrom(QIODevice *device)
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
     connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
     connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
             SLOT(onDataChanged(QModelIndex, QModelIndex)));
     connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
 
     connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)), this,
             SLOT(onJobModelChanged(QString)));
     connect(m_jobModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsRemoved(QModelIndex, int, int)));
+               SLOT(onRowsChanged(QModelIndex, int, int)));
     connect(m_jobModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-               SLOT(onRowsInserted(QModelIndex, int,int)));
+               SLOT(onRowsChanged(QModelIndex, int,int)));
     return true;
 }
 

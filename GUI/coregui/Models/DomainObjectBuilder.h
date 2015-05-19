@@ -53,7 +53,8 @@ public:
     ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
                                                   double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
-                                                    double &abundance) const;
+                                                    double &abundance,
+                                                    bool catch_errors=false) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
 

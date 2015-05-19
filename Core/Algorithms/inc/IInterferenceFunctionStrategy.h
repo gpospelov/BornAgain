@@ -22,6 +22,7 @@
 #include "SafePointerVector.h"
 #include "LayerStrategyBuilder.h"
 #include "FormFactorDWBAPol.h"
+#include "SimulationElement.h"
 
 #include <vector>
 #include <boost/scoped_ptr.hpp>
@@ -53,9 +54,7 @@ public:
                     Bin1D phi_f_bin) const;
 
     //! Calculates the intensity in the presence of polarization of beam and detector
-    double evaluate(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                    const Bin1DCVector &k_f_bin, const Eigen::Matrix2cd &detector_operator,
-                    Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    double evaluate(const SimulationElement& sim_element) const;
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors

@@ -50,18 +50,25 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1D
     return evaluateForList(k_i, k_f_bin, m_ff);
 }
 
-double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i,
-                                               const Eigen::Matrix2cd &beam_density,
-                                               const Bin1DCVector &k_f_bin,
-                                               const Eigen::Matrix2cd &detector_operator,
-                                               Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluatePol(k_i, beam_density, detector_operator, alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluatePol(k_i, sim_element.getPolarization(),
+                                       sim_element.getAnalyzerOperator(), alpha_f_bin, phi_f_bin);
     }
+    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
     double result;
     calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
-    result = evaluateForMatrixList(k_i, beam_density, k_f_bin, detector_operator, m_ff_pol);
+    result = evaluateForMatrixList(k_i, sim_element.getPolarization(), k_f_bin,
+                                   sim_element.getAnalyzerOperator(), m_ff_pol);
     return result;
 }
 

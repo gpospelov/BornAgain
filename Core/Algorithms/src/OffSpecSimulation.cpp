@@ -218,10 +218,10 @@ void OffSpecSimulation::initSimulationElementVector()
     for (size_t alpha_i_index = 0; alpha_i_index < mp_alpha_i_axis->getSize(); ++alpha_i_index) {
         // Incoming angle by convention defined as positive:
         double alpha_i = - mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
-        for (size_t alpha_f_index = 0; alpha_f_index < alpha_axis.getSize(); ++alpha_f_index) {
-            Bin1D alpha_bin = alpha_axis.getBin(alpha_f_index);
-            for (size_t phi_f_index = 0; phi_f_index < phi_axis.getSize(); ++phi_f_index) {
-                Bin1D phi_bin = phi_axis.getBin(phi_f_index);
+        for (size_t phi_f_index = 0; phi_f_index < phi_axis.getSize(); ++phi_f_index) {
+            Bin1D phi_bin = phi_axis.getBin(phi_f_index);
+            for (size_t alpha_f_index = 0; alpha_f_index < alpha_axis.getSize(); ++alpha_f_index) {
+                Bin1D alpha_bin = alpha_axis.getBin(alpha_f_index);
                 SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha_bin.m_lower,
                                               alpha_bin.m_upper, phi_bin.m_lower, phi_bin.m_upper);
                 sim_element.setPolarization(beam_polarization);
@@ -243,10 +243,8 @@ void OffSpecSimulation::transferResultsToIntensityMap()
                                     "intensity map size does not conform to number of "
                                     "calculated intensities");
     }
-    for (size_t i=0; i<m_intensity_map.getAllocatedSize(); ++i) {
-        for (size_t j=0; j<phi_f_size; ++j){
-            m_intensity_map[i] = m_sim_elements[i*phi_f_size + j].getIntensity();
-        }
+    for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i) {
+        normalizeAndTransferDetectorImage(i);
     }
 }
 
@@ -261,6 +259,30 @@ void OffSpecSimulation::updateIntensityMap()
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
     }
     m_intensity_map.setAllTo(0.);
+}
+
+void OffSpecSimulation::normalizeAndTransferDetectorImage(int index)
+{
+    OutputData<double> detector_image;
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
+        detector_image.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    size_t detector_size = detector_image.getAllocatedSize();
+    for (size_t i=0; i<detector_size; ++i) {
+        detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
+    }
+    Beam beam = m_instrument.getBeam();
+    double wavelength = beam.getWavelength();
+    double phi_i = beam.getPhi();
+    double alpha_i = mp_alpha_i_axis->getBin(index).getMidPoint();
+    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
+    m_instrument.normalize(&detector_image);
+    m_instrument.applyDetectorResolution(&detector_image);
+    size_t alpha_f_size = m_instrument.getDetectorAxis(1).getSize();
+    for (size_t i=0; i<detector_size; ++i) {
+        m_intensity_map[index*alpha_f_size + i%alpha_f_size] += detector_image[i];
+    }
 }
 
 void OffSpecSimulation::checkInitialization() const

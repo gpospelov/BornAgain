@@ -108,6 +108,11 @@ protected:
     IAxis *mp_alpha_i_axis;
     OutputData<double> m_intensity_map;
 private:
+    //! Normalize, apply detector resolution and transfer detector image corresponding to
+    //! alpha_i = mp_alpha_i_axis->getBin(index)
+    void normalizeAndTransferDetectorImage(int index);
+
+    //! Check correct number of axes
     void checkInitialization() const;
 };
 

@@ -92,8 +92,7 @@ const IAxis &Detector::getAxis(size_t index) const
     throw OutOfBoundsException("Not so many axes in this detector.");
 }
 
-void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
-                                       OutputData<Eigen::Matrix2d> *p_matrix_intensity) const
+void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map) {
         throw NullPointerException("Detector::applyDetectorResolution() -> "
@@ -101,9 +100,6 @@ void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
     }
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
-        if (p_matrix_intensity) {
-            mp_detector_resolution->applyDetectorResolutionPol(p_matrix_intensity);
-        }
     } else {
         msglog(MSG::WARNING) << "Detector::applyDetectorResolution() -> "
                                 "No detector resolution function found";

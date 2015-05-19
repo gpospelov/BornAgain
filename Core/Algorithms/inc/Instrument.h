@@ -96,11 +96,9 @@ public:
         m_detector.setAnalyzerProperties(direction, efficiency, total_transmission);
     }
 
-#ifndef GCCXML_SKIP_THIS
     //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double> *p_intensity_map,
-                                 OutputData<Eigen::Matrix2d> *p_matrix_intensity = 0) const;
-#endif
+    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;

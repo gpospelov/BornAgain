@@ -63,11 +63,8 @@ public:
         mp_detector_resolution = p_detector_resolution;
     }
 
-#ifndef GCCXML_SKIP_THIS
     //! Applies the detector resolution to the given intensity maps
-    void applyDetectorResolution(OutputData<double> *p_scalar_intensity,
-                                 OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;
-#endif
+    void applyDetectorResolution(OutputData<double> *p_scalar_intensity) const;
 
     const IDetectorResolution *getDetectorResolutionFunction() const
     {

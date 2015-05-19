@@ -2,20 +2,27 @@
 #include "DistributionDialog.h"
 
 // FIXME Fix layout of DistributionEditor
+//       1) make a gap around close button
+//       2) make "close" button not sensitive to "Enter" event
+//       3) QLabel with [x,y] - should be shifted a bit
+//       4) Change behavior of QDialog, when shown, MainApplication is gray and not active
+//       5) Change title of QDialog from BornAgain to Select Distribution
 
 // FIXME Fix title of groupBox in DistributionEditor
 
 // FIXME Take care of "QPainter::fontMetrics: Painter not active" warning
+//       Still there
+//       may be this --> http://stackoverflow.com/questions/17704597/qpainterbegin-widget-painting-can-only-begin-as-a-result-of-a-paintevent
 
-// FIXME Implement tooltip for an icon which calls DistributionDialog
+// Provide y-Axis caption -> "probability" instead of "y"
+// Provide x-Axis caption -> name of group instead of name of the distribution
 
-// FIXME Implement "close" button for Right Bottom corner of the distribution dialog
+// Fix: When click on "Azimuthal angle" -> see nothing
 
-// FIXME Implement right mouse button -> "reset"
+// create "i" Icon using inkscape
+// try to place it in the right corner of QGroupBox
 
-// FIXME unused variable pixHeight In member function 'QPixmap GroupBox::mergeSideBySide(const QPixmap&, QString)':
 
-// FIXME try another icon (look http://glyphicons.com/ or similar)
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)

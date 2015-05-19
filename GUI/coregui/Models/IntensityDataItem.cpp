@@ -101,7 +101,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
     blockSignals(false);
     emit intensityModified();
-
 }
 
 double IntensityDataItem::getLowerX() const

@@ -109,7 +109,7 @@ void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
     Q_ASSERT(intensityItem);
 
     const OutputData<double> *data = intensityItem->getOutputData();
-    Q_ASSERT(data);
+    if(!data) return;
 
     if(data->getRank() != 2) {
         throw NullPointerException("NHistogramPlot::plotItem::Draw() -> Error. Zero pointer to the data to draw");

@@ -52,8 +52,8 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_toggleProjectionsButton->setText("Projections");
     m_toggleProjectionsButton->setIcon(QIcon(":/images/toolbar_projections.png"));
     m_toggleProjectionsButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_toggleProjectionsButton->setToolTip("Toggle Projections, Ctrl+O");
-    m_toggleProjectionsButton->setShortcut(Qt::CTRL + Qt::Key_O);
+    m_toggleProjectionsButton->setToolTip("Toggle Projections, Ctrl+P");
+    m_toggleProjectionsButton->setShortcut(Qt::CTRL + Qt::Key_P);
     connect(m_toggleProjectionsButton, SIGNAL(clicked()), this, SIGNAL(toggleProjections()));
     addWidget(m_toggleProjectionsButton);
 
@@ -66,8 +66,9 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_togglePropertyPanelButton->setText("Plot Properties");
     m_togglePropertyPanelButton->setIcon(QIcon(":/images/toolbar_propertypanel.png"));
     m_togglePropertyPanelButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_togglePropertyPanelButton->setToolTip("Toggle Property Panel, Ctrl+P");
-    m_togglePropertyPanelButton->setShortcut(Qt::CTRL + Qt::Key_P);
+//    m_togglePropertyPanelButton->setToolTip("Toggle Property Panel, Ctrl+P");
+//    m_togglePropertyPanelButton->setShortcut(Qt::CTRL + Qt::Key_P);
+    m_togglePropertyPanelButton->setToolTip("Toggle Property Panel");
     connect(m_togglePropertyPanelButton, SIGNAL(clicked()), this, SIGNAL(togglePropertyPanel()));
     addWidget(m_togglePropertyPanelButton);
 
@@ -80,8 +81,8 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_resetViewButton->setText("Reset View");
     m_resetViewButton->setIcon(QIcon(":/images/toolbar_refresh.png"));
     m_resetViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_resetViewButton->setToolTip("Reset View, Ctrl+R");
-    m_resetViewButton->setShortcut(Qt::CTRL + Qt::Key_R);
+    m_resetViewButton->setToolTip("Reset View");
+//    m_resetViewButton->setShortcut(Qt::CTRL + Qt::Key_R);
     connect(m_resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetView()));
     addWidget(m_resetViewButton);
 
@@ -94,8 +95,9 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_savePlotButton->setText("Save Plot");
     m_savePlotButton->setIcon(QIcon(":/images/toolbar_save.png"));
     m_savePlotButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_savePlotButton->setToolTip("Save Plot, Ctrl+S");
-    m_savePlotButton->setShortcut(Qt::CTRL + Qt::Key_S);
+//    m_savePlotButton->setToolTip("Save Plot, Ctrl+S");
+//    m_savePlotButton->setShortcut(Qt::CTRL + Qt::Key_S);
+    m_savePlotButton->setToolTip("Save Plot");
     connect(m_savePlotButton, SIGNAL(clicked()), this, SIGNAL(savePlot()));
     addWidget(m_savePlotButton);
 

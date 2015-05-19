@@ -240,9 +240,12 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
     return result;
 }
 
+//! Creates ParticleDistribution from parameterized item. If catch_errors=true, then
+//! possible misconfiguration of Distribution1D will be caught, fake distribution will be used
 ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const ParameterizedItem &item,
                                                                      double &depth,
-                                                                     double &abundance) const
+                                                                     double &abundance,
+                                                                     bool catch_errors) const
 {
     ParticleDistribution *p_result = 0;
     QList<ParameterizedItem *> children = item.childItems();
@@ -267,7 +270,21 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     }
     ParameterizedItem *distr_item = item.getSubItems()[ParticleDistributionItem::P_DISTRIBUTION];
     Q_ASSERT(distr_item);
-    boost::scoped_ptr<IDistribution1D> distr(TransformToDomain::createDistribution(*distr_item));
+
+    IDistribution1D *distr(0);
+    if(catch_errors) {
+        try {
+            distr = TransformToDomain::createDistribution(*distr_item);
+        } catch(const std::exception &ex) {
+            qDebug() << "DomainObjectBuilder::buildParticleDistribution() -> Error."
+                     << QString::fromStdString(ex.what());
+            distr = new DistributionGate(1.0, 2.0);
+        }
+    } else {
+        distr = TransformToDomain::createDistribution(*distr_item);
+    }
+
+//    boost::scoped_ptr<IDistribution1D> distr(TransformToDomain::createDistribution(*distr_item));
     QVariant par_name_var
         = item.getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER);
     ComboProperty prop = par_name_var.value<ComboProperty>();
@@ -277,6 +294,7 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     double sigma_factor
         = distr_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(par_name.toStdString(), *distr, nbr_samples, sigma_factor);
+    delete distr;
     p_result = new ParticleDistribution(*P_particle, par_distr);
     return p_result;
 }

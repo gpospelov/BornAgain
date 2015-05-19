@@ -1663,8 +1663,22 @@ BoxBackground
 0 -0.5 0.5 ySetCoord
 % 0 0 0 0 zSetCoord
 
+/fuy {
+    /fcz x def
+    /fcy x def
+    1 fcz dup mul add sqrt
+    fcy 1 fcy dup mul sub sqrt div mul
+} def
 
-/xPlotFrame {
+/fuz {
+    /fcz x def
+    /fcy x def
+    1 fcy dup mul add sqrt
+    fcz 1 fcz dup mul sub sqrt div mul
+} def
+
+%% real-space detector coordinates
+
   [
     -.4 wx {(-0.4)}
     -.2 wx {(-0.2)}
@@ -1672,14 +1686,11 @@ BoxBackground
      .2 wx {(0.2)}
      .4 wx {(0.4)}
   ] SetTacVec
-  -2.5 12.5 7 5 SetTicVecLin
+  0 10 11 1 SetTicVecLin
   {(y / L)}
-   0 10   0  0     0  90 OneAxx Axx  Tac xNumL %% low x axis
-   0 10   0 10     0 270 OneAxx Axx  Tac       %% top x axis
+   0 10   0  0     0  90 OneAxx Axx  Tic Tac xNumL %% low x axis
   xCL
-} def
 
-/yPlotFrame {
   [
     -.4 wy {(-0.4)}
     -.2 wy {(-0.2)}
@@ -1687,15 +1698,40 @@ BoxBackground
      .2 wy {(0.2)}
      .4 wy {(0.4)}
   ] SetTacVec
-  -2.5 12.5 7 5 SetTicVecLin
+  0 10 11 1 SetTicVecLin
    {(z / L)}
-   0 10   0  0    90   0 OneAxx Axx  Tac yNumL %% left y axis
-   0 10  10  0    90 180 OneAxx Axx  Tac       %% right y axis
+   0 10   0  0    90   0 OneAxx Axx Tic Tac yNumL %% left y axis
   yCL
-} def
 
-%% modeDD
-plotbefore
+%% k axes
+
+/linsetTic {0.7 setline} def
+/linsetTac {0.7 setline} def
+  [
+    -.4 .5 fuy wx {(-0.4)}
+    -.2 .5 fuy wx {(-0.2)}
+     0  .5 fuy wx {(0)}
+     .2 .5 fuy wx {(0.2)}
+     .4 .5 fuy wx {(0.4)}
+  ] SetTacVec
+  0 10 11 1 SetTicVecLin
+  {(k)(y) sb( / K)}
+   0 10   0 10     0 270 OneAxx Axx siemensred Tac xNumH   %% top x axis
+  xCH
+  black
+
+  [
+    .5 -.4 fuz wy {(-0.4)}
+    .5 -.2 fuz wy {(-0.2)}
+    .5  0  fuz wy {(0)}
+    .5  .2 fuz wy {(0.2)}
+    .5  .4 fuz wy {(0.4)}
+  ] SetTacVec
+  0 10 11 1 SetTicVecLin
+  {(k)(z) sb( / K)}
+   0 10  10  0    90 180 OneAxx Axx siemensblue Tac yNumH      %% right y axis
+  yCH
+  black
 
 siemensblue
 1 cstyle
@@ -1704,10 +1740,7 @@ siemensblue
     /t { np txy mv /t { txy li } def } def
     -.5 .01 .5 {
         /dcy x def
-	dcy
-	1 dcy dup mul add sqrt
-	dqz 1 dqz dup mul sub sqrt div mul
-	wxy 0 t
+	dcy dcy dqz fuz wxy 0 t
     } for
     st
 } for
@@ -1719,10 +1752,7 @@ siemensred
     /t { np txy mv /t { txy li } def } def
     -.5 .01 .5 {
         /dcz x def
-	1 dcz dup mul add sqrt
-	dqy 1 dqy dup mul sub sqrt div mul
-	dcz
-	wxy 0 t
+	dqy dcz fuy dcz wxy 0 t
     } for
     st
 } for

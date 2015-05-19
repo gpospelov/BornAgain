@@ -32,7 +32,7 @@ public:
         : message(message) {}
     ~Error() throw() {}
 
-    const char *what() const throw() { return message.toStdString().c_str(); }
+    const char *what() const throw() { return message.toLatin1().data(); }
 
 private:
 //    const char *message;

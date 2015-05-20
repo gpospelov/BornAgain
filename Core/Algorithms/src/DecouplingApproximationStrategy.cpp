@@ -62,13 +62,6 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
 double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationElement& sim_element,
                                                               const MatrixFFVector &ff_list) const
 {
-    double wavelength = sim_element.getWavelength();
-    double alpha_i = sim_element.getAlphaI();
-    double phi_i = sim_element.getPhiI();
-    cvector_t k_i, k_f;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    k_f.setLambdaAlphaPhi(wavelength, sim_element.getAlphaMean(), sim_element.getPhiMean());
-
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
@@ -94,8 +87,7 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
     Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
-//    double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());
-    double itf_function = m_ifs[0]->evaluate(k_i - k_f);
+    double itf_function = m_ifs[0]->evaluate(sim_element.getMeanQ());
     return total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
 }
 

@@ -94,8 +94,7 @@ private:
 
     //! Constructs lists of evaluated form factors to be used in subsequent
     //! calculations
-    void calculateFormFactorLists(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                  Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    void calculateFormFactorLists(const SimulationElement& sim_element) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;

@@ -51,7 +51,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     Bin1DCVector k_f_bin(lambda, alpha_f_bin, phi_f_bin);
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
         && (alpha_f_bin.getBinSize() != 0.0 || phi_f_bin.getBinSize() != 0.0)) {
-        return MCIntegratedEvaluate(k_i, alpha_f_bin, phi_f_bin);
+        return MCIntegratedEvaluate(sim_element);
     }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
     return evaluateForList(k_i, k_f_bin, m_ff);
@@ -117,9 +117,16 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
     m_ff_pol.clear();
 }
 
-double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i, Bin1D alpha_f_bin,
-                                                           Bin1D phi_f_bin) const
+double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim_element) const
 {
+    double lambda = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, alpha_f_bin, phi_f_bin);
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
         = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles;

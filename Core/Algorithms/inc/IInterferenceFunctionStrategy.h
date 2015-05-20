@@ -98,7 +98,7 @@ private:
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
-    double MCIntegratedEvaluate(const cvector_t &k_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+    double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity

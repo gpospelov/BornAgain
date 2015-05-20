@@ -1730,18 +1730,21 @@ siemensred
     st
 } for
 
-/bgx 1.8 def
+/bgx 2.3 def
 /bgy .5 def
 /bg {
-    3 copy /angl x def { translate angl rotate 1.0 bgx -.5 mul bgy -.5 mul bgx bgy graybox } G
+    4 1 roll /angl x def
+    { translate angl rotate 1.0 bgx -.5 mul bgy -.5 mul bgx bgy graybox
+    0 0 3 2 roll textCM } G
 } def
 
 black
 18 setown
--.32 dup .4 fuz wxy -6   bg {()(k)hut()(fz)sb( = 0.4)} rtextCM
-% -.32 dup .3 fuz wxy -4.2 bg {()(k)hut()(fz)sb( = 0.3)} rtextCM
--.32 dup .2 fuz wxy -2.8 bg {()(k)hut()(fz)sb( = 0.2)} rtextCM
-% -.32 dup .1 fuz wxy -1.3 bg {()(k)hut()(fz)sb( = 0.1)} rtextCM
--.32 dup 0  fuz wxy  0   bg {()(k)hut()(fz)sb( = 0.0)} rtextCM
+-.30 dup .4 fuz     wxy -6   {(k)(fz)sb( = 0.4 K)} bg
+-.30 dup .2 fuz     wxy -2.8 {(k)(fz)sb( = 0.2 K)} bg
+-.30 dup 0  fuz     wxy  0   {(k)(fz)sb( = 0.0 K)} bg
+ .30 dup 0. x fuy x wxy 90   {(k)(fy)sb( = 0.0 K)} bg
+ .30 dup .2 x fuy x wxy 87.2 {(k)(fy)sb( = 0.2 K)} bg
+ .30 dup .4 x fuy x wxy 84   {(k)(fy)sb( = 0.4 K)} bg
 
 EndFrame

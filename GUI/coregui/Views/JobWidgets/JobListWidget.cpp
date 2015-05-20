@@ -42,6 +42,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     m_listView->setDefaultDropAction(Qt::MoveAction);
     m_listView->setItemDelegate(m_listViewDelegate);
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     // connect context menu for tree view
     connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -141,9 +142,12 @@ bool JobListWidget::jobItemCanBeRemoved(const QModelIndex &index)
 void JobListWidget::removeJob()
 {
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
-    foreach(QModelIndex index, indexList) {
-        if(jobItemCanBeRemoved(index))
-            m_jobModel->removeJob(index);
+
+    while(indexList.size()) {
+        if(jobItemCanBeRemoved(indexList.first())) {
+            m_jobModel->removeJob(indexList.first());
+            indexList = m_listView->selectionModel()->selectedIndexes();
+        }
     }
 }
 

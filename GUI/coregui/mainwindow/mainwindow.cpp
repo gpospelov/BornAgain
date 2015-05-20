@@ -151,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    //testGUIObjectBuilder();
+    testGUIObjectBuilder();
 }
 
 MainWindow::~MainWindow()

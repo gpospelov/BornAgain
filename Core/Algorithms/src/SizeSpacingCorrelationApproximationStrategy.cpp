@@ -61,9 +61,17 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
-    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
+    const SimulationElement& sim_element, const MatrixFFVector &ff_list) const
 {
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
+
     double qp = getqp(k_i, k_f_bin);
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
@@ -75,15 +83,16 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
-        diffuse_matrix += fraction * (ff * beam_density * ff.adjoint());
+        diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mcff = getMeanCharacteristicMatrixFF(k_i, k_f_bin, ff_list);
     Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(k_i, k_f_bin, ff_list);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
-    Eigen::Matrix2cd interference_matrix = (2.0 * omega / (1.0 - p2kappa * omega))
-                                           * (detector_operator * mcff * beam_density * mcffc);
-    Eigen::Matrix2cd diffuse_matrix2 = detector_operator * diffuse_matrix;
+    Eigen::Matrix2cd interference_matrix
+        = (2.0 * omega / (1.0 - p2kappa * omega))
+          * (sim_element.getAnalyzerOperator() * mcff * sim_element.getPolarization() * mcffc);
+    Eigen::Matrix2cd diffuse_matrix2 = sim_element.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
     return total_abundance * (diffuse_trace + interference_trace);

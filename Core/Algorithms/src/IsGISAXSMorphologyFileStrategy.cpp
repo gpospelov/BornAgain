@@ -90,10 +90,17 @@ double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t &k_i,
     return coherent_intensity + diffuse_intensity;
 }
 
-double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
-    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
+double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(const SimulationElement &sim_element,
+                                                             const MatrixFFVector &ff_list) const
 {
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
     cvector_t q = k_i - k_f_bin.getMidPoint();
 
     // coherent part
@@ -103,22 +110,25 @@ double IsGISAXSMorphologyFileStrategy::evaluateForMatrixList(
         double hann_value = hannFunction(m_x_positions[i], m_y_positions[i]);
         coherent_amplitude += fraction * ff_list[i] * hann_value;
     }
-    Eigen::Matrix2cd coh_amplitude_matrix = detector_operator * coherent_amplitude * beam_density
-                                        * coherent_amplitude.adjoint();
+    Eigen::Matrix2cd coh_amplitude_matrix = sim_element.getAnalyzerOperator() * coherent_amplitude
+                                            * sim_element.getPolarization()
+                                            * coherent_amplitude.adjoint();
     double coherent_intensity = std::abs(coh_amplitude_matrix.trace());
 
     // diffuse part
-    Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();;
+    Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
+    ;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         Eigen::Matrix2cd ff_i = ff_list[i];
-        diffuse_matrix += m_ff_infos[i]->m_abundance * (ff_i * beam_density * ff_i.adjoint());
+        diffuse_matrix += m_ff_infos[i]->m_abundance
+                          * (ff_i * sim_element.getPolarization() * ff_i.adjoint());
         for (size_t j = i + 1; j < m_ff_infos.size(); ++j) {
             Eigen::Matrix2cd ff_j = ff_list[j];
             diffuse_matrix += m_ff_infos[i]->m_abundance * m_ff_infos[j]->m_abundance * 2.0
-                                 * (ff_i * beam_density * ff_j.adjoint());
+                              * (ff_i * sim_element.getPolarization() * ff_j.adjoint());
         }
     }
-    Eigen::Matrix2cd intensity_matrix = detector_operator * diffuse_matrix;
+    Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * diffuse_matrix;
     double diffuse_intensity = std::abs(intensity_matrix.trace());
     return coherent_intensity + diffuse_intensity;
 }

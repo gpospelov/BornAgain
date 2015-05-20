@@ -63,9 +63,7 @@ protected:
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    virtual double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                                         const Bin1DCVector &k_f_bin,
-                                         const Eigen::Matrix2cd &detector_operator,
+    virtual double evaluateForMatrixList(const SimulationElement& sim_element,
                                          const MatrixFFVector &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f

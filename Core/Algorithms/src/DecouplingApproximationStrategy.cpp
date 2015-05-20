@@ -59,12 +59,21 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
     return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 
-double DecouplingApproximationStrategy::evaluateForMatrixList(
-    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
+double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationElement& sim_element,
+                                                              const MatrixFFVector &ff_list) const
 {
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
+
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
+
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         total_abundance += m_ff_infos[i]->m_abundance;
@@ -80,11 +89,11 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
         }
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         mean_amplitude += fraction * ff;
-        mean_intensity += fraction * (ff * beam_density * ff.adjoint());
+        mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd amplitude_matrix = detector_operator * mean_amplitude * beam_density
-                                        * mean_amplitude.adjoint();
-    Eigen::Matrix2cd intensity_matrix = detector_operator * mean_intensity;
+    Eigen::Matrix2cd amplitude_matrix = sim_element.getAnalyzerOperator() * mean_amplitude
+            * sim_element.getPolarization() * mean_amplitude.adjoint();
+    Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());

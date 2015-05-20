@@ -52,22 +52,12 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1D
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    double wavelength = sim_element.getWavelength();
-    double alpha_i = sim_element.getAlphaI();
-    double phi_i = sim_element.getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
-
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
         return MCIntegratedEvaluatePol(sim_element);
     }
-    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
     double result;
     calculateFormFactorLists(sim_element);
-    result = evaluateForMatrixList(k_i, sim_element.getPolarization(), k_f_bin,
-                                   sim_element.getAnalyzerOperator(), m_ff_pol);
+    result = evaluateForMatrixList(sim_element, m_ff_pol);
     return result;
 }
 
@@ -205,29 +195,15 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
     double par1 = fractions[1];
 
     SimulationElement *pars = static_cast<SimulationElement *>(params);
-    double wavelength = pars->getWavelength();
-    double alpha_i = pars->getAlphaI();
-    double phi_i = pars->getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    cvector_t k_f;
-    double alpha = pars->getAlphaMin()
-                   + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
+    double alpha = pars->getAlphaMin() + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
     double phi = pars->getPhiMin() + par1 * (pars->getPhiMax() - pars->getPhiMin());
-    k_f.setLambdaAlphaPhi(wavelength, alpha, phi);
-    boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
-        mP_specular_info->getOutCoefficients(alpha, phi));
-    k_f.setZ(out_coeff->getScalarKz());
 
-    SimulationElement sim_element(wavelength, alpha_i, phi_i, alpha, alpha, phi, phi);
+    SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(), alpha,
+                                  alpha, phi, phi);
     sim_element.setPolarization(pars->getPolarization());
     sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
     calculateFormFactorLists(sim_element);
 
-    Bin1DCVector k_f_bin(k_f, k_f);
-    double result = 0.0;
-    result
-        = evaluateForMatrixList(k_i, pars->getPolarization(),
-                                k_f_bin, pars->getAnalyzerOperator(), m_ff_pol);
+    double result = evaluateForMatrixList(sim_element, m_ff_pol);
     return std::cos(alpha) * result;
 }

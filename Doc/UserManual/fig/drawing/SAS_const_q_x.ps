@@ -1,4 +1,7 @@
-%!PS-Adobe-2.0
+%!PS-Adobe-1.0 EPSF-1.0
+%%BoundingBox:    38   386   389   718
+%%Comment: Bounding box extracted by bboxx
+%%+:       A program by Dov Grobgeld 2003
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
@@ -1611,7 +1614,7 @@ iFrame 0 eq
 {
 10 dup autolabel defsiz
 1 dup stdred
-2 -11 setnewpage newpage
+3 -13 setnewpage newpage
 1 1 13 -14 setpagegrid
 
 2 8 24 abcset % usage: {(text)} abc
@@ -1663,18 +1666,8 @@ BoxBackground
 0 -0.5 0.5 ySetCoord
 % 0 0 0 0 zSetCoord
 
-/fuy {
-    /fcz x def
-    /fcy x def
-    1 fcz dup mul add sqrt
-    fcy 1 fcy dup mul sub sqrt div mul
-} def
-
-/fuz {
-    /fcz x def
-    /fcy x def
-    1 fcy dup mul add sqrt
-    fcz 1 fcz dup mul sub sqrt div mul
+/fur {
+    1 add 1 x div dup mul 1 sub neg sqrt
 } def
 
 %% real-space detector coordinates
@@ -1705,27 +1698,17 @@ BoxBackground
    0 10  10  0    90 180 OneAxx Axx Tic Tac       %% right y axis
   yCL
 
+np 0 0 10 10 boxit clip
 
-siemensblue
-1 cstyle
--.4 .1 .49 {
-    /dqz x def
-    /t { np txy mv /t { txy li } def } def
-    -.5 .01 .5 {
-        /dcy x def
-	dcy dcy dqz fuz wxy 0 t
-    } for
-    st
-} for
 
-siemensred
+siemensgreen
 1 cstyle
--.4 .1 .49 {
-    /dqy x def
+0 .05 .5 {
+    fur /dcr x def
     /t { np txy mv /t { txy li } def } def
-    -.5 .01 .5 {
-        /dcz x def
-	dqy dcz fuy dcz wxy 0 t
+    0 .2 360  {
+        /dca x def
+        dcr dca sin mul dcr dca cos mul wxy 0 t
     } for
     st
 } for
@@ -1740,11 +1723,8 @@ siemensred
 
 black
 18 setown
--.30 dup .4 fuz     wxy -6   {(k)(fz)sb( = 0.4 K)} bg
--.30 dup .2 fuz     wxy -2.8 {(k)(fz)sb( = 0.2 K)} bg
--.30 dup 0  fuz     wxy  0   {(k)(fz)sb( = 0.0 K)} bg
- .30 dup 0. x fuy x wxy 90   {(k)(fy)sb( = 0.0 K)} bg
- .30 dup .2 x fuy x wxy 87.2 {(k)(fy)sb( = 0.2 K)} bg
- .30 dup .4 x fuy x wxy 84   {(k)(fy)sb( = 0.4 K)} bg
+.05 fur 2 sqrt div dup neg x wxy 45 {(q)(fx)sb( = 0.05 K)} bg
+.10 fur 2 sqrt div dup neg x wxy 45 {(q)(fx)sb( = 0.10 K)} bg
+.20 fur 2 sqrt div dup neg x wxy 45 {(q)(fx)sb( = 0.20 K)} bg
 
 EndFrame

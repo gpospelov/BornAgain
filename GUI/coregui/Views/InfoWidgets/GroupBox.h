@@ -26,18 +26,12 @@ public:
         GroupBox( QWidget *parent = 0 );
         GroupBox( const QString &title, QWidget *parent = 0 );
 
-        bool isCollapsed();
-        void setCollapse( bool collapse );
-        void setTitle(const QString &title);
-
 protected:
         void mousePressEvent( QMouseEvent *e );
         void paintEvent( QPaintEvent * );
         void mouseMoveEvent(QMouseEvent *event);
 
 private:
-        QPoint  clickPos;
-        bool    m_collapsed;
         QString m_title;
         int m_xImage;
         int m_yImage;

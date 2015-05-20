@@ -30,20 +30,19 @@ namespace
     int imageWidth = 16;
     int imageheigth = 16;
     int offset_of_tooltip_position = 20;
+    int offset_of_icon_position = 24;
 }
 
 GroupBox::GroupBox( QWidget *parent ): QGroupBox( parent )
-  , m_collapsed( false ) {}
-
-GroupBox::GroupBox( const QString &title
-                    , QWidget *parent ): QGroupBox( title, parent )
-  , m_collapsed( false ), m_title(title)
 {
-    QGroupBox::setTitle("");
     setMouseTracking(true);
 }
 
-bool GroupBox::isCollapsed() { return m_collapsed; }
+GroupBox::GroupBox( const QString &title, QWidget *parent )
+    : QGroupBox( title, parent ), m_title(title)
+{
+    setMouseTracking(true);
+}
 
 void GroupBox::mousePressEvent( QMouseEvent *e )
 {
@@ -59,46 +58,28 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
 }
 void GroupBox::mouseMoveEvent(QMouseEvent *event)
 {
-    QRect buttonArea(m_xImage, m_yImage, imageWidth ,imageheigth);
+    QRect buttonArea(m_xImage, m_yImage, imageWidth, imageheigth);
 
-    if (buttonArea.contains(event->pos()))
-    {
-        QToolTip::showText(this->mapToGlobal(QPoint(m_xImage + offset_of_tooltip_position , m_yImage)), "show plot");
+    if (buttonArea.contains(event->pos())) {
+        QToolTip::showText(
+            this->mapToGlobal(QPoint(m_xImage + offset_of_tooltip_position, m_yImage)),
+            "show plot");
     }
 }
 
-void GroupBox::paintEvent( QPaintEvent * )
+void GroupBox::paintEvent(QPaintEvent *)
 {
     QStylePainter paint(this);
     QStyleOptionGroupBox option;
     initStyleOption(&option);
     paint.drawComplexControl(QStyle::CC_GroupBox, option);
 
-
-    // title and icon side by side
-    QPainter p(this);
-    int strWidth = p.fontMetrics().width(m_title);
-    int strHeight = p.fontMetrics().height();
-//    int pixHeight = pix.height();
-    QPixmap res( strWidth + 3 + imageWidth, strHeight);
-    res.fill(Qt::transparent);
-    p.drawPixmap(strWidth,0, QPixmap(":/images/expand_arrow.png").scaled(imageWidth, imageheigth, Qt::KeepAspectRatio));
-    p.drawText( QRect(0, 0, strWidth, strHeight), 0, m_title);
-
-    m_xImage = strWidth;
+    m_xImage = this->geometry().topRight().x() - offset_of_icon_position;
     m_yImage = 0;
 
     // draw groupbox
-    paint.drawItemPixmap(option.rect.adjusted(0, 0, -10, 0), Qt::AlignTop | Qt::AlignLeft, res);
-
-
-}
-
-void GroupBox::setCollapse( bool collapse )
-{
-    m_collapsed = collapse;
-    foreach( QWidget *widget, findChildren<QWidget*>() )
-        widget->setHidden( collapse );
+    paint.drawItemPixmap(option.rect.adjusted(0, 7, 0, 0), Qt::AlignTop | Qt::AlignRight,
+                         QPixmap(":/images/magnifier.png"));
 }
 
 

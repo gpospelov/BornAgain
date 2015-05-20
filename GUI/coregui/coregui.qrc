@@ -47,5 +47,6 @@
         <file>images/darkclose.png</file>
         <file>images/warning@2x.png</file>
         <file>images/warning.png</file>
+        <file>images/magnifier.png</file>
     </qresource>
 </RCC>

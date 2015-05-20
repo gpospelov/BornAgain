@@ -40,7 +40,7 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     m_resetAction->setText("Reset View");
     mainLayout->addWidget(m_plot, 1);
     mainLayout->addWidget(m_label);
-    m_label->setContentsMargins(QMargins(10, 10, 10, 10));
+    m_label->setContentsMargins(QMargins(5, 5, 5, 5));
     setLayout(mainLayout);
     mainLayout->setSpacing(0);
     setStyleSheet("background-color:white;");

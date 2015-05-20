@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/InfoWidgets/DistributionEditor.cpp
+//! @brief     Implements class DistributionEditor
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "DistributionEditor.h"
 #include "Distributions.h"
 #include "qcustomplot.h"
@@ -9,6 +24,7 @@ namespace
 {
 int minimumWidth_of_AwesomePropertyEditor = 250;
 }
+
 DistributionEditor::DistributionEditor(QWidget *parent)
     : QWidget(parent), m_item(0), m_plotwidget(0), m_box(new QGroupBox)
 

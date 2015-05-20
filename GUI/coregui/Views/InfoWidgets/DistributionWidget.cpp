@@ -1,4 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/InfoWidgets/DistributionWidget.cpp
+//! @brief     Implements class DistributionWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "DistributionWidget.h"
+#include "qcustomplot.h"
+#include "DistributionItem.h"
+#include <QLabel>
+#include <sstream>
+#include <boost/scoped_ptr.hpp>
 
 namespace
 {
@@ -17,7 +37,7 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    m_resetAction.setText("Reset View");
+    m_resetAction->setText("Reset View");
     mainLayout->addWidget(m_plot, 1);
     mainLayout->addWidget(m_label);
     m_label->setContentsMargins(QMargins(10, 10, 10, 10));
@@ -25,7 +45,7 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     mainLayout->setSpacing(0);
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
-    connect(&m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
+    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)
@@ -187,7 +207,7 @@ void DistributionWidget::onMousePress(QMouseEvent *event)
     if (event->button() == Qt::RightButton) {
         QPoint point = event->globalPos();
         QMenu menu;
-        menu.addAction(&m_resetAction);
+        menu.addAction(m_resetAction);
         menu.exec(point);
     }
 }

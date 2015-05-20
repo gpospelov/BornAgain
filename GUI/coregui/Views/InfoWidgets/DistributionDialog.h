@@ -1,10 +1,26 @@
-#ifndef DISTRIBUTIONDIALOG_H_
-#define DISTRIBUTIONDIALOG_H_
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/InfoWidgets/DistributionDialog.h
+//! @brief     Defines class DistributionDialog
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
-#include "DistributionEditor.h"
-#include <QHBoxLayout>
+#ifndef DISTRIBUTIONDIALOG_H
+#define DISTRIBUTIONDIALOG_H
+
 #include <QDialog>
+class DistributionEditor;
+class ParameterizedItem;
 
+//! The dialog which shows an editor to change parameters of DistributionItem
 class DistributionDialog : public QDialog
 {
     Q_OBJECT
@@ -12,8 +28,9 @@ class DistributionDialog : public QDialog
 public:
     DistributionDialog(QWidget *parent = 0);
     virtual ~DistributionDialog(){}
+
     void setItem(ParameterizedItem *item);
-    void setNameOfEditor(QString name);
+    void setNameOfEditor(const QString &name);
 
 private:
     DistributionEditor *m_editor;

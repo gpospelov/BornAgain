@@ -1,17 +1,32 @@
-#ifndef DISTRIBUTIONWIDGET_H_
-#define DISTRIBUTIONWIDGET_H_
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/InfoWidgets/DistributionWidget.h
+//! @brief     Defines class DistributionWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
+#ifndef DISTRIBUTIONWIDGET_H
+#define DISTRIBUTIONWIDGET_H
 
-#include "qcustomplot.h"
-#include "DistributionItem.h"
-#include <QLabel>
-#include <sstream>
-#include <boost/scoped_ptr.hpp>
+#include <QWidget>
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
 class QLabel;
+class QCustomPlot;
+class DistributionItem;
+class QCPRange;
+class QAction;
 
+//! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
 class DistributionWidget : public QWidget
 {
     Q_OBJECT
@@ -38,7 +53,7 @@ private:
     QCustomPlot *m_plot;
     DistributionItem *m_item;
     QLabel *m_label;
-    QAction m_resetAction;
+    QAction *m_resetAction;
     QCPRange *m_xRange;
     QCPRange *m_yRange;
 };

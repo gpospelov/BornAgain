@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/GroupBox.cpp
+//! @file      coregui/Views/InfoWidgets/GroupBox.cpp
 //! @brief     Implements class GroupBox
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -56,6 +56,7 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
         }
     }
 }
+
 void GroupBox::mouseMoveEvent(QMouseEvent *event)
 {
     QRect buttonArea(m_xImage, m_yImage, imageWidth, imageheigth);

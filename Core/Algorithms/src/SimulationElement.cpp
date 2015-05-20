@@ -15,6 +15,8 @@
 
 #include "SimulationElement.h"
 
+#include <Bin.h>
+
 SimulationElement::SimulationElement()
     : m_wavelength(0.0), m_alpha_i(0.0), m_phi_i(0.0), m_alpha_min(0.0), m_alpha_max(0.0),
       m_phi_min(0.0), m_phi_max(0.0), m_intensity(0.0)
@@ -47,6 +49,16 @@ SimulationElement &SimulationElement::operator=(const SimulationElement &other)
         tmp.swapContent(*this);
     }
     return *this;
+}
+
+cvector_t SimulationElement::getMeanQ() const
+{
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+    Bin1D alpha_f_bin(m_alpha_min, m_alpha_max);
+    Bin1D phi_f_bin(m_phi_min, m_phi_max);
+    Bin1DCVector k_f_bin(m_wavelength, alpha_f_bin, phi_f_bin);
+    return k_i - k_f_bin.getMidPoint();
 }
 
 void SimulationElement::swapContent(SimulationElement &other)

@@ -171,7 +171,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "getDetectorResolutionFunction"
                 , getDetectorResolutionFunction_function_type( &::Detector::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Applies the detector resolution to the given intensity maps." );
         
         }
         { //::Detector::getDimension

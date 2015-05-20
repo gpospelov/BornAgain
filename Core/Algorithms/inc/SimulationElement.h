@@ -111,6 +111,7 @@ public:
     {
         return m_intensity;
     }
+    cvector_t getMeanQ() const;
 
 private:
     //! swap function

@@ -335,9 +335,13 @@ void ColorMapPlot::initColorMap()
 {
     m_customPlot = new QCustomPlot();
 
+//    m_customPlot->axisRect()->setAutoMargins(QCP::msNone);
+//    m_customPlot->axisRect()->setMargins(QMargins(0.1, 0.1, 0.1, 0.1));
+
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
+
     m_customPlot->plotLayout()->addElement(
         0, 1, m_colorScale); // add it to the right of the main axis rect
 

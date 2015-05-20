@@ -80,7 +80,18 @@ void DistributionWidget::plotItem()
     m_plot->xAxis2->setTicks(false);
     m_plot->yAxis2->setTicks(false);
 
-    boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
+    //boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
+    IDistribution1D *distribution(0);
+    try {
+        distribution = m_item->createDistribution();
+    }
+    catch(const std::exception &ex) {
+        Q_UNUSED(ex);
+        m_plot->clearGraphs();
+        m_plot->clearItems();
+        m_plot->clearPlottables();
+        return;
+    }
 
     if (m_item->itemName() != Constants::DistributionNoneType) {
         int numberOfSamples
@@ -139,6 +150,8 @@ void DistributionWidget::plotItem()
     }
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
+
+    delete distribution;
 }
 
 void DistributionWidget::onPropertyChanged()

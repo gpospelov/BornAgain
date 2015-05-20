@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/GroupBox.cpp
+//! @file      coregui/Views/InfoWidgets/GroupBox.cpp
 //! @brief     Implements class GroupBox
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -56,6 +56,7 @@ void GroupBox::mousePressEvent( QMouseEvent *e )
         }
     }
 }
+
 void GroupBox::mouseMoveEvent(QMouseEvent *event)
 {
     QRect buttonArea(m_xImage, m_yImage, imageWidth, imageheigth);
@@ -63,7 +64,7 @@ void GroupBox::mouseMoveEvent(QMouseEvent *event)
     if (buttonArea.contains(event->pos())) {
         QToolTip::showText(
             this->mapToGlobal(QPoint(m_xImage + offset_of_tooltip_position, m_yImage)),
-            "show plot");
+            "Gives access to the extended distribution viewer.");
     }
 }
 
@@ -78,7 +79,7 @@ void GroupBox::paintEvent(QPaintEvent *)
     m_yImage = 0;
 
     // draw groupbox
-    paint.drawItemPixmap(option.rect.adjusted(0, 7, 0, 0), Qt::AlignTop | Qt::AlignRight,
+    paint.drawItemPixmap(option.rect.adjusted(0, 3, 0, 0), Qt::AlignTop | Qt::AlignRight,
                          QPixmap(":/images/magnifier.png"));
 }
 

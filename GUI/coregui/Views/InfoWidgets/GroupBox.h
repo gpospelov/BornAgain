@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/GroupBox.h
+//! @file      coregui/Views/InfoWidgets/GroupBox.h
 //! @brief     Defines class GroupBox
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,7 @@
 
 #include <QGroupBox>
 
+//! The class which extends QGroupBox with clickable icon next to the label
 class GroupBox : public QGroupBox
 {
         Q_OBJECT

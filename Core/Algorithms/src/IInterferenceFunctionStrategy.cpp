@@ -135,17 +135,15 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
         const SimulationElement& sim_element) const
 {
-    double result;
-
     MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function p_function
         = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol;
-    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy> mc_integrator(p_function, this,
-                                                                                 2);
+    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
+            mc_integrator(p_function, this, 2);
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
 
-    result = mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
-                                     m_sim_params.m_mc_points);
+    double result = mc_integrator.integrate(min_array, max_array, (void *)&sim_element,
+                                            m_sim_params.m_mc_points);
     return result;
 }
 
@@ -198,8 +196,8 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *frac
     double alpha = pars->getAlphaMin() + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
     double phi = pars->getPhiMin() + par1 * (pars->getPhiMax() - pars->getPhiMin());
 
-    SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(), alpha,
-                                  alpha, phi, phi);
+    SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(),
+                                  alpha, alpha, phi, phi);
     sim_element.setPolarization(pars->getPolarization());
     sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
     calculateFormFactorLists(sim_element);

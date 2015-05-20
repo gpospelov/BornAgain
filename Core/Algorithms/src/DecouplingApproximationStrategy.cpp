@@ -65,11 +65,9 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
     double wavelength = sim_element.getWavelength();
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
-    cvector_t k_i;
+    cvector_t k_i, k_f;
     k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
-    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
-    Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
+    k_f.setLambdaAlphaPhi(wavelength, sim_element.getAlphaMean(), sim_element.getPhiMean());
 
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
@@ -96,7 +94,8 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
     Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
-    double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());
+//    double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());
+    double itf_function = m_ifs[0]->evaluate(k_i - k_f);
     return total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
 }
 

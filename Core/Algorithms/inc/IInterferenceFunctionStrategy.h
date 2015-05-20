@@ -50,11 +50,10 @@ public:
     void setSpecularInfo(const LayerSpecularInfo &specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
-    double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin,
-                    Bin1D phi_f_bin) const;
+    double evaluate(const SimulationElement& sim_element) const;
 
     //! Calculates the intensity in the presence of polarization of beam and detector
-    double evaluate(const SimulationElement& sim_element) const;
+    double evaluatePol(const SimulationElement& sim_element) const;
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors

@@ -39,9 +39,16 @@ void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &spe
     }
 }
 
-double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                               Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
+    double lambda = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double phi_i = sim_element.getPhiI();
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
+    Bin1D alpha_f_bin(sim_element.getAlphaMin(), sim_element.getAlphaMax());
+    Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
+    Bin1DCVector k_f_bin(lambda, alpha_f_bin, phi_f_bin);
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
         && (alpha_f_bin.getBinSize() != 0.0 || phi_f_bin.getBinSize() != 0.0)) {
         return MCIntegratedEvaluate(k_i, alpha_f_bin, phi_f_bin);
@@ -50,7 +57,7 @@ double IInterferenceFunctionStrategy::evaluate(const cvector_t &k_i, const Bin1D
     return evaluateForList(k_i, k_f_bin, m_ff);
 }
 
-double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
+double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
 {
     if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
         return MCIntegratedEvaluatePol(sim_element);

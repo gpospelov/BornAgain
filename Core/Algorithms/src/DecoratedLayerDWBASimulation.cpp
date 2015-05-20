@@ -67,35 +67,25 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
-    double lambda = m_begin_it->getWavelength();
-    double alpha_i = m_begin_it->getAlphaI();
-    double phi_i = m_begin_it->getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     std::vector<SimulationElement>::iterator it = m_begin_it;
     while (it != m_end_it) {
         if (!m_progress.update())
             break;
-        Bin1D alpha_bin(it->getAlphaMin(), it->getAlphaMax());
-        Bin1D phi_bin(it->getPhiMin(), it->getPhiMax());
-        double alpha_f = alpha_bin.getMidPoint();
+        double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
             ++it;
             continue;
         }
-        Bin1DCVector k_f_bin = getKfBin(lambda, alpha_bin, phi_bin);
         // each ffdwba: 1 call to getOutCoeffs
         if (checkPolarizationPresent()) {
             // matrix dwba calculation
-            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+            it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         } else {
             // scalar dwba calculation
-            k_i.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
-            it->setIntensity(p_strategy->evaluate(k_i, k_f_bin, alpha_bin, phi_bin)
-                             * total_surface_density);
+            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         }
         ++it;
     }

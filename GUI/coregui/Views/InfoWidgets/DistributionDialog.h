@@ -7,11 +7,11 @@
 
 class DistributionDialog : public QDialog
 {
-     Q_OBJECT
+    Q_OBJECT
 
 public:
     DistributionDialog(QWidget *parent = 0);
-    virtual ~DistributionDialog() {}
+    virtual ~DistributionDialog(){}
     void setItem(ParameterizedItem *item);
     void setNameOfEditor(QString name);
 

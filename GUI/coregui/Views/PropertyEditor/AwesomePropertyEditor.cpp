@@ -424,7 +424,8 @@ void AwesomePropertyEditor::insertQtVariantProperty(QtVariantProperty *qtVariant
                         new_parent->insertSubProperty(qtVariantItem, parent_qtproperty);
                         }
                     } else {
-                        QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+                        //QtBrowserItem *browserItem = m_d->m_browser->insertProperty(qtVariantItem, parent_qtproperty);
+                        QtBrowserItem *browserItem = m_d->m_browser->addProperty(qtVariantItem);
                         if(!browserItem) {
                             throw GUIHelpers::Error("AwesomePropertyEditor::insertQtVariantProperty() -> Failed while inserting property");
                         }

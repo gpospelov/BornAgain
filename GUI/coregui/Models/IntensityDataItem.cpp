@@ -101,7 +101,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
     blockSignals(false);
     emit intensityModified();
-
 }
 
 double IntensityDataItem::getLowerX() const
@@ -257,9 +256,13 @@ void IntensityDataItem::setUpperY(double ymax)
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
-    qDebug() << "IntensityDataItem::setZaxisRange()";
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+    qDebug() << "IntensityDataItem::setLowerAndUpperZ()";
+    if(getLowerZ() != zmin) {
+        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
+    }
+    if(getUpperZ() != zmax) {
+        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+    }
 }
 
 void IntensityDataItem::setLowerZ(double zmin)

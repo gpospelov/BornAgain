@@ -15,8 +15,6 @@ public:
     void setItem(ParameterizedItem *item);
     void setNameOfEditor(QString name);
 
-private slots:
-    void closeDialog();
 private:
     DistributionEditor *m_editor;
 };

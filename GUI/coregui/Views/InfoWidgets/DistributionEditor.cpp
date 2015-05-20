@@ -5,49 +5,38 @@
 #include "GroupBox.h"
 #include <DistributionDialog.h>
 
+namespace
+{
+    int minimumWidth_of_AwesomePropertyEditor = 250;
+}
 DistributionEditor::DistributionEditor(QWidget *parent)
     : QWidget(parent)
     , m_item(0)
     , m_plotwidget(0)
     , m_box(new QGroupBox)
-{
 
-//    BeamWavelengthItem *item = new BeamWavelengthItem;
+{
     m_plotwidget = new DistributionWidget(this);
     m_propertyEditor = new AwesomePropertyEditor(this,AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-//    GroupBox *box = new GroupBox;
-//    box->setTitle("Wavelength dfgfdgfd gdf");
-
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_plotwidget,1);
-//    mainLayout->addWidget(m_propertyEditor);
-//    mainLayout->addWidget(box,1);
-
     QWidget *widget = new QWidget(this);
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     QVBoxLayout *widgetLayout = new QVBoxLayout;
-    m_propertyEditor->setMaximumWidth(250);
+    m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
     verticalLayout->addWidget(m_propertyEditor);
     m_box->setLayout(verticalLayout);
     widgetLayout->addWidget(m_box);
     widgetLayout->addStretch(1);
     widget->setLayout(widgetLayout);
-
     widget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-
     mainLayout->addWidget(widget);
     setLayout(mainLayout);
-
-//    connect(box, SIGNAL(clicked()),
-//                        this, SLOT(infoButton()));
 }
 
 void DistributionEditor::setItem(ParameterizedItem *item)
 {
-//    m_propertyEditor->setItem(item);
     m_propertyEditor->clearEditor();
-
-
     m_propertyEditor->addItemProperties(item, QString(), AwesomePropertyEditor::INSERT_AFTER);
 
     if (m_item == item) return;
@@ -66,7 +55,6 @@ void DistributionEditor::setItem(ParameterizedItem *item)
     DistributionItem *distrItem = dynamic_cast<DistributionItem *>(m_item->getSubItems()[BeamWavelengthItem::P_DISTRIBUTION]);
     Q_ASSERT(distrItem);
     m_plotwidget->setItem(distrItem);
-
 }
 
 void DistributionEditor::onSubItemChanged(const QString &property_name)
@@ -82,4 +70,5 @@ void DistributionEditor::onSubItemChanged(const QString &property_name)
 void DistributionEditor::setNameOfEditor(QString name)
 {
     m_box->setTitle(name);
+    m_plotwidget->setXAxisName(name);
 }

@@ -28,7 +28,6 @@ public:
 
         bool isCollapsed();
         void setCollapse( bool collapse );
-        QPixmap mergeSideBySide(const QPixmap& pix);
         void setTitle(const QString &title);
 
 protected:

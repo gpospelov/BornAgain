@@ -73,11 +73,25 @@ void GroupBox::paintEvent( QPaintEvent * )
     QStyleOptionGroupBox option;
     initStyleOption(&option);
     paint.drawComplexControl(QStyle::CC_GroupBox, option);
-    paint.end();
-    QPixmap pix = mergeSideBySide(
-        QPixmap(":/images/expand_arrow.png").scaled(imageWidth , imageheigth, Qt::KeepAspectRatio));
-    paint.drawItemPixmap(option.rect.adjusted(0, 0, -10, 0), Qt::AlignTop | Qt::AlignLeft, pix);
-    paint.end();
+
+
+    // title and icon side by side
+    QPainter p(this);
+    int strWidth = p.fontMetrics().width(m_title);
+    int strHeight = p.fontMetrics().height();
+//    int pixHeight = pix.height();
+    QPixmap res( strWidth + 3 + imageWidth, strHeight);
+    res.fill(Qt::transparent);
+    p.drawPixmap(strWidth,0, QPixmap(":/images/expand_arrow.png").scaled(imageWidth, imageheigth, Qt::KeepAspectRatio));
+    p.drawText( QRect(0, 0, strWidth, strHeight), 0, m_title);
+
+    m_xImage = strWidth;
+    m_yImage = 0;
+
+    // draw groupbox
+    paint.drawItemPixmap(option.rect.adjusted(0, 0, -10, 0), Qt::AlignTop | Qt::AlignLeft, res);
+
+
 }
 
 void GroupBox::setCollapse( bool collapse )
@@ -87,23 +101,5 @@ void GroupBox::setCollapse( bool collapse )
         widget->setHidden( collapse );
 }
 
-QPixmap GroupBox::mergeSideBySide( const QPixmap& pix)
-{
-    QPainter p(this);
-    int strWidth = p.fontMetrics().width(m_title);
-    int strHeight = p.fontMetrics().height();
-    int pixWidth = pix.width();
-//    int pixHeight = pix.height();
-    QPixmap res( strWidth + 3 + pixWidth, strHeight);
-    res.fill(Qt::transparent);
-    p.begin( &res );
-    p.drawPixmap(strWidth,0, pix );
-    p.drawText( QRect(0, 0, strWidth, strHeight), 0, m_title);
-    p.end();
 
-    m_xImage = strWidth;
-    m_yImage = 0;
-    return res;
-
-}
 

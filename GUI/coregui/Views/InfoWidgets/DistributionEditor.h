@@ -16,14 +16,12 @@ class DistributionEditor : public QWidget
 public:
     DistributionEditor(QWidget *parent = 0);
     virtual ~DistributionEditor() {}
-
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
-
     void setNameOfEditor(QString name);
+
 private slots:
     void onSubItemChanged(const QString &property_name);
-//    void infoButton();
 
 private:
     AwesomePropertyEditor *m_propertyEditor;

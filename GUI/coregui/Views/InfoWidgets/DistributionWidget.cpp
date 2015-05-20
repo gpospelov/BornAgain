@@ -5,8 +5,7 @@ int number_of_points_for_smooth_plot = 100;
 double sigmafactor_for_smooth_plot = 3.5;
 double gap_between_bars = 0.05;
 double xRangeDivisor = 9;
-double xBarRangeFactor = 5;
-//double percentage_for_upper_xRange = 1.1;
+double xBarRange = 0.4;
 double percentage_for_yRange =1.1;
 }
 
@@ -21,17 +20,14 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 {
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
     m_resetAction.setText("Reset View");
     mainLayout->addWidget(m_plot,1);
     mainLayout->addWidget(m_label);
+    m_label->setContentsMargins(QMargins(10,10,10,10));
     setLayout(mainLayout);
     mainLayout->setSpacing(0);
-//    setMinimumSize(400, 300);
-//    setMinimumSize(QSize(600, 400));
     setStyleSheet("background-color:white;");
-
     connect(m_plot, SIGNAL(mousePress(QMouseEvent*)),this, SLOT(onMousePress(QMouseEvent*)));
     connect(&m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
 
@@ -40,13 +36,11 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 void DistributionWidget::setItem(DistributionItem *item)
 {
     if (m_item == item) return;
-
     if (m_item) {
 //        disconnect(m_item, SIGNAL(propertyChanged(QString)),
 //                this, SLOT(onPropertyChanged(QString)));
         disconnect();
     }
-
     m_item = item;
 
     if (!m_item) return;
@@ -61,13 +55,9 @@ void DistributionWidget::plotItem()
     m_plot->clearGraphs();
     m_plot->clearItems();
     m_plot->clearPlottables();
-
-
-
     m_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                             QCP::iSelectLegend | QCP::iSelectPlottables);
-    m_plot->xAxis->setLabel(m_item->itemName());
-    m_plot->yAxis->setLabel("y");
+    m_plot->yAxis->setLabel("probability");
     m_plot->xAxis2->setVisible(true);
     m_plot->yAxis2->setVisible(true);
     m_plot->xAxis2->setTickLabels(false);
@@ -78,16 +68,16 @@ void DistributionWidget::plotItem()
     boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
 
     if(m_item->itemName() != Constants::DistributionNoneType) {
-
-
-        // FIXME respect max length of line 100 characters
-        int numberOfSamples = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-        double sigmafactor = m_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+        int numberOfSamples = m_item->getRegisteredProperty(
+                    DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+        double sigmafactor = m_item->getRegisteredProperty(
+                    DistributionItem::P_SIGMA_FACTOR).toDouble();
 
         QVector<double> xBar;
         QVector<double> x;
         xBar = xBar.fromStdVector(distribution->generateValueList(numberOfSamples, sigmafactor));
-        x = x.fromStdVector(distribution->generateValueList(number_of_points_for_smooth_plot,sigmafactor_for_smooth_plot));
+        x = x.fromStdVector(distribution->generateValueList(
+                                number_of_points_for_smooth_plot,sigmafactor_for_smooth_plot));
         QVector<double> yBar(xBar.size());
         QVector<double> y(x.size());
         double sumOfWeigths(0);
@@ -105,7 +95,6 @@ void DistributionWidget::plotItem()
         for(int i = 0; i < yBar.size(); ++i) {
             yBar[i] = yBar[i]/sumOfWeigths;
         }
-
         m_plot->addGraph();
         m_plot->graph(0)->setData(x,y);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
@@ -118,7 +107,6 @@ void DistributionWidget::plotItem()
         m_plot->yAxis->setRange(*m_yRange);
         m_plot->addPlottable(bars);
         setVerticalDashedLine(xBar[0],0,xBar[xBar.length()-1],m_plot->yAxis->range().upper);
-
     }
     else {
         QVector<double> xPos;
@@ -126,22 +114,17 @@ void DistributionWidget::plotItem()
         xPos.push_back(m_item->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble());
         yPos.push_back(1);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
-        bars->setWidth(xPos[0]/10);
+        bars->setWidth(gap_between_bars);
         bars->setData(xPos, yPos);
         m_plot->addPlottable(bars);
-        m_xRange = new QCPRange(xPos[0] - xPos[0]*xBarRangeFactor, xPos[0] + xPos[0]*xBarRangeFactor);
+        m_xRange = new QCPRange(xPos[0] - xBarRange, xPos[0] + xBarRange);
         m_yRange = new QCPRange(0, yPos[0]*percentage_for_yRange);
         m_plot->xAxis->setRange(*m_xRange);
         m_plot->yAxis->setRange(*m_yRange);
         setVerticalDashedLine(xPos[0],0,xPos[xPos.size()-1],m_plot->yAxis->range().upper);
-
-
-
     }
-
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
-
 }
 
 void DistributionWidget::onPropertyChanged()
@@ -159,8 +142,6 @@ double DistributionWidget::getWidthOfBars(double min, double max, int samples)
         return widthSample;
     }
     return widthConst;
-
-
 }
 
 void DistributionWidget::setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax)
@@ -225,5 +206,10 @@ void DistributionWidget::resetView()
     m_plot->xAxis->setRange(*m_xRange);
     m_plot->yAxis->setRange(*m_yRange);
     m_plot->replot();
+}
+
+void DistributionWidget::setXAxisName(QString xAxisName)
+{
+       m_plot->xAxis->setLabel(xAxisName);
 }
 

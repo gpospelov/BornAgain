@@ -22,9 +22,9 @@
 AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupBox(title))
-    , m_title(title)
     , m_editor(new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE))
     , m_item(new ParameterizedItem)
+    , m_title(title)
 {
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

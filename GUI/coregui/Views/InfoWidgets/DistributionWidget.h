@@ -24,14 +24,16 @@ public:
     double getWidthOfBars(double min, double max, int samples);
     void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
     int getMaxYPosition(int y);
+    void setXAxisName(QString xAxisName);
 
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
+
 private slots:
-    void onPropertyChanged();
-//    void movePoint(QMouseEvent *e);    
+    void onPropertyChanged();   
     void resetView();
+
 private:
     QCustomPlot *m_plot;
     DistributionItem *m_item;

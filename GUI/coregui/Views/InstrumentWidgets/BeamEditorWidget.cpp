@@ -61,13 +61,13 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
 
     m_inclinationAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_inclination, this);
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
-    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
-            SLOT(onDialogRequest(ParameterizedItem*, QString)));
+    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
+            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
     m_azimuthalAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_azimuthal, this);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
-    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem *, QString)), this,
-            SLOT(onDialogRequest(ParameterizedItem*, QString)));
+    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
+            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
     groupLayout->addLayout(m_gridLayout);
 
@@ -95,7 +95,7 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     m_wavelengthPresenter->setItem(wavelengthItem);
 
     ParameterizedItem *inclinationAngleItem
-        = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
+            = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
     m_inclinationAnglePresenter->setItem(inclinationAngleItem);
 
     ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
@@ -105,9 +105,7 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)
 {
     DistributionDialog *dialog = new DistributionDialog(this);
-    dialog->show();
-    dialog->raise();
     dialog->setItem(item);
-    std::cout << name.toStdString() << std::endl;
     dialog->setNameOfEditor(name);
+    dialog->show();
 }

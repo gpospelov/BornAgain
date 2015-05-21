@@ -57,7 +57,7 @@ public:
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    virtual double evaluateForList(const SimulationElement& sim_element,
                                    const std::vector<complex_t> &ff_list) const = 0;
 
     //! Evaluates the intensity for given list of evaluated form factors
@@ -74,16 +74,6 @@ protected:
     boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-    struct IntegrationParamsAlpha
-    {
-        cvector_t k_i;
-        double wavelength;
-        Bin1D alpha_bin;
-        Bin1D phi_bin;
-        Eigen::Matrix2cd beam_density;
-        Eigen::Matrix2cd detector_operator;
-    };
-
     //! Constructs one list of evaluated form factors to be used in subsequent
     //! calculations
     void calculateFormFactorList(const SimulationElement& sim_element) const;
@@ -102,10 +92,6 @@ private:
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
     double MCIntegratedEvaluatePol(const SimulationElement& sim_element) const;
-
-    //! Get the reciprocal integration region
-    IntegrationParamsAlpha getIntegrationParams(const cvector_t &k_i, Bin1D alpha_f_bin,
-                                                Bin1D phi_f_bin) const;
 
     //! Evaluate for fixed angles
     double evaluate_for_fixed_angles(double *fractions, size_t dim, void *params) const;

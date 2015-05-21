@@ -54,7 +54,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
         return MCIntegratedEvaluate(sim_element);
     }
     calculateFormFactorList(sim_element);
-    return evaluateForList(k_i, k_f_bin, m_ff);
+    return evaluateForList(sim_element, m_ff);
 }
 
 double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
@@ -162,20 +162,6 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     return result;
 }
 
-IInterferenceFunctionStrategy::IntegrationParamsAlpha
-IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i, Bin1D alpha_f_bin,
-                                                    Bin1D phi_f_bin) const
-{
-    kvector_t real_ki(k_i.x().real(), k_i.y().real(), k_i.z().real());
-
-    IntegrationParamsAlpha result;
-    result.k_i = k_i;
-    result.wavelength = Units::PI2 / real_ki.mag();
-    result.alpha_bin = alpha_f_bin;
-    result.phi_bin = phi_f_bin;
-    return result;
-}
-
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions, size_t dim,
                                                                 void *params) const
 {
@@ -184,26 +170,15 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     double par1 = fractions[1];
 
     SimulationElement *pars = static_cast<SimulationElement *>(params);
-    double wavelength = pars->getWavelength();
-    double alpha_i = pars->getAlphaI();
-    double phi_i = pars->getPhiI();
-    cvector_t k_i;
-    k_i.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
-    cvector_t k_f;
     double alpha = pars->getAlphaMin() + par0 * (pars->getAlphaMax() - pars->getAlphaMin());
     double phi = pars->getPhiMin() + par1 * (pars->getPhiMax() - pars->getPhiMin());
-    k_f.setLambdaAlphaPhi(pars->getWavelength(), alpha, phi);
-    boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
-        mP_specular_info->getOutCoefficients(alpha, phi));
-    k_f.setZ(out_coeff->getScalarKz());
 
-    Bin1DCVector k_f_bin(k_f, k_f);
     SimulationElement sim_element(pars->getWavelength(), pars->getAlphaI(), pars->getPhiI(),
                                   alpha, alpha, phi, phi);
     sim_element.setPolarization(pars->getPolarization());
     sim_element.setAnalyzerOperator(pars->getAnalyzerOperator());
     calculateFormFactorList(sim_element);
-    return std::cos(alpha) * evaluateForList(k_i, k_f_bin, m_ff);
+    return std::cos(alpha) * evaluateForList(sim_element, m_ff);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *fractions, size_t dim,

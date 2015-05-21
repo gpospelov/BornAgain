@@ -31,8 +31,7 @@ DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &f
     }
 }
 
-double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
-                                                        const Bin1DCVector &k_f_bin,
+double DecouplingApproximationStrategy::evaluateForList(const SimulationElement& sim_element,
                                                         const std::vector<complex_t> &ff_list) const
 {
     double intensity = 0.0;
@@ -55,7 +54,7 @@ double DecouplingApproximationStrategy::evaluateForList(const cvector_t &k_i,
         intensity += fraction * (std::norm(ff));
     }
     double amplitude_norm = std::norm(amplitude);
-    double itf_function = m_ifs[0]->evaluate(k_i - k_f_bin.getMidPoint());
+    double itf_function = m_ifs[0]->evaluate(sim_element.getMeanQ());
     return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 

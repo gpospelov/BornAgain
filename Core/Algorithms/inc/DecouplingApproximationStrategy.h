@@ -40,7 +40,7 @@ public:
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    double evaluateForList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    double evaluateForList(const SimulationElement& sim_element,
                            const std::vector<complex_t> &ff_list) const;
 
     //! Evaluates the intensity for given list of evaluated form factors

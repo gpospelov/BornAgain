@@ -37,9 +37,9 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin, const std::vector<complex_t> &ff_list) const
+    const SimulationElement& sim_element, const std::vector<complex_t> &ff_list) const
 {
-    double qp = getqp(k_i - k_f_bin.getMidPoint());
+    double qp = getqp(sim_element.getMeanQ());
     double diffuse_intensity = 0.0;
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -52,8 +52,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         diffuse_intensity += fraction * (std::norm(ff));
     }
-    complex_t mcff = getMeanCharacteristicFF(k_i - k_f_bin.getMidPoint(), ff_list);
-    complex_t mcffc = getMeanConjCharacteristicFF(k_i - k_f_bin.getMidPoint(), ff_list);
+    complex_t mcff = getMeanCharacteristicFF(sim_element.getMeanQ(), ff_list);
+    complex_t mcffc = getMeanConjCharacteristicFF(sim_element.getMeanQ(), ff_list);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0 * (mcff * mcffc * omega / (1.0 - p2kappa * omega)).real();

@@ -13,12 +13,17 @@
 //
 // ************************************************************************** //
 
+#include "AwesomePropertyEditor.h"
+#include "BeamWavelengthItem.h"
+#include "ParameterizedItem.h"
+#include "DistributionWidget.h"
 #include "DistributionEditor.h"
 #include "Distributions.h"
 #include "qcustomplot.h"
-#include <iostream>
+#include "DistributionDialog.h"
 #include "GroupBox.h"
-#include <DistributionDialog.h>
+#include <QVBoxLayout>
+#include <QDebug>
 
 namespace
 {
@@ -32,19 +37,22 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     m_plotwidget = new DistributionWidget(this);
     m_propertyEditor
         = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+
+    QVBoxLayout *boxLayout = new QVBoxLayout;
+    m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
+    boxLayout->addWidget(m_propertyEditor);
+    boxLayout->setContentsMargins(0, 0, 0, 0);
+    m_box->setLayout(boxLayout);
+
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(m_box);
+    verticalLayout->addStretch(1);
+
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_plotwidget, 1);
-    QWidget *widget = new QWidget(this);
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
-    QVBoxLayout *widgetLayout = new QVBoxLayout;
-    m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
-    verticalLayout->addWidget(m_propertyEditor);
-    m_box->setLayout(verticalLayout);
-    widgetLayout->addWidget(m_box);
-    widgetLayout->addStretch(1);
-    widget->setLayout(widgetLayout);
-    widget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    mainLayout->addWidget(widget);
+    mainLayout->addSpacing(5);
+    mainLayout->addLayout(verticalLayout);
+
     setLayout(mainLayout);
 }
 

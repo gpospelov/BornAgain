@@ -16,12 +16,10 @@
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include "AwesomePropertyEditor.h"
-#include "BeamWavelengthItem.h"
-#include "ParameterizedItem.h"
-#include <QDebug>
-#include "DistributionWidget.h"
+#include <QWidget>
 
+class QGroupBox;
+class DistributionWidget;
 class ParameterizedItem;
 class AwesomePropertyEditor;
 

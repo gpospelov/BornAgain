@@ -19,28 +19,31 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-namespace
-{
-int minimumWidth_of_dialog = 800;
-int minimumHeigth_of_dialog = 600;
-}
-
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent), m_editor(new DistributionEditor)
 {
-    this->setWindowTitle("Select Distribution");
+    setMinimumSize(256, 256);
+    resize(700, 480);
+    setWindowTitle("Select Distribution");
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setAttribute(Qt::WA_DeleteOnClose, true);
+    setModal(true);
+
     QVBoxLayout *layout = new QVBoxLayout;
     QPushButton *button = new QPushButton("Close", this);
-    connect(button, SIGNAL(clicked()), this, SLOT(close()));
-    layout->addWidget(m_editor);
-    layout->addWidget(button, 0, Qt::AlignBottom | Qt::AlignRight);
-    layout->setContentsMargins(0, 0, 10, 10);
-    setLayout(layout);
-    setAttribute(Qt::WA_DeleteOnClose, true);
-    setMinimumSize(minimumWidth_of_dialog, minimumHeigth_of_dialog);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     button->setAutoDefault(false);
-    this->setModal(true);
+    connect(button, SIGNAL(clicked()), this, SLOT(close()));
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    buttonLayout->addStretch(1);
+    buttonLayout->setContentsMargins(4, 4, 4, 4);
+    buttonLayout->addWidget(button);
+
+    layout->addWidget(m_editor);
+    layout->addLayout(buttonLayout);
+
+    layout->setContentsMargins(0, 0, 0, 0);
+    setLayout(layout);
 }
 
 void DistributionDialog::setItem(ParameterizedItem *item)

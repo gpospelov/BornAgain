@@ -17,6 +17,7 @@
 #include "qcustomplot.h"
 #include "DistributionItem.h"
 #include <QLabel>
+#include <QVBoxLayout>
 #include <sstream>
 #include <boost/scoped_ptr.hpp>
 
@@ -28,27 +29,38 @@ double gap_between_bars = 0.05;
 double xRangeDivisor = 9;
 double xBarRange = 0.4;
 double percentage_for_yRange = 1.1;
-int warning_sign_xpos = 48;
-int warning_sign_ypos = 16;
+int warning_sign_xpos = 50;
+int warning_sign_ypos = 18;
 }
 
 DistributionWidget::DistributionWidget(QWidget *parent)
-    : QWidget(parent), m_plot(new QCustomPlot), m_item(0), m_label(new QLabel("[x: 0,  y: 0]")),
-      m_resetAction(new QAction(this)), m_xRange(new QCPRange), m_yRange(new QCPRange),
-      m_warningSign(0)
+    : QWidget(parent)
+    , m_plot(new QCustomPlot)
+    , m_item(0)
+    , m_label(new QLabel)
+    , m_resetAction(new QAction(this))
+    , m_xRange(new QCPRange)
+    , m_yRange(new QCPRange)
+    , m_warningSign(0)
 {
-
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+
     m_resetAction->setText("Reset View");
+    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
+
+    m_label->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
+    m_label->setStyleSheet("background-color:white;");
+    m_label->setMargin(3);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
     mainLayout->addWidget(m_plot, 1);
     mainLayout->addWidget(m_label);
-    m_label->setContentsMargins(QMargins(5, 5, 5, 5));
     setLayout(mainLayout);
-    mainLayout->setSpacing(0);
+
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
-    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)

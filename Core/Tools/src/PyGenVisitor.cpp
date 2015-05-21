@@ -323,6 +323,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
+    result << defineParameterDistributions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -1341,6 +1342,13 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
+    return result.str();
+}
+
+std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+
     return result.str();
 }
 

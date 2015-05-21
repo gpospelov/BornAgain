@@ -323,6 +323,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
+    result << defineParameterDistributions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -1341,6 +1342,26 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
     result << simulation->getInstrument().getBeam().getWavelength() << "*nanometer, "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
            << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
+    return result.str();
+}
+
+std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    const std::vector<ParameterDistribution>& distributions =
+            simulation->getDistributionHandler().getDistributions();
+    if (distributions.size()==0) return "";
+    for (size_t i=0; i<distributions.size(); ++i) {
+        std::string main_par_name = distributions[i].getMainParameterName();
+        size_t nbr_samples = distributions[i].getNbrSamples();
+        double sigma_factor = distributions[i].getSigmaFactor();
+        const IDistribution1D *p_distr = distributions[i].getDistribution();
+        result << indent() << "distribution_" << i+1 << " = "
+               << PyGenTools::getRepresentation(p_distr) << "\n";
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << "distribution_" << i+1 << ", " << nbr_samples << ", "
+               << PyGenTools::printDouble(sigma_factor) << ")\n";
+    }
     return result.str();
 }
 

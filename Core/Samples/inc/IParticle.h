@@ -84,8 +84,8 @@ inline void IParticle::setTransformation(const IRotation &rotation)
         return;
     }
     deregisterChild(mP_rotation.get());
-    boost::scoped_ptr<IRotation> inverse_rotation(mP_rotation->createInverse());
-    applyTransformationToSubParticles(*inverse_rotation);
+    boost::scoped_ptr<IRotation> P_inverse_rotation(mP_rotation->createInverse());
+    applyTransformationToSubParticles(*P_inverse_rotation);
     mP_rotation.reset(rotation.clone());
     registerChild(mP_rotation.get());
     applyTransformationToSubParticles(rotation);

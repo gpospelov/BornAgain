@@ -79,8 +79,8 @@ Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
             item.getRegisteredProperty(LayerItem::P_THICKNESS).toDouble();
     result->setThickness(thickness);
 
-    boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
-    result->setMaterial(*material.get());
+    boost::scoped_ptr<IMaterial> P_material(createDomainMaterial(item));
+    result->setMaterial(*P_material.get());
     result->setName(item.itemName().toUtf8().constData());
 
     return result;
@@ -109,8 +109,8 @@ ParticleLayout *TransformToDomain::createParticleLayout(
 Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
                                             double &depth, double &abundance)
 {
-    boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
-    Particle *result = new Particle(*material);
+    boost::scoped_ptr<IMaterial> P_material(createDomainMaterial(item));
+    Particle *result = new Particle(*P_material);
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     result->setName(item.itemName().toStdString());
@@ -166,12 +166,12 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
                 InterferenceFunctionRadialParaCrystalItem::P_PDF];
 
         Q_ASSERT(pdfItem);
-        boost::scoped_ptr<IFTDistribution1D> pdf(
+        boost::scoped_ptr<IFTDistribution1D> P_pdf(
                     dynamic_cast<FTDistribution1DItem *>(pdfItem)
                     ->createFTDistribution());
-        Q_ASSERT(pdf.get());
+        Q_ASSERT(P_pdf.get());
 
-        result->setProbabilityDistribution(*pdf);
+        result->setProbabilityDistribution(*P_pdf);
         return result;
     }
     else if(item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
@@ -220,15 +220,15 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
 
         ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
         Q_ASSERT(pdf1Item);
-        boost::scoped_ptr<IFTDistribution2D> pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
-        Q_ASSERT(pdf1.get());
+        boost::scoped_ptr<IFTDistribution2D> P_pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
+        Q_ASSERT(P_pdf1.get());
 
         ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
         Q_ASSERT(pdf2Item);
-        boost::scoped_ptr<IFTDistribution2D> pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
-        Q_ASSERT(pdf2.get());
+        boost::scoped_ptr<IFTDistribution2D> P_pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
+        Q_ASSERT(P_pdf2.get());
 
-        result->setProbabilityDistributions(*pdf1, *pdf2);
+        result->setProbabilityDistributions(*P_pdf1, *P_pdf2);
         return result;
     }
     else if(item.modelType() == Constants::InterferenceFunction2DLatticeType) {
@@ -270,12 +270,12 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         ParameterizedItem *pdfItem = item.getSubItems()
                 [InterferenceFunction2DLatticeItem::P_PDF];
         Q_ASSERT(pdfItem);
-        boost::scoped_ptr<IFTDistribution2D> pdf(
+        boost::scoped_ptr<IFTDistribution2D> P_pdf(
              dynamic_cast<FTDistribution2DItem *>(pdfItem)
                     ->createFTDistribution());
-        Q_ASSERT(pdf.get());
+        Q_ASSERT(P_pdf.get());
 
-        result->setProbabilityDistribution(*pdf);
+        result->setProbabilityDistribution(*P_pdf);
         return result;
     }
 

@@ -34,7 +34,6 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
-#include <boost/scoped_ptr.hpp>
 
 
 DesignerScene::DesignerScene(QObject *parent)

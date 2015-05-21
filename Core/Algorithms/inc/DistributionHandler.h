@@ -30,32 +30,32 @@ class BA_CORE_API_ DistributionHandler : public IParameterized
 {
 public:
     typedef std::vector<ParameterDistribution> Distributions_t;
-	DistributionHandler();
-	~DistributionHandler();
+    DistributionHandler();
+    ~DistributionHandler();
 
-	//! add a sampled parameter distribution
-	void addParameterDistribution(const std::string &param_name,
-			const IDistribution1D &distribution, size_t nbr_samples,
+    //! add a sampled parameter distribution
+    void addParameterDistribution(const std::string &param_name,
+            const IDistribution1D &distribution, size_t nbr_samples,
             double sigma_factor=0.0,
             const AttLimits &limits=AttLimits());
 
     void addParameterDistribution(const ParameterDistribution &par_distr);
 
-	//! get the total number of parameter value combinations (product
-	//! of the individual sizes of each parameter distribution
-	size_t getTotalNumberOfSamples() const;
+    //! get the total number of parameter value combinations (product
+    //! of the individual sizes of each parameter distribution
+    size_t getTotalNumberOfSamples() const;
 
-	//! set the parameter values of the simulation object to a specific
-	//! combination of values, determined by the index (which must be smaller
-	//! than the total number of combinations) and returns the weight
-	//! associated with this combination of parameter values
-	double setParameterValues(ParameterPool *p_parameter_pool, size_t index);
+    //! set the parameter values of the simulation object to a specific
+    //! combination of values, determined by the index (which must be smaller
+    //! than the total number of combinations) and returns the weight
+    //! associated with this combination of parameter values
+    double setParameterValues(ParameterPool *p_parameter_pool, size_t index);
 
     const Distributions_t& getDistributions() const;
 private:
-	size_t m_nbr_combinations;
+    size_t m_nbr_combinations;
     Distributions_t m_distributions;
-	std::vector<std::vector<ParameterSample> > m_cached_samples;
+    std::vector<std::vector<ParameterSample> > m_cached_samples;
 };
 
 

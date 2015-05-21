@@ -57,9 +57,9 @@ ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(con
 {
     ParameterDistribution *result(0);
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getSubItems()[P_DISTRIBUTION])) {
-        boost::scoped_ptr<IDistribution1D> distribution(createDistribution1D());
+        boost::scoped_ptr<IDistribution1D> P_distribution(createDistribution1D());
 
-        if(distribution) {
+        if(P_distribution) {
             int nbr_samples = distributionItem->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor(0);
             if(distributionItem->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR)) {
@@ -75,7 +75,7 @@ ParameterDistribution *BeamDistributionItem::getParameterDistributionForName(con
                 if(orig.hasLowerLimit()) limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
                 if(orig.hasUpperLimit()) limits.setUpperLimit(Units::deg2rad(orig.getUpperLimit()));
             }
-            result = new ParameterDistribution(parameter_name.toStdString(), *distribution, nbr_samples, sigma_factor, limits);
+            result = new ParameterDistribution(parameter_name.toStdString(), *P_distribution, nbr_samples, sigma_factor, limits);
         }
     }
     return result;

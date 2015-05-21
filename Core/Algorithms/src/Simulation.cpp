@@ -93,10 +93,8 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());
-        m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
-        updateSample();
-        initSimulationElementVector();
+        boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
+        m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
         runSingleSimulation();
         transferResultsToIntensityMap();
         return;
@@ -105,11 +103,9 @@ void Simulation::runSimulation()
     // average over parameter distributions:
     initSimulationElementVector();
     std::vector<SimulationElement> total_intensity = m_sim_elements;
-    boost::scoped_ptr<ParameterPool> p_param_pool(createParameterTree());
+    boost::scoped_ptr<ParameterPool> P_param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
-        double weight = m_distribution_handler.setParameterValues(p_param_pool.get(), index);
-        updateSample();
-        initSimulationElementVector();
+        double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
         AddElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
                               weight);
@@ -204,6 +200,9 @@ void Simulation::updateSample()
 //! Also manage threads.
 void Simulation::runSingleSimulation()
 {
+    updateSample();
+    initSimulationElementVector();
+
     // retrieve batch and threading information
     if (mp_options) {
         if (mp_options->find("nbatches")) {
@@ -216,6 +215,7 @@ void Simulation::runSingleSimulation()
             m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
         }
     }
+
     // restrict calculation to current batch
     std::vector<SimulationElement>::iterator batch_start
         = getBatchStart(m_thread_info.n_batches, m_thread_info.current_batch);

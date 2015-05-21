@@ -18,8 +18,6 @@
 #include "Units.h"
 #include "MathFunctions.h"
 
-#include <boost/scoped_ptr.hpp>
-
 Crystal::Crystal(const ParticleComposition& lattice_basis,
         const Lattice& lattice)
 : m_lattice(lattice)

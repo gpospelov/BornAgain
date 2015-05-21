@@ -16,8 +16,6 @@
 #include "FormFactorDWBAPol.h"
 #include "Exceptions.h"
 
-#include <boost/scoped_ptr.hpp>
-
 FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_form_factor)
 : mp_form_factor(p_form_factor)
 , mp_in_coeffs(0)

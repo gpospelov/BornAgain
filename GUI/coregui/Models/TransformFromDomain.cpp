@@ -412,14 +412,14 @@ bool TransformFromDomain::isHexagonalLattice(double length1, double length2, dou
 //! FIXME Remove hardcoded strings
 QString TransformFromDomain::getDetectorBinning(const Detector *detector)
 {
-    boost::scoped_ptr<IAxis> phi_axis(detector->getAxis(0).clone());
-    boost::scoped_ptr<IAxis> alpha_axis(detector->getAxis(1).clone());
+    boost::scoped_ptr<IAxis> P_phi_axis(detector->getAxis(0).clone());
+    boost::scoped_ptr<IAxis> P_alpha_axis(detector->getAxis(1).clone());
 
-    if (dynamic_cast<ConstKBinAxis *>(phi_axis.get())
-        && dynamic_cast<ConstKBinAxis *>(alpha_axis.get())) {
+    if (dynamic_cast<ConstKBinAxis *>(P_phi_axis.get())
+        && dynamic_cast<ConstKBinAxis *>(P_alpha_axis.get())) {
         return Constants::AXIS_CONSTK_BINNING;
-    } else if (dynamic_cast<FixedBinAxis *>(phi_axis.get())
-               && dynamic_cast<FixedBinAxis *>(alpha_axis.get())) {
+    } else if (dynamic_cast<FixedBinAxis *>(P_phi_axis.get())
+               && dynamic_cast<FixedBinAxis *>(P_alpha_axis.get())) {
         return Constants::AXIS_FIXED_BINNING;
     } else {
         throw GUIHelpers::Error("TransformFromDomain::getDetectorBinning()"

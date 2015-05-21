@@ -61,10 +61,10 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
                                                                         double abundance) const
 {
     std::vector<ParticleInfo *> result;
-    boost::scoped_ptr<ParameterPool> pool(createDistributedParameterPool() );
+    boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool() );
     std::string main_par_name = m_par_distribution.getMainParameterName();
     std::vector<ParameterPool::parameter_t> main_par_matches
-        = pool->getMatchedParameters(main_par_name);
+        = P_pool->getMatchedParameters(main_par_name);
     if (main_par_matches.size() != 1) {
         throw Exceptions::RuntimeErrorException("ParticleDistribution::generateParticleInfos: "
                                                 "main parameter name matches nothing or more than "
@@ -77,7 +77,7 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
     std::map<std::string, double> linked_par_ratio_map;
     for (size_t i = 0; i < linked_par_names.size(); ++i) {
         std::vector<ParameterPool::parameter_t> linked_par_matches
-            = pool->getMatchedParameters(linked_par_names[i]);
+            = P_pool->getMatchedParameters(linked_par_names[i]);
         if (linked_par_matches.size() != 1) {
             throw Exceptions::RuntimeErrorException(
                 "ParticleDistribution::generateParticleInfos: "
@@ -95,8 +95,8 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
         ParticleInfo *p_particle_info = m_particle.clone();
         p_particle_info->setPosition(position);
         p_particle_info->setAbundance(particle_abundance);
-        boost::scoped_ptr<ParameterPool> new_pool(p_particle_info->createParameterTree() );
-        int changed = new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
+        boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_info->createParameterTree() );
+        int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
                 "ParticleDistribution::generateParticleInfos: "
@@ -106,7 +106,7 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
         for (std::map<std::string, double>::const_iterator it = linked_par_ratio_map.begin();
              it != linked_par_ratio_map.end(); ++it) {
             double new_linked_value = main_sample.value * it->second;
-            changed = new_pool->setMatchedParametersValue(it->first, new_linked_value);
+            changed = P_new_pool->setMatchedParametersValue(it->first, new_linked_value);
             if (changed != 1) {
                 throw Exceptions::RuntimeErrorException(
                     "ParticleDistribution::generateParticleInfos: "

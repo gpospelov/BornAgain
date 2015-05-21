@@ -82,20 +82,21 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
 
-    const ILayerRTCoefficients *p_in_coeffs = mP_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
+        mP_specular_info->getInCoefficients(alpha_i, 0.0));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), 0.0));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
-        (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
+        (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
         m_ff.push_back(ff_mat);
         ++it;
     }
 }
 
-void IInterferenceFunctionStrategy::calculateFormFactorLists(
-        const SimulationElement& sim_element) const
+void
+IInterferenceFunctionStrategy::calculateFormFactorLists(const SimulationElement &sim_element) const
 {
     clearFormFactorLists();
 
@@ -108,12 +109,13 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     Bin1D phi_f_bin(sim_element.getPhiMin(), sim_element.getPhiMax());
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
 
-    const ILayerRTCoefficients *p_in_coeffs = mP_specular_info->getInCoefficients();
+    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
+        mP_specular_info->getInCoefficients(alpha_i, phi_i));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint()));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
-        (*it)->mp_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
+        (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = (*it)->mp_ff->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
         m_ff_pol.push_back(ff_mat);
         ++it;

@@ -37,7 +37,7 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
     MatrixSpecularInfoMap map(mp_multilayer, 0, 2.0*Units::PI);
     boost::scoped_ptr<const MatrixRTCoefficients> rt_coeffs(
-                map.getCoefficients(1.0, 1.0));
+                map.getOutCoefficients(1.0, 1.0));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
     (void)R0;

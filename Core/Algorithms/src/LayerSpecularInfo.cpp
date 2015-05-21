@@ -22,26 +22,25 @@ LayerSpecularInfo::LayerSpecularInfo()
 LayerSpecularInfo* LayerSpecularInfo::clone() const
 {
     LayerSpecularInfo *p_result = new LayerSpecularInfo;
-    p_result->mP_out_coeff_map.reset(this->mP_out_coeff_map->clone());
-    p_result->mP_in_coeffs.reset(this->mP_in_coeffs->clone());
+    p_result->mP_coeff_map.reset(this->mP_coeff_map->clone());
     return p_result;
 }
 
-void LayerSpecularInfo::addOutCoefficients(ISpecularInfoMap* rt_coefficient_map)
+void LayerSpecularInfo::addRTCoefficients(ISpecularInfoMap* rt_coefficient_map)
 {
-    if (mP_out_coeff_map.get() != rt_coefficient_map) {
-        mP_out_coeff_map.reset(rt_coefficient_map);
-    }
-}
-
-void LayerSpecularInfo::addInCoefficients(ILayerRTCoefficients *rt_coefficients) {
-    if(mP_in_coeffs.get() != rt_coefficients) {
-        mP_in_coeffs.reset(rt_coefficients);
+    if (mP_coeff_map.get() != rt_coefficient_map) {
+        mP_coeff_map.reset(rt_coefficient_map);
     }
 }
 
 const ILayerRTCoefficients* LayerSpecularInfo::getOutCoefficients(
         double alpha_f, double phi_f) const
 {
-    return mP_out_coeff_map->getCoefficients(alpha_f, phi_f);
+    return mP_coeff_map->getOutCoefficients(alpha_f, phi_f);
+}
+
+const ILayerRTCoefficients *LayerSpecularInfo::getInCoefficients(
+        double alpha_i, double phi_i) const
+{
+    return mP_coeff_map->getInCoefficients(alpha_i, phi_i);
 }

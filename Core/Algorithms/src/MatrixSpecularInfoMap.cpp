@@ -22,20 +22,24 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int l
                                              double wavelength)
     : m_layer(layer), m_wavelength(wavelength)
 {
-    if (multilayer)
+    if (multilayer){
+        mP_multilayer.reset((multilayer->clone()));
         mP_inverted_multilayer.reset(multilayer->cloneInvertB());
+    }
 }
 
 MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
 {
     MatrixSpecularInfoMap *result = new MatrixSpecularInfoMap(0, m_layer, m_wavelength);
-    if (mP_inverted_multilayer.get())
+    if (mP_multilayer.get()){
+        result->mP_multilayer.reset(mP_multilayer->clone());
         result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
+    }
     return result;
 }
 
-const MatrixRTCoefficients *MatrixSpecularInfoMap::getCoefficients(double alpha_f,
-                                                                   double phi_f) const
+const MatrixRTCoefficients *MatrixSpecularInfoMap::getOutCoefficients(
+        double alpha_f, double phi_f) const
 {
     SpecularMagnetic specular_calculator;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
@@ -43,5 +47,17 @@ const MatrixRTCoefficients *MatrixSpecularInfoMap::getCoefficients(double alpha_
     // phi has no effect on R,T, so just pass zero:
     kvec.setLambdaAlphaPhi(m_wavelength, alpha_f, phi_f);
     specular_calculator.execute(*mP_inverted_multilayer, -kvec, coeffs);
+    return new MatrixRTCoefficients(coeffs[m_layer]);
+}
+
+const MatrixRTCoefficients *MatrixSpecularInfoMap::getInCoefficients(
+        double alpha_i, double phi_i) const
+{
+    SpecularMagnetic specular_calculator;
+    SpecularMagnetic::MultiLayerCoeff_t coeffs;
+    kvector_t kvec;
+    // phi has no effect on R,T, so just pass zero:
+    kvec.setLambdaAlphaPhi(m_wavelength, alpha_i, phi_i);
+    specular_calculator.execute(*mP_multilayer, kvec, coeffs);
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }

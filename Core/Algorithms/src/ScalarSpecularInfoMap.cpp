@@ -30,7 +30,7 @@ ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
     return new ScalarSpecularInfoMap(mp_multilayer, m_layer, m_wavelength);
 }
 
-const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(
+const ScalarRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f) const
 {
     (void)phi_f;
@@ -39,6 +39,19 @@ const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
     kvec.setLambdaAlphaPhi(m_wavelength, -alpha_f, 0.0);
+    specular_calculator.execute(*mp_multilayer, kvec, coeffs);
+    return new ScalarRTCoefficients(coeffs[m_layer]);
+}
+
+const ScalarRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
+        double alpha_i, double phi_i) const
+{
+    (void)phi_i;
+    SpecularMatrix specular_calculator;
+    SpecularMatrix::MultiLayerCoeff_t coeffs;
+    kvector_t kvec;
+    // phi has no effect on R,T, so just pass zero:
+    kvec.setLambdaAlphaPhi(m_wavelength, alpha_i, 0.0);
     specular_calculator.execute(*mp_multilayer, kvec, coeffs);
     return new ScalarRTCoefficients(coeffs[m_layer]);
 }

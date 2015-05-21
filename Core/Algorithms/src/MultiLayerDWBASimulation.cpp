@@ -126,16 +126,6 @@ void MultiLayerDWBASimulation::runProtected()
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
     double lambda = m_begin_it->getWavelength();
-    double alpha_i = m_begin_it->getAlphaI();
-    double phi_i = m_begin_it->getPhiI();
-    kvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
-
-    // the coefficients for the incoming wavevector are calculated on the
-    // original sample
-    SpecularMatrix specularCalculator;
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    specularCalculator.execute(*mp_multi_layer, k_i, coeffs);
 
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
@@ -145,11 +135,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         LayerSpecularInfo layer_coeff_map;
         ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(
                     mp_multi_layer, i_layer, lambda);
-        layer_coeff_map.addOutCoefficients(p_coeff_map);
-
-        // add reflection/transmission coeffs from incoming beam
-        layer_coeff_map.addInCoefficients(new ScalarRTCoefficients(
-                coeffs[i_layer]));
+        layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
         std::map<size_t, SafePointerVector<LayerDWBASimulation> >
@@ -173,16 +159,6 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
     double lambda = m_begin_it->getWavelength();
-    double alpha_i = m_begin_it->getAlphaI();
-    double phi_i = m_begin_it->getPhiI();
-    kvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
-
-    // the coefficients for the incoming wavevector are calculated on the
-    // original sample
-    SpecularMagnetic specularCalculator;
-    SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    specularCalculator.execute(*mp_multi_layer, k_i, coeffs);
 
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0;
@@ -192,11 +168,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
         LayerSpecularInfo layer_coeff_map;
         MatrixSpecularInfoMap *p_coeff_map = new MatrixSpecularInfoMap(
                     mp_multi_layer, i_layer, lambda);
-        layer_coeff_map.addOutCoefficients(p_coeff_map);
-
-        // add reflection/transmission coeffs from incoming beam
-        layer_coeff_map.addInCoefficients(new MatrixRTCoefficients(
-                coeffs[i_layer]));
+        layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
         std::map<size_t, SafePointerVector<LayerDWBASimulation> >

@@ -87,7 +87,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
-        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_f);
+        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_i, alpha_f);
     }
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
@@ -124,7 +124,7 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
-    size_t ilayer, const cvector_t& k_i, const cvector_t& k_f, double alpha_f)
+    size_t ilayer, const cvector_t& k_i, const cvector_t& k_f, double alpha_i, double alpha_f)
 {
     complex_t qz1 =  k_i.z() + k_f.z();
     complex_t qz2 =  k_i.z() - k_f.z();
@@ -132,7 +132,7 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
     complex_t qz4 = -k_i.z() - k_f.z();
 
     const ILayerRTCoefficients *p_in_coeff =
-            mp_specular_info_vector[ilayer+1]->getInCoefficients();
+            mp_specular_info_vector[ilayer+1]->getInCoefficients(alpha_i, 0.0);
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
         mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0) );
 

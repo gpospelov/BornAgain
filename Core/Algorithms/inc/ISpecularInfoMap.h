@@ -32,8 +32,10 @@ public:
     virtual ISpecularInfoMap* clone() const=0;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ILayerRTCoefficients *getCoefficients(
-            double alhpa_f, double phi_f) const=0;
+    virtual const ILayerRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const=0;
+
+    //! Retrieves the amplitude coefficients for the given angles
+    virtual const ILayerRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const=0;
 private:
     // Prevent copy construction and assignment of derived classes
     ISpecularInfoMap(const ISpecularInfoMap& other);

@@ -37,8 +37,10 @@ public:
     virtual ScalarSpecularInfoMap* clone() const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ScalarRTCoefficients *getCoefficients(
-            double alpha_f, double phi_f) const;
+    virtual const ScalarRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const;
+
+    //! Retrieves the amplitude coefficients for the given angles
+    virtual const ScalarRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const;
 private:
     const MultiLayer *mp_multilayer;
     const int m_layer;

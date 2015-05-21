@@ -21,6 +21,8 @@
 #include "MultiLayer.h"
 #include "Utils.h"
 
+#include <boost/scoped_ptr.hpp>
+
 
 //! @class MatrixSpecularInfoMap
 //! @ingroup algorithms_internal
@@ -37,10 +39,13 @@ public:
     virtual MatrixSpecularInfoMap* clone() const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const MatrixRTCoefficients *getCoefficients(
-            double alpha_f, double phi_f) const;
+    virtual const MatrixRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const;
+
+    //! Retrieves the amplitude coefficients for the given angles
+    virtual const MatrixRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const;
 private:
-    std::auto_ptr<MultiLayer> mP_inverted_multilayer;
+    boost::scoped_ptr<MultiLayer> mP_multilayer;
+    boost::scoped_ptr<MultiLayer> mP_inverted_multilayer;
     const int m_layer;
     double m_wavelength;
 };

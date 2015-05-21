@@ -30,7 +30,7 @@
 
 //! Creates domain simulation from sample and instrument models for given names
 //! of MultiLayer and Instrument
-Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
+GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
                                                    const QString &sample_name,
                                                    InstrumentModel *instrumentModel,
                                                    const QString &instrument_name)
@@ -44,14 +44,14 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
 
 //! Creates domain simulation from sample and instrument models. First sample and first instrument
 //! in the model will be used, if there are more than one.
-Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
+GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
                                                    InstrumentModel *instrumentModel)
 {
     return getSimulation(sampleModel, QString(), instrumentModel, QString());
 }
 
 //! Creates domain simulation from sample and instrument items.
-Simulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
+GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
                                                    InstrumentItem *instrumentItem)
 {
     if(!sampleItem || !instrumentItem) {
@@ -62,7 +62,7 @@ Simulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
 
     DomainObjectBuilder builder;
 
-    Simulation *result = new Simulation;
+    GISASSimulation *result = new GISASSimulation;
     boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
     boost::scoped_ptr<Instrument> instrument(builder.buildInstrument(*instrumentItem));
 

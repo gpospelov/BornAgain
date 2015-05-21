@@ -139,7 +139,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::GISASSimulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"

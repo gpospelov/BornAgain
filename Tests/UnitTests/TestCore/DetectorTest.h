@@ -45,7 +45,7 @@ TEST_F(DetectorTest, InitialDetectorState)
     EXPECT_EQ((size_t)0, emptyDetector.getDimension());
     ASSERT_THROW(emptyDetector.getAxis(0), OutOfBoundsException);
     OutputData<double>* p_intensity_map(0);
-    ASSERT_THROW(emptyDetector.applyDetectorResolution(p_intensity_map, 0),
+    ASSERT_THROW(emptyDetector.applyDetectorResolution(p_intensity_map),
             NullPointerException);
 }
 

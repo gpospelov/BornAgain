@@ -18,7 +18,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "DesignerHelper.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
 #include "WarningSignWidget.h"
@@ -109,7 +109,7 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
     m_warningSign = 0;
 
     try{
-        boost::scoped_ptr<Simulation> simulation(
+        boost::scoped_ptr<GISASSimulation> simulation(
             DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
         QString code = QString::fromStdString(PyGenTools::genPyScript(simulation.get()));
         m_textEdit->clear();

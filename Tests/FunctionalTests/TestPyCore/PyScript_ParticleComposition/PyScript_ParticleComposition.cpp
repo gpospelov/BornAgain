@@ -4,7 +4,7 @@
 int main()
 {
     SimulationRegistry simulationRegistry;
-    Simulation *simulation =
+    GISASSimulation *simulation =
             simulationRegistry.createSimulation("gui_ParticleComposition");
     bool test = PyGenTools::testPyScript(simulation);
     std::cout << "Python Script Generation Test for ParticleDistribution"

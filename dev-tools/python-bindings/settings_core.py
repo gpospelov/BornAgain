@@ -109,6 +109,7 @@ include_classes = [
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "FormFactorWeighted",
+    "GISASSimulation",
     "HomogeneousMaterial",
     "HomogeneousMagneticMaterial",
     "IAxis",
@@ -160,15 +161,14 @@ include_classes = [
     "ParticleCoreShell",
     "ParticleLayout",
     "ParticleInfo",
-#    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "RotationX",
     "RotationY",
     "RotationZ",
     "RotationEuler",
-    "Simulation",
     "SpecularSimulation",
+    "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
     "ThreadInfo",
@@ -325,6 +325,10 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Simulation")
     cl.member_function("setSampleBuilder").include()
+    cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    #
+    cl = mb.class_("GISASSimulation")
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
@@ -335,7 +339,6 @@ def ManualClassTunings(mb):
     # call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("OffSpecSimulation")
-    cl.member_function("setSampleBuilder").include()
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)

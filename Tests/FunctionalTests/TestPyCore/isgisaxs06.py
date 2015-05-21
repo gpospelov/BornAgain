@@ -40,7 +40,7 @@ def run_simulation_lattice():
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
@@ -83,7 +83,7 @@ def run_simulation_centered():
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
@@ -119,7 +119,7 @@ def run_simulation_rotated():
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
@@ -134,7 +134,7 @@ def run_simulation_rotated():
 def run_simulation_variants():
 
     # building simulation
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 

@@ -31,7 +31,7 @@ void FitSuiteObjects::clear()
 
 //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
 void FitSuiteObjects::add(
-    const Simulation& simulation, const OutputData<double >& real_data,
+    const GISASSimulation& simulation, const OutputData<double >& real_data,
     const IChiSquaredModule& chi2_module, double weight)
 {
     m_total_weight += weight;

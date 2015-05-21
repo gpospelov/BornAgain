@@ -19,7 +19,7 @@
 #include <boost/scoped_ptr.hpp>
 
 FitObject::FitObject(
-    const Simulation& simulation, const OutputData<double >& real_data,
+    const GISASSimulation& simulation, const OutputData<double >& real_data,
     const IChiSquaredModule& chi2_module, double weight)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())

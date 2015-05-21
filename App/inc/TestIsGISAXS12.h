@@ -21,6 +21,7 @@
 #include "IsGISAXSData.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
+#include "GISASSimulation.h"
 #include <string>
 
 class Simulation;
@@ -83,7 +84,7 @@ private:
     //!  print axes
     void print_axes(IsGISAXSData::DataSet_t& data);
 
-    Simulation *m_simulation;
+    GISASSimulation *m_simulation;
     SampleBuilder_t m_sample_builder;
     FitSuite *m_fitSuite;
 };

@@ -85,6 +85,6 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     }
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = roughness_factor*param_combinations*simulation->getOutputData()->getAllocatedSize();
+    m_nitems_max = roughness_factor*param_combinations*simulation->getNumberOfSimulationElements();
 
 }

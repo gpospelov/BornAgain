@@ -63,11 +63,8 @@ public:
         mp_detector_resolution = p_detector_resolution;
     }
 
-#ifndef GCCXML_SKIP_THIS
     //! Applies the detector resolution to the given intensity maps
-    void applyDetectorResolution(OutputData<double> *p_scalar_intensity,
-                                 OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;
-#endif
+    void applyDetectorResolution(OutputData<double> *p_scalar_intensity) const;
 
     const IDetectorResolution *getDetectorResolutionFunction() const
     {
@@ -80,7 +77,7 @@ public:
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarizationOperator() const
+    Eigen::Matrix2cd getAnalyzerOperator() const
     {
         return m_analyzer_operator;
     }
@@ -90,11 +87,8 @@ public:
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
-#ifndef GCCXML_SKIP_THIS
     //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d> *p_polarized_data,
-                   double sin_alpha_i) const;
-#endif
+    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 
 protected:
     virtual void print(std::ostream &ostr) const;
@@ -134,7 +128,7 @@ private:
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
 };
 

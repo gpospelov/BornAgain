@@ -37,16 +37,53 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     m_pyobj = 0;
     }
 
-    virtual ::Simulation * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
+    virtual ::Simulation * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual ::OutputData< double > * getIntensityData(  ) const {
+        bp::override func_getIntensityData = this->get_override( "getIntensityData" );
+        return func_getIntensityData(  );
+    }
+
+    virtual int getNumberOfSimulationElements(  ) const {
+        bp::override func_getNumberOfSimulationElements = this->get_override( "getNumberOfSimulationElements" );
+        return func_getNumberOfSimulationElements(  );
+    }
+
+    virtual double getWavelength(  ) const  {
+        if( bp::override func_getWavelength = this->get_override( "getWavelength" ) )
+            return func_getWavelength(  );
         else{
-            return this->Simulation::clone(  );
+            return this->Simulation::getWavelength(  );
         }
     }
     
-    ::Simulation * default_clone(  ) const  {
-        return Simulation::clone( );
+    double default_getWavelength(  ) const  {
+        return Simulation::getWavelength( );
+    }
+
+    virtual void initSimulationElementVector(  ){
+        bp::override func_initSimulationElementVector = this->get_override( "initSimulationElementVector" );
+        func_initSimulationElementVector(  );
+    }
+
+    virtual void prepareSimulation(  ) {
+        if( bp::override func_prepareSimulation = this->get_override( "prepareSimulation" ) )
+            func_prepareSimulation(  );
+        else{
+            this->Simulation::prepareSimulation(  );
+        }
+    }
+    
+    void default_prepareSimulation(  ) {
+        Simulation::prepareSimulation( );
+    }
+
+    virtual void transferResultsToIntensityMap(  ){
+        bp::override func_transferResultsToIntensityMap = this->get_override( "transferResultsToIntensityMap" );
+        func_transferResultsToIntensityMap(  );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -198,12 +235,10 @@ void register_Simulation_class(){
         { //::Simulation::clone
         
             typedef ::Simulation * ( ::Simulation::*clone_function_type)(  ) const;
-            typedef ::Simulation * ( Simulation_wrapper::*default_clone_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "clone"
-                , clone_function_type(&::Simulation::clone)
-                , default_clone_function_type(&Simulation_wrapper::default_clone)
+                , bp::pure_virtual( clone_function_type(&::Simulation::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -218,26 +253,25 @@ void register_Simulation_class(){
                 , "add a sampled parameter distribution." );
         
         }
-        { //::Simulation::getInstrument
-        
-            typedef ::Instrument const & ( ::Simulation::*getInstrument_function_type)(  ) const;
-            
-            Simulation_exposer.def( 
-                "getInstrument"
-                , getInstrument_function_type( &::Simulation::getInstrument )
-                , bp::return_value_policy< bp::copy_const_reference >()
-                , "Returns the instrument containing beam and detector information." );
-        
-        }
         { //::Simulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::Simulation::*getIntensityData_function_type)(  ) const;
+            typedef ::OutputData<double> * ( ::Simulation::*getIntensityData_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getIntensityData"
-                , getIntensityData_function_type( &::Simulation::getIntensityData )
+                , bp::pure_virtual( getIntensityData_function_type(&::Simulation::getIntensityData) )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Clone detector intensity map for all scan parameters (apply detector resolution function first)." );
+                , "Clone simulated intensity map." );
+        
+        }
+        { //::Simulation::getNumberOfSimulationElements
+        
+            typedef int ( ::Simulation::*getNumberOfSimulationElements_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getNumberOfSimulationElements"
+                , bp::pure_virtual( getNumberOfSimulationElements_function_type(&::Simulation::getNumberOfSimulationElements) )
+                , "Gets the number of elements this simulation needs to calculate." );
         
         }
         { //::Simulation::getSample
@@ -268,37 +302,39 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "getSimulationParameters"
                 , getSimulationParameters_function_type( &::Simulation::getSimulationParameters )
-                , "Sets detector parameters using parameter object." );
+                , "Returns simulation parameters." );
         
         }
-        { //::Simulation::normalize
+        { //::Simulation::getWavelength
         
-            typedef void ( ::Simulation::*normalize_function_type)(  ) ;
+            typedef double ( ::Simulation::*getWavelength_function_type)(  ) const;
+            typedef double ( Simulation_wrapper::*default_getWavelength_function_type)(  ) const;
             
             Simulation_exposer.def( 
-                "normalize"
-                , normalize_function_type( &::Simulation::normalize )
-                , "Normalize the detector counts." );
+                "getWavelength"
+                , getWavelength_function_type(&::Simulation::getWavelength)
+                , default_getWavelength_function_type(&Simulation_wrapper::default_getWavelength) );
+        
+        }
+        { //::Simulation::initSimulationElementVector
+        
+            typedef void ( Simulation_wrapper::*initSimulationElementVector_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "initSimulationElementVector"
+                , initSimulationElementVector_function_type( &Simulation_wrapper::initSimulationElementVector )
+                , "Initializes the vector of Simulation elements." );
         
         }
         { //::Simulation::prepareSimulation
         
             typedef void ( ::Simulation::*prepareSimulation_function_type)(  ) ;
+            typedef void ( Simulation_wrapper::*default_prepareSimulation_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "prepareSimulation"
-                , prepareSimulation_function_type( &::Simulation::prepareSimulation )
-                , "Put into a clean state for running a simulation." );
-        
-        }
-        { //::Simulation::removeDetectorResolutionFunction
-        
-            typedef void ( ::Simulation::*removeDetectorResolutionFunction_function_type)(  ) ;
-            
-            Simulation_exposer.def( 
-                "removeDetectorResolutionFunction"
-                , removeDetectorResolutionFunction_function_type( &::Simulation::removeDetectorResolutionFunction )
-                , "Removes detector resolution function." );
+                , prepareSimulation_function_type(&::Simulation::prepareSimulation)
+                , default_prepareSimulation_function_type(&Simulation_wrapper::default_prepareSimulation) );
         
         }
         { //::Simulation::runOMPISimulation
@@ -319,105 +355,6 @@ void register_Simulation_class(){
                 "runSimulation"
                 , runSimulation_function_type( &::Simulation::runSimulation )
                 , "Run a simulation, possibly averaged over parameter distributions." );
-        
-        }
-        { //::Simulation::setAnalyzerProperties
-        
-            typedef void ( ::Simulation::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
-            
-            Simulation_exposer.def( 
-                "setAnalyzerProperties"
-                , setAnalyzerProperties_function_type( &::Simulation::setAnalyzerProperties )
-                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
-                , "Sets the polarization analyzer characteristics of the detector." );
-        
-        }
-        { //::Simulation::setBeamIntensity
-        
-            typedef void ( ::Simulation::*setBeamIntensity_function_type)( double ) ;
-            
-            Simulation_exposer.def( 
-                "setBeamIntensity"
-                , setBeamIntensity_function_type( &::Simulation::setBeamIntensity )
-                , ( bp::arg("intensity") )
-                , "Sets beam intensity from here (forwarded to Instrument)." );
-        
-        }
-        { //::Simulation::setBeamParameters
-        
-            typedef void ( ::Simulation::*setBeamParameters_function_type)( double,double,double ) ;
-            
-            Simulation_exposer.def( 
-                "setBeamParameters"
-                , setBeamParameters_function_type( &::Simulation::setBeamParameters )
-                , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") )
-                , "Sets beam parameters from here (forwarded to Instrument)." );
-        
-        }
-        { //::Simulation::setBeamPolarization
-        
-            typedef void ( ::Simulation::*setBeamPolarization_function_type)( ::kvector_t const & ) ;
-            
-            Simulation_exposer.def( 
-                "setBeamPolarization"
-                , setBeamPolarization_function_type( &::Simulation::setBeamPolarization )
-                , ( bp::arg("bloch_vector") )
-                , "Sets the beam polarization according to the given Bloch vector." );
-        
-        }
-        { //::Simulation::setDetectorParameters
-        
-            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;
-            
-            Simulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
-                , ( bp::arg("output_data") )
-                , "Sets detector parameters using axes of output data." );
-        
-        }
-        { //::Simulation::setDetectorParameters
-        
-            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
-            
-            Simulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
-                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) )
-                , "Sets detector parameters using angle ranges." );
-        
-        }
-        { //::Simulation::setDetectorParameters
-        
-            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
-            
-            Simulation_exposer.def( 
-                "setDetectorParameters"
-                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
-                , ( bp::arg("params") )
-                , "Sets detector parameters using parameter object." );
-        
-        }
-        { //::Simulation::setDetectorResolutionFunction
-        
-            typedef void ( ::Simulation::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;
-            
-            Simulation_exposer.def( 
-                "setDetectorResolutionFunction"
-                , setDetectorResolutionFunction_function_type( &::Simulation::setDetectorResolutionFunction )
-                , ( bp::arg("resolution_function") )
-                , "Define resolution function for detector." );
-        
-        }
-        { //::Simulation::setInstrument
-        
-            typedef void ( ::Simulation::*setInstrument_function_type)( ::Instrument const & ) ;
-            
-            Simulation_exposer.def( 
-                "setInstrument"
-                , setInstrument_function_type( &::Simulation::setInstrument )
-                , ( bp::arg("instrument") )
-                , "Sets the instrument containing beam and detector information." );
         
         }
         { //::Simulation::setSample
@@ -462,6 +399,16 @@ void register_Simulation_class(){
                 , setThreadInfo_function_type( &::Simulation::setThreadInfo )
                 , ( bp::arg("thread_info") )
                 , "Sets the batch and thread information to be used." );
+        
+        }
+        { //::Simulation::transferResultsToIntensityMap
+        
+            typedef void ( Simulation_wrapper::*transferResultsToIntensityMap_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "transferResultsToIntensityMap"
+                , transferResultsToIntensityMap_function_type( &Simulation_wrapper::transferResultsToIntensityMap )
+                , "Creates the appropriate data structure (e.g. 2D intensity map) from the calculated SimulationElement objects " );
         
         }
         { //::IParameterized::areParametersChanged

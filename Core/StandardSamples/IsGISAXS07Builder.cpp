@@ -18,7 +18,7 @@
 #include "ParticleLayout.h"
 #include "Materials.h"
 #include "FormFactorBox.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"
 #include "Units.h"

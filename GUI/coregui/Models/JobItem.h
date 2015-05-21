@@ -20,7 +20,7 @@
 class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
-class Simulation;
+class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
 

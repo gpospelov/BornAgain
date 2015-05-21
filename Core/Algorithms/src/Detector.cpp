@@ -92,8 +92,7 @@ const IAxis &Detector::getAxis(size_t index) const
     throw OutOfBoundsException("Not so many axes in this detector.");
 }
 
-void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
-                                       OutputData<Eigen::Matrix2d> *p_matrix_intensity) const
+void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map) {
         throw NullPointerException("Detector::applyDetectorResolution() -> "
@@ -101,9 +100,6 @@ void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
     }
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
-        if (p_matrix_intensity) {
-            mp_detector_resolution->applyDetectorResolutionPol(p_matrix_intensity);
-        }
     } else {
         msglog(MSG::WARNING) << "Detector::applyDetectorResolution() -> "
                                 "No detector resolution function found";
@@ -147,8 +143,7 @@ std::string Detector::addParametersToExternalPool(std::string path, ParameterPoo
     return new_path;
 }
 
-void Detector::normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d> *p_polarized_data,
-                         double sin_alpha_i) const
+void Detector::normalize(OutputData<double> *p_data, double sin_alpha_i) const
 {
     // if shapes do not match, do nothing
     if (!dataShapeMatches(p_data))
@@ -168,17 +163,9 @@ void Detector::normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d>
     // This normalization assumes that the intensity map contains
     // total differential scattering cross sections
     // (as opposed to the usual cross section per scattering particle)
-    OutputData<Eigen::Matrix2d>::iterator it_pol;
-    if (p_polarized_data) {
-        it_pol = p_polarized_data->begin();
-    }
     for (OutputData<double>::iterator it = p_data->begin(); it != p_data->end(); ++it) {
         double factor = getSolidAngle(p_data, it.getIndex()) / sin_alpha_i;
         (*it) *= factor;
-        if (p_polarized_data) {
-            (*it_pol) *= factor;
-            ++it_pol;
-        }
     }
 }
 

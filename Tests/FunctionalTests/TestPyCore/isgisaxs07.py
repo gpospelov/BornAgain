@@ -23,9 +23,6 @@ def RunSimulation():
     # collection of particles
     particle_layout = ParticleLayout()
 
-    #ParticleInfo particle_info1(new Particle(n_particle, ff1), 0, pos1, 0.5);
-    #particle_layout.addParticleInfo(particle_info1);
-    #
     # add particle number 1:
     ff1 = FormFactorBox(2.0*nanometer, 2.0*nanometer,1.0*nanometer)
     pos1 = kvector_t(0.0*nanometer, 0.0*nanometer, 0.0)
@@ -106,7 +103,7 @@ def RunSimulation():
     multi_layer.addLayer(air_layer)
   
     #build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100,0.0*degree, 1.0*degree, 100, 0.0*degree, 1.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.0*degree, 0.0*degree)
 

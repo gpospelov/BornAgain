@@ -26,11 +26,11 @@
 #include "ISample.h"
 #include "MultiLayer.h"
 #include "PyGenTools.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Distributions.h"
 #include "BAPython.h"
 
-std::string PyGenTools::genPyScript(Simulation *simulation)
+std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
     simulation->prepareSimulation();
     ISample *iSample = simulation->getSample();
@@ -91,7 +91,7 @@ bool PyGenTools::isHexagonal(double length1, double length2, double angle)
     return false;
 }
 
-bool PyGenTools::testPyScript(Simulation *simulation)
+bool PyGenTools::testPyScript(GISASSimulation *simulation)
 {
     std::ofstream pythonFile;
     pythonFile.open("PythonScript.py");

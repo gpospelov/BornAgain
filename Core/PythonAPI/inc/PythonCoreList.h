@@ -97,7 +97,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Rotations.h"
 #include "SpecularSimulation.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "SimulationParameters.h"
 #include "ThreadInfo.h"
 #include "Types.h"

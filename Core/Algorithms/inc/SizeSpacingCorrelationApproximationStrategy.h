@@ -36,32 +36,28 @@ public:
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    virtual double evaluateForList(const SimulationElement& sim_element,
                                    const std::vector<complex_t> &ff_list) const;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    double evaluateForMatrixList(const cvector_t &k_i, const Eigen::Matrix2cd &beam_density,
-                                 const Bin1DCVector &k_f_bin,
-                                 const Eigen::Matrix2cd &detector_operator,
+    double evaluateForMatrixList(const SimulationElement& sim_element,
                                  const MatrixFFVector &ff_list) const;
 
 private:
     bool checkVectorSizes() const;
-    complex_t getMeanCharacteristicFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    complex_t getMeanCharacteristicFF(const cvector_t &q,
                                       const std::vector<complex_t> &ff_list) const;
-    Eigen::Matrix2cd
-    getMeanCharacteristicMatrixFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                  const MatrixFFVector &ff_list) const;
-    complex_t getMeanConjCharacteristicFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(const cvector_t &q,
+                                                   const MatrixFFVector &ff_list) const;
+    complex_t getMeanConjCharacteristicFF(const cvector_t &q,
                                           const std::vector<complex_t> &ff_list) const;
-    Eigen::Matrix2cd
-    getMeanConjCharacteristicMatrixFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-                                      const MatrixFFVector &ff_list) const;
+    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(const cvector_t &q,
+                                                       const MatrixFFVector &ff_list) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
-    double getqp(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
+    double getqp(const cvector_t &q) const;
     void initMeanRadius();
     double m_mean_radius;
     double m_kappa;

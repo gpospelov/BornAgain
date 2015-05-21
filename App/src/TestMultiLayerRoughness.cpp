@@ -15,7 +15,7 @@
 
 #include "TestMultiLayerRoughness.h"
 #include "BornAgainNamespace.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "SampleFactory.h"
@@ -50,7 +50,7 @@ void TestMultiLayerRoughness::execute()
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
         // setting simulation
-        Simulation simulation(mp_options);
+        GISASSimulation simulation(mp_options);
         simulation.setSample(*sample);
         simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
         simulation.setBeamParameters(1.54*Units::angstrom, alpha_i, 0.0*Units::degree);

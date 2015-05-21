@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "JobRunner.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
 #include "item_constants.h"
@@ -23,7 +23,7 @@
 #include <QDebug>
 
 
-JobRunner::JobRunner(QString identifier, Simulation *simulation)
+JobRunner::JobRunner(QString identifier, GISASSimulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
@@ -97,7 +97,7 @@ void JobRunner::runFakeSimulation()
     }
 }
 
-//! function which is called by the Simulation to report its progress
+//! function which is called by the simulation to report its progress
 bool JobRunner::similationProgressCallback(int progress)
 {
     if(progress >= m_progress) {

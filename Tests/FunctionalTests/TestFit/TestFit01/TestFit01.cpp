@@ -66,7 +66,7 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
 //    mb.Start("test");
 
     ISample *sample = buildSample();
-    Simulation *simulation = createSimulation();
+    GISASSimulation *simulation = createSimulation();
     simulation->setSample(*sample);
 
     // Creating real data, which is simply results of our simulation with default values
@@ -130,9 +130,9 @@ ISample *TestFit01::buildSample()
 
 
 // create simulation
-Simulation *TestFit01::createSimulation()
+GISASSimulation *TestFit01::createSimulation()
 {
-    Simulation *simulation = new Simulation();
+    GISASSimulation *simulation = new GISASSimulation();
     simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation->setBeamIntensity(1e10);

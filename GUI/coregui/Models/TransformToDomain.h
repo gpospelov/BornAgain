@@ -43,7 +43,7 @@ BA_CORE_API_ Beam *createBeam(const ParameterizedItem &item);
 BA_CORE_API_ LayerRoughness *createLayerRoughness(const ParameterizedItem &item);
 BA_CORE_API_ void initInstrumentFromDetectorItem(const ParameterizedItem &item,
                                                  Instrument *instrument);
-BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem &beam_item, Simulation *simulation);
+BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem &beam_item, GISASSimulation *simulation);
 }
 
 #endif // TRANSFORMTODOMAIN_H

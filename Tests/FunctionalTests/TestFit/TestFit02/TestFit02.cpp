@@ -40,7 +40,7 @@ int TestFit02::run()
     sample_builder->setParameterValue("prism3_height", prism3_height);
     sample_builder->setParameterValue("cylinder_ratio", cylinder_ratio);
 
-    Simulation *simulation = createSimulation();
+    GISASSimulation *simulation = createSimulation();
     simulation->setSampleBuilder(sample_builder);
 
     OutputData<double> *real_data = createRealData(simulation);
@@ -101,9 +101,9 @@ int TestFit02::run()
 
 
 // create simulation
-Simulation *TestFit02::createSimulation()
+GISASSimulation *TestFit02::createSimulation()
 {
-    Simulation *simulation = new Simulation();
+    GISASSimulation *simulation = new GISASSimulation();
     simulation->setDetectorParameters(50, 0.0*Units::degree, 2.0*Units::degree,
             50 , 0.0*Units::degree, 2.0*Units::degree);
     simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
@@ -113,7 +113,7 @@ Simulation *TestFit02::createSimulation()
 
 
 // generating "real" data by adding noise to the simulated data
-OutputData<double> *TestFit02::createRealData(Simulation *simulation)
+OutputData<double> *TestFit02::createRealData(GISASSimulation *simulation)
 {
     const double noise_factor = 0.1;
     simulation->runSimulation();

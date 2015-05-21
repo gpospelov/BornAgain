@@ -115,7 +115,7 @@ void TestFittingModule4::initializeSimulation()
         throw NullPointerException("TestFittingModule1::initializeSimulation() -> No sample defined");
     }
     delete mp_simulation;
-    mp_simulation = new Simulation(mp_options);
+    mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSample(*mp_sample);
     mp_simulation->setDetectorParameters(100, 0.0*Units::degree,
             2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);

@@ -56,6 +56,7 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
 {
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = k_i;
+    k_i_T.setZ(-mp_in_coeffs->getScalarKz());
     cvector_t k_i_R = k_i;
     k_i_R.setZ(-k_i_T.z());
 

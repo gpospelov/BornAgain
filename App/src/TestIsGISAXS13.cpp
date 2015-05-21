@@ -17,7 +17,7 @@
 #include "DrawHelper.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -211,7 +211,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 void TestIsGISAXS13::initializeSimulation()
 {
     delete mp_simulation;
-    mp_simulation = new Simulation(mp_options);
+    mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(
             100, 0.0*Units::degree, 2.0*Units::degree,

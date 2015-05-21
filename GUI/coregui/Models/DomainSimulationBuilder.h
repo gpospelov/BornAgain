@@ -18,7 +18,7 @@
 
 #include <QString>
 
-class Simulation;
+class GISASSimulation;
 class SampleModel;
 class InstrumentModel;
 class MultiLayerItem;
@@ -29,13 +29,13 @@ class InstrumentItem;
 class DomainSimulationBuilder
 {
 public:        
-    static Simulation *getSimulation(SampleModel *sampleModel, const QString &sample_name,
+    static GISASSimulation *getSimulation(SampleModel *sampleModel, const QString &sample_name,
                                      InstrumentModel *instrumentModel,
                                      const QString &instrument_name);
 
-    static Simulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
+    static GISASSimulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
-    static Simulation *getSimulation(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem);
+    static GISASSimulation *getSimulation(MultiLayerItem *sampleItem, InstrumentItem *instrumentItem);
 
 };
 

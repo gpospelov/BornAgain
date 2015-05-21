@@ -20,7 +20,7 @@
 #include "Units.h"
 #include "FormFactors.h"
 #include "DrawHelper.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
 #include "MesoCrystal.h"
@@ -111,7 +111,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     multi_layer->addLayer(substrate_layer);
 
 
-    Simulation *simulation = new Simulation();
+    GISASSimulation *simulation = new GISASSimulation();
     simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
                                       100, 0.0*Units::degree, 2.0*Units::degree,
                                       true);
@@ -518,7 +518,7 @@ void TestMiscellaneous::test_SampleGeometry()
 
     multi_layer.addLayer(air_layer);
 
-    Simulation simulation;
+    GISASSimulation simulation;
     simulation.setDetectorParameters(100, -2.0*Units::degree, 2.0*Units::degree,
             100, -2.0*Units::degree, 2.0*Units::degree);
     simulation.setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);

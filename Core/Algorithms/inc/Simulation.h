@@ -23,6 +23,7 @@
 #include "ProgressHandler.h"
 
 #include "EigenCore.h"
+#include "SimulationElement.h"
 
 #include <boost/function.hpp>
 
@@ -41,21 +42,18 @@ public:
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
     Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    ~Simulation() { delete mp_sample; }
+    virtual ~Simulation() { delete mp_sample; }
 
-    Simulation *clone() const;
+    virtual Simulation *clone() const=0;
 
     //! Put into a clean state for running a simulation
-    void prepareSimulation();
+    virtual void prepareSimulation();
 
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
     //! Run an OpenMPI simulation
     void runOMPISimulation();
-
-    //! Normalize the detector counts
-    void normalize();
 
     //! Sets the sample to be tested
     void setSample(const ISample& sample);
@@ -69,51 +67,9 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Returns detector intensity map for all scan parameters (no detector resolution)
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
-
-    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
-    OutputData<double>* getIntensityData() const;
-
-    //! Sets the instrument containing beam and detector information
-    void setInstrument(const Instrument& instrument);
-
-    //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
-
-    //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
-
-    //! Sets beam intensity from here (forwarded to Instrument)
-    void setBeamIntensity(double intensity);
-
-    //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t& bloch_vector);
-
-    //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double> &output_data);
-
-    //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-        size_t n_alpha, double alpha_f_min, double alpha_f_max,
-        bool isgisaxs_style=false);
-
-    //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters& params);
     //! Returns simulation parameters
     SimulationParameters getSimulationParameters() const
     { return m_sim_params; }
-
-    //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        const IResolutionFunction2D &resolution_function);
-
-    //! Removes detector resolution function
-    void removeDetectorResolutionFunction();
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
-                               double total_transmission=1.0);
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
@@ -126,6 +82,12 @@ public:
     //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
+
+    //! Gets the number of elements this simulation needs to calculate
+    virtual int getNumberOfSimulationElements() const=0;
+
+    //! Clone simulated intensity map
+    virtual OutputData<double>* getIntensityData() const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
@@ -144,8 +106,8 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-    //! OffSpecSimulation needs protected copy constructor
-    friend class OffSpecSimulation;
+    //! returns wavelength if this is uniquely defined for the current simulation
+    virtual double getWavelength() const;
 
 #ifndef GCCXML_SKIP_THIS
     //! sets progress handler (used by GUI)
@@ -159,37 +121,46 @@ public:
 
 protected:
     Simulation(const Simulation& other);
-
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
-    //! Default implementation only adds the detector axes
-    void updateIntensityMapAxes();
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector()=0;
+
+    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
+    //! SimulationElement objects
+    virtual void transferResultsToIntensityMap()=0;
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Add the intensity map from the DWBA simulation to the member map
-    void addToIntensityMap(DWBASimulation *p_dwba_simulation);
-
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
 
+    //! Verify existence of the DWBASimulation object
     void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
+
+    //! Returns the start iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
+
+    //! Returns the end iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     SampleBuilder_t mp_sample_builder;
-    Instrument m_instrument;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
 
-    OutputData<double> m_intensity_map;
     bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;
+    std::vector<SimulationElement> m_sim_elements;
+
+private:
+    void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 };
 
 #endif /* SIMULATION_H_ */

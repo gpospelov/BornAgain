@@ -137,9 +137,7 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
 
 double LayerStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
-    kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return Units::PI2/ki_real.mag();
+    return mp_simulation->getWavelength();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(

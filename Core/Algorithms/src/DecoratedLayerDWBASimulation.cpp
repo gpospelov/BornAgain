@@ -31,12 +31,6 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
 }
 
-void DecoratedLayerDWBASimulation::init(const Simulation &simulation)
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
-    DWBASimulation::init(simulation);
-}
-
 void DecoratedLayerDWBASimulation::run()
 {
     setStatus(RUNNING);
@@ -73,34 +67,25 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
-    double wavelength = getWaveLength();
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    DWBASimulation::iterator it = begin();
-    while (it != end()) {
+    std::vector<SimulationElement>::iterator it = m_begin_it;
+    while (it != m_end_it) {
         if (!m_progress.update())
             break;
-
-        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(BornAgain::PHI_AXIS_NAME, it.getIndex());
-        Bin1D alpha_bin
-            = getDWBAIntensity().getBinOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
-        double alpha_f = alpha_bin.getMidPoint();
+        double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
             ++it;
             continue;
         }
-        Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
         // each ffdwba: 1 call to getOutCoeffs
         if (checkPolarizationPresent()) {
             // matrix dwba calculation
-            *it = p_strategy->evaluate(m_ki, m_beam_polarization, k_f_bin, m_detector_polarization,
-                                       alpha_bin, phi_bin) * total_surface_density;
+            it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         } else {
             // scalar dwba calculation
-            cvector_t k_ij = m_ki;
-            k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
-            *it = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
+            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         }
         ++it;
     }

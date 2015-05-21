@@ -54,29 +54,17 @@ void MultiLayerRoughnessDWBASimulation::runProtected()
     while ( it != m_end_it )
     {
         if( !m_progress.update()) break;
-
-        double lambda = it->getWavelength();
-        double alpha_i = it->getAlphaI();
-        double phi_i = it->getPhiI();
-        double alpha_f = it->getAlphaMean();
-        double phi_f = it->getPhiMean();
-        cvector_t k_i, k_f;
-        k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        it->setIntensity(evaluate(k_i, k_f, alpha_i, alpha_f));
+        it->setIntensity(evaluate(*it));
         ++it;
     }
     m_progress.finished();
 }
 
-double MultiLayerRoughnessDWBASimulation::evaluate(
-    const cvector_t& k_i, const cvector_t& k_f,
-    double alpha_i, double alpha_f)
+double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_element)
 {
-    (void)alpha_i;
-    kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
-    kvector_t kf_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
-    kvector_t q = kf_real - ki_real;
+    kvector_t k_i = sim_element.getKI();
+    kvector_t k_f = sim_element.getMeanKF();
+    kvector_t q = k_f - k_i;
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);
 
@@ -87,7 +75,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
-        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_i, alpha_f);
+        sterm[i] = get_sum4terms(i, sim_element);
     }
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
@@ -112,7 +100,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./Units::PI;
+    return (autocorr+crosscorr.real())*k_i.mag2()/16./Units::PI;
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
@@ -123,32 +111,38 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
     return n1*n1-n2*n2;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
-    size_t ilayer, const cvector_t& k_i, const cvector_t& k_f, double alpha_i, double alpha_f)
+complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer,
+                                                           const SimulationElement& sim_element)
 {
-    complex_t qz1 =  k_i.z() + k_f.z();
-    complex_t qz2 =  k_i.z() - k_f.z();
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double alpha_f = sim_element.getAlphaMean();
+    kvector_t k_i = sim_element.getKI();
+    kvector_t k_f = sim_element.getMeanKF();
+    complex_t qz1 = k_i.z() + k_f.z();
+    complex_t qz2 = k_i.z() - k_f.z();
     complex_t qz3 = -k_i.z() + k_f.z();
     complex_t qz4 = -k_i.z() - k_f.z();
 
-    const ILayerRTCoefficients *p_in_coeff =
-            mp_specular_info_vector[ilayer+1]->getInCoefficients(alpha_i, 0.0);
+    boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeff(
+        mp_specular_info_vector[ilayer + 1]->getInCoefficients(alpha_i, 0.0, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
-        mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0) );
+        mp_specular_info_vector[ilayer + 1]->getOutCoefficients(alpha_f, 0.0, wavelength));
 
     double sigma(0.0);
-    if(const LayerRoughness *roughness  = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
+    if (const LayerRoughness *roughness
+        = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
         sigma = roughness->getSigma();
     }
-    double sigma2 = -0.5*sigma*sigma;
-    complex_t term1 = p_in_coeff->getScalarT() * P_out_coeff->getScalarT()
-            * std::exp( sigma2*qz1*qz1 );
-    complex_t term2 = p_in_coeff->getScalarT() * P_out_coeff->getScalarR()
-            * std::exp( sigma2*qz2*qz2 );
-    complex_t term3 = p_in_coeff->getScalarR()  * P_out_coeff->getScalarT()
-            * std::exp( sigma2*qz3*qz3 );
-    complex_t term4 = p_in_coeff->getScalarR()  * P_out_coeff->getScalarR()
-            * std::exp( sigma2*qz4*qz4 );
+    double sigma2 = -0.5 * sigma * sigma;
+    complex_t term1 = P_in_coeff->getScalarT() * P_out_coeff->getScalarT()
+                      * std::exp(sigma2 * qz1 * qz1);
+    complex_t term2 = P_in_coeff->getScalarT() * P_out_coeff->getScalarR()
+                      * std::exp(sigma2 * qz2 * qz2);
+    complex_t term3 = P_in_coeff->getScalarR() * P_out_coeff->getScalarT()
+                      * std::exp(sigma2 * qz3 * qz3);
+    complex_t term4 = P_in_coeff->getScalarR() * P_out_coeff->getScalarR()
+                      * std::exp(sigma2 * qz4 * qz4);
 
     return term1 + term2 + term3 + term4;
 }

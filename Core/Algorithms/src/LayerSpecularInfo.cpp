@@ -34,13 +34,13 @@ void LayerSpecularInfo::addRTCoefficients(ISpecularInfoMap* rt_coefficient_map)
 }
 
 const ILayerRTCoefficients* LayerSpecularInfo::getOutCoefficients(
-        double alpha_f, double phi_f) const
+        double alpha_f, double phi_f, double wavelength) const
 {
-    return mP_coeff_map->getOutCoefficients(alpha_f, phi_f);
+    return mP_coeff_map->getOutCoefficients(alpha_f, phi_f, wavelength);
 }
 
 const ILayerRTCoefficients *LayerSpecularInfo::getInCoefficients(
-        double alpha_i, double phi_i) const
+        double alpha_i, double phi_i, double wavelength) const
 {
-    return mP_coeff_map->getInCoefficients(alpha_i, phi_i);
+    return mP_coeff_map->getInCoefficients(alpha_i, phi_i, wavelength);
 }

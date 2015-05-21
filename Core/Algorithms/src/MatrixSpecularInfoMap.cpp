@@ -18,9 +18,8 @@
 
 #include <boost/scoped_ptr.hpp>
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer,
-                                             double wavelength)
-    : m_layer(layer), m_wavelength(wavelength)
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
+    : m_layer(layer)
 {
     if (multilayer){
         mP_multilayer.reset((multilayer->clone()));
@@ -30,7 +29,7 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int l
 
 MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
 {
-    MatrixSpecularInfoMap *result = new MatrixSpecularInfoMap(0, m_layer, m_wavelength);
+    MatrixSpecularInfoMap *result = new MatrixSpecularInfoMap(0, m_layer);
     if (mP_multilayer.get()){
         result->mP_multilayer.reset(mP_multilayer->clone());
         result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
@@ -39,25 +38,25 @@ MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
 }
 
 const MatrixRTCoefficients *MatrixSpecularInfoMap::getOutCoefficients(
-        double alpha_f, double phi_f) const
+        double alpha_f, double phi_f, double wavelength) const
 {
     SpecularMagnetic specular_calculator;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(m_wavelength, alpha_f, phi_f);
+    kvec.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
     specular_calculator.execute(*mP_inverted_multilayer, -kvec, coeffs);
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }
 
 const MatrixRTCoefficients *MatrixSpecularInfoMap::getInCoefficients(
-        double alpha_i, double phi_i) const
+        double alpha_i, double phi_i, double wavelength) const
 {
     SpecularMagnetic specular_calculator;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(m_wavelength, alpha_i, phi_i);
+    kvec.setLambdaAlphaPhi(wavelength, alpha_i, phi_i);
     specular_calculator.execute(*mP_multilayer, kvec, coeffs);
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }

@@ -45,10 +45,12 @@ public:
 
     //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
-    const ILayerRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const;
+    const ILayerRTCoefficients *getOutCoefficients(double alpha_f, double phi_f,
+                                                   double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the incoming wavevector
-    const ILayerRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const;
+    const ILayerRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
+                                                  double wavelength) const;
 private:
     boost::scoped_ptr<ISpecularInfoMap> mP_coeff_map;
 };

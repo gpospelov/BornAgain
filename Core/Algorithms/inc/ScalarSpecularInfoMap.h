@@ -30,21 +30,21 @@
 class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer,
-                          double wavelength);
+    ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer);
     virtual ~ScalarSpecularInfoMap() {}
 
     virtual ScalarSpecularInfoMap* clone() const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ScalarRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const;
+    virtual const ScalarRTCoefficients *getOutCoefficients(double alpha_f, double phi_f,
+                                                           double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ScalarRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const;
+    virtual const ScalarRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
+                                                          double wavelength) const;
 private:
     const MultiLayer *mp_multilayer;
     const int m_layer;
-    double m_wavelength;
 };
 
 #endif /* SCALARSPECULARINFOMAP_H_ */

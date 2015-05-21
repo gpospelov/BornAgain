@@ -51,6 +51,20 @@ SimulationElement &SimulationElement::operator=(const SimulationElement &other)
     return *this;
 }
 
+kvector_t SimulationElement::getKI() const
+{
+    kvector_t k_i;
+    k_i.setLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+    return k_i;
+}
+
+kvector_t SimulationElement::getMeanKF() const
+{
+    kvector_t k_f;
+    k_f.setLambdaAlphaPhi(m_wavelength, getAlphaMean(), getPhiMean());
+    return k_f;
+}
+
 cvector_t SimulationElement::getMeanQ() const
 {
     cvector_t k_i;

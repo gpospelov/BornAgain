@@ -125,16 +125,13 @@ void MultiLayerDWBASimulation::runProtected()
 
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
-    double lambda = m_begin_it->getWavelength();
-
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
-        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(
-                    mp_multi_layer, i_layer, lambda);
+        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
@@ -152,22 +149,18 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
             mp_roughness_dwba_simulation->setSpecularInfo(i_layer,
                     layer_coeff_map);
         }
-
     } // i_layer
 }
 
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
-    double lambda = m_begin_it->getWavelength();
-
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
-        MatrixSpecularInfoMap *p_coeff_map = new MatrixSpecularInfoMap(
-                    mp_multi_layer, i_layer, lambda);
+        MatrixSpecularInfoMap *p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation

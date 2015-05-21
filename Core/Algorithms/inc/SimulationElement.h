@@ -111,6 +111,8 @@ public:
     {
         return m_intensity;
     }
+    kvector_t getKI() const;
+    kvector_t getMeanKF() const;
     cvector_t getMeanQ() const;
 
 private:

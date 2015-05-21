@@ -32,22 +32,22 @@
 class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer,
-                          double wavelength);
+    MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer);
     virtual ~MatrixSpecularInfoMap() {}
 
     virtual MatrixSpecularInfoMap* clone() const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const MatrixRTCoefficients *getOutCoefficients(double alpha_f, double phi_f) const;
+    virtual const MatrixRTCoefficients *getOutCoefficients(double alpha_f, double phi_f,
+                                                           double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const MatrixRTCoefficients *getInCoefficients(double alpha_i, double phi_i) const;
+    virtual const MatrixRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
+                                                          double wavelength) const;
 private:
     boost::scoped_ptr<MultiLayer> mP_multilayer;
     boost::scoped_ptr<MultiLayer> mP_inverted_multilayer;
     const int m_layer;
-    double m_wavelength;
 };
 
 

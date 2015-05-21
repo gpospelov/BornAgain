@@ -83,9 +83,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(alpha_i, 0.0));
+        mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), 0.0));
+        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), 0.0, wavelength));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
@@ -110,9 +110,10 @@ IInterferenceFunctionStrategy::calculateFormFactorLists(const SimulationElement 
     Bin1DCVector k_f_bin(wavelength, alpha_f_bin, phi_f_bin);
 
     boost::scoped_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(alpha_i, phi_i));
+        mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint()));
+        mP_specular_info->getOutCoefficients(alpha_f_bin.getMidPoint(), phi_f_bin.getMidPoint(),
+                                             wavelength));
     SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
     while (it != m_ff_infos.end()) {
         (*it)->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());

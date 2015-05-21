@@ -28,11 +28,14 @@ double gap_between_bars = 0.05;
 double xRangeDivisor = 9;
 double xBarRange = 0.4;
 double percentage_for_yRange = 1.1;
+int warning_sign_xpos = 48;
+int warning_sign_ypos = 16;
 }
 
 DistributionWidget::DistributionWidget(QWidget *parent)
     : QWidget(parent), m_plot(new QCustomPlot), m_item(0), m_label(new QLabel("[x: 0,  y: 0]")),
-      m_resetAction(new QAction(this)), m_xRange(new QCPRange), m_yRange(new QCPRange)
+      m_resetAction(new QAction(this)), m_xRange(new QCPRange), m_yRange(new QCPRange),
+      m_warningSign(0)
 {
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -67,6 +70,9 @@ void DistributionWidget::setItem(DistributionItem *item)
 
 void DistributionWidget::plotItem()
 {
+    delete m_warningSign;
+    m_warningSign = 0;
+
     m_plot->clearGraphs();
     m_plot->clearItems();
     m_plot->clearPlottables();
@@ -80,20 +86,31 @@ void DistributionWidget::plotItem()
     m_plot->xAxis2->setTicks(false);
     m_plot->yAxis2->setTicks(false);
 
-    //boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
+    // boost::scoped_ptr<IDistribution1D> distribution(m_item->createDistribution());
+
     IDistribution1D *distribution(0);
+    bool exceptionThrown = false;
     try {
         distribution = m_item->createDistribution();
-    }
-    catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
+        exceptionThrown = true;
         Q_UNUSED(ex);
         m_plot->clearGraphs();
         m_plot->clearItems();
         m_plot->clearPlottables();
-        return;
+
+        m_warningSign = new WarningSignWidget(this);
+
+        QString message
+            = QString("Wrong parameters\n").append(QString::fromStdString(ex.what()));
+
+        m_warningSign->setWarningMessage(message);
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(), pos.y());
+        m_warningSign->show();
     }
 
-    if (m_item->itemName() != Constants::DistributionNoneType) {
+    if (m_item->itemName() != Constants::DistributionNoneType && !exceptionThrown) {
         int numberOfSamples
             = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor
@@ -133,7 +150,7 @@ void DistributionWidget::plotItem()
         m_plot->yAxis->setRange(*m_yRange);
         m_plot->addPlottable(bars);
         setVerticalDashedLine(xBar[0], 0, xBar[xBar.length() - 1], m_plot->yAxis->range().upper);
-    } else {
+    } else if(!exceptionThrown) {
         QVector<double> xPos;
         QVector<double> yPos;
         xPos.push_back(m_item->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble());
@@ -234,4 +251,23 @@ void DistributionWidget::resetView()
 void DistributionWidget::setXAxisName(QString xAxisName)
 {
     m_plot->xAxis->setLabel(xAxisName);
+}
+
+//! Returns position for warning sign at the bottom right corner of the editor. The position will
+//! be adjusted according to the visibility of scroll bars
+QPoint DistributionWidget::getPositionForWarningSign()
+{
+    int x = m_plot->geometry().topRight().x() - warning_sign_xpos;
+    int y = m_plot->geometry().topRight().y() + warning_sign_ypos;
+    return QPoint(x, y);
+}
+
+//! adjusts position of warning label on widget move
+void DistributionWidget::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+    if (m_warningSign) {
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(), pos.y());
+    }
 }

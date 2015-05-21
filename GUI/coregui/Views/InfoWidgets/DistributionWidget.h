@@ -17,6 +17,7 @@
 #define DISTRIBUTIONWIDGET_H
 
 #include <QWidget>
+#include "WarningSignWidget.h"
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
@@ -40,11 +41,15 @@ public:
     void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
     int getMaxYPosition(int y);
     void setXAxisName(QString xAxisName);
+    QPoint getPositionForWarningSign();
+    QString generateCodeSnippet();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
 private slots:
     void onPropertyChanged();   
     void resetView();
@@ -56,6 +61,7 @@ private:
     QAction *m_resetAction;
     QCPRange *m_xRange;
     QCPRange *m_yRange;
+    WarningSignWidget *m_warningSign;
 };
 
 #endif

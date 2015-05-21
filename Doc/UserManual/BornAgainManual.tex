@@ -26,27 +26,27 @@
 %\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
 %\includeonly{FormFactors}
 
-\documentclass[a4paper,11pt,twoside,fleqn]{report}
-%\documentclass[a4paper,11pt,fleqn,draft]{report}
-%\usepackage[final]{graphicx}
+%\documentclass[a4paper,11pt,twoside,fleqn]{report}
+\documentclass[a4paper,11pt,fleqn,draft]{report}
+\usepackage[final]{graphicx}
 
 \input{Setup}
 
 \begin{document}
 
 \input{Macros}
-\input{Title}
+%\input{Title}
 
 \tableofcontents\cleardoublepage
 
-\include{Introduction}
-\include{Conventions}
-\include{OnlineDocs}
+%\include{Introduction}
+%\include{Conventions}
+%\include{OnlineDocs}
 \include{SAS}
 \include{GisasFoundations}
-\include{PolarizedScattering}
-\include{Multilayers}
-\include{Assemblies}
+%\include{PolarizedScattering}
+%\include{Multilayers}
+%\include{Assemblies}
 %\include{Domains}
 %\include{Roughness}
 %\include{Experiment}
@@ -54,7 +54,7 @@
 
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}
-\include{FormFactors}
+%\include{FormFactors}
 
 \otherchapter{Bibliography}
 \bibliographystyle{switch}
@@ -64,6 +64,7 @@
 \printnomenclature[6em]
 
 \otherchapter{Index}
+\small
 \printindex
 
 \end{document}

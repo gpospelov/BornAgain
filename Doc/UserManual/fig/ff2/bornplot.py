@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import bornagain as ba
 from bornagain import nanometer, degree, angstrom, deg2rad
 
+
 class BinRange:
     def __init__(self, vmin, vmax, n):
         self.vmin = vmin
@@ -15,6 +16,7 @@ class BinRange:
     def central_index(self):
         return int( (0.-self.vmin)/(self.vmax-self.vmin)*(self.n-1)+.5 )
         
+
 class Detector:
     def __init__(self, bins_per_dimension, phi_min, phi_max, alpha_min, alpha_max):
         self.phi = BinRange( phi_min, phi_max, bins_per_dimension )
@@ -22,11 +24,13 @@ class Detector:
     def rectangle(self):
         return (self.phi.vmin, self.phi.vmax, self.alpha.vmin, self.alpha.vmax)
 
+
 class Result:
     def __init__(self, idx, data, title="" ):
         self.idx = idx
         self.data = data
         self.title = title
+
 
 def make_plot( results, det, name, nrow=1 ):
     '''
@@ -65,9 +69,8 @@ def make_plot( results, det, name, nrow=1 ):
     norm = mpl.colors.LogNorm(1e-10,1)
     # Plot the subfigures.
     for res in results:
-        data = res.data
         ax = axes[res.idx]
-        im = ax.imshow(numpy.rot90(data, 1),
+        im = ax.imshow(numpy.rot90(res.data, 1),
                        norm=norm,
                        extent=det.rectangle(),
                        aspect=1)
@@ -89,6 +92,7 @@ def make_plot( results, det, name, nrow=1 ):
     # Output to file or display.
     plt.savefig( name+".pdf", format="pdf", bbox_inches = 'tight')
     plt.show()
+
 
 def get_sample(ff,trafo):
     """

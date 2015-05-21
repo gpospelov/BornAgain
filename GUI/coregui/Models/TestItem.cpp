@@ -28,7 +28,7 @@ TestItem::TestItem(ParameterizedItem *parent)
 {
     setItemName(QString("TestItem"));
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    registerProperty(P_VALUE, 99.0, PropertyAttribute(PropertyAttribute::DISABLED));
+    registerProperty(P_VALUE, 99.0);
     ComboProperty types;
     types << "property 1" << "property 2" << "property 3";
     registerProperty(P_COMBO, types.getVariant());

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      coregui/Views/InfoWidgets/DistributionEditor.h
+//! @brief     Defines class DistributionEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,34 +13,37 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#ifndef DISTRIBUTIONEDITOR_H
+#define DISTRIBUTIONEDITOR_H
 
 #include <QWidget>
 
+class QGroupBox;
+class DistributionWidget;
 class ParameterizedItem;
 class AwesomePropertyEditor;
 
-class TestView : public QWidget
+//! The DistributionEditor class, being a child of DistributionDialog, contains a widget
+//! to show Distribution1D and awesome property editor to change distribution parameters
+class DistributionEditor : public QWidget
 {
     Q_OBJECT
 public:
-
-    TestView(QWidget *parent = 0);
-    virtual ~TestView() {}
-
+    DistributionEditor(QWidget *parent = 0);
+    virtual ~DistributionEditor() {}
     void setItem(ParameterizedItem *item);
-
     void plotItem(ParameterizedItem *item);
+    void setNameOfEditor(QString name);
 
 private slots:
-//    void onPropertyChanged(const QString &property_name);
-//    void onSubItemChanged(const QString &property_name);
-//    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void onSubItemChanged(const QString &property_name);
 
 private:
     AwesomePropertyEditor *m_propertyEditor;
     ParameterizedItem *m_item;
+    DistributionWidget *m_plotwidget;
+    QString m_nameOfEditor;
+    QGroupBox *m_box;
 };
 
 #endif

@@ -16,30 +16,33 @@
 #include "BeamEditorWidget.h"
 #include "UniversalPropertyEditor.h"
 #include "AwesomePropertyEditor.h"
+#include "AwesomePropertyPresenter.h"
 #include "BeamItem.h"
 #include "LayerItem.h"
 #include "GroupBox.h"
+#include "GUIHelpers.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QDebug>
-
+#include "DistributionDialog.h"
+#include <iostream>
+namespace
+{
+    QString name_of_groupbox_wavenlength("Wavelength [nm]");
+    QString name_of_groupbox_inclination = "Inclination angle [deg]";
+    QString name_of_groupbox_azimuthal = "Azimuthal angle [deg]";
+}
 
 BeamEditorWidget::BeamEditorWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_intensityEditor(0)
-    , m_wavelengthEditor(0)
-    , m_inclinationAngleEditor(0)
-    , m_azimuthalAngleEditor(0)
-    , m_gridLayout(0)
-    , m_beamItem(0)
+    : QWidget(parent), m_intensityEditor(0), m_wavelengthPresenter(0),
+      m_inclinationAnglePresenter(0), m_azimuthalAnglePresenter(0), m_gridLayout(0), m_beamItem(0)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    // group box layout
+
     QGroupBox *groupBox = new QGroupBox("Beam Parameters");
-    //QGroupBox *groupBox = new GroupBox("Beam Parameters");
 
     QVBoxLayout *groupLayout = new QVBoxLayout;
     groupBox->setLayout(groupLayout);
@@ -47,15 +50,24 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
 
-    m_intensityEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_intensityEditor
+        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
 
-    m_wavelengthEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
-    m_inclinationAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_inclinationAngleEditor, 1, 1);
-    m_azimuthalAngleEditor = new AwesomePropertyEditor(this,  AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-    m_gridLayout->addWidget(m_azimuthalAngleEditor, 1, 2);
+    m_wavelengthPresenter = new AwesomePropertyPresenter(name_of_groupbox_wavenlength, this);
+    m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
+    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
+            SLOT(onDialogRequest(ParameterizedItem*, QString)));
+
+    m_inclinationAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_inclination, this);
+    m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
+    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
+            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
+
+    m_azimuthalAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_azimuthal, this);
+    m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
+    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
+            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
 
     groupLayout->addLayout(m_gridLayout);
 
@@ -70,21 +82,30 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
 {
     m_beamItem = beamItem;
     m_intensityEditor->clearEditor();
-    m_wavelengthEditor->clearEditor();
-    m_inclinationAngleEditor->clearEditor();
-    m_azimuthalAngleEditor->clearEditor();
+    m_wavelengthPresenter->clearEditor();
+    m_inclinationAnglePresenter->clearEditor();
+    m_azimuthalAnglePresenter->clearEditor();
 
-    if(!m_beamItem) return;
+    if (!m_beamItem)
+        return;
 
     m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
 
     ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
-    m_wavelengthEditor->addItemProperties(wavelengthItem, QString("Wavelength [nm]"), AwesomePropertyEditor::INSERT_AFTER);
+    m_wavelengthPresenter->setItem(wavelengthItem);
 
-    ParameterizedItem *inclinationAngleItem = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
-    m_inclinationAngleEditor->addItemProperties(inclinationAngleItem, QString("Inclination angle [deg]"), AwesomePropertyEditor::INSERT_AFTER);
+    ParameterizedItem *inclinationAngleItem
+            = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
+    m_inclinationAnglePresenter->setItem(inclinationAngleItem);
 
     ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
-    m_azimuthalAngleEditor->addItemProperties(azimuthalAngleItem, QString("Azimuthal angle [deg]"), AwesomePropertyEditor::INSERT_AFTER);
+    m_azimuthalAnglePresenter->setItem(azimuthalAngleItem);
 }
 
+void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)
+{
+    DistributionDialog *dialog = new DistributionDialog(this);
+    dialog->setItem(item);
+    dialog->setNameOfEditor(name);
+    dialog->show();
+}

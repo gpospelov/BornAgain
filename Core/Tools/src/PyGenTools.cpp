@@ -112,16 +112,16 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     }
 
     simulation->runSimulation();
-    boost::scoped_ptr<const OutputData<double> > reference_data(
+    boost::scoped_ptr<const OutputData<double> > P_reference_data(
                 simulation->getIntensityData());
-    boost::scoped_ptr<const OutputData<double> > simulated_data(
+    boost::scoped_ptr<const OutputData<double> > P_simulated_data(
                 IntensityDataIOFactory::readIntensityData("output.int"));
     if (std::remove("output.int") != 0) {
         throw RuntimeErrorException("PyGenTools::testPyScript: "
             "output.int could not be removed from filesystem");
     }
     double diff = IntensityDataFunctions::getRelativeDifference(
-                *simulated_data,*reference_data);
+                *P_simulated_data,*P_reference_data);
     if (diff < 5e-10)
         return true;
     else

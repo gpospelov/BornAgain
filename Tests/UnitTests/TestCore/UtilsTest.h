@@ -143,20 +143,19 @@ TEST_F(UtilsTest, OrderedMapFind)
 
 TEST_F(UtilsTest, OrderedMapReInsert)
 {
-    boost::scoped_ptr<INamed> n1(new INamed("named1"));
-    boost::scoped_ptr<INamed> n2(new INamed("named2"));
-    boost::scoped_ptr<INamed> n3(new INamed("named3"));
-    boost::scoped_ptr<INamed> n4(new INamed("named4"));
+    boost::scoped_ptr<INamed> P_n1(new INamed("named1"));
+    boost::scoped_ptr<INamed> P_n2(new INamed("named2"));
+    boost::scoped_ptr<INamed> P_n3(new INamed("named3"));
 
     OrderedMap<INamed *, double> omap;
-    omap.insert(n1.get(), 1.0);
-    omap.insert(n2.get(), 2.0);
-    omap.insert(n3.get(), 3.0);
+    omap.insert(P_n1.get(), 1.0);
+    omap.insert(P_n2.get(), 2.0);
+    omap.insert(P_n3.get(), 3.0);
     EXPECT_EQ(omap.size(), size_t(3));
 
-    omap.insert(n2.get(), 99.0);
+    omap.insert(P_n2.get(), 99.0);
     EXPECT_EQ(omap.size(), size_t(3));
-    EXPECT_EQ(omap.value(n2.get()), 99.0);
+    EXPECT_EQ(omap.value(P_n2.get()), 99.0);
 
 
 }

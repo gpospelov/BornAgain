@@ -30,8 +30,8 @@
 OutputData<double > *IntensityDataIOFactory::readIntensityData(
         const std::string& file_name)
 {
-    boost::scoped_ptr<OutputDataReader> reader(getReader(file_name));
-    return reader->getOutputData();
+    boost::scoped_ptr<OutputDataReader> P_reader(getReader(file_name));
+    return P_reader->getOutputData();
 }
 
 
@@ -62,8 +62,8 @@ OutputDataReader* IntensityDataIOFactory::getReader(
 void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
         const std::string& file_name)
 {
-    boost::scoped_ptr<OutputDataWriter> writer(getWriter(file_name));
-    return writer->writeOutputData(data);
+    boost::scoped_ptr<OutputDataWriter> P_writer(getWriter(file_name));
+    return P_writer->writeOutputData(data);
 }
 
 OutputDataWriter* IntensityDataIOFactory::getWriter(

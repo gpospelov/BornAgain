@@ -68,8 +68,8 @@ void FitObject::setRealData(const OutputData<double >& real_data)
 
 double FitObject::calculateChiSquared()
 {
-    boost::scoped_ptr<OutputData<double> > sim_data(m_simulation->getIntensityData());
-    m_chi2_module->setRealAndSimulatedData(*m_real_data, *sim_data.get());
+    boost::scoped_ptr<OutputData<double> > P_sim_data(m_simulation->getIntensityData());
+    m_chi2_module->setRealAndSimulatedData(*m_real_data, *P_sim_data.get());
 
     return m_chi2_module->calculateChiSquared();
 }

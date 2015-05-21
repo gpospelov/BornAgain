@@ -16,8 +16,6 @@
 #include "MatrixSpecularInfoMap.h"
 #include "SpecularMagnetic.h"
 
-#include <boost/scoped_ptr.hpp>
-
 MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
     : m_layer(layer)
 {

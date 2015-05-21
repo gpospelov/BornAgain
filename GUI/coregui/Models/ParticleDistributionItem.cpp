@@ -101,11 +101,11 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     }
     double depth(0.0), abundance(0.0);
     DomainObjectBuilder builder;
-    boost::scoped_ptr<ParticleDistribution> part_distr(
+    boost::scoped_ptr<ParticleDistribution> P_part_distr(
         builder.buildParticleDistribution(*this, depth, abundance, true));
-    if (part_distr.get()) {
-        boost::scoped_ptr<ParameterPool> pool(part_distr->createDistributedParameterPool());
-        result << extractFromParameterPool(pool.get());
+    if (P_part_distr.get()) {
+        boost::scoped_ptr<ParameterPool> P_pool(P_part_distr->createDistributedParameterPool());
+        result << extractFromParameterPool(P_pool.get());
     }
 
     result.prepend(NO_SELECTION);

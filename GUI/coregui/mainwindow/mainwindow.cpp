@@ -317,10 +317,10 @@ void MainWindow::resetModels()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
+    boost::scoped_ptr<ISample> P_sample(factory.createSample("isgisaxs01"));
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, *sample);
+    guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 }
 
 void MainWindow::onAboutApplication()

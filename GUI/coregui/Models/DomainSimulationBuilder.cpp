@@ -63,11 +63,11 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleIt
     DomainObjectBuilder builder;
 
     GISASSimulation *result = new GISASSimulation;
-    boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
-    boost::scoped_ptr<Instrument> instrument(builder.buildInstrument(*instrumentItem));
+    boost::scoped_ptr<MultiLayer> P_multilayer(builder.buildMultiLayer(*sampleItem));
+    boost::scoped_ptr<Instrument> P_instrument(builder.buildInstrument(*instrumentItem));
 
-    result->setSample(*multilayer);
-    result->setInstrument(*instrument);
+    result->setSample(*P_multilayer);
+    result->setInstrument(*P_instrument);
 
     TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(),
                                                              result);

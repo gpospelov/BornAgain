@@ -25,8 +25,6 @@
 #include "SamplePreprocessor.h"
 #include "BornAgainNamespace.h"
 
-#include <boost/scoped_ptr.hpp>
-
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer)

@@ -157,10 +157,10 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         p_ff_particle = P_particle_clone->createFormFactor(factor);
     }
     else {
-        boost::scoped_ptr<IFormFactor> p_clone(
+        boost::scoped_ptr<IFormFactor> P_clone(
                     P_particle_clone->createFormFactor(factor) );
         p_ff_particle = new FormFactorDecoratorPositionFactor(
-                    *p_clone, position);
+                    *P_clone, position);
     }
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();

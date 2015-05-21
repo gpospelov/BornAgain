@@ -17,8 +17,6 @@
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 
-#include <boost/scoped_ptr.hpp>
-
 OffSpecSimulation::OffSpecSimulation()
 : m_instrument()
 , mp_alpha_i_axis(0)

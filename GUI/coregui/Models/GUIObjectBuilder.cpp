@@ -55,16 +55,16 @@ GUIObjectBuilder::GUIObjectBuilder()
 ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
                                        const GISASSimulation &simulation, const QString &sampleName)
 {
-    boost::scoped_ptr<ISample> sample;
+    boost::scoped_ptr<ISample> P_sample;
     if(simulation.getSampleBuilder()) {
-        sample.reset(simulation.getSampleBuilder()->buildSample());
+        P_sample.reset(simulation.getSampleBuilder()->buildSample());
     } else if(simulation.getSample()) {
-        sample.reset(simulation.getSample()->clone());
+        P_sample.reset(simulation.getSample()->clone());
     } else {
         throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
     }
 
-    return populateSampleModel(sampleModel, *sample, sampleName);
+    return populateSampleModel(sampleModel, *P_sample, sampleName);
 }
 
 ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, const ISample &sample, const QString &sampleName)

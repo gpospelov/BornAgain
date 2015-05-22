@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "GroupBox.h"
-
+#include "hostosinfo.h"
 #include <QMouseEvent>
 #include <QStyleOptionGroupBox>
 #include <QStylePainter>
@@ -78,8 +78,11 @@ void GroupBox::paintEvent(QPaintEvent *)
     m_xImage = this->geometry().topRight().x() - offset_of_icon_position;
     m_yImage = 0;
 
-    // draw groupbox
-    paint.drawItemPixmap(option.rect.adjusted(0, 3, 0, 0), Qt::AlignTop | Qt::AlignRight,
+    // draw groupbox 
+	int shift(1);
+	if(Utils::HostOsInfo::isLinuxHost()) shift = 3;
+
+    paint.drawItemPixmap(option.rect.adjusted(0, shift, 0, 0), Qt::AlignTop | Qt::AlignRight,
                          QPixmap(":/images/magnifier.png"));
 }
 

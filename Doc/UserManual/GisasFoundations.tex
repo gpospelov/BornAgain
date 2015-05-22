@@ -20,24 +20,12 @@
 \chaptermark{GISAS and the DWBA}
 
 In this chapter,
-we present the theory
-of grazing-incidence small-angle scattering (GISAS)
-that underlies the simulation algorithm implemented in \BornAgain.
-We specifically consider the propagation and scattering
-of neutrons with no polarization-dependent interactions,
-so that we can base our exposition on a scalar wave equation.
-The notationally more involved
-vectorial theory needed for X-rays and for polarized neutrons
-is adjourned to the next chapter.
+introduce grazing-incidence small-angle scattering
+and its standard theoretical treatment by means of the
+distorted wave Born approximation (Sect.~\ref{Sdwba}).
+We also discuss the limits of coherent superposition (Sect.~\ref{Scoherlen}),
+and the treatment of absorption (Sect.~\ref{Sabsorption}).
 
-Our exposition is largely self-contained,
-except for the initial passage from the microscopic
-to the macroscopic Schrödinger equation,
-which we outline only briefly.
-This manual is decidedly not the place for renarrating
-the historic development of GISAS theory.
-For ample references to the original literature,
-we refer to the excellent review \cite{ReLL09}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scattering under grazing incidence}\label{Sdwba}
@@ -88,6 +76,7 @@ we designate the \E{sample plane} ($xy$) as \E{horizontal},
 and the \E{sample normal} ($z$) as \E{vertical},
 \index{Sample normal}%
 \index{Vertical direction}%
+\index{Conventions|see {Horizontal and Vertical}}%
 even if this does not correspond to the actual experimental geometry.\footnote
 {In many reflectometers,
  the scattering plane and the sample normal are horizontal in laboratory space.}
@@ -348,10 +337,11 @@ $A_\text{beam}$ is equal to or a subset of $A_\text{sample}$
 collimation slits should be narrowed
 lest useless rays cause avoidable noise).
 Anyhow, the horizontal integration domain
-is limited to the \E{illuminated sample area}
+is limited to the \E{illuminated sample area} (``beam footprint'')
 $A_{xy}\coloneqq A_\text{sample}\cap A_\text{beam}$.}
 \index{Sample area}%
-\index{Illumination}%
+\index{Illumination!beam footprint on sample}%
+\index{Beam footprint}%
 Another limitation comes from the finite \E{coherence length}
 of the instrumental setup,
 which usually is much shorter than the sample width and length

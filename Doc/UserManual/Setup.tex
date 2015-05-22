@@ -87,7 +87,7 @@
 % Add rubber to white space around chapter header
 \makeatletter
 % from report.cls
-\def\@makechapterhead#1{%
+\def\@makechapterhead#1{% ALMOST RAW, OVERWRITTEN BELOW
   \vspace*{50\p@ plus 10\p@ minus 10\p@}%
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
@@ -107,6 +107,27 @@
     \Huge \bfseries  #1\par\nobreak
     \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
+
+\def\@makechapterhead#1{%
+  \vspace*{50\p@ plus 10\p@ minus 10\p@}%
+  {\parindent \z@ \normalfont
+    \raggedleft
+  \Large\bfseries \@chapapp\space \thechapter
+    \par\nobreak
+    \vskip 20\p@ plus 4\p@ minus 4\p@
+    \interlinepenalty\@M
+    \hrule
+    \vskip 10\p@ plus 2\p@ minus 2\p@
+    \interlinepenalty\@M
+    \raggedright
+  \huge \bfseries #1\par\nobreak
+    \interlinepenalty\@M
+    \vskip 10\p@ plus 2\p@ minus 2\p@
+    \hrule
+    \interlinepenalty\@M
+    \vskip 40\p@ plus 8\p@ minus 8\p@
+  }}
+
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1.5ex \@minus -.5ex}%
                                    {2.3ex \@plus .8ex \@minus .5ex}%

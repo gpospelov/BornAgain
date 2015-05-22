@@ -1672,7 +1672,7 @@ BoxBackground
 } def
 
 /fuh {
-    sin alp cos div /talp x def
+    dup sin x cos div /talp x def
     /phi x def
     /dcy phi sin phi cos div def
     /dcz talp phi cos div def
@@ -1737,12 +1737,14 @@ siemensred
 
 black
 18 setown
- -15  0 fuh wxy 0   {()(a)g()(f)sb( =   0)(\260)g()} bg
- -15 10 fuh wxy -2  {()(a)g()(f)sb( = 10)(\260)g()} bg
- -15 20 fuh wxy -4.4{()(a)g()(f)sb( = 20)(\260)g()} bg
+-14  0 fuh wxy 0   {()(a)g()(f)sb( =   0)(\260)g()} bg
+-14 10 fuh wxy -2.6{()(a)g()(f)sb( = 10)(\260)g()} bg
+-14 20 fuh wxy -5.4{()(a)g()(f)sb( = 20)(\260)g()} bg
  0 fuy .20 wxy 90   {()(f)g()(f)sb( =   0)(\260)g()} bg
 10 fuy .20 wxy 90   {()(f)g()(f)sb( = 10)(\260)g()} bg
 20 fuy .20 wxy 90   {()(f)g()(f)sb( = 20)(\260)g()} bg
 
 
+black
+np 0 0 wxy .3 0 360 arc cp fill
 EndFrame

@@ -19,6 +19,8 @@
 #include "ICompositeSample.h"
 #include "IParticle.h"
 
+#include <boost/scoped_ptr.hpp>
+
 //! @class ParticleInfo
 //! @ingroup samples
 //! @brief Holds additional information about particle.
@@ -93,7 +95,7 @@ protected:
 
     virtual void print(std::ostream &ostr) const;
 
-    std::auto_ptr<IParticle> mP_particle;
+    boost::scoped_ptr<IParticle> mP_particle;
     double m_x;
     double m_y;
     double m_depth;

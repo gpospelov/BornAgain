@@ -39,7 +39,7 @@ AwesomePropertyPresenter::AwesomePropertyPresenter(const QString &title, QWidget
     mainLayout->addStretch();
 
     setLayout(mainLayout);
-    std::cout << m_groupBox->title().toStdString() << std::endl;
+//    std::cout << m_groupBox->title().toStdString() << std::endl;
 }
 
 void AwesomePropertyPresenter::setItem(ParameterizedItem *item)

@@ -19,9 +19,7 @@
 %  Page layout
 %-------------------------------------------------------------------------------
 
-\def\myparindent{5ex}
-\setlength{\parindent}{\myparindent} % workaround, for colorboxes
-
+% Horizontal setup
 \textwidth=410pt
 \hoffset=210mm % width of A4
 \advance\hoffset by -1\textwidth
@@ -32,11 +30,16 @@
 \oddsidemargin=5pt
 \advance\evensidemargin by -1\oddsidemargin
 
+\def\myparindent{5ex}
+\setlength{\parindent}{\myparindent} % workaround, for colorboxes
+
+% Vertical setup
 \setlength{\headheight}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\textheight}{650pt} % default=592pt
+\setlength{\headsep}{10pt}
+\setlength{\textheight}{630pt} % default=592pt
 \setlength{\footskip}{45pt}
 \setlength{\marginparwidth}{7em}
+\renewcommand{\baselinestretch}{1.02}
 
 \renewcommand{\arraystretch}{1.3}
 

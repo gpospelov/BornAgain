@@ -382,13 +382,24 @@ where we used Dirac notation for the transition matrix element
   \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
 \end{equation}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
-Making the standard assumption
+In order to reconcile conflicting sign conventions,
+we will in the following rather use its complex conjugate
+$\bra \psi_\ti|\chi|\psi_\tf\ket = \bra \psi_\tf|\chi|\psi_\ti\ket^*$.
+Under the standard assumption
 that the incident radiation is a plane wave
 \begin{equation}\label{EPsi0Plane}
   \psi_\ti(\r)=\e^{i \k_\ti \r}
 \end{equation}
 with $k_\ti=K$,
-and introducing the \E{scattering vector}\footnote
+the matrix element takes the form
+\begin{equation}\label{Echiq}
+  \bra \psi_\ti|\chi|\psi_\tf\ket
+  = \int\!\d^3r\, {\rm e}^{-i\k_\ti\r}\chi(\r){\rm e}^{i\k_\tf\r}
+  = \int\!\d^3r\, {\rm e}^{i\q\r}\chi(\r)
+  \eqqcolon \chi(\q),
+\end{equation}
+\nomenclature[1χ030 2q040]{$\chi(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$}%
+where we have introduced the \E{scattering vector}\footnote
 {With this choice of sign,
 \index{Sign convention!scattering vector}%
 $\hbar\q$ is the momentum 
@@ -405,35 +416,13 @@ with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~(\ref{Eq}).}
 \index{Scattering vector}%
 \begin{equation}\label{Eq}
-  \q\coloneqq \k_\tf-\k_\ti,
+  \q\coloneqq \k_\tf-\k_\ti
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
-we can rewrite (\ref{EsandwichC}) as
-\begin{equation}\label{EBornBraChiKet}
-  \bra \psi_\tf|\chi|\psi_\ti\ket
-  = \int\!\d^3r\, \e^{-i\q\,\r}\chi(\r),
-\end{equation}
-which shows that neutron scattering,
-in first-order Born approximation,
-measures the Fourier transform
-of the optical potential.
+and the notation $\chi(\q)$ for 
+the Fourier transform of the perturbative potential,
 \index{Optical potential!Fourier transform}%
-In order to save some minus signs later,
-we take the complex conjugate of (\ref{EBornBraChiKet}) 
-to define the abbreviation\footnote
-{Physical results only depend on the squared modulus $|\chi(\q)|^2$;
-insofar the choice of sign is inconsequential.
-\index{Sign convention!Fourier transform $\chi(\q)$}%
-The choice~(\ref{EBornBraChiKet}) brings us back to conformity 
-with the standard notation in the GISAXS literature,
-like Eq.~(90) in \cite{ReLL09},
-from which we deviated in (\ref{Estationarywave})
-in order to preserve the standard form
-of the Schrödinger equation~(\ref{ESchrodi}).}
-\begin{equation}\label{EchiQdef}
-   \chi(\q) \coloneqq \int\!\d^3r\, \e^{i\q\,\r}\chi(\r).
-\end{equation}
-\nomenclature[1χ030 2q040]{$\chi(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$}%
+which is what small-angle neutron scattering basically measures.
 
 \index{Far-field approximation|)}%
 
@@ -463,8 +452,8 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \end{equation}
 \nomenclature[1ω120]{$\Omega$}{Solid angle}%
 \nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
-The geometric factors that needed to
-convert $\d\sigma/\d\Omega$ into detector counts shall be discussed
+The geometric factors that are needed to
+convert $\d\sigma/\d\Omega$ into detector counts will be discussed
 below in Sect.~\ref{SdetImg}.
 
 With (\ref{EPsi0Plane}), the incident flux is
@@ -475,14 +464,14 @@ With (\ref{EsandwichC}), the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
+    {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
 \end{equation}
 From (\ref{Exsectiondef}) we obtain 
 the generic differential cross section of elastic scattering in first order Born approximation,
 \Emph{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
-  =  {\left|\bra\psi_\tf|\chi|\psi_\ti\ket\right|}^2.
+  =  {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
 \end{equation}\vspace*{-5pt}
 }
 As we shall see below,
@@ -490,12 +479,9 @@ it holds not only for plane waves governed
 by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
 but also for distorted waves.
 
-In the plane-wave case considered here,
-with the result (\ref{EBornBraChiKet}) and the abbreviation (\ref{EchiQdef}),
+In the plane-wave case (\ref{Echiq}) considered here,
 the differential cross section is just the squared modulus
-of the Fourier transform 
-\index{Scattering length density}%
-of the scattering-length density.
+of the Fourier transform of the perturbative potential,
 \begin{equation}\label{Ecross1}
   \frac{\d\sigma}{\d\Omega}
   = {\left| \chi(\q) \right|}^2.

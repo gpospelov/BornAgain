@@ -120,13 +120,13 @@ which is Snell's refraction law.
 \index{Snell's law}
 
 Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
-we can at once write down the DWBA transition matrix~(\ref{Edwba})
+we can at once write down the DWBA transition matrix element~(\ref{Edwba})
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
-  \bra \psi_\tf|\chi|\psi_\ti\ket
-  = \sum_{\il} \sum_{\pm_\tf} \sum_{\pm_\ti}
-    A^{\pm *}_{\tf \il} A^\pm_{\ti \il} 
-     \chi_\il(\k^\pm_{\ti \il}-\k^\pm_{\tf \il}),
+  \bra \psi_\ti|\chi|\psi_\tf\ket
+  = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
+    A^{\pm *}_{\ti \il} A^\pm_{\tf \il} 
+     \chi_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
 \end{equation}
 where
 \begin{equation}\label{Echij}
@@ -143,16 +143,16 @@ we now number the four DWBA terms from 1 to 4,
 and define the corresponding wavenumbers and amplitude factors and as
 \begin{equation}
   \begin{array}{l@{\hspace{2em}}l}
-    \q^1 \coloneqq  \k^-_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\tf A^-_\ti, \\[.6ex]
-    \q^2 \coloneqq  \k^-_\tf - \k^+_\ti,& C^2 \coloneqq  A^{-*}_\tf A^+_\ti, \\[.6ex]
-    \q^3 \coloneqq  \k^+_\tf - \k^-_\ti,& C^3 \coloneqq  A^{+*}_\tf A^-_\ti, \\[.6ex]
-    \q^4 \coloneqq  \k^+_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\tf A^+_\ti.
+    \q^1 \coloneqq  \k^-_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\ti A^-_\tf, \\[.6ex]
+    \q^2 \coloneqq  \k^-_\tf - \k^+_\ti,& C^2 \coloneqq  A^{-*}_\ti A^+_\tf, \\[.6ex]
+    \q^3 \coloneqq  \k^+_\tf - \k^-_\ti,& C^3 \coloneqq  A^{+*}_\ti A^-_\tf, \\[.6ex]
+    \q^4 \coloneqq  \k^+_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\ti A^+_\tf.
   \end{array}
 \end{equation}
 Accordingly, we can write (\ref{Edwba_ml0}) as
 \Emph{
 \begin{equation}\label{Edwba_ml}
-  \bra \psi_\tf|\chi|\psi_\ti\ket
+  \bra \psi_\ti|\chi|\psi_\tf\ket
   = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}

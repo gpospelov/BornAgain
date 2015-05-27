@@ -89,6 +89,12 @@
     \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
 
+\def\otherchapter#1{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{#1}
+  \markboth{#1}{#1}}
+
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1.5ex \@minus -.5ex}%
                                    {2.3ex \@plus .8ex \@minus .5ex}%
@@ -112,19 +118,6 @@
 %\usepackage[toc,page]{appendix}
 \usepackage{titlesec}
 
-\newcommand{\mysection}[2]{%
-  \sectionmark{#1}%
-  \section{#2}%
-  \sectionmark{#1}%
-}
-
-\newcommand{\mychapter}[2]{
-  \setcounter{chapter}{#1}
-  \setcounter{section}{0}
-  \chapter*{#2}
-  \addcontentsline{toc}{chapter}{#2}
-}
-
 %-------------------------------------------------------------------------------
 %  Index, List of Symbols
 %-------------------------------------------------------------------------------
@@ -136,14 +129,7 @@
 \makenomenclature
 \renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
-\def\pagedeclaration#1{, \hyperpage{#1}}%
   
-\def\otherchapter#1{
-  \clearpage
-  \phantomsection
-  \addcontentsline{toc}{chapter}{#1}
-  \markboth{#1}{#1}}
-
 %-------------------------------------------------------------------------------
 %  Improve LaTeX basics
 %-------------------------------------------------------------------------------
@@ -244,18 +230,18 @@
 
 \def\MissingSection{\begin{boxWork}\ldots\ to be written \ldots\end{boxWork}}
 
-% OLD STYLE:
-  
-\newcommand{\BareRemark}[1]%
-{\noindent\smallpencil\colorbox{blue!10}%
-{\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}}
-
-\newcommand{\MakeRemark}[2]{\BareRemark{\underline{#1} #2 }}
-
-\newcommand{\ImportantPoint}[2]
-{\noindent
-  {\huge\danger}\colorbox{magenta!40}{\parbox{\dimexpr\linewidth-8\fboxsep}
- {\underline{#1} #2}}}
+% % OLD STYLE:
+%   
+% \newcommand{\BareRemark}[1]%
+% {\noindent\smallpencil\colorbox{blue!10}%
+% {\parbox{\dimexpr\linewidth-8\fboxsep}{#1}}}
+% 
+% \newcommand{\MakeRemark}[2]{\BareRemark{\underline{#1} #2 }}
+% 
+% \newcommand{\ImportantPoint}[2]
+% {\noindent
+%   {\huge\danger}\colorbox{magenta!40}{\parbox{\dimexpr\linewidth-8\fboxsep}
+%  {\underline{#1} #2}}}
 
 
 %-------------------------------------------------------------------------------

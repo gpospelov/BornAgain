@@ -34,6 +34,14 @@ of a mesoscopic size (nanometer to micrometer).
 In the following, all such inhomogeneities will be described as
 \E{particles} that are embedded in a material layer.
 
+\Work
+{Documentation on inter-particle correlations is under preparation.
+\BornAgain\ currently offers the same choice of models as \IsGISAXS.
+Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
+
+Implemented particle form factors are described in Appendix~\ref{SFF}.
+
+\iffalse
 Our derivation of the DWBA (Sect.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
@@ -124,11 +132,11 @@ with the renormalized particle potential
 which vanishes unless $\r$ lies within a particle.
 
 Writing the potential as~(\ref{Echi0p}) is a convenient starting point
-for computing the matrix element~$\bra\psi_\tf|\chi|\psi_\ti\ket$.
+for computing the matrix element~$\bra\psi_\ti|\chi|\psi_\tf\ket$.
 We now definitively specialize to the case of discrete layers~$\il$
 with constant~$\nz(z)=\nzj$.
 Hence the $\psi_{w}$ consist of plane waves,
-and $\bra\psi_\tf|\chi|\psi_\ti\ket$ is given by (\ref{Edwba_ml}).
+and $\bra\psi_\ti|\chi|\psi_\tf\ket$ is given by (\ref{Edwba_ml}).
 We only need to compute the restricted Fourier transform
 $\chi_\il(\q)$ introduced in (\ref{Echij}).
 According to (\ref{Echi0p}),
@@ -400,8 +408,8 @@ of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
 \begin{equation}
   F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
 \end{equation}
-For hard-shell particles the shape function $S(\r)$
-only takes the values 0 and~1
+For hard-shell particles %the shape function
+$S(\r)$ only takes the values 0 and~1
 so that the form factor becomes
 the \textit{shape transform}
 \begin{equation}\label{EFFhardshell}
@@ -486,6 +494,7 @@ the $z$-axis:\\
 
 
 \index{Form factor|)}
+\fi
 
 \iffalse
 %===============================================================================

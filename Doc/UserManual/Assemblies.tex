@@ -162,20 +162,22 @@ The potential of all particles can then be written as a sum
 \end{equation}
 We further introduce the \E{form factor}
 \index{Form factor}%
-of the particle,
-\begin{equation}
-  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i),
+of a particle,
+made of a material
+with average renormalized perturbation potential~$\tilde\chi$,
+\begin{equation}\label{EFFdef}
+  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i)/\tilde\chi,
 \end{equation}
 and obtain
 \begin{equation}
-  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i).
+  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} \tilde\chi F(\q,\v{T}_i).
 \end{equation}
 With (\ref{Exsection}) and (\ref{Edwba_ml}), 
 the differential cross section due to scattering from embedded particles is
 given by double sums over layers, DWBA terms, and particles:
 \begin{equation}\label{Eass6}
   \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij}
+  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij} \tilde\chi^2
     \e^{-i\q^u \R_i +i \q^v \R_j} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
 \end{equation}
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
@@ -188,7 +190,7 @@ We then collect several terms into the \E{DWBA form factor}\footnote
 which does not include a depth factor.}
 \begin{equation}
   \FD_l(\k_\ti,\k_\tf;\v{T}_i)
-  \coloneqq  \sum_u C^u_l \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
+  \coloneqq  \sum_u C^u_l\tilde\chi \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
 \end{equation}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
@@ -393,8 +395,8 @@ it is only available for paracrystals
 %===============================================================================
 
 \index{Shape transform|(}
-The form factor of a particle is the Fourier transform
-of its shape function,
+The form factor (\ref{EFFdef}) of a particle is the Fourier transform
+of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
 \begin{equation}
   F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
 \end{equation}
@@ -419,6 +421,7 @@ where $A$ is the cross section.
 To avoid an extra distinction of cases,
 \BornAgain\ implements ripples as particles with a \E{finite} length~$L$,
 which users may keep fixed at a very large value.
+% TODO: document alternative implementation of infinite ripples
 
 \BornAgain\ comes with a comprehensive collection of hard-coded 
 shape transforms for standard particle geometries like
@@ -434,45 +437,31 @@ Each geometry is is documented in standardized form in Appendix~\ref{SFF}.
 %===============================================================================
 \index{Core-shell particles}
 
-To generate a core-shell particle, the combination is performed using the following command:\\
-\Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
-where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the inner shape with respect to the outer one; it is defined with respect to the center of the base of the particular form factor. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
+For particles that are made of different materials,
+the definition (\ref{EFFdef}) of the form factor~$F(\q)$
+must be generalized in obvious ways,
+not worth explicit documentation.
+In practice, the most important case is the core-shell particle.
+This is supported in \BornAgain\ through the function
+\begin{lstlisting}
+  ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
+\end{lstlisting}
+where \Code{shell\_particle} is assumed to be inscribed
+in \Code{core\_particle},
+and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position} specifies the position of the
+center of the base of the core particle relative
+to center of the base of the shell particle.
 
-Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. 
-
-\begin{figure}[ht]
-\hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxz.pdf}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/CoreShellParallPyrxy.pdf}}
-\hfill
-\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the positions of the centers of the bases. }
-\label{fig:coreshell}
-\end{figure}
-
-\clearpage
-
-\begin{lstlisting}[language=python,
-  style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
-    to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
+Here a usage example:
+\begin{lstlisting}
     outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
     inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
     shell_particle = Particle(m_shell, outer_ff)
     core_particle = Particle(m_core, inner_ff)
     core_position = kvector_t(1.5, 0.0, 0.0)
-
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
 \end{lstlisting}
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[angle=-90,width=0.6\textwidth]{fig/gisasmap/CoreShellParallPyr.pdf}
-\end{center}
-\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the center of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
-\label{fig:FFCoreShellBA}
-\end{figure}
-
-\clearpage
 %===============================================================================
 \subsection{Rotation of particles}
 %===============================================================================

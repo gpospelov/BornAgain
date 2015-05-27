@@ -20,6 +20,8 @@
 \renewcommand{\@thesubfigure}{\relax}
 \makeatother
 
+% \lstset{language=python,style=eclipseboxed,numbers=none,nolol}
+
 \def\ffsection#1{\ifodd\value{page}\else
 \clearpage\textit{Page intentionally left blank}\fi
 \clearpage
@@ -223,7 +225,7 @@ than in the preceding one-quadrant representation.}
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorAnisoPyramid(length, width, height, alpha)
 \end{lstlisting}
 with the parameters
@@ -319,7 +321,7 @@ which is a true pyramid with an off-center apex \cite{Bab13}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorBox(length, width, height)
 \end{lstlisting}
 with the parameters
@@ -380,7 +382,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorCone(radius, height, alpha)
 \end{lstlisting}
 with the parameters
@@ -454,7 +456,7 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 
 \FloatBarrier
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorCone6(radius,height, alpha)
 \end{lstlisting}
 with the parameters
@@ -535,7 +537,7 @@ and opposite orientations.}
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorCuboctahedron(length, height, height_ratio, alpha)
 \end{lstlisting}
 with the parameters
@@ -606,7 +608,7 @@ except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorCylinder(radius, height)
 \end{lstlisting}
 with the parameters
@@ -669,7 +671,7 @@ Agrees with \E{Cylinder} form factor of \IsGISAXS\
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorEllipsoidalCylinder(radius_a, radius_b, height)
 \end{lstlisting}
 with the parameters
@@ -736,7 +738,7 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorFullSphere(radius)
 \end{lstlisting}
 with the parameter
@@ -793,7 +795,7 @@ agrees with the \E{Full sphere} of \IsGISAXS
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorHemiEllipsoid(radius_a, radius_b, height)
 \end{lstlisting}
 with the parameters
@@ -863,7 +865,7 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorFullSpheroid(radius,height)
 \end{lstlisting}
 with the parameters
@@ -932,7 +934,7 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorPrism3(length, height)
 \end{lstlisting}
 with the parameters
@@ -997,7 +999,7 @@ In \FitGISAXS\ just called \E{Prism} \cite{Bab13}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorPrism6(radius, height)
 \end{lstlisting}
 with the parameters
@@ -1063,7 +1065,7 @@ and lacks a factor $H$ in $F(\q)$.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorPyramid(length, height, alpha)
 \end{lstlisting}
 with the parameters
@@ -1158,7 +1160,7 @@ and with a more compact form of $F(\q)$.
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorRipple1(length, width, height)
 \end{lstlisting}
 with the parameters
@@ -1217,7 +1219,7 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorRipple2(length, width, height, asymmetry)
 \end{lstlisting}
 with the parameters
@@ -1289,7 +1291,7 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorTetrahedron(length, height, alpha)
 \end{lstlisting}
 with the parameters
@@ -1373,7 +1375,7 @@ The truncated part of each vertex is a trirectangular tetrahedron.}
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorTruncatedCube(length, removed_length)
 \end{lstlisting}
 with the parameters
@@ -1466,7 +1468,7 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorTruncatedSphere(radius, height)
 \end{lstlisting}
 with the parameters
@@ -1536,7 +1538,7 @@ Agrees with the \IsGISAXS\ form factor
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
   FormFactorTruncatedSpheroid(radius, height, height_flattening)
 \end{lstlisting}
 with the parameters

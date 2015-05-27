@@ -2,7 +2,6 @@
 
 Global cleanup:
 
-    - Undefined references ***
     - Review index
 
 2.3 Detector images
@@ -31,10 +30,6 @@ Global cleanup:
 6.2 Decoupling approximations
 
     - Split in T-T / T-R makes no sense ***
-
-6.3 Form factors
-
-    - Connect new / old parts ***
 
 B   Form factor library
 

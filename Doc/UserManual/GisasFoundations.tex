@@ -317,14 +317,11 @@ are given by three-dimensional integrals~(\ref{Etrama}),
   \bra \psi_\ti^\pm|\chi|\psi_\tf^\pm\ket
   \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\ti(\r)\chi(\r)\psi^\pm_\tf(\r).
 \end{equation}
-The integrand factor $\chi$ is zero for
-the top vacuum (or air) layer as well as for the bottom substrate,
-which is assumed to have a horizontally constant refractive index.
-Hence the $z$ extension of the integral is effectively limited
-to a finite interval.
-
-On the other hand, the horizontal integration domain is infinite.
-This is of course an idealization.
+The integration domain is effectively limited to a finite $z$ interval,
+where $\chi(\r)$ is horizontally modulated.
+On the other hand, the horizontal integration domain is infinite
+within our formalism,
+which is of course an idealization.
 Obviously, physical integration limits are imposed by the finite
 \E{illuminated sample area}.\footnote
 {For a given instrument setup,
@@ -395,14 +392,14 @@ A plane wave obviously is an idealized concept,
 since it has infinite lateral extension.
 The \E{transverse coherence length} indicates the scale
 beyond which this approximation becomes invalid.
-At larger scales, the wave fonts appear randomly distorted.
+At larger scales, the wave fronts appear randomly distorted.
 Physical causes of these distortions include
 reflections in the neutron guide,
 diffraction by guide windows and other slits,
 and diffraction by imperfect monochromator crystals.
 Of course the distorted wave still admits a Fourier decomposition
 into plane waves with slightly different wavevectors.
-In practice, it is impossibly to distinguish this spread of wavevectors
+In practice, it is impossible to distinguish this spread of wavevectors
 from the incoherent spread described in the previous paragraph.
 The instrumental resolution function therefore
 accounts for both causes of wavevector distortion.
@@ -422,7 +419,7 @@ The coherence length, however defined,
 indicates where a certain, somewhat arbitrary degree
 of decoherence is reached.
 Under these reservations
-one define a \E{coherence spot}
+one defines a \E{coherence spot}
 in the cross section of an approximately plane wave
 as an area where the coherence is above a certain threshold.
 Unless the wave has been prepared in a highly anisotropic guide and slit system,
@@ -446,6 +443,8 @@ in $y$ or $z$ direction.\footnote
   the most generic solution is a script with an outer loop
   that averages over several coherent computations with
   appropriately distributed parameters.}
+
+% TODO: more about implementation !
 
 \index{Coherence length|)}%
 

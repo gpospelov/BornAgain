@@ -176,7 +176,7 @@ given by double sums over layers, DWBA terms, and particles:
 \begin{equation}\label{Eass6}
   \frac{\partial\sigma}{\partial\Omega}
   = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij}
-    \e^{i(\q^u \R_i - \q^v \R_j)} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
+    \e^{-i\q^u \R_i +i \q^v \R_j} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
 \end{equation}
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
 we absorb the vertical particle coordinate~$\R_{i\perp}$
@@ -195,7 +195,7 @@ $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
 Hence (\ref{Eass6}) can be written as
 \begin{equation}\label{Eass4}
   \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{lm} \sum_{ij} \e^{i(\q_{l\plll}\R_{i\plll}-\q_{m\plll}\R_{j\plll})}
+  = \sum_{lm} \sum_{ij} \e^{-i\q_{l\plll}\R_{i\plll}+i\q_{m\plll}\R_{j\plll}}
     \FD^*_l(\v{T}_i) \FD_m(\v{T}_j).
 \end{equation}
 
@@ -214,7 +214,7 @@ over contributions from different layers,\footnote
 \Emph{
 \begin{equation}\label{Eass3}
   \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = \sum_{ij} \e^{i\q_{l\plll}(\R_{i\plll}-\R_{j\plll})}
+  = \sum_{ij} \e^{i\q_{l\plll}(-\R_{i\plll}+\R_{j\plll})}
     \FD^*_l(\v{T}_i) \FD_l(\v{T}_j).
 \end{equation}
 \vspace*{-5pt}}

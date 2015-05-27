@@ -1,0 +1,41 @@
+*** = release critical
+
+Global cleanup:
+
+    - Undefined references ***
+    - Review index
+
+2.3 Detector images
+
+    - Fig 2.1 exp geometry: redraw
+    - modulation in q_x: plot and discuss
+    - parametrization of y,z in BA: discuss, show example ***
+    - plot q grid on top of detector image
+
+    - symmetry: new subsection
+
+3.2 Coherence length [retain from release]
+
+    - revise
+    - BA implementation: explain; example?
+
+5.1 Multilayer
+
+    - How is it implemented?
+    - Relation to Abeles, Parrat, Deak?
+  
+6.1 Embedded particles
+
+    - What about mixed terms? **
+
+6.2 Decoupling approximations
+
+    - Split in T-T / T-R makes no sense ***
+
+6.3 Form factors
+
+    - Connect new / old parts ***
+
+B   Form factor library
+
+    - Decide on new names ***

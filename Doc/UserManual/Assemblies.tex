@@ -458,7 +458,7 @@ Here a usage example:
     inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
     shell_particle = Particle(m_shell, outer_ff)
     core_particle = Particle(m_core, inner_ff)
-    core_position = kvector_t(1.5, 0.0, 0.0)
+    core_position = kvector_t(1.5*nanometer, 0.0, 0.0)
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
 \end{lstlisting}
 

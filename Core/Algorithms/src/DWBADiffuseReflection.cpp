@@ -87,9 +87,8 @@ void DWBADiffuseReflection::diffuse_crosscorr()
 
 complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 {
-    complex_t n1 = m_sample->getLayer(ilayer)->getRefractiveIndex();
-    complex_t n2 = m_sample->getLayer(ilayer+1)->getRefractiveIndex();
-    return n1*n1-n2*n2;
+    return m_sample->getLayer(ilayer  )->getRefractiveIndex2() -
+           m_sample->getLayer(ilayer+1)->getRefractiveIndex2();
 }
 
 complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)

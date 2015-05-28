@@ -30,8 +30,8 @@ BasicAxisItem::BasicAxisItem(const QString &type, ParameterizedItem *parent)
 void BasicAxisItem::register_basic_properties()
 {
     registerProperty(P_NBINS, 100, PropertyAttribute(AttLimits::limited(1, 1024)));
-    registerProperty(P_MIN, 0.0, PropertyAttribute(AttLimits::limitless()));
-    registerProperty(P_MAX, -1.0, PropertyAttribute(AttLimits::limitless()));
+    registerProperty(P_MIN, 0.0, PropertyAttribute(AttLimits::limitless(), 3));
+    registerProperty(P_MAX, -1.0, PropertyAttribute(AttLimits::limitless(), 3));
     registerProperty(P_TITLE, QString());
 }
 

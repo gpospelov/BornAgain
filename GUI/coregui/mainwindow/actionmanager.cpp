@@ -112,7 +112,7 @@ void ActionManager::createMenus()
     m_fileMenu->addAction(m_openAction);
     connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowRecentProjects()));
 
-    m_recentProjectsMenu = m_fileMenu->addMenu("&Recent Projects");
+    m_recentProjectsMenu = m_fileMenu->addMenu("Recent Projects");
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_saveAction);

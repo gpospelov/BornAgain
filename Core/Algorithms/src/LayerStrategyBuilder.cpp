@@ -137,9 +137,7 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
 
 double LayerStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
-    kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return Units::PI2/ki_real.mag();
+    return mp_simulation->getWavelength();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
@@ -159,10 +157,10 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         p_ff_particle = P_particle_clone->createFormFactor(factor);
     }
     else {
-        boost::scoped_ptr<IFormFactor> p_clone(
+        boost::scoped_ptr<IFormFactor> P_clone(
                     P_particle_clone->createFormFactor(factor) );
         p_ff_particle = new FormFactorDecoratorPositionFactor(
-                    *p_clone, position);
+                    *P_clone, position);
     }
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();

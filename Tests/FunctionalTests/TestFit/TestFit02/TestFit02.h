@@ -7,7 +7,7 @@
 #include <vector>
 
 class ISample;
-class Simulation;
+class GISASSimulation;
 
 namespace FunctionalTests {
 
@@ -27,8 +27,8 @@ public:
 
 private:
 
-    Simulation *createSimulation();
-    OutputData<double> *createRealData(Simulation *simulation);
+    GISASSimulation *createSimulation();
+    OutputData<double> *createRealData(GISASSimulation *simulation);
 
     std::string m_test_name;
     std::string m_test_description;

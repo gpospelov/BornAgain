@@ -23,17 +23,20 @@
 #include "BeamItem.h"
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 
 
 //! Creates domain simulation from sample and instrument models for given names
 //! of MultiLayer and Instrument
-Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
+GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
                                                    const QString &sample_name,
                                                    InstrumentModel *instrumentModel,
                                                    const QString &instrument_name)
 {
+    Q_ASSERT(sampleModel);
+    Q_ASSERT(instrumentModel);
     MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem(sample_name);
     InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem(instrument_name);
     return getSimulation(sampleItem, instrumentItem);
@@ -41,24 +44,30 @@ Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
 
 //! Creates domain simulation from sample and instrument models. First sample and first instrument
 //! in the model will be used, if there are more than one.
-Simulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
+GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
                                                    InstrumentModel *instrumentModel)
 {
     return getSimulation(sampleModel, QString(), instrumentModel, QString());
 }
 
 //! Creates domain simulation from sample and instrument items.
-Simulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
+GISASSimulation *DomainSimulationBuilder::getSimulation(MultiLayerItem *sampleItem,
                                                    InstrumentItem *instrumentItem)
 {
+    if(!sampleItem || !instrumentItem) {
+        QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
+                        " or InstrumentItem is not defined.");
+        throw GUIHelpers::Error(message);
+    }
+
     DomainObjectBuilder builder;
 
-    Simulation *result = new Simulation;
-    boost::scoped_ptr<MultiLayer> multilayer(builder.buildMultiLayer(*sampleItem));
-    boost::scoped_ptr<Instrument> instrument(builder.buildInstrument(*instrumentItem));
+    GISASSimulation *result = new GISASSimulation;
+    boost::scoped_ptr<MultiLayer> P_multilayer(builder.buildMultiLayer(*sampleItem));
+    boost::scoped_ptr<Instrument> P_instrument(builder.buildInstrument(*instrumentItem));
 
-    result->setSample(*multilayer);
-    result->setInstrument(*instrument);
+    result->setSample(*P_multilayer);
+    result->setInstrument(*P_instrument);
 
     TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(),
                                                              result);

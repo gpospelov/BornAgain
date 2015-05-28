@@ -27,7 +27,8 @@ class QPushButton;
 class QAction;
 class JobListToolBar;
 class QItemSelectionModel;
-
+class QSignalMapper;
+class JobItem;
 
 //! Widget to select JobQueueItem in a list
 //! Top left corner of JobQueueView
@@ -55,6 +56,7 @@ private slots:
     void save();
     void runJob();
     void removeJob();
+    void equalizeSelectedToJob(int selected_id);
 
 private:
     void setupContextMenuActions();
@@ -67,6 +69,7 @@ private:
     QAction *m_runJobAction;
     QAction *m_removeJobAction;
     JobListToolBar *m_toolBar;
+    QSignalMapper *m_signalMapper;
 };
 
 

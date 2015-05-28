@@ -425,7 +425,7 @@ void TestIsGISAXS12::run_test_minimizer()
 void TestIsGISAXS12::initializeSimulation()
 {
     delete m_simulation;
-    m_simulation = new Simulation(mp_options);
+    m_simulation = new GISASSimulation(mp_options);
     m_simulation->setSampleBuilder(m_sample_builder);
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);

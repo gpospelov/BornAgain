@@ -51,9 +51,9 @@ int FunctionalTest::analyseResults()
 {
     assert(m_simulation);
     assert(m_reference);
-    boost::scoped_ptr<OutputData<double> > data(m_simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_data(m_simulation->getIntensityData());
 
-    double diff = IntensityDataFunctions::getRelativeDifference(*data,*m_reference);
+    double diff = IntensityDataFunctions::getRelativeDifference(*P_data,*m_reference);
 
     std::cout << getName() << " " << getDescription() << " " << diff
               << " " << (diff>m_info.m_threshold ? "[FAILED]" : "[OK]") << std::endl;

@@ -47,7 +47,7 @@ PyGenVisitor::~PyGenVisitor()
     delete m_label;
 }
 
-std::string PyGenVisitor::writePyScript(const Simulation *simulation)
+std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation)
 {
     std::ostringstream result;
     result << definePreamble();
@@ -315,14 +315,15 @@ std::string PyGenVisitor::defineGetSample() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineGetSimulation(const Simulation *simulation) const
+std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
     result << "def getSimulation():\n";
     //    result << indent() << "# Creating and returning GISAXS simulation\n";
-    result << indent() << "simulation = Simulation()\n";
+    result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineBeam(simulation);
+    result << defineParameterDistributions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -1305,7 +1306,7 @@ std::string PyGenVisitor::defineMultiLayers() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
+std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) const
 {
     size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
     if (numberOfDetectorDimensions != 2) {
@@ -1332,7 +1333,7 @@ std::string PyGenVisitor::defineDetector(const Simulation *simulation) const
     return result.str();
 }
 
-std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
+std::string PyGenVisitor::defineBeam(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -1344,7 +1345,27 @@ std::string PyGenVisitor::defineBeam(const Simulation *simulation) const
     return result.str();
 }
 
-std::string PyGenVisitor::definePlotting(const Simulation *simulation) const
+std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    const std::vector<ParameterDistribution>& distributions =
+            simulation->getDistributionHandler().getDistributions();
+    if (distributions.size()==0) return "";
+    for (size_t i=0; i<distributions.size(); ++i) {
+        std::string main_par_name = distributions[i].getMainParameterName();
+        size_t nbr_samples = distributions[i].getNbrSamples();
+        double sigma_factor = distributions[i].getSigmaFactor();
+        const IDistribution1D *p_distr = distributions[i].getDistribution();
+        result << indent() << "distribution_" << i+1 << " = "
+               << PyGenTools::getRepresentation(p_distr) << "\n";
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << "distribution_" << i+1 << ", " << nbr_samples << ", "
+               << PyGenTools::printDouble(sigma_factor) << ")\n";
+    }
+    return result.str();
+}
+
+std::string PyGenVisitor::definePlotting(const GISASSimulation *simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);

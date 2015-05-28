@@ -25,7 +25,7 @@
 void TestMesoCrystal1::execute()
 {
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("mesocrystal01");
+    GISASSimulation *simulation = sim_registry.createSimulation("mesocrystal01");
     simulation->setProgramOptions(mp_options);
 
     // loading reference data

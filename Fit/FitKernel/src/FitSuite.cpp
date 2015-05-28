@@ -47,7 +47,7 @@ void FitSuite::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitSuite::addSimulationAndRealData(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module)
+void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module)
 {
     m_fit_objects.add(simulation, real_data, chi2_module);
 }

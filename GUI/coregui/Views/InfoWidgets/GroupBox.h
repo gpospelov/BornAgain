@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/GroupBox.h
+//! @file      coregui/Views/InfoWidgets/GroupBox.h
 //! @brief     Defines class GroupBox
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,7 @@
 
 #include <QGroupBox>
 
+//! The class which extends QGroupBox with clickable icon next to the label
 class GroupBox : public QGroupBox
 {
         Q_OBJECT
@@ -26,17 +27,15 @@ public:
         GroupBox( QWidget *parent = 0 );
         GroupBox( const QString &title, QWidget *parent = 0 );
 
-        bool isCollapsed();
-        void setCollapse( bool collapse );
-
 protected:
         void mousePressEvent( QMouseEvent *e );
-        void mouseReleaseEvent( QMouseEvent *e );
         void paintEvent( QPaintEvent * );
+        void mouseMoveEvent(QMouseEvent *event);
 
 private:
-        QPoint  clickPos;
-        bool    m_collapsed;
+        QString m_title;
+        int m_xImage;
+        int m_yImage;
 };
 
 #endif

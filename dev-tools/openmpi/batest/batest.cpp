@@ -9,19 +9,19 @@ int main(int argc, char **argv)
 
 
     std::cout << "Hello World" << std::endl;
-    
+
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
+    GISASSimulation *simulation = sim_registry.createSimulation("isgisaxs01");
 
     simulation->runOMPISimulation();
 
-    
+
     // check
     int world_size(0), world_rank(0);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-    
-    if(world_rank ==0) { 
+
+    if(world_rank ==0) {
         OutputData<double> *result = simulation->getOutputData()->clone();
 
         simulation->runSimulation();
@@ -30,9 +30,9 @@ int main(int argc, char **argv)
         double diff = OutputDataFunctions::GetDifference(*result,*reference);
         std::cout << " Difference:" << diff << std::endl;
     }
-    
-    
+
+
     MPI_Finalize();
-    
+
     return 0;
 }

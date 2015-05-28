@@ -141,7 +141,7 @@ def get_real_data():
 
 def get_simulation():
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(4.942287e+12)
 

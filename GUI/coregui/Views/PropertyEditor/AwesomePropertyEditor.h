@@ -24,6 +24,7 @@ class AwesomePropertyEditorPrivate;
 class ParameterizedIytem;
 class QtProperty;
 class QtVariantProperty;
+class QGroupBox;
 
 //! property editor to display and modify properties of multiple ParameterizedItem
 class BA_CORE_API_ AwesomePropertyEditor : public QWidget
@@ -53,6 +54,8 @@ public:
     void clearEditor();
 
     bool eventFilter(QObject *obj, QEvent *event);
+
+    QGroupBox *getGroupBox();
 
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);

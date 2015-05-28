@@ -20,7 +20,7 @@
 class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
-class Simulation;
+class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
 
@@ -78,6 +78,8 @@ public:
     MultiLayerItem *getMultiLayerItem(bool from_backup = false);
 
     InstrumentItem *getInstrumentItem(bool from_backup = false);
+
+//    void onPropertyChange(const QString &name);
 
 private:
     static QMap<QString, QString> m_run_policies; // run policy, policy description

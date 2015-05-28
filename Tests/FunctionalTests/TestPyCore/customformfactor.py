@@ -74,7 +74,7 @@ def get_simulation():
     IMPORTANT NOTE:
     Multithreading should be deactivated by putting ThreadInfo.n_threads to -1
     """
-    simulation = Simulation()
+    simulation = GISASSimulation()
     thread_info = ThreadInfo()
     thread_info.n_threads = -1
     simulation.setThreadInfo(thread_info)

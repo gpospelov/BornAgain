@@ -19,7 +19,7 @@
 #include <boost/scoped_ptr.hpp>
 
 FitObject::FitObject(
-    const Simulation& simulation, const OutputData<double >& real_data,
+    const GISASSimulation& simulation, const OutputData<double >& real_data,
     const IChiSquaredModule& chi2_module, double weight)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
@@ -68,8 +68,8 @@ void FitObject::setRealData(const OutputData<double >& real_data)
 
 double FitObject::calculateChiSquared()
 {
-    boost::scoped_ptr<OutputData<double> > sim_data(m_simulation->getIntensityData());
-    m_chi2_module->setRealAndSimulatedData(*m_real_data, *sim_data.get());
+    boost::scoped_ptr<OutputData<double> > P_sim_data(m_simulation->getIntensityData());
+    m_chi2_module->setRealAndSimulatedData(*m_real_data, *P_sim_data.get());
 
     return m_chi2_module->calculateChiSquared();
 }

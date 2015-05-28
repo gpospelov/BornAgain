@@ -15,7 +15,7 @@
 
 #include "TestFourier.h"
 
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Units.h"
 #include "Utils.h"
 #include "IsGISAXSTools.h"
@@ -41,7 +41,7 @@ void TestFourier::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
-    Simulation simulation(mp_options);
+    GISASSimulation simulation(mp_options);
     simulation.setSample(*mp_sample);
     simulation.setDetectorParameters(256, 0.3*Units::degree, 10.0*Units::degree
             ,256, 0.0*Units::degree, 10.0*Units::degree);

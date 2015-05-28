@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "JobQueueData.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "AngleProperty.h"
 #include "InstrumentItem.h"
 #include "InstrumentModel.h"
@@ -63,9 +63,9 @@ JobRunner *JobQueueData::getRunner(QString identifier)
 
 
 //! returns the simulation (if exists) for given identifier
-Simulation *JobQueueData::getSimulation(QString identifier)
+GISASSimulation *JobQueueData::getSimulation(QString identifier)
 {
-    QMap<QString, Simulation *>::const_iterator it = m_simulations.find(identifier);
+    QMap<QString, GISASSimulation *>::const_iterator it = m_simulations.find(identifier);
     if(it != m_simulations.end()) {
         return it.value();
     }
@@ -77,7 +77,7 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
+void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
 {
     //qDebug() << "JobQueueData::setResults(NJobItem *jobItem, const Simulation *simulation)";
     if(!simulation)
@@ -89,24 +89,7 @@ void JobQueueData::setResults(JobItem *jobItem, const Simulation *simulation)
         intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
     }
 
-    // propagatind angle units to OutputDataItem
-//    if(jobItem->getInstrumentModel()) {
-//        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(jobItem->getInstrumentModel()->getInstrumentMap().begin().value());
-//        qDebug() << instrumentItem->modelType();
-//        Q_ASSERT(instrumentItem);
-//        DetectorItem *detectorItem = instrumentItem->getDetectorItem();
-//        Q_ASSERT(detectorItem);
-//        ParameterizedItem *subDetector = detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
-//        Q_ASSERT(subDetector);
-
-//        if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
-//            AngleProperty angle_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
-//            intensityItem->setRegisteredProperty(IntensityDataItem::P_AXES_UNITS, angle_property.getVariant());
-//        }
-//    }
-
-    qDebug() << "JobItem::setResults()" << intensityItem;
-    intensityItem->setItemName(QString("data_%1_%2.int").arg(jobItem->itemName(), QString::number(0)));
+    intensityItem->setNameFromProposed(jobItem->itemName());
     intensityItem->setOutputData(simulation->getIntensityData());
 }
 
@@ -133,7 +116,7 @@ void JobQueueData::runJob(JobItem *jobItem)
     if(getSimulation(identifier))
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
-    Simulation *simulation(0);
+    GISASSimulation *simulation(0);
     try{
 //        simulation = DomainSimulationBuilder::getSimulation(jobItem->getSampleModel(),
 //                                                            jobItem->getInstrumentModel());
@@ -142,7 +125,7 @@ void JobQueueData::runJob(JobItem *jobItem)
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
-        message += QString(ex.what());
+        message += QString::fromStdString(std::string(ex.what()));
         jobItem->setComments(message);
         jobItem->setProgress(100);
         jobItem->setStatus(Constants::STATUS_FAILED);
@@ -237,7 +220,7 @@ void JobQueueData::onFinishedJob()
         jobItem->setComments(runner->getFailureMessage());
     } else {
         // propagating simulation results
-        Simulation *simulation = getSimulation(runner->getIdentifier());
+        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
         setResults(jobItem, simulation);
     }
 
@@ -338,7 +321,7 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
 
 void JobQueueData::clearSimulation(const QString &identifier)
 {
-    Simulation *simulation = getSimulation(identifier);
+    GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
 }

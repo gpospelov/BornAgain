@@ -46,7 +46,6 @@ private slots:
 
 private:
     QPoint getPositionForWarningSign();
-
     QToolBar *m_toolBar;
     QTextEdit *m_textEdit;
     SampleModel *m_sampleModel;

@@ -9,17 +9,17 @@ int main(int argc, char **argv)
 {
     if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
 
-    boost::scoped_ptr<OutputData<double> > reference00(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readIntensityData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
-    boost::scoped_ptr<OutputData<double> > reference01(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readIntensityData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz"));
-    boost::scoped_ptr<OutputData<double> > reference10(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readIntensityData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz"));
-    boost::scoped_ptr<OutputData<double> > reference11(IntensityDataIOFactory::readIntensityData(
+    boost::scoped_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readIntensityData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
 
     SimulationRegistry sim_registry;
-    Simulation* simulation = sim_registry.createSimulation("polmagcylinders2");
+    GISASSimulation* simulation = sim_registry.createSimulation("polmagcylinders2");
     kvector_t zplus(0.0, 0.0, 1.0);
     kvector_t zmin(0.0, 0.0, -1.0);
 
@@ -27,32 +27,32 @@ int main(int argc, char **argv)
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
-    boost::scoped_ptr<OutputData<double> > data00(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_data00(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
-    boost::scoped_ptr<OutputData<double> > data01(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_data01(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
-    boost::scoped_ptr<OutputData<double> > data10(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_data10(simulation->getIntensityData());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
     simulation->normalize();
-    boost::scoped_ptr<OutputData<double> > data11(simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_data11(simulation->getIntensityData());
 
     const double threshold(2e-10);
     double diff(0);
-    diff += IntensityDataFunctions::getRelativeDifference(*data00, *reference00);
-    diff += IntensityDataFunctions::getRelativeDifference(*data01, *reference01);
-    diff += IntensityDataFunctions::getRelativeDifference(*data10, *reference10);
-    diff += IntensityDataFunctions::getRelativeDifference(*data11, *reference11);
+    diff += IntensityDataFunctions::getRelativeDifference(*P_data00, *P_reference00);
+    diff += IntensityDataFunctions::getRelativeDifference(*P_data01, *P_reference01);
+    diff += IntensityDataFunctions::getRelativeDifference(*P_data10, *P_reference10);
+    diff += IntensityDataFunctions::getRelativeDifference(*P_data11, *P_reference11);
     diff /= 4.;
 
     delete simulation;

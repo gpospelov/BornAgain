@@ -48,7 +48,7 @@ void CylindersAndPrismsExample::initSample()
 
 void CylindersAndPrismsExample::initSimulation()  
 {
-    m_simulation = new Simulation();
+    m_simulation = new GISASSimulation();
 
     m_simulation->setDetectorParameters(
                 400,-1.0*Units::degree, 1.0*Units::degree, 400,

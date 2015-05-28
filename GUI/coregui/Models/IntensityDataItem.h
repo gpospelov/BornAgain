@@ -73,6 +73,8 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
+    void setNameFromProposed(const QString &proposed_name);
+
 signals:
     void intensityModified();
 
@@ -92,7 +94,6 @@ public slots:
 
 private:
     OutputData<double> *m_data; //!< simulation results
-
 };
 
 #endif // NINTENSITYDATAITEM_H

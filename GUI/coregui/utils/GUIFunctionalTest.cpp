@@ -52,10 +52,10 @@ void GUIFunctionalTest::runTest()
 
 int GUIFunctionalTest::analyseResults()
 {
-    boost::scoped_ptr<OutputData<double> > domain_data(m_domain_simulation->getIntensityData());
-    boost::scoped_ptr<OutputData<double> > reference_data(
+    boost::scoped_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getIntensityData());
-    double diff = IntensityDataFunctions::getRelativeDifference(*domain_data, *reference_data);
+    double diff = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
 
     std::cout << m_name << " "
               << " " << diff << " " << (diff > m_threshold ? "[FAILED]" : "[OK]") << std::endl;
@@ -70,18 +70,18 @@ void GUIFunctionalTest::createDomainSimulation()
 {
     assert(m_reference_simulation->getSample());
     // initializing necessary GUI
-    boost::scoped_ptr<SampleModel> sampleModel(new SampleModel());
-    boost::scoped_ptr<InstrumentModel> instrumentModel(new InstrumentModel());
-    boost::scoped_ptr<MaterialModel> materialModel(new MaterialModel());
-    boost::scoped_ptr<MaterialEditor> materialEditor(new MaterialEditor(materialModel.get()));
+    boost::scoped_ptr<SampleModel> P_sampleModel(new SampleModel());
+    boost::scoped_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
+    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(sampleModel.get(), *m_reference_simulation);
-    guiBuilder.populateInstrumentModel(instrumentModel.get(), *m_reference_simulation);
+    guiBuilder.populateSampleModel(P_sampleModel.get(), *m_reference_simulation);
+    guiBuilder.populateInstrumentModel(P_instrumentModel.get(), *m_reference_simulation);
 
     m_domain_simulation
-        = DomainSimulationBuilder::getSimulation(sampleModel.get(), instrumentModel.get());
+        = DomainSimulationBuilder::getSimulation(P_sampleModel.get(), P_instrumentModel.get());
 }
 
 int GUI_FUNCTIONAL_TEST(const std::string &name)

@@ -160,9 +160,9 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
             new FormFactorDecoratorMaterial(p_simple_ff,
                                             wavevector_scattering_factor);
     if (p_rotation) {
-        boost::scoped_ptr<const IMaterial> transformed_material(p_particle->
+        boost::scoped_ptr<const IMaterial> P_transformed_material(p_particle->
                 getMaterial()->createTransformedMaterial(*p_rotation));
-        p_ff_result->setMaterial(*transformed_material);
+        p_ff_result->setMaterial(*P_transformed_material);
     } else {
         p_ff_result->setMaterial(*p_particle->getMaterial());
     }

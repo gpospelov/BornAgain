@@ -37,9 +37,9 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin, const std::vector<complex_t> &ff_list) const
+    const SimulationElement& sim_element, const std::vector<complex_t> &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(sim_element.getMeanQ());
     double diffuse_intensity = 0.0;
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -52,8 +52,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         diffuse_intensity += fraction * (std::norm(ff));
     }
-    complex_t mcff = getMeanCharacteristicFF(k_i, k_f_bin, ff_list);
-    complex_t mcffc = getMeanConjCharacteristicFF(k_i, k_f_bin, ff_list);
+    complex_t mcff = getMeanCharacteristicFF(sim_element.getMeanQ(), ff_list);
+    complex_t mcffc = getMeanConjCharacteristicFF(sim_element.getMeanQ(), ff_list);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0 * (mcff * mcffc * omega / (1.0 - p2kappa * omega)).real();
@@ -61,10 +61,9 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
-    const cvector_t &k_i, const Eigen::Matrix2cd &beam_density, const Bin1DCVector &k_f_bin,
-    const Eigen::Matrix2cd &detector_operator, const MatrixFFVector &ff_list) const
+    const SimulationElement& sim_element, const MatrixFFVector &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(sim_element.getMeanQ());
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -75,15 +74,16 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
-        diffuse_matrix += fraction * (ff * beam_density * ff.adjoint());
+        diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd mcff = getMeanCharacteristicMatrixFF(k_i, k_f_bin, ff_list);
-    Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(k_i, k_f_bin, ff_list);
+    Eigen::Matrix2cd mcff = getMeanCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list);
+    Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
-    Eigen::Matrix2cd interference_matrix = (2.0 * omega / (1.0 - p2kappa * omega))
-                                           * (detector_operator * mcff * beam_density * mcffc);
-    Eigen::Matrix2cd diffuse_matrix2 = detector_operator * diffuse_matrix;
+    Eigen::Matrix2cd interference_matrix
+        = (2.0 * omega / (1.0 - p2kappa * omega))
+          * (sim_element.getAnalyzerOperator() * mcff * sim_element.getPolarization() * mcffc);
+    Eigen::Matrix2cd diffuse_matrix2 = sim_element.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
     return total_abundance * (diffuse_trace + interference_trace);
@@ -97,9 +97,9 @@ bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin, const std::vector<complex_t> &ff_list) const
+    const cvector_t &q, const std::vector<complex_t> &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(q);
     complex_t result(0.0, 0.0);
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -113,10 +113,9 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-    const MatrixFFVector &ff_list) const
+    const cvector_t &q, const MatrixFFVector &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -130,9 +129,9 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin, const std::vector<complex_t> &ff_list) const
+    const cvector_t &q, const std::vector<complex_t> &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(q);
     complex_t result(0.0, 0.0);
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -146,10 +145,9 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin,
-    const MatrixFFVector &ff_list) const
+    const cvector_t &q, const MatrixFFVector &ff_list) const
 {
-    double qp = getqp(k_i, k_f_bin);
+    double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -197,10 +195,8 @@ SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(double
                     * (m_ff_infos[index]->mp_ff->getRadius() - m_mean_radius));
 }
 
-double SizeSpacingCorrelationApproximationStrategy::getqp(const cvector_t &k_i,
-                                                          const Bin1DCVector &k_f_bin) const
+double SizeSpacingCorrelationApproximationStrategy::getqp(const cvector_t &q) const
 {
-    cvector_t q = k_i - k_f_bin.getMidPoint();
     double qxr = q.x().real();
     double qyr = q.y().real();
     return std::sqrt(qxr * qxr + qyr * qyr);

@@ -34,7 +34,7 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
-                                           const Simulation &simulation,
+                                           const GISASSimulation &simulation,
                                            const QString &sampleName=QString());
 
     ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
@@ -42,7 +42,7 @@ public:
                                            const QString &sampleName=QString());
 
     ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
-                                               const Simulation &simulation,
+                                               const GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
 

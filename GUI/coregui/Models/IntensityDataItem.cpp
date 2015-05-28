@@ -18,6 +18,7 @@
 #include "AngleProperty.h"
 #include "AxesItems.h"
 #include "Units.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
@@ -100,7 +101,6 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
     blockSignals(false);
     emit intensityModified();
-
 }
 
 double IntensityDataItem::getLowerX() const
@@ -222,6 +222,14 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getSubItems()[P_ZAXIS]->setRegisteredProperty(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
+//! Sets the name of intensity data item from proposed name. This name will be used to save file
+//! on disk, so it has to be cleaned from special character.
+void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
+{
+    QString valid_name = GUIHelpers::getValidFileName(proposed_name);
+    setItemName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
+}
+
 void IntensityDataItem::setLowerX(double xmin)
 {
     qDebug() << "IntensityDataItem::setXaxisMin(double xmin)" << xmin;
@@ -248,9 +256,13 @@ void IntensityDataItem::setUpperY(double ymax)
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
-    qDebug() << "IntensityDataItem::setZaxisRange()";
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
-    getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+    qDebug() << "IntensityDataItem::setLowerAndUpperZ()";
+    if(getLowerZ() != zmin) {
+        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MIN, zmin);
+    }
+    if(getUpperZ() != zmax) {
+        getSubItems()[P_ZAXIS]->setRegisteredProperty(BasicAxisItem::P_MAX, zmax);
+    }
 }
 
 void IntensityDataItem::setLowerZ(double zmin)

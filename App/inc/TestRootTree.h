@@ -19,7 +19,7 @@
 #include "IApplicationTest.h"
 #include "ISample.h"
 #include "OutputData.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 
 //! Using ROOT trees to read/write data from/to disk.
 
@@ -62,7 +62,7 @@ private:
         (double meso_alpha, double meso_phi, double nanopart_radius);
 
     ISample *mp_sample;
-    Simulation *mp_simulation;
+    GISASSimulation *mp_simulation;
     OutputData<double> *mp_data;
 };
 

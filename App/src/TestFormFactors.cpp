@@ -143,7 +143,7 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     multi_layer.addLayer(air_layer);
 
     // building simulation
-    Simulation simulation(mp_options);
+    GISASSimulation simulation(mp_options);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree,
                                      true);

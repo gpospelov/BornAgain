@@ -17,6 +17,8 @@
 #include "SpecularMatrix.h"
 #include "Numeric.h"
 
+// Returns reflection/transmission coefficients for given multilayer and wavevector k
+
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
 {
@@ -53,14 +55,13 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
-    double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t rindex0 = sample.getLayer(0)->getRefractiveIndex();
     complex_t r2cosalpha2 = rindex0*rindex0*k.sin2Theta();
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
         coeff[i].lambda = std::sqrt(rindex*rindex - r2cosalpha2);
-        coeff[i].kz = mag_k*coeff[i].lambda * sign_kz;
+        coeff[i].kz = k.mag()*coeff[i].lambda * sign_kz;
     }
 }
 

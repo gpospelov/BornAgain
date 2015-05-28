@@ -48,8 +48,7 @@ public:
 
    typedef MultiLayerMatrixCoeff MultiLayerCoeff_t; // set of layer coefficients for matrix formalism
 
-   //! Returns reflection/transmission coefficients for given multi layer
-   //! and wavevector k
+   //! Returns reflection/transmission coefficients for given multilayer and wavevector k
    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:

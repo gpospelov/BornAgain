@@ -55,10 +55,8 @@ void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
 {
     double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
-    double sinalpha = std::abs( k.cosTheta() );
-    double cosalpha2 = 1.0 - sinalpha*sinalpha;
     complex_t rindex0 = sample.getLayer(0)->getRefractiveIndex();
-    complex_t r2cosalpha2 = rindex0*rindex0*cosalpha2;
+    complex_t r2cosalpha2 = rindex0*rindex0*k.sin2Theta();
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
         coeff[i].lambda = std::sqrt(rindex*rindex - r2cosalpha2);

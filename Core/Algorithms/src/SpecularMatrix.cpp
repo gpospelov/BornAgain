@@ -56,12 +56,28 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
     size_t N = coeff.size(); // = number of layers
     assert(N-1 == sample.getNumberOfInterfaces());
 
+    if (coeff[0].lambda == 0.0 && N>1) {
+        // set for no transmission
+        coeff[0].t_r(0) = 1.0;
+        coeff[0].t_r(1) = -1.0;
+        for (size_t i=1; i<N; ++i) {
+            coeff[i].t_r.setZero();
+            coeff[i].l.setIdentity();
+        }
+        return;
+    }
+
+    // Last layer boundary ensures no reflection
+    coeff[N-1].t_r(0) = 1.0;
+    coeff[N-1].t_r(1) = 0.0;
+    coeff[N-1].l.setIdentity();
+
     // check if there is a roughness and if so, calculate the effective
     // matrix to insert at this interface (else unit matrix)
     std::vector<Eigen::Matrix2cd> roughness_pmatrices;
     roughness_pmatrices.clear();
     roughness_pmatrices.resize(N-1);
-    for (size_t i=0; i<N-1; ++i) {
+    for (size_t i=N-2; ; --i) {
         double sigma = 0.0;
         if (sample.getLayerInterface(i)->getRoughness()) {
             sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -74,17 +90,9 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         else {
             roughness_pmatrices[i] = Eigen::Matrix2cd::Identity();
         }
+        if( i==0 )
+            break;
     }
-
-    if (coeff[0].lambda == 0.0 && N>1) {
-        setForNoTransmission(coeff);
-        return;
-    }
-
-    // Last layer boundary ensures no reflection
-    coeff[N-1].t_r(0) = 1.0;
-    coeff[N-1].t_r(1) = 0.0;
-    coeff[N-1].l.setIdentity();
 
     for(int i=(int)N-2; i>0; --i) {
         complex_t lambda = coeff[i].lambda;
@@ -142,15 +150,4 @@ Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t up
     Eigen::Matrix2cd p;
     p << p00, 0, 0, 1.0/p00;
     return p;
-}
-
-void SpecularMatrix::setForNoTransmission(MultiLayerCoeff_t& coeff) const
-{
-    size_t N = coeff.size();
-    coeff[0].t_r(0) = 1.0;
-    coeff[0].t_r(1) = -1.0;
-    for (size_t i=1; i<N; ++i) {
-        coeff[i].t_r.setZero();
-        coeff[i].l.setIdentity();
-    }
 }

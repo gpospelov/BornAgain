@@ -128,7 +128,7 @@ Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t up
     if (lower == upper) {
         return Eigen::Matrix2cd::Identity();
     }
-    complex_t p00 = MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper);
+    complex_t p00 = sqrt( MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper) );
     Eigen::Matrix2cd p;
     p << p00, 0, 0, 1.0/p00;
     return p;

@@ -27,34 +27,20 @@ static complex_t I = complex_t(0.0, 1.0);
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
 {
+    size_t N = sample.getNumberOfLayers();
+    assert(N-1 == sample.getNumberOfInterfaces());
     coeff.clear();
-    coeff.resize(sample.getNumberOfLayers());
+    coeff.resize(N);
 
-    calculateEigenvalues(sample, k, coeff);
-
-    calculateTransferAndBoundary(sample, k, coeff);
-}
-
-//! Calculate lambda and kz for each layer.
-
-void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff) const
-{
+    // Calculate lambda and kz for each layer.
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<coeff.size(); ++i) {
         coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
         coeff[i].kz = k.mag()*coeff[i].lambda * sign_kz;
     }
-}
 
-//! Calculate t_r and l for each layer.
-
-void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff) const
-{
-    size_t N = coeff.size(); // = number of layers
-    assert(N-1 == sample.getNumberOfInterfaces());
+    // Calculate t_r and l for each layer.
 
     if (coeff[0].lambda == 0.0 && N>1) {
         // set for no transmission
@@ -139,7 +125,7 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
     }
 }
 
-Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper) const
+Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper)
 {
     if (lower == upper) {
         return Eigen::Matrix2cd::Identity();

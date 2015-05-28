@@ -63,7 +63,7 @@ void ParticleInfo::setPosition(kvector_t position)
 
 void ParticleInfo::applyTransformation(const IRotation &rotation)
 {
-    mP_particle->applyTransformation(rotation);
+    mP_particle->applyRotation(rotation);
 }
 
 void ParticleInfo::init_parameters()

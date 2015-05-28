@@ -86,7 +86,7 @@ void ParticleLayout::addParticle(
                 " Error! Abundance can't be equal to 0.0");
     }
     boost::scoped_ptr<IParticle> P_particle_clone(p_particle.clone());
-    P_particle_clone->setTransformation(rotation);
+    P_particle_clone->setRotation(rotation);
     addAndRegisterParticleInfo(
         new ParticleInfo(*P_particle_clone, depth, abundance));
 }

@@ -75,7 +75,7 @@ TEST_F(ParticleCoreShellTest, Transform)
 {
     kvector_t zero_vector;
     RotationZ transform(1.0);
-    mp_coreshell->setTransformation(transform);
+    mp_coreshell->setRotation(transform);
     EXPECT_EQ(NULL, mp_coreshell->getAmbientMaterial());
     EXPECT_EQ(NULL, mp_coreshell->createFormFactor(1.0));
     Geometry::Transform3D transform_2 = mp_coreshell->getRotation()->getTransform3D();

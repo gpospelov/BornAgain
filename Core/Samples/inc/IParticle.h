@@ -58,6 +58,18 @@ public:
     //! scattering factor
     virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const = 0;
 
+    //! Returns particle position, including depth.
+    kvector_t getPosition() const
+    {
+        return m_position;
+    }
+
+    //! Sets particle position, including depth.
+    void setPosition(kvector_t position)
+    {
+        m_position = position;
+    }
+
     //! Returns rotation object
     const IRotation *getRotation() const
     {
@@ -65,17 +77,18 @@ public:
     }
 
     //! Sets transformation.
-    void setTransformation(const IRotation &rotation);
+    void setRotation(const IRotation &rotation);
 
     //! Applies transformation by composing it with the existing one
-    void applyTransformation(const IRotation &roation);
+    void applyRotation(const IRotation &rotation);
 
 protected:
     virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
+    kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
 };
 
-inline void IParticle::setTransformation(const IRotation &rotation)
+inline void IParticle::setRotation(const IRotation &rotation)
 {
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
@@ -91,7 +104,7 @@ inline void IParticle::setTransformation(const IRotation &rotation)
     applyTransformationToSubParticles(rotation);
 }
 
-inline void IParticle::applyTransformation(const IRotation &rotation)
+inline void IParticle::applyRotation(const IRotation &rotation)
 {
     if (mP_rotation.get()) {
         deregisterChild(mP_rotation.get());

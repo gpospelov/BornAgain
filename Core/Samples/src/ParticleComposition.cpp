@@ -131,7 +131,7 @@ void ParticleComposition::applyTransformationToSubParticles(const IRotation& rot
     for (std::vector<IParticle *>::iterator it = m_particles.begin();
             it != m_particles.end(); ++it)
     {
-        (*it)->applyTransformation(rotation);
+        (*it)->applyRotation(rotation);
     }
     Geometry::Transform3D transform = rotation.getTransform3D();
     for (std::vector<kvector_t>::iterator it_vec =

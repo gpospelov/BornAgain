@@ -97,5 +97,5 @@ Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
 
 void Crystal::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    mp_lattice_basis->applyTransformation(rotation);
+    mp_lattice_basis->applyRotation(rotation);
 }

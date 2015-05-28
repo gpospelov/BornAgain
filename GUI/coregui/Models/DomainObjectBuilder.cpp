@@ -170,7 +170,7 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, doub
             }
             boost::scoped_ptr<IRotation> P_rotation(rot_item->createRotation());
             if (P_rotation.get()) {
-                result->setTransformation(*P_rotation);
+                result->setRotation(*P_rotation);
             }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() "

@@ -59,7 +59,7 @@ Particle *Particle::clone() const
     if (mP_ambient_material.get())
         result->setAmbientMaterial(*mP_ambient_material);
     if (mP_rotation.get())
-        result->setTransformation(*mP_rotation);
+        result->setRotation(*mP_rotation);
     result->setName(getName());
 
     return result;

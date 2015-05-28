@@ -35,7 +35,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     // Calculate lambda and kz for each layer.
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
-    for(size_t i=0; i<coeff.size(); ++i) {
+    for(size_t i=0; i<N; ++i) {
         coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
         coeff[i].kz = k.mag()*coeff[i].lambda * sign_kz;
     }
@@ -82,20 +82,17 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         complex_t lambda = coeff[i].lambda;
         complex_t lambda_rough = lambda*roughness_pmatrices[i](1,1);
         if (lambda == complex_t(0.0, 0.0)) {
-            complex_t prev_lambda = coeff[i+1].lambda
-                    *roughness_pmatrices[i](0,0);
+            complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrices[i](0,0);
             coeff[i].l.setIdentity();
-            complex_t t_coeff = coeff[i+1].t_r(0) + coeff[i+1].t_r(1)
-                    * roughness_pmatrices[i](1,1);
-            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0))
-                    * prev_lambda;
-            coeff[i].t_r(0) = t_coeff + I * k.mag()
-                    * sample.getLayer(i)->getThickness() * phi_0;
+            complex_t t_coeff = coeff[i+1].t_r(0) +
+                    coeff[i+1].t_r(1) * roughness_pmatrices[i](1,1);
+            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * prev_lambda;
+            coeff[i].t_r(0) = t_coeff +
+                    I * k.mag() * sample.getLayer(i)->getThickness() * phi_0;
             coeff[i].t_r(1) = 0.0;
         }
         else {
-            complex_t prev_lambda = coeff[i+1].lambda
-                    *roughness_pmatrices[i](0,0);
+            complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrices[i](0,0);
             complex_t t_coeff = ((lambda_rough-prev_lambda)*coeff[i+1].t_r(1)
                + (lambda_rough+prev_lambda)*coeff[i+1].t_r(0))/2.0/lambda;
             complex_t r_coeff = ((lambda_rough+prev_lambda)*coeff[i+1].t_r(1)
@@ -114,10 +111,12 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         complex_t lambda_rough = lambda*roughness_pmatrices[0](1,1);
         complex_t prev_lambda = coeff[1].lambda
                 *roughness_pmatrices[0](0,0);
-        coeff[0].t_r(0) = ((lambda_rough-prev_lambda)*coeff[1].t_r(1)
-                + (lambda_rough+prev_lambda)*coeff[1].t_r(0))/2.0/lambda;
-        coeff[0].t_r(1) = ((lambda_rough+prev_lambda)*coeff[1].t_r(1)
-                + (lambda_rough-prev_lambda)*coeff[1].t_r(0))/2.0/lambda;
+        coeff[0].t_r(0) = (
+                    (lambda_rough-prev_lambda)*coeff[1].t_r(1) +
+                    (lambda_rough+prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
+        coeff[0].t_r(1) = (
+                    (lambda_rough+prev_lambda)*coeff[1].t_r(1) +
+                    (lambda_rough-prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
         complex_t T0 = coeff[0].getScalarT();
         for (size_t i=0; i<N; ++i) {
             coeff[i].t_r = coeff[i].t_r/T0;

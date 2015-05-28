@@ -53,12 +53,15 @@ void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
 void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
+    size_t N = coeff.size(); // = number of layers
+    assert(N-1 == sample.getNumberOfInterfaces());
+
     // check if there is a roughness and if so, calculate the effective
     // matrix to insert at this interface (else unit matrix)
     std::vector<Eigen::Matrix2cd> roughness_pmatrices;
     roughness_pmatrices.clear();
-    roughness_pmatrices.resize(sample.getNumberOfInterfaces());
-    for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
+    roughness_pmatrices.resize(N-1);
+    for (size_t i=0; i<N-1; ++i) {
         double sigma = 0.0;
         if (sample.getLayerInterface(i)->getRoughness()) {
             sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -73,7 +76,6 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         }
     }
 
-    size_t N = coeff.size();
     if (coeff[0].lambda == 0.0 && N>1) {
         setForNoTransmission(coeff);
         return;
@@ -111,6 +113,7 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
             coeff[i].t_r(1) = r_coeff*std::exp( ikdlambda);
         }
     }
+
     // If more than 1 layer, impose normalization:
     if (N>1) {
         // First layer boundary is also top layer boundary:

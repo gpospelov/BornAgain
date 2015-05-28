@@ -18,6 +18,8 @@
 #include "Numeric.h"
 #include "MathFunctions.h"
 
+using std::sqrt;
+
 static complex_t I = complex_t(0.0, 1.0);
 
 // Returns reflection/transmission coefficients for given multilayer and wavevector k
@@ -27,30 +29,13 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
-    m_roughness_pmatrices.clear();
-    m_roughness_pmatrices.resize(sample.getNumberOfInterfaces());
 
     calculateEigenvalues(sample, k, coeff);
 
-    // check if there is a roughness and if so, calculate the effective
-    // matrix to insert at this interface (else unit matrix)
-    for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
-        double sigma = 0.0;
-        if (sample.getLayerInterface(i)->getRoughness()) {
-            sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
-        }
-        if(sigma > 0.0) {
-            double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
-            m_roughness_pmatrices[i] = calculatePMatrix(
-                        sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
-        }
-        else {
-            m_roughness_pmatrices[i] = Eigen::Matrix2cd::Identity();
-        }
-    }
-
     calculateTransferAndBoundary(sample, k, coeff);
 }
+
+//! Calculate lambda and kz for each layer.
 
 void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
@@ -58,14 +43,36 @@ void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<coeff.size(); ++i) {
-        coeff[i].lambda = std::sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
+        coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
         coeff[i].kz = k.mag()*coeff[i].lambda * sign_kz;
     }
 }
 
+//! Calculate t_r and l for each layer.
+
 void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
+    // check if there is a roughness and if so, calculate the effective
+    // matrix to insert at this interface (else unit matrix)
+    std::vector<Eigen::Matrix2cd> roughness_pmatrices;
+    roughness_pmatrices.clear();
+    roughness_pmatrices.resize(sample.getNumberOfInterfaces());
+    for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
+        double sigma = 0.0;
+        if (sample.getLayerInterface(i)->getRoughness()) {
+            sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+        }
+        if(sigma > 0.0) {
+            double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
+            roughness_pmatrices[i] = calculatePMatrix(
+                        sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
+        }
+        else {
+            roughness_pmatrices[i] = Eigen::Matrix2cd::Identity();
+        }
+    }
+
     size_t N = coeff.size();
     if (coeff[0].lambda == 0.0 && N>1) {
         setForNoTransmission(coeff);
@@ -79,13 +86,13 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
 
     for(int i=(int)N-2; i>0; --i) {
         complex_t lambda = coeff[i].lambda;
-        complex_t lambda_rough = lambda*m_roughness_pmatrices[i](1,1);
+        complex_t lambda_rough = lambda*roughness_pmatrices[i](1,1);
         if (lambda == complex_t(0.0, 0.0)) {
             complex_t prev_lambda = coeff[i+1].lambda
-                    *m_roughness_pmatrices[i](0,0);
+                    *roughness_pmatrices[i](0,0);
             coeff[i].l.setIdentity();
             complex_t t_coeff = coeff[i+1].t_r(0) + coeff[i+1].t_r(1)
-                    * m_roughness_pmatrices[i](1,1);
+                    * roughness_pmatrices[i](1,1);
             complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0))
                     * prev_lambda;
             coeff[i].t_r(0) = t_coeff + I * k.mag()
@@ -94,7 +101,7 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         }
         else {
             complex_t prev_lambda = coeff[i+1].lambda
-                    *m_roughness_pmatrices[i](0,0);
+                    *roughness_pmatrices[i](0,0);
             complex_t t_coeff = ((lambda_rough-prev_lambda)*coeff[i+1].t_r(1)
                + (lambda_rough+prev_lambda)*coeff[i+1].t_r(0))/2.0/lambda;
             complex_t r_coeff = ((lambda_rough+prev_lambda)*coeff[i+1].t_r(1)
@@ -109,9 +116,9 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         // First layer boundary is also top layer boundary:
         coeff[0].l.setIdentity();
         complex_t lambda = coeff[0].lambda;
-        complex_t lambda_rough = lambda*m_roughness_pmatrices[0](1,1);
+        complex_t lambda_rough = lambda*roughness_pmatrices[0](1,1);
         complex_t prev_lambda = coeff[1].lambda
-                *m_roughness_pmatrices[0](0,0);
+                *roughness_pmatrices[0](0,0);
         coeff[0].t_r(0) = ((lambda_rough-prev_lambda)*coeff[1].t_r(1)
                 + (lambda_rough+prev_lambda)*coeff[1].t_r(0))/2.0/lambda;
         coeff[0].t_r(1) = ((lambda_rough+prev_lambda)*coeff[1].t_r(1)

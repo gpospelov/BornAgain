@@ -100,9 +100,6 @@ complex_t FastSin(const complex_t &x);
 //! fast complex cosine calculation
 complex_t FastCos(const complex_t &x);
 
-//! simultaneous complex sine and cosine calculations
-void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
-
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
 BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
@@ -275,18 +272,6 @@ inline complex_t MathFunctions::FastCos(const complex_t &x) {
     // cos(a+bi) = cos(a)cosh(b) - i*sin(a)*sinh(b);
     //return complex_t( FastCos(x.real())*std::cosh(x.imag()), -1*FastSin(x.real())*std::sinh(x.imag()));
     return complex_t( std::cos(x.real())*std::cosh(x.imag()), -1*std::sin(x.real())*std::sinh(x.imag()));
-}
-
-//! simultaneous complex sine and cosine calculations
-inline void MathFunctions::FastSinCos(const complex_t &x,
-                                      complex_t &xsin, complex_t &xcos)
-{
-    double sina = FastSin(x.real());
-    double cosa = std::sqrt(1-sina*sina);
-    double sinhb = std::sinh(x.imag());
-    double coshb = std::sqrt(1-sinhb*sinhb);
-    xsin = complex_t( sina*coshb,  cosa*sinhb );
-    xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
 
 #ifndef GCCXML_SKIP_THIS

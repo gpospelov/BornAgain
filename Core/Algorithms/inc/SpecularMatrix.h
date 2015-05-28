@@ -52,8 +52,6 @@ public:
    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
-   std::vector<Eigen::Matrix2cd> m_roughness_pmatrices;
-
    void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
            MultiLayerCoeff_t& coeff) const;
    void calculateTransferAndBoundary(const MultiLayer& sample,

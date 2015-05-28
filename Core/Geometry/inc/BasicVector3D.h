@@ -138,42 +138,31 @@ public:
     //! Returns polar angle.
     double theta() const;
 
-    //! Returns cosine of polar angle - return type always double
-    T cosTheta() const;
+    //! Returns cosine of polar angle.
+    double cosTheta() const;
+
+    //! Returns squared sine of polar angle.
+    double sin2Theta() const;
 
     // -------------------
     // Combine two vectors
     // -------------------
 
-    //! Scalar product.
-    T dot(const BasicVector3D<T>& v) const {
-        (void)v;
-        throw NotImplementedException("dot is not defined for this"
-                                      " template parameter");
-    }
-    //{ return x()*v.x()+y()*v.y()+z()*v.z();}
+    //! Returns dot product of vectors (antilinear in the first [=self] argument).
+    T dot(const BasicVector3D<T>& v) const;
 
-    //! Vector product.
+    //! Returns cross product of vectors.
     BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
-   // {
-   //     return BasicVector3D<T> (y()*v.z() - z()*v.y(),
-   //                              z()*v.x() - x()*v.z(),
-   //                              x()*v.y() - y()*v.x() );
-   // }
 
     //! Returns square of transverse component with respect to given axis.
-    double perp2(const BasicVector3D<T>& v) const {
-        (void)v;
-        throw NotImplementedException("perp2 is not defined for this"
-                                      " template parameter");
-    }
+    double perp2(const BasicVector3D<T>& v) const;
 
     //! Returns transverse component with respect to given axis.
     inline T perp(const BasicVector3D<T>& v) const
     { return std::sqrt(perp2(v)); }
 
     //! Returns angle with respect to another vector.
-    T angle(const BasicVector3D<T>& v) const;
+    double angle(const BasicVector3D<T>& v) const;
 
     // ---------
     // Rotations
@@ -199,22 +188,6 @@ public:
             BasicVector3D<T>(x()/len, y()/len, z()/len) :
             BasicVector3D<T>();
     }
-
-    //! Returns somewhat arbitrarily chosen orthogonal vector.
-//    BasicVector3D<T> orthogonal() const {
-//        T dx = x() < 0.0 ? -x() : x();
-//        T dy = y() < 0.0 ? -y() : y();
-//        T dz = z() < 0.0 ? -z() : z();
-//        if (dx < dy) {
-//            return dx < dz ?
-//                BasicVector3D<T>(0.0,z(),-y()) :
-//                BasicVector3D<T>(y(),-x(),0.0);
-//        } else {
-//            return dy < dz ?
-//                BasicVector3D<T>(-z(),0.0,x()) :
-//                BasicVector3D<T>(y(),-x(),0.0);
-//        }
-//    }
 
     // ---------------------------------------------
     // Specifically for grazing-incidence scattering

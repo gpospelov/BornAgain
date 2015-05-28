@@ -57,6 +57,7 @@ private:
    void calculateTransferAndBoundary(const MultiLayer& sample,
            const kvector_t& k, MultiLayerCoeff_t& coeff) const;
    Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper) const;
+   void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
 };
 
 #endif /* SPECULARMATRIX_H_ */

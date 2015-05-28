@@ -28,6 +28,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
 {
     size_t N = sample.getNumberOfLayers();
+    assert(N>0);
     assert(N-1 == sample.getNumberOfInterfaces());
     coeff.clear();
     coeff.resize(N);
@@ -58,45 +59,48 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff[N-1].t_r(1) = 0.0;
     coeff[N-1].l.setIdentity();
 
+    if( N==1)
+        return;
+
     // check if there is a roughness and if so, calculate the effective
     // matrix to insert at this interface (else unit matrix)
-    std::vector<Eigen::Matrix2cd> roughness_pmatrices;
-    roughness_pmatrices.clear();
-    roughness_pmatrices.resize(N-1);
-    for (size_t i=0; i<N-1; ++i) {
+    Eigen::Matrix2cd roughness_pmatrix;
+    for (size_t i=N-2; ; --i) {
         double sigma = 0.0;
         if (sample.getLayerInterface(i)->getRoughness()) {
             sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
         }
         if(sigma > 0.0) {
             double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
-            roughness_pmatrices[i] = calculatePMatrix(
+            roughness_pmatrix = calculatePMatrix(
                         sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
         }
         else {
-            roughness_pmatrices[i] = Eigen::Matrix2cd::Identity();
+            roughness_pmatrix = Eigen::Matrix2cd::Identity();
         }
-    }
 
-    for(int i=(int)N-2; i>0; --i) {
+        if (i==0)
+            break; // the only exit from the loop
+
         complex_t lambda = coeff[i].lambda;
-        complex_t lambda_rough = lambda*roughness_pmatrices[i](1,1);
+        complex_t lambda_rough = lambda*roughness_pmatrix(1,1);
+        complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrix(0,0);
         if (lambda == complex_t(0.0, 0.0)) {
-            complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrices[i](0,0);
             coeff[i].l.setIdentity();
             complex_t t_coeff = coeff[i+1].t_r(0) +
-                    coeff[i+1].t_r(1) * roughness_pmatrices[i](1,1);
+                    coeff[i+1].t_r(1) * roughness_pmatrix(1,1);
             complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * prev_lambda;
             coeff[i].t_r(0) = t_coeff +
                     I * k.mag() * sample.getLayer(i)->getThickness() * phi_0;
             coeff[i].t_r(1) = 0.0;
         }
         else {
-            complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrices[i](0,0);
-            complex_t t_coeff = ((lambda_rough-prev_lambda)*coeff[i+1].t_r(1)
-               + (lambda_rough+prev_lambda)*coeff[i+1].t_r(0))/2.0/lambda;
-            complex_t r_coeff = ((lambda_rough+prev_lambda)*coeff[i+1].t_r(1)
-               + (lambda_rough-prev_lambda)*coeff[i+1].t_r(0))/2.0/lambda;
+            complex_t t_coeff = (
+                        (lambda_rough-prev_lambda)*coeff[i+1].t_r(1) +
+                        (lambda_rough+prev_lambda)*coeff[i+1].t_r(0) )/2.0/lambda;
+            complex_t r_coeff = (
+                        (lambda_rough+prev_lambda)*coeff[i+1].t_r(1) +
+                        (lambda_rough-prev_lambda)*coeff[i+1].t_r(0) )/2.0/lambda;
             complex_t ikdlambda = I * k.mag() * sample.getLayer(i)->getThickness() * lambda;
             coeff[i].t_r(0) = t_coeff*std::exp(-ikdlambda);
             coeff[i].t_r(1) = r_coeff*std::exp( ikdlambda);
@@ -108,9 +112,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         // First layer boundary is also top layer boundary:
         coeff[0].l.setIdentity();
         complex_t lambda = coeff[0].lambda;
-        complex_t lambda_rough = lambda*roughness_pmatrices[0](1,1);
-        complex_t prev_lambda = coeff[1].lambda
-                *roughness_pmatrices[0](0,0);
+        complex_t lambda_rough = lambda * roughness_pmatrix(1,1);
+        complex_t prev_lambda = coeff[1].lambda * roughness_pmatrix(0,0);
         coeff[0].t_r(0) = (
                     (lambda_rough-prev_lambda)*coeff[1].t_r(1) +
                     (lambda_rough+prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;

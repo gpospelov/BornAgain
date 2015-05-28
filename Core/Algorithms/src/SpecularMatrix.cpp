@@ -57,7 +57,13 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
     assert(N-1 == sample.getNumberOfInterfaces());
 
     if (coeff[0].lambda == 0.0 && N>1) {
-        setForNoTransmission(coeff);
+        // set for no transmission
+        coeff[0].t_r(0) = 1.0;
+        coeff[0].t_r(1) = -1.0;
+        for (size_t i=1; i<N; ++i) {
+            coeff[i].t_r.setZero();
+            coeff[i].l.setIdentity();
+        }
         return;
     }
 
@@ -142,15 +148,4 @@ Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t up
     Eigen::Matrix2cd p;
     p << p00, 0, 0, 1.0/p00;
     return p;
-}
-
-void SpecularMatrix::setForNoTransmission(MultiLayerCoeff_t& coeff) const
-{
-    size_t N = coeff.size();
-    coeff[0].t_r(0) = 1.0;
-    coeff[0].t_r(1) = -1.0;
-    for (size_t i=1; i<N; ++i) {
-        coeff[i].t_r.setZero();
-        coeff[i].l.setIdentity();
-    }
 }

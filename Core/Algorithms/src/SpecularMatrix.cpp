@@ -16,6 +16,7 @@
 
 #include "SpecularMatrix.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 
 static complex_t I = complex_t(0.0, 1.0);
 
@@ -44,7 +45,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
                         sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
         }
         else {
-            m_roughness_pmatrices[i] = getUnitMatrix();
+            m_roughness_pmatrices[i] = Eigen::Matrix2cd::Identity();
         }
     }
 
@@ -122,35 +123,15 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
     }
 }
 
-Eigen::Matrix2cd SpecularMatrix::calculatePMatrix(
-        complex_t lambda_lower, complex_t lambda_upper) const
+Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper) const
 {
-    // first check for equal lambdas
-    if (lambda_lower == lambda_upper) {
-        return getUnitMatrix();
+    if (lower == upper) {
+        return Eigen::Matrix2cd::Identity();
     }
-    complex_t p00; // initialize for unit matrix
-    p00 = getPMatrixElement(lambda_lower)/ getPMatrixElement(lambda_upper);
+    complex_t p00 = MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper);
     Eigen::Matrix2cd p;
-    p(0,0) = p00;
-    p(0,1) = 0.0;
-    p(1,0) = 0.0;
-    p(1,1) = 1.0/p00;
-
+    p << p00, 0, 0, 1.0/p00;
     return p;
-}
-
-Eigen::Matrix2cd SpecularMatrix::getUnitMatrix() const
-{
-    return Eigen::Matrix2cd::Identity();
-}
-
-complex_t SpecularMatrix::getPMatrixElement(complex_t sigma_lambda) const
-{
-    if (std::abs(sigma_lambda)<Numeric::double_epsilon) {
-        return 1.0;
-    }
-    return std::sqrt(std::tanh(sigma_lambda)/sigma_lambda);
 }
 
 void SpecularMatrix::setForNoTransmission(MultiLayerCoeff_t& coeff) const

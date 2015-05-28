@@ -61,7 +61,6 @@ private:
            MultiLayerCoeff_t& coeff) const;
    void calculateTransferAndBoundary(const MultiLayer& sample,
            const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   Eigen::Matrix2cd getUnitMatrix() const;
    void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
    complex_t getImExponential(complex_t exponent) const;
 };

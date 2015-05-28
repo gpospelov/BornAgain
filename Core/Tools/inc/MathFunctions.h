@@ -73,8 +73,11 @@ BA_CORE_API_ double Si(double value);
 //! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
 BA_CORE_API_ double Sinc(double value);
 
-//! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
+//! Complex sinc function: \f$sinc(x)\equiv\sin(x)/x\f$
 BA_CORE_API_ complex_t Sinc(const complex_t &value);
+
+//! Complex tanhc function: \f$tanhc(x)\equiv\tanh(x)/x\f$
+BA_CORE_API_ complex_t tanhc(const complex_t &value);
 
 BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
@@ -220,6 +223,13 @@ inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
     if(std::abs(value)<Numeric::double_epsilon)
         return complex_t(1.0, 0.0);
     return std::sin(value)/value;
+}
+
+inline complex_t MathFunctions::tanhc(const complex_t &value)  // tanh(x)/x
+{
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(1.0, 0.0);
+    return std::tanh(value)/value;
 }
 
 inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)

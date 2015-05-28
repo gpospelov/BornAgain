@@ -58,10 +58,7 @@ private:
            MultiLayerCoeff_t& coeff) const;
    void calculateTransferAndBoundary(const MultiLayer& sample,
            const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   Eigen::Matrix2cd calculatePMatrix(
-           complex_t lambda_lower, complex_t lambda_upper) const;
-   Eigen::Matrix2cd getUnitMatrix() const;
-   complex_t getPMatrixElement(complex_t sigma_lambda) const;
+   Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper) const;
    void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
 };
 

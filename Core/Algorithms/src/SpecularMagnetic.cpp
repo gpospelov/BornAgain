@@ -110,11 +110,6 @@ void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
     }
 }
 
-Eigen::Matrix2cd SpecularMagnetic::getUnitMatrix() const
-{
-    return Eigen::Matrix2cd::Identity();
-}
-
 void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
 {
     size_t N = coeff.size();

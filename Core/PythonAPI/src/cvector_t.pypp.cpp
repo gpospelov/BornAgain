@@ -178,6 +178,17 @@ void register_cvector_t_class(){
                 , "Sets y-component in cartesian coordinate system." );
         
         }
+        { //::Geometry::BasicVector3D< std::complex< double > >::sin2Theta
+        
+            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
+            typedef double ( exported_class_t::*sin2Theta_function_type)(  ) const;
+            
+            cvector_t_exposer.def( 
+                "sin2Theta"
+                , sin2Theta_function_type( &::Geometry::BasicVector3D< std::complex< double > >::sin2Theta )
+                , "Returns squared sine of polar angle." );
+        
+        }
         { //::Geometry::BasicVector3D< std::complex< double > >::x
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;

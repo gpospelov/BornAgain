@@ -473,6 +473,16 @@ void register_Layer_class(){
                 , default_getRefractiveIndex_function_type(&Layer_wrapper::default_getRefractiveIndex) );
         
         }
+        { //::Layer::getRefractiveIndex2
+        
+            typedef ::complex_t ( ::Layer::*getRefractiveIndex2_function_type)(  ) const;
+            
+            Layer_exposer.def( 
+                "getRefractiveIndex2"
+                , getRefractiveIndex2_function_type( &::Layer::getRefractiveIndex2 )
+                , "Returns squared refractive index of the layer's material." );
+        
+        }
         { //::Layer::getThickness
         
             typedef double ( ::Layer::*getThickness_function_type)(  ) const;

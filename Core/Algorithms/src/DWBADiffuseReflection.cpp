@@ -48,9 +48,8 @@ void DWBADiffuseReflection::setKvectors(const kvector_t& ki, const kvector_t& kf
     m_qz2 = std::pow(ki.z() - kf.z(), 2);
     m_qz3 = std::pow(-ki.z() + kf.z(), 2);
     m_qz4 = std::pow(-ki.z() - kf.z(), 2);
-    SpecularMatrix calculator;
-    calculator.execute(*m_sample, ki, m_fcoeff_i);
-    calculator.execute(*m_sample, kf, m_fcoeff_f);
+    SpecularMatrix::execute(*m_sample, ki, m_fcoeff_i);
+    SpecularMatrix::execute(*m_sample, kf, m_fcoeff_f);
 }
 
 void DWBADiffuseReflection::diffuse_autocorr()

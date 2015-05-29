@@ -31,8 +31,6 @@
 class BA_CORE_API_ SpecularMatrix : public ISimulation
 {
 public:
-    SpecularMatrix() {}
-
     //! Layer coefficients describing refraction and reflection/transmission.
     typedef std::vector<ScalarRTCoefficients> MultiLayerCoeff_t;
 

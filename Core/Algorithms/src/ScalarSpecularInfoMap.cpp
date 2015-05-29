@@ -32,12 +32,11 @@ const ScalarRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const
 {
     (void)phi_f;
-    SpecularMatrix specular_calculator;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
     kvec.setLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
-    specular_calculator.execute(*mp_multilayer, kvec, coeffs);
+    SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
     return new ScalarRTCoefficients(coeffs[m_layer]);
 }
 

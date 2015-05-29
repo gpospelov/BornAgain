@@ -33,8 +33,8 @@ public:
 
     virtual ScalarRTCoefficients* clone() const;
 
-    //! The following functions return the transmitted and reflected amplitudes
-    //! for different incoming beam polarizations and eigenmodes
+    // The following functions return the transmitted and reflected amplitudes
+    // for different incoming beam polarizations and eigenmodes
     virtual Eigen::Vector2cd T1plus() const;
     virtual Eigen::Vector2cd R1plus() const;
     virtual Eigen::Vector2cd T2plus() const;
@@ -46,17 +46,31 @@ public:
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const;
 
-    //! Scalar value getters; these throw errors by default as they should only
-    //! be used when the derived object is really scalar
+    // Scalar value getters; these throw errors by default as they should only
+    // be used when the derived object is really scalar
     virtual complex_t getScalarT() const;
     virtual complex_t getScalarR() const;
     virtual complex_t getScalarKz() const {
         return kz;
     }
 
-    complex_t lambda;         //!< positive eigenvalue of transfer matrix
-    complex_t kz;             //!< z-part of the wavevector
-    Eigen::Vector2cd t_r;     //!< boundary values of transmitted and reflected wave
+    //! Relative unsigned vertical wavevector component +-k_z/K
+
+    //! In the manual called f_l.
+    //! Computed as sqrt(n^2 - (k_parallel/K)^2).
+    //! The real part is always positive, hence it is propagating upwards.
+
+    complex_t lambda;
+
+    //! Signed vertical wavevector component k_z
+    complex_t kz;
+
+    //! Transmission and reflection coefficient
+
+    //! Values of the transmitted/reflected (=down/up propagating) wavefunction
+    //! at (which???) boundary of the layer
+
+    Eigen::Vector2cd t_r;
 
 private:
     Eigen::Vector2cd m_plus;

@@ -36,7 +36,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff.clear();
     coeff.resize(N);
 
-    // Calculate refraction angles, encoded in lambda and kz, for each layer.
+    // Calculate refraction angle, expressed as lambda, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {

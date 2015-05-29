@@ -20,25 +20,32 @@
 
 Particle::Particle()
 {
+    m_has_transformation_info = true;
     setName("Particle");
 }
 
-Particle::Particle(const IMaterial &p_material) : mP_material(p_material.clone())
+Particle::Particle(const IMaterial &p_material)
+    : mP_material(p_material.clone())
 {
+    m_has_transformation_info = true;
     setName("Particle");
 }
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
-    : mP_material(p_material.clone()), mP_form_factor(form_factor.clone())
+    : mP_material(p_material.clone())
+    , mP_form_factor(form_factor.clone())
 {
+    m_has_transformation_info = true;
     setName("Particle");
     registerChild(mP_form_factor.get());
 }
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
                    const IRotation &rotation)
-    : mP_material(p_material.clone()), mP_form_factor(form_factor.clone())
+    : mP_material(p_material.clone())
+    , mP_form_factor(form_factor.clone())
 {
+    m_has_transformation_info = true;
     setName("Particle");
     mP_rotation.reset(rotation.clone());
     registerChild(mP_form_factor.get());
@@ -86,7 +93,9 @@ Particle *Particle::cloneInvertB() const
 
 IFormFactor *Particle::createFormFactor(complex_t wavevector_scattering_factor) const
 {
-    IFormFactor *p_transformed_ff = createTransformedFormFactor();
+    if (!mP_form_factor.get())
+        return 0;
+    IFormFactor *p_transformed_ff = createTransformedFormFactor(*mP_form_factor);
     if (!p_transformed_ff) {
         return 0;
     }
@@ -112,19 +121,6 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
-}
-
-IFormFactor *Particle::createTransformedFormFactor() const
-{
-    if (!mP_form_factor.get())
-        return 0;
-    IFormFactor *p_result;
-    if (mP_rotation.get()) {
-        p_result = new FormFactorDecoratorRotation(mP_form_factor->clone(), *mP_rotation);
-    } else {
-        p_result = mP_form_factor->clone();
-    }
-    return p_result;
 }
 
 void Particle::applyTransformationToSubParticles(const IRotation &rotation)

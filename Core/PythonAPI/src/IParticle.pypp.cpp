@@ -368,8 +368,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
-                , ( bp::arg("position") )
-                , "Sets particle position, including depth." );
+                , ( bp::arg("position") ) );
         
         }
         { //::IParticle::setRotation

@@ -257,40 +257,58 @@ we can rewrite this equation system as
 with the transfer matrix
 \begin{equation}
   M_\il
-   \coloneqq \frac{1}{2f_{\il}}
+   \coloneqq
    \left(\begin{array}{cc}
-       \delta_\il^*(f_{\il}+f_{\il+1})&\delta_\il^*(f_{\il}-f_{\il+1})\\
-       \delta_\il  (f_{\il}-f_{\il+1})&\delta_\il  (f_{\il}+f_{\il+1})
+       \delta_\il^*&0\\
+       0 & \delta_\il
+   \end{array}\right)
+   \frac{1}{2f_{\il}}
+   \left(\begin{array}{cc}
+       (f_{\il}+f_{\il+1})&(f_{\il}-f_{\il+1})\\
+       (f_{\il}-f_{\il+1})&(f_{\il}+f_{\il+1})
    \end{array}\right).
 \end{equation}
-Wave propagation across the entire stack of layers
-is described by the compound transfer matrix
-\begin{equation}
-   M \coloneqq M_0 \cdots M_{N-1}.
-\end{equation}
+
 In our scattering setup,
 plane-wave amplitudes are subject to two boundary conditions:
-In the top layer, $A^-_{w0}=1$ is given by the
+In the top layer, $A^-_{0}=1$ is given by the
 incident or back-traced final plane wave.
-In the substrate, $A^+_{wN}=0$ because there is no radiation
+In the substrate, $A^+_{N}=0$ because there is no radiation
 coming from $z\to-\infty$.
-This leaves us with two unkown amplitudes connected by
+This leaves us with two unkown amplitudes,
+the overall coefficients of transmission~$A^-_N$ and reflection~$A^+_0$.
+These two unknowns are  connected by a system of two linear equations,
 \begin{equation}
   \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
-  = M \left( \begin{array}{c}A^-_N\\0\end{array} \right),
+  = M_0 \cdots M_{N-1} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
 \end{equation}
-which is solved by
+While it is possible in principle
+to solve this as a matrix equation,
+the actual implementation in \BornAgain\ 
+%\footnote{SpectralMatrix.cpp: SpectralMatrix::execute()}
+starts with a unit vector in the substrate,
+and then carries out the propagation step (\ref{EcMc})
+interface by interface,
+yielding unnormalized amplitudes
+\begin{equation}\label{EAtildel}
+  \left( \begin{array}{c}\tilde A^-_{\il}\\ \tilde A^+_{\il}\end{array} \right)
+  \coloneqq M_{\il}\cdots M_{N-1} \left( \begin{array}{c}1\\0\end{array} \right).
+\end{equation}
+When the top layer is reached,
+the obtained values are renormalized
+so that the boundary condition $A^-_{0}=1$ be satisfied,
 \begin{equation}
-  \begin{array}{lcl}
-    A^-_N &=& 1/M_{22},\\[.2ex]
-    A^+_0 &=& M_{12}/M_{22}.
-  \end{array}
+  A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
 \end{equation}
-To make a connection with a well known textbook result,
-consider a system
+
+At this point,
+it may be an interesting exercise to make
+ a connection with a well known textbook result.
+Consider a system
 with a single interface between two semi-infinite media.
-It is a straightforward exercice to verify
+A straightforward computation will show
 that the transmission and reflection probabilities
+determined as above
 agree with Fresnel's result for $s$-polarized light,\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}

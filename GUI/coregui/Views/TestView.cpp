@@ -24,62 +24,56 @@
 #include <QDebug>
 #include "DistributionEditor.h"
 #include "qgroupbox.h"
+#include <QtGui>
+#include <QGraphicsItem>
+#include <QGraphicsRectItem>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <ColorMapPlot.h>
+#include "DistributionDialog.h"
+#include "DistributionWidget.h"
+#include "GraphicsProxyWidget.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+
+
+// Can we move push button along graphics scene?
+// How to insert widget into specified position?
+// If widget is active, why CustomPlot  (ColorMapPlot) is not reacting?
+// Are there some
+
 
 TestView::TestView(QWidget *parent)
-    : QWidget(parent)
-    , m_item(0)
-{
-    setMinimumSize(128, 128);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-//    BeamWavelengthItem *item = new BeamWavelengthItem;
-//    DistributionEditor *distributionEditor = new DistributionEditor;
-//    distributionEditor->setItem(item);
-//    m_propertyEditor = new AwesomePropertyEditor(this);
-
-    // main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-
-//    mainLayout->addWidget(m_propertyEditor);
-//    mainLayout->addWidget(distributionEditor);
-    setLayout(mainLayout);
-}
-
-
-//TestView::TestView(QWidget *parent)
 //    : QWidget(parent)
-//{
-//    setMinimumSize(128, 128);
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    , m_item(0)
+{
+    setMouseTracking(true);
 
-//    QGroupBox *groupBox = new QGroupBox("Beam Parameters");
-//    QVBoxLayout *groupLayout = new QVBoxLayout;
-//    groupBox->setLayout(groupLayout);
+   QGraphicsScene *scene = new QGraphicsScene;
+   QGraphicsPolygonItem *polygonItem = new QGraphicsPolygonItem(
+   QPolygonF(QVector<QPointF>() << QPointF(10, 10) << QPointF(0, 90) << QPointF(40, 70)
+                                    << QPointF(80, 110) << QPointF(70, 20)),0);
+   polygonItem->setPen(QPen(Qt::darkGreen));
+   polygonItem->setBrush(Qt::transparent);
+   this->setScene(scene);
+   scene->itemsBoundingRect();
 
-//    // whole content is represented as grid layout
-//    QGridLayout *gridLayout = new QGridLayout;
+   DistributionEditor *editor = new DistributionEditor;
+   editor->setItem(new BeamWavelengthItem);
+   editor->resize(800,600);
+   GraphicsProxyWidget *widget = new GraphicsProxyWidget;
+   widget->setWidget(editor);
+   scene->addItem(widget);
 
-//    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
-//    editor1->setMinimumSize(256, 256);
-//    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-
-//    TestItem *item1 = new TestItem;
-//    LayerItem *layer = new LayerItem();
-//    editor1->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
-//    editor1->addItemProperties(item1, "MyGroup");
-
-////    editor2->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
-//    editor2->addItemProperties(item1, QString(), AwesomePropertyEditor::INSERT_AFTER);
-
-//    gridLayout->addWidget(editor1, 0, 0);
-//    gridLayout->addWidget(editor2, 0, 1);
-
-//    groupLayout->addLayout(gridLayout);
-
-//    // main layout
-//    QVBoxLayout *mainLayout = new QVBoxLayout;
-//    mainLayout->addWidget(groupBox);
-//    setLayout(mainLayout);
+   Rectangle *rectangle = new Rectangle(0,0,200,200);
+   scene->addItem(rectangle);
+   rectangle->setFlag(QGraphicsItem::ItemIsMovable);
 
 
-//}
+   polygonItem->setFlag(QGraphicsItem::ItemIsMovable);
+
+   Ellipse *ellipse = new Ellipse(0,0,100,50);
+   scene->addItem(ellipse);
+   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
+
+}

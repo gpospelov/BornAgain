@@ -29,7 +29,7 @@ void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t& k,
 }
 
 void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff) const
+        const kvector_t& k, MultiLayerCoeff_t& coeff)
 {
     double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -49,7 +49,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
 }
 
 void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff) const
+        const kvector_t& k, MultiLayerCoeff_t& coeff)
 {
     (void)k;
     size_t N = coeff.size();
@@ -110,7 +110,7 @@ void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
     }
 }
 
-void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
+void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff)
 {
     size_t N = coeff.size();
     for (size_t i=0; i<N; ++i) {
@@ -123,7 +123,7 @@ void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
     }
 }
 
-complex_t SpecularMagnetic::getImExponential(complex_t exponent) const
+complex_t SpecularMagnetic::getImExponential(complex_t exponent)
 {
     if (exponent.imag() > -std::log(std::numeric_limits<double>::min()) ) {
         return 0.0;

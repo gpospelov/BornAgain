@@ -31,38 +31,21 @@
 class BA_CORE_API_ SpecularMagnetic : public ISimulation
 {
 public:
-    SpecularMagnetic() {}
+    //! Layer coefficients describing refraction and reflection/transmission.
+    typedef std::vector<MatrixRTCoefficients> MultiLayerCoeff_t;
 
-   //! multilayer coefficients for matrix formalism
-   class MultiLayerMatrixCoeff
-   {
-   public:
-       MatrixRTCoefficients& operator[](size_t i) { return m_data[i]; }
-       const MatrixRTCoefficients& operator[](size_t i) const {
-           return m_data[i];
-       }
-       size_t size() const { return m_data.size(); }
-       void clear() { m_data.clear(); }
-       void resize(size_t size) { m_data.resize(size); }
-   private:
-       std::vector<MatrixRTCoefficients > m_data;
-   };
-
-   //! set of layer coefficients for matrix formalism
-   typedef MultiLayerMatrixCoeff MultiLayerCoeff_t;
-
-   //! Calculates reflection/transmission coefficients for given multi layer
-   //! and wavevector k
-   void execute(const MultiLayer& sample, const kvector_t& k,
+    //! Computes refraction angle reflection/transmission coefficients
+    //! for given multilayer and wavevector k
+    static void execute(const MultiLayer& sample, const kvector_t& k,
            MultiLayerCoeff_t& coeff);
 
 private:
-   void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
-           MultiLayerCoeff_t& coeff) const;
-   void calculateTransferAndBoundary(const MultiLayer& sample,
-           const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
-   complex_t getImExponential(complex_t exponent) const;
+    static void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
+           MultiLayerCoeff_t& coeff);
+    static void calculateTransferAndBoundary(const MultiLayer& sample,
+           const kvector_t& k, MultiLayerCoeff_t& coeff);
+    static void setForNoTransmission(MultiLayerCoeff_t& coeff);
+    static complex_t getImExponential(complex_t exponent);
 };
 
 #endif /* SPECULARMAGNETIC_H_ */

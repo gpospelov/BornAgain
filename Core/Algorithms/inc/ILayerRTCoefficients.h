@@ -22,7 +22,7 @@
 
 //! @class ILayerRTCoefficients
 //! @ingroup algorithms_internal
-//! @brief Interface to access reflection/transmition coefficients
+//! @brief Interface to access reflection/transmission coefficients
 
 class BA_CORE_API_ ILayerRTCoefficients
 {

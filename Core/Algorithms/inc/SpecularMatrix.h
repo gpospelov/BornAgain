@@ -39,7 +39,7 @@ public:
     static void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
-   static Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper);
+    static Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper);
 };
 
 #endif /* SPECULARMATRIX_H_ */

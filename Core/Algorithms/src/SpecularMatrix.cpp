@@ -34,11 +34,11 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff.resize(N);
 
     // Calculate lambda and kz for each layer.
-    double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
+    double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
         coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
-        coeff[i].kz = k.mag()*coeff[i].lambda * sign_kz;
+        coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
 
     // Calculate t_r and l for each layer.
@@ -62,10 +62,11 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     if( N==1)
         return;
 
-    // check if there is a roughness and if so, calculate the effective
-    // matrix to insert at this interface (else unit matrix)
+    // From bottom to top
     Eigen::Matrix2cd roughness_pmatrix;
     for (size_t i=N-2; ; --i) {
+        // check if there is a roughness and if so, calculate the effective
+        // matrix to insert at this interface (else unit matrix)
         double sigma = 0.0;
         if (sample.getLayerInterface(i)->getRoughness()) {
             sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -83,47 +84,45 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
             break; // the only exit from the loop
 
         complex_t lambda = coeff[i].lambda;
-        complex_t lambda_rough = lambda*roughness_pmatrix(1,1);
-        complex_t prev_lambda = coeff[i+1].lambda * roughness_pmatrix(0,0);
+        complex_t lambda_rough = lambda * roughness_pmatrix(1,1);
+        complex_t lambda_below = coeff[i+1].lambda * roughness_pmatrix(0,0);
+        complex_t ikd = I * k.mag() * sample.getLayer(i)->getThickness();
         if (lambda == complex_t(0.0, 0.0)) {
             coeff[i].l.setIdentity();
             complex_t t_coeff = coeff[i+1].t_r(0) +
                     coeff[i+1].t_r(1) * roughness_pmatrix(1,1);
-            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * prev_lambda;
-            coeff[i].t_r(0) = t_coeff +
-                    I * k.mag() * sample.getLayer(i)->getThickness() * phi_0;
+            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
+            coeff[i].t_r(0) = t_coeff + ikd * phi_0;
             coeff[i].t_r(1) = 0.0;
         }
         else {
             complex_t t_coeff = (
-                        (lambda_rough-prev_lambda)*coeff[i+1].t_r(1) +
-                        (lambda_rough+prev_lambda)*coeff[i+1].t_r(0) )/2.0/lambda;
+                        (lambda_rough-lambda_below)*coeff[i+1].t_r(1) +
+                        (lambda_rough+lambda_below)*coeff[i+1].t_r(0) )/2.0/lambda;
             complex_t r_coeff = (
-                        (lambda_rough+prev_lambda)*coeff[i+1].t_r(1) +
-                        (lambda_rough-prev_lambda)*coeff[i+1].t_r(0) )/2.0/lambda;
-            complex_t ikdlambda = I * k.mag() * sample.getLayer(i)->getThickness() * lambda;
-            coeff[i].t_r(0) = t_coeff*std::exp(-ikdlambda);
-            coeff[i].t_r(1) = r_coeff*std::exp( ikdlambda);
+                        (lambda_rough+lambda_below)*coeff[i+1].t_r(1) +
+                        (lambda_rough-lambda_below)*coeff[i+1].t_r(0) )/2.0/lambda;
+            coeff[i].t_r(0) = t_coeff*std::exp(-ikd*lambda);
+            coeff[i].t_r(1) = r_coeff*std::exp( ikd*lambda);
         }
     }
 
-    // If more than 1 layer, impose normalization:
-    if (N>1) {
-        // First layer boundary is also top layer boundary:
-        coeff[0].l.setIdentity();
-        complex_t lambda = coeff[0].lambda;
-        complex_t lambda_rough = lambda * roughness_pmatrix(1,1);
-        complex_t prev_lambda = coeff[1].lambda * roughness_pmatrix(0,0);
-        coeff[0].t_r(0) = (
-                    (lambda_rough-prev_lambda)*coeff[1].t_r(1) +
-                    (lambda_rough+prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
-        coeff[0].t_r(1) = (
-                    (lambda_rough+prev_lambda)*coeff[1].t_r(1) +
-                    (lambda_rough-prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
-        complex_t T0 = coeff[0].getScalarT();
-        for (size_t i=0; i<N; ++i) {
-            coeff[i].t_r = coeff[i].t_r/T0;
-        }
+    // Impose normalization:
+    assert(N>1);
+    // First layer boundary is also top layer boundary:
+    coeff[0].l.setIdentity();
+    complex_t lambda = coeff[0].lambda;
+    complex_t lambda_rough = lambda * roughness_pmatrix(1,1);
+    complex_t prev_lambda = coeff[1].lambda * roughness_pmatrix(0,0);
+    coeff[0].t_r(0) = (
+                (lambda_rough-prev_lambda)*coeff[1].t_r(1) +
+            (lambda_rough+prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
+    coeff[0].t_r(1) = (
+                (lambda_rough+prev_lambda)*coeff[1].t_r(1) +
+            (lambda_rough-prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
+    complex_t T0 = coeff[0].getScalarT();
+    for (size_t i=0; i<N; ++i) {
+        coeff[i].t_r = coeff[i].t_r/T0;
     }
 }
 

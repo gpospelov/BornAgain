@@ -20,7 +20,9 @@
 
 using std::sqrt;
 
-static complex_t I = complex_t(0.0, 1.0);
+namespace {
+    const complex_t imag_unit = complex_t(0.0, 1.0);
+}
 
 // Computes refraction angle and reflection/transmission coefficients
 // for given multilayer and wavevector k
@@ -58,8 +60,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff[N-1].t_r(0) = 1.0;
     coeff[N-1].t_r(1) = 0.0;
 
-    if( N==1)
-        return;
+    // If only one layer present, there's nothing left to calculate
+    if( N==1) return;
 
     // From bottom to top
     for (int i=N-2; i>=0; --i) {
@@ -82,7 +84,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         complex_t lambda       = coeff[i  ].lambda;
         complex_t lambda_rough = coeff[i  ].lambda * roughness_pmatrix(1,1);
         complex_t lambda_below = coeff[i+1].lambda * roughness_pmatrix(0,0);
-        complex_t ikd = I * k.mag() * sample.getLayer(i)->getThickness();
+        complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
         if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
             complex_t t_coeff = coeff[i+1].t_r(0) +
                     coeff[i+1].t_r(1) * roughness_pmatrix(1,1);

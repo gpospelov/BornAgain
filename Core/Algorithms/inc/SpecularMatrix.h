@@ -38,7 +38,7 @@ public:
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given multilayer and wavevector k
-    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
+    static void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
    static Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper);

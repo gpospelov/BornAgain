@@ -18,6 +18,7 @@
 
 #include <QWidget>
 #include "WarningSignWidget.h"
+#include "qcustomplot.h"
 
 class ParameterizedItem;
 class AwesomePropertyEditor;
@@ -43,10 +44,12 @@ public:
     void setXAxisName(QString xAxisName);
     QPoint getPositionForWarningSign();
     QString generateCodeSnippet();
+    QCustomPlot *getPlot();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
+    void onMouseRelease(QMouseEvent *event);
 
 protected:
     void resizeEvent(QResizeEvent *event);

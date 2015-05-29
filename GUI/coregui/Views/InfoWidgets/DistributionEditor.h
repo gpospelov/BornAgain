@@ -17,6 +17,7 @@
 #define DISTRIBUTIONEDITOR_H
 
 #include <QWidget>
+#include "qcustomplot.h"
 
 class QGroupBox;
 class DistributionWidget;
@@ -34,6 +35,7 @@ public:
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
     void setNameOfEditor(QString name);
+    QCustomPlot *getPlot();
 
 private slots:
     void onSubItemChanged(const QString &property_name);

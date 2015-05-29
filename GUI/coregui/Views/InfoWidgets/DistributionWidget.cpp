@@ -61,6 +61,8 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)
@@ -233,6 +235,7 @@ int DistributionWidget::getMaxYPosition(int y)
 // get current mouse position in plot
 void DistributionWidget::onMouseMove(QMouseEvent *event)
 {
+//    std::cout << "Mouse move: DistributionWidget" << std::endl;
     QPoint point = event->pos();
     double xPos = m_plot->xAxis->pixelToCoord(point.x());
     double yPos = m_plot->yAxis->pixelToCoord(point.y());
@@ -245,7 +248,7 @@ void DistributionWidget::onMouseMove(QMouseEvent *event)
 }
 
 void DistributionWidget::onMousePress(QMouseEvent *event)
-{
+{   std::cout << "Mouse Press: DistributionWidget" << std::endl;
     if (event->button() == Qt::RightButton) {
         QPoint point = event->globalPos();
         QMenu menu;
@@ -253,6 +256,12 @@ void DistributionWidget::onMousePress(QMouseEvent *event)
         menu.exec(point);
     }
 }
+
+void DistributionWidget::onMouseRelease(QMouseEvent *event)
+{
+    std::cout << "Mouse Release: DistributionWidget" << std::endl;
+}
+
 void DistributionWidget::resetView()
 {
     m_plot->xAxis->setRange(*m_xRange);
@@ -274,6 +283,11 @@ QPoint DistributionWidget::getPositionForWarningSign()
     return QPoint(x, y);
 }
 
+QCustomPlot* DistributionWidget::getPlot()
+{
+    return m_plot;
+}
+
 //! adjusts position of warning label on widget move
 void DistributionWidget::resizeEvent(QResizeEvent *event)
 {
@@ -283,3 +297,4 @@ void DistributionWidget::resizeEvent(QResizeEvent *event)
         m_warningSign->setPosition(pos.x(), pos.y());
     }
 }
+

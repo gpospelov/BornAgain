@@ -57,7 +57,6 @@ public:
     complex_t lambda;         //!< positive eigenvalue of transfer matrix
     complex_t kz;             //!< z-part of the wavevector
     Eigen::Vector2cd t_r;     //!< boundary values of transmitted and reflected wave
-    Eigen::Matrix2cd l;       //!< transfer matrix
 
 private:
     Eigen::Vector2cd m_plus;

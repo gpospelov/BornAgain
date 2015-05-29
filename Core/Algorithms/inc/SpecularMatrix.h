@@ -36,7 +36,8 @@ public:
     //! Layer coefficients describing refraction and reflection/transmission.
     typedef std::vector<ScalarRTCoefficients> MultiLayerCoeff_t;
 
-    //! Computes reflection/transmission coefficients for given multilayer and wavevector k
+    //! Computes refraction angle reflection/transmission coefficients
+    //! for given multilayer and wavevector k
     void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:

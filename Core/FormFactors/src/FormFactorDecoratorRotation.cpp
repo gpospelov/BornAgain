@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/src/FormFactorDecoratorTransformation.cpp
-//! @brief     Implements class FormFactorDecoratorTransformation
+//! @file      FormFactors/src/FormFactorDecoratorRotation.cpp
+//! @brief     Implements class FormFactorDecoratorRotation
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorTransformation.h"
+#include "FormFactorDecoratorRotation.h"
 
 #include <boost/scoped_ptr.hpp>
 
-FormFactorDecoratorTransformation *FormFactorDecoratorTransformation::clone() const
+FormFactorDecoratorRotation *FormFactorDecoratorRotation::clone() const
 {
     boost::scoped_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
-    FormFactorDecoratorTransformation *result =  new FormFactorDecoratorTransformation(
+    FormFactorDecoratorRotation *result =  new FormFactorDecoratorRotation(
                 mp_form_factor->clone(), *P_rotation);
 
     result->setName(getName());

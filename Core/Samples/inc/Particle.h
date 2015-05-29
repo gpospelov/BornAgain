@@ -18,7 +18,7 @@
 
 #include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorTransformation.h"
+#include "FormFactorDecoratorRotation.h"
 #include "IMaterial.h"
 
 #include <boost/scoped_ptr.hpp>

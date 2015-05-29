@@ -100,7 +100,7 @@ public:
     void visit(const FormFactorDecoratorMaterial *sample);
     void visit(const FormFactorDecoratorMultiPositionFactor *sample);
     void visit(const FormFactorDecoratorPositionFactor *sample);
-    void visit(const FormFactorDecoratorTransformation *sample);
+    void visit(const FormFactorDecoratorRotation *sample);
 
     void visit(const IInterferenceFunction *sample);
     void visit(const InterferenceFunction1DLattice *sample);

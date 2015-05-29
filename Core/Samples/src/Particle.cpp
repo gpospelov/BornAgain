@@ -120,7 +120,7 @@ IFormFactor *Particle::createTransformedFormFactor() const
         return 0;
     IFormFactor *p_result;
     if (mP_rotation.get()) {
-        p_result = new FormFactorDecoratorTransformation(mP_form_factor->clone(), *mP_rotation);
+        p_result = new FormFactorDecoratorRotation(mP_form_factor->clone(), *mP_rotation);
     } else {
         p_result = mP_form_factor->clone();
     }

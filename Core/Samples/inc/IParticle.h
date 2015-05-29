@@ -56,7 +56,7 @@ public:
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const = 0;
+    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const=0;
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const

@@ -89,7 +89,7 @@ class FormFactorDecoratorFactor;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorMultiPositionFactor;
 class FormFactorDecoratorPositionFactor;
-class FormFactorDecoratorTransformation;
+class FormFactorDecoratorRotation;
 // -
 class IInterferenceFunction;
 class InterferenceFunction1DLattice;
@@ -192,7 +192,7 @@ public:
     virtual void visit(const FormFactorDecoratorMaterial *);
     virtual void visit(const FormFactorDecoratorMultiPositionFactor *);
     virtual void visit(const FormFactorDecoratorPositionFactor *);
-    virtual void visit(const FormFactorDecoratorTransformation *);
+    virtual void visit(const FormFactorDecoratorRotation *);
 
     virtual void visit(const IInterferenceFunction *);
     virtual void visit(const InterferenceFunction1DLattice *);

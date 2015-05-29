@@ -67,7 +67,7 @@ public:
 
     //! Transmission and reflection coefficient
 
-    //! In the manual called A^{+} = t_r(0) and A^{-} = t_r(1).
+    //! In the manual called A^{-} = t_r(0) and A^{+} = t_r(1).
     //! Values of the transmitted/reflected (=down/up propagating) wavefunction
     //! at top boundary of the layer (resp. at the bottom of the top air/vacuum layer).
 

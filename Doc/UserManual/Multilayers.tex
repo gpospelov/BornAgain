@@ -30,8 +30,10 @@ First, only scalar interactions are considered.
 Later, the theory is extended to account for polarization effects.
 
 \Note{\indent By convention,
-layers are numbered from top to bottom (see Fig.~\ref{fig:expgeom}).
+layers are numbered from top to bottom (see Fig.~\ref{Fdefz}).
 The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
+\index{Multilayer!numbering}%
+\index{Layer!index}%
 the substrate (extending to $z\to-\infty$) is layer~$N$.}
 
 All layer interfaces are assumed to be perfectly smooth.
@@ -48,13 +50,25 @@ but documentation is adjourned to a later edition of this manual.
 \subsection{Wave propagation and DWBA matrix element}
 %===============================================================================
 
-\index{Multilayer!Indexing convention}%
-
 To compute scattering cross sections in DWBA,
 we first need to determine the distorted wavefunctions~$\psi_w(\r)$
 for $\r$ inside the sample.
 The following derivation holds for the incoming wave ($w=\ti$)
 as well as for the back-traced detected wave ($w=\tf$).
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
+\end{center}
+\caption{The parameter $z_l$ is the $z$ coordinate of the \E{top} interface
+\index{Multilayer!numbering}%
+\index{Layer!index}%
+\index{Multilayer!coordinates}%
+\index{Layer!coordinate}%
+of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
+of the air/vacuum layer~0.}
+\label{Fdefz}
+\end{figure}
 
 We consider wave propagation in one layer~$\il$
 \nomenclature[2l020]{$\il$}{Index of layer in multilayer sample}%
@@ -88,8 +102,11 @@ with vertical propagation described by a one-dimensional wavefunction
 \end{equation}
 \nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
 For later convenience,
-the phase factor in (\ref{Ephizwj}) includes an offset
-given by~$z_\il$, the $z$ coordinate at the bottom of layer~$\il$.
+the phase factor in (\ref{Ephizwj}) includes an offset~$z_\il$
+as defined in Fig.~\ref{Fdefz}.
+\nomenclature[2z020 2l010]{$z_l$}{Vertical coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+\index{Multilayer!coordinates}%
+\index{Layer!coordinate}%
 The amplitudes $A$ are often written with distinct letters
 T and~R to designate the transmitted or reflected beam,
 \begin{equation}
@@ -191,20 +208,25 @@ From elementary quantum mechanics we know that
 piecewise solutions of the Schrödinger equations must be connected
 such that the wavefunction $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
-This means for the interface
-at the \E{bottom} of layer~$\il=0,\ldots,N-1$:%
+
+To deal with the coordinate offsets introduced in (\ref{Ephizwj}),
+we introduce the function
+\begin{equation}
+  d_\il\coloneqq z_{\il}-z_{\il+1},
+\end{equation}
+which is the thickness of layer~$\il$,
+except for $\il=0$,
+where the special definition of $z_0$ (Fig.~\ref{Fdefz}) implies $d_0=0$.
+We consider the interface between layers $\il$ and $\il+1$,
+with~$\il=0,\ldots,N-1$.
+This interface has the vertical coordinate $z_{\il+1}=z_l-d_l$.
+Accordingly, the continuity conditions at the interface are
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
-            \phi_\il(z_\il)&=&\phi_{\il+1}(z_{\il+1}+d_{\il+1}),\\
-            \partial_z\phi_\il(z_\il)&=&\partial_z\phi_{\il+1}(z_{\il+1}+d_{\il+1}),
+  \hphantom{\partial_z}\phi_{\il+1}(z_{\il+1}) &=& \hphantom{\partial_z}\phi_{\il}(z_{\il}-d_{\il}),\\
+            \partial_z \phi_{\il+1}(z_{\il+1}) &=&           \partial_z \phi_{\il}(z_{\il}-d_{\il}).
   \end{array}
 \end{equation}
-  where
-\begin{equation}
-  d_\il\coloneqq z_{\il-1}-z_{\il}
-\end{equation}
-is the thickness of layer~$\il$.
-
 We abbreviate
 \begin{equation}
   f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\parallel/K)^2}
@@ -216,35 +238,35 @@ and
 For the plane waves (\ref{Ephizwj}),
 the continuity conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
-  \begin{array}{lclclcl}
-  A^+_\il &+& A^-_\il
+  \begin{array}{@{}l@{}lcl@{}l}
+  +A^-_{\il+1} &+A^+_{\il+1}
   &=&
-  A_{\il+1}\delta_{\il+1} &+& A^-_{\il+1}\delta_{\il+1}^*,
+  +A^-_{\il}\delta_{\il} &+A^+_{\il}\delta_{\il}^*,
   \\
-  A^+_\il f_\il  &-& A^-_\il f_\il
+  -A^-_{\il+1} f_{\il+1}  &+A^+_{\il+1} f_{\il+1}
   &=&
-  A_{\il+1}\delta_{\il+1} f_{\il+1} &-& A^-_{\il+1}\delta_{\il+1}^* f_{\il+1}.
+  -A^-_{\il}\delta_{\il} f_{\il} &+A^+_{\il}\delta_{\il}^* f_{\il}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
 we can rewrite this equation system as
 \begin{equation}\label{EcMc}
-  \left( \begin{array}{c}A^+_\il\\ A^-_\il\end{array} \right)
-  = M_{\il+1} \left( \begin{array}{c}A^+_{\il+1}\\A^-_{\il+1}\end{array} \right)
+  \left( \begin{array}{c}A^-_{\il}\\ A^+_{\il}\end{array} \right)
+  = M_{\il} \left( \begin{array}{c}A^-_{\il+1}\\A^+_{\il+1}\end{array} \right)
 \end{equation}
 with the transfer matrix
 \begin{equation}
   M_\il
-   = \frac{1}{2f_{\il-1}}
+   \coloneqq \frac{1}{2f_{\il}}
    \left(\begin{array}{cc}
-       \delta_\il(f_{\il-1}+f_\il)&\delta_\il^*(f_{\il-1}-f_\il)\\
-       \delta_\il(f_{\il-1}-f_\il)&\delta_\il^*(f_{\il-1}+f_\il)
+       \delta_\il^*(f_{\il}+f_{\il+1})&\delta_\il^*(f_{\il}-f_{\il+1})\\
+       \delta_\il  (f_{\il}-f_{\il+1})&\delta_\il  (f_{\il}+f_{\il+1})
    \end{array}\right).
 \end{equation}
-To study wave propagation across the entire stack of layers,
-we use the combined transfer matrix
+Wave propagation across the entire stack of layers
+is described by the compound transfer matrix
 \begin{equation}
-   M = M_1 \cdots M_N.
+   M \coloneqq M_0 \cdots M_{N-1}.
 \end{equation}
 In our scattering setup,
 plane-wave amplitudes are subject to two boundary conditions:
@@ -254,8 +276,8 @@ In the substrate, $A^+_{wN}=0$ because there is no radiation
 coming from $z\to-\infty$.
 This leaves us with two unkown amplitudes connected by
 \begin{equation}
-  \left( \begin{array}{c}A^+_0\\ 1\end{array} \right)
-  = M \left( \begin{array}{c}0\\ A^-_N\end{array} \right),
+  \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
+  = M \left( \begin{array}{c}A^-_N\\0\end{array} \right),
 \end{equation}
 which is solved by
 \begin{equation}
@@ -264,22 +286,21 @@ which is solved by
     A^+_0 &=& M_{12}/M_{22}.
   \end{array}
 \end{equation}
+To make a connection with a well known textbook result,
+consider a system
+with a single interface between two semi-infinite media.
 It is a straightforward exercice to verify
-that for a single interface between two semi-infinite media,
-the reflection and transmission probabilities
+that the transmission and reflection probabilities
 agree with Fresnel's result for $s$-polarized light,\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}
 \begin{equation}
-  \left| A^+_0\right|^2
-  = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2,
-  \quad
   \left| A^-_N\right|^2
-  = \left| \frac{2f_0}{f_0+f_1}\right|^2.
+  = \left| \frac{2f_0}{f_0+f_1}\right|^2,
+  \quad
+  \left| A^+_0\right|^2
+  = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2.
 \end{equation}
-
-\Work{How does the above relate to what is actually computed in BornAgain?
-And how to Abeles matrices, Parrat's formalism, Deak's papers?}
 
 %-------------------------------------------------------------------------------
 \subsection{Damped waves in absorbing media or under total reflection}
@@ -342,6 +363,17 @@ And if layer $\il<N$ is not too thick,
 then some radiation intensity also tunnels into the adjacent layer $\il+1$.
 \index{Tunneling}%
 
+%-------------------------------------------------------------------------------
+\subsection{Implementation and numeric considerations}
+%-------------------------------------------------------------------------------
+
+To determine transmitted and reflected wave amplitudes $A^\pm_{wl}$,
+\BornAgain\ does not explicitly compute the compound transfer matrix~$M$.
+Instead, the propagation step (\ref{EcMc})
+is carried out interface by interface, starting
+at the bottom ($\il=N-1$) and going up to the top ($\il=0$).
+Since $A_N^-$ is initially unknown,
+the iteration starts with 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

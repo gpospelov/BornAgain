@@ -33,23 +33,11 @@ class BA_CORE_API_ SpecularMatrix : public ISimulation
 public:
     SpecularMatrix() {}
 
-   //! multi layer coefficients for matrix formalism
-   class MultiLayerMatrixCoeff
-   {
-   public:
-       ScalarRTCoefficients& operator[](size_t i) { return m_data[i]; }
-       const ScalarRTCoefficients& operator[](size_t i) const { return m_data[i]; }
-       size_t size() const { return m_data.size(); }
-       void clear() { m_data.clear(); }
-       void resize(size_t size) { m_data.resize(size); }
-   private:
-       std::vector<ScalarRTCoefficients > m_data;
-   };
+    //! Layer coefficients describing refraction and reflection/transmission.
+    typedef std::vector<ScalarRTCoefficients> MultiLayerCoeff_t;
 
-   typedef MultiLayerMatrixCoeff MultiLayerCoeff_t; // set of layer coefficients for matrix formalism
-
-   //! Returns reflection/transmission coefficients for given multilayer and wavevector k
-   void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
+    //! Computes reflection/transmission coefficients for given multilayer and wavevector k
+    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
    static Eigen::Matrix2cd calculatePMatrix(complex_t lower, complex_t upper);

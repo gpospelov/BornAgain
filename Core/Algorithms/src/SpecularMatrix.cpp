@@ -22,7 +22,7 @@ using std::sqrt;
 
 static complex_t I = complex_t(0.0, 1.0);
 
-// Returns reflection/transmission coefficients for given multilayer and wavevector k
+// Computes reflection/transmission coefficients for given multilayer and wavevector k
 
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
@@ -49,7 +49,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         coeff[0].t_r(1) = -1.0;
         for (size_t i=1; i<N; ++i) {
             coeff[i].t_r.setZero();
-            coeff[i].l.setIdentity();
+            //coeff[i].l.setIdentity();
         }
         return;
     }
@@ -57,7 +57,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     // Last layer boundary ensures no reflection
     coeff[N-1].t_r(0) = 1.0;
     coeff[N-1].t_r(1) = 0.0;
-    coeff[N-1].l.setIdentity();
+    //coeff[N-1].l.setIdentity();
 
     if( N==1)
         return;
@@ -88,7 +88,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         complex_t lambda_below = coeff[i+1].lambda * roughness_pmatrix(0,0);
         complex_t ikd = I * k.mag() * sample.getLayer(i)->getThickness();
         if (lambda == complex_t(0.0, 0.0)) {
-            coeff[i].l.setIdentity();
+            //coeff[i].l.setIdentity();
             complex_t t_coeff = coeff[i+1].t_r(0) +
                     coeff[i+1].t_r(1) * roughness_pmatrix(1,1);
             complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
@@ -110,16 +110,16 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     // Impose normalization:
     assert(N>1);
     // First layer boundary is also top layer boundary:
-    coeff[0].l.setIdentity();
+    //coeff[0].l.setIdentity();
     complex_t lambda = coeff[0].lambda;
     complex_t lambda_rough = lambda * roughness_pmatrix(1,1);
-    complex_t prev_lambda = coeff[1].lambda * roughness_pmatrix(0,0);
+    complex_t lambda_below = coeff[1].lambda * roughness_pmatrix(0,0);
     coeff[0].t_r(0) = (
-                (lambda_rough-prev_lambda)*coeff[1].t_r(1) +
-            (lambda_rough+prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
+                (lambda_rough-lambda_below)*coeff[1].t_r(1) +
+                (lambda_rough+lambda_below)*coeff[1].t_r(0) )/2.0/lambda;
     coeff[0].t_r(1) = (
-                (lambda_rough+prev_lambda)*coeff[1].t_r(1) +
-            (lambda_rough-prev_lambda)*coeff[1].t_r(0) )/2.0/lambda;
+                (lambda_rough+lambda_below)*coeff[1].t_r(1) +
+                (lambda_rough-lambda_below)*coeff[1].t_r(0) )/2.0/lambda;
     complex_t T0 = coeff[0].getScalarT();
     for (size_t i=0; i<N; ++i) {
         coeff[i].t_r = coeff[i].t_r/T0;

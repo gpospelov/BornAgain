@@ -13,35 +13,34 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{UserManualVersion} % defines command UserManualVersionNumber
+
 %-------------------------------------------------------------------------------
 %  Title page
 %-------------------------------------------------------------------------------
 
-\input{UserManualVersion} % defines command UserManualVersionNumber
-\title{
-{\Huge\bf BornAgain}\\[10mm]
-Software for simulating and fitting\\
-X-ray and neutron small-angle scattering\\
-at grazing incidence\\
-\vspace*{10mm} User Manual \\
-\vspace*{5mm} \large{Version \UserManualVersionNumber\ (\today)}
-\vspace*{5mm}
-}
-
-\author{ 
-{\Large{Céline Durniak, Marina Ganeva, Gennady Pospelov,} }\\
-{\Large{Walter Van Herck, Joachim Wuttke} }\\[10mm]
+\thispagestyle{empty}
+\strut\vspace{10mm}
+\begin{center}
+\Huge
+{\bf BornAgain}\\[10mm]
+\Large
+Software for simulating and fitting\\[.2ex]
+X-ray and neutron small-angle scattering\\[.2ex]
+at grazing incidence\\[15mm]
+User Manual\\[5mm]
 \large
-Scientific Computing Group\\
-J\"ulich Centre for Neutron Science\\
-at Heinz Maier-Leibnitz Zentrum Garching\\
-Forschungszentrum J\"ulich GmbH \\ [40mm]
-%\normalsize
-%Creative Commons CC-BY-SA
-}
-
-\date{{}}
-\maketitle
+Version \UserManualVersionNumber\ (\today)\\[30mm]
+\Large
+Céline Durniak, Marina Ganeva, Gennady Pospelov,\\[1ex]
+Walter Van Herck, Joachim Wuttke\\[10mm]
+\large
+Scientific Computing Group\\[.2ex]
+J\"ulich Centre for Neutron Science\\[.2ex]
+at Heinz Maier-Leibnitz Zentrum Garching\\[.2ex]
+Forschungszentrum J\"ulich GmbH
+\end{center}
+\newpage
 
 %------------------------------------------------------------------------------
 %	DOCUMENT
@@ -49,7 +48,6 @@ Forschungszentrum J\"ulich GmbH \\ [40mm]
 
 
 % Back of title page.
-\newpage
 \thispagestyle{empty}
 ~\vfill
 \noindent
@@ -58,14 +56,15 @@ Homepage:  &http://www.bornagainproject.org\\[2ex]
 Copyright:  &  Forschungszentrum Jülich GmbH 2013--\the\year\\[2ex]
 Licenses:   &Software: GNU General Public License version 3 or higher\\
             &Documentation: Creative Commons CC-BY-SA\\[2ex]
-Authors:    &Scientific Computing Group\\
-            &at Heinz Maier-Leibnitz Zentrum (MLZ) Garching:\\
-            &Céline Durniak, Marina Ganeva, Gennady Pospelov,\\
-            &Walter Van Herck, Joachim Wuttke\\[2ex]
+Authors:    &Céline Durniak, Marina Ganeva, Gennady Pospelov,\\
+            &Walter Van Herck, Joachim Wuttke\\
+            &Scientific Computing Group\\
+            &at Heinz Maier-Leibnitz Zentrum (MLZ) Garching\\[2ex]
 Disclaimer: &Software and documentation are work in progress.\\
             &We cannot guarantee that they are accurate and correct.\\
-            &Anyway, it is entirely in the responsibility of users
+            &It is entirely in the responsibility of users
              to ensure\\
              &that their data interpretation is physically meaningful.\\
             &If in doubt, contact us for assistance or scientific collaboration.
 \end{tabular}
+\newpage

@@ -151,17 +151,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    IFormFactor *p_ff_particle=0;
-    kvector_t position = p_particle_info->getPosition();
-    if (position==kvector_t(0.0, 0.0, 0.0)) {
-        p_ff_particle = P_particle_clone->createFormFactor(factor);
-    }
-    else {
-        boost::scoped_ptr<IFormFactor> P_clone(
-                    P_particle_clone->createFormFactor(factor) );
-        p_ff_particle = new FormFactorDecoratorPositionFactor(
-                    *P_clone, position);
-    }
+    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
@@ -176,6 +166,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance)
+    kvector_t position = p_particle_info->getPosition();
     p_result->m_pos_x = position.x();
     p_result->m_pos_y = position.y();
     p_result->m_abundance = p_particle_info->getAbundance();

@@ -43,7 +43,7 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
-    mP_rotation.reset(rotation.clone());
+    setRotation(rotation);
     registerChild(mP_form_factor.get());
 }
 
@@ -63,6 +63,7 @@ Particle *Particle::clone() const
         result->setAmbientMaterial(*mP_ambient_material);
     if (mP_rotation.get())
         result->setRotation(*mP_rotation);
+    result->setPosition(m_position);
     result->setName(getName());
 
     return result;
@@ -82,6 +83,7 @@ Particle *Particle::cloneInvertB() const
 
     if (mP_rotation.get())
         result->mP_rotation.reset(mP_rotation->clone());
+    result->setPosition(m_position);
 
     result->setName(getName() + "_inv");
     return result;

@@ -67,7 +67,7 @@ public:
     virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
 
     //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateParticleInfos(kvector_t position, double abundance) const;
+    std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const

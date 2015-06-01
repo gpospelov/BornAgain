@@ -21,12 +21,18 @@
 Particle::Particle()
 {
     setName("Particle");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
 }
 
 Particle::Particle(const IMaterial &p_material)
     : mP_material(p_material.clone())
 {
     setName("Particle");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
 }
 
 Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
@@ -34,6 +40,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     registerChild(mP_form_factor.get());
 }
 
@@ -43,6 +52,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     , mP_form_factor(form_factor.clone())
 {
     setName("Particle");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     setRotation(rotation);
     registerChild(mP_form_factor.get());
 }

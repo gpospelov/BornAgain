@@ -21,6 +21,9 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
     , mp_meso_form_factor(p_form_factor)
 {
     setName("MesoCrystal");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     registerChild(mp_particle_structure);
     registerChild(mp_meso_form_factor);
 }
@@ -31,6 +34,9 @@ MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
     , mp_meso_form_factor(form_factor.clone())
 {
     setName("MesoCrystal");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     registerChild(mp_particle_structure);
     registerChild(mp_meso_form_factor);
 }

@@ -21,17 +21,26 @@
 ParticleComposition::ParticleComposition()
 {
     setName("ParticleComposition");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle)
 {
     setName("ParticleComposition");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
 }
 
 ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
 {
     setName("ParticleComposition");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     addParticle(particle, position);
 }
 
@@ -39,6 +48,9 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
     setName("ParticleComposition");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     addParticles(particle, positions);
 }
 
@@ -53,7 +65,7 @@ ParticleComposition* ParticleComposition::clone() const
 {
     ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticle(*m_particles[index]);
+        p_new->addParticleNoPosition(*m_particles[index]);
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
@@ -79,13 +91,6 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     }
 
     return p_new;
-}
-
-void ParticleComposition::addParticle(const IParticle &particle)
-{
-    IParticle *np = particle.clone();
-    registerChild(np);
-    m_particles.push_back(np);
 }
 
 void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
@@ -144,5 +149,12 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
     registerChild(p_particle);
     m_particles.push_back(p_particle);
+}
+
+void ParticleComposition::addParticleNoPosition(const IParticle &particle)
+{
+    IParticle *np = particle.clone();
+    registerChild(np);
+    m_particles.push_back(np);
 }
 

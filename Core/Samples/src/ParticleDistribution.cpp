@@ -57,8 +57,7 @@ IFormFactor *ParticleDistribution::createFormFactor(complex_t wavevector_scatter
                                               "createFormFactor: should never be called");
 }
 
-std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_t position,
-                                                                        double abundance) const
+std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double abundance) const
 {
     std::vector<ParticleInfo *> result;
     boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool() );
@@ -93,7 +92,6 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(kvector_
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = abundance * main_sample.weight;
         ParticleInfo *p_particle_info = m_particle.clone();
-        p_particle_info->setPosition(position);
         p_particle_info->setAbundance(particle_abundance);
         boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_info->createParameterTree() );
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);

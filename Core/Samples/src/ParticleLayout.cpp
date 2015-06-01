@@ -179,8 +179,7 @@ void ParticleLayout::replaceParticleDistribution(size_t index)
                     dynamic_cast<const ParticleDistribution *>(
                         p_particle_info->getParticle());
     std::vector<ParticleInfo *> particles =
-        p_particle_coll->generateParticleInfos(
-            p_particle_info->getPosition(), p_particle_info->getAbundance());
+        p_particle_coll->generateParticleInfos(p_particle_info->getAbundance());
     for (size_t i=0; i<particles.size(); ++i) {
         addAndRegisterParticleInfo(particles[i]);
     }

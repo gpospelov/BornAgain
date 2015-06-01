@@ -57,13 +57,13 @@ public:
     //! Returns depth.
     double getDepth() const
     {
-        return m_depth;
+        return -mP_particle->getPosition().z();
     }
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const
     {
-        return kvector_t(m_x, m_y, -m_depth);
+        return mP_particle->getPosition();
     }
 
     //! Sets particle position, including depth.
@@ -96,9 +96,6 @@ protected:
     virtual void print(std::ostream &ostr) const;
 
     boost::scoped_ptr<IParticle> mP_particle;
-    double m_x;
-    double m_y;
-    double m_depth;
     double m_abundance;
 };
 

@@ -20,14 +20,12 @@
 
 Particle::Particle()
 {
-    m_has_transformation_info = true;
     setName("Particle");
 }
 
 Particle::Particle(const IMaterial &p_material)
     : mP_material(p_material.clone())
 {
-    m_has_transformation_info = true;
     setName("Particle");
 }
 
@@ -35,7 +33,6 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
-    m_has_transformation_info = true;
     setName("Particle");
     registerChild(mP_form_factor.get());
 }
@@ -45,7 +42,6 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
-    m_has_transformation_info = true;
     setName("Particle");
     mP_rotation.reset(rotation.clone());
     registerChild(mP_form_factor.get());

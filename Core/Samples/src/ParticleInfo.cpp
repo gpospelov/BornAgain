@@ -19,12 +19,11 @@
 ParticleInfo::ParticleInfo(const IParticle& p_particle, double depth,
                            double abundance)
     : mP_particle(p_particle.clone())
-    , m_x(0.0)
-    , m_y(0.0)
-    , m_depth(depth)
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
+    kvector_t position(0.0, 0.0, -depth);
+    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
     init_parameters();
 }
@@ -32,12 +31,10 @@ ParticleInfo::ParticleInfo(const IParticle& p_particle, double depth,
 ParticleInfo::ParticleInfo(const IParticle &p_particle, kvector_t position,
                            double abundance)
     : mP_particle(p_particle.clone())
-    , m_x(position.x())
-    , m_y(position.y())
-    , m_depth(-position.z())
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
+    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
     init_parameters();
 }
@@ -56,9 +53,7 @@ ParticleInfo *ParticleInfo::cloneInvertB() const
 
 void ParticleInfo::setPosition(kvector_t position)
 {
-    m_x = position.x();
-    m_y = position.y();
-    m_depth = -position.z();
+    mP_particle->setPosition(position);
 }
 
 void ParticleInfo::applyTransformation(const IRotation &rotation)
@@ -69,17 +64,13 @@ void ParticleInfo::applyTransformation(const IRotation &rotation)
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();
-    registerParameter("x_position", &m_x);
-    registerParameter("y_position", &m_y);
-    registerParameter("depth", &m_depth);
     registerParameter("abundance", &m_abundance);
 }
 
 void ParticleInfo::print(std::ostream& ostr) const
 {
     ostr << "ParticleInfo:" << getName() << "<" << this << "> : {" <<
-        " depth=" << m_depth <<
-        ", abundance=" << m_abundance;
+        "abundance=" << m_abundance;
     ostr << " }";
 }
 

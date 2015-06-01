@@ -84,26 +84,15 @@ protected:
     IFormFactor *createTransformedFormFactor(const IFormFactor &bare_ff) const;
     kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
-    bool m_has_transformation_info;
 };
 
 inline void IParticle::setPosition(kvector_t position)
 {
-    if (!m_has_transformation_info) {
-        throw RuntimeErrorException("IParticle::setPosition: "
-                                    "can only be called for IParticle objects that "
-                                    "contain transformation information");
-    }
     m_position = position;
 }
 
 inline void IParticle::setRotation(const IRotation &rotation)
 {
-    if (!m_has_transformation_info) {
-        throw RuntimeErrorException("IParticle::setRotation: "
-                                    "can only be called for IParticle objects that "
-                                    "contain transformation information");
-    }
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
         registerChild(mP_rotation.get());

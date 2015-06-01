@@ -20,9 +20,6 @@
 
 IFormFactor *IParticle::createTransformedFormFactor(const IFormFactor &bare_ff) const
 {
-    if (!m_has_transformation_info) {
-        return bare_ff.clone();
-    }
     IFormFactor *p_bare_clone = bare_ff.clone();
     IFormFactor *p_intermediate;
     if (mP_rotation.get()) {

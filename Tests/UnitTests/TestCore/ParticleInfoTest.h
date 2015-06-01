@@ -46,10 +46,8 @@ TEST_F(ParticleInfoTest , ParticleInfoTestPool)
 
     ParticleInfo particleInfo(particle);
 
-    particleInfo.setParameterValue("/ParticleInfo/depth",4.1);
     particleInfo.setParameterValue("/ParticleInfo/abundance",4.2);
 
-    EXPECT_EQ(4.1, particleInfo.getDepth());
     EXPECT_EQ(4.2, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 }

@@ -27,6 +27,9 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     qreal m_posX;
@@ -41,6 +44,8 @@ private:
     bool m_rotationMode;
     bool m_drawingMode;
     QVector<QPoint> m_points;
+    int m_numberOfPoints;
+    bool m_isDeleted;
     Corner m_corner;
 };
 #endif

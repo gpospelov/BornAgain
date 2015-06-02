@@ -123,7 +123,7 @@ def get_simulation(det):
     """
     Create and return GISAXS simulation with beam and det defined
     """
-    simulation = ba.Simulation()
+    simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(
         det.phi.n, det.phi.vmin*degree, det.phi.vmax*degree,
         det.alpha.n, det.alpha.vmin*degree, det.alpha.vmax*degree )
@@ -146,4 +146,3 @@ def run_simulation(det,ff,trafo=None):
     nor = data[det.alpha.central_index(),det.phi.central_index()]
     data /= nor
     return data + 1e-80  # for log scale
-

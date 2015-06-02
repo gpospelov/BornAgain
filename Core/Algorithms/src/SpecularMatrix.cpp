@@ -24,8 +24,8 @@ namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
 }
 
-// Computes refraction angle and reflection/transmission coefficients
-// for given multilayer and wavevector k
+// Computes refraction angles and transmission/reflection coefficients
+// for given coherent wave propagation in a multilayer.
 
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
@@ -36,88 +36,78 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff.clear();
     coeff.resize(N);
 
-    // Calculate refraction angle, expressed as lambda, for each layer.
+    // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
         coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
+        if( std::abs(coeff[i].lambda)<1e-20) // UNTESTED FEATURE
+            coeff[i].lambda = 0; // ensure uniform treatment of limiting case lambda->0
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
 
-    // Calculate reflection/transmission coefficients t_r for each layer.
-
-    if (coeff[0].lambda == 0.0 && N>1) {
-        // set for no transmission
-        coeff[0].t_r(0) = 1.0;
-        coeff[0].t_r(1) = -1.0;
-        for (size_t i=1; i<N; ++i) {
-            coeff[i].t_r.setZero();
-        }
-        return;
-    }
-
-    // Last layer boundary ensures no reflection
+    // In the bottom layer, there is no upward travelling wave.
     coeff[N-1].t_r(0) = 1.0;
     coeff[N-1].t_r(1) = 0.0;
 
     // If only one layer present, there's nothing left to calculate
     if( N==1) return;
 
-    // From bottom to top
+    // Calculate transmission/refraction coefficients t_r for each layer,
+    // from bottom to top.
     for (int i=N-2; i>=0; --i) {
-        // check if there is a roughness and if so, calculate the effective
-        // matrix to insert at this interface (else unit matrix)
-        Eigen::Matrix2cd roughness_pmatrix;
-        double sigma = 0.0;
+        if( coeff[i+1].lambda == 0.0 ) {
+            // total reflection by layer with k_perp=0
+            coeff[i].t_r(0) = +1;
+            coeff[i].t_r(1) = -1;
+            continue;
+        }
+        complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
-            sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
-        }
-        if(sigma > 0.0) {
-            double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
-            roughness_pmatrix = calculatePMatrix(
-                        sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
-        }
-        else {
-            roughness_pmatrix = Eigen::Matrix2cd::Identity();
+            double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+            if(sigma > 0.0) {
+                // Since there is a roughness, compute one diagonal matrix element p00;
+                // the other element is p11 = 1/p00.
+                double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
+                roughness_factor = sqrt(
+                            MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /
+                            MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );
+            }
         }
 
-        complex_t lambda       = coeff[i  ].lambda;
-        complex_t lambda_rough = coeff[i  ].lambda * roughness_pmatrix(1,1);
-        complex_t lambda_below = coeff[i+1].lambda * roughness_pmatrix(0,0);
+        complex_t lambda = coeff[i].lambda;
+        if (lambda == 0.0) {
+            if (i==0) {
+                // standing vertical wave in top layer with k_perp=0
+                coeff[i].t_r(0) = +1;
+                coeff[i].t_r(1) = -1;
+            }
+            else {
+                // no intensity in inner layer with k_perp=0
+                coeff[i].t_r.setZero();
+            }
+            // no intensity in layers below
+            for (size_t ii=i+1; ii<N; ++ii) {
+                coeff[ii].t_r.setZero();
+            }
+            continue;
+        }
+        complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
+        complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
         complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
-        if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
-            complex_t t_coeff = coeff[i+1].t_r(0) +
-                    coeff[i+1].t_r(1) * roughness_pmatrix(1,1);
-            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
-            coeff[i].t_r(0) = t_coeff + ikd * phi_0;
-            coeff[i].t_r(1) = 0.0;
-        }
-        else {
-            complex_t t_coeff = (
-                        (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda;
-            complex_t r_coeff = (
-                        (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda;
-            coeff[i].t_r(0) = t_coeff*std::exp(-ikd*lambda);
-            coeff[i].t_r(1) = r_coeff*std::exp( ikd*lambda);
-        }
+        coeff[i].t_r(0) = (
+                    (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
+                    (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                    std::exp(-ikd*lambda);
+        coeff[i].t_r(1) = (
+                    (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
+                    (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                    std::exp( ikd*lambda);
     }
 
-    // Impose normalization:
+    // Normalize to incoming downward travelling amplitude = 1.
     complex_t T0 = coeff[0].getScalarT();
     for (size_t i=0; i<N; ++i) {
         coeff[i].t_r = coeff[i].t_r/T0;
     }
-}
-
-Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper)
-{
-    if (lower == upper) {
-        return Eigen::Matrix2cd::Identity();
-    }
-    complex_t p00 = sqrt( MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper) );
-    Eigen::Matrix2cd p;
-    p << p00, 0, 0, 1.0/p00;
-    return p;
 }

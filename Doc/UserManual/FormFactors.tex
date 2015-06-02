@@ -70,7 +70,7 @@ Afterwards, the detailed documentation is in alphabetical order.
 %\clearpage\thispagestyle{empty}
 \def\entry#1#2#3#4#5#6{%
 \raisebox{-3.8ex}{\includegraphics[width=5em]{fig/blue/#2.png}} &
-\texttt{#6}\newline\textsl{#1} &
+ \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
 Page~\pageref{S#3}\\} % , Sect.~\ref{S#3}
@@ -84,23 +84,24 @@ Page~\pageref{S#3}\\} % , Sect.~\ref{S#3}
    @{}p{.17\textwidth}
    @{}p{.19\textwidth}
    @{}p{.15\textwidth}@{}}
-Shape&{Name\newline \textsl{Legacy Name}}&Symmetry&Parameters&Reference\\\hline
+% Shape&{Name\newline \textsl{Legacy Name}}&Symmetry&Parameters&Reference\\\hline
+Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{FullSphere}{FullSphere3d}{FullSphere}{$R$}{R$_3$}{Sphere}
 \entry{FullSpheroid}{FullSpheroid3d}{FullSpheroid}{$R$, $H$}{D$_{\infty\h}$}{Spheroid}
-\entry{}{Cylinder3d}{Cylinder}{$R$, $H$}{D$_{\infty\h}$}{Cylinder}
+\entry{Cylinder}{Cylinder3d}{Cylinder}{$R$, $H$}{D$_{\infty\h}$}{Cylinder}
 \entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}{C$_{\infty\v}$}{SphericalCap}
 \entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}{C$_{\infty\v}$}{SpheroidalCap}
 \entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}{ConicalFrustum}
-\entry{}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
-\entry{}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
+\entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
+\entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
 \entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}{Frustum6}
 \entry{Pyramid}{Pyramid3d}{Pyramid}{$L$, $H$, $\alpha$}{C$_{4\v}$}{Frustum4}
 \entry{Cuboctahedron}{Cuboctahedron3d}{Cuboctahedron}{$L$, $H$, $r_H$, $\alpha$}{C$_{4\v}$}{BiFrustum4}
-\entry{}{Prism33d}{Prism3}{$L$, $H$}{D$_{3\h}$}{Prism3}
+\entry{Prism3}{Prism33d}{Prism3}{$L$, $H$}{D$_{3\h}$}{Prism3}
 \entry{Tetrahedron}{Tetrahedron3d}{Tetrahedron}{$L$, $H$, $\alpha$}{C$_{3\v}$}{Frustum3}
-\entry{}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}{D$_{2\h}$}{EllipsoidalCylinder}
+\entry{EllipsoidalCylinder}{EllipsoidalCylinder3d}{EllipsoidalCylinder}{$R_a$, $R_b$, $H$}{D$_{2\h}$}{EllipsoidalCylinder}
 \entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}{Prism2}
-\entry{}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}{HemiEllipsoid}
+\entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}{HemiEllipsoid}
 \entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}{Frustum2}
 \entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}{Sinewave}
 \entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}{Sawtooth}

@@ -53,20 +53,15 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     // If only one layer present, there's nothing left to calculate
     if( N==1) return;
 
-    // Calculate transmission/refraction coefficients t_r for each layer.
-
-    if (coeff[0].lambda == 0.0) {
-        // set for no transmission
-        coeff[0].t_r(0) = 1.0;
-        coeff[0].t_r(1) = -1.0;
-        for (size_t i=1; i<N; ++i) {
-            coeff[i].t_r.setZero();
-        }
-        return;
-    }
-
-    // From bottom to top
+    // Calculate transmission/refraction coefficients t_r for each layer,
+    // from bottom to top.
     for (int i=N-2; i>=0; --i) {
+        if( coeff[i+1].lambda == 0.0 ) {
+            // total reflection by layer with k_perp=0
+            coeff[i].t_r(0) = +1;
+            coeff[i].t_r(1) = -1;
+            continue;
+        }
         complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
             double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -80,30 +75,31 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
             }
         }
 
-        complex_t lambda       = coeff[i  ].lambda;
+        complex_t lambda = coeff[i].lambda;
+        if (lambda == 0.0) {
+            // standing wave in layer with k_perp=0
+            coeff[i].t_r(0) = +1;
+            coeff[i].t_r(1) = -1;
+            // no intensity in layers below
+            for (size_t ii=i+1; ii<N; ++ii) {
+                coeff[ii].t_r.setZero();
+            }
+            continue;
+        }
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
         complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
-        /*if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
-            complex_t t_coeff = coeff[i+1].t_r(0) +
-                    coeff[i+1].t_r(1) / roughness_factor;
-            complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
-            coeff[i].t_r(0) = t_coeff + ikd * phi_0;
-            coeff[i].t_r(1) = 0.0;
-        }
-        else*/ {
-            coeff[i].t_r(0) = (
-                        (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
-                        std::exp(-ikd*lambda);
-            coeff[i].t_r(1) = (
-                        (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
-                        std::exp( ikd*lambda);
-        }
+        coeff[i].t_r(0) = (
+                    (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
+                    (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                    std::exp(-ikd*lambda);
+        coeff[i].t_r(1) = (
+                    (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
+                    (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                    std::exp( ikd*lambda);
     }
 
-    // Impose normalization:
+    // Normalize to incoming downward travelling amplitude = 1.
     complex_t T0 = coeff[0].getScalarT();
     for (size_t i=0; i<N; ++i) {
         coeff[i].t_r = coeff[i].t_r/T0;

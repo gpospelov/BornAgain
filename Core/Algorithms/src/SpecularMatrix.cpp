@@ -44,9 +44,16 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
 
+    // In the bottom layer, there is no upward travelling wave.
+    coeff[N-1].t_r(0) = 1.0;
+    coeff[N-1].t_r(1) = 0.0;
+
+    // If only one layer present, there's nothing left to calculate
+    if( N==1) return;
+
     // Calculate transmission/refraction coefficients t_r for each layer.
 
-    if (coeff[0].lambda == 0.0 && N>1) {
+    if (coeff[0].lambda == 0.0) {
         // set for no transmission
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
@@ -55,13 +62,6 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         }
         return;
     }
-
-    // Last layer boundary ensures no reflection
-    coeff[N-1].t_r(0) = 1.0;
-    coeff[N-1].t_r(1) = 0.0;
-
-    // If only one layer present, there's nothing left to calculate
-    if( N==1) return;
 
     // From bottom to top
     for (int i=N-2; i>=0; --i) {
@@ -82,14 +82,14 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
         complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
-        if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
+        /*if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
             complex_t t_coeff = coeff[i+1].t_r(0) +
                     coeff[i+1].t_r(1) / roughness_factor;
             complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
             coeff[i].t_r(0) = t_coeff + ikd * phi_0;
             coeff[i].t_r(1) = 0.0;
         }
-        else {
+        else*/ {
             coeff[i].t_r(0) = (
                         (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
                         (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *

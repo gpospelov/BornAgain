@@ -65,29 +65,26 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 
     // From bottom to top
     for (int i=N-2; i>=0; --i) {
-        // check if there is a roughness and if so, calculate the effective
-        // matrix to insert at this interface (else unit matrix)
-        Eigen::Matrix2cd roughness_pmatrix;
-        double sigma = 0.0;
+        complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
-            sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
-        }
-        if(sigma > 0.0) {
-            double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
-            roughness_pmatrix = calculatePMatrix(
-                        sigeff*coeff[i+1].lambda, sigeff*coeff[i].lambda);
-        }
-        else {
-            roughness_pmatrix = Eigen::Matrix2cd::Identity();
+            double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+            if(sigma > 0.0) {
+                // Since there is a roughness, compute one diagonal matrix element p00;
+                // the other element is p11 = 1/p00.
+                double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
+                roughness_factor = sqrt(
+                            MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /
+                            MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );
+            }
         }
 
         complex_t lambda       = coeff[i  ].lambda;
-        complex_t lambda_rough = coeff[i  ].lambda * roughness_pmatrix(1,1);
-        complex_t lambda_below = coeff[i+1].lambda * roughness_pmatrix(0,0);
+        complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
+        complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
         complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
         if (lambda == complex_t(0.0, 0.0)) { // case lambda=0, i=0 has been treated above
             complex_t t_coeff = coeff[i+1].t_r(0) +
-                    coeff[i+1].t_r(1) * roughness_pmatrix(1,1);
+                    coeff[i+1].t_r(1) / roughness_factor;
             complex_t phi_0 = (coeff[i+1].t_r(1) - coeff[i+1].t_r(0)) * lambda_below;
             coeff[i].t_r(0) = t_coeff + ikd * phi_0;
             coeff[i].t_r(1) = 0.0;
@@ -111,10 +108,3 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     }
 }
 
-Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper)
-{
-    complex_t p00 = sqrt( MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper) );
-    Eigen::Matrix2cd p;
-    p << p00, 0, 0, 1.0/p00;
-    return p;
-}

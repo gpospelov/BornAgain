@@ -6,16 +6,16 @@
 #include <QGraphicsView>
 #include <QPainterPath>
 
-#ifndef ELLIPSE_H
-#define ELLIPSE_H
+#ifndef POLYGON_H
+#define POLYGON__H
 
-class Ellipse : public QGraphicsItem
+class Polygon : public QGraphicsItem
 {
 
 public:
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
-    Ellipse(qreal posX, qreal poxY, qreal width, qreal heigth);
+    Polygon(qreal posX, qreal poxY, qreal width, qreal heigth);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const;
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
@@ -39,6 +39,8 @@ private:
     QGraphicsRectItem *m_bottomRightCorner;
     bool m_resizeMode;
     bool m_rotationMode;
+    bool m_drawingMode;
+    QVector<QPoint> m_points;
     Corner m_corner;
 };
 #endif

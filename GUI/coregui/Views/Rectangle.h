@@ -14,17 +14,20 @@ class Rectangle : public QGraphicsItem
 
 public:
 
-    enum Corner { TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+    enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
     Rectangle(qreal posX, qreal poxY, qreal width, qreal heigth);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const;
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
+    void calculateResize(QGraphicsSceneMouseEvent *event);
+    qreal calculateRotation(QGraphicsSceneMouseEvent *event);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     qreal m_posX;
@@ -36,6 +39,7 @@ private:
     QGraphicsRectItem *m_topRightCorner;
     QGraphicsRectItem *m_bottomRightCorner;
     bool m_resizeMode;
+    bool m_rotationMode;
     Corner m_corner;
 };
 #endif

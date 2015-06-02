@@ -41,6 +41,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
         coeff[i].lambda = sqrt(sample.getLayer(i)->getRefractiveIndex2() - r2ref);
+        if( std::abs(coeff[i].lambda)<1e-10) // UNTESTED FEATURE
+            coeff[i].lambda = 0; // ensure uniform treatment of limiting case lambda->0
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
 
@@ -107,4 +109,3 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         coeff[i].t_r = coeff[i].t_r/T0;
     }
 }
-

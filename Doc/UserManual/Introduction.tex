@@ -21,109 +21,114 @@
 \isection{About BornAgain}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\BornAgain\
-%\marginpar{scope}%
-is a free and open-source software package
-to simulate and fit small-angle
-scattering at grazing incidence (GISAS)
-with X-rays (GISAXS) or neutrons (GISANS).
+\BornAgain\ is a free and open-source software package
+to simulate and fit
+reflectometry, off-specular scattering,
+and grazing-incidence small-angle scattering (GISAS)
+of X-rays and neutrons.
 It provides a generic framework
 for modeling multilayer samples with smooth or
 rough interfaces and with various types of embedded nanoparticles.
-%\marginpar{name}%
+Support for neutron polarization and magnetic scattering
+is under development.
 The name, \BornAgain,
 alludes to the central role of the distorted-wave Born
 approximation (DWBA) in the physical description of the
 scattering process.
 \index{Distorted-wave Born approximation}
 
-\BornAgain\
-%\marginpar{extends \IsGISAXS}
-almost completely reproduces the functionality
-of the widely used program \IsGISAXS\
-\index{IsGISAXS@\IsGISAXS}
-\index{Lazzari, R\'emi}
-by R\'emi Lazzari \cite{Laz02,Laz08}.
-\BornAgain\ goes beyond \IsGISAXS\ by
-supporting an unrestricted number of layers and particles, 
-diffuse reflection from rough layer interfaces,
-particles with inner structures, neutron polarization and magnetic scattering.
-Adhering to a strict object-oriented design,
-\BornAgain\ provides a solid base for future extensions
-in response to specific user needs.
+\BornAgain\ is being developed
+by the Scientific Computing Group
+of the J\"ulich Centre for Neutron Science (JCNS)
+at Heinz Maier-Leibnitz Zentrum (MLZ) Garching, Germany.
+It is intended to serve experimentalists in analysing all kinds
+of reflectometry data.
+It is equally aimed at users of MLZ reflectometers
+\cite{mlz:maria,mlz:nrex,mlz:refsans},
+at JCNS in-house researchers,
+and at the reflectometry and GISAS community at large.
+It is the main contribution of JCNS to national \cite{ba:hdri}
+and international \cite{ba:sine2020} collaborations
+of large-scale facilities for the development of better user software.
 
-\BornAgain\
-%\marginpar{platforms}%
-\index{Platform (operating system)}%
-\index{Operating system}%
-is a multi-platform software.
-We actively support the operating systems
-Linux,
-\index{Linux}%
-MacOS
-\index{MacOS}%
-and  Microsoft Windows.
-\index{Windows|see {Microsoft Windows}}%
-\index{Microsoft Windows}%
-%\marginpar{licence}%
-It is a free and open source software under
+\BornAgain\ is released as free and open source software under
 the GNU General Public License (GPL, version 3 or higher).
-This documentation is released under the Creative Commons license CC-BY-SA.
-When \BornAgain\ is used in preparing scientific papers,
-please cite software and manual as follows:
+This documentation comes under the Creative Commons license CC-BY-SA.
+
+\Warn{\indent The converse of this liberal policy is
+that we cannot guarantee correctness and accuracy of the code.
+It is entirely in the responsibility of users
+to convince themselves that their data interpretation
+is physically meaningful and plausible.}
+\Work{\indent\BornAgain\ is still under intense development.
+New major versions are released about every two months.
+When need arises, bugfix versions are released in between.
+It is strongly recommended that users regularly update their installations.}
+\Warn{\indent We also urge users to subscribe to our newsletter
+(see Sect.~\ref{Snews}),
+and to contact us for any question not answered in the docs.
+\index{Bug reports}%
+We are grateful for all kind of feedback:
+criticism, praise, bug reports, feature requests or contributed modules.
+If questions go beyond normal user support,
+we will be glad to discuss a scientific collaboration.}
+
+The software \BornAgain\ embodies nontrivial scientific ideas.
+Therefore when \BornAgain\ is used in preparing scientific papers,
+it is mandatory to cite the software:
 \index{Citation}%
 %\marginpar{citation}%
 \begin{quote}
 C.~Durniak, M.~Ganeva, G.~Pospelov, W.~Van Herck, J.~Wuttke (2015),\newline
 BornAgain --- Software for simulating and fitting
 X-ray and neutron small-angle scattering at grazing incidence,
-version \UserManualVersionNumber,\newline
+version [\ldots],\newline
 \url{http://www.bornagainproject.org}
 \end{quote}
+The initial design of \BornAgain\ owes much
+to the widely used program \IsGISAXS\
+\index{IsGISAXS@\IsGISAXS}%
+\index{Lazzari, R\'emi}%
+by R\'emi Lazzari \cite{Laz02,Laz08}.
+Therefore when using \BornAgain\ in scientific work,
+it might be appropriate to also cite the pioneering papers
+by Lazzari \etal\ \cite{Laz02,ReLL09}.
+
+Since version 1.0, \BornAgain\ 
+almost completely reproduces the functionality
+of \IsGISAXS.
+About 20 exemplary simulations have been tested against \IsGISAXS,
+and found to agree up to almost the last floating-point digit.
+\BornAgain\ goes beyond \IsGISAXS\
+in supporting an unrestricted number of layers and particles, 
+diffuse reflection from rough layer interfaces and
+particles with inner structures.
+Support for neutron polarization and magnetic scattering
+is under development.
+Adhering to a strict object-oriented design,
+\BornAgain\ provides a solid base for future extensions
+in response to specific user needs.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \isection{About this Manual}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This User Manual is complementary to the online documentation
+This user manual is complementary to the online documentation
 at \url{http://www.bornagainproject.org}.
 It does not duplicate information that is more conveniently read online.
 Therefore, Sect.~\ref{sec:online} just contains a few pointers to the web site.
-The remainder of this User Manual mostly contains background
-on the sample models and on the scattering theory implemented in \BornAgain,
+The remainder of this manual mostly contains background
+on the scattering theory and on the sample models implemented in \BornAgain,
 and some documentation of the corresponding \Python\ functions.
-%Sect.~\ref{sec:Simulation} describes
-%the general methodology of a simulation with \BornAgain,
-%and gives detailed usage examples.
-%Sect.~\ref{sec:ScatteringCrosssection} explains
-%which sample structures are supported in \BornAgain,
-%and which physical approximations are used.
-%Fitting is explained in Sect.~\ref{sec:Fitting}.
-%More theoretical background is given in Appendix~\ref{app:theory}.
-%Implemented particle formfactors are specified in Appendix~\ref{app:ff}.
 
-\Warn{\indent Software and documentation are work in progress.
-We cannot guarantee that they are accurate and correct.
-Anyway, it is entirely in the responsibility of users
-to ensure that their data interpretation is physically meaningful.
-If in doubt, please contact us.}
+\Work{\indent This manual is incomplete.
+Several important chapters are still missing.
+We intend to publish additional material with each new software release.}
 
-\index{Bug reports}
-We are grateful for all kind of feedback:
-criticism, praise, bug reports, feature requests or contributed modules.
-If questions go beyond normal user support,
-we will be glad to discuss a scientific collaboration.
 
-%This manual is decidedly not the place for renarrating
-%the historic development of GISAS theory.
-%For ample references to the original literature,
-%we refer to the excellent review \cite{ReLL09}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\isection{Typesetting conventions}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In this manual, we use the following typesetting conventions:
+\bigskip
+\noindent We use the following typesetting conventions:
 
 \medskip
 \Warn{\indent Such a box contains

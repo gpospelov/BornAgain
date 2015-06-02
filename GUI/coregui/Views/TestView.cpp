@@ -35,6 +35,7 @@
 #include "GraphicsProxyWidget.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
+#include "Polygon.h"
 
 
 // Can we move push button along graphics scene?
@@ -69,7 +70,8 @@ TestView::TestView(QWidget *parent)
    scene->addItem(rectangle);
    rectangle->setFlag(QGraphicsItem::ItemIsMovable);
 
-
+   Polygon *polygon = new Polygon(0,0,200,200);
+   scene->addItem(polygon);
    polygonItem->setFlag(QGraphicsItem::ItemIsMovable);
 
    Ellipse *ellipse = new Ellipse(0,0,100,50);

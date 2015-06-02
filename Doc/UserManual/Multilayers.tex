@@ -255,7 +255,7 @@ we can rewrite this equation system as
   = M_{\il} \left( \begin{array}{c}A^-_{\il+1}\\A^+_{\il+1}\end{array} \right)
 \end{equation}
 with the transfer matrix
-\begin{equation}
+\begin{equation}\label{EMil}
   M_\il
    \coloneqq
    \left(\begin{array}{cc}
@@ -269,9 +269,10 @@ with the transfer matrix
    \end{array}\right).
 \end{equation}
 
-In our scattering setup,
-plane-wave amplitudes are subject to two boundary conditions:
-In the top layer, $A^-_{0}=1$ is given by the
+In a scattering setup,
+plane-wave amplitudes are subject to two boundary conditions.
+Let us assume that the source or the sink is located at $z>0$.
+Then in the top layer, $A^-_{0}=1$ is given by the
 incident or back-traced final plane wave.
 In the substrate, $A^+_{N}=0$ because there is no radiation
 coming from $z\to-\infty$.
@@ -300,6 +301,13 @@ so that the boundary condition $A^-_{0}=1$ be satisfied,
 \begin{equation}
   A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
 \end{equation}
+For GISAS detection in transmission geometry
+(sink location $z<0$) all the development
+following (\ref{EMil}) holds with exchanged order of layers:
+$(0,\ldots, N) \mapsto (N,\ldots,0)$.
+
+\Work{GISAS in transmission geometry is not yet implemented in \BornAgain,
+  but high on our agenda.}
 
 At this point,
 it may be an interesting exercise to make

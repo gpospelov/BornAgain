@@ -98,6 +98,9 @@
   \addcontentsline{toc}{chapter}{#1}
   \markboth{#1}{#1}}
 
+\def\ichapter#1{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\def\isection#1{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1.5ex \@minus -.5ex}%
                                    {2.3ex \@plus .8ex \@minus .5ex}%

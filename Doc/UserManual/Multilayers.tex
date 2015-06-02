@@ -320,6 +320,18 @@ agree with Fresnel's result for $s$-polarized light,\footnote
   = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2.
 \end{equation}
 
+The above algorithm fails if $f_l\to0$
+because $M_l$ becomes singular.
+A layer with $f_l=0$ only sustains horizontal wave propagation;
+radiation from below or above is totally reflected at its boundaries.
+In \BornAgain,
+such total reflection is imposed if $|f_l|$ falls below a very small value
+(currently $10^{-20}$).
+However, this has hardly any practical importance
+because except in vacuum the index of refraction always
+as an absorptive component that prevents $f_l$ from becoming zero.
+
+
 %-------------------------------------------------------------------------------
 \subsection{Damped waves in absorbing media or under total reflection}
   \label{Smulayabs}
@@ -380,18 +392,6 @@ Some intensity is dissipated in layer $\il$.
 And if layer $\il<N$ is not too thick,
 then some radiation intensity also tunnels into the adjacent layer $\il+1$.
 \index{Tunneling}%
-
-%-------------------------------------------------------------------------------
-\subsection{Implementation and numeric considerations}
-%-------------------------------------------------------------------------------
-
-To determine transmitted and reflected wave amplitudes $A^\pm_{wl}$,
-\BornAgain\ does not explicitly compute the compound transfer matrix~$M$.
-Instead, the propagation step (\ref{EcMc})
-is carried out interface by interface, starting
-at the bottom ($\il=N-1$) and going up to the top ($\il=0$).
-Since $A_N^-$ is initially unknown,
-the iteration starts with 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

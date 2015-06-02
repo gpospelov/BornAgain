@@ -93,14 +93,14 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
             coeff[i].t_r(1) = 0.0;
         }
         else {
-            complex_t t_coeff = (
+            coeff[i].t_r(0) = (
                         (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda;
-            complex_t r_coeff = (
+                        (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                        std::exp(-ikd*lambda);
+            coeff[i].t_r(1) = (
                         (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
-                        (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda;
-            coeff[i].t_r(0) = t_coeff*std::exp(-ikd*lambda);
-            coeff[i].t_r(1) = r_coeff*std::exp( ikd*lambda);
+                        (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
+                        std::exp( ikd*lambda);
         }
     }
 

@@ -127,26 +127,30 @@ Several important chapters are still missing.
 We intend to publish additional material with each new software release.}
 
 
-\bigskip
-\noindent We use the following typesetting conventions:
+%\medskip
+%\noindent
+We use the following typesetting conventions:
+
+\def\demobox#1{\hspace{5em}\begin{minipage}{.75\textwidth}#1
+\end{minipage}\hfill\strut}
 
 \medskip
-\Warn{\indent Such a box contains
+\demobox{\Warn{\indent Such a box contains
 a \textbf{warning} about potential problems
-with the software or the documentation.}
+with the software or the documentation.}}
 
 \medskip
-\Work{\indent This road sign in the margin indicates \textbf{work in progress}.}
+\demobox{\Work{\indent This road sign in the margin indicates \textbf{work in progress}.}}
 
 \medskip
-\Note{\indent Such a box contains
+\demobox{\Note{\indent Such a box contains
   an \textbf{implementation note} that explains
-  how the theory exposed in this manual is actually used in \BornAgain.}
+  how the theory exposed in this manual is actually used in \BornAgain.}}
 
 \medskip
-\Emph{\indent Such a box contains
+\demobox{\Emph{\indent Such a box contains
   an \textbf{important fact} that has a central role in
-  the further development of the theory.}
+  the further development of the theory.}}
   
 \medskip
 Variations of the equation sign

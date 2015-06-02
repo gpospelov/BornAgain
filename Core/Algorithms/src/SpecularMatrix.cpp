@@ -113,9 +113,6 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 
 Eigen::Matrix2cd SpecularMatrix::calculatePMatrix( complex_t lower, complex_t upper)
 {
-    if (lower == upper) {
-        return Eigen::Matrix2cd::Identity();
-    }
     complex_t p00 = sqrt( MathFunctions::tanhc(lower) / MathFunctions::tanhc(upper) );
     Eigen::Matrix2cd p;
     p << p00, 0, 0, 1.0/p00;

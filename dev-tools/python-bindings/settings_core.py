@@ -242,6 +242,8 @@ def ManualClassTunings(mb):
         if 'SetLevel' in ff.name:
             ff.alias = 'SetMessageLevel'
             ff.include()
+        if 'CreateProduct' in ff.name:
+            ff.include()
     #
     cl = mb.class_("BasicVector3D<double>")
     cl.add_code("def( bp::self - bp::self )")

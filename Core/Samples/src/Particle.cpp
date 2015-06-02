@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "Particle.h"
-#include "ParticleInfo.h"
 #include "Materials.h"
 #include <boost/scoped_ptr.hpp>
 

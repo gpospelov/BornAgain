@@ -20,27 +20,28 @@
 
 ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                            const ParameterDistribution &par_distr)
-    : m_particle(prototype), m_par_distribution(par_distr)
+    : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
-    registerChild(&m_particle);
+    mP_particle.reset(prototype.clone());
+    registerChild(mP_particle.get());
 }
 
 ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                            const ParameterDistribution &par_distr,
                                            kvector_t position)
-    : m_particle(prototype, position), m_par_distribution(par_distr)
+    : m_par_distribution(par_distr)
 {
-
     setName("ParticleDistribution");
-    registerChild(&m_particle);
+    mP_particle.reset(prototype.clone());
+    mP_particle->setPosition(position);
+    registerChild(mP_particle.get());
 }
 
 ParticleDistribution *ParticleDistribution::clone() const
 {
-    kvector_t position = m_particle.getPosition();
     ParticleDistribution *p_result
-        = new ParticleDistribution(*m_particle.getParticle(), m_par_distribution, position);
+        = new ParticleDistribution(*mP_particle, m_par_distribution);
     return p_result;
 }
 
@@ -91,9 +92,10 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
     for (size_t i = 0; i < main_par_samples.size(); ++i) {
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = abundance * main_sample.weight;
-        ParticleInfo *p_particle_info = m_particle.clone();
+        ParticleInfo *p_particle_info = new ParticleInfo(*mP_particle);
         p_particle_info->setAbundance(particle_abundance);
-        boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_info->createParameterTree() );
+        boost::scoped_ptr<ParameterPool> P_new_pool(
+                    p_particle_info->getParticle()->createParameterTree() );
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
@@ -119,6 +121,6 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
 
 void ParticleDistribution::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    m_particle.applyTransformation(rotation);
+    mP_particle->applyRotation(rotation);
     return;
 }

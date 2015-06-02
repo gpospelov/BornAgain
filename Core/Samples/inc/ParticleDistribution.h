@@ -52,13 +52,13 @@ public:
     //! scattering power)
     virtual void setAmbientMaterial(const IMaterial &material)
     {
-        m_particle.setAmbientMaterial(material);
+        mP_particle->setAmbientMaterial(material);
     }
 
     //! Returns particle's material.
     virtual const IMaterial *getAmbientMaterial() const
     {
-        return m_particle.getParticle()->getAmbientMaterial();
+        return mP_particle->getAmbientMaterial();
     }
 
     //! Should not be called for objects of this class:
@@ -77,17 +77,17 @@ public:
 
     //! Returns the parameter pool that can be used for parameter distributions
     ParameterPool *createDistributedParameterPool() const {
-        return m_particle.createParameterTree();
+        return mP_particle->createParameterTree();
     }
 
     //! Returns particle.
     const IParticle *getParticle() const
     {
-        return m_particle.getParticle();
+        return mP_particle.get();
     }
 
 protected:
-    ParticleInfo m_particle;
+    boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
     //! Propagates a transformation to child particles
     virtual void applyTransformationToSubParticles(const IRotation& rotation);

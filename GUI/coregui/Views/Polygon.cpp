@@ -13,12 +13,14 @@ Polygon::Polygon(qreal posX, qreal posY, qreal width, qreal heigth)
     , m_resizeMode(false)
     , m_rotationMode(false)
     , m_drawingMode(false)
+    , m_numberOfPoints(1)
     , m_corner(NONE)
 
 {
     m_points.append(QPoint(0,0));
     this->setFlag(QGraphicsItem::ItemIsSelectable);
     this->cursor().setShape(Qt::ClosedHandCursor);
+    this->setAcceptHoverEvents(true);
 }
 
 void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -108,8 +110,8 @@ void Polygon::checkResizeRules(QGraphicsSceneMouseEvent *event)
 
 void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
 {
+    this->setFlag(QGraphicsItem::ItemIsMovable, false);
     if(m_corner == TOPLEFT && m_resizeMode) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
         checkResizeRules(event);
         m_width = m_topRightCorner->pos().x() - event->pos().x();
         m_heigth = m_bottomLeftCorner->pos().y() - event->pos().y();
@@ -119,7 +121,6 @@ void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
 
     }
     else if(m_corner == BOTTOMLEFT && m_resizeMode) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
         checkResizeRules(event);
         m_width = m_bottomRightCorner->pos().x() - event->pos().x();
         m_heigth = event->pos().y() - m_topLeftCorner->pos().y();
@@ -127,7 +128,6 @@ void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
         m_posY = event->pos().y() - m_heigth;
     }
     else if(m_corner == TOPRIGHT && m_resizeMode) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
         checkResizeRules(event);
         m_width = event->pos().x() - m_topLeftCorner->pos().x() ;
         m_heigth = m_bottomRightCorner->pos().y() - event->pos().y();
@@ -136,7 +136,6 @@ void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
     }
 
     else if(m_corner == BOTTOMRIGHT && m_resizeMode) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
         checkResizeRules(event);
         m_width =  event->pos().x() - m_bottomLeftCorner->pos().x();
         m_heigth = event->pos().y() - m_topRightCorner->pos().y();
@@ -196,17 +195,23 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::SizeFDiagCursor);
     }
+    else if(m_drawingMode){
+        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+        m_numberOfPoints = m_points.length();
+        m_points.append(QPoint(event->pos().x(), event->pos().y()));
+        m_isDeleted = false;
+    }
     else {
         m_resizeMode = false;
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mousePressEvent(event);
     }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
 
 }
 
 void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+
     if(m_corner != NONE && m_resizeMode) {
         calculateResize(event);
     }
@@ -217,10 +222,7 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         transform.translate(-( m_posX + m_width*0.5), -( m_posY + m_heigth*0.5));
         setTransform(transform);
     }
-    else if(m_drawingMode){
-        m_points.push_back(QPoint(event->pos().x(), event->pos().y()));
-    }
-    else {
+    else if(!m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseMoveEvent(event);
     }
@@ -231,7 +233,14 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void Polygon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
+    m_resizeMode = false;
+    m_rotationMode = false;
+    setCursor(Qt::ArrowCursor);
+//    if(m_drawingMode) {
+//        m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//    }
     QGraphicsItem::mouseReleaseEvent(event);
+
 }
 
 void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
@@ -266,10 +275,14 @@ void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::SizeFDiagCursor);
     }
-    else if(event->button() == Qt::LeftButton) {
+    else if(event->button() == Qt::LeftButton && !m_drawingMode) {
         m_resizeMode = false;
         m_rotationMode = false;
         m_drawingMode = true;
+        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+    }
+    else if(m_drawingMode) {
+        m_drawingMode = false;
     }
     else {
         m_resizeMode = false;
@@ -277,5 +290,36 @@ void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseDoubleClickEvent(event);
     }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
+}
+
+void Polygon::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
+    if(m_drawingMode) {
+        m_points.append(QPoint(event->pos().x(), event->pos().y()));
+        event->accept();
+    }
+    else {
+        QGraphicsItem::hoverEnterEvent(event);
+    }
+}
+
+void Polygon::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
+
+    if(m_drawingMode) {
+        m_points.append(QPoint(event->pos().x(), event->pos().y()));
+        event->accept();
+    }
+
+    else {
+        QGraphicsItem::hoverMoveEvent(event);
+    }
+}
+
+void Polygon::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
+    if(m_drawingMode && !m_isDeleted && m_numberOfPoints >1) {
+       this->setFlag(QGraphicsItem::ItemIsMovable, false);
+       m_points.remove(m_numberOfPoints-1);
+       m_isDeleted = true;
+    }
+    event->accept();
+    QGraphicsItem::hoverLeaveEvent(event);
 }

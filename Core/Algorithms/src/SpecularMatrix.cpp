@@ -77,9 +77,14 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 
         complex_t lambda = coeff[i].lambda;
         if (lambda == 0.0) {
-            // standing wave in layer with k_perp=0
-            coeff[i].t_r(0) = +1;
-            coeff[i].t_r(1) = -1;
+            if (i==0) {
+                // standing vertical wave in layer with k_perp=0
+                coeff[i].t_r(0) = +1;
+                coeff[i].t_r(1) = -1;
+            }
+            else {
+                coeff[i].t_r.setZero();
+            }
             // no intensity in layers below
             for (size_t ii=i+1; ii<N; ++ii) {
                 coeff[ii].t_r.setZero();

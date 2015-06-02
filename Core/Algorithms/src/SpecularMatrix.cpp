@@ -24,8 +24,8 @@ namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
 }
 
-// Computes refraction angle and reflection/transmission coefficients
-// for given multilayer and wavevector k
+// Computes refraction angles and transmission/reflection coefficients
+// for given coherent wave propagation in a multilayer.
 
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
@@ -36,7 +36,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
     coeff.clear();
     coeff.resize(N);
 
-    // Calculate refraction angle, expressed as lambda, for each layer.
+    // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
@@ -44,7 +44,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
 
-    // Calculate reflection/transmission coefficients t_r for each layer.
+    // Calculate transmission/refraction coefficients t_r for each layer.
 
     if (coeff[0].lambda == 0.0 && N>1) {
         // set for no transmission

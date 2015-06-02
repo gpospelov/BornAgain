@@ -25,17 +25,17 @@
 
 //! @class SpecularMatrix
 //! @ingroup algorithms_internal
-//! @brief Implements the matrix formalism for the calculation of wave amplitudes of
-//! the coherent wave solution in a multilayer
+//! @brief Implements method 'execute' to compute refraction angles and transmission/reflection
+//! coefficients for coherent wave propagation in a multilayer
 
 class BA_CORE_API_ SpecularMatrix : public ISimulation
 {
 public:
-    //! Layer coefficients describing refraction and reflection/transmission.
+    //! Layer coefficients describing refraction and transmission/reflection.
     typedef std::vector<ScalarRTCoefficients> MultiLayerCoeff_t;
 
-    //! Computes refraction angle reflection/transmission coefficients
-    //! for given multilayer and wavevector k
+    //! Computes refraction angles and transmission/reflection coefficients
+    //! for given coherent wave propagation in a multilayer.
     static void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:

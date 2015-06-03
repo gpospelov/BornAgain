@@ -35,7 +35,6 @@ public:
     void setItem(ParameterizedItem *item);
     void plotItem(ParameterizedItem *item);
     void setNameOfEditor(QString name);
-    QCustomPlot *getPlot();
 
 private slots:
     void onSubItemChanged(const QString &property_name);

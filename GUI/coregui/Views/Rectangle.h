@@ -13,33 +13,51 @@ class Rectangle : public QGraphicsItem
 {
 
 public:
-
+    //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
+    //! create Rectangle
+    //! @param posX x position in scene
+    //! @param posY y position in scene
+    //! @param width of rectangle
+    //! @param heigth of rectangle
     Rectangle(qreal posX, qreal poxY, qreal width, qreal heigth);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+
+    //! bounding box of rectangle
     QRectF boundingRect() const;
+
+    //! check if resize rules are correct
+    //! @param event mouse event to check if resizes correct
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
+
+    //! calculates resized rectangle
+    //! @param event mouse event to set new coordinates
     void calculateResize(QGraphicsSceneMouseEvent *event);
+
+    //! calculates rotated rectangle
+    //! @param event mouse event to set new coordinates
+    //! @return degree of rotation
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
 
 protected:
+    //! paintEvent paints Rectangle and corners
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    qreal m_posX;
-    qreal m_posY;
-    qreal m_width;
-    qreal m_heigth;
-    QGraphicsRectItem *m_topLeftCorner;
-    QGraphicsRectItem *m_bottomLeftCorner;
-    QGraphicsRectItem *m_topRightCorner;
-    QGraphicsRectItem *m_bottomRightCorner;
-    bool m_resizeMode;
-    bool m_rotationMode;
-    Corner m_corner;
+    qreal m_posX;                           //!< x position of rectangle
+    qreal m_posY;                           //!< y position of rectangle
+    qreal m_width;                          //!< width of rectangle
+    qreal m_heigth;                         //!< height of rectangle
+    QGraphicsRectItem *m_topLeftCorner;     //!< rectangle in the top left corner
+    QGraphicsRectItem *m_bottomLeftCorner;  //!< rectangle in the bottom left corner
+    QGraphicsRectItem *m_topRightCorner;    //!< rectangle in the top right corner
+    QGraphicsRectItem *m_bottomRightCorner; //!< rectangle in the bottom right corner
+    bool m_resizeMode;                      //!< activates resize mode
+    bool m_rotationMode;                    //!< activiates rotation mode
+    Corner m_corner;                        //!< enum with all corners
 };
 #endif

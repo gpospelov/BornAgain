@@ -235,7 +235,6 @@ int DistributionWidget::getMaxYPosition(int y)
 // get current mouse position in plot
 void DistributionWidget::onMouseMove(QMouseEvent *event)
 {
-//    std::cout << "Mouse move: DistributionWidget" << std::endl;
     QPoint point = event->pos();
     double xPos = m_plot->xAxis->pixelToCoord(point.x());
     double yPos = m_plot->yAxis->pixelToCoord(point.y());
@@ -248,18 +247,13 @@ void DistributionWidget::onMouseMove(QMouseEvent *event)
 }
 
 void DistributionWidget::onMousePress(QMouseEvent *event)
-{   std::cout << "Mouse Press: DistributionWidget" << std::endl;
+{
     if (event->button() == Qt::RightButton) {
         QPoint point = event->globalPos();
         QMenu menu;
         menu.addAction(m_resetAction);
         menu.exec(point);
     }
-}
-
-void DistributionWidget::onMouseRelease(QMouseEvent *event)
-{
-    std::cout << "Mouse Release: DistributionWidget" << std::endl;
 }
 
 void DistributionWidget::resetView()
@@ -281,11 +275,6 @@ QPoint DistributionWidget::getPositionForWarningSign()
     int x = m_plot->geometry().topRight().x() - warning_sign_xpos;
     int y = m_plot->geometry().topRight().y() + warning_sign_ypos;
     return QPoint(x, y);
-}
-
-QCustomPlot* DistributionWidget::getPlot()
-{
-    return m_plot;
 }
 
 //! adjusts position of warning label on widget move

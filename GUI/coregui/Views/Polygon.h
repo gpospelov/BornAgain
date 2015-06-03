@@ -7,9 +7,9 @@
 #include <QPainterPath>
 
 #ifndef POLYGON_H
-#define POLYGON__H
+#define POLYGON_H
 
-class Polygon : public QGraphicsItem
+class Polygon : public QGraphicsItem, public QObject
 {
 
 public:
@@ -47,5 +47,6 @@ private:
     int m_numberOfPoints;
     bool m_isDeleted;
     Corner m_corner;
+    QPoint lastMousePosition;
 };
 #endif

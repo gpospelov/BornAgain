@@ -35,7 +35,9 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
-    virtual ~DistributionWidget() {}
+    virtual ~DistributionWidget()
+    {
+    }
     void setItem(DistributionItem *item);
     void plotItem();
     double getWidthOfBars(double min, double max, int samples);
@@ -43,18 +45,15 @@ public:
     int getMaxYPosition(int y);
     void setXAxisName(QString xAxisName);
     QPoint getPositionForWarningSign();
-    QString generateCodeSnippet();
-    QCustomPlot *getPlot();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
-    void onMouseRelease(QMouseEvent *event);
 
 protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
-    void onPropertyChanged();   
+    void onPropertyChanged();
     void resetView();
 
 private:

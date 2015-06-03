@@ -19,14 +19,17 @@
 #include "DistributionEditor.h"
 #include <QGraphicsView>
 #include <QPainterPath>
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
 
 #ifndef TESTVIEW_H
 #define TESTVIEW_H
 
-class ParameterizedItem;
-class AwesomePropertyEditor;
+//class ParameterizedItem;
+//class AwesomePropertyEditor;
 
-class TestView : public QGraphicsView
+class TestView : public QWidget
 {
     Q_OBJECT
 public:
@@ -34,20 +37,20 @@ public:
     virtual ~TestView()
     {
     }
-
-    void setItem(ParameterizedItem *item);
-
-    void plotItem(ParameterizedItem *item);
-
 private slots:
-    //    void onPropertyChanged(const QString &property_name);
-    //    void onSubItemChanged(const QString &property_name);
-    //    void onSubItemPropertyChanged(const QString &property_group, const QString
-    //    &property_name);
+    //! creates a rectangle on button click event
+    void rectangleButtonClicked();
+    //! creates a ellipse on button click event
+    void ellipseButtonClicked();
+    //! creates a polygon on button click event
+    void polygonButtonClicked();
 
 private:
-    AwesomePropertyEditor *m_propertyEditor;
-    ParameterizedItem *m_item;
+    QGraphicsScene *m_scene;
+    QGraphicsView *m_view;
+    Rectangle *m_rectangle;
+    Ellipse *m_ellipse;
+    Polygon *m_polygon;
 };
 
 #endif

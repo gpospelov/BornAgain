@@ -37,45 +37,82 @@
 #include "Ellipse.h"
 #include "Polygon.h"
 
-
 // Can we move push button along graphics scene?
 // How to insert widget into specified position?
 // If widget is active, why CustomPlot  (ColorMapPlot) is not reacting?
 // Are there some
 
-
 TestView::TestView(QWidget *parent)
-//    : QWidget(parent)
-//    , m_item(0)
+    : QWidget(parent), m_scene(new QGraphicsScene), m_view(new QGraphicsView),
+      m_rectangle(new Rectangle(0, 0, 100, 100)), m_ellipse(new Ellipse(0, 0, 100, 50)),
+      m_polygon(new Polygon(0, 0, 100, 100))
 {
+    // set scene into view and switch of scrollbar from view
     setMouseTracking(true);
+    m_view->setMouseTracking(true);
+    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_view->showMaximized();
+    m_view->setScene(m_scene);
 
-   QGraphicsScene *scene = new QGraphicsScene;
-   QGraphicsPolygonItem *polygonItem = new QGraphicsPolygonItem(
-   QPolygonF(QVector<QPointF>() << QPointF(10, 10) << QPointF(0, 90) << QPointF(40, 70)
-                                    << QPointF(80, 110) << QPointF(70, 20)),0);
-   polygonItem->setPen(QPen(Qt::darkGreen));
-   polygonItem->setBrush(Qt::transparent);
-   this->setScene(scene);
-   scene->itemsBoundingRect();
+    // convert widget into custom QProxywidget and put it in to the scene
+    DistributionEditor *editor = new DistributionEditor;
+    editor->setItem(new BeamWavelengthItem);
+    editor->resize(800, 600);
+    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
+    widget->resize(width(), height());
+    widget->setWidget(editor);
+    m_scene->addItem(widget);
 
-   DistributionEditor *editor = new DistributionEditor;
-   editor->setItem(new BeamWavelengthItem);
-   editor->resize(800,600);
-   GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-   widget->setWidget(editor);
-   scene->addItem(widget);
+    // connect buttons
+    QPushButton *rectangleButton = new QPushButton("Rectangle");
+    connect(rectangleButton, SIGNAL(clicked()), this, SLOT(rectangleButtonClicked()));
 
-   Rectangle *rectangle = new Rectangle(0,0,200,200);
-   scene->addItem(rectangle);
-   rectangle->setFlag(QGraphicsItem::ItemIsMovable);
+    QPushButton *ellipseButton = new QPushButton("Ellipse");
+    connect(ellipseButton, SIGNAL(clicked()), this, SLOT(ellipseButtonClicked()));
 
-   Polygon *polygon = new Polygon(0,0,200,200);
-   scene->addItem(polygon);
-   polygonItem->setFlag(QGraphicsItem::ItemIsMovable);
+    QPushButton *polygonButton = new QPushButton("Polygon");
+    connect(polygonButton, SIGNAL(clicked()), this, SLOT(polygonButtonClicked()));
 
-   Ellipse *ellipse = new Ellipse(0,0,100,50);
-   scene->addItem(ellipse);
-   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
+    // create widget with buttons
+    QWidget *buttons = new QWidget;
+    QVBoxLayout *buttonLayout = new QVBoxLayout;
+    buttonLayout->addWidget(new QPushButton("Resize Mode"));
+    buttonLayout->addWidget(new QPushButton("Rotation Mode"));
+    buttonLayout->addWidget(new QPushButton("Drawing Mode"));
+    buttonLayout->addWidget(rectangleButton);
+    buttonLayout->addWidget(ellipseButton);
+    buttonLayout->addWidget(polygonButton);
+    buttonLayout->addStretch(1);
+    buttons->setLayout(buttonLayout);
 
+    //add scene and buttons into widget
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(m_view);
+    mainLayout->addWidget(buttons);
+    this->setLayout(mainLayout);
+}
+
+void TestView::rectangleButtonClicked()
+{
+    delete m_rectangle;
+    m_rectangle = new Rectangle(0, 0, 200, 200);
+    m_scene->addItem(m_rectangle);
+    m_rectangle->setFlag(QGraphicsItem::ItemIsMovable);
+}
+
+void TestView::ellipseButtonClicked()
+{
+    delete m_ellipse;
+    m_ellipse = new Ellipse(0, 0, 100, 50);
+    m_scene->addItem(m_ellipse);
+    m_ellipse->setFlag(QGraphicsItem::ItemIsMovable);
+}
+
+void TestView::polygonButtonClicked()
+{
+    delete m_polygon;
+    m_polygon = new Polygon(0, 0, 200, 200);
+    m_scene->addItem(m_polygon);
+    m_polygon->setFlag(QGraphicsItem::ItemIsMovable);
 }

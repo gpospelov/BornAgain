@@ -16,49 +16,30 @@
 #include "ParticleInfo.h"
 
 
-ParticleInfo::ParticleInfo(const IParticle& p_particle, double depth,
-                           double abundance)
+ParticleInfo::ParticleInfo(const IParticle& p_particle, double abundance)
     : mP_particle(p_particle.clone())
     , m_abundance(abundance)
 {
     setName("ParticleInfo");
-    kvector_t position(0.0, 0.0, -depth);
-    mP_particle->setPosition(position);
-    registerChild(mP_particle.get());
-    init_parameters();
-}
-
-ParticleInfo::ParticleInfo(const IParticle &p_particle, kvector_t position,
-                           double abundance)
-    : mP_particle(p_particle.clone())
-    , m_abundance(abundance)
-{
-    setName("ParticleInfo");
-    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
     init_parameters();
 }
 
 ParticleInfo *ParticleInfo::clone() const
 {
-    return new ParticleInfo(*mP_particle, getPosition(), m_abundance);
+    return new ParticleInfo(*mP_particle, m_abundance);
 }
 
 ParticleInfo *ParticleInfo::cloneInvertB() const
 {
     boost::scoped_ptr<IParticle> P_inverted_particle(
                 mP_particle->cloneInvertB());
-    return new ParticleInfo(*P_inverted_particle, getPosition(), m_abundance);
+    return new ParticleInfo(*P_inverted_particle, m_abundance);
 }
 
 void ParticleInfo::setPosition(kvector_t position)
 {
     mP_particle->setPosition(position);
-}
-
-void ParticleInfo::applyTransformation(const IRotation &rotation)
-{
-    mP_particle->applyRotation(rotation);
 }
 
 void ParticleInfo::init_parameters()

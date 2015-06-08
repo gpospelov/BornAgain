@@ -64,8 +64,17 @@ public:
         return m_position;
     }
 
+    //! Returns depth of particle
+    double getDepth() const
+    {
+        return -m_position.z();
+    }
+
     //! Sets particle position, including depth.
-    void setPosition(kvector_t position);
+    void setPosition(kvector_t position)
+    {
+        m_position = position;
+    }
 
     //! Returns rotation object
     const IRotation *getRotation() const
@@ -85,38 +94,5 @@ protected:
     kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
 };
-
-inline void IParticle::setPosition(kvector_t position)
-{
-    m_position = position;
-}
-
-inline void IParticle::setRotation(const IRotation &rotation)
-{
-    if (!mP_rotation.get()) {
-        mP_rotation.reset(rotation.clone());
-        registerChild(mP_rotation.get());
-        applyTransformationToSubParticles(rotation);
-        return;
-    }
-    deregisterChild(mP_rotation.get());
-    boost::scoped_ptr<IRotation> P_inverse_rotation(mP_rotation->createInverse());
-    applyTransformationToSubParticles(*P_inverse_rotation);
-    mP_rotation.reset(rotation.clone());
-    registerChild(mP_rotation.get());
-    applyTransformationToSubParticles(rotation);
-}
-
-inline void IParticle::applyRotation(const IRotation &rotation)
-{
-    if (mP_rotation.get()) {
-        deregisterChild(mP_rotation.get());
-        mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
-    } else {
-        mP_rotation.reset(rotation.clone());
-    }
-    registerChild(mP_rotation.get());
-    applyTransformationToSubParticles(rotation);
-}
 
 #endif // IPARTICLE_H

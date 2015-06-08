@@ -37,16 +37,16 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     m_pyobj = 0;
     }
 
-    virtual void applyTransformation( ::IRotation const & rotation ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(rotation) );
+    virtual void applyRotation( ::IRotation const & rotation ) {
+        if( bp::override func_applyRotation = this->get_override( "applyRotation" ) )
+            func_applyRotation( boost::ref(rotation) );
         else{
-            this->Crystal::applyTransformation( boost::ref(rotation) );
+            this->Crystal::applyRotation( boost::ref(rotation) );
         }
     }
     
-    void default_applyTransformation( ::IRotation const & rotation ) {
-        Crystal::applyTransformation( boost::ref(rotation) );
+    void default_applyRotation( ::IRotation const & rotation ) {
+        Crystal::applyRotation( boost::ref(rotation) );
     }
 
     virtual ::Crystal * clone(  ) const  {
@@ -306,15 +306,15 @@ void register_Crystal_class(){
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
         Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "A crystal structure with a form factor as a basis.", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
-        { //::Crystal::applyTransformation
+        { //::Crystal::applyRotation
         
-            typedef void ( ::Crystal::*applyTransformation_function_type)( ::IRotation const & ) ;
-            typedef void ( Crystal_wrapper::*default_applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( ::Crystal::*applyRotation_function_type)( ::IRotation const & ) ;
+            typedef void ( Crystal_wrapper::*default_applyRotation_function_type)( ::IRotation const & ) ;
             
             Crystal_exposer.def( 
-                "applyTransformation"
-                , applyTransformation_function_type(&::Crystal::applyTransformation)
-                , default_applyTransformation_function_type(&Crystal_wrapper::default_applyTransformation)
+                "applyRotation"
+                , applyRotation_function_type(&::Crystal::applyRotation)
+                , default_applyRotation_function_type(&Crystal_wrapper::default_applyRotation)
                 , ( bp::arg("rotation") ) );
         
         }

@@ -160,7 +160,6 @@ include_classes = [
     "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
-    "ParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "RotationX",

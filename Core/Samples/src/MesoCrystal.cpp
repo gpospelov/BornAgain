@@ -88,5 +88,5 @@ IFormFactor* MesoCrystal::createFormFactor(
 
 void MesoCrystal::applyTransformationToSubParticles(const IRotation& rotation)
 {
-    mp_particle_structure->applyTransformation(rotation);
+    mp_particle_structure->applyRotation(rotation);
 }

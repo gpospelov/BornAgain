@@ -79,9 +79,9 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const {
-        bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
-        return func_getParticleInfo( index );
+    virtual ::IParticle const * getParticle( ::std::size_t index ) const {
+        bp::override func_getParticle = this->get_override( "getParticle" );
+        return func_getParticle( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -370,13 +370,13 @@ void register_ILayout_class(){
                 , "Returns number of particles." );
         
         }
-        { //::ILayout::getParticleInfo
+        { //::ILayout::getParticle
         
-            typedef ::ParticleInfo const * ( ::ILayout::*getParticleInfo_function_type)( ::std::size_t ) const;
+            typedef ::IParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
-                "getParticleInfo"
-                , bp::pure_virtual( getParticleInfo_function_type(&::ILayout::getParticleInfo) )
+                "getParticle"
+                , bp::pure_virtual( getParticle_function_type(&::ILayout::getParticle) )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns information about particle with index." );

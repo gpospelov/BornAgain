@@ -271,7 +271,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "applyRotation"
                 , applyRotation_function_type( &::IParticle::applyRotation )
-                , ( bp::arg("rotation") ) );
+                , ( bp::arg("rotation") )
+                , "Applies transformation by composing it with the existing one." );
         
         }
         { //::IParticle::applyTransformationToSubParticles
@@ -328,6 +329,16 @@ void register_IParticle_class(){
                 , "Returns particle's material." );
         
         }
+        { //::IParticle::getDepth
+        
+            typedef double ( ::IParticle::*getDepth_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getDepth"
+                , getDepth_function_type( &::IParticle::getDepth )
+                , "Returns depth of particle." );
+        
+        }
         { //::IParticle::getPosition
         
             typedef ::kvector_t ( ::IParticle::*getPosition_function_type)(  ) const;
@@ -368,7 +379,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
-                , ( bp::arg("position") ) );
+                , ( bp::arg("position") )
+                , "Sets particle position, including depth." );
         
         }
         { //::IParticle::setRotation
@@ -378,7 +390,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "setRotation"
                 , setRotation_function_type( &::IParticle::setRotation )
-                , ( bp::arg("rotation") ) );
+                , ( bp::arg("rotation") )
+                , "Sets transformation." );
         
         }
         { //::IParameterized::areParametersChanged

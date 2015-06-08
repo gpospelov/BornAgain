@@ -1172,26 +1172,27 @@ std::string PyGenVisitor::defineParticleLayouts() const
             size_t particleIndex = 0;
 
             while (particleIndex != numberOfParticles) {
-                const ParticleInfo *particleInfo = particleLayout->getParticleInfo(particleIndex);
-                kvector_t pos = particleInfo->getPosition();
+                const IParticle *p_particle = particleLayout->getParticle(particleIndex);
+                double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
+                kvector_t pos = p_particle->getPosition();
                 if (pos.x() != 0.0 || pos.y() != 0.0) {
-                    result << indent() << m_label->getLabel(particleInfo->getParticle())
+                    result << indent() << m_label->getLabel(p_particle)
                            << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
                            << "*nanometer, " << pos.z() << "*nanometer)\n";
 
-                    result << indent() << m_label->getLabel(particleInfo->getParticle())
+                    result << indent() << m_label->getLabel(p_particle)
                            << "_positionInfo = ParticleInfo("
-                           << m_label->getLabel(particleInfo->getParticle()) << ", "
-                           << m_label->getLabel(particleInfo->getParticle()) << "_position, "
-                           << PyGenTools::printDouble(particleInfo->getAbundance()) << ")\n";
+                           << m_label->getLabel(p_particle) << ", "
+                           << m_label->getLabel(p_particle) << "_position, "
+                           << PyGenTools::printDouble(abundance) << ")\n";
 
                     result << indent() << it->second << ".addParticleInfo("
-                           << m_label->getLabel(particleInfo->getParticle()) << "_positionInfo)\n";
+                           << m_label->getLabel(p_particle) << "_positionInfo)\n";
                 } else {
                     result << indent() << it->second << ".addParticle("
-                           << m_label->getLabel(particleInfo->getParticle()) << ", "
-                           << PyGenTools::printDouble(particleInfo->getDepth()) << ", "
-                           << PyGenTools::printDouble(particleInfo->getAbundance()) << ")\n";
+                           << m_label->getLabel(p_particle) << ", "
+                           << PyGenTools::printDouble(-pos.z()) << ", "
+                           << PyGenTools::printDouble(abundance) << ")\n";
                 }
                 particleIndex++;
             }

@@ -349,9 +349,10 @@ void DomainObjectBuilder::addParticleToLayout(ParticleLayout *result,
             double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
             double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
             if (pos_x != 0.0 || pos_y != 0.0 || pos_z != 0.0) {
+                boost::scoped_ptr<Particle> P_particle(particle.clone());
                 kvector_t position(pos_x, pos_y, pos_z);
-                ParticleInfo particle_info(particle, position, abundance);
-                result->addParticleInfo(particle_info);
+                P_particle->setPosition(position);
+                result->addParticle(*P_particle, 0.0, abundance);
             } else {
                 result->addParticle(particle, depth, abundance);
             }

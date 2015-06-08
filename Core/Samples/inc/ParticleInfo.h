@@ -27,11 +27,10 @@
 //!
 //! Used in ParticleLayout
 
-class BA_CORE_API_ ParticleInfo : public ICompositeSample
+class ParticleInfo : public ICompositeSample
 {
 public:
-    ParticleInfo(const IParticle &p_particle, double depth = 0.0, double abundance = 1.0);
-    ParticleInfo(const IParticle &p_particle, kvector_t position, double abundance = 1.0);
+    ParticleInfo(const IParticle &p_particle, double abundance = 1.0);
 
     virtual ~ParticleInfo()
     {
@@ -86,9 +85,6 @@ public:
     {
         mP_particle->setAmbientMaterial(material);
     }
-
-    //! Applies transformation by composing it with the existing one
-    void applyTransformation(const IRotation& transform);
 
 protected:
     virtual void init_parameters();

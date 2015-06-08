@@ -121,7 +121,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Lattice.pypp.h"
 #include "AttLimits.pypp.h"
 #include "IInterferenceFunction.pypp.h"
-#include "ParticleInfo.pypp.h"
 #include "Instrument.pypp.h"
 #include "FormFactorInfLongBox.pypp.h"
 #include "FormFactorCone.pypp.h"
@@ -264,7 +263,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleComposition_class();
     register_ParticleCoreShell_class();
     register_ParticleDistribution_class();
-    register_ParticleInfo_class();
     register_ParticleLayout_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DGaussian_class();

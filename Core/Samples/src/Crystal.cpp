@@ -74,7 +74,7 @@ Lattice Crystal::getTransformedLattice() const
     }
 }
 
-void Crystal::applyTransformation(const IRotation& rotation)
+void Crystal::applyRotation(const IRotation& rotation)
 {
     if (mP_rotation.get()) {
         IRotation *total_rotation = CreateProduct(rotation, *mP_rotation);

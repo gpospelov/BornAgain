@@ -25,7 +25,7 @@ class AwesomePropertyEditor;
 class QGroupBox;
 
 //! The AwesomePropertyPresenter is a widget to display AwesomePropertyEditor inside
-//! custom group box equipped with help sign functionality (used to summon DistribtionEditor)
+//! custom group box equipped with help sign functionality (used to summon DistributionEditor)
 class BA_CORE_API_ AwesomePropertyPresenter : public QWidget
 {
     Q_OBJECT

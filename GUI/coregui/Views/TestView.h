@@ -12,16 +12,16 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "DistributionEditor.h"
 #include <QWidget>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
-#include "DistributionEditor.h"
 #include <QGraphicsView>
 #include <QPainterPath>
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
 
 #ifndef TESTVIEW_H
 #define TESTVIEW_H
@@ -34,6 +34,8 @@ class TestView : public QWidget
     Q_OBJECT
 public:
     TestView(QWidget *parent = 0);
+
+
     virtual ~TestView()
     {
     }

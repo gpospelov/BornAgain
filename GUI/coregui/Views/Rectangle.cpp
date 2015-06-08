@@ -31,13 +31,9 @@ void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
         painter->setBrush(Qt::green);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
     }
     // create new rectangles on the corners

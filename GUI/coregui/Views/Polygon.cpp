@@ -9,11 +9,12 @@ Polygon::Polygon(qreal posX, qreal posY, qreal width, qreal heigth)
       m_topRightCorner(new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10)),
       m_bottomRightCorner(
           new QGraphicsRectItem(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
-      m_resizeMode(false), m_rotationMode(false), m_drawingMode(false), m_numberOfPoints(1),
-      m_corner(NONE)
+      m_resizeMode(false), m_rotationMode(false), m_drawingMode(false),
+      m_corner(NONE), lastMousePosition(QPoint(0,0))
 
 {
-    m_points.append(QPoint(0, 0));
+//    m_points.append(QPoint(0, 0));
+    m_polygon.append(lastMousePosition);
     this->setFlag(QGraphicsItem::ItemIsSelectable);
     this->cursor().setShape(Qt::ClosedHandCursor);
     this->setAcceptHoverEvents(true);
@@ -26,23 +27,30 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     delete m_bottomLeftCorner;
     delete m_bottomRightCorner;
 
+    prepareGeometryChange();
     painter->setRenderHints(QPainter::Antialiasing);
-    this->prepareGeometryChange();
-    QPolygon polygon;
-    for (int i = 0; i < m_numberOfPoints - 1; ++i) {
-        polygon << m_points[i];
-    }
-    painter->drawPolygon(polygon);
+//    QPolygon polygon;
+//    for (int i = 0; i < m_points.length() - 1; ++i) {
+//        polygon << m_points[i];
+//    }
+//    polygon << lastMousePosition;
+
+    painter->drawPolygon(m_polygon);
+    std::cout << "painting polygon" << std::endl;
+//    for(int i = 0; i < m_points.length()-2; ++i) {
+//        if(m_points.length() > 2) {
+//            painter->drawLine(m_points[i], m_points[i+1]);
+//        }
+//        else{
+//            painter->drawLine(m_points[0], m_points[1]);
+//        }
+//    }
 
     if (this->isSelected()) {
         painter->setBrush(Qt::green);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-        this->prepareGeometryChange();
         painter->drawRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
     }
 
@@ -173,7 +181,6 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::SizeBDiagCursor);
     }
-
     else if (event->button() == Qt::LeftButton && m_bottomRightCorner->contains(event->pos())) {
         m_resizeMode = true;
         m_corner = BOTTOMRIGHT;
@@ -181,9 +188,9 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
         setCursor(Qt::SizeFDiagCursor);
     } else if (m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        m_points.append(QPoint(event->pos().x(), event->pos().y()));
-        m_numberOfPoints = m_points.length();
-        m_isDeleted = false;
+        m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
+//        std::cout << m_numberOfPoints << std::endl;
+//        m_isDeleted = false;
     } else {
         m_resizeMode = false;
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -203,7 +210,17 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         transform.translate(-(m_posX + m_width * 0.5), -(m_posY + m_heigth * 0.5));
         setTransform(transform);
     } else if (m_drawingMode) {
-        m_points.insert(m_numberOfPoints - 1, QPoint(event->pos().x(), event->pos().y()));
+//        if(m_points.length()-1 > 1) {
+//            m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//            std::cout << m_points.length() - 1 << std::endl;
+//            std::cout << m_points.length() - 1 << std::endl;
+//            m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//        m_points.remove(m_numberOfPoints -1);
+//        m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//        }
+//        else {
+//            m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//        }
     } else if (!m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseMoveEvent(event);
@@ -217,6 +234,8 @@ void Polygon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_resizeMode = false;
     m_rotationMode = false;
     setCursor(Qt::ArrowCursor);
+
+//    m_numberOfPoints = m_points.length();
     //    if(m_drawingMode) {
     //        m_points.append(QPoint(event->pos().x(), event->pos().y()));
     //    }
@@ -284,22 +303,29 @@ void Polygon::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     //    lastMousePosition = QPoint(event->pos().x(), event->pos().y());
     //    QTimer *timer = new QTimer;
     //    timer->setSingleShot(true);
-    ////    timer.setInterval(2000);
+    //    timer.setInterval(2000);
     //    timer->start(2000);
 
-    //    if(m_drawingMode) {
-    //        if(lastMousePosition.x() == event->pos().x() && lastMousePosition.y() ==
-    //        event->pos().y() && !timer->isActive()) {
-    //            m_points.append(QPoint(event->pos().x(), event->pos().y()));
-    //            m_isDeleted = true;
-    //            std::cout << "yes" << std::endl;
-    //        }
-    //        if(m_numberOfPoints > 1 && timer->isActive() && m_isDeleted){
-    //            std::cout << "deleting" << std::endl;
-    //            m_points.remove(m_numberOfPoints-1);
-    //            m_isDeleted = true;
-    //        }
-    //    }
+        if(m_drawingMode) {
+//            if(m_points.length()-1 > 1) {
+//                std::cout << m_points.length() - 1 << std::endl;
+//                m_points.remove(m_points.length() -1);
+//                std::cout << m_points.length() - 1 << std::endl;
+//                m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//            }
+            m_polygon[m_polygon.length() -1] = QPoint(event->pos().x(), event->pos().y());
+//            if(lastMousePosition.x() == event->pos().x() && lastMousePosition.y() ==
+//            event->pos().y() && !timer->isActive()) {
+//                m_points.append(QPoint(event->pos().x(), event->pos().y()));
+//                m_isDeleted = true;
+//                std::cout << "yes" << std::endl;
+//            }
+//            if(m_numberOfPoints > 1 && timer->isActive() && m_isDeleted){
+//                std::cout << "deleting" << std::endl;
+//                m_points.remove(m_numberOfPoints-1);
+//                m_isDeleted = true;
+//            }
+        }
     //    if(!timer->isActive()) {
     //        std::cout << "timer is out" << std::endl;
     //    }

@@ -36,11 +36,10 @@
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Polygon.h"
+#include "ColorMapPlot.h"
+#include "IntensityDataItem.h"
+#include "SimulationRegistry.h"
 
-// Can we move push button along graphics scene?
-// How to insert widget into specified position?
-// If widget is active, why CustomPlot  (ColorMapPlot) is not reacting?
-// Are there some
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent), m_scene(new QGraphicsScene), m_view(new QGraphicsView),
@@ -59,9 +58,20 @@ TestView::TestView(QWidget *parent)
     DistributionEditor *editor = new DistributionEditor;
     editor->setItem(new BeamWavelengthItem);
     editor->resize(800, 600);
+
+
+    SimulationRegistry sim_registry;
+    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
+    sim->runSimulation();
+    IntensityDataItem *dataItem = new IntensityDataItem;
+    dataItem->setOutputData(sim->getIntensityData());
+
+    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+    colorMapPlot->setItem(dataItem);
+
     GraphicsProxyWidget *widget = new GraphicsProxyWidget;
     widget->resize(width(), height());
-    widget->setWidget(editor);
+    widget->setWidget(colorMapPlot);
     m_scene->addItem(widget);
 
     // connect buttons

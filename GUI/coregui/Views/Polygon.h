@@ -5,6 +5,7 @@
 #include "DistributionEditor.h"
 #include <QGraphicsView>
 #include <QPainterPath>
+#include <QBrush>
 
 #ifndef POLYGON_H
 #define POLYGON_H
@@ -43,10 +44,11 @@ private:
     bool m_resizeMode;
     bool m_rotationMode;
     bool m_drawingMode;
-    QVector<QPoint> m_points;
-    int m_numberOfPoints;
-    bool m_isDeleted;
+//    QVector<QPoint> m_points;
+//    int m_numberOfPoints;
+//    bool m_isDeleted;
     Corner m_corner;
     QPoint lastMousePosition;
+    QPolygon m_polygon;
 };
 #endif

@@ -64,40 +64,40 @@ Particle::~Particle()
 
 Particle *Particle::clone() const
 {
-    Particle *result = new Particle();
+    Particle *p_result = new Particle();
 
     if (mP_form_factor.get())
-        result->setFormFactor(*mP_form_factor);
+        p_result->setFormFactor(*mP_form_factor);
     if (mP_material.get())
-        result->setMaterial(*mP_material);
+        p_result->setMaterial(*mP_material);
     if (mP_ambient_material.get())
-        result->setAmbientMaterial(*mP_ambient_material);
+        p_result->setAmbientMaterial(*mP_ambient_material);
     if (mP_rotation.get())
-        result->setRotation(*mP_rotation);
-    result->setPosition(m_position);
-    result->setName(getName());
+        p_result->setRotation(*mP_rotation);
+    p_result->setPosition(m_position);
+    p_result->setName(getName());
 
-    return result;
+    return p_result;
 }
 
 Particle *Particle::cloneInvertB() const
 {
-    Particle *result = new Particle();
+    Particle *p_result = new Particle();
     if (mP_form_factor.get())
-        result->setFormFactor(*mP_form_factor);
+        p_result->setFormFactor(*mP_form_factor);
 
     if (mP_material.get())
-        result->mP_material.reset(Materials::createInvertedMaterial(mP_material.get()));
+        p_result->mP_material.reset(Materials::createInvertedMaterial(mP_material.get()));
     if (mP_ambient_material.get())
-        result->mP_ambient_material.reset(
+        p_result->mP_ambient_material.reset(
             Materials::createInvertedMaterial(mP_ambient_material.get()));
 
     if (mP_rotation.get())
-        result->mP_rotation.reset(mP_rotation->clone());
-    result->setPosition(m_position);
+        p_result->mP_rotation.reset(mP_rotation->clone());
+    p_result->setPosition(m_position);
 
-    result->setName(getName() + "_inv");
-    return result;
+    p_result->setName(getName() + "_inv");
+    return p_result;
 }
 
 IFormFactor *Particle::createFormFactor(complex_t wavevector_scattering_factor) const

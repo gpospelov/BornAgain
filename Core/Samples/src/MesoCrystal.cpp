@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MesoCrystal.h"
+#include "FormFactorDecoratorPositionFactor.h"
 
 MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
         IFormFactor* p_form_factor)
@@ -54,6 +55,7 @@ MesoCrystal* MesoCrystal::clone() const
     if (mP_rotation.get()) {
         p_result->mP_rotation.reset(mP_rotation->clone());
     }
+    p_result->setPosition(m_position);
     return p_result;
 }
 
@@ -64,6 +66,7 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     if (mP_rotation.get()) {
         p_result->mP_rotation.reset(mP_rotation->clone());
     }
+    p_result->setPosition(m_position);
     return p_result;
 }
 
@@ -81,9 +84,15 @@ const IMaterial *MesoCrystal::getAmbientMaterial() const
 IFormFactor* MesoCrystal::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
-    return mp_particle_structure->createTotalFormFactor(
-            *mp_meso_form_factor, *getAmbientMaterial(),
-            wavevector_scattering_factor);
+    IFormFactor *p_result;
+    boost::scoped_ptr<IFormFactor> P_simple_ff(mp_particle_structure->createTotalFormFactor(
+                *mp_meso_form_factor, *getAmbientMaterial(), wavevector_scattering_factor) );
+    if (m_position != kvector_t()) {
+        p_result = new FormFactorDecoratorPositionFactor(*P_simple_ff, m_position);
+    } else {
+        p_result = P_simple_ff->clone();
+    }
+    return p_result;
 }
 
 void MesoCrystal::applyTransformationToSubParticles(const IRotation& rotation)

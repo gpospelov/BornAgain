@@ -115,21 +115,50 @@ on the scattering theory and on the sample models implemented in \BornAgain,
 and some documentation of the corresponding \Python\ functions.
 
 \Work{\indent This manual is incomplete.
-Several important chapters are still missing.
-We intend to publish additional material with each new software release.}
+Several important chapters are still missing.}
 
-\Warn{\indent We urge users to subscribe to our newsletter
+Specifically,
+we plan to provide documentation on
+\begin{itemize}
+\item X-ray propagation and scattering,
+\index{X-rays!propagation and scattering}%
+\index{Wave propagation!X-rays}%
+\item polarized neutron propagation and magnetic scattering,
+\index{Neutrons!polarization}%
+\index{Wave propagation!neutrons, polarized}%
+\index{Polarized neutron!propagation and magnetic scattering}%
+\item mapping of $\partial\sigma/\partial\Omega$ onto flat detectors,
+\index{Detector!mapping the cross section}%
+\item scattering by rough interfaces,
+\index{Roughness}%
+\item scattering by particle assemblies.
+\index{Particle assemblies}%
+\end{itemize}
+
+We intend to publish these chapters successively,
+along with new software release.
+To facilitate citation,
+starting with release 1.2 the manual carries
+the same version number as the software,
+even though it is in a less mature state.
+
+\Emph{\indent We urge users to subscribe to our newsletter
 (see Sect.~\ref{Snews}),
-and to contact us for any question not answered in the docs.
+and to contact us for any question not answered here
+or in the online documentation.}
+
 \index{Bug reports}%
 We are grateful for all kind of feedback:
 criticism, praise, bug reports, feature requests or contributed modules.
 If questions go beyond normal user support,
-we will be glad to discuss a scientific collaboration.}
+we will be glad to discuss a scientific collaboration.
 
-%\medskip
-%\noindent
-In this manual, we use the following typesetting conventions:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\isection{Typesetting conventions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this manual, we use the following colored boxes to highlight
+certain information:
 
 \def\demobox#1{\hspace{5em}\begin{minipage}{.75\textwidth}#1
 \end{minipage}\hfill\strut}
@@ -149,7 +178,8 @@ with the software or the documentation.}}
 
 \medskip
 \demobox{\Emph{\indent Such a box contains
-  an \textbf{important fact} that has a central role in
+  an \textbf{important fact}, for instance an equation
+  that has a central role in
   the further development of the theory.}}
   
 \medskip

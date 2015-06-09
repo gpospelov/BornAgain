@@ -61,7 +61,9 @@ Lattice Lattice::createTransformedLattice(const IRotation& rotation) const
     kvector_t a1 = transform.transformed(m_a1);
     kvector_t a2 = transform.transformed(m_a2);
     kvector_t a3 = transform.transformed(m_a3);
-    return Lattice(a1, a2, a3);
+    Lattice result = Lattice(a1, a2, a3);
+    if (mp_selection_rule) result.setSelectionRule(*mp_selection_rule);
+    return result;
 }
 
 void Lattice::initialize() const

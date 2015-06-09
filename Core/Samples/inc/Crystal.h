@@ -76,7 +76,7 @@ private:
     void applyTransformationToSubParticles(const IRotation& rotation);
 
     Lattice m_lattice;
-    std::auto_ptr<IRotation> mP_rotation;
+    boost::scoped_ptr<IRotation> mP_rotation;
     ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };

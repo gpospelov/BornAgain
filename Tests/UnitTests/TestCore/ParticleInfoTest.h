@@ -30,12 +30,6 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialState)
     particleInfo.setAbundance(2.0);
     EXPECT_EQ(position, particleInfo.getPosition());
     EXPECT_EQ(2.0, particleInfo.getAbundance());
-
-    ParticleInfo particleInfo2(particle,2.0,3.0);
-
-    EXPECT_EQ(-2.0, particleInfo2.getPosition().z());
-    EXPECT_EQ(3.0, particleInfo2.getAbundance());
-    EXPECT_EQ("ParticleInfo", particleInfo2.getName());
 }
 
 
@@ -46,10 +40,8 @@ TEST_F(ParticleInfoTest , ParticleInfoTestPool)
 
     ParticleInfo particleInfo(particle);
 
-    particleInfo.setParameterValue("/ParticleInfo/depth",4.1);
     particleInfo.setParameterValue("/ParticleInfo/abundance",4.2);
 
-    EXPECT_EQ(4.1, particleInfo.getDepth());
     EXPECT_EQ(4.2, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 }
@@ -62,10 +54,9 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialStateClonedParticle)
     Particle particle;
     Particle *pClone = particle.clone();
 
-    ParticleInfo particleInfo(*pClone,2.0,3.0);
+    ParticleInfo particleInfo(*pClone,3.0);
     delete pClone;
 
-    EXPECT_EQ(2.0, particleInfo.getDepth());
     EXPECT_EQ(3.0, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 }
@@ -76,7 +67,7 @@ TEST_F(ParticleInfoTest , ParticleInfoClone)
     //test with default parameter
     Particle particle;
 
-    ParticleInfo original(particle, 1.0,2.0);
+    ParticleInfo original(particle, 2.0);
     ParticleInfo *clone = original.clone();
 
     EXPECT_EQ(clone->getDepth(), original.getDepth());
@@ -92,7 +83,7 @@ TEST_F(ParticleInfoTest , ParticleInfoCloneInvertB)
 {
     HomogeneousMaterial mat("Air",0,0);
     Particle particle2(mat);
-    ParticleInfo particle_info2(particle2, 1.0,2.0);
+    ParticleInfo particle_info2(particle2, 2.0);
     ParticleInfo *clone = particle_info2.cloneInvertB();
     EXPECT_EQ(clone->getDepth(), particle_info2.getDepth());
     EXPECT_EQ(clone->getAbundance(), particle_info2.getAbundance());

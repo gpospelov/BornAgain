@@ -18,7 +18,6 @@
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
-#include "ParticleInfo.h"
 #include "Exceptions.h"
 
 //! @class IClusteredParticles
@@ -64,7 +63,7 @@ public:
     }
 
     //! Composes transformation with existing one
-    virtual void applyTransformation(const IRotation& rotation)
+    virtual void applyRotation(const IRotation& rotation)
     {
         (void)rotation;
         throw NotImplementedException(

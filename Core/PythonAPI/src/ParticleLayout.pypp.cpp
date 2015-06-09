@@ -116,16 +116,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getNumberOfParticles( );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const  {
-        if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
-            return func_getParticleInfo( index );
+    virtual ::IParticle const * getParticle( ::std::size_t index ) const  {
+        if( bp::override func_getParticle = this->get_override( "getParticle" ) )
+            return func_getParticle( index );
         else{
-            return this->ParticleLayout::getParticleInfo( index );
+            return this->ParticleLayout::getParticle( index );
         }
     }
     
-    ::ParticleInfo const * default_getParticleInfo( ::std::size_t index ) const  {
-        return ParticleLayout::getParticleInfo( index );
+    ::IParticle const * default_getParticle( ::std::size_t index ) const  {
+        return ParticleLayout::getParticle( index );
     }
 
     virtual bool preprocess(  ) {
@@ -359,17 +359,6 @@ void register_ParticleLayout_class(){
                 , "Adds particle without rotation." );
         
         }
-        { //::ParticleLayout::addParticleInfo
-        
-            typedef void ( ::ParticleLayout::*addParticleInfo_function_type)( ::ParticleInfo const & ) ;
-            
-            ParticleLayout_exposer.def( 
-                "addParticleInfo"
-                , addParticleInfo_function_type( &::ParticleLayout::addParticleInfo )
-                , ( bp::arg("info") )
-                , "Adds particle info." );
-        
-        }
         { //::ParticleLayout::clone
         
             typedef ::ParticleLayout * ( ::ParticleLayout::*clone_function_type)(  ) const;
@@ -451,15 +440,15 @@ void register_ParticleLayout_class(){
                 , default_getNumberOfParticles_function_type(&ParticleLayout_wrapper::default_getNumberOfParticles) );
         
         }
-        { //::ParticleLayout::getParticleInfo
+        { //::ParticleLayout::getParticle
         
-            typedef ::ParticleInfo const * ( ::ParticleLayout::*getParticleInfo_function_type)( ::std::size_t ) const;
-            typedef ::ParticleInfo const * ( ParticleLayout_wrapper::*default_getParticleInfo_function_type)( ::std::size_t ) const;
+            typedef ::IParticle const * ( ::ParticleLayout::*getParticle_function_type)( ::std::size_t ) const;
+            typedef ::IParticle const * ( ParticleLayout_wrapper::*default_getParticle_function_type)( ::std::size_t ) const;
             
             ParticleLayout_exposer.def( 
-                "getParticleInfo"
-                , getParticleInfo_function_type(&::ParticleLayout::getParticleInfo)
-                , default_getParticleInfo_function_type(&ParticleLayout_wrapper::default_getParticleInfo)
+                "getParticle"
+                , getParticle_function_type(&::ParticleLayout::getParticle)
+                , default_getParticle_function_type(&ParticleLayout_wrapper::default_getParticle)
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         

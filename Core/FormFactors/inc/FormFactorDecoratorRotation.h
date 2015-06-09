@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorDecoratorTransformation.h
-//! @brief     Defines class FormFactorDecoratorTransformation.
+//! @file      FormFactors/inc/FormFactorDecoratorRotation.h
+//! @brief     Defines class FormFactorDecoratorRotation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,32 +13,32 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORTRANSFORMATION_H
-#define FORMFACTORDECORATORTRANSFORMATION_H
+#ifndef FORMFACTORDECORATORROTATION_H
+#define FORMFACTORDECORATORROTATION_H
 
 #include "IFormFactorDecorator.h"
 #include "Rotations.h"
 #include <memory>
 
-//! @class FormFactorDecoratorTransformation
+//! @class FormFactorDecoratorRotation
 //! @ingroup formfactors_internal
 //! @brief Equips a formfactor with a rotation.
 
-class BA_CORE_API_ FormFactorDecoratorTransformation : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorRotation : public IFormFactorDecorator
 {
 public:
     //! Constructor, setting form factor and rotation.
-    FormFactorDecoratorTransformation(
+    FormFactorDecoratorRotation(
         IFormFactor *p_form_factor, const IRotation& transform)
         : IFormFactorDecorator(p_form_factor)
     {
-        setName("FormFactorDecoratorTransformation");
+        setName("FormFactorDecoratorRotation");
         m_transform = transform.getTransform3D();
     }
 
-    virtual ~FormFactorDecoratorTransformation() {}
+    virtual ~FormFactorDecoratorRotation() {}
 
-    virtual FormFactorDecoratorTransformation *clone() const;
+    virtual FormFactorDecoratorRotation *clone() const;
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
@@ -52,7 +52,7 @@ protected:
 };
 
 
-inline complex_t FormFactorDecoratorTransformation::evaluate(
+inline complex_t FormFactorDecoratorRotation::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     cvector_t new_ki =
@@ -65,6 +65,6 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(
     return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_f_bin);
 }
 
-#endif // FORMFACTORDECORATORTRANSFORMATION_H
+#endif // FORMFACTORDECORATORROTATION_H
 
 

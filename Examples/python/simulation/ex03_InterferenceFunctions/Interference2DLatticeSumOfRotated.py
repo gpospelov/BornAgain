@@ -28,8 +28,8 @@ def get_sample(xi_value):
     ff_cyl = FormFactorCylinder(3.0*nanometer, 3.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
-    particle_info = ParticleInfo(cylinder, position, 1.0)
-    particle_layout.addParticleInfo(particle_info)
+    cylinder.setPosition(position)
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
     particle_layout.addInterferenceFunction(p_interference_function)
 
     air_layer.addLayout(particle_layout)

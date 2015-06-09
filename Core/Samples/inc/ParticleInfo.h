@@ -19,17 +19,18 @@
 #include "ICompositeSample.h"
 #include "IParticle.h"
 
+#include <boost/scoped_ptr.hpp>
+
 //! @class ParticleInfo
 //! @ingroup samples
 //! @brief Holds additional information about particle.
 //!
 //! Used in ParticleLayout
 
-class BA_CORE_API_ ParticleInfo : public ICompositeSample
+class ParticleInfo : public ICompositeSample
 {
 public:
-    ParticleInfo(const IParticle &p_particle, double depth = 0.0, double abundance = 1.0);
-    ParticleInfo(const IParticle &p_particle, kvector_t position, double abundance = 1.0);
+    ParticleInfo(const IParticle &p_particle, double abundance = 1.0);
 
     virtual ~ParticleInfo()
     {
@@ -55,13 +56,13 @@ public:
     //! Returns depth.
     double getDepth() const
     {
-        return m_depth;
+        return -mP_particle->getPosition().z();
     }
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const
     {
-        return kvector_t(m_x, m_y, -m_depth);
+        return mP_particle->getPosition();
     }
 
     //! Sets particle position, including depth.
@@ -85,18 +86,12 @@ public:
         mP_particle->setAmbientMaterial(material);
     }
 
-    //! Applies transformation by composing it with the existing one
-    void applyTransformation(const IRotation& transform);
-
 protected:
     virtual void init_parameters();
 
     virtual void print(std::ostream &ostr) const;
 
-    std::auto_ptr<IParticle> mP_particle;
-    double m_x;
-    double m_y;
-    double m_depth;
+    boost::scoped_ptr<IParticle> mP_particle;
     double m_abundance;
 };
 

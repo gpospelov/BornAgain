@@ -148,7 +148,7 @@ ISample *CylindersWithSizeDistributionBuilder::buildSample() const
     // to get radius_min = average - 2.0*FWHM:
     double n_sigma = 2.0*2.0*std::sqrt(2.0*std::log(2.0));
     DistributionGaussian gauss(m_radius, sigma);
-    ParameterDistribution par_distr("/ParticleInfo/Particle/FormFactorCylinder/radius", gauss, n_samples, n_sigma);
+    ParameterDistribution par_distr("/Particle/FormFactorCylinder/radius", gauss, n_samples, n_sigma);
     ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());

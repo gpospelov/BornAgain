@@ -51,9 +51,6 @@ public:
     //! Adds particle without rotation
     void addParticle(const IParticle &particle, double depth = 0.0, double abundance = 1.0);
 
-    //! Adds particle info
-    void addParticleInfo(const ParticleInfo &info);
-
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const
     {
@@ -61,7 +58,7 @@ public:
     }
 
     //! get information about particle with index
-    virtual const ParticleInfo *getParticleInfo(size_t index) const;
+    virtual const IParticle *getParticle(size_t index) const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;

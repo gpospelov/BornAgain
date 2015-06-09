@@ -264,14 +264,15 @@ void register_IParticle_class(){
         typedef bp::class_< IParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
         IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a generic particl.", bp::no_init );
         bp::scope IParticle_scope( IParticle_exposer );
-        { //::IParticle::applyTransformation
+        { //::IParticle::applyRotation
         
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( ::IParticle::*applyRotation_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
-                "applyTransformation"
-                , applyTransformation_function_type( &::IParticle::applyTransformation )
-                , ( bp::arg("rotation") ) );
+                "applyRotation"
+                , applyRotation_function_type( &::IParticle::applyRotation )
+                , ( bp::arg("rotation") )
+                , "Applies transformation by composing it with the existing one." );
         
         }
         { //::IParticle::applyTransformationToSubParticles
@@ -328,6 +329,26 @@ void register_IParticle_class(){
                 , "Returns particle's material." );
         
         }
+        { //::IParticle::getDepth
+        
+            typedef double ( ::IParticle::*getDepth_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getDepth"
+                , getDepth_function_type( &::IParticle::getDepth )
+                , "Returns depth of particle." );
+        
+        }
+        { //::IParticle::getPosition
+        
+            typedef ::kvector_t ( ::IParticle::*getPosition_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getPosition"
+                , getPosition_function_type( &::IParticle::getPosition )
+                , "Returns particle position, including depth." );
+        
+        }
         { //::IParticle::getRotation
         
             typedef ::IRotation const * ( ::IParticle::*getRotation_function_type)(  ) const;
@@ -351,14 +372,26 @@ void register_IParticle_class(){
                 , ( bp::arg("material") ) );
         
         }
-        { //::IParticle::setTransformation
+        { //::IParticle::setPosition
         
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( ::IParticle::*setPosition_function_type)( ::kvector_t ) ;
             
             IParticle_exposer.def( 
-                "setTransformation"
-                , setTransformation_function_type( &::IParticle::setTransformation )
-                , ( bp::arg("rotation") ) );
+                "setPosition"
+                , setPosition_function_type( &::IParticle::setPosition )
+                , ( bp::arg("position") )
+                , "Sets particle position, including depth." );
+        
+        }
+        { //::IParticle::setRotation
+        
+            typedef void ( ::IParticle::*setRotation_function_type)( ::IRotation const & ) ;
+            
+            IParticle_exposer.def( 
+                "setRotation"
+                , setRotation_function_type( &::IParticle::setRotation )
+                , ( bp::arg("rotation") )
+                , "Sets transformation." );
         
         }
         { //::IParameterized::areParametersChanged

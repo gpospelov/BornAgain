@@ -28,7 +28,7 @@
 #include "FormFactorDecoratorMultiPositionFactor.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorTransformation.h"
+#include "FormFactorDecoratorRotation.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "FormFactorEllipsoidalCylinder.h"

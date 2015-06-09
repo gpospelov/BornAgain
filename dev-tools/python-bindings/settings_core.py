@@ -160,7 +160,6 @@ include_classes = [
     "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
-    "ParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "RotationX",
@@ -241,6 +240,8 @@ def ManualClassTunings(mb):
     for ff in funs:
         if 'SetLevel' in ff.name:
             ff.alias = 'SetMessageLevel'
+            ff.include()
+        if 'CreateProduct' in ff.name:
             ff.include()
     #
     cl = mb.class_("BasicVector3D<double>")

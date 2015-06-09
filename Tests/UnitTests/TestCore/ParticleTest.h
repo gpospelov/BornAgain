@@ -120,7 +120,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ("FormFactorFullSphere", particle.getFormFactor()->getName());
     EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
 
-    particle.setTransformation(transform);
+    particle.setRotation(transform);
     EXPECT_TRUE(NULL != particle.getRotation());
     Particle *particle2 = particle.clone();
     EXPECT_EQ("Particle", particle2->getName());

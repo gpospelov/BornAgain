@@ -376,8 +376,9 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
 
 
 ParticleComposition *TransformToDomain::createParticleComposition(const ParameterizedItem &item,
-                                                                  double &abundance)
+    double &depth, double &abundance)
 {
+    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     ParticleComposition *result = new ParticleComposition();
     return result;

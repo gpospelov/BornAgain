@@ -28,6 +28,18 @@ namespace bp = boost::python;
 
 void register_free_functions(){
 
+    { //::CreateProduct
+    
+        typedef ::IRotation * ( *CreateProduct_function_type )( ::IRotation const &,::IRotation const & );
+        
+        bp::def( 
+            "CreateProduct"
+            , CreateProduct_function_type( &::CreateProduct )
+            , ( bp::arg("left"), bp::arg("right") )
+            , bp::return_value_policy< bp::reference_existing_object >() );
+    
+    }
+
     { //::MathFunctions::GenerateNormalRandom
     
         typedef double ( *GenerateNormalRandom_function_type )( double,double );

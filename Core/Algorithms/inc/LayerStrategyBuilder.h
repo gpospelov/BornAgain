@@ -73,7 +73,7 @@ private:
     double getWavelength();
     //! Creates formfactor info for single particle
     FormFactorInfo *createFormFactorInfo(
-        const ParticleInfo *p_particle_info,
+        const ParticleInfo &particle_info,
         const IMaterial *p_ambient_material,
         complex_t factor) const;
 

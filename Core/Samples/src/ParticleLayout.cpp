@@ -78,17 +78,16 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
 //! Adds generic particle, &-version.
 void ParticleLayout::addParticle(
-    const IParticle& p_particle, const IRotation& rotation,
+    const IParticle& particle, const IRotation& rotation,
     double depth, double abundance)
 {
-    if(!abundance) {
-        throw LogicErrorException("ParticleLayout::addParticle() ->"
-                " Error! Abundance can't be equal to 0.0");
-    }
-    boost::scoped_ptr<IParticle> P_particle_clone(p_particle.clone());
-    P_particle_clone->setTransformation(rotation);
+    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    P_particle_clone->setRotation(rotation);
+    kvector_t position = particle.getPosition();
+    position.setZ(position.z()-depth);
+    P_particle_clone->setPosition(position);
     addAndRegisterParticleInfo(
-        new ParticleInfo(*P_particle_clone, depth, abundance));
+        new ParticleInfo(*P_particle_clone, abundance));
 }
 
 //! Adds particle without rotation, &-version.
@@ -96,29 +95,27 @@ void ParticleLayout::addParticle(
     const IParticle& particle,
     double depth, double abundance)
 {
+    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    kvector_t position = particle.getPosition();
+    position.setZ(position.z()-depth);
+    P_particle_clone->setPosition(position);
     addAndRegisterParticleInfo(
-        new ParticleInfo(particle, depth, abundance));
-}
-
-//! Adds particle info.
-void ParticleLayout::addParticleInfo(const ParticleInfo& info)
-{
-    addAndRegisterParticleInfo( info.clone() );
+        new ParticleInfo(*P_particle_clone, abundance));
 }
 
 //! Returns particle info
-const ParticleInfo* ParticleLayout::getParticleInfo(size_t index) const
+const IParticle* ParticleLayout::getParticle(size_t index) const
 {
     if (index<m_particles.size())
-        return m_particles[index];
+        return m_particles[index]->getParticle();
     throw OutOfBoundsException(
-        "ParticleLayout::getParticleInfo() -> "
+        "ParticleLayout::getParticle() -> "
         "Error! Not so many particles in this decoration.");
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
 {
-    return getParticleInfo(index)->getAbundance();
+    return m_particles[index]->getAbundance();
 }
 
 //! Adds interference functions
@@ -179,8 +176,7 @@ void ParticleLayout::replaceParticleDistribution(size_t index)
                     dynamic_cast<const ParticleDistribution *>(
                         p_particle_info->getParticle());
     std::vector<ParticleInfo *> particles =
-        p_particle_coll->generateParticleInfos(
-            p_particle_info->getPosition(), p_particle_info->getAbundance());
+        p_particle_coll->generateParticleInfos(p_particle_info->getAbundance());
     for (size_t i=0; i<particles.size(); ++i) {
         addAndRegisterParticleInfo(particles[i]);
     }

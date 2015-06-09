@@ -1,3 +1,45 @@
+BornAgain-1.2.0, released 2015.06.10
+  > API Changes:
+    1) Rename: 'Simulation' --> 'GISASSimulation' for consistency with other types of simulations
+    2) Removed 'ParticleInfo' completely from public API: position information is now encoded in the Particle's themselves
+  > Summary:
+    1) Documentation: scalar scattering theory in manual
+    2) Support for polarized neutron scattering with polarization/analysis along different axes (not restricted to z-axis)
+    3) New features in Graphical User Interface
+       a) GUI real time view is now saved in projects
+       b) Beam divergence can be exported to Python script
+    4) Various bug fixes
+  > Details of Sprint #27 (see http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues)
+  * Bug #1047: Release script: move MAC dmg package into 'old' directory
+  * Bug #1048: Update release script for new user manual
+  * Bug #1050: GUI: Variation of lattice orientation in real time view does not work for example 'Hexagonal lattice with basis'
+  * Bug #1057: GUI: run job that was 'Submit only' does not produce a plot
+  * Bug #1066: Model lost after unsuccessful load
+  * Bug #1067: Keyboard shortcuts not always working
+  * Bug #1069: Crash when entering parameter out of range in sample view
+  * Bug #1077: Fix min, max handling for z-axis of ColorMap plot
+  * Bug #1079: Fix appearance of tab with job details on JobView
+  * Bug #1085: Fix crash of GUI while trying to save the project under the name containing special characters
+  * Bug #1091: BORNAGAIN_APP flag does not automatically build 'App'
+  * Bug #1093: showstoppers for release of manual v1.x
+  * Bug #1097: update reference data for functional test 65: montecarlo_integration.py
+  * Feature #957: Investigate automatic generation of meaningful docstring for PythonAPI
+  * Feature #959: GUI: implement saving of RealTimeView content in JobModel
+  * Feature #979: Add standard GNU options -v --version to command bornagain
+  * Feature #996: GUI: implement export to Python in the case of beam divergence
+  * Feature #1015: Implement polarized neutron scattering with beam density matrix and analyser spin filter
+  * Feature #1040: Change angle units from radians to degrees while exporting from PyGenVisitor
+  * Feature #1051: Implement warning sign widget in real time view
+  * Feature #1056: Make default build to not to use system's ROOT
+  * Feature #1062: Add item in drupal's troubleshooting section explaining possible interference between BornAgain and Mantid on MacOS
+  * Feature #1063: Add item in drupal troubleshooting section explaining conflict with previous BornAgain installation
+  * Documentation #915: Provide poster for Galaxi control room
+  * Documentation #990: Proof-read chapter on scalar scattering theory
+  * Documentation #1058: Describe how to install BornAgain on mac to user home folder
+  * Documentation #1059: Provide poster for our building
+  * Refactoring #1046: Replace unnecessary shared_ptr's with scoped_ptr's
+  * Refactoring #1074: Replace complex OutputData structures at low level with vector of required input/output
+
 BornAgain-1.1.0, released 2015.04.15
   > Summary:
     1) New form factor of truncated cube

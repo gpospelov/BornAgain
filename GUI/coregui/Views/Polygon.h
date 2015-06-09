@@ -10,7 +10,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-class Polygon : public QGraphicsItem, public QObject
+class Polygon : public QGraphicsItem
 {
 
 public:
@@ -22,6 +22,8 @@ public:
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
     void calculateResize(QGraphicsSceneMouseEvent *event);
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
+    bool checkCornerClicked(QGraphicsSceneMouseEvent *event);
+    void calculateBoundingRectangle();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -41,14 +43,14 @@ private:
     QGraphicsRectItem *m_bottomLeftCorner;
     QGraphicsRectItem *m_topRightCorner;
     QGraphicsRectItem *m_bottomRightCorner;
+    QGraphicsRectItem *m_firstPoint;
     bool m_resizeMode;
     bool m_rotationMode;
     bool m_drawingMode;
-//    QVector<QPoint> m_points;
-//    int m_numberOfPoints;
-//    bool m_isDeleted;
+    bool m_changeCornerMode;
     Corner m_corner;
-    QPoint lastMousePosition;
     QPolygon m_polygon;
+    int m_currentPoint1;
+    int m_currentPoint2;
 };
 #endif

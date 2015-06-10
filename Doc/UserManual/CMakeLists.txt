@@ -14,7 +14,7 @@ set(PDFLATEX_COMPILER xelatex)
 
 set(LATEX_COMPILER_FLAGS "-interaction=errorstopmode" CACHE STRING "Flags passed to latex." )
 
-if(BORNAGAIN_MAN)
+if(BORNAGAIN_USERMANUAL)
     # --- configure a header file to pass CMake settings to the source code
     configure_file(
         "${CMAKE_SOURCE_DIR}/cmake/scripts/UserManualVersion.tex.in"

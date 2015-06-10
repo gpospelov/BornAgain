@@ -67,7 +67,7 @@ void FormFactorRipple2::init_parameters()
     registerParameter("width", &m_width, AttLimits::n_positive());
     registerParameter("height", &m_height, AttLimits::n_positive());
     registerParameter("length", &m_length, AttLimits::n_positive());
-    registerParameter("asymetry", &m_d, AttLimits::n_positive());
+    registerParameter("asymetry", &m_d);
 }
 
 FormFactorRipple2 *FormFactorRipple2::clone() const

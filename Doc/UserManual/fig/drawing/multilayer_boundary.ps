@@ -1,7 +1,5 @@
 %!PS-Adobe-1.0 EPSF-1.0
-%%BoundingBox:    18   286   306   466
-%%Comment: Bounding box extracted by bboxx
-%%+:       A program by Dov Grobgeld 2003
+%%BoundingBox:    16   286   361   466
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
@@ -1675,6 +1673,14 @@ BoxBackground
     -3.2 yl {(M)sutext sb()} textLM
     xc yl {(z)sutext sb()} textLM
 } def
+/thickn {
+    /sutext x def
+    /ytm x def
+    /xti x def
+    xti ytm .48 add  90 .12 .5 Pfeil
+    xti ytm .48 sub -90 .12 .5 Pfeil
+    xti .3 add ytm {(d)sutext sb()} textLM
+} def
 
 xl 0.5 {(\267 \267 \267)} textLM
 1 {(l+1)} hrul
@@ -1685,6 +1691,8 @@ xl 2.5 {(layer l-1)} textLM
 xt 2.5 {()(F)g()(l-1)sb()} textLM
 3 {(l-1)} hrul
 xl 3.5 {(\267 \267 \267)} textLM
+1.7 1.5 {(l)} thickn
+1.6 2.5 {(l-1)} thickn
 
 % xt 5.7 {(air/vacuum)} textRM
 % xc 3 {(\267 \267 \267)} textLM

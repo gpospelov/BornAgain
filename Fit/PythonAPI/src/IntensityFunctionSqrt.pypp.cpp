@@ -74,7 +74,7 @@ void register_IntensityFunctionSqrt_class(){
 
     { //::IntensityFunctionSqrt
         typedef bp::class_< IntensityFunctionSqrt_wrapper, bp::bases< IIntensityFunction >, std::auto_ptr< IntensityFunctionSqrt_wrapper > > IntensityFunctionSqrt_exposer_t;
-        IntensityFunctionSqrt_exposer_t IntensityFunctionSqrt_exposer = IntensityFunctionSqrt_exposer_t( "IntensityFunctionSqrt" );
+        IntensityFunctionSqrt_exposer_t IntensityFunctionSqrt_exposer = IntensityFunctionSqrt_exposer_t( "IntensityFunctionSqrt", "Algorithm for applying sqrt function to the measured intensit." );
         bp::scope IntensityFunctionSqrt_scope( IntensityFunctionSqrt_exposer );
         { //::IntensityFunctionSqrt::clone
         

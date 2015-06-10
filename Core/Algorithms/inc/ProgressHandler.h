@@ -58,6 +58,8 @@ private:
     long m_current_progress;
 };
 
+// Shared pointer is needed because multiple DWBASimulation threads will contain a
+// local clone of Simulation, which contains the original ProgressHandler
 typedef boost::shared_ptr<class ProgressHandler > ProgressHandler_t;
 
 

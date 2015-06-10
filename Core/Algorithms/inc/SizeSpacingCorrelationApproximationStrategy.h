@@ -19,41 +19,45 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-
 //! @class SizeSpacingCorrelationApproximationStrategy
 //! @ingroup algorithms_internal
 //! @brief Strategy which implements size spacing correlation approximation.
 
-class SizeSpacingCorrelationApproximationStrategy
-        : public IInterferenceFunctionStrategy
+class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params,
-            double kappa);
-    virtual ~SizeSpacingCorrelationApproximationStrategy() {}
+    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
+    virtual ~SizeSpacingCorrelationApproximationStrategy()
+    {
+    }
 
-    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
-            const SafePointerVector<IInterferenceFunction>& ifs);
+    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+                      const SafePointerVector<IInterferenceFunction> &ifs);
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin,
-        const std::vector<complex_t> &ff_list) const;
+    virtual double evaluateForList(const SimulationElement& sim_element,
+                                   const std::vector<complex_t> &ff_list) const;
+
+    //! Evaluates the intensity for given list of evaluated form factors
+    //! in the presence of polarization of beam and detector
+    double evaluateForMatrixList(const SimulationElement& sim_element,
+                                 const MatrixFFVector &ff_list) const;
 
 private:
     bool checkVectorSizes() const;
-    complex_t getMeanCharacteristicFF(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin,
-            const std::vector<complex_t> &ff_list) const;
-    complex_t getMeanConjCharacteristicFF(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin,
-            const std::vector<complex_t> &ff_list) const;
+    complex_t getMeanCharacteristicFF(const cvector_t &q,
+                                      const std::vector<complex_t> &ff_list) const;
+    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(const cvector_t &q,
+                                                   const MatrixFFVector &ff_list) const;
+    complex_t getMeanConjCharacteristicFF(const cvector_t &q,
+                                          const std::vector<complex_t> &ff_list) const;
+    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(const cvector_t &q,
+                                                       const MatrixFFVector &ff_list) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
-    complex_t calculatePositionOffsetPhase(double qp, double kappa,
-            size_t index) const;
-    double getqp(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
+    complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
+    double getqp(const cvector_t &q) const;
     void initMeanRadius();
     double m_mean_radius;
     double m_kappa;

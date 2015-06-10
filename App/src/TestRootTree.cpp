@@ -108,7 +108,7 @@ void TestRootTree::complex_write()
         double phi_f_min(0.3*Units::degree), phi_f_max(0.072);
         double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
 
-        Simulation simulation(mp_options);
+        GISASSimulation simulation(mp_options);
         simulation.setSample(*mp_sample);
         simulation.setDetectorParameters(
             nphi_f, phi_f_min, phi_f_max,
@@ -212,7 +212,7 @@ void TestRootTree::simple_write()
         (SampleFactory::createSample("IsGISAXS9_Pyramid"));
 
     // setting simulation
-    mp_simulation = new Simulation(mp_options);
+    mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);

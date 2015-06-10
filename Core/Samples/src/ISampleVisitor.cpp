@@ -377,9 +377,9 @@ void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor *)
                                   "*) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const FormFactorDecoratorTransformation *)
+void ISampleVisitor::visit(const FormFactorDecoratorRotation *)
 {
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDecoratorTransformation "
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorDecoratorRotation "
                                   "*) -> Error. Not implemented.");
 }
 

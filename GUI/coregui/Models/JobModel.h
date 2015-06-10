@@ -16,11 +16,13 @@
 #define JOBMODEL_H
 
 #include "SessionModel.h"
-#include "JobQueueData.h"
+class JobQueueData;
 class JobItem;
 class SampleModel;
 class InstrumentModel;
 class QItemSelection;
+class MultiLayerItem;
+class InstrumentItem;
 
 class BA_CORE_API_ JobModel : public SessionModel
 {
@@ -37,8 +39,16 @@ public:
 
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    JobItem *addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel,
+    JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
             const QString &run_policy = QString(), int numberOfThreads=-1);
+
+    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup = false);
+
+    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup=false);
+
+    void backup(JobItem *jobItem);
+
+    void restore(JobItem *jobItem);
 
 signals:
     void selectionChanged(JobItem *item);

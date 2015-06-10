@@ -60,7 +60,7 @@ public:
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     //! Composes transformation with existing one
-    void applyTransformation(const IRotation& rotation);
+    void applyRotation(const IRotation& rotation);
 
     //! Gets transformation
     const IRotation* getRotation() const {
@@ -76,7 +76,7 @@ private:
     void applyTransformationToSubParticles(const IRotation& rotation);
 
     Lattice m_lattice;
-    std::auto_ptr<IRotation> mP_rotation;
+    boost::scoped_ptr<IRotation> mP_rotation;
     ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };

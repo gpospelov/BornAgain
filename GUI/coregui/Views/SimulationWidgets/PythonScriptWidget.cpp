@@ -18,7 +18,7 @@
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "DesignerHelper.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "PyGenTools.h"
 #include "DomainSimulationBuilder.h"
 #include "WarningSignWidget.h"
@@ -109,14 +109,20 @@ void PythonScriptWidget::generatePythonScript(SampleModel *sampleModel, Instrume
     m_warningSign = 0;
 
     try{
-        boost::scoped_ptr<Simulation> simulation(
+        boost::scoped_ptr<GISASSimulation> P_simulation(
             DomainSimulationBuilder::getSimulation(sampleModel, instrumentModel));
-        QString code = QString::fromStdString(PyGenTools::genPyScript(simulation.get()));
+        QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
         m_textEdit->clear();
         m_textEdit->setText(code);
     } catch(const std::exception &ex) {
         m_warningSign = new WarningSignWidget(this);
-        m_warningSign->setWarningMessage(QString::fromStdString(ex.what()));
+
+        QString message = QString(
+            "Generation of Python Script failed. Code is not complete.\n\n"
+            "It can happen if sample requires further assembling or some of sample parameters "
+            "are not valid. See details below.\n\n%1").arg(QString::fromStdString(ex.what()));
+
+        m_warningSign->setWarningMessage(message);
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(), pos.y());
         m_warningSign->show();

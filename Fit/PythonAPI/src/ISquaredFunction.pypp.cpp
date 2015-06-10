@@ -58,7 +58,7 @@ void register_ISquaredFunction_class(){
 
     { //::ISquaredFunction
         typedef bp::class_< ISquaredFunction_wrapper, std::auto_ptr< ISquaredFunction_wrapper >, boost::noncopyable > ISquaredFunction_exposer_t;
-        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", bp::init< >() );
+        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", "Interface providing measures for deviation between two values.", bp::init< >() );
         bp::scope ISquaredFunction_scope( ISquaredFunction_exposer );
         { //::ISquaredFunction::calculateSquaredDifference
         

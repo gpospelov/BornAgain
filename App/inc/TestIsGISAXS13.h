@@ -20,7 +20,7 @@
 #include "IApplicationTest.h"
 #include "ISampleBuilder.h"
 
-class Simulation;
+class GISASSimulation;
 class FitSuite;
 
 //! IsGISAXS ex#13: Simulating annealing.
@@ -48,7 +48,7 @@ private:
     //! run isgisaxs ex-13 style fit
     void run_isgisaxs_fit();
 
-    Simulation *mp_simulation;
+    GISASSimulation *mp_simulation;
     SampleBuilder_t mp_sample_builder;
     FitSuite *mp_fitSuite;
 };

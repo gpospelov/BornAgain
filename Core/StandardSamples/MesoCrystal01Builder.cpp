@@ -106,10 +106,10 @@ ISample* MesoCrystal01Builder::buildSample() const
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
             RotationZ z_rotation(phi_start + i*phi_step);
-            boost::scoped_ptr<MesoCrystal> meso(createMesoCrystal(
+            boost::scoped_ptr<MesoCrystal> P_meso(createMesoCrystal(
                                     m_lattice_length_a, m_lattice_length_c,
                                     n_particle_adapted, &ff_meso) );
-            particle_layout.addParticle(*meso, z_rotation, m_meso_height);
+            particle_layout.addParticle(*P_meso, z_rotation, m_meso_height);
         }
     }
 

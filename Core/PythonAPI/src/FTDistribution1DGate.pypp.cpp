@@ -167,7 +167,7 @@ void register_FTDistribution1DGate_class(){
 
     { //::FTDistribution1DGate
         typedef bp::class_< FTDistribution1DGate_wrapper, bp::bases< IFTDistribution1D >, std::auto_ptr< FTDistribution1DGate_wrapper > > FTDistribution1DGate_exposer_t;
-        FTDistribution1DGate_exposer_t FTDistribution1DGate_exposer = FTDistribution1DGate_exposer_t( "FTDistribution1DGate", bp::init< double >(( bp::arg("omega") )) );
+        FTDistribution1DGate_exposer_t FTDistribution1DGate_exposer = FTDistribution1DGate_exposer_t( "FTDistribution1DGate", "1 dimensional Gate distribution in Fourier space.", bp::init< double >(( bp::arg("omega") )) );
         bp::scope FTDistribution1DGate_scope( FTDistribution1DGate_exposer );
         { //::FTDistribution1DGate::clone
         
@@ -245,7 +245,8 @@ void register_FTDistribution1DGate_class(){
             FTDistribution1DGate_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution1DGate_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

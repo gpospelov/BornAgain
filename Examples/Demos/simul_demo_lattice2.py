@@ -21,14 +21,14 @@ def RunSimulation():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
-    particle_info = ParticleInfo(cylinder, position, 1.0)
+    cylinder.setPosition(position)
     particle_layout1 = ParticleLayout()
-    particle_layout1.addParticleInfo(particle_info)
+    particle_layout1.addParticle(cylinder, 0.0, 1.0)
     # particle 2
     position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
-    particle_info.setPosition(position_2)
+    cylinder.setPosition(position_2)
     particle_layout2 = ParticleLayout()
-    particle_layout2.addParticleInfo(particle_info)
+    particle_layout2.addParticle(cylinder, 0.0, 1.0)
 
     # interference function
     interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)
@@ -51,7 +51,7 @@ def RunSimulation():
     multi_layer.addLayer(substrate_layer)
 
     # build and run experiment
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -2.0*degree, 2.0*degree, 100, 0.0*degree, 4.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 

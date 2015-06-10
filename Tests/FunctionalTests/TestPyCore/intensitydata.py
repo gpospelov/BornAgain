@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(
 from libBornAgainCore import *
 
 def get_axis(num):
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
     data = simulation.getIntensityData()
     axis = data.getAxis(num)
@@ -54,7 +54,7 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(-200.0, data.totalSum())
 
     def test_access_simulation_intensity(self):
-        simulation = Simulation()
+        simulation = GISASSimulation()
         simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
         data = simulation.getIntensityData()
         self.assertEqual(1000, data.getAllocatedSize())

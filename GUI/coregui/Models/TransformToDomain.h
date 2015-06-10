@@ -32,7 +32,7 @@ BA_CORE_API_ Particle *createParticle(const ParameterizedItem &item,
 BA_CORE_API_ ParticleCoreShell *createParticleCoreShell(const ParameterizedItem &item,
         const Particle &core, const Particle &shell, double &depth, double &abundance);
 BA_CORE_API_ ParticleComposition *createParticleComposition(const ParameterizedItem &item,
-                                                            double &abundance);
+                                                            double &depth, double &abundance);
 BA_CORE_API_ IFormFactor *createFormFactor(const ParameterizedItem &item);
 BA_CORE_API_ IDistribution1D * createDistribution(
         const ParameterizedItem &item);
@@ -43,7 +43,7 @@ BA_CORE_API_ Beam *createBeam(const ParameterizedItem &item);
 BA_CORE_API_ LayerRoughness *createLayerRoughness(const ParameterizedItem &item);
 BA_CORE_API_ void initInstrumentFromDetectorItem(const ParameterizedItem &item,
                                                  Instrument *instrument);
-BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem &beam_item, Simulation *simulation);
+BA_CORE_API_ void addDistributionParametersToSimulation(const ParameterizedItem &beam_item, GISASSimulation *simulation);
 }
 
 #endif // TRANSFORMTODOMAIN_H

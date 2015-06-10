@@ -30,7 +30,7 @@ void register_AttFitting_class(){
 
     { //::AttFitting
         typedef bp::class_< AttFitting > AttFitting_exposer_t;
-        AttFitting_exposer_t AttFitting_exposer = AttFitting_exposer_t( "AttFitting", bp::init< >() );
+        AttFitting_exposer_t AttFitting_exposer = AttFitting_exposer_t( "AttFitting", "General fitting attributes.", bp::init< >() );
         bp::scope AttFitting_scope( AttFitting_exposer );
         { //::AttFitting::getDerivEpsilon
         

@@ -58,7 +58,7 @@ public:
     }
 
     kvector_t getParticlePosition(size_t index) const
-    { return m_position_vector[check_index(index)]; }
+    { return m_particles[check_index(index)]->getPosition(); }
 
 protected:
     virtual void applyTransformationToSubParticles(const IRotation& rotation);
@@ -66,16 +66,17 @@ protected:
 private:
     //! Checks index
     inline size_t check_index(size_t index) const {
-        return index < m_position_vector.size()
+        return index < m_particles.size()
                 ? index
                 : throw OutOfBoundsException("ParticleComposition::check_index()"
                         "-> Index is out of bounds"); }
 
     //! For internal use in cloneInvertB():
-    void addParticlePointer(IParticle *p_particle, kvector_t position);
+    void addParticlePointer(IParticle *p_particle);
+
+    void addParticleNoPosition(const IParticle& particle);
 
     std::vector<IParticle *> m_particles;
-    std::vector<kvector_t> m_position_vector;
 };
 
 #endif /* PARTICLECOMPOSITION_H_ */

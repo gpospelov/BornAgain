@@ -25,6 +25,7 @@
 class FitSuiteObserverFactory
 {
 public:
+    // These shared pointers will be used as observer_t
     typedef boost::shared_ptr<FitSuitePrintObserver> observer_print_t;
     typedef boost::shared_ptr<FitSuiteDrawObserver> observer_draw_t;
     typedef boost::shared_ptr<FitSuiteWriteTreeObserver> observer_tree_t;

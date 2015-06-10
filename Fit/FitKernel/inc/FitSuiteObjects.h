@@ -17,7 +17,7 @@
 #define FITSUITEOBJECTS_H
 
 #include "IParameterized.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "OutputData.h"
 #include "FitObject.h"
 #include "SafePointerVector.h"
@@ -43,7 +43,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     size_t size() const { return m_fit_objects.size(); }
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-    void add(const Simulation& simulation,
+    void add(const GISASSimulation& simulation,
              const OutputData<double>& real_data,
              const IChiSquaredModule& chi2_module, double weight = 1.0);
 
@@ -64,11 +64,11 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
     double getResidualValue(size_t global_index);
 
     //! Returns simulation for read access.
-    const Simulation *getSimulation(size_t i_item = 0) const {
+    const GISASSimulation *getSimulation(size_t i_item = 0) const {
         return m_fit_objects[check_index(i_item)]->getSimulation(); }
 
     //! Returns simulation for write access.
-    Simulation *getSimulation(size_t i_item = 0) {
+    GISASSimulation *getSimulation(size_t i_item = 0) {
         return m_fit_objects[check_index(i_item)]->getSimulation(); }
 
     //! Returns real data

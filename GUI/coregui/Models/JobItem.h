@@ -20,7 +20,9 @@
 class IntensityDataItem;
 class SampleModel;
 class InstrumentModel;
-class Simulation;
+class GISASSimulation;
+class MultiLayerItem;
+class InstrumentItem;
 
 class BA_CORE_API_ JobItem : public ParameterizedItem
 {
@@ -44,12 +46,6 @@ public:
 
     IntensityDataItem *getIntensityDataItem();
 
-    SampleModel *getSampleModel();
-    void setSampleModel(SampleModel *sampleModel);
-
-    InstrumentModel *getInstrumentModel();
-    void setInstrumentModel(InstrumentModel *instrumentModel);
-
     QString getStatus() const;
     void setStatus(const QString &status);
 
@@ -72,16 +68,21 @@ public:
     int getNumberOfThreads() const;
     void setNumberOfThreads(int number_of_threads);
 
+    void setRunPolicy(const QString &run_policy);
+
     static QMap<QString, QString> getRunPolicies() { return m_run_policies; }
 
     bool runImmediately() const;
     bool runInBackground() const;
 
-private:
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
-    static QMap<QString, QString> m_run_policies; // run policy, policy description
+    MultiLayerItem *getMultiLayerItem(bool from_backup = false);
 
+    InstrumentItem *getInstrumentItem(bool from_backup = false);
+
+//    void onPropertyChange(const QString &name);
+
+private:
+    static QMap<QString, QString> m_run_policies; // run policy, policy description
 };
 
 #endif // NJOBITEM_H

@@ -113,10 +113,10 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     size_t number_of_particles = p_layout->getNumberOfParticles();
     for (size_t particle_index =
              0; particle_index<number_of_particles; ++particle_index) {
-        const ParticleInfo *p_particle_info =
-            p_layout->getParticleInfo(particle_index);
+        ParticleInfo particle_info(*p_layout->getParticle(particle_index),
+                                   p_layout->getAbundanceOfParticle(particle_index) );
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(p_particle_info, p_layer_material,
+        p_ff_info = createFormFactorInfo(particle_info, p_layer_material,
                 wavevector_scattering_factor);
         p_ff_info->m_abundance =
             p_layout->getAbundanceOfParticle(particle_index)/total_abundance;
@@ -137,33 +137,21 @@ void LayerStrategyBuilder::collectInterferenceFunctions()
 
 double LayerStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
-    kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return Units::PI2/ki_real.mag();
+    return mp_simulation->getWavelength();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
-        const ParticleInfo *p_particle_info,
+        const ParticleInfo &particle_info,
         const IMaterial *p_ambient_material,
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<IParticle> P_particle_clone(p_particle_info->
+    boost::scoped_ptr<IParticle> P_particle_clone(particle_info.
             getParticle()->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    IFormFactor *p_ff_particle=0;
-    kvector_t position = p_particle_info->getPosition();
-    if (position==kvector_t(0.0, 0.0, 0.0)) {
-        p_ff_particle = P_particle_clone->createFormFactor(factor);
-    }
-    else {
-        boost::scoped_ptr<IFormFactor> p_clone(
-                    P_particle_clone->createFormFactor(factor) );
-        p_ff_particle = new FormFactorDecoratorPositionFactor(
-                    *p_clone, position);
-    }
+    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
     IFormFactor *p_ff_framework(p_ff_particle);
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
@@ -178,9 +166,10 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance)
+    kvector_t position = P_particle_clone->getPosition();
     p_result->m_pos_x = position.x();
     p_result->m_pos_y = position.y();
-    p_result->m_abundance = p_particle_info->getAbundance();
+    p_result->m_abundance = particle_info.getAbundance();
     return p_result;
 }
 

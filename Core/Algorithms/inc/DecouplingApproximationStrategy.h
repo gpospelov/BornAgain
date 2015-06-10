@@ -27,17 +27,26 @@ class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctio
 {
 public:
     DecouplingApproximationStrategy(SimulationParameters sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
+        : IInterferenceFunctionStrategy(sim_params)
+    {
+    }
 
-    virtual ~DecouplingApproximationStrategy() {}
+    virtual ~DecouplingApproximationStrategy()
+    {
+    }
 
-    virtual void init(
-        const SafePointerVector<FormFactorInfo>& form_factor_infos,
-        const SafePointerVector<IInterferenceFunction>& ifs);
+    void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+              const SafePointerVector<IInterferenceFunction> &ifs);
+
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const std::vector<complex_t> &ff_list) const;
+    double evaluateForList(const SimulationElement& sim_element,
+                           const std::vector<complex_t> &ff_list) const;
+
+    //! Evaluates the intensity for given list of evaluated form factors
+    //! in the presence of polarization of beam and detector
+    double evaluateForMatrixList(const SimulationElement& sim_element,
+                                 const MatrixFFVector &ff_list) const;
 
 private:
     bool checkVectorSizes() const;

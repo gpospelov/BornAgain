@@ -30,7 +30,7 @@ void register_Lattice1DIFParameters_class(){
 
     { //::Lattice1DIFParameters
         typedef bp::class_< Lattice1DIFParameters > Lattice1DIFParameters_exposer_t;
-        Lattice1DIFParameters_exposer_t Lattice1DIFParameters_exposer = Lattice1DIFParameters_exposer_t( "Lattice1DIFParameters", bp::init< >() );
+        Lattice1DIFParameters_exposer_t Lattice1DIFParameters_exposer = Lattice1DIFParameters_exposer_t( "Lattice1DIFParameters", "Additional parameters for 1D lattic.", bp::init< >() );
         bp::scope Lattice1DIFParameters_scope( Lattice1DIFParameters_exposer );
         Lattice1DIFParameters_exposer.def_readwrite( "m_length", &Lattice1DIFParameters::m_length );
         Lattice1DIFParameters_exposer.def_readwrite( "m_xi", &Lattice1DIFParameters::m_xi );

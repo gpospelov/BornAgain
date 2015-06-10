@@ -116,7 +116,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getAllocatedSize"
-                , getAllocatedSize_function_type( &::OutputData< double >::getAllocatedSize ) );
+                , getAllocatedSize_function_type( &::OutputData< double >::getAllocatedSize )
+                , "Returns total size of data buffer (product of bin number in every dimension)." );
         
         }
         { //::OutputData< double >::getArray
@@ -126,7 +127,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getArray"
-                , getArray_function_type( &::OutputData< double >::getArray ) );
+                , getArray_function_type( &::OutputData< double >::getArray )
+                , "returns data as Python numpy array." );
         
         }
         { //::OutputData< double >::getAxis
@@ -182,7 +184,8 @@ void register_IntensityData_class(){
             
             IntensityData_exposer.def( 
                 "getRank"
-                , getRank_function_type( &::OutputData< double >::getRank ) );
+                , getRank_function_type( &::OutputData< double >::getRank )
+                , "Returns number of dimensions." );
         
         }
         { //::OutputData< double >::getRawDataVector
@@ -225,7 +228,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "hasSameDimensions"
                 , hasSameDimensions_function_type( &::OutputData< double >::hasSameDimensions )
-                , ( bp::arg("right") ) );
+                , ( bp::arg("right") )
+                , "Returns true if object have same dimensions." );
         
         }
         { //::OutputData< double >::hasSameShape
@@ -236,7 +240,8 @@ void register_IntensityData_class(){
             IntensityData_exposer.def( 
                 "hasSameShape"
                 , hasSameShape_function_type( &::OutputData< double >::hasSameShape )
-                , ( bp::arg("right") ) );
+                , ( bp::arg("right") )
+                , "Returns true if object have same dimensions and shape of axis." );
         
         }
         IntensityData_exposer.def( bp::self *= bp::self );
@@ -252,7 +257,8 @@ void register_IntensityData_class(){
                 "__getitem__"
                 , __getitem___function_type( &::OutputData< double >::operator[] )
                 , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_non_const_reference >() );
+                , bp::return_value_policy< bp::copy_non_const_reference >()
+                , "indexed accessor." );
         
         }
         { //::OutputData< double >::operator[]
@@ -264,7 +270,8 @@ void register_IntensityData_class(){
                 "__getitem__"
                 , __getitem___function_type( &::OutputData< double >::operator[] )
                 , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::copy_const_reference >()
+                , "indexed accessor (const)." );
         
         }
         { //::OutputData< double >::removeAllMasks

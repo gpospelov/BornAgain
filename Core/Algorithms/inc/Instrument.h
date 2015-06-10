@@ -28,9 +28,11 @@ class BA_CORE_API_ Instrument : public IParameterized
 {
 public:
     Instrument();
-    Instrument(const Instrument& other);
+    Instrument(const Instrument &other);
 
-    ~Instrument() {}
+    ~Instrument()
+    {
+    }
 
     //! Returns the beam data
     Beam getBeam() const;
@@ -42,29 +44,44 @@ public:
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets the beam's intensity
-    void setBeamIntensity(double intensity) { m_beam.setIntensity(intensity); }
+    void setBeamIntensity(double intensity)
+    {
+        m_beam.setIntensity(intensity);
+    }
+
+    //! Sets the beam's polarization according to the given Bloch vector
+    void setBeamPolarization(const kvector_t &bloch_vector)
+    {
+        m_beam.setPolarization(bloch_vector);
+    }
 
     //! Returns the beam's intensity
-    double getIntensity() const { return m_beam.getIntensity(); }
+    double getIntensity() const
+    {
+        return m_beam.getIntensity();
+    }
 
     //! Returns the detector data
     Detector getDetector() const;
 
     //! Returns a detector axis
-    const IAxis& getDetectorAxis(size_t index) const;
+    const IAxis &getDetectorAxis(size_t index) const;
 
     //! Returns the detector's dimension
-    size_t getDetectorDimension() const { return m_detector.getDimension(); }
+    size_t getDetectorDimension() const
+    {
+        return m_detector.getDimension();
+    }
 
     //! Sets detector parameters using axes of output data
-    void matchDetectorParameters(const OutputData<double >& output_data);
+    void matchDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
+    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max, size_t n_alpha,
+                               double alpha_f_min, double alpha_f_max, bool isgisaxs_style = false);
 
     //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters& params);
+    void setDetectorParameters(const DetectorParameters &params);
 
     //! Sets detector parameters using axes
     void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
@@ -73,29 +90,32 @@ public:
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
 
-#ifndef GCCXML_SKIP_THIS
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                               double total_transmission=1.0) {
+        m_detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    }
+
     //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double> *p_intensity_map,
-            OutputData<Eigen::Matrix2d> *p_matrix_intensity=0) const;
-#endif
+    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+
     //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+                                                    int copy_number = -1) const;
 
 #ifndef GCCXML_SKIP_THIS
     //! normalize a detector image
-    void normalize(OutputData<double> *p_intensity,
-            OutputData<Eigen::Matrix2d> *p_polarized_intensity = 0) const;
+    void normalize(OutputData<double> *p_intensity) const;
 #endif
 
 protected:
-    virtual void print(std::ostream& ostr) const;
+    virtual void print(std::ostream &ostr) const;
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     Detector m_detector;
     Beam m_beam;
-
 };
 
 inline Beam Instrument::getBeam() const
@@ -118,7 +138,7 @@ inline Detector Instrument::getDetector() const
     return m_detector;
 }
 
-inline const IAxis& Instrument::getDetectorAxis(size_t index) const
+inline const IAxis &Instrument::getDetectorAxis(size_t index) const
 {
     return m_detector.getAxis(index);
 }

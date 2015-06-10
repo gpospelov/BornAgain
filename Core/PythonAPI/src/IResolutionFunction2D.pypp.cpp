@@ -146,7 +146,7 @@ void register_IResolutionFunction2D_class(){
 
     { //::IResolutionFunction2D
         typedef bp::class_< IResolutionFunction2D_wrapper, bp::bases< IParameterized >, std::auto_ptr< IResolutionFunction2D_wrapper >, boost::noncopyable > IResolutionFunction2D_exposer_t;
-        IResolutionFunction2D_exposer_t IResolutionFunction2D_exposer = IResolutionFunction2D_exposer_t( "IResolutionFunction2D" );
+        IResolutionFunction2D_exposer_t IResolutionFunction2D_exposer = IResolutionFunction2D_exposer_t( "IResolutionFunction2D", "Interface providing two-dimensional resolution function." );
         bp::scope IResolutionFunction2D_scope( IResolutionFunction2D_exposer );
         { //::IResolutionFunction2D::clone
         
@@ -220,7 +220,8 @@ void register_IResolutionFunction2D_class(){
             IResolutionFunction2D_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IResolutionFunction2D_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

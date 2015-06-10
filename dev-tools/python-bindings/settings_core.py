@@ -109,6 +109,7 @@ include_classes = [
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "FormFactorWeighted",
+    "GISASSimulation",
     "HomogeneousMaterial",
     "HomogeneousMagneticMaterial",
     "IAxis",
@@ -159,16 +160,14 @@ include_classes = [
     "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
-    "ParticleInfo",
-#    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
     "RotationX",
     "RotationY",
     "RotationZ",
     "RotationEuler",
-    "Simulation",
     "SpecularSimulation",
+    "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
     "ThreadInfo",
@@ -207,9 +206,9 @@ def ManualClassTunings(mb):
 
     # BasicVector3D
     methods_to_exclude=[
-        "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
-        "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
-        "rotated", "rotatedX", "rotatedY", "rotatedZ", "cross", "dot"
+        "phi", "theta", "cosTheta", "sin2Theta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
+        "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal", "rotated", "rotatedX",
+        "rotatedY", "rotatedZ", "cross", "dot"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >", "BasicVector3D<double>", "BasicVector3D<int>"]
     utils_build.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
@@ -242,16 +241,8 @@ def ManualClassTunings(mb):
         if 'SetLevel' in ff.name:
             ff.alias = 'SetMessageLevel'
             ff.include()
-
-    #fun = mb.free_function("SetLevel")
-    #fun.alias = 'SetMessageLevel'
-    #fun.include()
-    #mb.free_function("GetOutputData").include()
-    #mb.free_function("GetPolarizedOutputDataComponent").include()
-    #mb.free_function("GetOutputDataAxis").include()
-    #mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
-    #mb.free_function('GetPolarizedOutputDataComponent').call_policies = call_policies.custom_call_policies("")
-    #mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
+        if 'CreateProduct' in ff.name:
+            ff.include()
     #
     cl = mb.class_("BasicVector3D<double>")
     cl.add_code("def( bp::self - bp::self )")
@@ -335,10 +326,12 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("Simulation")
     cl.member_function("setSampleBuilder").include()
-    cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
-    cl.member_function("getPolarizedIntensityData").call_policies = \
+    #
+    cl = mb.class_("GISASSimulation")
+    cl.member_function("getOutputData").exclude()
+    cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("SpecularSimulation")
@@ -347,11 +340,8 @@ def ManualClassTunings(mb):
     # call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("OffSpecSimulation")
-    cl.member_function("setSampleBuilder").include()
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
-        call_policies.return_value_policy(call_policies.manage_new_object)
-    cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("ParticleCoreShell")

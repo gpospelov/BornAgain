@@ -30,7 +30,7 @@ void TestFunctionalTests::execute()
     if(!readTestNames()) return;
 
     for(size_t i=0; i<m_testNames.size(); ++i) {
-        FunctionalTest_t test = m_testRegistry.getTest(m_testNames[i]);
+        boost::scoped_ptr<FunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
         test->getSimulation()->setProgramOptions(mp_options);
         test->runTest();
         test->analyseResults();

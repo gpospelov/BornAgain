@@ -18,12 +18,14 @@
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobListToolBar.h"
+#include "IntensityDataItem.h"
 #include <QPushButton>
 #include <QListView>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QAction>
+#include <QSignalMapper>
 
 
 JobListWidget::JobListWidget(QWidget *parent)
@@ -42,6 +44,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     m_listView->setDefaultDropAction(Qt::MoveAction);
     m_listView->setItemDelegate(m_listViewDelegate);
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     // connect context menu for tree view
     connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -109,6 +112,10 @@ void JobListWidget::runJob()
 //! setup context menu for listView
 void JobListWidget::setupContextMenuActions()
 {
+    m_signalMapper = new QSignalMapper(this);
+    connect(m_signalMapper, SIGNAL(mapped(int)),
+            this, SLOT(equalizeSelectedToJob(int)));
+
     m_removeJobAction = new QAction(tr("Remove Job"), this);
     connect(m_removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
 
@@ -121,7 +128,8 @@ bool JobListWidget::jobItemCanBeRun(const QModelIndex &index)
     if(!index.isValid()) return false;
 
     const JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
-    if(jobItem->isCompleted() || jobItem->isFailed() || jobItem->isRunning()) return false;
+//    if(jobItem->isCompleted() || jobItem->isFailed() || jobItem->isRunning()) return false;
+    if(jobItem->isCompleted()  || jobItem->isRunning()) return false;
 
     return true;
 }
@@ -140,9 +148,42 @@ bool JobListWidget::jobItemCanBeRemoved(const QModelIndex &index)
 void JobListWidget::removeJob()
 {
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
-    foreach(QModelIndex index, indexList) {
-        if(jobItemCanBeRemoved(index))
-            m_jobModel->removeJob(index);
+
+    while(indexList.size()) {
+        if(jobItemCanBeRemoved(indexList.first())) {
+            m_jobModel->removeJob(indexList.first());
+            indexList = m_listView->selectionModel()->selectedIndexes();
+        }
+    }
+}
+
+//! Equalize colormap plots (xmin, xmax; ymin, ymax; zmin, zmax) of all selected jobs to
+//! the  plot of requested jobItem. selected_id corresponds to the certain position
+//! in the list of selected items, as reported by context menu of QListView.
+void JobListWidget::equalizeSelectedToJob(int selected_id)
+{
+    QModelIndexList selectedList = m_listView->selectionModel()->selectedIndexes();
+
+    if(selected_id >= selectedList.size() ) return;
+
+    JobItem *referenceItem = m_jobModel->getJobItemForIndex(selectedList.at(selected_id));
+    Q_ASSERT(referenceItem);
+
+    IntensityDataItem *referenceDataItem = referenceItem->getIntensityDataItem();
+    if(!referenceDataItem) return;
+
+    foreach(QModelIndex index, selectedList) {
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(index);
+        if(jobItem == referenceItem) continue;
+
+        if(IntensityDataItem *dataItem = jobItem->getIntensityDataItem()) {
+            dataItem->setLowerX(referenceDataItem->getLowerX());
+            dataItem->setUpperX(referenceDataItem->getUpperX());
+            dataItem->setLowerY(referenceDataItem->getLowerY());
+            dataItem->setUpperY(referenceDataItem->getUpperY());
+            dataItem->setLowerZ(referenceDataItem->getLowerZ());
+            dataItem->setUpperZ(referenceDataItem->getUpperZ());
+        }
     }
 }
 
@@ -182,6 +223,24 @@ void JobListWidget::showContextMenu(const QPoint &pnt)
         m_removeJobAction->setDisabled(true);
     }
 
+    // menu for equalization of selected plots
+    menu.addSeparator();
+
+    QMenu menu_equalize("Equalize selected plots");
+    menu_equalize.setToolTip("All plots from the list of selected jobs will be equalized to this one.");
+
+    QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
+    if(selected.size() <= 1)
+        menu_equalize.setDisabled(true);
+
+    for(int i =0; i<selected.count(); ++i) {
+        JobItem *jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
+        QAction *action = new QAction(QString("to ").append(jobItem->itemName()), this);
+        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+        m_signalMapper->setMapping(action, i);
+        menu_equalize.addAction(action);
+    }
+
+    menu.addMenu(&menu_equalize);
     menu.exec(m_listView->mapToGlobal(pnt));
 }
-

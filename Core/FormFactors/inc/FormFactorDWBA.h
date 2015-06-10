@@ -19,8 +19,6 @@
 #include "IFormFactorDecorator.h"
 #include "LayerSpecularInfo.h"
 
-#include <boost/scoped_ptr.hpp>
-
 //! @class FormFactorDWBA
 //! @ingroup formfactors_internal
 //! @brief Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.

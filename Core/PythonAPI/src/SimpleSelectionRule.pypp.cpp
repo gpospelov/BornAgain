@@ -74,7 +74,7 @@ void register_SimpleSelectionRule_class(){
 
     { //::SimpleSelectionRule
         typedef bp::class_< SimpleSelectionRule_wrapper, bp::bases< ISelectionRule >, std::auto_ptr< SimpleSelectionRule_wrapper > > SimpleSelectionRule_exposer_t;
-        SimpleSelectionRule_exposer_t SimpleSelectionRule_exposer = SimpleSelectionRule_exposer_t( "SimpleSelectionRule", bp::init< int, int, int, int >(( bp::arg("a"), bp::arg("b"), bp::arg("c"), bp::arg("modulus") )) );
+        SimpleSelectionRule_exposer_t SimpleSelectionRule_exposer = SimpleSelectionRule_exposer_t( "SimpleSelectionRule", "Selection rule (v*q)%modulus!=0, defined by vector v(a,b,c) and modulus.", bp::init< int, int, int, int >(( bp::arg("a"), bp::arg("b"), bp::arg("c"), bp::arg("modulus") )) );
         bp::scope SimpleSelectionRule_scope( SimpleSelectionRule_exposer );
         { //::SimpleSelectionRule::clone
         

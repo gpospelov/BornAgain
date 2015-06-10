@@ -18,7 +18,7 @@
 #include "ParticleLayout.h"
 #include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Units.h"
 #include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
@@ -135,8 +135,8 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     Particle p(particle_material, ff_cyl);
-    ParticleInfo particle_info(p, position, 1.0);
-    particle_layout.addParticleInfo(particle_info);
+    p.setPosition(position);
+    particle_layout.addParticle(p);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.addLayout(particle_layout);
@@ -187,9 +187,9 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     kvector_t position(0.0, 0.0, 0.0);
 
     Particle cylinder(particle_material, ff_cyl);
+    cylinder.setPosition(position);
 
-    ParticleInfo particle_info(cylinder, position, 1.0);
-    particle_layout.addParticleInfo(particle_info);
+    particle_layout.addParticle(cylinder);
 
     particle_layout.addInterferenceFunction(p_interference_function);
 

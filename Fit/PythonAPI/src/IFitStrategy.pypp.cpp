@@ -60,7 +60,7 @@ void register_IFitStrategy_class(){
 
     { //::IFitStrategy
         typedef bp::class_< IFitStrategy_wrapper, bp::bases< INamed >, std::auto_ptr< IFitStrategy_wrapper >, boost::noncopyable > IFitStrategy_exposer_t;
-        IFitStrategy_exposer_t IFitStrategy_exposer = IFitStrategy_exposer_t( "IFitStrategy", bp::init< >() );
+        IFitStrategy_exposer_t IFitStrategy_exposer = IFitStrategy_exposer_t( "IFitStrategy", "Interface to concrete fit strategy.", bp::init< >() );
         bp::scope IFitStrategy_scope( IFitStrategy_exposer );
         IFitStrategy_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         { //::IFitStrategy::clone

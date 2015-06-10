@@ -118,8 +118,6 @@ class MySampleBuilder(ISampleBuilder):
         ff_sphere = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
         particle = Particle(mParticle, ff_sphere )
         position_0 = kvector_t(0.0, 0.0, 0.0)
-        position_1 = kvector_t(0.0, 0.0, 0.0)
-        position_2 = kvector_t(0.0, 0.0, 0.0)        
         position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
         positions = [ position_0, position_1, position_2 ]
@@ -173,7 +171,7 @@ def runTest():
 
 # create simulation
 def createSimulation():
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(5.0090e+12)
     #simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.0002, 0.0002))

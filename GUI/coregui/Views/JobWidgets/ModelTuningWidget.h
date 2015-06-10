@@ -22,19 +22,19 @@
 class JobItem;
 class SliderSettingsWidget;
 class ModelTuningDelegate;
-class JobQueueData;
+class JobModel;
 class QTreeView;
 class QStandardItemModel;
 class SampleModel;
 class InstrumentModel;
-class QCommandLinkButton;
+class WarningSignWidget;
 
 class ModelTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent = 0);
+    ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 
     void setCurrentItem(JobItem *item);
@@ -44,7 +44,9 @@ public slots:
     void onSliderValueChanged(double value);
     void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();
-    void onInfoLinkButtonClicked();
+
+protected:
+    void resizeEvent(QResizeEvent *event);
 
 private slots:
     void onPropertyChanged(const QString &property_name);
@@ -52,8 +54,9 @@ private slots:
 private:
     void updateParameterModel();
     void backupModels();
+    QPoint getPositionForWarningSign();
 
-    JobQueueData *m_jobQueueData;
+    JobModel *m_jobModel;
     JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
@@ -61,8 +64,7 @@ private:
     ModelTuningDelegate *m_delegate;
     SampleModel *m_sampleModelBackup;
     InstrumentModel *m_instrumentModelBackup;
-    QWidget *m_infoPanel;
-    QCommandLinkButton *m_infoLinkButton;
+    WarningSignWidget *m_warningSign;
 };
 
 #endif

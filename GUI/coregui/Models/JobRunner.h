@@ -20,7 +20,7 @@
 #include <QObject>
 #include <QString>
 
-class Simulation;
+class GISASSimulation;
 
 //! Class for running the simulation in a thread
 class BA_CORE_API_ JobRunner : public QObject
@@ -28,7 +28,7 @@ class BA_CORE_API_ JobRunner : public QObject
     Q_OBJECT
 public:
 
-    JobRunner(QString identifier, Simulation *simulation = 0);
+    JobRunner(QString identifier, GISASSimulation *simulation = 0);
     virtual ~JobRunner();
 
     QString getIdentifier() const { return m_identifier; }
@@ -58,7 +58,7 @@ private slots:
 
 private:
     QString m_identifier;
-    Simulation *m_simulation;
+    GISASSimulation *m_simulation;
     int m_progress;
     QString m_job_status;
 

@@ -22,10 +22,10 @@ include_directories(
 )
 
 set(source_files
-    main.cpp
+    main.cpp appoptions.cpp
 )
 
-set(include_files)
+set(include_files appoptions.h)
 
 # --- Qt configuration ---------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

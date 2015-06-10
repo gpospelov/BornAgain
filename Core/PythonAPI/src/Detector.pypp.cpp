@@ -141,7 +141,7 @@ void register_Detector_class(){
 
     { //::Detector
         typedef bp::class_< Detector_wrapper, bp::bases< IParameterized > > Detector_exposer_t;
-        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", bp::init< >() );
+        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", "The detector with axes and resolution function.", bp::init< >() );
         bp::scope Detector_scope( Detector_exposer );
         Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
         { //::Detector::clear
@@ -171,7 +171,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "getDetectorResolutionFunction"
                 , getDetectorResolutionFunction_function_type( &::Detector::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Applies the detector resolution to the given intensity maps." );
         
         }
         { //::Detector::getDimension
@@ -192,6 +193,17 @@ void register_Detector_class(){
                 , assign_function_type( &::Detector::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
+        
+        }
+        { //::Detector::setAnalyzerProperties
+        
+            typedef void ( ::Detector::*setAnalyzerProperties_function_type)( ::kvector_t const &,double,double ) ;
+            
+            Detector_exposer.def( 
+                "setAnalyzerProperties"
+                , setAnalyzerProperties_function_type( &::Detector::setAnalyzerProperties )
+                , ( bp::arg("direction"), bp::arg("efficiency"), bp::arg("total_transmission")=1.0e+0 )
+                , "Sets the polarization analyzer characteristics of the detector." );
         
         }
         { //::IParameterized::areParametersChanged
@@ -246,7 +258,8 @@ void register_Detector_class(){
             Detector_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Detector_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

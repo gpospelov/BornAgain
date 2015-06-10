@@ -30,28 +30,8 @@ void register_IntensityDataIOFactory_class(){
 
     { //::IntensityDataIOFactory
         typedef bp::class_< IntensityDataIOFactory > IntensityDataIOFactory_exposer_t;
-        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory" );
+        IntensityDataIOFactory_exposer_t IntensityDataIOFactory_exposer = IntensityDataIOFactory_exposer_t( "IntensityDataIOFactory", "Reads OutputData from files in different forma." );
         bp::scope IntensityDataIOFactory_scope( IntensityDataIOFactory_exposer );
-        { //::IntensityDataIOFactory::getReader
-        
-            typedef ::boost::shared_ptr< OutputDataReader > ( *getReader_function_type )( ::std::string const & );
-            
-            IntensityDataIOFactory_exposer.def( 
-                "getReader"
-                , getReader_function_type( &::IntensityDataIOFactory::getReader )
-                , ( bp::arg("file_name") ) );
-        
-        }
-        { //::IntensityDataIOFactory::getWriter
-        
-            typedef ::boost::shared_ptr< OutputDataWriter > ( *getWriter_function_type )( ::std::string const & );
-            
-            IntensityDataIOFactory_exposer.def( 
-                "getWriter"
-                , getWriter_function_type( &::IntensityDataIOFactory::getWriter )
-                , ( bp::arg("file_name") ) );
-        
-        }
         { //::IntensityDataIOFactory::readIntensityData
         
             typedef ::OutputData< double > * ( *readIntensityData_function_type )( ::std::string const & );
@@ -73,8 +53,6 @@ void register_IntensityDataIOFactory_class(){
                 , ( bp::arg("data"), bp::arg("file_name") ) );
         
         }
-        IntensityDataIOFactory_exposer.staticmethod( "getReader" );
-        IntensityDataIOFactory_exposer.staticmethod( "getWriter" );
         IntensityDataIOFactory_exposer.staticmethod( "readIntensityData" );
         IntensityDataIOFactory_exposer.staticmethod( "writeIntensityData" );
     }

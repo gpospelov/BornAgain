@@ -323,7 +323,7 @@ void TestFittingModule2::initializeSimulation()
             "TestFittingModule2::initializeSimulation() -> "
             "No sample builder defined");
     delete mp_simulation;
-    mp_simulation = new Simulation(mp_options);
+    mp_simulation = new GISASSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,

@@ -34,7 +34,7 @@ def download_from_app_server():
 
 def cmake_release():
     print "\nRunning cmake ...", get_build_dir()
-    cmd = "cd %s; cmake -DBORNAGAIN_APP=ON -DBORNAGAIN_GUI=ON -DBORNAGAIN_MAN=ON -DBORNAGAIN_RELEASE=ON -DCMAKE_INSTALL_PREFIX=%s %s" % (get_build_dir(), get_install_dir(), get_source_dir() )
+    cmd = "cd %s; cmake -DBORNAGAIN_APP=ON -DBORNAGAIN_GUI=ON -DBORNAGAIN_USERMANUAL=ON -DBORNAGAIN_RELEASE=ON -DCMAKE_INSTALL_PREFIX=%s %s" % (get_build_dir(), get_install_dir(), get_source_dir() )
     run_command(cmd)
 
 
@@ -61,7 +61,7 @@ def update_upload_dir():
     print "\nUpdating directory for upload ..."
     run_command("mv %s/BornAgain*.tar.gz %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("mv %s/BornAgain*-win32.exe %s/old" % (get_upload_dir(), get_upload_dir()))
-    #run_command("mv %s/BornAgain-*-macosx64-*.dmg %s/old" % (get_upload_dir(), get_upload_dir()))
+    run_command("mv %s/BornAgain-*-macosx64-*.dmg %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("mv %s/*Manual-*.pdf %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("cp %s/BornAgain-%s.tar.gz %s" % (get_build_dir(), get_version(), get_upload_dir()))
     run_command("cp %s/CHANGELOG %s" % (get_source_dir(), get_upload_dir()))

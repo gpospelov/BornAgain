@@ -29,7 +29,7 @@ FormFactorCrystal::FormFactorCrystal(const Crystal &p_crystal,
     const IRotation *p_rotation = p_crystal.getRotation();
     if (p_rotation) {
         mp_meso_form_factor
-            = new FormFactorDecoratorTransformation(meso_crystal_form_factor.clone(), *p_rotation);
+            = new FormFactorDecoratorRotation(meso_crystal_form_factor.clone(), *p_rotation);
     } else {
         mp_meso_form_factor = meso_crystal_form_factor.clone();
     }

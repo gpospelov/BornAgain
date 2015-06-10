@@ -130,7 +130,7 @@ void register_IIntensityNormalizer_class(){
 
     { //::IIntensityNormalizer
         typedef bp::class_< IIntensityNormalizer_wrapper, bp::bases< IParameterized >, std::auto_ptr< IIntensityNormalizer_wrapper >, boost::noncopyable > IIntensityNormalizer_exposer_t;
-        IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer" );
+        IIntensityNormalizer_exposer_t IIntensityNormalizer_exposer = IIntensityNormalizer_exposer_t( "IIntensityNormalizer", "Interface to OutputData normalizers." );
         bp::scope IIntensityNormalizer_scope( IIntensityNormalizer_exposer );
         { //::IIntensityNormalizer::clone
         

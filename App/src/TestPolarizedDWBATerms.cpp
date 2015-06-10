@@ -59,13 +59,15 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 void TestPolarizedDWBATerms::execute()
 {
     Bin1D alpha_f_bin(m_alpha_f, m_alpha_f);
-    const ILayerRTCoefficients *p_in_coeffs =
-            mp_specular_info->getInCoefficients();
+    ScalarRTCoefficients in_coeffs;
+    in_coeffs.lambda = complex_t(0.2, 0.003);
+    in_coeffs.kz = -m_ki.z();
+    in_coeffs.t_r << complex_t(-0.18, 0.001), complex_t(0.7, 0.001);
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
             mp_specular_info->getOutCoefficients(
-                    alpha_f_bin.getMidPoint(), 0.0) );
-    mp_scalar_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
-    mp_matrix_ff->setSpecularInfo(p_in_coeffs, P_out_coeffs.get());
+                    alpha_f_bin.getMidPoint(), 0.0, 1.0) );
+    mp_scalar_ff->setSpecularInfo(&in_coeffs, P_out_coeffs.get());
+    mp_matrix_ff->setSpecularInfo(&in_coeffs, P_out_coeffs.get());
     Bin1D zero_bin;
     mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin);
     mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin, zero_bin);
@@ -90,13 +92,6 @@ void TestPolarizedDWBATerms::initWavevectors()
 void TestPolarizedDWBATerms::initSpecularInfo()
 {
     ScalarSpecularInfoMap *p_coeff_map =
-            new ScalarSpecularInfoMap(mp_multilayer, 0, 1.0);
-    mp_specular_info->addOutCoefficients(p_coeff_map);
-
-    ScalarRTCoefficients rt_coeffs;
-
-    rt_coeffs.lambda = complex_t(0.2, 0.003);
-    rt_coeffs.kz = -m_ki.z();
-    rt_coeffs.t_r << complex_t(-0.18, 0.001), complex_t(0.7, 0.001);
-    mp_specular_info->addInCoefficients(new ScalarRTCoefficients(rt_coeffs));
+            new ScalarSpecularInfoMap(mp_multilayer, 0);
+    mp_specular_info->addRTCoefficients(p_coeff_map);
 }

@@ -24,7 +24,7 @@
 class JobItem;
 class JobModel;
 //class JobQueueItem;
-class Simulation;
+class GISASSimulation;
 class JobRunner;
 class QThread;
 
@@ -38,11 +38,11 @@ public:
 
     QThread *getThread(QString identifier);
     JobRunner *getRunner(QString identifier);
-    Simulation *getSimulation(QString identifier);
+    GISASSimulation *getSimulation(QString identifier);
 
     bool hasUnfinishedJobs();
 
-    void setResults(JobItem *jobItem, const Simulation *simulation);
+    void setResults(JobItem *jobItem, const GISASSimulation *simulation);
 
 signals:
     void globalProgress(int);
@@ -70,7 +70,7 @@ private:
 
     QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
-    QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
+    QMap<QString, GISASSimulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
     JobModel *m_jobModel;
 };

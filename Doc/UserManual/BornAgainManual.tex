@@ -21,47 +21,51 @@
 %   makeindex -s nomencl.ist BornAgain.nlo -o BornAgain.nls
 %   xelatex BornAgain
 
+%\includeonly{Assemblies}
 %\includeonly{ScatteringTheory}
-\includeonly{ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness}
+%\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
 %\includeonly{FormFactors}
 
 \documentclass[a4paper,11pt,twoside,fleqn]{report}
+%\documentclass[a4paper,11pt,fleqn,draft]{report}
+%\usepackage[final]{graphicx}
 
 \input{Setup}
-\input{Macros}
 
 \begin{document}
+\flushbottom
 
+\input{Macros}
 \input{Title}
 
 \tableofcontents\cleardoublepage
 
 \include{Introduction}
+
 \include{OnlineDocs}
-\include{ScatteringTheory}
-\include{PolarizedScattering}
+\include{SAS}
+\include{GisasFoundations}
+%\include{PolarizedScattering}
 \include{Multilayers}
-\include{FormFactors}
 \include{Assemblies}
-\include{Domains}
-\include{Roughness}
-\include{Usage}
+%\include{Domains}
+%\include{Roughness}
+%\include{Experiment}
+% \include{Usage}
 
-%\appendix\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-
-% unused old stuff:
-%\input{unused/SoftwareArchitecture}
-%\input{unused/AppendixListings}
-%\input{unused/FittingGentleIntroduction}
+\appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\include{Proofs}
+\include{FormFactors}
 
 \otherchapter{Bibliography}
 \bibliographystyle{switch}
 \bibliography{jw7}
 
-\otherchapter{\nomname}
+\otherchapter{\nomname}\label{Snomencl}
 \printnomenclature[6em]
 
 \otherchapter{Index}
+\small
 \printindex
 
 \end{document}

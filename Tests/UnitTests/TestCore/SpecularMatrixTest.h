@@ -22,7 +22,6 @@ TEST_F(SpecularMatrixTest, initial)
     MultiLayer mLayer;
     kvector_t v;
     SpecularMatrix::MultiLayerCoeff_t coeff;
-    SpecularMatrix matrix;
 
     // @Error: Throws exception (Layer index is out of bounds)
     //matrix.execute(mLayer, v, coeff);
@@ -32,9 +31,7 @@ TEST_F(SpecularMatrixTest, initial)
     Layer layer0(air, 0*Units::nanometer);
     mLayer.addLayer(layer0);
 
-    matrix.execute(mLayer, v, coeff);
-
+    SpecularMatrix::execute(mLayer, v, coeff);
 }
-
 
 #endif //SPECULARMATRIXTEST_H

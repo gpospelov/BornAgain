@@ -1,4 +1,4 @@
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Units.h"
 #include "Utils.h"
 #include "FileSystem.h"
@@ -31,7 +31,7 @@ OutputData<double> *run_simulation(IFormFactor *form_factor)
     multi_layer.addLayer(air_layer);
 
     // building simulation
-    Simulation simulation;
+    GISASSimulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree,
                                      true);

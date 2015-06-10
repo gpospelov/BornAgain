@@ -119,8 +119,8 @@ OutputData<double> *IntensityDataFunctions::applyDetectorResolution(const Output
                 " -> Error! Works only on two-dimensional data");
     }
     OutputData<double > *result = origin.clone();
-    boost::scoped_ptr<ConvolutionDetectorResolution> resolution(new ConvolutionDetectorResolution(resolution_function));
-    resolution->applyDetectorResolution(result);
+    boost::scoped_ptr<ConvolutionDetectorResolution> P_resolution(new ConvolutionDetectorResolution(resolution_function));
+    P_resolution->applyDetectorResolution(result);
     return result;
 }
 

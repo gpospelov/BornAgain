@@ -23,7 +23,7 @@
 #include "ParameterPoolTest.h"
 #include "ParticleTest.h"
 #include "RealParameterWrapperTest.h"
-#include "SimulationTest.h"
+#include "GISASSimulationTest.h"
 #include "ThreadInfoTest.h"
 #include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"

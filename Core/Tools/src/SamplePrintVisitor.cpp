@@ -379,10 +379,10 @@ void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorDecoratorTransformation *)
+void SamplePrintVisitor::visit(const FormFactorDecoratorRotation *)
 {
     throw NotImplementedException("SamplePrintVisitor::"
-        "visit(const FormFactorDecoratorTransformation *) -> "
+        "visit(const FormFactorDecoratorRotation *) -> "
         "Error. Not implemented.");
 }
 

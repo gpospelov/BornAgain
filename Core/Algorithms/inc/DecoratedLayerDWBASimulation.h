@@ -37,8 +37,6 @@ public:
                                       "Error: not implemented.");
     }
 
-    virtual void init(const Simulation& simulation);
-
     virtual void run();
 protected:
     virtual void runProtected();

@@ -26,11 +26,11 @@
 #include "ISample.h"
 #include "MultiLayer.h"
 #include "PyGenTools.h"
-#include "Simulation.h"
+#include "GISASSimulation.h"
 #include "Distributions.h"
 #include "BAPython.h"
 
-std::string PyGenTools::genPyScript(Simulation *simulation)
+std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
     simulation->prepareSimulation();
     ISample *iSample = simulation->getSample();
@@ -40,6 +40,38 @@ std::string PyGenTools::genPyScript(Simulation *simulation)
     std::ostringstream result;
     result << visitor.writePyScript(simulation);
     return result.str();
+}
+
+std::string PyGenTools::printDouble(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(11);
+    if((input-floor(input)) == 0.0)
+    {
+        inter << input << ".0";
+    }
+    else
+    {
+        inter << input;
+    }
+    return inter.str();
+}
+
+std::string PyGenTools::printDegrees(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(11);
+    double in_degrees = input*180.0/M_PI;
+    if((in_degrees - floor(in_degrees)) == 0.0)
+    {
+        inter << in_degrees << ".0";
+    }
+    else
+    {
+        inter << in_degrees;
+    }
+    inter << "*degree";
+    return inter.str();
 }
 
 bool PyGenTools::isSquare(double length1, double length2, double angle)
@@ -59,22 +91,7 @@ bool PyGenTools::isHexagonal(double length1, double length2, double angle)
     return false;
 }
 
-std::string PyGenTools::printDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(11);
-    if((input-floor(input)) == 0.0)
-    {
-        inter << input << ".0";
-    }
-    else
-    {
-        inter << input;
-    }
-    return inter.str();
-}
-
-bool PyGenTools::testPyScript(Simulation *simulation)
+bool PyGenTools::testPyScript(GISASSimulation *simulation)
 {
     std::ofstream pythonFile;
     pythonFile.open("PythonScript.py");
@@ -95,16 +112,16 @@ bool PyGenTools::testPyScript(Simulation *simulation)
     }
 
     simulation->runSimulation();
-    boost::scoped_ptr<const OutputData<double> > reference_data(
+    boost::scoped_ptr<const OutputData<double> > P_reference_data(
                 simulation->getIntensityData());
-    boost::scoped_ptr<const OutputData<double> > simulated_data(
+    boost::scoped_ptr<const OutputData<double> > P_simulated_data(
                 IntensityDataIOFactory::readIntensityData("output.int"));
     if (std::remove("output.int") != 0) {
         throw RuntimeErrorException("PyGenTools::testPyScript: "
             "output.int could not be removed from filesystem");
     }
     double diff = IntensityDataFunctions::getRelativeDifference(
-                *simulated_data,*reference_data);
+                *P_simulated_data,*P_reference_data);
     if (diff < 5e-10)
         return true;
     else
@@ -151,3 +168,4 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
      }
      return result.str();
 }
+

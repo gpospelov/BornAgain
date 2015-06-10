@@ -48,9 +48,8 @@ void DWBADiffuseReflection::setKvectors(const kvector_t& ki, const kvector_t& kf
     m_qz2 = std::pow(ki.z() - kf.z(), 2);
     m_qz3 = std::pow(-ki.z() + kf.z(), 2);
     m_qz4 = std::pow(-ki.z() - kf.z(), 2);
-    SpecularMatrix calculator;
-    calculator.execute(*m_sample, ki, m_fcoeff_i);
-    calculator.execute(*m_sample, kf, m_fcoeff_f);
+    SpecularMatrix::execute(*m_sample, ki, m_fcoeff_i);
+    SpecularMatrix::execute(*m_sample, kf, m_fcoeff_f);
 }
 
 void DWBADiffuseReflection::diffuse_autocorr()
@@ -87,9 +86,8 @@ void DWBADiffuseReflection::diffuse_crosscorr()
 
 complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 {
-    complex_t n1 = m_sample->getLayer(ilayer)->getRefractiveIndex();
-    complex_t n2 = m_sample->getLayer(ilayer+1)->getRefractiveIndex();
-    return n1*n1-n2*n2;
+    return m_sample->getLayer(ilayer  )->getRefractiveIndex2() -
+           m_sample->getLayer(ilayer+1)->getRefractiveIndex2();
 }
 
 complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)

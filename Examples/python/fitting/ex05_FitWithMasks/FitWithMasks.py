@@ -45,7 +45,7 @@ def get_simulation():
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = Simulation()
+    simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
@@ -165,6 +165,8 @@ def run_fitting():
 
 
 if __name__ == '__main__':
+    exit("This example is broken in current release (BornAgain-1.2.0). Fitting with masks is not possible. "
+         "Will be fixed in the next release (BornAgain-1.3.0) scheduled for the end of July, 2015.")
     run_fitting()
     pylab.ioff()
     pylab.show()

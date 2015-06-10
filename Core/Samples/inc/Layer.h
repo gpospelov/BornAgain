@@ -65,6 +65,11 @@ public:
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
 
+    //! Returns squared refractive index of the layer's material.
+    complex_t getRefractiveIndex2() const {
+        return getRefractiveIndex()*getRefractiveIndex();
+    }
+
     //! sets particle layout
     virtual void addLayout(const ILayout& decoration);
 

@@ -40,10 +40,7 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
 void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    QMessageBox::warning(this, tr("Generation failed"),
-        QString("Generation of Python Script failed. Code is not complete\n\n"
-                "Sometimes it happens if sample requires further assembling. See details below.\n\n%1")
-                         .arg(m_warning_message));
+    QMessageBox::warning(this, tr("Houston, we have a problem."), m_warning_message);
 }
 
 //! set geometry of widget around center point

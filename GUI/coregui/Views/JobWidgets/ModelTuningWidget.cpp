@@ -14,36 +14,41 @@
 // ************************************************************************** //
 
 #include "ModelTuningWidget.h"
+#include "JobQueueData.h"
 #include "JobItem.h"
 #include "SliderSettingsWidget.h"
 #include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
 #include "ModelTuningDelegate.h"
-#include "JobQueueData.h"
+#include "JobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "DesignerHelper.h"
+#include "WarningSignWidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QCommandLinkButton>
 #include <QDebug>
-#include <QMessageBox>
+#include <QScrollBar>
 
+namespace {
+const int warning_sign_xpos = 38;
+const int warning_sign_ypos = 38;
+}
 
-ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent)
+ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueData(jobQueueData)
+    , m_jobModel(jobModel)
     , m_currentJobItem(0)
     , m_sliderSettingsWidget(0)
     , m_parameterModel(0)
     , m_delegate(new ModelTuningDelegate)
     , m_sampleModelBackup(0)
     , m_instrumentModelBackup(0)
-    , m_infoPanel(0)
+    , m_warningSign(0)
 {
     setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -71,31 +76,9 @@ ModelTuningWidget::ModelTuningWidget(JobQueueData *jobQueueData, QWidget *parent
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    // setting up bottom info panel
-    m_infoPanel = new QWidget;
-    m_infoPanel->setStyleSheet("background-color:white;");
-    QHBoxLayout *infoPanelLayout = new QHBoxLayout;
-    infoPanelLayout->setContentsMargins(0, 0, 0, 0);
-
-    QFont font;
-    font.setPointSize(DesignerHelper::getSectionFontSize());
-    font.setBold(true);
-    QPalette palette;
-    palette.setColor(QPalette::ButtonText,QColor(41,73,150));
-
-    m_infoLinkButton = new QCommandLinkButton;
-    m_infoLinkButton->setFont(font);
-    m_infoLinkButton->setPalette(palette);
-    m_infoLinkButton->setText("Houston, we have a problem ...");
-    infoPanelLayout->addWidget(m_infoLinkButton);
-    m_infoPanel->setLayout(infoPanelLayout);
-    m_infoPanel->hide();
-    connect(m_infoLinkButton, SIGNAL(clicked()), this, SLOT(onInfoLinkButtonClicked()));
-
     // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
-    mainLayout->addWidget(m_infoPanel);
 
     setLayout(mainLayout);
 }
@@ -109,13 +92,6 @@ ModelTuningWidget::~ModelTuningWidget()
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
-    qDebug() << "ModelTuningWidget::setCurrentItem" << item;
-//    if(m_currentJobItem != item) {
-//        m_currentJobItem = item;
-//        updateParameterModel();
-//        backupModels();
-//    }
-
     if (m_currentJobItem == item) return;
 
     if (m_currentJobItem) {
@@ -130,8 +106,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
     updateParameterModel();
     backupModels();
 
-    //updateItem(m_currentJobItem);
-
     connect(m_currentJobItem, SIGNAL(propertyChanged(QString)),
             this, SLOT(onPropertyChanged(QString)));
 }
@@ -144,13 +118,13 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     if(m_currentJobItem->isRunning())
         return;
 
-    if(link.getItem()) {
-        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() ;
+    if (link.getItem()) {
+        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model"
+                 << link.getItem()->modelType() << link.getPropertyName();
         link.updateItem();
-        m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+        m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
     }
 }
-
 
 void ModelTuningWidget::onSliderValueChanged(double value)
 {
@@ -166,7 +140,6 @@ void ModelTuningWidget::onLockZValueChanged(bool value)
     }
 }
 
-
 void ModelTuningWidget::updateParameterModel()
 {
     qDebug() << "ModelTuningWidget::updateParameterModel()";
@@ -178,12 +151,12 @@ void ModelTuningWidget::updateParameterModel()
 
     if(!m_currentJobItem) return;
 
-    if(!m_currentJobItem->getSampleModel() || !m_currentJobItem->getInstrumentModel())
+    if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    m_parameterModel = ParameterModelBuilder::createParameterModel(
-                m_currentJobItem->getSampleModel(), m_currentJobItem->getInstrumentModel());
+    m_parameterModel = ParameterModelBuilder::createParameterModel(m_jobModel, m_currentJobItem);
+
     m_treeView->setModel(m_parameterModel);
     m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
@@ -196,54 +169,69 @@ void ModelTuningWidget::backupModels()
     qDebug() << "ModelTuningWidget::backupModels()";
     if(!m_currentJobItem) return;
 
-    if(!m_sampleModelBackup)
-        m_sampleModelBackup = m_currentJobItem->getSampleModel()->createCopy();
-
-    if(!m_instrumentModelBackup)
-        m_instrumentModelBackup = m_currentJobItem->getInstrumentModel()->createCopy();
+    m_jobModel->backup(m_currentJobItem);
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 {
+    Q_ASSERT(m_currentJobItem);
+
     if(m_currentJobItem->isRunning())
         return;
 
-//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem()";
-    Q_ASSERT(m_sampleModelBackup);
-    Q_ASSERT(m_instrumentModelBackup);
-    Q_ASSERT(m_currentJobItem);
+    m_jobModel->restore(m_currentJobItem);
 
-//    qDebug() << "ModelTuningWidget::restoreModelsOfCurrentJobItem() current"
-//             << m_currentJobItem->getSampleModel() << m_currentJobItem->getInstrumentModel()
-//             << " backup" << m_sampleModelBackup << m_instrumentModelBackup;
-
-    m_currentJobItem->setSampleModel(m_sampleModelBackup->createCopy());
-    m_currentJobItem->setInstrumentModel(m_instrumentModelBackup->createCopy());
     updateParameterModel();
 
-    m_jobQueueData->runJob(m_currentJobItem->getIdentifier());
+    m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 
-void ModelTuningWidget::onInfoLinkButtonClicked()
+void ModelTuningWidget::resizeEvent(QResizeEvent *event)
 {
-    if(m_currentJobItem && !m_currentJobItem->getComments().isEmpty()) {
-        QString message;
-        message.append("Current parameter values cause simulation failure.\n\n");
-        message.append(m_currentJobItem->getComments());
-
-        QMessageBox::warning(this, tr("Simulation failed"), message);
+    Q_UNUSED(event);
+    if(m_warningSign) {
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(),pos.y());
     }
 }
 
 void ModelTuningWidget::onPropertyChanged(const QString &property_name)
 {
     if(property_name == JobItem::P_STATUS) {
+        delete m_warningSign;
+        m_warningSign = 0;
+
         if(m_currentJobItem->isFailed()) {
-            m_infoPanel->show();
-        } else {
-            m_infoPanel->hide();
+            QString message;
+            message.append("Current parameter values cause simulation failure.\n\n");
+            message.append(m_currentJobItem->getComments());
+
+            m_warningSign = new WarningSignWidget(this);
+            m_warningSign->setWarningMessage(message);
+            QPoint pos = getPositionForWarningSign();
+            m_warningSign->setPosition(pos.x(), pos.y());
+            m_warningSign->show();
         }
     }
 }
 
+//! Returns position for warning sign at the bottom right corner of the tree view.
+//! The position will be adjusted according to the visibility of scroll bars
+QPoint ModelTuningWidget::getPositionForWarningSign()
+{
+    int x = width()-warning_sign_xpos;
+    int y = height()-warning_sign_ypos;
+
+    if(QScrollBar *horizontal = m_treeView->horizontalScrollBar()) {
+        if(horizontal->isVisible())
+            y -= horizontal->height();
+    }
+
+    if(QScrollBar *vertical = m_treeView->verticalScrollBar()) {
+        if(vertical->isVisible())
+            x -= vertical->width();
+    }
+
+    return QPoint(x, y);
+}
 

@@ -53,7 +53,7 @@ void TestPolarizedMeso::execute()
     mp_sample = createSample();
 
     // calculate scattered intensity from sample
-    Simulation simulation(mp_options);
+    GISASSimulation simulation(mp_options);
     simulation.setDetectorParameters(
         100, -1.0*Units::degree, 6.5*Units::degree, 100,
         -1.0*Units::degree, 6.5*Units::degree);
@@ -67,7 +67,7 @@ void TestPolarizedMeso::execute()
 
     simulation.normalize();
 
-    IsGISAXSTools::drawLogOutputDataPol(*simulation.getPolarizedOutputData(),
+    IsGISAXSTools::drawLogOutputData(*simulation.getOutputData(),
             "c1_polMeso", "Polarized Mesocrystal", "CONT4 Z",
             "Polarized Mesocrystal");
 //    IsGISAXSTools::drawLogOutputData(*simulation.getOutputData(), "c1_test_meso_crystal", "mesocrystal",

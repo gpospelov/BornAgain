@@ -117,7 +117,7 @@ void register_FitStrategyReleaseParameters_class(){
 
     { //::FitStrategyReleaseParameters
         typedef bp::class_< FitStrategyReleaseParameters_wrapper, bp::bases< FitStrategyAdjustParameters >, std::auto_ptr< FitStrategyReleaseParameters_wrapper > > FitStrategyReleaseParameters_exposer_t;
-        FitStrategyReleaseParameters_exposer_t FitStrategyReleaseParameters_exposer = FitStrategyReleaseParameters_exposer_t( "FitStrategyReleaseParameters", bp::init< >() );
+        FitStrategyReleaseParameters_exposer_t FitStrategyReleaseParameters_exposer = FitStrategyReleaseParameters_exposer_t( "FitStrategyReleaseParameters", "Strategy which releases certain fit parameters leaving other fixe.", bp::init< >() );
         bp::scope FitStrategyReleaseParameters_scope( FitStrategyReleaseParameters_exposer );
         FitStrategyReleaseParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );
         { //::FitStrategyReleaseParameters::clear

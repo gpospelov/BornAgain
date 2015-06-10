@@ -20,17 +20,21 @@
 #include "FixedBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
+#include "Beam.h"
 
 #include <iostream>
+#include <Eigen/LU>
 
 Detector::Detector() : m_axes(), mp_detector_resolution(0)
 {
     setName("Detector");
     init_parameters();
+    initPolarizationOperator();
 }
 
 Detector::Detector(const Detector &other)
-    : IParameterized(), m_axes(other.m_axes), mp_detector_resolution(0)
+    : IParameterized(), m_axes(other.m_axes), mp_detector_resolution(0),
+      m_analyzer_operator(other.m_analyzer_operator)
 {
     setName(other.getName());
     if (other.mp_detector_resolution)
@@ -51,6 +55,7 @@ void Detector::swapContent(Detector &other)
 {
     std::swap(this->m_axes, other.m_axes);
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
+    std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
 }
 
 void Detector::addAxis(const AxisParameters &axis_params)
@@ -87,8 +92,7 @@ const IAxis &Detector::getAxis(size_t index) const
     throw OutOfBoundsException("Not so many axes in this detector.");
 }
 
-void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
-                                       OutputData<Eigen::Matrix2d> *p_matrix_intensity) const
+void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map) {
         throw NullPointerException("Detector::applyDetectorResolution() -> "
@@ -96,13 +100,20 @@ void Detector::applyDetectorResolution(OutputData<double> *p_intensity_map,
     }
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
-        if (p_matrix_intensity) {
-            mp_detector_resolution->applyDetectorResolutionPol(p_matrix_intensity);
-        }
     } else {
         msglog(MSG::WARNING) << "Detector::applyDetectorResolution() -> "
                                 "No detector resolution function found";
     }
+}
+
+void Detector::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                     double total_transmission)
+{
+    if (!checkAnalyzerProperties(direction, efficiency, total_transmission)) {
+        throw Exceptions::ClassInitializationException(
+            "Detector::setAnalyzerProperties: the given properties are not physical");
+    }
+    m_analyzer_operator = calculateAnalyzerOperator(direction, efficiency, total_transmission);
 }
 
 bool Detector::dataShapeMatches(const OutputData<double> *p_data) const
@@ -132,8 +143,7 @@ std::string Detector::addParametersToExternalPool(std::string path, ParameterPoo
     return new_path;
 }
 
-void Detector::normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d> *p_polarized_data,
-                         double sin_alpha_i) const
+void Detector::normalize(OutputData<double> *p_data, double sin_alpha_i) const
 {
     // if shapes do not match, do nothing
     if (!dataShapeMatches(p_data))
@@ -153,17 +163,9 @@ void Detector::normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d>
     // This normalization assumes that the intensity map contains
     // total differential scattering cross sections
     // (as opposed to the usual cross section per scattering particle)
-    OutputData<Eigen::Matrix2d>::iterator it_pol;
-    if (p_polarized_data) {
-        it_pol = p_polarized_data->begin();
-    }
     for (OutputData<double>::iterator it = p_data->begin(); it != p_data->end(); ++it) {
         double factor = getSolidAngle(p_data, it.getIndex()) / sin_alpha_i;
         (*it) *= factor;
-        if (p_polarized_data) {
-            (*it_pol) *= factor;
-            ++it_pol;
-        }
     }
 }
 
@@ -189,6 +191,42 @@ double Detector::getSolidAngle(OutputData<double> *p_data, size_t index) const
         dphi = std::abs(phi_bin.m_upper - phi_bin.m_lower);
     }
     return dsinalpha * dphi;
+}
+
+void Detector::initPolarizationOperator()
+{
+    m_analyzer_operator = Eigen::Matrix2cd::Identity();
+}
+
+bool Detector::checkAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                       double total_transmission) const
+{
+    if (direction.mag() == 0.0)
+        return false;
+    double aplus = total_transmission * (1.0 + efficiency);
+    double amin = total_transmission * (1.0 - efficiency);
+    if (aplus < 0.0 || aplus > 1.0)
+        return false;
+    if (amin < 0.0 || amin > 1.0)
+        return false;
+    return true;
+}
+
+Eigen::Matrix2cd Detector::calculateAnalyzerOperator(const kvector_t &direction, double efficiency,
+                                                     double total_transmission) const
+{
+    Eigen::Matrix2cd result;
+    double x = direction.x()/direction.mag();
+    double y = direction.y()/direction.mag();
+    double z = direction.z()/direction.mag();
+    double sum = total_transmission * 2.0;
+    double diff = total_transmission * efficiency * 2.0;
+    complex_t im(0.0, 1.0);
+    result(0, 0) = (sum + diff*z) / 2.0;
+    result(0, 1) = diff*(x - im * y) / 2.0;
+    result(1, 0) = diff*(x + im * y) / 2.0;
+    result(1, 1) = (sum - diff*z) / 2.0;
+    return result;
 }
 
 void Detector::print(std::ostream &ostr) const

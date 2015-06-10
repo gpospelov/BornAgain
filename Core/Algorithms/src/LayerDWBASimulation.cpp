@@ -17,7 +17,6 @@
 #include "Layer.h"
 
 #include <cassert>
-#include <boost/scoped_ptr.hpp>
 
 LayerDWBASimulation::LayerDWBASimulation(const Layer *p_layer)
 : mp_specular_info(0)

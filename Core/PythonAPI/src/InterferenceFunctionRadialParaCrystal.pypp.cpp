@@ -268,7 +268,7 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
 
     { //::InterferenceFunctionRadialParaCrystal
         typedef bp::class_< InterferenceFunctionRadialParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunctionRadialParaCrystal_wrapper >, boost::noncopyable > InterferenceFunctionRadialParaCrystal_exposer_t;
-        InterferenceFunctionRadialParaCrystal_exposer_t InterferenceFunctionRadialParaCrystal_exposer = InterferenceFunctionRadialParaCrystal_exposer_t( "InterferenceFunctionRadialParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 )) );
+        InterferenceFunctionRadialParaCrystal_exposer_t InterferenceFunctionRadialParaCrystal_exposer = InterferenceFunctionRadialParaCrystal_exposer_t( "InterferenceFunctionRadialParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 ), "constructor of radial paracrystal interference function @param peak_distance  The distance to the first neighbor peak.\n\n:Parameters:\n  - 'peak_distance' - The distance to the first neighbor peak.\n  - 'width' - Width parameter in the pair correlation function.\n  - 'm_corr_length' - Correlation length of paracrystal.\n") );
         bp::scope InterferenceFunctionRadialParaCrystal_scope( InterferenceFunctionRadialParaCrystal_exposer );
         { //::InterferenceFunctionRadialParaCrystal::FTPDF
         
@@ -319,7 +319,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getDomainSize"
-                , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize ) );
+                , getDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::getDomainSize )
+                , "Gets size of coherence domain.\n\n:Parameters:\n  - 'size:' - size in lattice direction\n" );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::getKappa
@@ -339,7 +340,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getPeakDistance"
-                , getPeakDistance_function_type( &::InterferenceFunctionRadialParaCrystal::getPeakDistance ) );
+                , getPeakDistance_function_type( &::InterferenceFunctionRadialParaCrystal::getPeakDistance )
+                , "Gets the Fourier transformed probability distribution of the nearest particle " );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution
@@ -349,7 +351,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "getPropabilityDistribution"
                 , getPropabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::getPropabilityDistribution )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Gets the Fourier transformed probability distribution of the nearest particle " );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::setDomainSize
@@ -359,7 +362,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setDomainSize"
                 , setDomainSize_function_type( &::InterferenceFunctionRadialParaCrystal::setDomainSize )
-                , ( bp::arg("size") ) );
+                , ( bp::arg("size") )
+                , "Sets size of coherence domain.\n\n:Parameters:\n  - 'size:' - size in lattice direction\n" );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::setKappa
@@ -369,7 +373,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setKappa"
                 , setKappa_function_type( &::InterferenceFunctionRadialParaCrystal::setKappa )
-                , ( bp::arg("kappa") ) );
+                , ( bp::arg("kappa") )
+                , "Sets size-spacing coupling parameter.\n\n:Parameters:\n  - 'kappa:' - size-spacing coupling parameter\n" );
         
         }
         { //::InterferenceFunctionRadialParaCrystal::setProbabilityDistribution
@@ -379,7 +384,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "setProbabilityDistribution"
                 , setProbabilityDistribution_function_type( &::InterferenceFunctionRadialParaCrystal::setProbabilityDistribution )
-                , ( bp::arg("pdf") ) );
+                , ( bp::arg("pdf") )
+                , "Sets the Fourier transformed probability distribution of the nearest particle " );
         
         }
         { //::IParameterized::areParametersChanged
@@ -503,7 +509,8 @@ void register_InterferenceFunctionRadialParaCrystal_class(){
             InterferenceFunctionRadialParaCrystal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunctionRadialParaCrystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

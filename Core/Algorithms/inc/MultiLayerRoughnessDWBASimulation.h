@@ -48,16 +48,13 @@ public:
             const LayerSpecularInfo &specular_info);
 
     // evaluate
-    virtual double evaluate(const cvector_t& k_i, const cvector_t& k_f,
-                            double alpha_i, double alpha_f);
+    double evaluate(const SimulationElement& sim_element);
 
 protected:
     virtual void runProtected();
 
     complex_t get_refractive_term(size_t ilayer) const;
-    complex_t get_sum4terms(size_t ilayer,
-                            const cvector_t& k_i, const cvector_t& k_f,
-                            double alpha_f);
+    complex_t get_sum4terms(size_t ilayer, const SimulationElement& sim_element);
 
     MultiLayer *mp_multi_layer;
     std::vector<LayerSpecularInfo *> mp_specular_info_vector;

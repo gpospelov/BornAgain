@@ -51,17 +51,17 @@ public:
     ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth,
                                               double &abundance) const;
     ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
-                                                  double &abundance) const;
+                                                  double &depth, double &abundance) const;
     ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
-                                                    double &abundance) const;
+                                                    double &abundance,
+                                                    bool catch_errors=false) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
 
 private:
-    void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
-                             double abundance, const Particle &particle) const;
+    void setTransformationInfo(IParticle *result, double &depth, const ParameterizedItem &item) const;
     void addParticleToParticleComposition(ParticleComposition *result,
-                                          ParameterizedItem *particle_item,
+                                          ParameterizedItem *particle_item, double depth,
                                           const IParticle &particle) const;
 };
 

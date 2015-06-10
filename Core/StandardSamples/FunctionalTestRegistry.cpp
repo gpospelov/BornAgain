@@ -19,6 +19,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include <boost/scoped_ptr.hpp>
+
 FunctionalTestRegistry::Catalogue FunctionalTestRegistry::m_catalogue = FunctionalTestRegistry::Catalogue();
 
 
@@ -176,9 +178,9 @@ bool FunctionalTestRegistry::isRegisteredName(const std::string &name)
 }
 
 
-FunctionalTest_t FunctionalTestRegistry::getTest(const std::string &name)
+FunctionalTest* FunctionalTestRegistry::getTest(const std::string &name)
 {
-    FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
+    FunctionalTest* test = new FunctionalTest(m_catalogue.getInfo(name));
     return test;
 }
 
@@ -186,9 +188,9 @@ FunctionalTest_t FunctionalTestRegistry::getTest(const std::string &name)
 int FUNCTIONAL_TEST(const std::string &name)
 {
     FunctionalTestRegistry registry;
-    FunctionalTest_t test = registry.getTest(name);
-    test->runTest();
-    return test->analyseResults();
+    boost::scoped_ptr<FunctionalTest> P_test(registry.getTest(name));
+    P_test->runTest();
+    return P_test->analyseResults();
 }
 
 

@@ -95,7 +95,6 @@ void ProjectManager::createNewProject()
     m_project_document->setMaterialModel(m_mainWindow->getMaterialModel());
     m_project_document->setInstrumentModel(m_mainWindow->getInstrumentModel());
     m_project_document->setSampleModel(m_mainWindow->getSampleModel());
-//    m_project_document->setJobQueueModel(m_mainWindow->getJobQueueModel());
     m_project_document->setJobModel(m_mainWindow->getJobModel());
 }
 

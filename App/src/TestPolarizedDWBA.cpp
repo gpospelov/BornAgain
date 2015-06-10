@@ -34,13 +34,13 @@ void TestPolarizedDWBA::execute()
     std::cout << "TestPolarizedDWBA::execute() -> Info." << std::endl;
 
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("magcyl2");
+    GISASSimulation *simulation = sim_registry.createSimulation("magcyl2");
     simulation->setProgramOptions(mp_options);
 
     simulation->runSimulation();
     simulation->normalize();
 
-    IsGISAXSTools::drawLogOutputDataPol(*simulation->getPolarizedOutputData(),
+    IsGISAXSTools::drawLogOutputData(*simulation->getOutputData(),
             "c1_polDWBA", "Polarized DWBA", "CONT4 Z", "Polarized DWBA");
 
     delete simulation;

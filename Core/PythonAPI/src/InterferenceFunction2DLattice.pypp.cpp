@@ -268,7 +268,7 @@ void register_InterferenceFunction2DLattice_class(){
 
     { //::InterferenceFunction2DLattice
         typedef bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction2DLattice_wrapper >, boost::noncopyable > InterferenceFunction2DLattice_exposer_t;
-        InterferenceFunction2DLattice_exposer_t InterferenceFunction2DLattice_exposer = InterferenceFunction2DLattice_exposer_t( "InterferenceFunction2DLattice", bp::init< double, double, double, bp::optional< double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("angle"), bp::arg("xi")=0.0 )) );
+        InterferenceFunction2DLattice_exposer_t InterferenceFunction2DLattice_exposer = InterferenceFunction2DLattice_exposer_t( "InterferenceFunction2DLattice", "Interference function of 2D lattic.", bp::init< double, double, double, bp::optional< double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("angle"), bp::arg("xi")=0.0 ), "contructor.\n\n:Parameters:\n  - 'length_1' - Lattice length 1\n  - 'length_2' - Lattice length 2\n  - 'angle' - angle between lattice vectors\n  - 'xi' - rotation of lattice with respect to x-axis\n") );
         bp::scope InterferenceFunction2DLattice_scope( InterferenceFunction2DLattice_exposer );
         { //::InterferenceFunction2DLattice::clone
         
@@ -477,7 +477,8 @@ void register_InterferenceFunction2DLattice_class(){
             InterferenceFunction2DLattice_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction2DLattice_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

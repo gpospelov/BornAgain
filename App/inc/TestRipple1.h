@@ -19,6 +19,7 @@
 
 #include "IApplicationTest.h"
 #include "ISampleBuilder.h"
+#include "GISASSimulation.h"
 
 class Simulation;
 
@@ -29,7 +30,7 @@ public:
     virtual ~TestRipple1() { }
 
     virtual void execute();
-	void drawff ();
+    void drawff ();
 
     //! Ripple2 sample builder (sample from PRB 85, 235415, 2012, fig.3)
     class TestSampleBuilder : public ISampleBuilder
@@ -59,7 +60,7 @@ private:
     void plot_results();
 
 
-    Simulation *mp_simulation;
+    GISASSimulation *mp_simulation;
     SampleBuilder_t mp_sample_builder;
 };
 

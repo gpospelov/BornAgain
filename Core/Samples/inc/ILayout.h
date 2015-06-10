@@ -18,7 +18,6 @@
 
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
-#include "ParticleInfo.h"
 #include "SafePointerVector.h"
 
 class IInterferenceFunctionStrategy;
@@ -49,7 +48,7 @@ public:
     virtual size_t getNumberOfParticles() const=0;
 
     //! Returns information about particle with index
-    virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
+    virtual const IParticle *getParticle(size_t index) const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceOfParticle(size_t index) const=0;

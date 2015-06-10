@@ -18,7 +18,7 @@
 
 #include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorTransformation.h"
+#include "FormFactorDecoratorRotation.h"
 #include "IMaterial.h"
 
 #include <boost/scoped_ptr.hpp>
@@ -89,7 +89,6 @@ public:
     }
 
 protected:
-    IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles
     virtual void applyTransformationToSubParticles(const IRotation& rotation);
     boost::scoped_ptr<IMaterial> mP_material;

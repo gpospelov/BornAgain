@@ -19,7 +19,7 @@
 #include <string>
 #include "WinDllMacros.h"
 #include "OutputData.h"
-class Simulation;
+class GISASSimulation;
 
 //! Simple test for converting domain simulation into GUI and back, and then
 //! comparing results of two simulations in domain space
@@ -37,8 +37,8 @@ private:
 
     std::string m_name;
     double m_threshold;
-    Simulation *m_reference_simulation;
-    Simulation *m_domain_simulation;
+    GISASSimulation *m_reference_simulation;
+    GISASSimulation *m_domain_simulation;
 };
 
 //! run functional tests with given name

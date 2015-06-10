@@ -160,7 +160,7 @@ void register_ResolutionFunction2DGaussian_class(){
 
     { //::ResolutionFunction2DGaussian
         typedef bp::class_< ResolutionFunction2DGaussian_wrapper, bp::bases< IResolutionFunction2D >, std::auto_ptr< ResolutionFunction2DGaussian_wrapper >, boost::noncopyable > ResolutionFunction2DGaussian_exposer_t;
-        ResolutionFunction2DGaussian_exposer_t ResolutionFunction2DGaussian_exposer = ResolutionFunction2DGaussian_exposer_t( "ResolutionFunction2DGaussian", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) );
+        ResolutionFunction2DGaussian_exposer_t ResolutionFunction2DGaussian_exposer = ResolutionFunction2DGaussian_exposer_t( "ResolutionFunction2DGaussian", "Simple gaussian two-dimensional resolution function.", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) );
         bp::scope ResolutionFunction2DGaussian_scope( ResolutionFunction2DGaussian_exposer );
         { //::ResolutionFunction2DGaussian::clone
         
@@ -256,7 +256,8 @@ void register_ResolutionFunction2DGaussian_class(){
             ResolutionFunction2DGaussian_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ResolutionFunction2DGaussian_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

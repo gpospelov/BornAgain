@@ -26,8 +26,14 @@ ParticleCoreShell::ParticleCoreShell(const Particle& shell,
     , m_relative_core_position(relative_core_position)
 {
     setName("ParticleCoreShell");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     addAndRegisterCore(core);
     addAndRegisterShell(shell);
+    registerParameter("rel_position_x", &m_relative_core_position[0]);
+    registerParameter("rel_position_y", &m_relative_core_position[1]);
+    registerParameter("rel_position_z", &m_relative_core_position[2]);
 }
 
 ParticleCoreShell::~ParticleCoreShell()
@@ -125,10 +131,10 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 void ParticleCoreShell::applyTransformationToSubParticles(const IRotation& rotation)
 {
     if (mp_core) {
-        mp_core->applyTransformation(rotation);
+        mp_core->applyRotation(rotation);
     }
     if (mp_shell) {
-        mp_shell->applyTransformation(rotation);
+        mp_shell->applyRotation(rotation);
     }
     Geometry::Transform3D transform = rotation.getTransform3D();
     m_relative_core_position = transform.transformed(m_relative_core_position);
@@ -142,7 +148,7 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
     const IRotation *p_rotation = p_particle->getRotation();
     IFormFactor *p_transf_ff = 0;
     if (p_rotation) {
-        p_transf_ff = new FormFactorDecoratorTransformation(
+        p_transf_ff = new FormFactorDecoratorRotation(
                     p_particle->getFormFactor()->clone(), *p_rotation);
     } else {
         p_transf_ff = p_particle->getFormFactor()->clone();
@@ -160,9 +166,9 @@ FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
             new FormFactorDecoratorMaterial(p_simple_ff,
                                             wavevector_scattering_factor);
     if (p_rotation) {
-        boost::scoped_ptr<const IMaterial> transformed_material(p_particle->
+        boost::scoped_ptr<const IMaterial> P_transformed_material(p_particle->
                 getMaterial()->createTransformedMaterial(*p_rotation));
-        p_ff_result->setMaterial(*transformed_material);
+        p_ff_result->setMaterial(*P_transformed_material);
     } else {
         p_ff_result->setMaterial(*p_particle->getMaterial());
     }

@@ -63,26 +63,32 @@ public:
         mp_detector_resolution = p_detector_resolution;
     }
 
-#ifndef GCCXML_SKIP_THIS
     //! Applies the detector resolution to the given intensity maps
-    void applyDetectorResolution(OutputData<double> *p_scalar_intensity,
-                                 OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;
-#endif
+    void applyDetectorResolution(OutputData<double> *p_scalar_intensity) const;
 
     const IDetectorResolution *getDetectorResolutionFunction() const
     {
         return mp_detector_resolution;
     }
 
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+                               double total_transmission=1.0);
+
+#ifndef GCCXML_SKIP_THIS
+    //! Gets the polarization density matrix (in spin basis along z-axis)
+    Eigen::Matrix2cd getAnalyzerOperator() const
+    {
+        return m_analyzer_operator;
+    }
+#endif
+
     //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
                                                     int copy_number = -1) const;
 
-#ifndef GCCXML_SKIP_THIS
     //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, OutputData<Eigen::Matrix2d> *p_polarized_data,
-                   double sin_alpha_i) const;
-#endif
+    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 
 protected:
     virtual void print(std::ostream &ostr) const;
@@ -107,8 +113,23 @@ private:
     //! Returns the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
+    //! Initialize polarization (for constructors)
+    void initPolarizationOperator();
+
+    //! Verify if the given analyzer properties are physical
+    bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,
+                                 double total_transmission) const;
+
+#ifndef GCCXML_SKIP_THIS
+    Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t &direction, double efficiency,
+                                               double total_transmission = 1.0) const;
+#endif
+
     SafePointerVector<IAxis> m_axes;
     IDetectorResolution *mp_detector_resolution;
+#ifndef GCCXML_SKIP_THIS
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
+#endif
 };
 
 #endif /* DETECTOR_H_ */

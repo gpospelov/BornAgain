@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IObservable.pypp.h"
 #include "FormFactorLorentz.pypp.h"
 #include "SpecularSimulation.pypp.h"
+#include "GISASSimulation.pypp.h"
 #include "ISelectionRule.pypp.h"
 #include "FormFactorRipple2.pypp.h"
 #include "RotationZ.pypp.h"
@@ -120,7 +121,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Lattice.pypp.h"
 #include "AttLimits.pypp.h"
 #include "IInterferenceFunction.pypp.h"
-#include "ParticleInfo.pypp.h"
 #include "Instrument.pypp.h"
 #include "FormFactorInfLongBox.pypp.h"
 #include "FormFactorCone.pypp.h"
@@ -222,6 +222,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorTruncatedSphere_class();
     register_FormFactorTruncatedSpheroid_class();
     register_FormFactorWeighted_class();
+    register_Simulation_class();
+    register_GISASSimulation_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_IMaterial_class();
@@ -261,7 +263,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParticleComposition_class();
     register_ParticleCoreShell_class();
     register_ParticleDistribution_class();
-    register_ParticleInfo_class();
     register_ParticleLayout_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DGaussian_class();
@@ -270,7 +271,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_RotationY_class();
     register_RotationZ_class();
     register_SimpleSelectionRule_class();
-    register_Simulation_class();
     register_SimulationParameters_class();
     register_SpecularSimulation_class();
     register_ThreadInfo_class();

@@ -364,7 +364,7 @@ void register_FormFactorRipple2_class(){
 
     { //::FormFactorRipple2
         typedef bp::class_< FormFactorRipple2_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorRipple2_wrapper >, boost::noncopyable > FormFactorRipple2_exposer_t;
-        FormFactorRipple2_exposer_t FormFactorRipple2_exposer = FormFactorRipple2_exposer_t( "FormFactorRipple2", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("asymetry") )) );
+        FormFactorRipple2_exposer_t FormFactorRipple2_exposer = FormFactorRipple2_exposer_t( "FormFactorRipple2", "The formfactor for a triangular ripple.", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("asymetry") ), "Ripple2 constructor.\n\n:Parameters:\n  - 'length' - of Ripple2\n  - 'width' - of triangular cross section\n  - 'height' - of triangular cross section\n  - 'asymmetry' - length of triangular cross section\n") );
         bp::scope FormFactorRipple2_scope( FormFactorRipple2_exposer );
         { //::FormFactorRipple2::clone
         
@@ -600,7 +600,8 @@ void register_FormFactorRipple2_class(){
             FormFactorRipple2_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorRipple2_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 class ISample;
-class Simulation;
+class GISASSimulation;
 
 namespace FunctionalTests {
 
@@ -31,7 +31,7 @@ private:
     bool run_fitting(const std::string &minimizer_name, const std::string &minimizer_algorithm);
 
     ISample *buildSample();
-    Simulation *createSimulation();
+    GISASSimulation *createSimulation();
 
     //! represent minimizer name and type of minimization algorithm
     class Minimizer {

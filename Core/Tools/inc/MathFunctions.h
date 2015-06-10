@@ -73,8 +73,11 @@ BA_CORE_API_ double Si(double value);
 //! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
 BA_CORE_API_ double Sinc(double value);
 
-//! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
+//! Complex sinc function: \f$sinc(x)\equiv\sin(x)/x\f$
 BA_CORE_API_ complex_t Sinc(const complex_t &value);
+
+//! Complex tanhc function: \f$tanhc(x)\equiv\tanh(x)/x\f$
+BA_CORE_API_ complex_t tanhc(const complex_t &value);
 
 BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
@@ -96,9 +99,6 @@ complex_t FastSin(const complex_t &x);
 
 //! fast complex cosine calculation
 complex_t FastCos(const complex_t &x);
-
-//! simultaneous complex sine and cosine calculations
-void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
@@ -222,6 +222,13 @@ inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
     return std::sin(value)/value;
 }
 
+inline complex_t MathFunctions::tanhc(const complex_t &value)  // tanh(x)/x
+{
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(1.0, 0.0);
+    return std::tanh(value)/value;
+}
+
 inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0)
@@ -265,18 +272,6 @@ inline complex_t MathFunctions::FastCos(const complex_t &x) {
     // cos(a+bi) = cos(a)cosh(b) - i*sin(a)*sinh(b);
     //return complex_t( FastCos(x.real())*std::cosh(x.imag()), -1*FastSin(x.real())*std::sinh(x.imag()));
     return complex_t( std::cos(x.real())*std::cosh(x.imag()), -1*std::sin(x.real())*std::sinh(x.imag()));
-}
-
-//! simultaneous complex sine and cosine calculations
-inline void MathFunctions::FastSinCos(const complex_t &x,
-                                      complex_t &xsin, complex_t &xcos)
-{
-    double sina = FastSin(x.real());
-    double cosa = std::sqrt(1-sina*sina);
-    double sinhb = std::sinh(x.imag());
-    double coshb = std::sqrt(1-sinhb*sinhb);
-    xsin = complex_t( sina*coshb,  cosa*sinhb );
-    xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
 
 #ifndef GCCXML_SKIP_THIS

@@ -32,7 +32,7 @@ public:
         : message(message) {}
     ~Error() throw() {}
 
-    const char *what() const throw() { return message.toStdString().c_str(); }
+    const char *what() const throw() { return message.toLatin1().data(); }
 
 private:
 //    const char *message;
@@ -53,6 +53,8 @@ BA_CORE_API_ bool okToDelete(QWidget *parent, const QString &title,
 BA_CORE_API_ int getVariantType(const QVariant &variant);
 
 BA_CORE_API_ QString getBornAgainVersionString();
+
+BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
 
 }
 

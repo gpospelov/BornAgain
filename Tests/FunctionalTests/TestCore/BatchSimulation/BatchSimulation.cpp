@@ -11,7 +11,7 @@
 int TestBatchSimulation()
 {
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
+    GISASSimulation *simulation = sim_registry.createSimulation("isgisaxs01");
 
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs01_reference.int.gz";
     OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
@@ -23,7 +23,7 @@ int TestBatchSimulation()
     const int n_batches = 9;
     const double threshold = 2e-10;
     for(size_t i_batch=0; i_batch<n_batches; ++i_batch) {
-        Simulation *batch = simulation->clone();
+        GISASSimulation *batch = simulation->clone();
         ThreadInfo threadInfo;
         threadInfo.n_threads = 1;
         threadInfo.n_batches = n_batches;

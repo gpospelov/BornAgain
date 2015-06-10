@@ -17,28 +17,37 @@
 #include "SpecularMatrix.h"
 
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer,
-                                             int layer, double wavelength)
+ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
     : mp_multilayer(multilayer)
     , m_layer(layer)
-    , m_wavelength(wavelength)
 {
 }
 
 ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
 {
-    return new ScalarSpecularInfoMap(mp_multilayer, m_layer, m_wavelength);
+    return new ScalarSpecularInfoMap(mp_multilayer, m_layer);
 }
 
-const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(
-        double alpha_f, double phi_f) const
+const ScalarRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
+        double alpha_f, double phi_f, double wavelength) const
 {
     (void)phi_f;
-    SpecularMatrix specular_calculator;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(m_wavelength, -alpha_f, 0.0);
-    specular_calculator.execute(*mp_multilayer, kvec, coeffs);
+    kvec.setLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
+    SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
+    return new ScalarRTCoefficients(coeffs[m_layer]);
+}
+
+const ScalarRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
+        double alpha_i, double phi_i, double wavelength) const
+{
+    (void)phi_i;
+    SpecularMatrix::MultiLayerCoeff_t coeffs;
+    kvector_t kvec;
+    // phi has no effect on R,T, so just pass zero:
+    kvec.setLambdaAlphaPhi(wavelength, alpha_i, 0.0);
+    SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
     return new ScalarRTCoefficients(coeffs[m_layer]);
 }

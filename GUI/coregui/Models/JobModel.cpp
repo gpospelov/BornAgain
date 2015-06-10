@@ -14,9 +14,14 @@
 // ************************************************************************** //
 
 #include "JobModel.h"
+#include "JobQueueData.h"
 #include "JobItem.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
+#include "MultiLayerItem.h"
+#include "InstrumentItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -35,11 +40,6 @@ JobModel::~JobModel()
 {
     delete m_queue_data;
 }
-
-//size_t NJobModel::getNumberOfJobs()
-//{
-//    return rowCount(QModelIndex());
-//}
 
 const JobItem *JobModel::getJobItemForIndex(const QModelIndex &index) const
 {
@@ -66,32 +66,120 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
     return 0;
 }
 
-JobItem *JobModel::addJob(SampleModel *sampleModel, InstrumentModel *instrumentModel, const QString &run_policy, int numberOfThreads)
+
+//! Main method to add a job
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
+                          const QString &run_policy, int numberOfThreads)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
-    jobItem->setSampleModel(sampleModel);
-    jobItem->setInstrumentModel(instrumentModel);
     jobItem->setIdentifier(generateJobIdentifier());
     jobItem->setNumberOfThreads(numberOfThreads);
+    jobItem->setRunPolicy(run_policy);
 
-    ComboProperty combo_property = jobItem->getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
-    combo_property.setValue(run_policy);
-    jobItem->setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    setSampleForJobItem(jobItem, multiLayerItem);
+    setInstrumentForJobItem(jobItem, instrumentItem);
 
-    if(jobItem->runImmediately() || jobItem->runInBackground())
+    if (jobItem->runImmediately() || jobItem->runInBackground())
         m_queue_data->runJob(jobItem);
 
-//    if( jobItem->getRunPolicy() & (JobItem::RUN_IMMEDIATELY | JobItem::RUN_IN_BACKGROUND)  && jobItem->getStatus()!=JobItem::COMPLETED)
-//        runJob(queue_item->getIdentifier());
-
     return jobItem;
+}
+
+//! Adds a multilayer to children of given JobItem.
+//! The same method is used to set either original multilayer or its backup version.
+void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup)
+{
+    Q_ASSERT(jobItem);
+    Q_ASSERT(multiLayerItem);
+
+    // removing old multilayer (or its backup version) from children of given jobItem
+    MultiLayerItem *old_sample = jobItem->getMultiLayerItem(backup);
+    if(old_sample) {
+        removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
+    }
+
+    ParameterizedItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
+
+    // our original multiLayerItem might come from backup itself, lets clean up its specific name
+    QString name = new_item->itemName();
+    name.remove(Constants::JOB_BACKUP);
+    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
+
+    // if new_item is supposed to be the backup, then it's name should end up with '_backup'
+    if(backup) {
+        name.append(Constants::JOB_BACKUP);
+    }
+
+    new_item->setItemName(name);
+}
+
+//! Adds an instrument to children of given JobItem.
+//! The same method is used to set either original instrument or its backup version.
+void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup)
+{
+    Q_ASSERT(jobItem);
+    Q_ASSERT(instrumentItem);
+
+    // removing old instrument from children of given jobItem
+    InstrumentItem *old = jobItem->getInstrumentItem(backup);
+    if (old) {
+        removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
+    }
+
+    ParameterizedItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
+
+    // our original instrumentItem might itself come from backup, lets clean up its specific name
+    QString name = new_item->itemName();
+    name.remove(Constants::JOB_BACKUP);
+    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
+
+    // if new_item is supposed to be the backup, then it's name should end up with '_backup'
+    if(backup) {
+        name.append(Constants::JOB_BACKUP);
+    }
+
+    new_item->setItemName(name);
+}
+
+//! Backup instrument and sample model for given JobItem. If backup already exists, do nothing.
+void JobModel::backup(JobItem *jobItem)
+{
+    if(!jobItem->getMultiLayerItem(true)) {
+        MultiLayerItem *multilayer = jobItem->getMultiLayerItem();
+        Q_ASSERT(multilayer);
+
+        setSampleForJobItem(jobItem, multilayer, true);
+    }
+
+    if(!jobItem->getInstrumentItem(true)) {
+        InstrumentItem *instrument = jobItem->getInstrumentItem();
+        Q_ASSERT(instrument);
+
+        setInstrumentForJobItem(jobItem, instrument, true);
+    }
+}
+
+//! restore instrument and sample model from backup for given JobItem
+void JobModel::restore(JobItem *jobItem)
+{
+    MultiLayerItem *multilayer = jobItem->getMultiLayerItem(true);
+    Q_ASSERT(multilayer);
+
+    setSampleForJobItem(jobItem, multilayer);
+
+    InstrumentItem *instrument = jobItem->getInstrumentItem(true);
+    Q_ASSERT(instrument);
+
+    setInstrumentForJobItem(jobItem, instrument);
 }
 
 void JobModel::runJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::runJob(const QModelIndex &index)";
-    m_queue_data->runJob(getJobItemForIndex(index));
+    JobItem *jobItem = getJobItemForIndex(index);
+    jobItem->setRunPolicy(Constants::JOB_RUN_IMMEDIATELY);
+    m_queue_data->runJob(jobItem);
 }
 
 void JobModel::cancelJob(const QModelIndex &index)

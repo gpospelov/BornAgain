@@ -21,21 +21,14 @@
 
 #include <boost/scoped_ptr.hpp>
 
-DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
-    const Layer *p_layer, size_t layout_index)
-    : LayerDWBASimulation(p_layer)
-    , m_layout_index(layout_index)
+DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,
+                                                           size_t layout_index)
+    : LayerDWBASimulation(p_layer), m_layout_index(layout_index)
 {
 }
 
 DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
-}
-
-void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
-    DWBASimulation::init(simulation);
 }
 
 void DecoratedLayerDWBASimulation::run()
@@ -44,13 +37,11 @@ void DecoratedLayerDWBASimulation::run()
     try {
         runProtected();
         setStatus(COMPLETED);
-    }
-    catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
         setStatus(FAILED);
-        std::string message(
-            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
-            + getRunMessage());
+        std::string message("DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
+                            + getRunMessage());
         throw Exceptions::RuntimeErrorException(message);
     }
 }
@@ -58,17 +49,14 @@ void DecoratedLayerDWBASimulation::run()
 void DecoratedLayerDWBASimulation::runProtected()
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::runProtected()";
-    boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(
-            createAndInitStrategy());
+    boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
 
     calculateCoherentIntensity(P_strategy.get());
 }
 
-IInterferenceFunctionStrategy
-    *DecoratedLayerDWBASimulation::createAndInitStrategy() const
+IInterferenceFunctionStrategy *DecoratedLayerDWBASimulation::createAndInitStrategy() const
 {
-    LayerStrategyBuilder builder(
-        *mp_layer, *mp_simulation, m_sim_params, m_layout_index);
+    LayerStrategyBuilder builder(*mp_layer, *mp_simulation, m_sim_params, m_layout_index);
     assert(mp_specular_info);
     builder.setRTInfo(*mp_specular_info);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
@@ -79,62 +67,27 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
-    double wavelength = getWaveLength();
-    double total_surface_density =
-        mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
+    double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    if (checkPolarizationPresent()) {
-        // matrix dwba calculation
-        OutputData<Eigen::Matrix2d>::iterator it =
-                mp_polarization_output->begin(m_thread_info);
-        while ( it != mp_polarization_output->end(m_thread_info) )
-        {
-            if( !m_progress.update()) break;
-
-            Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
-                BornAgain::PHI_AXIS_NAME, it.getIndex());
-            Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
-                BornAgain::ALPHA_AXIS_NAME, it.getIndex());
-            double alpha_f = alpha_bin.getMidPoint();
-            size_t n_layers = mp_layer->getNumberOfLayers();
-            if (n_layers>1 && alpha_f<0) {
-                ++it;
-                continue;
-            }
-            Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin,
-                    phi_bin);
-            *it = p_strategy->evaluatePol(m_ki, k_f_bin, alpha_bin, phi_bin)
-                    * total_surface_density;
+    std::vector<SimulationElement>::iterator it = m_begin_it;
+    while (it != m_end_it) {
+        if (!m_progress.update())
+            break;
+        double alpha_f = it->getAlphaMean();
+        size_t n_layers = mp_layer->getNumberOfLayers();
+        if (n_layers > 1 && alpha_f < 0) {
             ++it;
+            continue;
         }
-    }
-    else {
-        // scalar dwba calculation
-        cvector_t k_ij = m_ki;
-        k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()
-                ->getScalarKz());
-
-        DWBASimulation::iterator it_intensity = begin();
-        while ( it_intensity != end() )
-        {
-            if( !m_progress.update()) break;
-
-            Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
-                BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
-            Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
-                BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
-            double alpha_f = alpha_bin.getMidPoint();
-            size_t n_layers = mp_layer->getNumberOfLayers();
-            if (n_layers>1 && alpha_f<0) {
-                ++it_intensity;
-                continue;
-            }
-            Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
-            // each ffdwba: 1 call to getOutCoeffs
-            *it_intensity = p_strategy->evaluate(
-                k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
-            ++it_intensity;
+        // each ffdwba: 1 call to getOutCoeffs
+        if (checkPolarizationPresent()) {
+            // matrix dwba calculation
+            it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
+        } else {
+            // scalar dwba calculation
+            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         }
+        ++it;
     }
     m_progress.finished();
 }

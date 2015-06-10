@@ -268,7 +268,7 @@ void register_InterferenceFunction1DLattice_class(){
 
     { //::InterferenceFunction1DLattice
         typedef bp::class_< InterferenceFunction1DLattice_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction1DLattice_wrapper >, boost::noncopyable > InterferenceFunction1DLattice_exposer_t;
-        InterferenceFunction1DLattice_exposer_t InterferenceFunction1DLattice_exposer = InterferenceFunction1DLattice_exposer_t( "InterferenceFunction1DLattice", bp::init< double, double >(( bp::arg("length"), bp::arg("xi") )) );
+        InterferenceFunction1DLattice_exposer_t InterferenceFunction1DLattice_exposer = InterferenceFunction1DLattice_exposer_t( "InterferenceFunction1DLattice", "Interference function of 1D lattic.", bp::init< double, double >(( bp::arg("length"), bp::arg("xi") ), "constructor.\n\n:Parameters:\n  - 'lattice_params' - Lattice parameters\n  - 'length' - Lattice length\n  - 'xi' - rotation of lattice with respect to x-axis\n") );
         bp::scope InterferenceFunction1DLattice_scope( InterferenceFunction1DLattice_exposer );
         { //::InterferenceFunction1DLattice::clone
         
@@ -455,7 +455,8 @@ void register_InterferenceFunction1DLattice_class(){
             InterferenceFunction1DLattice_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction1DLattice_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IParameterized::setParameterValue

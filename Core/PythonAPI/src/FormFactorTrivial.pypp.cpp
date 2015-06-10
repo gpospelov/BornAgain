@@ -328,7 +328,7 @@ void register_FormFactorTrivial_class(){
 
     { //::FormFactorTrivial
         typedef bp::class_< FormFactorTrivial_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorTrivial_wrapper >, boost::noncopyable > FormFactorTrivial_exposer_t;
-        FormFactorTrivial_exposer_t FormFactorTrivial_exposer = FormFactorTrivial_exposer_t( "FormFactorTrivial", bp::init< >() );
+        FormFactorTrivial_exposer_t FormFactorTrivial_exposer = FormFactorTrivial_exposer_t( "FormFactorTrivial", "The formfactor of a cylinder.", bp::init< >("Cylinder constructor.\n\n:Parameters:\n  - 'radius' - of Cylinder's base\n  - 'height' - of Cylinder\n") );
         bp::scope FormFactorTrivial_scope( FormFactorTrivial_exposer );
         { //::FormFactorTrivial::clone
         
@@ -531,7 +531,8 @@ void register_FormFactorTrivial_class(){
             FormFactorTrivial_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorTrivial_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
+                , "main method to register data address in the pool." );
         
         }
         { //::IFormFactor::setAmbientMaterial

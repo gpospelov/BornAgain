@@ -27,7 +27,7 @@
 //!
 //! Used in ParticleLayout
 
-class ParticleInfo : public ICompositeSample
+class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
 public:
     ParticleInfo(const IParticle &p_particle, double abundance = 1.0);

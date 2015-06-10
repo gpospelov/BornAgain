@@ -1,5 +1,5 @@
 %!PS-Adobe-1.0 EPSF-1.0
-%%BoundingBox:    15   266   327   565
+%%BoundingBox:    15   266   327   566
 %%Comment: Bounding box extracted by bboxx
 %%+:       A program by Dov Grobgeld 2003
 
@@ -398,10 +398,7 @@ WuGdict11a begin
    } def
 
 % we assume that image scripts are Latin1 encoded
-/Helvetica             /HelveticaLatin1             ISOLatin1Encoding ReEncode
-/Helvetica-Oblique     /HelveticaLatin1-Oblique     ISOLatin1Encoding ReEncode
-/Helvetica-Bold        /HelveticaLatin1-Bold        ISOLatin1Encoding ReEncode
-/Helvetica-BoldOblique /HelveticaLatin1-BoldOblique ISOLatin1Encoding ReEncode
+/Palatino-Roman        /MyFont             ISOLatin1Encoding ReEncode
 
 
 %% Preset standard styles:
@@ -423,14 +420,11 @@ WuGdict11a begin
    } def
 
 % standard settings for labelling axes
-/setnum { /HelveticaLatin1            24 setfontandsize } def
-/setlab { /HelveticaLatin1            24 setfontandsize } def
+/setnum { /MyFont            24 setfontandsize } def
+/setlab { /MyFont            24 setfontandsize } def
 
 % user commands (free choice of fontsize, but fixed font family)
-/setown { /HelveticaLatin1             x setfontandsize } def
-/setbol { /HelveticaLatin1-Bold        x setfontandsize } def
-/setboq { /HelveticaLatin1-BoldOblique x setfontandsize } def
-/setobl { /HelveticaLatin1-Oblique     x setfontandsize } def
+/setown { /MyFont             x setfontandsize } def
 
 
 %%  String treatment:

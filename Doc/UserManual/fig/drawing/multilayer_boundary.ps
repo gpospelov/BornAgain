@@ -1,5 +1,5 @@
 %!PS-Adobe-1.0 EPSF-1.0
-%%BoundingBox:    18   286   309   464
+%%BoundingBox:    18   286   306   466
 %%Comment: Bounding box extracted by bboxx
 %%+:       A program by Dov Grobgeld 2003
 
@@ -398,10 +398,7 @@ WuGdict11a begin
    } def
 
 % we assume that image scripts are Latin1 encoded
-/Courier             /CourierLatin1             ISOLatin1Encoding ReEncode
-/Courier-Oblique     /CourierLatin1-Oblique     ISOLatin1Encoding ReEncode
-/Courier-Bold        /CourierLatin1-Bold        ISOLatin1Encoding ReEncode
-/Courier-BoldOblique /CourierLatin1-BoldOblique ISOLatin1Encoding ReEncode
+/Palatino-Roman             /MyFont             ISOLatin1Encoding ReEncode
 
 
 %% Preset standard styles:
@@ -423,14 +420,11 @@ WuGdict11a begin
    } def
 
 % standard settings for labelling axes
-/setnum { /CourierLatin1            24 setfontandsize } def
-/setlab { /CourierLatin1            24 setfontandsize } def
+/setnum { /MyFont            24 setfontandsize } def
+/setlab { /MyFont            24 setfontandsize } def
 
 % user commands (free choice of fontsize, but fixed font family)
-/setown { /CourierLatin1             x setfontandsize } def
-/setbol { /CourierLatin1-Bold        x setfontandsize } def
-/setboq { /CourierLatin1-BoldOblique x setfontandsize } def
-/setobl { /CourierLatin1-Oblique     x setfontandsize } def
+/setown { /MyFont             x setfontandsize } def
 
 
 %%  String treatment:
@@ -1669,25 +1663,27 @@ BoxBackground
 /xl -6 def
 /xh .3 def
 /xc .5 def
-/xt -1.9 def
+/xt -1.6 def
 
 1 [] lset
 21 setown
 /hrul {
-    x
+    /sutext x def
     /yl x def
-    xl yl np mv xh yl li st
-    xc yl 3 2 roll textLM
+    xl yl np mv -3.4 yl li st
+    -2.2 yl np mv xh yl li st
+    -3.2 yl {(M)sutext sb()} textLM
+    xc yl {(z)sutext sb()} textLM
 } def
 
 xl 0.5 {(\267 \267 \267)} textLM
-1 {(z)(l+1)sb()} hrul
+1 {(l+1)} hrul
 xl 1.5 {(layer l)} textLM
 xt 1.5 {()(F)g()(l)sb()} textLM
-2 {(z)(l)sb()} hrul
+2 {(l)} hrul
 xl 2.5 {(layer l-1)} textLM
 xt 2.5 {()(F)g()(l-1)sb()} textLM
-3 {(z)(l-1)sb()} hrul
+3 {(l-1)} hrul
 xl 3.5 {(\267 \267 \267)} textLM
 
 % xt 5.7 {(air/vacuum)} textRM

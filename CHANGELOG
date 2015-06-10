@@ -8,6 +8,8 @@ BornAgain-1.2.0, released 2015.06.10
     3) New features in Graphical User Interface
        a) GUI real time view is now saved in projects
        b) Beam divergence can be exported to Python script
+       c) InstrumentView allows to change beam divergency with the help of fancy distribution viewer
+       d) JobView allows to normalize all selected jobs to the specific min, max to simplify intensity map comparison
     4) Various bug fixes
   > Details of Sprint #27 (see http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues)
   * Bug #1047: Release script: move MAC dmg package into 'old' directory

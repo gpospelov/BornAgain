@@ -25,8 +25,7 @@ FormFactorInfLongRipple1::FormFactorInfLongRipple1(double width, double height)
     , m_height(height)
 {
     setName("FormFactorInfLongRipple1");
-    assert(m_height > 0);
-    assert(m_width > 0);
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorInfLongRipple1>::mem_function p_mf =
@@ -35,11 +34,25 @@ FormFactorInfLongRipple1::FormFactorInfLongRipple1(double width, double height)
         new MemberComplexFunctionIntegrator<FormFactorInfLongRipple1>(p_mf, this);
 }
 
+bool FormFactorInfLongRipple1::check_initialization() const
+{
+    bool result(true);
+    if(m_height <=0.0 || m_width<=0.0) {
+        std::ostringstream ostr;
+        ostr << "FormFactorInfLongRipple1() -> Error in class initialization with parameters ";
+        ostr << " height:" << m_height;
+        ostr << " width:" << m_width << "\n\n";
+        ostr << "Check for 'height>0.0 && width>0.0' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorInfLongRipple1::init_parameters()
 {
     clearParameterPool();
-    registerParameter("width", &m_width);
-    registerParameter("height", &m_height);
+    registerParameter("width", &m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorInfLongRipple1 *FormFactorInfLongRipple1::clone() const
@@ -57,7 +70,7 @@ complex_t FormFactorInfLongRipple1::Integrand(double Z, void* params) const
     (void)params;  // to avoid unused-variable warning
     complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(2*M_PI));
+    return std::exp(iqZ)*aa*MathFunctions::Sinc(aa*m_q.y()*m_width/(Units::PI2));
 }
 
 //! Complex formfactor.
@@ -91,8 +104,7 @@ complex_t FormFactorInfLongRipple1::evaluate(const cvector_t& k_i,
 }
 
 double FormFactorInfLongRipple1::getVolume() const {
-    // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
-        "FormFactorInfLongRipple1::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
+                "FormFactorInfLongRipple1::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
 }

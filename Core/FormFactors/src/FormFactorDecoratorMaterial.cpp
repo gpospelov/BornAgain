@@ -34,25 +34,24 @@ FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const
     FormFactorDecoratorMaterial *result =
             new FormFactorDecoratorMaterial(mp_form_factor->clone(),
                     m_wavevector_scattering_factor);
-    result->setMaterial(mP_material.get());
-    result->setAmbientMaterial(mP_ambient_material.get());
+    result->setMaterial(*mP_material);
+    result->setAmbientMaterial(*mP_ambient_material);
     result->setName(getName());
     return result;
 }
 
-void FormFactorDecoratorMaterial::setMaterial(const IMaterial* p_material)
+void FormFactorDecoratorMaterial::setMaterial(const IMaterial& material)
 {
-    if (p_material) {
-        mP_material.reset(p_material->clone());
+    if (mP_material.get()!=&material) {
+        mP_material.reset(material.clone());
     }
     m_factor = getRefractiveIndexFactor();
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(
-        const IMaterial *p_material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
 {
-    if (p_material) {
-        mP_ambient_material.reset(p_material->clone());
+    if (mP_ambient_material.get()!=&material) {
+        mP_ambient_material.reset(material.clone());
     }
     m_factor = getRefractiveIndexFactor();
 }
@@ -75,7 +74,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t& k_i,
     time_reverse_conj(0,1) = 1.0;
     time_reverse_conj(1,0) = -1.0;
     // the interaction and time reversal taken together:
-    double k_mag2 = 4.0 * M_PI * m_wavevector_scattering_factor.real();
+    double k_mag2 = 4.0 * Units::PI * m_wavevector_scattering_factor.real();
     Eigen::Matrix2cd V_eff = m_wavevector_scattering_factor * time_reverse_conj
             * (mP_material->getScatteringMatrix(k_mag2) -
                mP_ambient_material->getScatteringMatrix(k_mag2));

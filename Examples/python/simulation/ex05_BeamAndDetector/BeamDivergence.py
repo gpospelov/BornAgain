@@ -44,7 +44,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     wavelength_distr = DistributionLogNormal(1.0*angstrom, 0.1)
-    alpha_distr = DistributionGaussian(-0.2*degree, 0.1*degree)
+    alpha_distr = DistributionGaussian(0.2*degree, 0.1*degree)
     phi_distr = DistributionGaussian(0.0*degree, 0.1*degree)
     simulation.addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5)
     simulation.addParameterDistribution("*/Beam/alpha", alpha_distr, 5)
@@ -61,6 +61,7 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.printParameters()
     simulation.runSimulation()
+
     result = simulation.getIntensityData().getArray() + 1  # for log scale
 
     # showing the result

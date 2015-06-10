@@ -30,21 +30,9 @@ namespace bp = boost::python;
 
 struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::applyTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::applyTransformation( boost::ref(transform) );
-    }
-
-    virtual void applyTransformationToSubParticles( ::Geometry::Transform3D const & transform ){
+    virtual void applyTransformationToSubParticles( ::IRotation const & rotation ){
         bp::override func_applyTransformationToSubParticles = this->get_override( "applyTransformationToSubParticles" );
-        func_applyTransformationToSubParticles( boost::ref(transform) );
+        func_applyTransformationToSubParticles( boost::ref(rotation) );
     }
 
     virtual ::IParticle * clone(  ) const {
@@ -67,43 +55,16 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_getAmbientMaterial(  );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const {
-        bp::override func_getMaterial = this->get_override( "getMaterial" );
-        return func_getMaterial(  );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const {
-        bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" );
-        return func_getRefractiveIndex(  );
-    }
-
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const {
-        bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" );
-        return func_getSimpleFormFactor(  );
-    }
-
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->IParticle::hasDistributedFormFactor(  );
+            this->IParticle::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    bool default_hasDistributedFormFactor(  ) const  {
-        return IParticle::hasDistributedFormFactor( );
-    }
-
-    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
-            func_setTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::setTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::setTransformation( boost::ref(transform) );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IParticle::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -214,22 +175,22 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< IParticle_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -305,24 +266,22 @@ void register_IParticle_class(){
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyTransformation
         
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IParticle_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IParticle::*applyTransformation_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "applyTransformation"
-                , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&IParticle_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                , applyTransformation_function_type( &::IParticle::applyTransformation )
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParticle::applyTransformationToSubParticles
         
-            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "applyTransformationToSubParticles"
                 , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParticle::clone
@@ -366,66 +325,36 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getMaterial
+        { //::IParticle::getRotation
         
-            typedef ::IMaterial const * ( ::IParticle::*getMaterial_function_type)(  ) const;
+            typedef ::IRotation const * ( ::IParticle::*getRotation_function_type)(  ) const;
             
             IParticle_exposer.def( 
-                "getMaterial"
-                , bp::pure_virtual( getMaterial_function_type(&::IParticle::getMaterial) )
+                "getRotation"
+                , getRotation_function_type( &::IParticle::getRotation )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::getPTransform3D
+        { //::IParticle::setAmbientMaterial
         
-            typedef ::Geometry::Transform3D const * ( ::IParticle::*getPTransform3D_function_type)(  ) const;
+            typedef void ( ::IParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             IParticle_exposer.def( 
-                "getPTransform3D"
-                , getPTransform3D_function_type( &::IParticle::getPTransform3D )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::getRefractiveIndex
-        
-            typedef ::complex_t ( ::IParticle::*getRefractiveIndex_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getRefractiveIndex"
-                , bp::pure_virtual( getRefractiveIndex_function_type(&::IParticle::getRefractiveIndex) ) );
-        
-        }
-        { //::IParticle::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::IParticle::*getSimpleFormFactor_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getSimpleFormFactor"
-                , bp::pure_virtual( getSimpleFormFactor_function_type(&::IParticle::getSimpleFormFactor) )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IParticle::hasDistributedFormFactor
-        
-            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( IParticle_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&IParticle_wrapper::default_hasDistributedFormFactor) );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IParticle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::setTransformation
         
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IParticle_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IParticle::*setTransformation_function_type)( ::IRotation const & ) ;
             
             IParticle_exposer.def( 
                 "setTransformation"
-                , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&IParticle_wrapper::default_setTransformation)
-                , ( bp::arg("transform") ) );
+                , setTransformation_function_type( &::IParticle::setTransformation )
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -532,12 +461,12 @@ void register_IParticle_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             IParticle_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IParticle_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

@@ -20,7 +20,7 @@
 #include "fancymainwindow.h"
 
 struct JobViewPrivate;
-class JobQueueModel;
+class JobModel;
 class JobItem;
 class ProjectManager;
 
@@ -34,12 +34,10 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-
     enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
-
     enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
-    JobView(JobQueueModel *jobQueueModel, ProjectManager *projectManager, QWidget *parent = 0);
+    JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
     virtual ~JobView();
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);
@@ -60,8 +58,5 @@ private:
 
     JobViewPrivate *m_d;
 };
-
-
-
 
 #endif

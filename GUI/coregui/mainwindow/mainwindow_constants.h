@@ -35,12 +35,18 @@ const char ICON_NEWFILE[]          = ":/core/images/filenew.png";
 const char ICON_OPENFILE[]         = ":/core/images/fileopen.png";
 const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
 
-// settings groups
+// Settings groups
 const char S_PROJECTMANAGER[]      = "ProjectManager";
 
 const int MAX_RECENT_PROJECTS = 10;
 
 const char MIME_JOBQUEUE[] = "application/org.bornagainproject.jobqueue";
+
+// Colors
+const unsigned int MAIN_THEME_COLOR    = 0x086FA1;
+const unsigned int BUTTON_COLOR        = 0x044362;
+const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
+//
 }
 
 #endif

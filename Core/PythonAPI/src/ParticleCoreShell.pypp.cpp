@@ -37,18 +37,6 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     m_pyobj = 0;
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::applyTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::applyTransformation( boost::ref(transform) );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -97,18 +85,6 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
-        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
-            return func_getAmbientMaterial(  );
-        else{
-            return this->Particle::getAmbientMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getAmbientMaterial(  ) const  {
-        return Particle::getAmbientMaterial( );
-    }
-
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -131,42 +107,6 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
-        else{
-            return this->Particle::getMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return Particle::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->Particle::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return Particle::getRefractiveIndex( );
-    }
-
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->Particle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return Particle::hasDistributedFormFactor( );
     }
 
     virtual bool preprocess(  ) {
@@ -205,22 +145,22 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< ParticleCoreShell_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -246,18 +186,6 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
-    }
-
-    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
-            func_setTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::setTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::setTransformation( boost::ref(transform) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -303,21 +231,9 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
 void register_ParticleCoreShell_class(){
 
     { //::ParticleCoreShell
-        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
+        typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
         ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
-        { //::IParticle::applyTransformation
-        
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleCoreShell_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            
-            ParticleCoreShell_exposer.def( 
-                "applyTransformation"
-                , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&ParticleCoreShell_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
@@ -363,18 +279,6 @@ void register_ParticleCoreShell_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Particle::getAmbientMaterial
-        
-            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCoreShell_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "getAmbientMaterial"
-                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
-                , default_getAmbientMaterial_function_type(&ParticleCoreShell_wrapper::default_getAmbientMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -397,40 +301,6 @@ void register_ParticleCoreShell_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ParticleCoreShell_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::getMaterial
-        
-            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleCoreShell_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::Particle::getMaterial)
-                , default_getMaterial_function_type(&ParticleCoreShell_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::getRefractiveIndex
-        
-            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleCoreShell_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::Particle::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleCoreShell_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::Particle::hasDistributedFormFactor
-        
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( ParticleCoreShell_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            ParticleCoreShell_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&ParticleCoreShell_wrapper::default_hasDistributedFormFactor) );
         
         }
         { //::ISample::preprocess
@@ -468,12 +338,12 @@ void register_ParticleCoreShell_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             ParticleCoreShell_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleCoreShell_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue
@@ -497,18 +367,6 @@ void register_ParticleCoreShell_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&ParticleCoreShell_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::IParticle::setTransformation
-        
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleCoreShell_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            
-            ParticleCoreShell_exposer.def( 
-                "setTransformation"
-                , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&ParticleCoreShell_wrapper::default_setTransformation)
-                , ( bp::arg("transform") ) );
         
         }
         { //::ICompositeSample::size

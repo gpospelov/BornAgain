@@ -23,6 +23,7 @@ class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     static const QString P_APPROX;
+    static const QString P_TOTAL_DENSITY;
     explicit ParticleLayoutItem(ParameterizedItem *parent=0);
     ~ParticleLayoutItem();
 };

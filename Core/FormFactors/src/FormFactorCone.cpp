@@ -26,7 +26,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
-    assert(m_height <= m_radius*std::tan(m_alpha));
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorCone>::mem_function p_mf =
@@ -35,12 +35,27 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         new MemberComplexFunctionIntegrator<FormFactorCone>(p_mf, this);
 }
 
+bool FormFactorCone::check_initialization() const
+{
+    bool result(true);
+    if(m_height > m_radius*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorCone() -> Error in class initialization ";
+        ostr << "with parameters radius:" << m_radius;
+        ostr << " m_height:" << m_height;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for 'height <= radius*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorCone::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
-    registerParameter("alpha", & m_alpha);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("alpha", & m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCone* FormFactorCone::clone() const
@@ -74,14 +89,14 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
         double tga = std::tan(m_alpha);
         double HdivRtga = H/tga/R;
 
-        return  M_PI/3.0*tga*R*R*R*
+        return  Units::PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
 
     } else {
 
         complex_t integral = m_integrator->integrate(0., m_height);
 
-        return 2.0*M_PI*integral;
+        return Units::PI2*integral;
     }
 }
 

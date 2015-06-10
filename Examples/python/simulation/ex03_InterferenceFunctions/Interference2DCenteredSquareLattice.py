@@ -29,8 +29,8 @@ def get_sample():
     position2 = kvector_t(12.5*nanometer, 12.5*nanometer, 0.0)
     cylinder_ff = FormFactorCylinder(3.*nanometer, 3.*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    basis = LatticeBasis()
-    basis.addParticle(cylinder, [position1, position2])
+    basis = ParticleComposition()
+    basis.addParticles(cylinder, [position1, position2])
     particle_layout.addParticle(basis)
     particle_layout.addInterferenceFunction(interference)
 

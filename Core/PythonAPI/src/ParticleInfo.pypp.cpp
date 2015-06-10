@@ -176,22 +176,22 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< ParticleInfo_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -266,6 +266,16 @@ void register_ParticleInfo_class(){
         ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< IParticle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
         ParticleInfo_exposer.def( bp::init< IParticle const &, kvector_t, bp::optional< double > >(( bp::arg("p_particle"), bp::arg("position"), bp::arg("abundance")=1.0e+0 )) );
+        { //::ParticleInfo::applyTransformation
+        
+            typedef void ( ::ParticleInfo::*applyTransformation_function_type)( ::IRotation const & ) ;
+            
+            ParticleInfo_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type( &::ParticleInfo::applyTransformation )
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::ParticleInfo::clone
         
             typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type)(  ) const;
@@ -337,14 +347,14 @@ void register_ParticleInfo_class(){
                 , ( bp::arg("abundance") ) );
         
         }
-        { //::ParticleInfo::setDepth
+        { //::ParticleInfo::setAmbientMaterial
         
-            typedef void ( ::ParticleInfo::*setDepth_function_type)( double ) ;
+            typedef void ( ::ParticleInfo::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             ParticleInfo_exposer.def( 
-                "setDepth"
-                , setDepth_function_type( &::ParticleInfo::setDepth )
-                , ( bp::arg("depth") ) );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type( &::ParticleInfo::setAmbientMaterial )
+                , ( bp::arg("material") ) );
         
         }
         { //::ParticleInfo::setPosition
@@ -461,12 +471,12 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             ParticleInfo_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleInfo_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

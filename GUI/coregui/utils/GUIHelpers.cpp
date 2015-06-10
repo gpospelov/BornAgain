@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "GUIHelpers.h"
-
+#include "BAVersion.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QPushButton>
@@ -105,6 +105,10 @@ int getVariantType(const QVariant &variant)
     return result;
 }
 
+QString getBornAgainVersionString()
+{
+    return QString::fromStdString(BornAgain::GetVersionNumber());
+}
 
 
 

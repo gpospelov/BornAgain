@@ -23,6 +23,7 @@
 #include "BeamItem.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "AxesItems.h"
 #include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
@@ -37,6 +38,9 @@
 #include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
 #include "DistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
+#include "ResolutionFunctionItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -96,6 +100,9 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     else if (approximation == QString("Size Space Coupling Approximation")) {
         result->setApproximation(ILayout::SSCA);
     }
+    double total_density =
+            item.getRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
+    result->setTotalParticleSurfaceDensity(total_density);
     return result;
 }
 
@@ -111,8 +118,8 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
     ParameterizedItem *ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
 
-    IFormFactor *ff = createFormFactor(*ffItem);
-    result->setSimpleFormFactor(ff);
+    boost::scoped_ptr<IFormFactor> P_ff(createFormFactor(*ffItem));
+    result->setFormFactor(*P_ff);
 
     return result;
 }
@@ -186,13 +193,13 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
             length_1 = latticeItem->getRegisteredProperty(
                         SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            alpha_lattice = M_PI/2.0;
+            alpha_lattice = Units::PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(
                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            alpha_lattice = 2*M_PI/3.0;
+            alpha_lattice = 2*Units::PI/3.0;
         }
         else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
@@ -243,13 +250,13 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
             length_1 = latticeItem->getRegisteredProperty(
                         SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            angle = M_PI/2.0;
+            angle = Units::PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(
                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            angle = 2*M_PI/3.0;
+            angle = 2*Units::PI/3.0;
         }
         else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
@@ -288,53 +295,59 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 //    qDebug() << "TransformToDomain::createBeam";
     Beam *result = new Beam();
     result->setName(item.itemName().toUtf8().constData());
-    result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
-    double lambda = item.getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble();
 
-    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
-    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
-    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
+    const BeamItem *beamItem = dynamic_cast<const BeamItem *>(&item);
+
+    result->setIntensity(beamItem->getIntensity());
+    double lambda = beamItem->getWavelength();
+    double inclination_angle = Units::deg2rad(beamItem->getInclinationAngle());
+    double azimuthal_angle = Units::deg2rad(beamItem->getAzimuthalAngle());
+    result->setCentralK( lambda, inclination_angle, azimuthal_angle);
+
+//    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+//    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+//    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
     return result;
 }
 
 void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument)
 {
-//    qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
-//    item.print();
-
     ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-//    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
     if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
-        int nphi = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NPHI).toInt();
 
-        AngleProperty phi_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN).value<AngleProperty>();
-        AngleProperty phi_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX).value<AngleProperty>();
-        double phi_min = phi_min_property.getValueInRadians();
-        double phi_max = phi_max_property.getValueInRadians();
+        BasicAxisItem *phiAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+        Q_ASSERT(phiAxis);
+        int nphi = phiAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double phi_min = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double phi_max = Units::deg2rad(phiAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
-        int nalpha = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA).toInt();
-
-        AngleProperty alpha_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN).value<AngleProperty>();
-        AngleProperty alpha_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX).value<AngleProperty>();
-        double alpha_min = alpha_min_property.getValueInRadians();
-        double alpha_max = alpha_max_property.getValueInRadians();
+        BasicAxisItem *alphaAxis = dynamic_cast<BasicAxisItem *>(subDetector->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+        Q_ASSERT(alphaAxis);
+        int nalpha = alphaAxis->getRegisteredProperty(BasicAxisItem::P_NBINS).toInt();
+        double alpha_min = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MIN).toDouble());
+        double alpha_max = Units::deg2rad(alphaAxis->getRegisteredProperty(BasicAxisItem::P_MAX).toDouble());
 
         ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-        // FIXME Get rid from hardcoded string
-//        if(binning.getValue() != QStringLiteral("Const KBin"))
-//            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
 
-        if(binning.getValue() == QStringLiteral("Const KBin")) {
+        if(binning.getValue() == Constants::AXIS_CONSTK_BINNING) {
             instrument->setDetectorAxes(ConstKBinAxis("phi_x",nphi, phi_min, phi_max), ConstKBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
-        }else if(binning.getValue() == QStringLiteral("Fixed")) {
+        }else if(binning.getValue() == Constants::AXIS_FIXED_BINNING) {
             instrument->setDetectorAxes(FixedBinAxis("phi_x",nphi, phi_min, phi_max), FixedBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
         } else {
             throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
         }
 
-//        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
+        // setting up resolution function
+        ResolutionFunctionItem *resfuncItem = dynamic_cast<ResolutionFunctionItem *>
+                (subDetector->getSubItems()[PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION]);
+        Q_ASSERT(resfuncItem);
+
+        IResolutionFunction2D *resfunc = resfuncItem->createResolutionFunction();
+        if(resfunc)
+            instrument->setDetectorResolutionFunction(*resfunc);
+        delete resfunc;
 
     }
     else {
@@ -344,7 +357,8 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 }
 
 
-ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core, const Particle &shell, double &depth, double &abundance)
+ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item,
+    const Particle &core, const Particle &shell, double &depth, double &abundance)
 {
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
@@ -357,6 +371,15 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
     pos.setZ(vectorItem->getRegisteredProperty(VectorItem::P_Z).toDouble());
     ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
     result->setName(item.itemName().toStdString());
+    return result;
+}
+
+
+ParticleComposition *TransformToDomain::createParticleComposition(const ParameterizedItem &item,
+                                                                  double &abundance)
+{
+    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    ParticleComposition *result = new ParticleComposition();
     return result;
 }
 
@@ -376,6 +399,32 @@ LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem 
     }
     else {
         throw GUIHelpers::Error("TransformToDomain::createLayerROughness() -> Error.");
+    }
+
+}
+
+//! adds DistributionParameters to the Simulation
+void TransformToDomain::addDistributionParametersToSimulation(const ParameterizedItem &beam_item, Simulation *simulation)
+{
+    if(beam_item.modelType() == Constants::BeamType) {
+
+        if(BeamWavelengthItem *beamWavelength = dynamic_cast<BeamWavelengthItem *>(beam_item.getSubItems()[BeamItem::P_WAVELENGTH])) {
+            ParameterDistribution *distr = beamWavelength->getParameterDistributionForName("*/Beam/wavelength");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
+        }
+
+        if(BeamInclinationAngleItem *inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(beam_item.getSubItems()[BeamItem::P_INCLINATION_ANGLE])) {
+            ParameterDistribution *distr = inclinationAngle->getParameterDistributionForName("*/Beam/alpha");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
+        }
+
+        if(BeamAzimuthalAngleItem *azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(beam_item.getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE])) {
+            ParameterDistribution *distr = azimuthalAngle->getParameterDistributionForName("*/Beam/phi");
+            if(distr) simulation->addParameterDistribution(*distr);
+            delete distr;
+        }
     }
 
 }

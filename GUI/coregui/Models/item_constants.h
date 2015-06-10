@@ -30,6 +30,7 @@ const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
+const ModelType ParticleCompositionType = "ParticleComposition";
 const ModelType TransformationType = "Transformation";
 const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
@@ -55,6 +56,7 @@ const ModelType PyramidType = "Pyramid";
 const ModelType Ripple1Type = "Ripple1";
 const ModelType Ripple2Type = "Ripple2";
 const ModelType TetrahedronType = "Tetrahedron";
+const ModelType TruncatedCubeType = "TruncatedCube";
 const ModelType TruncatedSphereType = "TruncatedSphere";
 const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 
@@ -69,9 +71,8 @@ const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
-const ModelType XYDetectorType  = "XYDetector";
 
-const ModelType DistributionType = "Distribution";
+const ModelType DistributionNoneType = "DistributionNone";
 const ModelType DistributionGateType = "DistributionGate";
 const ModelType DistributionLorentzType = "DistributionLorentz";
 const ModelType DistributionGaussianType = "DistributionGaussian";
@@ -105,6 +106,20 @@ const ModelType MagneticFieldType = "MagneticField";
 
 const ModelType FitParameterType = "FitParameter";
 
+const ModelType JobItemType = "JobItem";
+const ModelType IntensityDataType = "IntensityData";
+
+const ModelType BasicAxisType = "BasicAxis";
+const ModelType AmplitudeAxisType = "AmplitudeAxis";
+
+const ModelType BeamDistributionType = "BeamDistribution";
+const ModelType BeamWavelengthType = "BeamWavelength";
+const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
+const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
+
+const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
+const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -112,14 +127,38 @@ const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
+const ModelType DistributionExtendedGroup = "Distribution extended group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
+const ModelType ResolutionFunctionGroup = "Resolution function group";
 
-// --- Units -------------------------------------------------------------------
+// --- Units&Constants----------------------------------------------------------
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsRadians = "Radians";
+
+const ModelType STATUS_IDLE = "Idle";
+const ModelType STATUS_RUNNING = "Running";
+const ModelType STATUS_COMPLETED = "Completed";
+const ModelType STATUS_CANCELED = "Canceled";
+const ModelType STATUS_FAILED = "Failed";
+
+const ModelType GRADIENT_GRAYSCALE = "Grayscale";
+const ModelType GRADIENT_HOT = "Hot";
+const ModelType GRADIENT_COLD = "Cold";
+const ModelType GRADIENT_NIGHT = "Night";
+const ModelType GRADIENT_CANDY = "Candy";
+const ModelType GRADIENT_GEOGRAPHY = "Geography";
+const ModelType GRADIENT_ION = "Ion";
+const ModelType GRADIENT_THERMAL = "Thermal";
+const ModelType GRADIENT_POLAR = "Polar";
+const ModelType GRADIENT_SPECTRUM = "Spectrum";
+const ModelType GRADIENT_JET = "Jet";
+const ModelType GRADIENT_HUES = "Hues";
+
+const ModelType AXIS_FIXED_BINNING = "Fixed";
+const ModelType AXIS_CONSTK_BINNING = "Const KBin";
 
 }
 

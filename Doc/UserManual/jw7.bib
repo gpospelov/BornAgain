@@ -1,26 +1,40 @@
-% jw7.bib (created as mybib.bib 30nov93, discontinued 2001-5, replaced by
-%          jw6-rs in 2005-11, merged 23mar11 as jw7)
+% Generic bibliography file of Joachim Wuttke and collaborators.
 
-% in Art (or similar styles) y can be =subm, =inpr, =unpu, =thissue
-% --- but use only if the journal is already known.
-% Otherwise use Unp ..note=unpu,..
 
-% iBk : in eigenem Buch! sonst iCo.
+% Make changes only in sc-intern/bib/jw7.bib;
+% then copy to application directory.
 
-% Anzahl der Eintr"ge ( grep backslashklammeraffe jw7.bib | wc )
+% Please follow pedantically the chosen format:
+% - no more than 80 characters per line
+% - author tags: Aaa for one author, AaBb for two, AaBC for three or more
+% - journal names and other abbreviations as defined in file switch.bst
+
+
+% Miscellaneous (cryptic) notes:
+% - in Art (or similar styles) y can be =subm, =inpr, =unpu, =thissue
+%   --- but use only if the journal is already known.
+%   --- otherwise use Unp ..note=unpu,..
+% - iBk: in eigenem Buch! sonst iCo.
+
+% A litle history:
+% - Created as mybib.bib 30nov93, discontinued 2001-5, replaced by
+%     jw6-rs in 2005-11, merged 23mar11 as jw7
+% - Number of entries ( grep backslashklammeraffe jw7.bib | wc )
 %    Diss^2  : 	224
 %    24mar94 : 	319
 %    30jun94 : 	382
-%    12feb97 : 	741 (AMy)
+%    12feb97 : 	741 with many contributions from Andreas Meyer
 %    27aug97 : 1069
 %    jul05   : 1672
 %    23mar11 : 1894
 %    28aug11 : 1932 reverted b to t in Buk and The
 %    20jul12 : 2001
-%     2jan13 : 2088 nach mehrtaegiger Literaturarbeit zu Proteinen mehr erwartet
+%     2jan13 : 2088 nach mehrtaegiger Literaturarbeit zu Proteinen
 %    26sep13 : 2044 down from about 2150 after deleting notes and "metg" entries
+%    17feb15 : 2131
 
-%% Main list, sorted by 1st author name and year
+
+%%% Main list, sorted by 1st author name and year
 
 %:a
 
@@ -36,18 +50,18 @@
                    j=jcp, v=102, y=1995, x="LiCl.NSc,LSc", c="F"}
 @Art{AcOM11, a={Achterhold,K and Ostermann,A and Moulin,M and Haertlein,M and
                 Unruh,T and Parak,F G},
-                   j=prE, v=84, p=041930, y=2011, x="dMyo+H2O:TOF" }
+                   j=prE, v=84, p=041930, y=2011, x="dMyo+H2O:TOF"}
 @Art{AdSS68, a={Adachi,K and Suga,H and Seki,S},
-                   j=bcsj, v=41, p=1073, y=1968, x="cy6" }
+                   j=bcsj, v=41, p=1073, y=1968, x="cy6"}
 @Art{AdSS72, a={Adachi,K and Suga,H and Seki,S and Kubota,S and Yamaguchi,S
                 and Yano,O and Wada,Y},
-                   j=mclc, v=18, p=345, y=1972, x="cy6" }
+                   j=mclc, v=18, p=345, y=1972, x="cy6"}
 @Art{AdGi65, a={Adam,G and Gibbs,J H}, j=jcp, v=43, p=139, y=1965, x="g.Scf"}
 @Art{AfDe05a,a={Affouard,F and Descamps,M},
-                   j=prE, v=72, p=012501, y=2005, x="freon" }
+                   j=prE, v=72, p=012501, y=2005, x="freon"}
 @Art{AfCD05b,a={Affouard,F and Cochin,E and Danède,F and Decressain,R and
                 Descamps,M and Haeussler,W},
-                   j=jcp, v=123, p=084501, y=2005, x="freon" }
+                   j=jcp, v=123, p=084501, y=2005, x="freon"}
 @Art{AhBL37, a={Ahlberg,J E and Blanchard,E R and Lundberg,W O},
                    j=jcp, v=5, p=539, y=1937, x="gly.cp"}
 @Art{AhHP86, a={Ahmad,N and Hutt,K W and Phillips,W A},
@@ -79,11 +93,11 @@
                    j=nat, v=380, p=146, y=1996, x="G.Vulkane", c="C"}
 @Art{AlPP12, a={Aliotta,F and Pochylski,M and Ponterio,R C and Saija,F and
                 Salvato,G and Vasi,C S},
-                   j=prB, v=86, p=134301, y=2012, x="LiCl:H2O.raman" }
+                   j=prB, v=86, p=134301, y=2012, x="LiCl:H2O.raman"}
 @Art{AlLO76, a={Allain-Demoulin,C and Lallemand,P and Ostrowsky,N},
                    j=mop, v=31, p=581, y=1976, x="gly.lsc.th", c="C"}
 @Art{AlGH74, a={Allen,G and Ghosh,R E and Heidemann,A and Higgins,J
-                   and Howells,W S}, j=cpl, v=27, p=308, y=1974, x="bsc" }
+                   and Howells,W S}, j=cpl, v=27, p=308, y=1974, x="bsc"}
 @Art{AlHM82, a={Allen,G and Higgins,J S and Maconnachie,A},
                    j=jcsf2, v=78, p=2117, y=1982, x="pym.nsc", c="C"}
 @Art{AlCK81, a={Allen,M P and Chappell,P J and Kivelson,D},
@@ -131,7 +145,7 @@
                    t={Bericht 85AN8T}, i={ILL}, l={Grenoble},
                    y=1985, x="softw"}
 @Art{AnRB89, a={Anderson,O and Ross,R G and B\"ackstr\"om,G},
-                   j=mop, v=66, p=619, y=1989, x="cy6" }
+                   j=mop, v=66, p=619, y=1989, x="cy6"}
 @Art{And59,  a={Anderson,O L},
                    j=jpcs, v=12, p=41, y=1959, x="SiO2.cp"}
 @Art{AnHV72, a={Anderson,P W and Halperin,B I and Varma,C M},
@@ -139,11 +153,11 @@
 @Art{AnHL04, a={Anderssen,R S and Husain,S A and Loy,R J},
                    j={ANZIAM J.}, v=45, p={C800}, pf={C861}, y=2004,
                    t={The Kohlrausch function: properties and applications},
-                   x="kww" }
+                   x="kww"}
 @Art{AnRo90, a={Andersson,O and Ross,R G},
                    j=mop, v=71, p=523, y=1990, x="cy8.kappa,cp", c="C"}
 @Art{AnCS84, a={Andr\'e,D and Ceccaldi,D and Szwarc,H},
-                   j=jpF, v=45, p=731, y=1984, x="cy6" }
+                   j=jpF, v=45, p=731, y=1984, x="cy6"}
 @Any{AnHV05, a={Andreasen,A and Hj\o{}llum,J and Vegge,T and Engberg,D and
                     Niedermayer,C and Lefmann,K},
                    t={SINQ experimental report,
@@ -160,7 +174,7 @@
                    j=prE, v=61, p=1681, y=2000, x="LJ.E-landscape", c="C"}
 @Art{Ang66,  a={Angell,C A}, j=jpc, v=70, p=2793, y=1966, x="g"}
 @Art{AnSa68, a={Angell,C A and Sare,E J},
-                   j=jcp, v=49, p=4713, y=1966, x="LiCl:H2O.Tg,..." }
+                   j=jcp, v=49, p=4713, y=1966, x="LiCl:H2O.Tg,..."}
 @Art{AnSi76, a={Angell,C A and Sichina,W},
                    j=aasNY, v=279, p=53, y=1976, x="g"}
 @Art{AnSS78, a={Angell,C A and Sare,J M and Sare,E J},
@@ -172,9 +186,11 @@
 @Art{Ang88b, a={Angell,C A}, j=jncs, v=102, p=205, y=1988, x="g"}
 @Art{Ang91,  a={Angell,C A}, j=jncs, v={131--133}, p=13, y=1991, x="g"}
 @Art{Ang92,  a={Angell,C A}, j=arpc, v=43, p=693, y=1992, x="g/ion"}
+@Art{Ang93,  a={Angell,C A}, j=jpc, v=97, p=6339, y=1993, x="H2O,LDA,pre-FST"}
 @Art{Ang95,  a={Angell,C A}, j=sc, v=267, p=1924, y=1995, x="g"}
 @Art{Ang97,  a={Angell,C A}, j=ptps, v=126, p=1, y=1997, x="g"}
 @Art{Ang97b, a={Angell,C A}, j=poly, v=38, p=6261, y=1997, x="g"}
+@Art{Ang08,  a={Angell,C A}, j=sc, v=319, p=582, y=2008, x="H2O"}
 @Art{AnBB85, a={Ansari,A and Berendzen,J and Bowne,S F and Frauenfelder,H and
                 Iben,I E T and Sanke,T B and Shyamsunder,E and Young,R D},
                    j=pnasus, v=82, p=5000, y=1985, x="bio.myo.phly"}
@@ -204,9 +220,10 @@
                    j=zpc, v=4, p=226, y=1889, x="exp-A/T", c="C"}
 @Art{Arr75,  a={D'Arrigo,G},
                    j=jcp, v=63, p=61, y=1975, x="otp.usound", c="C"}
-@Buk{AnLu07, a={Antoniou,A and Lu,W.-S.}, t={Practical Optimization}, f={Springer US}, y=2007}
+@Buk{AnLu07, a={Antoniou,A and Lu,W.-S.}, t={Practical Optimization},
+                   f={Springer}, y=2007, x="fit"}
 @Art{AsFS00, a={Aschauer,H and Fleischmann,A and Schanzer,C and Steichele,E},
-                   j=pyB, v=283, p=323, y=2000, x="frm2" }
+                   j=pyB, v=283, p=323, y=2000, x="frm2"}
 @Art{AsAG90, a={Aschauer,R and Asenbaum,A and Gerl,H},
                    j=aop, v=29, p=953, y=1990, x="LStrg.Inst", c="C"}
 @Art{AsSW89, a={Asenbaum,A and Soufi-Siavoch,P and Wilhelm,E},
@@ -234,20 +251,27 @@
 @Buk{Aut05,  a={Authier,A},
                    t={Dynamical theory of x-ray diffraction},
                    f={Oxford University Press}, l={Oxford}, y=2005,
-                   c="bentXtal" }
+                   c="bentXtal"}
 @Art{AwKS10, a={Awile,O and Krisko,A and Sbalzarini,I F and Zagrovic,B},
                    j=PLcb, v=6, p="e1000854", y=2010,
-                   x="Gallat->IDP:hydration" }
+                   x="Gallat->IDP:hydration"}
 
 %:b
 
 @Art{Bab08,  a={Baba,T},
-                   j=natPh, v=2, p=465, y=2008, x="slowlight.rev" }
+                   j=natPh, v=2, p=465, y=2008, x="slowlight.rev"}
+@Art{BaLo48, a={Bacon,G E and Lowde,R D},
+                   t={Secondary Extinction and Neutron Crystallography},
+                   j=ax, v=1, p=303, pf=314, y=1948, x="mosaic"}
 @Art{BaWu06, a={Bai,K and Wu,P},
                    j=apl, v=89, p=201904, y=2006 }
+@Art{BaCC05, a={Bajnunaid,I and Cohen,J M and Colonna,F and Singman,D},
+                   t={Function Series, Catalan Numbers, and Random
+                      Walks on Trees},
+                   j=ammm, v=112, p=765, pf=785, y=2005, x="Catalan"}
 @Art{BaBJ95, a={Bakke,E and Busch,R and Johnson,W L},
                    j=apl, v=67, p=3260, y=1995, x="megvis v4"}
-@Art{Bal08,  a={Ball,P}, j=crv, v=108, p=74, y=2008, x="prot<Gallat" }
+@Art{Bal08,  a={Ball,P}, j=crv, v=108, p=74, y=2008, x="prot<Gallat"}
 @Art{BaTS95, a={Balucani,U and Torcini,A and Stangl,A and Morkel,C},
                    j=pscT, v=57, p=13, y=1995, x="liq.md,th"}
 @Art{BaRT93, a={Balucani,U and Ruocco,G and Torcini,A and Vallauri,R},
@@ -282,7 +306,7 @@
 @Art{BaLS99, a={Barshilia,H C and Li,G and Shen,G Q and Cummins,H Z},
                    j=prE, v=59, p=5625, y=1999, x="LStrg.Instr,CKN: no knee",
 		   c="C"}
-@Art{BaBB90, a={Barthel}, j=cpl, v=165, p=369, y=1990, x="die.H2O" }
+@Art{BaBB90, a={Barthel}, j=cpl, v=165, p=369, y=1990, x="die.H2O"}
 @Art{BaBN68, a={Bartoli,F J and Birch,J N and Nguyen,H T and McDuffie,G E},
                    j=jcp, v=49, p=1916, y=1968, x="Gly-NaCl", c="C"}
 @Art{BaRT99, a={Bartoli,P and Ricci,M and Torre,R and Righini,R},
@@ -330,10 +354,14 @@
 @Art{BaSS11, a={Bator,G and Sawka-Dobrowolska,W and Sobczyk,L and Grech,E and
                    Nowicka-Scheibe,J and Pawlukoj\'c,A and Wuttke,J and
                    Baran,J and Owczarek,M},
-                   j=jcp, v=135, p=044509, y=2011, x="SPH.OUT" }
+                   j=jcp, v=135, p=044509, y=2011, x="SPH.OUT"}
 @Art{BaBM00, a={Bauer,C and B\"ohmer,R and Moreno-Flores,S and Richert,R
 		Sillescu,H and Neher,D},
                    j=prE, v=61, p=1755, y=2000, x="pym.dilato", c="-"}
+@Art{BaMe07, a={Bauke,H and Mertens,S},
+                   t={Random numbers for large-scale distributed
+                      Monte Carlo simulations},
+                   j=prE, v=75, p=066701, y=2007, x="MC [Tina's RNG]"}
 @Buk{Bay69,  a={Baym,G}, t={Lectures on Quantum Mechanics},
                    f={Benjamin}, l={Reading, Mass.}, y=1969, x="sc"}
 @Art{BeGL99, a={Bechinger,C and von Gr\"unberg,H H and Leiderer,P},
@@ -344,7 +372,7 @@
                    s={Topics in Applied Physics 53},
                    f={Springer}, l={Berlin}, y=1983}
 @Art{BeSm03, a={Becker,T and Smith,J C},
-                   j=prE, v=67, p=021904, y=2003, x="[cmz]" }
+                   j=prE, v=67, p=021904, y=2003, x="[cmz]"}
 @Buk{Bee88,  a={B\'{e}e,M}, t={Quasielastic Neutron Scattering},
                    f={Adam Hilger}, l={Bristol}, y=1988, x="nsc"}
 @Art{BeEF80, a={Beece,D and Eisenstein,L and Frauenfelder,H and Good,D and
@@ -356,12 +384,19 @@
 @Art{BeKL96, a={Beiner,M and Korus,J and Lockwenz,H and Schr"oter,K
 		  and Donth,E},
                    j=mam, v=29, p=5183, y=1996, x="cpw.pym", c="C"}
+@Art{BeHK02a,a={Bekyarova,E and Hanzawa,Y and Kaneko,K and Silvestre-Albero,J
+                and Sepulveda-Escribano,A and Rodriguez-Reinoso,F and
+		Kasuya,D and Yudasaka,M and Iijima,S},
+		    j=cpl, v=366, p=463, pf=468, y=2002,
+		    x="H2O:nanohorns.absorption"}
 @Art{BeSc83, a={Belitz,D and Schirmacher,W},
                    j=jpiii, v=16, p=913, y=1983}
 @Art{BeCZ95, a={Bellissent-Funel,M-C and Chen,S H and Zanotti,J-M},
-                   j=prE, v=51, p=4558, y=1995, x="H2O:Vycor:Mibemol" }
+                   j=prE, v=51, p=4558, y=1995, x="H2O:Vycor:Mibemol"}
 @Art{Bel98,  a={Bellissent-Funel,M-C},
                    j=epl, v=42, p=161, y=1998, x="H2O.ndiff", c="C"}
+@Art{Bel03,  a={Bellissent-Funel,M-C},
+                   j=epjE, v=12, p=83, pf=92, y=2003, x="H2O.review"}
 @Art{BeSF06, a={Bellosta von Colbe,J M and Schmidt,W and Felderhoff,M and
                    Bogdanovi\'c,B and Sch\"uth,F},
                    j={Angew. Chem. Int. Ed.}, v=45, p=3663, y=2006 }
@@ -402,6 +437,11 @@
                    t={Mathematical functions for the analysis of luminescence
                       decays with underlying distributions 1. Kohlrausch decay
                       function (stretched exponential)}  }
+@iCo{Ber09,  a={de Bergevin,F},
+                   e={Daillant,J and Gibaud,A},
+		   bt={X-ray and Neutron Reflectivity},
+		   s={Lecture Notes in Physics}, v=770,
+		   p=1, pf=57, y=2009 }
 @Art{BeBT97, a={Bergman,R and B\"orjesson,L and Torell,L M and Fontana,A},
                    j=prB, v=56, p=11619, y=1997, x="ppg.lsc", c="C"}
 @Art{BeSS94, a={Bergmann,U and Shastri,S D and Siddons,D P and
@@ -409,6 +449,8 @@
                    j=prB, v=50, p=5957, y=1994, x="nrs lmf fe", c="C"}
 @Art{BeHS94, a={Bergmann,U and Hastings,J B and Siddons,D P},
                    j=prb, v=49, p=1513, y=1994, x="nrs inc"}
+@Art{BeSw00, a={Bergman,R and Swenson,J},
+                   j=nat, v=403, p=283, y=2000, x="H2O:clay.diel"}
 @Art{Ber51,  a={Berman,R}, j=prsA, v=208, p=90, y=1951, x="g.th-cond"}
 @Art{BeAC92, a={Bermejo,F J and Alonso,J and Criado,A and Mompe\'{a}n,F J and
                 Mart\'{i}nez,J L and Garc\'{i}a--Hern\'{a}ndez,M and Chahid,A},
@@ -444,7 +486,12 @@
                    j=epl, v=16, p=91, y=1991, x="og.nsc"}
 @Art{BeSH92a,a={Berret,J F and Sauvajol,J L and Hauss\"uhl,S},
                    j=jcp, v=92, p=4896, y=1992, x="og.lsc"}
-@TDp{Bes96,  a={Besenb\"ock,W}, u={Technische Universit\"at M\"unchen}, y=1995, x="nrse"} % 95 or 96 ?
+@Art{BeZC13a,a={Bertrand,C E and Zhang,Y and Chen,S-H},
+                   j=pccp, v=15, p=721, y=2013, x="H2O.QENS,FST"}
+@Art{BeLM13b,a={Bertrand,C E and Liu,K-H and Mamontov,E and Chen,S-H},
+                   j=prE, v=87, p=042312, y=2013, x="H2O:MCM.QENS,FST"}
+@TDp{Bes96,  a={Besenb\"ock,W}, u={Technische Universit\"at M\"unchen},
+                   y=1995, x="nrse"} % 95 or 96 ?
 @Art{BeHK96, a={Besenb\"ock,W and Hank,P and K\"oppe,M and G\"ahler,R and
 		  Keller,T and Golub,R},
                    j=jpsJ, v=65, p={Suppl.\ A 215}, y=1996, x="nrse", c="C"}
@@ -455,29 +502,29 @@
 		      Using Resonance Coils},
                    j=jnr, y={ca 1998}, x="mieze", c="C"}
 @Art{BeFR88, a={Bessada,C and Fuchs,A H and Rousseau,B and Szwarc,H},
-                   j=jpiii, v=21, p=731, y=1988, x="cy6" }
+                   j=jpiii, v=21, p=731, y=1988, x="cy6"}
 @Art{BhNF82, a={Bhattacharya,S and Nagel,S R and Fleishman,L and Susman,S},
                    j=prl, v=48, p=1267, y=1982, x="kbcn.die"}
 @Art{BiRa68, a={Binder,K and Rauch,H},
-                   j={Nukleonik}, v=11, p=113, y=1968, x="hyf" }
+                   j={Nukleonik}, v=11, p=113, y=1968, x="hyf"}
 @Art{Bin99,  a={Binder,K},
                    j=cpc, v={121--122}, p=168, y=1999, x="pym.sim", c="C"}
 @Buk{BiKo05, a={Binder,K and Kob,W},
                    t={Glassy Materials and Disordered Solids:
                       An Introduction to their Statistical Mechanics},
                    f={World Scientific}, l={Singapore}, y=2005 }
-@Buk{Bir85,  e={Birnbaum,G},
-                   t={Phenomena Induced by Intermolecular Interactions},
-                   s={NATO ASI series B and 127},
-                   f={Plenum}, l={New York}, y=1985, x="lsc.cis"}
 @Art{BiNa85, a={Birge,N O and Nagel,S R},
                    j=prl, v=54, p=2674, y=1985, x="gly.cp"}
 @Art{BiNa87, a={Birge,N O and Nagel,S R},
                    j=rsi, v=58, p=1464, y=1987, x="xxx"}
+@Buk{Bir85,  e={Birnbaum,G},
+                   t={Phenomena Induced by Intermolecular Interactions},
+                   s={NATO ASI series B and 127},
+                   f={Plenum}, l={New York}, y=1985, x="lsc.cis"}
 @Art{Bir70,  a={Birr,M}, j=zp, v=238, p=221, y=1970, x="gly.nsc"}
 @Art{BiHA71, a={Birr,M and Heidemann,A and Alefeld,B},
                    y=1971, j=nim, v=95, p=435,
-                   x="bsc" }
+                   x="bsc"}
 @The{Bis70,  a={Bischoff,F G}, u={Rensselaer Polytecnic Institute},
                    g={PhD thesis},
                    t={Generalized monte carlo methods for multiple scattering
@@ -491,7 +538,7 @@
                    and Kehres,J and Sveinb\"ornsson,D and Gil Bardaj\'i,E and
                    L\'eon,A and Juranyi,F and Wuttke,J and Hauback,B C and
                    Fichtner,M and Vegge,T},
-                   j=jpcC, v=14, p=20249, y=2011, x="SPH.OUT" }
+                   j=jpcC, v=14, p=20249, y=2011, x="SPH.OUT"}
 @Buk{BlMa88, e={Blank,H and Maier,B},
                    t={Guide to neutron research facilities at the ILL},
                    i={ILL}, l={Grenoble}, y=1988, x="nsc.inst"}
@@ -506,15 +553,15 @@
 @Art{BlPP48, a={Bloembergen,N and Purcell,E M and Pound,R V},
                    j=pr, v=73, p=679, y=1948, x="gly.nmr"}
 @Art{Blu68,  a={Blume,M}, j=pr, v=174, p=351, y=1968, x="hfi mod"}
-@Art{Boer95, a={{de Boer},D K G},
+@Art{Boe95,  a={{de Boer},D K G},
                    t={X-ray reflection and transmission by rough surfaces},
-                   j=prB, v=51, p=5297, y=1995}
+                   j=prB, v=51, p=5297, y=1995, x="refl"}
 @Art{BoMM90, a={Bodensteiner,T and Morkel,C and M\"uller,P and Gl\"aser,W},
                    j=jncs, v={117/118}, p=116, y=1990, x="Cs.nStrg", c="C"}
 @Art{BoMG92, a={Bodensteiner,T and Morkel,C and Gl\"aser,W and Dorner,B},
                    j=prA, v=45, p=5709, y=1992, x="Cs.nStrg", c="C"}
 @Art{BoKr90, a={Boese,D and Kremer,F},
-                   j=mam, v=23, p=829, y=1990, x="Rouse.die" }
+                   j=mam, v=23, p=829, y=1990, x="Rouse.die"}
 @Art{BoSc97, a={Bogdanovi\'c,B and Schwickardi,M},
                    j=jACmp, v={253--254}, p=71, y=1997 }
 @Art{BoBM00, a={Bogdanovi\'c,B and Brand,R A and Marjanovi\'c,A and
@@ -541,6 +588,8 @@
                    j=jpCM, v=5, p=4945, y=1993, x="qcr.nsc"}
 @Art{BoMS95, a={Bonart,D and Mayer,A P and Schr"oder,U},
                    j=prl, v=75, p=870, y=1995, x="phon", c="C"}
+@Art{BoCG95, a={Bongartz,I and Conn,A R and Gould,N I M and Toint,P L},
+                   j=toms, v=21, p=123, x="lmfit.test"}
 @Art{BoHu85, a={Bondeau,A and Huck,J},
                    j=jpP, v=46, p=1717, y=1985, x="ppc.eta", c="C"}
 @Art{Bon64,  a={Bondi,A},
@@ -549,14 +598,14 @@
 		  Liquids and Glasses}, f={Wiley}, l={New York},
 		  y=1968, x="Mol Liq", c="TUB 68A2336"}
 @Art{BoCL81, a={Bonjour,E and Calemczuk,R and Lagnier,R and Salce,B},
-                   j=jpF, v={C6}, p=63, y=1981, x="cy6" }
+                   j=jpF, v={C6}, p=63, y=1981, x="cy6"}
 @Buk{BoYi80, a={Boon,J P and Yip,S}, t={Molecular Hydrodynamics},
 		  f={McGraw~Hill}, l={New York}, y=1980, x="mhy",
 		  c="TUM0200/B.5.24"}
-@Art{BoAF09,  a={Bordallo,H N and Aldridge,L P and Fouquet,P and Pardo,L C
+@Art{BoAF09, a={Bordallo,H N and Aldridge,L P and Fouquet,P and Pardo,L C
                    and Unruh,T and Wuttke,J and Yokaichia,Y},
-                   j=acsmi, v=1, p=2154, y=2009, x="SPH.out" }
-@Art{BoAW10,  a={Bordallo,H N and Aldridge,L P and Wuttke,J and Fernando,K and
+                   j=acsmi, v=1, p=2154, y=2009, x="SPH.out"}
+@Art{BoAW10, a={Bordallo,H N and Aldridge,L P and Wuttke,J and Fernando,K and
                    Bertram,W K and Pardo,L C},
                    j=epjST, v=189, p=197, y=2010, x="SPH.out"}
 @Art{BoET90, a={B\"orjesson,L and Elmroth,M and Torell,L M},
@@ -570,10 +619,10 @@
                    j=pyB, v={234-236}, p=383, y=1997, x="B2O3"}
 @Art{Bor26b, a={Born,M}, t={Quantenmechanik der Sto"svorg"ange},
                    j=zp, v=38, p=803, pf=827, y=1926}
-@Buk{BoWo99,  a={Born, M and Wolf, E}, t={Principles of Optics},
-                   f={Cambridge University Press},y=1999}
 @Buk{Bor33,  a={Born,M}, t={Optik},
-                   f={Springer}, l={Berlin}, y=1933, x="lsc.inst"}
+                   f={Springer}, l={Berlin}, y=1933, x="optics"}
+@Buk{BoWo99, a={Born,M and Wolf,E}, t={Principles of Optics},
+                   f={Cambridge University Press}, y=1999, x="optics"}
 @Art{BoBL89, a={Borsali,R  and Benoit,H and Legrand,J F and Duval,M
 		  and Picot,C and Benmouna,M and Farago,B},
                    j=mam, v=22, p=4119, y=1989, x="pym.nsc", c="C"}
@@ -600,13 +649,13 @@
 		   x="Xray.bsc", c="C"}
 @Art{BrCB94, a={Bradly,K F and Chen,S-H and Bellissent-Funel,M-C and
                 Crespi,H L},
-                   j=bpc, v=53, p=37, y=1994, x="d-cpc.sq" }
+                   j=bpc, v=53, p=37, y=1994, x="d-cpc.sq"}
 @Art{BrLL97, a={Brand,R and Lunkenheimer,P and Loidl,A},
                    j=prB, v=56, p=5713, y=1997, x="OG.die", c="C"}
 @Art{BrLS99, a={Brand,R and Lunkenheimer,P and Schneider,A and Loidl,A},
                    j=prl, v=82, p=1951, y=1999, x="OG.die", c="C"}
 @Art{BrLL02, a={Brand,R and Lunkenheimer,P and Loidl,A},
-                   j=jcp, v=116, p=10386, y=2002, x="cy6" }
+                   j=jcp, v=116, p=10386, y=2002, x="cy6"}
 @Art{BrKO67, a={Bredov,M M and Kotov,B A and Okuneva,N M and
 		  Oskotskii,V S and Shakh-Budagov,A L},
                    j=spss, v=9, p=214, y=1967, x="nsc.phon", c="C"}
@@ -711,9 +760,11 @@
                    j=apl, v=57, p=1046, y=1990, x="Si-p.opt"}
 @Art{CaNA11, a={Capaccioli,S and Ngai,K L and Ancherbak,S and Rolla,P A and
                    Shinyashiki,N}, j=jncs, v=357, p=641, y=2011,
-                   c="prot.dyn.tra:nu-rx" }
+                   c="prot.dyn.tra:nu-rx"}
+@Art{CaNg11b,a={Capaccioli,S and Ngai,K L},
+                   j=jcp, v=135, p=104504, y=2011, x="H2O,Tg,fragility"}
 @Art{CaNA12, a={Capaccioli,S and Ngai,K L and Ancherbak,S and Paciaroni,A},
-                   j=jpcB, v=116, p=1745, y=2012, c="prot.reanalysis" }
+                   j=jpcB, v=116, p=1745, y=2012, c="prot.reanalysis"}
 @Art{CaJJ96, a={Caprion,D and Jund,P and Jullien,R},
                    j=prl, v=77, p=675, y=1996, x="Ar.sim", c="C"}
 @Art{CaCM07, a={Cardona,M and Chamberlin,R V and Marx,W},
@@ -733,12 +784,15 @@
                    j=prB, v=56, p=3016, y=1997, x="expoxi.die", c="C"}
 @Art{CaKa79, a={Case,D A and Karplus,M},
                    j=jmb, v=132, p=343, y=1979, x="bio.myo"}
-@Art{Cec85,  a={Ceccaldi,D}, j=prb, v=31, p=8221, y=1985, x="cy6" }
+@Art{Cat00,  a={Caticha,A}, j=prb, v=62, p=3639, y=2000, x="reciprocity" }
+@Art{Cec85,  a={Ceccaldi,D}, j=prb, v=31, p=8221, y=1985, x="cy6"}
+@Art{CeCA06, a={Cerveny,S and Colmenero,J and Alegr{\'i}a,A},
+                   j=prl, v=97, p=189802, y=2006, x="comment->LiCF05"}
 @Art{ChSG08, a={Chatterji,T and Schneider,G J and Galera,R M},
                    j=prB, v=78, p=012411, y=2008, x="SPH.out"}
 @Art{ChSE09, a={Chatterji,T and Schneider,G J and van Eijck,L and Frick,B
                  and Bhattacharya,D},
-                   j=jpCM, v=21, p=126003, y=2009, x="SPH.out" }
+                   j=jpCM, v=21, p=126003, y=2009, x="SPH.out"}
 @Art{CaLL84, a={Cavagnat,D and Lascombe,J and Lassegues,J C and
 		  Horsewill,A J and Heidemann,A and Suck,J B},
                    j=jpP, v=45, p=97, y=1984, x="tol.nsc", c="C"}
@@ -769,17 +823,20 @@
                    j=jcp, v=74, p=5929, y=1981, x="LStrg", c="C"}
 @Buk{Cha07,  a={Charlier,C L}, t={Die Mechanik des Himmels. Zweiter Band},
                    f={Veit \&\ Comp.}, l={Leipzig}, y=1907}
+@Art{ChMK11, a={Chathoth,S M and Mamontov,E and Kolesnikov,A I and
+                Gogotsi,Y and Wesolowski,D},
+		   j=epl0, v=95, p=56001, y=2011, x="H2O:nanotubes=>FST@190K"}
 @Art{ChSP09, a={Chatterji,T and Schneider,G J and Persson,J},
-                   j=prB, v=79, p=132408, y=2009, x="Nd.hyf" }
+                   j=prB, v=79, p=132408, y=2009, x="Nd.hyf"}
 @Art{ChWS10, a={Chatterji,T and Wuttke,J and Sazonov,A P},
-                   j=jmmm, v=322, p=3148, y=2010, x="Co.hyf" }
+                   j=jmmm, v=322, p=3148, y=2010, x="Co.hyf"}
 @Art{ChMu05, a={Chaudhuri,S and Muckerman,J T},
                    j=jpcB, v=109, p=6952, y=2005 }
 @Art{Che93,  a={Chechetkina,E A},
                    j=jpCM, v=5, p={L527}, y=1993, x="S(q)", c="C"}
 @Art{ChFF08, a={Chen,G and Fenimore,P W and Frauenfelder,H and Mezei,F and
                 Swenson,J and Young,R D},
-                   j=phm, v=88, p=3877, y=2008, x="myo.diel" }
+                   j=phm, v=88, p=3877, y=2008, x="myo.diel"}
 @Art{ChGS97a,a={Chen,H C and Gallo,P and Sciortino,F and Tartaglia,P},
                    j=prE, v=56, p=4231, y=1997, x="H2O.mct", c="C"}
 @Art{ChLa97b,a={Chen,H C and Lai,S K},
@@ -789,16 +846,18 @@
 @Art{ChTu69, a={Chen,H S and Turnbull,D},
                    j={Acta \ Metall.}, v=17, p=1021, y=1969, x="PdSi--"}
 @Art{ChLS99, a={Chen,S-H and Liao,C and Sciortino,F and Gallo,P and
-                   Tartaglia,P}, j=prE, v=59, p=6708, y=1999, x="[cmz]" }
+                   Tartaglia,P}, j=prE, v=59, p=6708, y=1999, x="[cmz]"}
 @Art{ChLF06a,a={Chen,S-H and Liu,L and Fratini,E and Baglione,P and
                    Faraone,A and Mamontov,E},
-                   j=pnas, v=103, p=9012, y=2006}
+                   j=pnas, v=103, p=9012, y=2006, c="06pnas1"}
 @Art{ChLZ06b,a={Chen,S-H and Liu,L and Zhang,Y},
                    j=jcp, v=125, p=171103, y=2006}
+@Art{ChFL06c,a={Chen,S-H and Liu,L and Faraone,A},
+                   j=prl, v=97, p=18903, y=2006, x="reply" }
 @Art{ChYN89, a={Cheng,L T and Yan,Y X and Nelson,K A},
                    j=jcp, v=91, p=6052, y=1989, x="u-sound,BrStrg.CKN", c="C"}
 @Art{ChTN78, a={Choi,P-K and Takagi,K and Negishi,K},
-                   j=jjap, v=17, p=97, y=1978, x="cy6" }
+                   j=jjap, v=17, p=97, y=1978, x="cy6"}
 @Art{ChHi98, a={Chong,S H and Hirata,F},
                    j=prE, v=58, p=7296, y=1998, x="MolLiq.MCT", c="C"}
 @Art{Chr85,  a={Christensen,T},
@@ -809,15 +868,16 @@
                    f={Academic}, l={New York}, y=1974, x="lsc"}
 @Art{ChKM07, a={Chu,X-Q and Kolesnikov,A I and Moravsky,A P and Garcia-Sakai,V
                 and Chen,S-H},
-                   j=prE, v=76, p=0021505, y=2007, x="FST" }
+                   j=prE, v=76, p=021505, y=2007,
+		   x="nanotubes.HFBS => FST @ 190-224 K"}
 @Art{ChFB08, a={Chu,X-Q and Fratini,E and Baglioni,P and Faraone,A and
                 Chen,S-H},
-                   j=prE, v=77, p=011908, y=2008, x="H2O" }
+                   j=prE, v=77, p=011908, y=2008, x="H2O"}
 @Art{ChFK09, a={Chu,X-Q and Faraone,A and Kim,C and Fratini,E and Baglioni,P
                 and Leao,J B and Chen,S-H},
-                   j=jpcb, v=113, p=5501, y=2009, x="H2O" }
+                   j=jpcb, v=113, p=5501, y=2009, x="H2O"}
 @Art{ChMN12, a={Chu,X-q and Mamontov,E and O'Neill,H and Zhang,Q},
-                   j=jpcl, v=3, p=380, y=2012, x="lys:LiCl.nsc->FSC" }
+                   j=jpcl, v=3, p=380, y=2012, x="lys:LiCl.nsc->FSC"}
 @Art{ChBA95, a={Chumakov,A I and Baron,A Q R and Arthur,J and Ruby,S L and
                 Brown,G S and Smirnov,G V and van B\"urck,U and Wortmann,G},
                    j=prl, v=75, p=549, y=1995, x="nrs+Ta"}
@@ -865,7 +925,7 @@
 @Art{CoCo41, a={Cole,K S and Cole,R H},
                    j=jcp, v=9, p=341, y=1941, x="g.die, fitf"}
 @Art{Col63,  a={Collins,M F},
-                   j={Brit. J. Appl. Phys.}, v=14, p=805, y=1963, c="pst" }
+                   j={Brit. J. Appl. Phys.}, v=14, p=805, y=1963, c="pst"}
 @Art{CoAA91, a={Colmenero,J and Alegr\'{\i}a,A and Alberdi,J M and
                 Alvarez,F and Frick,B},
                    j=prB, v=44, p=7321, y=1991, x="g.nsc,.."}
@@ -889,30 +949,33 @@
 @Art{CoAr98b,a={Colmenero,J and Arbe,A},
                    j=prB, v=57, p=13508, y=1998, x="pym", c="C"}
 @Art{CoFL00, a={Combet,J and Frick,B and Losserand,O and Gamnon,M and
-                   Guérard,B}, j=pyB, v=283, p=380, y=2000, x="nbsc" }
+                   Guérard,B}, j=pyB, v=283, p=380, y=2000, x="nbsc"}
 @Art{CoZa12, a={Combet,S and Zanotti,J-M},
-                   j=pccp, v=14, p=4927, y=2012, x="dCPC:EISF" }
+                   j=pccp, v=14, p=4927, y=2012, x="dCPC:EISF"}
 @Art{CoFP99, a={Comez,L and Fioretto,D and Palmieri,L and Verdini,L and
 		  Rolla,P A and Gapinski,J and Patkowski,A and Steffen,W
 		  and Fischer,E W},
                    j=prE, v=60, p=3086, y=1999, x="Harz.Lstrg", c="PC"}
+@Buk{CoGT00, a={Conn,A R and Gould,N I M and Toint,P L},
+                   t={Trust-Region Methods},
+                   f={SIAM}, l={Philadlephia}, y=2000, x="lmfit"}
 @Art{CoPH92, a={Cook,J C and Petry,W and Heidemann,A and Barth\'{e}lemy,J F},
                    j=nimA, v=312, p=553, y=1992, x="bsc"}
 @TRp{Coo93,  a={Cook,J C}, t="93CO01G",
                    i={ILL}, l={Grenoble}, y=1993, x="bsc"}
 @Art{CoKH94, a={Cook,R L and King,H E and Herbst,C A and Herschbach,D R},
                    j=jcp, v=100, p=5178, y=1994, x="gly,dbp.vis", c="C"}
-@Art{Cop74,  a={Copley,J R D}, j=cpc, v=7, p=289, y=1974, x="mscat" }
+@Art{Cop74,  a={Copley,J R D}, j=cpc, v=7, p=289, pf=317, y=1974, x="mscat"}
 @Art{Cop7581,a={Copley,J R D}, j=cpc, v={9, 59 (1975); 9, 64 (1975);
-                   20, 459 (1980); 20, 461 (1980); 21, 431 (1981)}, x="mscat" }
-@Art{Cop75a, a={Copley,J R D}, j=cpc, v=9, p=59, y=1975, x="mscat" }
-@Art{Cop75b, a={Copley,J R D}, j=cpc, v=9, p=64, y=1975, x="mscat" }
-@Art{Cop80a, a={Copley,J R D}, j=cpc, v=20, p=459, y=1980, x="mscat" }
-@Art{Cop80b, a={Copley,J R D}, j=cpc, v=20, p=461, y=1980, x="mscat" }
-@Art{Cop81,  a={Copley,J R D}, j=cpc, v=21, p=431, y=1981, x="mscat" }
+                   20, 459 (1980); 20, 461 (1980); 21, 431 (1981)}, x="mscat"}
+@Art{Cop75a, a={Copley,J R D}, j=cpc, v=9, p=59, y=1975, x="mscat"}
+@Art{Cop75b, a={Copley,J R D}, j=cpc, v=9, p=64, y=1975, x="mscat"}
+@Art{Cop80a, a={Copley,J R D}, j=cpc, v=20, p=459, y=1980, x="mscat"}
+@Art{Cop80b, a={Copley,J R D}, j=cpc, v=20, p=461, y=1980, x="mscat"}
+@Art{Cop81,  a={Copley,J R D}, j=cpc, v=21, p=431, y=1981, x="mscat"}
 @Art{CoVW86, a={Copley,J R D and Verkerk,P and van Well,A A and Frederikze,A},
-                   j=cpc, v=40, p=337, y=1986, x="mscat" }
-@Art{Cop91,  a={Copley,J R D}, j=cpc, v=66, p=403, y=1991, x="mscat" }
+                   j=cpc, v=40, p=337, y=1986, x="mscat"}
+@Art{Cop91,  a={Copley,J R D}, j=cpc, v=66, p=403, y=1991, x="mscat"}
 @Buk{Cop65,  a={Copson,E T},
                    t={Asymptotic Expansions},
                    f={Cambridge University Press}, l={Cambridge},
@@ -987,6 +1050,8 @@
 @Art{CuRS99, a={Cunsolo,A and Ruocco,G and Sette,F and Masciovecchio,C and
 		  Mermet,A and Monaco,G amd Sampoli,M and Verbeni,R},
                    j=prl, v=82, p=775, y=1999, x="H2O.XBrill", c="C"}
+@Art{CuFS14, a={Cupane,A and Fomina,M and Schir\`o,G},
+                   j=jcp, v=141, p={18C510}, y=2014 }
 @Art{CuDo90, a={Cusack,S and Doster,W},
                    j=bpj, v=58, p=243, y=1990, x="g.nsc"}
 @Unp{Cus9u,  a={Cusack,S}, x="nsc.mscat", c="priv. note"}
@@ -995,9 +1060,13 @@
 
 @Art{DaSF98, a={Daniel,R M and Smith,J C and Ferrand,M and H\'ery,S and Dunn,R
                 and Finney,J L},
-                  j=bpj, v=75, p=2504, y=1998, x="prot.nsc" }
+                  j=bpj, v=75, p=2504, y=1998, x="prot.nsc"}
 @Art{Dar14,  a={Darwin,C G}, j=phm, v=27, p={315, 675}, y=1914,
 		  x="inst", c="C"}
+@Art{Dar22,  a={Darwin,C G},
+                  t={The Reflexion of X-Rays from Imperfect Crystals},
+                  j=phm, v=43, p=800, pf=822, y=1922,
+		  x="mosaic", c="C"}
 @Art{DaMa86, a={Das,S P and Mazenko,G F},
                    j=prA, v=34, p=2265, y=1986, x="mkt", c="C"}
 @Art{Das93,  a={Das,S P},
@@ -1027,11 +1096,11 @@
 @Buk{Deb96,  a={Debenedetti,P G},
                    t={Metastable Liquids}, f={Princeton University Press},
 		   l={Princeton}, y=1996, x="g"}
-@TDp{Deb90,  a={Debus,O}, u={Universit\"at Mainz}, y=1990, x="otp.nsc"}
+@Buk{Deb03,  a={Debenedetti,P G},
+                   j=jpCM, v=15, p={R1669}, y=2003, x="H2O.rev"}
 @Art{DeZB91, a={Debus,O and Zimmermann,H and Bartsch,E and
                 Fujara,F and Kiebel,M and Petry,W and Sillescu,H},
                    j=cpl, v=180, p=271, y=1991, x="otp.nsc"}
-@TDr{Deb92,  a={Debus,O}, u={Universit\"at Mainz}, y=1992, x="otp.nsc"}
 @Buk{Deb29,  a={Debye,P}, t={Polar Molecules},
                    f={Dover}, l={New York},
 		   y=1929, x="die", c="TUM 200/B17B30;Teilkopie"}
@@ -1044,11 +1113,11 @@
                    j=prA, v=11, p=2043, y=1975, x="molhyd", c="C"}
 @Art{DePS01, a={Dellerue,S and Petrescu,A-J and Smith,J C and
                 Bellissent-Funel,M-C},
-                   j=bpj, v=81, p=1666, y=2001, x="CPC" }
+                   j=bpj, v=81, p=1666, y=2001, x="CPC"}
 @Art{DeVi73, a={Deman,C and Vicq,G},
                    j=crasB, v=276, p=369, y=1973, x="gly.die", c="C"}
 @Art{DeDP97, a={Demmel,F and Doster,W and Petry,W and Schulte,A},
-                   j=ebpj, v=26, p=327, y=1997, x="Myo.IR" }
+                   j=ebpj, v=26, p=327, y=1997, x="Myo.IR"}
 @Art{DeMO74, a={Demoulin,C and Montrose,C J and Ostrowsky,N},
                    j=prA, v=9, p=1740, y=1974, x="gly.lsc"}
 @Buk{Dem81,  a={Demtr\"oder,W}, t={Laser Spectroscopy: Basic Concepts
@@ -1063,7 +1132,7 @@
 @Art{Dia89,  a={Dianoux,A J},
                    j=phmB, v=59, p=17, y=1989, x="g.nsc"}
 @Art{Dia92,  a={Dianoux,A J},
-                   j=pyB, v=182, p=389, y=1992, x="nsc.dos?" }
+                   j=pyB, v=182, p=389, y=1992, x="nsc.dos?"}
 @Buk{DiPR93, e={Dianoux,A J and Petry,W and Richter,D},
                    t={Dynamics of Disordered Materials II}, s=pyA, v=201,
                    f={North Holland}, l={Amsterdam}, y=1993, x="g"}
@@ -1156,21 +1225,23 @@
                    s={Les Houches},
                    f={IOS Press}, l={}, y=1998 }
 @Art{DoDP01, a={Doster,W and Diehl,M and Petry,W and Ferrand,M},
-                   j=pyB, v=301, p=65, y=2001, x="qnes:resolution_spectr" }
+                   j=pyB, v=301, p=65, y=2001, x="qnes:resolution_spectr"}
 @Art{DoDG03, a={Doster,W and Diehl,M and Gebhardt,R and Lechner,R E
                    and Pieper,J},
-                   j=cp, v=292, p=487, y=2003, x="qnes:resolution_spectr" }
+                   j=cp, v=292, p=487, y=2003, x="qnes:resolution_spectr"}
 @Art{DoSe05, a={Doster,W and Settles,M}, j=bba, v=1749, p=173, y=2005,
-                   x="prot" }
-@Art{Dos08,  a={Doster,W}, j=ebpj, v=37, p=591, y=2008, x="[cmz]" }
+                   x="prot"}
+@Art{Dos08,  a={Doster,W}, j=ebpj, v=37, p=591, y=2008, x="[cmz]"}
 @Art{DoBG10, a={Doster,W and Busch,S and Gaspar,A M and Appavou,M S
                    and Wuttke,J and Scheer,H},
                    j=prl, v=104, p=098101, y=2010,
                    t={Dynamical transition of protein-hydration water},
-                   x="H2O+prot;SPH.out" }
-@Art{Dos10,  a={Doster,W}, j=bba, v=1804, p=3, y=2010, x="[cmz]" }
-@Art{Dos11,  a={Doster,W}, j=jncs, v=357, p=622, y=2011, x="[cmz]" }
-@Art{Dos12,  a={Doster,W}, j=jpcB, v=116, p=6066, y=2012, x="[cmz]" }
+                   x="H2O+prot;SPH.out"}
+@Art{Dos10,  a={Doster,W}, j=bba, v=1804, p=3, y=2010, x="[cmz]"}
+@Art{Dos11,  a={Doster,W}, j=jncs, v=357, p=622, y=2011, x="[cmz]"}
+@Art{Dos12,  a={Doster,W}, j=jpcB, v=116, p=6066, y=2012, x="[cmz]"}
+@Art{DoNA13, a={Doster,W and Nakagawa,H and Appavou,M S},
+                   j=jcp, v=139, p=045105, y=2013, x="ers"}
 @Art{DoWN94, a={Dougherty,T P and Wiederrecht,G P and Nelson,K A and
 		  Garrett,M H and Jenssen,H P and Warde,C},
                    j=prB, v=50, p=8996, y=1994, x="isrs", c="C"}
@@ -1196,7 +1267,7 @@
                    Prager,M and Rottl\"ander,P},
                    b={14th IEE-NPSS Real Time Conference},
                    l={Stockholm},
-                   p=482, y=2005, x="SPHERES.electronics" }
+                   p=482, y=2005, x="SPHERES.electronics"}
 @Nwp{Dro97,  a={Dr\"osser,C}, j={Die Zeit}, n=29, dmy={11.7.1997},
 		   x="G.Kirchenfenster", c="C"}
 @Art{DuGT00, a={Du,R and Grosberg,A Y and Tanaka,T and Rubinstein,M},
@@ -1205,21 +1276,21 @@
                 Toulouse,J and Knauss,L A},
                    j=prE, v=49, p=2192, y=1994, x="ppc.lsc", c="C"}
 @Art{DuLi62, a={McDuffie,G E and Litovitz,T A},
-                   j=jcp, v=37, p=1699, y=1962, x="gly.die" }
+                   j=jcp, v=37, p=1699, y=1962, x="gly.die"}
 @Art{DuQL62, a={McDuffie,G E and Quinn,R G and Litovitz,T A},
-                   j=jcp, v=37, p=239, y=1962, x="gly.die" }
+                   j=jcp, v=37, p=239, y=1962, x="gly.die"}
 @Art{DuJB94, a={Dufour,J and Jorat,L and Bondeau,A and Siblini,A and Noyel,G},
                    j=jml, v=62, p=75, y=1994, x="bpf.die", c="Fax"}
 @Art{DuSU08, a={Dunker,A K and Silman,I and Uversky,V N and Sussman,J L},
                    j={Curr.\ Opin.\ Struct.\ Biol.}, v=18, p=756, y=2008,
-                   x="Gallat->IDP" }
+                   x="Gallat->IDP"}
 @Art{DuRF00, a={Dunn,R V and R\'eat,V and Finney,J and Ferrand,M and Smith,J C
                 and Daniel,R M},
-                   j=bcj, v=346, p=355, y=2000, x="xylanase.nsc" }
+                   j=bcj, v=346, p=355, y=2000, x="xylanase.nsc"}
 @Art{Dup05,  a={Duplantier,B}, j={S\'eminaire Poincar\'e},
-                   v=1, p=155, y=2005, x="Brownian motion" }
+                   v=1, p=155, y=2005, x="Brownian motion"}
 @Art{DuJP95, a={Dupuy-Philon,J and Jal,J F and Pr\'evel,B},
-                   j=jml, v=64, p=13, y=1995, x="LiCl:H2O.Rev?" }
+                   j=jml, v=64, p=13, y=1995, x="LiCl:H2O.Rev?"}
 @Art{DuFQ93, a={Durand,D and others},
                    j=bpm, v=33, p=725, y=1993, x="Alanin.Nstrg", c="C"}
 @Art{Dut98,  a={Dutra Zanotto,E},
@@ -1236,7 +1307,7 @@
                    j=cp, v=40, p=219, y=1979, x="gly.pcs"}
 @Art{Dyr99,  a={Dyre,J C},
                    j=prE, v=59, p=2458, y=1999, x="nmr.interpr", c="C"}
-@Art{Dys11,  a={Dyson,H J}, j=qrbp, v=44, p=467, y=2011, x="Gallat->IDP" }
+@Art{Dys11,  a={Dyson,H J}, j=qrbp, v=44, p=467, y=2011, x="Gallat->IDP"}
 @Art{Dzu91,  a={Dzuba,S A},
                    j=zpB, v=83, p=303, y=1991, x="JoGo", c="C"}
 
@@ -1274,7 +1345,7 @@
 @Buk{Ege92,  a={Egelstaff,P A}, t={An Introduction to the Liquid State},
 		   f={Clarendon}, l={Oxford}, en=2, y=1992, x="liq"}
 @Art{EgSC75, a={Eguchi,T and Soda,G and Chihara,H},
-                   j=jmgr, v=23, p=55, y=1975, x="cy6" }
+                   j=jmgr, v=23, p=55, y=1975, x="cy6"}
 @Art{ElHB66, a={Elliot,J A and Hall,H E and Bunbury,D S P},
                    j=pps, v=89, p=595, y=1966, x="Gly.Mob,XStrg"}
 @Art{Ell92,  a={Elliott,S R},
@@ -1327,9 +1398,12 @@
                    j=prl, v=71, p=1015, y=1993, x="pym.nsc", c="C"}
 @Art{FaLM03, a={Faraone,A and Liu,L and Mou,C-Y and Shih,P-C and
                   Copley,J R D and Chen,S-H},
-                   j=jcp, v=119, p=3963, y=2003, x="H2O:MCM41,MCM48" }
+                   j=jcp, v=119, p=3963, y=2003, x="H2O:MCM41,MCM48"}
+@Art{FaLM04, a={Faraone,A and Liu,L and Mou,C-Y and Yen,C-W and Chen,S-H},
+                   j=jcp, v=121, p=10843, y=2004, x="H2O:MCM, first FST",
+		   c="04jcp1"}
 @Art{FaHJ09, a={Farhi,E and Hugouvieux,V and Johnson,M R and Kob,W},
-                   j=jcompp, v=228, p=5251, y=2009, x="nsc.mscat" }
+                   j=jcompp, v=228, p=5251, y=2009, x="nsc.mscat"}
 @Art{FaSA95, a={Fassbender,S and Steimer,C and Arndt,D and Knorr,K},
                    j=prl, v=75, p=2526, y=1995, x="OG-2d.X,cp", c="C"}
 @Art{FaBD96, a={Fayos,R and Bermejo,F J and Dawidowski,J and Fischer,H E and
@@ -1337,7 +1411,7 @@
                    j=prl, v=77, p=3823, y=1996, x="OG", c="C"}
 @Art{FeIG96, a={Feiweier,T and Isfort,O and Geil,B and Fujara,F and
                 Weing\"artner,H},
-                   j=jcp, v=105, p=5737, y=1996, x="LiCl:H2O.fg-nmr" }
+                   j=jcp, v=105, p=5737, y=1996, x="LiCl:H2O.fg-nmr"}
 @Art{FeGI98, a={Feiweier,T and Geil,B and Isfort,O and Fujara,F},
                    j=jmgr, v=131, p=203, y=1998, x="nmr.grad.meth", c="C"}
 @Art{FeGG98, a={Felber,J and G\"ahler,R and Golub,R and Prechtel,K},
@@ -1355,17 +1429,17 @@
                    j=acme, v=43, p=2033, y=1995, x="diff FeAl"}
 @TDr{Fel96,  a={Feldwisch,R}, u={Universit\"at Wien}, y=1996, x="QMS FeAl"}
 @Art{FrFM02, a={Frauenfelder,H and Fenimore,P W and McMahon,B H},
-                   j=bpc, v=98, p=35, y=2002, x="myo" }
+                   j=bpc, v=98, p=35, y=2002, x="myo"}
 @Art{FeFM04, a={Fenimore,P W and Frauenfelder,H and McMahon,B H and Young,R D},
-                   j=pnas, v=101, p=14408, y=2004, x="prot" }
+                   j=pnas, v=101, p=14408, y=2004, x="prot"}
 @Art{FrFC06, a={Frauenfelder,H and Fenimore,P W and Chen,G and McMahon,B H},
-                   j=pnas, v=103, p=15469, y=2006, x="prot" }
+                   j=pnas, v=103, p=15469, y=2006, x="prot"}
 @Art{FrCB09, a={Frauenfelder,H and Chen,G and Berendzen,J and Fenimore,P W and
                 Jansson and McMahon,B H and Stroe,I R and Swenson,J and
                 Young,R D},
-                   j=pnas, v=106, p=5129, y=2009, x="myo.die" }
+                   j=pnas, v=106, p=5129, y=2009, x="myo.die"}
 @Art{FrMe10, a={Frauenfelder,H and Mezei,F},
-                   j=axD, v=66, p=1229, y=2010, x="myo.nsc" }
+                   j=axD, v=66, p=1229, y=2010, x="myo.nsc"}
 @Buk{FeTs94, e={Feng,Z C and Tsu,R}, t={Porous Silicon},
                    y={ca 1994}, x="Si-p"}
 @Art{Fer34,  a={Fermi,E}, t={Sopra lo spostamento per pressione delle righe
@@ -1394,7 +1468,7 @@
 @Art{FiCK05, a={Fichtner,M and Canton,P and Kircher,O and L\'eon,A},
                    j=jACmp, v={404--406}, p=732, y=2005 }
 @Art{Fin05,  a={Fink,A L}, j={Curr.\ Opin.\ Struct.\ Biol.},
-                   v=15, p=35, y=2005, x="Gallat->IDP" }
+                   v=15, p=35, y=2005, x="Gallat->IDP"}
 @Art{FiCS99a,a={Fioretto,D and Comez,L and Socino,G and others},
                    j=prE, v=59, p=1899, y=1999, x="Pym.bsc", c="C"}
 @Art{FiBC99c,a={Fioretto,D and others},
@@ -1437,11 +1511,13 @@
 @Art{FlLM59, a={Flubacher,P and Leadbetter,A J and
                 Morrison,J A and Stoicheff,B P},
                    j=pcs, v=12, p=53, y=1959, x="g.lsc"}
+@Art{FlLM60, a={Flubacher,P and Leadbetter,A J and Morrison,J A},
+                   j=jcp, v=33, p=1751, y=1960, x="Debye-T[ice] ca 225 K"}
 @Art{FlSF93, a={Flydas,G and Steffen,W and Fischer,E W and Brown,W},
                    j=jcp, v=99, p=695, y=1993, x="tol/PS.lsc", c="C"}
 @Art{FoDS13, a={Fogarty,A C and Dubou\'e-Dijon,E and Sterpone,F and Hynes,J T
                   and Laage,D},
-                   j=csr, v=42, p=5672, y=2013, x="H2O:protein.review" }
+                   j=csr, v=42, p=5672, y=2013, x="H2O:protein.review"}
 @Art{FoHa93, a={Foley,M and Harrowell,P},
                    j=jcp, v=98, p=5069, y=1993, x="relax", c="C"}
 @Art{FoRF90, a={Fontana,A and Rocca,F and Fontana,M P and
@@ -1454,6 +1530,9 @@
                    b={Proceedings of the 6th International Workshop on
 		  Disordered Systems, Andalo 1997}, j=phmB, v=77, p={209--716},
 		  y=1998, x="g"}
+@Art{For61,  a={Forder,H G},
+                   t={Some Problems in Combinatorics},
+                   j={Math. Gazette}, v=45, p=199, pf=201, y=1961, x="Catalan"}
 @Art{FoCV96, a={Foret,M and Courtens,E and Vacher,R and Suck,J B},
                    j=prl, v=77, p=3831, y=1996, x="nBrill.SiO", c="C"}
 @Art{FoCV97, a={Foret,M and Courtens,E and Vacher,R and Suck,J B},
@@ -1472,7 +1551,7 @@
                    and Str\o{}mme,M},
                    j=PLONE, v=8, p={e68486}, y=2013,
                    t={A Template-Free, Ultra-Adsorbing, High Surface Area
-                      Carbonate Nanostructure}, x="upsalite" }
+                      Carbonate Nanostructure}, x="upsalite"}
 @Buk{For75,  a={Forster,D},
                 t={Hydrodynamic Fluctuations, Broken, Symmetry,
                    and Correlation,Functions},
@@ -1480,7 +1559,7 @@
 @Art{FoFl51, a={Fox,T G and Flory,P J},
                    j=jap, v=21, p=581, y=1951, x="Vfree", c="C"}
 @Art{FrBl04, a={Fran\c{c}a,D R and Blouin,A},
-                   j=mst, v=15, p=859, y=2004, x="Si:Poisson" }
+                   j=mst, v=15, p=859, y=2004, x="Si:Poisson"}
 @Art{FrGo94, a={Franosch,T and G\"otze,W},
                    j=jpCM, v=6, p=4807, y=1994, x="gly"}
 @Art{FrGM97, a={Franosch,T and G\"otze,W and Mayr,M and Singh,A P},
@@ -1498,7 +1577,7 @@
                    j={Mol. Cryst. Liq. Cryst.}, v=290, p=155, y=1996,
 		   x="guanosin.nstr", c="C"}
 @Art{FrMF03, a={Frauenfelder,H and McMahon,B H and Fenimore,P W},
-                   j=pnas, v=100, p=8615, y=2003, x="myo" }
+                   j=pnas, v=100, p=8615, y=2003, x="myo"}
 @Art{FrBr86, a={Frederickson,G H and Brawer,S A},
                    j=jcp, v=84, p=3351, y=1986, x="g.spinmodel"}
 @Art{FrRP88, a={Frick,B and Richter,D and Petry,W and Buchenau,U},
@@ -1514,17 +1593,17 @@
 @Art{FrRT93b,a={Frick,B and Richter,D and Trevino,S},
                    j=pyA, v=201, p=88, y=1993, x="pym.nsc"}
 @Art{FrFe94, a={Frick,B and Fetters,L J},
-                   j=mam, v=27, p=974, y=1994, x="pym.nsc.CH3" }
+                   j=mam, v=27, p=974, y=1994, x="pym.nsc.CH3"}
 @Art{FrRi95, a={Frick,B and Richter,D},
                    j=sc, v=267, p=1939, y=1995, x="pym.nsc"}
 @Art{FrAH97a,a={Frick,B and Alba-Simionesco,C and Hendricks,J and Willner,L},
                    j=ptps, v=126, p=213, y=1997, x="pym.NStrg.P", c="C"}
 @Art{FrMB97b,a={Frick,B and Magerl,A and Blanc,Y and Rebesco,R},
-                   j=pyB, v={234--236}, p=1177, y=1997, x="bsc" }
+                   j=pyB, v={234--236}, p=1177, y=1997, x="bsc"}
 @Art{FrGo01, a={Frick,B and Gonzalez,M},
                    y=2001, j=pyB, v=301, p=8, x="bsc"}
 @Art{Fri02,  a={Frick,B},
-                   y=2002, j=nn, v=13, p=15, x="bsc.IN16" }
+                   y=2002, j=nn, v=13, p=15, x="bsc.IN16"}
 @Art{FrBS06, a={Frick,B and Bordallo,H N and Seydel,T and Barth\'el\'emy,J-F
                    and Thomas,M and Bazzoli,D and Schober,H},
                    y=2006, j=pyB, v={385--386}, p=1101, x="bsc"}
@@ -1533,7 +1612,7 @@
                  Status Report Millenium Project IN16B, January 2007,
                  unpublished.}}
 @Art{FrCE12, a={Frick,B and Combet,J and van Eijck,L},
-                   j=nimA, v=669, p=7, y=2012, x="bsc.Doppler,inel.scans" }
+                   j=nimA, v=669, p=7, y=2012, x="bsc.Doppler,inel.scans"}
 @Art{FrWW89, a={Friedrich,H and Wagner,V and Wille,P},
                    y=1989, j=pyB, v={156--157}, p=547, x="nsc:selector"}
 @Art{Fro81,  a={Frommhold,L}, j=avpc, v=46, p=1, y=1981, x="lsc.cis"}
@@ -1596,10 +1675,10 @@
 %:g
 
 @Art{GaBL02, a={Gabel,F and Bicout,D and Lehnert,U and Tehei,M and Weik,M and
-                    Zaccai,G}, j=qrbp, v=35, p=327, y=2002, x="prot<Gallat" }
-@Art{Gab05,  a={Gabel,F}, j=ebpj, v=34, p=1, y=2005, x="[cmz]" }
+                    Zaccai,G}, j=qrbp, v=35, p=327, y=2002, x="prot<Gallat"}
+@Art{Gab05,  a={Gabel,F}, j=ebpj, v=34, p=1, y=2005, x="[cmz]"}
 @Art{GaBe07, a={Gabel,F and Bellissent-Funel,M-C},
-                   j=bpj, v=92, p=4054, y=2007, x="prot<Gallat" }
+                   j=bpj, v=92, p=4054, y=2007, x="prot<Gallat"}
 @Art{GaGo87b,a={G\"ahler,R and Golub,R},
                    j=zpB, v=65, p=269, y=1987, x="nrse", c="C"}
 @Art{GaGK92, a={G\"ahler,R and Golub,R and Keller,T},
@@ -1621,7 +1700,7 @@
 @Art{GaBC09, a={Gallina,M E and Bove,L and Dreyfus,C and Polian,A and Bonello,B
                 and Cucini,R and Taschin,A and Torre,R and Pick,R M},
                    j=jcp, v=131, p=124504, y=2009,
-                   x="LiCl:H2O.usound,Brill,transient_grating" }
+                   x="LiCl:H2O.usound,Brill,transient_grating"}
 @Art{GaLW12a,a={Gallat,F-X and Laganowsky,A and Wood,K and Gabel,F and
                 van Eijck,L and Wuttke,J and Moulin,M and H\"artlein,M and
                 Eisenberg,D and Colletier,J-P and Zaccai,G and Weik,M},
@@ -1630,6 +1709,8 @@
                 Moulin,M and H\"artlein,M and Combet,J and Wuttke,J and Mann,S
                 and Zaccai,G and Jackson,C J and Perriman,A W and Weik,M},
                    j=jacs, v=134, p=13168, y=2012 }
+@Art{GaRC10, a={Gallo,P and Rovere,M and Chen,S-H},
+                   j=jpcl, v=1, p=729, y=2010}
 @Art{GaSP99, a={Gapinski,J and Steffen,W and Patkowski,A and Sokolov,A P and
  		   Kisliuk,A and Buchenau,U and Russina,M and Mezei,F
 		   and Schober,H},
@@ -1641,7 +1722,7 @@
                    j=jpCM, v=4, p=9581, y=1992, x="met-ol.cp,dos", c="C"}
 @Art{GaAr09, a={Garc\'ia-Sakai,V and Arbe,A},
                    j={Curr.\ Opin.\ Colloid In.}, v=14, p=381, y=2009,
-                   x="bsc" }
+                   x="bsc"}
 @Art{GaSm67, a={Garg,S K and Smyth,C P},
                    j=jcp, v=46, p=373, y=1967, x="cy6.die", c="C"}
 @Art{GaBK68, a={Garg,S K and Bertie,J E and Kilp,H and Smyth,C P},
@@ -1649,11 +1730,11 @@
 @Art{GaKD82, a={Garland,C W and Kwiecien,J Z and Damien,J C},
                    j=prB, v=25, p=5818, y=1982, x="kbcn.mec"}
 @Art{GaAB08, a={Gaspar,A M and Appavou,M-S and Busch,S and Unruh,T and
-                   Doster,W}, j=ebpj, v=37, p=573, y=2008, x="prot" }
+                   Doster,W}, j=ebpj, v=37, p=573, y=2008, x="prot"}
 @Art{GaRu98, a={Gast,A P and Russel,W B},
                    j=pt, p=24, month={December}, y=1999, x="Colloids", c="C"}
 @Art{GaGo00, a={Gaubatz,W and Gobrecht,K},
-                   j=pyB, v={276--278}, p=104, y=2000, x="frm2" }
+                   j=pyB, v={276--278}, p=104, y=2000, x="frm2"}
 @Art{GaSc9x, a={Gaukel,C and Schober,H R},
 		   y={subm 199x}, x="MD-sim ZrCu"}
 @Art{GeNe98, a={Gehring,P M and Neumann,D A},
@@ -1676,6 +1757,10 @@
 		   f={Elsevier}, l={Amsterdam}, p=589, y=1994, x="nrs", c="C"}
 @Art{GeMF90, a={Gerharz,B and Meier,G and Fischer,E W},
                    j=jcp, v=92, p=7110, y=1990, x="otp.lsc", c="C"}
+@iCo{GeSt95, a={Gessel,I M and Stanley,R P},
+                   e={Graham,R L and Gr\"otschel,M and Lov\'asz,L},
+                   b={Handbook of Combinatorics}, v={II}, y=1995,
+		   f={Elsevier}, l={Amsterdam} }
 @Art{Ges83,  a={Geszti,T}, j=jpiii, v=16, p=5805, y=1983, x="mct"}
 @Art{GeJS96, a={Geyer,U and Johnson,W L and Schneider,S and Qiu,Y
                   and Tombrello,T A and Macht,P M},
@@ -1686,7 +1771,7 @@
                    j={Indian J.~Phys.}, v={65A}, p=1, y=1991, x="G", c="C"}
 @Art{GhCT10, a={Ghugare,S V and Chiessi,E and Telling,M T F and Deriu,A and
                    Gerelli,Y and Wuttke,J and Paradossi,G},
-                   j=jpcB, v=114, p=10285, y=2010, x="SPH.out" }
+                   j=jpcB, v=114, p=10285, y=2010, x="SPH.out"}
 @Art{GiMa58, a={Gibbs,J H and DiMarzio,E A},
                    j=jcp, v=28, p=373, y=1958, x="pym.Entrop", c="C"}
 @Art{GiGi23, a={Gibson,G E and Giauque,W F},
@@ -1694,7 +1779,7 @@
 @Art{GiRB93, a={Gil,L and Ramos,M A and Bringer,A and Buchenau,U},
                    j=prl, v=70, p=182, y=1993, x="g.tt"}
 @Art{GiMu78, a={Gill,P E and Murray,W},
-                   j=siamjna, v=15, p=977, y=1978, x="lmfit,testing" }
+                   j=siamjna, v=15, p=977, y=1978, x="lmfit,testing"}
 @PiJ{GiLT99, e={Giordano,M and Leporini,D and Tosi,M},
                    b={Proceedings of the Second Workshop on Non-Equilibrium
 		  Phenomena in Supercooled Fluids, Glasses and
@@ -1716,9 +1801,10 @@
 @Art{GoMN91, a={Gochiyaev,V Z and Malinovsky,V K and
                 Novokov,V N and Sokolov,A P},
                    j=phmB, v=63, p=777, y=1991, x="gly.lsc"}
-@TDr{Gol01,  a={Goldammer,M}, u={Technische Universit\"at M\"unchen}, y=2001, x="..."}
+@TDr{Gol01,  a={Goldammer,M}, u={Technische Universit\"at M\"unchen},
+                   y=2001, x="..."}
 @Art{GoLW01a,a={Goldammer,M and Losert,C and Wuttke,J and Petry,W and
-		  Terki,F and Schober,H and Lunkenheimer,P},
+		 Terki,F and Schober,H and Lunkenheimer,P},
                    j=prE, y={subm 2001}, x="crn", c="C"}
 @Art{Gol69,  a={Goldstein,M},
                    j=jcp, v=51, p=3728, y=1969, x="G.Disk", c="C"}
@@ -1801,7 +1887,7 @@
 		   j=prE, v=61, p=587, y=2000, x="bopik", c="PC"}
 @Buk{Got09,  a={G\"otze,W}, t={Complex Dynamics of Glass-Forming Liquids.
                    A Mode-Coupling Theory},
-                   f={Oxford University Press}, l={Oxford}, y=2009, x="mct" }
+                   f={Oxford University Press}, l={Oxford}, y=2009, x="mct"}
 @Art{GoKS83, a={Goyal,P S and King,J S and Summerfield,G C},
                    j=poly, v=24, p=131, y=1983, x="pym.mscat", c="C"}
 @Buk{GrRy07, a={Gradshteyn,I S and Ryzhik,I M and Jeffrey,A and Zwillinger,D},
@@ -1809,18 +1895,21 @@
                    f={Academic Press}, l={Amsterdam}, y=2007, en=7}
 @Art{GrGA86, a={Graebner,J E and Golding,B and Allen,L C},
                    j=prB, v=34, p=5696, y=1986, x="bpik.th", c="C"}
+@Buk{GrKP89, a={Graham,R L and Knuth,D E and  Patashnik,O},
+                   t={Concrete Mathematics},
+                   f={Addison-Wesley}, l={Reading}, en=2, y=1989 }
 @Art{Gra96,  a={Granato,A V},
                    j=pyB, v={219\&220}, p=270, y=1996, x="bop", c="C"}
 @Art{GrFA94, a={Green,J L and Fan,J and Angell,C A},
-                   j=jpc, v=98, p=13780, y=1994, x="homopeptides.dsc" }
+                   j=jpc, v=98, p=13780, y=1994, x="homopeptides.dsc"}
 @Art{GrGr69a,a={Green,J R and Griffith,W T},
-                   j=mclc, v=6, p=23, y=1969, x="cy6" }
+                   j=mclc, v=6, p=23, y=1969, x="cy6"}
 @Art{GrGr69b,a={Green,J R and Griffith,W T},
-                   j={J.~Cryst.\ Growth}, v=5, p=171, y=1969, x="cy6" }
+                   j={J.~Cryst.\ Growth}, v=5, p=171, y=1969, x="cy6"}
 @Art{GrTu67, a={Greet,R J and Turnbull,D},
                    j=jcp, v=46, p=1243, y=1967, x="otp.vsc"}
 @Art{GrSc84, a={Greiner,R and Schwarzl,F R},
-                   j={Rheol. Acta}, v=23, p=378, y=1984, x="Tg.volumetry" }
+                   j={Rheol. Acta}, v=23, p=378, y=1984, x="Tg.volumetry"}
 @Art{GrSW78, a={Grimsditch,M and Senn,W and Winterling,G and Brodsky,M H},
                    j=ssc, v=26, p=229, y=1978, x="Si.bsc", c="C"}
 @Buk{Gro53,  a={Gross,B}, t={Mathematical Structure
@@ -1847,7 +1936,7 @@
                    t={Statistical Reference Datasets (StRD) for Assessing
                       the Numerical Accuracy of Statistical Software},
                    u={http://www.nist.gov/itl/sed/gsg/strd.cfm},
-                   y=1999, x="lmfit.testing" }
+                   y=1999, x="lmfit.testing"}
 @Buk{GuBe81, e={G\"untherodt,H-J and Beck,H}, t={Glassy Metals I},
                    s={Topics in Applied Physics 46},
                    f={Springer}, l={Berlin}, y=1981}
@@ -1862,17 +1951,22 @@
 @Art{Hag63,  a={Hagy,H E},
                    j=jaces, v=46, p=93, y=1963, x="eta", c="C"}
 @Art{HaNe92a,a={Halalay,I C and Nelson,K A},
-                   j=prl, v=69, p=636, y=1992, x="LiCl.stiLStrg" }
+                   j=prl, v=69, p=636, y=1992, x="LiCl.stiLStrg"}
 @Art{HaNe92b,a={Halalay,I C and Nelson,K A},
-                   j=jcp, v=97, p=3557, y=1992, x="LiCl.stiLStrg" }
+                   j=jcp, v=97, p=3557, y=1992, x="LiCl.stiLStrg"}
 @Art{HaYN95, a={Halalay,I C and Yang,Y and Nelson,K A},
                    j=ttsp, v=24, p=1053, y=1995, x="StLstrg.review", c="V"}
+@Art{Ham57,  a={Hamilton,W C},
+                   t={The effect of crystal shape and setting on
+                      secondary extinction},
+                   j=ax, v=10, p=629, pf=634, y=1957, x="mosaic"}
 @Art{HaHB06, a={Hamm,P and Helbing,J and Bredenbeck,J},
                    j=cp, v=323, p=54, pf=65, y=2006, x="kww",
                    t={Stretched versus compressed exponential kinetics in
                       $\alpha$-helix folding},
                    doi={10.1016/j.chemphys.2005.08.035} }
-@TDp{Han95,  a={Hank,P}, u={Technische Universit\"at M\"unchen}, y=1995, x="nrse"}
+@TDp{Han95,  a={Hank,P}, u={Technische Universit\"at M\"unchen},
+                   y=1995, x="nrse"}
 @Art{HaKG9x, a={Hank,P and K\"oppe,M and G\"ahler,R and Keller,T and Golub,R},
                    j=pyB, y={ca 199x}, x="nrse", c="P"}
 @Art{HaBG97, a={Hank,P and Besenb\"ock,W and G\"ahler,R and K\"oppe,M},
@@ -1901,13 +1995,15 @@
                    j=pyA, v=201, p=149, y=1993, x="sim"}
 @Art{HaYi95, a={Hansen,J P and Yip,S},
                    j=ttsp, v=24, p=1149, y=1995}
+@Art{HaSo86, a={Hare,D E and Sorensen,C M},
+                   j=jcp, v=84, p=5085, pf=5089, x="H2O,D2O.density"}
 @Art{HaSo87, a={Hare,D E and Sorensen,C M},
-                   j=jcp, v=87, p=4840, x="H2O.density" }
+                   j=jcp, v=87, p=4840, x="H2O.density"}
 @Buk{Har76,  a={Harrison,G}, t={The Dynamic Properties of Supercooled Liquids},
                    f={Academic Press}, l={London}, y=1976, x="Liq",
 		   c="TUB:0200/B18Z40"}
 @Art{HaPu05, a={Hars\'any,I and Pusztai,L},
-                   j=jcp, v=122, p=124512, y=2005, x="LiCl:H2O.RMC" }
+                   j=jcp, v=122, p=124512, y=2005, x="LiCl:H2O.RMC"}
 @Art{HaVZ95, a={H\"artl,W and Versmold,H and Zhang-Heider,X},
                    j=jcp, v=102, p=6613, y=1995, x="col.lstrg", c="C"}
 @Art{Has69,  a={Hass,M},
@@ -1920,7 +2016,7 @@
 @Art{HaQu99, a={Hatfield,J W and Quake,S R},
                    j=prl, v=82, p=3548, y=1999, x="pym", c="C"}
 @Art{HaHU11, a={H\"au\ss{}ler,W and Holderer,O and Unruh,T and Wuttke,J},
-                   j=nn, v=22, p=24, y=2011, x="SPHERES & al" }
+                   j=nn, v=22, p=24, y=2011, x="SPHERES & al"}
 @Art{Hau73,  a={Hauss\"uhl,S},
                    j=ssc, v=13, p=147, y=1973, x="CKN.elast", c="C"}
 @Art{HaNe67, a={Havriliak,S and Negami,S},
@@ -1941,16 +2037,16 @@
                    j=prl, v=84, p=5355, y=2000, x="SiO2.lsc", c="C"}
 @TDr{Hei69,  a={Heidemann,A},
                     u={Technische Universit\"at M\"unchen},
-                    y=1969, x="bsc;hyf" }
+                    y=1969, x="bsc;hyf"}
 @Art{Hei70,  a={Heidemann,A},
-                   j=zp, v=238, p=208, y=1970, x="bsc;hyf" }
+                   j=zp, v=238, p=208, y=1970, x="bsc;hyf"}
 @Art{HeAP83, a={Heidemann,A and Anderson,I and Prager,M and Press,W},
-                   j=zpB, v=51, p=319, y=1983, x="bsc" }
+                   j=zpB, v=51, p=319, y=1983, x="bsc"}
 @Art{Hei94,  a={Heidemann,A},
-                   j=pyB, v=202, p=207, y=1994, x="bsc" }
+                   j=pyB, v=202, p=207, y=1994, x="bsc"}
 @Any{HeFrWW, a={Heidemann,A and Frick,B},
                    t={\url{https://www.ill.eu/sites/BS-review/index.htm}},
-                   x="bsc" }
+                   x="bsc"}
 @Art{Hei76,  a={Heijboer,J},
                    j=aasNY, v=279, p=104, y=1976, x="pym.2nd-relax", c="C"}
 @iCo{Hei78,  a={Heijboer,J}, e={Meier,D J},
@@ -1962,10 +2058,12 @@
 @Buk{Hem00,  a={Hempelmann,R},
                   t={Quasielastic Neutron Scattering and Solid State Diffusion},
                    f={Clarendon Press}, l={Oxford}, y=2000 }
+@Art{HeSS74, a={Hendricks,R W and Schelten, J and Schmatz W },
+                   j=phm, v=30, p=819, y=1974}
 @Art{HeFS11, a={Hennig,M and Frick,B and Seydel,T},
-                   j=jax, v=44, p=467, y=2011, x="bsc.pst" }
+                   j=jax, v=44, p=467, pf=472, y=2011, x="bsc.pst"}
 @Art{HeKe07, a={Henzler-Wildman,K and Kern,D},
-                   j=nat, v=450, p=964, y=2007, x="prot" }
+                   j=nat, v=450, p=964, y=2007, x="prot"}
 @Art{HeCK93, a={Herbst,C A and Cook,R L and King,H E},
                    j=nat, v=361, p=518, y=1993, x="Gly.P.eta", c="C"}
 @Art{HeSa93, a={Herr,U and Samwer,K},
@@ -1977,7 +2075,7 @@
 @Art{Heu97,  a={Heuer,A},
                    j=prl, v=78, p=4051, y=1997, x="G.Th", c="C"}
 @Art{HiMa91, a={Hiebl,M and Maksymiw,R},
-                   j=bpm, v=31, p=191, y=1991, x="prot.thermexp" }
+                   j=bpm, v=31, p=191, y=1991, x="prot.thermexp"}
 @Art{HiWa81, a={Higashigaki,Y and Wang,C H},
                    j=jcp, v=74, p=3175, y=1981, x="otp.lsc", c="C"}
 @Art{HiSL94, a={Hillberg,M and Stieler,W and Litterst,F J and
@@ -2009,14 +2107,15 @@
                    j=avp, v=39, p=405, y=1990, x="og"}
 @Art{HoSt93, a={Hodgdon,J A and Stillinger,F H},
                    j=prE, v=48, p=207, y=1993, x="G.Th.2Comp", c="C"}
-@TDp{Hof90,  a={Hofacker,I}, u={Technische Universit\"at M\"unchen}, y=1990, x="mct.num"}
+@TDp{Hof90,  a={Hofacker,I}, u={Technische Universit\"at M\"unchen},
+                   y=1990, x="mct.num"}
 @TDr{Hof93,  a={Hofmann,A}, u={Universit\"at Mainz}, y=1993, x="gly.die"}
 @iCo{HoKF94, a={Hofmann,A and Kremer,F and Fischer,E W and Sch\"onhals,A},
 		   e={Richert,R and Blumen,A},
                    b={Disorder Effects on Relaxational Processes},
                    f={Springer}, l={Berlin}, p=309, y=1994, x="die.wing", c="-"}
 @Art{HoSC05, a={Holland-Moritz,D and Schenk,T and Convert,P and Hansen,T and
-                  Herlach,D M}, j=mst, v=16, p=372, y=2005, x="levitation" }
+                  Herlach,D M}, j=mst, v=16, p=372, y=2005, x="levitation"}
 @Art{HoSH09, a={Holland-Moritz,D and St\"uber,S and Hartmann,H and Unruh,T
                    and Hansen,T and Meyer,A},
                   j=prb, v=79, p=064204, y=2009, c="diff"}
@@ -2024,8 +2123,8 @@
                   j=pbl, v=54, p=1013, y=1998, x="polyelektrolyte", c="C"}
 @Art{HoKo99, a={Horbach,J and Kob,W},
                   j=prB, v=60, p=3169, y=1999, x="SiO2.sim", c="C"}
-@Art{Hos51, a={Hosemann, R},
-                  j={Acta Cryst.}, v=4, p=520, y=1951}
+@Art{Hos51, a={Hosemann,R},
+                  j={Acta Cryst.}, v=4, p=520, y=1951, x="refl??"}
 @Art{Hov54,  a={van Hove,L}, t={Correlations in Space and Time and Born
                     Approximation Scattering in Systems of
                     Interacting Particles},
@@ -2039,7 +2138,7 @@
 @Art{HuAl75, a={Hui,J C K and Allen,P B},
                   j=jpiii, v=8, p=2923, y=1975, x="Anh.", c="C"}
 @Art{Hul77,  a={H\"uller,A},
-                  j=prB, v=16, p=1844, y=1977, x="rot" }
+                  j=prB, v=16, p=1844, y=1977, x="rot"}
 @Art{Hun99,  a={Hunklinger,S},
                   j=pbl, v=55, p=57, y=1999, x="G.TT", c="C"}
 @Art{Hun91,  a={Hunt,A},
@@ -2050,8 +2149,9 @@
                   j=jcp, v=105, p=10521, y=1996, x="2d.sim", c="C"}
 @Art{HuAn05, a={Husain,S A and Anderssen,R S},
                   j={J. Non-Newton. Fluid Mech.}, v=125, p=159, pf=170, y=2005,
-                  t={Modelling the relaxation modulus of linear viscoelasticity using Kohlrausch functions},
-                  doi={10.1016/j.jnnfm.2004.11.002}, x="kww" }
+                  t={Modelling the relaxation modulus of linear
+                     viscoelasticity using Kohlrausch functions},
+                  doi={10.1016/j.jnnfm.2004.11.002}, x="kww"}
 @Art{HuKB99, a={Huwe,A and Kremer,F and Behrens,P and Schwieger,W},
                   j=prl, v=82, p=2338, y=1999, x="Poren.die", c="C"}
 @Art{HyEE90, a={Hyde,P D and Evert,T E and Ediger,M D},
@@ -2060,7 +2160,7 @@
 %:i
 
 @Art{IbPA08, a={Ibberson,R M and Parsons,S and Allan,D R and Bell,A M T},
-                  j=axB, v=64, p=573, y=2008, x="cy6" }
+                  j=axB, v=64, p=573, y=2008, x="cy6"}
 @Art{IbBD89, a={Iben,I E T and Braunstein,D and Doster,W and Frauenfelder,H and
                 Hong,M K and Johnsom,J B and Luck,S and Ormos,P and Schulte,A
                 and Steinbach,P J},
@@ -2085,14 +2185,14 @@
                 and Zhang,X W and Ando,M and Kikuta,S},
                   j=rsi, v=63, p=1015, y=1992, x="nested"}
 @Art{ItMA99, a={Ito,K and Moynihan,C T and Angell,C A},
-                  j=nat, v=398, p=492, y=1999, x="FST" }
+                  j=nat, v=398, p=492, y=1999, x="FST"}
 @Art{ItNM82, a={Ito,Y and Nishi,M and Motoya,K},
                   j=nim, v=198, p=497, y=1982, x="mieze??", c="C"}
 @Art{IvHB10, a={Ivancic,T M and Hwang,S-J and Bowman,jr.,R C and
                   Birkmire,D S and Jensen,C M and Udovic,T J and Conradi,M S},
                   j=jpcl, v=1, p=2412, y=2010 }
 @Art{IwNK57, a={Iwasaki,M and Nagase,S and Kojima,R},
-                  j=bcsj, v=30, p=230, y=1957, x="freon" }
+                  j=bcsj, v=30, p=230, y=1957, x="freon"}
 
 %:j
 
@@ -2117,13 +2217,13 @@
 @Art{JaPS70c,a={Jakeman,E and Pike,E R and Swain,S},
                    j=jpi, v=3, p={L55}, y=1970, x="pcs.th"}
 @Art{JaSo90, a={Jakubas,R and Sobczyk,L},
-                   j=pht, v=20, p=163, y=1990, x="MAPBB" }
+                   j=pht, v=20, p=163, y=1990, x="MAPBB"}
 @Art{JaSP76, a={James,D W and Shurvell,H F and Parry,R M},
-                   j={J.\ Raman Spectr.}, v=5, p=201, y=1976, x="cy6" }
+                   j={J.\ Raman Spectr.}, v=5, p=201, y=1976, x="cy6"}
 @Art{JaHS06, a={Jansson,H and Howells,W S and Swenson,J},
-                   j=jpcB, v=110, p=13786, y=2006, x="sugars.qens" }
+                   j=jpcB, v=110, p=13786, y=2006, x="sugars.qens"}
 @Art{JaSw10, a={Jansson,H and Swenson,J},
-                   j=bba, v=1804, p=20, y=2010, x="H2O+prot.diel" }
+                   j=bba, v=1804, p=20, y=2010, x="H2O+prot.diel"}
 @Art{JaSL99, a={Jary,D and Sikorav,J L and Lairez,D},
                    j=epl, v=46, p=251, y=1999, x="dna.", c="C"}
 @Art{JeGr01, a={Jensen,C M and Gross,K J},
@@ -2151,6 +2251,9 @@
                    j=aasNY, v=279, p=117, y=1976, x="die", c="C"}
 @Art{Joh85,  a={Johari,G P},
                    j=jcpF, v=82, p=283, y=1985, x="review", c="C"}
+@Art{Joh00,  a={Johari,G P},
+                   j=cp, v=258, p=277, y=2000,
+		   x="against confined H2O as proxy for bulk water"}
 @Art{JoSL95, a={Johnson,D E and Siddons,D P and Larese,J Z and Hastings,J B},
                   j=prb, v=51, p=7909, y=1995, x="nrs+Kr"}
 @Buk{Joh74,  a={Johnson,M W},
@@ -2159,14 +2262,14 @@
                    t={Report AERE-R7682},
                    l={Harwell},
                    y=1974,
-                   note={Scanned PDF: \url{http://www.isis.stfc.ac.uk/groups/excitations/software/discus-manual6827.pdf}}, x="nsc.mscat" }
+                   note={Scanned PDF: \url{http://www.isis.stfc.ac.uk/groups/excitations/software/discus-manual6827.pdf}}, x="nsc.mscat"}
 @iCo{Joh02,  a={Johnson,D S},
                    e={Goldwasser,M H and Johnson,D S and McGeoch,C C},
                    b={Data Structures, Near Neighbor Searches, and Methodology:
                       Fifth and Sixth DIMACS Implementation Challenges},
                    p=215, pf=250,
                    f={American Mathematical Society}, l={Providence},
-                   y=2002, x="testing" }
+                   y=2002, x="testing"}
 @Art{JoVG93, a={de Jong,P H K and Verkerk,P and de Graaf,L A},
                    j=jncs, v={156-158}, p=48, y=1993, x="Li.nStrg", c="-"}
 @Art{Jon77,  a={Jonscher,A K},
@@ -2183,11 +2286,13 @@
 @Art{KaAK79, a={Kagan,Yu and Afanasev,A M and Kohn,V G},
                    j=jpiii, v=12, p=615, y=1979, x="nrs theory"}
 @Art{KaDa55, a={Kagarise,R E and Daasch,L W},
-             j=jcp, v=23, p=113, x="freon" }
+             j=jcp, v=23, p=113, x="freon"}
+@Art{Kah50a, a={Kahn,H}, j={Nucleonics}, v=6, p=27, pf=37, y=1950, x="MC"}
+@Art{Kah50b, a={Kahn,H}, j={Nucleonics}, v=6, p=60, y=1950, x="MC"}
 @Buk{Kah55,  a={Kahn,H},
                    t={Use of Different Monte Carlo Sampling Techniques},
                    s={Report P-766}, f={The RAND Corporation},
-                   l={Santa Monica}, y=1955, x="MC" }
+                   l={Santa Monica}, y=1955, x="MC"}
 @Art{KaLS91, a={Kaiser,B and Laesecke,A and Stelbrink,M},
                    j=ijtp, v=12, p=289, y=1991, x="tol.visc", c="C"}
 @Art{KaKS97, a={K\"ammerer,S and Kob,W and Schilling,R},
@@ -2198,6 +2303,10 @@
                    j=prE, v=58, p=2141, y=1998, x="Hanteln.md.Rot-q", c="PC"}
 @Art{KaKK93, a={Kanaya,T and Kawaguchi,T and Kaji,K},
                    j=jcp, v=98, p=8262, y=1993, x="pym.snc", c="C"}
+@Art{KaML98, a={Kane,C L and Mele,E J and Lee,R S and Fischer,J E and Petit,P
+                and Dai,H and Thess,A and Smalley,R E and Verschueren,A R M
+		and Tans,S J and Deker,C},
+		   j=epl, v=41, p=683, y=1998, x="Debye-T[nanotubes]=1000K"}
 @Art{KaWC07, a={Kang,X-D and Wang,P and Cheng,H-M},
                    j=jpcC, v=111, p=4879, y=2007 }
 @Art{KaKI83, a={Karpov,V G and Klinger,M I and Ignat'ev,F N},
@@ -2234,12 +2343,12 @@
                    j=jcp, v=54, p=1786, y=1971, x="transv BrStrg ?", c="-"}
 @Art{KhPR08, a={Khodadadi,S and Pawlus,S and Roh,J H and Garc\'ia Sakai,V and
                    Mamontov,E and Sokolov,A P},
-                   j=jcp, v=128, p=195106, y=2008, x="lyso.nsc,diel" }
+                   j=jcp, v=128, p=195106, y=2008, x="lyso.nsc,diel"}
 @Art{KhRK10, a={Khodadadi,S and Roh,J H and Kisliuk,A and Mamontov,E and Tyagi,M
                 and Woodson,S A and Sokolov,A P},
-                   j=bpj, v=98, p=1321, y=2010, x="prot" }
+                   j=bpj, v=98, p=1321, y=2010, x="prot"}
 @Art{KhCS11, a={Khodadadi,S and Curtis,J E and Sokolov,A P},
-                   j=jpcA, v=115, p=6222, y=2011, x="RNase.MD" }
+                   j=jpcA, v=115, p=6222, y=2011, x="RNase.MD"}
 @TDr{Kie92,  a={Kiebel,M}, u={Universit\"at Mainz}, y=1992, x="otp.nsc"}
 @Art{KiBD92, a={Kiebel,M and Bartsch,E and Debus,O and Fujara,F and
                 Petry,W and Sillescu,H},
@@ -2252,7 +2361,7 @@
 		and Rhim,W K},
                    j=apl, v=65, p=2136, y=1994, x="begl levitat."}
 @Art{KiSS78, a={Kimishoto,K and Suga,H and Seki,S},
-                   j=bcsj, v=51, p=1691, y=1978, x="freon" }
+                   j=bcsj, v=51, p=1691, y=1978, x="freon"}
 @Art{KiPr80, a={King,H E and Prewitt,C T},
                    j=rsi, v=51, p=1037, y=1980, x="Druck", c="C"}
 @Art{KiZe73, a={Kintzinger,J P and Zeidler,M D},
@@ -2267,36 +2376,36 @@
 @Art{KiTW89, a={Kirkpatrick,T R and Thirumalai,D and Wolynes,P G},
                    j=prA, v=40, p=1045, y=1989, x="g.coop"}
 @Art{KiPG99, a={Kirstein,O and Prager,M and Grimm,H and Richter,D},
-                   y=1999, j=jnr, v=8, p=119, x="bsc:SPH" }
+                   y=1999, j=jnr, v=8, p=119, x="bsc:SPH"}
 @Art{KiPK00a,a={Kirstein,O and Prager,M and Kozielewski,T and Richter,D},
                    t={Phase space transformation used at the FRM II
                       backscattering spectrometer:
                       concepts and technical realization},
-                   y=2000, j=pyB, v=283, p=361, x="bsc:SPH" }
+                   y=2000, j=pyB, v=283, p=361, x="bsc:SPH"}
 @Art{KiKP00b,a={Kirstein,O and Kozielewski,T and Prager,M and Richter,D},
                    t={The backscattering spectrometer for the FRM II reactor
                       in Munich},
-                   y=2000, j=pyB, v=291, p=310, x="bsc:SPH" }
+                   y=2000, j=pyB, v=291, p=310, x="bsc:SPH"}
 @iCo{KiKP01, a={Kirstein,O and Kozielewski,T and Prager,M},
                    e={Br\"uckel,T},
                    b={Proceedings of the Deutsche Neutronenstreutagung 2001},
                    l={J\"ulich},
                    f={FZ J\"ulich},
                    s={Materie und Material, Vol.~8},
-                   y=2001, x="bsc:SPH" }
+                   y=2001, x="bsc:SPH"}
 @Art{KiKP02a,a={Kirstein,O and Kozielewski,T and Prager,M and Richter,D},
                    t={Status of the high-flux backscattering spectrometer RSSM
                       for the FRM-II reactor in Munich},
-                   y={2002}, j=apA, v=74, p={S133}, pf={S135}, x="bsc:SPH" }
+                   y={2002}, j=apA, v=74, p={S133}, pf={S135}, x="bsc:SPH"}
 @Art{KiKP02b,a={Kirstein,O and Kozielewski,T and Prager,M and Andersen,K H},
                    t={A 0.9-ueV direct backscattering spectrometer for the
                       50 Hz target station
                       of the European Spallation Source ESS},
-                   y=2002, j=apA, v=74, ltp={S130}, pf={S132}, x="bsc" }
+                   y=2002, j=apA, v=74, ltp={S130}, pf={S132}, x="bsc"}
 @Art{KiPS09, a={Kirstein,O and Prager,M and Schneider,G J},
-                   j=jcp, v=130, p=214508, y=2009, x="SPH.OUT" }
+                   j=jcp, v=130, p=214508, y=2009, x="SPH.OUT"}
 @Art{KiSS80, a={Kishimoto,K and Suga,H and Seki,S},
-                   j=bcsj, v=53, p=2748, y=1980, x="cy6" }
+                   j=bcsj, v=53, p=2748, y=1980, x="cy6"}
 @Art{Kis94,  a={Kishimoto,S}, j=nimA, v=351, p=554, y=1994, x="APD"}
 @Art{KiLS95, a={Kisliuk,A and Loheider,S and Sokolov,A and Soltwisch,M
 		and Quitmann,D and Shasha,E and Voronel,A},
@@ -2318,7 +2427,7 @@
 @Art{KlSD05, a={Kleines,H and Suxdorf,F and Drochner,M and Rottl\"ander,P and
                    Prager,M and Kozielewski,T and Budwig,A},
                    j={KEK proceedings}, v={2005-18}, p={WEP25}, y=2005,
-                   x="SPHERES.electronics" }
+                   x="SPHERES.electronics"}
 @Art{KlWD60, a={Klement,W and Willens,R H and Duwez,P},
                    j=nat, v=187, p=869, y=1960, x="AuSi"}
 @Art{Kle51,  a={Klemens,P G},
@@ -2331,7 +2440,7 @@
 @Art{KnGS68, a={Knaap,H F P and Gornal,W S and Stoicheff,J M J},
                    j=pr, v=166, p=139, y=1968, x="gly.lsc"}
 @Art{KnCa07, a={Kneller,G R and Calandrini,V},
-                   j=jcp, v=126, p=125107, y=2007, x="[cmz]" }
+                   j=jcp, v=126, p=125107, y=2007, x="[cmz]"}
 @Buk{KnSi88, a={Kneub\"uhl,F K and Sigrist,M W}, t={Laser},
                    f={Teubner}, l=Stuttgart, y=1988, x="lsc.inst"}
 @Art{KnDS92, a={Kneller,G R and Doster,W and Settles,M and Cusack,S
@@ -2341,6 +2450,10 @@
                    j=asp, v=44, p=776, y=1990, x="LStrg.Inst", c="R"}
 @Art{KnLo85, a={Knorr,K and Loidl,A},
                    j=prB, v=31, p=5387, y=1985, x="kbcn.X"}
+@Art{Knu92,  a={Knuth,D E},
+                   t={Two Notes on Notation},
+                   j=ammm, v=99, p=403, pf=422, y=1992,
+                   x="Iverson-Knuth bracket notation"}
 @Buk{Knu:2,  a={Knuth,D E}, t={The Art of Computer Programming.
                    Vol.~2: Seminumerical Algorithms},
                    f={Addison-Wesley}, l={Upper Saddle River}, en=3, y=1998 }
@@ -2369,7 +2482,7 @@
                    f={Springer}, l={Berlin}, y=2002,
                    note={; also online: \url{arXiv:cond-mat/0212344v1}} }
 @Art{KoTa11, a={Kobayashi,S and Tanaka,H},
-                   j=prl, v=106, p=125703, y=2011, x="LiCl:H2O?" }
+                   j=prl, v=106, p=125703, y=2011, x="LiCl:H2O?"}
 @Art{KoPM93, a={Koch,F and Petrova--Koch,V and Muschik,T},
                    j={J.\ Luminiscence}, v=57, p=271, y=1993, x="Si-p."}
 @Art{Koh63,  a={Kohlrausch,F}, j=pogg, v=119, p=337, y=1863}
@@ -2401,14 +2514,14 @@
 @Art{KrAK97, a={Krakoviack,V and Alba-Simionesco,C and Krauzman,M},
                    j=jcp, v=107, p=3417, y=1997, x="LStrg.numfit", c="C"}
 @Art{Kra07,  a={Krakoviack,V},
-                   j=prE, v=75, p=031503, y=2007, x="mct" }
+                   j=prE, v=75, p=031503, y=2007, x="mct"}
 @Art{KrBH76, a={Krasser,W and Buchenau,U and Hauss\"uhl,S},
                    j=ssc, v=18, p=287, y=1976, x="CKN.BrStrg", c="C"}
 @Art{KrKS12, a={Krivchikov,A I and Korolyuk,O A and Sharapova,I V and
                 Tamarit,J Ll and Bermejo,F J and Pardo,L C and
                 Rovira-Esteva,M and Ruiz-Martin,M D and Jezowski,A and
                 Baran,J and Davydova,N A},
-                   j=prB, v=85, p=014206, y=2012, x="cy6" }
+                   j=prB, v=85, p=014206, y=2012, x="cy6"}
 @Art{KrMP86, a={Kr\"uger,J K and Marx,A and Peetz,L and Roberts,R and
 		  Unruh,H G}, j=cps, v=264, p=403, y=1986, x="lsc.inst", c="C"}
 @Art{KrGS91, a={Kr\"uger,J K and Grammes,C and Stockem,K and Zietz,R and
@@ -2417,7 +2530,7 @@
 @Art{KrSJ94, a={Kr\"uger,J K and Schreiber,J and Jim\'enez,R and Bohn,K-P and
                 Smutn\'y,F and Kub\'at,M and Petzelt,J and
                 Hrabovsk\'a-Bradshaw,J and Kamba,S and Legrand,J F},
-             j=jpCM, v=6, p=6947, y=1994, x="freon" }
+             j=jpCM, v=6, p=6947, y=1994, x="freon"}
 @Art{KrBJ96, a={Kr\"uger,J K and Bohn,K P and Jim\'enez,R and Schreiber,J},
 		   j=cps, v=274, p=490, y=1996, x="lsc.inst", c="C"}
 @Art{KrKS93, a={Kr\"uger,M and Kisliuk,A and Sokolov,A and Soltwisch,M and
@@ -2444,7 +2557,7 @@
 @Art{KuCo82, a={Kuhns,P L and Conradi,M S},
                    j=jpc, v=77, p=1771, y=1982, x="gly.nmr"}
 @Art{KuCo84, a={Kuhns,P L and Conradi,M S},
-                   j=jcp, v=80, p=5851, y=1984, x="cy6" }
+                   j=jcp, v=80, p=5851, y=1984, x="cy6"}
 @Art{KuHo97, a={K\"uhns,R and Horstmann,U},
                    j=prl, v=78, p=4067, y=1997, x="tt", c="C"}
 @Art{KwRW93, a={Kwater,M and Ruebenbauer,K and Wdowik,U D},
@@ -2457,7 +2570,7 @@
 @Art{LaCK08, a={Lagi,M and Chu,X and Kim,C and Mallamace,F and Baglioni,P
                 and Chen,S-H},
                    j=jcp, v=136, p=124512, y=2008,
-                   x="MD pro FSC; criticized by NaGM12 p.7: no eq." }
+                   x="MD pro FSC; criticized by NaGM12 p.7: no eq."}
 @Art{LaSo98, a={Laherr\`ere,J and Sournette,D},
                    j=epjB, v=2, p=525, pf=539, y=1998, x="kww", c="p09",
                    t={Stretched exponential distributions in nature and
@@ -2508,13 +2621,14 @@
                    j=tfs, v=54, p=1804, y=1958, x="otp.visc"}
 @Art{LaUh72, a={Laughlin,W T and Uhlmann,D R},
                    j=jcp, v=76, p=2317, y=1972, x="otp.visc"}
+@Art{Lax51,  a={Lax,M}, j=rmp, v=23, p=287, x="msc,dispersion" }
 @Art{Laz02,  a={Lazzari,R},
-                   j=jax, v=35, p=406, pf=421, y=2002, x="gisas:IsGISAXS" }
-@Art{LaLe07,  a={Lazzari,R and Leroy, F and Renaud, G},
-                   j=prB, v=76, p=125411, y=2007}
+                   j=jax, v=35, p=406, pf=421, y=2002, x="gisas:IsGISAXS"}
+@Art{LaLR07, a={Lazzari,R and Leroy,F and Renaud,G},
+                   j=prB, v=76, p=125411, y=2007, x="gisas"}
 @Art{LeRD76, a={Leadbetter,A J and Richardson,R M and Dasannacharya,B A
                    and Howells,W S},
-                   j=cpl, v=39, p=501, y=1976, x="nbs:fixed-window method" }
+                   j=cpl, v=39, p=501, y=1976, x="nbs:fixed-window method"}
 @Art{LeDL95, a={Lebon,M J and Dreyfus,C and Li,G and Aouadi,A and
 		  Cummins,H Z and Pick,R M},
                    j=prE, v=51, p=4537, y=1995, x="ZnCl.BrStrg", c="C"}
@@ -2533,7 +2647,7 @@
                    t={Component Manual for the
                       Neutron Ray-Trace Package McStas, Version 1.11},
                    f={Ris\o\ National Laboratory}, l={Roskilde},
-                   y=2007, x="nsc:sim:McStas" }
+                   y=2007, x="nsc:sim:McStas"}
 @Art{Leg91,  a={Leggett,A J},
                    j=pyB, v=169, p=322, y=1991, x="TT", c="C"}
 @Art{LeMN96, a={Leheny,R L and Menon,M and Nagel,S R},
@@ -2542,16 +2656,20 @@
                    j=epl, v=39, p=447, y=1997, x="aRx", c="C"}
 @Art{LeMa68, a={Leidecker,H W and LaMacchia,J T},
                    j=jasa, v=43, p=143, y=1968, x="lsc.inst"}
+@Art{Lei64,  a={Leimd\"orfer,M},
+                   j={Nukleonik}, v=6, p=58, pf=65, y=1964,
+                   x="MC,shielding,exptraf"}
 @Art{LeAP00, a={DiLeonardo,R and Angelani,L and Parisi,G and Ruocco,G},
                    j=prl, v=84, p=6054, y=2000, x="LJ.sim,replica,fdt", c="C"}
 @Buk{Leo08,  e={L\'eon,A},
                    t={Hydrogen Technology: Mobile and Portable Applications},
                    f={Springer}, l={Berlin}, y=2008}
 @Art{LeWu11, a={L\'eon,A and Wuttke,J},
-                   j=jpCM, v=23, p=254214, y=2011, x="SPH.OUT" }
-@Art{LeLa04, a={Leroy, F and Lazzari, R and Renaud, G},
-                     t={Effects of near-neighbor correlations on the diffuse scattering from a one-dimensional paracrystal},
-                     j=ax, v=60,p=565,y =2004}
+                   j=jpCM, v=23, p=254214, y=2011, x="SPH.OUT"}
+@Art{LeLa04, a={Leroy,F and Lazzari,R and Renaud,G},
+                     t={Effects of near-neighbor correlations on the diffuse
+		        scattering from a one-dimensional paracrystal},
+                     j=axA, v=60, p=565, pf=581, y=2004, x="gisas:paracryst"}
 @Art{LeBi94a,a={Lesley-Pelecky,D L and Birge,N O},
                    j=prl, v=72, p=1232, y=1994, x="cy8.die", c="C"}
 @Art{LeBi94b,a={Lesley-Pelecky,D L and Birge,N O},
@@ -2571,9 +2689,9 @@
 		  and Durand,D and Emery,J R},
                    j=jpCM, p=941, y=1996, x="pym.LStr", c="C"}
 @Art{LeFP00, a={Levelut,C and Faivre,A and Pelous,J and Johnson,B and Durand,D},
-                   j=puB, v={276--278}, p=431, y=2000, x="ab-relax" }
+                   j=puB, v={276--278}, p=431, y=2000, x="ab-relax"}
 @Art{Lev44,  a={Levenberg,K},
-                   j={Quart. Appl. Math.}, v=2, p=431, y=1944, x="lmfit" }
+                   j={Quart. Appl. Math.}, v=2, p=431, y=1944, x="lmfit"}
 @Buk{LeTr79, e={Levine,R D and Tribus,M},
                    t={The Maximum Entropy Formalism},
                    f={MIT Press}, l={Cambridge, Mass.}, y=1979, x="ausw"}
@@ -2609,6 +2727,8 @@
 @Buk{Lig58,  a={Lighthill,M J}, t={An introduction to Fourier Analysis
                    and generalised functions},
                    f={Cambridge University Press}, l=Cambridge, y=1958}
+@Art{LiCh14, a={Limmer,D T and Chandler,D},
+                   j=pnas, v=111, p=9413, y=2014, x="H2O"}
 @Art{LiWa79, a={Lin,Y H and Wang,C H},
                    j=jcp, v=70, p=681, y=1979, x="Pym.LStrg", c="C"}
 @Art{Lin10,  a={Lindemann,F A},
@@ -2630,6 +2750,12 @@
                    j=pr, v=79, p=469, y=1950, x="", c="C"}
 @Art{LiLy58, a={Litovitz,T A and Lyon,T},
                    j=jasa, v=30, p=856, y=1958, x="gly.usou", c="C"}
+@Art{LiFM04, a={Liu,L and Faraone,A and Mou,C-Y and Yen,C-W and Chen,S-H},
+                   j=jpCM, v=16, p={S5403}, y=2004, x="H2O:MCM.review"}
+@Art{LiCF05, a={Liu,L and Chen,S-H and Faraone,A and Yen,C-W and Mou,C-Y},
+                   j=prl, v=95, p=117802, y=2005, c="05prl1"}
+@Art{ChLF06, a={Chen,S-H and Liu,L and Faraone,A},
+                   j=prl, v=97, p=189803, y=2006, x="reply", c="06prl"}
 @Art{LoVP90, a={Loheider,S and V"ogler,G and Petscherizin,I and
 		  Soltwisch,M and Quitmann,D},
                    j=jcp, v=93, p=5436, y=1990, x="GeSBr2.BrStrg", c="C"}
@@ -2657,7 +2783,8 @@
                    b={Thermal Neutron Scattering},
                    f={Academic Press}, l={London}, y=1965,
                    t={Introductory Theory}, x="nsc"}
-@TDp{Los98,  a={Losert,C}, u={Technische Universit\"at M\"unchen}, y=1998, x="lsc.app;crn.lsc,nsc"}
+@TDp{Los98,  a={Losert,C}, u={Technische Universit\"at M\"unchen},
+                   y=1998, x="lsc.app;crn.lsc,nsc"}
 @iCo{Lov77,  a={Lovesey,S W}, e={Lovesey,S W and Springer,T},
                    t={Introduction},
                    b={Dynamics of Solids and Liquids by Neutron Scattering},
@@ -2675,7 +2802,7 @@
                    j=pbl, v=51, p=165, y=1995, x="col", c="Ausschnitt"}
 @Art{LuPK95, a={Lunkenheimer,P and Pimenov,A and Kohlhaas,R and
 		  B\"oh\-mer,R and Loidl,A},
-                   j=prl, y={subm 1995}, x="ckn.die", c="P"}
+		  j=prl, y={subm 1995}, x="ckn.die", c="P"}
 @Art{LuPS96a,a={Lunkenheimer,P and Pimenov,A and Schiener,B and
 		  B\"oh\-mer,R and Loidl,A},
 		   t={Dielectric spectroscopy on glycerol},
@@ -2706,7 +2833,7 @@
 @Art{LuGr04, a={Luo,W and Gross,K J},
                    j=JACmp, v=385, p=224, y=2004 }
 @Art{LuVH10, a={Lusceac,S A and Vogel,M R and Herbers,C R},
-                   j=bba, v=1804, p=41, y=2010, x="H2O+prot.nmr" }
+                   j=bba, v=1804, p=41, y=2010, x="H2O+prot.nmr"}
 @Art{LyHH60, a={Lynch,F J and Holland,R E and Hamermesh,M},
                    j=pr, v=120, p=513, y=1960, x="nrs theory", c="C"}
 
@@ -2735,29 +2862,17 @@
                    f={Plenum}, l={New York}, y=1985, c="C"}
 @Art{MaSu90, a={Madden,P A and O'Sullivan,K},
                    j=jpCM, v=2, p={SA257}, y=1990, x="LStrg", c="C"}
+@Buk{MaNT04, a={Madsen,K and Nielsen,H B and Tingleff},
+                   t={Methods for non-linear least squares problems.
+                      \url{http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3215}},
+                   en=2, y=2004, f={Technical University of Denmark}, x="LM"}
 @Art{MaYY02, a={Madokoro,Y and Yamamuro,O and Yamasaki,H and Matsuo,T and
                 Tsukushi,I and Kamiyama,T and Ikeda,S},
-                   j=jcp, v=116, p=5673, y=2002, x="LiCl:H2O.cal,nsc" }
-@Art{MaMM08, a={Magaz\`u,S and Maisano,G and Migliardo,F and Galli,G and
-                Benedetto,A and Morineau,D and Affouard,F and Descamps,M},
-                j=jcp, v=129, p=155103, y=2008, x="[cmz]" }
-@Art{MaMM09, a={Magaz\`u,S and Maisano,G and Migliardo,F and Benedetto,A},
-                   j=prE, v=79, p=041915, y=2009, x="[cmz]" }
-@Art{MaMM10x,a={Magaz\`u,S and Maisano,G and Migliardo,F and Benedetto,A},
-                   j=bba, v=1804, p=49, y=2010, x="[cmz]" }
-@Art{MaMB10y,a={Magaz\`u,S and Migliardo,F and Benedetto,A},
-                   j=jpcB, v=14, p=9268, y=2010, x="[cmz]" }
-@Art{MaMB11x,a={Magaz\`u,S and Migliardo,F and Benedetto,A},
-                   j=jpcB, v=115, p=7736, y=2011, x="[cmz]" }
-@Art{MaMB11y,a={Magaz\`u,S and Migliardo,F and Benedetto,A},
-                   j=rsi, v=82, p=105115, y=2011, x="[cmz]" }
-@Art{MaMB11z,a={Magaz\`u,S and Migliardo,F and Benedetto,A and
-                   Mondelli,C and Gonzalez,M A},
-                   j=jncs, v=357, p=664, y=2011, x="[cmz]" }
+                   j=jcp, v=116, p=5673, y=2002, x="LiCl:H2O.cal,nsc"}
 @Art{MaRa99, a={Maier,B and R\"adler,J},
                    j=prl, v=82, p=1911, y=1999, x="dna.2d", c="C"}
 @Art{Mai66,  a={Maier-Leibnitz,H}, j={Nukleonik}, v=8, p=61,
-                   y=1966, x="bsc" }
+                   y=1966, x="bsc"}
 @Art{MaMM93, a={Majolino,D and Mallamace,F and Migliardo,P and
 		  Aliotta,F and Micali,N and Vasi,C},
                    j=prE, v=47, p=2669, y=1993, x="H2O.LStrg", c="C"}
@@ -2773,31 +2888,35 @@
 @Art{MaBC06, a={Mallamace,F and Broccio,M and Corsaro,C and Faraone,A and Liu,L
                 and Mou,C-Y and Chen,S-H},
                    j=jpCM, v=18, p={S2285}, y=2006,
-                   x="NMR pro FSC, criticized by NaGM12 p.7: unreliable" }
+                   x="NMR pro FSC, criticized by NaGM12 p.7: unreliable"}
 @Art{MaBC10, a={Mallamace,F and Branca,C and Corsaro,C and Leone,N and
                 Spooren,J and Stanley,H E and Chen,S-H},
                    j=jpcB, v=113, p=1870, y=2010,
-                   x="NMR pro FSC, criticized by NaGM12 p.7: unreliable" }
+                   x="NMR pro FSC, criticized by NaGM12 p.7: unreliable"}
+@Art{MaBC06, a={Mamontov,E and Burnham,C J and Chen,S-H and Moravsky,A P and
+                Loong,C-K and de Souza,N R and Kolesnikov,A I},
+		   j=jcp, v=124, p=194703, y=2006,
+		   x="H2O:nanotubes.HFBS => FST@218K for 14\AA, but not for 16"}
 @Art{MaWV08a,a={Mamontov,E and Wesolowski,D J and Vlcek,L and Cummings,P T and
                 Rosenqvist,J and Wang,W and Cole,D R},
-                   j=jpcC, v=112, p=12334, y=2008, x="FST" }
+                   j=jpcC, v=112, p=12334, y=2008, x="FST"}
 @Art{MaCD08b,a={Mamontov,E and Cole,D R and Dai,S and Pawel,M D and Liang,C D
                 and Jenkins,T and Gasparovic,G and Kintzel,E},
-                   j=cp, v=352, p=117, y=2008, x="LiCl:H2O.pores.bsc" }
+                   j=cp, v=352, p=117, y=2008, x="LiCl:H2O.pores.bsc"}
 @Art{Mam09,  a={Mamontov,E},
-                   j=jpcB, v=113, p=14073, y=2009, x="LiCl:H2O" }
+                   j=jpcB, v=113, p=14073, y=2009, x="LiCl:H2O"}
 @Art{MaFH10, a={Mamontov,E and Faraone,A and Hagaman,E W and Han,K S and
                    Fratini,E}, j=jpcB, v=114, p=16737, y=2010,
-                   x="LiCl:H2O.nse" }
+                   x="LiCl:H2O.nse"}
 @Art{MaCh12, a={Mamontov,E and Chu,X-q},
-                   j=pccp, v=14, p=11573, y=2012, x="prot,LiCl" }
+                   j=pccp, v=14, p=11573, y=2012, x="prot,LiCl"}
 @Art{MaDF12, a={Mamontov,E and others},
                    j=jpCM, y=2012, x="LiCl:H2O.XBrill",
-                   c="printing failed" }
+                   c="printing failed"}
 @Art{Man63,  a={Mandelbrot,B B},
                    j={J. Bus. Univ. Chikago}, v=36, p=394, y=1963, x="", c="C"}
 @Art{MaMa98, a={Mandelkow,E M and Mandelkow,E}, j={Trends Cell Biol.},
-                   v=8, p=425, y=1998, x="Gallat->IDP:tau" }
+                   v=8, p=425, y=1998, x="Gallat->IDP:tau"}
 @Art{Man95,  a={Mansfield,M L},
                    j=jcp, v=103, p=8124, y=1995, x="G-th", c="C"}
 @Art{MaCB89, a={Maraldi,M and Celli,M and Barocchi,F},
@@ -2805,14 +2924,14 @@
 @Art{MaTo99, a={March,N H and Tosi,M P},
                    j=prE, v=60, p=2402, y=1999, x="SE", c="C"}
 @Art{MaCO08, a={Marconi,M and Cornicchi,E and Onori,G and Paciaroni,A},
-                   j=cp, v=345, p=224, x="lyso.nsc" }
+                   j=cp, v=345, p=224, x="lyso.nsc"}
 @Art{MaZM94, a={Marinov,M and Zotov,N and Mihailova,B and Nikolov,J
 		and Konstantinov,L},
                    j=jpCM, v=6, p=3813, y=1994, x="LStrg", c="C"}
 @Art{MaBL51, a={Markham,J J and Bayer,R T and Lindsay,R B L},
                    j=rmp, v=23, p={353???}, y=1951, x="liq.lsc"}
 @Art{Mar63,  a={Marquardt,D W},
-                   j=siamjam, v=11, p=431, y=1963, x="lmfit" }
+                   j=siamjam, v=11, p=431, y=1963, x="lmfit"}
 @Art{MaSt61, a={Marshall,W and Stuart,R},
                    j={IEEE -- Inelastic Neutron Scattering}, p=75,
 		   y=1961, x="nsc.phon", c="C"}
@@ -2856,20 +2975,20 @@
 @Art{MaWe95b,a={Mason,T G and Weitz,D A},
                    j=prl, v=75, p=2770, y=1995, x="coll.rheo", c="C"}
 @Art{MaQH08, a={Mattea,C and Qvist,J and Halle,B},
-                   j=bpj, v=95, p=2951, y=2008, x="prot<Gallat" }
+                   j=bpj, v=95, p=2951, y=2008, x="prot<Gallat"}
 @Art{MaJS90, a={Matuszewski,J and Jakubas,R and Sobczyk,L and G{\l}owiak,T},
-                   j=axC, v=46, p=1385, y=1990, x="MAPBB" }
+                   j=axC, v=46, p=1385, y=1990, x="MAPBB"}
 @Art{MaDJ98a,a={Maurin,P O and Dalmas de R\'eotier,P and Jal,J F and
                 Dupuy-Philon,J},
-                   j=cp, v=229, p=285, y=1998, x="LiCl:H2O.myon" }
+                   j=cp, v=229, p=285, y=1998, x="LiCl:H2O.myon"}
 @Art{Mau98b, a={Maurin,P O},
-                   j=jcp, v=109, p=10936, y=1998, x="LiCl:H2O.reanalysis" }
+                   j=jcp, v=109, p=10936, y=1998, x="LiCl:H2O.reanalysis"}
 @Art{Max67,  a={Maxwell,J C}, j=ptrs, v=157, p=49, y=1867, x="visc"}
 @Art{MaRS90, a={Mayer,J and Rachwalska,M and \'Sciesi\'nska,E and
                 \'Sciesi\'nski,J},
-                   j=jpF, v=51, p=857, y=1990, x="cy6" }
+                   j=jpF, v=51, p=857, y=1990, x="cy6"}
 @Art{MaZA08, a={Mayer,S and Zsigmond,G and Allenspach,P},
-                   j=nimA, v=586, p=110, y=2008, x="bsc:pst" }
+                   j=nimA, v=586, p=110, y=2008, x="bsc:pst"}
 @Buk{Maz02,  a={Mazo,R M}, t={Brownian Motion.
                    Fluctuations, Dynamics, and Applications},
                    f={Oxford University Press}, l={Oxford}, y=2002 }
@@ -2891,7 +3010,7 @@
 @Art{MeGB91, a={Meier,G and Gerharz,B and Boese,D and Fischer,E W},
                    j=jcp, v=94, p=3050, y=1991, x="newglass.die"}
 @Art{MeBG08, a={Meier,S and Blackledge,M and Grzesiek,S},
-                   j=jcp, v=128, p=052204, y=2008, x="Gallat->IDP:NMR,struct" }
+                   j=jcp, v=128, p=052204, y=2008, x="Gallat->IDP:NMR,struct"}
 @Art{MeMS60, a={Meister,R and Marhoeffer,C J and Sciamanda,R and
 		  Cotter,L and Litovitz,T},
                    j=jap, v=31, p=854, y=1960, x="gly.mech"}
@@ -2916,7 +3035,7 @@
                    j=jncs, v=305, p=81, pf=87, y=2002,
                    t={From stretched exponential to inverse power-law: fractional dynamics, Cole–Cole relaxation processes, and beyond},
                    doi={10.1016/S0022-3093(02)01124-9},
-                   x="kww" }
+                   x="kww"}
 @Art{MeWP96a,a={Meyer,A and Wuttke,J and Petry,W and Peker,A and Bormann,R and
 		Coddens,G and Kranich,L and Randl,O G and Schober,H},
                    j=prB, y=1996, v=53, p=12107, x="metg.snc;bsc:311", c="Z8"}
@@ -2938,7 +3057,7 @@
 @Art{MeBS99b,a={Meyer,A and Busch,R and Schober,H},
                    j=prl, v=83, p=5027, y=1999, x="metg.nsc", c="C"}
 @Art{MeDG03, a={Meyer,A and Dimeo,R M and Gehring,P M and Neumann,D A},
-                   j=rsi, v=74, p=2759, y=2003, x="bsc"}
+                   j=rsi, v=74, p=2759, pf=2777, y=2003, x="bsc"}
 @Art{MePa99, a={M\'ezard,M and Parisi,G},
                    j=prl, v=82, p=747, y=1999, x="g.thdyn", c="C"}
 @Art{Mez72,  a={Mezei,F}, j=zp, v=255, p=146, y=1972, x="nse", c="C"}
@@ -2979,19 +3098,23 @@
                    j=jcp, v=106, p=3393, y=1997, x="gly.stim-lsc", c="-"}
 @Buk{MiDa53, e={Miner,C S and Dalton,N N}, t={Glycerol},
                    f={Reinhold}, l={New York}, y=1953, x="gly"}
+@Art{MiRA04a,a={Minoguchi,A and Richert,R and Angell,C A},
+                   j=prl, v=93, p=215703, y=2004, x="H2O.fragility"}
+@Art{MiRA04b,a={Minoguchi,A and Richert,R and Angell,C A},
+                    j=jpcB, v=108, p=19825, x="H2O.fragility"}
 @Art{MiKS98, a={Mirzaev,S Z and Khabibullaev,P K and Saidov,A A and
                 Kononenko,V S and Shinder,I I},
-                   j=jasa, v=104, p=585, y=1998, x="cy6" }
+                   j=jasa, v=104, p=585, y=1998, x="cy6"}
 @Art{MiCW85, a={Mishima,O and Calvert,L D and Whalley,E},
-                   j=nat, v=314, p=76, y=1985, x="H2O" }
+                   j=nat, v=314, p=76, y=1985, x="H2O"}
 @Art{MiSt98, a={Mishima,O, Stanley,H E},
-                   j=nat, v=396, p=329, y=1998, x="H2O" }
+                   j=nat, v=396, p=329, y=1998, x="H2O"}
 @Art{Mis00,  a={Mishima,O},
                    j=prl, v=85, p=334, y=2000, x="D20.Phasen", c="C"}
 @Art{Mis11,  a={Mishima,O},
-                   j=jpcB, v=115, p=14064, y=2011, x="LiCl.melting" }
+                   j=jpcB, v=115, p=14064, y=2011, x="LiCl.melting"}
 @Art{MiFO96, a={Mizukami,M and Fujimori,H and Oguni,M},
-                   j=ssc, v=100, p=83, y=1996, x="cy6" }
+                   j=ssc, v=100, p=83, y=1996, x="cy6"}
 @Art{MoHS87, a={Mock,R and Hillebrands,B and Sandercock,R},
                    j=jpEsi, v=20, p=656, y=1987, x="fpi", c="C"}
 @Art{MoMR98, a={Monaco,G and Masciovecchio,C and Ruocco,G and Sette,F},
@@ -3011,7 +3134,7 @@
 @Art{Mon97,  a={Monkenbusch,M},
                    j=nn, v=8, p=25, y=1997, x="nse", c="C"}
 @Art{MoDP02, a={Monnin,C and Dubois,M and Papaiconomou,N and Simonin,J-P},
-                   j=jced, v=47, p=1331, y=2002, x="LiCl:H2O.Thermodyn" }
+                   j=jced, v=47, p=1331, y=2002, x="LiCl:H2O.Thermodyn"}
 @Art{MoRV99, a={Montagna,M and Ruocco,G and Viliani,G and others},
                    j=prl, v=83, p=3450, y=1999, x="1di.sqw", c="C"}
 @Art{MoDC84, a={Montague,D G and Dore,J C and Cummings,S},
@@ -3029,29 +3152,29 @@
 @Art{MoLB91, a={Montrose,C J and Litovitz T A and Birnbaum,G and Mennnella,R},
                    j=jncs, v={131--133}, p=177, y=1991, x="viscoel.", c="C"}
 @Art{MoBB71a,a={Moynihan,C T and Balitactac,N and Boone,L and Litovitz,T A},
-                   j=jcp, v=55, p=3013, y=1971, x="LiCl:H2O?" }
+                   j=jcp, v=55, p=3013, y=1971, x="LiCl:H2O?"}
 @Art{MoBA71b,a={Moynihan,C T and Bressel,R D and Angell,C A},
-                   j=jcp, v=55, p=4414, y=1971, x="LiCl:H2O?" }
+                   j=jcp, v=55, p=4414, y=1971, x="LiCl:H2O?"}
 @Buk{MoDC91, a={Moore,J H and Davis,C C and Coplan,M A},
                    t={Building Scientific Apparatus}, f={Perseus},
 		   l={Reading, Mass.}, en=2, y=1988}
 @Art{MoCB89, a={Moraldi,M and Celli,M and Barocchi,F},
                    j=prA, v=40, p=1116, y=1989, x="lsc.cis"}
 @Art{Mor56,  a={Moran,H E},
-                   j=jpc, v=60, p=1666, y=1956, x="LiCl:H2O.supercooling" }
+                   j=jpc, v=60, p=1666, y=1956, x="LiCl:H2O.supercooling"}
 @iCo{Mor78,  a={Mor\'e,J J},
                    e={Watson,G A},
                    b={Numerical Analysis. Proceedings of the Biennial
                       Conference Held at Dundee, June 28 -- July 1, 1977.},
                    s={Lecture Notes in Mathematics 630},
-                   f={Springer}, l={Berlin}, y=1978, pi=105, pf=116 }
+                   f={Springer}, l={Berlin}, y=1978, p=105, pf=116 }
 @Any{MoGH80, a={Mor\'e,J J and Garbow,B S and Hillstrom,K E},
                    t={User Guide for MINPACK--1.
                       Argonne National Laboratory, report ANL-80-74.
                       \url{http://www.mcs.anl.gov/~more/ANL8074b.pdf}},
                    y=1980 }
 @Art{MoGH81, a={Mor\'e,J J and Garbow,B S and Hillstrom,K E},
-                   j=toms, v=7, p=17, pf=41, y=1981, x="lmfit.testing" }
+                   j=toms, v=7, p=17, pf=41, y=1981, x="lmfit.testing"}
 @Art{MoSu01, a={Mori,M and Sugihara,M},
                    j=jcam, v=127, y=2001, p=287, pf=296, x="kww", c="p09",
                    t={The double-exponential transformation in numerical
@@ -3079,21 +3202,29 @@
 @Art{Mos58,  a={M\"o\ss bauer,R L},
                    j=zp, v=151, p=124, y=1958, x="mb", c="C"}
 @Art{Mos55,  a={Mossop,S C},
-                   j=ppsB, v=68, p=193, y=1955, x="H2O.supercool,capillaries" }
+                   j=ppsB, v=68, p=193, y=1955, x="H2O.supercool,capillaries"}
 @Art{Mou66a, a={Mountain,R D}, t={Spectral Distribution of Scattered Light in
                    a Simple Fluid}, j=rmp, v=38, p=205, pf=214,
                    y=1966, x="lsc.liq", c="C"}
 @Art{Mou66b, a={Mountain,R D}, t={Thermal Relaxation and Brillouin Scattering
                    in Liquids}, j=jrNBS, v={70A}, p=207, pf=220,
                    y=1966, x="lsc.liq"}
+@Art{MoUl14, a={Moyano-Fern\'andez,J J and Uliczka,J},
+                   j={Semigroup Forum},
+                   t={Lattice paths with given number of turns and semimodules
+                      over numerical semigroups}, y=2014,
+                   p={doi:10.1007/s00233-013-9559-7}, x={crw} }
 @Art{MoLA05, a={Moys\'es Ara\'ujo,C and Li,S and Ahuja,R and Jena,P},
                    j=prB, v=72, p=165101, y=2005 }
 @Art{MuCe10, a={Mueller,T and Ceder,G},
                    j={ACS Nano}, v=4, p=5647, y=2010 }
 @Art{MuBr70, a={de Mul,F F and Bregman,J D},
-                   j=pl, v={33A}, p=87, y=1970, x="cy6" }
+                   j=pl, v={33A}, p=87, y=1970, x="cy6"}
 @Art{Mur00,  a={Murakami,H},
                    j=jml, y={subm 2000}, x="gly.fluorescence", c="R18"}
+@Art{MuKS01, a={Murata,K and Kaneko,K and Steele,W A and Kokai,F and
+                Takahashi,K and Kasuya,D and Yudasaka,M and Iijima,S},
+                   j=nl, v=1, p=197, pf=199, y=2001, x="Nanohorns"}
 @Art{MuNa93, a={Murthy,S S N and Nayak,S K},
                    j=jcp, v=99, p=5362, y=1993, x="die", c="C"}
 
@@ -3105,7 +3236,7 @@
                      in the folding simulation of an off-lattice Go-like
                      protein model} }
 @Art{NaGM12, a={Nakanashi,M and Griffin,P and Mamontov,E and Sokolov,A P},
-                   j=jcp, v=136, p=124512, c="LiCl.diel,lsc" }
+                   j=jcp, v=136, p=124512, c="LiCl.diel,lsc"}
 @Art{NaYO94, a={Nakayama,T and Yakubo,K and Orbach,R L},
                    j=rmp, v=66, p=381, y=1994, x="frakt.rev", c="C"}
 @Art{NaEM87, a={Naoki,M and Endou,H and Matsumoto,K},
@@ -3125,9 +3256,9 @@
 @Buk{New68,  a={Newman,A A}, t={Glycerol},
                    f={Morgan Grampian}, y=1968, x="gly"}
 @Art{NeSe65, a={Newmark,R A and Sederholm,C H},
-             j=jcp, v=43, p=602, y=1965, x="freon" }
+             j=jcp, v=43, p=602, y=1965, x="freon"}
 @Art{NeGr68, a={Newmark,R A and Graves,R E},
-             j=jpc, v=72, p=4299, y=1968, x="freon" }
+             j=jpc, v=72, p=4299, y=1968, x="freon"}
 @Art{Nga79,  a={Ngai,K L},
                    j=cssp, v=9, p=127, y=1979, x="g"}
 @Art{Nga80,  a={Ngai,K L},
@@ -3174,7 +3305,7 @@
 @Art{NiNH12, a={Nickels,J D and O'Neill,H and Hong,L and Tyagi,M and Ehlers,G
                 and Weiss,K L and Zhang,Q and Yi,Z and Mamontov,E and
                 Smith,J C and Sokolov,A P},
-                   j=bpj, v=103, p=1566, y=2012, x="d-prot(GFP).nsc" }
+                   j=bpj, v=103, p=1566, y=2012, x="d-prot(GFP).nsc"}
 @Art{NiPD99, a={Nicolai,T and Prochazka,F and Durand,D},
                    j=prl, v=82, p=863, y=1999, x="pym", c="C"}
 @Art{NiFP91, a={Nienhaus,G U and Frauenfelder,H and Parak,F},
@@ -3225,7 +3356,7 @@
 @Art{OlHL92, a={Oliver,W F and Herbst,C A and Lindsay,S M and Wolf,G H},
                    j=rsi, v=63, p=1884, y=1992, x="LStrg.Instr"}
 @Art{OlMD10, a={Ollivier,J and Mutka,H and Didier,L},
-                   j=nn, v=21, p=22, y=2010, x="IN5 [cmz]" }
+                   j=nn, v=21, p=22, y=2010, x="IN5 [cmz]"}
 @Art{OnMK70, a={Onogi,S and Masuda,T and Kitagawa,K},
                    j=mam, v=3, p=109, y=1970 }
 @Art{OoMo91, a={Ooura,T and Mori,M},
@@ -3242,7 +3373,7 @@
                    Jensen,C M},
                    j=crv, v=107, p=4111, y=2007 }
 @Art{OsWP00, a={Ostermann,A and Waschipky,R and Parak,F G and Nienhaus,G U},
-                   j=nat, v=404, p=205, y=2000, x="myo.X,IR,photolyse" }
+                   j=nat, v=404, p=205, y=2000, x="myo.X,IR,photolyse"}
 
 %:p
 
@@ -3251,17 +3382,17 @@
 @Art{PaBC99, a={Paciaroni,A and Bizzarri,A R and Cannistrano,S},
                    j=prE, v=60, p=2476, y=1999, x="bio.H2O.bopik", c="C"}
 @Art{PaCC05, a={Paciaroni,A and Cinelli,S and Cornicchi,E and De Francesco,A
-                and Onori,G}, j=cpl, v=410, p=400, x="PDT:h-dep" }
+                and Onori,G}, j=cpl, v=410, p=400, x="PDT:h-dep"}
 @Art{PaOC08, a={Paciaroni,A and Orecchini,A and Cornicchi,E and Marconi,M and
                 Petrillo,C and Haertlein,M and Moulin,M and Schober,H and
                 Tarek,M and Sacchetti,F},
-                   j=prl, v=101, p=148104, y=2008, x="MBP.nsc" }
+                   j=prl, v=101, p=148104, y=2008, x="MBP.nsc"}
 @Art{PaCu86, a={Page,J H and McCulloch,R D},
                    j=prl, v=57, p=1324, y=1986, x="meso.uschall", c="C"}
 @Art{PaPR00, a={Pagnani,A and Parisi,G and Ricci-Tersenghi,F},
                    j=prl, v=84, p=2026, y=2000, x="rna.g-state.replica", c="C"}
 @Art{PaCA10, a={Pagnotta,S E and Cerveny,S and Alegr\'ia,A and Colmenero,J},
-                   j=pccp, v=12, p=10512, y=2010, x="tripeptid.diel" }
+                   j=pccp, v=12, p=10512, y=2010, x="tripeptid.diel"}
 @Art{PaFF97, a={Pahl,S and Fleischer,G and Fujara,F and Geil,B},
                    j=mam, v=30, p=1414, y=1997, x="pym.nmr", c="C"}
 @Art{PaSA84, a={Palmer,R G and Stein,D and Abrahams,E and Anderson,P W},
@@ -3280,21 +3411,21 @@
 @Art{PaNe00, a={Paolucci,D M and Nelson,K A},
                    j=jcp, y=2000, x="gly.ists", c="R12"}
 @Art{PaKK82, a={Parak,F and Knapp,E W and Kucheida,D},
-                   j=jmb, v=161, p=177, y=1982, x="myo" }
+                   j=jmb, v=161, p=177, y=1982, x="myo"}
 @Art{PaHN88, a={Parak,F and Heidemeier,J and Nienhaus,G U},
                    j=hfi, v=40, p=147, y=1988, x="bio.myo.mosb"}
 @Art{PaLL06, a={Pardo,L C and Lunkenheimer,P and Loidl,A},
-             j=jcp, v=124, p=124911, x="freon" }
+                   j=jcp, v=124, p=124911, x="freon"}
 @Art{PaBT07, a={Pardo,L C and Bermejo,F J and Tamarit,J Ll and Cuello,G J and
                 Lunkenheimer,P and Loidl,A},
-             j=jncs, v=353, p=999, x="freon" }
+                   j=jncs, v=353, p=999, x="freon"}
 @Art{PaGi29, a={Parks,G S and Gilkey,W A},
                    j=jcp, v=33, p=1428, y=1929, x="gly.vis"}
-@Art{Parr54, a={Parratt, L G}, 
-                  j=pre,v=95, p=359,y=1954}
+@Art{Par54,  a={Parratt, L G}, 
+                  j=pr, v=95, p=359, y=1954, x="refl"}
 @Art{PaKl06, a={P\'atek,J and Klomfar,J},
                    j={Fluid Phase Equilib.}, v=250, p=138, y=2006,
-                   x="LiCl.melting" }
+                   x="LiCl.melting"}
 @Art{PaSM94, a={Patkowski,A and Steffen,W and Meier,G and Fischer,E W},
                    j=jncs, v={172-174}, p=52, y=1994, x="otp.lsc", c="P"}
 @Art{PaSN97, a={Patkowski,A and Steffen,W and Nilgens,H and Fischer,E W
@@ -3312,24 +3443,26 @@
 @Art{PaRP91, a={Pavlatou,E A and Rizos,A K and Papatheodorou,G N and Fytas,G},
                    j=jcp, v=94, p=224, y=1991, x="CKN.LStrg", c="C"}
 @Art{PaKS08, a={Pawlus,S and Khodadadi,S and Sokolov,A P},
-                   j=prl, v=100, p=108103, y=2008, x="FST" }
-@Art{Pede94, a={Pedersen,J K},
-                   t={Determination of size distributions from small-angle scattering data for systems with effective hard sphere interactions},
-                   j=jax, v=27, p=595, y=1994}
+                   j=prl, v=100, p=108103, y=2008, x="FST"}
+@Art{Ped94,  a={Pedersen,J K},
+                   t={Determination of size distributions from small-angle
+		      scattering data for systems
+		      with effective hard sphere interactions},
+                   j=jax, v=27, p=595, y=1994, x="sans"}
 @Art{PeJo93, a={Peker,A and Johnson,W L},
                    j=apl, v=63, p=2342, y=1993, x="xxx"}
 @Art{PeVa76, a={Pelous,J and Vacher,R},
                    j=ssc, v=18, p=657, y=1976, x="SiO2.hoch-T.BrStrg", c="C"}
 @Art{PeVB80, a={Pelous,J and Vacher,R and Bonnet,J P and Ribet,J L},
-                   j=pl, v={78A}, p=195, y=1980, x="cy6" }
+                   j=pl, v={78A}, p=195, y=1980, x="cy6"}
 @Art{PeHa98, a={Perera,D N and Harrowell,P},
                    j=prl, v=81, p=120, y=1998, x="2d.Sim.Entkopplg", c="C"}
 @Art{PeKn84, a={Perkins,R T and Knight,L V},
-                   j=axA, v=40, p=617, y=1984, x="bragg" }
+                   j=axA, v=40, p=617, y=1984, x="bragg"}
 @Art{PeVC99, a={Perova,T S and Vij,J K and Christensen,D H and Nielsen,O F},
                    j=jms, v=479, p=111, y=1999, x="otp.raman", c="C"}
 @Art{PeWy71, a={Pethrick,R A and Wyn-Jones,E},
-                   j={J.~Chem.\ Soc.~(A)}, p=54, y=1971, x="freon" } % no vol.!
+                   j={J.~Chem.\ Soc.~(A)}, p=54, y=1971, x="freon"} % no vol.!
 @Art{PeSS67, a={Peticolas,W L and Stegemann,G I A and Stoicheff,B P},
                    j=prl, v=18, p=112, y=1967, x="Pym.LStrg", c="C"}
 @Art{PeKS89, a={Petry,W and Kiebel,M and Sillescu,H},
@@ -3402,9 +3535,9 @@
 @Art{PoEn88, a={Polatsek,G and Entin-Wohlman,O},
                    j=prB, v=37, p=7726, y=1988, x="th", c="C"}
 @Art{PoSE92, a={Poole,P H and Sciortino,F and Essmann,U and Stanley,H E},
-                   j=nat, v=360, p=324, y=1992, x="H2O" }
+                   j=nat, v=360, p=324, y=1992, x="H2O"}
 @Art{PoYe95, a={Popovici,M and Yelon,W B},
-                   j=jnr, v=3, p=1, y=1995, x="mosaic" }
+                   j=jnr, v=3, p=1, y=1995, x="mosaic"}
 @Art{PoLi76, a={Posch,H A and Litovitz,T A},
                    j=mop, v=32, p=1559, y=1976, x="lsc.cis"}
 @Art{PoDL77, a={Posch,H A and Dardy,H D and Litovitz,T A},
@@ -3418,15 +3551,15 @@
 @iCo{Pow70,  a={Powell,M J D},
                    e={Rabinowitz,P},
                    b={Numerical Methods for Nonlinear Algebraic Equations},
-                   f={Gordon and Breach}, l={New York}, y=1970, x="lmfit" }
+                   f={Gordon and Breach}, l={New York}, y=1970, x="lmfit"}
 @Art{PrPA77, a={Prager,M and Press,W and Alefeld,B and H\"uller,A},
-                   j=jcp, v=67, p=5126, y=1977, x="nbs:fixed-window method" }
+                   j=jcp, v=67, p=5126, y=1977, x="nbs:fixed-window method"}
 @Art{PrRS83, a={Prager,M and Raaen,A M and Svare,I},
                    j=jpC, v=16, p={L181}, y=1983, c="AmPdCl"}
 @Art{PrPH84, a={Prager,M and Press,W and Heidemann,A and Vettier,C},
-                   j=jcp, v=80, p=2777, y=1984, x="NH4-tunneling in AmPdCl" }
+                   j=jcp, v=80, p=2777, y=1984, x="NH4-tunneling in AmPdCl"}
 @Art{PrHe97, a={Prager,M and Heidemann,A},
-                   j=crv, v=97, p=2933, y=1997, c="rot" }
+                   j=crv, v=97, p=2933, y=1997, c="rot"}
 @Art{PrSJ99, a={Prager,M and Schiebel,P and Johnson,M and Grimm,H and
                 Hagdorn,H and Ihringer,J and Prandl,W and Lalowicz,Z},
                    j=jpCM, v=11, p=5483, y=1999, c={"PdAmCl"}}
@@ -3444,19 +3577,21 @@
                    s={Springer tracts in modern physics 92} }
 @Art{PrDJ94, a={Pr\'evel,B and Dupuy-Philon,J and Jal,J F and Legrand,J F and
                 Chieux,P},
-                   j=jpCM, v=6, p=1279, y=1994, x="LiCl:H2O.NSE" }
+                   j=jpCM, v=6, p=1279, y=1994, x="LiCl:H2O.NSE"}
 @Art{PrJD95, a={Pr\'evel,B and Jal,J F and Dupuy-Philon,J and Soper,A K},
-                   jj=jcp, v=103, p={1886(?)}, y=1995, x="LiCl:H2O.ndiffr" }
+                   jj=jcp, v=103, p={1886(?)}, y=1995, x="LiCl:H2O.ndiffr"}
 @iCo{PrSk86, a={Price,D L and Sk\"old,K},
 		   t={Introduction to Neutron Scattering},
                    e={Sk\"old,K and Price,D L}, b={Neutron Scattering},
                    s={Methods of Experimental Physics, Vol.~23, Part~A},
                    f={Academic}, l={Orlando}, y=1986, x="nsc"}
+@Art{PrIA99, a={Price,W S and Ide,H and Arata,Y},
+                   j=jpcA, v=103, p=448, pf=450, y=1999, x="H2O.nmr"}
 @Art{Pri80,  a={Privelko,V P},
                    j=jpc, v=84, p=3307, y=1980, x="Tg", c="C"}
 @Rem{PrKK05, t={U.~Probst, H.~K\"ammerling, T.~Kozielewski,
                 H.~Straatmann, P.~Rottl\"ander, T.~Koppitz,
-                European Patent EP 1706876 (2005).}, x="bsc:SPH" }
+                European Patent EP 1706876 (2005).}, x="bsc:SPH"}
 @Art{Pro82,  a={Provencher,S W},
                    j=cpc, v=27, p=213, y=1982, x="CONTIN", c="C"}
 @Art{PuMe86, a={Pusey,P N and van Megen, W},
@@ -3473,21 +3608,25 @@
 		  Zimmermann,H},
                    j=cpl, v=328, p=257, y=2000, x="ppc,tol.nmr", c="C"}
 @Art{QvSH11, a={Qvist,J and Schober,H and Halle,B},
-                   j=jcp, v=134, p=144508, y=2011, x="H2O.nsc,sim" }
+                   j=jcp, v=134, p=144508, y=2011, x="H2O.nsc,sim"}
 @Art{QvOT12, a={Qvist,J and Ortega,G and Tadeo,X and Millet,O and Halle,B},
-                   j=jpcB, v=116, p=3436, y=2012, x="prot<Gallat" }
+                   j=jpcB, v=116, p=3436, y=2012, x="prot<Gallat"}
 
 %:r
 
 @Art{RaMJ60, a={Rabinovich,I B and Murzin,V I and Zhilkin,L S},
                    j={Zhurn.\ fizich.\ khim.},
                    v=34, p=1973, y=1960, x="gly.visc"}
+@Art{Rad00,  a={Radoux,C},
+                   t={Addition formulas for polynomials built on classical
+                      combinatorial sequences},
+                   j=jcam, v=115, p=471, pf=477, y=2000, x="Catalan"}
 @Art{RaGo86, a={de Raedt,H and G\"otze,W},
                    j=jpiii, v=19, p=2607, y=1986, x="mkt", c="C"}
 @Art{RaEu99, a={Rah,K and Eu,B C},
                    j=prl, v=83, p=4566, y=1999, x="se.th", c="C"}
 @Art{RaSS62, a={Rahman,A and Singwi,K S and Sj\"olander,A},
-                   j=pr, v=126, p=986, y=1962, x="nsc.diff.theo" }
+                   j=pr, v=126, p=986, y=1962, x="nsc.diff.theo"}
 @Art{RaRa93, a={Rajeswari,M and Raychaudhuri,A K},
                    j=prB, v=47, p=3036, y=1993, x="gly.cp"}
 @TDp{Ram94,  a={Rambousky, R}, u={Universit\"at Augsburg}, y=1994, x="ZrAlCu"}
@@ -3513,9 +3652,11 @@
                    j=cpl, v=182, p=371, y=1991, x="s-lsc", c="C"}
 @Art{RaBi94, a={Ray,P and Binder,K},
                    j=epl, v=27, p=53, y=1994, x="pym.sim"}
-@Art{Raus95, a={Rauscher, M and Salditt, T and Sphon, H},
-                   t={Small-angle x-ray scattering under grazing incidence: the cross section in the distorted-wave Born approximation},
-                   j=prb, v=52, p=16855, y=1995}
+@Art{RaSS95, a={Rauscher,M and Salditt,T and Spohn,H},
+                   t={Small-angle x-ray scattering under grazing incidence:
+		      the cross section in the distorted-wave
+		      Born approximation},
+                   j=prB, v=52, p=16855, y=1995, x="gisas"}
 @Art{Ray89,  a={Raychaudhuri,A K},
                    j=prB, v=39, p=1927, y=1989, x="th-cond.th", c="C"}
 @Buk{RaySe2, a={{Lord~Rayleigh}}, t={The Theory of Sound},
@@ -3526,9 +3667,10 @@
 @Art{Ray81,  a={{Lord~Rayleigh}}, t={On the Electromagnetic Theory of Light},
                    j={Phil.\ Mag.\ (5)}, v=12, p=81, pf=101,
                    y=1881, x="lsc"}
-@Art{ReLa09, a={Renaud, G and Lazzari, R and Leroy, F},
-                  t ={Probing surface and interface morphology with grazing incidence small angle x-ray scattering},
-                  j={Surface Science Reports}, v=64, p=255, y=2009}
+@Art{ReLL09, a={Renaud,G and Lazzari,R and Leroy,F},
+                  t ={Probing surface and interface morphology with
+		      grazing incidence small angle x-ray scattering},
+                  j={Surface Science Reports}, v=64, p=255, y=2009, x="gisas"}
 @Unp{Rei84,  a={Reichardt,W},
                    x="nsc.phon", c="C"}
 @Art{ReSo93, a={Ren,S Z and Sorensen,C M},
@@ -3580,7 +3722,7 @@
 @Art{Rit54,  a={Ritland,H N},
                    j=jaces, v=37, p=370, y=1954, x="dT/dt", c="[Jac76]"}
 @Art{RiHW51, a={Ritter,H L and Harris,R L and Wood,R E},
-                   j=jap, v=22, p=169, y=1951, x="absco" }
+                   j=jap, v=22, p=169, y=1951, x="absco"}
 @Art{RiEl68, a={Rizk,H A and Elanwar,I M},
                    j=zpcnf, v=62, p=225, y=1968, x="gly.die", c="C"}
 @Art{Rob89,  a={Robinson,R A}, t={Neutron Brillouin Scattering with Chopper
@@ -3595,10 +3737,10 @@
 @Art{RoNG05, a={Roh,J H and Novikov,V N and Gregory,R B and Curtis,J E and
                 Chowdhuri,Z and Sokolov,A P},
                    j=prl, v=95, p=038101, y=2005,
-                   x="lyso.nsc; follow-up:RoCA96" }
+                   x="lyso.nsc; follow-up:RoCA96"}
 @Art{RoCA06, a={Roh,J H and Curtis,J E and Azzam,S and Novikov,V N and
                    Peral,I and Chowdhuri,Z and Gregory,R B and Sokolov,A P},
-                   j=bpj, v=91, p=2573, y=2006, x="lyso.nsc,lsc,sim" }
+                   j=bpj, v=91, p=2573, y=2006, x="lyso.nsc,lsc,sim"}
 @Art{RoNg95, a={Roland,C M and Ngai,K L},
                    j=jcp, v=103, p=1152, y=1995, x="g.ngai"}
 @Art{RoNg96a,a={Roland,C M and Ngai,K L},
@@ -3633,17 +3775,17 @@
 @Art{RoKP04, a={Rottl\"ander,P and Kozielewski,T and Prager,M and Richter,D},
                    t={Backscattering spectrometer RSSM for the FRM-II reactor
                       in Munich},
-                   y=2004, j=pyB, v=350, p={e823}, pf={e825}, x="bsc" }
+                   y=2004, j=pyB, v=350, p={e823}, pf={e825}, x="bsc"}
 @Buk{RoPB05, a={Rottl\"ander,P and Prager,M and B\"unten,W and Kozielewski,T
                 and Richter,D},
                    t={R\"uckstreuspektrometer f\"ur den FRM-II in M\"unchen.
                       Schlussbericht zum Vorhaben 05NX8CJ1},
                    y={2005}, l={J\"ulich},
-                   f={Institut f\"ur Festk\"orperforschung}, x="bsc:SPH" }
+                   f={Institut f\"ur Festk\"orperforschung}, x="bsc:SPH"}
 @Art{RoSt89, a={Root,L J and Stillinger,F H},
                    j=jcp, v=90, p=1200, y=1989, x="gly.md", c="C"}
 @Art{Rou53,  a={Rouse,P E},
-                   j=jcp, v=21, p=1272, y=1953, x="pym.dyn" }
+                   j=jcp, v=21, p=1272, y=1953, x="pym.dyn"}
 @Art{RoBH89, a={Roux,J N and Barrat,J L and Hansen,J P},
                    j=jpCM, v=1, p=7171, y=1989, x="sSph-mix.MD", c="C"}
 @Art{RoRH79, a={Rowe,J M and Rush,J J and Hinks,D G and Susman,S},
@@ -3683,12 +3825,12 @@
 		Sampoli,M and Scopigno,T and Viliani,G},
                    j=prl, v=84, p=5788, y=2000, x="LJ.sim,", c="C"}
 @Art{RuCa91, a={Rupley,J A and Careri,G}, j={Adv.\ Protein Chem.},
-                   v=41, p=37, y=1991, x="prot<Gallat" }
+                   v=41, p=37, y=1991, x="prot<Gallat"}
 @Art{RuML00, a={Russina,M and Mezei,F and Lechner,R and Longeville,S
 		and Urban,B},
                    j=prl, v=84, p=3630, y=2000, x="crn.nsc", c="C"}
 @Art{RuMC05, a={Russo,D and Murarka,R K and Copley,J R D and Head-Gordon,T},
-                   j=jpcB, v=105, p=12966, y=2005, x="polypept.nsc" }
+                   j=jpcB, v=105, p=12966, y=2005, x="polypept.nsc"}
 @Art{Ryt58a, a={Rytov,S M},
                    j=sjetp, v=6, p=401, y=1958, x="LStrg", c="C"}
 @Art{Ryt58b, a={Rytov,S M},
@@ -3698,8 +3840,14 @@
 
 %:s
 
+@iCo{Sab04,  a={Sabine,T M},
+                   b={International Tables for Crystallography.
+                      Volume C: Mathematical, physical and chemical tables},
+                   e={Prince,E},
+                   p=609, en=3, y=2004,
+		   f={Kluwer Academic}, l={Dordrecht}, x="mosaic", c="C"}
 @Art{SaNe83, a={Saint Paul,M and Neva,R},
-                   j=jpPL, v=44, p=613, y=1983, x="cy6.usa" }
+                   j=jpPL, v=44, p=613, y=1983, x="cy6.usa"}
 @Art{SaGP00, a={Saiz,L and Gu\`ardia,E and Padr\'o,J A},
                    j=jcp, v=113, p=2814, y=2000, x="Eth.die.sim", c="C"}
 @Art{SaNA10, a={Sakaki,K and Nakamura,Y and Akiba,E and Kuba,M T
@@ -3715,19 +3863,19 @@
 @Art{SaCS09, a={Santucci,S C and Comez,L and Scarponi,F and Monaco,G and
                 Verbeni,R and Legrand,J-F and Masciovecchio,C and Gessini,A
                 and Fioretto,D},
-                   j=jcp, v=131, p=154507, y=2009, x="LiCl:H2O:XBrill,PCS" }
+                   j=jcp, v=131, p=154507, y=2009, x="LiCl:H2O:XBrill,PCS"}
 @Art{SaDS98, a={Sastry,S and Debenedetti,P G and Stillinger,F H},
                    j=nat, v=393, p=554, y=1998, x="lj.md", c="C"}
 @Art{SaWa78a,a={Satija,S K and Wang,C H},
                    j=ssc, v=28, p=617, y=1978, x="kbcn.lsc"}
 @Art{SaWa78b,a={Satija,S K and Wang,C H},
-                   j=jcp, v=69, p=1101, y=1978, x="freon" }
+                   j=jcp, v=69, p=1101, y=1978, x="freon"}
 @Art{SaMC96, a={Saunders,G A and Metcalfe,R D and Cutroni,M and
 		  Federico,M and Piccolo,A},
                    j=prB, v=53, p=5287, y=1996, x="GIL", c="C"}
 @Art{SaBS10, a={Sawka-Dobrowolska,W and Bator,G and Sobczyk,L and Grech,E and
                    Nowicka-Scheibe,J and Pawlukoj\'c,A and Wuttke,J},
-                   j=jms, v=975, p=298, y=2010, x="SPH.OUT" }
+                   j=jms, v=975, p=298, y=2010, x="SPH.OUT"}
 @Buk{Sca30,  a={Scarborough,J B},
                 t={Numerical mathematical analysis},
                 f={John Hopkins Press}, l={Baltimore}, y=1930,
@@ -3763,19 +3911,22 @@
                    j=prl, v=81, p=136, y=1998, x="mod.dos", c="PC"}
 @Art{ScSC08, a={Schir\`o,G and Sclafani,M and Caronna,C and Natali,F and
                 Plazanet,M and Cupane,A},
-                   j=cp, v=345, p=259, x="myo.conf.qens" }
+                   j=cp, v=345, p=259, x="myo.conf.qens"}
 @Art{ScCN10, a={Schir\`o,G and Caronna,C and Natali,F and Cupane,A},
-                   j=jacs, v=132, p=1371, x="prot-modell.eisf" }
+                   j=jacs, v=132, p=1371, x="prot-modell.eisf"}
 @Art{ScNC12, a={Schir\`o,G and Natali,F and Cupane,A},
-                   j=prl, v=109, p=128102, x="prot-modell.eisf" }
+                   j=prl, v=109, p=128102, x="prot-modell.eisf"}
 @Art{ScFL98, a={Schleger,P and Farago,B and Lartigue,C and Kollmar,A
 		and Richter,D},
                    j=prl, v=81, p=124, y=1998, x="pym.nse.rept", c="C"}
-@Art{Schlomka95, a={Schlomka,J.-P. and Tolan,M and Schwalowsky,L and Seeck,O H and Stettner,J and Press,W},
-                  t={X-ray diffraction from {S}i/{G}e layers: Diffuse scattering in the region of total external reflection},
-                   j=prB, v=51, p=2312, y=1995}    
+@Art{ScTS95, a={Schlomka,J-P and Tolan,M and Schwalowsky,L and Seeck,O H
+                and Stettner,J and Press,W},
+                  t={X-ray diffraction from Si/Ge layers:
+		     Diffuse scattering in the region of total external
+		     reflection},
+                   j=prB, v=51, p=2312, y=1995, x="gisas??"}    
 @Art{ScAP09, a={Schmidt,M and Achterhold,K and Prusakov,V and Parak,F G},
-                   j=ebpj, v=38, p=687, x="nitrophorin" }
+                   j=ebpj, v=38, p=687, x="nitrophorin"}
 @Art{ScBS93, a={Schmidt,T and Baak,J and van de Straat,D A and Brom,H B
                 and V"olker,S},
                    j=prl, v=71, p=3031, y=1993, x="TT", c="C"}
@@ -3814,6 +3965,8 @@
                    j=PyA, v=201, p=263, y=1993, x="gly.die"}
 @Art{ScLF89, a={Schr\"ader,T and Loidl,A and Frank,V},
                    j={phonons}, y=1989, x="nakcn.nsc", c="C"}
+@Art{Scr07,  a={Schreiber,M},
+                   j=apLg, v=16, p=640, y=2007, x="hirsch"}
 @Art{ScSK85, a={Schr\"oder,H and Samwer,K and K\"oster,U},
                    j=prl, y=1985, v=54, p=197, x="gly.die"}
 @Art{ScWW98, a={Schr"oter,K and Wilde,G and Willnecker,R and Weiss,M
@@ -3831,7 +3984,7 @@
 @Art{ScYM94, a={Schupp,G and Yelon,W B and Mullen,J G and Wagoner,R},
                    j=hfi, y=1994, v=93, p=1491, x="gly.mrs"}
 @Art{ScCR91, a={Schuster,M and Carlile,C J and Rauch,H},
-                   j=zpB, v=85, p=49, x="bsc" }
+                   j=zpB, v=85, p=49, x="bsc"}
 @Art{ScBF04, a={Sch\"uth,F and Bogdanovi\'c,B and Felderhoff,M},
                    j=cc, p=2249, y=2004 }
 @Any{Scw11,  a={Schwarz,K},
@@ -3839,17 +3992,17 @@
                       Sampling from a Discrete Distribution,}
                       \url{http://www.keithschwarz.com/darts-dice-coins/}
                       (retrieved 14aug13)},
-                   y=2011, x="alias" }
+                   y=2011, x="alias"}
 @Art{Scw07,  a={Schweidler,E v.}, j=apLg, v=24, p=711, y=1907, x="g.die"}
 @Art{Scw93,  a={Schweizer,K S},
                    j=pscT, v=49, p=99, y=1993, x="pym.mkt", c="C"}
 @Art{ScSc79, a={\'Sciesi\'nska,E and \'Sciesi\'nski,J},
-                   j=mclc, v=51, p=9, y=1979, x="cy6" }
+                   j=mclc, v=51, p=9, y=1979, x="cy6"}
 @Art{ScSc82, a={\'Sciesi\'nska,E and \'Sciesi\'nski,J},
-                   j=mclc, v=80, p=19, y=1982, x="cy6" }
+                   j=mclc, v=80, p=19, y=1982, x="cy6"}
 @Art{ScMN89, a={\'Sciesi\'nska,E and Mayer,J and Natkaniec,I and
                 \'Sciesi\'nski,J},
-                   j={Acta Phys. Polon. A}, v=76, p=617, y=1989, x="cy6" }
+                   j={Acta Phys. Polon. A}, v=76, p=617, y=1989, x="cy6"}
 @Art{ScGT96, a={Sciortino,F and Gallo,P and Tartaglia,P and Chen,S H},
                    j=prE, v=54, p=6331, y=1996, x="H2O.sim", c="C"}
 @Art{ScTa97, a={Sciortino,F and Tartaglia,P},
@@ -3872,6 +4025,13 @@
                    f={Academic Press}, l={Orlando}, y=1986, x="nsc", c="C"}
 @Buk{Sea89,  a={Sears,V P}, t={Neutron Optics},
                    f={Oxford University Press}, l={Oxford}, y=1989, x="nsc"}
+@Art{Sea92,  a={Sears,V P},
+                   t={Neutron scattering lengths and cross sections},
+                   j=nn, v=3, p=26, y=1992, x="nsc.xsections"}
+@Art{Sea97a, a={Sears,V P},
+                   t={Bragg Reflection in Mosaic Crystals.\
+                      I.\ General Solution of the Darwin Equations},
+                   j=axA, v=53, p=35, pf=45, y=1997, x="mosaic", c="C"}
 @Art{SeOb51, a={Segur,J B and Oberstar,A E},
                    j={Ind.\ Eng.\ Chem. }, v=43, p=2117, y=1951, x="gly.visc"}
 @iCo{Seg53,  a={Segur,J B}, e={Miner,C S and Dalton,N N}, t={Glycerol},
@@ -3921,6 +4081,8 @@
 		  Quasielastic Neutron Scattering in Biology,
 		  Grenoble 1996},
              f={Adenine Press}, l={Schenectady}, y=1997, x="mscat"}
+@Art{SeDW13, a={Seyed-Yazdi,J and Dore,J C and Webber,J B W and Farman,H},
+                   j=jpcm, v=25, p={465105}, y=2013, x="H2O:MCM.nsc,nmr"}
 @Art{ShDH83a,a={Shablakh,M and Dissado,L A and Hill,R M},
                    j=jcsf2, v=79, p=369, y=1983, x="cy8.die", c="C"}
 @Art{ShDH83b,a={Shablakh,M and Dissado,L A and Hill,R M},
@@ -3929,10 +4091,16 @@
                    j=jncs, v={59--60}, p=197, y=1983, x="Si-a.nsc"}
 @Art{ShGC66, a={Shapiro,S M and Gammon,R W and Cummins,H Z},
                    j=apl, v=9, p=157, y=1966, x="SiO2.Brill", c="C"}
+@Art{Sha76,  a={Shapiro,L W},
+                   t={A Catalan triangle},
+                   j=dm, v=14, p=83, pf=90, y=1976, x="Catalan"}
 @Art{ShTa97, a={Sharma,R K and Tankeshwar,K},
                    j=prE, v=55, p=564, y=1997, x="theor.Cs", c="C"}
 @Art{ShWi73, a={Shears,M F and Williams,G},
                    j=jcsf2, v=69, p=1050, y=1973, x="otp.reor"}
+@Art{ShKN14, a={Shekhar,A and Kalia,R K and Nakano,A and Vashishta,P and Alm,C K
+                  and Malthe-S{\o}renssen,A},
+		   j=apl, v=105, p=161907, y=2014, x="H2O.nanopores.sim=>b=.6"}
 @Art{ShTB00, a={Shen,G Q and Toulouse,J and Beaufils,S and Bonello,B
 		  and Hwang,Y H and Finkel,P and Hernandez,J and
 		  Bertault,M and Maglione,M and Ecolivet,C and Cummins,H Z},
@@ -3941,7 +4109,7 @@
                    Zamponi,M and Vegge,T},
                    j=jACmp, v={446--447}, p=469, y=2007 }
 @Art{Shi90,  a={Shinomiya,T},
-                   j=bcsj, v=63, p=1087, y=1990, x="cy6" }
+                   j=bcsj, v=63, p=1087, y=1990, x="cy6"}
 @Art{ShGa70, a={Shuker,R and Gammon,R W},
                    j=prl, v=25, p=222, y=1970, x="lsc.dis"}
 @Art{SiHF89, a={Siddons,D P and Hastings,J B and Faigel,G and Grover,J R
@@ -3976,13 +4144,13 @@
 		  y=1995, x="mct.num"}
 @Art{SiLG98, a={Singh,A P and Li,G and G\"otze,W and Fuchs,M and
                 Franosch,T and Cummins,H Z},
-                   j=jncs, v={235--237}, p=66, y=1998, x="otp.numfit" }
+                   j=jncs, v={235--237}, p=66, y=1998, x="otp.numfit"}
 @TDr{Sin99,  a={Singh,A P}, u={Technische Universit\"at M\"unchen},
 		  y=1999, x="mct"}
 @Art{SiMu09, a={Singh,L P and Murthy,S S N},
-                   j=pccp, v=11, p=5110, y=2009, x="cy6" }
+                   j=pccp, v=11, p=5110, y=2009, x="cy6"}
 @Art{SiGl89, a={Singh,N B and Glicksman,M E},
-                   j={J. Cryst. Growth}, v=98, p=534, y=1989, x="cy6" }
+                   j={J. Cryst. Growth}, v=98, p=534, y=1989, x="cy6"}
 @Art{SiEH07, a={Singh,S and Eijt,S W H and Huot,J and Kockelmann,W A and
                    Wagemaker,M and Mulder,F M},
                    j={Acta Mater.}, v=55, p=5549, y=2007 }
@@ -4033,6 +4201,8 @@
                    j={Quart.\ Rev.\ Biophys.}, v=24, p=3, y=1991,
 		    x="NStrg,Sim", c="R"}
 @Art{Smi01,  a={Smith,P J}, j={Simulation}, v=76, p=140, y=2001}
+@Art{SmKa99, a={Smith,R S and Kay,B D},
+                   j=nat, v=398, p=788, y=1999, x="H2O"}
 @Art{SmKo95, a={Smirnow,G V and Kohn,V G},
                    j=prB, v=52, p=3356, y=1995, x="nfs", c="C"}
 @Art{Smi96,  a={Smirnow,G V},
@@ -4042,7 +4212,7 @@
 @Art{SoPS09, a={Sobczyk,L and Prager,M and Sawka-Dobrowolska,W and Bator,G
                    and Pawlukoj\'c,A and Grech,E and von Eijck,L and
                    Ivanov,A and Rols,S and Wuttke,J and Unruh,T},
-                   j=jcp, v=130, p=164519, y=2009, x="SPH.out" }
+                   j=jcp, v=130, p=164519, y=2009, x="SPH.out"}
 @Art{SoKS92, a={Sokolov,A P and Kisliuk,A and Soltwisch,M and Quitmann,D},
                    j=prl, v=69, p=1540, y=1992, x="g.phaen"}
 @Art{SoRK93a,a={Sokolov,A P and R\"ossler,E and Kisliuk,A and Quitmann,D},
@@ -4079,7 +4249,7 @@
 		  Fioretto,D and Ruocco,G and Willner,L and Frick,B},
                    j=prE, v=60, p=2464, y=1999, x="pym.nsc,xbrsc", c="C"}
 @Art{SoRM08, a={Sokolov,A P and Roh,J H and Mamontov,E and Garc\'ia Sakai,V},
-                   j=cp, v=345, p=212, y=2008, x="[cmz]" }
+                   j=cp, v=345, p=212, y=2008, x="[cmz]"}
 @Art{SoLH97, a={Sollich,P and others},
                    j=prl, v=78, p=2020, y=1997, x="rheo", c="C"}
 @Art{SoEQ77, a={Soltwisch,M and Elwenspoek,M and Quitmann,D},
@@ -4100,8 +4270,14 @@
 @Art{Sou92,  a={Souletie,J}, j=phm, v=65, p=1311, y=1992, x="g"}
 @Art{SoSH96, a={de Sousa Meneses,D and Simon,P and Hauret,G and Maglione,M},
                    j=epl, v=36, p=461, y=1996, x="OriG", c="C"}
+@Art{SoKB06, a={de Souza,N R and Kolesnikov,A I and Burnham,C J and Loong,C-K},
+                   j=jpCM, v=18, p={S2321}, y=2006,
+		   x="H2O:nanotubes.SANS,QENS,MD => vib->diff trans @210K"}
+@Buk{SpGe69, a={Spanier,J and Gelbard,E M},
+                   t={Monte Carlo Principles and Neutron Transport Problems},
+                   f={Addison-Wesley}, l={Reading, Mass.}, y=1969, x="MC"}
 @Art{SpAn76, a={Speedy,R J and Angell,C A},
-                   j=jcp, v=65, p=851, y=1976, x="nucleation" }
+                   j=jcp, v=65, p=851, y=1976, x="nucleation"}
 @Buk{Spe92,  a={Sperling,L H}, t={Introduction to Physical Polymer Science},
                    f={Wiley}, l={New York}, y=1992, c=""}
 @Art{SpSH73, a={Spiess,H W and Schweitzer,D and Haeberlen,U},
@@ -4113,7 +4289,7 @@
 @Art{StTe80, a={Stanley,H E and Teixera,J},
                    j=jcp, v=73, p=3404, y=1980}
 @Art{StKi97, a={Stapf,S and Kimmich,R},
-                   j=mop, v=92, p=1051, y=1997, x="cy6" }
+                   j=mop, v=92, p=1051, y=1997, x="cy6"}
 @Art{StNS99, a={Starr,F W and Nielsen,J K and Stanley,H E},
                    j=prl, v=82, p=2294, y=1999, x="H2O.md", c="C"}
 @Art{StHS99b,a={Starr,F W and Harrington,S and Sciortino,F and Stanley,H E},
@@ -4147,7 +4323,7 @@
 @Art{Ste69,  a={Stephen,M J}, t={Raman Scattering in Liquid Helium},
                    j=pr, v=187, p=279, pf=285, y=1969, x="lsc.liq"}
 @Art{StSL12, a={Sterpone,F and Stirnemann,G and Laage,D},
-                   j=jacs, v=134, p=4116, y=2012, x="prot<Gallat" }
+                   j=jacs, v=134, p=4116, y=2012, x="prot<Gallat"}
 @Art{StFS94, a={Stickel,F and Fischer,E W and Sch\"onhals,A and Kremer,F},
                    j=prl, v=73, p=2936, y=1994, x="ScKH93"}
 @Art{StHo94, a={Stillinger,F H and Hodgdon,J A}, j=prE, v=50, p=2064,
@@ -4156,13 +4332,15 @@
                    j=prE, v=53, p=2995, y=1996, x="R->Sil96", c="C"}
 @Art{Sti95,  a={Stillinger,F H},
                    j=sc, v=267, p=1935, y=1995, x="G", c="C"}
+@Art{StLa12, a={Stirnemann,G and Laage,B},
+                   j=jcp, v=137, p=031101, y=2012 }
 @Art{StHo92, a={Stockhausen,M and v.~Hornhardt,S},
                    j=zn, v={47a}, p=1135, y=1992, x="cy8.die", c="C"}
 @Art{StFS86, a={Stoeckli,A and Furrer,A and Schoenenberger,Ch and
 		  Meier,B H and Ernst,R R and Anderson,I},
                    j=pyB, v=136, p=161, y=1986, x="H-Brck.nsc", c="C"}
 @Art{StPo89, a={Stoica,A D and Popovici,M}, j=jax, v=22,
-                   p=448, y=1989, x="bragg:bending" }
+                   p=448, y=1989, x="bragg:bending"}
 @Art{StEH98, a={Strehlow,P and Enss,C and Hunklinger,S},
                    j=prl, v=80, p=5361, y=1998, x="G.TT.koh-Tunnel", c="C"}
 @Art{StWJ00, a={Strehlow,P and Wohlfahrt,M and Jansen,A G M and
@@ -4197,7 +4375,7 @@
 @Art{SuSe74, a={Suga,H and Seki,S},
                    j=jncs, v=16, p=171, y=1974, x="g.cp", c="C"}
 @Art{SuDW07, a={Sugase,K and Dyson,H J and Wright,P E},
-                   j=nat, v=447, p=1021, y=2007, x="Gallat->IDP:binding" }
+                   j=nat, v=447, p=1021, y=2007, x="Gallat->IDP:binding"}
 @Art{SuKT02, a={Sun,D and Kiyobayashi,T and Takeshita,H T and Kuriyama,N and
                    Jensen,C M},
                    j=JACmp, v=337, p={L8}, y=2002 }
@@ -4215,11 +4393,19 @@
 		   f={John Wiley}, l={New York}, y=1991, x="liq", c="C(Auszug)"}
 @Art{SwTM09, a={Swallen,S F and Traynor,K and McMahon,R J and Ediger,M D and
                 Mates,T E},
-                   j=jpcB, v=113, p=4600, y=2009, x="TNB.diff" }
+                   j=jpcB, v=113, p=4600, y=2009, x="TNB.diff"}
 @Art{SwBo96, a={Swenson,J and B\"orjesson,L},
                    j=prl, v=77, p=3569, y=1996, x="G.mat", c="C"}
-@Art{SwJB06, a={Swenson,J and Jansson,H and Bergman,R},
-                   j=prl, v=96, p=247802, y=2006, x="FST" }
+@Art{SwBL01, a={Swenson,J and Bergman,R and Longeville,S},
+                   j=jcp, v=115, p=11299, y=2001, x="H2O.NSE"}
+@Art{Swe06a, a={Swenson,J},
+                   j=prl, v=97, p=189801, y=2006, x="comment->LiCF05"}
+@Art{SwJB06b,a={Swenson,J and Jansson,H and Bergman,R},
+                   j=prl, v=96, p=247802, y=2006, x="FST"}
+@Art{SwJH07, a={Swenson,J and Jansson,H and Hedstr\"om,J and Bergman,R},
+                   j=jpCM, v=19, p=205109, y=2007, x="FST"}
+@Art{SwCe15, a={Swenson,J and Cerveny,S},
+                   j=jpCM, v=27, p=033102, y=2015, x="H2O:confined.diel"}
 @Art{SzLo92, a={Szamel,G and L"owen,H},
                    j=prA, y=1992, x="mkt", c="C"}
 @Art{SzGS97, a={Szcze\'{s}niak,E and G\l{}owinkowski,S and Suchanski,W
@@ -4237,13 +4423,17 @@
                    j=pr, v=188, p=303, y=1969, x="Ar.lsc", c="C"}
 @Art{TaBi71, a={McTague,J P and Birnbaum,G},
                    j=prA, v=3, p=1376, y=1971, x="(Ar,Kr,Xe).lsc", c="C"}
-@Art{TaAY97, a={Takagi,Y and Ahart,M and Yano,T and Kojima,S},
-                   j=jpCM, v=9, p=6995, y=1997, x="BrStr.P", c="C"}
+@Art{Tak69,  a={Takagi,S},
+                   t={A Dynamical Theory of Diffraction
+                      for a Distorted Crystal},
+                   j=jpsJ, v=26, p=1239, pf=1253, y=1969, c="TT-eqs"}
 @Art{TaKu92, a={Takagi,Y and Kurihari,K},
                    j=rsi, v=63, p=5552, y=1992, x="BrStr.Mikr", c="C"}
+@Art{TaAY97, a={Takagi,Y and Ahart,M and Yano,T and Kojima,S},
+                   j=jpCM, v=9, p=6995, y=1997, x="BrStr.P", c="C"}
 @Art{TaSK05b,a={Takahara,S and Sumiyama,N and Kittaka,S and Yamaguchi,T and
                   Bellissent-Funel,M-C},
-                   j=jpcB, v=109, p=11231, y=2005, x="H2O:MCM41:Mibemol" }
+                   j=jpcB, v=109, p=11231, y=2005, x="H2O:MCM41:Mibemol"}
 @Art{Tak77,  a={Takano,T},
                    j=jmb, v=110, p=537, y=1977, x="bio.myo.struc"}
 @Art{TaYS91, a={Takeda,K and Yamamuro,O and Suga,H},
@@ -4259,10 +4449,12 @@
 @Art{TaHe26, a={Tammann,G and Hesse,W},
                    j={Z.\ anorg.\ allg.\ Chem.},
                    v=156, p=245, y=1926, x="gly.visc"}
+@Art{Tan96,  a={Tanaka,H},
+                   j=jcp, v=105, p=5099, y=1996, x="H2O.FST"}
 @Art{Tan98,  a={Tanaka,H},
                    j=prl, v=80, p=5750, y=1998, x="H2O.Landau-Modell", c="C"}
 @Art{TaNo87, a={Tanaka,K and Nomura,M},
-                   j=jcsf1, v=83, p=1779, y=1987, x="LiCl:H2O:diff" }
+                   j=jcsf1, v=83, p=1779, y=1987, x="LiCl:H2O:diff"}
 @Art{TaLC91a,a={Tao,N J and Li,G and Cummins,H Z},
                    j=prl, v=66, p=1334, y=1991, x="lsc"}
 @Art{TaLC91b,a={Tao,N J and Li,G and Cummins,H Z},
@@ -4276,11 +4468,11 @@
 @Art{TaEl00b,a={Taraskin,S N and Elliot,S R},
                    j=prB, v=61, p=12031, y=2000, x="Si2O.Phononen.Sim", c="C"}
 @Art{TaTo99, a={Tarek,M and Tobias,D J},
-                   j=jacs, v=121, p=9740, y=1999, x="prot<Gallat" }
+                   j=jacs, v=121, p=9740, y=1999, x="prot<Gallat"}
 @Art{TaTo02a,a={Tarek,M and Tobias,D J},
-                   j=prl, v=88, p=138101, y=2002, x="prot.sim" }
+                   j=prl, v=88, p=138101, y=2002, x="prot.sim"}
 @Art{TaTo02b,a={Tarek,M and Tobias,D J},
-                   j=prl, v=89, p=38101, y=2002, x="prot.sim" }
+                   j=prl, v=89, p=38101, y=2002, x="prot.sim"}
 @Art{TaKi95, a={Tarjus,G and Kivelson,D},
                    j=jcp, v=103, p=3071, y=1995, x="SE.Th", c="C"}
 @Art{TaBe00, a={Tassaing,T and Bellissent-Funel,M C},
@@ -4291,14 +4483,14 @@
 @Art{TeFW07, a={Tehei,M and Franzetti,B and Wood,K and Gabel,F and Fabiani,E
                   and Jasnin,M and Zamponi,M and Oesterhelt,D and Zaccai,G and
                   Ginzburg,M and Ginzburg,B-Z},
-                   j=pnas, v=104, p=766, y=2007, x="prot.nsc" }
+                   j=pnas, v=104, p=766, y=2007, x="prot.nsc"}
 @Art{Tei94a, a={Teichler,H},
                    j=vdpgVI, v=29, p=1320, y=1994, x="mct-modif"}
 @Art{TeBC85a,a={Teixera,J and Bellissent-Funel,M C and Chen,S H and Dorner,B},
-                   j=prl, v=54, p=2681, y=1985, x="H2O.nBrill", c="C"}
+                   j=prl, v=54, p=2681, y=1985, x="D2O.nBrill", c="C"}
 @Art{TeBC85b,a={Teixeira,J and Bellissent-Funel,M-C and Chen,S H and
                   Dianoux,A J},
-                   j=prA, v=31, p=1913, y=1985, x="H2O.nsc" }
+                   j=prA, v=31, p=1913, y=1985, x="H2O.nsc"}
 @Art{TeLB96, a={Terki,F and Levelut,C and Boissier,M and Pelous,J},
                    j=prB, v=53, p=2411, y=1996, x="SiO2.LStrg", c="C"}
 @Art{TeLP97, a={Terki,F and Levelut,C and Prat,J L and Boissier,M and Pelous,J},
@@ -4317,7 +4509,7 @@
                    j=prl, v=77, p=5437, y=1996, x="X-PCS", c="C"}
 @Art{TiTL84, a={Tikochinsky,Y and Tishby,N Z and Levine,R D},
                    j=prl, v=52, p=1357, y=1984, x="Bayes", c="C"}
-@Art{Tim61,  a={Timmermans,J}, j=jpcs, v=18, p=1, y=1961, x="plasticry" }
+@Art{Tim61,  a={Timmermans,J}, j=jpcs, v=18, p=1, y=1961, x="plasticry"}
 @TDr{Tol97,  a={T\"olle,A}, u={Universit\"at Dortmund}, y=1997, x="otp.nsc"}
 @Art{ToSW97a,a={T\"olle,A and Schober,H and Wuttke,J and Fujara,F and
 		  Randl,O G},
@@ -4332,12 +4524,12 @@
 		  Schmidt,W and Schober,H and Wuttke,J},
  		  j=epjB, y={ca 2000}, x="otp.cryst,dos"}
 @Art{Tol01,  a={T\"olle,A},
-                   j=rpp, v=64, p=1473, x="otp.review" }
+                   j=rpp, v=64, p=1473, x="otp.review"}
 @Art{ToJo92, a={Tombari,E and Johari,G P},
                    j=jcp, v=97, p=6677, y=1992, x="G.die"}
 @Art{Tom73,  a={Tomlinson,D J}, j=mop, v=25, p=735, y=1973, x="gly.D"}
 @Art{Tom02,  a={Tompa,P}, j={Trends Biochem. Sci.}, v=27, p=527, y=2002,
-                   x="Gallat->IDP" }
+                   x="Gallat->IDP"}
 @Art{ToBE90, a={Torell,L M and B\"orjesson,L and Elmroth,M},
                    j=jpCM, v=2, p={SA207}, y=1990, x="G.bsc"}
 @Art{ToTD00, a={Torquato,S and Truskett,T M and Debenedetti,P G},
@@ -4349,7 +4541,7 @@
 @Art{ToBR0x, a={Torre,R and Bartolini,P and Ricci,M and Pick,R M},
                    j=prl, y={subm 200x}, x="mtol.kerr", c="R13,P"}
 @Art{ToBR04, a={Torre,R and Bartolini,P and Righini,R},
-                   j=nat, v=428, p=296, pf=299, y=2004, x="h2o.arx",
+                   j=nat, v=428, p=296, pf=299, y=2004, x="H2O.arx",
                    t={Structural relaxation in supercooled water by
                      time-resolved spectroscopy} }
 @Art{ToCP93, a={Toulouse,J and Coddens,G and Pattnaik,R},
@@ -4357,7 +4549,7 @@
 @Art{ToPD96, a={Toulouse,J and Pick,R and Dreyfus,C},
                    j=mrssp, v=407, p=161, y=1996, x="salol.nsc", c="C"}
 @Art{ToXS03, a={Tournier,A L and Xu,J and Smith,J C},
-                   j=bpj, v=85, p=1871, y=2003, x="myo.sim" }
+                   j=bpj, v=85, p=1871, y=2003, x="myo.sim"}
 @Art{TrDH98, a={Trachenko,K and Dove,M T and Hammonds,K D and Harris,M J and
 		  Heine,V},
                    j=prl, v=81, p=3431, y=1998, x="SiO2.sim", c="C"}
@@ -4367,19 +4559,19 @@
 @Art{TrBP94, a={Trampenau,J and Bauszus,K and Petry,W and Herr,U},
                    j={Nanostructured Materials}, y={subm 1994}, x="nanoNi"}
 @Art{TrMS10, a={Transtrum,M K and Machta,B B and Sethna,J P},
-                   j=prl, v=104, p=060201, y=2010, x="lmfit:geodes" }
+                   j=prl, v=104, p=060201, y=2010, x="lmfit:geodes"}
 @Art{TrMS11, a={Transtrum,M K and Machta,B B and Sethna,J P},
-                   j=pre, v=83, p=036701, y=2011, x="lmfit:geodes" }
+                   j=pre, v=83, p=036701, y=2011, x="lmfit:geodes"}
 @Art{TrSeXa, a={Transtrum,M K and Sethna,J P},
-                   j=jcompp, y=subm, x="lmfit:geodes" }
+                   j=jcompp, y=subm, rf={arXiv:1201.5885}, x="lmfit:geodes"}
 @Art{TrSeXb, a={Transtrum,M K and Sethna,J P},
-                   y=unpu, x="lmfit:geodes" }
+                   y=unpu, x="lmfit:geodes"}
 @Art{TrPB97, a={Tries,V and Paul,W and Baschnagel,J and Binder,K},
                    j=jcp, v=106, p=738, y=1997, x="pym.sim", c=""}
 @Art{TrNS92, a={Tromp,R H and Neilson,G W and Soper,A K},
-                   j=jcp, v=96, p=8460, y=1992, x="LiCl:H2O.nDiffr" }
+                   j=jcp, v=96, p=8460, y=1992, x="LiCl:H2O.nDiffr"}
 @Art{TsNB00, a={Tsai,A M and Neumann,D A and Bell,L N},
-                   j=bpj, v=79, p=2728, y=2000, x="lyso.nsc" }
+                   j=bpj, v=79, p=2728, y=2000, x="lyso.nsc"}
 @Art{TsYS91, a={Tsukushi,I and Yamamuro,O and Suga,H},
                    j=jpcs, v=52, p=607, y=1991, x="1bu.cp", c="C"}
 @Art{TsYO96, a={Tsukushi,I and Yamamuro,O and Ohta,T and Matsuo,T and
@@ -4396,7 +4588,7 @@
                       Relaxations in a Polymer-Based Sponge Phase} }
 @Art{TuCC11, a={Turton,D A and Corsaro,C and Candelaresi,M and Brownlie,A and
                 Seddon,K R and Mallamace,F and Wynne,K},
-                   j=Fd, v=150, p=493, y=2011, x="LiCl:H2O.OKE,NMR,FTIR->FST" }
+                   j=Fd, v=150, p=493, y=2011, x="LiCl:H2O.OKE,NMR,FTIR->FST"}
 @Buk{TyHa84, a={Tyrrell,H J V and Harris,K R}, t={Diffusion in Liquids},
                    f={Butterworths}, l={London}, y=1984, x="G.D",
 		   c="TUM 0300/CHE 192 A 31"}
@@ -4409,7 +4601,7 @@
 @Art{UlYi85, a={Ullo,J J and Yip,S},
                    j=prl, v=54, p=1509, y=1985, x="LJ.MD", c="C"}
 @Art{UnNP07, a={Unruh,T and Neuhaus,J and Petry,W},
-                   j=nimA, v=580, p=1414, x="TOFTOF [cmz]" }
+                   j=nimA, v=580, p=1414, x="TOFTOF [cmz]"}
 @Art{UnSB08, a={Unruh,T and Smuda,C and Busch,S and Neuhaus,J and Petry,W},
                    j=jcp, v=129, p=121106, y=2008, c={"diff"}}
 @Art{UrSA98, a={Urabe,H and Sugawara,Y and Ataka,M and Rupprecht,A},
@@ -4467,7 +4659,7 @@
                    j=pr, v=110, p=999, y=1958, x="nsc.liq", c="C"}
 @Art{ViTK00, a={Viot,P and Tarjus,G and Kivelson,D},
                    j=jcp, v=112, p=10368, y=2000, x="blabla", c="C"}
-@Art{Vog08,  a={Vogel,M}, j=prl, v=101, p=225701, y=2008, x="FST" }
+@Art{Vog08,  a={Vogel,M}, j=prl, v=101, p=225701, y=2008, x="FST"}
 @TDp{Vog98,  a={Voigtmann,T}, u={Technische Universit\"at M\"unchen},
 		  y=1998, x="mct"}
 @Art{VoBL86, a={Volkmann,U G and B\"ohmer,R and Loidl,A and Knorr,K and
@@ -4478,20 +4670,20 @@
 @Art{Vog21,  a={Vogel,H}, j=pyZ, v=22, p=645, y=1921, x="g.visc"}
 @Art{VoRo00, a={Vogel,M and R\"ossler,E},
                    j=jpcB, v=104, p=4285, y=2000, x="tol,gly.nmr", c="C"}
-@Art{Vog08a, a={Vogel,M}, j=prl, v=101, p=225701, y=2008, x="[cmz]" }
+@Art{Vog08a, a={Vogel,M}, j=prl, v=101, p=225701, y=2008, x="[cmz]"}
 @Art{VoPF89, a={Vogl,G and Petry,W and Flottmann,T and Heiming,A},
                    j=prB, v=39, p=5025, y=1989, x="Diff.nStrg", c="C"}
 @iCo{Voi08,  a={Voigtmann,T}, e={Dhont,J K G and others},
                    b={Soft Matter. From Synthetic to Biological Materials},
                    f={Forschungszentrum J\"ulich}, l={J\"ulich},
                    s={Lecture Notes of the 39th Spring School},
-                   y=2008, x="mct" } % Achtung, zunaechst Label Vog08 !
+                   y=2008, x="mct"} % Achtung, zunaechst Label Vog08 !
 @Art{VoBL71, a={Volterra,V and Bucaro,J A and Litovitz,T A},
                    j=prl, v=26, p=55, y=1971, x="Ar.lsc", c="C"}
 @Art{VoVM98, a={Voronel,A and Veliyulin,E and Machavariani,V S and
 		  Kisliuk,A and Quitmann,A},
                    j=prl, v=80, p=2630, y=1998, x="ckn.visc,cond", c="A"}
-@Art{Vos91,  a={Vose,M D}, j=itse, v=17, p=972, y=1991, x="alias" }
+@Art{Vos91,  a={Vose,M D}, j=itse, v=17, p=972, y=1991, x="alias"}
 @Art{VoSJ07, a={Voss,J and Shi,Q and Jacobsen,H S and Zamponi,M and
                    Lefmann,K and Vegge,T},
                    j=jpcB, v=111, p=3886, y=2007 }
@@ -4520,7 +4712,7 @@
 @Art{WaHu75, a={Wang,C H and Huang,Y Y},
                    j=jcp, v=62, p=3834, y=1975, x="LqCr.BrStrg"}
 @Art{WaSa82, a={Wang,C H and Satija,S K},
-                   j=cpl, v=87, p=330, y=1982, x="freon" }
+                   j=cpl, v=87, p=330, y=1982, x="freon"}
 @Art{WaFi85, a={Wang,C H and Fischer,E W},
                    j=jcp, v=82, p=632, y=1985, x="LStrg.Th"}
 @Art{WaZS87, a={Wang,C H and Zhu,X R and Shen,J C},
@@ -4529,6 +4721,13 @@
                    j=jcp, v=97, p=508, y=1992, x="LStrg.Th"}
 @Art{WaUh45, a={Wang,M C and Uhlenbeck,G E},
                    j=rmp, v=17, p=323, y=1945 }
+@Art{WaFL14, a={Wang,Z and Fratini,E and Li,M and Le,P and Mamontov,E and
+                Baglioni,P and Chen,S-H},
+		   j=pre, v=90, p=042705, y=2014, x="CPC.nsc", c="14pre1"}
+@Art{WaLL14b,a={Wang,Z and Liu,K-H and Le,P and Li,M and Chiang,W-S and
+               Le\~ao,J B and Copley,J R D and Tyagi,M and Podlesnyak,A and
+	       Kolesnikov,A I and Mou,C-H and Chen,S-H},
+		   j=prl, v=112, p=237802, y=2014, c="14prl1"}
 @Buk{War69,  a={Warren,B E}, t={X--ray diffraction},
                    f={Addison--Wesley}, l={Reading,Mass.},
                    y=1969, x="X--ray"}
@@ -4536,6 +4735,16 @@
                    j=jpCM, v=10, p=8139, y=1998, x="OG.nDiffr", c="C"}
 @Art{WaMa93, a={Watson,S and Madden,P A},
                    j=jcp, v=99, p=6449, y=1993, x="lsc.ci"}
+@Art{WeDo04, a={Webber,B and Dore,J},
+                   j=jpcm, v=16, p={S5449}, y=2004, x="H2O:MCM.nsc,nmr"}
+@Art{WeDS07, a={Webber,J B W and Dore,J C and Strange,J H and Anderson,R and
+                Tohodi,B},
+                   j=jpcm, v=19, p={415117}, y=2007, x="H2O:MCM.nsc,nmr"}
+@Art{WeSB08,a={Webber,J B W and Strange,J H and Bland,P A and Andreson,R and
+                   Tohidi,B},
+		   j=aipcp, v=1081, p=51, y=2008}
+@Art{Web10,  a={Webber,J B W},
+                   j={Progr.\ Nucl.\ Mag.\ Res.\ Sp.}, v=56, p=78, y=2010}
 @Buk{Web41,  a={Weber,G E}, t={De fili bombycini vi elastica},
                    f={Dieterichs}, l={G\"ottingen}, y=1841, x="g.rhe"}
                    %  wieder abgedruckt in Wilhelm Weber's Werke.
@@ -4553,6 +4762,12 @@
 @Art{WeSV87, a={van~Well,A A and de Shepper,I M and Verkerk,P
 		  and Huijts,R A},
                    j=jcp, v=87, p=687, y=1987, x="lsc.cis"}
+@Art{Wer74,  a={Werner,S A}, j=jap, v=45, p=3246, pf=3254, y=1974,
+                   x="mosaic", c="C"}
+@Art{WeBA86, a={Werner,S A and Berliner,R R and Arif,M},
+                   t={Mathematical methods in the solution of the
+                     Hamilton-Darwin and the Takagi-Taupin equations},
+                   j=pyBC, v=137, p=245, pf=255, y=1986, x="TT-eqs,mosaic"}
 @Art{Wic37,  a={Wick,G C}, t={\"Uber die Streuung langsamer Neutronen
                    an Atomgittern},
                    j=pyZ, v=38, p=403, pf=406, y=1937, x="nsc", c="C"}
@@ -4577,7 +4792,7 @@
 @Art{WiCB99, a={Wilke,S D and Chen,H C and Bosse,J},
                    j=prE, v=60, p=3136, y=1999, x="mct", c="C"}
 @Art{WiFL04, a={Willendrup,P and Farhi,E and Lefmann,K},
-                   j=pyB, v=350, p={E350}, y=2004, x="nsc:sim:McStas" }
+                   j=pyB, v=350, p={E350}, y=2004, x="nsc:sim:McStas"}
 @Art{WiWa70, a={Williams,G and Watts,D C},
                    j=tfs, v=66, p=80, pf=85, y=1970, x="g.die;kww",
                    t={Non-symmetrical dielectric relaxation behaviour
@@ -4618,6 +4833,9 @@
                    j=spp, v=37, p=280, y=1989, x="kbcn.n"}
 @Art{WoPP00, a={Wochner,P and Peisl,J and Petry,W},
                    j=prl, y={subm 2000, never resubm}, x="kbcn.n"}
+@Art{WoEG1x, a={Wolf,M and Emmert,S and Gulich,R and Lunkenheimer,P
+                   and Loidl,A},
+		   note={\url{arXiv:1412.2698v1}} }
 @Art{WoJo79, a={Wolfe,M and Jonas,J}, j=jcp, v=71, p=3252, y=1979, x="gly.nmr"}
 @Art{WoBP96, a={Wolfgardt,M and Baschnagel,J and Paul,W and Binder,K},
                    j=prE, v=54, p=1553, y=1996, x="pym.sim", c=""}
@@ -4627,14 +4845,14 @@
                    f={M.~Dekker}, l={New York}, y=1976, x="g"}
 @Art{WoPG07, a={Wood,K and Plazanet,M and Gabel,F and Kessler,B and
                 Oesterhelt,D and Tobias,D J and Zaccai,G and Weik,M},
-                   j=pnas, v=104, p=18049, y=2007, x="prot" }
+                   j=pnas, v=104, p=18049, y=2007, x="prot"}
 @Art{WoFP08, a={Wood,K and Frolich,A and Paciaroni,A and Moulin,M and
                 Hartlein,M and Zaccai,G and Tobias,D J and Weik,M},
-                   j=jacs, v=130, p=4586, y=2008, x="prot" }
+                   j=jacs, v=130, p=4586, y=2008, x="prot"}
 @Art{WoAn81, a={Woodcock,L V and Angell,C A},
                    j=prl, v=47, p=1129, y=1981, x="G.sim", c="C"}
 @Art{WoEv65, a={Wortman,J J and Evans,R A},
-                   j=jap, v=36, p=153, y=1965, x="Si:Poisson" }
+                   j=jap, v=36, p=153, y=1965, x="Si:Poisson"}
 @Art{WoEN98, a={Woutersen,S and Emmerichs,U and Nienhuys,H K and Bakker,H J},
                    j=prl, v=80, p=1106, y=1998, x="H20.Vib:tau", c="C"}
 @Art{Wu91,   a={Wu,L},
@@ -4686,13 +4904,14 @@
                   Kayser,F-J and Kleines,H and Pardo,L C and Prager,M and
                   Ossovyi,V and Richter,D and Schneider,G J and Schneider,H and
                   Staringer,S},
-                  j=rsi, v=83, p=075109, y=2012, x="bsc" }
+                  j=rsi, v=83, p=075109, y=2012, x="bsc"}
+@Rem{WuBD12s,t={Online supplement of Ref.~\protect\cite{WuBD12}.} }
 @Art{Wut12a, a={Wuttke,J},
-                  j=rsi, v=83, p=107101, y=2012, x="bsc.ers" }
+                  j=rsi, v=83, p=107101, y=2012, x="bsc.ers"}
 @Art{Wut12b, a={Wuttke,J},
-                  j={Algorithms}, v=5, p=604, pf=628, y=2012, x="kww" }
-@Art{WuZa1X, a={Wuttke,J and Zamponi,M},
-                  j={Rev. Sci. Instrum.}, y={in preparation}, x="bsc" }
+                  j={Algorithms}, v=5, p=604, pf=628, y=2012, x="kww"}
+@Art{WuZa13, a={Wuttke,J and Zamponi,M},
+                  j={Rev. Sci. Instrum.}, v=84, p=115108, y=2013, x="bsc"}
 @Unp{Wu-r07, a={Wuttke,J and Petry,W and Kranich,L and Randl,O},
 		   note={ILL experimental report 6--04--95}}
 @Unp{Wu-r06, a={Wuttke,J and Petry,W and Pouget,S},
@@ -4700,7 +4919,7 @@
 @Unp{WutA,   a={Wuttke,J and Petry,W}, note=unpu}
 @Unp{WutPym, a={Wuttke,J}, note={Polymer-Skript 1999}}
 @Unp{Wu10r1, a={Wuttke,J},
-		   note={JCNS experimental report 4763}, x="H2O.LiCl" }
+		   note={JCNS experimental report 4763}, x="H2O.LiCl"}
 @Buk{WuAW97, a={Wutz,M and Adam,H and Walcher,W}, t={Handbuch Vakuumtechnik},
 		   f={Vieweg}, l={Braunschweig}, en=6, y=1997}
 
@@ -4712,7 +4931,7 @@
                   pinhole formation and growth} }
 @Art{XuKB05, a={Xu,L and Kumar, P and Buldyrev,S V and Chen,S-H and Poole,P H
                 and Sciortino,F and Stanley,H E},
-                j=pnas, v=102, p=16558, y=2005, x="FST" }
+                j=pnas, v=102, p=16558, y=2005, x="FST"}
 
 %:y
 
@@ -4720,11 +4939,11 @@
                    j=prE, v=61, p=5473, y=2000, x="MD.Meth", c="C"}
 @Art{YaMT96, a={Yamamuro,O and Takasuke,M and Takeda,K and Kanaya,T
 		  and Kawaguchi,T and Kaji,K},
-                   j=jcp, v=105, ƒp=732, y=1996, x="buten.nsc", c="C"}
-@Art{YaTM97a, a={Yamamuro,O and Tsukushi,I and Matsuo,T and Takeda,K and
+                   j=jcp, v=105, p=732, y=1996, x="buten.nsc", c="C"}
+@Art{YaTM97a,a={Yamamuro,O and Tsukushi,I and Matsuo,T and Takeda,K and
 		  Kanaya,T and Kaji,K},
                    j=jcp, v=106, p=2997, y=1997, x="prop-en.nsc", c="C"}
-@Art{YaTM97b, a={Yamamuro,O and Tsukushi,I and Matsuo,T and Takeda,K and
+@Art{YaTM97b,a={Yamamuro,O and Tsukushi,I and Matsuo,T and Takeda,K and
 		  Kanaya,T and Kaji,K},
                    j=ptps, v=126, p=93, y=1997, x="cP", c="C"}
 @Art{YaCN88, a={Yan,Y X and Cheng,L T and Nelson,K A},
@@ -4744,26 +4963,37 @@
 		      Mode Coupling Theory and its Experimental Tests},
 		   j=ttsp, v=24, n={6-8}, p=755, y=1995,
 		  f={M.~Dekker}, l={New York}, x="mct"}
-@Art{Yok07, a={Yokoyama, H and Dutriez, C and Li, L and Nemoto, T and 
-                  Sugiyama, K and Sasaki, S and Masunaga, H and Takata M and Okuda H}, 
-                  j=jcp,v=127,p=014904,y=2007}
+@Art{YoDL07, a={Yokoyama,H and Dutriez,C and Li,L and Nemoto,T and Sugiyama,K
+                 and Sasaki,S and Masunaga,H and Takata,M and Okuda H}, 
+                   j=jcp, v=127, p=014904, y=2007, x="gisas???"}
 @Art{YoYK08, a={Yoshida,K and Yamaguchi,T and Kittaka,S and
                   Bellissent-Funel,M-C and Fouquet,P},
-                   j=jcp, v=129, p=054702, y=2008, x="H2O:MCM" }
+                   j=jcp, v=129, p=054702, y=2008, x="H2O:MCM"}
 @Art{YoYK12, a={Yoshida,K and Yamaguchi,T and Kittaka,S and
                   Bellissent-Funel,M-C and Fouquet,P},
-                   j=jpCM, v=24, p=064101, y=2012, x="H2O:MCM" }
+                   j=jpCM, v=24, p=064101, y=2012, x="H2O:MCM"}
 @Art{YuFr87, a={Yu,C C and Freeman,J J},
                    j=prB, v=36, p=7620, y=1987, x="TT", c="C"}
-
+@Art{YuAn04, a={Yue,Y Z and Angell,C A},
+                   j=nat, v=427, p=717, y=2004 }
 %:z
 
 @Art{Zac00a, a={Zaccai,G}, j=sc, v=288, p=1604, y=2000,
-                   x="prot:msd:force_constant" }
+                   x="prot:msd:force_constant"}
 @Art{Zac32,  a={Zachariasen,W H},
                    j=jaces, v=54, p=3841, y=1932, x="B2O3-Modell", c="--"}
+@Buk{Zac45,  a={Zachariasen,W H},
+                   t={Theory of X-ray Diffraction in Crystals},
+                   f={Wiley}, l={New York}, y=1945 }
 @Art{ZaZa99, a={Zaluski,L and Zaluska,A and Str\"om-Olsen,J O},
                    j=JACmp, v=290, p=71, y=1999 }
+@Art{ZaBC99, a={Zanotti,J-M and Bellissent-Funel,M-C and Chen,S-H},
+                   j=prE, v=59, p=3084, pf=3093, y=1999,
+		   x="H2O:vycor??.nsc?"}
+@Art{ZaBC06, a={Zanotti,J-M and Bellissent-Funel,M-C and Chen,S-H and
+                Kolesnikov,A I},
+                   j=jpCM, v=18, p={S2299}, y=2006,
+		   x="H2O:vycor.nsc,LLT@240K"}
 @Buk{Zar82,  a={Zarzycki,J}, t={Les verres et l'\'etat vitreux},
                    f={Masson}, l={Paris}, y=1982, x="g"}
 @Buk{Zar91,  a={Zarzycki,J}, t={Glasses and the vitreous state},
@@ -4775,7 +5005,7 @@
                    Gutsmiedl,E and Kudryashov,V and Maier,D and P\"athe,D and
                    Petry,W and Sch\"offel,T and Schreckenbach,K and
                    Urban,A and Wildgruber,U},
-                   j=nimA, v=560, p=444, y=2006, x="frm2" }
+                   j=nimA, v=560, p=444, y=2006, x="frm2"}
 @Art{ZePo71, a={Zeller,R C and Pohl,R O},
                    j=prB, v=4, p=2029, y=1971, x="glT.cp"}
 @Art{ZeMN92, a={Zemlyanov,V K and Malinovskii,V K and Novikov,V N and
@@ -4785,10 +5015,12 @@
                    j={Mat.\ Trans.\ JIM}, v=32, p=10005, y=1991, x="xxx"}
 @Art{ZhIM93, a={Zhang,T and Inoue,A and Masumoto,T},
                    j={Mat.\ Lett.}, v=15, p=379, y=1993, x="TiZrHf"}
+@Art{ZhYZ12, a={Zheng,Y-g and Ye,H-f and Zhang,Z-q and Zhang,H-w},
+                   j=pccp, v=14, pi=964, pf=971, y=2012, x="H2O:nanotubes.MD"}
 @Art{ZhMT91, a={Zhu,T C and Maris,H J and Tauc,J},
                    j=prB, v=44, p=4281, y=1991, x="SiO2.uschall", c="C"}
 @Art{Zim56,  a={Zimm,B H},
-                  j=jcp, v=24, p=269, y=1956, x="pym.dyn" }
+                  j=jcp, v=24, p=269, y=1956, x="pym.dyn"}
 @Art{ZoLe98, a={van Zon,A and de Leeuw,S W},
                    j=prl, v=81, p=4100, y=1998, x="pym(PB).MD", c="C"}
 @Art{ZoRF92, a={Zorn,R and Richter,D and Farago,B and Frick,B and
@@ -4803,11 +5035,12 @@
 		  and Richter,D},
                    j=jcp, v=107, p=3645, y=1997, x="pym.die", c="C"}
 @Art{Zor97b, a={Zorn,R}, j=prB, v=55, p=6249, y=1997, x="pym.nsc", c="C"}
-@Art{Zor09,  a={Zorn,R}, j=nimA, v=603, p=439, y=2009, x="[cmz]" }
+@Art{Zor07,  a={Zorn,R}, j=nimA, v=572, p=874, y=2007, x="bsc.meth msc"}
+@Art{Zor09,  a={Zorn,R}, j=nimA, v=603, p=439, y=2009, x="bsc.meth I(q)"}
 @Art{ZoBG95, a={Zoppi,M and Bafile,U and others},
                    j=prl, v=75, p=1779, y=1995, x="S(Q)", c="C"}
 @Art{ZsLM02, a={Zsigmond,G and Lieutenant,K and Mezei,F},
-                   j=nn, v=13, p=11, y=2002, x="nsc:sim:Vitess" }
+                   j=nn, v=13, p=11, y=2002, x="nsc:sim:Vitess"}
 @Art{ZuKe97, a={Z\"urcher,U and Keyes,T},
                    j=prE, v=55, p=6917, y=1997, x="Softpot", c="C"}
 @Art{ZuTD99, a={Z\"urn,C and Titze,A and Dietzemann,G and B\"ohmer,R},
@@ -4818,9 +5051,9 @@
                    j=jcp, v=43, p=4464, y=1965, x="mhy"}
 
 
-%% Software
+%%% Software
 
-@Rem{s::gpl,   t={Free Software Foundation,
+@Rem{s:gpl,   t={Free Software Foundation,
                 \textit{GNU General Public License, Version 3},
                 \url{http://www.gnu.org/copyleft/gpl.html} (2007).}}
 
@@ -4843,25 +5076,30 @@
                 t={\textit{Doxygen: a documentation system for C++, \ldots},
                   \url{http://www.doxygen.org} (1997--2008).} }
 @Any{s:frida,a={Wuttke,J},
-                t={\textit{Frida: Flexible rapid interactive data analysis},
+                t={\textit{\texttt{Frida}: Flexible rapid interactive
+		  data analysis},
                   \url{http://apps.jcns.fz-juelich.de/frida}.} }
 @Any{s:git,  a={Hamano,J C and Torvalds,L and others},
                    t={\textit{git --- the fast version control system},
                    \url{http://git-scm.com}.} }
+@Any{s:gsl,  a={Galassi,M and others},
+                t={GNU Scientific Library Reference Manual,
+                   \url{http://www.gnu.org/software/gsl/manual}.} }
 @Any{s:kinpy, a={Srinivasan,A},
                    t={kinpy: a source code generator for solving
                       Chemical Kinetic equations in Python.
-                      \url{http://code.google.com/p/kinpy/}. }, x="->ala" }
+                      \url{http://code.google.com/p/kinpy/}. }, x="->ala"}
 @Any{s:lmfit, a={Wuttke,J},
                    t={\textit{lmfit} --- a C library for
                       Levenberg-Marquardt least-squares minimization
                       and curve fitting. Maintained at
                      \url{http://apps.jcns.fz-juelich.de/lmfit}.} }
-@Any{s:mscabs, a={Soininen,A and Wuttke,J},
-                   t={Thermal Neutron Multiple-Scattering Code msca3.
-                      I. Simulating Backscattering Spectroscopy.
-                      In preparation.
-                       \url{http://apps.jcns.fz-juelich.de/msca3}.} }
+@Any{s:msca, a={Soininen,A and Wuttke,J},
+                   t={\textit{Thermal neutron multiple-scattering
+		      simulation code \texttt{MSca}.}
+                      Specially optimized version for neutron backscattering.
+		      Software release and publication under preparation.
+                       \url{http://apps.jcns.fz-juelich.de/msca}.} }
 @Any{s:modbus, a={Wuttke,J},
                    t={modbus under Ruby,
                    \url{http://joachimwuttke.de/techblog/modbus}.} }
@@ -4875,13 +5113,22 @@
                    \url{http://apps.jcns.fz-juelich.de/ransampl}
                    and \url{https://sourceforge.net/projects/ransampl}.} }
 @Any{s:slaw,  a={Wuttke,J},
-                 t={\textit{\textsc{Slaw}: neutron scattering histograms
+                 t={\textit{\texttt{SLAW}: neutron histogram
                     to scattering law converter,}
                     \url{http://apps.jcns.fz-juelich.de/slaw}.} }
+@Any{s:trng, a={Bauke,H},
+                 t={Tina's Random Number Generator Library,
+                    \url{http://numbercrunch.de/trng/}.} }
 @Any{s:yaml, a={Ben-Kiki,O and Evans,C and d\"ot Net,I},
                    t={\textit{{YAML} Ain't Markup Language},
                    \url{http://www.yaml.org}.} }
 
+%%% Generic notes
+
+@Rem{n:supp, t={Supplemental online material.
+                \textbf{Production editor:} add URL.} }
+
+%%% Specific notes for single manuscripts
 
 % rsp: the big article about SPHERES
 
@@ -4904,12 +5151,11 @@
                  Vegge,T and Wuttke,J},
                   note="unpublished;
                     experimental setup described in
-                    JCNS experimental report 1359", x="MgAm.nsc" }
+                    JCNS experimental report 1359", x="MgAm.nsc"}
 @Any{rsp:in16char, t={IN16 characteristics, \url{http://www.ill.eu/instruments-support/instruments-groups/instruments/in16/characteristics/}} }
 @Any{rsp:supp, t={Supplemental Material [URL...]}}
 @Any{rsp:fulladdr, t={Full addresses of suppliers are listed
 in Table~I of the Supplemental Material.}}
-@Rem{rsp:MI, t={S. Manoshin and A. Ioffe, private communication}}
 
 % pst: Bragg reflection by moving crystals and optimization of PST chopper
 
@@ -5006,31 +5252,41 @@ this is delightful reading for a member of the latter community.}}
 @Any{tau:R7261, a={Wuttke,J and Schir\`o,G and Weik,M and Lohstroh,W},
              t={MLZ Experimental Report 7261 (TOFTOF 2013)} }
 
+% rmc (2013-) reflectivity of mosaic crystals
+
+@Any{rmc:crw, a={Wuttke,J},
+             t={Zig-zag walk with scattering and absorption (in preparation)} }
+
+% crw (2014) Catalan numbers and scattering/absorption random walk
+
+@Any{crw:oeis, a={Sloane,N J A and others},
+               t={The On-Line Encyclopedia of Integer Sequences,
+                  published electronically at \url{http://oeis.org}.} }
+@Any{crw:triangle, a={Stanley,R and Weisstein,E W},
+               t={Catalan's Triangle.
+                  \url{http://mathworld.wolfram.com/CatalansTriangle.html}.},
+               y=2014 }
+@Any{crw:cat-gen, a={Spivey,M},
+               t={The Catalan Numbers from Their Generating Function.
+                  \url{http://mikespivey.wordpress.com/2013/03/19/the-catalan-numbers-from-their-generating-function/}.},
+               y=2013 }
+@Art{crw:rmc, a={Wuttke,J},
+               t={Multiple Bragg reflection by a thick mosaic crystal},
+               j=axA, y={in press} }
+
 % References for BornAgain manual
+
 @Any{MinuitURL,
-             t = {Minuit user's guide, \url{http://seal.web.cern.ch/seal/documents/minuit/mnusersguide.pdf}}
-}
-
+             t = {Minuit user's guide, \url{http://seal.web.cern.ch/seal/documents/minuit/mnusersguide.pdf}} }
 @Any{GSLMultiMinURL,
-             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Multidimensional-Minimization.html}}
-}
-
+             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Multidimensional-Minimization.html}} }
 @Any{GSLMultiFitURL,
-             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html#Nonlinear-Least_002dSquares-Fitting}}
-}
-
+             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html#Nonlinear-Least_002dSquares-Fitting}} }
 @Any{GSLSimAnURL,
-             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Simulated-Annealing.html}}
-}
-
+             t = {\url{http://www.gnu.org/software/gsl/manual/html_node/Simulated-Annealing.html}} }
 @Any{mntutorial,
- t = {\url{http://seal.web.cern.ch/seal/documents/minuit/mntutorial.pdf}}
-}
-
+             t = {\url{http://seal.web.cern.ch/seal/documents/minuit/mntutorial.pdf}} }
 @Any{mnerror,
-t = {\url{http://seal.web.cern.ch/seal/documents/minuit/mnerror.pdf}}
-}
-
+             t = {\url{http://seal.web.cern.ch/seal/documents/minuit/mnerror.pdf}} }
 @Any{minuitv94.1,
-t = {\url{http://hep.fi.infn.it/minuit.pdf}}
-}
+             t = {\url{http://hep.fi.infn.it/minuit.pdf}} }

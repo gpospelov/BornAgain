@@ -29,6 +29,7 @@ public:
         : m_width(width), m_height(height) {
 
             setName("FormFactorInfLongBox");
+            check_initialization();
             init_parameters();
         }
 
@@ -57,6 +58,7 @@ public:
     double getVolume() const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

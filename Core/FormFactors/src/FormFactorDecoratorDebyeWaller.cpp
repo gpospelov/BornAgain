@@ -22,6 +22,7 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 , m_r_dw_factor(dw_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
+    check_initialization();
     init_parameters();
 }
 
@@ -32,6 +33,7 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 , m_r_dw_factor(dw_r_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
+    check_initialization();
     init_parameters();
 }
 
@@ -43,6 +45,7 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 , m_r_dw_factor(dw_r_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
+    check_initialization();
     init_parameters();
 }
 
@@ -65,9 +68,14 @@ complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t& k_i,
     return dw*mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
 }
 
+bool FormFactorDecoratorDebyeWaller::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
     clearParameterPool();
-    registerParameter("hfactor", &m_h_dw_factor);
-    registerParameter("rfactor", &m_r_dw_factor);
+    registerParameter("hfactor", &m_h_dw_factor, AttLimits::n_positive());
+    registerParameter("rfactor", &m_r_dw_factor, AttLimits::n_positive());
 }

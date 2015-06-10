@@ -109,7 +109,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double wavelength = getWavelength();
     double total_abundance = mp_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
-    complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
+    complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
     size_t number_of_particles = p_layout->getNumberOfParticles();
     for (size_t particle_index =
              0; particle_index<number_of_particles; ++particle_index) {
@@ -139,7 +139,7 @@ double LayerStrategyBuilder::getWavelength()
 {
     cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
     kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return 2*M_PI/ki_real.mag();
+    return Units::PI2/ki_real.mag();
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
@@ -150,7 +150,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<IParticle> P_particle_clone(p_particle_info->
             getParticle()->clone());
-    P_particle_clone->setAmbientMaterial(p_ambient_material);
+    P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
     IFormFactor *p_ff_particle=0;

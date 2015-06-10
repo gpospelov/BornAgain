@@ -38,7 +38,7 @@ ISample *IsGISAXS08ABuilder::buildSample() const
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             new InterferenceFunction2DParaCrystal(10.0*Units::nanometer,
-                    10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
+                    10.0*Units::nanometer, Units::PI/2.0, 0.0, 0.0);
     p_interference_function->setDomainSizes(20.0*Units::micrometer,
             20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
@@ -81,7 +81,7 @@ ISample *IsGISAXS08BBuilder::buildSample() const
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             new InterferenceFunction2DParaCrystal(10.0*Units::nanometer,
-                    10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
+                    10.0*Units::nanometer, Units::PI/2.0, 0.0, 0.0);
     p_interference_function->setDomainSizes(20.0*Units::micrometer,
             20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);

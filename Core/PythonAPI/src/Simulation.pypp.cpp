@@ -97,22 +97,22 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         IParameterized::printParameters( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< Simulation_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -176,12 +176,22 @@ void register_Simulation_class(){
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
         
-            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double ) ;
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double,::AttLimits const & ) ;
             
             Simulation_exposer.def( 
                 "addParameterDistribution"
                 , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
-                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
+                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) ) );
+        
+        }
+        { //::Simulation::addParameterDistribution
+        
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::ParameterDistribution const & ) ;
+            
+            Simulation_exposer.def( 
+                "addParameterDistribution"
+                , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
+                , ( bp::arg("par_distr") ) );
         
         }
         { //::Simulation::clone
@@ -194,6 +204,16 @@ void register_Simulation_class(){
                 , clone_function_type(&::Simulation::clone)
                 , default_clone_function_type(&Simulation_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Simulation::getDistributionHandler
+        
+            typedef ::DistributionHandler const & ( ::Simulation::*getDistributionHandler_function_type)(  ) const;
+            
+            Simulation_exposer.def( 
+                "getDistributionHandler"
+                , getDistributionHandler_function_type( &::Simulation::getDistributionHandler )
+                , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
         { //::Simulation::getInstrument
@@ -273,6 +293,15 @@ void register_Simulation_class(){
                 , prepareSimulation_function_type( &::Simulation::prepareSimulation ) );
         
         }
+        { //::Simulation::removeDetectorResolutionFunction
+        
+            typedef void ( ::Simulation::*removeDetectorResolutionFunction_function_type)(  ) ;
+            
+            Simulation_exposer.def( 
+                "removeDetectorResolutionFunction"
+                , removeDetectorResolutionFunction_function_type( &::Simulation::removeDetectorResolutionFunction ) );
+        
+        }
         { //::Simulation::runOMPISimulation
         
             typedef void ( ::Simulation::*runOMPISimulation_function_type)(  ) ;
@@ -308,7 +337,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::Simulation::setBeamParameters )
-                , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
+                , ( bp::arg("wavelength"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
         { //::Simulation::setDetectorParameters
@@ -448,12 +477,12 @@ void register_Simulation_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             Simulation_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Simulation_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

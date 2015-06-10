@@ -34,9 +34,17 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
-                                           ISample *sample);
+                                           const Simulation &simulation,
+                                           const QString &sampleName=QString());
+
+    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+                                           const ISample &sample,
+                                           const QString &sampleName=QString());
+
     ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
-                                               Instrument *instrument);
+                                               const Simulation &simulation,
+                                               const QString &instrumentName=QString());
+
 
     using ISampleVisitor::visit;
 
@@ -50,8 +58,8 @@ public:
 
     void visit(const Particle *);
     void visit(const ParticleDistribution *);
-
     void visit(const ParticleCoreShell *);
+    void visit(const ParticleComposition *);
 
     void visit(const ParticleInfo *);
 
@@ -71,6 +79,7 @@ public:
     void visit(const FormFactorRipple1 *);
     void visit(const FormFactorRipple2 *);
     void visit(const FormFactorTetrahedron *);
+    void visit(const FormFactorTruncatedCube *);
     void visit(const FormFactorTruncatedSphere *);
     void visit(const FormFactorTruncatedSpheroid *);
 
@@ -81,12 +90,13 @@ public:
 
     void visit(const LayerRoughness *);
 
-//    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
+    void visit(const RotationX *);
+    void visit(const RotationY *);
+    void visit(const RotationZ *);
+    void visit(const RotationEuler *);
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
-    void addRotationItem(const Geometry::Transform3D *p_transformation,
-                         ParameterizedItem *transformation_item);
 
     SampleModel *m_sampleModel;
 

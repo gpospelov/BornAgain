@@ -1,4 +1,4 @@
-# IsGISAXS09 example: Pyramids on top of substrate - Rotated pyramids on top of substrate
+# Functional test: IsGISAXS09 example: Pyramids on top of substrate - Rotated pyramids on top of substrate
 import sys
 import os
 import numpy
@@ -61,7 +61,7 @@ def RunSimulation2():
     pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
+    transform = RotationZ(angle_around_z)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(pyramid, transform)
     

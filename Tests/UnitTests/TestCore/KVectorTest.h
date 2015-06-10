@@ -1,8 +1,8 @@
 #ifndef KVECTORTEST_H
 #define KVECTORTEST_H
 
+#include "Units.h"
 #include "Types.h"
-
 
 class KVectorTest : public ::testing::Test
 {
@@ -108,53 +108,24 @@ TEST_F(KVectorTest, BasicTransformation)
     kvector_t a, v;
 
     // rotation via transformation
-/* currently neither implemented, nor needed
-    a = kvector_t(2., 0.5, std::sqrt(3.)/2.);
-    Geometry::Transform3D m1 = Geometry::RotateX3D(M_PI/6.);
-    v = m1.transformed(a);
-    EXPECT_DOUBLE_EQ( v.x(), 2.0);
-    ASSERT_NEAR(      v.y(), 0.0, epsilon);
-    ASSERT_NEAR(      v.z(), 1.0, epsilon );
-*/
-
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
-    Geometry::Transform3D m2 =
-            Geometry::Transform3D::createRotateY(M_PI/6.);
+    Geometry::Transform3D m2 = Geometry::Transform3D::createRotateY(Units::PI/6.);
     v = m2.transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
-    Geometry::Transform3D m3 =
-            Geometry::Transform3D::createRotateZ(M_PI/6.);
+    Geometry::Transform3D m3 = Geometry::Transform3D::createRotateZ(Units::PI/6.);
     v = m3.transformed(a);
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.z(), 2.0 );
-    Geometry::Transform3D *m4 = m3.createInverse();
-    v = m4->transformed(v);
+    Geometry::Transform3D m4 = m3.getInverse();
+    v = m4.transformed(v);
     ASSERT_NEAR( v.x(), a.x(), epsilon );
     ASSERT_NEAR( v.y(), a.y(), epsilon );
     ASSERT_NEAR( v.z(), a.z(), epsilon );
-    delete m4;
-
-/* currently neither implemented, nor needed
-    // rotation around vector
-    a = kvector_t(1, 1, std::sqrt(2));
-    Geometry::Transform3D m4 =
-        Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
-    v = m4.transformed(a);
-    ASSERT_NEAR( v.x(), -1, epsilon );
-    ASSERT_NEAR( v.y(), -1, epsilon );
-    ASSERT_NEAR( v.z(), -std::sqrt(2), epsilon );
-    // transform it back
-    Geometry::Transform3D m4_inverse = m4.inverse();
-    v = m4_inverse.transformed(v);
-    ASSERT_NEAR( v.x(), a.x(), epsilon );
-    ASSERT_NEAR( v.y(), a.y(), epsilon );
-    ASSERT_NEAR( v.z(), a.z(), epsilon );
-*/
 }
 
 #endif // KVECTORTEST_H

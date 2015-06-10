@@ -25,9 +25,9 @@ namespace StandardSimulations{
 
 Simulation *IsGISAXS01();
 Simulation *IsGISAXS02();
-Simulation *IsGISAXS03BA();
-Simulation *IsGISAXS03DWBA();
-Simulation *IsGISAXS03BAsize();
+Simulation *CylindersInBA();
+Simulation *CylindersInDWBA();
+Simulation *CylindersWithSizeDistribution();
 Simulation *IsGISAXS041DDL();
 Simulation *IsGISAXS042DDL();
 Simulation *IsGISAXS06L1();
@@ -48,13 +48,18 @@ Simulation *PolarizedDWBAMagCylinders2();
 Simulation *LayerWithRoughness();
 Simulation *Ripple2();
 Simulation *Ripple1();
-Simulation *gui_IsGISAXS01();
-Simulation *gui_IsGISAXS041DDL();
-Simulation *gui_IsGISAXS042DDL();
-Simulation *gui_IsGISAXS11();
-Simulation *gui_IsGISAXS06L1();
-Simulation *gui_IsGISAXS07();
+Simulation *gui_CylinderAndPrisms();
+Simulation *gui_Interference1DParaCrystal();
+Simulation *gui_Interference2DParaCrystal();
+Simulation *gui_CoreShellParticles();
+Simulation *gui_Interference2DSquareLattice();
+Simulation *gui_Interference2DCenteredLattice();
+Simulation *gui_RotatedPyramids();
 Simulation *gui_MultipleLayouts();
+Simulation *BeamDivergence();
+Simulation *DetectorResolution();
+Simulation *ParticleDistribution();
+Simulation *gui_ParticleComposition();
 }
 
 

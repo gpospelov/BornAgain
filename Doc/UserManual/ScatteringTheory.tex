@@ -1,0 +1,790 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%   
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Foundations of GISAS}  \label{sec:ScatTheory}
+
+In this chapter,
+we present the theory
+of grazing-incidence small-angle scattering (GISAS)
+that underlies the simulation algorithm implemented in \BornAgain.
+We specifically consider the propagation and scattering
+of neutrons with no polarization-dependent interactions,
+so that we can base our exposition on a scalar wave equation.
+The notationally more involved
+vectorial theory needed for X-rays and for polarized neutrons
+is adjourned to the next chapter.
+
+Our exposition is largely self-contained,
+except for the initial passage from the microscopic
+to the macroscopic Schrödinger equation,
+which we outline only briefly.
+This manual is decidedly not the place for renarrating
+the historic development of GISAS theory.
+For ample references to the original literature,
+we refer to the excellent review \cite{ReLL09}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Coherent neutron propagation}\label{Swave}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Wave propagation!neutrons|(}%
+\index{Neutrons!wave propagation|(}%
+
+\index{Schrodinger@Schrödinger equation!microscopic}%
+The scalar wave function $\psi(\r,t)$
+\nomenclature[2t020]{$t$}{Time}%
+\nomenclature[2r040]{$\r$}{Position}%
+\nomenclature[1ψ030 2r040 2t02]{$\psi(\r,t)$}{Microscopic neutron wave function}%
+of a slow neutron is governed by the microscopic Schrödinger equation
+\begin{equation}\label{ESchrodi}
+  i\hbar\partial_t \psi(\r,t)
+  = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
+\end{equation}
+By assuming a time-independent potential $V(\r)$,
+we have excluded inelastic scattering.
+Therefore we need only to consider monochromatic waves
+with given frequency~$\omega$.
+\nomenclature[1ω 020]{$\omega$}{Frequency of incident radiation}%
+In consequence, we have a stationary wave function
+\begin{equation}\label{Estationarywave}
+  \psi(\r,t) = \psi(\r){\rm e}^{-i\omega t}.
+\end{equation}
+\nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wave function}%
+The minus sign in the exponent of the phase factor
+is an inevitable consequence of the standard form of the Schrödinger equation,
+and is therefore called the \textit{quantum-mechanical sign convention}.
+\index{Wave propagation!sign convention}%
+\index{Sign convention}%
+The opposite choice of a phase factor ${\rm e}^{+i\omega t}$ is 
+called the \textit{crystallographic sign convention},
+and is used in much of the literature on X-ray scattering,
+including some important texts on GISAXS (e.~g.\ \cite{ReLL09}).
+Since \BornAgain is covering both X-ray and neutron scattering,
+the obvious choice for us was to adopt the quantum-mechanical convention
+throughout the source code as well as in this manual.
+
+Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
+we obtain the stationary Schrödinger equation
+\begin{equation}\label{EstatSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
+\end{equation}
+\nomenclature[2m020]{$m$}{Neutron mass}%
+\nomenclature[2v130 2r040]{$V(\r)$}{Microscopic optical potential}%
+\index{Potential|see {Optical potential}}%
+\index{Optical potential!nuclear (microscopic)}%
+The \textit{nuclear} (or \textit{microscopic})
+\textit{optical potential} $V(\r)$,
+in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
+consists of a sum of delta functions,
+representing Fermi's ``pseudopotential''.
+\index{Fermi's pseudopotential}%
+The superposition of the incident wave with the scattered waves
+originating from each illuminated nucleus
+results in \textit{coherent forward scattering},
+\index{Coherent forward scattering}%
+in line with Huygens' principle.
+\index{Huygens' principle}%
+
+Another form of coherent scattering is \textit{Bragg scattering}.
+\index{Bragg scattering!by atomic lattices}%
+However, Bragg scattering by atomic lattices
+is large-angle, not small-angle scattering,
+and therefore occurs outside the wavenumber range
+covered in GISAS experiments.
+Accordingly, it can be neglected in the analysis of GISAS data,
+or at most, is taken into account as a loss channel.
+
+Therefore,
+we can neglect the atomic structure of $V(\r)$,
+and perform some \textit{coarse graining} to
+arrive at a \textit{continuum approximation}.
+\index{Continuum approximation!neutron propagation}%
+This is 
+similar to the passage from
+the microscopic to the macroscopic Maxwell equations.
+The details are intricate \cite{Sea89,Lax51},
+but the result \cite[eq.~2.8.32]{Sea89} looks very simple:
+The macroscopic field equation
+has still the form of a stationary Schrödinger equation,
+\index{Schrodinger@Schrödinger equation!macroscopic}%
+\begin{equation}\label{EmacrSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \Psi(\r) = 0,
+\end{equation}
+\nomenclature[1ψ130 2r040 2t020]{$\Psi(\r,t)$}{Coherent wave function}%
+\nomenclature[2v020 2r040]{$v(\r)$}{Macrosopic optical potential}%
+where $\Psi$ now stands for the \textit{coherent wave function}
+\index{Coherent wave function}%
+\index{Wave propagation!coherent}%
+obtained by superposition of
+incident and forward scattered states,
+and $v(\r)$ is the \textit{macroscopic optical potential}.
+\index{Optical potential!macroscopic}%
+This potential is weak, and slowly varying compared to atomic length scales.
+It can be rewritten in a number of ways,
+especially in terms of a
+\textit{bound scattering length density}
+\index{Scattering length density}%
+$\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
+\nomenclature[1ρ 034 2s000 2r040]{$\rho_s(\r)$}{Scattering length density}%
+\begin{equation}
+  v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),  
+\end{equation}
+or of a \textit{refractive index}~$n(\r)$
+\nomenclature[2n020 2r040]{$n(\r)$}{Refractive index}%
+\index{Refractive index} % !vs scattering length density}%
+\index{Index of refraction|see {Refractive index}}%
+defined by
+\begin{equation}\label{EnRefrIndx}
+  n(\r)^2:=1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
+\end{equation}
+In the latter expression,
+we introduced the \textit{vacuum wavenumber}~$K$,
+\nomenclature[2k120]{$K$}{Vacuum wavenumber, corresponding to the frequency~$\omega$}%
+which is connected with the frequency~$\omega$ through the
+\textit{dispersion relation}
+\begin{equation}
+  \frac{\hbar^2 K^2}{2m} = \hbar\omega.
+\end{equation}
+Since we only consider stationary solutions~(\ref{Estationarywave}),
+$\omega$ will not appear any further in our derivations.
+Instead, we use~$K$ as the given parameter that characterizes the
+incoming radiation.
+In terms of $K$ and $n$,
+the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
+can be rewritten as
+
+\Highlight{\Box{
+\begin{equation}\label{EnSchrodi}
+  \left\{\Nabla^2+K^2n(\r)^2\right\}\Psi(\r) = 0.
+\end{equation}
+}}
+This equation is the starting point for the analysis of all
+small-angle scattering experiments,
+whether under grazing incidence (GISAS) or not (regular SAS).
+
+\index{Wave propagation!neutrons|)}%
+\index{Neutrons!wave propagation|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neutron scattering in Born approximation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{The Born expansion}\label{SBorn}
+%===============================================================================
+
+\index{Born approximation|(}%
+
+For slow neutrons, as for X-rays, the refractive index~$n$ is almost always
+very close to~1.
+This suggests a solution of the Schrödinger equation~(\ref{EnSchrodi})
+by means of a perturbation expansion in powers of $n^2-1$.
+This expansion is named after Max Born
+who introduced it in quantum mechanics.\footnote
+{It goes back to Lord Rayleigh
+who devised it for the sound,
+and later also applied it to electromagnetic waves.}
+
+We rewrite the Schrödinger equation~(\ref{EnSchrodi})
+once more so that it takes the form of a Helmholtz equation
+\index{Helmholtz equation}%
+with a perturbation term on the right side:
+\begin{equation}\label{ESchrodiHelmholtz}
+  \left(\Nabla^2+K^2\right)\Psi(\r)
+  = \frac{\chi(\r)}{4\pi}\Psi(\r)
+\end{equation}
+with
+\begin{equation}\label{EChiDef}
+  \chi(\r) := \frac{4\pi}{K^2}\left(1-n^2(\r)\right).
+\end{equation}
+\nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential}%
+This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
+Equation~(\ref{ESchrodiHelmholtz}) looks
+like an inhomogeneous differential equation ---
+provided we neglect for a moment that the unknown function~$\Psi$
+reappears on the right side.
+The homogeneous equation
+\begin{equation}\label{EHelmholtzHomog}
+  \left(\Nabla^2+K^2\right)\Psi_0(\r) = 0
+\end{equation}
+\nomenclature[1ψ132 00 2r040]{$\Psi_0(\r)$}{Solution of the unperturbed stationary Schrödinger equation}
+is solved by plane waves and superpositions thereof.
+It applies in particular to the incident radiation
+$\Psi_\text{i}$ that must be present in any scattering experiment.
+\nomenclature[1ψ134 2i000 2r040]{$\Psi_\text{i}(\r)$}{Incident wave function}%
+\nomenclature[2i000]{i}{Subscript ``incident''}%
+
+For an isolated inhomogeneity,
+\begin{equation}\label{EHelmholtzForGreen}
+  \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
+\end{equation}
+\nomenclature[2g130 2r040 2r041]{$G(\r,\r')$}{Green function}
+\index{Green function!homogeneous material}%
+is solved by the Green function\footnote
+{Verification under the condition $\r\ne0$
+is a straightforward exercise in vector analysis.
+For the special case $\r=0$,
+one encloses the origin in a small sphere
+and integrates by means of the Gauss-Ostrogadsky divergence theorem.
+This explains the appearance of the factor $4\pi$.}
+\begin{equation}\label{EGreens1}
+  G(\r,\r') = \frac{{\rm e}^{iK|\r-\r'|}}{4\pi |\r-\r'|},
+\end{equation}
+which is an outgoing spherical wave centered at $\r'$.
+Convoluting this function with the given inhomogeneity $(\chi/4\pi)\Psi$,
+we obtain what is known as the Lippmann-Schwinger equation,
+\index{Lippmann-Schwinger equation}%the formal solution
+\begin{equation}\label{EPsiFormal}
+  \Psi(\r)
+  = \Psi_\text{i}(\r)
+  + \int\!{\rm d}^3r'\, G(\r,\r')
+                     \frac{\chi(\r')}{4\pi}\Psi(\r').
+\end{equation}
+This integral equation for $\Psi(\r)$ has the advantage
+over the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
+that it ensures appropriate boundary conditions for
+describing a scattering experiment.
+It can be resolved into an infinite series
+by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
+for $\Psi$ in the integrand.
+Successive terms in this series contain rising powers of $\chi$.
+Since $\chi$ is assumed to be small, the series is likely to converge.
+In first Born approximation,
+only the linear order in $\chi$ is retained,
+\begin{equation}\label{EBorn}
+  \Psi(\r)
+  \doteq \Psi_\text{i}(\r)
+  + \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}
+   \Psi_\text{i}(\r').
+\end{equation}
+This is practically always adequate for
+material investigations with X-rays or neutrons,
+where the aim is to 
+deduce $\chi(\r')$ from the scattered intensity ${|\Psi(\r)|}^2$.
+Since detectors are always placed at positions $\r$
+that are not illuminated by the incident beam,
+we are only interested in the scattered wave field
+\begin{equation}\label{EBornS}
+  \Psi_\text{s}(\r)
+  :=
+  \int\!{\rm d}^3r'\, G(\r,\r')\frac{\chi(\r')}{4\pi}\Psi_\text{i}(\r').
+\end{equation}
+\nomenclature[1ψ134 2s000 2r040 0]{$\Psi_\text{s}(\r)$}{Scattered wave function}%
+\nomenclature[2s000]{s}{Subscript ``scattered''}%
+
+\index{Born approximation|)}%
+
+%===============================================================================
+\subsection{Far-field approximation}
+%===============================================================================
+
+\index{Far-field approximation|(}%
+
+We can further simplify (\ref{EBornS})
+by making use of the fact that the detector location~$\r$
+is far away from the sample volume $\Sample$.
+\nomenclature[2m180]{$\Sample$}{Sample volume}%
+Since the scattered wave $\Psi_\text{s}(\r)$
+only depends on $\r$ through the Green function~$G(\r,\r')$,
+we shall derive a far-field approximation for the latter.
+
+We choose the coordinate origin within $\Sample$
+so that the integral in~(\ref{EBornS}) runs over $\r'$ with $r'\ll r$.
+This allows us to expand
+\begin{equation}
+  \left|\r-\r'\right|
+  \doteq \sqrt{r^2-2\r\,\r'}
+  \doteq r - \frac{\r\,\r'}{r}
+  \equiv r - \frac{\k_\text{f} \r'}{K},
+\end{equation}
+\nomenclature[2f000]{f}{Subscript ``final'', for outgoing waves scattered into the direction of the detector}%
+\nomenclature[2k040]{$\k$}{Wave vector}
+where we have introduced the outgoing wave vector
+\begin{equation}
+  \k_\text{f}:=K\frac{\r}{r}.
+\end{equation}
+We apply this to~(\ref{EGreens1}),
+\index{Green function!homogeneous material}%
+and obtain in leading order the far-field Green function
+\begin{equation}\label{EGreenFar}
+  G_\text{far}(\r,\r')
+  =\frac{{\rm e}^{iKr}}{4\pi r}\Psi^*_\text{f}(\r')
+\end{equation}
+\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
+where
+\begin{equation}
+  \Psi_\text{f}(\r) := {\rm e}^{i\k_\text{f} \r}
+\end{equation}
+\nomenclature[1ψ134 2f000 2r040]{$\Psi_\text{f}(\r)$}{Plane wave propagating from the sample towards the detector}%
+is a plane wave propagating towards the detector.
+With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
+
+The scattered wave~(\ref{EBornS})
+becomes in far-field approximation 
+\begin{equation}\label{EsandwichC}
+  \Psi_\text{s,far}(\r)
+  = \frac{{\rm e}^{iKr}}{r}
+    \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket,
+\end{equation}
+\nomenclature[1ψ134 2s000 2far]{$\Psi_\text{s,far}(\r)$}{Far-field approximation to the scattered wave function $\Psi_\text{s}(\r)$}%
+where we used Dirac notation for the transition matrix element
+\index{Transition matrix}%
+\begin{equation}\label{Etrama}
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  := \int\!{\rm d}^3r\, \Psi^*_\text{f}(\r)\chi(\r)\Psi_\text{i}(\r).
+\end{equation}
+\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
+Making the standard assumption
+that the incident radiation is a plane wave
+\begin{equation}\label{EPsi0Plane}
+  \Psi_\text{i}(\r)={\rm e}^{i \k_\text{i} \r}
+\end{equation}
+with $k_\text{i}=K$,
+and introducing the \textit{scattering vector}
+\index{Scattering vector}%
+\begin{equation}
+  \q:=\k_\text{i}-\k_\text{f},
+\end{equation}
+\nomenclature[2q040]{$\q$}{Scattering vector}%
+we can rewrite (\ref{EsandwichC}) as
+\begin{equation}\label{EBornQ}
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  = \int\!{\rm d}^3r\, {\rm e}^{i\q\,\r}\chi(\r)
+  =: \chi(\q),
+\end{equation}
+\nomenclature[1χ030 2q040]{$\chi(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$}%
+which shows that neutron scattering,
+in first-order Born approximation,
+measures the Fourier transform
+of the optical potential.
+\index{Optical potential!Fourier transform}%
+
+\index{Far-field approximation|)}%
+
+%===============================================================================
+\subsection{Differential cross section}
+%===============================================================================
+
+Above, we said somewhat sloppily
+that a scattering experiment measures intensities~${|\Psi(\r)|}^2$.
+We shall now make this more rigorous.
+In the case of neutron scattering,
+one actually measures the probability flux.
+We define it in arbitrary relative units as
+\begin{equation}
+  \v{J}(\r) := \Psi^*\frac{\Nabla}{2i}\Psi - \Psi\frac{\Nabla}{2i}\Psi^*.
+\end{equation}
+\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}
+\index{Flux!incident and scattered}%
+With (\ref{EPsi0Plane}), the incident flux is
+\begin{equation}
+  \v{J}_\text{i} = \k_\text{i}.
+\end{equation}
+With (\ref{EsandwichC}), the scattered flux at the detector is
+\begin{equation}\label{EJr}
+  \v{J}(\r)
+  = \v{\hat r}\frac{K}{r^2}
+    {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
+\end{equation}
+The ratio of the scattered current hitting an infinitesimal detector area
+$r^2{\rm d}\Omega$ to the incident flux is expressed as a
+\textit{differential cross section}
+\index{Cross section}%
+\begin{equation}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  := \frac{r^2 J(\r)}{J_\text{i}}.
+\end{equation}
+\nomenclature[1ω120]{$\Omega$}{Solid angle}%
+\nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
+The resulting equation
+
+\Highlight{\Box{
+\begin{equation}\label{Exsection}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  =  {\left|\bra\Psi_\text{f}|\chi|\Psi_\text{i}\ket\right|}^2.
+\end{equation}
+}}
+yields quite generically the differential cross section of elastic scattering
+in first order Born approximation.
+As we shall see below,
+it holds not only for plane waves governed
+by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
+but also for distorted waves.
+
+In the plane-wave case, we can insert (\ref{EBornQ}) to obtain
+\begin{equation}\label{Ecross1}
+  \frac{{\rm d}\sigma}{{\rm d}\Omega}
+  = {\left| \chi(\q) \right|}^2.
+\end{equation}
+Thus the differential cross section is just the squared modulus
+of the Fourier transform 
+\index{Scattering length density}%
+of the scattering-length density.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scattering under grazing incidence}\label{Sdwba}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection[Wave propagation in $2+1$ dimensions]{Wave propagation in $\v{2+1}$ dimensions}
+%===============================================================================
+
+Reflectometry and grazing-incidence scattering
+are designed for the investigation of surfaces, interfaces, and thin layers,
+or most generically:
+samples with a $2+1$ dimensional structure,
+that is translationally invariant in $x$ and $y$ direction,
+while being nontrivially modulated in $z$ direction.
+By convention,
+the $z$ axis points upwards, hence out of the sample towards the
+vacuum (or air) half space where the incident radiation comes from,
+as illustrated in Fig.~\ref{fig:expgeom}.
+% TODO: add figure
+
+\begin{figure}[ht]
+  \centering
+    \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
+  \caption[Conventional GISAS scattering geometry.]{Geometric conventions
+  in GISAS scattering comprise a Cartesian coordinate system
+  and a set of angles.
+  The coordinate system has a $z$ axis normal to the sample plane,
+  and pointing into the halfspace where the beam comes from.
+  The $x$ axis usually points along the incident beam,
+  projected onto the sample plane.
+  The angle $\alpha_\text{i}$ is the incident glancing angle;
+  $\phi_\text{i}$ is usually zero, unless used to describe a sample rotation;
+  $\alpha_\text{f}$ is the exit angle with respect to the sample's surface;
+  and $\phi_\text{f}$ is the scattering angle with respect to the scattering plane.
+\nomenclature[1α024 2i000]{$\alpha_\text{i}$}{Glancing angle of the incident beam}
+\nomenclature[1α024 2f000]{$\alpha_\text{f}$}{Glancing angle of the detected beam}
+\nomenclature[1φ024 2i000]{$\phi_\text{i}$}{Angle between the incident beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[1φ024 2i000]{$\phi_\text{i}$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[2x020]{$x$}{Coordinate in the sample plane, usually chosen along the incoming beam projection}%
+\nomenclature[2y020]{$y$}{Coordinate in the sample plane, chosen normal to $z$ and $x$}%
+  }
+  \label{fig:expgeom}
+\end{figure}
+
+Vertical modulations of the refractive index $n(\r)$
+cause refraction and reflection of an incident plane wave.
+\index{Glancing angle}%
+\index{Refraction}%
+\index{Reflection}%
+For small glancing angles,
+these distortions can be arbitrary large,
+up to the limiting case of total reflection,
+even though $\delta n$ is only of the order $10^{-5}$ or smaller.
+Such zeroth-order effects cannot be accounted for
+by perturbative scattering theory.
+Instead, we need to deal with refraction and reflection
+at the level of the wave propagation equation.
+We move the vertical variations of the squared refractive index
+to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi},
+\begin{equation}\label{EHelmholtzGraded}
+  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi(\r)
+  = \frac{\chi(\r)}{4\pi}\Psi(\r),
+\end{equation}
+\nomenclature[2z020]{$z$}{Coordinate along the sample normal)}%
+\nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
+where the overline indicates an horizontal average.
+Accordingly, the perturbation
+\begin{equation}\label{EChiGraded}
+  \chi(\r) := \frac{4\pi}{K^2}\left(\nz(z)-n^2(\r)\right),
+\end{equation}
+only accounts for horizontal fluctuations of the refractive index.
+Wave propagation,
+unperturbed by~$\chi$, but including refraction and reflection effects,
+obeys the homogeneous equation
+\begin{equation}\label{EHelmholtzGradedHomog}
+  \left\{\Nabla^2+K^2\nz(z)\right\}\Psi_\text{i}(\r) = 0,
+\end{equation}
+which suggests the factorization ansatz
+\begin{equation}\label{Ekpar}
+\Psi_\text{i}(\r) = {\rm e}^{i \k_\parallel\r_\parallel} \phi(z).
+\end{equation}
+\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
+\nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\Psi(\r)$}%
+The in-plane wave vector $\k_\parallel$ remains constant
+as initialized by the incoming beam.
+The vertical wave function must fulfill
+\begin{equation}\label{Ewavez}
+\left\{\partial_z^2 + K^2\nz(z) - k_\parallel^2 \right\} \phi(z) = 0.
+\end{equation}
+When an incident plane wave,
+travelling downwards with
+$\phi(z)={\rm e}^{-ik_\perp z}$,
+\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
+
+impinges on a sample with $\nz(z)\ne 1$,
+then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
+and partly refracted
+($k_\perp$ changing while $\k_\parallel$ stays constant,
+resulting in a change of glancing angle).
+Similarly, reflection and refraction occur
+whenever $\nz(z)$ varies within the sample.
+As a result, at any $z$ within the zone where $\nz(z)$ varies,
+the vertical wave function $\phi(z)$ is composed of a
+downward travelling component $\phi^-(z)$
+and an upward travelling component $\phi^+(z)$.
+
+For a graded refractive index
+\index{Refractive index!graded}%
+$\nz$ that is a smooth function of~$z$,
+the differential equation~(\ref{Ewavez}) is best solved
+with the WKB method.\footnote
+{Also called \textit{semiclassical approximation} or
+\textit{phase integral method},
+originally developed
+by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
+and named WKB method after three independent
+quantum-mechanical papers by
+Wentzel (1926), Kramers (1926), Brillouin (1926).
+See any textbook on quantum mechanics for more information.}
+\index{WKB method}%
+\index{Semiclassical approximation|see {WKB method}}%
+\index{Phase integral method|see {WKB method}}%
+If otherwise $\nz(z)$ is discontinuous at some interface $z=z_j$,
+then the limiting values of $\phi^-(z)$ and $\phi^+(z)$
+on approaching $z_j$ from above or below
+are connected to each other through Fresnel's
+transmission and reflection coefficients.
+\index{Fresnel coefficients}%
+
+%===============================================================================
+\subsection{Reciprocity and the distorted-wave Born approximation}
+%===============================================================================
+
+\index{Distorted-wave Born approximation|(}%
+\index{DWBA|see {Distorted-wave Born approximation}}%
+
+The standard form of the Born approximation,
+as presented in Sect.~\ref{SBorn},
+combines an approximation scheme
+(computing (\ref{EPsiFormal}) by iteration)
+with an assumption (the incident field is a plane wave)
+and an analytic result
+(in far-field approximation,
+the Green function of the Helmholtz equation is a plane wave
+with respect to the locus of scattering).
+These three elements must not necessarily go together.
+We can apply the very same approximation scheme,
+even if the incident field is not a plane wave,
+but a \textit{distorted wave},
+namely a superposition of downwards and upwards travelling plane waves,
+as derived in the previous section.
+This is the core idea
+of the \textit{distorted-wave Born approximation} (DWBA).\footnote
+{The distorted-wave Born approximation
+was originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.}
+% Schiff (^3 1968, p 327) cites
+% Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
+% There are also several papers by Massey and Mott from about 1933.
+
+There is one difficulty, though:
+how to substitute the Green function (\ref{EGreens1})?
+\index{Green function!vertically structured material}%
+It was derived in Sect.~\ref{SBorn} quite specifically
+for a homogeneous material.
+Computing it in closed form for a more generic wave equation
+like~(\ref{EHelmholtzGradedHomog}) is far more difficult,
+if not outright impossible.
+Fortunately, we do not need the full Green function,
+and computing it would be wasted effort,
+because in the end
+we only need its asymptotic far-field value at a detector position $\rD$.
+\nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
+Instead of propagating a field from a scattering center $\rS$
+\nomenclature[2r041 2s100]{$\rS$}{Position of a scattering center}%
+into all directions, and finally evaluating a plane wave asymptote at~$\rD$,
+we better propagate a plane wave backwards from $\rD$
+into our structured material,
+and finally evaluate the field at~$\rS$.
+The equivalence of these two computations is ensured
+by the \textit{reciprocity}
+\index{Reciprocity|(}%
+\index{Green function!reciprocity}%
+of Green functions for self-adjoint differential equations.
+
+Let us derive the reciprocity theorem
+for a generic stationary Schrödinger equation
+with an isolated inhomogeneity,
+\begin{equation}\label{EgsSchrodi}
+  \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
+\end{equation}
+We assume that $\rS$ lies within a structured material~$\Sample$.
+Outside $\Sample$,
+the potential~$v(\r)$ has the constant value~$K^2$
+so that (\ref{EgsSchrodi})
+reduces to the Helmholtz equation
+\begin{equation}\label{EgsSchrodiHelmh}
+  \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0
+  \text{~~for~~}\r\notin\Sample.
+\end{equation}
+We introduce the adjoint Green function~$B$
+\nomenclature[2b030 2r040 2r041]{$B(\r,\r')$}{Green function, adjoint of $G$}%
+that originates from a source term at the detector location
+and obeys
+\begin{equation}\label{EgsSchrodiAdj}
+  \left\{\Nabla^2+v(\r)\right\}B(\r,\rD) = \delta(\r-\rD).
+\end{equation}
+We also introduce the auxiliary vector field
+\begin{equation}
+  \v{X}(\r,\rS,\rD):=B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
+\end{equation}
+\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
+We inscribe $\Sample$, $\rD$, and the origin of the coordinate system
+into a sphere $\Sphere$ with radius~$R$,
+\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
+\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+  \begin{array}{lcl}
+    I(\rS,\rD)
+  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\Nabla \v{X}(\r,\rS,\rD)
+  \\[1.8em]
+  &=& \displaystyle\int_\Sphere\!{\rm d}^3r\,\left(
+    B\Nabla^2 G- G\Nabla^2 B \right)
+  \\[1.4em]
+  &=&  B(\rS,\rD) - G(\rD,\rS).
+  \end{array}
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}{\rm d}\v{\sigma}\,\v{X}(\r,\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}{\rm d}{\sigma}\,
+       \left(B\partial_R G - G\partial_R B\right).
+\end{equation}
+On the surface $\partial\Sphere$, which lies outside $\Sample$,
+$B$ and $G$ are outgoing wave fields that obey the Helmholtz equation.
+Solutions of this equation in spherical coordinates
+have a well-known series expansion.
+We send $R\to\infty$ so that we need only to retain the lowest order,
+\begin{equation}
+   G(\r(R,\vartheta,\varphi),\rS)
+   \doteq \frac{{\rm e}^{iKR}}{4\pi R} g(\vartheta,\varphi),
+\end{equation}
+and similarly 
+\begin{equation}
+   G(\r(R,\vartheta,\varphi),\rD)
+   \doteq \frac{{\rm e}^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{equation}
+The functions $g$ and $b$ can be further expanded into spherical harmonics,
+but this is of no interest here.
+The decisive point is the factorization of $G$ and $B$
+and their common $R$ dependence.
+It follows at once that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}{\rm d}\sigma\,
+       (\text{$R$-dependent})(bg-gb)
+  = 0.
+\end{equation}
+From (\ref{Eprerecipro}) we obtain the \textit{reciprocity theorem}
+\begin{equation}\label{Ereci}
+  G(\rD,\rS) = B(\rS,\rD).
+\end{equation}
+To obtain the forward-propagating Green function~$G$,
+it is sufficient to determine the adjoint Green function~$B$
+that traces a neutron back from the detector position~$\rD$
+to a scattering center~$\rS$.
+\index{Reciprocity|)}%
+
+The solution $B(\r,\rD)$ of (\ref{EgsSchrodiAdj})
+is analogous to (\ref{EGreens1}).
+Choosing the origin inside~$\Sample$, 
+and assuming that $\rD$ lies far outside~$\Sample$,
+we can copy the far-field expansion from~(\ref{EGreenFar})
+to obtain
+\index{Far-field approximation}%
+\begin{equation}\label{EBFar}
+  B_\text{far}(\r,\rD)
+  =\frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}{\rm e}^{-i\k_\text{f} \r}.
+\end{equation}
+When this backward propagating plane waves impinges on the sample,
+it undergoes reflection and refraction in exactly the same way as
+the incident plane wave ${\rm e}^{i\k_\text{i}\r}$.
+Therefore,
+ (\ref{EBFar}) admits a generalization that also holds inside $\Sample$:
+\begin{equation}\label{EBFull}
+  B_\text{far}(\r,\rD)
+  = \frac{{\rm e}^{iKr_\text{D}}}{4\pi r_\text{D}}\Psi^*_\text{f}(\r).
+\end{equation}
+Applying now the reciprocity theorem (\ref{Ereci}),
+we can conclude that the far-field Green function
+is still given by (\ref{EGreenFar}),
+though $\Psi_\text{f}$ no longer is a plane wave.
+Accordingly,
+the scattered far-field is still given by (\ref{EsandwichC}),
+and the differential cross section by (\ref{Exsection}).
+
+Since both the incident
+and the scattered distorted wave function
+are composed of downward and upward propagating waves,
+\begin{equation}
+  \Psi_w(\r)
+  = \Psi^-_w(\r) + \Psi^+_w(\r)\text{~for~}w\in\{\text{i},\text{f}\},
+\end{equation}
+\nomenclature[2w010]{$w$}{An index that can take the values i (incident)
+or f (final $=$ outgoing)}%
+the matrix element (\ref{Etrama})
+can be expanded into four terms,
+
+\Highlight{\Box{
+\begin{equation}\label{EtmDWBA}
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  = \bra \Psi^-_\text{f}|\chi|\Psi^-_\text{i}\ket
+  + \bra \Psi^-_\text{f}|\chi|\Psi^+_\text{i}\ket
+  + \bra \Psi^+_\text{f}|\chi|\Psi^-_\text{i}\ket
+  + \bra \Psi^+_\text{f}|\chi|\Psi^+_\text{i}\ket.
+\end{equation}
+}}
+\nomenclature[1ψ141 0\pm 2r040]{$\Psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\Psi$}%
+\nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
+This equation contains the essence of
+the distorted-wave Born approximation
+for small-angle scattering under grazing incidence,
+and is the base for all scattering models implemented in \BornAgain.
+In the following, we will use the shorthand notation
+\begin{equation}\label{EtmDWBAsum}
+  \bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket
+  = \sum_{\pm_\text{f}} \sum_{\pm_\text{i}}
+    \bra \Psi^\pm_\text{f}|\chi|\Psi^\pm_\text{i}\ket.
+\end{equation}
+Note that $\bra \Psi_\text{f}|\chi|\Psi_\text{i}\ket$
+appears as a squared modulus
+in the differential cross section~(\ref{Exsection}).
+Therefore, the four terms of (\ref{EtmDWBA}) can interfere with each other,
+which adds to the complexity of GISAS patterns.
+
+\index{Distorted-wave Born approximation|)}%
+
+%===============================================================================
+\subsection{Detector images}
+%===============================================================================
+
+In this subsection we describe
+the conversion between the scattering vector~$\q$
+and the experimental coordinates.
+This is unrelated to the previous subsections,
+but belongs nevertheless under the headings
+\textit{foundations of GISAS} and
+\textit{scattering under grazing incidence}.
+
+The experimental geometry has already been introduced in Fig.~\ref{fig:expgeom}.
+
+.... to come soon ....

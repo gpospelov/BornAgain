@@ -34,6 +34,8 @@ void register_global_variables(){
 
     bp::scope().attr("PID2") = Units::PID2;
 
+    bp::scope().attr("PID4") = Units::PID4;
+
     bp::scope().attr("PI_SQR") = Units::PI_SQR;
 
     bp::scope().attr("angstrom") = Units::angstrom;

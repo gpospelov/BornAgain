@@ -27,6 +27,7 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(
     m_radius_a = radius_a;
     m_radius_b  = radius_b;
     m_height = height;
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid>::mem_function p_mf =
@@ -35,12 +36,17 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(
         new MemberComplexFunctionIntegrator<FormFactorHemiEllipsoid>(p_mf, this);
 }
 
+bool FormFactorHemiEllipsoid::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorHemiEllipsoid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius_a", &m_radius_a);
-    registerParameter("radius_b", & m_radius_b);
-    registerParameter("height", &m_height);
+    registerParameter("radius_a", &m_radius_a, AttLimits::n_positive());
+    registerParameter("radius_b", & m_radius_b, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 
 }
 
@@ -85,11 +91,11 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t& q) const
 
      if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
 
-         return 2.0*M_PI*R*W*H/3.;
+         return Units::PI2*R*W*H/3.;
 
      } else {
 
-         return 2.0*M_PI*m_integrator->integrate(0.,H );
+         return Units::PI2*m_integrator->integrate(0.,H );
      }
 }
 

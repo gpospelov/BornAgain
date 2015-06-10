@@ -1,4 +1,4 @@
-# IsGISAXS01 example: Mixture of cylinders and prisms without interference
+# Functional test: IsGISAXS01 example: Mixture of cylinders and prisms without interference
 import sys
 import os
 import numpy

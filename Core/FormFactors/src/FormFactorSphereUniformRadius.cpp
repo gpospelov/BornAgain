@@ -26,6 +26,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 " mean radius must be bigger than the half width");
     }
     setName("FormFactorSphereUniformRadius");
+    check_initialization();
     init_parameters();
 }
 
@@ -46,21 +47,6 @@ int FormFactorSphereUniformRadius::getNumberOfStochasticParameters() const
     return 2;
 }
 
-void FormFactorSphereUniformRadius::createDistributedFormFactors(
-        std::vector<IFormFactor*>& form_factors,
-        std::vector<double>& probabilities, size_t nbr_samples) const
-{
-    assert(nbr_samples>1);
-    double step = m_full_width/(nbr_samples+1.0);
-    double radius_start = m_mean - m_full_width/2.0;
-    double probability = 1.0/nbr_samples;
-    for (size_t i=0; i<nbr_samples; ++i) {
-        double radius = radius_start + (double)i*step;
-        form_factors.push_back(new FormFactorFullSphere(radius));
-        probabilities.push_back(probability);
-    }
-}
-
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(
         const cvector_t& q) const
 {
@@ -69,21 +55,26 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double q_r = std::sqrt(q2);
     if (q_r*R < Numeric::double_epsilon) {
-        return (4.0*M_PI*R*R*R + M_PI*R*W*W)/3.0;
+        return (4.0*Units::PI*R*R*R + Units::PI*R*W*W)/3.0;
     }
     double qR = q_r*R;
     double qW = q_r*W;
-    double nominator = 4*M_PI*( 4*std::sin(qR)*std::sin(qW/2.0)
+    double nominator = 4*Units::PI*( 4*std::sin(qR)*std::sin(qW/2.0)
                              - qW*std::cos(qW/2.0)*std::sin(qR)
                              - 2.0*qR*std::cos(qR)*std::sin(qW/2.0));
     return nominator/(q2*q2*W);
 }
 
+bool FormFactorSphereUniformRadius::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorSphereUniformRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("width_radius", &m_full_width);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("width_radius", &m_full_width, AttLimits::n_positive());
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

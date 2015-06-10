@@ -44,6 +44,8 @@ TEST_F(RealParameterWrapperTest, InitialState)
     EXPECT_TRUE( par.isNull() );
     ASSERT_THROW( par.getValue(), NullPointerException );
     ASSERT_THROW( par.setValue(1.0), NullPointerException );
+
+    EXPECT_EQ(par.getAttLimits(), AttLimits::limitless());
 }
 
 TEST_F(RealParameterWrapperTest, ParameterAccess)
@@ -90,5 +92,32 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
 //    EXPECT_FALSE( obj2.m_status );
 //}
 
+TEST_F(RealParameterWrapperTest, LimitedParameter)
+{
+    m_real_parameter = 1.0;
+    EXPECT_THROW(RealParameterWrapper(&m_real_parameter, AttLimits::limited(10.0, 20.0)), OutOfBoundsException);
+    EXPECT_THROW(RealParameterWrapper(&m_real_parameter, AttLimits::lowerLimited(2.0)), OutOfBoundsException);
+    EXPECT_THROW(RealParameterWrapper(&m_real_parameter, AttLimits::upperLimited(0.0)), OutOfBoundsException);
+
+    m_real_parameter = 15.0;
+    AttLimits limits = AttLimits::limited(10, 20);
+    RealParameterWrapper par1(&m_real_parameter, limits);
+
+    EXPECT_TRUE(par1.setValue(16.0));
+    EXPECT_EQ(16.0, m_real_parameter);
+
+    EXPECT_FALSE(par1.setValue(21.0));
+    EXPECT_EQ(16.0, m_real_parameter);
+
+    RealParameterWrapper par2(par1);
+    EXPECT_TRUE(par1.getAttLimits() == par2.getAttLimits());
+    EXPECT_TRUE(par1 == par2);
+
+    EXPECT_FALSE(par1.setValue(21.0));
+    EXPECT_EQ(16.0, m_real_parameter);
+
+    EXPECT_TRUE(par1.setValue(11.0));
+    EXPECT_EQ(11.0, m_real_parameter);
+}
 
 #endif // REALPARAMETERWRAPPERTEST_H

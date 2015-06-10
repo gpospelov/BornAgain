@@ -22,7 +22,7 @@ def get_sample():
     # collection of particles
     pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73))
     pyramid = Particle(m_particle, pyramid_ff)
-    transform = Transform3D.createRotateZ(45.*degree)
+    transform = RotationZ(45.*degree)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(pyramid, transform)
 

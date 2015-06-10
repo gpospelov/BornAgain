@@ -19,7 +19,7 @@
 #include "IClusteredParticles.h"
 #include "Particle.h"
 #include "Lattice.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 
 
 //! @class Crystal
@@ -29,54 +29,55 @@
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
-    Crystal(const LatticeBasis& lattice_basis, const Lattice& lattice);
+    Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
-    virtual Crystal *clone() const;
+    Crystal *clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual Crystal *cloneInvertB() const;
+    Crystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)
-    { mp_lattice_basis->setAmbientMaterial(p_ambient_material); }
+    void setAmbientMaterial(const IMaterial& material) {
+        mp_lattice_basis->setAmbientMaterial(material);
+    }
 
-    virtual IFormFactor *createTotalFormFactor(
+    const IMaterial* getAmbientMaterial() const {
+        return mp_lattice_basis->getAmbientMaterial();
+    }
+
+    IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial &p_ambient_material,
         complex_t wavevector_scattering_factor) const;
 
     Lattice getTransformedLattice() const;
 
-    const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
+    const ParticleComposition *getLatticeBasis() const { return mp_lattice_basis; }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const;
-
     //! Composes transformation with existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
+    void applyTransformation(const IRotation& rotation);
 
     //! Gets transformation
-    virtual const Geometry::Transform3D *getTransform() const {
-        return mP_transform.get();
+    const IRotation* getRotation() const {
+        return mP_rotation.get();
     }
 
 
 private:
     //! Private constructor
-    Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
+    Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);
 
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
+    void applyTransformationToSubParticles(const IRotation& rotation);
 
     Lattice m_lattice;
-    std::auto_ptr<Geometry::Transform3D> mP_transform;
-    LatticeBasis *mp_lattice_basis;
+    std::auto_ptr<IRotation> mP_rotation;
+    ParticleComposition *mp_lattice_basis;
     double m_dw_factor;
 };
 

@@ -55,3 +55,8 @@ QString ComboProperty::toString(int index) const
     return name_list[index];
 }
 
+void ComboProperty::setCachedValue(const QString &name)
+{
+    m_cached_value = name;
+}
+

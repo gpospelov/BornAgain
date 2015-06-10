@@ -20,7 +20,6 @@
 #include "ICompositeSample.h"
 #include "ParticleInfo.h"
 #include "Exceptions.h"
-#include "DiffuseParticleInfo.h"
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal
@@ -41,7 +40,8 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const = 0;
 
-    virtual void setAmbientMaterial(const IMaterial *p_ambient_material) = 0;
+    virtual void setAmbientMaterial(const IMaterial& material) = 0;
+    virtual const IMaterial* getAmbientMaterial() const = 0;
 
     //! @brief create a total form factor for the mesocrystal with a specific
     //! shape and content
@@ -60,34 +60,16 @@ public:
         (void)p_ambient_material;
         (void)wavevector_scattering_factor;
         throw NotImplementedException(
-                "IClusteredParticles::createTotalFormFactor() "
-                "-> NotImplementedException");
-    }
-
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const
-    {
-        (void)parent_info;
-        throw NotImplementedException(
-                "IClusteredParticles::createDiffuseParticleInfo() "
-                "-> NotImplementedException");
+                "IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
     }
 
     //! Composes transformation with existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform)
+    virtual void applyTransformation(const IRotation& rotation)
     {
-        (void)transform;
+        (void)rotation;
         throw NotImplementedException(
-                "IClusteredParticles::applyTransformation() "
-                "-> NotImplementedException");
+                "IClusteredParticles::applyTransformation() -> NotImplementedException");
     }
-
-    //! Gets transformation
-    virtual const Geometry::Transform3D *getTransform() const
-    {
-        return 0;
-    }
-
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

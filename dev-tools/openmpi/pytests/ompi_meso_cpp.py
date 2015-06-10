@@ -60,8 +60,8 @@ class MesoSampleBuilder(ISampleBuilder):
         position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
         pos_vector = [position_0, position_1, position_2]
-        basis = LatticeBasis()
-        basis.addParticle(particle, pos_vector)
+        basis = ParticleComposition()
+        basis.addParticles(particle, pos_vector)
         npc = Crystal(basis, lattice)
         dw_factor = self.m_sigma_lattice_length_a.value*self.m_sigma_lattice_length_a.value/6.0
         npc.setDWFactor(dw_factor)

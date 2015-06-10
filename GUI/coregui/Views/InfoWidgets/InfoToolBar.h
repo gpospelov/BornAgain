@@ -1,0 +1,49 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Views/InfoWidgets/InfoToolBar.h
+//! @brief     Defines class InfoToolBar
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef INFOTOOLBAR_H
+#define INFOTOOLBAR_H
+
+#include "WinDllMacros.h"
+#include <QWidget>
+#include <QToolBar>
+
+class QToolButton;
+
+//! The InfoToolBar is a tool bar for InfoWidget
+class BA_CORE_API_ InfoToolBar : public QToolBar
+{
+    Q_OBJECT
+
+public:
+    explicit InfoToolBar(QWidget *parent = 0);
+
+signals:
+    void expandButtonClicked();
+    void closeButtonClicked();
+
+public slots:
+    void setExpandStatus(bool status);
+
+protected slots:
+    void onExpandButtonClicked();
+
+private:
+    QToolButton *m_expandButton;
+    QToolButton *m_closeButton;
+    bool m_expanded;
+};
+
+#endif

@@ -38,6 +38,17 @@
 #include "ParticleDistribution.h"
 #include "Distributions.h"
 #include "DistributionItem.h"
+#include "DetectorItems.h"
+#include "BeamItem.h"
+#include "ComboProperty.h"
+#include "DistributionHandler.h"
+#include "ParameterDistribution.h"
+#include "BeamDistributionItem.h"
+#include "BeamAngleItems.h"
+#include "AxesItems.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "ResolutionFunctionItems.h"
+#include "ConvolutionDetectorResolution.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -426,26 +437,26 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                 sample->getLatteralCorrLength());
 }
 
-
+//! Initialization of ParticleDistributionItem
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
                                             const ParticleDistribution *sample)
 {
     ParameterDistribution par_distr = sample->getParameterDistribution();
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-                QString::fromStdString(par_distr.getMainParameterName()) );
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_SAMPLE_NUMBER, (int)par_distr.getNbrSamples());
-    item->setRegisteredProperty(
-        ParticleDistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+    QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
+    ComboProperty combo_property
+        = item->getRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+            .value<ComboProperty>();
+    combo_property.setCachedValue(main_distr_par_name);
+    item->setRegisteredProperty(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
+                                combo_property.getVariant());
 
     const IDistribution1D *p_distribution = par_distr.getDistribution();
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-
+    ParameterizedItem *pdfItem = 0;
     if(const DistributionGate *distr =
             dynamic_cast<const DistributionGate *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionGateType);
         pdfItem->setRegisteredProperty(
                     DistributionGateItem::P_MIN, distr->getMin());
@@ -454,7 +465,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionLorentz *distr =
             dynamic_cast<const DistributionLorentz *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionLorentzType);
         pdfItem->setRegisteredProperty(
                     DistributionLorentzItem::P_MEAN, distr->getMean());
@@ -463,7 +474,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionGaussian *distr =
             dynamic_cast<const DistributionGaussian *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionGaussianType);
         pdfItem->setRegisteredProperty(
                     DistributionGaussianItem::P_MEAN, distr->getMean());
@@ -472,7 +483,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionLogNormal *distr =
             dynamic_cast<const DistributionLogNormal *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionLogNormalType);
         pdfItem->setRegisteredProperty(
                   DistributionLogNormalItem::P_MEDIAN, distr->getMedian());
@@ -481,13 +492,20 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const DistributionCosine *distr =
             dynamic_cast<const DistributionCosine *>(p_distribution)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        pdfItem = item->setGroupProperty(group_name,
                                       Constants::DistributionCosineType);
         pdfItem->setRegisteredProperty(
                   DistributionCosineItem::P_MEAN, distr->getMean());
         pdfItem->setRegisteredProperty(
                   DistributionCosineItem::P_SIGMA, distr->getSigma());
     }
+    if (pdfItem) {
+        pdfItem->setRegisteredProperty(
+                    DistributionItem::P_NUMBER_OF_SAMPLES, (int)par_distr.getNbrSamples());
+        pdfItem->setRegisteredProperty(
+                    DistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+    }
+
 }
 
 
@@ -504,7 +522,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness *roughness)
 bool TransformFromDomain::isSquareLattice(double length1, double length2,
                                           double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, M_PI/2.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0)) {
         return true;
     }
     return false;
@@ -514,7 +532,7 @@ bool TransformFromDomain::isSquareLattice(double length1, double length2,
 bool TransformFromDomain::isHexagonalLattice(double length1, double length2,
                                              double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*M_PI/3.0)) {
+    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0)) {
         return true;
     }
     return false;
@@ -529,14 +547,153 @@ QString TransformFromDomain::getDetectorBinning(const Detector *detector)
 
     if( dynamic_cast<ConstKBinAxis *>(phi_axis.get())
             && dynamic_cast<ConstKBinAxis *>(alpha_axis.get())) {
-        return QString("Const KBin");
+        return Constants::AXIS_CONSTK_BINNING;
     }
     else if( dynamic_cast<FixedBinAxis *>(phi_axis.get())
              && dynamic_cast<FixedBinAxis *>(alpha_axis.get())) {
-        return QString("Fixed");
+        return Constants::AXIS_FIXED_BINNING;
     }
     else {
         throw GUIHelpers::Error("TransformFromDomain::getDetectorBinning()"
                                 " -> Error. Can't determine detector binning");
     }
 }
+
+
+void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const Simulation &simulation)
+{
+    Q_ASSERT(beamItem);
+    Beam beam = simulation.getInstrument().getBeam();
+
+    beamItem->setIntensity(beam.getIntensity());
+    beamItem->setWavelength(beam.getWavelength());
+    beamItem->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
+    beamItem->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+
+    // distribution parameters
+    const DistributionHandler::Distributions_t distributions = simulation.getDistributionHandler().getDistributions();
+    for(size_t i=0; i<distributions.size(); ++i) {
+        QString mainParameterName = QString::fromStdString(distributions[i].getMainParameterName());
+        if(mainParameterName == QStringLiteral("*/Beam/wavelength") ) {
+            BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(beamItem->getSubItems()[BeamItem::P_WAVELENGTH]);
+            setItemFromSample(beamWavelength, distributions[i]);
+        }
+        else if(mainParameterName == QStringLiteral("*/Beam/alpha") ) {
+            BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE]);
+            setItemFromSample(inclinationAngle, distributions[i]);
+        }
+        else if(mainParameterName == QStringLiteral("*/Beam/phi") ) {
+            BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE]);
+            setItemFromSample(azimuthalAngle, distributions[i]);
+
+        }
+    }
+}
+
+
+void TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation)
+{
+    Q_ASSERT(detectorItem);
+    Detector detector = simulation.getInstrument().getDetector();
+
+    // Axes
+    const IAxis &phi_axis = detector.getAxis(0);
+    const IAxis &alpha_axis = detector.getAxis(1);
+
+    ComboProperty binning_property = detectorItem->getRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
+    detectorItem->setRegisteredProperty(
+        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
+
+    BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(detectorItem->getSubItems()[PhiAlphaDetectorItem::P_PHI_AXIS]);
+    Q_ASSERT(phiAxisItem);
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
+    phiAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
+
+    BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(detectorItem->getSubItems()[PhiAlphaDetectorItem::P_ALPHA_AXIS]);
+    Q_ASSERT(alphaAxisItem);
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
+    alphaAxisItem->setRegisteredProperty(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
+
+    // detector resolution
+    if(const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+        if(const ConvolutionDetectorResolution *p_convfunc = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
+            if(const ResolutionFunction2DGaussian *resfunc = dynamic_cast<const ResolutionFunction2DGaussian *>(p_convfunc->getResolutionFunction2D())) {
+                ParameterizedItem *item = detectorItem->setGroupProperty(
+                    PhiAlphaDetectorItem::P_RESOLUTION_FUNCTION, Constants::ResolutionFunction2DGaussianType);
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                                        Units::rad2deg(resfunc->getSigmaX()));
+                item->setRegisteredProperty(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                                        Units::rad2deg(resfunc->getSigmaY()));
+            } else {
+                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation) -> Error, unknown detector resolution function");
+            }
+        } else {
+            throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(PhiAlphaDetectorItem *detectorItem, const Simulation &simulation) -> Error, not a ConvolutionDetectorResolution function");
+        }
+    }
+}
+
+
+void TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributionItem, const ParameterDistribution &parameterDistribution)
+{
+    Q_ASSERT(beamDistributionItem);
+
+    if(parameterDistribution.getMinValue() < parameterDistribution.getMaxValue()) {
+        throw GUIHelpers::Error(
+            "TransformFromDomain::setItemFromSample(BeamDistributionItem *beamDistributionItem,"
+            "const ParameterDistribution &parameterDistribution) -> Error. ParameterDistribution "
+            "with defined min,max are not yet implemented in GUI");
+    }
+
+    double unit_factor(1.0);
+    if(beamDistributionItem->modelType() == Constants::BeamAzimuthalAngleType
+            || beamDistributionItem->modelType() == Constants::BeamInclinationAngleType ) {
+        unit_factor = 1./Units::degree;
+    }
+
+    const IDistribution1D *p_distr = parameterDistribution.getDistribution();
+    ParameterizedItem *distributionItem(0);
+    if(const DistributionGate * distr = dynamic_cast<const DistributionGate *>(p_distr)) {
+        distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGateType);
+        distributionItem->setRegisteredProperty(DistributionGateItem::P_MIN, unit_factor*distr->getMin());
+        distributionItem->setRegisteredProperty(DistributionGateItem::P_MAX, unit_factor*distr->getMax());
+    }
+    else if(const DistributionLorentz *distr = dynamic_cast<const DistributionLorentz *>(p_distr)) {
+        distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLorentzType);
+        distributionItem->setRegisteredProperty(DistributionLorentzItem::P_MEAN, unit_factor*distr->getMean());
+        distributionItem->setRegisteredProperty(DistributionLorentzItem::P_HWHM, unit_factor*distr->getHWHM());
+    }
+    else if(const DistributionGaussian *distr = dynamic_cast<const DistributionGaussian *>(p_distr)) {
+        distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionGaussianType);
+        distributionItem->setRegisteredProperty(DistributionGaussianItem::P_MEAN, unit_factor*distr->getMean());
+        distributionItem->setRegisteredProperty(DistributionGaussianItem::P_STD_DEV, unit_factor*distr->getStdDev());
+    }
+    else if(const DistributionLogNormal *distr = dynamic_cast<const DistributionLogNormal *>(p_distr)) {
+        distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionLogNormalType);
+        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_MEDIAN, unit_factor*distr->getMedian());
+        distributionItem->setRegisteredProperty(DistributionLogNormalItem::P_SCALE_PAR, distr->getScalePar());
+    }
+    else if(const DistributionCosine *distr = dynamic_cast<const DistributionCosine *>(p_distr)) {
+        distributionItem = beamDistributionItem->setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionCosineType);
+        distributionItem->setRegisteredProperty(DistributionCosineItem::P_MEAN, unit_factor*distr->getMean());
+        distributionItem->setRegisteredProperty(DistributionCosineItem::P_SIGMA, unit_factor*distr->getSigma());
+    }
+    else {
+        throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(BeamDistributionItem *distributionItem, const ParameterDistribution &parameterDistribution) -> unknown distribution");
+    }
+
+    if(distributionItem->isRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES))
+        distributionItem->setRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES, (int)parameterDistribution.getNbrSamples());
+
+    if(distributionItem->isRegisteredProperty(DistributionItem::P_SIGMA_FACTOR)) {
+        double sigma_factor = parameterDistribution.getSigmaFactor();
+        if(sigma_factor == 0.0) sigma_factor = 2.0;
+        distributionItem->setRegisteredProperty(DistributionItem::P_SIGMA_FACTOR, sigma_factor);
+    }
+
+}
+

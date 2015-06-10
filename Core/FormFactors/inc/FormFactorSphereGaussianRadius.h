@@ -35,16 +35,13 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual int getNumberOfStochasticParameters() const;
-    virtual bool isDistributedFormFactor() const { return true; }
-    virtual void createDistributedFormFactors(
-        std::vector<IFormFactor*>& form_factors,
-        std::vector<double>& probabilities, size_t nbr_samples) const;
 
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

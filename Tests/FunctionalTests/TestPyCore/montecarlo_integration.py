@@ -1,5 +1,4 @@
-# Monte-Carlo integration functional test
-# Testing very large cylinders
+# Functional test: Monte-Carlo integration functional test for very large cylinders
 import sys
 import os
 import numpy

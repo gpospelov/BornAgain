@@ -1,4 +1,4 @@
-# IsGISAXS06 example: 2D lattice with different disorder
+# Functional test: IsGISAXS06 example: 2D lattice with different disorder
 import sys
 import os
 import numpy
@@ -62,13 +62,13 @@ def run_simulation_centered():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
     interference.setProbabilityDistribution(pdf)
 
-    # particle 1
+    # two cylinders at fixed position of each other
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position1 = kvector_t(0.0, 0.0, 0.0)
     position2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
-    basis = LatticeBasis()
-    basis.addParticle(cylinder, [position1, position2])
+    basis = ParticleComposition()
+    basis.addParticles(cylinder, [position1, position2])
 
     particle_layout = ParticleLayout()
     particle_layout.addParticle(basis)

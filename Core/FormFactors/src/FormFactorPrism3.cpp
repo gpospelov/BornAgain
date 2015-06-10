@@ -23,14 +23,20 @@ FormFactorPrism3::FormFactorPrism3(double length, double height)
     m_length = length;
     m_height = height;
     m_root3 = std::sqrt(3.0);
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorPrism3::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorPrism3::init_parameters()
 {
     clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("height", &m_height);
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

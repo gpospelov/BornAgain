@@ -29,6 +29,8 @@ public:
     ISpecularInfoMap() {}
     virtual ~ISpecularInfoMap() {}
 
+    virtual ISpecularInfoMap* clone() const=0;
+
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients *getCoefficients(
             double alhpa_f, double phi_f) const=0;

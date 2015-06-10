@@ -23,7 +23,7 @@ class BA_CORE_API_ FormFactorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit FormFactorItem(const QString name, ParameterizedItem *parent)
+    explicit FormFactorItem(const QString &name, ParameterizedItem *parent)
         : ParameterizedItem(name, parent) {}
     virtual IFormFactor *createFormFactor() const{ return 0;}
     virtual ~FormFactorItem(){}
@@ -215,6 +215,17 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit TetrahedronItem(ParameterizedItem *parent=0);
+    IFormFactor *createFormFactor() const;
+};
+
+
+class BA_CORE_API_ TruncatedCubeItem : public FormFactorItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LENGTH;
+    static const QString P_REMOVED_LENGTH;
+    explicit TruncatedCubeItem(ParameterizedItem *parent=0);
     IFormFactor *createFormFactor() const;
 };
 

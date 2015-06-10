@@ -19,6 +19,7 @@
 #include "FixedGroupProperty.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
+#include <QDebug>
 
 
 namespace {
@@ -45,6 +46,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::Ripple1Type] = "Ripple1";
     formfactors[Constants::Ripple2Type] = "Ripple2";
     formfactors[Constants::TetrahedronType] = "Tetrahedron";
+    formfactors[Constants::TruncatedCubeType] = "Truncated Cube";
     formfactors[Constants::TruncatedSphereType] = "Truncated Sphere";
     formfactors[Constants::TruncatedSpheroidType] = "Truncated Spheroid";
     result[Constants::FormFactorGroup] = formfactors;
@@ -73,6 +75,15 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     distributions[Constants::DistributionCosineType] = "Cosine distribution";
     result[Constants::DistributionGroup] = distributions;
 
+    QMap<QString, QString> distributions_ext;
+    distributions_ext[Constants::DistributionNoneType] = "None";
+    distributions_ext[Constants::DistributionGateType] = "Gate";
+    distributions_ext[Constants::DistributionLorentzType] = "Lorentz";
+    distributions_ext[Constants::DistributionGaussianType] = "Gaussian";
+    distributions_ext[Constants::DistributionLogNormalType] = "Log Normal";
+    distributions_ext[Constants::DistributionCosineType] = "Cosine";
+    result[Constants::DistributionExtendedGroup] = distributions_ext;
+
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";
@@ -96,6 +107,11 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     lattices[Constants::HexagonalLatticeType] = "Hexagonal";
     result[Constants::LatticeGroup] = lattices;
 
+    QMap<QString, QString> resolution_functions;
+    resolution_functions[Constants::ResolutionFunctionNoneType] = "None";
+    resolution_functions[Constants::ResolutionFunction2DGaussianType] = "2D Gaussian";
+    result[Constants::ResolutionFunctionGroup] = resolution_functions;
+
     return result;
 }
 
@@ -113,6 +129,7 @@ FancyGroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString &g
     FancyGroupProperty_t result(new FancyGroupProperty(group_name));
 
     if(m_selectable_group_map.contains(groupModelType)) {
+        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of groupModelType" << groupModelType;
         result->setGroupType(FancyGroupProperty::SELECTABLE);
         result->setGroupMap(m_selectable_group_map[groupModelType]);
     }

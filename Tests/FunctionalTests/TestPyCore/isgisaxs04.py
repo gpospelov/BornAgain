@@ -1,4 +1,4 @@
-# IsGISAXS04 example: 1D and 2D paracrystal
+# Functional test: IsGISAXS04 example: 1D and 2D paracrystal
 import sys
 import os
 import numpy

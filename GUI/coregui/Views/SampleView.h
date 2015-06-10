@@ -40,7 +40,6 @@ class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-
     enum ESubWindows
     {
         WIDGET_BOX,         // drag & drop items
@@ -57,14 +56,24 @@ public slots:
     void resetToDefaultLayout();
     void addItem(const QString &item_name);
     void deleteItem();
-//    void materialEditorCall();
+    void setDockHeightForWidget(int height);
+    void onWidgetCloseRequest();
 
 protected slots:
     void showContextMenu(const QPoint &pnt);
     void setDirty(bool dirty=true) { setWindowModified(dirty); }
-    void updateUi();
+    void dockToMinMaxSizes();
+    void onDockVisibilityChangeV2(bool status);
 
 private:
+    //! Stores sizes of dock widget
+    struct DockSizeInfo {
+        DockSizeInfo():m_dock(0){}
+        QDockWidget *m_dock;
+        QSize m_min_size;
+        QSize m_max_size;
+    };
+
     void initSubWindows();
     void initSelectionModel();
     void createActions();
@@ -81,6 +90,9 @@ private:
     QWidget *m_subWindows[NUMBER_OF_SUB_WINDOWS];
     QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
 
+    QMap<QWidget *, QDockWidget *> m_widget_to_dock;
+    QMap<QDockWidget *, QWidget *> m_dock_to_widget;
+
     QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
@@ -90,6 +102,8 @@ private:
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;
+
+    DockSizeInfo m_dock_info;
 };
 
 

@@ -17,7 +17,7 @@
 #include "IMaterial.h"
 #include "Layer.h"
 #include "Particle.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 
 
 void SampleMaterialVisitor::clear()
@@ -100,7 +100,7 @@ void SampleMaterialVisitor::visit(const ParticleDistribution *)
 {
 }
 
-void SampleMaterialVisitor::visit(const LatticeBasis *)
+void SampleMaterialVisitor::visit(const ParticleComposition *)
 {
 }
 
@@ -113,10 +113,6 @@ void SampleMaterialVisitor::visit(const ParticleCoreShell *)
 }
 
 void SampleMaterialVisitor::visit(const ParticleInfo *)
-{
-}
-
-void SampleMaterialVisitor::visit(const DiffuseParticleInfo *)
 {
 }
 
@@ -236,6 +232,10 @@ void SampleMaterialVisitor::visit(const FormFactorTrivial *)
 {
 }
 
+void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *)
+{
+}
+
 void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
 {
 }
@@ -309,5 +309,21 @@ void SampleMaterialVisitor::visit(const IRoughness *)
 }
 
 void SampleMaterialVisitor::visit(const LayerRoughness *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationX *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationY *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationZ *)
+{
+}
+
+void SampleMaterialVisitor::visit(const RotationEuler *)
 {
 }

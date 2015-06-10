@@ -21,6 +21,7 @@
 #include "TransformationItem.h"
 #include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
+#include "ParticleCompositionItem.h"
 #include "ParticleDistributionItem.h"
 #include "DistributionItem.h"
 #include "InterferenceFunctionItems.h"
@@ -37,6 +38,13 @@
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
 #include "FitParameterItem.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
+#include "AxesItems.h"
+#include "ResolutionFunctionItems.h"
+#include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
 #include <QDebug>
 
 namespace {
@@ -51,6 +59,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
     result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
+    result[Constants::ParticleCompositionType] = &createInstance<ParticleCompositionItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
     result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
@@ -76,6 +85,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::Ripple1Type] = &createInstance<Ripple1Item>;
     result[Constants::Ripple2Type] = &createInstance<Ripple2Item>;
     result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
+    result[Constants::TruncatedCubeType] = &createInstance<TruncatedCubeItem>;
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
 
@@ -90,6 +100,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
+    result[Constants::DistributionNoneType] = &createInstance<DistributionNoneItem>;
     result[Constants::DistributionGateType] = &createInstance<DistributionGateItem>;
     result[Constants::DistributionLorentzType] = &createInstance<DistributionLorentzItem>;
     result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
@@ -120,6 +131,21 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+
+    result[Constants::JobItemType] = &createInstance<JobItem>;
+
+    result[Constants::IntensityDataType] = &createInstance<IntensityDataItem>;
+
+    result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
+    result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
+
+//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
+    result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
+    result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
+    result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;
+
+    result[Constants::ResolutionFunctionNoneType] = &createInstance<ResolutionFunctionNoneItem>;
+    result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
     return result;
 }

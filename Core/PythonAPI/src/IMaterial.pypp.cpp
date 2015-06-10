@@ -54,16 +54,16 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
         return IMaterial::clone( );
     }
 
-    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
+    virtual ::IMaterial const * createTransformedMaterial( ::IRotation const & rotation ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
-            return func_createTransformedMaterial( boost::ref(transform) );
+            return func_createTransformedMaterial( boost::ref(rotation) );
         else{
-            return this->IMaterial::createTransformedMaterial( boost::ref(transform) );
+            return this->IMaterial::createTransformedMaterial( boost::ref(rotation) );
         }
     }
     
-    ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
-        return IMaterial::createTransformedMaterial( boost::ref(transform) );
+    ::IMaterial const * default_createTransformedMaterial( ::IRotation const & rotation ) const  {
+        return IMaterial::createTransformedMaterial( boost::ref(rotation) );
     }
 
     virtual ::complex_t getRefractiveIndex(  ) const  {
@@ -114,14 +114,14 @@ void register_IMaterial_class(){
         }
         { //::IMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
-            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type)( ::IRotation const & ) const;
+            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::IRotation const & ) const;
             
             IMaterial_exposer.def( 
                 "createTransformedMaterial"
                 , createTransformedMaterial_function_type(&::IMaterial::createTransformedMaterial)
                 , default_createTransformedMaterial_function_type(&IMaterial_wrapper::default_createTransformedMaterial)
-                , ( bp::arg("transform") )
+                , ( bp::arg("rotation") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

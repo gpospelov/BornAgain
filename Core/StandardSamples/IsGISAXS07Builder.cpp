@@ -53,8 +53,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff2(2.0*Units::nanometer, 4.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m2 =
-            Geometry::Transform3D::createRotateZ(10*Units::degree);
+    RotationZ m2(10*Units::degree);
     Particle p2(particle_material, ff2, m2);
     ParticleInfo particle_info2(p2, pos2, 0.5);
     particle_layout.addParticleInfo(particle_info2);
@@ -62,8 +61,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff3(2.0*Units::nanometer, 6.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos3(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m3 =
-            Geometry::Transform3D::createRotateZ(20*Units::degree);
+    RotationZ m3(20*Units::degree);
     Particle p3(particle_material, ff3, m3);
     ParticleInfo particle_info3(p3, pos3, 0.5);
     particle_layout.addParticleInfo(particle_info3);
@@ -71,8 +69,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff4(2.0*Units::nanometer, 8.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos4(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m4 =
-            Geometry::Transform3D::createRotateZ(30*Units::degree);
+    RotationZ m4(30*Units::degree);
     Particle p4(particle_material, ff4, m4);
     ParticleInfo particle_info4(p4, pos4, 0.5);
     particle_layout.addParticleInfo(particle_info4);
@@ -80,8 +77,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff5(2.0*Units::nanometer, 10.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos5(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m5 =
-            Geometry::Transform3D::createRotateZ(40*Units::degree);
+    RotationZ m5(40*Units::degree);
     Particle p5(particle_material, ff5, m5);
     ParticleInfo particle_info5(p5, pos5, 0.5);
     particle_layout.addParticleInfo(particle_info5);
@@ -89,8 +85,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff6(2.0*Units::nanometer, 2.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos6(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m6 =
-            Geometry::Transform3D::createRotateZ(50*Units::degree);
+    RotationZ m6(50*Units::degree);
     Particle p6(particle_material, ff6, m6);
     ParticleInfo particle_info6(p6, pos6, 0.5);
     particle_layout.addParticleInfo(particle_info6);
@@ -98,8 +93,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff7(2.0*Units::nanometer, 4.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m7 =
-            Geometry::Transform3D::createRotateZ(60*Units::degree);
+    RotationZ m7(60*Units::degree);
     Particle p7(particle_material, ff7, m7);
     ParticleInfo particle_info7(p7, pos7, 0.5);
     particle_layout.addParticleInfo(particle_info7);
@@ -107,8 +101,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff8(2.0*Units::nanometer, 6.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m8 =
-            Geometry::Transform3D::createRotateZ(70*Units::degree);
+    RotationZ m8(70*Units::degree);
     Particle p8(particle_material, ff8, m8);
     ParticleInfo particle_info8(p8, pos8, 0.5);
     particle_layout.addParticleInfo(particle_info8);
@@ -116,8 +109,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff9(2.0*Units::nanometer, 8.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m9 =
-            Geometry::Transform3D::createRotateZ(80*Units::degree);
+    RotationZ m9(80*Units::degree);
     Particle p9(particle_material, ff9, m9);
     ParticleInfo particle_info9(p9, pos9, 0.5);
     particle_layout.addParticleInfo(particle_info9);
@@ -125,8 +117,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     FormFactorBox ff10(2.0*Units::nanometer, 10.0*Units::nanometer,
             1.0*Units::nanometer);
     kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::Transform3D m10 =
-            Geometry::Transform3D::createRotateZ(90*Units::degree);
+    RotationZ m10(90*Units::degree);
     Particle p10(particle_material, ff10, m10);
     ParticleInfo particle_info10(p10, pos10, 0.5);
     particle_layout.addParticleInfo(particle_info10);

@@ -24,6 +24,7 @@
 #include "FormFactorDWBAPol.h"
 
 #include <vector>
+#include <boost/scoped_ptr.hpp>
 
 
 //! @class IInterferenceFunctionStrategy
@@ -58,7 +59,7 @@ protected:
     SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
     SafePointerVector<IInterferenceFunction> m_ifs; //!< interference functions
     SimulationParameters m_sim_params; //!< simulation parameters
-    LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
+    boost::scoped_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
     struct IntegrationParamsAlpha {

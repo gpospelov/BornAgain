@@ -15,7 +15,7 @@
 
 #include "SplashScreen.h"
 #include "DesignerHelper.h"
-#include "BAVersion.h"
+#include "GUIHelpers.h"
 #include <QStyleOptionProgressBarV2>
 #include <QFont>
 #include <QPainter>
@@ -53,7 +53,7 @@ void SplashScreen::drawContents(QPainter *painter)
 
     QRect textRect( 15.0, m_height-40, 100, 30);
 
-    QString versionText = QString::fromStdString("version ").append(QString::fromStdString(BornAgain::GetVersionNumber()));
+    QString versionText = QString("version ").append(GUIHelpers::getBornAgainVersionString());
     style()->drawItemText(painter, textRect, 0, this->palette(), true, versionText);
 
     QString loadingText("loading . ");

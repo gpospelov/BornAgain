@@ -25,7 +25,7 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     , m_height(height)
 {
     setName("FormFactorTruncatedSphere");
-    assert(m_height <= 2.*m_radius);
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>::mem_function p_mf =
@@ -34,11 +34,24 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSphere>(p_mf, this);
 }
 
+bool FormFactorTruncatedSphere::check_initialization() const
+{
+    bool result(true);
+    if(m_height > 2.*m_radius) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
+        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
+        ostr << "Check for height <= 2.*radius failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorTruncatedSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
@@ -47,7 +60,6 @@ FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
     result->setName(getName());
     return result;
 }
-
 
 //! Integrand for complex formfactor.
 
@@ -66,13 +78,13 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t& q) const
 {   m_q = q;
     if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
         double HdivR = m_height/m_radius;
-        return M_PI/3.*m_radius*m_radius*m_radius
+        return Units::PI/3.*m_radius*m_radius*m_radius
                 *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
     }
     else {
     complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);
     complex_t integral = m_integrator->integrate(m_radius-m_height, m_radius);
-    return 2*M_PI*integral*std::exp(iqzR);
+    return Units::PI2*integral*std::exp(iqzR);
     }
 }
 

@@ -16,30 +16,8 @@
 #ifndef FORMFACTORTEST_H
 #define FORMFACTORTEST_H
 
-#include "FormFactorAnisoPyramid.h"
-#include "FormFactorBox.h"
-#include "FormFactorCone.h"
-#include "FormFactorCone6.h"
-#include "FormFactorCrystal.h"
-#include "FormFactorCylinder.h"
-#include "FormFactorCuboctahedron.h"
-#include "FormFactorEllipsoidalCylinder.h"
-#include "FormFactorFullSphere.h"
-#include "FormFactorFullSpheroid.h"
-#include "FormFactorHemiEllipsoid.h"
-//#include "FormFactorParallelepiped.h"
-#include "FormFactorPrism3.h"
-#include "FormFactorPrism6.h"
-#include "FormFactorPyramid.h"
-#include "FormFactorTruncatedSphere.h"
-#include "FormFactorTruncatedSpheroid.h"
-#include "FormFactorTetrahedron.h"
-#include "FormFactorRipple2.h"
-#include "FormFactorRipple1.h"
-#include "FormFactorInfLongBox.h"
-#include "FormFactorInfLongRipple2.h"
-#include "FormFactorInfLongRipple1.h"
-
+#include "Units.h"
+#include "FormFactors.h"
 #include "gtest/gtest.h"
 
 class FormFactorTest : public ::testing::Test
@@ -89,7 +67,7 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     double radius_b = 7.;
     double height = 5.;
 
-    double volume = 2.*M_PI*radius_a*radius_b*height/3.;
+    double volume = 2.*Units::PI*radius_a*radius_b*height/3.;
 
     FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
 
@@ -143,7 +121,7 @@ TEST_F(FormFactorTest, Cone)
     double alpha = 0.8;
     double tga = std::tan(alpha);
     double HdivRtga = height/tga/radius;
-    double volume = M_PI/3.*tga*radius*radius*radius*
+    double volume = Units::PI/3.*tga*radius*radius*radius*
             (1. - (1.- HdivRtga)*(1.- HdivRtga)*(1.- HdivRtga));
 
     FormFactorCone cone(radius, height, alpha);
@@ -235,7 +213,7 @@ TEST_F(FormFactorTest, Cylinder)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = M_PI*radius*radius*height;
+    double volume = Units::PI*radius*radius*height;
 
     FormFactorCylinder cylinder(radius,height);
     EXPECT_EQ("FormFactorCylinder",cylinder.getName());
@@ -258,7 +236,7 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
     double radius_a = 3.;
     double radius_b = 5.;
     double height = 4;
-    double volume = M_PI*radius_a*radius_b*height;
+    double volume = Units::PI*radius_a*radius_b*height;
 
     FormFactorEllipsoidalCylinder ellipscyl(radius_a, radius_b, height);
 
@@ -283,7 +261,7 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
 TEST_F(FormFactorTest, FullSphere)
 {
     double radius = 5.;
-    double volume = 4./3.*M_PI*radius*radius*radius;
+    double volume = 4./3.*Units::PI*radius*radius*radius;
 
     FormFactorFullSphere fullsphere(radius);
 
@@ -306,7 +284,7 @@ TEST_F(FormFactorTest, FullSpheroid)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = 2./3.*M_PI*radius*radius*height;
+    double volume = 2./3.*Units::PI*radius*radius*height;
 
     FormFactorFullSpheroid fullspheroid(radius,height);
 
@@ -323,29 +301,6 @@ TEST_F(FormFactorTest, FullSpheroid)
     EXPECT_DOUBLE_EQ(volume, fullspheroidclone->getVolume());
     EXPECT_EQ((int)2, fullspheroidclone->getNumberOfStochasticParameters());
 }
-
-// Test form factor of a parallelepiped
-//TEST_F(FormFactorTest, Parallelepiped)
-//{
-//   double length = 12.;
-//   double height = 10.;
-//   double volume = length*length*height;
-
-//   FormFactorParallelepiped parallelepiped(length, height);
-
-//   EXPECT_EQ("FormFactorParallelepiped",parallelepiped.getName());
-//   EXPECT_EQ(10., parallelepiped.getHeight());
-//   EXPECT_EQ(12., parallelepiped.getLength());
-//   EXPECT_DOUBLE_EQ(volume, parallelepiped.getVolume());
-//   EXPECT_EQ((int)2, parallelepiped.getNumberOfStochasticParameters());
-
-//   FormFactorParallelepiped *parallelepipedclone = parallelepiped.clone();
-//   EXPECT_EQ("FormFactorParallelepiped",parallelepipedclone->getName());
-//   EXPECT_EQ(10., parallelepipedclone-> getHeight());
-//   EXPECT_EQ(12., parallelepipedclone-> getLength());
-//   EXPECT_DOUBLE_EQ(volume, parallelepipedclone-> getVolume());
-//   EXPECT_EQ((int)2, parallelepipedclone-> getNumberOfStochasticParameters());
-//}
 
 // Test form factor of a prism3
 TEST_F(FormFactorTest, Prism3)
@@ -430,7 +385,7 @@ TEST_F(FormFactorTest, TruncatedSphere)
     double radius = 5.;
     double height = 3.;
     double HdivR = height/radius;
-    double volume = M_PI/3.*radius*radius*radius
+    double volume = Units::PI/3.*radius*radius*radius
             *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
 
     FormFactorTruncatedSphere trsphere(radius, height);
@@ -453,7 +408,7 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     double radius = 3.;
     double flattening = 1.5;
     double total_height =2.*flattening *radius;
-    double volume = M_PI*radius*height*height/flattening
+    double volume = Units::PI*radius*height*height/flattening
             *(1.-height/(3.*flattening*radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height,flattening);
@@ -555,74 +510,100 @@ TEST_F(FormFactorTest, Ripple1)
 TEST_F(FormFactorTest, InfLongBox)
 {
     double height = 15.;
-    double width = 100.0/M_PI;
+    double width = 100.0/Units::PI;
 
     FormFactorInfLongBox ilbox(width, height);
 
     EXPECT_EQ("FormFactorInfLongBox",ilbox.getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilbox.getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilbox.getWidth());
     EXPECT_EQ(15., ilbox.getHeight());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilbox.getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilbox.getRadius());
     EXPECT_THROW(ilbox.getVolume(), NotImplementedException);
     EXPECT_EQ(2, ilbox.getNumberOfStochasticParameters());
 
     FormFactorInfLongBox *ilboxclone = ilbox.clone();
     EXPECT_EQ("FormFactorInfLongBox",ilboxclone->getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilboxclone->getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilboxclone->getWidth());
     EXPECT_EQ(15., ilboxclone->getHeight());
     EXPECT_THROW(ilboxclone->getVolume(),NotImplementedException);
     EXPECT_EQ(2, ilboxclone->getNumberOfStochasticParameters());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilboxclone->getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilboxclone->getRadius());
 }
 
 // Test form factor of a infinite long ripple1
 TEST_F(FormFactorTest, InfLongRipple1)
 {
     double height = 15.;
-    double width = 100.0/M_PI;
+    double width = 100.0/Units::PI;
 
     FormFactorInfLongRipple1 ilripple1(width, height);
 
     EXPECT_EQ("FormFactorInfLongRipple1",ilripple1.getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilripple1.getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilripple1.getWidth());
     EXPECT_EQ(15., ilripple1.getHeight());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilripple1.getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilripple1.getRadius());
     EXPECT_THROW(ilripple1.getVolume(), NotImplementedException);
     EXPECT_EQ(2, ilripple1.getNumberOfStochasticParameters());
 
     FormFactorInfLongRipple1 *ilripple1clone = ilripple1.clone();
     EXPECT_EQ("FormFactorInfLongRipple1",ilripple1clone->getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilripple1clone->getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilripple1clone->getWidth());
     EXPECT_EQ(15., ilripple1clone->getHeight());
     EXPECT_THROW(ilripple1clone->getVolume(), NotImplementedException);
     EXPECT_EQ(2, ilripple1clone->getNumberOfStochasticParameters());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilripple1clone->getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilripple1clone->getRadius());
 }
 
 // Test form factor of a infinite long ripple2
 TEST_F(FormFactorTest, InfLongRipple2)
 {
     double height = 15.;
-    double width = 100.0/M_PI;
+    double width = 100.0/Units::PI;
     double d = 0.3; // asymetry
 
     FormFactorInfLongRipple2 ilripple2(width, height, d);
 
     EXPECT_EQ("FormFactorInfLongRipple2",ilripple2.getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilripple2.getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilripple2.getWidth());
     EXPECT_EQ(15., ilripple2.getHeight());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilripple2.getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilripple2.getRadius());
     EXPECT_THROW(ilripple2.getVolume(), NotImplementedException);
     EXPECT_EQ(3, ilripple2.getNumberOfStochasticParameters());
 
     FormFactorInfLongRipple2 *ilripple2clone = ilripple2.clone();
     EXPECT_EQ("FormFactorInfLongRipple2",ilripple2clone->getName());
-    EXPECT_DOUBLE_EQ(100./M_PI, ilripple2clone->getWidth());
+    EXPECT_DOUBLE_EQ(100./Units::PI, ilripple2clone->getWidth());
     EXPECT_EQ(15., ilripple2clone->getHeight());
     EXPECT_THROW(ilripple2clone->getVolume(), NotImplementedException);
     EXPECT_EQ(3, ilripple2clone->getNumberOfStochasticParameters());
-    EXPECT_DOUBLE_EQ(50./M_PI, ilripple2clone->getRadius());
+    EXPECT_DOUBLE_EQ(50./Units::PI, ilripple2clone->getRadius());
 }
+
+// Test form factor of a truncated cube
+TEST_F(FormFactorTest, TruncatedCube)
+{
+    double length = 15.;
+    double t = 6.; // side length of removed trirectangular tetrahedron at each vertex
+    double volume = length*length*length - 4./3.*t*t*t;
+
+    FormFactorTruncatedCube trcube(length, t);
+
+    EXPECT_EQ("FormFactorTruncatedCube",trcube.getName());
+    EXPECT_EQ(length, trcube.getLength());
+    EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
+    // length or length -2t
+    EXPECT_DOUBLE_EQ(trcube.getVolume(), volume);
+    EXPECT_EQ(2, trcube.getNumberOfStochasticParameters());
+
+    FormFactorTruncatedCube *trcubeclone = trcube.clone();
+    EXPECT_EQ("FormFactorTruncatedCube", trcubeclone->getName());
+    EXPECT_EQ(length, trcubeclone->getLength());
+    EXPECT_EQ(t, trcubeclone->getRemovedLength());
+    EXPECT_EQ(trcubeclone->getVolume(), volume);
+    EXPECT_EQ(2, trcubeclone->getNumberOfStochasticParameters());
+}
+
+
 
 #endif // FORMFACTORTEST_H
 

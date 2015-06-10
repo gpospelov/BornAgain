@@ -43,18 +43,22 @@ complex_t FormFactorInfLongBox::evaluate(const cvector_t& k_i,
     complex_t qyWdiv2 = m_width*q.y()/2.0;
     complex_t qzHdiv2 = m_height*q.z()/2.0;
 
-    return 2*M_PI*m_height*m_width*
+    return Units::PI2*m_height*m_width*
         std::exp(complex_t(0.,1.)*qzHdiv2) *
         MathFunctions::Sinc(qyWdiv2) *
         MathFunctions::Sinc(qzHdiv2);
 }
 
+bool FormFactorInfLongBox::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorInfLongBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter( "width", & m_width);
-    registerParameter("height", &m_height);
+    registerParameter( "width", & m_width, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 complex_t FormFactorInfLongBox::evaluate_for_q(const cvector_t& q) const
@@ -65,8 +69,7 @@ complex_t FormFactorInfLongBox::evaluate_for_q(const cvector_t& q) const
 }
 
 double FormFactorInfLongBox::getVolume() const {
-    // return 2*M_PI*m_height*m_width;
     // volume of the infinite object is infinite
     throw NotImplementedException(
-        "FormFactorInfLongBox::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
+                "FormFactorInfLongBox::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
 }

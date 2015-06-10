@@ -24,13 +24,13 @@ class BA_CORE_API_ ItemLink
 {
 
 public:
-    explicit ItemLink(const QString name = QString(), ParameterizedItem *item = 0);
+    explicit ItemLink(const QString property_name = QString(), ParameterizedItem *item = 0);
     virtual ~ItemLink(){}
 
-    QString getPropertyName() const { return m_name; }
+    QString getPropertyName() const { return m_property_name; }
 
     ParameterizedItem *getItem() const { return m_item; }
-    void setItem(QString name, ParameterizedItem *item);
+    void setItem(QString property_name, ParameterizedItem *item);
 
     void setValue(double value);
 
@@ -39,7 +39,7 @@ public:
 private:
     double getValue() const;
     QVariant getVariant();
-    QString m_name;
+    QString m_property_name;
     ParameterizedItem *m_item;
     double m_value;
 };

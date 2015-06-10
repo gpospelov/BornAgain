@@ -10,7 +10,7 @@ set(list_of_tests
     "isgisaxs01.py"
     "isgisaxs01_normalize.py"
     "isgisaxs02.py"
-    "isgisaxs03.py"
+    "cylinders_ba_dwba_size.py"
     "isgisaxs04.py"
     "isgisaxs06.py"
     "isgisaxs07.py"
@@ -28,6 +28,8 @@ set(list_of_tests
     "ripple1.py"
     "customformfactor.py"
     "montecarlo_integration.py"
+    "beam_divergence.py"
+    "detector_resolution.py"
 )
 
 set(list_of_cpp_python_tests
@@ -35,9 +37,12 @@ set(list_of_cpp_python_tests
     "PyScript_isgisaxs04_1DDL"
     "PyScript_isgisaxs04_2DDL"
     "PyScript_isgisaxs06a"
+    "PyScript_isgisaxs06b"
     "PyScript_isgisaxs07"
     "PyScript_isgisaxs11"
     "PyScript_multiplelayoutbuilder"
+    "PyScript_ParticleDistribution"
+    "PyScript_ParticleComposition"
 )
 
 foreach(_test ${list_of_tests})
@@ -62,7 +67,3 @@ foreach(_test ${list_of_cpp_python_tests})
    BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
    BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
 endforeach()
-
-
-
-

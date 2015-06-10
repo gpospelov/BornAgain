@@ -1,4 +1,4 @@
-# Functional test for layer with correlated roughness
+# Functional test: Functional test for layer with correlated roughness
 import sys
 import os
 import numpy

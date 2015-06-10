@@ -25,17 +25,33 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     m_length = length;
     m_height_ratio = height_ratio;
     m_alpha = alpha;
-    assert(2.*m_height <= m_length*std::tan(m_alpha)*std::min(1.,1.0/m_height_ratio));
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorCuboctahedron::check_initialization() const
+{
+    bool result(true);
+    if(2.*m_height > m_length*std::tan(m_alpha)*std::min(1.,1.0/m_height_ratio)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorCuboctahedron() -> Error in class initialization with parameters";
+        ostr << " height:" << m_height;
+        ostr << " length:" << m_length;
+        ostr << " height_ratio:" << m_height_ratio;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }
 
 void FormFactorCuboctahedron::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
-    registerParameter("height_ratio", &m_height_ratio);
-    registerParameter("length", &m_length);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("height_ratio", &m_height_ratio, AttLimits::n_positive());
+    registerParameter("length", &m_length, AttLimits::n_positive());
+    registerParameter("alpha", &m_alpha, AttLimits::n_positive());
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const

@@ -22,8 +22,8 @@ LayerSpecularInfo::LayerSpecularInfo()
 LayerSpecularInfo* LayerSpecularInfo::clone() const
 {
     LayerSpecularInfo *p_result = new LayerSpecularInfo;
-    p_result->mP_out_coeff_map = this->mP_out_coeff_map;
-    p_result->mP_in_coeffs = this->mP_in_coeffs;
+    p_result->mP_out_coeff_map.reset(this->mP_out_coeff_map->clone());
+    p_result->mP_in_coeffs.reset(this->mP_in_coeffs->clone());
     return p_result;
 }
 
@@ -31,6 +31,12 @@ void LayerSpecularInfo::addOutCoefficients(ISpecularInfoMap* rt_coefficient_map)
 {
     if (mP_out_coeff_map.get() != rt_coefficient_map) {
         mP_out_coeff_map.reset(rt_coefficient_map);
+    }
+}
+
+void LayerSpecularInfo::addInCoefficients(ILayerRTCoefficients *rt_coefficients) {
+    if(mP_in_coeffs.get() != rt_coefficients) {
+        mP_in_coeffs.reset(rt_coefficients);
     }
 }
 

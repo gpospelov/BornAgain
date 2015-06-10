@@ -48,7 +48,7 @@ public:
     double getRadius() const { return m_width; }
 
 protected:
-    //! Registers some class members for later access via parameter pool
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

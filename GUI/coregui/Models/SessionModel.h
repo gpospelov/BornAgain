@@ -29,6 +29,8 @@ const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
 const QString MaterialModelTag("MaterialModel");
 const QString FitModelTag("FitModel");
+const QString JobModelTag("JobModel");
+
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -125,8 +127,12 @@ public:
 
     virtual SessionModel *createCopy(ParameterizedItem *parent=0);
 
+
+    QMap<QString, ParameterizedItem *> getTopItemMap(const QString &model_type = QString()) const;
+    ParameterizedItem *getTopItem(const QString &model_type = QString(), const QString &item_name = QString()) const;
+
 public slots:
-    void onItemPropertyChange(const QString &name);
+    void onItemPropertyChange(const QString &property_name, const QString &name = QString());
 
 
 protected:

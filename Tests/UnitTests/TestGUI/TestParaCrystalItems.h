@@ -49,7 +49,7 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
 
     foreach(QString pdf_name, pdfs) {
         QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
-        QSignalSpy spyPropertyItem(&item, SIGNAL(propertyItemChanged(QString)));
+        QSignalSpy spyPropertyItem(&item, SIGNAL(subItemChanged(QString)));
         ParameterizedItem *pdfItem = item.setGroupProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF, pdf_name);
         QVERIFY(pdfItem);
         QCOMPARE(item.getSubItems().size(), 1);

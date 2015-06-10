@@ -28,13 +28,19 @@
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-    result["example01"] = "gui_isgisaxs01";
-    result["example02"] = "gui_isgisaxs04_1DDL";
-    result["example03"] = "gui_isgisaxs04_2DDL";
-    result["example04"] = "gui_isgisaxs11";
+    result["example01"] = "gui_CylinderAndPrisms";
+    result["example02"] = "gui_Interference1DParaCrystal";
+    result["example03"] = "gui_Interference2DParaCrystal";
+    result["example04"] = "gui_CoreShellParticles";
     result["example05"] = "LayerWithRoughness";
-    result["example06"] = "gui_isgisaxs06a";
-    result["example07"] = "gui_isgisaxs07";
+    result["example06"] = "gui_Interference2DSquareLattice";
+    result["example07"] = "gui_RotatedPyramids";
+    result["example08"] = "part_distribution";
+    result["example09"] = "gui_ParticleComposition";
+    // temporary for testing
+//    result["example08"] = "beam_divergence";
+//    result["example08"] = "detector_resolution";
+//    result["example08"] = "gui_isgisaxs06b";
     return result;
 }
 
@@ -45,51 +51,26 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
     return m_name_to_registry.contains(name);
 }
 
-
+//! Populate sample model with
 ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
-    if(sampleModel->getModelTag() != SessionXML::SampleModelTag ) {
-        throw GUIHelpers::Error("GUIExamplesFactory::createSampleItems() -> Error. Not a SampleModelTag");
-    }
-
     QString exampleName = m_name_to_registry[name];
-
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toLatin1().data()));
+    boost::scoped_ptr<Simulation> simulation(registry.createSimulation(exampleName.toStdString()));
     Q_ASSERT(simulation.get());
 
-    boost::scoped_ptr<ISample> sample(simulation->getSampleBuilder()->buildSample());
-
-    Q_ASSERT(sample.get());
-    sample->setName(name.toUtf8().constData());
-    //sample->printSampleTree();
-
     GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateSampleModel(sampleModel, sample.get());
-    //return guiBuilder.getTopItem();
+    return guiBuilder.populateSampleModel(sampleModel, *simulation, name);
 }
 
 ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 {
-    if(instrumentModel->getModelTag() != SessionXML::InstrumentModelTag ) {
-        throw GUIHelpers::Error("GUIExamplesFactory::createInstrumentItems() -> Error. Not an InstrumentModelTag");
-    }
-
     QString exampleName = m_name_to_registry[name];
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " GUIExamplesFactory::createInstrumentItems()" << name << exampleName;
-
     SimulationRegistry registry;
-    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toLatin1().data()));
+    boost::scoped_ptr<Simulation> simulation(registry.createSimulation(exampleName.toStdString()));
     Q_ASSERT(simulation.get());
 
-    boost::scoped_ptr<Instrument> instrument(new Instrument(simulation.get()->getInstrument()));
     QString instrumentName = name + "_instrument";
-    instrument->setName(instrumentName.toUtf8().constData());
-
-    //simulation->setName(name.toUtf8().constData());
-
     GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateInstrumentModel(instrumentModel, instrument.get());
+    return guiBuilder.populateInstrumentModel(instrumentModel, *simulation, instrumentName);
 }

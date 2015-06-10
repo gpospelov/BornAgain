@@ -22,10 +22,12 @@ class Instrument;
 class MultiLayer;
 class Layer;
 class ParticleLayout;
+class IParticle;
 class Particle;
 class IInterferenceFunction;
 class Beam;
 class ParticleCoreShell;
+class ParticleComposition;
 class ParticleDistribution;
 class ParameterizedItem;
 class LayerRoughness;
@@ -33,36 +35,34 @@ class LayerRoughness;
 class BA_CORE_API_ DomainObjectBuilder
 {
 public:
-    explicit DomainObjectBuilder();
-    ~DomainObjectBuilder();
+    explicit DomainObjectBuilder()
+    {
+    }
+    ~DomainObjectBuilder()
+    {
+    }
 
-    void buildItem(const ParameterizedItem &item);
+    MultiLayer *buildMultiLayer(const ParameterizedItem &multilayer_item) const;
+    Instrument *buildInstrument(const ParameterizedItem &instrument_item) const;
 
-    ISample *getSample() { return mp_sample; }
-    Instrument *getInstrument() { return m_instrument; }
-
-    MultiLayer *buildMultiLayer(const ParameterizedItem &item) const;
-    Instrument *buildInstrument(const ParameterizedItem &item) const;
-
-private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &depth,
-                            double &abundance) const;
-    ParticleDistribution *buildParticleDistribution(
-            const ParameterizedItem &item, double &depth,
-            double &abundance) const;
-    IInterferenceFunction *buildInterferenceFunction(
-            const ParameterizedItem &item) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth,
+                                              double &abundance) const;
+    ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
+                                                  double &abundance) const;
+    ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
+                                                    double &abundance) const;
+    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
-                                     double &depth, double &abundance) const;
-    void addParticleToLayout(ParticleLayout *result,
-        ParameterizedItem *particle_item, double depth, double abundance,
-        const Particle& particle) const;
 
-    ISample *mp_sample;
-    Instrument *m_instrument;
+private:
+    void addParticleToLayout(ParticleLayout *result, ParameterizedItem *particle_item, double depth,
+                             double abundance, const Particle &particle) const;
+    void addParticleToParticleComposition(ParticleComposition *result,
+                                          ParameterizedItem *particle_item,
+                                          const IParticle &particle) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

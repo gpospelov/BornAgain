@@ -33,7 +33,7 @@ public:
 
     QMap<QString, ParameterizedItem *> getInstrumentMap() const;
 
-    InstrumentItem *getInstrumentItem();
+    InstrumentItem *getInstrumentItem(const QString &instrument_name = QString());
 
 };
 

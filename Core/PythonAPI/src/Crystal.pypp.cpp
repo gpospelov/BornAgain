@@ -30,23 +30,23 @@ namespace bp = boost::python;
 
 struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
-    Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
+    Crystal_wrapper(::ParticleComposition const & lattice_basis, ::Lattice const & lattice )
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< Crystal >(){
         // constructor
     m_pyobj = 0;
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+    virtual void applyTransformation( ::IRotation const & rotation ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
+            func_applyTransformation( boost::ref(rotation) );
         else{
-            this->Crystal::applyTransformation( boost::ref(transform) );
+            this->Crystal::applyTransformation( boost::ref(rotation) );
         }
     }
     
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        Crystal::applyTransformation( boost::ref(transform) );
+    void default_applyTransformation( ::IRotation const & rotation ) {
+        Crystal::applyTransformation( boost::ref(rotation) );
     }
 
     virtual ::Crystal * clone(  ) const  {
@@ -85,16 +85,28 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
     }
 
-    virtual ::Geometry::Transform3D const * getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
+    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
+        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
+            return func_getAmbientMaterial(  );
         else{
-            return this->Crystal::getTransform(  );
+            return this->Crystal::getAmbientMaterial(  );
         }
     }
     
-    ::Geometry::Transform3D const * default_getTransform(  ) const  {
-        return Crystal::getTransform( );
+    ::IMaterial const * default_getAmbientMaterial(  ) const  {
+        return Crystal::getAmbientMaterial( );
+    }
+
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->Crystal::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        Crystal::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -205,22 +217,22 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< Crystal_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -292,18 +304,18 @@ void register_Crystal_class(){
 
     { //::Crystal
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
-        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
+        Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
         { //::Crystal::applyTransformation
         
-            typedef void ( ::Crystal::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( Crystal_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::Crystal::*applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( Crystal_wrapper::*default_applyTransformation_function_type)( ::IRotation const & ) ;
             
             Crystal_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type(&::Crystal::applyTransformation)
                 , default_applyTransformation_function_type(&Crystal_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::Crystal::clone
@@ -343,9 +355,21 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::Crystal::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::Crystal::*getAmbientMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( Crystal_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
+            
+            Crystal_exposer.def( 
+                "getAmbientMaterial"
+                , getAmbientMaterial_function_type(&::Crystal::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&Crystal_wrapper::default_getAmbientMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Crystal::getLatticeBasis
         
-            typedef ::LatticeBasis const * ( ::Crystal::*getLatticeBasis_function_type)(  ) const;
+            typedef ::ParticleComposition const * ( ::Crystal::*getLatticeBasis_function_type)(  ) const;
             
             Crystal_exposer.def( 
                 "getLatticeBasis"
@@ -353,15 +377,13 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::getTransform
+        { //::Crystal::getRotation
         
-            typedef ::Geometry::Transform3D const * ( ::Crystal::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const * ( Crystal_wrapper::*default_getTransform_function_type)(  ) const;
+            typedef ::IRotation const * ( ::Crystal::*getRotation_function_type)(  ) const;
             
             Crystal_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::Crystal::getTransform)
-                , default_getTransform_function_type(&Crystal_wrapper::default_getTransform)
+                "getRotation"
+                , getRotation_function_type( &::Crystal::getRotation )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -372,6 +394,18 @@ void register_Crystal_class(){
             Crystal_exposer.def( 
                 "getTransformedLattice"
                 , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
+        
+        }
+        { //::Crystal::setAmbientMaterial
+        
+            typedef void ( ::Crystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( Crystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            Crystal_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::Crystal::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&Crystal_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::Crystal::setDWFactor
@@ -488,12 +522,12 @@ void register_Crystal_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             Crystal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &Crystal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

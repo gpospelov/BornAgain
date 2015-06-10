@@ -72,6 +72,9 @@ public:
     //! take child item (this removes it from the current item)
     virtual ParameterizedItem *takeChildItem(int row);
 
+    //! Returns a pointer to the first child of the given type
+    ParameterizedItem *getChildOfType(QString type) const;
+
     //! indicates if the passed item can be set as
     //! a child item
     bool acceptsAsChild(const QString &child_name) const;
@@ -123,24 +126,29 @@ public:
 
     void setItemPort(PortInfo::EPorts nport);
 
-    virtual QString getItemLabel() const { return QString("no label"); }
+    virtual QString getItemLabel() const { return QString(""); }
 
     void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
 
     QStringList getParameterTreeList() const;
 
     virtual void onChildPropertyChange();
-
-public slots:
-    void onPropertyItemChanged(const QString &propertyName);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
 signals:
     void propertyChanged(const QString &propertyName);
-    void propertyItemChanged(const QString &propertyName);
+    void subItemChanged(const QString &propertyName);
+    void subItemPropertyChanged(const QString &property_group, const QString &property_name);
+
+protected slots:
+    virtual void onSubItemChanged(const QString &propertyName);
+    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+
+private slots:
+    virtual void processSubItemPropertyChanged(const QString &propertyName);
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);
-    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
 
     QStringList m_registered_properties;
 

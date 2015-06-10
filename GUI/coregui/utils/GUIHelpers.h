@@ -52,6 +52,8 @@ BA_CORE_API_ bool okToDelete(QWidget *parent, const QString &title,
 
 BA_CORE_API_ int getVariantType(const QVariant &variant);
 
+BA_CORE_API_ QString getBornAgainVersionString();
+
 }
 
 #endif // GUIHELPERS_H

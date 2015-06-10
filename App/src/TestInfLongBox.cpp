@@ -98,7 +98,7 @@ void TestInfLongBox::drawff()
     double steppf = (pfmax - pfmin)/pfbins;
 
     double lambda = 1.0;
-    double alpha_i = 0.2*M_PI/180.0;
+    double alpha_i = 0.2*Units::PI/180.0;
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
 
@@ -111,7 +111,7 @@ void TestInfLongBox::drawff()
 
     double af0 = afmin;
     cvector_t k_f0;
-    k_f0.setLambdaAlphaPhi(lambda, M_PI*afmin/180.0, M_PI*pfmin/180.0);
+    k_f0.setLambdaAlphaPhi(lambda, Units::PI*afmin/180.0, Units::PI*pfmin/180.0);
 
     for (size_t iaf=0; iaf < afbins; iaf++) {
         for (size_t ipf=0; ipf < pfbins; ipf++) {
@@ -119,13 +119,13 @@ void TestInfLongBox::drawff()
             double af = afmin + iaf*stepaf + stepaf/2.;
 
             cvector_t k_f;
-            k_f.setLambdaAlphaPhi(lambda, M_PI*af/180.0, M_PI*pf/180.0);
+            k_f.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
 
-            Bin1D alpha_f_bin(M_PI*af0/180.0, M_PI*af/180.0);
+            Bin1D alpha_f_bin(Units::PI*af0/180.0, Units::PI*af/180.0);
             Bin1DCVector k_f_bin(k_f0, k_f);
 
             af0 = af;
-            k_f0.setLambdaAlphaPhi(lambda, M_PI*af/180.0, M_PI*pf/180.0);
+            k_f0.setLambdaAlphaPhi(lambda, Units::PI*af/180.0, Units::PI*pf/180.0);
 
             double value = std::pow(std::abs(ff->evaluate(k_i, k_f_bin, alpha_f_bin)),2);
 
@@ -201,8 +201,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     FormFactorInfLongBox ff(m_w, m_h);
     Particle ibox(iron_material, ff );
 
-    Geometry::Transform3D transform =
-            Geometry::Transform3D::createRotateZ(90*Units::degree);
+    RotationZ transform(90.*Units::degree);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ibox,transform);

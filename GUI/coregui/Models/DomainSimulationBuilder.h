@@ -35,10 +35,10 @@ public:
 
     static Simulation *getSimulation(SampleModel *sampleModel, InstrumentModel *instrumentModel);
 
-private:
-    static Instrument *getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name = QString());
+//private:
+//    static Instrument *getInstrument(InstrumentModel *instrumentModel, const QString &instrument_name = QString());
 
-    static MultiLayer *getMultiLayer(SampleModel *sampleModel, const QString &sample_name = QString());
+//    static MultiLayer *getMultiLayer(SampleModel *sampleModel, const QString &sample_name = QString());
 };
 
 #endif

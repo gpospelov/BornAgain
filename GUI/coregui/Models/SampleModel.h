@@ -20,6 +20,7 @@
 #include "MaterialProperty.h"
 #include <QStringList>
 
+class MultiLayerItem;
 class BA_CORE_API_ SampleModel : public SessionModel
 {
     Q_OBJECT
@@ -31,6 +32,8 @@ public:
     SampleModel *createCopy(ParameterizedItem *parent = 0);
 
     QMap<QString, ParameterizedItem *> getSampleMap() const;
+
+    MultiLayerItem *getMultiLayerItem(const QString &item_name);
 
 public slots:
     void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);

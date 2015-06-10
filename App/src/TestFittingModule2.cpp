@@ -259,8 +259,9 @@ void TestFittingModule2::fit_example_mask()
 {
     initializeSimulation();
     initializeRealData();
-    mp_simulation->setDetectorResolutionFunction(
-        new ResolutionFunction2DGaussian(0.0002, 0.0002));
+
+    ResolutionFunction2DGaussian resfunc(0.0002, 0.0002);
+    mp_simulation->setDetectorResolutionFunction(resfunc);
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas(
         "c1_test_meso_crystal", "mesocrystal");

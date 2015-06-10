@@ -25,7 +25,7 @@
 #include "IMaterial.h"
 #include "InterferenceFunctionNone.h"
 #include "ISample.h"
-#include "LabelSample.h"
+#include "SampleLabelHandler.h"
 #include "Materials.h"
 #include "Samples.h"
 #include "Simulation.h"

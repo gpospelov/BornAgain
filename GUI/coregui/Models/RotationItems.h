@@ -17,14 +17,14 @@
 #define ROTATIONITEMS_H
 
 #include "ParameterizedItem.h"
-#include "Transform3D.h"
+#include "Rotations.h"
 
 class RotationItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
     explicit RotationItem(const QString name, ParameterizedItem *parent) : ParameterizedItem(name, parent){}
-    virtual Geometry::Transform3D *createTransform() const{ return 0;}
+    virtual IRotation *createRotation() const{ return 0;}
     virtual ~RotationItem(){}
 };
 
@@ -35,7 +35,7 @@ class XRotationItem : public RotationItem
 public:
     static const QString P_ANGLE;
     explicit XRotationItem(ParameterizedItem *parent=0);
-    Geometry::Transform3D *createTransform() const;
+    IRotation *createRotation() const;
 };
 
 class YRotationItem : public RotationItem
@@ -44,7 +44,7 @@ class YRotationItem : public RotationItem
 public:
     static const QString P_ANGLE;
     explicit YRotationItem(ParameterizedItem *parent=0);
-    Geometry::Transform3D *createTransform() const;
+    IRotation *createRotation() const;
 };
 
 class ZRotationItem : public RotationItem
@@ -53,7 +53,7 @@ class ZRotationItem : public RotationItem
 public:
     static const QString P_ANGLE;
     explicit ZRotationItem(ParameterizedItem *parent=0);
-    Geometry::Transform3D *createTransform() const;
+    IRotation *createRotation() const;
 };
 
 class EulerRotationItem : public RotationItem
@@ -62,7 +62,7 @@ class EulerRotationItem : public RotationItem
 public:
     static const QString P_ALPHA, P_BETA, P_GAMMA;
     explicit EulerRotationItem(ParameterizedItem *parent=0);
-    Geometry::Transform3D *createTransform() const;
+    IRotation *createRotation() const;
 };
 
 #endif // ROTATIONITEMS_H

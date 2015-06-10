@@ -3,6 +3,7 @@
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationRegistry.h"
+#include <boost/scoped_ptr.hpp>
 
 int main(int argc, char **argv)
 {
@@ -13,24 +14,29 @@ int main(int argc, char **argv)
     simulation->runSimulation();
     simulation->normalize();
 
-    OutputData<double> *reference00 = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz");
-    OutputData<double> *reference01 = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz");
-    OutputData<double> *reference10 = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz");
-    OutputData<double> *reference11 = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz");
+    boost::scoped_ptr<OutputData<double> > reference00(IntensityDataIOFactory::readIntensityData(
+        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
+    boost::scoped_ptr<OutputData<double> > reference01(IntensityDataIOFactory::readIntensityData(
+        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz"));
+    boost::scoped_ptr<OutputData<double> > reference10(IntensityDataIOFactory::readIntensityData(
+        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz"));
+    boost::scoped_ptr<OutputData<double> > reference11(IntensityDataIOFactory::readIntensityData(
+        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
+
+    boost::scoped_ptr<OutputData<double> > data00(simulation->getPolarizedIntensityData(0,0));
+    boost::scoped_ptr<OutputData<double> > data01(simulation->getPolarizedIntensityData(0,1));
+    boost::scoped_ptr<OutputData<double> > data10(simulation->getPolarizedIntensityData(1,0));
+    boost::scoped_ptr<OutputData<double> > data11(simulation->getPolarizedIntensityData(1,1));
 
     const double threshold(2e-10);
     double diff(0);
-    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(0,0),*reference00);
-    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(0,1),*reference01);
-    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(1,0),*reference10);
-    diff += IntensityDataFunctions::getRelativeDifference(*simulation->getPolarizedIntensityData(1,1),*reference11);
+    diff += IntensityDataFunctions::getRelativeDifference(*data00, *reference00);
+    diff += IntensityDataFunctions::getRelativeDifference(*data01, *reference01);
+    diff += IntensityDataFunctions::getRelativeDifference(*data10, *reference10);
+    diff += IntensityDataFunctions::getRelativeDifference(*data11, *reference11);
     diff /= 4.;
 
     delete simulation;
-    delete reference00;
-    delete reference01;
-    delete reference10;
-    delete reference11;
 
     // Assess result.
     bool status_ok(true);

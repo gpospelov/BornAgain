@@ -18,7 +18,6 @@
 
 #include "LayerDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "DiffuseDWBASimulation.h"
 
 class Layer;
 
@@ -34,7 +33,7 @@ public:
 
     DecoratedLayerDWBASimulation *clone() const
     {
-        throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> "
+        throw NotImplementedException("DecoratedLayerDWBASimulation::clone() -> "
                                       "Error: not implemented.");
     }
 
@@ -42,13 +41,11 @@ public:
 
     virtual void run();
 protected:
-    DiffuseDWBASimulation *mp_diffuseDWBA;
     virtual void runProtected();
 
 private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
-    void calculateInCoherentIntensity();
     size_t m_layout_index;
 
 };

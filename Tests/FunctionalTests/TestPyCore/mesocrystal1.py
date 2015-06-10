@@ -1,4 +1,4 @@
-# functional test: mesocrystal simulation
+# Functional test: functional test: mesocrystal simulation
 #
 
 import sys
@@ -86,9 +86,9 @@ class MySampleBuilder(ISampleBuilder):
         for i in range(0, n_max_phi_rotation_steps):
             for j in range(0, n_alpha_rotation_steps):
 
-                p_total_transform = Transform3D.createRotateZ(phi_start + i*phi_step)
+                total_transform = RotationZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_layout.addParticle(meso, p_total_transform, self.meso_height.value)
+                particle_layout.addParticle(meso, total_transform, self.meso_height.value)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.addInterferenceFunction(p_interference_funtion)
@@ -123,8 +123,8 @@ class MySampleBuilder(ISampleBuilder):
         position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
         positions = [ position_0, position_1, position_2 ]
-        basis = LatticeBasis()
-        basis.addParticle(particle, positions)
+        basis = ParticleComposition()
+        basis.addParticles(particle, positions)
 
         npc = Crystal(basis, p_lat)
         dw_factor = self.sigma_lattice_length_a.value*self.sigma_lattice_length_a.value/6.0

@@ -86,11 +86,16 @@ bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector& q_bin) const
     double delta_qz = std::abs( q_bin.getDelta().z() );
     if (delta_qr == 0 || delta_qz == 0)
         return false;
-    if ( delta_qr > M_PI/2./getRadius() )
+    if ( delta_qr > Units::PID2/getRadius() )
         return true;
-    if ( delta_qz > M_PI/2./getHeight() )
+    if ( delta_qz > Units::PID2/getHeight() )
         return true;
     return false;
+}
+
+bool IFormFactorBorn::check_initialization() const
+{
+    return true;
 }
 
 double IFormFactorBorn::bigZPartIntegral(double qH2) const

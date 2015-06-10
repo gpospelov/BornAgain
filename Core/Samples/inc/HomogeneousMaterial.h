@@ -27,29 +27,37 @@ class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {
 public:
     //! Constructs a material with _name_ and _refractive_index_.
-    HomogeneousMaterial(const std::string& name,
-                        const complex_t& refractive_index)
-        : IMaterial(name), m_refractive_index(refractive_index) {}
+    HomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+        : IMaterial(name), m_refractive_index(refractive_index)
+    {
+    }
 
     //! Constructs a material with _name_ and refractive_index parameters
     //! delta and beta (n = 1 - delta + i*beta).
-    HomogeneousMaterial(const std::string& name,
-                        double refractive_index_delta,
+    HomogeneousMaterial(const std::string &name, double refractive_index_delta,
                         double refractive_index_beta)
         : IMaterial(name),
-        m_refractive_index(complex_t(1.0-refractive_index_delta,
-                                     refractive_index_beta)) {}
+          m_refractive_index(complex_t(1.0 - refractive_index_delta, refractive_index_beta))
+    {
+    }
 
-    virtual ~HomogeneousMaterial() {}
+    virtual ~HomogeneousMaterial()
+    {
+    }
 
     virtual HomogeneousMaterial *clone() const;
 
     //! Return refractive index.
-    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
+    virtual complex_t getRefractiveIndex() const
+    {
+        return m_refractive_index;
+    }
 
     //! Set refractive index.
     void setRefractiveIndex(const complex_t &refractive_index)
-    { m_refractive_index = refractive_index; }
+    {
+        m_refractive_index = refractive_index;
+    }
 
 #ifndef GCCXML_SKIP_THIS
     //! Get the scattering matrix (~potential V) from the material.
@@ -58,41 +66,37 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(
-            const Geometry::Transform3D& transform) const;
+    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
 
 protected:
-    virtual void print(std::ostream& ostr) const
+    virtual void print(std::ostream &ostr) const
     {
-        ostr  << "HomMat:" << getName() << "<" << this << ">{ " <<
-                 "R=" << m_refractive_index << "}";
+        ostr << "HomMat:" << getName() << "<" << this << ">{ "
+             << "R=" << m_refractive_index << "}";
     }
 
     complex_t m_refractive_index; //!< complex index of refraction
 };
 
-inline HomogeneousMaterial* HomogeneousMaterial::clone() const
+inline HomogeneousMaterial *HomogeneousMaterial::clone() const
 {
     return new HomogeneousMaterial(getName(), getRefractiveIndex());
 }
 
 #ifndef GCCXML_SKIP_THIS
-inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
-        double k_mag2) const
+inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double k_mag2) const
 {
     (void)k_mag2;
-    return m_refractive_index*m_refractive_index*Eigen::Matrix2cd::Identity();
+    return m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
 }
 
-inline const IMaterial* HomogeneousMaterial::createTransformedMaterial(
-        const Geometry::Transform3D& transform) const
+inline const IMaterial *
+HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
 {
-    (void)transform;
+    (void)rotation;
     return new HomogeneousMaterial(getName(), getRefractiveIndex());
 }
 
 #endif
 
 #endif // HOMOGENEOUSMATERIAL_H
-
-

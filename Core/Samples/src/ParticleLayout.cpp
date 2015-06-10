@@ -78,7 +78,7 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
 //! Adds generic particle, &-version.
 void ParticleLayout::addParticle(
-    const IParticle& p_particle, const Geometry::Transform3D& transform,
+    const IParticle& p_particle, const IRotation& rotation,
     double depth, double abundance)
 {
     if(!abundance) {
@@ -86,7 +86,7 @@ void ParticleLayout::addParticle(
                 " Error! Abundance can't be equal to 0.0");
     }
     boost::scoped_ptr<IParticle> P_particle_clone(p_particle.clone());
-    P_particle_clone->setTransformation(transform);
+    P_particle_clone->setTransformation(rotation);
     addAndRegisterParticleInfo(
         new ParticleInfo(*P_particle_clone, depth, abundance));
 }

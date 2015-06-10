@@ -14,22 +14,25 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
-//#include "Numeric.h"
 #include "MathFunctions.h"
-
-//#include <cmath>
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)
 {
     setName("FormFactorFullSphere");
+    check_initialization();
     init_parameters();
+}
+
+bool FormFactorFullSphere::check_initialization() const
+{
+    return true;
 }
 
 void FormFactorFullSphere::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
 }
 
 
@@ -49,7 +52,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
     complex_t z_part = std::exp(iqzR);
 
     complex_t qR = std::sqrt( std::norm(q.x()) + std::norm(q.y()) + std::norm(qz) )*R;
-    double volume = 4*M_PI*R*R*R/3;
+    double volume = 4*Units::PI*R*R*R/3;
     complex_t radial;
     if (std::abs(qR) < Numeric::double_epsilon) {
         radial = volume;
@@ -69,5 +72,6 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
 
     return radial*z_part;
 }
+
 
 

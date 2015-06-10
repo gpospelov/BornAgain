@@ -26,12 +26,12 @@ void ICompositeSample::registerChild(ISample *sample)
 {
     if(sample) {
         m_samples.push_back(sample);
-    }else {
+    } else {
         throw NullPointerException("ICompositeSample::registerChild -> Error. Null pointer.");
     }
 }
 
-//! remove registere child from the container
+//! remove registered child from the container
 
 void ICompositeSample::deregisterChild(ISample *sample)
 {

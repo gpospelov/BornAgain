@@ -113,7 +113,7 @@ void SamplePrintVisitor::visit(const ParticleDistribution *sample)
 }
 
 
-void SamplePrintVisitor::visit(const LatticeBasis *sample)
+void SamplePrintVisitor::visit(const ParticleComposition *sample)
 {
     print_default(sample);
 }
@@ -139,13 +139,6 @@ void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
 void SamplePrintVisitor::visit(const ParticleInfo *sample)
 {
     print_default(sample);
-}
-
-
-void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
-{
-    throw NotImplementedException("SamplePrintVisitor::"
-        "visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
 }
 
 
@@ -314,6 +307,11 @@ void SamplePrintVisitor::visit(const FormFactorTrivial *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorTruncatedCube *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
 {
     print_default(sample);
@@ -442,6 +440,26 @@ void SamplePrintVisitor::visit(const IRoughness *)
 
 
 void SamplePrintVisitor::visit(const LayerRoughness *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationX *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationY *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationZ *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const RotationEuler *sample)
 {
     print_default(sample);
 }

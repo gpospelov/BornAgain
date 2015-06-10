@@ -16,6 +16,8 @@
 #include "ProgressHandler.h"
 #include "Exceptions.h"
 #include "Simulation.h"
+#include "MultiLayer.h"
+#include "LayerInterface.h"
 #include <boost/thread.hpp>
 
 
@@ -50,8 +52,8 @@ bool ProgressHandler::update(int n)
 
     m_nitems += n;
 
-    //std::cout << "ProgressHandler::update " << m_nitems << std::endl;
     int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
+    //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems << " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
     if(progress != m_current_progress) {
         m_current_progress = progress;
         if(m_callback) {
@@ -70,13 +72,19 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     m_current_progress = 0;
     m_nitems_max = 0;
 
-    // Here we could run through the multilayer to define number of DecoratedDWBASimulation's
-    // for precise estimation of number of items to be processed.
+    // Analyzing sample for additional factors which will slow done the simulation
+    int roughness_factor(1);
+    MultiLayer *multilayer = dynamic_cast<MultiLayer *>(simulation->getSample());
+    if(multilayer) {
+        for (size_t i=0; i<multilayer->getNumberOfInterfaces(); ++i) {
+            if(multilayer->getLayerInterface(i)->getRoughness() ) {
+                roughness_factor = 2;
+                break;
+            }
+        }
+    }
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = param_combinations*simulation->getOutputData()->getAllocatedSize();
+    m_nitems_max = roughness_factor*param_combinations*simulation->getOutputData()->getAllocatedSize();
 
-    //m_nitems_max *= 2; //diffuse and non diffuse case
-
-    //std::cout << "ProgressHandler::init() -> m_nitems_max" << m_nitems_max << std::endl;
 }

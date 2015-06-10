@@ -33,6 +33,7 @@ public:
         : m_length(length), m_width(width), m_height(height) {
 
             setName("FormFactorBox");
+            check_initialization();
             init_parameters();
         }
 
@@ -59,6 +60,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
+    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

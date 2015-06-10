@@ -21,8 +21,7 @@
 #include "FormFactorDecoratorTransformation.h"
 #include "IMaterial.h"
 
-class ParticleInfo;
-class DiffuseParticleInfo;
+#include <boost/scoped_ptr.hpp>
 
 //! @class Particle
 //! @ingroup samples
@@ -35,7 +34,7 @@ public:
     Particle(const IMaterial &p_material);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
-            const Geometry::Transform3D &transform);
+            const IRotation &rotation);
 
     virtual ~Particle();
     virtual Particle *clone() const;
@@ -48,16 +47,15 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial* p_material)
+    virtual void setAmbientMaterial(const IMaterial& material)
     {
-        if(p_material) {
-            delete mp_ambient_material;
-            mp_ambient_material = p_material->clone();
+        if(mP_ambient_material.get() != &material) {
+            mP_ambient_material.reset(material.clone());
         }
     }
 
     //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const { return mp_ambient_material; }
+    virtual const IMaterial* getAmbientMaterial() const { return mP_ambient_material.get(); }
 
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
@@ -66,48 +64,37 @@ public:
             complex_t wavevector_scattering_factor) const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) {
-            delete mp_material;
-            mp_material = p_material->clone();
+    virtual void setMaterial(const IMaterial& material) {
+        if(mP_material.get() != &material) {
+            mP_material.reset(material.clone());
         }
     }
 
     //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const { return mp_material; }
+    virtual const IMaterial* getMaterial() const { return mP_material.get(); }
 
     //! Returns refractive index of the particle
     virtual complex_t getRefractiveIndex() const
     {
-        return (mp_material ? mp_material->getRefractiveIndex()
+        return (mP_material.get() ? mP_material->getRefractiveIndex()
                             : complex_t(0,0));
     }
 
-    //! Returns form factor of the particle originating from its shape only
-    virtual const IFormFactor *getSimpleFormFactor() const {
-        return mp_form_factor;
+    //! Sets the form factor
+    void setFormFactor(const IFormFactor& form_factor);
+
+    //! Returns the form factor
+    const IFormFactor* getFormFactor() const {
+        return mP_form_factor.get();
     }
-
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
-
-    //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const;
-
-    //! Indicates whether the particle consists of an assembly of different
-    //! form factors according to a certain distribution
-    virtual bool hasDistributedFormFactor() const;
 
 protected:
     IFormFactor *createTransformedFormFactor() const;
     //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(
-            const Geometry::Transform3D& transform);
-    IMaterial* mp_material;
-    IMaterial* mp_ambient_material;
-    IFormFactor* mp_form_factor;
+    virtual void applyTransformationToSubParticles(const IRotation& rotation);
+    boost::scoped_ptr<IMaterial> mP_material;
+    boost::scoped_ptr<IMaterial> mP_ambient_material;
+    boost::scoped_ptr<IFormFactor> mP_form_factor;
 };
 
 #endif // PARTICLE_H

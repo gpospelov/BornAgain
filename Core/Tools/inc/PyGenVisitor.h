@@ -21,13 +21,14 @@
 #include <set>
 
 class IMaterial;
-class LabelSample;
+class SampleLabelHandler;
 class Simulation;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
 public:
     PyGenVisitor();
+    ~PyGenVisitor();
 
     using ISampleVisitor::visit;
 
@@ -53,26 +54,55 @@ public:
     void visit(const FormFactorRipple1 *sample);
     void visit(const FormFactorRipple2 *sample);
     void visit(const FormFactorTetrahedron *sample);
+    void visit(const FormFactorTruncatedCube *sample);
     void visit(const FormFactorTruncatedSphere *sample);
     void visit(const FormFactorTruncatedSpheroid *sample);
-    void visit(const InterferenceFunctionNone *);
-    void visit(const InterferenceFunction1DLattice *);
-    void visit(const InterferenceFunctionRadialParaCrystal *);
-    void visit(const InterferenceFunction2DLattice *);
-    void visit(const InterferenceFunction2DParaCrystal *);
+    void visit(const InterferenceFunctionNone *sample);
+    void visit(const InterferenceFunction1DLattice *sample);
+    void visit(const InterferenceFunctionRadialParaCrystal *sample);
+    void visit(const InterferenceFunction2DLattice *sample);
+    void visit(const InterferenceFunction2DParaCrystal *sample);
     void visit(const Layer *sample);
-    void visit(const LayerInterface *){}
+    void visit(const LayerInterface *sample){ (void)sample; }
     void visit(const LayerRoughness *sample);
     void visit(const MultiLayer *sample);
+    void visit(const ParticleComposition *sample);
+    void visit(const MesoCrystal *sample);
     void visit(const Particle *sample);
+    void visit(const ParticleDistribution *sample);
     void visit(const ParticleCoreShell *sample);
-    void visit(const ParticleInfo *){}
+    void visit(const ParticleInfo *sample){ (void)sample; }
     void visit(const ParticleLayout *sample);
 
+    void visit(const RotationX *sample);
+    void visit(const RotationY *sample);
+    void visit(const RotationZ *sample);
+    void visit(const RotationEuler *sample);
+
+    std::string definePreamble() const;
+    std::string defineGetSimulation(const Simulation *simulation) const;
+    std::string defineGetSample() const;
+    std::string defineMaterials() const;
 
 private:
-    LabelSample *m_label;
-    std::set<std::string> visitedMaterials;
+    std::string defineLayers() const;
+    std::string defineFormFactors() const;
+    std::string defineParticles() const;
+    std::string defineCoreShellParticles() const;
+    std::string defineParticleDistributions() const;
+    std::string defineParticleCompositions() const;
+    std::string defineInterferenceFunctions() const;
+    std::string defineParticleLayouts() const;
+    std::string defineRoughnesses() const;
+    std::string addLayoutsToLayers() const;
+    std::string defineMultiLayers() const;
+    std::string defineDetector(const Simulation *simulation) const;
+    std::string defineBeam(const Simulation *simulation) const;
+    std::string definePlotting(const Simulation *simulation) const;
+    std::string defineRunSimulation() const;
+    SampleLabelHandler *m_label;
+
+    std::string indent() const;
 };
 
 

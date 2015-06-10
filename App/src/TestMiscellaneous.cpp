@@ -25,7 +25,7 @@
 #include "Lattice.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
-#include "LatticeBasis.h"
+#include "ParticleComposition.h"
 #include "MathFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"
@@ -264,8 +264,8 @@ void TestMiscellaneous::test_KVectorContainer()
 /* ************************************************************************* */
 void TestMiscellaneous::test_FastSin()
 {
-    double xmin = -2*M_PI;
-    double xmax = 2*M_PI;
+    double xmin = -2*Units::PI;
+    double xmax = 2*Units::PI;
     int npx(100);
     double dx = (xmax-xmin)/double(npx-1);
     for(int i=0; i<npx; ++i){
@@ -451,7 +451,7 @@ void TestMiscellaneous::test_FormFactor1()
 
     double qmin(-4.0), qmax(4.0);
     double lambda = 1.0;
-    double alpha_i = 0.2*M_PI/180.0;
+    double alpha_i = 0.2*Units::PI/180.0;
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
     int nbins(101);

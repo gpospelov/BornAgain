@@ -98,9 +98,10 @@ void Geometry::Transform3D::calculateEulerAngles(double *p_alpha,
     }
 }
 
-Geometry::Transform3D* Geometry::Transform3D::createInverse() const
+Geometry::Transform3D Geometry::Transform3D::getInverse() const
 {
-    return new Transform3D(m_inverse_matrix);
+    Transform3D result(m_inverse_matrix);
+    return result;
 }
 
 Geometry::BasicVector3D<double> Geometry::Transform3D::transformed(
@@ -155,6 +156,11 @@ Geometry::Transform3D Geometry::Transform3D::operator*(
 {
     Eigen::Matrix3d product_matrix = this->m_matrix * other.m_matrix;
     return Geometry::Transform3D(product_matrix);
+}
+
+bool Geometry::Transform3D::operator==(const Geometry::Transform3D &other) const
+{
+    return this->m_matrix == other.m_matrix;
 }
 
 Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType()

@@ -18,21 +18,28 @@
 DistributionHandler::DistributionHandler()
 : m_nbr_combinations(1)
 {
+    setName("DistributionHandler");
 }
 
 DistributionHandler::~DistributionHandler()
 {
 }
 
-void DistributionHandler::addParameterDistribution(
-        const std::string &param_name, const IDistribution1D &distribution,
-        size_t nbr_samples, double sigma_factor)
+void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution,
+        size_t nbr_samples, double sigma_factor, const AttLimits &limits)
 {
     if (nbr_samples > 0) {
         ParameterDistribution par_distr(param_name, distribution,
-                                        nbr_samples, sigma_factor);
+                                        nbr_samples, sigma_factor, limits);
+        addParameterDistribution(par_distr);
+    }
+}
+
+void DistributionHandler::addParameterDistribution(const ParameterDistribution &par_distr)
+{
+    if(par_distr.getNbrSamples() > 0) {
         m_distributions.push_back(par_distr);
-        m_nbr_combinations *= nbr_samples;
+        m_nbr_combinations *= par_distr.getNbrSamples();
         m_cached_samples.push_back(par_distr.generateSamples());
     }
 }
@@ -70,4 +77,9 @@ double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
         if (param_index==0) break;
     }
     return weight;
+}
+
+const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const
+{
+    return m_distributions;
 }

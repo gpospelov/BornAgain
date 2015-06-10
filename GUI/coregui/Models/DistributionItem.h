@@ -19,15 +19,32 @@
 #include "ParameterizedItem.h"
 #include "Distributions.h"
 
+
 class BA_CORE_API_ DistributionItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    explicit DistributionItem(const QString name, ParameterizedItem *parent=0)
-        : ParameterizedItem(name, parent) {}
+    static const QString P_NUMBER_OF_SAMPLES;
+    static const QString P_SIGMA_FACTOR;
+    explicit DistributionItem(const QString name, ParameterizedItem *parent=0);
     virtual ~DistributionItem() {}
 
     virtual IDistribution1D *createDistribution() const=0;
+
+    virtual void init_parameters(double, PropertyAttribute){}
+protected:
+    void register_number_of_samples();
+    void register_sigma_factor();
+};
+
+class BA_CORE_API_ DistributionNoneItem : public DistributionItem
+{
+    Q_OBJECT
+public:
+    static const QString P_VALUE;
+    explicit DistributionNoneItem(ParameterizedItem *parent=0);
+    virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 
@@ -40,6 +57,7 @@ public:
     explicit DistributionGateItem(ParameterizedItem *parent=0);
 
     virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 
@@ -52,6 +70,7 @@ public:
     explicit DistributionLorentzItem(ParameterizedItem *parent=0);
 
     virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 
@@ -64,6 +83,7 @@ public:
     explicit DistributionGaussianItem(ParameterizedItem *parent=0);
 
     virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 
@@ -76,6 +96,7 @@ public:
     explicit DistributionLogNormalItem(ParameterizedItem *parent=0);
 
     virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 
@@ -88,6 +109,7 @@ public:
     explicit DistributionCosineItem(ParameterizedItem *parent=0);
 
     virtual IDistribution1D *createDistribution() const;
+    virtual void init_parameters(double value, PropertyAttribute attribute);
 };
 
 #endif // DISTRIBUTIONITEM_H

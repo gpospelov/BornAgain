@@ -1,4 +1,4 @@
-# tests of IntensityData object
+# Functional test: tests of IntensityData object
 
 import sys
 import os

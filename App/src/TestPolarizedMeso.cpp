@@ -99,12 +99,11 @@ MultiLayer* TestPolarizedMeso::createSample() const
     size_t n_max_phi_rotation_steps = 1;
     size_t n_sizes = 2;
 
-    double phi_step = M_PI/4.0/n_max_phi_rotation_steps;
+    double phi_step = Units::PI/4.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_sizes; ++j) {
-            Geometry::Transform3D transform =
-                Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
+            RotationZ transform(phi_start + i*phi_step);
             double meso_size = m_meso_width + j*m_meso_size_steps;
             FormFactorBox ff_box(meso_size, meso_size, meso_size);
             boost::scoped_ptr<MesoCrystal> meso(createMeso(
@@ -144,7 +143,7 @@ MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
     std::vector<kvector_t> pos_vector;
     pos_vector.push_back(position_0);
     pos_vector.push_back(position_1);
-    LatticeBasis basis(particle, pos_vector);
+    ParticleComposition basis(particle, pos_vector);
 
     Crystal npc(basis, *p_lat);
     delete p_lat;

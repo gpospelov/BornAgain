@@ -19,12 +19,11 @@
 #include "actionmanager.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
-#include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
-#include "JobQueueModel.h"
+#include "JobModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "MaterialEditor.h"
@@ -59,6 +58,7 @@
 #include "FitModel.h"
 #include "FitProxyModel.h"
 #include "FitView.h"
+#include "TestView.h"
 #include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
@@ -74,7 +74,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_welcomeView(0)
     , m_instrumentView(0)
     , m_sampleView(0)
-    , m_scriptView(0)
     , m_simulationView(0)
     , m_jobView(0)
     , m_fitView(0)
@@ -82,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
-    , m_jobQueueModel(0)
+    , m_jobModel(0)
     , m_sampleModel(0)
     , m_instrumentModel(0)
     , m_materialModel(0)
@@ -94,14 +93,14 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
-    initModels();
+    createModels();
 
     if (!Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
-    Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
+    Manhattan::Utils::StyleHelper::setBaseColor(QColor(Constants::MAIN_THEME_COLOR));
 
     setDockNestingEnabled(true);
 
@@ -116,12 +115,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
-    //m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(this);
 
-    //m_testView = new TestView(m_sampleModel, this);
-    m_jobView = new JobView(m_jobQueueModel, m_projectManager);
+//    m_testView = new TestView(m_sampleModel, this);
     //m_fitView = new FitView(m_fitProxyModel, this);
+
+    m_jobView = new JobView(m_jobModel, m_projectManager);
 
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -132,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
     //m_tabWidget->insertTab(FitViewTab, m_fitView, QIcon(":/images/main_simulation.png"), "Fit");
-
+    //m_tabWidget->insertTab(FIT_VIEW, new TestView(this), QIcon(":/images/main_simulation.png"), "Test");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 
@@ -143,24 +142,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(m_tabWidget);
 
-
     setAcceptDrops(true);
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-//    testGUIObjectBuilder();
-
     m_projectManager->createNewProject();
-}
 
+    //testGUIObjectBuilder();
+}
 
 MainWindow::~MainWindow()
 {
     delete m_materialEditor;
 }
-
 
 void MainWindow::readSettings()
 {
@@ -173,7 +169,6 @@ void MainWindow::readSettings()
     assert(m_projectManager);
     m_projectManager->readSettings(m_settings);
 }
-
 
 void MainWindow::writeSettings()
 {
@@ -192,7 +187,6 @@ void MainWindow::onRunSimulationShortcut()
     m_simulationView->onRunSimulationShortcut();
 }
 
-
 void MainWindow::openRecentProject()
 {
     if (const QAction *action = qobject_cast<const QAction*>(sender())) {
@@ -201,8 +195,6 @@ void MainWindow::openRecentProject()
         m_projectManager->openProject(file);
     }
 }
-
-
 
 void MainWindow::onChangeTabWidget(int index)
 {
@@ -221,19 +213,16 @@ void MainWindow::onChangeTabWidget(int index)
     }
 }
 
-
 void MainWindow::onFocusRequest(int index)
 {
     m_tabWidget->setCurrentIndex(index);
 }
 
-
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if(m_jobQueueModel->getJobQueueData()->hasUnfinishedJobs()) {
+    if(m_jobModel->getJobQueueData()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, tr("Can't quite the application."),
-                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed");
+                             "Can't quite the application while jobs are running.\nCancel running jobs or wait until they are completed.");
         event->ignore();
         return;
     }
@@ -249,111 +238,87 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::initModels()
+//! creates and initializes models
+void MainWindow::createModels()
 {
-    initMaterialModel(); // should be first
+    createMaterialModel(); // should be first
 
-    initSampleModel();
+    createSampleModel();
 
-    initJobQueueModel();
+    createJobModel();
 
-    initInstrumentModel();
+    createInstrumentModel();
 
-    //initFitModel();
+    //createFitModel();
+
+    resetModels();
 }
 
-
-void MainWindow::initMaterialModel()
+void MainWindow::createMaterialModel()
 {
     delete m_materialModel;
-
     m_materialModel = new MaterialModel(this);
+//    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+//    m_materialModel->addMaterial("Air", 0.0, 0.0);
+//    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+//    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
+    m_materialEditor = new MaterialEditor(m_materialModel);
+}
+
+void MainWindow::createSampleModel()
+{
+    Q_ASSERT(m_materialModel);
+    delete m_sampleModel;
+    m_sampleModel = new SampleModel(this);
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
+}
+
+void MainWindow::createJobModel()
+{
+    delete m_jobModel;
+    m_jobModel = new JobModel(this);
+}
+
+void MainWindow::createInstrumentModel()
+{
+    delete m_instrumentModel;
+    m_instrumentModel = new InstrumentModel(this);
+    m_instrumentModel->setIconProvider(new IconProvider());
+}
+
+void MainWindow::createFitModel()
+{
+    m_fitProxyModel = new FitProxyModel;
+}
+
+//! reset all models to initial state
+void MainWindow::resetModels()
+{
+    m_materialModel->clear();
     m_materialModel->addMaterial("Default", 1e-3, 1e-5);
     m_materialModel->addMaterial("Air", 0.0, 0.0);
     m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
     m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
-    m_materialEditor = new MaterialEditor(m_materialModel);
+    m_sampleModel->clear();
+
+    m_jobModel->clear();
+
+    m_instrumentModel->clear();
+    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    instrument->setItemName("Default GISAS");
+    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 }
-
-
-void MainWindow::initSampleModel()
-{
-    Q_ASSERT(m_materialModel);
-
-    delete m_sampleModel;
-    m_sampleModel = new SampleModel(this);
-
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
-
-//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-//    ParameterizedItem *layer0 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
-//    layer0->setItemName("layer0");
-//    ParameterizedItem *layer1 = m_sampleModel->insertNewItem(Constants::LayerType, m_sampleModel->indexOfItem(multilayer));
-//    layer1->setItemName("layer1");
-}
-
-
-
-void MainWindow::initJobQueueModel()
-{
-    delete m_jobQueueModel;
-    m_jobQueueModel = new JobQueueModel(this);
-}
-
-
-void MainWindow::initInstrumentModel()
-{
-    delete m_instrumentModel;
-    m_instrumentModel = new InstrumentModel(this);
-    m_instrumentModel->setIconProvider(new IconProvider());
-
-//    TestProperty_t property(new TestProperty());
-//    property->m_data = 99.0;
-//    QVariant variant;
-//    variant.setValue(property);
-
-//    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument1->registerProperty("XXX", variant);
-////    instrument1->setItemName("Default GISAS");
-////    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-////    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-////    Q_UNUSED(detector1);
-////    Q_UNUSED(beam1);
-
-//    TestProperty_t tt = variant.value<TestProperty_t>();
-//    qDebug() << tt->m_data;
-
-    //m_instrumentModel->save("instrument.xml");
-}
-
-void MainWindow::initFitModel()
-{
-    m_fitProxyModel = new FitProxyModel;
-
-//    ParameterizedItem *item1 = m_fitProxyModel->insertNewItem(Constants::FitParameterType);
-//    item1->setItemName("par1");
-//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
-
-//    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-//    item2->setItemName("par2");
-
-    //m_fitProxyModel->save("fitmodel.xml");
-
-
-    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
-}
-
 
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
     boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
 
-    sample->printSampleTree();
-
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, sample.get());
+    guiBuilder.populateSampleModel(m_sampleModel, *sample);
 }
 
 void MainWindow::onAboutApplication()

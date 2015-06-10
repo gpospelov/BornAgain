@@ -15,11 +15,12 @@
 
 #include "Beam.h"
 #include "Exceptions.h"
+#include "Numeric.h"
 #include <Eigen/LU>
 
 
 Beam::Beam()
-: m_lambda(1.0)
+: m_wavelength(1.0)
 , m_alpha(0.0)
 , m_phi(0.0)
 , m_intensity(1.0)
@@ -29,7 +30,7 @@ Beam::Beam()
     initPolarization();
 }
 
-Beam::Beam(const Beam& other) : IParameterized(), m_lambda(other.m_lambda),
+Beam::Beam(const Beam& other) : IParameterized(), m_wavelength(other.m_wavelength),
 		m_alpha(other.m_alpha), m_phi(other.m_phi),
 		m_intensity(other.m_intensity), m_polarization(other.m_polarization)
 {
@@ -50,14 +51,21 @@ Beam& Beam::operator=(const Beam& other)
 cvector_t Beam::getCentralK() const
 {
     cvector_t k;
-    k.setLambdaAlphaPhi(m_lambda, m_alpha, m_phi);
+    k.setLambdaAlphaPhi(m_wavelength, -1.0*m_alpha, m_phi);
     return k;
 }
 
-void Beam::setCentralK(double lambda, double alpha_i, double phi_i)
+void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 {
-    if (alpha_i >0) alpha_i = - alpha_i;
-    m_lambda = lambda;
+    if(wavelength <= 0.0) {
+        throw Exceptions::ClassInitializationException(
+            "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
+    }
+    if(alpha_i < 0.0) {
+        throw Exceptions::ClassInitializationException(
+            "Beam::setCentralK() -> Error. Inclination angle alpha_i can't be negative.");
+    }
+    m_wavelength = wavelength;
     m_alpha = alpha_i;
     m_phi = phi_i;
 }
@@ -98,14 +106,14 @@ void Beam::init_parameters()
 {
     clearParameterPool();
     registerParameter("intensity", &m_intensity);
-    registerParameter("wavelength", &m_lambda);
-    registerParameter("alpha", &m_alpha);
+    registerParameter("wavelength", &m_wavelength, AttLimits::positive());
+    registerParameter("alpha", &m_alpha, AttLimits::lowerLimited(0.0));
     registerParameter("phi", &m_phi);
 }
 
 void Beam::swapContent(Beam& other)
 {
-    std::swap(this->m_lambda, other.m_lambda);
+    std::swap(this->m_wavelength, other.m_wavelength);
     std::swap(this->m_alpha, other.m_alpha);
     std::swap(this->m_phi, other.m_phi);
     std::swap(this->m_intensity, other.m_intensity);

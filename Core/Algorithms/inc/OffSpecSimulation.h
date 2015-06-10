@@ -60,8 +60,7 @@ public:
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getIntensityData() const
-    { return m_intensity_map.clone(); }
+    OutputData<double>* getIntensityData() const;
 
     //! returns component of polarized intensity map
     OutputData<double>* getPolarizedIntensityData(int row, int column) const;
@@ -103,10 +102,10 @@ public:
     { return m_simulation.getSimulationParameters(); }
 
     //! Define resolution function for detector
-    void setDetectorResolutionFunction(
-        IResolutionFunction2D *p_resolution_function) {
-    	m_simulation.setDetectorResolutionFunction(p_resolution_function);
-    }
+//    void setDetectorResolutionFunction(
+//        IResolutionFunction2D *p_resolution_function) {
+//    	m_simulation.setDetectorResolutionFunction(p_resolution_function);
+//    }
 
     void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function) {

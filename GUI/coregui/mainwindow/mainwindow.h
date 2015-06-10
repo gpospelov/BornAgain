@@ -38,7 +38,6 @@ class ActionManager;
 class ProjectManager;
 class QCloseEvent;
 class QSettings;
-class JobQueueModel;
 class InstrumentModel;
 class MaterialEditor;
 class ToolTipDataBase;
@@ -46,6 +45,7 @@ class MaterialModel;
 class SampleModel;
 class FitProxyModel;
 class FitView;
+class JobModel;
 
 
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
@@ -61,7 +61,7 @@ public:
     MaterialModel *getMaterialModel() { return m_materialModel; }
     InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
-    JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
+    JobModel *getJobModel() { return m_jobModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     QSettings *getSettings() const { return m_settings; }
     ActionManager *getActionManager() { return m_actionManager; }
@@ -75,6 +75,7 @@ public slots:
     void writeSettings();
     void onRunSimulationShortcut();
     void onAboutApplication();
+    void resetModels();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
@@ -84,7 +85,6 @@ private:
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
-    PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
 
     JobView *m_jobView;
@@ -96,7 +96,7 @@ private:
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
     QSettings *m_settings; //!< application wide settings
 
-    JobQueueModel *m_jobQueueModel; //!< model for all jobs
+    JobModel *m_jobModel;  //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
     InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
@@ -104,16 +104,12 @@ private:
     ToolTipDataBase *m_toolTipDataBase;
     FitProxyModel *m_fitProxyModel;
 
-    void initModels();
-    void initMaterialModel();
-    void initSampleModel();
-    void initJobQueueModel();
-    void initInstrumentModel();
-    void initFitModel();
-
-    void updateSimModel();
-    void updateSamples();
-    void updateInstruments();
+    void createModels();
+    void createMaterialModel();
+    void createSampleModel();
+    void createJobModel();
+    void createInstrumentModel();
+    void createFitModel();
 
     void testGUIObjectBuilder();
 };

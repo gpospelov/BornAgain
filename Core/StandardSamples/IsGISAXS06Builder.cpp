@@ -16,6 +16,7 @@
 #include "IsGISAXS06Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
+#include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"
@@ -23,6 +24,8 @@
 #include "InterferenceFunction2DLattice.h"
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"
+
+
 
 
 // -----------------------------------------------------------------------------
@@ -41,8 +44,8 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 
     InterferenceFunction2DLattice *p_interference_function =
         InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
-                               100.0*Units::nanometer/2.0/M_PI);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
+                               100.0*Units::nanometer/2.0/Units::PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
     // particles
@@ -77,28 +80,26 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DLattice interference_function(10.0*Units::nanometer,
-            10.0*Units::nanometer, M_PI/2.0);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
-                               100.0*Units::nanometer/2.0/M_PI);
+            10.0*Units::nanometer, Units::PI/2.0);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
+                               100.0*Units::nanometer/2.0/Units::PI);
     interference_function.setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_layout1;
-    // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
-    kvector_t position(0.0, 0.0, 0.0);
-    Particle p(particle_material, ff_cyl);
-    ParticleInfo particle_info(p, position, 1.0);
-    particle_layout1.addParticleInfo(particle_info);
-    particle_layout1.addInterferenceFunction(interference_function);
-    ParticleLayout particle_layout2;
-    // particle 2
+    Particle cylinder(particle_material, ff_cyl);
+    std::vector<kvector_t > positions;
+    kvector_t position_1(0.0, 0.0, 0.0);
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    particle_info.setPosition(position_2);
-    particle_layout2.addParticleInfo(particle_info);
-    particle_layout2.addInterferenceFunction(interference_function);
+    positions.push_back(position_1);
+    positions.push_back(position_2);
+    ParticleComposition basis;
+    basis.addParticles(cylinder, positions);
 
-    air_layer.addLayout(particle_layout1);
-    air_layer.addLayout(particle_layout2);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(basis);
+    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setTotalParticleSurfaceDensity(0.5);
+    air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -124,8 +125,8 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     InterferenceFunction2DLattice *p_interference_function =
         InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
                                                     30.0*Units::degree);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
-                               100.0*Units::nanometer/2.0/M_PI);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
+                               100.0*Units::nanometer/2.0/Units::PI);
     pdf.setGamma(30.0*Units::degree);
     p_interference_function->setProbabilityDistribution(pdf);
 
@@ -176,8 +177,8 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     InterferenceFunction2DLattice *p_interference_function =
         InterferenceFunction2DLattice::createSquare(10.0*Units::nanometer,
                                                     m_xi);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
-                               100.0*Units::nanometer/2.0/M_PI);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
+                               100.0*Units::nanometer/2.0/Units::PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
     ParticleLayout particle_layout;

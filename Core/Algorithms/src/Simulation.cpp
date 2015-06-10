@@ -29,7 +29,7 @@ GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
-
+#include <boost/scoped_ptr.hpp>
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -124,6 +124,9 @@ void Simulation::prepareSimulation()
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
+    if(getSample()->containsMagneticMaterial()) {
+        updatePolarizationMapAxes();
+    }
 }
 
 //! Run simulation with possible averaging over parameter distributions
@@ -140,8 +143,8 @@ void Simulation::runSimulation()
 
     // no averaging needed:
     if (param_combinations == 1) {
-        ParameterPool *p_param_pool = createParameterTree();
-        m_distribution_handler.setParameterValues(p_param_pool, 0);
+        boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
+        m_distribution_handler.setParameterValues(p_param_pool.get(), 0);
         updateSample();
         runSingleSimulation();
         //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
@@ -155,10 +158,10 @@ void Simulation::runSimulation()
     total_polarized_intensity.copyShapeFrom(m_polarization_output);
     total_intensity.setAllTo(0.);
     total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
-    ParameterPool *p_param_pool = createParameterTree();
+    boost::scoped_ptr<ParameterPool > p_param_pool(createParameterTree());
     for (size_t index=0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(
-                p_param_pool, index);
+                p_param_pool.get(), index);
         updateSample();
         runSingleSimulation();
         m_intensity_map.scaleAll(weight);
@@ -180,7 +183,11 @@ void Simulation::runOMPISimulation()
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        if(getSample() && getSample()->containsMagneticMaterial()) {
+            m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        } else {
+            m_instrument.normalize(&m_intensity_map);
+        }
         m_is_normalized = true;
     }
 }
@@ -204,12 +211,20 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
     mp_sample = 0;
 }
 
+OutputData<double> *Simulation::getIntensityData() const
+{
+    OutputData<double> *result = m_intensity_map.clone();
+    m_instrument.applyDetectorResolution(result);
+    return result;
+}
+
 OutputData<double>* Simulation::getPolarizedIntensityData(
         int row, int column) const
 {
     const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
     OutputData<double > *result =
             OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    m_instrument.applyDetectorResolution(result);
     return result;
 }
 
@@ -219,15 +234,15 @@ void Simulation::setInstrument(const Instrument& instrument)
     updateIntensityMapAxes();
 }
 
-void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
+void Simulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    if (lambda<=0.0) {
+    if (wavelength<=0.0) {
         throw ClassInitializationException(
                 "Simulation::setBeamParameters() "
                 "-> Error. Incoming wavelength <= 0.");
     }
 
-    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
+    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
 void Simulation::setBeamIntensity(double intensity)
@@ -258,17 +273,42 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
+void Simulation::addParameterDistribution(const std::string &param_name,
+                                          const IDistribution1D &distribution,
+                                          size_t nbr_samples,
+                                          double sigma_factor,
+                                          const AttLimits &limits) {
+    m_distribution_handler.addParameterDistribution(param_name,
+                                                    distribution, nbr_samples, sigma_factor, limits);
+}
+
+void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
+{
+    m_distribution_handler.addParameterDistribution(par_distr);
+}
+
+const DistributionHandler &Simulation::getDistributionHandler() const
+{
+    return m_distribution_handler;
+}
 
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
-    m_polarization_output.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    m_intensity_map.setAllTo(0.);    
+}
+
+void Simulation::updatePolarizationMapAxes()
+{
+    m_polarization_output.clear();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
     }
-    m_intensity_map.setAllTo(0.);
     m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
@@ -318,14 +358,14 @@ void Simulation::setDetectorParameters(const DetectorParameters& params)
 }
 
 void Simulation::setDetectorResolutionFunction(
-    IResolutionFunction2D *p_resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-}
-void Simulation::setDetectorResolutionFunction(
     const IResolutionFunction2D &p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
+
+void Simulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(0);
 }
 
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
@@ -431,16 +471,18 @@ void Simulation::runSingleSimulation()
             delete threads[i];
         }
         if(!isSuccess) {
-            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has terminated unexpectedly with following error message.\n"+failure_message);
+            throw Exceptions::RuntimeErrorException(
+                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
+                "with the following error message.\n" + failure_message);
         }
     }
-    if( mp_sample->containsMagneticMaterial() ) {
-        m_instrument.applyDetectorResolution(&m_intensity_map,
-                &m_polarization_output);
-    }
-    else {
-        m_instrument.applyDetectorResolution(&m_intensity_map);
-    }
+//    if( mp_sample->containsMagneticMaterial() ) {
+//        m_instrument.applyDetectorResolution(&m_intensity_map,
+//                &m_polarization_output);
+//    }
+//    else {
+//        m_instrument.applyDetectorResolution(&m_intensity_map);
+//    }
 
 }
 

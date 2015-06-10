@@ -21,7 +21,7 @@
 #include "ILayerRTCoefficients.h"
 #include "ISpecularInfoMap.h"
 
-#include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 
 //! @class LayerSpecularInfo
@@ -44,9 +44,7 @@ public:
     void addOutCoefficients(ISpecularInfoMap *rt_coefficient_map);
 
     //! Adds the amplitude coefficients for the incoming wavevector
-    void addInCoefficients(ILayerRTCoefficients *rt_coefficients) {
-        mP_in_coeffs.reset(rt_coefficients);
-    }
+    void addInCoefficients(ILayerRTCoefficients *rt_coefficients);
 
     //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
@@ -58,8 +56,8 @@ public:
         return mP_in_coeffs.get();
     }
 private:
-    boost::shared_ptr<ISpecularInfoMap> mP_out_coeff_map;
-    boost::shared_ptr<ILayerRTCoefficients> mP_in_coeffs;
+    boost::scoped_ptr<ISpecularInfoMap> mP_out_coeff_map;
+    boost::scoped_ptr<ILayerRTCoefficients> mP_in_coeffs;
 };
 
 

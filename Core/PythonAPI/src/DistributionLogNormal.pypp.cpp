@@ -63,16 +63,16 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
         return DistributionLogNormal::clone( );
     }
 
-    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
         if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
-            return func_generateValueList( nbr_samples, sigma_factor );
+            return func_generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
         else{
-            return this->DistributionLogNormal::generateValueList( nbr_samples, sigma_factor );
+            return this->DistributionLogNormal::generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
         }
     }
     
-    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
-        return DistributionLogNormal::generateValueList( nbr_samples, sigma_factor );
+    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor, ::AttLimits const & limits=::AttLimits( ) ) const  {
+        return DistributionLogNormal::generateValueList( nbr_samples, sigma_factor, boost::ref(limits) );
     }
 
     virtual double getMean(  ) const  {
@@ -135,6 +135,18 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::std::vector< double > generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        if( bp::override func_generateValues = this->get_override( "generateValues" ) )
+            return func_generateValues( nbr_samples, xmin, xmax );
+        else{
+            return this->IDistribution1D::generateValues( nbr_samples, xmin, xmax );
+        }
+    }
+    
+    ::std::vector< double > default_generateValues( ::std::size_t nbr_samples, double xmin, double xmax ) const  {
+        return IDistribution1D::generateValues( nbr_samples, xmin, xmax );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -147,22 +159,22 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
         IParameterized::printParameters( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< DistributionLogNormal_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -215,14 +227,14 @@ void register_DistributionLogNormal_class(){
         }
         { //::DistributionLogNormal::generateValueList
         
-            typedef ::std::vector< double > ( ::DistributionLogNormal::*generateValueList_function_type)( ::std::size_t,double ) const;
-            typedef ::std::vector< double > ( DistributionLogNormal_wrapper::*default_generateValueList_function_type)( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( ::DistributionLogNormal::*generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
+            typedef ::std::vector< double > ( DistributionLogNormal_wrapper::*default_generateValueList_function_type)( ::std::size_t,double,::AttLimits const & ) const;
             
             DistributionLogNormal_exposer.def( 
                 "generateValueList"
                 , generateValueList_function_type(&::DistributionLogNormal::generateValueList)
                 , default_generateValueList_function_type(&DistributionLogNormal_wrapper::default_generateValueList)
-                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor"), bp::arg("limits")=::AttLimits( ) ) );
         
         }
         { //::DistributionLogNormal::getMean
@@ -300,6 +312,18 @@ void register_DistributionLogNormal_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IDistribution1D::generateValues
+        
+            typedef ::std::vector< double > ( ::IDistribution1D::*generateValues_function_type)( ::std::size_t,double,double ) const;
+            typedef ::std::vector< double > ( DistributionLogNormal_wrapper::*default_generateValues_function_type)( ::std::size_t,double,double ) const;
+            
+            DistributionLogNormal_exposer.def( 
+                "generateValues"
+                , generateValues_function_type(&::IDistribution1D::generateValues)
+                , default_generateValues_function_type(&DistributionLogNormal_wrapper::default_generateValues)
+                , ( bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") ) );
+        
+        }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
@@ -313,12 +337,12 @@ void register_DistributionLogNormal_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             DistributionLogNormal_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &DistributionLogNormal_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

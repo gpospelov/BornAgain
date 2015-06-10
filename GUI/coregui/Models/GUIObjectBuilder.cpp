@@ -40,6 +40,7 @@
 #include "ConstKBinAxis.h"
 #include "FixedBinAxis.h"
 #include "RotationItems.h"
+#include "AxesItems.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
 #include <QDebug>
@@ -50,86 +51,72 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(
-        SampleModel *sampleModel, ISample *sample)
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
+                                       const Simulation &simulation, const QString &sampleName)
+{
+    boost::scoped_ptr<ISample> sample;
+    if(simulation.getSampleBuilder()) {
+        sample.reset(simulation.getSampleBuilder()->buildSample());
+    } else if(simulation.getSample()) {
+        sample.reset(simulation.getSample()->clone());
+    } else {
+        throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
+    }
+
+    return populateSampleModel(sampleModel, *sample, sampleName);
+}
+
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, const ISample &sample, const QString &sampleName)
 {
     Q_ASSERT(sampleModel);
-    Q_ASSERT(sample);
 
     m_levelToParentItem.clear();
 
-    m_topSampleName = sample->getName().c_str();
+    m_topSampleName = sampleName;
+    if(m_topSampleName.isEmpty()) m_topSampleName = sample.getName().c_str();
+
     m_sampleModel = sampleModel;
 
-    qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
+    VisitSampleTree(sample, *this);
+    ParameterizedItem *result = m_levelToParentItem[0];
 
-    //sample->accept(this);
-    VisitSampleTree(*sample, *this);
-    return m_levelToParentItem[0];
+    result->setItemName(m_topSampleName);
+    return result;
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
-        InstrumentModel *instrumentModel, Instrument *instrument)
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel,
+                                           const Simulation &simulation, const QString &instrumentName)
 {
-    Q_UNUSED(instrumentModel);
-    Q_UNUSED(instrument);
-
+    Q_ASSERT(instrumentModel);
     ParameterizedItem *instrumentItem =
             instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrumentItem->setItemName(instrument->getName().c_str());
 
-    Beam beam = instrument->getBeam();
-    ParameterizedItem *beamItem = instrumentModel->insertNewItem(
+    if(instrumentName.isEmpty()) {
+        instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
+    } else {
+        instrumentItem->setItemName(instrumentName);
+    }
+
+    // beam
+    BeamItem *beamItem = dynamic_cast<BeamItem *>(instrumentModel->insertNewItem(
                 Constants::BeamType,
-                instrumentModel->indexOfItem(instrumentItem));
-    beamItem->setRegisteredProperty(BeamItem::P_INTENSITY,
-                                    beam.getIntensity());
-    beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
-                                    beam.getWavelength());
+                instrumentModel->indexOfItem(instrumentItem)));
 
-    beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
-    beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-        AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
+    TransformFromDomain::setItemFromSample(beamItem, simulation);
 
-    Detector detector = instrument->getDetector();
+    // detector
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
         Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
-    ParameterizedItem *detectorSubItem =
-            detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
-    Q_ASSERT(detectorSubItem);
 
+    PhiAlphaDetectorItem *detectorSubItem =
+            dynamic_cast<PhiAlphaDetectorItem *>(detectorItem->getSubItems()[DetectorItem::P_DETECTOR]);
 
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
-
-    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NPHI, (int)phi_axis.getSize());
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MIN,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_PHI_MAX,
-        AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
-
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MIN,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
-    detectorSubItem->setRegisteredProperty(
-        PhiAlphaDetectorItem::P_ALPHA_MAX,
-        AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
+    TransformFromDomain::setItemFromSample(detectorSubItem, simulation);
 
     return instrumentItem;
 }
+
 
 void GUIObjectBuilder::visit(const ParticleLayout *sample)
 {
@@ -162,6 +149,8 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     }
     item->setRegisteredProperty(ParticleLayoutItem::P_APPROX,
                                 approx_prop.getVariant());
+    item->setRegisteredProperty(ParticleLayoutItem::P_TOTAL_DENSITY,
+                                sample->getTotalParticleSurfaceDensity());
     m_levelToParentItem[getLevel()] = item;
 }
 
@@ -224,42 +213,61 @@ void GUIObjectBuilder::visit(const Particle *sample)
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_0);
-            const Geometry::Transform3D *p_transformation =
-                    sample->getPTransform3D();
-            if (p_transformation) {
-                ParameterizedItem *transformation_item =
-                        m_sampleModel->insertNewItem(
-                            Constants::TransformationType,
-                            m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(p_transformation, transformation_item);
+            const IRotation *p_rotation = sample->getRotation();
+            if (p_rotation) {
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
             }
         }
         else if(sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::PORT_1);
-            const Geometry::Transform3D *p_transformation =
-                    sample->getPTransform3D();
-            if (p_transformation) {
-                ParameterizedItem *transformation_item =
-                        m_sampleModel->insertNewItem(
-                            Constants::TransformationType,
-                            m_sampleModel->indexOfItem(particleItem));
-                addRotationItem(p_transformation, transformation_item);
+            const IRotation *p_rotation = sample->getRotation();
+            if (p_rotation) {
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
             }
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit"
              "(const Particle *sample) -> Error. Logically should not be here");
         }
     }
+    else if(parent->modelType() == Constants::ParticleCompositionType){
+        const ParticleComposition *particle_composition =
+                dynamic_cast<const ParticleComposition *>(m_itemToSample[parent]);
+        Q_ASSERT(particle_composition);
+        size_t index = 0;
+        for (size_t i=0; i<particle_composition->getNbrParticles(); ++i) {
+            if (sample == particle_composition->getParticle(i)) {
+                index = i;
+            }
+        }
+        if (index == 0 && sample != particle_composition->getParticle(0)) {
+            throw GUIHelpers::Error("GUIObjectBuilder::visit"
+             "(const Particle *sample) -> Error. Particle is not part of"
+             " ParticleComposition");
+        }
+        kvector_t position = particle_composition->getParticlePosition(index);
+        particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
+                                                    m_sampleModel->indexOfItem(parent) );
+        ParameterizedItem *transformation_item =
+                m_sampleModel->insertNewItem(Constants::TransformationType,
+                                             m_sampleModel->indexOfItem(particleItem));
+        ParameterizedItem *p_position_item =
+                transformation_item->getSubItems()[TransformationItem::P_POS];
+        p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
+        p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
+        p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
+    }
     else if(parent->modelType() == Constants::ParticleLayoutType
-         || parent->modelType() == Constants::ParticleDistributionType){
+         || parent->modelType() == Constants::ParticleDistributionType) {
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
         bool has_position_info = m_sample_encountered[
                 Constants::TransformationType];
-        const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
-        if (has_position_info || p_transformation) {
+        const IRotation *p_rotation = sample->getRotation();
+        if (has_position_info || p_rotation) {
             ParameterizedItem *transformation_item =
                 m_sampleModel->insertNewItem(Constants::TransformationType,
                     m_sampleModel->indexOfItem(particleItem));
@@ -274,9 +282,6 @@ void GUIObjectBuilder::visit(const Particle *sample)
                      m_propertyToValue[VectorItem::P_Z]);
                 m_sample_encountered[Constants::TransformationType] = false;
             }
-            if (p_transformation) {
-                addRotationItem(p_transformation, transformation_item);
-            }
         }
     }
     else {
@@ -286,10 +291,10 @@ void GUIObjectBuilder::visit(const Particle *sample)
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
         throw GUIHelpers::Error("GUIObjectBuilder::visit"
-          "(const ParticleCoreShell *sample) -> Error. No depth property.");
+          "(const Particle *sample) -> Error. No depth property.");
     if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
         throw GUIHelpers::Error("GUIObjectBuilder::visit"
-          "(const ParticleCoreShell *sample) -> Error. No abundance property.");
+          "(const Particle *sample) -> Error. No abundance property.");
 
     particleItem->setRegisteredProperty(ParticleItem::P_DEPTH,
         m_propertyToValue[ParticleItem::P_DEPTH]);
@@ -354,19 +359,41 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     m_itemToSample[coreshellItem] = sample;
 }
 
+void GUIObjectBuilder::visit(const ParticleComposition *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const ParticleComposition *)"  << getLevel();
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *item(0);
+    if(parent) {
+        item = m_sampleModel->insertNewItem(Constants::ParticleCompositionType,
+                                         m_sampleModel->indexOfItem(parent));
+    } else {
+        item = m_sampleModel->insertNewItem(Constants::ParticleCompositionType);
+    }
+    item->setItemName(sample->getName().c_str());
+
+    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+                                m_propertyToValue[ParticleItem::P_ABUNDANCE]);
+
+    m_levelToParentItem[getLevel()] = item;
+    m_itemToSample[item] = sample;
+}
+
 void GUIObjectBuilder::visit(const ParticleInfo *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
-    m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
     kvector_t position = sample->getPosition();
-    if (position.x()!=0.0 || position.y()!=0.0){
+    if (position.x()!=0.0 || position.y()!=0.0) {
         m_sample_encountered[Constants::TransformationType] = true;
         m_propertyToValue[VectorItem::P_X] = position.x();
         m_propertyToValue[VectorItem::P_Y] = position.y();
         m_propertyToValue[VectorItem::P_Z] = position.z();
+        m_propertyToValue[ParticleItem::P_DEPTH] = 0.0;
+    } else {
+        m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     }
     m_levelToParentItem[getLevel()] = parent;
 }
@@ -568,6 +595,18 @@ void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
+void GUIObjectBuilder::visit(const FormFactorTruncatedCube *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->setGroupProperty(
+        ParticleItem::P_FORM_FACTOR, Constants::TruncatedCubeType);
+    ffItem->setRegisteredProperty(TruncatedCubeItem::P_LENGTH,
+                                  sample->getLength());
+    ffItem->setRegisteredProperty(TruncatedCubeItem::P_REMOVED_LENGTH,
+                                  sample->getRemovedLength());
+    m_levelToParentItem[getLevel()] = particleItem;
+}
+
 void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
 {
     ParameterizedItem *particleItem = m_levelToParentItem[getLevel()-1];
@@ -643,6 +682,70 @@ void GUIObjectBuilder::visit(const LayerRoughness *)
 
 }
 
+void GUIObjectBuilder::visit(const RotationX *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationX *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::XRotationType);
+    p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
+    m_levelToParentItem[getLevel()] = transformation_item;
+}
+
+void GUIObjectBuilder::visit(const RotationY *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationY *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::YRotationType);
+    p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
+    m_levelToParentItem[getLevel()] = transformation_item;
+}
+
+void GUIObjectBuilder::visit(const RotationZ *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationZ *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::ZRotationType);
+    p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE,
+                                          Units::rad2deg(sample->getAngle()) );
+    m_levelToParentItem[getLevel()] = transformation_item;
+}
+
+void GUIObjectBuilder::visit(const RotationEuler *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const RotationEuler *)" << getLevel();
+
+    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    Q_ASSERT(parent);
+
+    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
+                TransformationItem::P_ROT, Constants::EulerRotationType);
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA,
+                                          Units::rad2deg(sample->getAlpha()) );
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_BETA,
+                                          Units::rad2deg(sample->getBeta()) );
+    p_rotationItem->setRegisteredProperty(EulerRotationItem::P_GAMMA,
+                                          Units::rad2deg(sample->getGamma()) );
+    m_levelToParentItem[getLevel()] = transformation_item;
+}
+
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
         const IMaterial *material)
 {
@@ -667,52 +770,3 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 
     return MaterialProperty();
 }
-
-void GUIObjectBuilder::addRotationItem(
-        const Geometry::Transform3D *p_transformation,
-        ParameterizedItem *transformation_item)
-{
-    Geometry::Transform3D::ERotationType rot_type =
-            p_transformation->getRotationType();
-    double alpha, beta, gamma;
-    p_transformation->calculateEulerAngles(&alpha, &beta, &gamma);
-    ParameterizedItem *p_rotation_item = 0;
-    switch (rot_type) {
-    case Geometry::Transform3D::XAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::XRotationType);
-        if (alpha>0.0) beta = -beta;
-        p_rotation_item->setRegisteredProperty(
-                    XRotationItem::P_ANGLE, Units::rad2deg(beta));
-        break;
-    case Geometry::Transform3D::YAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::YRotationType);
-        if (alpha>0.0 && alpha<3.14) beta = -beta;
-        p_rotation_item->setRegisteredProperty(
-                    YRotationItem::P_ANGLE, Units::rad2deg(beta));
-        break;
-    case Geometry::Transform3D::ZAXIS:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::ZRotationType);
-        p_rotation_item->setRegisteredProperty(
-                    ZRotationItem::P_ANGLE, Units::rad2deg(alpha));
-        break;
-    default:
-        p_rotation_item = transformation_item->setGroupProperty(
-                    TransformationItem::P_ROT,
-                    Constants::EulerRotationType);
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_ALPHA, Units::rad2deg(alpha));
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_BETA, Units::rad2deg(beta));
-        p_rotation_item->setRegisteredProperty(
-                    EulerRotationItem::P_GAMMA, Units::rad2deg(gamma));
-        break;
-    }
-}
-
-

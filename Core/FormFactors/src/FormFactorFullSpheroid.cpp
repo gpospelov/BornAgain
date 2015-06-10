@@ -24,19 +24,25 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     setName("FormFactorFullSpheroid");
     m_radius = radius;
     m_height = height;
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
        & FormFactorFullSpheroid::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorFullSpheroid>(p_mf, this);
- }
+}
+
+bool FormFactorFullSpheroid::check_initialization() const
+{
+    return true;
+}
 
 void FormFactorFullSpheroid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
@@ -70,14 +76,14 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
 
     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
 
-        return 2.*M_PI*R*R*H/3.;
+        return Units::PI2*R*R*H/3.;
 
     } else {
 
         complex_t qzH_half  = m_q.z()*H/2.0;
         complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*qzH_half);
 
-        return 4.0* M_PI * z_part *m_integrator->integrate(0.0, H/2.0);
+        return 4.0* Units::PI * z_part *m_integrator->integrate(0.0, H/2.0);
 
     }
 }

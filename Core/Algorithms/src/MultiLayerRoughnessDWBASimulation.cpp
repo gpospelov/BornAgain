@@ -51,7 +51,7 @@ void MultiLayerRoughnessDWBASimulation::run()
 void MultiLayerRoughnessDWBASimulation::runProtected()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2*M_PI/m_ki_real.mag();
+    double lambda = Units::PI2/m_ki_real.mag();
 
     DWBASimulation::iterator it_intensity = m_dwba_intensity.begin(m_thread_info);
     while ( it_intensity != m_dwba_intensity.end(m_thread_info) )
@@ -113,7 +113,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
+    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./Units::PI;
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
@@ -137,9 +137,10 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
     boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
         mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0) );
 
-
-    double sigma = mp_multi_layer->getLayerBottomInterface(ilayer)->
-        getRoughness()->getSigma();
+    double sigma(0.0);
+    if(const LayerRoughness *roughness  = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
+        sigma = roughness->getSigma();
+    }
     double sigma2 = -0.5*sigma*sigma;
     complex_t term1 = p_in_coeff->getScalarT() * P_out_coeff->getScalarT()
             * std::exp( sigma2*qz1*qz1 );

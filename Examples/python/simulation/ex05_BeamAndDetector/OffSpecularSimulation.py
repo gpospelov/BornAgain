@@ -30,7 +30,7 @@ def get_sample():
 
     infbox_ff = FormFactorInfLongBox(20*nanometer, 10.0*nanometer)
     infbox = Particle(m_particle, infbox_ff)
-    transform = Transform3D.createRotateZ(90.0*degree)
+    transform = RotationZ(90.0*degree)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(infbox, transform)
     particle_layout.addInterferenceFunction(interference)

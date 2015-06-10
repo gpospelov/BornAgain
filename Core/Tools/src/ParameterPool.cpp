@@ -36,9 +36,9 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 //! Registers parameter with given name.
 
 void ParameterPool::registerParameter(const std::string& name,
-                                      double *parameter_address)
+                                      double *parameter_address, const AttLimits &limits)
 {
-    parameter_t par(parameter_address);
+    parameter_t par(parameter_address, limits);
     if( !addParameter(name, par) ) throw RuntimeErrorException(
        "ParameterPool::registerParameter() -> Error! Can't register parameter");
 }
@@ -101,8 +101,7 @@ std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(
         }
     }
     if( selected_parameters.empty() ) {
-        throw LogicErrorException("ParameterPool::getMatchedParameters() ->"
-                                  " Error! " + get_error_message(wildcards));
+        report_find_matched_parameters_error(wildcards);
     }
     return selected_parameters;
 }
@@ -113,10 +112,12 @@ bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
-        throw LogicErrorException("ParameterPool::getMatchedParameters() ->"
-                                  " Error! " + get_error_message(name));
+        throw LogicErrorException("ParameterPool::setParameterValue() ->"
+                                  " Error! Unitialized parameter '"+name+"'.");
     }
-    x.setValue(value);
+
+    if(!x.setValue(value)) report_set_value_error(name, value);
+
     return true;
 }
 
@@ -128,15 +129,27 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards,
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
-            (*it).second.setValue(value);
-            npars++;
+            bool success = (*it).second.setValue(value);
+            if(!success) {
+                report_set_value_error((*it).first, value);
+            } else {
+                npars++;
+            }
         }
     }
     if(npars == 0) {
-        throw LogicErrorException("ParameterPool::setMatchedParameters() ->"
-                                  " Error! " + get_error_message(wildcards));
+        report_find_matched_parameters_error(wildcards);
     }
     return npars;
+}
+
+std::vector<std::string> ParameterPool::getParameterNames() const
+{
+    std::vector<std::string> result;
+    for (parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
 }
 
 //! Prints content on the screen.
@@ -171,10 +184,33 @@ void ParameterPool::print(std::ostream& ostr) const
 
 std::string ParameterPool::get_error_message(const std::string &criteria) const
 {
-    std::ostringstream os;
-    os << "No parameters satisfying  criteria '" << criteria
+    std::ostringstream ostr;
+    ostr << "No parameters satisfying  criteria '" << criteria
        << "' have been found. Existing keys are:" << std::endl;
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
-        os << "'" << (*it).first << "'" << std::endl;
-    return os.str();
+        ostr << "'" << (*it).first << "'" << std::endl;
+    return ostr.str();
+}
+
+void ParameterPool::report_find_matched_parameters_error(const std::string &pattern) const
+{
+    std::ostringstream ostr;
+    ostr << "ParameterPool::find_matched_parameters_error() -> Error! ";
+    ostr << "No parameters matching  pattern '" << pattern
+       << "' have been found. Existing keys are:" << std::endl;
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
+        ostr << "'" << (*it).first << "'" << std::endl;
+    throw LogicErrorException(ostr.str());
+}
+
+void ParameterPool::report_set_value_error(const std::string &parname, double value) const
+{
+    std::ostringstream ostr;
+    parametermap_t::const_iterator it=m_map.find(parname);
+    assert(it!=m_map.end());
+    ostr << "ParameterPool::set_value_error() -> Attempt to set value ";
+    ostr << value;
+    ostr << " for parameter '" << parname << "' failed. Out of bounds?";
+    ostr << " Parameter limits " << (*it).second.getAttLimits() << ".\n";
+    throw LogicErrorException(ostr.str());
 }

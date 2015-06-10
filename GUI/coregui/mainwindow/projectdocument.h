@@ -20,18 +20,20 @@
 #include <QObject>
 #include <QString>
 
-class JobQueueModel;
 class QIODevice;
 class QModelIndex;
 class JobItem;
 class InstrumentModel;
 class MaterialModel;
 class SampleModel;
+class JobModel;
 
 namespace ProjectDocumentXML
 {
-    const QString InfoTag("DocumentInfo");
-    const QString InfoNameAttribute("ProjectName");
+const QString BornAgainTag("BornAgain");
+const QString BornAgainVersionAttribute("Version");
+const QString InfoTag("DocumentInfo");
+const QString InfoNameAttribute("ProjectName");
 }
 
 
@@ -53,7 +55,7 @@ public:
     ProjectDocument(const QString &path, const QString &name);
 
     bool save();
-    bool load();
+    bool load(const QString &project_file_name);
 
     QString getProjectPath() const { return m_project_path; }
     QString getProjectName() const { return m_project_name; }
@@ -69,16 +71,18 @@ public:
     void setMaterialModel(MaterialModel *materialModel);
     void setInstrumentModel(InstrumentModel *model);
     void setSampleModel(SampleModel *model);
-    void setJobQueueModel(JobQueueModel *model);
+    void setJobModel(JobModel *model);
 
     bool hasValidNameAndPath();
+
+    QString getErrorMessage() const { return m_error_message; }
 
 signals:
     void modified();
 
 public slots:
     void onDataChanged(const QModelIndex &, const QModelIndex &);
-    void onJobQueueModelChanged(const QString &);
+    void onJobModelChanged(const QString &);
 
 private:
     bool writeTo(QIODevice *device);
@@ -92,8 +96,9 @@ private:
     MaterialModel *m_materialModel;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
-    JobQueueModel *m_jobQueueModel;
+    JobModel *m_jobModel;
     bool m_modified;
+    QString m_error_message;
 };
 
 

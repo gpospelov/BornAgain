@@ -3,10 +3,13 @@
 #endif
 #include "gtest/gtest.h"
 
+#include "AttLimitsTest.h"
 #include "BeamTest.h"
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
+#include "DistributionsTest.h"
+#include "DistributionHandlerTest.h"
 #include "DWBASimulationTest.h"
 #include "FormFactorTest.h"
 #include "InstrumentTest.h"
@@ -16,11 +19,13 @@
 #include "MaskTest.h"
 #include "OutputDataIteratorTest.h"
 #include "OutputDataTest.h"
+#include "ParameterDistributionTest.h"
 #include "ParameterPoolTest.h"
 #include "ParticleTest.h"
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
+#include "ParticleCompositionTest.h"
 #include "LayerRoughnessTest.h"
 #include "ParticleInfoTest.h"
 #include "LLDataTest.h"
@@ -42,6 +47,10 @@
 #include "CustomBinAxisTest.h"
 #include "IntensityDataFunctionsTest.h"
 #include "SpecularSimulationTest.h"
+#include "ParticleCoreShellTest.h"
+#include "ParameterDistributionTest.h"
+#include "UtilsTest.h"
+
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

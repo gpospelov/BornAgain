@@ -42,18 +42,6 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return func_clone(  );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -107,16 +95,16 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return IFormFactor::getVolume( );
     }
 
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->IFormFactor::isDistributedFormFactor(  );
+            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IFormFactor::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -239,22 +227,22 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< IFormFactor_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -326,19 +314,6 @@ void register_IFormFactor_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IFormFactor::createDistributedFormFactors
-        
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( IFormFactor_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            
-            IFormFactor_exposer.def( 
-                "createDistributedFormFactors"
-                , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&IFormFactor_wrapper::default_createDistributedFormFactors)
-                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::IFormFactor::evaluate
         
             typedef ::complex_t ( ::IFormFactor::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
@@ -393,15 +368,16 @@ void register_IFormFactor_class(){
                 , default_getVolume_function_type(&IFormFactor_wrapper::default_getVolume) );
         
         }
-        { //::IFormFactor::isDistributedFormFactor
+        { //::IFormFactor::setAmbientMaterial
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( IFormFactor_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IFormFactor_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             IFormFactor_exposer.def( 
-                "isDistributedFormFactor"
-                , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&IFormFactor_wrapper::default_isDistributedFormFactor) );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IFormFactor_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -520,12 +496,12 @@ void register_IFormFactor_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             IFormFactor_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactor_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

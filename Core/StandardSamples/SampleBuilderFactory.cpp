@@ -16,7 +16,7 @@
 #include "SampleBuilderFactory.h"
 #include "IsGISAXS01Builder.h"
 #include "IsGISAXS02Builder.h"
-#include "IsGISAXS03Builder.h"
+#include "CylindersBuilder.h"
 #include "IsGISAXS04Builder.h"
 #include "IsGISAXS06Builder.h"
 #include "IsGISAXS07Builder.h"
@@ -29,6 +29,7 @@
 #include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
 #include "LayerRoughnessBuilder.h"
+#include "ParticleCompositionBuilder.h"
 #include "Ripple2Builder.h"
 #include "Ripple1Builder.h"
 
@@ -46,16 +47,16 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mixture cylinder particles with different size distribution ");
 
     registerItem(
-        "isgisaxs03_ba",
-        IFactoryCreateFunction<IsGISAXS03BABuilder, ISampleBuilder>,
+        "cylinders_ba",
+        IFactoryCreateFunction<CylindersInBABuilder, ISampleBuilder>,
         "Cylinder formfactor in BA");
     registerItem(
-        "isgisaxs03_dwba",
-        IFactoryCreateFunction<IsGISAXS03DWBABuilder, ISampleBuilder>,
+        "cylinders_dwba",
+        IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
         "Cylinder formfactor in DWBA");
     registerItem(
-        "isgisaxs03_basize",
-        IFactoryCreateFunction<IsGISAXS03BASizeBuilder, ISampleBuilder>,
+        "cylinders_basize",
+        IFactoryCreateFunction<CylindersWithSizeDistributionBuilder, ISampleBuilder>,
         "Cylinder formfactor in BA with size distribution");
 
     registerItem(
@@ -156,6 +157,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ripple1",
         IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "ParticleComposition",
+        IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
+        "Composition of particles to represent two layers of spheres in hex lattice");
 
 }
 

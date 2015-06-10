@@ -47,7 +47,7 @@ void TestFormFactor::execute()
     const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
     const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
     double lambda = 1.0;
-    double alpha_i = 0.2*M_PI/180.0;
+    double alpha_i = 0.2*Units::PI/180.0;
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
     while (it != mp_intensity_output->end())
@@ -56,10 +56,10 @@ void TestFormFactor::execute()
                 it.getIndex());
         size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis",
                 it.getIndex());
-        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
+        double phi_f = Units::PI*(*p_y_axis)[index_y]/180.0;
         Bin1D alpha_f_bin_degrees = p_z_axis->getBin(index_z);
-        Bin1D alpha_f_bin(M_PI*alpha_f_bin_degrees.m_lower/180.0,
-                              M_PI*alpha_f_bin_degrees.m_upper/180.0);
+        Bin1D alpha_f_bin(Units::PI*alpha_f_bin_degrees.m_lower/180.0,
+                              Units::PI*alpha_f_bin_degrees.m_upper/180.0);
         double alpha_f = alpha_f_bin.getMidPoint();
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);

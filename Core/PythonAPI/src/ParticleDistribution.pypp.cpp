@@ -37,6 +37,13 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     m_pyobj = 0;
     }
 
+    ParticleDistribution_wrapper(::IParticle const & prototype, ::ParameterDistribution const & par_distr, ::kvector_t position )
+    : ParticleDistribution( boost::ref(prototype), boost::ref(par_distr), position )
+      , bp::wrapper< ParticleDistribution >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     virtual ::ParticleDistribution * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -85,52 +92,16 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ParticleDistribution::getAmbientMaterial( );
     }
 
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->ParticleDistribution::getMaterial(  );
+            this->ParticleDistribution::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return ParticleDistribution::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->ParticleDistribution::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return ParticleDistribution::getRefractiveIndex( );
-    }
-
-    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
-        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
-            return func_getSimpleFormFactor(  );
-        else{
-            return this->ParticleDistribution::getSimpleFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
-        return ParticleDistribution::getSimpleFormFactor( );
-    }
-
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::applyTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::applyTransformation( boost::ref(transform) );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        ParticleDistribution::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -205,18 +176,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual bool hasDistributedFormFactor(  ) const  {
-        if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
-            return func_hasDistributedFormFactor(  );
-        else{
-            return this->IParticle::hasDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_hasDistributedFormFactor(  ) const  {
-        return IParticle::hasDistributedFormFactor( );
-    }
-
     virtual bool preprocess(  ) {
         if( bp::override func_preprocess = this->get_override( "preprocess" ) )
             return func_preprocess(  );
@@ -253,22 +212,22 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< ParticleDistribution_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -294,18 +253,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
-    }
-
-    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
-            func_setTransformation( boost::ref(transform) );
-        else{
-            this->IParticle::setTransformation( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
-        IParticle::setTransformation( boost::ref(transform) );
     }
 
     virtual ::std::size_t size(  ) const  {
@@ -354,6 +301,7 @@ void register_ParticleDistribution_class(){
         typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
         ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
         bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
+        ParticleDistribution_exposer.def( bp::init< IParticle const &, ParameterDistribution const &, kvector_t >(( bp::arg("prototype"), bp::arg("par_distr"), bp::arg("position") )) );
         { //::ParticleDistribution::clone
         
             typedef ::ParticleDistribution * ( ::ParticleDistribution::*clone_function_type)(  ) const;
@@ -376,6 +324,16 @@ void register_ParticleDistribution_class(){
                 , cloneInvertB_function_type(&::ParticleDistribution::cloneInvertB)
                 , default_cloneInvertB_function_type(&ParticleDistribution_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ParticleDistribution::createDistributedParameterPool
+        
+            typedef ::ParameterPool * ( ::ParticleDistribution::*createDistributedParameterPool_function_type)(  ) const;
+            
+            ParticleDistribution_exposer.def( 
+                "createDistributedParameterPool"
+                , createDistributedParameterPool_function_type( &::ParticleDistribution::createDistributedParameterPool )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ParticleDistribution::createFormFactor
@@ -403,18 +361,6 @@ void register_ParticleDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleDistribution::getMaterial
-        
-            typedef ::IMaterial const * ( ::ParticleDistribution::*getMaterial_function_type)(  ) const;
-            typedef ::IMaterial const * ( ParticleDistribution_wrapper::*default_getMaterial_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::ParticleDistribution::getMaterial)
-                , default_getMaterial_function_type(&ParticleDistribution_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::ParticleDistribution::getParameterDistribution
         
             typedef ::ParameterDistribution ( ::ParticleDistribution::*getParameterDistribution_function_type)(  ) const;
@@ -424,39 +370,26 @@ void register_ParticleDistribution_class(){
                 , getParameterDistribution_function_type( &::ParticleDistribution::getParameterDistribution ) );
         
         }
-        { //::ParticleDistribution::getRefractiveIndex
+        { //::ParticleDistribution::getParticle
         
-            typedef ::complex_t ( ::ParticleDistribution::*getRefractiveIndex_function_type)(  ) const;
-            typedef ::complex_t ( ParticleDistribution_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
+            typedef ::IParticle const * ( ::ParticleDistribution::*getParticle_function_type)(  ) const;
             
             ParticleDistribution_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type(&::ParticleDistribution::getRefractiveIndex)
-                , default_getRefractiveIndex_function_type(&ParticleDistribution_wrapper::default_getRefractiveIndex) );
-        
-        }
-        { //::ParticleDistribution::getSimpleFormFactor
-        
-            typedef ::IFormFactor const * ( ::ParticleDistribution::*getSimpleFormFactor_function_type)(  ) const;
-            typedef ::IFormFactor const * ( ParticleDistribution_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "getSimpleFormFactor"
-                , getSimpleFormFactor_function_type(&::ParticleDistribution::getSimpleFormFactor)
-                , default_getSimpleFormFactor_function_type(&ParticleDistribution_wrapper::default_getSimpleFormFactor)
+                "getParticle"
+                , getParticle_function_type( &::ParticleDistribution::getParticle )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::applyTransformation
+        { //::ParticleDistribution::setAmbientMaterial
         
-            typedef void ( ::IParticle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleDistribution_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::ParticleDistribution::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( ParticleDistribution_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             ParticleDistribution_exposer.def( 
-                "applyTransformation"
-                , applyTransformation_function_type(&::IParticle::applyTransformation)
-                , default_applyTransformation_function_type(&ParticleDistribution_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::ParticleDistribution::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&ParticleDistribution_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -528,17 +461,6 @@ void register_ParticleDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IParticle::hasDistributedFormFactor
-        
-            typedef bool ( ::IParticle::*hasDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( ParticleDistribution_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "hasDistributedFormFactor"
-                , hasDistributedFormFactor_function_type(&::IParticle::hasDistributedFormFactor)
-                , default_hasDistributedFormFactor_function_type(&ParticleDistribution_wrapper::default_hasDistributedFormFactor) );
-        
-        }
         { //::ISample::preprocess
         
             typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
@@ -574,12 +496,12 @@ void register_ParticleDistribution_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             ParticleDistribution_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleDistribution_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue
@@ -603,18 +525,6 @@ void register_ParticleDistribution_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&ParticleDistribution_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::IParticle::setTransformation
-        
-            typedef void ( ::IParticle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( ParticleDistribution_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            
-            ParticleDistribution_exposer.def( 
-                "setTransformation"
-                , setTransformation_function_type(&::IParticle::setTransformation)
-                , default_setTransformation_function_type(&ParticleDistribution_wrapper::default_setTransformation)
-                , ( bp::arg("transform") ) );
         
         }
         { //::ICompositeSample::size

@@ -20,25 +20,26 @@
 
 #include <QStringList>
 
+class ParameterPool;
+
 class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
-    static const QString P_SAMPLE_NUMBER;
-    static const QString P_SIGMA_FACTOR;
-    static const QString P_CACHED_SELECTED_PARAMETER;
+    static const QString NO_SELECTION;
     explicit ParticleDistributionItem(ParameterizedItem *parent=0);
     ~ParticleDistributionItem();
 
-    void onPropertyChange(const QString &name);
+    void insertChildItem(int row, ParameterizedItem *item);
 
     void onChildPropertyChange();
 public slots:
     void updateParameterList();
 private:
-    static const QString NO_SELECTION;
+    QStringList getChildParameterNames() const;
+    QStringList extractFromParameterPool(const ParameterPool *pool) const;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

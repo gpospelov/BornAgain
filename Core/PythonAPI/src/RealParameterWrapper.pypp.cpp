@@ -51,6 +51,7 @@ void register_RealParameterWrapper_class(){
                 , isNull_function_type( &::RealParameterWrapper::isNull ) );
         
         }
+        RealParameterWrapper_exposer.def( bp::self != bp::self );
         { //::RealParameterWrapper::operator=
         
             typedef ::RealParameterWrapper & ( ::RealParameterWrapper::*assign_function_type)( ::RealParameterWrapper const & ) ;
@@ -62,9 +63,10 @@ void register_RealParameterWrapper_class(){
                 , bp::return_self< >() );
         
         }
+        RealParameterWrapper_exposer.def( bp::self == bp::self );
         { //::RealParameterWrapper::setValue
         
-            typedef void ( ::RealParameterWrapper::*setValue_function_type)( double ) ;
+            typedef bool ( ::RealParameterWrapper::*setValue_function_type)( double ) ;
             
             RealParameterWrapper_exposer.def( 
                 "setValue"

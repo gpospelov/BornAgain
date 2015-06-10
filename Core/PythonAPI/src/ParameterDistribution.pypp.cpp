@@ -30,8 +30,15 @@ namespace bp = boost::python;
 
 struct ParameterDistribution_wrapper : ParameterDistribution, bp::wrapper< ParameterDistribution > {
 
-    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double sigma_factor=0.0 )
-    : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, sigma_factor )
+    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double sigma_factor=0.0, ::AttLimits const & limits=::AttLimits( ) )
+    : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, sigma_factor, boost::ref(limits) )
+      , bp::wrapper< ParameterDistribution >(){
+        // constructor
+    
+    }
+
+    ParameterDistribution_wrapper(::std::string const & par_name, ::IDistribution1D const & distribution, ::std::size_t nbr_samples, double xmin, double xmax )
+    : ParameterDistribution( par_name, boost::ref(distribution), nbr_samples, xmin, xmax )
       , bp::wrapper< ParameterDistribution >(){
         // constructor
     
@@ -92,22 +99,22 @@ struct ParameterDistribution_wrapper : ParameterDistribution, bp::wrapper< Param
         IParameterized::printParameters( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< ParameterDistribution_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -141,8 +148,9 @@ void register_ParameterDistribution_class(){
 
     { //::ParameterDistribution
         typedef bp::class_< ParameterDistribution_wrapper, bp::bases< IParameterized > > ParameterDistribution_exposer_t;
-        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 )) );
+        ParameterDistribution_exposer_t ParameterDistribution_exposer = ParameterDistribution_exposer_t( "ParameterDistribution", bp::init< std::string const &, IDistribution1D const &, std::size_t, bp::optional< double, AttLimits const & > >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0, bp::arg("limits")=::AttLimits( ) )) );
         bp::scope ParameterDistribution_scope( ParameterDistribution_exposer );
+        ParameterDistribution_exposer.def( bp::init< std::string const &, IDistribution1D const &, std::size_t, double, double >(( bp::arg("par_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("xmin"), bp::arg("xmax") )) );
         ParameterDistribution_exposer.def( bp::init< ParameterDistribution const & >(( bp::arg("other") )) );
         { //::ParameterDistribution::getDistribution
         
@@ -154,6 +162,15 @@ void register_ParameterDistribution_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::ParameterDistribution::getLimits
+        
+            typedef ::AttLimits ( ::ParameterDistribution::*getLimits_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getLimits"
+                , getLimits_function_type( &::ParameterDistribution::getLimits ) );
+        
+        }
         { //::ParameterDistribution::getMainParameterName
         
             typedef ::std::string ( ::ParameterDistribution::*getMainParameterName_function_type)(  ) const;
@@ -161,6 +178,24 @@ void register_ParameterDistribution_class(){
             ParameterDistribution_exposer.def( 
                 "getMainParameterName"
                 , getMainParameterName_function_type( &::ParameterDistribution::getMainParameterName ) );
+        
+        }
+        { //::ParameterDistribution::getMaxValue
+        
+            typedef double ( ::ParameterDistribution::*getMaxValue_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getMaxValue"
+                , getMaxValue_function_type( &::ParameterDistribution::getMaxValue ) );
+        
+        }
+        { //::ParameterDistribution::getMinValue
+        
+            typedef double ( ::ParameterDistribution::*getMinValue_function_type)(  ) const;
+            
+            ParameterDistribution_exposer.def( 
+                "getMinValue"
+                , getMinValue_function_type( &::ParameterDistribution::getMinValue ) );
         
         }
         { //::ParameterDistribution::getNbrSamples
@@ -250,12 +285,12 @@ void register_ParameterDistribution_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             ParameterDistribution_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &ParameterDistribution_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

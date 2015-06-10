@@ -69,18 +69,17 @@ public:
     //! return sample builder
     SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Returns detector intensity map for all scan parameters
+    //! Returns detector intensity map for all scan parameters (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
-    //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getIntensityData() const
-    { return m_intensity_map.clone(); }
+    //! Clone detector intensity map for all scan parameters (apply detector resolution function first)
+    OutputData<double>* getIntensityData() const;
 
-    //! returns component of polarized intensity map
+    //! returns component of polarized intensity map (apply detector resolution first)
     OutputData<double>* getPolarizedIntensityData(int row, int column) const;
 
 #ifndef GCCXML_SKIP_THIS
-    //! Returns polarized intensity map
+    //! Returns polarized intensity map (no detector resolution)
     const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
         return &m_polarization_output;
     }
@@ -93,7 +92,7 @@ public:
     const Instrument& getInstrument() const { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+    void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
     //! Sets beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);
@@ -114,9 +113,10 @@ public:
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(
-        IResolutionFunction2D *p_resolution_function);
-    void setDetectorResolutionFunction(
         const IResolutionFunction2D &resolution_function);
+
+    //! Removes detector resolution function
+    void removeDetectorResolutionFunction();
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
@@ -137,12 +137,15 @@ public:
         int copy_number=-1) const;
 
 	//! add a sampled parameter distribution
-	void addParameterDistribution(const std::string &param_name,
-			const IDistribution1D &distribution, size_t nbr_samples,
-			double sigma_factor=0.0) {
-		m_distribution_handler.addParameterDistribution(param_name,
-				distribution, nbr_samples, sigma_factor);
-	}
+    void addParameterDistribution(const std::string &param_name,
+            const IDistribution1D &distribution, size_t nbr_samples,
+            double sigma_factor=0.0,
+            const AttLimits &limits = AttLimits());
+
+    //! add a sampled parameter distribution
+    void addParameterDistribution(const ParameterDistribution &par_distr);
+
+    const DistributionHandler& getDistributionHandler() const;
 
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
@@ -165,6 +168,7 @@ protected:
 
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
+    void updatePolarizationMapAxes();
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();

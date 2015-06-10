@@ -49,18 +49,6 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         return FormFactorSphereUniformRadius::clone( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->FormFactorSphereUniformRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        FormFactorSphereUniformRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
@@ -95,18 +83,6 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorSphereUniformRadius::getNumberOfStochasticParameters( );
-    }
-
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->FormFactorSphereUniformRadius::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return FormFactorSphereUniformRadius::isDistributedFormFactor( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -265,23 +241,35 @@ struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< FormFactorSphereUniformRadius_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
+    }
+
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IFormFactor::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -354,19 +342,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorSphereUniformRadius::createDistributedFormFactors
-        
-            typedef void ( ::FormFactorSphereUniformRadius::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "createDistributedFormFactors"
-                , createDistributedFormFactors_function_type(&::FormFactorSphereUniformRadius::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorSphereUniformRadius_wrapper::default_createDistributedFormFactors)
-                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::FormFactorSphereUniformRadius::evaluate_for_q
         
             typedef ::complex_t ( ::FormFactorSphereUniformRadius::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
@@ -399,17 +374,6 @@ void register_FormFactorSphereUniformRadius_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorSphereUniformRadius::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_getNumberOfStochasticParameters) );
-        
-        }
-        { //::FormFactorSphereUniformRadius::isDistributedFormFactor
-        
-            typedef bool ( ::FormFactorSphereUniformRadius::*isDistributedFormFactor_function_type)(  ) const;
-            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
-            
-            FormFactorSphereUniformRadius_exposer.def( 
-                "isDistributedFormFactor"
-                , isDistributedFormFactor_function_type(&::FormFactorSphereUniformRadius::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorSphereUniformRadius_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -562,12 +526,24 @@ void register_FormFactorSphereUniformRadius_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             FormFactorSphereUniformRadius_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorSphereUniformRadius_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
+        
+        }
+        { //::IFormFactor::setAmbientMaterial
+        
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            FormFactorSphereUniformRadius_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorSphereUniformRadius_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::setParameterValue

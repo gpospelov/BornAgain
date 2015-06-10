@@ -26,6 +26,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 {
     setName("FormFactorSphereLogNormalRadius");
     mp_distribution = new DistributionLogNormal(mean, scale_param);
+    check_initialization();
     init_parameters();
     init_vectors();
 }
@@ -60,19 +61,6 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
     return result;
 }
 
-void FormFactorSphereLogNormalRadius::createDistributedFormFactors(
-        std::vector<IFormFactor*>& form_factors,
-        std::vector<double>& probabilities, size_t nbr_samples) const
-{
-    (void)nbr_samples;
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        const IFormFactor *p_ff = m_form_factors[i];
-        double probability = m_probabilities[i];
-        form_factors.push_back(p_ff->clone());
-        probabilities.push_back(probability);
-    }
-}
-
 double FormFactorSphereLogNormalRadius::getHeight() const
 {
     if (m_form_factors.size()<1) return 0.0;
@@ -84,11 +72,16 @@ double FormFactorSphereLogNormalRadius::getHeight() const
     return result;
 }
 
+bool FormFactorSphereLogNormalRadius::check_initialization() const
+{
+    return true;
+}
+
 void FormFactorSphereLogNormalRadius::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_radius", &m_mean);
-    registerParameter("scale_parameter", &m_scale_param);
+    registerParameter("mean_radius", &m_mean, AttLimits::n_positive());
+    registerParameter("scale_parameter", &m_scale_param, AttLimits::n_positive());
 }
 
 void FormFactorSphereLogNormalRadius::init_vectors()

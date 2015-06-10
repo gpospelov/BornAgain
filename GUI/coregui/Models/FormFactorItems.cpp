@@ -71,8 +71,8 @@ IFormFactor *BoxItem::createFormFactor() const
 /* ------------------------------------------------ */
 
 const QString ConeItem::P_RADIUS = "Radius";
-const QString ConeItem::P_HEIGHT = "Width";
-const QString ConeItem::P_ALPHA = "Height";
+const QString ConeItem::P_HEIGHT = "Height";
+const QString ConeItem::P_ALPHA = "Alpha";
 
 ConeItem::ConeItem(ParameterizedItem *parent)
     : FormFactorItem(Constants::ConeType, parent)
@@ -95,8 +95,8 @@ IFormFactor *ConeItem::createFormFactor() const
 /* ------------------------------------------------ */
 
 const QString Cone6Item::P_RADIUS = "Radius";
-const QString Cone6Item::P_HEIGHT = "Width";
-const QString Cone6Item::P_ALPHA = "Height";
+const QString Cone6Item::P_HEIGHT = "Height";
+const QString Cone6Item::P_ALPHA = "Alpha";
 
 Cone6Item::Cone6Item(ParameterizedItem *parent)
     : FormFactorItem(Constants::Cone6Type, parent)
@@ -389,6 +389,28 @@ IFormFactor *TetrahedronItem::createFormFactor() const
                 getRegisteredProperty(P_LENGTH).toDouble(),
                 getRegisteredProperty(P_HEIGHT).toDouble(),
                 getRegisteredProperty(P_ALPHA).toDouble()*Units::degree
+                );
+}
+
+
+/* ------------------------------------------------ */
+
+const QString TruncatedCubeItem::P_LENGTH = "Length";
+const QString TruncatedCubeItem::P_REMOVED_LENGTH = "Removed length";
+
+TruncatedCubeItem::TruncatedCubeItem(ParameterizedItem *parent)
+    : FormFactorItem(Constants::TruncatedCubeType, parent)
+{
+    setItemName(Constants::TruncatedCubeType);
+    registerProperty(P_LENGTH, 15.0);
+    registerProperty(P_REMOVED_LENGTH, 6.0);
+}
+
+IFormFactor *TruncatedCubeItem::createFormFactor() const
+{
+    return new FormFactorTruncatedCube(
+                getRegisteredProperty(P_LENGTH).toDouble(),
+                getRegisteredProperty(P_REMOVED_LENGTH).toDouble()
                 );
 }
 

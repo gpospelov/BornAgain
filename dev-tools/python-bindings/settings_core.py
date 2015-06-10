@@ -50,6 +50,7 @@ include_dirs = [
 ]
 
 include_classes = [
+    "AttLimits",
     "FixedBinAxis",
     "VariableBinAxis",
     "ConstKBinAxis",
@@ -104,6 +105,7 @@ include_classes = [
     "FormFactorSphereUniformRadius",
     "FormFactorTetrahedron",
     "FormFactorTrivial",
+    "FormFactorTruncatedCube",
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "FormFactorWeighted",
@@ -129,10 +131,10 @@ include_classes = [
     "IParticle",
     "IResolutionFunction2D",
     "IntensityDataFunctions",
+    "IRotation",
     "ISample",
     "ISampleBuilder",
     "ISelectionRule",
-    "Transform3D",
     "Instrument",
     "InterferenceFunction1DLattice",
     "InterferenceFunctionRadialParaCrystal",
@@ -142,7 +144,6 @@ include_classes = [
     "Lattice",
     "Lattice1DIFParameters",
     "Lattice2DIFParameters",
-    "LatticeBasis",
     "Layer",
     "LayerInterface",
     "LayerRoughness",
@@ -154,12 +155,18 @@ include_classes = [
     "ParameterDistribution",
     "ParameterPool",
     "Particle",
+    "ParticleComposition",
     "ParticleDistribution",
     "ParticleCoreShell",
     "ParticleLayout",
     "ParticleInfo",
+#    "ParameterSample",
     "RealParameterWrapper",
     "ResolutionFunction2DGaussian",
+    "RotationX",
+    "RotationY",
+    "RotationZ",
+    "RotationEuler",
     "Simulation",
     "SpecularSimulation",
     "SimulationParameters",
@@ -218,9 +225,10 @@ def ManualClassTunings(mb):
     cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value)
     cl.member_function("setSelectionRule").include()
     #
-    cl = mb.class_("LatticeBasis")
+    cl = mb.class_("ParticleComposition")
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     cl.member_functions().exclude()
+    cl.member_function("addParticles").include()
     cl.member_function("addParticle").include()
     #
     cl = mb.class_('RealParameterWrapper')
@@ -272,7 +280,10 @@ def ManualClassTunings(mb):
     cl.member_function("setAmbientMaterial").include()
     #
     cl = mb.class_("IDistribution1D")
-    cl.member_function("generateSamples").exclude()
+    for fun in cl.member_functions():
+        print fun.name
+        if "generateSamples" in fun.name:
+            fun.exclude()
     #
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
@@ -288,11 +299,10 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("Particle")
-    cl.member_function("createDiffuseParticleInfo").exclude()
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
-        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::Transform3D const & )" in cls.decl_string:
+        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::IRotation const & )" in cls.decl_string:
             cls.include()
 
     #
@@ -309,6 +319,7 @@ def ManualClassTunings(mb):
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
     cl.member_function("getMatchedParameters").exclude()
+    cl.member_function("getParameterNames").exclude()
     #
     mb.namespace("Units").include()
     #
@@ -343,17 +354,6 @@ def ManualClassTunings(mb):
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
     #
-    mb.class_("Transform3D").member_function("createIdentity").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateX").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateY").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateZ").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    mb.class_("Transform3D").member_function("createRotateEuler").call_policies = \
-        call_policies.return_value_policy(call_policies.return_by_value)
-    #
     cl = mb.class_("ParticleCoreShell")
     cl.member_functions().exclude()
     #
@@ -373,7 +373,7 @@ def ManualClassTunings(mb):
 def ManualExcludeMemberFunctions(mb):
     # with given name in function name
     to_exclude=['Iterator', 'iterator', 'DWBASimulation']
-    to_exclude_exact=['createDiffuseParticleInfo', 'inverse', 'transformed',
+    to_exclude_exact=['inverse', 'transformed',
         'getNearestLatticeVectorCoordinates',
         'getNearestReciprocalLatticeVectorCoordinates', 'collectBraggAngles',
         'getKVectorContainer', 'begin', 'end', 'getBinOfAxis', 'addMask',

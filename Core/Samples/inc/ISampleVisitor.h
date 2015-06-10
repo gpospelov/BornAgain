@@ -37,12 +37,11 @@ class MultiLayer;
 class IParticle;
 class Particle;
 class ParticleDistribution;
-class LatticeBasis;
+class ParticleComposition;
 class MesoCrystal;
 class ParticleCoreShell;
 // -
 class ParticleInfo;
-class DiffuseParticleInfo;
 // -
 class IFormFactor;
 // -
@@ -77,6 +76,7 @@ class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
 class FormFactorTrivial;
+class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
 class IFormFactorBornSeparable;
@@ -100,6 +100,12 @@ class InterferenceFunctionNone;
 // -
 class IRoughness;
 class LayerRoughness;
+// -
+class IRotation;
+class RotationX;
+class RotationY;
+class RotationZ;
+class RotationEuler;
 
 //! @class ISampleVisitor
 //! @ingroup samples_internal
@@ -134,12 +140,11 @@ public:
     virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
     virtual void visit(const ParticleDistribution *);
-    virtual void visit(const LatticeBasis *);
+    virtual void visit(const ParticleComposition *);
     virtual void visit(const MesoCrystal *);
     virtual void visit(const ParticleCoreShell *);
 
     virtual void visit(const ParticleInfo *);
-    virtual void visit(const DiffuseParticleInfo *);
 
     virtual void visit(const IFormFactor *);
 
@@ -174,6 +179,7 @@ public:
     virtual void visit(const FormFactorSphereLogNormalRadius *);
     virtual void visit(const FormFactorTetrahedron *);
     virtual void visit(const FormFactorTrivial *);
+    virtual void visit(const FormFactorTruncatedCube *);
     virtual void visit(const FormFactorTruncatedSphere *);
     virtual void visit(const FormFactorTruncatedSpheroid *);
     virtual void visit(const IFormFactorBornSeparable *);
@@ -197,6 +203,12 @@ public:
 
     virtual void visit(const IRoughness *);
     virtual void visit(const LayerRoughness *);
+
+    virtual void visit(const IRotation *);
+    virtual void visit(const RotationX *);
+    virtual void visit(const RotationY *);
+    virtual void visit(const RotationZ *);
+    virtual void visit(const RotationEuler *);
 
     // enter and leave methods
     bool visitEnter(const ICompositeSample *);

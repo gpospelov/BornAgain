@@ -23,14 +23,16 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/utils
     ${CMAKE_CURRENT_SOURCE_DIR}/Models
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/widgetbox
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/SampleDesigner
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/JobQueueWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/OutputDataWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/MaterialEditor
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/InstrumentWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/SimulationWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/FitWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/SampleDesigner
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/JobWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/IntensityDataWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/InfoWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaterialEditor
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/InstrumentWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/SimulationWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/FitWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
 )
 include_directories(${include_dirs})
 
@@ -39,20 +41,22 @@ file(GLOB source_files
     "utils/*.cpp"
     "Models/*.cpp"
     "Views/*.cpp"
-    "Views/Components/SampleDesigner/*.cpp"
-    "Views/Components/JobQueueWidgets/*.cpp"
-    "Views/Components/OutputDataWidgets/*.cpp"
-    "Views/Components/MaterialEditor/*.cpp"
-    "Views/Components/InstrumentWidgets/*.cpp"
-    "Views/Components/SimulationWidgets/*.cpp"
-    "Views/Components/FitWidgets/*.cpp"
+    "Views/SampleDesigner/*.cpp"
+    "Views/JobWidgets/*.cpp"
+    "Views/IntensityDataWidgets/*.cpp"
+    "Views/InfoWidgets/*.cpp"
+    "Views/MaterialEditor/*.cpp"
+    "Views/InstrumentWidgets/*.cpp"
+    "Views/SimulationWidgets/*.cpp"
+    "Views/FitWidgets/*.cpp"
+    "Views/PropertyEditor/*.cpp"
 )
 
 set(source_widgetbox
-    "Views/Components/widgetbox/widgetboxcategorylistview.cpp"
-    "Views/Components/widgetbox/widgetboxtreewidget.cpp"
-    "Views/Components/widgetbox/widgetbox.cpp"
-    "Views/Components/widgetbox/widgetbox_dnditem.cpp"
+    "Views/widgetbox/widgetboxcategorylistview.cpp"
+    "Views/widgetbox/widgetboxtreewidget.cpp"
+    "Views/widgetbox/widgetbox.cpp"
+    "Views/widgetbox/widgetbox_dnditem.cpp"
 )
 list(APPEND source_files ${source_widgetbox})
 
@@ -61,29 +65,31 @@ file(GLOB include_files
     "utils/*.h"
     "Models/*.h"
     "Views/*.h"
-    "Views/Components/SampleDesigner/*.h"
-    "Views/Components/JobQueueWidgets/*.h"
-    "Views/Components/OutputDataWidgets/*.h"
-    "Views/Components/MaterialEditor/*.h"
-    "Views/Components/InstrumentWidgets/*.h"
-    "Views/Components/SimulationWidgets/*.h"
-    "Views/Components/FitWidgets/*.h"
+    "Views/SampleDesigner/*.h"
+    "Views/JobWidgets/*.h"
+    "Views/IntensityDataWidgets/*.h"
+    "Views/InfoWidgets/*.h"
+    "Views/MaterialEditor/*.h"
+    "Views/InstrumentWidgets/*.h"
+    "Views/SimulationWidgets/*.h"
+    "Views/FitWidgets/*.h"
+    "Views/PropertyEditor/*.h"
 )
 
 set(include_widgetbox
-    "Views/Components/widgetbox/widgetboxcategorylistview.h"
-    "Views/Components/widgetbox/widgetboxtreewidget.h"
-    "Views/Components/widgetbox/widgetbox.h"
-    "Views/Components/widgetbox/widgetbox_dnditem.h"
-    "Views/Components/widgetbox/widgetbox_global.h"
+    "Views/widgetbox/widgetboxcategorylistview.h"
+    "Views/widgetbox/widgetboxtreewidget.h"
+    "Views/widgetbox/widgetbox.h"
+    "Views/widgetbox/widgetbox_dnditem.h"
+    "Views/widgetbox/widgetbox_global.h"
 )
 list(APPEND include_files ${include_widgetbox})
 
 set(resource_files
     "coregui.qrc"
 #    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
-    "Views/Components/SampleDesigner/SampleDesigner.qrc"
-    "Views/Components/widgetbox/widgetbox.qrc"
+    "Views/SampleDesigner/SampleDesigner.qrc"
+    "Views/widgetbox/widgetbox.qrc"
 )
 
 

@@ -18,8 +18,7 @@
 #define FTDISTRIBUTIONS_H_
 
 #include "IParameterized.h"
-#include <cmath>
-
+#include "Units.h"
 #include "Numeric.h"
 
 
@@ -168,7 +167,7 @@ public:
         : m_coherence_length_x(coherence_length_x)
         , m_coherence_length_y(coherence_length_y)
         , m_gamma(0.0)
-        , m_delta(M_PI/2.0) {}
+        , m_delta(Units::PI/2.0) {}
     virtual ~IFTDistribution2D() {}
 
     virtual IFTDistribution2D *clone() const=0;

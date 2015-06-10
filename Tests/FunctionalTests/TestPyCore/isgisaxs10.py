@@ -1,4 +1,4 @@
-# IsGISAXS010 example: Cylinders with interference on top of substrate
+# Functional test: IsGISAXS010 example: Cylinders with interference on top of substrate
 import sys
 import os
 import numpy

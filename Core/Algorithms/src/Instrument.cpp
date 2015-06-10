@@ -138,8 +138,12 @@ void Instrument::normalize(OutputData<double> *p_intensity,
 void Instrument::setDetectorResolutionFunction(
     IResolutionFunction2D* p_resolution_function)
 {
-    m_detector.setDetectorResolution(
-        new ConvolutionDetectorResolution(p_resolution_function) );
+    if(p_resolution_function) {
+        m_detector.setDetectorResolution(
+            new ConvolutionDetectorResolution(p_resolution_function) );
+    } else {
+        m_detector.setDetectorResolution(0);
+    }
 }
 
 void Instrument::setDetectorResolutionFunction(

@@ -49,8 +49,8 @@ void InterferenceFunction1DLattice::setProbabilityDistribution(
     mp_pdf = pdf.clone();
     double omega = mp_pdf->getOmega();
 //     initialize_calc_factors(omega):
-    m_prefactor = M_PI*omega;
-    double qa_max = (m_lattice_params.m_length/(2*M_PI))*nmax/omega;
+    m_prefactor = Units::PI*omega;
+    double qa_max = (m_lattice_params.m_length/Units::PI2)*nmax/omega;
     m_na = (int) (std::abs(qa_max) + 0.5);
 }
 
@@ -66,7 +66,7 @@ double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
     double qx_frac;
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;
-    double a_rec = 2.0*M_PI/a;
+    double a_rec = Units::PI2/a;
 
     // rotate the q vector to xi angle
     // so that qx_prime is along the a axis of lattice

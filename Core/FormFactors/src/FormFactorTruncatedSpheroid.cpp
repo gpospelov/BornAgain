@@ -25,7 +25,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
     m_radius = radius;
     m_height = height;
     m_height_flattening = height_flattening;
-    assert(m_height <= 2.*m_radius*m_height_flattening);
+    check_initialization();
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>::mem_function p_mf =
@@ -34,12 +34,27 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
         new MemberComplexFunctionIntegrator<FormFactorTruncatedSpheroid>(p_mf, this);
  }
 
+bool FormFactorTruncatedSpheroid::check_initialization() const
+{
+    bool result(true);
+    if(m_height > 2.*m_radius*m_height_flattening) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization with parameters ";
+        ostr << " radius:" << m_radius;
+        ostr << " height:" << m_height;
+        ostr << " height_flattening:" << m_height_flattening << "\n\n";
+        ostr << "Check for 'height <= 2.*radius*height_flattening' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
+}
+
 void FormFactorTruncatedSpheroid::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_radius);
-    registerParameter("height", &m_height);
-    registerParameter("height_flattening", &m_height_flattening);
+    registerParameter("radius", &m_radius, AttLimits::n_positive());
+    registerParameter("height", &m_height, AttLimits::n_positive());
+    registerParameter("height_flattening", &m_height_flattening, AttLimits::n_positive());
 }
 
 FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const
@@ -73,13 +88,13 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t& q) const
 
     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
 
-        return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
+        return Units::PI*R*H*H/fp*(1.-H/(3.*fp*R));
 
     } else {
 
         complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
 
-        return 2.0* M_PI * z_part *m_integrator->integrate(fp*R-H,fp*R );
+        return Units::PI2 * z_part *m_integrator->integrate(fp*R-H,fp*R );
     }
 }
 

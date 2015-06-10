@@ -42,16 +42,16 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_accept( boost::python::ptr(visitor) );
     }
 
-    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+    virtual void applyTransformation( ::IRotation const & rotation ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
-            func_applyTransformation( boost::ref(transform) );
+            func_applyTransformation( boost::ref(rotation) );
         else{
-            this->IClusteredParticles::applyTransformation( boost::ref(transform) );
+            this->IClusteredParticles::applyTransformation( boost::ref(rotation) );
         }
     }
     
-    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
-        IClusteredParticles::applyTransformation( boost::ref(transform) );
+    void default_applyTransformation( ::IRotation const & rotation ) {
+        IClusteredParticles::applyTransformation( boost::ref(rotation) );
     }
 
     virtual ::IClusteredParticles * clone(  ) const {
@@ -76,21 +76,14 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
     }
 
-    virtual ::Geometry::Transform3D const * getTransform(  ) const  {
-        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
-            return func_getTransform(  );
-        else{
-            return this->IClusteredParticles::getTransform(  );
-        }
-    }
-    
-    ::Geometry::Transform3D const * default_getTransform(  ) const  {
-        return IClusteredParticles::getTransform( );
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
     }
 
-    virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
+    virtual void setAmbientMaterial( ::IMaterial const & material ){
         bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
-        func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
+        func_setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -201,22 +194,22 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         ISample::printSampleTree( );
     }
 
-    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
-            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer, limits );
         }
         else{
-            IParameterized::registerParameter( name, parpointer );
+            IParameterized::registerParameter( name, parpointer, boost::ref(limits) );
         }
     }
     
-    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
         if( dynamic_cast< IClusteredParticles_wrapper * >( boost::addressof( inst ) ) ){
-            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
-            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
     }
 
@@ -302,14 +295,14 @@ void register_IClusteredParticles_class(){
         }
         { //::IClusteredParticles::applyTransformation
         
-            typedef void ( ::IClusteredParticles::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
-            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::IClusteredParticles::*applyTransformation_function_type)( ::IRotation const & ) ;
+            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type)( ::IRotation const & ) ;
             
             IClusteredParticles_exposer.def( 
                 "applyTransformation"
                 , applyTransformation_function_type(&::IClusteredParticles::applyTransformation)
                 , default_applyTransformation_function_type(&IClusteredParticles_wrapper::default_applyTransformation)
-                , ( bp::arg("transform") ) );
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IClusteredParticles::clone
@@ -345,26 +338,24 @@ void register_IClusteredParticles_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IClusteredParticles::getTransform
+        { //::IClusteredParticles::getAmbientMaterial
         
-            typedef ::Geometry::Transform3D const * ( ::IClusteredParticles::*getTransform_function_type)(  ) const;
-            typedef ::Geometry::Transform3D const * ( IClusteredParticles_wrapper::*default_getTransform_function_type)(  ) const;
+            typedef ::IMaterial const * ( ::IClusteredParticles::*getAmbientMaterial_function_type)(  ) const;
             
             IClusteredParticles_exposer.def( 
-                "getTransform"
-                , getTransform_function_type(&::IClusteredParticles::getTransform)
-                , default_getTransform_function_type(&IClusteredParticles_wrapper::default_getTransform)
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IClusteredParticles::getAmbientMaterial) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IClusteredParticles::setAmbientMaterial
         
-            typedef void ( ::IClusteredParticles::*setAmbientMaterial_function_type)( ::IMaterial const * ) ;
+            typedef void ( ::IClusteredParticles::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
             IClusteredParticles_exposer.def( 
                 "setAmbientMaterial"
                 , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
-                , ( bp::arg("p_ambient_material") ) );
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -471,12 +462,12 @@ void register_IClusteredParticles_class(){
         }
         { //::IParameterized::registerParameter
         
-            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
             IClusteredParticles_exposer.def( 
                 "registerParameter"
                 , default_registerParameter_function_type( &IClusteredParticles_wrapper::default_registerParameter )
-                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) ) );
         
         }
         { //::IParameterized::setParameterValue

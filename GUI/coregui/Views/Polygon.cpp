@@ -27,29 +27,14 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     delete m_bottomRightCorner;
     prepareGeometryChange();
     painter->setRenderHints(QPainter::Antialiasing);
-//    QPolygon polygon;
-//    for (int i = 0; i < m_points.length() - 1; ++i) {
-//        polygon << m_points[i];
-//    }
-//    polygon << lastMousePosition;
-    painter->drawLines(m_polygon);
+    painter->drawPolyline(m_polygon);
+//    painter->drawLines(m_polygon);
     QPen pen;
     pen.setWidth(5);
     if(m_polygon.length() >= 1 && m_drawingMode) {
       delete m_firstPoint;
       painter->drawRect(m_polygon[0].x()  - 2.5  ,m_polygon[0].y()  - 2.5 , 5, 5);
-      calculateBoundingRectangle();
     }
-//    painter->drawPolygon(m_polygon);
-    std::cout << "painting polygon" << std::endl;
-//    for(int i = 0; i < m_points.length()-2; ++i) {
-//        if(m_points.length() > 2) {
-//            painter->drawLine(m_points[i], m_points[i+1]);
-//        }
-//        else{
-//            painter->drawLine(m_points[0], m_points[1]);
-//        }
-//    }
 
     if (this->isSelected()) {
         painter->setBrush(Qt::green);
@@ -62,7 +47,6 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
         painter->setPen(pen);
         painter->drawPoints(m_polygon);
         painter->setPen(QPen());
-//        m_changeCornerMode = true;
     }
 
     m_topLeftCorner = new QGraphicsRectItem(m_posX - 5, m_posY - 5, 10, 10);
@@ -185,7 +169,6 @@ bool Polygon::checkCornerClicked(QGraphicsSceneMouseEvent *event) {
         if(rectangle.contains(event->pos())) {
             if(i != m_polygon.length()-1 && i != 0) {
                 m_currentPoint1 = i;
-                m_currentPoint2 = i+1;
             }
             else {
                 m_currentPoint1 = 0;
@@ -220,27 +203,10 @@ void Polygon::calculateBoundingRectangle()
             biggestYValue = m_polygon[i].y();
         }
     }
-    if(m_polygon[m_currentPoint1].x() == smallestXValue) {
-        int value = smallestXValue - m_posX;
-        m_posX =  smallestXValue * 0.9;
-//        m_posY = event->pos().y()*0.9;
-        m_width = m_width + value;
-    }
-    else if(m_polygon[m_currentPoint1].x() == biggestXValue) {
-        m_width = biggestXValue * 1.1;
-
-    }
-    else if(m_polygon[m_currentPoint1].y() == smallestYValue) {
+        m_posX = smallestXValue*0.9;
         m_posY = smallestYValue*0.9;
-        m_heigth = m_heigth + smallestYValue * 0.1;
-    }
-    else if(m_polygon[m_currentPoint1].y() == biggestYValue) {
-        m_heigth = biggestYValue*1.1;
-    }
-//    m_posX = smallestXValue*0.9;
-//    m_posY = smallestYValue*0.9;
-//    m_width = biggestXValue*1.1;
-//    m_heigth = biggestYValue*1.1;
+        m_width = biggestXValue *1.1 - m_posX;
+        m_heigth = biggestYValue*1.1 - m_posY;
 }
 
 void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -268,17 +234,13 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
         setCursor(Qt::SizeFDiagCursor);
     } else if (m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
-//        lastMousePosition =  m_polygon[m_polygon.length() -1];
-//        m_polygon.append(lastMousePosition);
         m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
-        if(m_polygon.length() >= 3) {
-            m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
-        }
         if(m_firstPoint->contains(event->pos()) && m_polygon.length() >= 2) {
-//            m_polygon.append(m_polygon[0]);
+            m_polygon.remove(m_polygon.length()-1);
             m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
             m_drawingMode = false;
         }
+        std::cout << m_polygon.length() <<std::endl;
     }
     else if (checkCornerClicked(event)) {
         m_changeCornerMode = true;
@@ -305,8 +267,14 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         setTransform(transform);       
     }
     else if (m_changeCornerMode) {
-        m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
-        m_polygon[m_currentPoint2] = QPoint(event->pos().x(), event->pos().y());
+        if(m_currentPoint1 == 0 || m_currentPoint1 == m_polygon.length()-1) {
+            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
+            m_polygon[m_currentPoint2] = QPoint(event->pos().x(), event->pos().y());
+        }
+        else {
+            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
+        }
+        calculateBoundingRectangle();
     }
     else if (!m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);

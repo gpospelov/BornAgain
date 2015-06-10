@@ -28,6 +28,7 @@
 
 //class ParameterizedItem;
 //class AwesomePropertyEditor;
+class GraphicsView;
 
 class TestView : public QWidget
 {
@@ -35,6 +36,7 @@ class TestView : public QWidget
 public:
     TestView(QWidget *parent = 0);
 
+    // enum Activity {SELECT, CREATE_POLYGON, NONE}
 
     virtual ~TestView()
     {
@@ -49,7 +51,7 @@ private slots:
 
 private:
     QGraphicsScene *m_scene;
-    QGraphicsView *m_view;
+    GraphicsView *m_view;
     Rectangle *m_rectangle;
     Ellipse *m_ellipse;
     Polygon *m_polygon;

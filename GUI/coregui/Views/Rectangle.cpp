@@ -146,6 +146,16 @@ qreal Rectangle::calculateRotation(QGraphicsSceneMouseEvent *event)
     return 0;
 }
 
+void Rectangle::setWidth(qreal width)
+{
+    m_width = width;
+}
+
+void Rectangle::setHeigth(qreal heigth)
+{
+    m_heigth = heigth;
+}
+
 void Rectangle::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);

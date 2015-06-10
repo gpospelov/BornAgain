@@ -15,6 +15,7 @@ class Rectangle : public QGraphicsItem
 public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+    enum {Type = UserType + 1};
 
     //! create Rectangle
     //! @param posX x position in scene
@@ -39,6 +40,13 @@ public:
     //! @return degree of rotation
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
 
+    int type() const
+    {
+        return Type;
+    }
+
+    void setHeigth(qreal heigth);
+    void setWidth(qreal width);
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);

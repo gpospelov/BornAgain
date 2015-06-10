@@ -39,13 +39,16 @@
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
 #include "SimulationRegistry.h"
+#include "GraphicsScene.h"
+#include "GraphicsView.h"
 
 
 TestView::TestView(QWidget *parent)
-    : QWidget(parent), m_scene(new QGraphicsScene), m_view(new QGraphicsView),
+    : QWidget(parent), m_scene(new QGraphicsScene), m_view(new GraphicsView),
       m_rectangle(new Rectangle(0, 0, 100, 100)), m_ellipse(new Ellipse(0, 0, 100, 50)),
       m_polygon(new Polygon(0, 0, 100, 100))
 {
+
     // set scene into view and switch of scrollbar from view
     setMouseTracking(true);
     m_view->setMouseTracking(true);
@@ -105,10 +108,11 @@ TestView::TestView(QWidget *parent)
 
 void TestView::rectangleButtonClicked()
 {
-    delete m_rectangle;
-    m_rectangle = new Rectangle(0, 0, 200, 200);
-    m_scene->addItem(m_rectangle);
-    m_rectangle->setFlag(QGraphicsItem::ItemIsMovable);
+    m_view->setDrawing(GraphicsView::RECTANGLE);
+//    delete m_rectangle;
+//    m_rectangle = new Rectangle(0, 0, 200, 200);
+//    m_scene->addItem(m_rectangle);
+//    m_rectangle->setFlag(QGraphicsItem::ItemIsMovable);
 }
 
 void TestView::ellipseButtonClicked()

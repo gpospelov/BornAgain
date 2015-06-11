@@ -49,6 +49,16 @@ QRectF Ellipse::boundingRect() const
     return QRectF(m_posX - 10, m_posY - 10, m_width + 50, m_heigth + 50);
 }
 
+void Ellipse::setWidth(qreal width)
+{
+    m_width = width;
+}
+
+void Ellipse::setHeigth(qreal heigth)
+{
+    m_heigth = heigth;
+}
+
 void Ellipse::checkResizeRules(QGraphicsSceneMouseEvent *event)
 {
     if (m_corner == TOPLEFT) {

@@ -81,8 +81,7 @@ TEST_F(ParticleCoreShellTest, AmbientMaterial)
     EXPECT_EQ("Air", p_material->getName());
     EXPECT_EQ(complex_t(1.0, 0.0), p_material->getRefractiveIndex());
     p_material = mp_coreshell->getCoreParticle()->getAmbientMaterial();
-    EXPECT_EQ("Air", p_material->getName());
-    EXPECT_EQ(complex_t(1.0, 0.0), p_material->getRefractiveIndex());
+    EXPECT_EQ(NULL, p_material);
     p_material = mp_coreshell->getShellParticle()->getAmbientMaterial();
     EXPECT_EQ("Air", p_material->getName());
     EXPECT_EQ(complex_t(1.0, 0.0), p_material->getRefractiveIndex());

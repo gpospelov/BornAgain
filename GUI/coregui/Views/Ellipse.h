@@ -22,6 +22,8 @@ public:
     void calculateResize(QGraphicsSceneMouseEvent *event);
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
 
+    void setWidth(qreal width);
+    void setHeigth(qreal heigth);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

@@ -29,6 +29,7 @@
 //class ParameterizedItem;
 //class AwesomePropertyEditor;
 class GraphicsView;
+class GraphicsScene;
 
 class TestView : public QWidget
 {
@@ -50,11 +51,12 @@ private slots:
     void polygonButtonClicked();
 
 private:
-    QGraphicsScene *m_scene;
-    GraphicsView *m_view;
+    GraphicsScene *m_scene;
+    QGraphicsView *m_view;
     Rectangle *m_rectangle;
     Ellipse *m_ellipse;
     Polygon *m_polygon;
+    bool m_drawing;
 };
 
 #endif

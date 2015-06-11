@@ -24,15 +24,19 @@ public:
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
     bool checkCornerClicked(QGraphicsSceneMouseEvent *event);
     void calculateBoundingRectangle();
+    void setWidth(qreal width);
+    void setHeigth(qreal heigth);
+    void setDrawingMode(QPointF firstPoint);
+    bool getDrawingMode() const;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+//    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+//    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+//    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     qreal m_posX;

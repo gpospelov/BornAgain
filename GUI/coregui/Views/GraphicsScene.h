@@ -19,19 +19,22 @@ class GraphicsScene : public QGraphicsScene
 public:
     GraphicsScene();
     enum Drawing { NONE, RECTANGLE, ELLIPSE, POLYGON };
+    void setDrawing(Drawing drawing);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-//    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-//    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-//    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-//    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+    void drawForeground(QPainter *painter, const QRectF &);
+
 
 private:
     Drawing m_drawing;
     Rectangle *m_rectangle;
     Ellipse *m_ellipse;
     Polygon *m_polygon;
+    bool isFinished;
+    QPointF m_currentMousePosition;
+    QPointF m_lastAddedPoint;
 };
 #endif

@@ -44,9 +44,9 @@
 
 
 TestView::TestView(QWidget *parent)
-    : QWidget(parent), m_scene(new QGraphicsScene), m_view(new GraphicsView),
+    : QWidget(parent), m_scene(new GraphicsScene), m_view(new QGraphicsView),
       m_rectangle(new Rectangle(0, 0, 100, 100)), m_ellipse(new Ellipse(0, 0, 100, 50)),
-      m_polygon(new Polygon(0, 0, 100, 100))
+      m_polygon(new Polygon(0, 0, 100, 100)), m_drawing(false)
 {
 
     // set scene into view and switch of scrollbar from view
@@ -55,27 +55,28 @@ TestView::TestView(QWidget *parent)
     m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->showMaximized();
+    m_scene->setSceneRect(m_view->rect());
     m_view->setScene(m_scene);
 
     // convert widget into custom QProxywidget and put it in to the scene
-    DistributionEditor *editor = new DistributionEditor;
-    editor->setItem(new BeamWavelengthItem);
-    editor->resize(800, 600);
+//    DistributionEditor *editor = new DistributionEditor;
+//    editor->setItem(new BeamWavelengthItem);
+//    editor->resize(800, 600);
 
 
-    SimulationRegistry sim_registry;
-    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
-    sim->runSimulation();
-    IntensityDataItem *dataItem = new IntensityDataItem;
-    dataItem->setOutputData(sim->getIntensityData());
+//    SimulationRegistry sim_registry;
+//    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
+//    sim->runSimulation();
+//    IntensityDataItem *dataItem = new IntensityDataItem;
+//    dataItem->setOutputData(sim->getIntensityData());
 
-    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-    colorMapPlot->setItem(dataItem);
+//    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+//    colorMapPlot->setItem(dataItem);
 
-    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-    widget->resize(width(), height());
-    widget->setWidget(colorMapPlot);
-    m_scene->addItem(widget);
+//    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
+//    widget->resize(width(), height());
+//    widget->setWidget(colorMapPlot);
+//    m_scene->addItem(widget);
 
     // connect buttons
     QPushButton *rectangleButton = new QPushButton("Rectangle");
@@ -108,25 +109,22 @@ TestView::TestView(QWidget *parent)
 
 void TestView::rectangleButtonClicked()
 {
-    m_view->setDrawing(GraphicsView::RECTANGLE);
-//    delete m_rectangle;
-//    m_rectangle = new Rectangle(0, 0, 200, 200);
-//    m_scene->addItem(m_rectangle);
-//    m_rectangle->setFlag(QGraphicsItem::ItemIsMovable);
+    m_scene->setDrawing(GraphicsScene::RECTANGLE);
 }
 
 void TestView::ellipseButtonClicked()
 {
-    delete m_ellipse;
-    m_ellipse = new Ellipse(0, 0, 100, 50);
-    m_scene->addItem(m_ellipse);
-    m_ellipse->setFlag(QGraphicsItem::ItemIsMovable);
+    m_scene->setDrawing(GraphicsScene::ELLIPSE);
 }
 
 void TestView::polygonButtonClicked()
 {
-    delete m_polygon;
-    m_polygon = new Polygon(0, 0, 200, 200);
-    m_scene->addItem(m_polygon);
-    m_polygon->setFlag(QGraphicsItem::ItemIsMovable);
+    if(m_drawing) {
+        m_drawing = false;
+        m_scene->setDrawing(GraphicsScene::NONE);
+    }
+    else {
+        m_drawing = true;
+        m_scene->setDrawing(GraphicsScene::POLYGON);
+    }
 }

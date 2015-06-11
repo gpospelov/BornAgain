@@ -42,12 +42,8 @@ Support for rough interfaces is already implemented in \BornAgain,
 but documentation is adjourned to a later edition of this manual.
 % For rough interfaces, see Chapter~\ref{sec:Roughness}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scalar case}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %===============================================================================
-\subsection{Wave propagation and DWBA matrix element}
+\section{Wave propagation}\label{Slayerprop}
 %===============================================================================
 
 To compute scattering cross sections in DWBA,
@@ -120,6 +116,11 @@ T and~R to designate the transmitted or reflected beam,
 They need to be computed recursively,
 as described in the following subsection~\ref{Sacrolay}.
 
+%===============================================================================
+\section{Refraction, absorption, flux}
+  \label{Smulayabs}
+%===============================================================================
+
 In the absence of absorption,
 wavevectors are real
 so that we can describe the beam in terms of a glancing angle
@@ -138,6 +139,64 @@ we have
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
+
+In general, however, the vertical wavenumber $k_{\perp \il}$,
+given by (\ref{Ekperpwj}),
+can become imaginary or complex.
+If $\overline{n_\il^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
+then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
+and the radicand in (\ref{Ekperpwj}) becomes negative
+so that $k_{\perp \il}$ becomes pure imaginary.
+\index{Wavevector!complex}%
+If the layer is absorbing,
+described by a positive imaginary part of $\overline{n_\il^2}$,
+then the radicand in (\ref{Ekperpwj}) becomes complex,
+and the wavenumber $k_{\perp \il}$ as well.
+For complex $k_{\perp \il}$,
+the geometric interpretation of the wavevectors $\k_\pm$
+in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable,
+whereas the formalism developed in Sect.~\ref{Slayerprop}
+remains applicable.
+
+Writing
+\begin{equation}
+  k_\perp = k_\perp' + i k_\perp''
+\end{equation}
+for a decomposition into a real and an imaginary part,
+we find an exponential decay of the plane wave amplitudes
+\begin{equation}\label{Ephidamp}
+  \left|\phi^\pm_\il(z)\right|
+  = \e^{\mp k_{\perp \il}'' z}
+\end{equation}
+along their propagation direction~$\pm z$.
+With an analogous decomposition
+of the three-dimensional wavevector (\ref{Ekpmwj3}),
+we obtain for the flux, defined as in~(\ref{EdefJ}),
+\begin{equation}
+  \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.
+\end{equation}
+In the special case of a pure imaginary~$k_{\perp \il}$,
+the flux direction is $\k'=\k_\parallel$.
+Then $\psi_\il(\r)$ is an \E{evanescent wave},
+\index{Evanescent wave}%
+travelling horizontally.
+Since a stationary evanescent wave implies that there is
+no vertical energy transport,
+all incoming radiation undergoes \E{total reflection}.
+\index{Total reflection}%
+
+In the generic case of a complex~$k_{\perp \il}$,
+the flux has a vertical component.
+Accordingly, the total reflection is not perfect.
+Some intensity is dissipated in layer $\il$.
+\index{Dissipation}%
+And if layer $\il<N$ is not too thick,
+then some radiation intensity also tunnels into the adjacent layer $\il+1$.
+\index{Tunneling}%
+
+%===============================================================================
+\section{DWBA matrix element}
+%===============================================================================
 
 Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
 we can at once write down the DWBA transition matrix element~(\ref{Edwba})
@@ -191,9 +250,9 @@ whence the vertical components
     \end{array}
 \end{equation}
 
-%-------------------------------------------------------------------------------
-\subsection{Wave propagation across layers}\label{Sacrolay}
-%-------------------------------------------------------------------------------
+%===============================================================================
+\section{Wave propagation across layers}\label{Sacrolay}
+%===============================================================================
 
 \index{Fresnel coefficients}%
 \index{Transmission|see {Fresnel coefficients}}%
@@ -354,67 +413,6 @@ this ought to be inconsequential
 because the index of refraction should always
 have an absorptive component that prevents $f_{\il}$ from becoming zero.
 
-
-%-------------------------------------------------------------------------------
-\subsection{Damped waves in absorbing media or under total reflection}
-  \label{Smulayabs}
-%-------------------------------------------------------------------------------
-
-In Sect.~\ref{Sabsorption},
-we have chosen the horizontal wavevector $\k_{\parallel}$
-to be always real and constant.
-In contrast, the vertical wavenumber $k_{\perp \il}$,
-given by (\ref{Ekperpwj}),
-can become imaginary or complex.
-If $\overline{n_\il^2}$ is real and smaller than~$n_0^2\cos^2\alpha_0$,
-then Snell's law of refraction (\ref{ESnell}) cannot be fulfilled,
-and the radicand in (\ref{Ekperpwj}) becomes negative
-so that $k_{\perp \il}$ becomes pure imaginary.
-\index{Wavevector!complex}%
-If the layer is absorbing,
-described by a positive imaginary part of $\overline{n_\il^2}$,
-then the radicand in (\ref{Ekperpwj}) becomes complex,
-and the wavenumber $k_{\perp \il}$ as well.
-For complex $k_{\perp \il}$,
-the theory developed above remains applicable,
-except that the geometric interpretation of the wavevectors $\k_\pm$
-in Eqs.~(\ref{Edef_alpha}--\ref{ESnell}) is untenable.
-
-Writing
-\begin{equation}
-  k_\perp = k_\perp' + i k_\perp''
-\end{equation}
-for a decomposition into a real and an imaginary part,
-we find an exponential decay of the plane wave amplitudes
-\begin{equation}\label{Ephidamp}
-  \left|\phi^\pm_\il(z)\right|
-  = \e^{\mp k_{\perp \il}'' z}
-\end{equation}
-along their propagation direction~$\pm z$.
-With an analogous decomposition
-of the three-dimensional wavevector (\ref{Ekpmwj3}),
-we obtain for the flux, defined as in~(\ref{EdefJ}),
-\begin{equation}
-  \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.
-\end{equation}
-In the special case of a pure imaginary~$k_{\perp \il}$,
-the flux direction is $\k'=\k_\parallel$.
-Then $\psi_\il(\r)$ is an \E{evanescent wave},
-\index{Evanescent wave}%
-travelling horizontally.
-Since a stationary evanescent wave implies that there is
-no vertical energy transport,
-all incoming radiation undergoes \E{total reflection}.
-\index{Total reflection}%
-
-In the generic case of a complex~$k_{\perp \il}$,
-the flux has a vertical component.
-Accordingly, the total reflection is not perfect.
-Some intensity is dissipated in layer $\il$.
-\index{Dissipation}%
-And if layer $\il<N$ is not too thick,
-then some radiation intensity also tunnels into the adjacent layer $\il+1$.
-\index{Tunneling}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

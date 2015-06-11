@@ -125,24 +125,19 @@ const IMaterial *ParticleComposition::getAmbientMaterial() const
 IFormFactor* ParticleComposition::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
-    FormFactorWeighted *p_ff = new FormFactorWeighted();
+    boost::scoped_ptr<FormFactorWeighted> P_ff(new FormFactorWeighted() );
     for (size_t index=0; index<m_particles.size(); ++index) {
         boost::scoped_ptr<IFormFactor> P_particle_ff(
                 m_particles[index]->createFormFactor(
                                       wavevector_scattering_factor));
-        p_ff->addFormFactor(*P_particle_ff);
+        P_ff->addFormFactor(*P_particle_ff);
     }
-    p_ff->setAmbientMaterial(*getAmbientMaterial());
-    return p_ff;
+    P_ff->setAmbientMaterial(*getAmbientMaterial());
+    return createTransformedFormFactor(*P_ff);
 }
 
-void ParticleComposition::applyTransformationToSubParticles(const IRotation& rotation)
+void ParticleComposition::applyTransformationToSubParticles(const IRotation&)
 {
-    for (std::vector<IParticle *>::iterator it = m_particles.begin();
-            it != m_particles.end(); ++it)
-    {
-        (*it)->applyRotation(rotation);
-    }
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

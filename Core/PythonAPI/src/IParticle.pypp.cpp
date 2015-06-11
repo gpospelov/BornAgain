@@ -286,6 +286,17 @@ void register_IParticle_class(){
                 , "Creates a form factor decorated with the IParticle's position/rotation." );
         
         }
+        { //::IParticle::applyTranslation
+        
+            typedef void ( ::IParticle::*applyTranslation_function_type)( ::kvector_t ) ;
+            
+            IParticle_exposer.def( 
+                "applyTranslation"
+                , applyTranslation_function_type( &::IParticle::applyTranslation )
+                , ( bp::arg("displacement") )
+                , "Applies extra translation by adding it to the current one." );
+        
+        }
         { //::IParticle::clone
         
             typedef ::IParticle * ( ::IParticle::*clone_function_type)(  ) const;

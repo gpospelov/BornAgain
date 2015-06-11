@@ -92,7 +92,7 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     P_result->addFormFactor(*P_ff_shell, 1.0);
     // core form factor
     boost::scoped_ptr<Particle> P_core_clone(mp_core->clone());
-    P_core_clone->setPosition(mp_core->getPosition() + m_relative_core_position);
+    P_core_clone->applyTranslation(m_relative_core_position);
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_core(
             P_core_clone->createFormFactor(wavevector_scattering_factor) );
     if (P_ff_core.get()==0) return 0;

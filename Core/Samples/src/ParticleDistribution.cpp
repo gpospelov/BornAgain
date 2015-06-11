@@ -114,13 +114,13 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
                     "one parameter");
             }
         }
+        if (mP_rotation.get()) p_particle_info->applyRotation(*mP_rotation);
+        p_particle_info->applyTranslation(m_position);
         result.push_back(p_particle_info);
     }
     return result;
 }
 
-void ParticleDistribution::applyTransformationToSubParticles(const IRotation& rotation)
+void ParticleDistribution::applyTransformationToSubParticles(const IRotation&)
 {
-    mP_particle->applyRotation(rotation);
-    return;
 }

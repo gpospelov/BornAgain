@@ -88,6 +88,9 @@ public:
     //! Applies transformation by composing it with the existing one
     void applyRotation(const IRotation &rotation);
 
+    //! Applies extra translation by adding it to the current one
+    void applyTranslation(kvector_t displacement);
+
 protected:
     //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor *createTransformedFormFactor(const IFormFactor &bare_ff) const;

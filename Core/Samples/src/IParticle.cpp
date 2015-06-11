@@ -47,6 +47,11 @@ void IParticle::applyRotation(const IRotation &rotation)
     applyTransformationToSubParticles(rotation);
 }
 
+void IParticle::applyTranslation(kvector_t displacement)
+{
+    m_position += displacement;
+}
+
 IFormFactor *IParticle::createTransformedFormFactor(const IFormFactor &bare_ff) const
 {
     IFormFactor *p_bare_clone = bare_ff.clone();

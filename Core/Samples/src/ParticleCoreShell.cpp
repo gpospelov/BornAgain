@@ -83,21 +83,22 @@ IFormFactor *ParticleCoreShell::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
     if (mp_core==0 || mp_shell==0) return 0;
-    FormFactorWeighted *p_result = new FormFactorWeighted;
-    kvector_t zero_vector;
+    boost::scoped_ptr<FormFactorWeighted> P_result(new FormFactorWeighted());
+    // shell form factor
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_shell(
-            getTransformedFormFactor(mp_shell, wavevector_scattering_factor,
-                                     zero_vector) );
+            mp_shell->createFormFactor(wavevector_scattering_factor) );
     if (P_ff_shell.get()==0) return 0;
     P_ff_shell->setAmbientMaterial(*getAmbientMaterial());
-    p_result->addFormFactor(*P_ff_shell, 1.0);
+    P_result->addFormFactor(*P_ff_shell, 1.0);
+    // core form factor
+    boost::scoped_ptr<Particle> P_core_clone(mp_core->clone());
+    P_core_clone->setPosition(mp_core->getPosition() + m_relative_core_position);
     boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_core(
-            getTransformedFormFactor(mp_core, wavevector_scattering_factor,
-                                     m_relative_core_position) );
+            P_core_clone->createFormFactor(wavevector_scattering_factor) );
     if (P_ff_core.get()==0) return 0;
     P_ff_core->setAmbientMaterial(*mp_shell->getMaterial());
-    p_result->addFormFactor(*P_ff_core, 1.0);
-    return p_result;
+    P_result->addFormFactor(*P_ff_core, 1.0);
+    return createTransformedFormFactor(*P_result);
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle &core)
@@ -128,50 +129,6 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 {
 }
 
-void ParticleCoreShell::applyTransformationToSubParticles(const IRotation& rotation)
+void ParticleCoreShell::applyTransformationToSubParticles(const IRotation&)
 {
-    if (mp_core) {
-        mp_core->applyRotation(rotation);
-    }
-    if (mp_shell) {
-        mp_shell->applyRotation(rotation);
-    }
-    Geometry::Transform3D transform = rotation.getTransform3D();
-    m_relative_core_position = transform.transformed(m_relative_core_position);
 }
-
-FormFactorDecoratorMaterial *ParticleCoreShell::getTransformedFormFactor(
-        Particle *p_particle, complex_t wavevector_scattering_factor,
-        kvector_t position) const
-{
-    if (p_particle->getFormFactor() == 0) return 0;
-    const IRotation *p_rotation = p_particle->getRotation();
-    IFormFactor *p_transf_ff = 0;
-    if (p_rotation) {
-        p_transf_ff = new FormFactorDecoratorRotation(
-                    p_particle->getFormFactor()->clone(), *p_rotation);
-    } else {
-        p_transf_ff = p_particle->getFormFactor()->clone();
-    }
-    IFormFactor *p_simple_ff = 0;
-    kvector_t zero_vector;
-    if (position == zero_vector) {
-        p_simple_ff = p_transf_ff;
-    } else {
-        p_simple_ff = new FormFactorDecoratorPositionFactor(
-                    *p_transf_ff, position);
-        delete p_transf_ff;
-    }
-    FormFactorDecoratorMaterial *p_ff_result =
-            new FormFactorDecoratorMaterial(p_simple_ff,
-                                            wavevector_scattering_factor);
-    if (p_rotation) {
-        boost::scoped_ptr<const IMaterial> P_transformed_material(p_particle->
-                getMaterial()->createTransformedMaterial(*p_rotation));
-        p_ff_result->setMaterial(*P_transformed_material);
-    } else {
-        p_ff_result->setMaterial(*p_particle->getMaterial());
-    }
-    return p_ff_result;
-}
-

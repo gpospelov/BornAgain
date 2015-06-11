@@ -100,7 +100,7 @@ Particle *Particle::cloneInvertB() const
     return p_result;
 }
 
-IFormFactor *Particle::createFormFactor(complex_t wavevector_scattering_factor) const
+FormFactorDecoratorMaterial *Particle::createFormFactor(complex_t wavevector_scattering_factor) const
 {
     if (!mP_form_factor.get())
         return 0;

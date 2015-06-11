@@ -82,7 +82,7 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+    virtual ::FormFactorDecoratorMaterial * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
         if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
             return func_createFormFactor( wavevector_scattering_factor );
         else{
@@ -90,7 +90,7 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         }
     }
     
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+    ::FormFactorDecoratorMaterial * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
         return Particle::createFormFactor( wavevector_scattering_factor );
     }
 
@@ -380,8 +380,8 @@ void register_Particle_class(){
         }
         { //::Particle::createFormFactor
         
-            typedef ::IFormFactor * ( ::Particle::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( Particle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::FormFactorDecoratorMaterial * ( ::Particle::*createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::FormFactorDecoratorMaterial * ( Particle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
             
             Particle_exposer.def( 
                 "createFormFactor"

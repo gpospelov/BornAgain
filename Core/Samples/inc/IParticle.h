@@ -89,8 +89,10 @@ public:
     void applyRotation(const IRotation &rotation);
 
 protected:
-    virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
+    //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor *createTransformedFormFactor(const IFormFactor &bare_ff) const;
+
+    virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
     kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
 };

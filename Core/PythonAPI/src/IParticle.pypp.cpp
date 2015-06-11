@@ -282,7 +282,8 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "applyTransformationToSubParticles"
                 , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
-                , ( bp::arg("rotation") ) );
+                , ( bp::arg("rotation") )
+                , "Creates a form factor decorated with the IParticle's position/rotation." );
         
         }
         { //::IParticle::clone

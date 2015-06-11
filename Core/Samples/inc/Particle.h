@@ -60,7 +60,7 @@ public:
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
-    virtual IFormFactor* createFormFactor(
+    virtual FormFactorDecoratorMaterial* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
     //! Sets _material_.

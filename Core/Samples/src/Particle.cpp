@@ -132,8 +132,6 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
     }
 }
 
-void Particle::applyTransformationToSubParticles(const IRotation &rotation)
+void Particle::applyTransformationToSubParticles(const IRotation&)
 {
-    (void)rotation;
-    return;
 }

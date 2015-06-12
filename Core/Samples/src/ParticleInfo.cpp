@@ -42,6 +42,16 @@ void ParticleInfo::setPosition(kvector_t position)
     mP_particle->setPosition(position);
 }
 
+void ParticleInfo::applyRotation(const IRotation &rotation)
+{
+    mP_particle->applyRotation(rotation);
+}
+
+void ParticleInfo::applyTranslation(kvector_t displacement)
+{
+    mP_particle->applyTranslation(displacement);
+}
+
 void ParticleInfo::init_parameters()
 {
     clearParameterPool();

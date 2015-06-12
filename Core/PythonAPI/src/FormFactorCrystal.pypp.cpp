@@ -30,8 +30,8 @@ namespace bp = boost::python;
 
 struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
 
-    FormFactorCrystal_wrapper(::Crystal const & p_crystal, ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_material, ::complex_t wavevector_scattering_factor )
-    : FormFactorCrystal( boost::ref(p_crystal), boost::ref(meso_crystal_form_factor), boost::ref(p_material), wavevector_scattering_factor )
+    FormFactorCrystal_wrapper(::Lattice const & lattice, ::IFormFactor const & basis_form_factor, ::IFormFactor const & meso_form_factor )
+    : FormFactorCrystal( boost::ref(lattice), boost::ref(basis_form_factor), boost::ref(meso_form_factor) )
       , bp::wrapper< FormFactorCrystal >(){
         // constructor
     m_pyobj = 0;
@@ -83,18 +83,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     double default_getVolume(  ) const  {
         return FormFactorCrystal::getVolume( );
-    }
-
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
-        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
-        else{
-            this->FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
-        }
-    }
-    
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        FormFactorCrystal::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -272,6 +260,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         }
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IFormFactor::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IFormFactor::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -328,7 +328,7 @@ void register_FormFactorCrystal_class(){
 
     { //::FormFactorCrystal
         typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, std::auto_ptr< FormFactorCrystal_wrapper >, boost::noncopyable > FormFactorCrystal_exposer_t;
-        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", "The formfactor for mesocrystals with a bulk crystal structure of particles.", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") )) );
+        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", "The formfactor for mesocrystals with a bulk crystal structure of particles.", bp::init< Lattice const &, IFormFactor const &, IFormFactor const & >(( bp::arg("lattice"), bp::arg("basis_form_factor"), bp::arg("meso_form_factor") )) );
         bp::scope FormFactorCrystal_scope( FormFactorCrystal_exposer );
         { //::FormFactorCrystal::clone
         
@@ -375,18 +375,6 @@ void register_FormFactorCrystal_class(){
                 "getVolume"
                 , getVolume_function_type(&::FormFactorCrystal::getVolume)
                 , default_getVolume_function_type(&FormFactorCrystal_wrapper::default_getVolume) );
-        
-        }
-        { //::FormFactorCrystal::setAmbientMaterial
-        
-            typedef void ( ::FormFactorCrystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            typedef void ( FormFactorCrystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "setAmbientMaterial"
-                , setAmbientMaterial_function_type(&::FormFactorCrystal::setAmbientMaterial)
-                , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -545,6 +533,18 @@ void register_FormFactorCrystal_class(){
                 , default_registerParameter_function_type( &FormFactorCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
                 , "main method to register data address in the pool." );
+        
+        }
+        { //::IFormFactor::setAmbientMaterial
+        
+            typedef void ( ::IFormFactor::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( FormFactorCrystal_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            FormFactorCrystal_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IFormFactor::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&FormFactorCrystal_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::setParameterValue

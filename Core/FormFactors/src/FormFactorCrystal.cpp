@@ -14,50 +14,30 @@
 // ************************************************************************** //
 
 #include "FormFactorCrystal.h"
+#include "FormFactorDecoratorPositionFactor.h"
 
-FormFactorCrystal::FormFactorCrystal(const Crystal &p_crystal,
-                                     const IFormFactor &meso_crystal_form_factor,
-                                     const IMaterial &material,
-                                     complex_t wavevector_scattering_factor)
-    : m_lattice(p_crystal.getTransformedLattice()),
-      m_wavevector_scattering_factor(wavevector_scattering_factor),
-      mp_ambient_material(material.clone()), m_max_rec_length(0.0)
+FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
+                                     const IFormFactor &meso_form_factor)
+    : m_lattice(lattice),
+      mp_basis_form_factor(basis_form_factor.clone()),
+      mp_meso_form_factor(meso_form_factor.clone())
 {
     setName("FormFactorCrystal");
-    mp_lattice_basis = p_crystal.getLatticeBasis()->clone();
-    mp_basis_form_factor = mp_lattice_basis->createFormFactor(m_wavevector_scattering_factor);
-    const IRotation *p_rotation = p_crystal.getRotation();
-    if (p_rotation) {
-        mp_meso_form_factor
-            = new FormFactorDecoratorRotation(meso_crystal_form_factor.clone(), *p_rotation);
-    } else {
-        mp_meso_form_factor = meso_crystal_form_factor.clone();
-    }
-    setAmbientMaterial(material);
     calculateLargestReciprocalDistance();
 }
 
 FormFactorCrystal::~FormFactorCrystal()
 {
-    delete mp_lattice_basis;
     delete mp_basis_form_factor;
     delete mp_meso_form_factor;
-    delete mp_ambient_material;
 }
 
 FormFactorCrystal *FormFactorCrystal::clone() const
 {
-    Crystal np_crystal(*mp_lattice_basis, m_lattice);
-    FormFactorCrystal *result = new FormFactorCrystal(
-        np_crystal, *mp_meso_form_factor, *mp_ambient_material, m_wavevector_scattering_factor);
+    FormFactorCrystal *result = new FormFactorCrystal(m_lattice, *mp_basis_form_factor,
+                                                      *mp_meso_form_factor);
     result->setName(getName());
     return result;
-}
-
-void FormFactorCrystal::setAmbientMaterial(const IMaterial &material)
-{
-    mp_lattice_basis->setAmbientMaterial(material);
-    mp_basis_form_factor->setAmbientMaterial(material);
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const

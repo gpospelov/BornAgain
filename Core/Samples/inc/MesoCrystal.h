@@ -44,8 +44,10 @@ public:
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (eg.  an infinite crystal)
@@ -53,11 +55,12 @@ public:
         return mp_particle_structure;
     }
 
-protected:
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
-
 private:
+    //! Creates a form factor decorated with the IParticle's position/rotation
+    IFormFactor *createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,
+                                                         const IRotation* p_rotation,
+                                                         kvector_t translation) const;
+
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };

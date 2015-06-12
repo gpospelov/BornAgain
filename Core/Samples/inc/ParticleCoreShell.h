@@ -41,8 +41,10 @@ public:
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Returns the core particle
     const Particle *getCoreParticle() const { return mp_core; }
@@ -57,10 +59,6 @@ protected:
     void addAndRegisterShell(const Particle &shell);
 
     ParticleCoreShell(kvector_t relative_core_position);
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
-    FormFactorDecoratorMaterial *getTransformedFormFactor(
-            Particle *p_particle, complex_t wavevector_scattering_factor,
-            kvector_t position) const;
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;

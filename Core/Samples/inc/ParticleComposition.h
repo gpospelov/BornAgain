@@ -46,8 +46,10 @@ public:
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Returns number of different particles
     size_t getNbrParticles() const {return m_particles.size(); }
@@ -59,9 +61,6 @@ public:
 
     kvector_t getParticlePosition(size_t index) const
     { return m_particles[check_index(index)]->getPosition(); }
-
-protected:
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 
 private:
     //! Checks index

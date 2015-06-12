@@ -178,18 +178,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor( wavevector_scattering_factor );
-        else{
-            return this->IParticle::createFormFactor( wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return IParticle::createFormFactor( wavevector_scattering_factor );
-    }
-
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -490,19 +478,6 @@ void register_Particle_class(){
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
                 , default_containsMagneticMaterial_function_type(&Particle_wrapper::default_containsMagneticMaterial) );
-        
-        }
-        { //::IParticle::createFormFactor
-        
-            typedef ::IFormFactor * ( ::IParticle::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( Particle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
-            
-            Particle_exposer.def( 
-                "createFormFactor"
-                , createFormFactor_function_type(&::IParticle::createFormFactor)
-                , default_createFormFactor_function_type(&Particle_wrapper::default_createFormFactor)
-                , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::createParameterTree

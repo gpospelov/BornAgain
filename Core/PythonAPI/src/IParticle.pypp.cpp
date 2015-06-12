@@ -40,18 +40,6 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_cloneInvertB(  );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor( wavevector_scattering_factor );
-        else{
-            return this->IParticle::createFormFactor( wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return IParticle::createFormFactor( wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
         bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
         return func_getAmbientMaterial(  );
@@ -312,14 +300,13 @@ void register_IParticle_class(){
         { //::IParticle::createFormFactor
         
             typedef ::IFormFactor * ( ::IParticle::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( IParticle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
             
             IParticle_exposer.def( 
                 "createFormFactor"
-                , createFormFactor_function_type(&::IParticle::createFormFactor)
-                , default_createFormFactor_function_type(&IParticle_wrapper::default_createFormFactor)
+                , createFormFactor_function_type( &::IParticle::createFormFactor )
                 , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Create a form factor for this particle with an extra scattering factor." );
         
         }
         { //::IParticle::getAmbientMaterial

@@ -73,18 +73,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor( wavevector_scattering_factor );
-        else{
-            return this->IParticle::createFormFactor( wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return IParticle::createFormFactor( wavevector_scattering_factor );
-    }
-
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -277,19 +265,6 @@ void register_MesoCrystal_class(){
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
                 , default_containsMagneticMaterial_function_type(&MesoCrystal_wrapper::default_containsMagneticMaterial) );
-        
-        }
-        { //::IParticle::createFormFactor
-        
-            typedef ::IFormFactor * ( ::IParticle::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( MesoCrystal_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
-            
-            MesoCrystal_exposer.def( 
-                "createFormFactor"
-                , createFormFactor_function_type(&::IParticle::createFormFactor)
-                , default_createFormFactor_function_type(&MesoCrystal_wrapper::default_createFormFactor)
-                , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::createParameterTree

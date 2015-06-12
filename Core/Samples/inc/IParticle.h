@@ -54,7 +54,7 @@ public:
     virtual const IMaterial *getAmbientMaterial() const = 0;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
+    IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
 
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,

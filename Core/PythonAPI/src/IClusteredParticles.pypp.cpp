@@ -64,18 +64,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return func_cloneInvertB(  );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
-            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        else{
-            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
         bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
         return func_getAmbientMaterial(  );
@@ -326,19 +314,6 @@ void register_IClusteredParticles_class(){
                 , bp::pure_virtual( cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns a clone with inverted magnetic fields." );
-        
-        }
-        { //::IClusteredParticles::createTotalFormFactor
-        
-            typedef ::IFormFactor * ( ::IClusteredParticles::*createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            typedef ::IFormFactor * ( IClusteredParticles_wrapper::*default_createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "createTotalFormFactor"
-                , createTotalFormFactor_function_type(&::IClusteredParticles::createTotalFormFactor)
-                , default_createTotalFormFactor_function_type(&IClusteredParticles_wrapper::default_createTotalFormFactor)
-                , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IClusteredParticles::getAmbientMaterial

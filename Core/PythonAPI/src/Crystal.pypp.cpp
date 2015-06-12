@@ -37,18 +37,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     m_pyobj = 0;
     }
 
-    virtual void applyRotation( ::IRotation const & rotation ) {
-        if( bp::override func_applyRotation = this->get_override( "applyRotation" ) )
-            func_applyRotation( boost::ref(rotation) );
-        else{
-            this->Crystal::applyRotation( boost::ref(rotation) );
-        }
-    }
-    
-    void default_applyRotation( ::IRotation const & rotation ) {
-        Crystal::applyRotation( boost::ref(rotation) );
-    }
-
     virtual ::Crystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -73,18 +61,6 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
-            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        else{
-            return this->Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
@@ -107,6 +83,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     void default_setAmbientMaterial( ::IMaterial const & material ) {
         Crystal::setAmbientMaterial( boost::ref(material) );
+    }
+
+    virtual void applyRotation( ::IRotation const & rotation ) {
+        if( bp::override func_applyRotation = this->get_override( "applyRotation" ) )
+            func_applyRotation( boost::ref(rotation) );
+        else{
+            this->IClusteredParticles::applyRotation( boost::ref(rotation) );
+        }
+    }
+    
+    void default_applyRotation( ::IRotation const & rotation ) {
+        IClusteredParticles::applyRotation( boost::ref(rotation) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -306,18 +294,6 @@ void register_Crystal_class(){
         typedef bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, std::auto_ptr< Crystal_wrapper >, boost::noncopyable > Crystal_exposer_t;
         Crystal_exposer_t Crystal_exposer = Crystal_exposer_t( "Crystal", "A crystal structure with a form factor as a basis.", bp::init< ParticleComposition const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) );
         bp::scope Crystal_scope( Crystal_exposer );
-        { //::Crystal::applyRotation
-        
-            typedef void ( ::Crystal::*applyRotation_function_type)( ::IRotation const & ) ;
-            typedef void ( Crystal_wrapper::*default_applyRotation_function_type)( ::IRotation const & ) ;
-            
-            Crystal_exposer.def( 
-                "applyRotation"
-                , applyRotation_function_type(&::Crystal::applyRotation)
-                , default_applyRotation_function_type(&Crystal_wrapper::default_applyRotation)
-                , ( bp::arg("rotation") ) );
-        
-        }
         { //::Crystal::clone
         
             typedef ::Crystal * ( ::Crystal::*clone_function_type)(  ) const;
@@ -342,19 +318,6 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::createTotalFormFactor
-        
-            typedef ::IFormFactor * ( ::Crystal::*createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            typedef ::IFormFactor * ( Crystal_wrapper::*default_createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            
-            Crystal_exposer.def( 
-                "createTotalFormFactor"
-                , createTotalFormFactor_function_type(&::Crystal::createTotalFormFactor)
-                , default_createTotalFormFactor_function_type(&Crystal_wrapper::default_createTotalFormFactor)
-                , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Crystal::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::Crystal::*getAmbientMaterial_function_type)(  ) const;
@@ -377,26 +340,6 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::getRotation
-        
-            typedef ::IRotation const * ( ::Crystal::*getRotation_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getRotation"
-                , getRotation_function_type( &::Crystal::getRotation )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Gets transformation." );
-        
-        }
-        { //::Crystal::getTransformedLattice
-        
-            typedef ::Lattice ( ::Crystal::*getTransformedLattice_function_type)(  ) const;
-            
-            Crystal_exposer.def( 
-                "getTransformedLattice"
-                , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
-        
-        }
         { //::Crystal::setAmbientMaterial
         
             typedef void ( ::Crystal::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
@@ -417,6 +360,18 @@ void register_Crystal_class(){
                 "setDWFactor"
                 , setDWFactor_function_type( &::Crystal::setDWFactor )
                 , ( bp::arg("dw_factor") ) );
+        
+        }
+        { //::IClusteredParticles::applyRotation
+        
+            typedef void ( ::IClusteredParticles::*applyRotation_function_type)( ::IRotation const & ) ;
+            typedef void ( Crystal_wrapper::*default_applyRotation_function_type)( ::IRotation const & ) ;
+            
+            Crystal_exposer.def( 
+                "applyRotation"
+                , applyRotation_function_type(&::IClusteredParticles::applyRotation)
+                , default_applyRotation_function_type(&Crystal_wrapper::default_applyRotation)
+                , ( bp::arg("rotation") ) );
         
         }
         { //::IParameterized::areParametersChanged

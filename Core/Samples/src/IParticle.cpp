@@ -62,25 +62,6 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
-IFormFactor *IParticle::createTransformationDecoratedFormFactor(const IFormFactor &bare_ff) const
-{
-    IFormFactor *p_bare_clone = bare_ff.clone();
-    IFormFactor *p_intermediate;
-    if (mP_rotation.get()) {
-        p_intermediate = new FormFactorDecoratorRotation(p_bare_clone, *mP_rotation);
-    } else {
-        p_intermediate = p_bare_clone;
-    }
-    IFormFactor *p_result;
-    if (m_position != kvector_t()) {
-        p_result = new FormFactorDecoratorPositionFactor(*p_intermediate, m_position);
-        delete p_intermediate;
-    } else {
-        p_result = p_intermediate;
-    }
-    return p_result;
-}
-
 IRotation *IParticle::createComposedRotation(const IRotation *p_rotation) const
 {
     if (p_rotation) {

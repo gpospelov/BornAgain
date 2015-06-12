@@ -95,9 +95,6 @@ public:
     void applyTranslation(kvector_t displacement);
 
 protected:
-    //! Creates a form factor decorated with the IParticle's position/rotation
-    IFormFactor *createTransformationDecoratedFormFactor(const IFormFactor &bare_ff) const;
-
     //! Creates a composed IRotation object
     IRotation *createComposedRotation(const IRotation *p_rotation) const;
 

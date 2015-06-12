@@ -64,7 +64,10 @@ public:
     //! Should not be called for objects of this class:
     //! The object should spawn particles that will create the
     //! required form factors
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
+
 
     //! Returns list of new particles generated according to a distribution
     std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;

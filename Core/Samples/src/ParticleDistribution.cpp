@@ -51,11 +51,12 @@ ParticleDistribution *ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-IFormFactor *ParticleDistribution::createFormFactor(complex_t wavevector_scattering_factor) const
+IFormFactor *ParticleDistribution::createTransformedFormFactor(complex_t, const IRotation *,
+                                                               kvector_t) const
 {
-    (void)wavevector_scattering_factor;
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "createFormFactor: should never be called");
+    throw Exceptions::NotImplementedException(
+        "ParticleDistribution::"
+        "createTransformedFormFactor: should never be called");
 }
 
 std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double abundance) const

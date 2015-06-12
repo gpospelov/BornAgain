@@ -68,18 +68,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ParticleDistribution::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor( wavevector_scattering_factor );
-        else{
-            return this->ParticleDistribution::createFormFactor( wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return ParticleDistribution::createFormFactor( wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
@@ -138,6 +126,18 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
+    }
+
+    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
+            return func_createFormFactor( wavevector_scattering_factor );
+        else{
+            return this->IParticle::createFormFactor( wavevector_scattering_factor );
+        }
+    }
+    
+    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+        return IParticle::createFormFactor( wavevector_scattering_factor );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -337,19 +337,6 @@ void register_ParticleDistribution_class(){
                 , "Returns the parameter pool that can be used for parameter distributions." );
         
         }
-        { //::ParticleDistribution::createFormFactor
-        
-            typedef ::IFormFactor * ( ::ParticleDistribution::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( ParticleDistribution_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
-            
-            ParticleDistribution_exposer.def( 
-                "createFormFactor"
-                , createFormFactor_function_type(&::ParticleDistribution::createFormFactor)
-                , default_createFormFactor_function_type(&ParticleDistribution_wrapper::default_createFormFactor)
-                , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::ParticleDistribution::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::ParticleDistribution::*getAmbientMaterial_function_type)(  ) const;
@@ -426,6 +413,19 @@ void register_ParticleDistribution_class(){
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
                 , default_containsMagneticMaterial_function_type(&ParticleDistribution_wrapper::default_containsMagneticMaterial) );
+        
+        }
+        { //::IParticle::createFormFactor
+        
+            typedef ::IFormFactor * ( ::IParticle::*createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::IFormFactor * ( ParticleDistribution_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
+            
+            ParticleDistribution_exposer.def( 
+                "createFormFactor"
+                , createFormFactor_function_type(&::IParticle::createFormFactor)
+                , default_createFormFactor_function_type(&ParticleDistribution_wrapper::default_createFormFactor)
+                , ( bp::arg("wavevector_scattering_factor") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::createParameterTree

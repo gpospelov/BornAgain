@@ -122,18 +122,23 @@ const IMaterial *ParticleComposition::getAmbientMaterial() const
     return m_particles[0]->getAmbientMaterial();
 }
 
-IFormFactor* ParticleComposition::createFormFactor(
-        complex_t wavevector_scattering_factor) const
+IFormFactor *
+ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                 const IRotation *p_rotation,
+                                                 kvector_t translation) const
 {
-    boost::scoped_ptr<FormFactorWeighted> P_ff(new FormFactorWeighted() );
-    for (size_t index=0; index<m_particles.size(); ++index) {
+    if (m_particles.size() == 0)
+        return 0;
+    boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
+    kvector_t total_position = getComposedTranslation(p_rotation, translation);
+    FormFactorWeighted *p_result = new FormFactorWeighted();
+    for (size_t index = 0; index < m_particles.size(); ++index) {
         boost::scoped_ptr<IFormFactor> P_particle_ff(
-                m_particles[index]->createFormFactor(
-                                      wavevector_scattering_factor));
-        P_ff->addFormFactor(*P_particle_ff);
+            m_particles[index]->createTransformedFormFactor(
+                wavevector_scattering_factor, P_total_rotation.get(), total_position));
+        p_result->addFormFactor(*P_particle_ff);
     }
-    P_ff->setAmbientMaterial(*getAmbientMaterial());
-    return createTransformationDecoratedFormFactor(*P_ff);
+    return p_result;
 }
 
 void ParticleComposition::applyTransformationToSubParticles(const IRotation&)

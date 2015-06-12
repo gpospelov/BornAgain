@@ -104,6 +104,10 @@ private:
     SampleLabelHandler *m_label;
 
     std::string indent() const;
+    void setRotationInformation(const IParticle* particle, std::string particle_name,
+                                std::ostringstream& result) const;
+    void setPositionInformation(const IParticle *particle, std::string particle_name,
+                                std::ostringstream& result) const;
 };
 
 

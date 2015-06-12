@@ -110,16 +110,6 @@ as defined in Fig.~\ref{Fdefz}.
 \index{Layer!coordinate}%
 The amplitudes $A^\pm_{wl}$ need to be computed recursively,
 as described below in section~\ref{Sacrolay}.
-Often, the transmitted and reflected amplitudes~$A^-$ and $A^+$ are
-designated by distinct letters $t$ and $r$,
-a usage which we will \E{not} follow in this manual.
-\nomenclature[2t026 2w020 2l020 0]{$t_{w\il}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $\il$ in downward (transmission) direction, in this work denoted $A^-_{w\il}$}%
-\nomenclature[2r026 2w020 2l020 0]{$t_{w\il}$}{Partial amplitude of $\psi_w(\r)$
-  in layer $\il$ in upward (reflection) direction, in this work denoted $A^+_{w\il}$}%
-for the transmitted and reflected amplitude.
-\index{Transmitted amplitude}%
-\index{Reflected amplitude}%
 
 %===============================================================================
 \section{Refraction, absorption, flux}\label{Smulayabs}
@@ -169,33 +159,29 @@ we have always $k_\perp'\ge0$ and $k_\perp''\ge0$.
 In analogy with (\ref{decompkperp}),
 full wavevectors have the decomposition
 \begin{equation}
-  \k^\pm \eqqcolon {\k^\pm}' + i{\k^\pm}'' = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
+  \k^\pm
+  \eqqcolon {\k^\pm}' + i{\k^\pm}''
+  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
 \end{equation}
 After these preparations,
 we can compute the flux~(\ref{EdefJ})
 associated with the plane-wave solution (\ref{Eplawafa},\ref{Ephizwj}):
 \begin{equation}
+  \begin{array}{@{}l@{\;}l}
   \v{J}(\r)
-  =   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
+  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
     + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
-    + \left[
-      A^-{A^+}^* \e^{i2k_\perp'z} {\k ??}
-    + \text{c.~c}
-    \right]
+\\[2ex]
+  &+ \left[
+      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
+    + \text{c.c.}
+    \right].
+  \end{array}
 \end{equation}
-
-we find an exponential decay of the plane wave amplitudes
-\begin{equation}\label{Ephidamp}
-  \left|\phi^\pm_\il(z)\right|
-  = \e^{\mp k_{\perp \il}'' z}
-\end{equation}
-along their propagation direction~$\pm z$.
-With an analogous decomposition
-of the three-dimensional wavevector (\ref{Ekpmwj3}),
-we obtain for the flux, defined as in~(\ref{EdefJ}),
-\begin{equation}
-  \v{J}_\il(\r) = \k' \e^{-2k_{\perp \il}z}.
-\end{equation}
+The first two terms describe the exponential intensity decrease
+due to absorption.
+the oscillatory term in square brackets
+is a wave-mechanical subtlety that must not interest us.
 In the special case of a pure imaginary~$k_{\perp \il}$,
 the flux direction is $\k'=\k_\plll$.
 Then $\psi_\il(\r)$ is an \E{evanescent wave},
@@ -205,15 +191,6 @@ Since a stationary evanescent wave implies that there is
 no vertical energy transport,
 all incoming radiation undergoes \E{total reflection}.
 \index{Total reflection}%
-
-In the generic case of a complex~$k_{\perp \il}$,
-the flux has a vertical component.
-Accordingly, the total reflection is not perfect.
-Some intensity is dissipated in layer $\il$.
-\index{Dissipation}%
-And if layer $\il<N$ is not too thick,
-then some radiation intensity also tunnels into the adjacent layer $\il+1$.
-\index{Tunneling}%
 
 %===============================================================================
 \section{DWBA matrix element}
@@ -302,7 +279,7 @@ $\Phi_l$, $\Phi_{l-1}$ in adjacent layers.}
 \end{figure}
 
 To deal with the coordinate offsets introduced in (\ref{Ephizwj}),
-we introduce the function
+we introduce the function%
 \begin{equation}
   d_\il\coloneqq z_{\il}-z_{\il+1},
 \end{equation}

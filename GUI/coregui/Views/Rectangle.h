@@ -60,10 +60,10 @@ private:
     qreal m_posY;                           //!< y position of rectangle
     qreal m_width;                          //!< width of rectangle
     qreal m_heigth;                         //!< height of rectangle
-    QGraphicsRectItem *m_topLeftCorner;     //!< rectangle in the top left corner
-    QGraphicsRectItem *m_bottomLeftCorner;  //!< rectangle in the bottom left corner
-    QGraphicsRectItem *m_topRightCorner;    //!< rectangle in the top right corner
-    QGraphicsRectItem *m_bottomRightCorner; //!< rectangle in the bottom right corner
+    QRectF m_topLeftCorner;     //!< rectangle in the top left corner
+    QRectF m_bottomLeftCorner;  //!< rectangle in the bottom left corner
+    QRectF m_topRightCorner;    //!< rectangle in the top right corner
+    QRectF m_bottomRightCorner; //!< rectangle in the bottom right corner
     bool m_resizeMode;                      //!< activates resize mode
     bool m_rotationMode;                    //!< activiates rotation mode
     Corner m_corner;                        //!< enum with all corners

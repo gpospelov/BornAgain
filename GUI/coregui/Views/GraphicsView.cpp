@@ -16,74 +16,56 @@
 //}
 
 
-//void GraphicsView::mousePressEvent(QMouseEvent *event)
-//{
-//    qDebug() << "GraphicsScene::mousePressEvent() ->" << m_drawing << m_rectangle;
-//    if(m_drawing == RECTANGLE) {
-//        m_rectangle = new Rectangle(this->mapToScene(event->pos()).x(), this->mapToScene(event->pos()).y(), 0,0);
-//        scene()->addItem(m_rectangle);
-//    }
-//    else if(m_drawing == ELLIPSE) {
-//        m_ellipse = new Ellipse(this->mapToScene(event->pos()).x(), this->mapToScene(event->pos()).y(), 0,0);
-//        scene()->addItem(m_ellipse);
-//    }
-//    else if(m_drawing == POLYGON) {
-//        if(isFinished) {
-//            m_polygon = new Polygon(this->mapToScene(event->pos()).x(), this->mapToScene(event->pos()).y(), 0,0);
-//            scene()->addItem(m_polygon);
-//        }
-//        m_polygon->setDrawingMode(this->mapToScene(event->pos()));
-//        m_lastAddedPoint = this->mapToScene(event->pos());
-//        isFinished = false;
-//    }
-//    else {
-//        QGraphicsView::mousePressEvent(event);
-//    }
-//}
+void GraphicsView::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::MidButton)
+    {
+        _pan = true;
+        _panStartX = event->x();
+        _panStartY = event->y();
+        setCursor(Qt::ClosedHandCursor);
+        event->accept();
+        return;
+    }
+    QGraphicsView::mousePressEvent(event);
+}
 
-//void GraphicsView::mouseMoveEvent(QMouseEvent *event)
-//{
-////    qDebug() << "GraphicsScene::mouseMoveEvent() ->" << m_drawing << m_rectangle;
-//    if(m_drawing == RECTANGLE && m_rectangle) {
-//        m_rectangle->boundingRect().setWidth(this->mapToScene(event->pos()).x() - m_rectangle->boundingRect().topLeft().x());
-//        m_rectangle->setWidth(this->mapToScene(event->pos()).x() - m_rectangle->boundingRect().topLeft().x());
-//        m_rectangle->setHeigth(this->mapToScene(event->pos()).y() - m_rectangle->boundingRect().topLeft().y());
-//    }
-//    else if(m_drawing == ELLIPSE && m_ellipse) {
-//        m_ellipse->setWidth(this->mapToScene(event->pos()).x() - m_ellipse->boundingRect().topLeft().x());
-//        m_ellipse->setHeigth(this->mapToScene(event->pos()).y() - m_ellipse->boundingRect().topLeft().y());
-//    }
-//    else if(m_drawing == POLYGON && m_polygon) {
-////        m_polygon->setWidth(event->scenePos().x() - m_polygon->boundingRect().topLeft().x());
-////        m_polygon->setHeigth(event->scenePos().y() - m_polygon->boundingRect().topLeft().y());
+void GraphicsView::mouseMoveEvent(QMouseEvent *event)
+{
+    if (_pan)
+    {
+        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - (event->x() - _panStartX));
+        verticalScrollBar()->setValue(verticalScrollBar()->value() - (event->y() - _panStartY));
+        _panStartX = event->x();
+        _panStartY = event->y();
+        event->accept();
+        return;
+    }
+    QGraphicsView::mouseMoveEvent(event);
 
-////        QPainter painter;
-////        painter.setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
-////        painter.drawLine(QLineF(m_lastAddedPoint, event->scenePos()));
-////        painter.end();
-//    }
-//    else {
-//        QGraphicsView::mouseMoveEvent(event);
-//    }
-//    m_currentMousePosition =this->mapToScene(event->pos());
-//}
+}
 
-//void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
-//{
-//    qDebug() << "GraphicsScene::mouseReleaseEvent() ->" << m_drawing << m_rectangle;
-//    if(m_drawing != POLYGON) {
-//        m_rectangle = 0;
-//        m_ellipse = 0;
-//        m_polygon = 0;
-//        m_drawing = NONE;
-//    }
-//    QGraphicsView::mouseReleaseEvent(event);
-//}
+void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::MidButton)
+    {
+        _pan = false;
+        setCursor(Qt::ArrowCursor);
+        event->accept();
+        return;
+    }
+
+    QGraphicsView::mouseReleaseEvent(event);
+}
+
 
 void GraphicsView::wheelEvent(QWheelEvent *event)
 {
+//    this->fitInView(this->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
 
-    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+//    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    centerOn(mapToScene(event->pos()));
+
     // Scale the view / do the zoom
     double scaleFactor = 1.15;
 
@@ -95,6 +77,7 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
         // Zooming out
         this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
     }
+    //QGraphicsView::wheelEvent(event);
 }
 
 //void GraphicsView::drawForeground(QPainter* painter, const QRectF& /* rect */)

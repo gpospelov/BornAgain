@@ -27,7 +27,6 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void drawForeground(QPainter *painter, const QRectF &);
 
-
 private:
     Drawing m_drawing;
     Rectangle *m_rectangle;

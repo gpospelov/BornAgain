@@ -60,6 +60,9 @@ GISASSimulation *BeamDivergence();
 GISASSimulation *DetectorResolution();
 GISASSimulation *ParticleDistribution();
 GISASSimulation *gui_ParticleComposition();
+
+GISASSimulation *BasicGISAS();
+
 }
 
 

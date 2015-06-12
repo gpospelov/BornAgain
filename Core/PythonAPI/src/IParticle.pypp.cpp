@@ -30,11 +30,6 @@ namespace bp = boost::python;
 
 struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 
-    virtual void applyTransformationToSubParticles( ::IRotation const & rotation ){
-        bp::override func_applyTransformationToSubParticles = this->get_override( "applyTransformationToSubParticles" );
-        func_applyTransformationToSubParticles( boost::ref(rotation) );
-    }
-
     virtual ::IParticle * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -280,17 +275,6 @@ void register_IParticle_class(){
                 , applyRotation_function_type( &::IParticle::applyRotation )
                 , ( bp::arg("rotation") )
                 , "Applies transformation by composing it with the existing one." );
-        
-        }
-        { //::IParticle::applyTransformationToSubParticles
-        
-            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::IRotation const & ) ;
-            
-            IParticle_exposer.def( 
-                "applyTransformationToSubParticles"
-                , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
-                , ( bp::arg("rotation") )
-                , "Gets a composed translation vector." );
         
         }
         { //::IParticle::applyTranslation

@@ -33,15 +33,11 @@ void IParticle::setRotation(const IRotation &rotation)
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
         registerChild(mP_rotation.get());
-        applyTransformationToSubParticles(rotation);
         return;
     }
     deregisterChild(mP_rotation.get());
-    boost::scoped_ptr<IRotation> P_inverse_rotation(mP_rotation->createInverse());
-    applyTransformationToSubParticles(*P_inverse_rotation);
     mP_rotation.reset(rotation.clone());
     registerChild(mP_rotation.get());
-    applyTransformationToSubParticles(rotation);
 }
 
 void IParticle::applyRotation(const IRotation &rotation)
@@ -54,7 +50,6 @@ void IParticle::applyRotation(const IRotation &rotation)
     }
     m_position = rotation.getTransform3D().transformed(m_position);
     registerChild(mP_rotation.get());
-    applyTransformationToSubParticles(rotation);
 }
 
 void IParticle::applyTranslation(kvector_t displacement)
@@ -87,8 +82,4 @@ kvector_t IParticle::getComposedTranslation(const IRotation *p_rotation, kvector
     } else {
         return translation + m_position;
     }
-}
-
-void IParticle::applyTransformationToSubParticles(const IRotation &)
-{
 }

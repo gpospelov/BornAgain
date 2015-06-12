@@ -59,7 +59,6 @@ protected:
     void addAndRegisterShell(const Particle &shell);
 
     ParticleCoreShell(kvector_t relative_core_position);
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;

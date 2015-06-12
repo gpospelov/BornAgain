@@ -145,7 +145,3 @@ void Particle::setFormFactor(const IFormFactor &form_factor)
         registerChild(mP_form_factor.get());
     }
 }
-
-void Particle::applyTransformationToSubParticles(const IRotation&)
-{
-}

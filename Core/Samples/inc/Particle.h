@@ -88,8 +88,6 @@ public:
     }
 
 protected:
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
     boost::scoped_ptr<IMaterial> mP_material;
     boost::scoped_ptr<IMaterial> mP_ambient_material;
     boost::scoped_ptr<IFormFactor> mP_form_factor;

@@ -101,7 +101,6 @@ protected:
     //! Gets a composed translation vector
     kvector_t getComposedTranslation(const IRotation *p_rotation, kvector_t translation) const;
 
-    virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
     kvector_t m_position;
     boost::scoped_ptr<IRotation> mP_rotation;
 };

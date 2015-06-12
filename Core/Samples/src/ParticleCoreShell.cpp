@@ -130,7 +130,3 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 , m_relative_core_position(relative_core_position)
 {
 }
-
-void ParticleCoreShell::applyTransformationToSubParticles(const IRotation&)
-{
-}

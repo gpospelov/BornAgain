@@ -121,7 +121,3 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
     }
     return result;
 }
-
-void ParticleDistribution::applyTransformationToSubParticles(const IRotation&)
-{
-}

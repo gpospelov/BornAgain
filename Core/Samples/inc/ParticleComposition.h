@@ -62,9 +62,6 @@ public:
     kvector_t getParticlePosition(size_t index) const
     { return m_particles[check_index(index)]->getPosition(); }
 
-protected:
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
-
 private:
     //! Checks index
     inline size_t check_index(size_t index) const {

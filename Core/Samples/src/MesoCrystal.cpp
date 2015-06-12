@@ -97,10 +97,6 @@ IFormFactor *MesoCrystal::createTransformedFormFactor(complex_t wavevector_scatt
     return p_result;
 }
 
-void MesoCrystal::applyTransformationToSubParticles(const IRotation&)
-{
-}
-
 IFormFactor *MesoCrystal::createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,
                                                                   const IRotation *p_rotation,
                                                                   kvector_t translation) const

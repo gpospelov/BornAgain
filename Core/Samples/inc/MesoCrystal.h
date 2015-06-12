@@ -55,10 +55,6 @@ public:
         return mp_particle_structure;
     }
 
-protected:
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
-
 private:
     //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor *createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,

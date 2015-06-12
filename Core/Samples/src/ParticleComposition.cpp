@@ -141,10 +141,6 @@ ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering
     return p_result;
 }
 
-void ParticleComposition::applyTransformationToSubParticles(const IRotation&)
-{
-}
-
 void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
     registerChild(p_particle);

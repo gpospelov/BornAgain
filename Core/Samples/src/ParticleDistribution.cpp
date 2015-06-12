@@ -23,6 +23,9 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     mP_particle.reset(prototype.clone());
     registerChild(mP_particle.get());
 }
@@ -33,6 +36,9 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
     mP_particle.reset(prototype.clone());
     mP_particle->setPosition(position);
     registerChild(mP_particle.get());

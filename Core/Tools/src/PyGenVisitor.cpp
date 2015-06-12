@@ -615,6 +615,16 @@ std::string PyGenVisitor::defineParticles() const
         }
 
         result << ")\n";
+        kvector_t pos = particle->getPosition();
+        if (pos.x() != 0.0 || pos.y() != 0.0) {
+            result << indent() << it->second
+                   << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
+                   << "*nanometer, " << pos.z() << "*nanometer)\n";
+
+            result << indent()
+                   << it->second << ".setPosition("
+                   << it->second << "_position)\n";
+        }
         it++;
     }
     return result.str();
@@ -1176,18 +1186,9 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
                 kvector_t pos = p_particle->getPosition();
                 if (pos.x() != 0.0 || pos.y() != 0.0) {
-                    result << indent() << m_label->getLabel(p_particle)
-                           << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
-                           << "*nanometer, " << pos.z() << "*nanometer)\n";
-
-                    result << indent() << m_label->getLabel(p_particle)
-                           << "_positionInfo = ParticleInfo("
-                           << m_label->getLabel(p_particle) << ", "
-                           << m_label->getLabel(p_particle) << "_position, "
+                    result << indent() << it->second << ".addParticle("
+                           << m_label->getLabel(p_particle) << ", 0.0, "
                            << PyGenTools::printDouble(abundance) << ")\n";
-
-                    result << indent() << it->second << ".addParticleInfo("
-                           << m_label->getLabel(p_particle) << "_positionInfo)\n";
                 } else {
                     result << indent() << it->second << ".addParticle("
                            << m_label->getLabel(p_particle) << ", "

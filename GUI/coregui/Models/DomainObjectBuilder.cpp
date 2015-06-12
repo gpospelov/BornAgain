@@ -236,14 +236,14 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
             boost::scoped_ptr<Particle> P_particle(
                 buildParticle(*particle_item, tmp_depth, tmp_abundance));
             if (P_particle.get()) {
-                addParticleToParticleComposition(p_result, particle_item, tmp_depth, *P_particle);
+                p_result->addParticle(*P_particle);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *particle_item = children[i];
             boost::scoped_ptr<ParticleCoreShell> P_coreshell(
-                buildParticleCoreShell(*children[i], tmp_depth, tmp_abundance));
+                buildParticleCoreShell(*particle_item, tmp_depth, tmp_abundance));
             if (P_coreshell.get()) {
-                addParticleToParticleComposition(p_result, particle_item, tmp_depth, *P_coreshell);
+                p_result->addParticle(*P_coreshell);
             }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
@@ -346,25 +346,4 @@ Beam *DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
     //    qDebug() << "DomainObjectBuilder::buildBeam()";
     Beam *result = TransformToDomain::createBeam(item);
     return result;
-}
-
-void DomainObjectBuilder::addParticleToParticleComposition(ParticleComposition *result,
-                                                           ParameterizedItem *particle_item,
-                                                           double depth,
-                                                           const IParticle &particle) const
-{
-    QList<ParameterizedItem *> particle_children = particle_item->childItems();
-    kvector_t position;
-    if (particle_children.size() == 1
-        && particle_children[0]->modelType() == Constants::TransformationType) {
-        ParameterizedItem *pos_item
-            = particle_children[0]->getSubItems()[TransformationItem::P_POS];
-        position.setX( pos_item->getRegisteredProperty(VectorItem::P_X).toDouble() );
-        position.setY( pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble() );
-        position.setZ( pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble() - depth );
-        result->addParticle(particle, position);
-    } else {
-        position.setZ( -depth );
-        result->addParticle(particle, position);
-    }
 }

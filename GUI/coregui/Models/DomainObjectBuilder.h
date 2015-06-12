@@ -60,9 +60,6 @@ public:
 
 private:
     void setTransformationInfo(IParticle *result, double &depth, const ParameterizedItem &item) const;
-    void addParticleToParticleComposition(ParticleComposition *result,
-                                          ParameterizedItem *particle_item, double depth,
-                                          const IParticle &particle) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

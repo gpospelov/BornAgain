@@ -133,7 +133,7 @@ IFormFactor* ParticleComposition::createFormFactor(
         P_ff->addFormFactor(*P_particle_ff);
     }
     P_ff->setAmbientMaterial(*getAmbientMaterial());
-    return createTransformedFormFactor(*P_ff);
+    return createTransformationDecoratedFormFactor(*P_ff);
 }
 
 void ParticleComposition::applyTransformationToSubParticles(const IRotation&)

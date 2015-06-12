@@ -86,7 +86,7 @@ IFormFactor* MesoCrystal::createFormFactor(
 {
     boost::scoped_ptr<IFormFactor> P_simple_ff(mp_particle_structure->createTotalFormFactor(
                 *mp_meso_form_factor, *getAmbientMaterial(), wavevector_scattering_factor) );
-    return createTransformedFormFactor(*P_simple_ff);
+    return createTransformationDecoratedFormFactor(*P_simple_ff);
 }
 
 void MesoCrystal::applyTransformationToSubParticles(const IRotation&)

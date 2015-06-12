@@ -53,10 +53,13 @@ public:
     //! Returns particle's material.
     virtual const IMaterial *getAmbientMaterial() const = 0;
 
-    //! Create a form factor which includes the particle's shape,
-    //! material, ambient material, an optional transformation and an extra
-    //! scattering factor
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const=0;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
+
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const
@@ -93,7 +96,13 @@ public:
 
 protected:
     //! Creates a form factor decorated with the IParticle's position/rotation
-    IFormFactor *createTransformedFormFactor(const IFormFactor &bare_ff) const;
+    IFormFactor *createTransformationDecoratedFormFactor(const IFormFactor &bare_ff) const;
+
+    //! Creates a composed IRotation object
+    IRotation *createComposedRotation(const IRotation *p_rotation) const;
+
+    //! Gets a composed translation vector
+    kvector_t getComposedTranslation(const IRotation *p_rotation, kvector_t translation) const;
 
     virtual void applyTransformationToSubParticles(const IRotation &rotation) = 0;
     kvector_t m_position;

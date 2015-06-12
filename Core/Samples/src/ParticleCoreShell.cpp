@@ -78,26 +78,29 @@ const IMaterial *ParticleCoreShell::getAmbientMaterial() const
     return mp_shell->getAmbientMaterial();
 }
 
-IFormFactor *ParticleCoreShell::createFormFactor(
-        complex_t wavevector_scattering_factor) const
+IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector_scattering_factor,
+    const IRotation *p_rotation, kvector_t translation) const
 {
     if (mp_core==0 || mp_shell==0) return 0;
-    boost::scoped_ptr<FormFactorWeighted> P_result(new FormFactorWeighted());
+    FormFactorWeighted *p_result = new FormFactorWeighted();
+    boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
+    kvector_t total_position = getComposedTranslation(p_rotation, translation);
     // shell form factor
-    boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_shell(
-            mp_shell->createFormFactor(wavevector_scattering_factor) );
+    boost::scoped_ptr<IFormFactor> P_ff_shell(
+            mp_shell->createTransformedFormFactor(wavevector_scattering_factor,
+                           P_total_rotation.get(), total_position) );
     if (P_ff_shell.get()==0) return 0;
-    P_ff_shell->setAmbientMaterial(*getAmbientMaterial());
-    P_result->addFormFactor(*P_ff_shell, 1.0);
+    p_result->addFormFactor(*P_ff_shell, 1.0);
     // core form factor
     boost::scoped_ptr<Particle> P_core_clone(mp_core->clone());
+    P_core_clone->setAmbientMaterial(*mp_shell->getMaterial());
     P_core_clone->applyTranslation(m_relative_core_position);
-    boost::scoped_ptr<FormFactorDecoratorMaterial> P_ff_core(
-            P_core_clone->createFormFactor(wavevector_scattering_factor) );
+    boost::scoped_ptr<IFormFactor> P_ff_core(
+                P_core_clone->createTransformedFormFactor(wavevector_scattering_factor,
+                               P_total_rotation.get(), total_position) );
     if (P_ff_core.get()==0) return 0;
-    P_ff_core->setAmbientMaterial(*mp_shell->getMaterial());
-    P_result->addFormFactor(*P_ff_core, 1.0);
-    return createTransformedFormFactor(*P_result);
+    p_result->addFormFactor(*P_ff_core, 1.0);
+    return p_result;
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle &core)

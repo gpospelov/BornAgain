@@ -57,11 +57,10 @@ public:
     //! Returns particle's material.
     virtual const IMaterial* getAmbientMaterial() const { return mP_ambient_material.get(); }
 
-    //! Create a form factor which includes the particle's shape,
-    //! material, ambient material, an optional transformation and an extra
-    //! scattering factor
-    virtual FormFactorDecoratorMaterial* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Sets _material_.
     virtual void setMaterial(const IMaterial& material) {

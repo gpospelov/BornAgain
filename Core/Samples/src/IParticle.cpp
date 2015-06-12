@@ -18,6 +18,16 @@
 #include "FormFactorDecoratorRotation.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
+IFormFactor *IParticle::createFormFactor(complex_t wavevector_scattering_factor) const
+{
+    return createTransformedFormFactor(wavevector_scattering_factor, 0, kvector_t());
+}
+
+IFormFactor *IParticle::createTransformedFormFactor(complex_t, const IRotation *, kvector_t) const
+{
+    return 0;
+}
+
 void IParticle::setRotation(const IRotation &rotation)
 {
     if (!mP_rotation.get()) {
@@ -52,7 +62,7 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
-IFormFactor *IParticle::createTransformedFormFactor(const IFormFactor &bare_ff) const
+IFormFactor *IParticle::createTransformationDecoratedFormFactor(const IFormFactor &bare_ff) const
 {
     IFormFactor *p_bare_clone = bare_ff.clone();
     IFormFactor *p_intermediate;
@@ -69,4 +79,35 @@ IFormFactor *IParticle::createTransformedFormFactor(const IFormFactor &bare_ff) 
         p_result = p_intermediate;
     }
     return p_result;
+}
+
+IRotation *IParticle::createComposedRotation(const IRotation *p_rotation) const
+{
+    if (p_rotation) {
+        if (mP_rotation.get()) {
+            return CreateProduct(*p_rotation, *mP_rotation);
+        } else {
+            return p_rotation->clone();
+        }
+    } else {
+        if (mP_rotation.get()) {
+            return mP_rotation->clone();
+        } else {
+            return 0;
+        }
+    }
+}
+
+kvector_t IParticle::getComposedTranslation(const IRotation *p_rotation, kvector_t translation) const
+{
+    if (p_rotation) {
+        Geometry::Transform3D transform = p_rotation->getTransform3D();
+        return translation + transform.transformed(m_position);
+    } else {
+        return translation + m_position;
+    }
+}
+
+void IParticle::applyTransformationToSubParticles(const IRotation &)
+{
 }

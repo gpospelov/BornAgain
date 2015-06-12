@@ -45,9 +45,16 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_cloneInvertB(  );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const {
-        bp::override func_createFormFactor = this->get_override( "createFormFactor" );
-        return func_createFormFactor( wavevector_scattering_factor );
+    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
+            return func_createFormFactor( wavevector_scattering_factor );
+        else{
+            return this->IParticle::createFormFactor( wavevector_scattering_factor );
+        }
+    }
+    
+    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+        return IParticle::createFormFactor( wavevector_scattering_factor );
     }
 
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
@@ -283,7 +290,7 @@ void register_IParticle_class(){
                 "applyTransformationToSubParticles"
                 , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
                 , ( bp::arg("rotation") )
-                , "Creates a form factor decorated with the IParticle's position/rotation." );
+                , "Gets a composed translation vector." );
         
         }
         { //::IParticle::applyTranslation
@@ -321,13 +328,14 @@ void register_IParticle_class(){
         { //::IParticle::createFormFactor
         
             typedef ::IFormFactor * ( ::IParticle::*createFormFactor_function_type)( ::complex_t ) const;
+            typedef ::IFormFactor * ( IParticle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
             
             IParticle_exposer.def( 
                 "createFormFactor"
-                , bp::pure_virtual( createFormFactor_function_type(&::IParticle::createFormFactor) )
+                , createFormFactor_function_type(&::IParticle::createFormFactor)
+                , default_createFormFactor_function_type(&IParticle_wrapper::default_createFormFactor)
                 , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >()
-                , "Create a form factor which includes the particle's shape, material, ambient material, an optional transformation and an extra scattering factor " );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParticle::getAmbientMaterial

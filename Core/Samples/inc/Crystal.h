@@ -67,7 +67,6 @@ public:
         return mP_rotation.get();
     }
 
-
 private:
     //! Private constructor
     Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);

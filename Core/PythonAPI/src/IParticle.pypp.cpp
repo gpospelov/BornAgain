@@ -40,6 +40,11 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_cloneInvertB(  );
     }
 
+    virtual ::IFormFactor * createTransformedFormFactor( ::complex_t wavevector_scattering_factor, ::IRotation const * p_rotation, ::kvector_t translation ) const {
+        bp::override func_createTransformedFormFactor = this->get_override( "createTransformedFormFactor" );
+        return func_createTransformedFormFactor( wavevector_scattering_factor, boost::python::ptr(p_rotation), translation );
+    }
+
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
         bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
         return func_getAmbientMaterial(  );
@@ -305,6 +310,18 @@ void register_IParticle_class(){
                 "createFormFactor"
                 , createFormFactor_function_type( &::IParticle::createFormFactor )
                 , ( bp::arg("wavevector_scattering_factor") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Create a form factor for this particle with an extra scattering factor." );
+        
+        }
+        { //::IParticle::createTransformedFormFactor
+        
+            typedef ::IFormFactor * ( ::IParticle::*createTransformedFormFactor_function_type)( ::complex_t,::IRotation const *,::kvector_t ) const;
+            
+            IParticle_exposer.def( 
+                "createTransformedFormFactor"
+                , bp::pure_virtual( createTransformedFormFactor_function_type(&::IParticle::createTransformedFormFactor) )
+                , ( bp::arg("wavevector_scattering_factor"), bp::arg("p_rotation"), bp::arg("translation") )
                 , bp::return_value_policy< bp::manage_new_object >()
                 , "Create a form factor for this particle with an extra scattering factor." );
         

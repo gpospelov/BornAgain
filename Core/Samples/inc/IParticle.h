@@ -59,7 +59,7 @@ public:
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
                                                      const IRotation* p_rotation,
-                                                     kvector_t translation) const;
+                                                     kvector_t translation) const=0;
 
     //! Returns particle position, including depth.
     kvector_t getPosition() const

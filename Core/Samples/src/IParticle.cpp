@@ -23,11 +23,6 @@ IFormFactor *IParticle::createFormFactor(complex_t wavevector_scattering_factor)
     return createTransformedFormFactor(wavevector_scattering_factor, 0, kvector_t());
 }
 
-IFormFactor *IParticle::createTransformedFormFactor(complex_t, const IRotation *, kvector_t) const
-{
-    return 0;
-}
-
 void IParticle::setRotation(const IRotation &rotation)
 {
     if (!mP_rotation.get()) {

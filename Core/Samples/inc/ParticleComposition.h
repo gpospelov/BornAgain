@@ -40,6 +40,7 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
+    void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
@@ -72,8 +73,6 @@ private:
 
     //! For internal use in cloneInvertB():
     void addParticlePointer(IParticle *p_particle);
-
-    void addParticleNoPosition(const IParticle& particle);
 
     std::vector<IParticle *> m_particles;
 };

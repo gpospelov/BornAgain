@@ -2,11 +2,11 @@
 
 Ellipse::Ellipse(qreal posX, qreal posY, qreal width, qreal heigth)
     : m_posX(posX), m_posY(posY), m_width(width), m_heigth(heigth),
-      m_topLeftCorner(new QGraphicsRectItem(m_posX - 5, m_posY - 5, 10, 10)),
-      m_bottomLeftCorner(new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10)),
-      m_topRightCorner(new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10)),
+      m_topLeftCorner(QRectF(m_posX - 5, m_posY - 5, 10, 10)),
+      m_bottomLeftCorner(QRectF(m_posX + m_width - 5, m_posY - 5, 10, 10)),
+      m_topRightCorner(QRectF(m_posX + m_width - 5, m_posY - 5, 10, 10)),
       m_bottomRightCorner(
-          new QGraphicsRectItem(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
+          QRectF(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
       m_resizeMode(false), m_rotationMode(false)
 
 {
@@ -16,32 +16,24 @@ Ellipse::Ellipse(qreal posX, qreal posY, qreal width, qreal heigth)
 
 void Ellipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    delete m_topLeftCorner;
-    delete m_topRightCorner;
-    delete m_bottomLeftCorner;
-    delete m_bottomRightCorner;
-
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
     painter->drawEllipse(m_posX, m_posY, m_width, m_heigth);
 
+    // set values for corners
+    m_topLeftCorner.setRect(m_posX - 5, m_posY - 5, 10, 10);
+    m_bottomLeftCorner.setRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
+    m_topRightCorner.setRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
+    m_bottomRightCorner.setRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
+
+    // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
         painter->setBrush(Qt::green);
-        this->prepareGeometryChange();
-        painter->drawRect(m_posX - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
-        painter->drawRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
-        this->prepareGeometryChange();
-        painter->drawRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-        this->prepareGeometryChange();
-        painter->drawRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
+        painter->drawRect(m_topLeftCorner);
+        painter->drawRect(m_topRightCorner);
+        painter->drawRect(m_bottomLeftCorner);
+        painter->drawRect(m_bottomRightCorner);
     }
-
-    m_topLeftCorner = new QGraphicsRectItem(m_posX - 5, m_posY - 5, 10, 10);
-    m_bottomLeftCorner = new QGraphicsRectItem(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-    m_topRightCorner = new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10);
-    m_bottomRightCorner
-        = new QGraphicsRectItem(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
 }
 
 QRectF Ellipse::boundingRect() const
@@ -62,38 +54,38 @@ void Ellipse::setHeigth(qreal heigth)
 void Ellipse::checkResizeRules(QGraphicsSceneMouseEvent *event)
 {
     if (m_corner == TOPLEFT) {
-        if (m_topRightCorner->pos().x() <= event->pos().x()) {
+        if (m_posX + m_width <= event->pos().x()) {
             m_corner = TOPRIGHT;
             setCursor(Qt::SizeBDiagCursor);
 
-        } else if (m_bottomLeftCorner->pos().y() <= event->pos().y()) {
+        } else if (m_posY + m_heigth <= event->pos().y()) {
             m_corner = BOTTOMLEFT;
             setCursor(Qt::SizeBDiagCursor);
         }
     } else if (m_corner == TOPRIGHT) {
-        if (event->pos().x() <= m_topLeftCorner->pos().x()) {
+        if (event->pos().x() <= m_posX) {
             m_corner = TOPLEFT;
             setCursor(Qt::SizeFDiagCursor);
 
-        } else if (m_bottomRightCorner->pos().y() <= event->pos().y()) {
+        } else if (m_posY + m_heigth <= event->pos().y()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
         }
     } else if (m_corner == BOTTOMLEFT) {
-        if (m_bottomRightCorner->pos().x() <= event->pos().x()) {
+        if (m_posX + m_width <= event->pos().x()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
 
-        } else if (event->pos().y() <= m_topLeftCorner->pos().y()) {
+        } else if (event->pos().y() <= m_posY) {
             m_corner = TOPLEFT;
             setCursor(Qt::SizeFDiagCursor);
         }
     } else if (m_corner == BOTTOMRIGHT) {
-        if (event->pos().x() <= m_bottomRightCorner->pos().x()) {
+        if (event->pos().x() <= m_posX) {
             m_corner = BOTTOMLEFT;
             setCursor(Qt::SizeBDiagCursor);
 
-        } else if (event->pos().y() <= m_bottomRightCorner->pos().y()) {
+        } else if (event->pos().y() <= m_posY) {
             m_corner = TOPRIGHT;
             setCursor(Qt::SizeBDiagCursor);
         }
@@ -106,29 +98,25 @@ void Ellipse::calculateResize(QGraphicsSceneMouseEvent *event)
     checkResizeRules(event);
 
     if (m_corner == TOPLEFT) {
-        m_width = m_topRightCorner->pos().x() - event->pos().x();
-        m_heigth = m_bottomLeftCorner->pos().y() - event->pos().y();
+        m_width = m_posX + m_width - event->pos().x();
+        m_heigth = m_posY + m_heigth - event->pos().y();
         m_posX = event->pos().x();
         m_posY = event->pos().y();
 
     } else if (m_corner == BOTTOMLEFT) {
-        m_width = m_bottomRightCorner->pos().x() - event->pos().x();
-        m_heigth = event->pos().y() - m_topLeftCorner->pos().y();
+        m_width = m_posX + m_width - event->pos().x();
+        m_heigth = event->pos().y() - m_posY;
         m_posX = event->pos().x();
-        m_posY = event->pos().y() - m_heigth;
 
     } else if (m_corner == TOPRIGHT) {
-        m_width = event->pos().x() - m_topLeftCorner->pos().x();
-        m_heigth = m_bottomRightCorner->pos().y() - event->pos().y();
-        m_posX = event->pos().x() - m_width;
+        m_width = event->pos().x() - m_posX;
+        m_heigth = m_posY + m_heigth - event->pos().y();
         m_posY = event->pos().y();
     }
 
     else if (m_corner == BOTTOMRIGHT) {
-        m_width = event->pos().x() - m_bottomLeftCorner->pos().x();
-        m_heigth = event->pos().y() - m_topRightCorner->pos().y();
-        m_posX = event->pos().x() - m_width;
-        m_posY = event->pos().y() - m_heigth;
+        m_width = event->pos().x() - m_posX;
+        m_heigth = event->pos().y() - m_posY;
     }
 }
 
@@ -161,23 +149,23 @@ void Ellipse::mousePressEvent(QGraphicsSceneMouseEvent *event)
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
     //if one of the corners is clicked then go in to resize Mode
-    if (event->button() == Qt::LeftButton && m_topLeftCorner->contains(event->pos())) {
+    if (event->button() == Qt::LeftButton && m_topLeftCorner.contains(event->pos())) {
         m_resizeMode = true;
         m_corner = TOPLEFT;
         setCursor(Qt::SizeFDiagCursor);
 
-    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner->contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner.contains(event->pos())) {
         m_resizeMode = true;
         m_corner = BOTTOMLEFT;
         setCursor(Qt::SizeBDiagCursor);
 
-    } else if (event->button() == Qt::LeftButton && m_topRightCorner->contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && m_topRightCorner.contains(event->pos())) {
         m_resizeMode = true;
         m_corner = TOPRIGHT;
         setCursor(Qt::SizeBDiagCursor);
     }
 
-    else if (event->button() == Qt::LeftButton && m_bottomRightCorner->contains(event->pos())) {
+    else if (event->button() == Qt::LeftButton && m_bottomRightCorner.contains(event->pos())) {
         m_resizeMode = true;
         m_corner = BOTTOMRIGHT;
         setCursor(Qt::SizeFDiagCursor);
@@ -187,7 +175,6 @@ void Ellipse::mousePressEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mousePressEvent(event);
     }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 void Ellipse::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -205,7 +192,6 @@ void Ellipse::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseMoveEvent(event);
     }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 void Ellipse::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -219,29 +205,28 @@ void Ellipse::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void Ellipse::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && m_topLeftCorner->contains(event->pos())) {
+    if (event->button() == Qt::LeftButton && m_topLeftCorner.contains(event->pos())) {
         m_resizeMode = false;
         m_rotationMode = true;
         m_corner = TOPLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
-    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner->contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner.contains(event->pos())) {
         m_resizeMode = false;
         m_rotationMode = true;
         m_corner = BOTTOMLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
-    } else if (event->button() == Qt::LeftButton && m_topRightCorner->contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && m_topRightCorner.contains(event->pos())) {
         m_resizeMode = false;
         m_rotationMode = true;
         m_corner = TOPRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
     }
-
-    else if (event->button() == Qt::LeftButton && m_bottomRightCorner->contains(event->pos())) {
+    else if (event->button() == Qt::LeftButton && m_bottomRightCorner.contains(event->pos())) {
         m_resizeMode = false;
         m_rotationMode = true;
         m_corner = BOTTOMRIGHT;
@@ -254,5 +239,4 @@ void Ellipse::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseDoubleClickEvent(event);
     }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
 }

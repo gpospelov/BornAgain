@@ -5,14 +5,12 @@
 
 Polygon::Polygon(qreal posX, qreal posY, qreal width, qreal heigth)
     : m_posX(posX), m_posY(posY), m_width(width), m_heigth(heigth),
-      m_topLeftCorner(new QGraphicsRectItem(m_posX - 5, m_posY - 5, 10, 10)),
-      m_bottomLeftCorner(new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10)),
-      m_topRightCorner(new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10)),
-      m_bottomRightCorner(
-          new QGraphicsRectItem(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
-      m_firstPoint(new QGraphicsRectItem),m_resizeMode(false), m_rotationMode(false),
-      m_drawingMode(false), m_changeCornerMode(false), m_corner(NONE), m_currentPoint1(0),
-      m_currentPoint2(0)
+      m_topLeftCorner(QRectF(m_posX - 5, m_posY - 5, 10, 10)),
+      m_bottomLeftCorner(QRectF(m_posX + m_width - 5, m_posY - 5, 10, 10)),
+      m_topRightCorner(QRectF(m_posX + m_width - 5, m_posY - 5, 10, 10)),
+      m_bottomRightCorner(QRectF(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
+      m_firstPoint(QRectF()),m_drawingMode(false), m_changeCornerMode(false), m_corner(NONE),
+      m_currentPoint1(0), m_currentPoint2(0)
 
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -23,10 +21,6 @@ Polygon::Polygon(qreal posX, qreal posY, qreal width, qreal heigth)
 
 void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    delete m_topLeftCorner;
-    delete m_topRightCorner;
-    delete m_bottomLeftCorner;
-    delete m_bottomRightCorner;
     prepareGeometryChange();
     painter->setRenderHints(QPainter::Antialiasing);
     painter->drawPolyline(m_polygon);
@@ -34,16 +28,29 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     QPen pen;
     pen.setWidth(5);
     if(m_polygon.length() >= 1 && m_drawingMode) {
-      delete m_firstPoint;
-      painter->drawRect(m_polygon[0].x()  - 2.5  ,m_polygon[0].y()  - 2.5 , 5, 5);
+      m_firstPoint.setRect(m_polygon[0].x()  - 2.5  ,m_polygon[0].y()  - 2.5 , 5, 5);
+      if(m_mouseIsOverFirstPoint) {
+          painter->fillRect(m_firstPoint, Qt::red);
+      }
+      else {
+          painter->drawRect(m_firstPoint);
+      }
     }
 
+    // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
+
+        // set values for corners
+        m_topLeftCorner.setRect(m_posX - 5, m_posY - 5, 10, 10);
+        m_bottomLeftCorner.setRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
+        m_topRightCorner.setRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
+        m_bottomRightCorner.setRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
+
         painter->setBrush(Qt::green);
-        painter->drawRect(m_posX - 5, m_posY - 5, 10, 10);
-        painter->drawRect(m_posX + m_width - 5, m_posY - 5, 10, 10);
-        painter->drawRect(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-        painter->drawRect(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
+        painter->drawRect(m_topLeftCorner);
+        painter->drawRect(m_topRightCorner);
+        painter->drawRect(m_bottomLeftCorner);
+        painter->drawRect(m_bottomRightCorner);
     }
     if(m_drawingMode == false && isSelected()) {
         painter->setPen(pen);
@@ -51,14 +58,7 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
         painter->setPen(QPen());
     }
 
-    m_topLeftCorner = new QGraphicsRectItem(m_posX - 5, m_posY - 5, 10, 10);
-    m_bottomLeftCorner = new QGraphicsRectItem(m_posX - 5, m_posY + m_heigth - 5, 10, 10);
-    m_topRightCorner = new QGraphicsRectItem(m_posX + m_width - 5, m_posY - 5, 10, 10);
-    m_bottomRightCorner
-        = new QGraphicsRectItem(m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10);
-    if(m_polygon.length() >= 1) {
-         m_firstPoint = new QGraphicsRectItem(m_polygon[0].x() - 2.5,m_polygon[0].y() - 2.5, 5, 5);
-    }
+
 
 }
 
@@ -82,8 +82,8 @@ void Polygon::setDrawingMode(QPointF firstPoint)
     QPoint point(firstPoint.x(), firstPoint.y());
     m_drawingMode = true;
     m_polygon.append(point);
-    if(m_firstPoint->contains(point) && m_polygon.length() >= 2) {
-        m_polygon.remove(m_polygon.length()-1);
+    if(m_firstPoint.contains(point) && m_polygon.length() >= 2) {
+//        m_polygon.remove(m_polygon.length()-1);
         m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
         m_drawingMode = false;
     }
@@ -95,102 +95,110 @@ bool Polygon::getDrawingMode() const
     return m_drawingMode;
 }
 
-void Polygon::checkResizeRules(QGraphicsSceneMouseEvent *event)
+void Polygon::setMouseIsOverFirstPoint(bool mouseIsOverFirstPoint)
 {
-    if (m_corner == TOPLEFT) {
-        if (m_topRightCorner->pos().x() <= event->pos().x()) {
-            m_corner = TOPRIGHT;
-            setCursor(Qt::SizeBDiagCursor);
-
-        } else if (m_bottomLeftCorner->pos().y() <= event->pos().y()) {
-            m_corner = BOTTOMLEFT;
-            setCursor(Qt::SizeBDiagCursor);
-        }
-    } else if (m_corner == TOPRIGHT) {
-        if (event->pos().x() <= m_topLeftCorner->pos().x()) {
-            m_corner = TOPLEFT;
-            setCursor(Qt::SizeFDiagCursor);
-
-        } else if (m_bottomRightCorner->pos().y() <= event->pos().y()) {
-            m_corner = BOTTOMRIGHT;
-            setCursor(Qt::SizeFDiagCursor);
-        }
-    } else if (m_corner == BOTTOMLEFT) {
-        if (m_bottomRightCorner->pos().x() <= event->pos().x()) {
-            m_corner = BOTTOMRIGHT;
-            setCursor(Qt::SizeFDiagCursor);
-
-        } else if (event->pos().y() <= m_topLeftCorner->pos().y()) {
-            m_corner = TOPLEFT;
-            setCursor(Qt::SizeFDiagCursor);
-        }
-    } else if (m_corner == BOTTOMRIGHT) {
-        if (event->pos().x() <= m_bottomRightCorner->pos().x()) {
-            m_corner = BOTTOMLEFT;
-            setCursor(Qt::SizeBDiagCursor);
-
-        } else if (event->pos().y() <= m_bottomRightCorner->pos().y()) {
-            m_corner = TOPRIGHT;
-            setCursor(Qt::SizeBDiagCursor);
-        }
-    }
+    m_mouseIsOverFirstPoint = mouseIsOverFirstPoint;
 }
 
-void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
+QRectF Polygon::getFirstPoint() const
 {
-    this->setFlag(QGraphicsItem::ItemIsMovable, false);
-    checkResizeRules(event);
-
-    if (m_corner == TOPLEFT) {
-        m_width = m_topRightCorner->pos().x() - event->pos().x();
-        m_heigth = m_bottomLeftCorner->pos().y() - event->pos().y();
-        m_posX = event->pos().x();
-        m_posY = event->pos().y();
-
-    } else if (m_corner == BOTTOMLEFT) {
-        m_width = m_bottomRightCorner->pos().x() - event->pos().x();
-        m_heigth = event->pos().y() - m_topLeftCorner->pos().y();
-        m_posX = event->pos().x();
-        m_posY = event->pos().y() - m_heigth;
-
-    } else if (m_corner == TOPRIGHT) {
-        m_width = event->pos().x() - m_topLeftCorner->pos().x();
-        m_heigth = m_bottomRightCorner->pos().y() - event->pos().y();
-        m_posX = event->pos().x() - m_width;
-        m_posY = event->pos().y();
-    }
-
-    else if (m_corner == BOTTOMRIGHT) {
-        m_width = event->pos().x() - m_bottomLeftCorner->pos().x();
-        m_heigth = event->pos().y() - m_topRightCorner->pos().y();
-        m_posX = event->pos().x() - m_width;
-        m_posY = event->pos().y() - m_heigth;
-    }
+    return m_firstPoint;
 }
 
-qreal Polygon::calculateRotation(QGraphicsSceneMouseEvent *event)
-{
-    qreal lengthOfHypotenuse = sqrt(pow(m_width / 2, 2) + pow(m_heigth / 2, 2));
-    qreal offsetAngle = acos((m_width / 2) / lengthOfHypotenuse) * 180 / M_PI;
-    qreal radians = atan(
-        (event->scenePos().y() - this->mapToScene(m_posX + m_width / 2, m_posY + m_heigth / 2).y())
-        / (event->scenePos().x()
-           - this->mapToScene(m_posX + m_width / 2, m_posY + m_heigth / 2).x()));
+//void Polygon::checkResizeRules(QGraphicsSceneMouseEvent *event)
+//{
+//    {
+//        if (m_corner == TOPLEFT) {
+//            if (m_posX + m_width <= event->pos().x()) {
+//                m_corner = TOPRIGHT;
+//                setCursor(Qt::SizeBDiagCursor);
 
-    if (m_corner == TOPLEFT) {
-        return radians * 180 / M_PI - offsetAngle;
+//            } else if (m_posY + m_heigth <= event->pos().y()) {
+//                m_corner = BOTTOMLEFT;
+//                setCursor(Qt::SizeBDiagCursor);
+//            }
+//        } else if (m_corner == TOPRIGHT) {
+//            if (event->pos().x() <= m_posX) {
+//                m_corner = TOPLEFT;
+//                setCursor(Qt::SizeFDiagCursor);
 
-    } else if (m_corner == TOPRIGHT) {
-        return radians * 180 / M_PI + offsetAngle - 180;
+//            } else if (m_posY + m_heigth <= event->pos().y()) {
+//                m_corner = BOTTOMRIGHT;
+//                setCursor(Qt::SizeFDiagCursor);
+//            }
+//        } else if (m_corner == BOTTOMLEFT) {
+//            if (m_posX + m_width <= event->pos().x()) {
+//                m_corner = BOTTOMRIGHT;
+//                setCursor(Qt::SizeFDiagCursor);
 
-    } else if (m_corner == BOTTOMLEFT) {
-        return radians * 180 / M_PI + offsetAngle - 180;
+//            } else if (event->pos().y() <= m_posY) {
+//                m_corner = TOPLEFT;
+//                setCursor(Qt::SizeFDiagCursor);
+//            }
+//        } else if (m_corner == BOTTOMRIGHT) {
+//            if (event->pos().x() <= m_posX) {
+//                m_corner = BOTTOMLEFT;
+//                setCursor(Qt::SizeBDiagCursor);
 
-    } else if (m_corner == BOTTOMRIGHT) {
-        return radians * 180 / M_PI - offsetAngle;
-    }
-    return 0;
-}
+//            } else if (event->pos().y() <= m_posY) {
+//                m_corner = TOPRIGHT;
+//                setCursor(Qt::SizeBDiagCursor);
+//            }
+//        }
+//    }
+//}
+
+//void Polygon::calculateResize(QGraphicsSceneMouseEvent *event)
+//{
+//    this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//    checkResizeRules(event);
+
+//    if (m_corner == TOPLEFT) {
+//        m_width = m_posX + m_width - event->pos().x();
+//        m_heigth = m_posY + m_heigth - event->pos().y();
+//        m_posX = event->pos().x();
+//        m_posY = event->pos().y();
+
+//    } else if (m_corner == BOTTOMLEFT) {
+//        m_width = m_posX + m_width - event->pos().x();
+//        m_heigth = event->pos().y() - m_posY;
+//        m_posX = event->pos().x();
+
+//    } else if (m_corner == TOPRIGHT) {
+//        m_width = event->pos().x() - m_posX;
+//        m_heigth = m_posY + m_heigth - event->pos().y();
+//        m_posY = event->pos().y();
+//    }
+
+//    else if (m_corner == BOTTOMRIGHT) {
+//        m_width = event->pos().x() - m_posX;
+//        m_heigth = event->pos().y() - m_posY;
+//    }
+//}
+
+//qreal Polygon::calculateRotation(QGraphicsSceneMouseEvent *event)
+//{
+//    qreal lengthOfHypotenuse = sqrt(pow(m_width / 2, 2) + pow(m_heigth / 2, 2));
+//    qreal offsetAngle = acos((m_width / 2) / lengthOfHypotenuse) * 180 / M_PI;
+//    qreal radians = atan(
+//        (event->scenePos().y() - this->mapToScene(m_posX + m_width / 2, m_posY + m_heigth / 2).y())
+//        / (event->scenePos().x()
+//           - this->mapToScene(m_posX + m_width / 2, m_posY + m_heigth / 2).x()));
+
+//    if (m_corner == TOPLEFT) {
+//        return radians * 180 / M_PI - offsetAngle;
+
+//    } else if (m_corner == TOPRIGHT) {
+//        return radians * 180 / M_PI + offsetAngle - 180;
+
+//    } else if (m_corner == BOTTOMLEFT) {
+//        return radians * 180 / M_PI + offsetAngle - 180;
+
+//    } else if (m_corner == BOTTOMRIGHT) {
+//        return radians * 180 / M_PI - offsetAngle;
+//    }
+//    return 0;
+//}
 
 
 bool Polygon::checkCornerClicked(QGraphicsSceneMouseEvent *event) {
@@ -237,42 +245,36 @@ void Polygon::calculateBoundingRectangle()
         m_posY = smallestYValue - 20;
         m_width =  biggestXValue + 20 - m_posX;
         m_heigth = biggestYValue + 20 - m_posY;
-
-        qDebug() << "void Polygon::calculateBoundingRectangle() " << smallestXValue << smallestYValue << biggestXValue << biggestYValue;
-//    this->boundingRect().setTopLeft(QPointF(smallestXValue*0.9, smallestYValue*0.9));
-//    this->boundingRect().setTopRight(QPointF(smallestXValue*0.9, biggestYValue*1.1));
-//    this->boundingRect().setBottomRight(QPointF(biggestXValue*1.1, biggestYValue*1.1));
-//    this->boundingRect().setBottomLeft(QPointF(smallestXValue*0.9, biggestYValue*1.1));
 }
 
 void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && m_topLeftCorner->contains(event->pos())) {
-        m_resizeMode = true;
-        m_corner = TOPLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeFDiagCursor);
-    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner->contains(event->pos())) {
-        m_resizeMode = true;
-        m_corner = BOTTOMLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeBDiagCursor);
-    } else if (event->button() == Qt::LeftButton && m_topRightCorner->contains(event->pos())) {
-        m_resizeMode = true;
-        m_corner = TOPRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeBDiagCursor);
-    }
-    else if (event->button() == Qt::LeftButton && m_bottomRightCorner->contains(event->pos())) {
-        m_resizeMode = true;
-        m_corner = BOTTOMRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeFDiagCursor);
-    }
+//    if (event->button() == Qt::LeftButton && m_topLeftCorner.contains(event->pos())) {
+//        m_resizeMode = true;
+//        m_corner = TOPLEFT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeFDiagCursor);
+//    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner.contains(event->pos())) {
+//        m_resizeMode = true;
+//        m_corner = BOTTOMLEFT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeBDiagCursor);
+//    } else if (event->button() == Qt::LeftButton && m_topRightCorner.contains(event->pos())) {
+//        m_resizeMode = true;
+//        m_corner = TOPRIGHT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeBDiagCursor);
+//    }
+//    else if (event->button() == Qt::LeftButton && m_bottomRightCorner.contains(event->pos())) {
+//        m_resizeMode = true;
+//        m_corner = BOTTOMRIGHT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeFDiagCursor);
+//    }
       if (m_drawingMode) {
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
-        if(m_firstPoint->contains(event->pos()) && m_polygon.length() >= 2) {
+        if(m_firstPoint.contains(event->pos()) && m_polygon.length() >= 2) {
             m_polygon.remove(m_polygon.length()-1);
             m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
             m_drawingMode = false;
@@ -285,7 +287,7 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
     else if(event->button() == Qt::RightButton) {
         m_drawingMode = false;
     } else {
-        m_resizeMode = false;
+//        m_resizeMode = false;
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mousePressEvent(event);
     }
@@ -293,18 +295,18 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-
-    if (m_corner != NONE && m_resizeMode) {
-        calculateResize(event);
-    } else if (m_corner != NONE && m_rotationMode) {
-        QTransform transform;
-        transform.translate(m_posX + m_width * 0.5, m_posY + m_heigth * 0.5);
-        transform.rotate(calculateRotation(event));
-        transform.translate(-(m_posX + m_width * 0.5), -(m_posY + m_heigth * 0.5));
-        setTransform(transform);
-    }
-    else if (m_changeCornerMode) {
+//    if (m_corner != NONE && m_resizeMode) {
+//        calculateResize(event);
+//    } else if (m_corner != NONE && m_rotationMode) {
+//        QTransform transform;
+//        transform.translate(m_posX + m_width * 0.5, m_posY + m_heigth * 0.5);
+//        transform.rotate(calculateRotation(event));
+//        transform.translate(-(m_posX + m_width * 0.5), -(m_posY + m_heigth * 0.5));
+//        setTransform(transform);
+//    }
+    if (m_changeCornerMode) {
         calculateBoundingRectangle();
+        setCursor(Qt::CrossCursor);
         if(m_currentPoint1 == 0 || m_currentPoint1 == m_polygon.length()-1) {
             m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
             m_polygon[m_currentPoint2] = QPoint(event->pos().x(), event->pos().y());
@@ -325,55 +327,55 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void Polygon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_resizeMode = false;
-    m_rotationMode = false;
+//    m_resizeMode = false;
+//    m_rotationMode = false;
     m_changeCornerMode = false;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && m_topLeftCorner->contains(event->pos())) {
-        m_resizeMode = false;
-        m_rotationMode = true;
-        m_corner = TOPLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeFDiagCursor);
+//void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    if (event->button() == Qt::LeftButton && m_topLeftCorner.contains(event->pos())) {
+//        m_resizeMode = false;
+//        m_rotationMode = true;
+//        m_corner = TOPLEFT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeFDiagCursor);
 
-    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner->contains(event->pos())) {
-        m_resizeMode = false;
-        m_rotationMode = true;
-        m_corner = BOTTOMLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeBDiagCursor);
-    } else if (event->button() == Qt::LeftButton && m_topRightCorner->contains(event->pos())) {
-        m_resizeMode = false;
-        m_rotationMode = true;
-        m_corner = TOPRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeBDiagCursor);
-    }
-    else if (event->button() == Qt::LeftButton && m_bottomRightCorner->contains(event->pos())) {
-        m_resizeMode = false;
-        m_rotationMode = true;
-        m_corner = BOTTOMRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::SizeFDiagCursor);
-    } else if (event->button() == Qt::LeftButton && !m_drawingMode) {
-        m_resizeMode = false;
-        m_rotationMode = false;
-        m_drawingMode = true;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-    } else if (m_drawingMode) {
-        m_drawingMode = false;
-    } else {
-        m_resizeMode = false;
-        m_rotationMode = false;
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        QGraphicsItem::mouseDoubleClickEvent(event);
-    }
-}
+//    } else if (event->button() == Qt::LeftButton && m_bottomLeftCorner.contains(event->pos())) {
+//        m_resizeMode = false;
+//        m_rotationMode = true;
+//        m_corner = BOTTOMLEFT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeBDiagCursor);
+//    } else if (event->button() == Qt::LeftButton && m_topRightCorner.contains(event->pos())) {
+//        m_resizeMode = false;
+//        m_rotationMode = true;
+//        m_corner = TOPRIGHT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeBDiagCursor);
+//    }
+//    else if (event->button() == Qt::LeftButton && m_bottomRightCorner.contains(event->pos())) {
+//        m_resizeMode = false;
+//        m_rotationMode = true;
+//        m_corner = BOTTOMRIGHT;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        setCursor(Qt::SizeFDiagCursor);
+//    } else if (event->button() == Qt::LeftButton && !m_drawingMode) {
+//        m_resizeMode = false;
+//        m_rotationMode = false;
+//        m_drawingMode = true;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//    } else if (m_drawingMode) {
+//        m_drawingMode = false;
+//    } else {
+//        m_resizeMode = false;
+//        m_rotationMode = false;
+//        this->setFlag(QGraphicsItem::ItemIsMovable, true);
+//        QGraphicsItem::mouseDoubleClickEvent(event);
+//    }
+//}
 
 //void Polygon::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 //{
@@ -382,12 +384,11 @@ void Polygon::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 //void Polygon::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 //{
-//        if(m_drawingMode) {
-//            setCursor(Qt::CrossCursor);
-//            if(m_polygon.length() >= 2) {
-//                 m_polygon[m_polygon.length() -1] = QPoint(event->pos().x(), event->pos().y());
-//                 calculateBoundingRectangle();
-//            }
+//        if(m_drawingMode && m_firstPoint.contains(event->pos())) {
+//            m_mouseIsOverFirstPoint = true;
+//        }
+//        else {
+//            m_mouseIsOverFirstPoint = false;
 //        }
 
 //    QGraphicsItem::hoverMoveEvent(event);

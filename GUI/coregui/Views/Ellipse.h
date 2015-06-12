@@ -35,10 +35,10 @@ private:
     qreal m_posY;
     qreal m_width;
     qreal m_heigth;
-    QGraphicsRectItem *m_topLeftCorner;
-    QGraphicsRectItem *m_bottomLeftCorner;
-    QGraphicsRectItem *m_topRightCorner;
-    QGraphicsRectItem *m_bottomRightCorner;
+    QRectF m_topLeftCorner;
+    QRectF m_bottomLeftCorner;
+    QRectF m_topRightCorner;
+    QRectF m_bottomRightCorner;
     bool m_resizeMode;
     bool m_rotationMode;
     Corner m_corner;

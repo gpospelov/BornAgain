@@ -52,7 +52,7 @@ private slots:
 
 private:
     GraphicsScene *m_scene;
-    QGraphicsView *m_view;
+    GraphicsView *m_view;
     Rectangle *m_rectangle;
     Ellipse *m_ellipse;
     Polygon *m_polygon;

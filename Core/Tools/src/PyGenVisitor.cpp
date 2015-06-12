@@ -668,17 +668,21 @@ std::string PyGenVisitor::defineParticleCompositions() const
         = m_label->getParticleCompositionMap()->begin();
 
     while (it != m_label->getParticleCompositionMap()->end()) {
-        result << indent() << it->second << " = ParticleComposition()\n";
-        for (size_t i = 0; i < it->first->getNbrParticles(); ++i) {
-            kvector_t position = it->first->getParticlePosition(i);
+        const ParticleComposition *p_particle_composition = it->first;
+        std::string particle_composition_name = it->second;
+        result << indent() << particle_composition_name << " = ParticleComposition()\n";
+        for (size_t i = 0; i < p_particle_composition->getNbrParticles(); ++i) {
+            kvector_t position = p_particle_composition->getParticlePosition(i);
             result << indent() << "particle_" << i + 1 << "_position"
                    << " = kvector_t(" << position.x() << "*nanometer, " << position.y()
                    << "*nanometer, " << position.z() << "*nanometer)\n";
-            result << indent() << it->second << ".addParticle("
-                   << m_label->getLabel(it->first->getParticle(i)) << ", ";
+            result << indent() << particle_composition_name << ".addParticle("
+                   << m_label->getLabel(p_particle_composition->getParticle(i)) << ", ";
             result << "particle_" << i + 1 << "_position"
                    << ")\n";
         }
+        setRotationInformation(p_particle_composition, particle_composition_name, result);
+        setPositionInformation(p_particle_composition, particle_composition_name, result);
         it++;
     }
     return result.str();

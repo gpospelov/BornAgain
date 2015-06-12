@@ -384,20 +384,22 @@ At this point,
 it may be an interesting exercise to make
  a connection with a well known textbook result.
 Consider a system
-with a single interface between two semi-infinite media.
-A straightforward computation will show
-that the transmission and reflection probabilities
-determined as above
-agree with Fresnel's result for $s$-polarized light,\footnote
+with a single interface between two semi-infinite,
+non-absorbing media.
+We normalize to the incident vertical flux $J_{0\perp}^-=-Kf_0$.
+The reflected flux is
+\begin{equation}
+  \frac{J_{0\perp}^+}{J_{0\perp}^-}
+  = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
+\end{equation}
+and the transmitted flux
+\begin{equation}
+  \frac{J_{1\perp}^-}{J_{0\perp}^-}
+  = \frac{4f_0 f_1}{(f_0+f_1)^2}.
+\end{equation}
+This agrees with Fresnel's result for $s$-polarized light.\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}
-\begin{equation}
-  \left| A^-_1\right|^2
-  = \left| \frac{2f_0}{f_0+f_1}\right|^2,
-  \quad
-  \left| A^+_0\right|^2
-  = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2.
-\end{equation}
 
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.

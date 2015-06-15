@@ -43,20 +43,28 @@ public:
     {
     }
 private slots:
-    //! creates a rectangle on button click event
-    void rectangleButtonClicked();
-    //! creates a ellipse on button click event
-    void ellipseButtonClicked();
-    //! creates a polygon on button click event
-    void polygonButtonClicked();
+    //! creates a rectangle on button press event
+    void rectangleButtonPressed();
+    //! creates a ellipse on button press event
+    void ellipseButtonPressed();
+    //! creates a polygon on button press event
+    void polygonButtonPressed();
+    //! switch on/off pan mode
+    void panMode();
+    //! delete selected item
+    void deleteSelectedItem();
+    //! bring current selected item to the top
+    void bringToFrontClicked();
+    //! send current selected item to the bottom
+    void sendToBackClicked();
 
 private:
     GraphicsScene *m_scene;
     GraphicsView *m_view;
-    Rectangle *m_rectangle;
-    Ellipse *m_ellipse;
-    Polygon *m_polygon;
-    bool m_drawing;
+    QPushButton *m_rectangleButton;
+    QPushButton*m_ellipseButton;
+    QPushButton *m_polygonButton;
+    QPushButton *m_panButton;
 };
 
 #endif

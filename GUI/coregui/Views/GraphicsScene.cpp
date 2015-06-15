@@ -67,13 +67,8 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 //    qDebug() << "GraphicsScene::mouseReleaseEvent() ->" << m_drawing << m_rectangle;
-    if (m_drawing != POLYGON) {
-        m_rectangle = 0;
-        m_ellipse = 0;
-        m_polygon = 0;
-        m_drawing = NONE;
-        QGraphicsScene::mouseReleaseEvent(event);
-    }
+    m_rectangle = 0;
+    m_ellipse = 0;
     QGraphicsScene::mouseReleaseEvent(event);
 }
 

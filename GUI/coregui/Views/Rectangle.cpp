@@ -251,4 +251,8 @@ void Rectangle::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+void Rectangle::setIncludeRectangle()
+{
+    m_color = INCLUDE;
+}
 

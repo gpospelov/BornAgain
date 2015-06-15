@@ -16,6 +16,7 @@ public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
     enum {Type = UserType + 1};
+    enum Color {INCLUDE, EXCLUDE};
 
     //! create Rectangle
     //! @param posX x position in scene
@@ -47,6 +48,7 @@ public:
 
     void setHeigth(qreal heigth);
     void setWidth(qreal width);
+    void setIncludeRectangle();
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -67,5 +69,6 @@ private:
     bool m_resizeMode;                      //!< activates resize mode
     bool m_rotationMode;                    //!< activiates rotation mode
     Corner m_corner;                        //!< enum with all corners
+    Color m_color;
 };
 #endif

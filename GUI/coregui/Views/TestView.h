@@ -49,7 +49,7 @@ private slots:
     void ellipseButtonPressed();
     //! creates a polygon on button press event
     void polygonButtonPressed();
-    //! switch on/off pan mode
+    //! switch on pan mode
     void panMode();
     //! delete selected item
     void deleteSelectedItem();
@@ -57,14 +57,17 @@ private slots:
     void bringToFrontClicked();
     //! send current selected item to the bottom
     void sendToBackClicked();
+    //! create include item
+    void includeClicked();
+    //! create exclude item
+    void excludeClicked();
 
+    void changeToSelectionMode();
+    void changeToDrawingMode();
 private:
     GraphicsScene *m_scene;
     GraphicsView *m_view;
-    QPushButton *m_rectangleButton;
-    QPushButton*m_ellipseButton;
-    QPushButton *m_polygonButton;
-    QPushButton *m_panButton;
+    QButtonGroup *m_buttonGroup;
 };
 
 #endif

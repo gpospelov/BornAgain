@@ -21,16 +21,39 @@ Polygon::Polygon(qreal posX, qreal posY, qreal width, qreal heigth)
 
 void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    QPen pen;
     prepareGeometryChange();
     painter->setRenderHints(QPainter::Antialiasing);
     painter->drawPolyline(m_polygon);
-//    painter->drawLines(m_polygon);
-    QPen pen;
-    pen.setWidth(5);
+
+    if(m_polygon[0].x() == m_polygon[m_polygon.length()-1].x() && m_polygon[0].y() == m_polygon[m_polygon.length()-1].y()) {
+        if(m_color == INCLUDE) {
+            QPainterPath path;
+            QBrush transRed(QColor(0xFF, 0, 0, 0x80));
+            path.moveTo(m_polygon[0].x(), m_polygon[0].y());
+            for(int i = 1; i < m_polygon.length() - 1; ++i) {
+                path.lineTo (m_polygon[i].x(), m_polygon[i].y());
+            }
+            painter->setPen (Qt :: NoPen);
+            painter->fillPath (path, transRed);
+        }
+        else {
+            QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
+            QPainterPath path;
+            path.moveTo(m_polygon[0].x(), m_polygon[0].y());
+            for(int i = 1; i < m_polygon.length() - 1; ++i) {
+                path.lineTo (m_polygon[i].x(), m_polygon[i].y());
+            }
+            painter->setPen (Qt :: NoPen);
+            painter->fillPath (path, transBlue);
+        }
+    }
+
     if(m_polygon.length() >= 1 && m_drawingMode) {
+      pen.setWidth(1);
       m_firstPoint.setRect(m_polygon[0].x()  - 2.5  ,m_polygon[0].y()  - 2.5 , 5, 5);
       if(m_mouseIsOverFirstPoint) {
-          painter->fillRect(m_firstPoint, Qt::red);
+          painter->fillRect(m_firstPoint, Qt::green);
       }
       else {
           painter->drawRect(m_firstPoint);
@@ -53,6 +76,7 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
         painter->drawRect(m_bottomRightCorner);
     }
     if(m_drawingMode == false && isSelected()) {
+        pen.setWidth(5);
         painter->setPen(pen);
         painter->drawPoints(m_polygon);
         painter->setPen(QPen());
@@ -83,7 +107,6 @@ void Polygon::setDrawingMode(QPointF firstPoint)
     m_drawingMode = true;
     m_polygon.append(point);
     if(m_firstPoint.contains(point) && m_polygon.length() >= 2) {
-//        m_polygon.remove(m_polygon.length()-1);
         m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
         m_drawingMode = false;
     }
@@ -271,17 +294,17 @@ void Polygon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 //        this->setFlag(QGraphicsItem::ItemIsMovable, false);
 //        setCursor(Qt::SizeFDiagCursor);
 //    }
-      if (m_drawingMode) {
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
-        if(m_firstPoint.contains(event->pos()) && m_polygon.length() >= 2) {
-            m_polygon.remove(m_polygon.length()-1);
-            m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
-            m_drawingMode = false;
-        }
-        calculateBoundingRectangle();
-    }
-    else if (checkCornerClicked(event)) {
+//      if (m_drawingMode) {
+//        this->setFlag(QGraphicsItem::ItemIsMovable, false);
+//        m_polygon.append(QPoint(event->pos().x(), event->pos().y()));
+//        if(m_firstPoint.contains(event->pos()) && m_polygon.length() >= 2) {
+//            m_polygon.remove(m_polygon.length()-1);
+//            m_polygon[m_polygon.length()-1] = QPoint(m_polygon[0].x(), m_polygon[0].y());
+//            m_drawingMode = false;
+//        }
+//        calculateBoundingRectangle();
+//    }
+    if (checkCornerClicked(event)) {
         m_changeCornerMode = true;
     }
     else if(event->button() == Qt::RightButton) {
@@ -398,3 +421,13 @@ void Polygon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //{
 //    QGraphicsItem::hoverLeaveEvent(event);
 //}
+
+void Polygon::setInclude()
+{
+    m_color = INCLUDE;
+}
+
+void Polygon::setExclude()
+{
+    m_color = EXCLUDE;
+}

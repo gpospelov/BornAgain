@@ -21,7 +21,14 @@ void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
-    painter->drawRect(m_posX, m_posY, m_width, m_heigth);
+    if(m_color == INCLUDE) {
+        QBrush transRed(QColor(0xFF, 0, 0, 0x80));
+        painter->fillRect(m_posX, m_posY, m_width, m_heigth,transRed);
+    }
+    else {
+        QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
+        painter->fillRect(m_posX, m_posY, m_width, m_heigth,transBlue);
+    }
 
     // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
@@ -251,8 +258,15 @@ void Rectangle::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void Rectangle::setIncludeRectangle()
+void Rectangle::setInclude()
 {
     m_color = INCLUDE;
+    update();
+}
+
+void Rectangle::setExclude()
+{
+    m_color = EXCLUDE;
+    update();
 }
 

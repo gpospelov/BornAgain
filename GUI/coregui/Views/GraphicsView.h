@@ -20,9 +20,9 @@ public:
     void scalingTime(qreal x);
     void animFinished();
 protected:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+//    void mousePressEvent(QMouseEvent *event);
+//    void mouseMoveEvent(QMouseEvent *event);
+//    void mouseReleaseEvent(QMouseEvent *event);
 //    void drawForeground(QPainter *painter, const QRectF &);
     void wheelEvent(QWheelEvent* event);
     void zoom(qreal factor, QPointF centerPoint);

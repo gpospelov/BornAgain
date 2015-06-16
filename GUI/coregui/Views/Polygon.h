@@ -14,6 +14,9 @@ class Polygon : public QGraphicsItem
 {
 
 public:
+
+    enum {Type = UserType + 3};
+    enum Color {INCLUDE, EXCLUDE};
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
     Polygon(qreal posX, qreal poxY, qreal width, qreal heigth);
@@ -30,7 +33,10 @@ public:
     bool getDrawingMode() const;
     void setMouseIsOverFirstPoint(bool mouseIsOverFirstPoint);
     QRectF getFirstPoint() const;
+    int type() const {return Type;}
 
+    void setExclude();
+    void setInclude();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
@@ -59,5 +65,6 @@ private:
     int m_currentPoint1;
     int m_currentPoint2;
     bool m_mouseIsOverFirstPoint;
+    Color m_color;
 };
 #endif

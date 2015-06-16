@@ -44,8 +44,7 @@
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent), m_scene(new GraphicsScene), m_view(new GraphicsView),
-      m_rectangleButton(new QPushButton("Rectangle")), m_ellipseButton(new QPushButton("Ellipse")),
-      m_polygonButton(new QPushButton("Polygon")),m_panButton(new QPushButton("Pan Mode"))
+      m_buttonGroup(new QButtonGroup(this))
 {
 
     // set scene into view and switch of scrollbar from view
@@ -82,64 +81,116 @@ TestView::TestView(QWidget *parent)
 
 
     GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-    widget->resize(m_view->viewport()->rect().width(), m_view->viewport()->rect().height());
+//    widget->resize(m_view->viewport()->rect().width(), m_view->viewport()->rect().height());
     widget->setWidget(colorMapPlot);
     m_scene->addItem(widget);
 
-    // -----------------------
-    QGraphicsRectItem *rect1 = new QGraphicsRectItem(0,0,100,100);
-    rect1->setFlag(QGraphicsItem::ItemIsSelectable);
-    rect1->setFlag(QGraphicsItem::ItemIsMovable);
-    rect1->setBrush(Qt::red);
-    QGraphicsRectItem *rect2 = new QGraphicsRectItem(0,0,100,100);
-    rect2->setFlag(QGraphicsItem::ItemIsSelectable);
-    rect2->setFlag(QGraphicsItem::ItemIsMovable);
-    rect2->setBrush(Qt::blue);
-
-    m_scene->addItem(rect1);
-    m_scene->addItem(rect2);
-
-    //-------------------------
-
+    m_view->fitInView(widget);
 
     // connect buttons
-    m_rectangleButton->setCheckable(true);
-    connect(m_rectangleButton, SIGNAL(pressed()), this, SLOT(rectangleButtonPressed()));
 
-    m_ellipseButton->setCheckable(true);
-    connect(m_ellipseButton, SIGNAL(pressed()), this, SLOT(ellipseButtonPressed()));
 
-    m_polygonButton->setCheckable(true);
-    connect(m_polygonButton, SIGNAL(pressed()), this, SLOT(polygonButtonPressed()));
+    QPushButton *rectangleButton = new QPushButton("Rectangle");
+    rectangleButton->setCheckable(true);
+    connect(rectangleButton, SIGNAL(pressed()), this, SLOT(rectangleButtonPressed()));
 
-    m_panButton->setCheckable(true);
-    connect(m_panButton, SIGNAL(pressed()), this, SLOT(panMode()));
+    QPushButton *ellipseButton = new QPushButton("Ellipse");
+    ellipseButton->setCheckable(true);
+    connect(ellipseButton, SIGNAL(pressed()), this, SLOT(ellipseButtonPressed()));
+
+    QPushButton *polygonButton = new QPushButton("Polygon");
+    polygonButton->setCheckable(true);
+    connect(polygonButton, SIGNAL(pressed()), this, SLOT(polygonButtonPressed()));
+
+    QPushButton *selectionButton = new QPushButton("Change to Selection Mode");
+    selectionButton->setCheckable(true);
+    connect(selectionButton, SIGNAL(pressed()), this, SLOT(changeToSelectionMode()));
+
+    QGroupBox *drawingMode = new QGroupBox(this);
+    QVBoxLayout *drawingModeLayout = new QVBoxLayout;
+    drawingMode->setLayout(drawingModeLayout);
+    drawingMode->setTitle("Drawing Mode");
+    drawingModeLayout->addWidget(rectangleButton);
+    drawingModeLayout->addWidget(ellipseButton);
+    drawingModeLayout->addWidget(polygonButton);
+    drawingModeLayout->addWidget(selectionButton);
+    drawingMode->setDisabled(true);
+
+
+    QPushButton *panButton = new QPushButton("Pan Mode");
+//    panButton->setCheckable(true);
+    connect(panButton, SIGNAL(pressed()), this, SLOT(panMode()));
 
     QPushButton *deleteButton = new QPushButton("Delete");
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteSelectedItem()));
 
     QPushButton *bringToFrontButton = new QPushButton("Bring to front");
-    connect(bringToFrontButton, SIGNAL(clicked()), this, SLOT(bringToFrontClicked));
+    connect(bringToFrontButton, SIGNAL(clicked()), this, SLOT(bringToFrontClicked()));
 
     QPushButton *sendToBackButton = new QPushButton("Send to back");
-    connect(sendToBackButton, SIGNAL(clicked()), this, SLOT(sendToBackClicked()));
+    connect(sendToBackButton, SIGNAL(toggled(bool)), this, SLOT(sendToBackClicked()));
 
+    QPushButton *includeButton = new QPushButton("Include area");
+//    includeButton->setCheckable(true);
+    connect(includeButton, SIGNAL(clicked()), this, SLOT(includeClicked()));
+
+    QPushButton *excludeButton = new QPushButton("Exclude area");
+//    excludeButton->setCheckable(true);
+    connect(excludeButton, SIGNAL(clicked()), this, SLOT(excludeClicked()));
+
+    QPushButton *drawingButton = new QPushButton("Change to Drawing Mode");
+    drawingButton->setCheckable(true);
+    connect(drawingButton, SIGNAL(pressed()), this, SLOT(changeToDrawingMode()));
+
+    QGroupBox *selectionMode = new QGroupBox(this);
+    QVBoxLayout *selectionModeBoxLayout = new QVBoxLayout;
+    selectionMode->setLayout(selectionModeBoxLayout);
+    selectionMode->setTitle("Selection Mode");
+    selectionModeBoxLayout->addWidget(includeButton);
+    selectionModeBoxLayout->addWidget(excludeButton);
+    selectionModeBoxLayout->addWidget(deleteButton);
+    selectionModeBoxLayout->addWidget(bringToFrontButton);
+    selectionModeBoxLayout->addWidget(sendToBackButton);
+    selectionModeBoxLayout->addWidget(panButton);
+    selectionModeBoxLayout->addWidget(drawingButton);
+
+    connect(selectionButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setDisabled(bool)));
+    connect(selectionButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setEnabled(bool)));
+
+    connect(drawingButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setDisabled(bool)));
+    connect(drawingButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setEnabled(bool)));
+
+    m_buttonGroup->addButton(rectangleButton);
+    m_buttonGroup->addButton(ellipseButton);
+    m_buttonGroup->addButton(polygonButton);
+//    m_buttonGroup->addButton(sendToBackButton);
+//    m_buttonGroup->addButton(panButton);
+//    m_buttonGroup->addButton(includeButton);
+//    m_buttonGroup->addButton(excludeButton);
+//    m_buttonGroup->addButton(deleteButton);
+//    m_buttonGroup->addButton(sendToBackButton);
+//    m_buttonGroup->addButton(bringToFrontButton);
+    m_buttonGroup->addButton(selectionButton);
+    m_buttonGroup->addButton(drawingButton);
 
     // create widget with buttons
     QWidget *buttons = new QWidget;
     QVBoxLayout *buttonLayout = new QVBoxLayout;
-    buttonLayout->addWidget(new QPushButton("Include"));
-    buttonLayout->addWidget(new QPushButton("Exclude"));
-    buttonLayout->addWidget(new QPushButton("Drawing Mode"));
-    buttonLayout->addWidget(m_rectangleButton);
-    buttonLayout->addWidget(m_ellipseButton);
-    buttonLayout->addWidget(m_polygonButton);
-    buttonLayout->addWidget(m_panButton);
-    buttonLayout->addWidget(deleteButton);
-    buttonLayout->addWidget(bringToFrontButton);
-    buttonLayout->addWidget(sendToBackButton);
+    buttonLayout->addWidget(drawingMode);
+    buttonLayout->addWidget(selectionMode);
+//    buttonLayout->addWidget(includeButton);
+//    buttonLayout->addWidget(excludeButton);
+//    buttonLayout->addWidget(rectangleButton);
+//    buttonLayout->addWidget(ellipseButton);
+//    buttonLayout->addWidget(polygonButton);
+//    buttonLayout->addWidget(panButton);
+//    buttonLayout->addWidget(deleteButton);
+//    buttonLayout->addWidget(bringToFrontButton);
+//    buttonLayout->addWidget(sendToBackButton);
+//    buttonLayout->addWidget(selectionButton);
     buttonLayout->addStretch(1);
     buttons->setLayout(buttonLayout);
+
 
     //add scene and buttons into widget
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -150,53 +201,22 @@ TestView::TestView(QWidget *parent)
 
 void TestView::rectangleButtonPressed()
 {
-    m_ellipseButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-    m_panButton->setChecked(false);
-
-    if(m_rectangleButton->isChecked()) {
-        m_scene->setDrawing(GraphicsScene::NONE);
-    }
-    else {
-        m_scene->setDrawing(GraphicsScene::RECTANGLE);
-    }
+    m_scene->setDrawing(GraphicsScene::RECTANGLE);
 }
 
 void TestView::ellipseButtonPressed()
 {
-    m_rectangleButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-    m_panButton->setChecked(false);
-
-    if(m_ellipseButton->isChecked()) {
-        m_scene->setDrawing(GraphicsScene::NONE);
-    }
-    else {
-        m_scene->setDrawing(GraphicsScene::ELLIPSE);
-    }
+    m_scene->setDrawing(GraphicsScene::ELLIPSE);
 }
 
 void TestView::polygonButtonPressed()
 {
-    m_rectangleButton->setChecked(false);
-    m_ellipseButton->setChecked(false);
-    m_panButton->setChecked(false);
-
-    if(m_polygonButton->isChecked()) {
-        m_scene->setDrawing(GraphicsScene::NONE);
-    }
-    else {
-        m_scene->setDrawing(GraphicsScene::POLYGON);
-    }
+    m_scene->setDrawing(GraphicsScene::POLYGON);
 }
 
 void TestView::panMode()
 {
-    m_rectangleButton->setChecked(false);
-    m_ellipseButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-
-    if(!m_panButton->isChecked()) {
+    if(dynamic_cast<QPushButton*> (this->sender())->isChecked()) {
         m_view->setDragMode(QGraphicsView::ScrollHandDrag);
         m_view->setInteractive(false);
     }
@@ -208,45 +228,70 @@ void TestView::panMode()
 
 void TestView::deleteSelectedItem()
 {
-    m_rectangleButton->setChecked(false);
-    m_ellipseButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-    m_panButton->setChecked(false);
-
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-     qDebug() << "TestView::deleteSelectedItem()-> " << selectedItems.length();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        delete selectedItems.at(i);
+        m_scene->removeItem(selectedItems[i]);
     }
 
 }
 
 void TestView::bringToFrontClicked()
 {
-    m_rectangleButton->setChecked(false);
-    m_ellipseButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-    m_panButton->setChecked(false);
-
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    qDebug() << "TestView::deleteSelectedItem()-> " << selectedItems.length();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        qDebug() << selectedItems[i]->zValue();
         selectedItems[i]->setZValue(selectedItems[i]->zValue()+1);
     }
 }
 
 void TestView::sendToBackClicked()
 {
-    m_rectangleButton->setChecked(false);
-    m_ellipseButton->setChecked(false);
-    m_polygonButton->setChecked(false);
-    m_panButton->setChecked(false);
-
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    qDebug() << "TestView::deleteSelectedItem()-> " << selectedItems.length();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        qDebug() << selectedItems[i]->zValue();
         selectedItems[i]->setZValue(selectedItems[i]->zValue()-1);
     }
 }
+
+void TestView::includeClicked()
+{
+    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
+    for(int i = 0; i < selectedItems.length(); ++i) {
+        if(Rectangle::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Rectangle * >(selectedItems[i])->setInclude();
+        }
+        else if(Ellipse::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setInclude();
+        }
+        else if(Polygon::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Polygon* >(selectedItems[i])->setInclude();
+        }
+    }
+}
+
+void TestView::excludeClicked()
+{
+    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
+    for(int i = 0; i < selectedItems.length(); ++i) {
+        if(Rectangle::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Rectangle * >(selectedItems[i])->setExclude();
+        }
+        else if(Ellipse::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setExclude();
+        }
+        else if(Polygon::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<Polygon* >(selectedItems[i])->setExclude();
+        }
+    }
+}
+
+void TestView::changeToSelectionMode()
+{
+    m_scene->setDrawing(GraphicsScene::NONE);
+}
+
+void TestView::changeToDrawingMode()
+{
+    m_view->setDragMode(QGraphicsView::NoDrag);
+    m_view->setInteractive(true);
+}
+
+

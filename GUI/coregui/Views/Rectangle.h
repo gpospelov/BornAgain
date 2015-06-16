@@ -41,14 +41,12 @@ public:
     //! @return degree of rotation
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
 
-    int type() const
-    {
-        return Type;
-    }
+    int type() const {return Type;}
 
     void setHeigth(qreal heigth);
     void setWidth(qreal width);
-    void setIncludeRectangle();
+    void setInclude();
+    void setExclude();
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);

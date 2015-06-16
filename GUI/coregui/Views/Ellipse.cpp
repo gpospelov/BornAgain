@@ -18,7 +18,17 @@ void Ellipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
 {
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
-    painter->drawEllipse(m_posX, m_posY, m_width, m_heigth);
+
+    if(m_color == INCLUDE) {
+        QBrush transRed(QColor(0xFF, 0, 0, 0x80));
+        painter->setBrush(transRed);
+        painter->drawEllipse(m_posX, m_posY, m_width, m_heigth);
+    }
+    else {
+        QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
+        painter->setBrush(transBlue);
+        painter->drawEllipse(m_posX, m_posY, m_width, m_heigth);
+    }
 
     // set values for corners
     m_topLeftCorner.setRect(m_posX - 5, m_posY - 5, 10, 10);
@@ -239,4 +249,16 @@ void Ellipse::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseDoubleClickEvent(event);
     }
+}
+
+void Ellipse::setInclude()
+{
+    m_color = INCLUDE;
+    update();
+}
+
+void Ellipse::setExclude()
+{
+    m_color = EXCLUDE;
+    update();
 }

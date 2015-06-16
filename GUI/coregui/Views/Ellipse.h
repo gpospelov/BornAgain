@@ -13,6 +13,8 @@ class Ellipse : public QGraphicsItem
 {
 
 public:
+    enum {Type = UserType + 2};
+    enum Color {INCLUDE, EXCLUDE};
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
     Ellipse(qreal posX, qreal poxY, qreal width, qreal heigth);
@@ -21,9 +23,12 @@ public:
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
     void calculateResize(QGraphicsSceneMouseEvent *event);
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
-
+    int type() const {return Type;}
     void setWidth(qreal width);
     void setHeigth(qreal heigth);
+
+    void setExclude();
+    void setInclude();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
@@ -42,5 +47,6 @@ private:
     bool m_resizeMode;
     bool m_rotationMode;
     Corner m_corner;
+    Color m_color;
 };
 #endif

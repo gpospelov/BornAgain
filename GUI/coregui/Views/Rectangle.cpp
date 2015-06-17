@@ -49,7 +49,7 @@ void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 
 QRectF Rectangle::boundingRect() const
 {
-    return QRectF(m_posX - 10, m_posY - 10, m_width + 50, m_heigth + 50);
+    return QRectF(m_posX - 10, m_posY - 10, m_width + 20, m_heigth + 20);
 }
 
 void Rectangle::checkResizeRules(QGraphicsSceneMouseEvent *event)

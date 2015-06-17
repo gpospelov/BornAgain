@@ -12,62 +12,42 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
-#include "DistributionEditor.h"
 #include <QWidget>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
+#include "DistributionEditor.h"
 #include <QGraphicsView>
 #include <QPainterPath>
 
 #ifndef TESTVIEW_H
 #define TESTVIEW_H
 
-//class ParameterizedItem;
-//class AwesomePropertyEditor;
-class GraphicsView;
-class GraphicsScene;
+class ParameterizedItem;
+class AwesomePropertyEditor;
 
 class TestView : public QWidget
 {
     Q_OBJECT
 public:
     TestView(QWidget *parent = 0);
-
-    // enum Activity {SELECT, CREATE_POLYGON, NONE}
-
     virtual ~TestView()
     {
     }
-private slots:
-    //! creates a rectangle on button press event
-    void rectangleButtonPressed();
-    //! creates a ellipse on button press event
-    void ellipseButtonPressed();
-    //! creates a polygon on button press event
-    void polygonButtonPressed();
-    //! switch on pan mode
-    void panMode();
-    //! delete selected item
-    void deleteSelectedItem();
-    //! bring current selected item to the top
-    void bringToFrontClicked();
-    //! send current selected item to the bottom
-    void sendToBackClicked();
-    //! create include item
-    void includeClicked();
-    //! create exclude item
-    void excludeClicked();
 
-    void changeToSelectionMode();
-    void changeToDrawingMode();
+    void setItem(ParameterizedItem *item);
+
+    void plotItem(ParameterizedItem *item);
+
+private slots:
+    //    void onPropertyChanged(const QString &property_name);
+    //    void onSubItemChanged(const QString &property_name);
+    //    void onSubItemPropertyChanged(const QString &property_group, const QString
+    //    &property_name);
+
 private:
-    GraphicsScene *m_scene;
-    GraphicsView *m_view;
-    QButtonGroup *m_buttonGroup;
+    AwesomePropertyEditor *m_propertyEditor;
+    ParameterizedItem *m_item;
 };
 
 #endif

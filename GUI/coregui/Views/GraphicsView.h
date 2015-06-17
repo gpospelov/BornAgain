@@ -26,6 +26,7 @@ protected:
 //    void drawForeground(QPainter *painter, const QRectF &);
     void wheelEvent(QWheelEvent* event);
     void zoom(qreal factor, QPointF centerPoint);
+    void resizeEvent(QResizeEvent *event);
 
 
 private:

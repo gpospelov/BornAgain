@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Polygon.h"
+#include "GraphicsProxyWidget.h"
 
 
 //GraphicsView::GraphicsView() : m_rectangle(0), m_ellipse(0), m_polygon(0), isFinished(true),
@@ -41,6 +42,7 @@
 //        event->accept();
 //        return;
 //    }
+
 //    QGraphicsView::mouseMoveEvent(event);
 
 //}
@@ -64,20 +66,46 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
 //    this->fitInView(this->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
 
 //    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    centerOn(mapToScene(event->pos()));
 
-    // Scale the view / do the zoom
-    double scaleFactor = 1.15;
+    // hold control button
+    if(event->modifiers().testFlag(Qt::ControlModifier)) {
+        centerOn(mapToScene(event->pos()));
 
-    if(event->delta() > 0) {
-        // Zoom in
-        this->scale(scaleFactor, scaleFactor);
+        // Scale the view / do the zoom
+        double scaleFactor = 1.15;
 
-    } else {
-        // Zooming out
-        this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        if(event->delta() > 0) {
+            // Zoom in
+            this->scale(scaleFactor, scaleFactor);
+
+        } else {
+            // Zooming out
+            this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        }
     }
-    //QGraphicsView::wheelEvent(event);
+    else if(this->scene()->items()[0]->boundingRect().contains(event->pos())) {
+        this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        QGraphicsView::wheelEvent(event);
+    }
+    else {
+        QGraphicsView::wheelEvent(event);
+    }
+}
+
+void GraphicsView::resizeEvent(QResizeEvent *event)
+{
+    if(this->scene()->items()[0]->type() == QGraphicsProxyWidget::Type) {
+        dynamic_cast<GraphicsProxyWidget*>(this->scene()->items()[0])->resize(this->viewport()->width(), this->viewport()->height());
+        this->setSceneRect(this->rect());
+    }
+
+//    this->scale(this->rect().width()/this->scene()->width(), this->rect().height()/this->scene()->height());
+/*    qreal width = this->sceneRect().width() * this->rect().width()/this->scene()->width();
+    qreal height =  this->sceneRect().height() * this->rect().height()/this->scene()->height();
+    this->scene()->sceneRect().setWidth(width);
+    this->scene()->sceneRect().setHeight(height)*/;
+    QGraphicsView::resizeEvent(event);
 }
 
 //void GraphicsView::drawForeground(QPainter* painter, const QRectF& /* rect */)

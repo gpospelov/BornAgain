@@ -88,7 +88,7 @@ void Polygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
 
 QRectF Polygon::boundingRect() const
 {
-    return QRectF(m_posX - 10, m_posY - 10, m_width + 50, m_heigth + 50);
+    return QRectF(m_posX - 10, m_posY - 10, m_width + 20, m_heigth + 20);
 }
 
 void Polygon::setWidth(qreal width)

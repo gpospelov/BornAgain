@@ -34,9 +34,9 @@ public:
     void setMouseIsOverFirstPoint(bool mouseIsOverFirstPoint);
     QRectF getFirstPoint() const;
     int type() const {return Type;}
-
     void setExclude();
     void setInclude();
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

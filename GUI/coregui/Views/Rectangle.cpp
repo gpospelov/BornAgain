@@ -7,8 +7,7 @@ Rectangle::Rectangle(qreal posX, qreal posY, qreal width, qreal heigth)
       m_topLeftCorner(QRectF (m_posX - 5, m_posY - 5, 10, 10)),
       m_bottomLeftCorner(QRectF (m_posX + m_width - 5, m_posY - 5, 10, 10)),
       m_topRightCorner(QRectF (m_posX + m_width - 5, m_posY - 5, 10, 10)),
-      m_bottomRightCorner(
-          QRectF (m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
+      m_bottomRightCorner(QRectF (m_posX + m_width - 5, m_posY + m_heigth - 5, 10, 10)),
       m_resizeMode(false), m_rotationMode(false)
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable);

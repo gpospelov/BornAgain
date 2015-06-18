@@ -35,7 +35,7 @@ public:
     virtual ISample *buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 
-    virtual void init(IComponentLocator */* locator */){}
+    virtual void init_from(IComponentLocator */* locator */){}
 
 protected:
 };

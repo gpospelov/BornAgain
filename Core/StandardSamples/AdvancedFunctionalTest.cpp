@@ -16,6 +16,7 @@
 #include "AdvancedFunctionalTest.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
+#include "Exceptions.h"
 
 AdvancedFunctionalTest::AdvancedFunctionalTest(const std::string &name, GISASSimulation *simulation, OutputData<double> *reference, double threshold)
     : m_name(name)
@@ -34,7 +35,9 @@ AdvancedFunctionalTest::~AdvancedFunctionalTest()
 
 void AdvancedFunctionalTest::runTest()
 {
-    assert(m_simulation);
+    if(!m_simulation) {
+        throw NullPointerException("AdvancedFunctionalTest::runTest() -> Error. Uninitialized simulation object.");
+    }
     m_simulation->runSimulation();
 }
 

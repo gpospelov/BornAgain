@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 
 set(list_of_tests
     "IsGISAXS01"
-    "CoreSuite"
+    "CoreSuite/isgisaxs01"
+    "CoreSuite/isgisaxs02"
 #    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
@@ -49,9 +50,40 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
+# ------------------------------------------------------------------------
+# Adding executables.
+# The list of unique executable names is extracted from the list of tests
+# ------------------------------------------------------------------------
 foreach(_test ${list_of_tests})
-   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
-   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+    string(REPLACE "/" ";"  test_info ${_test})
+    list(GET test_info 0 test_exe_name)
+    list(APPEND list_of_executables ${test_exe_name})
+endforeach()
+list(REMOVE_DUPLICATES list_of_executables)
+message(INFO "${list_of_executables}")
+
+foreach(test_exe_name ${list_of_executables})
+   BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
 endforeach()
 
+# ------------------------------------------------------------------------
+# Adding tests
+# ------------------------------------------------------------------------
+foreach(_test ${list_of_tests})
+    string(REPLACE "/" ";"  test_info ${_test})
+    list(LENGTH test_info len)
+    list(GET test_info 0 test_exe_name)
+    if(len EQUAL 2)
+        list(GET test_info 1 test_argument)
+    endif()
+
+    message(INFO " _test ${_test} test_exe_name ${test_exe_name} test_argument ${test_argument}")
+    BORNAGAIN_ADD_TEST2(${_test} ${test_exe_name} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+endforeach()
+
+
+#foreach(_test ${list_of_tests})
+#   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
+#   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+#endforeach()
 

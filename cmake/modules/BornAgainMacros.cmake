@@ -84,6 +84,22 @@ function(BORNAGAIN_ADD_TEST test)
     add_dependencies(check ${test})
 endfunction()
 
+# -----------------------------------------------------------------------------
+# advanced add cmake test which allows to pass separately:
+# test_name - the name of the test as appears on ctest summary table
+# text_exe  - actual executable name
+#
+# together with additional command line arguments for the test executable
+# INPUT_DIR - directory with reference files
+# INPUT_PAR - additional command line argument
+# -----------------------------------------------------------------------------
+function(BORNAGAIN_ADD_TEST2 test_name test_exe)
+    message(INFO " QQQQ ${test_name} ${test_exe}")
+    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_DIR" "" "" ${ARGN})
+    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_INPUT_DIR}") # TestName ExeName
+    add_dependencies(check ${test_exe})
+endfunction()
+
 
 function (get_filename_component)
   _get_filename_component (${ARGN})

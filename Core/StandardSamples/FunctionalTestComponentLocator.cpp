@@ -32,7 +32,7 @@ IFormFactor *FunctionalTestComponentLocator::getFormFactor()
 ISampleBuilder *FunctionalTestComponentLocator::getSampleBuilder()
 {
     if(m_sample_builder) {
-        m_sample_builder->init(this);
+        m_sample_builder->init_from(this);
     }
     return m_sample_builder;
 }

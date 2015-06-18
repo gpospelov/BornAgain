@@ -53,4 +53,19 @@ private:
     double m_threshold;
 };
 
+//! @class AdvancedFunctionalMultiTest
+//! @ingroup standard_samples
+//! @brief Functional multi test constructs the collection of standard functional tests using component service,
+//! runs them one-by-one, and then reports results in single table.
+
+class BA_CORE_API_ AdvancedFunctionalMultiTest : public IAdvancedFunctionalTest
+{
+public:
+    AdvancedFunctionalMultiTest();
+    void runTest();
+    int analyseResults();
+
+private:
+};
+
 #endif

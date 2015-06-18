@@ -11,13 +11,13 @@ AdvancedFunctionalTestInfo::AdvancedFunctionalTestInfo(const std::string &test_n
                                                        const std::string &test_description,
                                                        const std::string &simulation_name,
                                                        const std::string &sample_builder_name,
-                                                       const std::string &component_variator_name,
+                                                       const std::string &component_provider_name,
                                                        double threshold)
     : m_test_name(test_name)
     , m_test_description(test_description)
     , m_simulation_name(simulation_name)
     , m_sample_builder_name(sample_builder_name)
-    , m_component_variator_name(component_variator_name)
+    , m_component_provider_name(component_provider_name)
     , m_threshold(threshold)
 
 {
@@ -47,7 +47,7 @@ void AdvancedFunctionalTestRegistry::add(const std::string &test_name,
                                          const std::string &test_description,
                                          const std::string &simulation_name,
                                          const std::string &sample_builder_name,
-                                         const std::string &component_locator_name,
+                                         const std::string &component_provider_name,
                                          double m_threshold)
 {
     catalogue_t::iterator it = m_catalogue.find(test_name);
@@ -59,7 +59,7 @@ void AdvancedFunctionalTestRegistry::add(const std::string &test_name,
                                                         test_description,
                                                         simulation_name,
                                                         sample_builder_name,
-                                                        component_locator_name,
+                                                        component_provider_name,
                                                         m_threshold);
 }
 

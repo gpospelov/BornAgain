@@ -120,6 +120,10 @@ const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
 
+const ModelType RectangleType = "Rectangle";
+const ModelType EllipseType = "Ellipse";
+const ModelType PolygonType = "Polygon";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

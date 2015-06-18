@@ -6,10 +6,12 @@
 #include <QGraphicsView>
 #include <QPainterPath>
 
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef RECTANGLEVIEW_H
+#define RECTANGLEVIEW_H
 
-class Rectangle : public QGraphicsItem
+class RectangleItem;
+
+class RectangleView : public QGraphicsItem
 {
 
 public:
@@ -23,7 +25,7 @@ public:
     //! @param posY y position in scene
     //! @param width of rectangle
     //! @param heigth of rectangle
-    Rectangle(qreal posX, qreal poxY, qreal width, qreal heigth);
+    RectangleView(qreal posX, qreal poxY, qreal width, qreal heigth);
 
     //! bounding box of rectangle
     QRectF boundingRect() const;
@@ -43,8 +45,6 @@ public:
 
     int type() const {return Type;}
 
-    void setHeigth(qreal heigth);
-    void setWidth(qreal width);
     void setInclude();
     void setExclude();
 protected:
@@ -56,17 +56,13 @@ protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    qreal m_posX;                           //!< x position of rectangle
-    qreal m_posY;                           //!< y position of rectangle
-    qreal m_width;                          //!< width of rectangle
-    qreal m_heigth;                         //!< height of rectangle
-    QRectF m_topLeftCorner;                 //!< rectangle in the top left corner
-    QRectF m_bottomLeftCorner;              //!< rectangle in the bottom left corner
-    QRectF m_topRightCorner;                //!< rectangle in the top right corner
-    QRectF m_bottomRightCorner;             //!< rectangle in the bottom right corner
-    bool m_resizeMode;                      //!< activates resize mode
-    bool m_rotationMode;                    //!< activiates rotation mode
+    RectangleItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     Color m_color;                          //!< current color
+    QRectF getTopLeftCorner();
+    QRectF getTopRightCorner();
+    QRectF getBottomLeftCorner();
+    QRectF getBottomRightCorner();
 };
 #endif
+

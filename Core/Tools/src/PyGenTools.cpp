@@ -46,13 +46,14 @@ std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
-    if((input-floor(input)) == 0.0)
-    {
-        inter << input << ".0";
+    if (std::abs(input) < 1e-11) {
+        inter << "0.0";
+        return inter.str();
     }
-    else
+    inter << input;
+    if(inter.str().find('.') == std::string::npos)
     {
-        inter << input;
+        inter << ".0";
     }
     return inter.str();
 }
@@ -62,13 +63,10 @@ std::string PyGenTools::printDegrees(double input)
     std::ostringstream inter;
     inter << std::setprecision(11);
     double in_degrees = input*180.0/M_PI;
-    if((in_degrees - floor(in_degrees)) == 0.0)
+    inter << in_degrees;
+    if(inter.str().find('.') == std::string::npos)
     {
-        inter << in_degrees << ".0";
-    }
-    else
-    {
-        inter << in_degrees;
+        inter << ".0";
     }
     inter << "*degree";
     return inter.str();
@@ -103,7 +101,7 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     pythonFile << genPyScript(simulation);
     pythonFile.close();
 
-    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " PythonScript.py";
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
     if (std::remove("PythonScript.py") != 0) {

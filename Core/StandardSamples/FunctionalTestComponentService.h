@@ -17,6 +17,7 @@
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
 #include <vector>
+#include <string>
 class IComponentLocator;
 
 class FunctionalTestComponentService {

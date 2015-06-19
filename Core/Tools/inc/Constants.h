@@ -40,3 +40,5 @@ const std::string TruncatedSphereType = "TruncatedSphere";
 const std::string TruncatedSpheroidType = "TruncatedSpheroid";
 
 }
+
+#endif

@@ -18,14 +18,14 @@ public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
     enum {Type = UserType + 1};
-    enum Color {INCLUDE, EXCLUDE};
+//    enum Color {INCLUDE = 0, EXCLUDE = 1};
 
     //! create Rectangle
     //! @param posX x position in scene
     //! @param posY y position in scene
     //! @param width of rectangle
     //! @param heigth of rectangle
-    RectangleView(qreal posX, qreal poxY, qreal width, qreal heigth);
+    RectangleView();
 
     //! bounding box of rectangle
     QRectF boundingRect() const;
@@ -42,11 +42,15 @@ public:
     //! @param event mouse event to set new coordinates
     //! @return degree of rotation
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
-
     int type() const {return Type;}
-
     void setInclude();
     void setExclude();
+    QRectF getTopLeftCorner();
+    QRectF getTopRightCorner();
+    QRectF getBottomLeftCorner();
+    QRectF getBottomRightCorner();
+
+    void setItem(RectangleItem *item);
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -58,11 +62,6 @@ protected:
 private:
     RectangleItem *m_item;
     Corner m_corner;                        //!< enum with all corners
-    Color m_color;                          //!< current color
-    QRectF getTopLeftCorner();
-    QRectF getTopRightCorner();
-    QRectF getBottomLeftCorner();
-    QRectF getBottomRightCorner();
 };
 #endif
 

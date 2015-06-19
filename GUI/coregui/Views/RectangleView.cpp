@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-RectangleView::RectangleView(qreal posX, qreal posY, qreal width, qreal heigth)
+RectangleView::RectangleView()
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable);
     this->setFlag(QGraphicsItem::ItemIsMovable);
@@ -16,7 +16,7 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
-    if(m_color == INCLUDE) {
+    if(m_item->getColor() == 0) {
         QBrush transRed(QColor(0xFF, 0, 0, 0x80));
         painter->fillRect(m_item->getXPos(), m_item->getYPos(), m_item->getWidth(), m_item->getHeight(),transRed);
     }
@@ -88,25 +88,25 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
     checkResizeRules(event);
 
     if (m_corner == TOPLEFT) {
-        m_item->getWidth() = m_item->getXPos() + m_item->getWidth() - event->pos().x();
-        m_item->getHeight() = m_item->getYPos() + m_item->getHeight() - event->pos().y();
-        m_item->getXPos() = event->pos().x();
-        m_item->getYPos() = event->pos().y();
+        m_item->setWidth(m_item->getXPos() + m_item->getWidth() - event->pos().x());
+        m_item->setHeight(m_item->getYPos() + m_item->getHeight() - event->pos().y());
+        m_item->setXPos(event->pos().x());
+        m_item->setYPos(event->pos().y());
 
     } else if (m_corner == BOTTOMLEFT) {
-        m_item->getWidth() = m_item->getXPos() + m_item->getWidth() - event->pos().x();
-        m_item->getHeight() = event->pos().y() - m_item->getYPos();
-        m_item->getXPos() = event->pos().x();
+        m_item->setWidth(m_item->getXPos() + m_item->getWidth() - event->pos().x());
+        m_item->setHeight(event->pos().y() - m_item->getYPos());
+        m_item->setXPos(event->pos().x());
 
     } else if (m_corner == TOPRIGHT) {
-        m_item->getWidth() = event->pos().x() - m_item->getXPos();
-        m_item->getHeight() = m_item->getYPos() + m_item->getHeight() - event->pos().y();
-        m_item->getYPos() = event->pos().y();
+        m_item->setWidth(event->pos().x() - m_item->getXPos());
+        m_item->setHeight(m_item->getYPos() + m_item->getHeight() - event->pos().y());
+        m_item->setYPos(event->pos().y());
     }
 
     else if (m_corner == BOTTOMRIGHT) {
-        m_item->getWidth() = event->pos().x() - m_item->getXPos();
-        m_item->getHeight() = event->pos().y() - m_item->getYPos();
+        m_item->setWidth(event->pos().x() - m_item->getXPos());
+        m_item->setHeight(event->pos().y() - m_item->getYPos());
     }
 }
 
@@ -134,15 +134,15 @@ qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
     return 0;
 }
 
-void RectangleView::setWidth(qreal width)
-{
-    m_item->getWidth() = width;
-}
+//void RectangleView::setWidth(qreal width)
+//{
+//    m_item->setWidth(width);
+//}
 
-void RectangleView::setHeigth(qreal heigth)
-{
-    m_item->getHeight() = heigth;
-}
+//void RectangleView::setHeigth(qreal heigth)
+//{
+//    m_item->setHeight(heigth);
+//}
 
 void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -154,7 +154,7 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
         m_corner = TOPLEFT;
         setCursor(Qt::SizeFDiagCursor);
 
-    } else if (event->button() == Qt::LeftButton && getBottomLeftCorner.contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
         m_item->setResizeMode(true);
         m_corner = BOTTOMLEFT;
         setCursor(Qt::SizeBDiagCursor);
@@ -184,6 +184,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         calculateResize(event);
 
     } else if (m_corner != NONE && m_item->isRotationMode()) {
+        qDebug() << "void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event): RotationMode";
         QTransform transform;
         transform.translate(m_item->getXPos() + m_item->getWidth() * 0.5, m_item->getYPos() + m_item->getHeight() * 0.5);
         transform.rotate(calculateRotation(event));
@@ -211,18 +212,21 @@ void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     //activate rotation mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
+        m_item->setResizeMode(false);
         m_item->setRotationMode(true);
         m_corner = TOPLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
-    } else if (event->button() == Qt::LeftButton && getBottomLeftCorner.contains(event->pos())) {
+    } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
+        m_item->setResizeMode(false);
         m_item->setRotationMode(true);
         m_corner = BOTTOMLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
+        m_item->setResizeMode(false);
         m_item->setRotationMode(true);
         m_corner = TOPRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -230,6 +234,7 @@ void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 
     else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
+        m_item->setResizeMode(false);
         m_item->setRotationMode(true);
         m_corner = BOTTOMRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -244,19 +249,17 @@ void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void RectangleView::setInclude()
 {
-    m_color = INCLUDE;
-    update();
+    m_item->setColor(0);
 }
 
 void RectangleView::setExclude()
 {
-    m_color = EXCLUDE;
-    update();
+    m_item->setColor(1);
 }
 
 QRectF RectangleView::getTopLeftCorner()
 {
-    return QRectF(m_item->m_item->getXPos()- 5, m_item->getYPos() - 5, 10, 10);
+    return QRectF(m_item->getXPos()- 5, m_item->getYPos() - 5, 10, 10);
 }
 
 QRectF RectangleView::getTopRightCorner()
@@ -266,7 +269,7 @@ QRectF RectangleView::getTopRightCorner()
 
 QRectF RectangleView::getBottomLeftCorner()
 {
-    return QRectF(m_item->getXPos() + m_item->getWidth() - 5,  m_item->getYPos() - 5, 10, 10);
+    return QRectF(m_item->getXPos() - 5,  m_item->getYPos() + m_item->getHeight() - 5, 10, 10);
 }
 
 QRectF RectangleView::getBottomRightCorner()
@@ -274,7 +277,7 @@ QRectF RectangleView::getBottomRightCorner()
     return QRectF(m_item->getXPos() + m_item->getWidth() - 5,  m_item->getYPos() + m_item->getHeight() - 5, 10, 10);
 }
 
-void RectangleView::setItem(RectangleItem item)
+void RectangleView::setItem(RectangleItem *item)
 {
     m_item = item;
 }

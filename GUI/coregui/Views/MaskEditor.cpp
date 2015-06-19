@@ -27,6 +27,7 @@
 #include "GraphicsScene.h"
 #include "GraphicsView.h"
 #include "MaskEditor.h"
+#include "RectangleView.h"
 
 MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent), m_scene(new GraphicsScene), m_view(new GraphicsView)
@@ -235,7 +236,7 @@ void MaskEditor::includeClicked()
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
         if(Rectangle::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Rectangle * >(selectedItems[i])->setInclude();
+            qgraphicsitem_cast<RectangleView* >(selectedItems[i])->setInclude();
         }
         else if(Ellipse::Type == selectedItems[i]->type()) {
             qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setInclude();
@@ -251,7 +252,7 @@ void MaskEditor::excludeClicked()
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
         if(Rectangle::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Rectangle * >(selectedItems[i])->setExclude();
+            qgraphicsitem_cast<RectangleView * >(selectedItems[i])->setExclude();
         }
         else if(Ellipse::Type == selectedItems[i]->type()) {
             qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setExclude();

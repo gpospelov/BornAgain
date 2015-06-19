@@ -12,6 +12,8 @@
 class Rectangle;
 class Ellipse;
 class Polygon;
+class RectangleItem;
+class RectangleView;
 
 class GraphicsScene : public QGraphicsScene
 {
@@ -30,6 +32,8 @@ protected:
 private:
     Drawing m_drawing;
     Rectangle *m_rectangle;
+    RectangleItem *m_rectangleItem;
+    RectangleView *m_rectangleView;
     Ellipse *m_ellipse;
     Polygon *m_polygon;
     bool isFinished;

@@ -2,9 +2,11 @@
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Polygon.h"
+#include "RectangleItem.h"
+#include "RectangleView.h"
 
 GraphicsScene::GraphicsScene()
-    : m_rectangle(0), m_ellipse(0), m_polygon(0), isFinished(true),
+    : m_rectangleItem(0), m_ellipse(0), m_polygon(0), isFinished(true),
       m_currentMousePosition(QPointF(0, 0)), m_lastAddedPoint(QPointF(0, 0))
 {
     m_drawing = NONE;
@@ -19,8 +21,14 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 //    qDebug() << "GraphicsScene::mousePressEvent() ->" << m_drawing << m_rectangle;
     if (m_drawing == RECTANGLE) {
-        m_rectangle = new Rectangle(event->scenePos().x(), event->scenePos().y(), 0, 0);
-        addItem(m_rectangle);
+//        m_rectangle = new Rectangle(event->scenePos().x(), event->scenePos().y(), 0, 0);
+//        addItem(m_rectangle);
+        m_rectangleItem = new RectangleItem;
+        m_rectangleItem->setXPos(event->scenePos().x());
+        m_rectangleItem->setYPos(event->scenePos().y());
+        m_rectangleView = new RectangleView();
+        m_rectangleView ->setItem(m_rectangleItem);
+        addItem(m_rectangleView);
     } else if (m_drawing == ELLIPSE) {
         m_ellipse = new Ellipse(event->scenePos().x(), event->scenePos().y(), 0, 0);
         addItem(m_ellipse);
@@ -32,22 +40,20 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             m_lastAddedPoint = event->scenePos();
             isFinished = false;
         } else {
-            m_polygon->setDrawingMode(event->scenePos());
-            m_lastAddedPoint = event->scenePos();
+            m_polygon->setDrawingMode(event->scenePos());;
         }
         isFinished = !m_polygon->getDrawingMode();
     }
+    m_lastAddedPoint = event->scenePos();
     QGraphicsScene::mousePressEvent(event);
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 //    qDebug() << "GraphicsScene::mouseMoveEvent() ->" << m_drawing << m_rectangle;
-    if (m_drawing == RECTANGLE && m_rectangle) {
-        m_rectangle->boundingRect().setWidth(event->scenePos().x()
-                                             - m_rectangle->boundingRect().topLeft().x());
-        m_rectangle->setWidth(event->scenePos().x() - m_rectangle->boundingRect().topLeft().x());
-        m_rectangle->setHeigth(event->scenePos().y() - m_rectangle->boundingRect().topLeft().y());
+    if (m_drawing == RECTANGLE && m_rectangleItem) {
+        m_rectangleItem->setWidth(event->scenePos().x() - m_rectangleItem->getXPos());
+        m_rectangleItem->setHeight(event->scenePos().y() - m_rectangleItem->getYPos());
     } else if (m_drawing == ELLIPSE && m_ellipse) {
         m_ellipse->setWidth(event->scenePos().x() - m_ellipse->boundingRect().topLeft().x());
         m_ellipse->setHeigth(event->scenePos().y() - m_ellipse->boundingRect().topLeft().y());
@@ -67,7 +73,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 //    qDebug() << "GraphicsScene::mouseReleaseEvent() ->" << m_drawing << m_rectangle;
-    m_rectangle = 0;
+    m_rectangleItem = 0;
     m_ellipse = 0;
     QGraphicsScene::mouseReleaseEvent(event);
 }

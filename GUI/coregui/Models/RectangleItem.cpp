@@ -4,13 +4,9 @@ const QString RectangleItem::P_POSX = "X position";
 const QString RectangleItem::P_POSY = "y positon";
 const QString RectangleItem::P_WIDTH = "Width";
 const QString RectangleItem::P_HEIGHT = "Height";
-//const QString RectangleItem::P_TOPLEFTCORNER = "Top left corner";
-//const QString RectangleItem::P_TOPRIGHTCORNER = "Top right corner";
-//const QString RectangleItem::P_BOTTOMLEFTCORNER = "Bottom left corner";
-//const QString RectangleItem::P_BOTTOMRIGHTCORNER  = "Bottom right corner";
 const QString RectangleItem::P_RESIZEMODE  = "Resize Mode";
 const QString RectangleItem::P_ROTATIONMODE  = "Rotation Mode";
-//const QString RectangleItem::P_COLOR = "Color";
+const QString RectangleItem::P_COLOR = "Color";
 
 RectangleItem::RectangleItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::RectangleType, parent)
@@ -22,7 +18,7 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
     registerProperty(P_HEIGHT, 0.0);
     registerProperty(P_RESIZEMODE, false);
     registerProperty(P_ROTATIONMODE, false);
-//    registerProperty(P_COLOR, 0);
+    registerProperty(P_COLOR, 0);
 }
 
 qreal RectangleItem::getXPos()
@@ -52,7 +48,7 @@ bool RectangleItem::isResizeMode()
 
 bool RectangleItem::isRotationMode()
 {
-    return getRegisteredProperty(P_RESIZEMODE).toBool();
+    return getRegisteredProperty(P_ROTATIONMODE).toBool();
 }
 
 void RectangleItem::setXPos(qreal xPos)
@@ -85,7 +81,12 @@ void RectangleItem::setRotationMode(bool rotationMode)
     setRegisteredProperty(P_ROTATIONMODE, rotationMode);
 }
 
-//void RectangleItem::setColor(RectangleView::Color color)
-//{
-//    setRegisteredProperty(P_COLOR, color);
-//}
+void RectangleItem::setColor(int color)
+{
+    setRegisteredProperty(P_COLOR, color);
+}
+
+int RectangleItem::getColor()
+{
+    return getRegisteredProperty(P_COLOR).toInt();
+}

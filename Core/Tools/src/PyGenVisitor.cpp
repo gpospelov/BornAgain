@@ -604,13 +604,9 @@ std::string PyGenVisitor::defineCoreShellParticles() const
 
     while (it != m_label->getParticleCoreShellMap()->end()) {
         const ParticleCoreShell* p_coreshell = it->first;
-        kvector_t position = p_coreshell->getRelativeCorePosition();
-        result << indent() << it->second << "_relPosition = kvector_t(" << position.x()
-               << "*nanometer, " << position.y() << "*nanometer, " << position.z() << "*nanometer)";
         result << "\n" << indent() << it->second << " = ParticleCoreShell("
                << m_label->getLabel(p_coreshell->getShellParticle()) << ", "
-               << m_label->getLabel(p_coreshell->getCoreParticle()) << ", " << it->second
-               << "_relPosition)\n";
+               << m_label->getLabel(p_coreshell->getCoreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);

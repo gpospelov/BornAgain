@@ -127,12 +127,7 @@ void SamplePrintVisitor::visit(const MesoCrystal *sample)
 
 void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
 {
-    //print_default(sample);
-    kvector_t pos = sample->getRelativeCorePosition();
-    std::cout << get_indent() << sample->getName() << " core_pos:("
-              << pos[0] << ","
-              << pos[1] << ","
-              << pos[2] << ")" << std::endl;
+    print_default(sample);
 }
 
 

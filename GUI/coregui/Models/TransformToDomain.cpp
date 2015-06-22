@@ -359,14 +359,8 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
     const Particle &core, const Particle &shell, double &abundance)
 {
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    ParameterizedItem *vectorItem = item.getSubItems()[ParticleCoreShellItem::P_CORE_POS];
-    Q_ASSERT(vectorItem);
 
-    kvector_t pos;
-    pos.setX(vectorItem->getRegisteredProperty(VectorItem::P_X).toDouble());
-    pos.setY(vectorItem->getRegisteredProperty(VectorItem::P_Y).toDouble());
-    pos.setZ(vectorItem->getRegisteredProperty(VectorItem::P_Z).toDouble());
-    ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
+    ParticleCoreShell *result = new ParticleCoreShell(shell, core);
     result->setName(item.itemName().toStdString());
     return result;
 }

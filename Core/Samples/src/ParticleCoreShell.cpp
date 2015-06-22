@@ -23,17 +23,13 @@ ParticleCoreShell::ParticleCoreShell(const Particle& shell,
         const Particle& core, kvector_t relative_core_position)
     : mp_shell(0)
     , mp_core(0)
-    , m_relative_core_position(relative_core_position)
 {
     setName("ParticleCoreShell");
     registerParameter("position_x", &m_position[0]);
     registerParameter("position_y", &m_position[1]);
     registerParameter("position_z", &m_position[2]);
-    addAndRegisterCore(core);
+    addAndRegisterCore(core, relative_core_position);
     addAndRegisterShell(shell);
-    registerParameter("rel_position_x", &m_relative_core_position[0]);
-    registerParameter("rel_position_y", &m_relative_core_position[1]);
-    registerParameter("rel_position_z", &m_relative_core_position[2]);
 }
 
 ParticleCoreShell::~ParticleCoreShell()
@@ -44,8 +40,7 @@ ParticleCoreShell::~ParticleCoreShell()
 
 ParticleCoreShell *ParticleCoreShell::clone() const
 {
-    ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core,
-            m_relative_core_position);
+    ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
     p_new->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get()) {
         p_new->mP_rotation.reset(mP_rotation->clone());
@@ -56,7 +51,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
 
 ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 {
-    ParticleCoreShell *p_new = new ParticleCoreShell(m_relative_core_position);
+    ParticleCoreShell *p_new = new ParticleCoreShell();
     p_new->mp_shell = this->mp_shell->cloneInvertB();
     p_new->mp_core = this->mp_core->cloneInvertB();
     p_new->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
@@ -94,7 +89,6 @@ IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector
     // core form factor
     boost::scoped_ptr<Particle> P_core_clone(mp_core->clone());
     P_core_clone->setAmbientMaterial(*mp_shell->getMaterial());
-    P_core_clone->applyTranslation(m_relative_core_position);
     boost::scoped_ptr<IFormFactor> P_ff_core(
                 P_core_clone->createTransformedFormFactor(wavevector_scattering_factor,
                                P_total_rotation.get(), total_position) );
@@ -103,13 +97,14 @@ IFormFactor *ParticleCoreShell::createTransformedFormFactor(complex_t wavevector
     return p_result;
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle &core)
+void ParticleCoreShell::addAndRegisterCore(const Particle &core, kvector_t relative_core_position)
 {
     if(mp_core) {
         deregisterChild(mp_core);
         delete mp_core;
     }
     mp_core = core.clone();
+    mp_core->applyTranslation(relative_core_position);
     registerChild(mp_core);
 }
 
@@ -124,9 +119,8 @@ void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
     registerChild(mp_shell);
 }
 
-ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
+ParticleCoreShell::ParticleCoreShell()
 : mp_shell(0)
 , mp_core(0)
-, m_relative_core_position(relative_core_position)
 {
 }

@@ -18,8 +18,6 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
-
 
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
@@ -29,8 +27,6 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
-
-    registerGroupProperty(P_CORE_POS, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1);

@@ -272,14 +272,6 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     buildPositionInfo(coreshellItem, sample);
 
     coreshellItem->setItemName(sample->getName().c_str());
-    kvector_t pos = sample->getRelativeCorePosition();
-
-    ParameterizedItem *vectorItem =
-            coreshellItem->getSubItems()[ParticleCoreShellItem::P_CORE_POS];
-
-    vectorItem->setRegisteredProperty(VectorItem::P_X, pos.x());
-    vectorItem->setRegisteredProperty(VectorItem::P_Y, pos.y());
-    vectorItem->setRegisteredProperty(VectorItem::P_Z, pos.z());
 
     m_levelToParentItem[getLevel()] = coreshellItem;
     m_itemToSample[coreshellItem] = sample;

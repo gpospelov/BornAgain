@@ -26,7 +26,7 @@ class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
-            kvector_t relative_core_position);
+            kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
 
@@ -52,16 +52,13 @@ public:
     //! Returns the shell particle
     const Particle *getShellParticle() const { return mp_shell; }
 
-    kvector_t getRelativeCorePosition() const { return m_relative_core_position; }
-
 protected:
-    void addAndRegisterCore(const Particle &core);
+    void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
     void addAndRegisterShell(const Particle &shell);
 
-    ParticleCoreShell(kvector_t relative_core_position);
+    ParticleCoreShell();
     Particle *mp_shell;
     Particle *mp_core;
-    kvector_t m_relative_core_position;
 };
 
 #endif // PARTICLECORESHELL_H

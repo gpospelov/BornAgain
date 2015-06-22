@@ -16,24 +16,51 @@
 #ifndef FUNCTIONALTESTCOMPONENTSERVICE_H
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
+#include "IComponentService.h"
+#include "ISampleBuilder.h"
+#include "AdvancedFunctionalTestRegistry.h"
 #include <vector>
 #include <string>
-class IComponentLocator;
 
-class FunctionalTestComponentService {
+class IFormFactor;
+class GISASSimulation;
+class TestFormFactorsRegistry;
+
+
+class FunctionalTestComponentService : public IComponentService
+{
 public:
-    typedef std::vector<IComponentLocator *> components_t;
-    typedef std::vector<IComponentLocator *>::iterator iterator;
 
-    FunctionalTestComponentService(const std::string &simulation_name,
-                                   const std::string &sample_builder_name,
-                                   const std::string &factory_name);
+    FunctionalTestComponentService(const AdvancedFunctionalTestInfo &info);
 
-    iterator begin() { return m_components.begin(); }
-    iterator end() { return m_components.end(); }
+    ~FunctionalTestComponentService();
+
+    IFormFactor *getFormFactor();
+    GISASSimulation *getSimulation();
+    OutputData<double> *getReferenceData();
+    SampleBuilder_t getSampleBuilder();
+
+    size_t getNumberOfComponents() const { return m_number_of_components; }
+
+    void setComponent(size_t current_component);
+
+    std::string getReferenceFileName();
+
+    double getThreshold() const;
+
+    AdvancedFunctionalTestInfo getTestInfo() const;
 
 private:
-    components_t m_components;
+    void init_registry(const std::string &registry_name);
+
+    AdvancedFunctionalTestInfo m_testInfo;
+    IFormFactor *m_form_factor;
+    GISASSimulation *m_simulation;
+    SampleBuilder_t m_sample_builder;
+    TestFormFactorsRegistry *m_ff_registry;
+    std::vector<std::string> m_component_names;
+    size_t m_current_component;
+    size_t m_number_of_components;
 };
 
 

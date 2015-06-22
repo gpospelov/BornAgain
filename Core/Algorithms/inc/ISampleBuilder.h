@@ -19,7 +19,7 @@
 #include "ISample.h"
 #include <boost/shared_ptr.hpp>
 
-class IComponentLocator;
+class IComponentService;
 
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
@@ -35,7 +35,7 @@ public:
     virtual ISample *buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 
-    virtual void init_from(IComponentLocator */* locator */){}
+    virtual void init_from(IComponentService */* locator */){}
 
 protected:
 };

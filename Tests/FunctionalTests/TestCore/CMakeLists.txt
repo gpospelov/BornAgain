@@ -5,9 +5,8 @@
 set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 
 set(list_of_tests
-    "IsGISAXS01"
-    "CoreSuite/isgisaxs01"
-    "CoreSuite/isgisaxs02"
+    "CoreSuite/FormFactors"
+#    "IsGISAXS01"
 #    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
@@ -78,7 +77,9 @@ foreach(_test ${list_of_tests})
     endif()
 
     message(INFO " _test ${_test} test_exe_name ${test_exe_name} test_argument ${test_argument}")
-    BORNAGAIN_ADD_TEST2(${_test} ${test_exe_name} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+    set(test_input_args "${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/")
+
+    BORNAGAIN_ADD_TEST2(${_test} ${test_exe_name} INPUT_ARGS ${test_input_args})
 endforeach()
 
 

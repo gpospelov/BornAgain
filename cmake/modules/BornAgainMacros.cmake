@@ -95,8 +95,8 @@ endfunction()
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST2 test_name test_exe)
     message(INFO " QQQQ ${test_name} ${test_exe}")
-    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_DIR" "" "" ${ARGN})
-    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_INPUT_DIR}") # TestName ExeName
+    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_ARG" "" "" ${ARGN})
+    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_INPUT_ARGS}) # TestName ExeName
     add_dependencies(check ${test_exe})
 endfunction()
 

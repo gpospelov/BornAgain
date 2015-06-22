@@ -30,14 +30,14 @@ public:
                                const std::string &test_description,
                                const std::string &simulation_name,
                                const std::string &sample_builder_name,
-                               const std::string &component_provider_name,
+                               const std::string &component_registry_name,
                                double m_threshold);
 
     std::string m_test_name;
     std::string m_test_description;
     std::string m_simulation_name;
     std::string m_sample_builder_name;
-    std::string m_component_provider_name;
+    std::string m_component_registry_name;
     double m_threshold;
 };
 
@@ -58,8 +58,8 @@ public:
              const std::string &test_description,
              const std::string &simulation_name,
              const std::string &sample_builder_name,
-             const std::string &component_provider_name,
-             double m_threshold);
+             const std::string &component_registry_name,
+             double threshold);
 
     AdvancedFunctionalTestInfo getTestInfo(const std::string &test_name);
 

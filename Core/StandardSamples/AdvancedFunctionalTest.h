@@ -58,14 +58,21 @@ private:
 //! @brief Functional multi test constructs the collection of standard functional tests using component service,
 //! runs them one-by-one, and then reports results in single table.
 
+class FunctionalTestComponentService;
+
 class BA_CORE_API_ AdvancedFunctionalMultiTest : public IAdvancedFunctionalTest
 {
 public:
-    AdvancedFunctionalMultiTest();
+    AdvancedFunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service);
+    ~AdvancedFunctionalMultiTest();
+
     void runTest();
     int analyseResults();
 
 private:
+    std::string m_name;
+    FunctionalTestComponentService *m_componentService;
+    std::vector<IAdvancedFunctionalTest *> m_tests;
 };
 
 #endif

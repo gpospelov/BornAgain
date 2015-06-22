@@ -11,13 +11,13 @@ AdvancedFunctionalTestInfo::AdvancedFunctionalTestInfo(const std::string &test_n
                                                        const std::string &test_description,
                                                        const std::string &simulation_name,
                                                        const std::string &sample_builder_name,
-                                                       const std::string &component_provider_name,
+                                                       const std::string &component_registry_name,
                                                        double threshold)
     : m_test_name(test_name)
     , m_test_description(test_description)
     , m_simulation_name(simulation_name)
     , m_sample_builder_name(sample_builder_name)
-    , m_component_provider_name(component_provider_name)
+    , m_component_registry_name(component_registry_name)
     , m_threshold(threshold)
 
 {
@@ -26,20 +26,20 @@ AdvancedFunctionalTestInfo::AdvancedFunctionalTestInfo(const std::string &test_n
 AdvancedFunctionalTestRegistry::AdvancedFunctionalTestRegistry()
 {
 
-    add("isgisaxs01",
+    add("FormFactors",
         "Mixture of cylinders and prisms without interference",
-        "BasicGISAS",
         "isgisaxs01",
-        "DefaultVariator",
+        "isgisaxs01",
+        "FormFactorsRegistry",
         2e-10);
 
-//    add("MyFirstTest",
-//        "Some description",
+//    add("FormFactors",
+//        "Mixture of cylinders and prisms without interference",
 //        "BasicGISAS",
 //        "ParticleInTheAirBuilder",
-//        "DefaultVariator",
-//        1e-12
-//    );
+//        "FormFactorsRegistry",
+//        2e-10);
+
 
 }
 
@@ -47,8 +47,8 @@ void AdvancedFunctionalTestRegistry::add(const std::string &test_name,
                                          const std::string &test_description,
                                          const std::string &simulation_name,
                                          const std::string &sample_builder_name,
-                                         const std::string &component_provider_name,
-                                         double m_threshold)
+                                         const std::string &component_registry_name,
+                                         double threshold)
 {
     catalogue_t::iterator it = m_catalogue.find(test_name);
     if( it != m_catalogue.end() ) {
@@ -59,8 +59,8 @@ void AdvancedFunctionalTestRegistry::add(const std::string &test_name,
                                                         test_description,
                                                         simulation_name,
                                                         sample_builder_name,
-                                                        component_provider_name,
-                                                        m_threshold);
+                                                        component_registry_name,
+                                                        threshold);
 }
 
 AdvancedFunctionalTestInfo AdvancedFunctionalTestRegistry::getTestInfo(const std::string &test_name)

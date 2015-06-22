@@ -23,9 +23,9 @@ class BA_CORE_API_ ParticleItem : public ParameterizedGraphicsItem
     Q_OBJECT
 public:
     static const QString P_FORM_FACTOR;
-    static const QString P_DEPTH;
     static const QString P_ABUNDANCE;
     static const QString P_MATERIAL;
+    static const QString P_POSITION;
     explicit ParticleItem(ParameterizedItem *parent=0);
     ~ParticleItem(){}
 };

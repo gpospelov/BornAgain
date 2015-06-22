@@ -24,6 +24,7 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);

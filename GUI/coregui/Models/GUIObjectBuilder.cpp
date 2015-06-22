@@ -232,7 +232,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
           "(const Particle *sample) -> Logic error.");
     }
 
-    buildTransformationInfo(particleItem, sample);
+    buildPositionInfo(particleItem, sample);
 
     particleItem->setItemName(sample->getName().c_str());
     particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL,
@@ -251,7 +251,7 @@ void GUIObjectBuilder::visit(const ParticleDistribution *sample)
             m_sampleModel->insertNewItem(Constants::ParticleDistributionType,
                                         m_sampleModel->indexOfItem(layoutItem));
     Q_ASSERT(item);
-    buildTransformationInfo(item, sample);
+    buildPositionInfo(item, sample);
 
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -269,7 +269,7 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     ParameterizedItem *coreshellItem =
             m_sampleModel->insertNewItem(Constants::ParticleCoreShellType,
                                          m_sampleModel->indexOfItem(parent));
-    buildTransformationInfo(coreshellItem, sample);
+    buildPositionInfo(coreshellItem, sample);
 
     coreshellItem->setItemName(sample->getName().c_str());
     kvector_t pos = sample->getRelativeCorePosition();
@@ -294,7 +294,7 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
                                          Constants::ParticleCompositionType,
                                          m_sampleModel->indexOfItem(parent));
-    buildTransformationInfo(particle_composition_item, sample);
+    buildPositionInfo(particle_composition_item, sample);
 
     particle_composition_item->setItemName(sample->getName().c_str());
     m_levelToParentItem[getLevel()] = particle_composition_item;
@@ -601,7 +601,8 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE,
@@ -613,14 +614,15 @@ void GUIObjectBuilder::visit(const RotationY *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationY *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
-                TransformationItem::P_ROT, Constants::YRotationType);
+        TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE,
-                                          Units::rad2deg(sample->getAngle()) );
+                                          Units::rad2deg(sample->getAngle()));
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -631,7 +633,8 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE,
@@ -646,7 +649,8 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA,
@@ -658,27 +662,14 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
-void GUIObjectBuilder::buildTransformationInfo(ParameterizedItem *particleItem,
+void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem,
                                                const IParticle *sample)
 {
     kvector_t position = sample->getPosition();
-    bool has_position_info = (position != kvector_t());
-    const IRotation *p_rotation = sample->getRotation();
-    if (has_position_info || p_rotation) {
-        ParameterizedItem *transformation_item =
-                m_sampleModel->insertNewItem(Constants::TransformationType,
-                                             m_sampleModel->indexOfItem(particleItem));
-        if (has_position_info) {
-            ParameterizedItem *p_position_item =
-                    transformation_item->getSubItems()[TransformationItem::P_POS];
-            p_position_item->setRegisteredProperty(VectorItem::P_X,
-                                                   sample->getPosition().x());
-            p_position_item->setRegisteredProperty(VectorItem::P_Y,
-                                                   sample->getPosition().y());
-            p_position_item->setRegisteredProperty(VectorItem::P_Z,
-                                                   sample->getPosition().z());
-        }
-    }
+    ParameterizedItem *p_position_item = particleItem->getSubItems()[ParticleItem::P_POSITION];
+    p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
+    p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
+    p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     if(parent->modelType() == Constants::ParticleLayoutType) {

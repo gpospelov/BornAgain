@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString TransformationItem::P_POS = "Position";
 const QString TransformationItem::P_ROT = "Rotation";
 
 
@@ -28,7 +27,5 @@ TransformationItem::TransformationItem(ParameterizedItem *parent)
     setItemName(Constants::TransformationType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
-    registerGroupProperty(P_POS, Constants::VectorType);
     registerGroupProperty(P_ROT, Constants::RotationGroup );
 }
-

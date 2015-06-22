@@ -662,7 +662,7 @@ void GUIObjectBuilder::buildTransformationInfo(ParameterizedItem *particleItem,
                                                const IParticle *sample)
 {
     kvector_t position = sample->getPosition();
-    bool has_position_info = (position.x()!=0.0 || position.y()!=0.0);
+    bool has_position_info = (position != kvector_t());
     const IRotation *p_rotation = sample->getRotation();
     if (has_position_info || p_rotation) {
         ParameterizedItem *transformation_item =
@@ -678,11 +678,6 @@ void GUIObjectBuilder::buildTransformationInfo(ParameterizedItem *particleItem,
             p_position_item->setRegisteredProperty(VectorItem::P_Z,
                                                    sample->getPosition().z());
         }
-    }
-    if (has_position_info) {
-        particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
-    } else {
-        particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, sample->getDepth());
     }
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);

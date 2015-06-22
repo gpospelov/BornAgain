@@ -174,8 +174,8 @@ void DomainObjectBuilder::setTransformationInfo(IParticle *result, double &depth
             double pos_x = pos_item->getRegisteredProperty(VectorItem::P_X).toDouble();
             double pos_y = pos_item->getRegisteredProperty(VectorItem::P_Y).toDouble();
             double pos_z = pos_item->getRegisteredProperty(VectorItem::P_Z).toDouble();
-            if (pos_x != 0.0 || pos_y != 0.0) {
-                kvector_t position(pos_x, pos_y, pos_z - depth);
+            if (pos_x != 0.0 || pos_y != 0.0 || pos_z != 0.0) {
+                kvector_t position(pos_x, pos_y, pos_z);
                 result->setPosition(position);
                 depth = 0.0;
             }

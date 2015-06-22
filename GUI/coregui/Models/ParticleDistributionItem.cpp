@@ -34,8 +34,6 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemName(Constants::ParticleDistributionType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
 

@@ -73,10 +73,22 @@ public:
         return -m_position.z();
     }
 
-    //! Sets particle position, including depth.
+    //! Sets particle position.
     void setPosition(kvector_t position)
     {
         m_position = position;
+    }
+
+    //! Sets particle position.
+    void setPosition(double x, double y, double z)
+    {
+        m_position = kvector_t(x, y, z);
+    }
+
+    //! Sets the particle depth.
+    void setDepth(double depth)
+    {
+        m_position.setZ(-depth);
     }
 
     //! Returns rotation object

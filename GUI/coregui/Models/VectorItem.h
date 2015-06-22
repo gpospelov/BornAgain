@@ -31,7 +31,5 @@ public:
     QString getItemLabel() const;
 };
 
-
-
 #endif
 

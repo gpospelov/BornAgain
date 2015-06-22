@@ -46,12 +46,12 @@ std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
-    if (std::abs(input) < 1e-11) {
+    if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
         inter << "0.0";
         return inter.str();
     }
     inter << input;
-    if(inter.str().find('.') == std::string::npos)
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
     {
         inter << ".0";
     }
@@ -64,7 +64,7 @@ std::string PyGenTools::printDegrees(double input)
     inter << std::setprecision(11);
     double in_degrees = input*180.0/M_PI;
     inter << in_degrees;
-    if(inter.str().find('.') == std::string::npos)
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
     {
         inter << ".0";
     }

@@ -26,8 +26,6 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 {
     setItemName(Constants::ParticleCoreShellType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
 
@@ -42,6 +40,4 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     ParameterizedItem::insertChildItem(row, item);
     item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
-    item->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
-    item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DISABLED);
 }

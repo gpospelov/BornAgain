@@ -380,6 +380,17 @@ void register_IParticle_class(){
                 , ( bp::arg("material") ) );
         
         }
+        { //::IParticle::setDepth
+        
+            typedef void ( ::IParticle::*setDepth_function_type)( double ) ;
+            
+            IParticle_exposer.def( 
+                "setDepth"
+                , setDepth_function_type( &::IParticle::setDepth )
+                , ( bp::arg("depth") )
+                , "Sets the particle depth." );
+        
+        }
         { //::IParticle::setPosition
         
             typedef void ( ::IParticle::*setPosition_function_type)( ::kvector_t ) ;
@@ -388,7 +399,18 @@ void register_IParticle_class(){
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
                 , ( bp::arg("position") )
-                , "Sets particle position, including depth." );
+                , "Sets particle position." );
+        
+        }
+        { //::IParticle::setPosition
+        
+            typedef void ( ::IParticle::*setPosition_function_type)( double,double,double ) ;
+            
+            IParticle_exposer.def( 
+                "setPosition"
+                , setPosition_function_type( &::IParticle::setPosition )
+                , ( bp::arg("x"), bp::arg("y"), bp::arg("z") )
+                , "Sets particle position." );
         
         }
         { //::IParticle::setRotation

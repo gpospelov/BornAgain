@@ -1419,7 +1419,9 @@ void PyGenVisitor::setPositionInformation(const IParticle *p_particle, std::stri
                                           std::ostringstream &result) const
 {
     kvector_t pos = p_particle->getPosition();
-    if (pos.x() != 0.0 || pos.y() != 0.0) {
+    bool has_position_info = (pos != kvector_t());
+
+    if (has_position_info) {
         result << indent() << name
                << "_position = kvector_t(" << pos.x() << "*nanometer, " << pos.y()
                << "*nanometer, " << pos.z() << "*nanometer)\n";

@@ -111,7 +111,7 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
 {
     boost::scoped_ptr<IMaterial> P_material(createDomainMaterial(item));
     Particle *result = new Particle(*P_material);
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    depth = 0.0;
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     result->setName(item.itemName().toStdString());
 
@@ -360,7 +360,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item,
     const Particle &core, const Particle &shell, double &depth, double &abundance)
 {
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    depth = 0.0;
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     ParameterizedItem *vectorItem = item.getSubItems()[ParticleCoreShellItem::P_CORE_POS];
     Q_ASSERT(vectorItem);
@@ -378,7 +378,7 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
 ParticleComposition *TransformToDomain::createParticleComposition(const ParameterizedItem &item,
     double &depth, double &abundance)
 {
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    depth = 0.0;
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     ParticleComposition *result = new ParticleComposition();
     return result;

@@ -63,8 +63,8 @@ ISample *IsGISAXS01Builder::buildSample() const
     FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
     Particle prism3(particle_material, ff_prism3);
 
-    particle_layout.addParticle(cylinder, 0.0, m_cylinder_weight);
-    particle_layout.addParticle(prism3, 0.0, 1.0-m_cylinder_weight);
+    particle_layout.addParticle(cylinder, m_cylinder_weight);
+    particle_layout.addParticle(prism3, 1.0-m_cylinder_weight);
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

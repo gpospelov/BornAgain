@@ -55,8 +55,8 @@ ISample *SampleBuilder::buildSample() const
 
     Particle particle_cyl(particle_material, ff_cylinder);
     Particle particle_prism3(particle_material, ff_prism3);
-    particle_layout.addParticle(particle_cyl, 0.0, m_cylinder_ratio);
-    particle_layout.addParticle(particle_prism3, 0.0, 1.0 - m_cylinder_ratio);
+    particle_layout.addParticle(particle_cyl, m_cylinder_ratio);
+    particle_layout.addParticle(particle_prism3, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

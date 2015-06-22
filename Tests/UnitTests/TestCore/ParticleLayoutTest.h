@@ -27,7 +27,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
     Particle particle;
 
-    ParticleLayout particleDecoration(particle, 1.0, 2.0);
+    ParticleLayout particleDecoration(particle, 2.0);
 
     EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -47,7 +47,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
     Particle particle;
 
-    ParticleLayout particleDecoration(particle, 3.0, -2.0);
+    ParticleLayout particleDecoration(particle, -2.0);
 
     EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -65,12 +65,12 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
     ParticleLayout particleDecoration;
 
     Particle particle;
-    particleDecoration.addParticle(particle, 0.1, -2.0);
+    particleDecoration.addParticle(particle, -2.0);
 
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
 
     Particle particle2;
-    particleDecoration.addParticle(particle2, 5.0,0.1);
+    particleDecoration.addParticle(particle2, 0.1);
 
     EXPECT_EQ(size_t(2), particleDecoration.getNumberOfParticles());
 
@@ -97,9 +97,9 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.2);
+    particleDecoration.addParticle(particle2, 2.2);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, -4.2);
+    particleDecoration.addParticle(particle4, transform4, -4.2);
 
     EXPECT_EQ(size_t(4), particleDecoration.getNumberOfParticles());
 
@@ -140,13 +140,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     particleDecoration.addParticle(particle1);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
 
     particleDecoration.addParticle(particle3, transform3);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
 
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
     EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
 }
 
@@ -164,13 +164,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
 
     HomogeneousMaterial mat5("core", 0, 0);
     Particle particle5(mat5);
-    particleDecoration.addParticle(particle5, 0.0, 0.0);
+    particleDecoration.addParticle(particle5, 0.0);
 
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -234,13 +234,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
 
     HomogeneousMaterial mat5("core",0,0);
     Particle particle5(mat5);
-    particleDecoration.addParticle(particle5, 0.0,0.0);
+    particleDecoration.addParticle(particle5, 0.0);
 
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());

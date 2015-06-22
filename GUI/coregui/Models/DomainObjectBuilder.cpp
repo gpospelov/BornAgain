@@ -86,14 +86,14 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
             ParameterizedItem *particle_item = children[i];
             boost::scoped_ptr<Particle> P_particle(buildParticle(*particle_item, abundance));
             if (P_particle.get()) {
-                result->addParticle(*P_particle, 0.0, abundance);
+                result->addParticle(*P_particle, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
             ParameterizedItem *coreshell_item = children[i];
             boost::scoped_ptr<ParticleCoreShell> P_coreshell(
                 buildParticleCoreShell(*coreshell_item, abundance));
             if (P_coreshell.get()) {
-                result->addParticle(*P_coreshell, 0.0, abundance);
+                result->addParticle(*P_coreshell, abundance);
             }
         } else if (children[i]->modelType() == Constants::ParticleDistributionType) {
             QVariant par_name_var = children[i]->getRegisteredProperty(

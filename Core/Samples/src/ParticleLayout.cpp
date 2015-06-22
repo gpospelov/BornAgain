@@ -29,11 +29,10 @@ ParticleLayout::ParticleLayout()
     setName("ParticleLayout");
 }
 
-ParticleLayout::ParticleLayout(
-        const IParticle& particle, double depth, double abundance)
+ParticleLayout::ParticleLayout(const IParticle& particle, double abundance)
 {
     setName("ParticleLayout");
-    addParticle(particle, depth, abundance);
+    addParticle(particle, abundance);
 }
 
 ParticleLayout::~ParticleLayout()
@@ -77,30 +76,18 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 }
 
 //! Adds generic particle, &-version.
-void ParticleLayout::addParticle(
-    const IParticle& particle, const IRotation& rotation,
-    double depth, double abundance)
+void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rotation,
+                                 double abundance)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
     P_particle_clone->setRotation(rotation);
-    kvector_t position = particle.getPosition();
-    position.setZ(position.z()-depth);
-    P_particle_clone->setPosition(position);
-    addAndRegisterParticleInfo(
-        new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }
 
 //! Adds particle without rotation, &-version.
-void ParticleLayout::addParticle(
-    const IParticle& particle,
-    double depth, double abundance)
+void ParticleLayout::addParticle(const IParticle& particle, double abundance)
 {
-    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-    kvector_t position = particle.getPosition();
-    position.setZ(position.z()-depth);
-    P_particle_clone->setPosition(position);
-    addAndRegisterParticleInfo(
-        new ParticleInfo(*P_particle_clone, abundance));
+    addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
 }
 
 //! Returns particle info

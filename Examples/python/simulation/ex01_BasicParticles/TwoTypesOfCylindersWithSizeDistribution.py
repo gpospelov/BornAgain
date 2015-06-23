@@ -49,8 +49,8 @@ def get_sample():
 
     # assembling the sample
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(part_coll1, 0.0, 0.95)
-    particle_layout.addParticle(part_coll2, 0.0, 0.05)
+    particle_layout.addParticle(part_coll1, 0.95)
+    particle_layout.addParticle(part_coll2, 0.05)
 
     air_layer = Layer(m_air)
     air_layer.addLayout(particle_layout)

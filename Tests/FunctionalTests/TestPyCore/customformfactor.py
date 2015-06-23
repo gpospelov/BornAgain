@@ -56,7 +56,7 @@ def get_sample():
     ff = CustomFormFactor(343.0*nanometer, 7.0*nanometer)
     particle = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particle, 0.0, 1.0)
+    particle_layout.addParticle(particle, 1.0)
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
     substrate_layer = Layer(m_substrate)

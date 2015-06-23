@@ -26,7 +26,7 @@ def RunSimulation1():
     pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, 0.0, 1.0)
+    particle_layout.addParticle(pyramid, 1.0)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)

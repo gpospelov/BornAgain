@@ -52,8 +52,8 @@ def get_sample(cylinder_height=1.0*nanometer,
     prism_ff = FormFactorPrism3(prism_length, prism_height)
     prism = Particle(m_particle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 

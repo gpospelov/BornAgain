@@ -29,7 +29,7 @@ def RunSimulation1():
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 2.0*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
@@ -68,7 +68,7 @@ def RunSimulation2():
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 0.5*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)

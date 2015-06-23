@@ -23,7 +23,7 @@ def RunSimulation():
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder.setPosition(position)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
 
     # interference function
     interference = InterferenceFunction2DLattice.createSquare(10.0*nanometer)

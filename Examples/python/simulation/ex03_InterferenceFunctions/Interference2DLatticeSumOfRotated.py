@@ -29,7 +29,7 @@ def get_sample(xi_value):
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
     cylinder.setPosition(position)
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(p_interference_function)
 
     air_layer.addLayout(particle_layout)

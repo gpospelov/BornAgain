@@ -55,7 +55,7 @@ void TestBugs::test_item339()
 
     ParticleLayout *decoration = new ParticleLayout();
 
-    decoration->addParticle(particle,0., 1.0);
+    decoration->addParticle(particle, 1.0);
 
 
 

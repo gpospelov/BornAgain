@@ -30,7 +30,7 @@ def RunSimulation():
     cylinder = Particle(magParticle, cylinder_ff)
     
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 

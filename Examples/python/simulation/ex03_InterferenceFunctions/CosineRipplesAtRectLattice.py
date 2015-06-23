@@ -24,7 +24,7 @@ def get_sample():
     ripple = Particle(m_particle, ripple1_ff)
 
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(ripple, 0.0, 1.0)
+    particle_layout.addParticle(ripple, 1.0)
 
     interference = InterferenceFunction2DLattice(200.0*nanometer, 50.0*nanometer, 90.0*degree, 0.0*degree)
     pdf = FTDistribution2DCauchy(1000.*nanometer/2./numpy.pi, 100.*nanometer/2./numpy.pi)

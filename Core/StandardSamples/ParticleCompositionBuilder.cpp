@@ -49,7 +49,7 @@ ISample *ParticleCompositionBuilder::buildSample() const
     ParticleLayout particle_layout;
 
     kvector_t pos0(0.0, 0.0, 0.0);
-    kvector_t pos1(radius, radius, std::sqrt(3.0)*radius);
+    kvector_t pos1(radius, radius/std::sqrt(3.0), std::sqrt(8.0/3.0)*radius);
     std::vector<kvector_t> positions;
     positions.push_back(pos0);
     positions.push_back(pos1);

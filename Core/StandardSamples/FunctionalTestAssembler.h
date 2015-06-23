@@ -13,6 +13,10 @@ public:
 
     IAdvancedFunctionalTest *getTest(const std::string &test_name);
 
+    bool isValidTest(const std::string &test_name);
+
+    void printCatalogue() const;
+
 private:
     static AdvancedFunctionalTestRegistry m_catalogue;
 };

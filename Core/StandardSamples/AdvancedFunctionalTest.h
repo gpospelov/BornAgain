@@ -42,7 +42,7 @@ public:
     ETestResult getTestResult() const { return m_result; }
     std::string getTestResultString() const { return m_result_to_string[m_result]; }
 
-    virtual void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr);
 
 protected:
     std::string m_name;
@@ -92,7 +92,7 @@ public:
     void runTest();
     int analyseResults();
 
-    void printResults(std::ostream &ostr) const;
+    void printResults(std::ostream &ostr);
 
 private:
     void saveReferenceDataForFailedTests();

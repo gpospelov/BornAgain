@@ -17,6 +17,7 @@
 #define ADVANCEDFUNCTIONALTESTREGISTRY_H
 
 #include "WinDllMacros.h"
+#include <vector>
 #include <string>
 #include <map>
 
@@ -51,6 +52,8 @@ class BA_CORE_API_ AdvancedFunctionalTestRegistry
 public:
 
     typedef std::map<std::string, AdvancedFunctionalTestInfo> catalogue_t;
+    typedef catalogue_t::iterator iterator;
+    typedef catalogue_t::const_iterator const_iterator;
 
     AdvancedFunctionalTestRegistry();
 
@@ -62,6 +65,14 @@ public:
              double threshold);
 
     AdvancedFunctionalTestInfo getTestInfo(const std::string &test_name);
+
+    std::vector<std::string > getTestNames() const;
+
+    iterator begin() { return m_catalogue.begin(); }
+    iterator end() { return m_catalogue.end(); }
+    iterator find(const std::string &key) { return m_catalogue.find(key); }
+
+    void printCatalogue(std::ostream &ostr);
 
 private:
     catalogue_t m_catalogue;

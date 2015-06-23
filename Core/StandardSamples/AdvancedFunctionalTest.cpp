@@ -36,6 +36,10 @@ std::map<IAdvancedFunctionalTest::ETestResult, std::string>  InitTestResultToStr
     return result;
 }
 
+const size_t width_name = 20;
+const size_t width_description = 40;
+const size_t width_result = 18;
+
 }
 
 std::map<IAdvancedFunctionalTest::ETestResult, std::string> IAdvancedFunctionalTest::m_result_to_string = InitTestResultToString();
@@ -49,11 +53,11 @@ IAdvancedFunctionalTest::IAdvancedFunctionalTest(const std::string &name, const 
 
 }
 
-void IAdvancedFunctionalTest::printResults(std::ostream &ostr) const
+void IAdvancedFunctionalTest::printResults(std::ostream &ostr)
 {
-    ostr <<  Utils::AdjustStringLength(getName(), 20);
-    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), 40);
-    ostr << Utils::AdjustStringLength(getTestResultString(), 15);
+    ostr <<  Utils::AdjustStringLength(getName(), width_name);
+    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
     ostr << "\n";
 }
 
@@ -152,33 +156,37 @@ int AdvancedFunctionalMultiTest::analyseResults()
     for(size_t i=0; i<m_tests.size(); ++i)
         if(m_tests[i]->getTestResult() != SUCCESS) m_result = FAILED;
 
-    printResults(std::cout);
-
     if(getTestResult() != SUCCESS)
         saveReferenceDataForFailedTests();
+
+    printResults(std::cout);
 
     return m_result;
 }
 
-void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr) const
+void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr)
 {
     int number_of_failed_tests(0);
     for(size_t i=0; i<m_tests.size(); ++i) {
         if(m_tests[i]->getTestResult() != SUCCESS) ++number_of_failed_tests;
     }
 
-    ostr <<  Utils::AdjustStringLength(getName(), 20);
-    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), 40);
-    ostr << Utils::AdjustStringLength(getTestResultString(), 15);
-    ostr << " [" << number_of_failed_tests << " failed out of " << m_tests.size() << "]";
+    ostr <<  Utils::AdjustStringLength(getName(), width_name);
+    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
+    ostr << "[" << number_of_failed_tests << " failed out of " << m_tests.size() << "]";
     ostr << "\n";
 
     for(size_t i=0; i<m_tests.size(); ++i) {
-        ostr << Utils::AdjustStringLength(std::string(), 20)
-             << Utils::AdjustStringLength(m_tests[i]->getName(), 40)
-             << Utils::AdjustStringLength(m_tests[i]->getTestResultString(), 15)
-             << m_tests[i]->getDifference()
-             << "\n";
+        AdvancedFunctionalTest *test = m_tests[i];
+        ostr << Utils::AdjustStringLength(std::string(), width_name)
+             << Utils::AdjustStringLength(test->getName(), width_description)
+             << Utils::AdjustStringLength(test->getTestResultString(), width_result);
+        if(test->getTestResult() == SUCCESS || test->getTestResult() == FAILED_DIFF)
+            ostr << test->getDifference();
+        if(test->getTestResult() != SUCCESS)
+            ostr << "-> saved to " << m_test_to_reference_fname[test];
+        ostr << "\n";
     }
 
 }
@@ -193,6 +201,7 @@ void AdvancedFunctionalMultiTest::saveReferenceDataForFailedTests()
         if(test->getTestResult() != SUCCESS) {
             std::string file_name = Utils::FileSystem::GetFileMainName(m_test_to_reference_fname[test]);
             file_name = Utils::FileSystem::GetJoinPath(dir_path, file_name);
+            m_test_to_reference_fname[test] = file_name;
             IntensityDataIOFactory::writeIntensityData(*test->getOutputData(), file_name);
         }
     }

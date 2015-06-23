@@ -1,5 +1,6 @@
 #include "AdvancedFunctionalTestRegistry.h"
 #include "Exceptions.h"
+#include "Utils.h"
 
 AdvancedFunctionalTestInfo::AdvancedFunctionalTestInfo()
     : m_threshold(0.0)
@@ -33,14 +34,6 @@ AdvancedFunctionalTestRegistry::AdvancedFunctionalTestRegistry()
         "FormFactorsRegistry",
         1e-10);
 
-//    add("FormFactors",
-//        "Mixture of cylinders and prisms without interference",
-//        "BasicGISAS",
-//        "ParticleInTheAirBuilder",
-//        "FormFactorsRegistry",
-//        2e-10);
-
-
 }
 
 void AdvancedFunctionalTestRegistry::add(const std::string &test_name,
@@ -72,6 +65,29 @@ AdvancedFunctionalTestInfo AdvancedFunctionalTestRegistry::getTestInfo(const std
     }
 
     return m_catalogue[test_name];
+}
+
+std::vector<std::string> AdvancedFunctionalTestRegistry::getTestNames() const
+{
+    std::vector<std::string> result;
+    for(catalogue_t::const_iterator it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
+}
+
+void AdvancedFunctionalTestRegistry::printCatalogue(std::ostream &ostr)
+{
+    for(catalogue_t::const_iterator it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
+        AdvancedFunctionalTestInfo info = it->second;
+        ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
+        ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
+        ostr << info.m_simulation_name << ", ";
+        ostr << info.m_sample_builder_name << ", ";
+        ostr << info.m_component_registry_name;
+        ostr << "\n";
+    }
+
 }
 
 

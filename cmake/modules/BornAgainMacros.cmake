@@ -90,13 +90,11 @@ endfunction()
 # text_exe  - actual executable name
 #
 # together with additional command line arguments for the test executable
-# INPUT_DIR - directory with reference files
-# INPUT_PAR - additional command line argument
+# TEST_ARGUMENTS - directory with reference files
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST2 test_name test_exe)
-    message(INFO " QQQQ ${test_name} ${test_exe}")
-    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_ARG" "" "" ${ARGN})
-    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_INPUT_ARGS}) # TestName ExeName
+    CMAKE_PARSE_ARGUMENTS(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
+    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}") # TestName ExeName
     add_dependencies(check ${test_exe})
 endfunction()
 

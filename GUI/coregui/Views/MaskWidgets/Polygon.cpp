@@ -331,11 +331,11 @@ void Polygon::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         calculateBoundingRectangle();
         setCursor(Qt::CrossCursor);
         if(m_currentPoint1 == 0 || m_currentPoint1 == m_polygon.length()-1) {
-            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
-            m_polygon[m_currentPoint2] = QPoint(event->pos().x(), event->pos().y());
+            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->scenePos().y());
+            m_polygon[m_currentPoint2] = QPoint(event->pos().x(), event->scenePos().y());
         }
         else {
-            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->pos().y());
+            m_polygon[m_currentPoint1] = QPoint(event->pos().x(), event->scenePos().y());
         }
         calculateBoundingRectangle();
 

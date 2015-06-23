@@ -17,6 +17,7 @@
 class GraphicsView;
 class GraphicsScene;
 class GraphicsProxyWidget;
+class MaskModel;
 
 class MaskEditor : public QWidget
 {

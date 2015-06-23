@@ -1,22 +1,11 @@
-#include "TestView.h"
-#include "TestItem.h"
-#include "LayerItem.h"
-#include "AwesomePropertyEditor.h"
-#include "BeamWavelengthItem.h"
-#include "ParameterizedItem.h"
-//#include <QGroupBox>
-#include <QGridLayout>
 #include <QDebug>
 #include "DistributionEditor.h"
-#include "qgroupbox.h"
 #include <QtGui>
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <ColorMapPlot.h>
-#include "DistributionDialog.h"
-#include "DistributionWidget.h"
 #include "GraphicsProxyWidget.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
@@ -28,9 +17,14 @@
 #include "GraphicsView.h"
 #include "MaskEditor.h"
 #include "RectangleView.h"
+#include "AwesomePropertyEditor.h"
+#include "RectangleItem.h"
+#include "RectangleView.h"
 
 MaskEditor::MaskEditor(QWidget *parent)
-    : QWidget(parent), m_scene(new GraphicsScene), m_view(new GraphicsView)
+    : QWidget(parent)
+    , m_scene(new GraphicsScene)
+    , m_view(new GraphicsView)
 {
 
     setMouseTracking(true);
@@ -171,6 +165,24 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
+
+//    m_scene->setMaskModel(m_maskModel);
+
+    QGraphicsRectItem *rect1 = new QGraphicsRectItem(m_scene->sceneRect());
+    QGraphicsRectItem *rect2 = new QGraphicsRectItem(200,200,200,200);
+    AwesomePropertyEditor *editor = new AwesomePropertyEditor;
+    RectangleItem *rectItem = new RectangleItem;
+    RectangleView *rectView = new RectangleView;
+
+    rectItem->setWidth(300);
+    rectItem->setHeight(300);
+    rectView->setItem(rectItem);
+    editor->setItem(rectItem);
+    buttonLayout->addWidget(editor);
+    m_scene->addItem(rectView);
+//    m_scene->addItem(rect1);
+//    m_scene->addItem(rect2);
+
 }
 
 void MaskEditor::rectangleButtonPressed()

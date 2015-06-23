@@ -34,7 +34,6 @@ public:
     void setResizeMode(bool resizeMode);
     void setRotationMode(bool rotationMode);
     void setColor(int color);
-
 };
 
 #endif

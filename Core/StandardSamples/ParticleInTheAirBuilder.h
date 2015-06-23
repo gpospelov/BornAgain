@@ -30,6 +30,8 @@ public:
     ParticleInTheAirBuilder();
     ~ParticleInTheAirBuilder();
 
+    void init_from(IComponentService *service);
+
     ISample *buildSample() const;
 
 private:

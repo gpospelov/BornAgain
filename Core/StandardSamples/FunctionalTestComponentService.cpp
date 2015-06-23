@@ -67,6 +67,10 @@ SampleBuilder_t FunctionalTestComponentService::getSampleBuilder()
 
 void FunctionalTestComponentService::setComponent(size_t current_component)
 {
+    if(current_component >=m_component_names.size()) {
+        throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
+    }
+    m_current_component = current_component;
     if(m_ff_registry) {
         delete m_form_factor;
         m_form_factor = m_ff_registry->createItem(m_component_names[current_component]);
@@ -80,7 +84,7 @@ std::string FunctionalTestComponentService::getReferenceFileName()
     result += m_testInfo.m_test_name;
     if(m_component_names.size() > m_current_component)
         result += std::string("_")+m_component_names[m_current_component];
-    result += std::string(".int");
+    result += std::string(".int.gz");
     return result;
 }
 

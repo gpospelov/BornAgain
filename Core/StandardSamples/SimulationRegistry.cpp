@@ -159,7 +159,9 @@ SimulationRegistry::SimulationRegistry()
         "gui_ParticleComposition", StandardSimulations::gui_ParticleComposition,
         "GUI: Composition of particles to represent two layers of spheres in hex lattice");
 
-    //
+    // ---------------------------------------------------------------------------------------------
+    // toward functional tests refactoring
+    // ---------------------------------------------------------------------------------------------
 
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS,
                  "Basic GISAS simulation for all domain functional tests");

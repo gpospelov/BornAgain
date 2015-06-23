@@ -29,7 +29,7 @@ IAdvancedFunctionalTest *FunctionalTestAssembler::getTest(const std::string &tes
 
 //    FunctionalTestComponentService *service = new FunctionalTestComponentService(info.m_simulation_name, info.m_sample_builder_name, info.m_component_registry_name);
     FunctionalTestComponentService *service = new FunctionalTestComponentService(info);
-    return new AdvancedFunctionalMultiTest(test_name, service);
+    return new AdvancedFunctionalMultiTest(test_name, info.m_test_description, service);
 
 }
 

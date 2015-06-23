@@ -50,6 +50,8 @@ public:
 
     AdvancedFunctionalTestInfo getTestInfo() const;
 
+    std::string getCurrentComponentName() const { return m_component_names[m_current_component];}
+
 private:
     void init_registry(const std::string &registry_name);
 

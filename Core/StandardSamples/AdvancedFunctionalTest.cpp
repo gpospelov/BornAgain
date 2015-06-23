@@ -20,11 +20,49 @@
 #include "FunctionalTestComponentService.h"
 #include "IComponentService.h"
 #include "Utils.h"
+#include "FileSystem.h"
+#include "IntensityDataIOFactory.h"
 #include <boost/scoped_ptr.hpp>
 #include <iostream>
 
-AdvancedFunctionalTest::AdvancedFunctionalTest(const std::string &name, GISASSimulation *simulation, OutputData<double> *reference, double threshold)
+namespace {
+
+std::map<IAdvancedFunctionalTest::ETestResult, std::string>  InitTestResultToString() {
+    std::map<IAdvancedFunctionalTest::ETestResult, std::string> result;
+    result[IAdvancedFunctionalTest::SUCCESS] = "[SUCCESS]";
+    result[IAdvancedFunctionalTest::FAILED_DIFF] = "[FAILED_DIFF]";
+    result[IAdvancedFunctionalTest::FAILED_NOREF] = "[FAILED_NOREF]";
+    result[IAdvancedFunctionalTest::FAILED] = "[FAILED]";
+    return result;
+}
+
+}
+
+std::map<IAdvancedFunctionalTest::ETestResult, std::string> IAdvancedFunctionalTest::m_result_to_string = InitTestResultToString();
+
+IAdvancedFunctionalTest::IAdvancedFunctionalTest(const std::string &name, const std::string &description)
     : m_name(name)
+    , m_description(description)
+    , m_difference(0.0)
+    , m_result(SUCCESS)
+{
+
+}
+
+void IAdvancedFunctionalTest::printResults(std::ostream &ostr) const
+{
+    ostr <<  Utils::AdjustStringLength(getName(), 20);
+    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), 40);
+    ostr << Utils::AdjustStringLength(getTestResultString(), 15);
+    ostr << "\n";
+}
+
+
+// -------------------------------------------------------------------------------------------------
+
+
+AdvancedFunctionalTest::AdvancedFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData<double> *reference, double threshold)
+    : IAdvancedFunctionalTest(name, description)
     , m_simulation(simulation)
     , m_reference(reference)
     , m_threshold(threshold)
@@ -48,23 +86,33 @@ void AdvancedFunctionalTest::runTest()
 
 int AdvancedFunctionalTest::analyseResults()
 {
-    if(!m_reference)  return FAILED;
+    if(!m_reference)  {
+        m_result = FAILED_NOREF;
+    } else {
+        m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(), *m_reference);
+        m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
+    }
 
-    double diff = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(),*m_reference);
+    //printResults(std::cout);
 
-    std::cout << m_name << " " << diff
-              << " " << (diff>m_threshold ? "[FAILED]" : "[OK]") << std::endl;
-
-    if( diff > m_threshold ) return FAILED;
-    return SUCCESS;
+    return m_result;
 }
+
+const OutputData<double> *AdvancedFunctionalTest::getOutputData() const
+{
+    if(m_simulation) {
+        return m_simulation->getOutputData();
+    }
+    return 0;
+}
+
 
 // -------------------------------------------------------------------------------------------------
 //
 // -------------------------------------------------------------------------------------------------
 
-AdvancedFunctionalMultiTest::AdvancedFunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service)
-    : m_name(name)
+AdvancedFunctionalMultiTest::AdvancedFunctionalMultiTest(const std::string &name, const std::string &description, FunctionalTestComponentService *service)
+    : IAdvancedFunctionalTest(name, description)
     , m_componentService(service)
 {
 
@@ -73,7 +121,7 @@ AdvancedFunctionalMultiTest::AdvancedFunctionalMultiTest(const std::string &name
 AdvancedFunctionalMultiTest::~AdvancedFunctionalMultiTest()
 {
     delete m_componentService;
-    for(std::vector<IAdvancedFunctionalTest *>::iterator it=m_tests.begin(); it!=m_tests.end(); ++it) {
+    for(std::vector<AdvancedFunctionalTest *>::iterator it=m_tests.begin(); it!=m_tests.end(); ++it) {
         delete (*it);
     }
 }
@@ -81,14 +129,18 @@ AdvancedFunctionalMultiTest::~AdvancedFunctionalMultiTest()
 void AdvancedFunctionalMultiTest::runTest()
 {
     for(size_t i=0; i<m_componentService->getNumberOfComponents(); ++i) {
-        std::cout << "AdvancedFunctionalMultiTest::runTest() -> " << i<< std::endl;
+        std::cout << "AdvancedFunctionalMultiTest::runTest() -> " << i<< " " << m_name << std::endl;
         m_componentService->setComponent(i);
 
         AdvancedFunctionalTest *test = new AdvancedFunctionalTest(
-            m_name, m_componentService->getSimulation(), m_componentService->getReferenceData(),
+            m_componentService->getCurrentComponentName(), std::string(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
             m_componentService->getThreshold());
 
+        m_test_to_reference_fname[test] = m_componentService->getReferenceFileName();
+
         test->runTest();
+        test->analyseResults();
+
         m_tests.push_back(test);
 
         std::cout << "AAA " << m_componentService->getReferenceFileName() << std::endl;
@@ -97,37 +149,54 @@ void AdvancedFunctionalMultiTest::runTest()
 
 int AdvancedFunctionalMultiTest::analyseResults()
 {
-    ETestResult status = SUCCESS;
+    for(size_t i=0; i<m_tests.size(); ++i)
+        if(m_tests[i]->getTestResult() != SUCCESS) m_result = FAILED;
+
+    printResults(std::cout);
+
+    if(getTestResult() != SUCCESS)
+        saveReferenceDataForFailedTests();
+
+    return m_result;
+}
+
+void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr) const
+{
+    int number_of_failed_tests(0);
     for(size_t i=0; i<m_tests.size(); ++i) {
-        if(m_tests[i]->analyseResults() != SUCCESS)
-            status = FAILED;
+        if(m_tests[i]->getTestResult() != SUCCESS) ++number_of_failed_tests;
     }
 
-    AdvancedFunctionalTestInfo info = m_componentService->getTestInfo();
+    ostr <<  Utils::AdjustStringLength(getName(), 20);
+    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), 40);
+    ostr << Utils::AdjustStringLength(getTestResultString(), 15);
+    ostr << " [" << number_of_failed_tests << " failed out of " << m_tests.size() << "]";
+    ostr << "\n";
 
-    std::cout << Utils::AdjustStringLength(info.m_test_name, 20) << " "
-              << Utils::AdjustStringLength(info.m_test_description, 40) << " "
-              << (status==SUCCESS ? "[OK]" : "[FAILED]") << std::endl;
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        ostr << Utils::AdjustStringLength(std::string(), 20)
+             << Utils::AdjustStringLength(m_tests[i]->getName(), 40)
+             << Utils::AdjustStringLength(m_tests[i]->getTestResultString(), 15)
+             << m_tests[i]->getDifference()
+             << "\n";
+    }
 
-    return status;
+}
+
+void AdvancedFunctionalMultiTest::saveReferenceDataForFailedTests()
+{
+    std::string dir_path("00_failed_tests");
+    Utils::FileSystem::CreateDirectory(dir_path);
+
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        AdvancedFunctionalTest *test = m_tests[i];
+        if(test->getTestResult() != SUCCESS) {
+            std::string file_name = Utils::FileSystem::GetFileMainName(m_test_to_reference_fname[test]);
+            file_name = Utils::FileSystem::GetJoinPath(dir_path, file_name);
+            IntensityDataIOFactory::writeIntensityData(*test->getOutputData(), file_name);
+        }
+    }
+
 }
 
 
-/*
-std::ostringstream sdiff;
-sdiff << std::setprecision(4) << diff;
-
-std::string status("OK");
-if(diff > threshold) {
-    status = "FAILED";
-    success = false;
-}
-
-std::cout << Utils::AdjustStringLength(it->first->getName(), 30)
-          << " " << Utils::AdjustStringLength(it->second, 40)
-          << " " << Utils::AdjustStringLength(sdiff.str(), 10)
-          << "   " << status
-          << std::endl;
-
-
-*/

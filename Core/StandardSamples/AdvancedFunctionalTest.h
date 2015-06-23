@@ -17,6 +17,8 @@
 #define ADVANCEDFUNCTIONALTEST_H
 
 #include "GISASSimulation.h"
+#include <string>
+#include <map>
 
 //! @class IAdvancedFunctionalTest
 //! @ingroup standard_samples
@@ -25,10 +27,30 @@
 class BA_CORE_API_ IAdvancedFunctionalTest
 {
 public:
-    enum ETestResult { SUCCESS, FAILED};
+    enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};
+
+    IAdvancedFunctionalTest(const std::string &name, const std::string &description);
     virtual ~IAdvancedFunctionalTest() {}
+
     virtual void runTest() = 0;
     virtual int analyseResults() = 0;
+
+    std::string getName() const { return m_name; }
+    std::string getDescription() const { return m_description; }
+    double getDifference() const { return m_difference;}
+
+    ETestResult getTestResult() const { return m_result; }
+    std::string getTestResultString() const { return m_result_to_string[m_result]; }
+
+    virtual void printResults(std::ostream &ostr) const;
+
+protected:
+    std::string m_name;
+    std::string m_description;
+    double m_difference;
+    ETestResult m_result;
+
+    static std::map<ETestResult, std::string> m_result_to_string;
 };
 
 
@@ -40,14 +62,15 @@ class BA_CORE_API_ AdvancedFunctionalTest : public IAdvancedFunctionalTest
 {
 public:
 
-    AdvancedFunctionalTest(const std::string &name, GISASSimulation *simulation, OutputData<double> *reference, double threshold);
+    AdvancedFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData<double> *reference, double threshold);
     ~AdvancedFunctionalTest();
 
     void runTest();
     int analyseResults();
 
+    const OutputData<double>* getOutputData() const;
+
 private:
-    std::string m_name;
     GISASSimulation *m_simulation;
     OutputData<double> *m_reference;
     double m_threshold;
@@ -63,16 +86,20 @@ class FunctionalTestComponentService;
 class BA_CORE_API_ AdvancedFunctionalMultiTest : public IAdvancedFunctionalTest
 {
 public:
-    AdvancedFunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service);
+    AdvancedFunctionalMultiTest(const std::string &name, const std::string &description, FunctionalTestComponentService *service);
     ~AdvancedFunctionalMultiTest();
 
     void runTest();
     int analyseResults();
 
+    void printResults(std::ostream &ostr) const;
+
 private:
-    std::string m_name;
+    void saveReferenceDataForFailedTests();
+
     FunctionalTestComponentService *m_componentService;
-    std::vector<IAdvancedFunctionalTest *> m_tests;
+    std::vector<AdvancedFunctionalTest *> m_tests;
+    std::map<AdvancedFunctionalTest *, std::string > m_test_to_reference_fname;
 };
 
 #endif

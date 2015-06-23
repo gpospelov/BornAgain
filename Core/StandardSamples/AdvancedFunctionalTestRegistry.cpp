@@ -27,11 +27,11 @@ AdvancedFunctionalTestRegistry::AdvancedFunctionalTestRegistry()
 {
 
     add("FormFactors",
-        "Mixture of cylinders and prisms without interference",
-        "isgisaxs01",
-        "isgisaxs01",
+        "Test of all form factors defined",
+        "BasicGISAS",
+        "ParticleInTheAirBuilder",
         "FormFactorsRegistry",
-        2e-10);
+        1e-10);
 
 //    add("FormFactors",
 //        "Mixture of cylinders and prisms without interference",

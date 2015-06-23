@@ -95,6 +95,16 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
     }
 }
 
+std::string Utils::FileSystem::GetFileMainName(const std::string &name)
+{
+    if( !isGZipped(name) ) {
+        return Utils::FileSystem::GetFileExtension(name);
+    } else {
+        std::string stripped_name = name.substr(0, name.size()-3);
+        return stripped_name;
+    }
+}
+
 
 std::string Utils::FileSystem::GetSourceDir()
 {
@@ -123,4 +133,19 @@ std::string Utils::FileSystem::GetReferenceDataDir()
     }
 }
 
+
+bool Utils::FileSystem::CreateDirectory(const std::string &dir_name)
+{
+    boost::filesystem::path dir(dir_name);
+    return boost::filesystem::create_directory(dir);
+}
+
+std::string Utils::FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+{
+    boost::filesystem::path path1(spath1);
+    boost::filesystem::path path2(spath2);
+    boost::filesystem::path full_path = path1 / path2;
+
+    return full_path.string();
+}
 

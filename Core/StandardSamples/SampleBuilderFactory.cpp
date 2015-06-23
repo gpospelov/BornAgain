@@ -32,6 +32,7 @@
 #include "ParticleCompositionBuilder.h"
 #include "Ripple2Builder.h"
 #include "Ripple1Builder.h"
+#include "ParticleInTheAirBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -162,6 +163,15 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ParticleComposition",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
+
+    // ---------------------------------------------------------------------------------------------
+    // toward functional tests refactoring
+    // ---------------------------------------------------------------------------------------------
+
+    registerItem(
+        "ParticleInTheAirBuilder",
+        IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
+        "Particle in the air layer to test form factors");
 
 }
 

@@ -11,12 +11,14 @@
 
 class RectangleItem;
 
-class RectangleView : public QGraphicsItem
+class RectangleView :public QGraphicsObject
 {
+Q_OBJECT
 
 public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+    enum Point { X, Y};
     enum {Type = UserType + 1};
 //    enum Color {INCLUDE = 0, EXCLUDE = 1};
 
@@ -42,6 +44,7 @@ public:
     //! @param event mouse event to set new coordinates
     //! @return degree of rotation
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
+
     int type() const {return Type;}
     void setInclude();
     void setExclude();
@@ -49,8 +52,14 @@ public:
     QRectF getTopRightCorner();
     QRectF getBottomLeftCorner();
     QRectF getBottomRightCorner();
-
-    void setItem(RectangleItem *item);
+    void setItem(ParameterizedItem *item);
+    void setPosition(qreal x, qreal y);
+    qreal getXValue() const;
+    qreal getYValue() const;
+public slots:
+    void onXValueChanged();
+    void onYValueChanged();
+//    void onPropertyChange(const QString &propertyName);
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -58,10 +67,14 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+
 
 private:
     RectangleItem *m_item;
     Corner m_corner;                        //!< enum with all corners
+    bool m_block_update;
+    int degree;
 };
 #endif
 

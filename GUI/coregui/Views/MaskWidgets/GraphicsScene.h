@@ -14,6 +14,10 @@ class Ellipse;
 class Polygon;
 class RectangleItem;
 class RectangleView;
+class MaskModel;
+class ParameterizedItem;
+
+#include <QModelIndex>
 
 class GraphicsScene : public QGraphicsScene
 {
@@ -23,16 +27,25 @@ public:
     enum Drawing { NONE, RECTANGLE, ELLIPSE, POLYGON };
     void setDrawing(Drawing drawing);
 
+    void setMaskModel(MaskModel *maskModel);
+
 protected:
+    void updateScene();
+
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void drawForeground(QPainter *painter, const QRectF &);
 
 private:
+    void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    QGraphicsItem *addViewForItem(ParameterizedItem *item);
+
+
+    MaskModel *m_maskModel;
     Drawing m_drawing;
     Rectangle *m_rectangle;
-    RectangleItem *m_rectangleItem;
+    ParameterizedItem *m_rectangleItem;
     RectangleView *m_rectangleView;
     Ellipse *m_ellipse;
     Polygon *m_polygon;

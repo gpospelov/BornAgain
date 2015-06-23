@@ -26,6 +26,8 @@
 #include "DistributionEditor.h"
 #include "qgroupbox.h"
 #include "MaskEditor.h"
+#include "MaskModel.h"
+#include "RectangleItem.h"
 
 
 TestView::TestView(QWidget *parent)
@@ -61,8 +63,16 @@ TestView::TestView(QWidget *parent)
 //   scene->addItem(ellipse);
 //   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
 
+    MaskModel *maskModel = new MaskModel;
+    ParameterizedItem *rectangle = maskModel->insertNewItem(Constants::RectangleType);
+    rectangle->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
+    rectangle->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+    maskModel->save("masks.xml");
+
+    MaskEditor *maskEditor = new MaskEditor;
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     this->setLayout(mainLayout);
-    mainLayout->addWidget(new MaskEditor);
+    mainLayout->addWidget(maskEditor);
 
 }

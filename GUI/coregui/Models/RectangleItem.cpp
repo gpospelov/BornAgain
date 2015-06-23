@@ -23,12 +23,12 @@ RectangleItem::RectangleItem(ParameterizedItem *parent)
 
 qreal RectangleItem::getXPos()
 {
-    return getRegisteredProperty(P_POSX).toDouble();
+    return getRegisteredProperty(P_POSX).toReal();
 }
 
 qreal RectangleItem::getYPos()
 {
-    return getRegisteredProperty(P_POSY).toDouble();
+    return getRegisteredProperty(P_POSY).toReal();
 }
 
 qreal RectangleItem::getWidth()

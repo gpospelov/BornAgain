@@ -236,13 +236,23 @@ void register_ParticleComposition_class(){
         bp::scope ParticleComposition_scope( ParticleComposition_exposer );
         { //::ParticleComposition::addParticle
         
+            typedef void ( ::ParticleComposition::*addParticle_function_type)( ::IParticle const & ) ;
+            
+            ParticleComposition_exposer.def( 
+                "addParticle"
+                , addParticle_function_type( &::ParticleComposition::addParticle )
+                , ( bp::arg("particle") )
+                , "Calls the ISampleVisitor's visit method." );
+        
+        }
+        { //::ParticleComposition::addParticle
+        
             typedef void ( ::ParticleComposition::*addParticle_function_type)( ::IParticle const &,::kvector_t ) ;
             
             ParticleComposition_exposer.def( 
                 "addParticle"
                 , addParticle_function_type( &::ParticleComposition::addParticle )
-                , ( bp::arg("particle"), bp::arg("position") )
-                , "Calls the ISampleVisitor's visit method." );
+                , ( bp::arg("particle"), bp::arg("position") ) );
         
         }
         { //::ParticleComposition::addParticles

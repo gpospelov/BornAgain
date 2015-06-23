@@ -15,10 +15,9 @@
 
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "VectorItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
-
-const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
 
 
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
@@ -26,12 +25,9 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 {
     setItemName(Constants::ParticleCoreShellType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
-
-    registerGroupProperty(P_CORE_POS, Constants::VectorType);
+    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1);
@@ -42,6 +38,12 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     ParameterizedItem::insertChildItem(row, item);
     item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
     item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
-    item->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
-    item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DISABLED);
+    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+    if (port == ParameterizedItem::PortInfo::PORT_1) {
+        ParameterizedItem *p_position_item = item->getSubItems()[ParticleItem::P_POSITION];
+        p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+        p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+        p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+        item->setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+    }
 }

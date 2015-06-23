@@ -53,12 +53,6 @@ public:
         return mP_particle.get();
     }
 
-    //! Returns depth.
-    double getDepth() const
-    {
-        return -mP_particle->getPosition().z();
-    }
-
     //! Returns particle position, including depth.
     kvector_t getPosition() const
     {

@@ -47,22 +47,21 @@ public:
 
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
-    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
-    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth,
+    Particle *buildParticle(const ParameterizedItem &item, double &abundance) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item,
                                               double &abundance) const;
     ParticleComposition *buildParticleComposition(const ParameterizedItem &item,
-                                                  double &depth, double &abundance) const;
-    ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item, double &depth,
+                                                  double &abundance) const;
+    ParticleDistribution *buildParticleDistribution(const ParameterizedItem &item,
                                                     double &abundance,
                                                     bool catch_errors=false) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
 
 private:
-    void setTransformationInfo(IParticle *result, double &depth, const ParameterizedItem &item) const;
-    void addParticleToParticleComposition(ParticleComposition *result,
-                                          ParameterizedItem *particle_item, double depth,
-                                          const IParticle &particle) const;
+    void setTransformationInfo(IParticle *result, const ParameterizedItem &item) const;
+    void setPositionInfo(IParticle *result, const ParameterizedItem &item) const;
+    void setRotationInfo(IParticle *result, const ParameterizedItem &item) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

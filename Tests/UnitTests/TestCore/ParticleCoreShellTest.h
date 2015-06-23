@@ -33,19 +33,16 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    kvector_t zero_vector;
     EXPECT_EQ(NULL, mp_coreshell->getAmbientMaterial());
     EXPECT_EQ(NULL, mp_coreshell->createFormFactor(1.0));
     EXPECT_EQ(NULL, mp_coreshell->getRotation());
     EXPECT_EQ("ParticleCoreShell", mp_coreshell->getName());
     EXPECT_EQ("Particle", mp_coreshell->getCoreParticle()->getName());
     EXPECT_EQ("Particle", mp_coreshell->getShellParticle()->getName());
-    EXPECT_EQ(zero_vector, mp_coreshell->getRelativeCorePosition());
 }
 
 TEST_F(ParticleCoreShellTest, Clone)
 {
-    kvector_t zero_vector;
     ParticleCoreShell *p_clone = mp_coreshell->clone();
     EXPECT_EQ(NULL, p_clone->getAmbientMaterial());
     EXPECT_EQ(NULL, p_clone->createFormFactor(1.0));
@@ -53,13 +50,11 @@ TEST_F(ParticleCoreShellTest, Clone)
     EXPECT_EQ("ParticleCoreShell", p_clone->getName());
     EXPECT_EQ("Particle", p_clone->getCoreParticle()->getName());
     EXPECT_EQ("Particle", p_clone->getShellParticle()->getName());
-    EXPECT_EQ(zero_vector, p_clone->getRelativeCorePosition());
     delete p_clone;
 }
 
 TEST_F(ParticleCoreShellTest, CloneInvertB)
 {
-    kvector_t zero_vector;
     ParticleCoreShell *p_clone = mp_coreshell->cloneInvertB();
     EXPECT_EQ(NULL, p_clone->getAmbientMaterial());
     EXPECT_EQ(NULL, p_clone->createFormFactor(1.0));
@@ -67,13 +62,11 @@ TEST_F(ParticleCoreShellTest, CloneInvertB)
     EXPECT_EQ("ParticleCoreShell_inv", p_clone->getName());
     EXPECT_EQ("Particle_inv", p_clone->getCoreParticle()->getName());
     EXPECT_EQ("Particle_inv", p_clone->getShellParticle()->getName());
-    EXPECT_EQ(zero_vector, p_clone->getRelativeCorePosition());
     delete p_clone;
 }
 
 TEST_F(ParticleCoreShellTest, AmbientMaterial)
 {
-    kvector_t zero_vector;
     HomogeneousMaterial mat("Air", 0.0, 0.0);
     EXPECT_EQ(NULL, mp_coreshell->getAmbientMaterial());
     mp_coreshell->setAmbientMaterial(mat);
@@ -89,7 +82,6 @@ TEST_F(ParticleCoreShellTest, AmbientMaterial)
     EXPECT_EQ("ParticleCoreShell", mp_coreshell->getName());
     EXPECT_EQ("Particle", mp_coreshell->getCoreParticle()->getName());
     EXPECT_EQ("Particle", mp_coreshell->getShellParticle()->getName());
-    EXPECT_EQ(zero_vector, mp_coreshell->getRelativeCorePosition());
 }
 
 #endif // PARTICLECORESHELLTEST_H

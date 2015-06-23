@@ -109,7 +109,8 @@ ISample* MesoCrystal01Builder::buildSample() const
             boost::scoped_ptr<MesoCrystal> P_meso(createMesoCrystal(
                                     m_lattice_length_a, m_lattice_length_c,
                                     n_particle_adapted, &ff_meso) );
-            particle_layout.addParticle(*P_meso, z_rotation, m_meso_height);
+            P_meso->setPosition(0.0, 0.0, -m_meso_height);
+            particle_layout.addParticle(*P_meso, z_rotation);
         }
     }
 

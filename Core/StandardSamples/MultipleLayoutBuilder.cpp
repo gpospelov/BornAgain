@@ -64,8 +64,8 @@ ISample *MultipleLayoutBuilder::buildSample() const
     FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
     Particle prism3(particle_material, ff_prism3);
 
-    particle_layout_1.addParticle(cylinder, 0.0, m_cylinder_weight);
-    particle_layout_2.addParticle(prism3, 0.0, 1.0-m_cylinder_weight);
+    particle_layout_1.addParticle(cylinder, m_cylinder_weight);
+    particle_layout_2.addParticle(prism3, 1.0-m_cylinder_weight);
 
     air_layer.addLayout(particle_layout_1);
     air_layer.addLayout(particle_layout_2);

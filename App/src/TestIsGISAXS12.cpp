@@ -514,10 +514,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     // building nano particles
     ParameterDistribution par_distr1("*/radius", gauss1, nbins, nfwhm);
     ParticleDistribution particle_collection1(cylinder1, par_distr1);
-    particle_layout.addParticle(particle_collection1, 0.0, particle_probability1);
+    particle_layout.addParticle(particle_collection1, particle_probability1);
     ParameterDistribution par_distr2("*/radius", gauss2, nbins, nfwhm);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
-    particle_layout.addParticle(particle_collection2, 0.0, particle_probability2);
+    particle_layout.addParticle(particle_collection2, particle_probability2);
 
     air_layer.addLayout(particle_layout);
 

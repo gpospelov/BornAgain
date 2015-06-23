@@ -337,16 +337,6 @@ void register_IParticle_class(){
                 , "Returns particle's material." );
         
         }
-        { //::IParticle::getDepth
-        
-            typedef double ( ::IParticle::*getDepth_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getDepth"
-                , getDepth_function_type( &::IParticle::getDepth )
-                , "Returns depth of particle." );
-        
-        }
         { //::IParticle::getPosition
         
             typedef ::kvector_t ( ::IParticle::*getPosition_function_type)(  ) const;
@@ -388,7 +378,18 @@ void register_IParticle_class(){
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
                 , ( bp::arg("position") )
-                , "Sets particle position, including depth." );
+                , "Sets particle position." );
+        
+        }
+        { //::IParticle::setPosition
+        
+            typedef void ( ::IParticle::*setPosition_function_type)( double,double,double ) ;
+            
+            IParticle_exposer.def( 
+                "setPosition"
+                , setPosition_function_type( &::IParticle::setPosition )
+                , ( bp::arg("x"), bp::arg("y"), bp::arg("z") )
+                , "Sets particle position." );
         
         }
         { //::IParticle::setRotation

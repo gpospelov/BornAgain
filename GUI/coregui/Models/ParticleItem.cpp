@@ -19,10 +19,9 @@
 #include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
-const QString ParticleItem::P_DEPTH = "Depth";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";
 const QString ParticleItem::P_MATERIAL = "Material";
-
+const QString ParticleItem::P_POSITION = "Position Offset";
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleType, parent)
@@ -32,9 +31,9 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    registerProperty(P_DEPTH, 0.0, PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+    registerGroupProperty(P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
 

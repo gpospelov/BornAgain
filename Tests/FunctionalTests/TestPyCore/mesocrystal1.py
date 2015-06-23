@@ -88,7 +88,8 @@ class MySampleBuilder(ISampleBuilder):
 
                 total_transform = RotationZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_layout.addParticle(meso, total_transform, self.meso_height.value)
+                meso.setPosition(0.0, 0.0, -self.meso_height.value)
+                particle_layout.addParticle(meso, total_transform)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.addInterferenceFunction(p_interference_funtion)

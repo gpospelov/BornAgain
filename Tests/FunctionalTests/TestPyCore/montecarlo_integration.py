@@ -33,7 +33,7 @@ def get_sample(cylinder_radius, cylinder_height):
     cylinder_ff = FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)

@@ -130,8 +130,8 @@ void TestFittingModule3::initializeSample()
     Particle particle2(particle_material, FormFactorPrism3(
                            prism3_length, prism3_height) );
     ParticleLayout particle_layout;
-    particle_layout.addParticle(particle1,0.0, 0.2);
-    particle_layout.addParticle(particle2, 0.0, 0.8);
+    particle_layout.addParticle(particle1, 0.2);
+    particle_layout.addParticle(particle2, 0.8);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

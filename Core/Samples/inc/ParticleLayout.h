@@ -29,7 +29,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IParticle &particle, double depth = 0., double abundance = 1.);
+    ParticleLayout(const IParticle &particle, double abundance = 1.);
 
     virtual ~ParticleLayout();
 
@@ -45,11 +45,10 @@ public:
     }
 
     //! Adds generic particle
-    void addParticle(const IParticle &particle, const IRotation& rotation,
-                     double depth = 0.0, double abundance = 1.0);
+    void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
 
     //! Adds particle without rotation
-    void addParticle(const IParticle &particle, double depth = 0.0, double abundance = 1.0);
+    void addParticle(const IParticle &particle, double abundance = 1.0);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const

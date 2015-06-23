@@ -34,10 +34,9 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     setItemName(Constants::ParticleDistributionType);
     setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
+    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
@@ -101,10 +100,10 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
         result << NO_SELECTION;
         return result;
     }
-    double depth(0.0), abundance(0.0);
+    double abundance(0.0);
     DomainObjectBuilder builder;
     boost::scoped_ptr<ParticleDistribution> P_part_distr(
-        builder.buildParticleDistribution(*this, depth, abundance, true));
+        builder.buildParticleDistribution(*this, abundance, true));
     if (P_part_distr.get()) {
         boost::scoped_ptr<ParameterPool> P_pool(P_part_distr->createDistributedParameterPool());
         result << extractFromParameterPool(P_pool.get());

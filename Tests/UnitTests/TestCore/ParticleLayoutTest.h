@@ -27,7 +27,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
     Particle particle;
 
-    ParticleLayout particleDecoration(particle, 1.0, 2.0);
+    ParticleLayout particleDecoration(particle, 2.0);
 
     EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -36,7 +36,6 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 
     const IParticle * p_particle = particleDecoration.getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle);
-    EXPECT_EQ(1.0, p_particle->getDepth());
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
@@ -48,7 +47,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
     Particle particle;
 
-    ParticleLayout particleDecoration(particle, 3.0, -2.0);
+    ParticleLayout particleDecoration(particle, -2.0);
 
     EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -57,7 +56,6 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 
     const IParticle * p_particle = particleDecoration.getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle);
-    EXPECT_EQ(3.0, p_particle->getDepth());
     EXPECT_EQ(-2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 }
 
@@ -67,23 +65,21 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
     ParticleLayout particleDecoration;
 
     Particle particle;
-    particleDecoration.addParticle(particle, 0.1, -2.0);
+    particleDecoration.addParticle(particle, -2.0);
 
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
 
     Particle particle2;
-    particleDecoration.addParticle(particle2, 5.0,0.1);
+    particleDecoration.addParticle(particle2, 0.1);
 
     EXPECT_EQ(size_t(2), particleDecoration.getNumberOfParticles());
 
     const IParticle * p_particle = particleDecoration.getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle);
-    EXPECT_EQ(0.1, p_particle->getDepth());
     EXPECT_EQ(-2.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
     const IParticle * p_particle2 = particleDecoration.getParticle(size_t(1));
     EXPECT_TRUE(NULL!=p_particle2);
-    EXPECT_EQ(5.0, p_particle2->getDepth());
     EXPECT_EQ(0.1, particleDecoration.getAbundanceOfParticle(size_t(1)));
 }
 
@@ -101,33 +97,29 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.2);
+    particleDecoration.addParticle(particle2, 2.2);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, -4.2);
+    particleDecoration.addParticle(particle4, transform4, -4.2);
 
     EXPECT_EQ(size_t(4), particleDecoration.getNumberOfParticles());
 
     const IParticle * p_particle1 = particleDecoration.getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle1);
-    EXPECT_EQ(0.0, p_particle1->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
     EXPECT_TRUE(NULL == p_particle1->getRotation());
 
     const IParticle * p_particle2 = particleDecoration.getParticle(size_t(1));
     EXPECT_TRUE(NULL!=p_particle2);
-    EXPECT_EQ(2.1, p_particle2->getDepth());
     EXPECT_EQ(2.2, particleDecoration.getAbundanceOfParticle(size_t(1)));
     EXPECT_TRUE(NULL == p_particle2->getRotation());
 
     const IParticle * p_particle3 = particleDecoration.getParticle(size_t(2));
     EXPECT_TRUE(NULL!=p_particle3);
-    EXPECT_EQ(0.0, p_particle3->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
     EXPECT_TRUE(NULL != p_particle3->getRotation());
 
     const IParticle * p_particle4 = particleDecoration.getParticle(size_t(3));
     EXPECT_TRUE(NULL!=p_particle4);
-    EXPECT_EQ(4.1, p_particle4->getDepth());
     EXPECT_EQ(-4.2, particleDecoration.getAbundanceOfParticle(size_t(3)));
     EXPECT_TRUE(NULL != p_particle4->getRotation());
 }
@@ -148,13 +140,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     particleDecoration.addParticle(particle1);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
 
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
 
     particleDecoration.addParticle(particle3, transform3);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
 
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
     EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
 }
 
@@ -172,13 +164,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     RotationZ transform4(45.*Units::degree);
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
 
     HomogeneousMaterial mat5("core", 0, 0);
     Particle particle5(mat5);
-    particleDecoration.addParticle(particle5, 0.0, 0.0);
+    particleDecoration.addParticle(particle5, 0.0);
 
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -190,31 +182,26 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
 
     const IParticle * p_particle1 = clone->getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle1);
-    EXPECT_EQ(0.0, p_particle1->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
     EXPECT_TRUE(NULL == p_particle1->getRotation());
 
     const IParticle * p_particle2 = clone->getParticle(size_t(1));
     EXPECT_TRUE(NULL!=p_particle2);
-    EXPECT_EQ(2.1, p_particle2->getDepth());
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
     EXPECT_TRUE(NULL == p_particle2->getRotation());
 
     const IParticle * p_particle3 = clone->getParticle(size_t(2));
     EXPECT_TRUE(NULL!=p_particle3);
-    EXPECT_EQ(0.0, p_particle3->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
     EXPECT_TRUE(NULL != p_particle3->getRotation());
 
     const IParticle * p_particle4 = clone->getParticle(size_t(3));
     EXPECT_TRUE(NULL!=p_particle4);
-    EXPECT_EQ(4.1, p_particle4->getDepth());
     EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
     EXPECT_TRUE(NULL != p_particle4->getRotation());
 
     const IParticle * p_particle5 = clone->getParticle(size_t(4));
     EXPECT_TRUE(NULL!=p_particle5);
-    EXPECT_EQ(0.0, p_particle5->getDepth());
     EXPECT_EQ(0.0, particleDecoration.getAbundanceOfParticle(size_t(4)));
     EXPECT_TRUE(NULL == p_particle5->getRotation());
 
@@ -247,13 +234,13 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 
 
     particleDecoration.addParticle(particle1);
-    particleDecoration.addParticle(particle2, 2.1, 2.0);
+    particleDecoration.addParticle(particle2, 2.0);
     particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
+    particleDecoration.addParticle(particle4, transform4, 4.0);
 
     HomogeneousMaterial mat5("core",0,0);
     Particle particle5(mat5);
-    particleDecoration.addParticle(particle5, 0.0,0.0);
+    particleDecoration.addParticle(particle5, 0.0);
 
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -265,31 +252,26 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 
     const IParticle * p_particle1 = clone->getParticle(size_t(0));
     EXPECT_TRUE(NULL!=p_particle1);
-    EXPECT_EQ(0.0, p_particle1->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(0)));
     EXPECT_TRUE(NULL == p_particle1->getRotation());
 
     const IParticle * p_particle2 = clone->getParticle(size_t(1));
     EXPECT_TRUE(NULL!=p_particle2);
-    EXPECT_EQ(2.1, p_particle2->getDepth());
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
     EXPECT_TRUE(NULL == p_particle2->getRotation());
 
     const IParticle * p_particle3 = clone->getParticle(size_t(2));
     EXPECT_TRUE(NULL!=p_particle3);
-    EXPECT_EQ(0.0, p_particle3->getDepth());
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
     EXPECT_TRUE(NULL != p_particle3->getRotation());
 
     const IParticle * p_particle4 = clone->getParticle(size_t(3));
     EXPECT_TRUE(NULL!=p_particle4);
-    EXPECT_EQ(4.1, p_particle4->getDepth());
     EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
     EXPECT_TRUE(NULL != p_particle4->getRotation());
 
     const IParticle * p_particle5 = clone->getParticle(size_t(4));
     EXPECT_TRUE(NULL!=p_particle5);
-    EXPECT_EQ(0.0, p_particle5->getDepth());
     EXPECT_EQ(0.0, particleDecoration.getAbundanceOfParticle(size_t(4)));
     EXPECT_TRUE(NULL == p_particle5->getRotation());
 

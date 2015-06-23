@@ -58,7 +58,7 @@ ISample *Ripple2Builder::buildSample() const
     Particle ripple(particle_material, ff_ripple2 );
 
     ParticleLayout particle_layout;
-	particle_layout.addParticle(ripple,0.0,1.0);
+    particle_layout.addParticle(ripple, 1.0);
     InterferenceFunctionRadialParaCrystal *p_interference_function =
             new InterferenceFunctionRadialParaCrystal(m_interf_distance,
                     1e7*Units::nanometer); // peak_distance, corr_length

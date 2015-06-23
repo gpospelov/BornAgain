@@ -65,7 +65,7 @@ ParticleComposition* ParticleComposition::clone() const
 {
     ParticleComposition *p_new = new ParticleComposition();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticleNoPosition(*m_particles[index]);
+        p_new->addParticle(*m_particles[index]);
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(*getAmbientMaterial());
@@ -93,10 +93,17 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     return p_new;
 }
 
+void ParticleComposition::addParticle(const IParticle &particle)
+{
+    IParticle *np = particle.clone();
+    registerChild(np);
+    m_particles.push_back(np);
+}
+
 void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
 {
     IParticle *np = particle.clone();
-    np->setPosition(position);
+    np->applyTranslation(position);
     registerChild(np);
     m_particles.push_back(np);
 }
@@ -146,11 +153,3 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
     registerChild(p_particle);
     m_particles.push_back(p_particle);
 }
-
-void ParticleComposition::addParticleNoPosition(const IParticle &particle)
-{
-    IParticle *np = particle.clone();
-    registerChild(np);
-    m_particles.push_back(np);
-}
-

@@ -30,7 +30,7 @@ namespace bp = boost::python;
 
 struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreShell > {
 
-    ParticleCoreShell_wrapper(::Particle const & shell, ::Particle const & core, ::kvector_t relative_core_position )
+    ParticleCoreShell_wrapper(::Particle const & shell, ::Particle const & core, ::kvector_t relative_core_position=Geometry::BasicVector3D<double>(0.0, 0.0, 0.0) )
     : ParticleCoreShell( boost::ref(shell), boost::ref(core), relative_core_position )
       , bp::wrapper< ParticleCoreShell >(){
         // constructor
@@ -232,7 +232,7 @@ void register_ParticleCoreShell_class(){
 
     { //::ParticleCoreShell
         typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleCoreShell_wrapper >, boost::noncopyable > ParticleCoreShell_exposer_t;
-        ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", "A particle with a core/shell geometr.", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
+        ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", "A particle with a core/shell geometr.", bp::init< Particle const &, Particle const &, bp::optional< kvector_t > >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position")=Geometry::BasicVector3D<double>(0.0, 0.0, 0.0) )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
         { //::IParameterized::areParametersChanged
         

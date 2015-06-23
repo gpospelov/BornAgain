@@ -61,7 +61,7 @@ public:
                                                      const IRotation* p_rotation,
                                                      kvector_t translation) const=0;
 
-    //! Returns particle position, including depth.
+    //! Returns particle position.
     kvector_t getPosition() const
     {
         return m_position;

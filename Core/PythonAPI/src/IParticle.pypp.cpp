@@ -344,7 +344,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "getPosition"
                 , getPosition_function_type( &::IParticle::getPosition )
-                , "Returns particle position, including depth." );
+                , "Returns particle position." );
         
         }
         { //::IParticle::getRotation

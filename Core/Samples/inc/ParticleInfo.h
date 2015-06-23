@@ -53,13 +53,13 @@ public:
         return mP_particle.get();
     }
 
-    //! Returns particle position, including depth.
+    //! Returns particle position.
     kvector_t getPosition() const
     {
         return mP_particle->getPosition();
     }
 
-    //! Sets particle position, including depth.
+    //! Sets particle position.
     void setPosition(kvector_t position);
 
     //! Returns abundance.

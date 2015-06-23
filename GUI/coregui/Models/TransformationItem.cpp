@@ -18,7 +18,7 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString TransformationItem::P_ROT = "Rotation";
+const QString TransformationItem::P_ROT = "Rotation type";
 
 
 TransformationItem::TransformationItem(ParameterizedItem *parent)

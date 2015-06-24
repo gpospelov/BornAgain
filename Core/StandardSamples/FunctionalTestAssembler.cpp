@@ -1,5 +1,5 @@
 #include "FunctionalTestAssembler.h"
-#include "AdvancedFunctionalTest.h"
+#include "FunctionalMultiTest.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
 #include "FileSystem.h"
@@ -8,11 +8,11 @@
 #include <boost/scoped_ptr.hpp>
 #include <iostream>
 
-AdvancedFunctionalTestRegistry FunctionalTestAssembler::m_catalogue = AdvancedFunctionalTestRegistry();
+FunctionalTestRegistry FunctionalTestAssembler::m_catalogue = FunctionalTestRegistry();
 
-IAdvancedFunctionalTest *FunctionalTestAssembler::getTest(const std::string &test_name)
+IFunctionalTest *FunctionalTestAssembler::getTest(const std::string &test_name)
 {
-    AdvancedFunctionalTestInfo info = m_catalogue.getTestInfo(test_name);
+    FunctionalTestInfo info = m_catalogue.getTestInfo(test_name);
 
 
 //    SimulationRegistry sim_registry;
@@ -31,7 +31,7 @@ IAdvancedFunctionalTest *FunctionalTestAssembler::getTest(const std::string &tes
 
 //    FunctionalTestComponentService *service = new FunctionalTestComponentService(info.m_simulation_name, info.m_sample_builder_name, info.m_component_registry_name);
     FunctionalTestComponentService *service = new FunctionalTestComponentService(info);
-    return new AdvancedFunctionalMultiTest(test_name, info.m_test_description, service);
+    return new FunctionalMultiTest(test_name, info.m_test_description, service);
 
 }
 
@@ -55,7 +55,7 @@ int ADVANCED_FUNCTIONAL_TEST(const std::string &test_name)
         return 1;
     }
 
-    boost::scoped_ptr<IAdvancedFunctionalTest> test(assembler.getTest(test_name));
+    boost::scoped_ptr<IFunctionalTest> test(assembler.getTest(test_name));
     test->runTest();
     return test->analyseResults();
 }

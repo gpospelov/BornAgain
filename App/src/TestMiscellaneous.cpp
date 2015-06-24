@@ -35,7 +35,7 @@
 #include "SamplePrintVisitor.h"
 #include "Materials.h"
 #include "BornAgainNamespace.h"
-#include "FunctionalTestRegistry.h"
+#include "ObsoleteFunctionalTestRegistry.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Units.h"
 #include "Types.h"

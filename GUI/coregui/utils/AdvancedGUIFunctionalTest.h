@@ -2,15 +2,17 @@
 #define ADVANCEDGUIFUNCTIONALTEST_H
 
 #include "WinDllMacros.h"
-#include "AdvancedFunctionalTest.h"
+#include "IFunctionalTest.h"
+#include "OutputData.h"
 #include <string>
 
+class GISASSimulation;
 
-class BA_CORE_API_ AdvancedGUIFunctionalTest : public IAdvancedFunctionalTest
+class BA_CORE_API_ AdvancedGUIFunctionalTest : public IFunctionalTest
 {
 public:
 
-    AdvancedGUIFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData<double> *reference, double threshold);
+    AdvancedGUIFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold);
     ~AdvancedGUIFunctionalTest();
 
     void runTest();
@@ -23,8 +25,10 @@ public:
     void printResults(std::ostream &ostr) const;
 
 private:
-    GISASSimulation *m_simulation;
-    OutputData<double> *m_reference;
+    void createDomainSimulation();
+
+    GISASSimulation *m_reference_simulation;
+    GISASSimulation *m_domain_simulation;
     double m_threshold;
     double m_difference;
 };

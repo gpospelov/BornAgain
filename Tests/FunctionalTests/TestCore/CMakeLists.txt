@@ -17,8 +17,8 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
-#set(list_of_tests
-#    "IsGISAXS01"
+set(list_of_tests
+    "IsGISAXS01"
 #    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
@@ -46,12 +46,12 @@ endif()
 #    "Ripple1"
 #    "BatchSimulation"
 #    "BeamDivergence"
-#)
+)
 
-#foreach(_test ${list_of_tests})
-#   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
-#   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
-#endforeach()
+foreach(_test ${list_of_tests})
+   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
+   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+endforeach()
 
 # ------------------------------------------------------------------------------------------------
 #
@@ -60,7 +60,7 @@ endif()
 
 set(list_of_tests
     "CoreSuite/IsGISAXS01"
-    "CoreSuite/FormFactors"
+#    "CoreSuite/FormFactors"
 )
 
 

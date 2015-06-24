@@ -708,7 +708,7 @@ GISASSimulation *StandardSimulations::BasicGISAS()
 
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
+                                     false);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
 

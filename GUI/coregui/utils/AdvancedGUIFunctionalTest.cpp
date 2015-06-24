@@ -1,12 +1,24 @@
 #include "AdvancedGUIFunctionalTest.h"
-#include "AdvancedFunctionalTestRegistry.h"
-#include "FunctionalTestComponentService.h"
-#include "AdvancedFunctionalTest.h"
+#include "SimulationRegistry.h"
+#include "GUIObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "SampleModel.h"
+#include "MaterialEditor.h"
+#include "MaterialModel.h"
+#include "Instrument.h"
+#include "DomainObjectBuilder.h"
+#include "ParameterizedItem.h"
 #include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "Utils.h"
-#include <iostream>
+#include "DomainSimulationBuilder.h"
+
+#include "IFunctionalTest.h"
+#include "GUIFunctionalTestService.h"
+#include "FunctionalTestRegistry.h"
+#include "FunctionalMultiTest.h"
+
 #include <boost/scoped_ptr.hpp>
+#include <QDebug>
+
 
 namespace {
 
@@ -17,10 +29,10 @@ const size_t width_result = 18;
 }
 
 
-AdvancedGUIFunctionalTest::AdvancedGUIFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData<double> *reference, double threshold)
-    : IAdvancedFunctionalTest(name, description)
-    , m_simulation(simulation)
-    , m_reference(reference)
+AdvancedGUIFunctionalTest::AdvancedGUIFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+    : IFunctionalTest(name, description)
+    , m_reference_simulation(reference_simulation)
+    , m_domain_simulation(0)
     , m_threshold(threshold)
     , m_difference(0)
 {
@@ -29,36 +41,32 @@ AdvancedGUIFunctionalTest::AdvancedGUIFunctionalTest(const std::string &name, co
 
 AdvancedGUIFunctionalTest::~AdvancedGUIFunctionalTest()
 {
-    delete m_simulation;
-    delete m_reference;
+    delete m_reference_simulation;
+    delete m_domain_simulation;
 }
 
 void AdvancedGUIFunctionalTest::runTest()
 {
-    if(!m_simulation) {
-        throw NullPointerException("AdvancedFunctionalTest::runTest() -> Error. Uninitialized simulation object.");
+    if(!m_reference_simulation) {
+        throw NullPointerException("AdvancedGUIFunctionalTest::runTest() -> Error. Uninitialized simulation object.");
     }
-    m_simulation->runSimulation();
+
+    m_reference_simulation->runSimulation();
+
+    createDomainSimulation();
+    m_domain_simulation->runSimulation();
 }
 
 int AdvancedGUIFunctionalTest::analyseResults()
 {
-    if(!m_reference)  {
-        m_result = FAILED_NOREF;
-    } else {
-        m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(), *m_reference);
-        m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
-    }
+    boost::scoped_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getIntensityData());
+    boost::scoped_ptr<OutputData<double> > P_reference_data(
+        m_reference_simulation->getIntensityData());
+    m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
+    m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
     return m_result;
 }
 
-const OutputData<double> *AdvancedGUIFunctionalTest::getOutputData() const
-{
-    if(m_simulation) {
-        return m_simulation->getOutputData();
-    }
-    return 0;
-}
 
 void AdvancedGUIFunctionalTest::printResults(std::ostream &ostr) const
 {
@@ -71,9 +79,34 @@ void AdvancedGUIFunctionalTest::printResults(std::ostream &ostr) const
 }
 
 
+//! returns new simulation from
+void AdvancedGUIFunctionalTest::createDomainSimulation()
+{
+    assert(m_reference_simulation->getSample());
+
+    // initializing necessary GUI
+    boost::scoped_ptr<SampleModel> P_sampleModel(new SampleModel());
+    boost::scoped_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
+    boost::scoped_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    boost::scoped_ptr<MaterialEditor> P_materialEditor(new MaterialEditor(P_materialModel.get()));
+
+    // populating GUI models from domain
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(P_sampleModel.get(), *m_reference_simulation);
+    guiBuilder.populateInstrumentModel(P_instrumentModel.get(), *m_reference_simulation);
+
+    m_domain_simulation
+        = DomainSimulationBuilder::getSimulation(P_sampleModel.get(), P_instrumentModel.get());
+}
+
+
+
+// -------------------------------------------------------------------------------------------------
+
+
 int ADVANCED_GUI_FUNCTIONAL_TEST(const std::string &test_name)
 {
-    AdvancedFunctionalTestRegistry catalogue;
+    FunctionalTestRegistry catalogue;
     if(!catalogue.isValidTest(test_name)) {
         std::cout << "FUNCTIONAL_TEST() -> Non existing test with name '" << test_name << "', "
                   << "use argument from the list of defined tests" << std::endl;
@@ -81,10 +114,10 @@ int ADVANCED_GUI_FUNCTIONAL_TEST(const std::string &test_name)
         return 1;
     }
 
-    AdvancedFunctionalTestInfo info = catalogue.getTestInfo(test_name);
+    FunctionalTestInfo info = catalogue.getTestInfo(test_name);
 
-    FunctionalTestComponentService *service = new FunctionalTestComponentService(info);
-    boost::scoped_ptr<IAdvancedFunctionalTest> test(new AdvancedFunctionalMultiTest(test_name, info.m_test_description, service));
+    GUIFunctionalTestService *service = new GUIFunctionalTestService(info);
+    boost::scoped_ptr<IFunctionalTest> test(new FunctionalMultiTest(test_name, info.m_test_description, service));
     test->runTest();
     return test->analyseResults();
 }

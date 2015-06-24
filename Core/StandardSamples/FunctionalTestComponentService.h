@@ -18,20 +18,20 @@
 
 #include "IComponentService.h"
 #include "ISampleBuilder.h"
-#include "AdvancedFunctionalTestRegistry.h"
+#include "FunctionalTestRegistry.h"
 #include <vector>
 #include <string>
 
 class IFormFactor;
 class GISASSimulation;
 class TestFormFactorsRegistry;
-
+class IFunctionalTest;
 
 class FunctionalTestComponentService : public IComponentService
 {
 public:
 
-    FunctionalTestComponentService(const AdvancedFunctionalTestInfo &info);
+    FunctionalTestComponentService(const FunctionalTestInfo &info);
 
     ~FunctionalTestComponentService();
 
@@ -48,14 +48,16 @@ public:
 
     double getThreshold() const;
 
-    AdvancedFunctionalTestInfo getTestInfo() const;
+    FunctionalTestInfo getTestInfo() const;
 
     std::string getCurrentComponentName() const;
 
-private:
+    IFunctionalTest *getFunctionalTest();
+
+protected:
     void init_registry(const std::string &registry_name);
 
-    AdvancedFunctionalTestInfo m_testInfo;
+    FunctionalTestInfo m_testInfo;
     IFormFactor *m_form_factor;
     GISASSimulation *m_simulation;
     SampleBuilder_t m_sample_builder;

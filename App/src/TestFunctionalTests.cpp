@@ -18,7 +18,7 @@
 #include "IsGISAXSTools.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
-#include "IFunctionalTest.h"
+#include "ObsoleteIFunctionalTest.h"
 #include <boost/scoped_ptr.hpp>
 #include <iostream>
 #include <vector>
@@ -30,7 +30,7 @@ void TestFunctionalTests::execute()
     if(!readTestNames()) return;
 
     for(size_t i=0; i<m_testNames.size(); ++i) {
-        boost::scoped_ptr<FunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
+        boost::scoped_ptr<ObsoleteFunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
         test->getSimulation()->setProgramOptions(mp_options);
         test->runTest();
         test->analyseResults();

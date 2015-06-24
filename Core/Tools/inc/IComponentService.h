@@ -23,6 +23,7 @@
 
 class IFormFactor;
 class GISASSimulation;
+class IFunctionalTest;
 
 //! @class IComponentService
 //! @ingroup simulation_internal
@@ -35,6 +36,8 @@ public:
     virtual GISASSimulation *getSimulation() = 0;
     virtual OutputData<double> *getReferenceData() = 0;
     virtual SampleBuilder_t getSampleBuilder() = 0;
+    virtual IFunctionalTest *getFunctionalTest() = 0;
+
     virtual ~IComponentService(){}
 };
 

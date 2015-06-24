@@ -6,6 +6,8 @@
 #include "IFormFactor.h"
 #include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
+#include "FunctionalMultiTest.h"
+#include "CoreFunctionalTest.h"
 #include <iostream>
 
 
@@ -15,7 +17,7 @@ const std::string NoneRegistryName = "None";
 const std::string DefaultComponentName = "Default";
 }
 
-FunctionalTestComponentService::FunctionalTestComponentService(const AdvancedFunctionalTestInfo &info)
+FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo &info)
     : m_testInfo(info)
     , m_form_factor(0)
     , m_simulation(0)
@@ -98,7 +100,7 @@ double FunctionalTestComponentService::getThreshold() const
     return m_testInfo.m_threshold;
 }
 
-AdvancedFunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
+FunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
 {
     return m_testInfo;
 }
@@ -106,6 +108,12 @@ AdvancedFunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
 std::string FunctionalTestComponentService::getCurrentComponentName() const
 {
     return m_component_names[m_current_component];
+}
+
+IFunctionalTest *FunctionalTestComponentService::getFunctionalTest()
+{
+    CoreFunctionalTest *result = new CoreFunctionalTest(m_testInfo.m_test_name, m_testInfo.m_test_description, getSimulation(), getReferenceData(), getThreshold());
+    return result;
 }
 
 void FunctionalTestComponentService::init_registry(const std::string &registry_name)

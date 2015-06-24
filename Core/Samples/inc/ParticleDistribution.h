@@ -87,6 +87,9 @@ public:
     }
 
 private:
+    //! Checks if particle's type is suitable for adding
+    void checkParticleType(const IParticle& p_particle);
+
     boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
 };

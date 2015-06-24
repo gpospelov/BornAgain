@@ -247,6 +247,9 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
         } else if (p_child->modelType() == Constants::ParticleCoreShellType) {
             P_particle.reset(buildParticleCoreShell(*p_child, abundance));
             break;
+        } else if (p_child->modelType() == Constants::ParticleCompositionType) {
+            P_particle.reset(buildParticleComposition(*p_child, abundance));
+            break;
         }
     }
 

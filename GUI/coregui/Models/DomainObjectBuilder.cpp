@@ -211,6 +211,13 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
             if (P_coreshell.get()) {
                 p_result->addParticle(*P_coreshell);
             }
+        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
+            ParameterizedItem *particle_item = children[i];
+            boost::scoped_ptr<ParticleComposition> P_composition(
+                buildParticleComposition(*particle_item, tmp_abundance));
+            if (P_composition.get()) {
+                p_result->addParticle(*P_composition);
+            }
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
                                     " -> Error! Not implemented");

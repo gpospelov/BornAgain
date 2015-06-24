@@ -3,6 +3,7 @@
 #include "Ellipse.h"
 #include "Polygon.h"
 #include "GraphicsProxyWidget.h"
+#include "GraphicsScene.h"
 
 
 //GraphicsView::GraphicsView() : m_rectangle(0), m_ellipse(0), m_polygon(0), isFinished(true),
@@ -111,6 +112,24 @@ void GraphicsView::resizeEvent(QResizeEvent *event)
     this->scene()->sceneRect().setWidth(width);
     this->scene()->sceneRect().setHeight(height)*/;
     QGraphicsView::resizeEvent(event);
+}
+
+void  GraphicsView::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Delete:
+        deleteSelectedItems();
+        break;
+    default:
+        QWidget::keyPressEvent(event);
+    }
+}
+
+void GraphicsView::deleteSelectedItems()
+{
+    GraphicsScene *graphicsScene = dynamic_cast<GraphicsScene *>(scene());
+    Q_ASSERT(graphicsScene);
+    graphicsScene->deleteSelectedItems();
 }
 
 //void GraphicsView::drawForeground(QPainter* painter, const QRectF& /* rect */)

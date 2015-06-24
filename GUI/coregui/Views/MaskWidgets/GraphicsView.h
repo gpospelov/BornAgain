@@ -19,6 +19,7 @@ public:
 
     void scalingTime(qreal x);
     void animFinished();
+    void deleteSelectedItems();
 protected:
 //    void mousePressEvent(QMouseEvent *event);
 //    void mouseMoveEvent(QMouseEvent *event);
@@ -27,6 +28,8 @@ protected:
     void wheelEvent(QWheelEvent* event);
     void zoom(qreal factor, QPointF centerPoint);
     void resizeEvent(QResizeEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+
 
 
 private:
@@ -37,7 +40,5 @@ private:
 //    bool isFinished;
 //    QPointF m_currentMousePosition;
 //    QPointF m_lastAddedPoint;
-    bool _pan;
-    int _panStartX, _panStartY;
 };
 #endif

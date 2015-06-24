@@ -33,12 +33,12 @@ qreal RectangleItem::getYPos()
 
 qreal RectangleItem::getWidth()
 {
-    return getRegisteredProperty(P_WIDTH).toDouble();
+    return getRegisteredProperty(P_WIDTH).toReal();
 }
 
 qreal RectangleItem::getHeight()
 {
-    return getRegisteredProperty(P_HEIGHT).toDouble();
+    return getRegisteredProperty(P_HEIGHT).toReal();
 }
 
 bool RectangleItem::isResizeMode()

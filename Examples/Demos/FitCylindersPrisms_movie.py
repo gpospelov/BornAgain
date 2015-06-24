@@ -24,13 +24,14 @@ cylinder_radius = prism3_length/2 = 6nm as initial fit parameter values.
 
 import numpy
 import matplotlib
-import pylab
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib.path import Path
 import math
 from bornagain import *
 
-pylab.ion()
-fig = pylab.figure(1)
-#fig.canvas.draw()
+fig = plt.figure(1)
+max_line_length = 30
 
 
 def get_sample(cylinder_height=1.0*nanometer,
@@ -112,36 +113,65 @@ class DrawObserver(IObserver):
         IObserver.__init__(self)
         print "MySampleBuilder ctor"
         self.draw_every_nth = draw_every
+        self.cyl_points = []
+        self.prism_points = []
+        self.draw_codes = []
 
     def update(self, fit_suite):
         fig.clf()
         # plotting real data
         real_data = fit_suite.getFitObjects().getRealData().getArray()
         simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
-        pylab.subplot(2, 2, 1)
-        im = pylab.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-        pylab.colorbar(im)
-        pylab.title('\"Real\" data')
+        plt.subplot(2, 2, 1)
+        im = plt.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        plt.colorbar(im)
+        plt.title('\"Real\" data')
         # plotting real data
-        pylab.subplot(2, 2, 2)
-        im = pylab.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-        pylab.colorbar(im)
-        pylab.title('Simulated data')
-        # plotting difference map
-        diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
-        pylab.subplot(2, 2, 3)
-        im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
-        pylab.colorbar(im)
-        pylab.title('Difference map')
-        # plotting parameters info
-        pylab.subplot(2, 2, 4)
-        pylab.title('Parameters')
-        pylab.axis('off')
-        pylab.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
-        pylab.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
+        plt.subplot(2, 2, 2)
+        im = plt.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+        plt.colorbar(im)
+        plt.title('Simulated data')
+        # plotting parameter space
+        if fit_suite.getNCalls() == 0:
+            self.draw_codes.append(Path.MOVETO)
+        # elif fit_suite.getNCalls() < max_line_length:
+        else:
+            self.draw_codes.append(Path.LINETO)
         fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
+        self.cyl_points.append((fitpars[0].getValue(), fitpars[1].getValue()))
+        self.prism_points.append((fitpars[2].getValue(), fitpars[3].getValue()))
+        # if fit_suite.getNCalls() >= max_line_length:
+        #     self.cyl_points.pop(0)
+        #     self.prism_points.pop(0)
+        # cylinder parameter space
+        path_cyl = Path(self.cyl_points, self.draw_codes)
+        ax = plt.subplot(2, 2, 3)
+        patch = patches.PathPatch(path_cyl, facecolor='none', lw=2)
+        ax.add_patch(patch)
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 10)
+        # prism parameter space
+        path_prism = Path(self.prism_points, self.draw_codes)
+        ax = plt.subplot(2, 2, 4)
+        patch = patches.PathPatch(path_prism, facecolor='none', lw=2)
+        ax.add_patch(patch)
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 10)
+        # # plotting difference map
+        # diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
+        # pylab.subplot(2, 2, 3)
+        # im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
+        # pylab.colorbar(im)
+        # pylab.title('Difference map')
+        # # plotting parameters info
+        # pylab.subplot(2, 2, 4)
+        # pylab.title('Parameters')
+        # pylab.axis('off')
+        # pylab.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
+        # pylab.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
+        # fitpars = fit_suite.getFitParameters()
+        # for i in range(0, fitpars.size()):
+        #     pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
         fname = '_tmp%03d.png' % fit_suite.getNCalls()
         print 'Saving frame', fname
         fig.savefig(fname)
@@ -169,10 +199,22 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/length", 4.*nanometer, 0.02*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, 0.01*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*FormFactorPrism3/length", 2.*nanometer, 0.02*nanometer, AttLimits.limited(0.01, 10.0))
+
+    # # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
+    # # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.
+    # strategy1 = FitStrategyAdjustMinimizer()
+    # strategy1.setMinimizer(MinimizerFactory.createMinimizer("Genetic"))
+    # strategy1.getMinimizer().getOptions().setMaxIterations(0)
+    # fit_suite.addFitStrategy(strategy1)
+
+    # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
+    strategy2 = FitStrategyAdjustMinimizer()
+    strategy2.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Migrad"))
+    fit_suite.addFitStrategy(strategy2)
 
     # running fit
     fit_suite.runFit()

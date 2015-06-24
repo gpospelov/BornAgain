@@ -5,22 +5,21 @@
 #include "DistributionEditor.h"
 #include <QGraphicsView>
 #include <QPainterPath>
+#include "IView.h"
 
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
 class RectangleItem;
 
-class RectangleView :public QGraphicsObject
+class RectangleView :public IView
 {
 Q_OBJECT
 
 public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
-    enum Point { X, Y};
     enum {Type = UserType + 1};
-//    enum Color {INCLUDE = 0, EXCLUDE = 1};
 
     //! create Rectangle
     //! @param posX x position in scene
@@ -53,13 +52,12 @@ public:
     QRectF getBottomLeftCorner();
     QRectF getBottomRightCorner();
     void setItem(ParameterizedItem *item);
-    void setPosition(qreal x, qreal y);
-    qreal getXValue() const;
-    qreal getYValue() const;
+//    void setParameterizedItem(ParameterizedItem *item);
+    ParameterizedItem *getParameterizedItem();
 public slots:
     void onXValueChanged();
     void onYValueChanged();
-//    void onPropertyChange(const QString &propertyName);
+    void onPropertyChange(const QString &propertyName);
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -67,7 +65,6 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 
 private:

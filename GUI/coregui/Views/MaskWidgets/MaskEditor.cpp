@@ -40,21 +40,21 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 
     // convert widget into custom QProxywidget and put it in to the scene
-    SimulationRegistry sim_registry;
-    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
-    sim->runSimulation();
-    IntensityDataItem *dataItem = new IntensityDataItem;
-    dataItem->setOutputData(sim->getIntensityData());
+//    SimulationRegistry sim_registry;
+//    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
+//    sim->runSimulation();
+//    IntensityDataItem *dataItem = new IntensityDataItem;
+//    dataItem->setOutputData(sim->getIntensityData());
 
-    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-    colorMapPlot->setItem(dataItem);
+//    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+//    colorMapPlot->setItem(dataItem);
 
 
-    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-    widget->setWidget(colorMapPlot);
-    widget->resize(m_scene->width(), m_scene->height());
-    m_widget = widget;
-    m_scene->addItem(widget);
+//    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
+//    widget->setWidget(colorMapPlot);
+//    widget->resize(m_scene->width(), m_scene->height());
+//    m_widget = widget;
+//    m_scene->addItem(widget);
 
 
     // connect buttons
@@ -106,7 +106,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     drawingModeLayout->addWidget(polygonButton);
     drawingModeLayout->addWidget(panButton);
     drawingModeLayout->addWidget(selectionButton);
-    drawingMode->setDisabled(true);
+//    drawingMode->setDisabled(true);
 
     QGroupBox *selectionMode = new QGroupBox(this);
     QVBoxLayout *selectionModeBoxLayout = new QVBoxLayout;
@@ -118,13 +118,13 @@ MaskEditor::MaskEditor(QWidget *parent)
     selectionModeBoxLayout->addWidget(bringToFrontButton);
     selectionModeBoxLayout->addWidget(sendToBackButton);
 //    selectionModeBoxLayout->addWidget(panButton);
-    selectionModeBoxLayout->addWidget(drawingButton);
+//    selectionModeBoxLayout->addWidget(drawingButton);
 
-    connect(selectionButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setDisabled(bool)));
-    connect(selectionButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setEnabled(bool)));
+//    connect(selectionButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setDisabled(bool)));
+//    connect(selectionButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setEnabled(bool)));
 
-    connect(drawingButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setDisabled(bool)));
-    connect(drawingButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setEnabled(bool)));
+//    connect(drawingButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setDisabled(bool)));
+//    connect(drawingButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setEnabled(bool)));
 
     QButtonGroup *buttonGroup = new QButtonGroup(this);
     buttonGroup->addButton(rectangleButton);
@@ -138,7 +138,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 //    buttonGroup->addButton(sendToBackButton);
 //    buttonGroup->addButton(bringToFrontButton);
     buttonGroup->addButton(selectionButton);
-    buttonGroup->addButton(drawingButton);
+//    buttonGroup->addButton(drawingButton);
 
     // create widget with buttons
     QWidget *buttons = new QWidget;
@@ -168,18 +168,22 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 //    m_scene->setMaskModel(m_maskModel);
 
-    QGraphicsRectItem *rect1 = new QGraphicsRectItem(m_scene->sceneRect());
-    QGraphicsRectItem *rect2 = new QGraphicsRectItem(200,200,200,200);
+//    QGraphicsRectItem *rect1 = new QGraphicsRectItem(m_scene->sceneRect());
+//    QGraphicsRectItem *rect2 = new QGraphicsRectItem(200,200,200,200);
     AwesomePropertyEditor *editor = new AwesomePropertyEditor;
+    QListView *listView = new QListView;
     RectangleItem *rectItem = new RectangleItem;
     RectangleView *rectView = new RectangleView;
 
-    rectItem->setWidth(300);
-    rectItem->setHeight(300);
+    rectItem->setWidth(200);
+    rectItem->setHeight(200);
     rectView->setItem(rectItem);
     editor->setItem(rectItem);
     buttonLayout->addWidget(editor);
     m_scene->addItem(rectView);
+    m_scene->setListView(listView);
+    buttonLayout->addWidget(listView);
+
 //    m_scene->addItem(rect1);
 //    m_scene->addItem(rect2);
 

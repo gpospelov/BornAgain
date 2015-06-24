@@ -3,17 +3,20 @@
 #include "RectangleItem.h"
 #include <iostream>
 #include <cmath>
+#include "ParameterizedItem.h"
+
+
+// FIXME
 
 RectangleView::RectangleView()
 {
-//    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-//    this->setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
-    this->setFlag(QGraphicsItem::ItemIsSelectable);
-    this->setFlag(QGraphicsItem::ItemIsMovable);
-    this->setFlag(QGraphicsItem::ItemIgnoresTransformations, false);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemIgnoresTransformations, false);
+    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
     connect(this, SIGNAL(xChanged()), this, SLOT(onXValueChanged()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onYValueChanged()));
-    degree == 0;
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -44,7 +47,6 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
 
 QRectF RectangleView::boundingRect() const
 {
-//    return QRectF(m_item->getXPos(), m_item->getYPos(), m_item->getWidth(),  m_item->getHeight());
     return QRectF(0 - 10, 0 - 10, m_item->getWidth() + 20,  m_item->getHeight() + 20);
 }
 
@@ -55,34 +57,34 @@ void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
             m_corner = TOPRIGHT;
             setCursor(Qt::SizeBDiagCursor);
 
-        } else if (getYValue() + m_item->getHeight() <= event->pos().y()) {
+        } else if (m_item->getHeight() <= event->pos().y()) {
             m_corner = BOTTOMLEFT;
             setCursor(Qt::SizeBDiagCursor);
         }
     } else if (m_corner == TOPRIGHT) {
-        if (event->pos().x() <= getXValue()) {
+        if (event->pos().x() <= 0) {
             m_corner = TOPLEFT;
             setCursor(Qt::SizeFDiagCursor);
 
-        } else if (getYValue() + m_item->getHeight() <= event->pos().y()) {
+        } else if (m_item->getHeight() <= event->pos().y()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
         }
     } else if (m_corner == BOTTOMLEFT) {
-        if (getXValue() + m_item->getWidth() <= event->pos().x()) {
+        if (m_item->getWidth() <= event->pos().x()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
 
-        } else if (event->pos().y() <= getYValue()) {
+        } else if (event->pos().y() <= 0) {
             m_corner = TOPLEFT;
             setCursor(Qt::SizeFDiagCursor);
         }
     } else if (m_corner == BOTTOMRIGHT) {
-        if (event->pos().x() <= getXValue()) {
+        if (event->pos().x() <= 0) {
             m_corner = BOTTOMLEFT;
             setCursor(Qt::SizeBDiagCursor);
 
-        } else if (event->pos().y() <= getYValue()) {
+        } else if (event->pos().y() <= 0) {
             m_corner = TOPRIGHT;
             setCursor(Qt::SizeBDiagCursor);
         }
@@ -99,23 +101,17 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
         m_item->setHeight(m_item->getHeight() - event->pos().y());
         this->setX(event->scenePos().x());
         this->setY(event->scenePos().y());
-//        m_item->setXPos(event->pos().x());
-//        m_item->setYPos(event->pos().y());
-//        setPosition(event->pos().x(),event->pos().y());
 
     } else if (m_corner == BOTTOMLEFT) {
         m_item->setWidth(x() + m_item->getWidth() - event->scenePos().x());
         m_item->setHeight(event->scenePos().y() - y());
         this->setX(event->scenePos().x());
-//        m_item->setXPos(event->pos().x());
-//        setPosition(event->pos().x(), getYValue());
+
 
     } else if (m_corner == TOPRIGHT) {
         m_item->setWidth(event->scenePos().x() - x());
         m_item->setHeight(y() + m_item->getHeight() - event->scenePos().y());
         this->setY(event->scenePos().y());
-//        m_item->setYPos(event->pos().y());
-//        setPosition(getXValue(),event->pos().y());
     }
 
     else if (m_corner == BOTTOMRIGHT) {
@@ -126,9 +122,10 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
 
 qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
 {
+    QPointF middlePoint =  mapToScene(m_item->getWidth()/2, m_item->getHeight()/2);
     qreal lengthOfHypotenuse = sqrt(pow(m_item->getWidth() / 2, 2) + pow(m_item->getHeight() / 2, 2));
     qreal offsetAngle = acos((m_item->getWidth() / 2) / lengthOfHypotenuse) * 180 / M_PI;
-    qreal radians = atan((event->scenePos().y() - m_item->getYPos() + m_item->getHeight() / 2) / (event->scenePos().x()- m_item->getXPos() + m_item->getWidth() / 2));
+    qreal radians = atan((event->scenePos().y() - middlePoint.y()) / (event->scenePos().x() - middlePoint.x()));
 
     if (m_corner == TOPLEFT) {
         return radians * 180 / M_PI - offsetAngle;
@@ -145,15 +142,6 @@ qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
     return 0;
 }
 
-//void RectangleView::setWidth(qreal width)
-//{
-//    m_item->setWidth(width);
-//}
-
-//void RectangleView::setHeigth(qreal heigth)
-//{
-//    m_item->setHeight(heigth);
-//}
 
 void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -195,11 +183,9 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         calculateResize(event);
 
     } else if (m_corner != NONE && m_item->isRotationMode()) {
-        qDebug() << "void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event): RotationMode" << getXValue() << getYValue();
-//        this->setTransformOriginPoint(getXValue() + m_item->getWidth() *0.5, getYValue() + m_item->getHeight() *0.5);
         QTransform transform;
         transform.translate(m_item->getWidth() * 0.5,  m_item->getHeight() * 0.5);
-        transform.rotate(degree++);
+        transform.rotate(calculateRotation(event));
         transform.translate(-(m_item->getWidth() * 0.5), -(m_item->getHeight() * 0.5));
         setTransform(transform);
 
@@ -259,15 +245,6 @@ void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-//QVariant RectangleView::itemChange(GraphicsItemChange change, const QVariant &value)
-//{
-
-//    if (change == QGraphicsItem::ItemPositionChange) {
-//        m_item->setXPos(x());
-//        m_item->setYPos(y());
-//    }
-//    return QGraphicsItem::itemChange(change, value);
-//}
 void RectangleView::setInclude()
 {
     m_item->setColor(0);
@@ -301,14 +278,16 @@ QRectF RectangleView::getBottomRightCorner()
 void RectangleView::setItem(ParameterizedItem *item)
 {
     m_item = dynamic_cast<RectangleItem *>(item);
-//    connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
+    setX(m_item->getXPos() - 10);
+    setY(m_item->getYPos() - 10);
+    connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
 }
 
 void RectangleView::onXValueChanged()
 {
     m_block_update = true;
     qDebug() << "onXValueChanged(double xValue)-> x value changed" << x();
-    m_item->setXPos(x());
+    m_item->setXPos(x() + 10);
     m_block_update = false;
 }
 
@@ -316,41 +295,24 @@ void RectangleView::onYValueChanged()
 {
     m_block_update = true;
     qDebug() << "onYValueChanged(double yValue)-> y value changed" << y();
-    m_item->setYPos(y());
+    m_item->setYPos(y() + 10);
     m_block_update = false;
 
 }
 
 
-//void RectangleView::onPropertyChange(const QString &propertyName)
-//{
-//    if(m_block_update) return;
-//       qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)";
-//       if(propertyName == RectangleItem::P_POSX) {
-//           setPosition(getXValue(), getYValue());
-//       } else if(propertyName == RectangleItem::P_POSY) {
-//           setPosition(getXValue(), getYValue());
-//       }
-//}
-
-
-qreal RectangleView::getXValue() const
+void RectangleView::onPropertyChange(const QString &propertyName)
 {
-    QPointF point(mapFromScene(m_item->getXPos(), m_item->getYPos()));
-    return point.x();
+    if(m_block_update) return;
+       qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)";
+       if(propertyName == RectangleItem::P_POSX) {
+           setX(m_item->getXPos() - 10);
+       } else if(propertyName == RectangleItem::P_POSY) {
+           setY(m_item->getYPos() - 10);
+       }
 }
 
-qreal RectangleView::getYValue() const
+ParameterizedItem *RectangleView::getParameterizedItem()
 {
-
-    QPointF point = mapFromScene(m_item->getXPos(), m_item->getYPos());
-    qDebug() << "qreal RectangleView::getYValue() const->" << point.y();
-    return point.y();
-}
-
-void RectangleView::setPosition(qreal x, qreal y)
-{
-    QPointF point = mapToScene(QPointF(x, y));
-    m_item->setXPos(point.x());
-    m_item->setYPos(point.y());
+    return m_item;
 }

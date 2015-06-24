@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ADVANCEDFUNCTIONALTEST_H
-#define ADVANCEDFUNCTIONALTEST_H
+#ifndef FUNCTIONALMULTITEST_H
+#define FUNCTIONALMULTITEST_H
 
 #include "IFunctionalTest.h"
 #include <vector>

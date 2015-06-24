@@ -47,14 +47,6 @@ void FunctionalMultiTest::runTest()
         std::cout << "AdvancedFunctionalMultiTest::runTest() -> " << i<< " " << m_name << std::endl;
         m_componentService->setComponent(i);
 
-//        AdvancedFunctionalTest *test = new AdvancedFunctionalTest(
-//            m_componentService->getCurrentComponentName(), std::string(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
-//            m_componentService->getThreshold());
-
-//        AdvancedFunctionalTest *test = new AdvancedFunctionalTest(
-//            getName(), getDescription(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
-//            m_componentService->getThreshold());
-
         IFunctionalTest *test = m_componentService->getFunctionalTest();
 
         m_test_to_reference_fname[test] = m_componentService->getReferenceFileName();
@@ -63,8 +55,6 @@ void FunctionalMultiTest::runTest()
         test->analyseResults();
 
         m_tests.push_back(test);
-
-        std::cout << "AAA " << m_componentService->getReferenceFileName() << std::endl;
     }
 }
 

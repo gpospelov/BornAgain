@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GUIFunctionalTest.cpp
+//! @file      coregui/utils/GUIFunctionalTest.cpp
 //! @brief     Implements class GUIFunctionalTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "GUIFunctionalTest.h"
+#include "ObsoleteGUIFunctionalTest.h"
 #include "SimulationRegistry.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
@@ -28,58 +28,47 @@
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
 
-
-GUIFunctionalTest::GUIFunctionalTest(const std::string &name, const std::string &description,
-                                     GISASSimulation *reference_simulation, double threshold)
-    : IFunctionalTest(name, description)
-    , m_reference_simulation(reference_simulation)
-    , m_domain_simulation(0)
-    , m_threshold(threshold)
-    , m_difference(0)
+ObsoleteGUIFunctionalTest::ObsoleteGUIFunctionalTest(const std::string &name)
+    : m_name(name), m_threshold(2e-10), m_reference_simulation(0), m_domain_simulation(0)
 {
+    SimulationRegistry sim_registry;
+    m_reference_simulation = sim_registry.createSimulation(m_name);
 }
 
-GUIFunctionalTest::~GUIFunctionalTest()
+ObsoleteGUIFunctionalTest::~ObsoleteGUIFunctionalTest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
-void GUIFunctionalTest::runTest()
+void ObsoleteGUIFunctionalTest::runTest()
 {
-    if (!m_reference_simulation) {
-        throw NullPointerException(
-            "AdvancedGUIFunctionalTest::runTest() -> Error. Uninitialized simulation object.");
-    }
-
+    assert(m_reference_simulation);
     m_reference_simulation->runSimulation();
 
     createDomainSimulation();
     m_domain_simulation->runSimulation();
 }
 
-int GUIFunctionalTest::analyseResults()
+int ObsoleteGUIFunctionalTest::analyseResults()
 {
     boost::scoped_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getIntensityData());
     boost::scoped_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getIntensityData());
-    m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
-    m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
-    return m_result;
-}
+    double diff = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
 
-void GUIFunctionalTest::printResults(std::ostream &ostr) const
-{
-    ostr << getFormattedInfoString();
-    ostr << getDifference();
-}
+    std::cout << m_name << " "
+              << " " << diff << " " << (diff > m_threshold ? "[FAILED]" : "[OK]") << std::endl;
 
+    if (diff > m_threshold)
+        return FAILED;
+    return SUCCESS;
+}
 
 //! returns new simulation from
-void GUIFunctionalTest::createDomainSimulation()
+void ObsoleteGUIFunctionalTest::createDomainSimulation()
 {
     assert(m_reference_simulation->getSample());
-
     // initializing necessary GUI
     boost::scoped_ptr<SampleModel> P_sampleModel(new SampleModel());
     boost::scoped_ptr<InstrumentModel> P_instrumentModel(new InstrumentModel());
@@ -93,4 +82,11 @@ void GUIFunctionalTest::createDomainSimulation()
 
     m_domain_simulation
         = DomainSimulationBuilder::getSimulation(P_sampleModel.get(), P_instrumentModel.get());
+}
+
+int OBSOLETE_GUI_FUNCTIONAL_TEST(const std::string &name)
+{
+    ObsoleteGUIFunctionalTest test(name);
+    test.runTest();
+    return test.analyseResults();
 }

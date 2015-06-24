@@ -112,8 +112,7 @@ std::string FunctionalTestComponentService::getCurrentComponentName() const
 
 IFunctionalTest *FunctionalTestComponentService::getFunctionalTest()
 {
-    CoreFunctionalTest *result = new CoreFunctionalTest(m_testInfo.m_test_name, m_testInfo.m_test_description, getSimulation(), getReferenceData(), getThreshold());
-    return result;
+    return 0;
 }
 
 void FunctionalTestComponentService::init_registry(const std::string &registry_name)

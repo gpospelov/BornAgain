@@ -6,23 +6,7 @@ if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
 
-
 find_package(Qt5Widgets REQUIRED)
-
-set(list_of_tests
-    "TestGUI01"
-    "TestGUI02"
-    "TestGUI03"
-    "TestGUI04"
-    "TestGUI05"
-    "TestGUI06"
-    "TestGUI07"
-    "TestGUI08"
-    "TestGUIBeamDivergence"
-    "TestGUIDetectorResolution"
-    "TestGUIParticleDistribution"
-    "TestGUIParticleComposition"
-)
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)
@@ -38,6 +22,21 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
+set(list_of_tests
+    "TestGUI01"
+#    "TestGUI02"
+#    "TestGUI03"
+#    "TestGUI04"
+#    "TestGUI05"
+#    "TestGUI06"
+#    "TestGUI07"
+#    "TestGUI08"
+#    "TestGUIBeamDivergence"
+#    "TestGUIDetectorResolution"
+#    "TestGUIParticleDistribution"
+#    "TestGUIParticleComposition"
+)
+
 foreach(_test ${list_of_tests})
    #BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
 
@@ -51,4 +50,56 @@ foreach(_test ${list_of_tests})
    BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
 endforeach()
 
+# ------------------------------------------------------------------------
+#
+# New machinery
+#
+# ------------------------------------------------------------------------
+
+set(list_of_tests
+    "GUITestSuite/FormFactors"
+)
+
+# ------------------------------------------------------------------------
+# Adding executables.
+# The list of unique executable names is extracted from the list of tests
+# ------------------------------------------------------------------------
+foreach(_test ${list_of_tests})
+    string(REPLACE "/" ";"  test_info ${_test})
+    list(GET test_info 0 test_exe_name)
+    list(APPEND list_of_executables ${test_exe_name})
+endforeach()
+list(REMOVE_DUPLICATES list_of_executables)
+message(INFO "${list_of_executables}")
+
+foreach(test_exe_name ${list_of_executables})
+#   BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
+
+   file(GLOB source_files "${test_exe_name}/*.cpp")
+   file(GLOB include_files "${test_exe_name}/*.h")
+   add_executable( ${test_exe_name} ${source_files} ${include_files})
+   target_link_libraries(${test_exe_name} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
+
+   qt5_use_modules(${test_exe_name} Widgets Core Gui Script Designer PrintSupport)
+
+
+endforeach()
+
+# ------------------------------------------------------------------------
+# Adding tests
+# ------------------------------------------------------------------------
+foreach(_test ${list_of_tests})
+    string(REPLACE "/" ";"  test_info ${_test})
+    list(LENGTH test_info len)
+    list(GET test_info 0 test_exe_name)
+    if(len EQUAL 2)
+        list(GET test_info 1 test_argument)
+    endif()
+
+    message(INFO " _test ${_test} test_exe_name ${test_exe_name} test_argument ${test_argument}")
+    set(test_input_args "${test_argument}")
+    #set(test_input_args "${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/")
+
+    BORNAGAIN_ADD_TEST2(${_test} ${test_exe_name} TEST_ARGUMENTS ${test_argument})
+endforeach()
 

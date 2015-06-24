@@ -29,7 +29,7 @@ AdvancedFunctionalTestRegistry::AdvancedFunctionalTestRegistry()
 
     add("IsGISAXS01",
         "Mixture of cylinders and prisms without interference",
-        "IsGISAXSDetector1",
+        "IsGISAXSSimulation1",
         "isgisaxs01",
         "None",
         2e-10);
@@ -95,6 +95,11 @@ void AdvancedFunctionalTestRegistry::printCatalogue(std::ostream &ostr)
         ostr << "\n";
     }
 
+}
+
+bool AdvancedFunctionalTestRegistry::isValidTest(const std::string &test_name)
+{
+    return find(test_name) != end();
 }
 
 

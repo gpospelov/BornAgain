@@ -18,10 +18,6 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/T
 #file(COPY ${CMAKE_SOURCE_DIR}/Tests/FunctionalTests/TestPyFit DESTINATION ${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyFit)
 #COPY_IF_DIFFERENT( ${CMAKE_SOURCE_DIR}/Tests/FunctionalTests/TestPyFit ${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyFit ${SRC_FILES} IncludeTargets "Includes")
 
-#if(BORNAGAIN_GUI)
-#    add_subdirectory(TestGUI)
-#endif()
-
 add_subdirectory(TestCore)
 #add_subdirectory(TestFit)
 #if(BORNAGAIN_PYTHON)
@@ -29,4 +25,7 @@ add_subdirectory(TestCore)
 #    add_subdirectory(TestPyFit)
 #endif()
 
+if(BORNAGAIN_GUI)
+    add_subdirectory(TestGUI)
+endif()
 

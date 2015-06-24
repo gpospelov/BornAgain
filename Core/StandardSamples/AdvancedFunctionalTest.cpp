@@ -185,7 +185,7 @@ void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr) const
         return;
     }
 
-    // if multiple test
+    // if multiple test, use fancy print out
     int number_of_failed_tests(0);
     for(size_t i=0; i<m_tests.size(); ++i) {
         if(m_tests[i]->getTestResult() != SUCCESS) ++number_of_failed_tests;

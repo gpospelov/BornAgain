@@ -40,7 +40,7 @@ public:
     OutputData<double> *getReferenceData();
     SampleBuilder_t getSampleBuilder();
 
-    size_t getNumberOfComponents() const { return m_number_of_components; }
+    size_t getNumberOfComponents() const { return m_component_names.size(); }
 
     void setComponent(size_t current_component);
 
@@ -62,7 +62,6 @@ private:
     TestFormFactorsRegistry *m_ff_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
-    size_t m_number_of_components;
 };
 
 

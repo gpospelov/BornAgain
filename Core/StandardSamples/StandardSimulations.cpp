@@ -701,6 +701,7 @@ GISASSimulation *StandardSimulations::gui_ParticleComposition()
 //
 // ------------------------------------------------------------------------------------------------
 
+//!
 GISASSimulation *StandardSimulations::BasicGISAS()
 {
     GISASSimulation *result = new GISASSimulation();
@@ -714,8 +715,8 @@ GISASSimulation *StandardSimulations::BasicGISAS()
     return result;
 }
 
-
-GISASSimulation *StandardSimulations::IsGISAXSDetector1()
+//! Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]
+GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
 {
     GISASSimulation *result = new GISASSimulation();
     result->setDetectorParameters(

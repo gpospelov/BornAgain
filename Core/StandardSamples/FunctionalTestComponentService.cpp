@@ -9,21 +9,24 @@
 #include <iostream>
 
 
+namespace {
+const std::string FormFactorsRegistryName = "FormFactorsRegistry";
+const std::string NoneRegistryName = "None";
+const std::string DefaultComponentName = "Default";
+}
+
 FunctionalTestComponentService::FunctionalTestComponentService(const AdvancedFunctionalTestInfo &info)
     : m_testInfo(info)
     , m_form_factor(0)
     , m_simulation(0)
     , m_ff_registry(0)
     , m_current_component(0)
-    , m_number_of_components(1)
 {
     SimulationRegistry sim_registry;
     m_simulation = sim_registry.createSimulation(m_testInfo.m_simulation_name);
 
     SampleBuilderFactory sample_factory;
     m_sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
-
-    m_component_names.push_back("");
 
     init_registry(m_testInfo.m_component_registry_name);
 }
@@ -69,7 +72,7 @@ SampleBuilder_t FunctionalTestComponentService::getSampleBuilder()
 
 void FunctionalTestComponentService::setComponent(size_t current_component)
 {
-    if(current_component >= m_component_names.size()) {
+    if(current_component >= getNumberOfComponents()) {
         throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     }
     m_current_component = current_component;
@@ -84,7 +87,7 @@ std::string FunctionalTestComponentService::getReferenceFileName()
 {
     std::string result("ref_");
     result += m_testInfo.m_test_name;
-    if(m_component_names.size() > m_current_component && m_component_names[m_current_component].size())
+    if(m_component_names[m_current_component] != DefaultComponentName)
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
     return result;
@@ -107,18 +110,23 @@ std::string FunctionalTestComponentService::getCurrentComponentName() const
 
 void FunctionalTestComponentService::init_registry(const std::string &registry_name)
 {
-    if(registry_name == "None") return;
+    m_component_names.clear();
+    m_current_component = 0;
 
     std::cout << "FunctionalTestComponentService::init_registry() ->" << registry_name << std::endl;
-    if(registry_name == "FormFactorsRegistry") {
+    if(registry_name == NoneRegistryName) {
+        m_component_names.push_back(DefaultComponentName);
+
+    }else if(registry_name == FormFactorsRegistryName) {
         m_ff_registry = new TestFormFactorsRegistry;
-        m_component_names.clear();
         for(TestFormFactorsRegistry::iterator it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
-        m_number_of_components = m_component_names.size();
+
     } else {
         throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "
                                     "Unknown factory '"+registry_name+"'.");
     }
+
 }
+

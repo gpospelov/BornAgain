@@ -74,6 +74,8 @@ public:
 
     void printCatalogue(std::ostream &ostr);
 
+    bool isValidTest(const std::string &test_name);
+
 private:
     catalogue_t m_catalogue;
 };

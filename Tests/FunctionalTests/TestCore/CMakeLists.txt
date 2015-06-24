@@ -67,6 +67,9 @@ set(list_of_tests
 # ------------------------------------------------------------------------
 # Adding executables.
 # The list of unique executable names is extracted from the list of tests
+# Name of test 'CoreSuite/IsGISAXS01' will be parsed into
+# 'CoreSuite' the name of executable
+# 'IsGISAXS01' the command line argument
 # ------------------------------------------------------------------------
 foreach(_test ${list_of_tests})
     string(REPLACE "/" ";"  test_info ${_test})

@@ -63,7 +63,7 @@ GISASSimulation *gui_ParticleComposition();
 
 // toward functional tests refactoring
 GISASSimulation *BasicGISAS();
-GISASSimulation *IsGISAXSDetector1();
+GISASSimulation *IsGISAXSSimulation1();
 
 }
 

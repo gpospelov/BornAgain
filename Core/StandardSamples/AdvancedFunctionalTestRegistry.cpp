@@ -27,12 +27,19 @@ AdvancedFunctionalTestInfo::AdvancedFunctionalTestInfo(const std::string &test_n
 AdvancedFunctionalTestRegistry::AdvancedFunctionalTestRegistry()
 {
 
+    add("IsGISAXS01",
+        "Mixture of cylinders and prisms without interference",
+        "IsGISAXSDetector1",
+        "isgisaxs01",
+        "None",
+        2e-10);
+
     add("FormFactors",
         "Test of all form factors defined",
         "BasicGISAS",
         "ParticleInTheAirBuilder",
         "FormFactorsRegistry",
-        1e-10);
+        2e-10);
 
 }
 

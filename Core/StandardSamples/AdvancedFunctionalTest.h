@@ -37,19 +37,22 @@ public:
 
     std::string getName() const { return m_name; }
     std::string getDescription() const { return m_description; }
-    double getDifference() const { return m_difference;}
 
     ETestResult getTestResult() const { return m_result; }
     std::string getTestResultString() const { return m_result_to_string[m_result]; }
 
-    virtual void printResults(std::ostream &ostr);
+    virtual void printResults(std::ostream &ostr) const;
+
+    friend std::ostream &operator<<(std::ostream &ostr, const IAdvancedFunctionalTest &m)
+    {
+        m.printResults(ostr);
+        return ostr;
+    }
 
 protected:
     std::string m_name;
     std::string m_description;
-    double m_difference;
     ETestResult m_result;
-
     static std::map<ETestResult, std::string> m_result_to_string;
 };
 
@@ -70,10 +73,15 @@ public:
 
     const OutputData<double>* getOutputData() const;
 
+    double getDifference() const { return m_difference;}
+
+    void printResults(std::ostream &ostr) const;
+
 private:
     GISASSimulation *m_simulation;
     OutputData<double> *m_reference;
     double m_threshold;
+    double m_difference;
 };
 
 //! @class AdvancedFunctionalMultiTest
@@ -92,14 +100,14 @@ public:
     void runTest();
     int analyseResults();
 
-    void printResults(std::ostream &ostr);
+    void printResults(std::ostream &ostr) const;
 
 private:
     void saveReferenceDataForFailedTests();
 
     FunctionalTestComponentService *m_componentService;
     std::vector<AdvancedFunctionalTest *> m_tests;
-    std::map<AdvancedFunctionalTest *, std::string > m_test_to_reference_fname;
+    std::map<const AdvancedFunctionalTest *, std::string > m_test_to_reference_fname;
 };
 
 #endif

@@ -47,16 +47,15 @@ std::map<IAdvancedFunctionalTest::ETestResult, std::string> IAdvancedFunctionalT
 IAdvancedFunctionalTest::IAdvancedFunctionalTest(const std::string &name, const std::string &description)
     : m_name(name)
     , m_description(description)
-    , m_difference(0.0)
     , m_result(SUCCESS)
 {
 
 }
 
-void IAdvancedFunctionalTest::printResults(std::ostream &ostr)
+void IAdvancedFunctionalTest::printResults(std::ostream &ostr) const
 {
     ostr <<  Utils::AdjustStringLength(getName(), width_name);
-    if(getDescription().size()) ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
     ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
     ostr << "\n";
 }
@@ -70,6 +69,7 @@ AdvancedFunctionalTest::AdvancedFunctionalTest(const std::string &name, const st
     , m_simulation(simulation)
     , m_reference(reference)
     , m_threshold(threshold)
+    , m_difference(0)
 {
 
 }
@@ -96,9 +96,6 @@ int AdvancedFunctionalTest::analyseResults()
         m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(), *m_reference);
         m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
     }
-
-    //printResults(std::cout);
-
     return m_result;
 }
 
@@ -108,6 +105,16 @@ const OutputData<double> *AdvancedFunctionalTest::getOutputData() const
         return m_simulation->getOutputData();
     }
     return 0;
+}
+
+void AdvancedFunctionalTest::printResults(std::ostream &ostr) const
+{
+    ostr <<  Utils::AdjustStringLength(getName(), width_name);
+    ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
+    if(getTestResult() == SUCCESS || getTestResult() == FAILED_DIFF)
+        ostr << getDifference();
+    ostr << "\n";
 }
 
 
@@ -136,9 +143,14 @@ void AdvancedFunctionalMultiTest::runTest()
         std::cout << "AdvancedFunctionalMultiTest::runTest() -> " << i<< " " << m_name << std::endl;
         m_componentService->setComponent(i);
 
+//        AdvancedFunctionalTest *test = new AdvancedFunctionalTest(
+//            m_componentService->getCurrentComponentName(), std::string(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
+//            m_componentService->getThreshold());
+
         AdvancedFunctionalTest *test = new AdvancedFunctionalTest(
-            m_componentService->getCurrentComponentName(), std::string(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
+            getName(), getDescription(), m_componentService->getSimulation(), m_componentService->getReferenceData(),
             m_componentService->getThreshold());
+
 
         m_test_to_reference_fname[test] = m_componentService->getReferenceFileName();
 
@@ -164,8 +176,16 @@ int AdvancedFunctionalMultiTest::analyseResults()
     return m_result;
 }
 
-void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr)
+void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr) const
 {
+    // if single test, use his own printout
+    if(m_tests.size() == 1) {
+        //m_tests[0]->printResults(ostr);
+        ostr << (*m_tests[0]) << "\n";
+        return;
+    }
+
+    // if multiple test
     int number_of_failed_tests(0);
     for(size_t i=0; i<m_tests.size(); ++i) {
         if(m_tests[i]->getTestResult() != SUCCESS) ++number_of_failed_tests;
@@ -184,8 +204,8 @@ void AdvancedFunctionalMultiTest::printResults(std::ostream &ostr)
              << Utils::AdjustStringLength(test->getTestResultString(), width_result);
         if(test->getTestResult() == SUCCESS || test->getTestResult() == FAILED_DIFF)
             ostr << test->getDifference();
-        if(test->getTestResult() != SUCCESS)
-            ostr << "-> saved to " << m_test_to_reference_fname[test];
+//        if(test->getTestResult() != SUCCESS)
+//            ostr << "-> saved to " << m_test_to_reference_fname[test];
         ostr << "\n";
     }
 

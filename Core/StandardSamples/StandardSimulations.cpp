@@ -695,16 +695,15 @@ GISASSimulation *StandardSimulations::gui_ParticleComposition()
 }
 
 
+// ------------------------------------------------------------------------------------------------
+//
+// Toward functional tests refactoring
+//
+// ------------------------------------------------------------------------------------------------
 
 GISASSimulation *StandardSimulations::BasicGISAS()
 {
     GISASSimulation *result = new GISASSimulation();
-
-//    result->setDetectorParameters(
-//        100,-1.0*Units::degree, 1.0*Units::degree, 100,
-//        0.0*Units::degree, 2.0*Units::degree, true);
-//    result->setBeamParameters(
-//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree,
@@ -712,5 +711,17 @@ GISASSimulation *StandardSimulations::BasicGISAS()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
 
+    return result;
+}
+
+
+GISASSimulation *StandardSimulations::IsGISAXSDetector1()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(
+        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }

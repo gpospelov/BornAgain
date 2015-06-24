@@ -11,6 +11,12 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
+# for some reason these flags doesn't propagated here by SetUpWindows.cmake
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
+endif()
+
 #set(list_of_tests
 #    "IsGISAXS01"
 #    "IsGISAXS02"
@@ -42,12 +48,6 @@ include_directories(
 #    "BeamDivergence"
 #)
 
-## for some reason these flags doesn't propagated here by SetUpWindows.cmake
-#if(MSVC)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
-#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
-#endif()
-
 #foreach(_test ${list_of_tests})
 #   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
 #   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
@@ -59,6 +59,7 @@ include_directories(
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
+    "CoreSuite/IsGISAXS01"
     "CoreSuite/FormFactors"
 )
 

@@ -23,6 +23,8 @@ FunctionalTestComponentService::FunctionalTestComponentService(const AdvancedFun
     SampleBuilderFactory sample_factory;
     m_sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
 
+    m_component_names.push_back("");
+
     init_registry(m_testInfo.m_component_registry_name);
 }
 
@@ -67,7 +69,7 @@ SampleBuilder_t FunctionalTestComponentService::getSampleBuilder()
 
 void FunctionalTestComponentService::setComponent(size_t current_component)
 {
-    if(current_component >=m_component_names.size()) {
+    if(current_component >= m_component_names.size()) {
         throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     }
     m_current_component = current_component;
@@ -82,7 +84,7 @@ std::string FunctionalTestComponentService::getReferenceFileName()
 {
     std::string result("ref_");
     result += m_testInfo.m_test_name;
-    if(m_component_names.size() > m_current_component)
+    if(m_component_names.size() > m_current_component && m_component_names[m_current_component].size())
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
     return result;
@@ -98,8 +100,15 @@ AdvancedFunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
     return m_testInfo;
 }
 
+std::string FunctionalTestComponentService::getCurrentComponentName() const
+{
+    return m_component_names[m_current_component];
+}
+
 void FunctionalTestComponentService::init_registry(const std::string &registry_name)
 {
+    if(registry_name == "None") return;
+
     std::cout << "FunctionalTestComponentService::init_registry() ->" << registry_name << std::endl;
     if(registry_name == "FormFactorsRegistry") {
         m_ff_registry = new TestFormFactorsRegistry;

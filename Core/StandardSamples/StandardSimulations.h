@@ -61,7 +61,9 @@ GISASSimulation *DetectorResolution();
 GISASSimulation *ParticleDistribution();
 GISASSimulation *gui_ParticleComposition();
 
+// toward functional tests refactoring
 GISASSimulation *BasicGISAS();
+GISASSimulation *IsGISAXSDetector1();
 
 }
 

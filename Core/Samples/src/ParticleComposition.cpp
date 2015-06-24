@@ -96,16 +96,16 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
 
 void ParticleComposition::addParticle(const IParticle &particle)
 {
+    checkParticleType(particle);
     IParticle *np = particle.clone();
-    checkParticleType(np);
     registerChild(np);
     m_particles.push_back(np);
 }
 
 void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
 {
+    checkParticleType(particle);
     IParticle *np = particle.clone();
-    checkParticleType(np);
     np->applyTranslation(position);
     registerChild(np);
     m_particles.push_back(np);
@@ -151,9 +151,9 @@ ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering
     return p_result;
 }
 
-void ParticleComposition::checkParticleType(const IParticle *p_particle)
+void ParticleComposition::checkParticleType(const IParticle &p_particle)
 {
-    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(p_particle);
+    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
     if (p_distr) {
         throw Exceptions::ClassInitializationException("ParticleComposition::checkParticleType: "
                                                        "cannot add ParticleDistribution!");

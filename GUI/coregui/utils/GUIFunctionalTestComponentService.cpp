@@ -23,9 +23,9 @@ GUIFunctionalTestComponentService::GUIFunctionalTestComponentService(const Funct
 
 }
 
-IFunctionalTest *GUIFunctionalTestComponentService::getFunctionalTest()
+IFunctionalTest *GUIFunctionalTestComponentService::getFunctionalTest() const
 {
-    GUIFunctionalTest *result = new GUIFunctionalTest(
-        m_testInfo.m_test_name, m_testInfo.m_test_description, getSimulation(), getThreshold());
+    GUIFunctionalTest *result = new GUIFunctionalTest(getTestName(),
+        getTestDescription(), getSimulation(), getTestThreshold());
     return result;
 }

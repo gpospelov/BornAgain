@@ -32,7 +32,7 @@ public:
                        const std::string &simulation_name,
                        const std::string &sample_builder_name,
                        const std::string &component_registry_name,
-                       double m_threshold);
+                       double threshold);
 
     std::string m_test_name;
     std::string m_test_description;

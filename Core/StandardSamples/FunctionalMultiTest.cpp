@@ -35,7 +35,7 @@ FunctionalMultiTest::~FunctionalMultiTest()
 void FunctionalMultiTest::runTest()
 {
     for (size_t i = 0; i < m_componentService->getNumberOfComponents(); ++i) {
-        m_componentService->setComponent(i);
+        m_componentService->initComponent(i);
 
         IFunctionalTest *test = m_componentService->getFunctionalTest();
 

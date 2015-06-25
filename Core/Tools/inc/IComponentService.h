@@ -32,16 +32,14 @@ class IFunctionalTest;
 class BA_CORE_API_ IComponentService
 {
 public:
-    virtual IFormFactor *getFormFactor() = 0;
-    virtual GISASSimulation *getSimulation() = 0;
-    virtual OutputData<double> *getReferenceData() = 0;
-    virtual SampleBuilder_t getSampleBuilder() = 0;
-    virtual IFunctionalTest *getFunctionalTest() = 0;
+    virtual IFormFactor *getFormFactor() const = 0;
+    virtual GISASSimulation *getSimulation() const = 0;
+    virtual SampleBuilder_t getSampleBuilder() const = 0;
+    virtual OutputData<double> *getReferenceData() const = 0;
+    virtual IFunctionalTest *getFunctionalTest() const = 0;
 
     virtual ~IComponentService(){}
 };
-
-typedef boost::shared_ptr<class IComponentService > ComponentLocator_t;
 
 
 #endif /* ICOMPONENTSERVICE_H */

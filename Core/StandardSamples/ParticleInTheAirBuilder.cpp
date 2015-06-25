@@ -32,10 +32,10 @@ ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 
 }
 
-void ParticleInTheAirBuilder::init_from(IComponentService *service)
+void ParticleInTheAirBuilder::init_from(const IComponentService *service)
 {
     delete m_form_factor;
-    m_form_factor = service->getFormFactor()->clone();
+    m_form_factor = service->getFormFactor();
 }
 
 ISample *ParticleInTheAirBuilder::buildSample() const

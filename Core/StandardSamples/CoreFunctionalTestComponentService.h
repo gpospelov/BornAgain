@@ -29,7 +29,7 @@ class CoreFunctionalTestComponentService : public FunctionalTestComponentService
 public:
     CoreFunctionalTestComponentService(const FunctionalTestInfo &info);
 
-    IFunctionalTest *getFunctionalTest();
+    IFunctionalTest *getFunctionalTest() const;
 };
 
 #endif

@@ -22,7 +22,8 @@ class IFormFactor;
 //! @class ParticleInTheAirBuilder
 //! @ingroup standard_samples
 //! @brief The ParticleInTheAirBuilder class generates a multilayer with single air layer
-//! populated with particles of certain types. Used for bulk form factors testing.
+//! populated with particles of certain types.
+//! Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 class BA_CORE_API_ ParticleInTheAirBuilder : public ISampleBuilder
 {
@@ -30,7 +31,7 @@ public:
     ParticleInTheAirBuilder();
     ~ParticleInTheAirBuilder();
 
-    void init_from(IComponentService *service);
+    void init_from(const IComponentService *service);
 
     ISample *buildSample() const;
 

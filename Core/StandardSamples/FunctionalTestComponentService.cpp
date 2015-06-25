@@ -20,38 +20,44 @@ const std::string DefaultComponentName = "Default";
 FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo &info)
     : m_testInfo(info)
     , m_form_factor(0)
-    , m_simulation(0)
     , m_ff_registry(0)
     , m_current_component(0)
 {
-    SimulationRegistry sim_registry;
-    m_simulation = sim_registry.createSimulation(m_testInfo.m_simulation_name);
-
-    SampleBuilderFactory sample_factory;
-    m_sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
-
     init_registry(m_testInfo.m_component_registry_name);
 }
 
 FunctionalTestComponentService::~FunctionalTestComponentService()
 {
     delete m_form_factor;
-    delete m_simulation;
     delete m_ff_registry;
 }
 
-IFormFactor *FunctionalTestComponentService::getFormFactor()
+IFormFactor *FunctionalTestComponentService::getFormFactor() const
 {
-    return m_form_factor;
+    if(!m_form_factor) {
+        throw NullPointerException("FunctionalTestComponentService::getFormFactor() -> Error. "
+                                   " No form factor defined.");
+    }
+    return m_form_factor->clone();
 }
 
-GISASSimulation *FunctionalTestComponentService::getSimulation()
+GISASSimulation *FunctionalTestComponentService::getSimulation() const
 {
-    m_simulation->setSampleBuilder(getSampleBuilder());
-    return m_simulation->clone();
+    SimulationRegistry sim_registry;
+    GISASSimulation *result = sim_registry.createSimulation(m_testInfo.m_simulation_name);
+    result->setSampleBuilder(getSampleBuilder());
+    return result;
 }
 
-OutputData<double> *FunctionalTestComponentService::getReferenceData()
+SampleBuilder_t FunctionalTestComponentService::getSampleBuilder() const
+{
+    SampleBuilderFactory sample_factory;
+    SampleBuilder_t sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
+    sample_builder->init_from(this);
+    return sample_builder;
+}
+
+OutputData<double> *FunctionalTestComponentService::getReferenceData() const
 {
     OutputData<double> *result(0);
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
@@ -66,26 +72,35 @@ OutputData<double> *FunctionalTestComponentService::getReferenceData()
     return result;
 }
 
-SampleBuilder_t FunctionalTestComponentService::getSampleBuilder()
+IFunctionalTest *FunctionalTestComponentService::getFunctionalTest() const
 {
-    m_sample_builder->init_from(this);
-    return m_sample_builder;
+    return 0;
 }
 
-void FunctionalTestComponentService::setComponent(size_t current_component)
+size_t FunctionalTestComponentService::getNumberOfComponents() const
 {
-    if(current_component >= getNumberOfComponents()) {
+    return m_component_names.size();
+}
+
+void FunctionalTestComponentService::initComponent(size_t component_index)
+{
+    if(component_index >= getNumberOfComponents()) {
         throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     }
-    m_current_component = current_component;
+    m_current_component = component_index;
     if(m_ff_registry) {
         delete m_form_factor;
-        m_form_factor = m_ff_registry->createItem(m_component_names[current_component]);
+        m_form_factor = m_ff_registry->createItem(m_component_names[component_index]);
     }
 
 }
 
-std::string FunctionalTestComponentService::getReferenceFileName()
+std::string FunctionalTestComponentService::getCurrentComponentName() const
+{
+    return m_component_names[m_current_component];
+}
+
+std::string FunctionalTestComponentService::getReferenceFileName() const
 {
     std::string result("ref_");
     result += m_testInfo.m_test_name;
@@ -95,24 +110,9 @@ std::string FunctionalTestComponentService::getReferenceFileName()
     return result;
 }
 
-double FunctionalTestComponentService::getThreshold() const
-{
-    return m_testInfo.m_threshold;
-}
-
 FunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
 {
     return m_testInfo;
-}
-
-std::string FunctionalTestComponentService::getCurrentComponentName() const
-{
-    return m_component_names[m_current_component];
-}
-
-IFunctionalTest *FunctionalTestComponentService::getFunctionalTest()
-{
-    return 0;
 }
 
 void FunctionalTestComponentService::init_registry(const std::string &registry_name)
@@ -136,4 +136,28 @@ void FunctionalTestComponentService::init_registry(const std::string &registry_n
     }
 
 }
+
+//! Constructs functional test name corresponding to the current component. The goal is to have
+//! different names of test depending from the context (single test, or multi test).
+std::string FunctionalTestComponentService::getTestName() const
+{
+    std::string result = getTestInfo().m_test_name;
+    if(getCurrentComponentName() != DefaultComponentName) result.clear();
+    return result;
+}
+
+//! Constructs functional test description corresponding to the current component.
+std::string FunctionalTestComponentService::getTestDescription() const
+{
+    std::string result = getTestInfo().m_test_description;
+    if(getCurrentComponentName() != DefaultComponentName) result = getCurrentComponentName();
+    return result;
+}
+
+double FunctionalTestComponentService::getTestThreshold() const
+{
+    return getTestInfo().m_threshold;
+}
+
+
 

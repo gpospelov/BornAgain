@@ -22,20 +22,11 @@ CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
 {
 }
 
-IFunctionalTest *CoreFunctionalTestComponentService::getFunctionalTest()
+IFunctionalTest *CoreFunctionalTestComponentService::getFunctionalTest() const
 {
-    std::string test_name = m_testInfo.m_test_name;
-    std::string test_description = m_testInfo.m_test_description;
-
-    // adjust test name and description if they are part of components
-    if(getCurrentComponentName() != "Default") {
-        test_name.clear();
-        test_description = getCurrentComponentName();
-    }
-
     CoreFunctionalTest *result
-        = new CoreFunctionalTest(test_name, test_description,
-                                 getSimulation(), getReferenceData(), getThreshold());
+        = new CoreFunctionalTest(getTestName(), getTestDescription(),
+                                 getSimulation(), getReferenceData(), getTestThreshold());
     result->setSimulationResultsFileName(getReferenceFileName());
     return result;
 }

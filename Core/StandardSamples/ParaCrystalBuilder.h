@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS04Builder.h
-//! @brief     Defines class IsGISAXS04Builder.
+//! @file      StandardSamples/ParaCrystalBuilder.h
+//! @brief     Defines classes of ParaCrystalBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS04BUILDER_H
-#define ISGISAXS04BUILDER_H
+#ifndef PARACRYSTALBUILDER_H
+#define PARACRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class IsGISAXS04Para1DBuilder
+//! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4)
 
-class BA_CORE_API_ IsGISAXS04Para1DBuilder : public ISampleBuilder
+class BA_CORE_API_ RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS04Para1DBuilder();
+    RadialParaCrystalBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -40,14 +40,14 @@ private:
 };
 
 
-//! @class IsGISAXS04Para2DBuilder
+//! @class TwoDimParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
 
-class BA_CORE_API_ IsGISAXS04Para2DBuilder : public ISampleBuilder
+class BA_CORE_API_ TwoDimParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS04Para2DBuilder();
+    TwoDimParaCrystalBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -63,4 +63,4 @@ private:
 };
 
 
-#endif // ISGISAXS04BUILDER_H
+#endif // PARACRYSTALBUILDER_H

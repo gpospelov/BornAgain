@@ -17,7 +17,7 @@
 #include "CylindersAndPrismsBuilder.h"
 #include "IsGISAXS02Builder.h"
 #include "CylindersBuilder.h"
-#include "IsGISAXS04Builder.h"
+#include "ParaCrystalBuilder.h"
 #include "IsGISAXS06Builder.h"
 #include "IsGISAXS07Builder.h"
 #include "IsGISAXS08Builder.h"
@@ -61,13 +61,13 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Cylinder formfactor in BA with size distribution");
 
     registerItem(
-        "isgisaxs04_1DDL",
-        IFactoryCreateFunction<IsGISAXS04Para1DBuilder, ISampleBuilder>,
-        "IsGISAXS04 example, 1DDL structure factor");
+        "RadialParaCrystalBuilder",
+        IFactoryCreateFunction<RadialParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of radial paracrystal");
     registerItem(
-        "isgisaxs04_2DDL",
-        IFactoryCreateFunction<IsGISAXS04Para2DBuilder, ISampleBuilder>,
-        "IsGISAXS04 example, 2DDL structure factor");
+        "TwoDimParaCrystalBuilder",
+        IFactoryCreateFunction<TwoDimParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D paracrystal");
 
     registerItem(
         "isgisaxs06a",

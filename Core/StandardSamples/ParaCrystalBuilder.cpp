@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS04Builder.cpp
-//! @brief     Implements class IsGISAXS04Builder.
+//! @file      StandardSamples/ParaCrystalBuilder.cpp
+//! @brief     Implements class ParaCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS04Builder.h"
+#include "ParaCrystalBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -23,7 +23,7 @@
 #include "Units.h"
 #include "FTDistributions.h"
 
-IsGISAXS04Para1DBuilder::IsGISAXS04Para1DBuilder()
+RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
     , m_corr_width(7*Units::nanometer)
     , m_corr_length(1e3*Units::nanometer)
@@ -33,7 +33,7 @@ IsGISAXS04Para1DBuilder::IsGISAXS04Para1DBuilder()
     init_parameters();
 }
 
-void IsGISAXS04Para1DBuilder::init_parameters()
+void RadialParaCrystalBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("corr_peak_distance", &m_corr_peak_distance);
@@ -43,7 +43,7 @@ void IsGISAXS04Para1DBuilder::init_parameters()
     registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
-ISample *IsGISAXS04Para1DBuilder::buildSample() const
+ISample *RadialParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -77,7 +77,7 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 //
 
-IsGISAXS04Para2DBuilder::IsGISAXS04Para2DBuilder()
+TwoDimParaCrystalBuilder::TwoDimParaCrystalBuilder()
     : m_peak_distance(20.0*Units::nanometer)
     , m_corr_length(0.0)
     , m_domain_size_1(20.0*Units::micrometer)
@@ -88,7 +88,7 @@ IsGISAXS04Para2DBuilder::IsGISAXS04Para2DBuilder()
     init_parameters();
 }
 
-void IsGISAXS04Para2DBuilder::init_parameters()
+void TwoDimParaCrystalBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("m_peak_distance", &m_peak_distance);
@@ -100,7 +100,7 @@ void IsGISAXS04Para2DBuilder::init_parameters()
 }
 
 
-ISample *IsGISAXS04Para2DBuilder::buildSample() const
+ISample *TwoDimParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

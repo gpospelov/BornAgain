@@ -30,6 +30,17 @@ ObsoleteFunctionalTestRegistry::Catalogue::Catalogue()
         "Mixture of cylinders and prisms without interference",
         "isgisaxs01_reference.int.gz", 2e-10);
 
+    add("isgisaxs04_1DDL",
+        "Radial paracrystal",
+        "isgisaxs04_reference_1DDL.int.gz", 2e-10);
+
+    add("isgisaxs04_2DDL",
+        "2D paracrystal",
+        "isgisaxs04_reference_2DDLh.int.gz", 2e-10);
+
+
+
+
     add("isgisaxs02",
         "Mixture cylinder particles with different size distribution",
         "isgisaxs02_reference.int.gz", 2e-10);
@@ -43,13 +54,6 @@ ObsoleteFunctionalTestRegistry::Catalogue::Catalogue()
     add("cylinders_basize",
         "Cylinder formfactor in BA with size distribution",
         "isgisaxs03_reference_BA_size.int.gz", 2e-10);
-
-    add("isgisaxs04_1DDL",
-        "Radial paracrystal",
-        "isgisaxs04_reference_1DDL.int.gz", 2e-10);
-    add("isgisaxs04_2DDL",
-        "2D paracrystal",
-        "isgisaxs04_reference_2DDLh.int.gz", 2e-10);
 
     add("isgisaxs06a",
         "2D lattice with disorders",

@@ -115,7 +115,7 @@ GISASSimulation *StandardSimulations::CylindersWithSizeDistribution()
 GISASSimulation *StandardSimulations::IsGISAXS041DDL()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
+    SampleBuilder_t builder = factory.createBuilder("RadialParaCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -133,7 +133,7 @@ GISASSimulation *StandardSimulations::IsGISAXS041DDL()
 GISASSimulation *StandardSimulations::IsGISAXS042DDL()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
+    SampleBuilder_t builder = factory.createBuilder("TwoDimParaCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -493,7 +493,7 @@ GISASSimulation *StandardSimulations::gui_CylinderAndPrisms()
 GISASSimulation *StandardSimulations::gui_Interference1DParaCrystal()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
+    SampleBuilder_t builder = factory.createBuilder("RadialParaCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -510,7 +510,7 @@ GISASSimulation *StandardSimulations::gui_Interference1DParaCrystal()
 GISASSimulation *StandardSimulations::gui_Interference2DParaCrystal()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
+    SampleBuilder_t builder = factory.createBuilder("TwoDimParaCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

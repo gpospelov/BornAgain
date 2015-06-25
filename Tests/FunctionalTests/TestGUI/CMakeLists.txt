@@ -23,9 +23,7 @@ include_directories(
 )
 
 set(list_of_tests
-    "TestGUI02"
-#    "TestGUI03"
-#    "TestGUI04"
+    "TestGUI04"
 #    "TestGUI05"
 #    "TestGUI06"
 #    "TestGUI07"
@@ -58,6 +56,8 @@ endforeach()
 set(list_of_tests
     "GUITestSuite/FormFactors"
     "GUITestSuite/CylindersAndPrisms"
+    "GUITestSuite/RadialParaCrystal"
+    "GUITestSuite/TwoDimParaCrystal"
 )
 
 # ------------------------------------------------------------------------

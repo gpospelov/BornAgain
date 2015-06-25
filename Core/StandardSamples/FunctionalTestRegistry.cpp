@@ -35,6 +35,20 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("RadialParaCrystal",
+        "Interference function of radial paracrystal",
+        "GISASSmallDet",
+        "RadialParaCrystalBuilder",
+        "None",
+        2e-10);
+
+    add("TwoDimParaCrystal",
+        "Interference function of 2D paracrystal",
+        "GISASSmallDet",
+        "TwoDimParaCrystalBuilder",
+        "None",
+        2e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

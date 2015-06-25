@@ -18,13 +18,14 @@ if(MSVC)
 endif()
 
 set(list_of_tests
-    "IsGISAXS01"
-#    "IsGISAXS02"
+#    "IsGISAXS01"
+#    "IsGISAXS041DDL"
+#    "IsGISAXS042DDL"
+
+    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
 #    "CylindersWithSizeDistribution"
-#    "IsGISAXS041DDL"
-#    "IsGISAXS042DDL"
 #    "IsGISAXS06L1"
 #    "IsGISAXS06L2"
 #    "IsGISAXS06L3"
@@ -61,6 +62,8 @@ endforeach()
 set(list_of_tests
     "CoreSuite/FormFactors"
     "CoreSuite/CylindersAndPrisms"
+    "CoreSuite/RadialParaCrystal"
+    "CoreSuite/TwoDimParaCrystal"
 )
 
 

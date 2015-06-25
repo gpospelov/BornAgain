@@ -39,6 +39,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_scene->setSceneRect(m_view->viewport()->rect());
 
 
+
     // convert widget into custom QProxywidget and put it in to the scene
 //    SimulationRegistry sim_registry;
 //    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
@@ -96,6 +97,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     QPushButton *drawingButton = new QPushButton("Drawing Mode");
     drawingButton->setCheckable(true);
     connect(drawingButton, SIGNAL(pressed()), this, SLOT(changeToDrawingMode()));
+
+    connect(m_scene, SIGNAL(itemIsDrawn()), selectionButton, SLOT(click()));
 
     QGroupBox *drawingMode = new QGroupBox(this);
     QVBoxLayout *drawingModeLayout = new QVBoxLayout;
@@ -166,32 +169,17 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
 
-//    m_scene->setMaskModel(m_maskModel);
-
-//    QGraphicsRectItem *rect1 = new QGraphicsRectItem(m_scene->sceneRect());
-//    QGraphicsRectItem *rect2 = new QGraphicsRectItem(200,200,200,200);
-    AwesomePropertyEditor *editor = new AwesomePropertyEditor;
     QListView *listView = new QListView;
-    RectangleItem *rectItem = new RectangleItem;
-    RectangleView *rectView = new RectangleView;
-
-    rectItem->setWidth(200);
-    rectItem->setHeight(200);
-    rectView->setItem(rectItem);
-    editor->setItem(rectItem);
-    buttonLayout->addWidget(editor);
-    m_scene->addItem(rectView);
     m_scene->setListView(listView);
     buttonLayout->addWidget(listView);
 
-//    m_scene->addItem(rect1);
-//    m_scene->addItem(rect2);
 
 }
 
 void MaskEditor::rectangleButtonPressed()
 {
     m_scene->setDrawing(GraphicsScene::RECTANGLE);
+    qDebug() << "void MaskEditor::rectangleButtonPressed()";
 }
 
 void MaskEditor::ellipseButtonPressed()

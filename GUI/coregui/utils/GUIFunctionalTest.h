@@ -41,8 +41,6 @@ public:
 
     const OutputData<double>* getOutputData() const;
 
-    double getDifference() const { return m_difference;}
-
     void printResults(std::ostream &ostr) const;
 
 private:

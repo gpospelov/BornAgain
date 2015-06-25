@@ -52,8 +52,7 @@ include_directories(
 
 
 set(list_of_cpp_python_tests
-    "PyScript_isgisaxs01"
-#    "PyScript_isgisaxs04_1DDL"
+    "PyScript_isgisaxs04_1DDL"
 #    "PyScript_isgisaxs04_2DDL"
 #    "PyScript_isgisaxs06a"
 #    "PyScript_isgisaxs06b"
@@ -76,6 +75,7 @@ endforeach()
 
 set(list_of_tests
     "PySuite/CylindersAndPrisms"
+    "PySuite/FormFactors"
 )
 
 

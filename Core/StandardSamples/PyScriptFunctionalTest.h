@@ -45,13 +45,20 @@ public:
 
     void printResults(std::ostream &ostr) const;
 
+    void setPyScriptFileName(const std::string &file_name);
+
 private:
     void runPyScriptSimulation();
+    void generatePythonScript();
+    void savePyScript() const;
+    std::string getPyScriptFileNameAndPath() const;
 
     GISASSimulation *m_reference_simulation;
     GISASSimulation *m_domain_simulation;
     double m_threshold;
     double m_difference;
+    std::string m_pyscript_file_name;
+    std::string m_pyscript_text;
 };
 
 #endif

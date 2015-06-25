@@ -127,6 +127,15 @@ void Utils::String::replaceItemsFromString(std::string &text, const std::vector<
     }
 }
 
+std::string Utils::String::getScientificDoubleString(double value, size_t precision)
+{
+    std::ostringstream svalue;
+    size_t total_width = precision+5;
+    svalue << std::setw(total_width) << std::left << std::scientific << std::setprecision(precision)
+           << value;
+    return svalue.str();
+}
+
 
 int Utils::System::getThreadHardwareConcurrency()
 {

@@ -18,6 +18,7 @@
 #include "IntensityDataFunctions.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
+#include "Utils.h"
 
 namespace
 {
@@ -72,12 +73,7 @@ int CoreFunctionalTest::analyseResults()
 void CoreFunctionalTest::printResults(std::ostream &ostr) const
 {
     ostr << getFormattedInfoString();
-    if (getTestResult() == SUCCESS || getTestResult() == FAILED_DIFF) {
-        std::ostringstream sdiff;
-        sdiff << std::setw(10) << std::left << std::scientific << std::setprecision(4)
-              << m_difference;
-        ostr << sdiff.str();
-    }
+    ostr << Utils::String::getScientificDoubleString(m_difference);
 
     if (getTestResult() != SUCCESS)
         ostr << "--> " << getSimulationResultsFileNameAndPath();

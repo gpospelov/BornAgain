@@ -35,6 +35,11 @@ FunctionalMultiTest::~FunctionalMultiTest()
 void FunctionalMultiTest::runTest()
 {
     for (size_t i = 0; i < m_componentService->getNumberOfComponents(); ++i) {
+        std::cout << "FunctionalMultiTest::runTest() -> " << getName()
+                  << " " << i
+                  << "/" << m_componentService->getNumberOfComponents()
+                  << " (" << m_componentService->getCurrentComponentName() << ")" << std::endl;
+
         m_componentService->initComponent(i);
 
         IFunctionalTest *test = m_componentService->getFunctionalTest();

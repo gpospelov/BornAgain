@@ -1,25 +1,10 @@
-
-#include "RectangleView.h"
-#include "RectangleItem.h"
+#include "EllipseView.h"
+#include "EllipseItem.h"
 #include <iostream>
 #include <cmath>
 #include "ParameterizedItem.h"
 
-// FIXME Revise scene update(). Do not update on mouse click, rather than on rawinserted, rawremoved
-//       Use map to not to recreate already existing views [FIXED]
-
-// FIXME Why addViewForItem called too often while mouse move [FIXED]
-
-// FIXME Change Drawing mode, so after item is drawn, scene is switched to the selection mode [FIXED]
-//       But provide possibility to rev ert to the previous way [FIXED]
-
-// FIXME Make mouse pointing exactly on buttom right corner [FIXED]
-
-// FIXME Make automatic removal of too small rectangles [FIXED]
-
-// Make automatic namig of items Rectangle1, Rectangle2 [FIXED]
-
-RectangleView::RectangleView()
+EllipseView::EllipseView()
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -30,7 +15,7 @@ RectangleView::RectangleView()
     connect(this, SIGNAL(yChanged()), this, SLOT(onYValueChanged()));
 }
 
-void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 
     // paint rectangle
@@ -38,11 +23,13 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     this->prepareGeometryChange();
     if(m_item->getColor() == 0) {
         QBrush transRed(QColor(0xFF, 0, 0, 0x80));
-        painter->fillRect(0, 0, m_item->getWidth(), m_item->getHeight(),transRed);
+        painter->setBrush(transRed);
+        painter->drawEllipse(0, 0, m_item->getWidth(), m_item->getHeight());
     }
     else {
         QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
-        painter->fillRect(0, 0, m_item->getWidth(), m_item->getHeight(),transBlue);
+        painter->setBrush(transBlue);
+        painter->drawEllipse(0, 0, m_item->getWidth(), m_item->getHeight());
     }
 
     // paint corner rectangles only if this item is selected
@@ -56,12 +43,12 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     }
 }
 
-QRectF RectangleView::boundingRect() const
+QRectF EllipseView::boundingRect() const
 {
-    return QRectF(0 - 10, 0 - 10, m_item->getWidth() + 15,  m_item->getHeight() + 15);
+    return QRectF(0 - 10, 0 - 10, m_item->getWidth() + 20,  m_item->getHeight() + 20);
 }
 
-void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
+void EllipseView::checkResizeRules(QGraphicsSceneMouseEvent *event)
 {
     if (m_corner == TOPLEFT) {
         if (m_item->getWidth() <= event->pos().x()) {
@@ -102,7 +89,7 @@ void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
+void EllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
     checkResizeRules(event);
@@ -131,7 +118,7 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
     }
 }
 
-qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
+qreal EllipseView::calculateRotation(QGraphicsSceneMouseEvent *event)
 {
     QPointF middlePoint =  mapToScene(m_item->getWidth()/2, m_item->getHeight()/2);
     qreal lengthOfHypotenuse = sqrt(pow(m_item->getWidth() / 2, 2) + pow(m_item->getHeight() / 2, 2));
@@ -154,7 +141,7 @@ qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
 }
 
 
-void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
@@ -187,7 +174,7 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "RectangleView::mouseMoveEvent()";
 
@@ -209,7 +196,7 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     // set all modes off, change cursor and process as usual
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -219,7 +206,7 @@ void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+void EllipseView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     //activate rotation mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
@@ -258,76 +245,74 @@ void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void RectangleView::setInclude()
+void EllipseView::setInclude()
 {
     m_item->setColor(0);
 }
 
-void RectangleView::setExclude()
+void EllipseView::setExclude()
 {
     m_item->setColor(1);
 }
 
-QRectF RectangleView::getTopLeftCorner()
+QRectF EllipseView::getTopLeftCorner()
 {
     return QRectF(0 - 5, 0 - 5, 10, 10);
 }
 
-QRectF RectangleView::getTopRightCorner()
+QRectF EllipseView::getTopRightCorner()
 {
     return QRectF(0 + m_item->getWidth() - 5, 0  - 5, 10, 10);
 }
 
-QRectF RectangleView::getBottomLeftCorner()
+QRectF EllipseView::getBottomLeftCorner()
 {
     return QRectF(0 - 5, 0  + m_item->getHeight() - 5, 10, 10);
 }
 
-QRectF RectangleView::getBottomRightCorner()
+QRectF EllipseView::getBottomRightCorner()
 {
     return QRectF(0 + m_item->getWidth() - 5, 0  + m_item->getHeight() - 5, 10, 10);
 }
 
-void RectangleView::setParameterizedItem(ParameterizedItem *item)
+void EllipseView::setParameterizedItem(ParameterizedItem *item)
 {
-    m_item = dynamic_cast<RectangleItem *>(item);
-    setX(m_item->getXPos() -5);
-    setY(m_item->getYPos() -5);
+    m_item = dynamic_cast<EllipseItem *>(item);
+    setX(m_item->getXPos() - m_item->getWidth()*0.5 - 10);
+    setY(m_item->getYPos() - m_item->getHeight()*0.5 - 10);
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
 }
 
-void RectangleView::onXValueChanged()
+void EllipseView::onXValueChanged()
 {
     m_block_update = true;
-    qDebug() << "onXValueChanged(double xValue)-> x value changed" << x() << m_item->getXPos();
-    m_item->setXPos(x());
+    qDebug() << "onXValueChanged(double xValue)-> x value changed" << x();
+    m_item->setXPos(x() + m_item->getWidth()*0.5 + 10);
     m_block_update = false;
 }
 
-void RectangleView::onYValueChanged()
+void EllipseView::onYValueChanged()
 {
     m_block_update = true;
-    qDebug() << "onYValueChanged(double yValue)-> y value changed" << y() << m_item->getYPos();
-    m_item->setYPos(y());
+    qDebug() << "onYValueChanged(double yValue)-> y value changed" << y();
+    m_item->setYPos(y() + m_item->getHeight()*0.5 + 10);
     m_block_update = false;
 
 }
 
 
-void RectangleView::onPropertyChange(const QString &propertyName)
+void EllipseView::onPropertyChange(const QString &propertyName)
 {
     if(m_block_update) return;
-       qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)"
-                << m_item->getXPos() << m_item->getYPos() << m_item->getWidth() << m_item->getHeight();
-       if(propertyName == RectangleItem::P_POSX) {
-           setX(m_item->getXPos() + 5);
-       } else if(propertyName == RectangleItem::P_POSY) {
-           setY(m_item->getYPos() + 5);
+       qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)";
+       if(propertyName == EllipseItem::P_POSX) {
+           setX(m_item->getXPos() - m_item->getWidth()*0.5 - 10);
+       } else if(propertyName == EllipseItem::P_POSY) {
+           setY(m_item->getYPos() - m_item->getHeight()*0.5 - 10);
        }
 }
 
-ParameterizedItem *RectangleView::getParameterizedItem()
+ParameterizedItem *EllipseView::getParameterizedItem()
 {
     return m_item;
 }
-

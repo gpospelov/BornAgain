@@ -46,6 +46,7 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "RectangleItem.h"
+#include "EllipseItem.h"
 #include <QDebug>
 
 namespace {
@@ -149,6 +150,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ResolutionFunction2DGaussianType] = &createInstance<ResolutionFunction2DGaussianItem>;
 
     result[Constants::RectangleType] = &createInstance<RectangleItem>;
+    result[Constants::EllipseType] = &createInstance<EllipseItem>;
 
     return result;
 }

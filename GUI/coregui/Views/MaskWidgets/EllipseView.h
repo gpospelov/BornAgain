@@ -7,12 +7,12 @@
 #include <QPainterPath>
 #include "IView.h"
 
-#ifndef RECTANGLEVIEW_H
-#define RECTANGLEVIEW_H
+#ifndef ELLIPSEVIEW_H
+#define ELLIPSEVIEW_H
 
-class RectangleItem;
+class EllipseItem;
 
-class RectangleView :public IView
+class EllipseView :public IView
 {
 Q_OBJECT
 
@@ -26,7 +26,7 @@ public:
     //! @param posY y position in scene
     //! @param width of rectangle
     //! @param heigth of rectangle
-    RectangleView();
+    EllipseView();
 
     //! bounding box of rectangle
     QRectF boundingRect() const;
@@ -67,9 +67,8 @@ protected:
 
 
 private:
-    RectangleItem *m_item;
+    EllipseItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     bool m_block_update;
 };
 #endif
-

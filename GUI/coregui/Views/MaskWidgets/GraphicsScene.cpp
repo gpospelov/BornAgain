@@ -4,12 +4,18 @@
 #include "Polygon.h"
 #include "RectangleItem.h"
 #include "RectangleView.h"
+#include "EllipseItem.h"
+#include "EllipseView.h"
 #include "MaskModel.h"
+#include "SampleViewFactory.h"
 #include <QItemSelection>
+#include <cmath>
+#include <sstream>
 GraphicsScene::GraphicsScene()
     : m_maskModel(new MaskModel)
-    , m_rectangleItem(0), m_ellipse(0), m_polygon(0), isFinished(true),
+    , m_rectangleItem(0), m_ellipseItem(0), m_ellipse(0), m_polygon(0), isFinished(true),
       m_currentMousePosition(QPointF(0, 0)), m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false)
+    , m_numberOfItemName(0)
 {
     m_drawing = NONE;
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
@@ -18,6 +24,8 @@ GraphicsScene::GraphicsScene()
     connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
     connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
     connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+    resetScene();
+    updateScene();
 }
 
 void GraphicsScene::setDrawing(GraphicsScene::Drawing drawing)
@@ -27,19 +35,17 @@ void GraphicsScene::setDrawing(GraphicsScene::Drawing drawing)
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-//    qDebug() << "GraphicsScene::mousePressEvent() ->" << m_drawing << m_rectangle;
-    if (m_drawing == RECTANGLE) {
-//        m_rectangle = new Rectangle(event->scenePos().x(), event->scenePos().y(), 0, 0);
-//        addItem(m_rectangle);
+    if (event->button() == Qt::LeftButton && m_drawing == RECTANGLE) {
         m_rectangleItem = m_maskModel->insertNewItem(Constants::RectangleType);
+        setItemName(m_rectangleItem);
         m_rectangleItem->setRegisteredProperty(RectangleItem::P_POSX, event->scenePos().x());
         m_rectangleItem->setRegisteredProperty(RectangleItem::P_POSY, event->scenePos().y());
-        resetScene();
-        updateScene();
-    } else if (m_drawing == ELLIPSE) {
-        m_ellipse = new Ellipse(event->scenePos().x(), event->scenePos().y(), 0, 0);
-        addItem(m_ellipse);
-    } else if (m_drawing == POLYGON) {
+    } else if (event->button() == Qt::LeftButton && m_drawing == ELLIPSE) {
+        m_ellipseItem = m_maskModel->insertNewItem(Constants::EllipseType);
+        setItemName(m_ellipseItem);
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSX, event->scenePos().x());
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSY, event->scenePos().y());
+    } else if (event->button() == Qt::LeftButton && m_drawing == POLYGON) {
         if (isFinished) {
             m_polygon = new Polygon(event->scenePos().x(), event->scenePos().y(), 0, 0);
             addItem(m_polygon);
@@ -51,21 +57,20 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         isFinished = !m_polygon->getDrawingMode();
     }
-    m_lastAddedPoint = event->scenePos();
-    QGraphicsScene::mousePressEvent(event);
+    else {
+            QGraphicsScene::mousePressEvent(event);
+    }
+    m_lastAddedPoint = event->buttonDownScenePos(Qt::LeftButton);
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-//    qDebug() << "GraphicsScene::mouseMoveEvent() ->" << m_drawing << m_rectangle;
     if (m_drawing == RECTANGLE && m_rectangleItem) {
-//        m_rectangle->setWidth(m_rectangle->boundingRect().left() -  event->pos().x());
-//        m_rectangle->setHeigth(m_rectangle->boundingRect().top() - event->pos().y());
-        m_rectangleItem->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSX).toDouble());
-        m_rectangleItem->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSY).toDouble());
-    } else if (m_drawing == ELLIPSE && m_ellipse) {
-        m_ellipse->setWidth(event->scenePos().x() - m_ellipse->boundingRect().topLeft().x());
-        m_ellipse->setHeigth(event->scenePos().y() - m_ellipse->boundingRect().topLeft().y());
+        m_rectangleItem->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSX).toReal());
+        m_rectangleItem->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSY).toReal());
+    } else if (m_drawing == ELLIPSE && m_ellipseItem) {
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, event->scenePos().x() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5);
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, event->scenePos().y() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
     } else if (m_drawing == POLYGON && m_polygon) {
         if (m_polygon->getFirstPoint().contains(event->scenePos())) {
             m_polygon->setMouseIsOverFirstPoint(true);
@@ -81,10 +86,18 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-//    qDebug() << "GraphicsScene::mouseReleaseEvent() ->" << m_drawing << m_rectangle;
+    if(m_drawing == RECTANGLE && m_rectangleItem) {
+        qreal xDifference = m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSX).toReal() - event->scenePos().x();
+        qreal yDifference = m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSY).toReal() - event->scenePos().y();
+        if(abs(xDifference) <= 10 && abs(yDifference) <= 10) {
+            QModelIndex index = m_maskModel->indexOfItem(m_rectangleItem);
+            m_maskModel->removeRows(index.row(), 1, index.parent());
+        }
+    }
     m_rectangleItem = 0;
-    m_ellipse = 0;
-
+    m_ellipseItem = 0;
+    m_drawing = NONE;
+    emit itemIsDrawn();
     QGraphicsScene::mouseReleaseEvent(event);
 }
 
@@ -113,28 +126,37 @@ void GraphicsScene::updateViews(const QModelIndex &parentIndex)
 
 }
 
-QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)
-{
-    qDebug() << "QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)-> runing";
-    RectangleView *view = new RectangleView();
-    view->setItem(item);
+//QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)
+//{
+//    qDebug() << "QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)-> runing";
+//    RectangleView *view = new RectangleView();
+//    view->setItem(item);
 //    connect(view, SIGNAL(xChanged()), this, SLOT(positionChanged(view)));
-    addItem(view);\
-    m_ItemToView.insert(item, view);
-    return view;
-}
+//    addItem(view);
+//    m_ItemToView.insert(item, view);
+//    return view;
+//}
 
-
-void GraphicsScene::setMaskModel(MaskModel *maskModel)
+IView *GraphicsScene::addViewForItem(ParameterizedItem *item)
 {
-    m_maskModel = maskModel;
-    connect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-    connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
-    connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
-    connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
-    connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+    qDebug() << "GraphicsScene::addViewForItem() ->" << item->modelType();
+    Q_ASSERT(item);
 
-    updateScene();
+    IView *view = m_ItemToView[item];
+    if(!view) {
+        qDebug() << "       GraphicsScene::addViewForItem() -> Creating view for item" << item->modelType();
+        view = SampleViewFactory::createSampleView(item->modelType());
+        if(view) {
+            m_ItemToView[item] = view;
+            view->setParameterizedItem(item);
+            addItem(view);
+            return view;
+        }
+    } else {
+        qDebug() << "       GraphicsScene::addViewForItem() -> View for item exists." << item->modelType();
+
+    }
+    return view;
 }
 
 void GraphicsScene::updateScene()
@@ -144,7 +166,7 @@ void GraphicsScene::updateScene()
 
 void GraphicsScene::resetScene()
 {
-    qDebug() << "DesignerScene::resetScene()";
+    qDebug() << "GraphicsScene::resetScene()";
     clear();
     m_ItemToView.clear();
 }
@@ -218,7 +240,7 @@ void GraphicsScene::deleteViews(const QModelIndex & parentIndex)
 //! removes view from scene corresponding to given item
 void GraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 {
-    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType();
+    qDebug() << "GraphicsScene::removeItemFromScene()" << item->modelType();
     for(QMap<ParameterizedItem *, IView *>::iterator it=m_ItemToView.begin(); it!=m_ItemToView.end(); ++it) {
         if(it.key() == item) {
             IView *view = it.value();
@@ -234,21 +256,16 @@ void GraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 
 void GraphicsScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
 {
+//    resetScene();
     updateScene();
 }
 
 
 void GraphicsScene::deleteSelectedItems()
 {
-    qDebug() << "DesignerScene::deleteSelectedItems() 1.1" << selectedItems().size();
+    qDebug() << "GraphicsScene::deleteSelectedItems() 1.1" << selectedItems().size();
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
-
-    qDebug() << "AAA" << indexes.size();
-    QList<IView *> views_which_will_be_deleted;
-    foreach(QModelIndex index, indexes) {
-        views_which_will_be_deleted.append(m_ItemToView[m_maskModel->itemForIndex(index)]);
-    }
 
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items, we need this
@@ -261,7 +278,7 @@ void GraphicsScene::deleteSelectedItems()
 //! propagate selection from scene to model
 void GraphicsScene::onSceneSelectionChanged()
 {
-    qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
+    qDebug() << "GraphicsScene::onSceneSelectionChanged() 1.1";
     if(m_block_selection) return;
 
     m_block_selection = true;
@@ -286,5 +303,14 @@ void GraphicsScene::onSceneSelectionChanged()
 void GraphicsScene::onRowsInserted(const QModelIndex &/* parent */, int /* first */, int /* last */ )
 {
     updateScene();
+}
+
+void GraphicsScene::setItemName(ParameterizedItem *item)
+{
+    std::string itemName(item->itemName().toStdString());
+    std::stringstream ss;
+    ss << itemName << m_numberOfItemName;
+    item->setItemName(ss.str().c_str());
+    m_numberOfItemName++;
 }
 

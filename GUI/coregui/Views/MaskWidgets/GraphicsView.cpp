@@ -12,61 +12,9 @@
 //    m_drawing = NONE;
 //}
 
-//void GraphicsView::setDrawing(GraphicsView::Drawing drawing)
-//{
-//    m_drawing = drawing;
-//}
-
-
-//void GraphicsView::mousePressEvent(QMouseEvent *event)
-//{
-//    if (event->button() == Qt::MidButton)
-//    {
-//        _pan = true;
-//        _panStartX = event->x();
-//        _panStartY = event->y();
-//        setCursor(Qt::ClosedHandCursor);
-//        event->accept();
-//        return;
-//    }
-//    QGraphicsView::mousePressEvent(event);
-//}
-
-//void GraphicsView::mouseMoveEvent(QMouseEvent *event)
-//{
-//    if (_pan)
-//    {
-//        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - (event->x() - _panStartX));
-//        verticalScrollBar()->setValue(verticalScrollBar()->value() - (event->y() - _panStartY));
-//        _panStartX = event->x();
-//        _panStartY = event->y();
-//        event->accept();
-//        return;
-//    }
-
-//    QGraphicsView::mouseMoveEvent(event);
-
-//}
-
-//void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
-//{
-//    if (event->button() == Qt::MidButton)
-//    {
-//        _pan = false;
-//        setCursor(Qt::ArrowCursor);
-//        event->accept();
-//        return;
-//    }
-
-//    QGraphicsView::mouseReleaseEvent(event);
-//}
-
 
 void GraphicsView::wheelEvent(QWheelEvent *event)
 {
-//    this->fitInView(this->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
-
-//    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
     // hold control button
     if(event->modifiers().testFlag(Qt::ControlModifier)) {
@@ -132,10 +80,3 @@ void GraphicsView::deleteSelectedItems()
     graphicsScene->deleteSelectedItems();
 }
 
-//void GraphicsView::drawForeground(QPainter* painter, const QRectF& /* rect */)
-//{
-//    if(m_drawing == POLYGON && !isFinished) {
-//        painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
-//        painter->drawLine(QLineF(m_lastAddedPoint, m_currentMousePosition));
-//        this->invalidateScene();
-//    }

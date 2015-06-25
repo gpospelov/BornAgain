@@ -32,10 +32,7 @@ public:
     GraphicsScene();
     enum Drawing { NONE, RECTANGLE, ELLIPSE, POLYGON };
     void setDrawing(Drawing drawing);
-
-    void setMaskModel(MaskModel *maskModel);
     void setListView(QListView *listview);
-
 public slots:
     void deleteSelectedItems();
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
@@ -46,6 +43,9 @@ public slots:
     void resetScene();
     void updateScene();
 
+signals:
+    void itemIsDrawn();
+
 protected:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -54,10 +54,11 @@ protected:
     void drawForeground(QPainter *painter, const QRectF &);
 
 private:
+    void setItemName(ParameterizedItem *item);
     void deleteViews(const QModelIndex &parentIndex);
     void removeItemViewFromScene(ParameterizedItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex());
-    QGraphicsItem *addViewForItem(ParameterizedItem *item);
+    IView *addViewForItem(ParameterizedItem *item);
 
 
     MaskModel *m_maskModel;
@@ -66,14 +67,14 @@ private:
     QMap<ParameterizedItem *, IView *> m_ItemToView;
 
     Drawing m_drawing;
-    Rectangle *m_rectangle;
     ParameterizedItem *m_rectangleItem;
-    RectangleView *m_rectangleView;
+    ParameterizedItem *m_ellipseItem;
     Ellipse *m_ellipse;
     Polygon *m_polygon;
     bool isFinished;
     QPointF m_currentMousePosition;
     QPointF m_lastAddedPoint;
     bool m_block_selection;
+    int m_numberOfItemName;
 };
 #endif

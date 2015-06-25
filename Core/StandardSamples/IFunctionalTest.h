@@ -29,6 +29,7 @@ class BA_CORE_API_ IFunctionalTest
 public:
     enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};
 
+    IFunctionalTest();
     IFunctionalTest(const std::string &name, const std::string &description);
     virtual ~IFunctionalTest() {}
 

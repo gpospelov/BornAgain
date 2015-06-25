@@ -26,7 +26,8 @@ class GISASSimulation;
 //! @class GUIFunctionalTest
 //! @ingroup standard_samples
 //! @brief GUI functional test  compares results of the reference simulation with
-//! the one obtained through domain->GUI->domain convertion.
+//! the one obtained through domain->GUI->domain convertion. Normally invoked by
+//! FunctionalMultiTest.
 
 class BA_CORE_API_ GUIFunctionalTest : public IFunctionalTest
 {

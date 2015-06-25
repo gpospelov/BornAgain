@@ -34,7 +34,7 @@ int GUI_FUNCTIONAL_TEST(const std::string &test_name)
 
     GUIFunctionalTestComponentService *service = new GUIFunctionalTestComponentService(info);
     boost::scoped_ptr<IFunctionalTest> test(
-        new FunctionalMultiTest(test_name, info.m_test_description, service));
+        new FunctionalMultiTest(test_name, service));
 
     test->runTest();
     return test->analyseResults();

@@ -29,8 +29,7 @@ class FunctionalTestComponentService;
 class BA_CORE_API_ FunctionalMultiTest : public IFunctionalTest
 {
 public:
-    FunctionalMultiTest(const std::string &name, const std::string &description,
-                        FunctionalTestComponentService *service);
+    FunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service);
     ~FunctionalMultiTest();
 
     void runTest();
@@ -39,11 +38,8 @@ public:
     void printResults(std::ostream &ostr) const;
 
 private:
-    void saveReferenceDataForFailedTests();
-
     FunctionalTestComponentService *m_componentService;
     std::vector<IFunctionalTest *> m_tests;
-    std::map<const IFunctionalTest *, std::string > m_test_to_reference_fname;
 };
 
 #endif

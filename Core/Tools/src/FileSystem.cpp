@@ -95,10 +95,10 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
     }
 }
 
-std::string Utils::FileSystem::GetFileMainName(const std::string &name)
+std::string Utils::FileSystem::StripFileNameFromGzipExtention(const std::string &name)
 {
     if( !isGZipped(name) ) {
-        return Utils::FileSystem::GetFileExtension(name);
+        return name;
     } else {
         std::string stripped_name = name.substr(0, name.size()-3);
         return stripped_name;

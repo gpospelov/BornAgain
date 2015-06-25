@@ -29,18 +29,21 @@ std::map<IFunctionalTest::ETestResult, std::string>  InitTestResultToString() {
 
 const size_t width_name = 20;
 const size_t width_description = 40;
-const size_t width_result = 18;
+const size_t width_result = 15;
 
 }
 
 std::map<IFunctionalTest::ETestResult, std::string> IFunctionalTest::m_result_to_string = InitTestResultToString();
+
+IFunctionalTest::IFunctionalTest() : m_result(SUCCESS)
+{
+}
 
 IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
     : m_name(name)
     , m_description(description)
     , m_result(SUCCESS)
 {
-
 }
 
 std::string IFunctionalTest::getName() const

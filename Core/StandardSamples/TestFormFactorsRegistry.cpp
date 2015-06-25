@@ -5,7 +5,8 @@
 
 TestFormFactorsRegistry::TestFormFactorsRegistry()
 {
-    add(Constants::AnisoPyramidType, new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73 )));
+//    add(Constants::AnisoPyramidType, new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73 )));
+    add(Constants::AnisoPyramidType, new FormFactorAnisoPyramid(11.0, 20.0, 5.0, Units::deg2rad(54.73 )));
     add(Constants::BoxType, new FormFactorBox(10.0, 20.0, 5.0));
     add(Constants::ConeType, new FormFactorCone(5.0, 5.0, Units::deg2rad(54.73 )));
 //    add(Constants::Cone6Type, new FormFactorCone6(2./sqrt(3.)*5.0, 5.0, Units::deg2rad(54.73)));

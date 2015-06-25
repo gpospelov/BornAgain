@@ -38,17 +38,22 @@ public:
     void runTest();
     int analyseResults();
 
-    const OutputData<double>* getOutputData() const;
-
-    double getDifference() const { return m_difference;}
-
     void printResults(std::ostream &ostr) const;
 
+    void setSimulationResultsFileName(const std::string &file_name);
+
+
 private:
+    void saveSimulationResults() const;
+    std::string getSimulationResultsFileNameAndPath() const;
+    const OutputData<double>* getOutputData() const;
+
     GISASSimulation *m_simulation;
     OutputData<double> *m_reference;
     double m_threshold;
     double m_difference;
+    //!< The name of file to save simulation results if test failed.
+    std::string m_simulation_results_file_name;
 };
 
 

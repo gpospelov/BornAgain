@@ -24,8 +24,18 @@ CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
 
 IFunctionalTest *CoreFunctionalTestComponentService::getFunctionalTest()
 {
+    std::string test_name = m_testInfo.m_test_name;
+    std::string test_description = m_testInfo.m_test_description;
+
+    // adjust test name and description if they are part of components
+    if(getCurrentComponentName() != "Default") {
+        test_name.clear();
+        test_description = getCurrentComponentName();
+    }
+
     CoreFunctionalTest *result
-        = new CoreFunctionalTest(m_testInfo.m_test_name, m_testInfo.m_test_description,
+        = new CoreFunctionalTest(test_name, test_description,
                                  getSimulation(), getReferenceData(), getThreshold());
+    result->setSimulationResultsFileName(getReferenceFileName());
     return result;
 }

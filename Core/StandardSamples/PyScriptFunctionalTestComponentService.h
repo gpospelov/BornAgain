@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/GUIFunctionalTestComponentService.h
-//! @brief     Defines class GUIFunctionalTestComponentService.
+//! @file      StandardSamples/PyScriptFunctionalTestComponentService.h
+//! @brief     Defines class PyScriptFunctionalTestComponentService.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,21 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIFUNCTIONALTESTCOMPONENTSERVICE_H
-#define GUIFUNCTIONALTESTCOMPONENTSERVICE_H
+#ifndef PYSCRIPTFUNCTIONALTESTCOMPONENTSERVICE_H
+#define PYSCRIPTFUNCTIONALTESTCOMPONENTSERVICE_H
 
 #include "FunctionalTestComponentService.h"
 
 class FunctionalTestInfo;
 
-//! @class GUIFunctionalTestComponentService
+//! @class PyScriptFunctionalTestComponentService
 //! @ingroup standard_samples
-//! @brief Contains all necessary information to compose GUI functional test.
+//! @brief Contains all necessary information to compose pyscript functional test.
 
-class GUIFunctionalTestComponentService : public FunctionalTestComponentService
+class PyScriptFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
-    GUIFunctionalTestComponentService(const FunctionalTestInfo &info);
+    PyScriptFunctionalTestComponentService(const FunctionalTestInfo &info);
 
     IFunctionalTest *getFunctionalTest() const;
 };

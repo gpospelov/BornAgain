@@ -20,10 +20,10 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/T
 
 add_subdirectory(TestCore)
 #add_subdirectory(TestFit)
-#if(BORNAGAIN_PYTHON)
-#    add_subdirectory(TestPyCore)
+if(BORNAGAIN_PYTHON)
+    add_subdirectory(TestPyCore)
 #    add_subdirectory(TestPyFit)
-#endif()
+endif()
 
 if(BORNAGAIN_GUI)
     add_subdirectory(TestGUI)

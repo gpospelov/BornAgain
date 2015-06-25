@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GUIFunctionalTest.h
-//! @brief     Defines class GUIFunctionalTest
+//! @file      coregui/Models/PyScriptFunctionalTest.h
+//! @brief     Defines class PyScriptFunctionalTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,18 +23,18 @@
 
 class GISASSimulation;
 
-//! @class GUIFunctionalTest
+//! @class PyScriptFunctionalTest
 //! @ingroup standard_samples
 //! @brief GUI functional test  compares results of the reference simulation with
 //! the one obtained through domain->GUI->domain convertion. Normally invoked by
 //! FunctionalMultiTest.
 
-class BA_CORE_API_ GUIFunctionalTest : public IFunctionalTest
+class BA_CORE_API_ PyScriptFunctionalTest : public IFunctionalTest
 {
 public:
-    GUIFunctionalTest(const std::string &name, const std::string &description,
-                      GISASSimulation *reference_simulation, double threshold);
-    ~GUIFunctionalTest();
+
+    PyScriptFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold);
+    ~PyScriptFunctionalTest();
 
     void runTest();
     int analyseResults();
@@ -46,7 +46,7 @@ public:
     void printResults(std::ostream &ostr) const;
 
 private:
-    void createDomainSimulation();
+    void runPyScriptSimulation();
 
     GISASSimulation *m_reference_simulation;
     GISASSimulation *m_domain_simulation;

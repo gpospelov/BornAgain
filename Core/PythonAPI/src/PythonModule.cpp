@@ -34,6 +34,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFormFactorBorn.pypp.h"
 #include "FormFactorEllipsoidalCylinder.pypp.h"
 #include "InterferenceFunctionNone.pypp.h"
+#include "vector_less__const_ISample_ptr___greater_.pypp.h"
 #include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
@@ -152,6 +153,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_complex_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
+    register_vector_less__const_ISample_ptr___greater__class();
     register_vector_kvector_t_class();
     register_AttLimits_class();
     register_IParameterized_class();

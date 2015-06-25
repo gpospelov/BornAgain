@@ -14,43 +14,64 @@
 // ************************************************************************** //
 
 #include "ICompositeIterator.h"
+#include "ICompositeIteratorStrategy.h"
 #include "Exceptions.h"
 
-void ICompositeIterator::first()
+
+
+IteratorState::IteratorState(const ISample *single_element)
+    : m_position(0)
 {
-    m_memento_itor.reset();
-    if (m_root->begin_shallow() == m_root->end_shallow()) {
-        m_done = true;
-        return;
-    }
-    m_done = false;
-    m_memento_itor.push_state(
-        MementoState(m_root->begin_shallow(), m_root->end_shallow()) );
+    m_samples.push_back(single_element);
 }
 
-void ICompositeIterator::next()
+IteratorState::IteratorState(std::vector<const ISample *> samples)
+    : m_samples(samples)
+    , m_position(0)
 {
-    ISample *smp = (*m_memento_itor.get_current_itor());
-    if( !smp ) {
-        throw NullPointerException("ICompositeIterator::next() -> Error! Null object in the tree of objects");
-    }
-    if ( smp->getCompositeSample() ) {
-        ICompositeSample* comp = dynamic_cast<ICompositeSample* > (*m_memento_itor.get_current_itor() );
-        if(comp->begin_shallow() != comp->end_shallow() ) {
-            m_memento_itor.push_state( MementoState(comp->begin_shallow(), comp->end_shallow()) );
-            return;
-        }
-    }
+}
 
-    m_memento_itor.next();
 
-    while ( !m_memento_itor.empty() && m_memento_itor.get_state().is_end() )
-    {
-        m_memento_itor.pop_state();
-        if ( !m_memento_itor.empty() ) m_memento_itor.next();
-    }
+SampleTreeIterator::SampleTreeIterator(const ISample *root)
+    : mp_root(root)
+{
+    mP_strategy.reset(new CompositeIteratorPreorderStrategy());
+}
 
-    if (m_memento_itor.empty()) m_done = true;
+SampleTreeIterator &SampleTreeIterator::operator=(const SampleTreeIterator &other)
+{
+    mp_root = other.mp_root;
+    mP_strategy.reset(other.mP_strategy->clone());
+    return *this;
+}
+
+SampleTreeIterator::~SampleTreeIterator()
+{
+}
+
+void SampleTreeIterator::first()
+{
+    m_memento_itor = mP_strategy->first(mp_root);
+}
+
+void SampleTreeIterator::next()
+{
+    mP_strategy->next(m_memento_itor);
+}
+
+const ISample *SampleTreeIterator::getCurrent()
+{
+    return m_memento_itor.getCurrent();
+}
+
+bool SampleTreeIterator::isDone() const
+{
+    return m_memento_itor.size()==0;
+}
+
+size_t SampleTreeIterator::getLevel() const
+{
+    return m_memento_itor.size();
 }
 
 

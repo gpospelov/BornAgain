@@ -21,13 +21,13 @@
 void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
 {
     sample.accept(&visitor);
-    const ICompositeSample *composite = sample.getCompositeSample();
-    if (composite) {
-        ICompositeIterator it = composite->createIterator();
+    const ICompositeSample *p_composite = sample.getCompositeSample();
+    if (p_composite) {
+        SampleTreeIterator it(p_composite);
         it.first();
-        while (!it.is_done()) {
-            visitor.setLevel(it.get_level());
-            ISample *child = it.get_current();
+        while (!it.isDone()) {
+            visitor.setLevel(it.getLevel());
+            const ISample *child = it.getCurrent();
             child->accept(&visitor);
             it.next();
         }

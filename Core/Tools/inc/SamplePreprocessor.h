@@ -36,7 +36,7 @@ private:
     void next();
     void clear();
     ISample *mp_root;
-    ICompositeIterator m_it;
+    SampleTreeIterator m_it;
 };
 
 #endif // SAMPLEPREPROCESSOR_H

@@ -261,6 +261,16 @@ void register_ICompositeSample_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::ICompositeSample::getChildren
+        
+            typedef ::std::vector< const ISample* > ( ::ICompositeSample::*getChildren_function_type)(  ) const;
+            
+            ICompositeSample_exposer.def( 
+                "getChildren"
+                , getChildren_function_type( &::ICompositeSample::getChildren )
+                , "Returns a vector of children (const)." );
+        
+        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -283,6 +293,30 @@ void register_ICompositeSample_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ICompositeSample_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::operator[]
+        
+            typedef ::ISample * ( ::ICompositeSample::*__getitem___function_type)( ::std::size_t ) ;
+            
+            ICompositeSample_exposer.def( 
+                "__getitem__"
+                , __getitem___function_type( &::ICompositeSample::operator[] )
+                , ( bp::arg("index") )
+                , bp::return_internal_reference< >()
+                , "Returns child pointer by index (with range checking)." );
+        
+        }
+        { //::ICompositeSample::operator[]
+        
+            typedef ::ISample const * ( ::ICompositeSample::*__getitem___function_type)( ::std::size_t ) const;
+            
+            ICompositeSample_exposer.def( 
+                "__getitem__"
+                , __getitem___function_type( &::ICompositeSample::operator[] )
+                , ( bp::arg("index") )
+                , bp::return_internal_reference< >()
+                , "Returns child pointer by index (with range checking)." );
         
         }
         { //::ICompositeSample::size

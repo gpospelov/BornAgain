@@ -13,11 +13,40 @@
 //
 // ************************************************************************** //
 
-#ifndef ICOMPOSITEITERATORSTRATEGY_H
-#define ICOMPOSITEITERATORSTRATEGY_H
+#ifndef ISAMPLEITERATORSTRATEGY_H
+#define ISAMPLEITERATORSTRATEGY_H
+
+#include "ISample.h"
+#include <list>
 
 
+class IteratorMemento;
 
-#endif // ICOMPOSITEITERATORSTRATEGY_H
+class BA_CORE_API_ ISampleIteratorStrategy
+{
+public:
+    virtual ~ISampleIteratorStrategy() {}
+
+    virtual ISampleIteratorStrategy *clone() const=0;
+
+    virtual IteratorMemento first(const ISample *p_root)=0;
+    virtual void next(IteratorMemento &iterator_stack) const=0;
+    virtual bool isDone(IteratorMemento &iterator_stack) const=0;
+};
+
+class BA_CORE_API_ CompositeIteratorPreorderStrategy : public ISampleIteratorStrategy
+{
+public:
+    CompositeIteratorPreorderStrategy();
+
+    virtual CompositeIteratorPreorderStrategy *clone() const;
+
+    virtual ~CompositeIteratorPreorderStrategy();
+    virtual IteratorMemento first(const ISample *p_root);
+    virtual void next(IteratorMemento &iterator_stack) const;
+    virtual bool isDone(IteratorMemento &iterator_stack) const;
+};
+
+#endif // ISAMPLEITERATORSTRATEGY_H
 
 

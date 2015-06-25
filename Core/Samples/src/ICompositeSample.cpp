@@ -16,8 +16,9 @@
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
 #include "MessageService.h"
-#include <sstream>
 #include "Exceptions.h"
+#include <algorithm>
+#include <sstream>
 
 
 //! Registers child in the container
@@ -35,14 +36,39 @@ void ICompositeSample::registerChild(ISample *sample)
 
 void ICompositeSample::deregisterChild(ISample *sample)
 {
-    m_samples.remove(sample);
+    std::vector<ISample*>::iterator it = std::find(m_samples.begin(), m_samples.end(), sample);
+    if (it != m_samples.end()) {
+        m_samples.erase(it);
+    }
 }
 
-//! Creates general iterator to walk through the tree of registered composite children
-
-ICompositeIterator ICompositeSample::createIterator() const
+ISample *ICompositeSample::operator[](size_t index)
 {
-    return ICompositeIterator(this);
+    if (childIndexInRange(index)) {
+        return m_samples[index];
+    }
+    return 0;
 }
 
+const ISample *ICompositeSample::operator[](size_t index) const
+{
+    if (childIndexInRange(index)) {
+        return m_samples[index];
+    }
+    return 0;
+}
+
+std::vector<const ISample *> ICompositeSample::getChildren() const
+{
+    std::vector<const ISample *> result;
+    for (size_t i=0; i<m_samples.size(); ++i) {
+        result.push_back(m_samples[i]);
+    }
+    return result;
+}
+
+bool ICompositeSample::childIndexInRange(size_t index) const
+{
+    return index<m_samples.size();
+}
 

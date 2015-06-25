@@ -39,8 +39,8 @@ void SamplePreprocessor::process(ISample *p_sample)
             continue;
         }
         if (mp_root) {
-            while (!m_it.is_done()) {
-                replacement_occured = processSingle(m_it.get_current());
+            while (!m_it.isDone()) {
+//                replacement_occured = processSingle(m_it.getCurrent());
                 if (replacement_occured) {
                     break;
                 }
@@ -58,10 +58,10 @@ bool SamplePreprocessor::processSingle(ISample *p_child)
 void SamplePreprocessor::reset(ISample *p_sample)
 {
     clear();
-    const ICompositeSample *composite = p_sample->getCompositeSample();
-    if (!composite) return;
+    ICompositeSample *p_composite = p_sample->getCompositeSample();
+    if (!p_composite) return;
     mp_root = p_sample;
-    m_it = composite->createIterator();
+    m_it = SampleTreeIterator(p_composite);
     m_it.first();
 }
 
@@ -73,5 +73,5 @@ void SamplePreprocessor::next()
 void SamplePreprocessor::clear()
 {
     mp_root = 0;
-    m_it = ICompositeIterator(0);
+    m_it = SampleTreeIterator(0);
 }

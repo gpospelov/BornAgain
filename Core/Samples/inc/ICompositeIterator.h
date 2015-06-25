@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/ICompositeIterator.h
-//! @brief     Defines and implements classes MementoState, MementoIterator;
-//!              defines class ICompositeIterator.
+//! @brief     Defines and classes IteratorState, IteratorMemento and SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,74 +13,69 @@
 //
 // ************************************************************************** //
 
-#ifndef ICOMPOSITEITERATOR_H
-#define ICOMPOSITEITERATOR_H
+#ifndef ISAMPLETREEITERATOR_H
+#define ISAMPLETREEITERATOR_H
 
 #include "ISample.h"
 #include "ICompositeSample.h"
 #include <iostream>
 #include <stack>
 #include <list>
+#include <boost/scoped_ptr.hpp>
 
-//! @class MementoState
+class ISampleIteratorStrategy;
+
+//! @class IteratorState
 //! @ingroup samples_internal
-//! @brief Holds state of iterator (Memento pattern) for ICompositeIterator
+//! @brief Holds state of iterator (Memento pattern) for SampleTreeIterator
 
-class BA_CORE_API_ MementoState
+class IteratorState
 {
 public:
-    typedef std::list<ISample*>::const_iterator const_iterator_t;
+    typedef typename std::list<const ISample*>::const_iterator const_iterator_t;
 
-    MementoState(const_iterator_t itor, const_iterator_t end_itor)
-        : m_itor( itor ), m_end_itor( end_itor ) {}
+    IteratorState(const ISample* single_element);
+    IteratorState(std::vector<const ISample*> samples);
 
-    MementoState& operator=(const MementoState& other)
+    virtual ~IteratorState() {}
+
+    const ISample* getCurrent() const { return m_samples[m_position]; }
+    bool isEnd() const { return m_position>=m_samples.size(); }
+    void next() { ++m_position; }
+
+    friend std::ostream& operator<<(std::ostream& output_stream, IteratorState const& iterator_state)
     {
-        if(this !=& other) {
-            m_itor = other.m_itor;
-            m_end_itor = other.m_end_itor;
-        }
-        return *this;
+        return  output_stream << "memento state " << iterator_state.m_position << " "
+                              << iterator_state.m_samples.size();
     }
 
-    virtual ~MementoState() {}
-
-    const_iterator_t& get_itor() { return m_itor; }
-    bool is_end() const { return m_itor == m_end_itor; }
-    void next() { m_itor++; }
-
-    friend std::ostream& operator<<(std::ostream& o, MementoState const& m)
-    { return  (o << "memento state " <<& m.m_itor << " " <<& m.m_end_itor); }
-
-protected:
-    const_iterator_t m_itor;
-    const_iterator_t m_end_itor;
-
 private:
-    MementoState();
+    std::vector<const ISample*> m_samples;
+    size_t m_position;
+
+    IteratorState();
 };
 
 //! @class MementoIterator
 //! @ingroup samples_internal
 //! @brief The iterator from Memento pattern, part of ICompositeSample iterator
 
-class BA_CORE_API_ MementoIterator
+class IteratorMemento
 {
 public:
-    MementoIterator() {}
-    virtual ~MementoIterator() {}
+    IteratorMemento() {}
+    virtual ~IteratorMemento() {}
 
-    void push_state(const MementoState& state) { m_state_stack.push(state); }
+    void push_state(const IteratorState& state) { m_state_stack.push(state); }
     void pop_state() { m_state_stack.pop(); }
-    MementoState& get_state() { return m_state_stack.top(); }
+    IteratorState& get_state() { return m_state_stack.top(); }
     bool empty() const { return m_state_stack.empty(); }
     void reset() { while(!m_state_stack.empty()) m_state_stack.pop(); }
-    MementoState::const_iterator_t& get_current_itor()
-    { return m_state_stack.top().get_itor(); }
+    const ISample* getCurrent() { return m_state_stack.top().getCurrent(); }
     void next() { m_state_stack.top().next(); }
-    size_t size() { return m_state_stack.size(); }
+    size_t size() const { return m_state_stack.size(); }
 protected:
-    std::stack<MementoState > m_state_stack;
+    std::stack<IteratorState > m_state_stack;
 };
 
 
@@ -97,23 +91,24 @@ protected:
 //!        it.next();
 //!     }
 
-class BA_CORE_API_ ICompositeIterator
+class BA_CORE_API_ SampleTreeIterator
 {
 public:
-    ICompositeIterator(const ICompositeSample *root) : m_root(root), m_done(false) {}
-    virtual ~ICompositeIterator() {}
+    SampleTreeIterator(const ISample *root);
+    SampleTreeIterator& operator=(const SampleTreeIterator &other);
+    virtual ~SampleTreeIterator();
 
     void first();
     void next();
-    ISample* get_current() { return *(m_memento_itor.get_current_itor()); }
-    bool is_done() { return m_done; }
-    size_t get_level() { return m_memento_itor.size(); }
+    const ISample* getCurrent();
+    bool isDone() const;
+    size_t getLevel() const;
 protected:
-    MementoIterator m_memento_itor;
-    const ICompositeSample* m_root;
-    bool m_done;
+    boost::scoped_ptr<ISampleIteratorStrategy> mP_strategy;
+    IteratorMemento m_memento_itor;
+    const ISample* mp_root;
 };
 
-#endif // ICOMPOSITEITERATOR_H
+#endif // ISAMPLETREEITERATOR_H
 
 

@@ -21,18 +21,18 @@
 FunctionalTestRegistry::FunctionalTestRegistry()
 {
 
-    add("IsGISAXS01",
-        "Mixture of cylinders and prisms without interference",
-        "IsGISAXSSimulation1",
-        "isgisaxs01",
-        "None",
-        2e-10);
-
     add("FormFactors",
         "Test of all form factors defined",
-        "BasicGISAS",
+        "GISASSmallDet",
         "ParticleInTheAirBuilder",
         "FormFactorsRegistry",
+        2e-10);
+
+    add("CylindersAndPrisms",
+        "Mixture of cylinders and prisms without interference",
+        "GISASSmallDet",
+        "CylindersAndPrismsBuilder",
+        "None",
         2e-10);
 
 }

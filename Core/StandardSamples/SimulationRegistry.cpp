@@ -164,7 +164,10 @@ SimulationRegistry::SimulationRegistry()
     // ---------------------------------------------------------------------------------------------
 
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS,
-                 "Basic GISAS simulation for all domain functional tests");
+                 "Basic GISAS simulation with the detector theta[0,2], phi[0,2]");
+
+    registerItem("GISASSmallDet", StandardSimulations::GISASSmallDet,
+                 "GISAS simulation with small detector and theta[-2,2], phi[0,2]");
 
     registerItem("IsGISAXSSimulation1", StandardSimulations::IsGISAXSSimulation1,
                  "Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]");

@@ -1,8 +1,8 @@
-#include "GUIFunctionalTest.h"
+#include "ObsoleteGUIFunctionalTest.h"
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("gui_Interference1DParaCrystal");
+    return OBSOLETE_GUI_FUNCTIONAL_TEST("gui_Interference1DParaCrystal");
 }
 
 

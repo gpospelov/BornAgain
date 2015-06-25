@@ -25,7 +25,7 @@
 GISASSimulation *StandardSimulations::IsGISAXS01()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+    SampleBuilder_t builder = factory.createBuilder("CylindersAndPrismsBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -474,7 +474,7 @@ GISASSimulation *StandardSimulations::Ripple1()
 GISASSimulation *StandardSimulations::gui_CylinderAndPrisms()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+    SampleBuilder_t builder = factory.createBuilder("CylindersAndPrismsBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -701,21 +701,30 @@ GISASSimulation *StandardSimulations::gui_ParticleComposition()
 //
 // ------------------------------------------------------------------------------------------------
 
-//!
+//! Basic GISAS simulation with the detector phi[0,2], theta[0,2]
 GISASSimulation *StandardSimulations::BasicGISAS()
 {
     GISASSimulation *result = new GISASSimulation();
-
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
-
     return result;
 }
 
-//! Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]
+//! GISAS simulation with small detector and phi[-2,2], theta[0,2]
+GISASSimulation *StandardSimulations::GISASSmallDet()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(25, -2.0*Units::degree, 2.0*Units::degree,
+                                     25, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    return result;
+}
+
+
+//! Typical IsGISAXS simulation with the detector phi[0,2], theta[-1,1]
 GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
 {
     GISASSimulation *result = new GISASSimulation();
@@ -726,3 +735,5 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
+
+

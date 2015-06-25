@@ -59,8 +59,8 @@ endforeach()
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
-    "CoreSuite/IsGISAXS01"
     "CoreSuite/FormFactors"
+    "CoreSuite/CylindersAndPrisms"
 )
 
 

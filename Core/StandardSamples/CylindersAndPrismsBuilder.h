@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS01Builder.h
-//! @brief     Defines class IsGISAXS01Builder.
+//! @file      StandardSamples/CylindersAndPrismsBuilder.h
+//! @brief     Defines class CylindersAndPrismsBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,20 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS01BUILDER_H
-#define ISGISAXS01BUILDER_H
+#ifndef CYLINDERSANDPRISMSBUILDER_H
+#define CYLINDERSANDPRISMSBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class IsGISAXS01Builder
+//! @class CylindersAndPrismsBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of cylinders and prisms without interference
 //! (IsGISAXS example #1)
 
-class BA_CORE_API_ IsGISAXS01Builder : public ISampleBuilder
+class BA_CORE_API_ CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS01Builder();
+    CylindersAndPrismsBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -40,4 +40,4 @@ private:
     double m_cylinder_weight;
 };
 
-#endif // ISGISAXS01BUILDER_H
+#endif

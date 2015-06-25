@@ -28,6 +28,7 @@
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
+//    result["example01"] = "CylindersAndPrismsBuilder";
     result["example01"] = "gui_CylinderAndPrisms";
     result["example02"] = "gui_Interference1DParaCrystal";
     result["example03"] = "gui_Interference2DParaCrystal";
@@ -55,22 +56,29 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     QString exampleName = m_name_to_registry[name];
+
     SimulationRegistry registry;
     boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
     Q_ASSERT(P_simulation.get());
 
     GUIObjectBuilder guiBuilder;
     return guiBuilder.populateSampleModel(sampleModel, *P_simulation, name);
+
+//    SampleBuilderFactory factory;
+//    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
+
+//    GUIObjectBuilder guiBuilder;
+//    return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
 }
 
-ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
-{
-    QString exampleName = m_name_to_registry[name];
-    SimulationRegistry registry;
-    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
-    Q_ASSERT(P_simulation.get());
+//ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
+//{
+//    QString exampleName = m_name_to_registry[name];
+//    SimulationRegistry registry;
+//    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
+//    Q_ASSERT(P_simulation.get());
 
-    QString instrumentName = name + "_instrument";
-    GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateInstrumentModel(instrumentModel, *P_simulation, instrumentName);
-}
+//    QString instrumentName = name + "_instrument";
+//    GUIObjectBuilder guiBuilder;
+//    return guiBuilder.populateInstrumentModel(instrumentModel, *P_simulation, instrumentName);
+//}

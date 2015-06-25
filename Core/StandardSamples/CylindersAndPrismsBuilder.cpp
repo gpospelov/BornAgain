@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS01Builder.cpp
-//! @brief     Implements class IsGISAXS01Builder.
+//! @file      StandardSamples/CylindersAndPrismsBuilder.cpp
+//! @brief     Implements class CylindersAndPrismsBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS01Builder.h"
+#include "CylindersAndPrismsBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -22,7 +22,7 @@
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 
-IsGISAXS01Builder::IsGISAXS01Builder()
+CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
     : m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
     , m_prism_height(5*Units::nanometer)
@@ -33,7 +33,7 @@ IsGISAXS01Builder::IsGISAXS01Builder()
 }
 
 
-void IsGISAXS01Builder::init_parameters()
+void CylindersAndPrismsBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_height", &m_cylinder_height);
@@ -44,7 +44,7 @@ void IsGISAXS01Builder::init_parameters()
 }
 
 
-ISample *IsGISAXS01Builder::buildSample() const
+ISample *CylindersAndPrismsBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

@@ -52,9 +52,15 @@ int CoreFunctionalTest::analyseResults()
     if (!m_reference) {
         m_result = FAILED_NOREF;
     } else {
-        m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(),
+        try {
+            m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(),
                                                                      *m_reference);
-        m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
+            m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
+        } catch(const std::exception &ex) {
+            std::cout << "CoreFunctionalTest::analyseResults() -> Intensity data comparison failed " << std::endl;
+            std::cout << ex.what() << std::endl;
+            m_result = FAILED_DIFF;
+        }
     }
 
     if (getTestResult() != SUCCESS)

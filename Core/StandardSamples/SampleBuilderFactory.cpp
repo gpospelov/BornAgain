@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SampleBuilderFactory.h"
-#include "IsGISAXS01Builder.h"
+#include "CylindersAndPrismsBuilder.h"
 #include "IsGISAXS02Builder.h"
 #include "CylindersBuilder.h"
 #include "IsGISAXS04Builder.h"
@@ -38,8 +38,8 @@ SampleBuilderFactory::SampleBuilderFactory()
 {
 
     registerItem(
-        "isgisaxs01",
-        IFactoryCreateFunction<IsGISAXS01Builder, ISampleBuilder>,
+        "CylindersAndPrismsBuilder",
+        IFactoryCreateFunction<CylindersAndPrismsBuilder, ISampleBuilder>,
         "Mixture of cylinders and prisms without interference");
 
     registerItem(

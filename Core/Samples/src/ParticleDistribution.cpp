@@ -26,21 +26,8 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     registerParameter("position_x", &m_position[0]);
     registerParameter("position_y", &m_position[1]);
     registerParameter("position_z", &m_position[2]);
+    checkParticleType(prototype);
     mP_particle.reset(prototype.clone());
-    registerChild(mP_particle.get());
-}
-
-ParticleDistribution::ParticleDistribution(const IParticle &prototype,
-                                           const ParameterDistribution &par_distr,
-                                           kvector_t position)
-    : m_par_distribution(par_distr)
-{
-    setName("ParticleDistribution");
-    registerParameter("position_x", &m_position[0]);
-    registerParameter("position_y", &m_position[1]);
-    registerParameter("position_z", &m_position[2]);
-    mP_particle.reset(prototype.clone());
-    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
 }
 
@@ -126,4 +113,13 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
         result.push_back(p_particle_info);
     }
     return result;
+}
+
+void ParticleDistribution::checkParticleType(const IParticle &p_particle)
+{
+    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
+    if (p_distr) {
+        throw Exceptions::ClassInitializationException("ParticleDistribution::checkParticleType: "
+                                                       "cannot add ParticleDistribution!");
+    }
 }

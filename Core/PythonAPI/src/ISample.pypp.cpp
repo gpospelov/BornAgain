@@ -95,18 +95,6 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         return ISample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
@@ -310,17 +298,6 @@ void register_ISample_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ISample_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ISample_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            ISample_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ISample_wrapper::default_preprocess) );
         
         }
         { //::ISample::printSampleTree

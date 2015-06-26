@@ -224,7 +224,8 @@ private:
     int m_level;
 };
 
-BA_CORE_API_ void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor);
 
 
 #endif // ISAMPLEVISITOR_H

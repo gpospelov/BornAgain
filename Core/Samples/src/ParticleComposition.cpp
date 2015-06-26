@@ -16,6 +16,7 @@
 #include "ParticleComposition.h"
 #include "FormFactors.h"
 #include "Materials.h"
+#include "ParticleDistribution.h"
 #include <boost/scoped_ptr.hpp>
 
 ParticleComposition::ParticleComposition()
@@ -95,6 +96,7 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
 
 void ParticleComposition::addParticle(const IParticle &particle)
 {
+    checkParticleType(particle);
     IParticle *np = particle.clone();
     registerChild(np);
     m_particles.push_back(np);
@@ -102,6 +104,7 @@ void ParticleComposition::addParticle(const IParticle &particle)
 
 void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
 {
+    checkParticleType(particle);
     IParticle *np = particle.clone();
     np->applyTranslation(position);
     registerChild(np);
@@ -146,6 +149,15 @@ ParticleComposition::createTransformedFormFactor(complex_t wavevector_scattering
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;
+}
+
+void ParticleComposition::checkParticleType(const IParticle &p_particle)
+{
+    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
+    if (p_distr) {
+        throw Exceptions::ClassInitializationException("ParticleComposition::checkParticleType: "
+                                                       "cannot add ParticleDistribution!");
+    }
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

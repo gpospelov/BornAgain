@@ -212,18 +212,6 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -497,17 +485,6 @@ void register_FormFactorLorentz_class(){
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorBorn::getVolume)
                 , default_getVolume_function_type(&FormFactorLorentz_wrapper::default_getVolume) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( FormFactorLorentz_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            FormFactorLorentz_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&FormFactorLorentz_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

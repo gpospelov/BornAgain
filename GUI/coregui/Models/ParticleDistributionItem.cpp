@@ -42,6 +42,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0, 1);
+    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0, 1);
 
     ComboProperty par_prop;
     registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());

@@ -31,9 +31,6 @@ class BA_CORE_API_ ParticleDistribution : public IParticle
 public:
     ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr);
 
-    ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr,
-                         kvector_t position);
-
     virtual ~ParticleDistribution()
     {
     }
@@ -90,6 +87,9 @@ public:
     }
 
 private:
+    //! Checks if particle's type is suitable for adding
+    void checkParticleType(const IParticle& p_particle);
+
     boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
 };

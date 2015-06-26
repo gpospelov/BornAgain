@@ -109,18 +109,6 @@ struct ParticleComposition_wrapper : ParticleComposition, bp::wrapper< ParticleC
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -332,17 +320,6 @@ void register_ParticleComposition_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ParticleComposition_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ParticleComposition_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            ParticleComposition_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ParticleComposition_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

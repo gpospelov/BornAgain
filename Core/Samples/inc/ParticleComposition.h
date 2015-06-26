@@ -71,6 +71,9 @@ private:
                 : throw OutOfBoundsException("ParticleComposition::check_index()"
                         "-> Index is out of bounds"); }
 
+    //! Checks if particle's type is suitable for adding
+    void checkParticleType(const IParticle& p_particle);
+
     //! For internal use in cloneInvertB():
     void addParticlePointer(IParticle *p_particle);
 

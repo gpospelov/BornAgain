@@ -84,6 +84,11 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getParticle( index );
     }
 
+    virtual ::std::vector< const ParticleInfo* > getParticleInfos(  ) const {
+        bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
+        return func_getParticleInfos(  );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -154,18 +159,6 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -382,6 +375,16 @@ void register_ILayout_class(){
                 , "Returns information about particle with index." );
         
         }
+        { //::ILayout::getParticleInfos
+        
+            typedef ::std::vector<const ParticleInfo*,std::allocator<const ParticleInfo*> > ( ::ILayout::*getParticleInfos_function_type)(  ) const;
+            
+            ILayout_exposer.def( 
+                "getParticleInfos"
+                , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
+                , "Returns information on all particles (type and abundance) and generates new particles if an IParticle denotes a collection " );
+        
+        }
         { //::ILayout::getTotalAbundance
         
             typedef double ( ::ILayout::*getTotalAbundance_function_type)(  ) const;
@@ -490,17 +493,6 @@ void register_ILayout_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ILayout_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            ILayout_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ILayout_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

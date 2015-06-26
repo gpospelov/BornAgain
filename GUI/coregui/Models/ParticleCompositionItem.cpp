@@ -28,6 +28,7 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
+    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)

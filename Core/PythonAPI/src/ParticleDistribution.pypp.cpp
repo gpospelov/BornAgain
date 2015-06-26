@@ -37,13 +37,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
     m_pyobj = 0;
     }
 
-    ParticleDistribution_wrapper(::IParticle const & prototype, ::ParameterDistribution const & par_distr, ::kvector_t position )
-    : ParticleDistribution( boost::ref(prototype), boost::ref(par_distr), position )
-      , bp::wrapper< ParticleDistribution >(){
-        // constructor
-    m_pyobj = 0;
-    }
-
     virtual ::ParticleDistribution * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -164,18 +157,6 @@ struct ParticleDistribution_wrapper : ParticleDistribution, bp::wrapper< Particl
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -289,7 +270,6 @@ void register_ParticleDistribution_class(){
         typedef bp::class_< ParticleDistribution_wrapper, bp::bases< IParticle >, std::auto_ptr< ParticleDistribution_wrapper >, boost::noncopyable > ParticleDistribution_exposer_t;
         ParticleDistribution_exposer_t ParticleDistribution_exposer = ParticleDistribution_exposer_t( "ParticleDistribution", "A particle with a form factor and refractive inde.", bp::init< IParticle const &, ParameterDistribution const & >(( bp::arg("prototype"), bp::arg("par_distr") )) );
         bp::scope ParticleDistribution_scope( ParticleDistribution_exposer );
-        ParticleDistribution_exposer.def( bp::init< IParticle const &, ParameterDistribution const &, kvector_t >(( bp::arg("prototype"), bp::arg("par_distr"), bp::arg("position") )) );
         { //::ParticleDistribution::clone
         
             typedef ::ParticleDistribution * ( ::ParticleDistribution::*clone_function_type)(  ) const;
@@ -437,17 +417,6 @@ void register_ParticleDistribution_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ParticleDistribution_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ParticleDistribution_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            ParticleDistribution_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ParticleDistribution_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

@@ -100,6 +100,27 @@ const IParticle* ParticleLayout::getParticle(size_t index) const
         "Error! Not so many particles in this decoration.");
 }
 
+std::vector<const ParticleInfo *> ParticleLayout::getParticleInfos() const
+{
+    m_particle_info_cache.clear();
+    for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
+         it != m_particles.end(); ++it) {
+        const ParticleInfo *p_info = (*it);
+        const ParticleDistribution *p_part_distr
+            = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
+        if (p_part_distr) {
+            std::vector<ParticleInfo *> generated_particles =
+                p_part_distr->generateParticleInfos(p_info->getAbundance());
+            for (size_t i=0; i<generated_particles.size(); ++i) {
+                m_particle_info_cache.push_back(generated_particles[i]);
+            }
+        } else {
+            m_particle_info_cache.push_back(p_info->clone());
+        }
+    }
+    return m_particle_info_cache.getSTLVector();
+}
+
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
 {
     return m_particles[index]->getAbundance();
@@ -128,18 +149,6 @@ const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
                 "Not so many interference functions in this decoration.");
 }
 
-bool ParticleLayout::preprocess()
-{
-    for (size_t i=0; i<m_particles.size(); ++i) {
-        if (dynamic_cast<const ParticleDistribution *>(
-                    m_particles[i]->getParticle())) {
-            replaceParticleDistribution(i);
-            return true;
-        }
-    }
-    return false;
-}
-
 //! Adds particle information with simultaneous registration in parent class.
 void ParticleLayout::addAndRegisterParticleInfo(
     ParticleInfo *child)
@@ -154,21 +163,6 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 {
     m_interference_functions.push_back(child);
     registerChild(child);
-}
-
-void ParticleLayout::replaceParticleDistribution(size_t index)
-{
-    ParticleInfo *p_particle_info = m_particles[index];
-    const ParticleDistribution *p_particle_coll =
-                    dynamic_cast<const ParticleDistribution *>(
-                        p_particle_info->getParticle());
-    std::vector<ParticleInfo *> particles =
-        p_particle_coll->generateParticleInfos(p_particle_info->getAbundance());
-    for (size_t i=0; i<particles.size(); ++i) {
-        addAndRegisterParticleInfo(particles[i]);
-    }
-    deregisterChild(p_particle_info);
-    m_particles.deleteElement(p_particle_info);
 }
 
 void ParticleLayout::print(std::ostream& ostr) const

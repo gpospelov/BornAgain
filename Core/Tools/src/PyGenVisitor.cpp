@@ -303,8 +303,8 @@ std::string PyGenVisitor::defineGetSample() const
     result << defineFormFactors();
     result << defineParticles();
     result << defineCoreShellParticles();
-    result << defineParticleDistributions();
     result << defineParticleCompositions();
+    result << defineParticleDistributions();
     result << defineInterferenceFunctions();
     result << defineParticleLayouts();
     result << defineRoughnesses();
@@ -622,7 +622,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining collection of particles with size distribution\n";
+    result << "\n" << indent() << "# Defining particles with parameter following a distribution\n";
     SampleLabelHandler::particledistributions_t::iterator it
         = m_label->getParticleDistributionsMap()->begin();
 
@@ -659,7 +659,7 @@ std::string PyGenVisitor::defineParticleCompositions() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining collection of particles with specific positions\n";
+    result << "\n" << indent() << "# Defining composition of particles at specific positions\n";
     SampleLabelHandler::particlecompositions_t::iterator it
         = m_label->getParticleCompositionMap()->begin();
 

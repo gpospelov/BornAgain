@@ -468,7 +468,7 @@ void SamplePrintVisitor::visit(const RotationEuler *sample)
 std::string SamplePrintVisitor::get_indent()
 {
     std::string result;
-    result.resize(getLevel()*4, '.');
+    result.resize((getLevel()-1)*4, '.');
     result += " ";
     return result;
 }

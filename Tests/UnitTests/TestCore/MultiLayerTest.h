@@ -44,7 +44,7 @@ TEST_F(MultiLayerTest, BasicProperty)
     mLayer.addLayer(chromiumLayer);
     mLayer.addLayer(stoneLayer);
     EXPECT_EQ(size_t(4), mLayer.getNumberOfLayers());
-    EXPECT_EQ(size_t(3), mLayer.getNumberOfInterfaces());   
+    EXPECT_EQ(size_t(3), mLayer.getNumberOfInterfaces());
 
 }
 
@@ -629,9 +629,9 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     std::vector<Layer *> layer_buffer;
     std::vector<LayerInterface *> interface_buffer;
     int counter(0);
-    for(MultiLayer::iterator_t it=mLayer.begin_shallow();it!=mLayer.end_shallow(); ++it)
+    for(size_t index=0; index<mLayer.size();++index)
     {
-        ISample *sample = *it;
+        ISample *sample = mLayer[index];
         if(counter%2 == 1)
         {
             LayerInterface *interface = dynamic_cast<LayerInterface *>(sample);

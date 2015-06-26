@@ -128,16 +128,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticle( index );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
+    virtual ::std::vector< const ParticleInfo* > getParticleInfos(  ) const  {
+        if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
+            return func_getParticleInfos(  );
         else{
-            return this->ParticleLayout::preprocess(  );
+            return this->ParticleLayout::getParticleInfos(  );
         }
     }
     
-    bool default_preprocess(  ) {
-        return ParticleLayout::preprocess( );
+    ::std::vector< const ParticleInfo* > default_getParticleInfos(  ) const  {
+        return ParticleLayout::getParticleInfos( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -453,15 +453,15 @@ void register_ParticleLayout_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleLayout::preprocess
+        { //::ParticleLayout::getParticleInfos
         
-            typedef bool ( ::ParticleLayout::*preprocess_function_type)(  ) ;
-            typedef bool ( ParticleLayout_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef ::std::vector< const ParticleInfo* > ( ::ParticleLayout::*getParticleInfos_function_type)(  ) const;
+            typedef ::std::vector< const ParticleInfo* > ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)(  ) const;
             
             ParticleLayout_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ParticleLayout::preprocess)
-                , default_preprocess_function_type(&ParticleLayout_wrapper::default_preprocess) );
+                "getParticleInfos"
+                , getParticleInfos_function_type(&::ParticleLayout::getParticleInfos)
+                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos) );
         
         }
         { //::IParameterized::areParametersChanged

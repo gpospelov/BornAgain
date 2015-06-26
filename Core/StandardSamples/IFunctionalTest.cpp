@@ -27,7 +27,7 @@ std::map<IFunctionalTest::ETestResult, std::string>  InitTestResultToString() {
     return result;
 }
 
-const size_t width_name = 20;
+const size_t width_name = 25;
 const size_t width_description = 40;
 const size_t width_result = 15;
 

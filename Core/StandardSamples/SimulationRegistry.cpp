@@ -141,8 +141,6 @@ SimulationRegistry::SimulationRegistry()
         "gui_Interference2DCenteredLattice", StandardSimulations::gui_Interference2DCenteredLattice,
         "GUI: 2D lattice centered");
 
-
-
     registerItem(
         "gui_RotatedPyramids", StandardSimulations::gui_RotatedPyramids,
         "GUI: Rotated pyramids");
@@ -152,6 +150,16 @@ SimulationRegistry::SimulationRegistry()
         "GUI: Mixture of Cylinders and Prisms using Multiple Layouts");
 
     registerItem(
+        "gui_ParticleComposition", StandardSimulations::gui_ParticleComposition,
+        "GUI: Composition of particles to represent two layers of spheres in hex lattice");
+
+    registerItem(
+        "part_distribution", StandardSimulations::ParticleDistribution,
+        "Cylinders with size distribution");
+
+
+
+    registerItem(
         "beam_divergence", StandardSimulations::BeamDivergence,
         "Cylinders in DWBA with beam divergence");
 
@@ -159,13 +167,6 @@ SimulationRegistry::SimulationRegistry()
         "detector_resolution", StandardSimulations::DetectorResolution,
         "Cylinders in DWBA with beam divergence");
 
-    registerItem(
-        "part_distribution", StandardSimulations::ParticleDistribution,
-        "Cylinders with size distribution");
-
-    registerItem(
-        "gui_ParticleComposition", StandardSimulations::gui_ParticleComposition,
-        "GUI: Composition of particles to represent two layers of spheres in hex lattice");
 
     // ---------------------------------------------------------------------------------------------
     // toward functional tests refactoring

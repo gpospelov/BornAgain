@@ -91,6 +91,20 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("ParticleComposition",
+        "Two layers of spheres at hex lattice",
+        "GISASSmallDet",
+        "ParticleCompositionBuilder",
+        "None",
+        2e-10);
+
+    add("CylindersWithSizeDistribution",
+        "Cylinders in BA with size distributions",
+        "GISASSmallDet",
+        "CylindersWithSizeDistributionBuilder",
+        "None",
+        2e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

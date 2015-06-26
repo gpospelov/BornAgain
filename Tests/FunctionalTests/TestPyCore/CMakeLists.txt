@@ -52,9 +52,7 @@ include_directories(
 
 
 set(list_of_cpp_python_tests
-    "PyScript_ParticleComposition"
-#    "PyScript_multiplelayoutbuilder"
-#    "PyScript_ParticleDistribution"
+    "PyScript_multiplelayoutbuilder"
 )
 
 foreach(_test ${list_of_cpp_python_tests})
@@ -78,6 +76,8 @@ set(list_of_tests
     "PySuite/CenteredSquareLattice"
     "PySuite/RotatedSquareLattice"
     "PySuite/RotatedPyramids"
+    "PySuite/ParticleComposition"
+    "PySuite/CylindersWithSizeDistribution"
 )
 
 

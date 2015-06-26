@@ -28,11 +28,11 @@ set(list_of_tests
 #    "IsGISAXS06L2"  # can be removed, CenteredSquareLattice
 #    "IsGISAXS06L3"  # can be removed, RotatedSquareLattice
 #    "IsGISAXS09b"  # can be removed, RotatedPyramids
+#    "CylindersWithSizeDistribution" # can be removed, CylindersWithSizeDistribution
+#    "CylindersInBA" # can be removed
+#    "CylindersInDWBA" # can be removed
 
-#    "IsGISAXS02"
-#    "CylindersInBA"
-#    "CylindersInDWBA"
-#    "CylindersWithSizeDistribution"
+    "IsGISAXS02"
 #    "IsGISAXS06L4"
 #    "IsGISAXS07"
 #    "IsGISAXS08a"
@@ -69,6 +69,8 @@ set(list_of_tests
     "CoreSuite/CenteredSquareLattice"
     "CoreSuite/RotatedSquareLattice"
     "CoreSuite/RotatedPyramids"
+    "CoreSuite/ParticleComposition"
+    "CoreSuite/CylindersWithSizeDistribution"
 )
 
 

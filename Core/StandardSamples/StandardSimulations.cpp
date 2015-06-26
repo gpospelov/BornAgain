@@ -97,7 +97,7 @@ GISASSimulation *StandardSimulations::CylindersInDWBA()
 GISASSimulation *StandardSimulations::CylindersWithSizeDistribution()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
+    SampleBuilder_t builder = factory.createBuilder("CylindersWithSizeDistributionBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -661,7 +661,7 @@ GISASSimulation *StandardSimulations::DetectorResolution()
 GISASSimulation *StandardSimulations::ParticleDistribution()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
+    SampleBuilder_t builder = factory.createBuilder("CylindersWithSizeDistributionBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -679,7 +679,7 @@ GISASSimulation *StandardSimulations::ParticleDistribution()
 GISASSimulation *StandardSimulations::gui_ParticleComposition()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ParticleComposition");
+    SampleBuilder_t builder = factory.createBuilder("ParticleCompositionBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

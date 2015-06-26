@@ -33,6 +33,7 @@
 #include "Ripple2Builder.h"
 #include "Ripple1Builder.h"
 #include "ParticleInTheAirBuilder.h"
+#include "ParticleDistributionsBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -55,8 +56,9 @@ SampleBuilderFactory::SampleBuilderFactory()
         "cylinders_dwba",
         IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
         "Cylinder formfactor in DWBA");
+
     registerItem(
-        "cylinders_basize",
+        "CylindersWithSizeDistributionBuilder",
         IFactoryCreateFunction<CylindersWithSizeDistributionBuilder, ISampleBuilder>,
         "Cylinder formfactor in BA with size distribution");
 
@@ -156,7 +158,7 @@ SampleBuilderFactory::SampleBuilderFactory()
         "cosine ripple within the 1D-paracrystal model");
 
     registerItem(
-        "ParticleComposition",
+        "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
 

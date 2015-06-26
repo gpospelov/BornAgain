@@ -99,17 +99,23 @@ IteratorMemento SampleIteratorPostorderStrategy::first(const ISample *p_root)
 
 void SampleIteratorPostorderStrategy::next(IteratorMemento &iterator_stack) const
 {
-    const ISample *p_sample = iterator_stack.getCurrent();
-    if( !p_sample ) {
-        throw NullPointerException("CompositeIteratorPreorderStrategy::next(): "
-                                   "Error! Null object in the tree of objects");
-    }
-
     iterator_stack.next();
 
     if ( iterator_stack.get_state().isEnd() )
     {
         iterator_stack.pop_state();
+        return;
+    }
+
+    const ISample *p_sample = iterator_stack.getCurrent();
+    while ( p_sample->getCompositeSample() ) {
+        const ICompositeSample* p_composite = dynamic_cast<const ICompositeSample*>(p_sample);
+        if(p_composite->size()>0 ) {
+            iterator_stack.push_state( IteratorState(p_composite->getChildren()) );
+            p_sample = iterator_stack.getCurrent();
+        } else {
+            break;
+        }
     }
 }
 

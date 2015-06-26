@@ -62,13 +62,13 @@ std::string ISample::addParametersToExternalPool(
 void ISample::printSampleTree()
 {
     SamplePrintVisitor visitor;
-    VisitSampleTree(*this, visitor);
+    VisitSampleTreePreorder(*this, visitor);
 }
 
 bool ISample::containsMagneticMaterial() const
 {
     SampleMaterialVisitor material_vis;
-    VisitSampleTree(*this, material_vis);
+    VisitSampleTreePreorder(*this, material_vis);
     return material_vis.containsMagneticMaterial();
 
 }

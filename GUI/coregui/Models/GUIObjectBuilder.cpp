@@ -78,8 +78,8 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 
     m_sampleModel = sampleModel;
 
-    VisitSampleTree(sample, *this);
-    ParameterizedItem *result = m_levelToParentItem[0];
+    VisitSampleTreePreorder(sample, *this);
+    ParameterizedItem *result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);
     return result;

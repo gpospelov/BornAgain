@@ -19,19 +19,27 @@
 #include "SampleTreeIterator.h"
 #include "ISampleIteratorStrategy.h"
 
-void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
+void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 {
-    sample.accept(&visitor);
-    const ICompositeSample *p_composite = sample.getCompositeSample();
-    if (p_composite) {
-        SampleTreeIterator<SampleIteratorPreorderStrategy> it(p_composite);
-        it.first();
-        while (!it.isDone()) {
-            visitor.setLevel(it.getLevel());
-            const ISample *child = it.getCurrent();
-            child->accept(&visitor);
-            it.next();
-        }
+    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&sample);
+    it.first();
+    while (!it.isDone()) {
+        visitor.setLevel(it.getLevel());
+        const ISample *child = it.getCurrent();
+        child->accept(&visitor);
+        it.next();
+    }
+}
+
+void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+{
+    SampleTreeIterator<SampleIteratorPostorderStrategy> it(&sample);
+    it.first();
+    while (!it.isDone()) {
+        visitor.setLevel(it.getLevel());
+        const ISample *child = it.getCurrent();
+        child->accept(&visitor);
+        it.next();
     }
 }
 
@@ -477,3 +485,4 @@ bool ISampleVisitor::visitLeave(const ICompositeSample *)
     m_level--;
     return false;
 }
+

@@ -26,7 +26,7 @@ void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
         SampleTreeIterator it(p_composite);
         it.first();
         while (!it.isDone()) {
-            visitor.setLevel((int)it.getLevel() - 1);
+            visitor.setLevel(it.getLevel());
             const ISample *child = it.getCurrent();
             child->accept(&visitor);
             it.next();

@@ -46,7 +46,7 @@ public:
 private:
     void saveSimulationResults() const;
     std::string getSimulationResultsFileNameAndPath() const;
-    const OutputData<double>* getOutputData() const;
+    OutputData<double>* getIntensityData() const;
 
     GISASSimulation *m_simulation;
     OutputData<double> *m_reference;

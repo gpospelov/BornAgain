@@ -71,6 +71,7 @@ set(list_of_tests
     "CoreSuite/ParticleComposition"
     "CoreSuite/CylindersWithSizeDistribution"
     "CoreSuite/BeamDivergence"
+    "CoreSuite/DetectorResolution"
 )
 
 

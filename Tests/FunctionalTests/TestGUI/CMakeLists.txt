@@ -23,29 +23,6 @@ include_directories(
 )
 
 set(list_of_tests
-    "TestGUIDetectorResolution"
-)
-
-foreach(_test ${list_of_tests})
-   #BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-
-   file(GLOB source_files "${_test}/*.cpp")
-   file(GLOB include_files "${_test}/*.h")
-   add_executable( ${_test} ${source_files} ${include_files})
-   target_link_libraries(${_test} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-
-   qt5_use_modules(${_test} Widgets Core Gui Script Designer PrintSupport)
-
-   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
-endforeach()
-
-# ------------------------------------------------------------------------
-#
-# New machinery
-#
-# ------------------------------------------------------------------------
-
-set(list_of_tests
     "GUISuite/FormFactors"
     "GUISuite/CylindersAndPrisms"
     "GUISuite/RadialParaCrystal"
@@ -59,6 +36,7 @@ set(list_of_tests
     "GUISuite/ParticleComposition"
     "GUISuite/CylindersWithSizeDistribution"
     "GUISuite/BeamDivergence"
+    "GUISuite/DetectorResolution"
 )
 
 # ------------------------------------------------------------------------
@@ -82,7 +60,6 @@ foreach(test_exe_name ${list_of_executables})
    target_link_libraries(${test_exe_name} ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
 
    qt5_use_modules(${test_exe_name} Widgets Core Gui Script Designer PrintSupport)
-
 
 endforeach()
 

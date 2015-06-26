@@ -19,6 +19,7 @@
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
 #include "Utils.h"
+#include <boost/scoped_ptr.hpp>
 
 namespace
 {
@@ -54,7 +55,8 @@ int CoreFunctionalTest::analyseResults()
         m_result = FAILED_NOREF;
     } else {
         try {
-            m_difference = IntensityDataFunctions::getRelativeDifference(*m_simulation->getOutputData(),
+            boost::scoped_ptr<OutputData<double> > result_data(m_simulation->getIntensityData());
+            m_difference = IntensityDataFunctions::getRelativeDifference(*result_data.get(),
                                                                      *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
         } catch(const std::exception &ex) {
@@ -90,7 +92,8 @@ void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_na
 void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-    IntensityDataIOFactory::writeIntensityData(*getOutputData(),
+    boost::scoped_ptr<OutputData<double> > result_data(getIntensityData());
+    IntensityDataIOFactory::writeIntensityData(*result_data.get(),
                                                getSimulationResultsFileNameAndPath());
 }
 
@@ -103,10 +106,10 @@ std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
     return result;
 }
 
-const OutputData<double> *CoreFunctionalTest::getOutputData() const
+OutputData<double> *CoreFunctionalTest::getIntensityData() const
 {
     if (m_simulation) {
-        return m_simulation->getOutputData();
+        return m_simulation->getIntensityData();
     }
     return 0;
 }

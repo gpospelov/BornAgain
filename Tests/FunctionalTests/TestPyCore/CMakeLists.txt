@@ -79,6 +79,7 @@ set(list_of_tests
     "PySuite/ParticleComposition"
     "PySuite/CylindersWithSizeDistribution"
     "PySuite/BeamDivergence"
+#    "PySuite/DetectorResolution" # not yet implemented
 )
 
 

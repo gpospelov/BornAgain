@@ -52,9 +52,7 @@ include_directories(
 
 
 set(list_of_cpp_python_tests
-    "PyScript_isgisaxs06a"
-#    "PyScript_isgisaxs06b"
-#    "PyScript_isgisaxs07"
+    "PyScript_isgisaxs07"
 #    "PyScript_multiplelayoutbuilder"
 #    "PyScript_ParticleDistribution"
 #    "PyScript_ParticleComposition"
@@ -77,6 +75,9 @@ set(list_of_tests
     "PySuite/TwoDimParaCrystal"
     "PySuite/CoreShellParticle"
     "PySuite/MultiLayerWithRoughness"
+    "PySuite/SquareLattice"
+    "PySuite/CenteredSquareLattice"
+    "PySuite/RotatedSquareLattice"
 )
 
 

@@ -63,6 +63,27 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("SquareLattice",
+        "Interference function of 2D square lattice",
+        "GISASSmallDet",
+        "SquareLatticeBuilder",
+        "None",
+        2e-10);
+
+    add("CenteredSquareLattice",
+        "Interference function of 2D square lattice",
+        "GISASSmallDet",
+        "CenteredSquareLatticeBuilder",
+        "None",
+        2e-10);
+
+    add("RotatedSquareLattice",
+        "Interference function of rotated 2D square lattice",
+        "GISASSmallDet",
+        "RotatedSquareLatticeBuilder",
+        "None",
+        2e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

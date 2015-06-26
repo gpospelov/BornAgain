@@ -150,7 +150,7 @@ GISASSimulation *StandardSimulations::IsGISAXS042DDL()
 GISASSimulation *StandardSimulations::IsGISAXS06L1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
+    SampleBuilder_t builder = factory.createBuilder("SquareLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -167,7 +167,7 @@ GISASSimulation *StandardSimulations::IsGISAXS06L1()
 GISASSimulation *StandardSimulations::IsGISAXS06L2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
+    SampleBuilder_t builder = factory.createBuilder("CenteredSquareLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -184,7 +184,7 @@ GISASSimulation *StandardSimulations::IsGISAXS06L2()
 GISASSimulation *StandardSimulations::IsGISAXS06L3()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06c");
+    SampleBuilder_t builder = factory.createBuilder("RotatedSquareLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -544,7 +544,7 @@ GISASSimulation *StandardSimulations::gui_CoreShellParticles()
 GISASSimulation *StandardSimulations::gui_Interference2DSquareLattice()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
+    SampleBuilder_t builder = factory.createBuilder("SquareLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -561,7 +561,7 @@ GISASSimulation *StandardSimulations::gui_Interference2DSquareLattice()
 GISASSimulation *StandardSimulations::gui_Interference2DCenteredLattice()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
+    SampleBuilder_t builder = factory.createBuilder("CenteredSquareLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

@@ -22,15 +22,15 @@ set(list_of_tests
 #    "IsGISAXS041DDL"   # can be removed, RadialParaCrystal
 #    "IsGISAXS042DDL"   # can be removed, TwoDimParaCrystal
 #    "IsGISAXS11"        # can be removed, CoreShellParticle
-    "LayerRoughness" # can be removed, MultiLayerWithRoughness
+#    "LayerRoughness" # can be removed, MultiLayerWithRoughness
+#    "IsGISAXS06L1" # can be removed, SquareLattice
+#    "IsGISAXS06L2"  # can be removed, CenteredSquareLattice
+    "IsGISAXS06L3"
 
 #    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
 #    "CylindersWithSizeDistribution"
-#    "IsGISAXS06L1"
-#    "IsGISAXS06L2"
-#    "IsGISAXS06L3"
 #    "IsGISAXS06L4"
 #    "IsGISAXS07"
 #    "IsGISAXS08a"
@@ -66,6 +66,9 @@ set(list_of_tests
     "CoreSuite/TwoDimParaCrystal"
     "CoreSuite/CoreShellParticle"
     "CoreSuite/MultiLayerWithRoughness"
+    "CoreSuite/SquareLattice"
+    "CoreSuite/CenteredSquareLattice"
+    "CoreSuite/RotatedSquareLattice"
 )
 
 

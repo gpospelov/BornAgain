@@ -18,7 +18,7 @@
 #include "IsGISAXS02Builder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
-#include "IsGISAXS06Builder.h"
+#include "TwoDimLatticeBuilder.h"
 #include "IsGISAXS07Builder.h"
 #include "IsGISAXS08Builder.h"
 #include "IsGISAXS09Builder.h"
@@ -70,16 +70,16 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Interference function of 2D paracrystal");
 
     registerItem(
-        "isgisaxs06a",
-        IFactoryCreateFunction<IsGISAXS06Lattice1Builder, ISampleBuilder>,
-        "2D lattice with disorder");
+        "SquareLatticeBuilder",
+        IFactoryCreateFunction<SquareLatticeBuilder, ISampleBuilder>,
+        "Interference of square lattice with disordered");
     registerItem(
-        "isgisaxs06b",
-        IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,
-        "2D lattice centered");
+        "CenteredSquareLatticeBuilder",
+        IFactoryCreateFunction<CenteredSquareLatticeBuilder, ISampleBuilder>,
+        "Interference of centered square lattice");
     registerItem(
-        "isgisaxs06c",
-        IFactoryCreateFunction<IsGISAXS06Lattice3Builder, ISampleBuilder>,
+        "RotatedSquareLatticeBuilder",
+        IFactoryCreateFunction<RotatedSquareLatticeBuilder, ISampleBuilder>,
         "2D lattice rotated");
     registerItem(
         "isgisaxs06d",

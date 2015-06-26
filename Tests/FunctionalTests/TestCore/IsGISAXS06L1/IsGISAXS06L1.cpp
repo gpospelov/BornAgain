@@ -1,4 +1,4 @@
-#include "FunctionalTestRegistry.h"
+#include "ObsoleteFunctionalTestRegistry.h"
 #include "FileSystem.h"
 
 int main(int argc, char **argv)

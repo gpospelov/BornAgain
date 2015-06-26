@@ -132,11 +132,10 @@ SimulationRegistry::SimulationRegistry()
         "gui_Interference2DParaCrystal", StandardSimulations::gui_Interference2DParaCrystal,
         "GUI: IsGISAXS04 example, 2DDL structure factor");
 
-
-
     registerItem(
         "gui_CoreShellParticles", StandardSimulations::gui_CoreShellParticles,
         "GUI: Core shell nanoparticles");
+
 
     registerItem(
         "gui_Interference2DSquareLattice", StandardSimulations::gui_Interference2DSquareLattice,

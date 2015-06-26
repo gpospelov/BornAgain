@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS06Builder.h"
+#include "TwoDimLatticeBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "ParticleComposition.h"
@@ -31,7 +31,7 @@
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
-ISample *IsGISAXS06Lattice1Builder::buildSample() const
+ISample *SquareLatticeBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -68,7 +68,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #2: centered
 // -----------------------------------------------------------------------------
-ISample *IsGISAXS06Lattice2Builder::buildSample() const
+ISample *CenteredSquareLatticeBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -111,7 +111,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #3: rotated
 // -----------------------------------------------------------------------------
-ISample *IsGISAXS06Lattice3Builder::buildSample() const
+ISample *RotatedSquareLatticeBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

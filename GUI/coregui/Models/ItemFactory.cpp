@@ -47,6 +47,8 @@
 #include "BeamAngleItems.h"
 #include "RectangleItem.h"
 #include "EllipseItem.h"
+#include "PolygonItem.h"
+#include "PointItem.h"
 #include <QDebug>
 
 namespace {
@@ -151,6 +153,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::RectangleType] = &createInstance<RectangleItem>;
     result[Constants::EllipseType] = &createInstance<EllipseItem>;
+    result[Constants::PolygonType] = &createInstance<PolygonItem>;
+    result[Constants::PointType] = &createInstance<PointItem>;
 
     return result;
 }

@@ -27,6 +27,7 @@
 #include "GUIHelpers.h"
 #include "RectangleView.h"
 #include "EllipseView.h"
+#include "PolygonView.h"
 #include <QDebug>
 
 
@@ -95,6 +96,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if(name==Constants::EllipseType) {
         return new EllipseView();
+    }
+    else if(name==Constants::PolygonType) {
+        return new PolygonView();
     }
     else {
         //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

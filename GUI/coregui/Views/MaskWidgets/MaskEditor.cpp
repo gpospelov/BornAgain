@@ -169,9 +169,13 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
 
-    QListView *listView = new QListView;
-    m_scene->setListView(listView);
-    buttonLayout->addWidget(listView);
+    QTreeView *treeView = new QTreeView;
+//    QListView *listView = new QListView;
+//    m_scene->setListView(listView);
+//    buttonLayout->addWidget(listView);
+
+    m_scene->setTreeView(treeView);
+    buttonLayout->addWidget(treeView);
 
 
 }

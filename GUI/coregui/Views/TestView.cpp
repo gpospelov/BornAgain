@@ -67,7 +67,13 @@ TestView::TestView(QWidget *parent)
     ParameterizedItem *rectangle = maskModel->insertNewItem(Constants::RectangleType);
     rectangle->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
     rectangle->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
-    maskModel->save("masks.xml");
+
+//    ParameterizedItem *polygon = maskModel->insertNewItem(Constants::PolygonType);
+//    maskModel->insertNewItem(Constants::PointType, maskModel->indexOfItem(polygon));
+
+//    maskModel->save("masks.xml");
+
+//    Q_ASSERT(0);
 
     MaskEditor *maskEditor = new MaskEditor;
 

@@ -6,16 +6,20 @@
 #include "RectangleView.h"
 #include "EllipseItem.h"
 #include "EllipseView.h"
+#include "PolygonItem.h"
+#include "PolygonView.h"
+#include "PointItem.h"
 #include "MaskModel.h"
 #include "SampleViewFactory.h"
 #include <QItemSelection>
 #include <cmath>
 #include <sstream>
+
 GraphicsScene::GraphicsScene()
     : m_maskModel(new MaskModel)
     , m_rectangleItem(0), m_ellipseItem(0), m_ellipse(0), m_polygon(0), isFinished(true),
       m_currentMousePosition(QPointF(0, 0)), m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false)
-    , m_numberOfItemName(0)
+    , m_numberOfRectangle(0), m_numberOfEllipse(0), m_numberOfPolygon(0)
 {
     m_drawing = NONE;
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
@@ -46,21 +50,28 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSX, event->scenePos().x());
         m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSY, event->scenePos().y());
     } else if (event->button() == Qt::LeftButton && m_drawing == POLYGON) {
-        if (isFinished) {
-            m_polygon = new Polygon(event->scenePos().x(), event->scenePos().y(), 0, 0);
-            addItem(m_polygon);
-            m_polygon->setDrawingMode(event->scenePos());
-            m_lastAddedPoint = event->scenePos();
+        if(isFinished) {
+            m_polygonItem = m_maskModel->insertNewItem(Constants::PolygonType);
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, true);
+            m_pointItem = m_maskModel->insertNewItem(Constants::PointType, m_maskModel->indexOfItem(m_polygonItem));
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_FIRSTPOINTXVALUE, m_pointItem->getRegisteredProperty(PointItem::P_POSX).toReal());
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_FIRSTPOINTYVALUE, m_pointItem->getRegisteredProperty(PointItem::P_POSY).toReal());
+            m_pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
+            m_pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
+            setItemName(m_polygonItem);
             isFinished = false;
-        } else {
-            m_polygon->setDrawingMode(event->scenePos());;
         }
-        isFinished = !m_polygon->getDrawingMode();
+        else {
+            m_pointItem = m_maskModel->insertNewItem(Constants::PointType, m_maskModel->indexOfItem(m_polygonItem));
+            m_pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
+            m_pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
+        }
+    isFinished = !m_polygonItem->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool();
     }
     else {
             QGraphicsScene::mousePressEvent(event);
     }
-    m_lastAddedPoint = event->buttonDownScenePos(Qt::LeftButton);
+    m_lastAddedPoint = event->scenePos();
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -69,14 +80,15 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         m_rectangleItem->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSX).toReal());
         m_rectangleItem->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y() - m_rectangleItem->getRegisteredProperty(RectangleItem::P_POSY).toReal());
     } else if (m_drawing == ELLIPSE && m_ellipseItem) {
-        m_ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, event->scenePos().x() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5);
-        m_ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, event->scenePos().y() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_WIDTH, event->scenePos().x() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal());
+        m_ellipseItem->setRegisteredProperty(EllipseItem::P_HEIGHT, event->scenePos().y() - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal());
     } else if (m_drawing == POLYGON && m_polygon) {
-        if (m_polygon->getFirstPoint().contains(event->scenePos())) {
-            m_polygon->setMouseIsOverFirstPoint(true);
+        QRectF firstPoint(m_polygonItem->getRegisteredProperty(PolygonItem::P_FIRSTPOINTXVALUE).toReal(), m_polygonItem->getRegisteredProperty(PolygonItem::P_FIRSTPOINTYVALUE).toReal(), 5, 5);
+        if(firstPoint.contains(m_pointItem->getRegisteredProperty(PointItem::P_POSX).toReal(), m_pointItem->getRegisteredProperty(PointItem::P_POSY).toReal())) {
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT, true);
         }
         else {
-            m_polygon->setMouseIsOverFirstPoint(false);
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT, false);
         }
     } else {
         QGraphicsScene::mouseMoveEvent(event);
@@ -94,10 +106,19 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_maskModel->removeRows(index.row(), 1, index.parent());
         }
     }
+//    else if(m_drawing == ELLIPSE && m_ellipseItem) {
+//        qreal xDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal() - event->scenePos().x();
+//        qreal yDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal() - event->scenePos().y();
+//        if(abs(xDifference) <= 10 && abs(yDifference) <= 10) {
+//            QModelIndex index = m_maskModel->indexOfItem(m_ellipseItem);
+//            m_maskModel->removeRows(index.row(), 1, index.parent());
+//        }
+//    }
     m_rectangleItem = 0;
     m_ellipseItem = 0;
-    m_drawing = NONE;
-    emit itemIsDrawn();
+//    m_pointItem = 0;
+//    m_drawing = NONE;
+//    emit itemIsDrawn();
     QGraphicsScene::mouseReleaseEvent(event);
 }
 
@@ -182,6 +203,18 @@ void GraphicsScene::setListView(QListView *listview)
             this,
             SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
 
+}
+
+void GraphicsScene::setTreeView(QTreeView *treeView)
+{
+    m_treeView = treeView;
+    m_treeView->setModel(m_maskModel);
+    m_selectionModel = m_treeView->selectionModel();
+
+    connect(m_selectionModel,
+            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            this,
+            SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
 }
 
 
@@ -309,8 +342,18 @@ void GraphicsScene::setItemName(ParameterizedItem *item)
 {
     std::string itemName(item->itemName().toStdString());
     std::stringstream ss;
-    ss << itemName << m_numberOfItemName;
+    if(item->itemName() == Constants::RectangleType) {
+        ss << itemName << m_numberOfRectangle;
+        m_numberOfRectangle++;
+    }
+    else if(item->itemName() == Constants::EllipseType) {
+        ss << itemName << m_numberOfEllipse;
+        m_numberOfEllipse++;
+    }
+    else if(item->itemName() == Constants::PolygonType) {
+        ss << itemName << m_numberOfPolygon;
+        m_numberOfPolygon++;
+    }
     item->setItemName(ss.str().c_str());
-    m_numberOfItemName++;
 }
 

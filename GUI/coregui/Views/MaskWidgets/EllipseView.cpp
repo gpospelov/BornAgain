@@ -21,15 +21,16 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
-    if(m_item->getColor() == 0) {
+    if (m_item->getRegisteredProperty(EllipseItem::P_COLOR).toBool() == 0) {
         QBrush transRed(QColor(0xFF, 0, 0, 0x80));
         painter->setBrush(transRed);
-        painter->drawEllipse(0, 0, m_item->getWidth(), m_item->getHeight());
-    }
-    else {
+        painter->drawEllipse(0, 0, m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                             m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+    } else {
         QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
         painter->setBrush(transBlue);
-        painter->drawEllipse(0, 0, m_item->getWidth(), m_item->getHeight());
+        painter->drawEllipse(0, 0, m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                             m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
     }
 
     // paint corner rectangles only if this item is selected
@@ -45,17 +46,19 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
 QRectF EllipseView::boundingRect() const
 {
-    return QRectF(0 - 10, 0 - 10, m_item->getWidth() + 20,  m_item->getHeight() + 20);
+    return QRectF(0 - 10, 0 - 10, m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() + 15,
+                  m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() + 15);
 }
 
 void EllipseView::checkResizeRules(QGraphicsSceneMouseEvent *event)
 {
     if (m_corner == TOPLEFT) {
-        if (m_item->getWidth() <= event->pos().x()) {
+        if (m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() <= event->pos().x()) {
             m_corner = TOPRIGHT;
             setCursor(Qt::SizeBDiagCursor);
 
-        } else if (m_item->getHeight() <= event->pos().y()) {
+        } else if (m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()
+                   <= event->pos().y()) {
             m_corner = BOTTOMLEFT;
             setCursor(Qt::SizeBDiagCursor);
         }
@@ -64,12 +67,13 @@ void EllipseView::checkResizeRules(QGraphicsSceneMouseEvent *event)
             m_corner = TOPLEFT;
             setCursor(Qt::SizeFDiagCursor);
 
-        } else if (m_item->getHeight() <= event->pos().y()) {
+        } else if (m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()
+                   <= event->pos().y()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
         }
     } else if (m_corner == BOTTOMLEFT) {
-        if (m_item->getWidth() <= event->pos().x()) {
+        if (m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() <= event->pos().x()) {
             m_corner = BOTTOMRIGHT;
             setCursor(Qt::SizeFDiagCursor);
 
@@ -95,35 +99,49 @@ void EllipseView::calculateResize(QGraphicsSceneMouseEvent *event)
     checkResizeRules(event);
 
     if (m_corner == TOPLEFT) {
-        m_item->setWidth(m_item->getWidth() - event->pos().x());
-        m_item->setHeight(m_item->getHeight() - event->pos().y());
+        m_item->setRegisteredProperty(EllipseItem::P_WIDTH,
+                                      m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal()
+                                          - event->pos().x());
+        m_item->setRegisteredProperty(EllipseItem::P_HEIGHT,
+                                      m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()
+                                          - event->pos().y());
         this->setX(event->scenePos().x());
         this->setY(event->scenePos().y());
 
     } else if (m_corner == BOTTOMLEFT) {
-        m_item->setWidth(x() + m_item->getWidth() - event->scenePos().x());
-        m_item->setHeight(event->scenePos().y() - y());
+        m_item->setRegisteredProperty(
+            EllipseItem::P_WIDTH, x() + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal()
+                                      - event->scenePos().x());
+        m_item->setRegisteredProperty(EllipseItem::P_HEIGHT, event->scenePos().y() - y());
         this->setX(event->scenePos().x());
 
-
     } else if (m_corner == TOPRIGHT) {
-        m_item->setWidth(event->scenePos().x() - x());
-        m_item->setHeight(y() + m_item->getHeight() - event->scenePos().y());
+        m_item->setRegisteredProperty(EllipseItem::P_WIDTH, event->scenePos().x() - x());
+        m_item->setRegisteredProperty(
+            EllipseItem::P_HEIGHT,
+            y() + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()
+                - event->scenePos().y());
         this->setY(event->scenePos().y());
     }
 
     else if (m_corner == BOTTOMRIGHT) {
-        m_item->setWidth(event->pos().x());
-        m_item->setHeight(event->pos().y());
+        m_item->setRegisteredProperty(EllipseItem::P_WIDTH, event->pos().x());
+        m_item->setRegisteredProperty(EllipseItem::P_HEIGHT, event->pos().y());
     }
 }
 
 qreal EllipseView::calculateRotation(QGraphicsSceneMouseEvent *event)
 {
-    QPointF middlePoint =  mapToScene(m_item->getWidth()/2, m_item->getHeight()/2);
-    qreal lengthOfHypotenuse = sqrt(pow(m_item->getWidth() / 2, 2) + pow(m_item->getHeight() / 2, 2));
-    qreal offsetAngle = acos((m_item->getWidth() / 2) / lengthOfHypotenuse) * 180 / M_PI;
-    qreal radians = atan((event->scenePos().y() - middlePoint.y()) / (event->scenePos().x() - middlePoint.x()));
+    QPointF middlePoint
+        = mapToScene(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2,
+                     m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() / 2);
+    qreal lengthOfHypotenuse
+        = sqrt(pow(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2, 2)
+               + pow(m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() / 2, 2));
+    qreal offsetAngle = acos((m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() / 2)
+                             / lengthOfHypotenuse) * 180 / M_PI;
+    qreal radians = atan((event->scenePos().y() - middlePoint.y())
+                         / (event->scenePos().x() - middlePoint.x()));
 
     if (m_corner == TOPLEFT) {
         return radians * 180 / M_PI - offsetAngle;
@@ -140,34 +158,33 @@ qreal EllipseView::calculateRotation(QGraphicsSceneMouseEvent *event)
     return 0;
 }
 
-
 void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
-    //if one of the corners is clicked then go in to resize Mode
+    // if one of the corners is clicked then go in to resize Mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
-        m_item->setResizeMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
         m_corner = TOPLEFT;
         setCursor(Qt::SizeFDiagCursor);
 
     } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
-        m_item->setResizeMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
         m_corner = BOTTOMLEFT;
         setCursor(Qt::SizeBDiagCursor);
 
     } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
-        m_item->setResizeMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
         m_corner = TOPRIGHT;
         setCursor(Qt::SizeBDiagCursor);
     }
 
     else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
-        m_item->setResizeMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
         m_corner = BOTTOMRIGHT;
         setCursor(Qt::SizeFDiagCursor);
 
-    // process as usual
+        // process as usual
     } else {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mousePressEvent(event);
@@ -178,18 +195,21 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "RectangleView::mouseMoveEvent()";
 
-    //check which mode is active and process with the active mode
-    if (m_corner != NONE && m_item->isResizeMode()) {
+    // check which mode is active and process with the active mode
+    if (m_corner != NONE && m_item->getRegisteredProperty(EllipseItem::P_RESIZEMODE).toBool()) {
         calculateResize(event);
 
-    } else if (m_corner != NONE && m_item->isRotationMode()) {
+    } else if (m_corner != NONE
+               && m_item->getRegisteredProperty(EllipseItem::P_ROTATIONMODE).toBool()) {
         QTransform transform;
-        transform.translate(m_item->getWidth() * 0.5,  m_item->getHeight() * 0.5);
+        transform.translate(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
         transform.rotate(calculateRotation(event));
-        transform.translate(-(m_item->getWidth() * 0.5), -(m_item->getHeight() * 0.5));
+        transform.translate(-(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5),
+                            -(m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5));
         setTransform(transform);
 
-    // process as usual
+        // process as usual
     } else {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseMoveEvent(event);
@@ -200,46 +220,47 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     // set all modes off, change cursor and process as usual
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_item->setResizeMode(false);
-    m_item->setRotationMode(false);
+    m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
+    m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, false);
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
 void EllipseView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    //activate rotation mode
+    // activate rotation mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
-        m_item->setResizeMode(false);
-        m_item->setRotationMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
+        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
         m_corner = TOPLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
-        m_item->setResizeMode(false);
-        m_item->setRotationMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
+        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
+        ;
         m_corner = BOTTOMLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
-        m_item->setResizeMode(false);
-        m_item->setRotationMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
+        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
         m_corner = TOPRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
     }
 
     else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
-        m_item->setResizeMode(false);
-        m_item->setRotationMode(true);
+        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
+        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
         m_corner = BOTTOMRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else {
-        m_item->setRotationMode(false);
+        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, false);
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseDoubleClickEvent(event);
     }
@@ -247,12 +268,12 @@ void EllipseView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::setInclude()
 {
-    m_item->setColor(0);
+    m_item->setRegisteredProperty(EllipseItem::P_COLOR, 0);
 }
 
 void EllipseView::setExclude()
 {
-    m_item->setColor(1);
+    m_item->setRegisteredProperty(EllipseItem::P_COLOR, 1);
 }
 
 QRectF EllipseView::getTopLeftCorner()
@@ -262,32 +283,38 @@ QRectF EllipseView::getTopLeftCorner()
 
 QRectF EllipseView::getTopRightCorner()
 {
-    return QRectF(0 + m_item->getWidth() - 5, 0  - 5, 10, 10);
+    return QRectF(0 + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - 5, 0 - 5, 10,
+                  10);
 }
 
 QRectF EllipseView::getBottomLeftCorner()
 {
-    return QRectF(0 - 5, 0  + m_item->getHeight() - 5, 10, 10);
+    return QRectF(0 - 5, 0 + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() - 5, 10,
+                  10);
 }
 
 QRectF EllipseView::getBottomRightCorner()
 {
-    return QRectF(0 + m_item->getWidth() - 5, 0  + m_item->getHeight() - 5, 10, 10);
+    return QRectF(0 + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() - 5,
+                  0 + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() - 5, 10, 10);
 }
 
 void EllipseView::setParameterizedItem(ParameterizedItem *item)
 {
-    m_item = dynamic_cast<EllipseItem *>(item);
-    setX(m_item->getXPos() - m_item->getWidth()*0.5 - 10);
-    setY(m_item->getYPos() - m_item->getHeight()*0.5 - 10);
-    connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
+    m_item = item;
+    setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+         - m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5 - 5);
+    setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+         - m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5 - 5);
+    connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
+            SLOT(onPropertyChange(const QString &)));
 }
 
 void EllipseView::onXValueChanged()
 {
     m_block_update = true;
     qDebug() << "onXValueChanged(double xValue)-> x value changed" << x();
-    m_item->setXPos(x() + m_item->getWidth()*0.5 + 10);
+    m_item->setRegisteredProperty(EllipseItem::P_POSX, x());
     m_block_update = false;
 }
 
@@ -295,21 +322,26 @@ void EllipseView::onYValueChanged()
 {
     m_block_update = true;
     qDebug() << "onYValueChanged(double yValue)-> y value changed" << y();
-    m_item->setYPos(y() + m_item->getHeight()*0.5 + 10);
+    m_item->setRegisteredProperty(EllipseItem::P_POSY, y());
     m_block_update = false;
-
 }
-
 
 void EllipseView::onPropertyChange(const QString &propertyName)
 {
-    if(m_block_update) return;
-       qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)";
-       if(propertyName == EllipseItem::P_POSX) {
-           setX(m_item->getXPos() - m_item->getWidth()*0.5 - 10);
-       } else if(propertyName == EllipseItem::P_POSY) {
-           setY(m_item->getYPos() - m_item->getHeight()*0.5 - 10);
-       }
+    if (m_block_update)
+        return;
+    qDebug() << "void RectangleView::onPropertyChange(const QString &propertyName)"
+             << m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+             << m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+             << m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal()
+             << m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal();
+    if (propertyName == EllipseItem::P_POSX) {
+        setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+             - m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5 - 5);
+    } else if (propertyName == EllipseItem::P_POSY) {
+        setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+             - m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5 - 5);
+    }
 }
 
 ParameterizedItem *EllipseView::getParameterizedItem()

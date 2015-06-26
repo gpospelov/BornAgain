@@ -15,9 +15,11 @@ class Ellipse;
 class Polygon;
 class RectangleItem;
 class RectangleView;
+class PolygonView;
 class MaskModel;
 class ParameterizedItem;
 class QListView;
+class QTreeView;
 class QItemSelectionModel;
 class IView;
 
@@ -33,6 +35,7 @@ public:
     enum Drawing { NONE, RECTANGLE, ELLIPSE, POLYGON };
     void setDrawing(Drawing drawing);
     void setListView(QListView *listview);
+    void setTreeView(QTreeView *treeView);
 public slots:
     void deleteSelectedItems();
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
@@ -63,18 +66,24 @@ private:
 
     MaskModel *m_maskModel;
     QListView *m_listView;
+    QTreeView *m_treeView;
     QItemSelectionModel *m_selectionModel;
     QMap<ParameterizedItem *, IView *> m_ItemToView;
 
     Drawing m_drawing;
     ParameterizedItem *m_rectangleItem;
     ParameterizedItem *m_ellipseItem;
+    ParameterizedItem *m_polygonItem;
+    ParameterizedItem *m_pointItem;
+
     Ellipse *m_ellipse;
     Polygon *m_polygon;
     bool isFinished;
     QPointF m_currentMousePosition;
     QPointF m_lastAddedPoint;
     bool m_block_selection;
-    int m_numberOfItemName;
+    int m_numberOfRectangle;
+    int m_numberOfEllipse;
+    int m_numberOfPolygon;
 };
 #endif

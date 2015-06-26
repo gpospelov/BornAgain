@@ -6,11 +6,14 @@
 #include <QGraphicsView>
 #include <QPainterPath>
 #include <QBrush>
+#include "IView.h"
 
-#ifndef POLYGON_H
-#define POLYGON_H
 
-class Polygon : public QGraphicsItem
+#ifndef POLYGONVIEW_H
+#define POLYGONVIEW_H
+class PolygonItem;
+
+class PolygonView : public IView
 {
 
 public:
@@ -19,7 +22,7 @@ public:
     enum Color {INCLUDE, EXCLUDE};
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 
-    Polygon(qreal posX, qreal poxY, qreal width, qreal heigth);
+    PolygonView();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const;
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
@@ -37,20 +40,26 @@ public:
     void setExclude();
     void setInclude();
 
+    QRectF getTopLeftCorner();
+    QRectF getTopRightCorner();
+    QRectF getBottomLeftCorner();
+    QRectF getBottomRightCorner();
+
+    ParameterizedItem *getParameterizedItem();
+    void setParameterizedItem(ParameterizedItem *item);
+
+public slots:
+    void onPropertyChange(const QString &propertyName);
+    void onSubItemPropertyChanged(QString, QString);
+    void onSubItemChanged(QString);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    qreal m_posX;
-    qreal m_posY;
     qreal m_width;
     qreal m_heigth;
-    QRectF m_topLeftCorner;
-    QRectF m_bottomLeftCorner;
-    QRectF m_topRightCorner;
-    QRectF m_bottomRightCorner;
     QRectF m_firstPoint;
     bool m_drawingMode;
     bool m_changeCornerMode;
@@ -60,5 +69,8 @@ private:
     int m_currentPoint2;
     bool m_mouseIsOverFirstPoint;
     Color m_color;
+
+    ParameterizedItem*m_item;
+    bool m_block_update;
 };
 #endif

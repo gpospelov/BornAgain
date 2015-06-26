@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SampleTreeIterator.h"
-#include "ICompositeIteratorStrategy.h"
+#include "ISampleIteratorStrategy.h"
 #include "Exceptions.h"
 
 
@@ -35,7 +35,7 @@ IteratorState::IteratorState(std::vector<const ISample *> samples)
 SampleTreeIterator::SampleTreeIterator(const ISample *root)
     : mp_root(root)
 {
-    mP_strategy.reset(new CompositeIteratorPreorderStrategy());
+    mP_strategy.reset(new SampleIteratorPreorderStrategy());
 }
 
 SampleTreeIterator &SampleTreeIterator::operator=(const SampleTreeIterator &other)

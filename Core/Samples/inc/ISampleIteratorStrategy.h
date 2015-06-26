@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/ICompositeIteratorStrategy.h
-//! @brief     Defines and implements strategies for the class ICompositeIterator.
+//! @file      Samples/inc/ISampleIteratorStrategy.h
+//! @brief     Defines strategies for the class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -34,14 +34,14 @@ public:
     virtual bool isDone(IteratorMemento &iterator_stack) const=0;
 };
 
-class BA_CORE_API_ CompositeIteratorPreorderStrategy : public ISampleIteratorStrategy
+class BA_CORE_API_ SampleIteratorPreorderStrategy : public ISampleIteratorStrategy
 {
 public:
-    CompositeIteratorPreorderStrategy();
+    SampleIteratorPreorderStrategy();
 
-    virtual CompositeIteratorPreorderStrategy *clone() const;
+    virtual SampleIteratorPreorderStrategy *clone() const;
 
-    virtual ~CompositeIteratorPreorderStrategy();
+    virtual ~SampleIteratorPreorderStrategy();
     virtual IteratorMemento first(const ISample *p_root);
     virtual void next(IteratorMemento &iterator_stack) const;
     virtual bool isDone(IteratorMemento &iterator_stack) const;

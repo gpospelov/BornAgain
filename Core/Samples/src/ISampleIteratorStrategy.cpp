@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/ICompositeIteratorStrategy.cpp
-//! @brief     Implements class ICompositeIteratorStrategy.
+//! @file      Samples/src/ISampleIteratorStrategy.cpp
+//! @brief     Implements strategies for the class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,31 @@
 //
 // ************************************************************************** //
 
-#include "ICompositeIteratorStrategy.h"
+#include "ISampleIteratorStrategy.h"
 #include "SampleTreeIterator.h"
 
 
-CompositeIteratorPreorderStrategy::CompositeIteratorPreorderStrategy()
+SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy()
 {
 }
 
-CompositeIteratorPreorderStrategy *CompositeIteratorPreorderStrategy::clone() const
+SampleIteratorPreorderStrategy *SampleIteratorPreorderStrategy::clone() const
 {
-    return new CompositeIteratorPreorderStrategy();
+    return new SampleIteratorPreorderStrategy();
 }
 
-CompositeIteratorPreorderStrategy::~CompositeIteratorPreorderStrategy()
+SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy()
 {
 }
 
-IteratorMemento CompositeIteratorPreorderStrategy::first(const ISample *p_root)
+IteratorMemento SampleIteratorPreorderStrategy::first(const ISample *p_root)
 {
     IteratorMemento iterator_stack;
     iterator_stack.push_state( IteratorState(p_root) );
     return iterator_stack;
 }
 
-void CompositeIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
+void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
 {
     const ISample *p_sample = iterator_stack.getCurrent();
     if( !p_sample ) {
@@ -61,7 +61,7 @@ void CompositeIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) co
     }
 }
 
-bool CompositeIteratorPreorderStrategy::isDone(IteratorMemento &iterator_stack) const
+bool SampleIteratorPreorderStrategy::isDone(IteratorMemento &iterator_stack) const
 {
     return iterator_stack.empty();
 }

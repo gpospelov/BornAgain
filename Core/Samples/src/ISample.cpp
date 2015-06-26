@@ -16,7 +16,6 @@
 #include "ISample.h"
 #include "SampleMaterialVisitor.h"
 #include "ICompositeSample.h"
-#include "ICompositeIterator.h"
 #include "Utils.h"
 #include "SamplePrintVisitor.h"
 

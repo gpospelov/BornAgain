@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ICompositeSample.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 #include "MessageService.h"
 #include "Exceptions.h"
 #include <algorithm>

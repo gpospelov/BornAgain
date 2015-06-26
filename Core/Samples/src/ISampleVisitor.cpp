@@ -16,7 +16,7 @@
 #include "ISampleVisitor.h"
 #include "ISample.h"
 #include "ICompositeSample.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 
 void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
 {

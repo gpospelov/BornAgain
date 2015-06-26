@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/ICompositeIterator.cpp
-//! @brief     Implements class ICompositeIterator.
+//! @file      Samples/src/SampleTreeIterator.cpp
+//! @brief     Implements class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 #include "ICompositeIteratorStrategy.h"
 #include "Exceptions.h"
 

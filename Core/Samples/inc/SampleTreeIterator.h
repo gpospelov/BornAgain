@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/ICompositeIterator.h
+//! @file      Samples/inc/SampleTreeIterator.h
 //! @brief     Defines and classes IteratorState, IteratorMemento and SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -27,7 +27,7 @@ class ISampleIteratorStrategy;
 
 //! @class IteratorState
 //! @ingroup samples_internal
-//! @brief Holds state of iterator (Memento pattern) for SampleTreeIterator
+//! @brief Holds state of iterator at single level for SampleTreeIterator
 
 class IteratorState
 {
@@ -56,9 +56,9 @@ private:
     IteratorState();
 };
 
-//! @class MementoIterator
+//! @class IteratorMemento
 //! @ingroup samples_internal
-//! @brief The iterator from Memento pattern, part of ICompositeSample iterator
+//! @brief Holds all iterator states encountered for SampleTreeIterator
 
 class IteratorMemento
 {
@@ -79,15 +79,15 @@ protected:
 };
 
 
-//! @class ICompositeIterator
+//! @class SampleTreeIterator
 //! @ingroup samples_internal
-//! @brief Iterator through ISample tree of objects inside ICompositeSample object.
+//! @brief Iterator through ISample tree of objects inside ISample object.
 //!
 //! Usage example:
-//!    ICompositeIterator it = sample->createIterator();
+//!    SampleTreeIterator it(&sample);
 //!    it.first();
 //!    while( !it.is_done() ) {
-//!        ISample *child = it.get_current();
+//!        ISample *p_sample = it.get_current();
 //!        it.next();
 //!     }
 

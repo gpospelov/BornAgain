@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ICompositeIteratorStrategy.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 
 
 CompositeIteratorPreorderStrategy::CompositeIteratorPreorderStrategy()

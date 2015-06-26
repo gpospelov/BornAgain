@@ -17,7 +17,7 @@
 #define SAMPLEPREPROCESSOR_H
 
 #include "ISample.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 
 //! @class SamplePreprocessor
 //! @ingroup tools_internal

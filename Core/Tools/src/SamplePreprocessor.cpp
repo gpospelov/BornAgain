@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SamplePreprocessor.h"
-#include "ICompositeIterator.h"
+#include "SampleTreeIterator.h"
 #include "ParticleDistribution.h"
 
 

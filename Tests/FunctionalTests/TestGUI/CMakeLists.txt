@@ -23,11 +23,10 @@ include_directories(
 )
 
 set(list_of_tests
-    "TestGUI07"
+    "TestGUIParticleComposition"
 #    "TestGUIBeamDivergence"
 #    "TestGUIDetectorResolution"
 #    "TestGUIParticleDistribution"
-#    "TestGUIParticleComposition"
 )
 
 foreach(_test ${list_of_tests})
@@ -59,6 +58,7 @@ set(list_of_tests
     "GUITestSuite/SquareLattice"
     "GUITestSuite/CenteredSquareLattice"
     "GUITestSuite/RotatedSquareLattice"
+    "GUITestSuite/RotatedPyramids"
 )
 
 # ------------------------------------------------------------------------

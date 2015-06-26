@@ -75,9 +75,6 @@ SimulationRegistry::SimulationRegistry()
         "2DDL paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09a", StandardSimulations::IsGISAXS09a,
-        "Pyramids on top of substrate");
-    registerItem(
         "isgisaxs09b", StandardSimulations::IsGISAXS09b,
         "Rotated pyramids on top of substrate");
 
@@ -136,7 +133,6 @@ SimulationRegistry::SimulationRegistry()
         "gui_CoreShellParticles", StandardSimulations::gui_CoreShellParticles,
         "GUI: Core shell nanoparticles");
 
-
     registerItem(
         "gui_Interference2DSquareLattice", StandardSimulations::gui_Interference2DSquareLattice,
         "GUI: 2D lattice with disorders");
@@ -144,6 +140,8 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "gui_Interference2DCenteredLattice", StandardSimulations::gui_Interference2DCenteredLattice,
         "GUI: 2D lattice centered");
+
+
 
     registerItem(
         "gui_RotatedPyramids", StandardSimulations::gui_RotatedPyramids,

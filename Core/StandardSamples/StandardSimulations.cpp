@@ -286,7 +286,7 @@ GISASSimulation *StandardSimulations::IsGISAXS09a()
 GISASSimulation *StandardSimulations::IsGISAXS09b()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
+    SampleBuilder_t builder = factory.createBuilder("RotatedPyramidsBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -578,7 +578,7 @@ GISASSimulation *StandardSimulations::gui_Interference2DCenteredLattice()
 GISASSimulation *StandardSimulations::gui_RotatedPyramids()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
+    SampleBuilder_t builder = factory.createBuilder("RotatedPyramidsBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

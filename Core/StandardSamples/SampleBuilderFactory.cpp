@@ -21,7 +21,7 @@
 #include "TwoDimLatticeBuilder.h"
 #include "IsGISAXS07Builder.h"
 #include "IsGISAXS08Builder.h"
-#include "IsGISAXS09Builder.h"
+#include "RotatedPyramidsBuilder.h"
 #include "IsGISAXS10Builder.h"
 #include "CoreShellParticleBuilder.h"
 #include "IsGISAXS15Builder.h"
@@ -102,12 +102,8 @@ SampleBuilderFactory::SampleBuilderFactory()
         "2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09a",
-        IFactoryCreateFunction<IsGISAXS09ABuilder, ISampleBuilder>,
-        "Pyramids on top of substrate");
-    registerItem(
-        "isgisaxs09b",
-        IFactoryCreateFunction<IsGISAXS09BBuilder, ISampleBuilder>,
+        "RotatedPyramidsBuilder",
+        IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
     registerItem(

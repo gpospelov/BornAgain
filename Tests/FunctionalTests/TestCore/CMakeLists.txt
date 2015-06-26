@@ -18,6 +18,7 @@ if(MSVC)
 endif()
 
 set(list_of_tests
+#    "FormFactors"  # can be removed, FormFactors
 #    "IsGISAXS01"       # can be removed, CylindersAndPrisms
 #    "IsGISAXS041DDL"   # can be removed, RadialParaCrystal
 #    "IsGISAXS042DDL"   # can be removed, TwoDimParaCrystal
@@ -25,7 +26,8 @@ set(list_of_tests
 #    "LayerRoughness" # can be removed, MultiLayerWithRoughness
 #    "IsGISAXS06L1" # can be removed, SquareLattice
 #    "IsGISAXS06L2"  # can be removed, CenteredSquareLattice
-    "IsGISAXS06L3"
+#    "IsGISAXS06L3"  # can be removed, RotatedSquareLattice
+#    "IsGISAXS09b"  # can be removed, RotatedPyramids
 
 #    "IsGISAXS02"
 #    "CylindersInBA"
@@ -35,11 +37,8 @@ set(list_of_tests
 #    "IsGISAXS07"
 #    "IsGISAXS08a"
 #    "IsGISAXS08b"
-#    "IsGISAXS09a"
-#    "IsGISAXS09b"
 #    "IsGISAXS10"
 #    "IsGISAXS15"
-#    "FormFactors"
 #    "MesoCrystal1"
 #    "PolDWBAMagCylinders1"
 #    "PolDWBAMagCylinders2"
@@ -69,6 +68,7 @@ set(list_of_tests
     "CoreSuite/SquareLattice"
     "CoreSuite/CenteredSquareLattice"
     "CoreSuite/RotatedSquareLattice"
+    "CoreSuite/RotatedPyramids"
 )
 
 

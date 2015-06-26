@@ -37,5 +37,28 @@ private:
 };
 
 
+//! @class TwoTypesCylindersDistributionBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: mixture cylinder particles with different size
+//! distribution (IsGISAXS example #2)
+
+class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public ISampleBuilder
+{
+public:
+    TwoTypesCylindersDistributionBuilder();
+    ISample *buildSample() const;
+
+protected:
+    void init_parameters();
+
+private:
+    double m_radius1;
+    double m_radius2;
+    double m_height1;
+    double m_height2;
+    double m_sigma1_ratio;
+    double m_sigma2_ratio;
+};
+
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

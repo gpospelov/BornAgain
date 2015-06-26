@@ -58,21 +58,22 @@ endforeach()
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
-    "CoreSuite/FormFactors"
-    "CoreSuite/CylindersAndPrisms"
-    "CoreSuite/RadialParaCrystal"
-    "CoreSuite/TwoDimParaCrystal"
-    "CoreSuite/CoreShellParticle"
-    "CoreSuite/MultiLayerWithRoughness"
-    "CoreSuite/SquareLattice"
-    "CoreSuite/CenteredSquareLattice"
-    "CoreSuite/RotatedSquareLattice"
-    "CoreSuite/RotatedPyramids"
-    "CoreSuite/ParticleComposition"
-    "CoreSuite/CylindersWithSizeDistribution"
-    "CoreSuite/BeamDivergence"
-    "CoreSuite/DetectorResolution"
-    "CoreSuite/MultipleLayout"
+#    "CoreSuite/FormFactors"
+#    "CoreSuite/CylindersAndPrisms"
+#    "CoreSuite/RadialParaCrystal"
+#    "CoreSuite/TwoDimParaCrystal"
+#    "CoreSuite/CoreShellParticle"
+#    "CoreSuite/MultiLayerWithRoughness"
+#    "CoreSuite/SquareLattice"
+#    "CoreSuite/CenteredSquareLattice"
+#    "CoreSuite/RotatedSquareLattice"
+#    "CoreSuite/RotatedPyramids"
+#    "CoreSuite/ParticleComposition"
+#    "CoreSuite/CylindersWithSizeDistribution"
+    "CoreSuite/TwoTypesCylindersDistribution"
+#    "CoreSuite/BeamDivergence"
+#    "CoreSuite/DetectorResolution"
+#    "CoreSuite/MultipleLayout"
 )
 
 

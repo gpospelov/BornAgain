@@ -1,4 +1,4 @@
-#include "FunctionalTestRegistry.h"
+#include "ObsoleteFunctionalTestRegistry.h"
 #include "FileSystem.h"
 #include "SimulationRegistry.h"
 #include "IntensityDataIOFactory.h"
@@ -42,12 +42,12 @@ int TestBatchSimulation()
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
 
-    if( diff > threshold ) return FunctionalTest::FAILED;
+    if( diff > threshold ) return ObsoleteFunctionalTest::FAILED;
 
     delete simulation;
     delete reference;
 
-    return FunctionalTest::SUCCESS;
+    return ObsoleteFunctionalTest::SUCCESS;
 }
 
 

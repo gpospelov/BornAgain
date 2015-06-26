@@ -15,7 +15,6 @@
 
 #include "SampleBuilderFactory.h"
 #include "CylindersAndPrismsBuilder.h"
-#include "IsGISAXS02Builder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
 #include "TwoDimLatticeBuilder.h"
@@ -44,9 +43,9 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mixture of cylinders and prisms without interference");
 
     registerItem(
-        "isgisaxs02",
-        IFactoryCreateFunction<IsGISAXS02Builder, ISampleBuilder>,
-        "Mixture cylinder particles with different size distribution ");
+        "TwoTypesCylindersDistributionBuilder",
+        IFactoryCreateFunction<TwoTypesCylindersDistributionBuilder, ISampleBuilder>,
+        "Mixture of cylinder particles with two types size distribution ");
 
     registerItem(
         "CylindersInBABuilder",

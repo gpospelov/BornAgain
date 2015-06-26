@@ -23,20 +23,21 @@ include_directories(
 )
 
 set(list_of_tests
-    "GUISuite/FormFactors"
-    "GUISuite/CylindersAndPrisms"
-    "GUISuite/RadialParaCrystal"
-    "GUISuite/TwoDimParaCrystal"
-    "GUISuite/CoreShellParticle"
-    "GUISuite/MultiLayerWithRoughness"
-    "GUISuite/SquareLattice"
-    "GUISuite/CenteredSquareLattice"
-    "GUISuite/RotatedSquareLattice"
-    "GUISuite/RotatedPyramids"
-    "GUISuite/ParticleComposition"
-    "GUISuite/CylindersWithSizeDistribution"
-    "GUISuite/BeamDivergence"
-    "GUISuite/DetectorResolution"
+#    "GUISuite/FormFactors"
+#    "GUISuite/CylindersAndPrisms"
+#    "GUISuite/RadialParaCrystal"
+#    "GUISuite/TwoDimParaCrystal"
+#    "GUISuite/CoreShellParticle"
+#    "GUISuite/MultiLayerWithRoughness"
+#    "GUISuite/SquareLattice"
+#    "GUISuite/CenteredSquareLattice"
+#    "GUISuite/RotatedSquareLattice"
+#    "GUISuite/RotatedPyramids"
+#    "GUISuite/ParticleComposition"
+#    "GUISuite/CylindersWithSizeDistribution"
+##    "GUISuite/TwoTypesCylindersDistribution" # broken
+#    "GUISuite/BeamDivergence"
+#    "GUISuite/DetectorResolution"
     "GUISuite/MultipleLayout"
 )
 

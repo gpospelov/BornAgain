@@ -57,21 +57,22 @@ include_directories(
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
-    "PySuite/CylindersAndPrisms"
-    "PySuite/FormFactors"
-    "PySuite/RadialParaCrystal"
-    "PySuite/TwoDimParaCrystal"
-    "PySuite/CoreShellParticle"
-    "PySuite/MultiLayerWithRoughness"
-    "PySuite/SquareLattice"
-    "PySuite/CenteredSquareLattice"
-    "PySuite/RotatedSquareLattice"
-    "PySuite/RotatedPyramids"
-    "PySuite/ParticleComposition"
+#    "PySuite/CylindersAndPrisms"
+#    "PySuite/FormFactors"
+#    "PySuite/RadialParaCrystal"
+#    "PySuite/TwoDimParaCrystal"
+#    "PySuite/CoreShellParticle"
+#    "PySuite/MultiLayerWithRoughness"
+#    "PySuite/SquareLattice"
+#    "PySuite/CenteredSquareLattice"
+#    "PySuite/RotatedSquareLattice"
+#    "PySuite/RotatedPyramids"
+#    "PySuite/ParticleComposition"
     "PySuite/CylindersWithSizeDistribution"
-    "PySuite/BeamDivergence"
-#    "PySuite/DetectorResolution" # not yet implemented
-    "PySuite/MultipleLayout"
+    "PySuite/TwoTypesCylindersDistribution"
+#    "PySuite/BeamDivergence"
+##    "PySuite/DetectorResolution" # not yet implemented
+#    "PySuite/MultipleLayout"
 )
 
 

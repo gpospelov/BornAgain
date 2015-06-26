@@ -105,6 +105,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("TwoTypesCylindersDistribution",
+        "Cylinders in BA with size distributions",
+        "MiniGISAS",
+        "TwoTypesCylindersDistributionBuilder",
+        "None",
+        2e-10);
+
     add("BeamDivergence",
         "Cylinders in BA in the presence of beam divergence",
         "MiniGISASBeamDivergence",

@@ -43,7 +43,7 @@ GISASSimulation *StandardSimulations::IsGISAXS01()
 GISASSimulation *StandardSimulations::IsGISAXS02()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs02");
+    SampleBuilder_t builder = factory.createBuilder("TwoTypesCylindersDistributionBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

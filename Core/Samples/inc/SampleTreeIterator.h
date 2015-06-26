@@ -91,12 +91,12 @@ protected:
 //!        it.next();
 //!     }
 
+template <class Strategy>
 class BA_CORE_API_ SampleTreeIterator
 {
 public:
     SampleTreeIterator(const ISample *root);
-    SampleTreeIterator& operator=(const SampleTreeIterator &other);
-    virtual ~SampleTreeIterator();
+    virtual ~SampleTreeIterator() {}
 
     void first();
     void next();
@@ -104,10 +104,46 @@ public:
     bool isDone() const;
     size_t getLevel() const;
 protected:
-    boost::scoped_ptr<ISampleIteratorStrategy> mP_strategy;
+    Strategy m_strategy;
     IteratorMemento m_memento_itor;
     const ISample* mp_root;
 };
+
+template <class Strategy>
+inline SampleTreeIterator<Strategy>::SampleTreeIterator(const ISample *root)
+    : mp_root(root)
+{
+}
+
+template <class Strategy>
+inline void SampleTreeIterator<Strategy>::first()
+{
+    m_memento_itor = m_strategy.first(mp_root);
+}
+
+template <class Strategy>
+inline void SampleTreeIterator<Strategy>::next()
+{
+    m_strategy.next(m_memento_itor);
+}
+
+template <class Strategy>
+inline const ISample *SampleTreeIterator<Strategy>::getCurrent()
+{
+    return m_memento_itor.getCurrent();
+}
+
+template <class Strategy>
+inline bool SampleTreeIterator<Strategy>::isDone() const
+{
+    return m_memento_itor.size()==0;
+}
+
+template <class Strategy>
+inline size_t SampleTreeIterator<Strategy>::getLevel() const
+{
+    return m_memento_itor.size();
+}
 
 #endif // ISAMPLETREEITERATOR_H
 

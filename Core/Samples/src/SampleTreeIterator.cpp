@@ -32,46 +32,4 @@ IteratorState::IteratorState(std::vector<const ISample *> samples)
 }
 
 
-SampleTreeIterator::SampleTreeIterator(const ISample *root)
-    : mp_root(root)
-{
-    mP_strategy.reset(new SampleIteratorPreorderStrategy());
-}
-
-SampleTreeIterator &SampleTreeIterator::operator=(const SampleTreeIterator &other)
-{
-    mp_root = other.mp_root;
-    mP_strategy.reset(other.mP_strategy->clone());
-    return *this;
-}
-
-SampleTreeIterator::~SampleTreeIterator()
-{
-}
-
-void SampleTreeIterator::first()
-{
-    m_memento_itor = mP_strategy->first(mp_root);
-}
-
-void SampleTreeIterator::next()
-{
-    mP_strategy->next(m_memento_itor);
-}
-
-const ISample *SampleTreeIterator::getCurrent()
-{
-    return m_memento_itor.getCurrent();
-}
-
-bool SampleTreeIterator::isDone() const
-{
-    return m_memento_itor.size()==0;
-}
-
-size_t SampleTreeIterator::getLevel() const
-{
-    return m_memento_itor.size();
-}
-
 

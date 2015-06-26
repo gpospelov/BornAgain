@@ -17,13 +17,14 @@
 #include "ISample.h"
 #include "ICompositeSample.h"
 #include "SampleTreeIterator.h"
+#include "ISampleIteratorStrategy.h"
 
 void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
 {
     sample.accept(&visitor);
     const ICompositeSample *p_composite = sample.getCompositeSample();
     if (p_composite) {
-        SampleTreeIterator it(p_composite);
+        SampleTreeIterator<SampleIteratorPreorderStrategy> it(p_composite);
         it.first();
         while (!it.isDone()) {
             visitor.setLevel(it.getLevel());

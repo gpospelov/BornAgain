@@ -33,15 +33,14 @@ QMap<QString, QString > init_NameToRegistry()
     result["example03"] = "TwoDimParaCrystalBuilder";
     result["example04"] = "CoreShellParticleBuilder";
     result["example05"] = "MultiLayerWithRoughnessBuilder";
-
     result["example06"] = "SquareLatticeBuilder";
     result["example07"] = "RotatedPyramidsBuilder";
     result["example08"] = "CylindersWithSizeDistributionBuilder";
     result["example09"] = "ParticleCompositionBuilder";
+
     // temporary for testing
-//    result["example08"] = "beam_divergence";
-//    result["example08"] = "detector_resolution";
-//    result["example08"] = "gui_isgisaxs06b";
+    //result["example09"] = "MultipleLayoutBuilder";
+
     return result;
 }
 
@@ -56,13 +55,6 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     QString exampleName = m_name_to_registry[name];
-
-//    SimulationRegistry registry;
-//    boost::scoped_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
-//    Q_ASSERT(P_simulation.get());
-
-//    GUIObjectBuilder guiBuilder;
-//    return guiBuilder.populateSampleModel(sampleModel, *P_simulation, name);
 
     SampleBuilderFactory factory;
     boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));

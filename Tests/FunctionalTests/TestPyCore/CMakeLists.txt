@@ -51,15 +51,6 @@ include_directories(
 #endforeach()
 
 
-set(list_of_cpp_python_tests
-    "PyScript_multiplelayoutbuilder"
-)
-
-foreach(_test ${list_of_cpp_python_tests})
-   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
-   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
-endforeach()
-
 # ------------------------------------------------------------------------------------------------
 #
 #
@@ -80,6 +71,7 @@ set(list_of_tests
     "PySuite/CylindersWithSizeDistribution"
     "PySuite/BeamDivergence"
 #    "PySuite/DetectorResolution" # not yet implemented
+    "PySuite/MultipleLayout"
 )
 
 

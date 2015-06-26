@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS01Builder.h
-//! @brief     Defines class IsGISAXS01Builder.
+//! @file      StandardSamples/MultipleLayoutBuilder.h
+//! @brief     Defines class MultipleLayoutBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

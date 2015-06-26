@@ -119,6 +119,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("MultipleLayout",
+        "Two types of particle in different layouts",
+        "MiniGISAS",
+        "MultipleLayoutBuilder",
+        "None",
+        2e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

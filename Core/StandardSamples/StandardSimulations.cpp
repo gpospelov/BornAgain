@@ -471,7 +471,7 @@ GISASSimulation *StandardSimulations::Ripple1()
 GISASSimulation *StandardSimulations::gui_MultipleLayouts()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("multiple_layouts");
+    SampleBuilder_t builder = factory.createBuilder("MultipleLayoutBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

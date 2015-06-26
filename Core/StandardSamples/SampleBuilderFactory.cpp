@@ -143,7 +143,7 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Layer with correlated roughness");
 
     registerItem(
-       "multiple_layouts",
+       "MultipleLayoutBuilder",
        IFactoryCreateFunction<MultipleLayoutBuilder, ISampleBuilder>,
       "cylinder and prisms using multiple layouts");
 

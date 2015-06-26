@@ -37,6 +37,7 @@ set(list_of_tests
     "GUISuite/CylindersWithSizeDistribution"
     "GUISuite/BeamDivergence"
     "GUISuite/DetectorResolution"
+    "GUISuite/MultipleLayout"
 )
 
 # ------------------------------------------------------------------------

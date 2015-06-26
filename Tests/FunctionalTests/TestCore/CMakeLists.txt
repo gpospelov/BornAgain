@@ -72,6 +72,7 @@ set(list_of_tests
     "CoreSuite/CylindersWithSizeDistribution"
     "CoreSuite/BeamDivergence"
     "CoreSuite/DetectorResolution"
+    "CoreSuite/MultipleLayout"
 )
 
 

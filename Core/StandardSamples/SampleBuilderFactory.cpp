@@ -28,7 +28,7 @@
 #include "MesoCrystal01Builder.h"
 #include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
-#include "LayerRoughnessBuilder.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 #include "ParticleCompositionBuilder.h"
 #include "Ripple2Builder.h"
 #include "Ripple1Builder.h"
@@ -140,8 +140,8 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
-        "LayerWithRoughness",
-        IFactoryCreateFunction<LayerRoughnessBuilder, ISampleBuilder>,
+        "MultiLayerWithRoughnessBuilder",
+        IFactoryCreateFunction<MultiLayerWithRoughnessBuilder, ISampleBuilder>,
         "Layer with correlated roughness");
 
     registerItem(

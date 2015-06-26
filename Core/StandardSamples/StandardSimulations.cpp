@@ -419,7 +419,7 @@ GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 GISASSimulation *StandardSimulations::LayerWithRoughness()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("LayerWithRoughness");
+    SampleBuilder_t builder = factory.createBuilder("MultiLayerWithRoughnessBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

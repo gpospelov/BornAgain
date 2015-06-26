@@ -76,6 +76,7 @@ set(list_of_tests
     "PySuite/RadialParaCrystal"
     "PySuite/TwoDimParaCrystal"
     "PySuite/CoreShellParticle"
+    "PySuite/MultiLayerWithRoughness"
 )
 
 

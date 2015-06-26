@@ -18,10 +18,11 @@ if(MSVC)
 endif()
 
 set(list_of_tests
-#    "IsGISAXS01"       # can be removed
-#    "IsGISAXS041DDL"   # can be removed
-#    "IsGISAXS042DDL"   # can be removed
-    "IsGISAXS11"        # can be removed
+#    "IsGISAXS01"       # can be removed, CylindersAndPrisms
+#    "IsGISAXS041DDL"   # can be removed, RadialParaCrystal
+#    "IsGISAXS042DDL"   # can be removed, TwoDimParaCrystal
+#    "IsGISAXS11"        # can be removed, CoreShellParticle
+    "LayerRoughness" # can be removed, MultiLayerWithRoughness
 
 #    "IsGISAXS02"
 #    "CylindersInBA"
@@ -42,7 +43,6 @@ set(list_of_tests
 #    "MesoCrystal1"
 #    "PolDWBAMagCylinders1"
 #    "PolDWBAMagCylinders2"
-#    "LayerRoughness"
 #    "Ripple2"
 #    "Ripple1"
 #    "BatchSimulation"
@@ -65,6 +65,7 @@ set(list_of_tests
     "CoreSuite/RadialParaCrystal"
     "CoreSuite/TwoDimParaCrystal"
     "CoreSuite/CoreShellParticle"
+    "CoreSuite/MultiLayerWithRoughness"
 )
 
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LayerRoughnessBuilder.cpp
-//! @brief     Implement class LayerRoughnessBuilder.
+//! @file      StandardSamples/MultiLayerWithRoughnessBuilder.cpp
+//! @brief     Implement class MultiLayerWithRoughnessBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "LayerRoughnessBuilder.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
 #include "Units.h"
 #include "IRoughness.h"
 
-LayerRoughnessBuilder::LayerRoughnessBuilder()
+MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)
     , m_thicknessB(5.0*Units::nanometer)
     , m_sigma(1.0*Units::nanometer)
@@ -32,7 +32,7 @@ LayerRoughnessBuilder::LayerRoughnessBuilder()
 }
 
 
-void LayerRoughnessBuilder::init_parameters()
+void MultiLayerWithRoughnessBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("thicknessA", &m_thicknessA);
@@ -44,7 +44,7 @@ void LayerRoughnessBuilder::init_parameters()
 }
 
 
-ISample *LayerRoughnessBuilder::buildSample() const
+ISample *MultiLayerWithRoughnessBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
     HomogeneousMaterial air_material("Air", 0., 0.);

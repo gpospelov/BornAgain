@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LayerRoughnessBuilder.h
-//! @brief     Defines class LayerRoughnessBuilder.
+//! @file      StandardSamples/MultiLayerWithRoughnessBuilder.h
+//! @brief     Defines class MultiLayerWithRoughnessBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERROUGHNESSBUILDER_H
-#define LAYERROUGHNESSBUILDER_H
+#ifndef MULTILAYERWITHROUGHNESSBUILDER_H
+#define MULTILAYERWITHROUGHNESSBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class LayerRoughnessBuilder
+//! @class MultiLayerWithRoughnessBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: layers with correlated roughness
 
-class BA_CORE_API_ LayerRoughnessBuilder : public ISampleBuilder
+class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
-    LayerRoughnessBuilder();
+    MultiLayerWithRoughnessBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -40,4 +40,4 @@ private:
     double m_crossCorrLength;
 };
 
-#endif // ISGISAXS01BUILDER_H
+#endif // MULTILAYERWITHROUGHNESSBUILDER_H

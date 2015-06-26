@@ -321,7 +321,7 @@ GISASSimulation *StandardSimulations::IsGISAXS10()
 GISASSimulation *StandardSimulations::IsGISAXS11()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
+    SampleBuilder_t builder = factory.createBuilder("CoreShellParticleBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -527,7 +527,7 @@ GISASSimulation *StandardSimulations::gui_Interference2DParaCrystal()
 GISASSimulation *StandardSimulations::gui_CoreShellParticles()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
+    SampleBuilder_t builder = factory.createBuilder("CoreShellParticleBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

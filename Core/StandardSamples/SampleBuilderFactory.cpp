@@ -23,7 +23,7 @@
 #include "IsGISAXS08Builder.h"
 #include "IsGISAXS09Builder.h"
 #include "IsGISAXS10Builder.h"
-#include "IsGISAXS11Builder.h"
+#include "CoreShellParticleBuilder.h"
 #include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "MultipleLayoutBuilder.h"
@@ -116,8 +116,8 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Cylinders on top of substrate with interference");
 
     registerItem(
-        "isgisaxs11",
-        IFactoryCreateFunction<IsGISAXS11Builder, ISampleBuilder>,
+        "CoreShellParticleBuilder",
+        IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
         "Core shell nanoparticles");
 
     registerItem(

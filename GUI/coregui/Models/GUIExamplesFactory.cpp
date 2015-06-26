@@ -28,12 +28,11 @@
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-//    result["example01"] = "CylindersAndPrismsBuilder";
     result["example01"] = "gui_CylinderAndPrisms";
     result["example02"] = "gui_Interference1DParaCrystal";
     result["example03"] = "gui_Interference2DParaCrystal";
-
     result["example04"] = "gui_CoreShellParticles";
+
     result["example05"] = "LayerWithRoughness";
     result["example06"] = "gui_Interference2DSquareLattice";
     result["example07"] = "gui_RotatedPyramids";

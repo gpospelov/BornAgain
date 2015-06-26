@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS11Builder.h
-//! @brief     Defines class IsGISAXS11Builder.
+//! @file      StandardSamples/CoreShellParticleBuilder.h
+//! @brief     Defines class CoreShellParticleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,20 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS11BUILDER_H
-#define ISGISAXS11BUILDER_H
+#ifndef CORESHELLPARTICLEBUILDER_H
+#define CORESHELLPARTICLEBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class IsGISAXS11Builder
+//! @class CoreShellParticleBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: Core Shell Nanoparticles (IsGISAXS example #11)
 
-class BA_CORE_API_ IsGISAXS11Builder : public ISampleBuilder
+class BA_CORE_API_ CoreShellParticleBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS11Builder();
+    CoreShellParticleBuilder();
     ISample *buildSample() const;
 };
 
-#endif // ISGISAXS11BUILDER_H
+#endif // CORESHELLPARTICLEBUILDER_H

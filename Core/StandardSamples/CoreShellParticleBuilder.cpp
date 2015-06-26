@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS11Builder.cpp
-//! @brief     Implements class IsGISAXS11Builder.
+//! @file      StandardSamples/CoreShellParticleBuilder.cpp
+//! @brief     Implements class CoreShellParticleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS11Builder.h"
+#include "CoreShellParticleBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -22,12 +22,12 @@
 #include "InterferenceFunctionNone.h"
 #include "ParticleCoreShell.h"
 
-IsGISAXS11Builder::IsGISAXS11Builder()
+CoreShellParticleBuilder::CoreShellParticleBuilder()
 {
 }
 
 
-ISample *IsGISAXS11Builder::buildSample() const
+ISample *CoreShellParticleBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

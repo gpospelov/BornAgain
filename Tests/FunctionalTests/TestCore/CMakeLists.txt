@@ -18,11 +18,12 @@ if(MSVC)
 endif()
 
 set(list_of_tests
-#    "IsGISAXS01"
-#    "IsGISAXS041DDL"
-#    "IsGISAXS042DDL"
+#    "IsGISAXS01"       # can be removed
+#    "IsGISAXS041DDL"   # can be removed
+#    "IsGISAXS042DDL"   # can be removed
+    "IsGISAXS11"        # can be removed
 
-    "IsGISAXS02"
+#    "IsGISAXS02"
 #    "CylindersInBA"
 #    "CylindersInDWBA"
 #    "CylindersWithSizeDistribution"
@@ -36,7 +37,6 @@ set(list_of_tests
 #    "IsGISAXS09a"
 #    "IsGISAXS09b"
 #    "IsGISAXS10"
-#    "IsGISAXS11"
 #    "IsGISAXS15"
 #    "FormFactors"
 #    "MesoCrystal1"
@@ -64,6 +64,7 @@ set(list_of_tests
     "CoreSuite/CylindersAndPrisms"
     "CoreSuite/RadialParaCrystal"
     "CoreSuite/TwoDimParaCrystal"
+    "CoreSuite/CoreShellParticle"
 )
 
 

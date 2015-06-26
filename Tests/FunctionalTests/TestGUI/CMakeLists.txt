@@ -23,8 +23,7 @@ include_directories(
 )
 
 set(list_of_tests
-    "TestGUI04"
-#    "TestGUI05"
+    "TestGUI05"
 #    "TestGUI06"
 #    "TestGUI07"
 #    "TestGUI08"
@@ -58,6 +57,7 @@ set(list_of_tests
     "GUITestSuite/CylindersAndPrisms"
     "GUITestSuite/RadialParaCrystal"
     "GUITestSuite/TwoDimParaCrystal"
+    "GUITestSuite/CoreShellParticle"
 )
 
 # ------------------------------------------------------------------------

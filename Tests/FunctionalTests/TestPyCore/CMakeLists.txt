@@ -55,7 +55,6 @@ set(list_of_cpp_python_tests
     "PyScript_isgisaxs06a"
 #    "PyScript_isgisaxs06b"
 #    "PyScript_isgisaxs07"
-#    "PyScript_isgisaxs11"
 #    "PyScript_multiplelayoutbuilder"
 #    "PyScript_ParticleDistribution"
 #    "PyScript_ParticleComposition"
@@ -76,6 +75,7 @@ set(list_of_tests
     "PySuite/FormFactors"
     "PySuite/RadialParaCrystal"
     "PySuite/TwoDimParaCrystal"
+    "PySuite/CoreShellParticle"
 )
 
 

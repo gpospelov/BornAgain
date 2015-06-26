@@ -49,6 +49,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("CoreShellParticle",
+        "Core shell particle",
+        "GISASSmallDet",
+        "CoreShellParticleBuilder",
+        "None",
+        2e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

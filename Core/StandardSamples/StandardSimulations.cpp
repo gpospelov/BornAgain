@@ -60,7 +60,7 @@ GISASSimulation *StandardSimulations::IsGISAXS02()
 GISASSimulation *StandardSimulations::CylindersInBA()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_ba");
+    SampleBuilder_t builder = factory.createBuilder("CylindersInBABuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -78,7 +78,7 @@ GISASSimulation *StandardSimulations::CylindersInBA()
 GISASSimulation *StandardSimulations::CylindersInDWBA()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
+    SampleBuilder_t builder = factory.createBuilder("CylindersInDWBABuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -610,38 +610,10 @@ GISASSimulation *StandardSimulations::gui_MultipleLayouts()
 }
 
 
-GISASSimulation *StandardSimulations::BeamDivergence()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(40, -0.2*Units::degree, 1.8*Units::degree,
-                60, 0.0*Units::degree, 2.2*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-
-    DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
-    DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
-    //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
-    DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
-
-    result->addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5);
-    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
-    result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-
 GISASSimulation *StandardSimulations::DetectorResolution()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
+    SampleBuilder_t builder = factory.createBuilder("CylindersInDWBABuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -688,7 +660,6 @@ GISASSimulation *StandardSimulations::gui_ParticleComposition()
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
 
-
     result->setSampleBuilder( builder );
 
     return result;
@@ -713,13 +684,29 @@ GISASSimulation *StandardSimulations::BasicGISAS()
 }
 
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2]
-GISASSimulation *StandardSimulations::GISASSmallDet()
+GISASSimulation *StandardSimulations::MiniGISAS()
 {
     GISASSimulation *result = new GISASSimulation();
     result->setDetectorParameters(25, -2.0*Units::degree, 2.0*Units::degree,
                                      25, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
+    return result;
+}
+
+GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
+{
+    GISASSimulation *result = MiniGISAS();
+
+    DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
+    DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
+    //DistributionGaussian phi_distr(0.0*Units::degree, 0.1*Units::degree);
+    DistributionGate phi_distr(-0.1*Units::degree, 0.1*Units::degree);
+
+    result->addParameterDistribution("*/Beam/wavelength", wavelength_distr, 5);
+    result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
+    result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
+
     return result;
 }
 
@@ -735,5 +722,4 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
-
 

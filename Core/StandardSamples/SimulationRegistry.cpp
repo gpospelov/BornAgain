@@ -157,15 +157,9 @@ SimulationRegistry::SimulationRegistry()
         "part_distribution", StandardSimulations::ParticleDistribution,
         "Cylinders with size distribution");
 
-
-
-    registerItem(
-        "beam_divergence", StandardSimulations::BeamDivergence,
-        "Cylinders in DWBA with beam divergence");
-
     registerItem(
         "detector_resolution", StandardSimulations::DetectorResolution,
-        "Cylinders in DWBA with beam divergence");
+        "Cylinders in DWBA with detector resolution");
 
 
     // ---------------------------------------------------------------------------------------------
@@ -175,8 +169,11 @@ SimulationRegistry::SimulationRegistry()
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS,
                  "Basic GISAS simulation with the detector phi[0,2], theta[0,2]");
 
-    registerItem("GISASSmallDet", StandardSimulations::GISASSmallDet,
-                 "GISAS simulation with small 25x25 detector and phi[-2,2], det[0,2]");
+    registerItem("MiniGISAS", StandardSimulations::MiniGISAS,
+                 "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]");
+
+    registerItem("MiniGISASBeamDivergence", StandardSimulations::MiniGISASBeamDivergence,
+                 "GISAS simulation with small detector and mini divergence");
 
     registerItem("IsGISAXSSimulation1", StandardSimulations::IsGISAXSSimulation1,
                  "Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]");

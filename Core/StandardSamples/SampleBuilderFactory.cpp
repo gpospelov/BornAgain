@@ -49,11 +49,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mixture cylinder particles with different size distribution ");
 
     registerItem(
-        "cylinders_ba",
+        "CylindersInBABuilder",
         IFactoryCreateFunction<CylindersInBABuilder, ISampleBuilder>,
         "Cylinder formfactor in BA");
     registerItem(
-        "cylinders_dwba",
+        "CylindersInDWBABuilder",
         IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
         "Cylinder formfactor in DWBA");
 

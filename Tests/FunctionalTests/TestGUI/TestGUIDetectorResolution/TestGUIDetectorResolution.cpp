@@ -1,6 +1,6 @@
-#include "GUIFunctionalTest.h"
+#include "ObsoleteGUIFunctionalTest.h"
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("detector_resolution");
+    return OBSOLETE_GUI_FUNCTIONAL_TEST("detector_resolution");
 }

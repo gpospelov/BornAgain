@@ -23,8 +23,7 @@ include_directories(
 )
 
 set(list_of_tests
-    "TestGUIBeamDivergence"
-#    "TestGUIDetectorResolution"
+    "TestGUIDetectorResolution"
 )
 
 foreach(_test ${list_of_tests})
@@ -47,18 +46,19 @@ endforeach()
 # ------------------------------------------------------------------------
 
 set(list_of_tests
-    "GUITestSuite/FormFactors"
-    "GUITestSuite/CylindersAndPrisms"
-    "GUITestSuite/RadialParaCrystal"
-    "GUITestSuite/TwoDimParaCrystal"
-    "GUITestSuite/CoreShellParticle"
-    "GUITestSuite/MultiLayerWithRoughness"
-    "GUITestSuite/SquareLattice"
-    "GUITestSuite/CenteredSquareLattice"
-    "GUITestSuite/RotatedSquareLattice"
-    "GUITestSuite/RotatedPyramids"
-    "GUITestSuite/ParticleComposition"
-    "GUITestSuite/CylindersWithSizeDistribution"
+    "GUISuite/FormFactors"
+    "GUISuite/CylindersAndPrisms"
+    "GUISuite/RadialParaCrystal"
+    "GUISuite/TwoDimParaCrystal"
+    "GUISuite/CoreShellParticle"
+    "GUISuite/MultiLayerWithRoughness"
+    "GUISuite/SquareLattice"
+    "GUISuite/CenteredSquareLattice"
+    "GUISuite/RotatedSquareLattice"
+    "GUISuite/RotatedPyramids"
+    "GUISuite/ParticleComposition"
+    "GUISuite/CylindersWithSizeDistribution"
+    "GUISuite/BeamDivergence"
 )
 
 # ------------------------------------------------------------------------

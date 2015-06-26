@@ -56,15 +56,16 @@ GISASSimulation *gui_Interference2DSquareLattice();
 GISASSimulation *gui_Interference2DCenteredLattice();
 GISASSimulation *gui_RotatedPyramids();
 GISASSimulation *gui_MultipleLayouts();
-GISASSimulation *BeamDivergence();
 GISASSimulation *DetectorResolution();
 GISASSimulation *ParticleDistribution();
 GISASSimulation *gui_ParticleComposition();
 
 // toward functional tests refactoring
 GISASSimulation *BasicGISAS();
-GISASSimulation *GISASSmallDet();
+GISASSimulation *MiniGISAS();
+GISASSimulation *MiniGISASBeamDivergence();
 GISASSimulation *IsGISAXSSimulation1();
+
 
 }
 

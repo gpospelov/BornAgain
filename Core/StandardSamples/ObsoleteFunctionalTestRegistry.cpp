@@ -123,10 +123,6 @@ ObsoleteFunctionalTestRegistry::Catalogue::Catalogue()
         "Cosine ripple within the 1D-paracrystal model",
         "ripple1_reference.int.gz", 1e-10);
 
-    add("beam_divergence",
-        "Cylinders in DWBA with beam divergence",
-        "beamdivergence_reference.int.gz", 1e-10);
-
 }
 
 

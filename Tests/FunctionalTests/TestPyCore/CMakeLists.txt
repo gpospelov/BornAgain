@@ -78,6 +78,7 @@ set(list_of_tests
     "PySuite/RotatedPyramids"
     "PySuite/ParticleComposition"
     "PySuite/CylindersWithSizeDistribution"
+    "PySuite/BeamDivergence"
 )
 
 

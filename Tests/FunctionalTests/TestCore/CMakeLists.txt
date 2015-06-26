@@ -45,7 +45,6 @@ set(list_of_tests
 #    "Ripple2"
 #    "Ripple1"
 #    "BatchSimulation"
-#    "BeamDivergence"
 )
 
 foreach(_test ${list_of_tests})
@@ -71,6 +70,7 @@ set(list_of_tests
     "CoreSuite/RotatedPyramids"
     "CoreSuite/ParticleComposition"
     "CoreSuite/CylindersWithSizeDistribution"
+    "CoreSuite/BeamDivergence"
 )
 
 

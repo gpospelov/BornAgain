@@ -23,85 +23,92 @@ FunctionalTestRegistry::FunctionalTestRegistry()
 
     add("FormFactors",
         "Test of all form factors defined",
-        "GISASSmallDet",
+        "MiniGISAS",
         "ParticleInTheAirBuilder",
         "FormFactorsRegistry",
         2e-10);
 
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
-        "GISASSmallDet",
+        "MiniGISAS",
         "CylindersAndPrismsBuilder",
         "None",
         2e-10);
 
     add("RadialParaCrystal",
         "Interference function of radial paracrystal",
-        "GISASSmallDet",
+        "MiniGISAS",
         "RadialParaCrystalBuilder",
         "None",
         2e-10);
 
     add("TwoDimParaCrystal",
         "Interference function of 2D paracrystal",
-        "GISASSmallDet",
+        "MiniGISAS",
         "TwoDimParaCrystalBuilder",
         "None",
         2e-10);
 
     add("CoreShellParticle",
         "Core shell particle",
-        "GISASSmallDet",
+        "MiniGISAS",
         "CoreShellParticleBuilder",
         "None",
         2e-10);
 
     add("MultiLayerWithRoughness",
         "Multilayer with roughness",
-        "GISASSmallDet",
+        "MiniGISAS",
         "MultiLayerWithRoughnessBuilder",
         "None",
         2e-10);
 
     add("SquareLattice",
         "Interference function of 2D square lattice",
-        "GISASSmallDet",
+        "MiniGISAS",
         "SquareLatticeBuilder",
         "None",
         2e-10);
 
     add("CenteredSquareLattice",
         "Interference function of 2D square lattice",
-        "GISASSmallDet",
+        "MiniGISAS",
         "CenteredSquareLatticeBuilder",
         "None",
         2e-10);
 
     add("RotatedSquareLattice",
         "Interference function of rotated 2D square lattice",
-        "GISASSmallDet",
+        "MiniGISAS",
         "RotatedSquareLatticeBuilder",
         "None",
         2e-10);
 
     add("RotatedPyramids",
         "Interference function of rotated 2D square lattice",
-        "GISASSmallDet",
+        "MiniGISAS",
         "RotatedPyramidsBuilder",
         "None",
         2e-10);
 
     add("ParticleComposition",
         "Two layers of spheres at hex lattice",
-        "GISASSmallDet",
+        "MiniGISAS",
         "ParticleCompositionBuilder",
         "None",
         2e-10);
 
     add("CylindersWithSizeDistribution",
         "Cylinders in BA with size distributions",
-        "GISASSmallDet",
+        "MiniGISAS",
         "CylindersWithSizeDistributionBuilder",
+        "None",
+        2e-10);
+
+    add("BeamDivergence",
+        "Cylinders in BA in the presence of beam divergence",
+        "MiniGISASBeamDivergence",
+        "CylindersInBABuilder",
         "None",
         2e-10);
 

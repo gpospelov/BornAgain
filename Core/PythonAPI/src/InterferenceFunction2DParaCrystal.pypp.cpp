@@ -157,18 +157,6 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
         return IInterferenceFunction::getKappa( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -491,17 +479,6 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "getKappa"
                 , getKappa_function_type(&::IInterferenceFunction::getKappa)
                 , default_getKappa_function_type(&InterferenceFunction2DParaCrystal_wrapper::default_getKappa) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            InterferenceFunction2DParaCrystal_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&InterferenceFunction2DParaCrystal_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

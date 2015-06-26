@@ -191,18 +191,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return IFormFactor::getRadius( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -472,17 +460,6 @@ void register_IFormFactorBorn_class(){
                 "getRadius"
                 , getRadius_function_type(&::IFormFactor::getRadius)
                 , default_getRadius_function_type(&IFormFactorBorn_wrapper::default_getRadius) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( IFormFactorBorn_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            IFormFactorBorn_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&IFormFactorBorn_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

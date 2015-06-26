@@ -59,6 +59,10 @@ public:
     //! get information about particle with index
     virtual const IParticle *getParticle(size_t index) const;
 
+    //! Returns information on all particles (type and abundance)
+    //! and generates new particles if an IParticle denotes a collection
+    virtual std::vector<const ParticleInfo*> getParticleInfos() const;
+
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
 
@@ -82,17 +86,12 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction *getInterferenceFunction(size_t index) const;
 
-    virtual bool preprocess();
-
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
-
-    //! Replace ParticleDistribution with all the particles it represents
-    void replaceParticleDistribution(size_t index);
 
     void print(std::ostream &ostr) const;
 
@@ -101,6 +100,9 @@ private:
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
+
+    //! Cache for generated particles (needed for IParticle objects that are collections)
+    mutable SafePointerVector<ParticleInfo> m_particle_info_cache;
 };
 
 #endif // PARTICLEDECORATION_H

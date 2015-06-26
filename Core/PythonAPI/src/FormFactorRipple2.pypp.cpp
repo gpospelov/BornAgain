@@ -241,18 +241,6 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -558,17 +546,6 @@ void register_FormFactorRipple2_class(){
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorBorn::getVolume)
                 , default_getVolume_function_type(&FormFactorRipple2_wrapper::default_getVolume) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( FormFactorRipple2_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            FormFactorRipple2_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&FormFactorRipple2_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

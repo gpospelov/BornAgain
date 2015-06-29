@@ -446,3 +446,10 @@
 
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
 | 2015-06-10 15:25:16 | jcnsopc63  | linuxx8664gcc | 0  | 17.656   | 0.341        | 2.135        | 1.329        | 0.579        | 2.641        | 0.166        | 0.522        | 8.396        | 1.547        |
+
+# After Walter's refactoring for transformations, before I clean-up old standard samples
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2015-06-29 17:01:05 | jcnsopc126 | linuxx8664gcc | 0  | 18.910   | 0.313        | 2.267        | 1.476        | 0.767        | 2.600        | 0.200        | 0.627        | 8.805        | 1.856        |
+| 2015-06-29 17:01:28 | jcnsopc126 | linuxx8664gcc | 0  | 19.158   | 0.326        | 2.485        | 1.482        | 0.758        | 2.625        | 0.199        | 0.638        | 8.796        | 1.850     
+

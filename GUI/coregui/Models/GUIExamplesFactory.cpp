@@ -30,7 +30,7 @@ QMap<QString, QString > init_NameToRegistry()
     QMap<QString, QString > result;
     result["example01"] = "CylindersAndPrismsBuilder";
     result["example02"] = "RadialParaCrystalBuilder";
-    result["example03"] = "TwoDimParaCrystalBuilder";
+    result["example03"] = "HexParaCrystalBuilder";
     result["example04"] = "CoreShellParticleBuilder";
     result["example05"] = "MultiLayerWithRoughnessBuilder";
     result["example06"] = "SquareLatticeBuilder";

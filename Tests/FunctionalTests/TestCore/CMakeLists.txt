@@ -31,12 +31,12 @@ set(list_of_tests
 #    "CylindersWithSizeDistribution" # can be removed, CylindersWithSizeDistribution
 #    "CylindersInBA" # can be removed
 #    "CylindersInDWBA" # can be removed
+#    "IsGISAXS08a" # can be removed, RectParaCrystal
+#    "IsGISAXS08b" # can be removed, duplicates IsGISAXS08a
+#    "IsGISAXS02"  # can be removed, TwoTypesCylindersDistributio
 
-    "IsGISAXS02"
 #    "IsGISAXS06L4"
 #    "IsGISAXS07"
-#    "IsGISAXS08a"
-#    "IsGISAXS08b"
 #    "IsGISAXS10"
 #    "IsGISAXS15"
 #    "MesoCrystal1"
@@ -61,7 +61,8 @@ set(list_of_tests
 #    "CoreSuite/FormFactors"
 #    "CoreSuite/CylindersAndPrisms"
 #    "CoreSuite/RadialParaCrystal"
-#    "CoreSuite/TwoDimParaCrystal"
+    "CoreSuite/HexParaCrystal"
+    "CoreSuite/RectParaCrystal"
 #    "CoreSuite/CoreShellParticle"
 #    "CoreSuite/MultiLayerWithRoughness"
 #    "CoreSuite/SquareLattice"

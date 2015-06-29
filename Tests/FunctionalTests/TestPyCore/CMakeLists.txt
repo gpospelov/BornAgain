@@ -60,7 +60,8 @@ set(list_of_tests
 #    "PySuite/CylindersAndPrisms"
 #    "PySuite/FormFactors"
 #    "PySuite/RadialParaCrystal"
-#    "PySuite/TwoDimParaCrystal"
+    "PySuite/HexParaCrystal"
+    "PySuite/RectParaCrystal" # failing
 #    "PySuite/CoreShellParticle"
 #    "PySuite/MultiLayerWithRoughness"
 #    "PySuite/SquareLattice"

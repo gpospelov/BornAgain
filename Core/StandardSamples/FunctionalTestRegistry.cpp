@@ -42,10 +42,17 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
-    add("TwoDimParaCrystal",
+    add("HexParaCrystal",
         "Interference function of 2D paracrystal",
         "MiniGISAS",
-        "TwoDimParaCrystalBuilder",
+        "HexParaCrystalBuilder",
+        "None",
+        2e-10);
+
+    add("RectParaCrystal",
+        "Interference function of 2D paracrystal",
+        "MiniGISAS",
+        "RectParaCrystalBuilder",
         "None",
         2e-10);
 
@@ -127,7 +134,7 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         2e-10);
 
     add("MultipleLayout",
-        "Two types of particle in different layouts",
+        "Two types of particles in different layouts",
         "MiniGISAS",
         "MultipleLayoutBuilder",
         "None",

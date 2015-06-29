@@ -19,7 +19,6 @@
 #include "ParaCrystalBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "IsGISAXS07Builder.h"
-#include "IsGISAXS08Builder.h"
 #include "RotatedPyramidsBuilder.h"
 #include "IsGISAXS10Builder.h"
 #include "CoreShellParticleBuilder.h"
@@ -65,23 +64,32 @@ SampleBuilderFactory::SampleBuilderFactory()
         "RadialParaCrystalBuilder",
         IFactoryCreateFunction<RadialParaCrystalBuilder, ISampleBuilder>,
         "Interference function of radial paracrystal");
+
     registerItem(
-        "TwoDimParaCrystalBuilder",
-        IFactoryCreateFunction<TwoDimParaCrystalBuilder, ISampleBuilder>,
-        "Interference function of 2D paracrystal");
+        "HexParaCrystalBuilder",
+        IFactoryCreateFunction<HexParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D hexagonal paracrystal");
+
+    registerItem(
+        "RectParaCrystalBuilder",
+        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D rectangular paracrystal");
 
     registerItem(
         "SquareLatticeBuilder",
         IFactoryCreateFunction<SquareLatticeBuilder, ISampleBuilder>,
         "Interference of square lattice with disordered");
+
     registerItem(
         "CenteredSquareLatticeBuilder",
         IFactoryCreateFunction<CenteredSquareLatticeBuilder, ISampleBuilder>,
         "Interference of centered square lattice");
+
     registerItem(
         "RotatedSquareLatticeBuilder",
         IFactoryCreateFunction<RotatedSquareLatticeBuilder, ISampleBuilder>,
         "2D lattice rotated");
+
     registerItem(
         "isgisaxs06d",
         IFactoryCreateFunction<IsGISAXS06Lattice4Builder, ISampleBuilder>,
@@ -94,7 +102,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem(
         "isgisaxs08a",
-        IFactoryCreateFunction<IsGISAXS08ABuilder, ISampleBuilder>,
+        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
         "2DDL paracrystal lattice");
 
     registerItem(

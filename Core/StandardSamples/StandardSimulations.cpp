@@ -133,7 +133,7 @@ GISASSimulation *StandardSimulations::IsGISAXS041DDL()
 GISASSimulation *StandardSimulations::IsGISAXS042DDL()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("TwoDimParaCrystalBuilder");
+    SampleBuilder_t builder = factory.createBuilder("HexParaCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

@@ -39,15 +39,14 @@ private:
     double m_cylinder_radius;
 };
 
-
-//! @class TwoDimParaCrystalBuilder
+//! @class HexParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
 
-class BA_CORE_API_ TwoDimParaCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    TwoDimParaCrystalBuilder();
+    HexParaCrystalBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -61,6 +60,31 @@ private:
     double m_cylinder_height;
     double m_cylinder_radius;
 };
+
+//! @class RectParaCrystalBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  2D paracrystal lattice (IsGISAXS example #8)
+
+class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
+{
+public:
+    RectParaCrystalBuilder();
+    ISample *buildSample() const;
+};
+
+
+//! @class IsGISAXS08BBuilder TODO remove it completely
+//! @ingroup standard_samples
+//! @brief Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
+
+class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
+{
+public:
+    IsGISAXS08BBuilder();
+    ISample *buildSample() const;
+};
+
+
 
 
 #endif // PARACRYSTALBUILDER_H

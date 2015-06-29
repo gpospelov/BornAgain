@@ -44,14 +44,14 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
 
 void GraphicsView::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << "resize";
-    for(int i = 0; i < scene()->items().length()-1; ++i)
-    {
-        if(this->scene()->items()[i]->type() == QGraphicsProxyWidget::Type) {
-            dynamic_cast<GraphicsProxyWidget*>(this->scene()->items()[i])->resize(this->viewport()->width(), this->viewport()->height());
-            this->setSceneRect(this->rect());
-        }
-    }
+//    qDebug() << "resize";
+//    for(int i = 0; i < scene()->items().length()-1; ++i)
+//    {
+//        if(this->scene()->items()[i]->type() == QGraphicsProxyWidget::Type) {
+//            dynamic_cast<GraphicsProxyWidget*>(this->scene()->items()[i])->resize(this->viewport()->width(), this->viewport()->height());
+//            this->setSceneRect(this->rect());
+//        }
+//    }
 
 
 //    this->scale(this->rect().width()/this->scene()->width(), this->rect().height()/this->scene()->height());

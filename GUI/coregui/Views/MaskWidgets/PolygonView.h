@@ -15,6 +15,7 @@ class PolygonItem;
 
 class PolygonView : public IView
 {
+Q_OBJECT
 
 public:
 
@@ -29,7 +30,7 @@ public:
     void calculateResize(QGraphicsSceneMouseEvent *event);
     qreal calculateRotation(QGraphicsSceneMouseEvent *event);
     bool checkCornerClicked(QGraphicsSceneMouseEvent *event);
-    void calculateBoundingRectangle();
+    QRectF calculateBoundingRectangle() const;
     void setWidth(qreal width);
     void setHeigth(qreal heigth);
     void setDrawingMode(QPointF firstPoint);
@@ -47,11 +48,11 @@ public:
 
     ParameterizedItem *getParameterizedItem();
     void setParameterizedItem(ParameterizedItem *item);
+    QPointF getLastPoint() const;
 
 public slots:
     void onPropertyChange(const QString &propertyName);
     void onSubItemPropertyChanged(QString, QString);
-    void onSubItemChanged(QString);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

@@ -26,7 +26,7 @@
 // Magnetic cylinders and zero magnetic field
 // ----------------------------------------------------------------------------
 
-PolarizedDWBAMagCylinders1Builder::PolarizedDWBAMagCylinders1Builder()
+MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
     ,  m_cylinder_height(5*Units::nanometer)
 
@@ -35,7 +35,7 @@ PolarizedDWBAMagCylinders1Builder::PolarizedDWBAMagCylinders1Builder()
 }
 
 
-void PolarizedDWBAMagCylinders1Builder::init_parameters()
+void MagneticParticleZeroFieldBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_radius", &m_cylinder_radius);
@@ -43,7 +43,7 @@ void PolarizedDWBAMagCylinders1Builder::init_parameters()
 }
 
 
-ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
+ISample *MagneticParticleZeroFieldBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

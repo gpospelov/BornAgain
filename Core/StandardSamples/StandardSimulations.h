@@ -48,18 +48,17 @@ GISASSimulation *PolarizedDWBAMagCylinders2();
 GISASSimulation *LayerWithRoughness();
 GISASSimulation *Ripple2();
 GISASSimulation *Ripple1();
-GISASSimulation *gui_CylinderAndPrisms();
-GISASSimulation *gui_Interference1DParaCrystal();
-GISASSimulation *gui_Interference2DParaCrystal();
-GISASSimulation *gui_CoreShellParticles();
-GISASSimulation *gui_Interference2DSquareLattice();
-GISASSimulation *gui_Interference2DCenteredLattice();
-GISASSimulation *gui_RotatedPyramids();
 GISASSimulation *gui_MultipleLayouts();
-GISASSimulation *BeamDivergence();
-GISASSimulation *DetectorResolution();
-GISASSimulation *ParticleDistribution();
-GISASSimulation *gui_ParticleComposition();
+
+// toward functional tests refactoring
+GISASSimulation *BasicGISAS();
+GISASSimulation *MiniGISAS();
+GISASSimulation *MiniGISASBeamDivergence();
+GISASSimulation *MiniGISASDetectorResolution();
+GISASSimulation *MiniGISASForMeso();
+GISASSimulation *IsGISAXSSimulation1();
+
+
 }
 
 

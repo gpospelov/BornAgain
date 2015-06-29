@@ -25,7 +25,7 @@ include_directories(
 
 foreach(_test ${list_of_tests})
     BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainFit_LIBRARY} ${BornAgainCore_LIBRARY})
-    BORNAGAIN_ADD_TEST(${_test})
+    BORNAGAIN_ADD_TEST(${_test} ${_test})
 endforeach()
 
 

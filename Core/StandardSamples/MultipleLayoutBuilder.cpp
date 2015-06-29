@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/MultipleLayoutBuilder.cpp
-//! @brief     Defines class MultipleLayoutBuilder.
+//! @brief     Implements class MultipleLayoutBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,6 @@
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Units.h"
-#include "InterferenceFunctionNone.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
     : m_cylinder_height(5*Units::nanometer)

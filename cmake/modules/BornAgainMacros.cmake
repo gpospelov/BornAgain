@@ -51,6 +51,45 @@
 #endif()
 
 
+# Returns the list of unique executables from the list of functional tests
+# Usage:
+# set(list_of_tests "exe1/arg1" "exe1/arg2" "exe1/arg3" "exe2" "exe4/arg1")
+# get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})
+#
+# Result:
+# list_of_executables will be "exe1;exe2;exe3;exe4"
+macro(get_list_of_executables_from_list_of_tests list_of_tests)
+    foreach(_test ${list_of_tests})
+        string(REPLACE "/" ";"  test_info ${_test})
+        list(GET test_info 0 test_exe_name)
+        list(APPEND result ${test_exe_name})
+    endforeach()
+    list(REMOVE_DUPLICATES result)
+    set(list_of_executables ${result})
+endmacro()
+
+
+# Parse string containing test info into test name and test argument
+# Usage:
+# set(test_string "CoreSuite/CylindersAndPrisms")
+# get_test_name_and_argument(${test_string} ${test_exe_name} ${test_argument})
+#
+# Result: test_exe_name will be "CoreSuite", test_argument will be CylindersAndPrisms
+macro(get_test_name_and_argument _test_string)
+
+    unset(_test_exe_name)
+    unset(_test_argument)
+    string(REPLACE "/" ";"  test_info ${_test_string})
+    list(LENGTH test_info len)
+    list(GET test_info 0 _test_exe_name)
+    if(len EQUAL 2)
+        list(GET test_info 1 _test_argument)
+    endif()
+
+    set(test_exe_name ${_test_exe_name})
+    set(test_argument ${_test_argument})
+
+endmacro()
 
 
 # -----------------------------------------------------------------------------
@@ -76,12 +115,17 @@ endfunction()
 
 
 # -----------------------------------------------------------------------------
-# add cmake test
+# advanced add cmake test which allows to pass separately:
+# test_name - the name of the test as appears on ctest summary table
+# text_exe  - actual executable name
+#
+# together with additional command line arguments for the test executable
+# TEST_ARGUMENTS - any command line argument
 # -----------------------------------------------------------------------------
-function(BORNAGAIN_ADD_TEST test)
-    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_DIR" "" "" ${ARGN})
-    add_test( ${test}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} "${ARG_INPUT_DIR}") # TestName ExeName
-    add_dependencies(check ${test})
+function(BORNAGAIN_ADD_TEST test_name test_exe)
+    CMAKE_PARSE_ARGUMENTS(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
+    add_test( ${test_name}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}") # TestName ExeName
+    add_dependencies(check ${test_exe})
 endfunction()
 
 

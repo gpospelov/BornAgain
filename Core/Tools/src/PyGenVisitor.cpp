@@ -439,8 +439,8 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorCylinder *cylinder
                  = dynamic_cast<const FormFactorCylinder *>(p_ff)) {
-            result << " = FormFactorCylinder(" << cylinder->getHeight() << "*nanometer, "
-                   << cylinder->getRadius() << "*nanometer)\n";
+            result << " = FormFactorCylinder(" << cylinder->getRadius() << "*nanometer, "
+                   << cylinder->getHeight() << "*nanometer)\n";
         }
 
         else if (const FormFactorEllipsoidalCylinder *ellipsoidalCylinder
@@ -529,7 +529,7 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorRipple2 *ripple2 = dynamic_cast<const FormFactorRipple2 *>(p_ff)) {
             result << " = FormFactorRipple2(" << ripple2->getLength() << "*nanometer, "
-                   << ripple2->getWidth() << "*nanometer, " << ripple2->getHeight() << "nanometer, "
+                   << ripple2->getWidth() << "*nanometer, " << ripple2->getHeight() << "*nanometer, "
                    << ripple2->getAsymmetry() << "*nanometer)\n";
         }
 

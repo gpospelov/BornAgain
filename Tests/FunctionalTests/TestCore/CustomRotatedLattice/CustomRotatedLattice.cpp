@@ -7,8 +7,6 @@
 
 int main(int argc, char **argv)
 {
-    if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
-
     SimulationRegistry sim_registry;
     GISASSimulation* simulation = sim_registry.createSimulation("isgisaxs06d");
 

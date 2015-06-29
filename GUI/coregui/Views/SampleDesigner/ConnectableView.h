@@ -49,7 +49,7 @@ public:
     //! connects input port with given index with output port of other view
     void connectInputPort(ConnectableView *other, int port_number);
 
-    QList<NodeEditorPort *> getInputPorts() { return m_output_ports; }
+    QList<NodeEditorPort *> getInputPorts() { return m_input_ports; }
     QList<NodeEditorPort *> getOutputPorts() { return m_output_ports; }
 
     int getInputPortIndex(NodeEditorPort *port);

@@ -36,14 +36,8 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
-    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-    if (port == ParameterizedItem::PortInfo::PORT_1) {
-        ParameterizedItem *p_position_item = item->getSubItems()[ParticleItem::P_POSITION];
-        p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
-        p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
-        p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
-        item->setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+    if (item->modelType()==Constants::ParticleType) {
+        item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+        item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
     }
 }

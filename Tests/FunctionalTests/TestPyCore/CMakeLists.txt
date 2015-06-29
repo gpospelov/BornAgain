@@ -45,7 +45,7 @@ set(list_of_tests
     "ripple1.py"
     "customformfactor.py"
     "montecarlo_integration.py"
-    "beam_divergence.py"
+#    "beam_divergence.py"
     "detector_resolution.py"
 )
 

@@ -17,7 +17,6 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     registerProperty(P_FIRSTPOINTYVALUE, 0.0);
 
     addToValidChildren(Constants::PointType);
-
 }
 
 void PolygonItem::setColor(int color)

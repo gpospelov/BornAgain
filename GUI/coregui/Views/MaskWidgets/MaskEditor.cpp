@@ -36,7 +36,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
-    m_scene->setSceneRect(m_view->viewport()->rect());
+    m_scene->setSceneRect(m_view->viewport()->frameGeometry());
 
 
 

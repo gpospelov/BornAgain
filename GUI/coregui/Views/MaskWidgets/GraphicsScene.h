@@ -85,5 +85,6 @@ private:
     int m_numberOfRectangle;
     int m_numberOfEllipse;
     int m_numberOfPolygon;
+
 };
 #endif

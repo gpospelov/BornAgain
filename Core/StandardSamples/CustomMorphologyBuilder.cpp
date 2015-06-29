@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS07Builder.cpp
-//! @brief     Implements class IsGISAXS07Builder.
+//! @file      StandardSamples/CustomMorphologyBuilder.cpp
+//! @brief     Implements class CustomMorphologyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS07Builder.h"
+#include "CustomMorphologyBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -26,12 +26,12 @@
 #include <iostream>
 #include <cmath>
 
-IsGISAXS07Builder::IsGISAXS07Builder()
+CustomMorphologyBuilder::CustomMorphologyBuilder()
 {
 }
 
 
-ISample *IsGISAXS07Builder::buildSample() const
+ISample *CustomMorphologyBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

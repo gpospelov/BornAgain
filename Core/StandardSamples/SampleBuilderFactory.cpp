@@ -18,20 +18,19 @@
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
 #include "TwoDimLatticeBuilder.h"
-#include "IsGISAXS07Builder.h"
+#include "CustomMorphologyBuilder.h"
 #include "RotatedPyramidsBuilder.h"
 #include "IsGISAXS10Builder.h"
 #include "CoreShellParticleBuilder.h"
 #include "ParticlesInSSCABuilder.h"
-#include "MesoCrystal01Builder.h"
+#include "MesoCrystalBuilder.h"
 #include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "ParticleCompositionBuilder.h"
-#include "Ripple2Builder.h"
-#include "Ripple1Builder.h"
 #include "ParticleInTheAirBuilder.h"
 #include "ParticleDistributionsBuilder.h"
+#include "RipplesBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -91,13 +90,13 @@ SampleBuilderFactory::SampleBuilderFactory()
         "2D lattice rotated");
 
     registerItem(
-        "isgisaxs06d",
-        IFactoryCreateFunction<IsGISAXS06Lattice4Builder, ISampleBuilder>,
+        "CustomRotatedLatticeBuilder",
+        IFactoryCreateFunction<CustomRotatedLatticeBuilder, ISampleBuilder>,
         "2D lattice variants");
 
     registerItem(
-        "isgisaxs07",
-        IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
+        "CustomMorphologyBuilder",
+        IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
@@ -131,13 +130,13 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Size spacing correlation approximation");
 
     registerItem(
-        "mesocrystal01",
-        IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
+        "MesoCrystalBuilder",
+        IFactoryCreateFunction<MesoCrystalBuilder, ISampleBuilder>,
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
-        "polmagcylinders1",
-        IFactoryCreateFunction<PolarizedDWBAMagCylinders1Builder, ISampleBuilder>,
+        "MagneticParticleZeroFieldBuilder",
+        IFactoryCreateFunction<MagneticParticleZeroFieldBuilder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
     registerItem(
         "polmagcylinders2",
@@ -155,13 +154,13 @@ SampleBuilderFactory::SampleBuilderFactory()
       "cylinder and prisms using multiple layouts");
 
     registerItem(
-        "ripple2",
-        IFactoryCreateFunction<Ripple2Builder, ISampleBuilder>,
+        "TriangularRippleBuilder",
+        IFactoryCreateFunction<TriangularRippleBuilder, ISampleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
 
     registerItem(
-        "ripple1",
-        IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
+        "CosineRippleBuilder",
+        IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
     registerItem(

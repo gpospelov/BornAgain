@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MesoCrystal01Builder.cpp
-//! @brief     Implements class MesoCrystal01Builder.
+//! @file      StandardSamples/MesoCrystalBuilder.cpp
+//! @brief     Implements class MesoCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystal01Builder.h"
+#include "MesoCrystalBuilder.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "MultiLayer.h"
@@ -27,7 +27,7 @@
 #include <boost/scoped_ptr.hpp>
 
 
-MesoCrystal01Builder::MesoCrystal01Builder()
+MesoCrystalBuilder::MesoCrystalBuilder()
 : m_lattice_length_a(6.2091e+00*Units::nanometer)
 , m_lattice_length_c(6.5677e+00*Units::nanometer)
 , m_nanoparticle_radius(4.6976e+00*Units::nanometer)
@@ -45,7 +45,7 @@ MesoCrystal01Builder::MesoCrystal01Builder()
 }
 
 
-void MesoCrystal01Builder::init_parameters()
+void MesoCrystalBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("meso_radius",& m_meso_radius);
@@ -65,7 +65,7 @@ void MesoCrystal01Builder::init_parameters()
 
 
 // create mesocrystal
-ISample* MesoCrystal01Builder::buildSample() const
+ISample* MesoCrystalBuilder::buildSample() const
 {
     // create mesocrystal
     double surface_density = m_surface_filling_ratio/Units::PI/m_meso_radius/m_meso_radius;
@@ -133,7 +133,7 @@ ISample* MesoCrystal01Builder::buildSample() const
 
 
 
-MesoCrystal* MesoCrystal01Builder::createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
+MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
         const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(stacking_radius_a, stacking_radius_c);
@@ -162,7 +162,7 @@ MesoCrystal* MesoCrystal01Builder::createMesoCrystal(double stacking_radius_a, d
 
 }
 
-const Lattice *MesoCrystal01Builder::createLattice(double stacking_radius_a, double stacking_radius_c) const
+const Lattice *MesoCrystalBuilder::createLattice(double stacking_radius_a, double stacking_radius_c) const
 {
     Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius_a*2.0, stacking_radius_c*2.0*2.3));
     p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));

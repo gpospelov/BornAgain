@@ -36,13 +36,12 @@ set(list_of_tests
 #    "IsGISAXS02"  # can be removed, TwoTypesCylindersDistribution
 #    "IsGISAXS10"  # can be removed, incliduign IsGISAXS10Builder, duplicates RadialParaCrystal
 #    "IsGISAXS15" # can be removed, ParticlesInSSCA
-
-#    "IsGISAXS06L4"
-#    "IsGISAXS07"
-#    "MesoCrystal1"
-    "PolDWBAMagCylinders1"
-#    "Ripple2"
-#    "Ripple1"
+#    "PolDWBAMagCylinders1" # can be removed
+#    "Ripple2", # can be removed
+#    "Ripple1", # can be removed
+#    "MesoCrystal1", can be removed
+#    "IsGISAXS06L4", can be removed, CustomRotatedLattice
+    "IsGISAXS07"
 )
 
 foreach(_test ${list_of_tests})
@@ -74,8 +73,14 @@ set(list_of_tests
 #    "CoreSuite/DetectorResolution"
 #    "CoreSuite/MultipleLayout"
 #    "CoreSuite/ParticlesInSSCA"
+#    "CoreSuite/CosineRipple"
+#    "CoreSuite/TriangularRipple"
+#    "CoreSuite/MesoCrystal"
+    "CoreSuite/CustomMorphology"
+#    "CoreSuite/MagneticParticleZeroField"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
+    "CustomRotatedLattice"
 )
 
 

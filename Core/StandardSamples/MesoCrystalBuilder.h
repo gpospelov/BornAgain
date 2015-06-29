@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MesoCrystal01Builder.h
-//! @brief     Defines class MesoCrystal01Builder.
+//! @file      StandardSamples/MesoCrystalBuilder.h
+//! @brief     Defines class MesoCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTAL01BUILDER_H
-#define MESOCRYSTAL01BUILDER_H
+#ifndef MESOCRYSTALBUILDER_H
+#define MESOCRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
 #include "Types.h"
@@ -23,17 +23,17 @@ class Lattice;
 class MesoCrystal;
 
 
-//! @class MesoCrystal01Builder
+//! @class MesoCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mesocrystals of cylindrical shape composed by
 //! spherical nanoparticles.
 
-class BA_CORE_API_  MesoCrystal01Builder : public ISampleBuilder
+class BA_CORE_API_  MesoCrystalBuilder : public ISampleBuilder
 {
 public:
-    MesoCrystal01Builder();
+    MesoCrystalBuilder();
 
-    virtual ~MesoCrystal01Builder(){}
+    virtual ~MesoCrystalBuilder(){}
     virtual ISample *buildSample() const;
 
 protected:
@@ -57,5 +57,5 @@ private:
 };
 
 
-#endif // MESOCRYSTAL01BUILDER_H
+#endif // MESOCRYSTALBUILDER_H
 

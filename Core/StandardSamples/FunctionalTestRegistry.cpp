@@ -147,6 +147,42 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("CosineRipple",
+        "Cosine ripple within radial paracrystal model",
+        "MiniGISAS",
+        "CosineRippleBuilder",
+        "None",
+        2e-10);
+
+    add("TriangularRipple",
+        "Triangular ripple within radial paracrystal model",
+        "MiniGISAS",
+        "TriangularRippleBuilder",
+        "None",
+        2e-10);
+
+    add("MesoCrystal",
+        "Cylindrical mesocrystal composed of spherical nano particles",
+        "MiniGISASForMeso",
+        "MesoCrystalBuilder",
+        "None",
+        2e-10);
+
+    add("CustomMorphology",
+        "Custom particle mixture a la isgisaxs morphology approach",
+        "MiniGISAS",
+        "CustomMorphologyBuilder",
+        "None",
+        2e-10);
+
+    add("MagneticParticleZeroField",
+        "Magnetic cylinders with zero field",
+        "MiniGISAS",
+        "MagneticParticleZeroFieldBuilder",
+        "None",
+        2e-10);
+
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

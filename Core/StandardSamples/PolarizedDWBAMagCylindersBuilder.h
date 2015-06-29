@@ -18,14 +18,14 @@
 
 #include "ISampleBuilder.h"
 
-//! @class PolarizedDWBAMagCylinders1Builder
+//! @class MagneticParticleZeroFieldBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
 
-class BA_CORE_API_ PolarizedDWBAMagCylinders1Builder : public ISampleBuilder
+class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
-    PolarizedDWBAMagCylinders1Builder();
+    MagneticParticleZeroFieldBuilder();
     ISample *buildSample() const;
 
 protected:

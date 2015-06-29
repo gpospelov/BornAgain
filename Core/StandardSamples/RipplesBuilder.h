@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/Ripple1Builder.h
-//! @brief     Defines class Ripple1Builder.
+//! @file      StandardSamples/RipplesBuilder.h
+//! @brief     Defines classes to build various ripples.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#ifndef RIPPLE1BUILDER_H
-#define RIPPLE1BUILDER_H
+#ifndef RIPPLESBUILDER_H
+#define RIPPLESBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class Ripple1Builder
+//! @class CosineRippleBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cosine ripple within the 1D-paracrystal model
 
-class BA_CORE_API_ Ripple1Builder : public ISampleBuilder
+class BA_CORE_API_ CosineRippleBuilder : public ISampleBuilder
 {
 public:
-    Ripple1Builder();
+    CosineRippleBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -40,4 +40,28 @@ private:
     double m_interf_width;
 };
 
-#endif // RIPPLE1BUILDER_H
+
+//! @class TriangularRippleBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: triangular ripple within the 1D-paracrystal model
+//! (from PRB 85, 235415, 2012)
+
+class BA_CORE_API_ TriangularRippleBuilder : public ISampleBuilder
+{
+public:
+    TriangularRippleBuilder();
+    ISample *buildSample() const;
+
+protected:
+    void init_parameters();
+
+private:
+    double m_w; //width
+    double m_h; //heigth
+    double m_l; //length
+    double m_d; //asymetry
+    double m_interf_distance;
+    double m_interf_width;
+};
+
+#endif // RIPPLESBUILDER_H

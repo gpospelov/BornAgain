@@ -97,6 +97,7 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "polmagcylinders1", StandardSimulations::PolarizedDWBAMagCylinders1,
         "Polarized DWBA with zero magnetic field");
+
     registerItem(
         "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
         "Polarized DWBA with non-zero magnetic field");
@@ -136,6 +137,9 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem("MiniGISASDetectorResolution", StandardSimulations::MiniGISASDetectorResolution,
                  "GISAS simulation with small detector and detector resolution");
+
+    registerItem("MiniGISASForMeso", StandardSimulations::MiniGISASForMeso,
+                 "GISAS simulation for meso crystal related tests");
 
     registerItem("IsGISAXSSimulation1", StandardSimulations::IsGISAXSSimulation1,
                  "Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]");

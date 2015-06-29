@@ -201,7 +201,7 @@ GISASSimulation *StandardSimulations::IsGISAXS06L3()
 GISASSimulation *StandardSimulations::IsGISAXS06L4()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06d");
+    SampleBuilder_t builder = factory.createBuilder("CustomRotatedLatticeBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -218,7 +218,7 @@ GISASSimulation *StandardSimulations::IsGISAXS06L4()
 GISASSimulation *StandardSimulations::IsGISAXS07()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs07");
+    SampleBuilder_t builder = factory.createBuilder("CustomMorphologyBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -355,7 +355,7 @@ GISASSimulation *StandardSimulations::IsGISAXS15()
 GISASSimulation *StandardSimulations::MesoCrystal01()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("mesocrystal01");
+    SampleBuilder_t builder = factory.createBuilder("MesoCrystalBuilder");
 
     GISASSimulation *result = new GISASSimulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
@@ -380,7 +380,7 @@ GISASSimulation *StandardSimulations::MesoCrystal01()
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("polmagcylinders1");
+    SampleBuilder_t builder = factory.createBuilder("MagneticParticleZeroFieldBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -438,7 +438,7 @@ GISASSimulation *StandardSimulations::LayerWithRoughness()
 GISASSimulation *StandardSimulations::Ripple2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ripple2");
+    SampleBuilder_t builder = factory.createBuilder("TriangularRippleBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -453,7 +453,7 @@ GISASSimulation *StandardSimulations::Ripple2()
 GISASSimulation *StandardSimulations::Ripple1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ripple1");
+    SampleBuilder_t builder = factory.createBuilder("CosineRippleBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -537,6 +537,13 @@ GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
     return result;
 }
 
+GISASSimulation *StandardSimulations::MiniGISASForMeso()
+{
+    GISASSimulation *result = MiniGISAS();
+    result->setBeamIntensity(5.0090e+12);
+    return result;
+}
+
 
 //! Typical IsGISAXS simulation with the detector phi[0,2], theta[-1,1]
 GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
@@ -549,6 +556,7 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
+
 
 
 

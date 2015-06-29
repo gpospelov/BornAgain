@@ -151,19 +151,19 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #4: variants
 // -----------------------------------------------------------------------------
-IsGISAXS06Lattice4Builder::IsGISAXS06Lattice4Builder()
+CustomRotatedLatticeBuilder::CustomRotatedLatticeBuilder()
     : m_xi(0.0)
 {
     init_parameters();
 }
 
-void IsGISAXS06Lattice4Builder::init_parameters()
+void CustomRotatedLatticeBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("xi", &m_xi);
 }
 
-ISample *IsGISAXS06Lattice4Builder::buildSample() const
+ISample *CustomRotatedLatticeBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
 

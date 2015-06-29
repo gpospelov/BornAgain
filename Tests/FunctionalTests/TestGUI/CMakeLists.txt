@@ -39,8 +39,10 @@ set(list_of_tests
 ##    "GUISuite/TwoTypesCylindersDistribution" # broken
 #    "GUISuite/BeamDivergence"
 #    "GUISuite/DetectorResolution"
-    "GUISuite/MultipleLayout"
+#    "GUISuite/MultipleLayout"
 #    "GUISuite/ParticlesInSSCA" # broken
+    "GUISuite/CosineRipple"
+    "GUISuite/TriangularRipple"
 )
 
 # ------------------------------------------------------------------------

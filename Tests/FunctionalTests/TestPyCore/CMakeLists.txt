@@ -73,8 +73,10 @@ set(list_of_tests
 #    "PySuite/TwoTypesCylindersDistribution"
 #    "PySuite/BeamDivergence"
 ##    "PySuite/DetectorResolution" # not yet implemented
-    "PySuite/MultipleLayout"
+#    "PySuite/MultipleLayout"
 #    "PySuite/ParticlesInSSCA"  # broken
+    "PySuite/CosineRipple"
+    "PySuite/TriangularRipple"
 )
 
 

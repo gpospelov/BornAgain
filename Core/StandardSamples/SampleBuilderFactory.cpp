@@ -20,7 +20,6 @@
 #include "TwoDimLatticeBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "RotatedPyramidsBuilder.h"
-#include "IsGISAXS10Builder.h"
 #include "CoreShellParticleBuilder.h"
 #include "ParticlesInSSCABuilder.h"
 #include "MesoCrystalBuilder.h"
@@ -34,7 +33,6 @@
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
-
     registerItem(
         "CylindersAndPrismsBuilder",
         IFactoryCreateFunction<CylindersAndPrismsBuilder, ISampleBuilder>,
@@ -99,25 +97,25 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");
 
-    registerItem(
-        "isgisaxs08a",
-        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
-        "2DDL paracrystal lattice");
+//    registerItem(
+//        "isgisaxs08a",
+//        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
+//        "2DDL paracrystal lattice");
 
-    registerItem(
-        "isgisaxs08b",
-        IFactoryCreateFunction<IsGISAXS08BBuilder, ISampleBuilder>,
-        "2D paracrystal lattice with isotropic pdfs");
+//    registerItem(
+//        "isgisaxs08b",
+//        IFactoryCreateFunction<IsGISAXS08BBuilder, ISampleBuilder>,
+//        "2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
         "RotatedPyramidsBuilder",
         IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
-    registerItem(
-        "isgisaxs10",
-        IFactoryCreateFunction<IsGISAXS10Builder, ISampleBuilder>,
-        "Cylinders on top of substrate with interference");
+//    registerItem(
+//        "isgisaxs10",
+//        IFactoryCreateFunction<IsGISAXS10Builder, ISampleBuilder>,
+//        "Cylinders on top of substrate with interference");
 
     registerItem(
         "CoreShellParticleBuilder",
@@ -138,6 +136,7 @@ SampleBuilderFactory::SampleBuilderFactory()
         "MagneticParticleZeroFieldBuilder",
         IFactoryCreateFunction<MagneticParticleZeroFieldBuilder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
+
     registerItem(
         "polmagcylinders2",
         IFactoryCreateFunction<PolarizedDWBAMagCylinders2Builder, ISampleBuilder>,
@@ -167,10 +166,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
-
-    // ---------------------------------------------------------------------------------------------
-    // toward functional tests refactoring
-    // ---------------------------------------------------------------------------------------------
 
     registerItem(
         "ParticleInTheAirBuilder",

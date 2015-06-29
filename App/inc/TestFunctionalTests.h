@@ -18,7 +18,7 @@
 
 
 #include "IApplicationTest.h"
-#include "ObsoleteFunctionalTestRegistry.h"
+#include "FunctionalTestRegistry.h"
 #include <string>
 #include <vector>
 
@@ -36,7 +36,7 @@ private:
     //! read names of functional tests from command line and check if they are Ok
     bool readTestNames();
 
-    ObsoleteFunctionalTestRegistry m_testRegistry;
+    FunctionalTestRegistry m_testRegistry;
     std::vector<std::string> m_testNames;
 };
 

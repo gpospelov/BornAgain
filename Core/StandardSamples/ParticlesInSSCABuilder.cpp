@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS15Builder.cpp
-//! @brief     Implements class IsGISAXS15Builder.
+//! @file      StandardSamples/ParticlesInSSCABuilder.cpp
+//! @brief     Implements class ParticlesInSSCABuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXS15Builder.h"
+#include "ParticlesInSSCABuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -24,11 +24,11 @@
 #include "ParticleDistribution.h"
 
 
-IsGISAXS15Builder::IsGISAXS15Builder()
+ParticlesInSSCABuilder::ParticlesInSSCABuilder()
 {
 }
 
-ISample *IsGISAXS15Builder::buildSample() const
+ISample *ParticlesInSSCABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

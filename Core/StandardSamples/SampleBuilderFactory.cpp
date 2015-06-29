@@ -22,7 +22,7 @@
 #include "RotatedPyramidsBuilder.h"
 #include "IsGISAXS10Builder.h"
 #include "CoreShellParticleBuilder.h"
-#include "IsGISAXS15Builder.h"
+#include "ParticlesInSSCABuilder.h"
 #include "MesoCrystal01Builder.h"
 #include "MultipleLayoutBuilder.h"
 #include "PolarizedDWBAMagCylindersBuilder.h"
@@ -126,8 +126,8 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Core shell nanoparticles");
 
     registerItem(
-        "isgisaxs15",
-        IFactoryCreateFunction<IsGISAXS15Builder, ISampleBuilder>,
+        "ParticlesInSSCABuilder",
+        IFactoryCreateFunction<ParticlesInSSCABuilder, ISampleBuilder>,
         "Size spacing correlation approximation");
 
     registerItem(

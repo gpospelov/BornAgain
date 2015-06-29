@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS15Builder.h
-//! @brief     Defines class IsGISAXS15Builder.
+//! @file      StandardSamples/ParticlesInSSCABuilder.h
+//! @brief     Defines class ParticlesInSSCABuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,21 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS15BUILDER_H
-#define ISGISAXS15BUILDER_H
+#ifndef PARTICLESINSSCABUILDER_H
+#define PARTICLESINSSCABUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! @class IsGISAXS15Builder
+//! @class ParticlesInSCCABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: size spacing correlation approximation
 //! (IsGISAXS example #15)
 
-class BA_CORE_API_ IsGISAXS15Builder : public ISampleBuilder
+class BA_CORE_API_ ParticlesInSSCABuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS15Builder();
+    ParticlesInSSCABuilder();
     ISample *buildSample() const;
 };
 
-#endif // ISGISAXS15BUILDER_H
+#endif // PARTICLESINSSCABUILDER_H

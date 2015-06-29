@@ -73,7 +73,6 @@ ISample *RadialParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-
 // -----------------------------------------------------------------------------
 // HexParaCrystalBuilder
 // -----------------------------------------------------------------------------

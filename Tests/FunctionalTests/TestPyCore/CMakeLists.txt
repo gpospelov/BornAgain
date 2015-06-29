@@ -60,8 +60,8 @@ set(list_of_tests
 #    "PySuite/CylindersAndPrisms"
 #    "PySuite/FormFactors"
 #    "PySuite/RadialParaCrystal"
-    "PySuite/HexParaCrystal"
-    "PySuite/RectParaCrystal" # failing
+#    "PySuite/HexParaCrystal"
+#    "PySuite/RectParaCrystal" # broken
 #    "PySuite/CoreShellParticle"
 #    "PySuite/MultiLayerWithRoughness"
 #    "PySuite/SquareLattice"
@@ -69,11 +69,12 @@ set(list_of_tests
 #    "PySuite/RotatedSquareLattice"
 #    "PySuite/RotatedPyramids"
 #    "PySuite/ParticleComposition"
-    "PySuite/CylindersWithSizeDistribution"
-    "PySuite/TwoTypesCylindersDistribution"
+#    "PySuite/CylindersWithSizeDistribution"
+#    "PySuite/TwoTypesCylindersDistribution"
 #    "PySuite/BeamDivergence"
 ##    "PySuite/DetectorResolution" # not yet implemented
-#    "PySuite/MultipleLayout"
+    "PySuite/MultipleLayout"
+#    "PySuite/ParticlesInSSCA"  # broken
 )
 
 

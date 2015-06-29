@@ -338,7 +338,7 @@ GISASSimulation *StandardSimulations::IsGISAXS11()
 GISASSimulation *StandardSimulations::IsGISAXS15()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs15");
+    SampleBuilder_t builder = factory.createBuilder("ParticlesInSSCABuilder");
 
     GISASSimulation *result = new GISASSimulation();
 

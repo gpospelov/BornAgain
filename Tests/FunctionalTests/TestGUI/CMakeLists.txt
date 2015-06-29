@@ -27,7 +27,7 @@ set(list_of_tests
 #    "GUISuite/CylindersAndPrisms"
 #    "GUISuite/RadialParaCrystal"
 #    "GUISuite/HexParaCrystal"
-    "GUISuite/RectParaCrystal"
+#    "GUISuite/RectParaCrystal"
 #    "GUISuite/CoreShellParticle"
 #    "GUISuite/MultiLayerWithRoughness"
 #    "GUISuite/SquareLattice"
@@ -40,6 +40,7 @@ set(list_of_tests
 #    "GUISuite/BeamDivergence"
 #    "GUISuite/DetectorResolution"
     "GUISuite/MultipleLayout"
+#    "GUISuite/ParticlesInSSCA" # broken
 )
 
 # ------------------------------------------------------------------------

@@ -33,18 +33,16 @@ set(list_of_tests
 #    "CylindersInDWBA" # can be removed
 #    "IsGISAXS08a" # can be removed, RectParaCrystal
 #    "IsGISAXS08b" # can be removed, duplicates IsGISAXS08a
-#    "IsGISAXS02"  # can be removed, TwoTypesCylindersDistributio
+#    "IsGISAXS02"  # can be removed, TwoTypesCylindersDistribution
+#    "IsGISAXS10"  # can be removed, incliduign IsGISAXS10Builder, duplicates RadialParaCrystal
+#    "IsGISAXS15" # can be removed, ParticlesInSSCA
 
 #    "IsGISAXS06L4"
 #    "IsGISAXS07"
-#    "IsGISAXS10"
-#    "IsGISAXS15"
 #    "MesoCrystal1"
-#    "PolDWBAMagCylinders1"
-#    "PolDWBAMagCylinders2"
+    "PolDWBAMagCylinders1"
 #    "Ripple2"
 #    "Ripple1"
-#    "BatchSimulation"
 )
 
 foreach(_test ${list_of_tests})
@@ -61,8 +59,8 @@ set(list_of_tests
 #    "CoreSuite/FormFactors"
 #    "CoreSuite/CylindersAndPrisms"
 #    "CoreSuite/RadialParaCrystal"
-    "CoreSuite/HexParaCrystal"
-    "CoreSuite/RectParaCrystal"
+#    "CoreSuite/HexParaCrystal"
+#    "CoreSuite/RectParaCrystal"
 #    "CoreSuite/CoreShellParticle"
 #    "CoreSuite/MultiLayerWithRoughness"
 #    "CoreSuite/SquareLattice"
@@ -71,10 +69,13 @@ set(list_of_tests
 #    "CoreSuite/RotatedPyramids"
 #    "CoreSuite/ParticleComposition"
 #    "CoreSuite/CylindersWithSizeDistribution"
-    "CoreSuite/TwoTypesCylindersDistribution"
+#    "CoreSuite/TwoTypesCylindersDistribution"
 #    "CoreSuite/BeamDivergence"
 #    "CoreSuite/DetectorResolution"
 #    "CoreSuite/MultipleLayout"
+#    "CoreSuite/ParticlesInSSCA"
+    "BatchSimulation"
+    "PolDWBAMagCylinders2"
 )
 
 

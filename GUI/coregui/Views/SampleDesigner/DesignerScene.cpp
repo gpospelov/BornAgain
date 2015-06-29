@@ -353,8 +353,10 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     ConnectableView *parentView = connection->getParentView();
     ConnectableView *childView = connection->getChildView();
 
-    childView->getParameterizedItem()->setRegisteredProperty(
-        ParameterizedItem::P_PORT, parentView->getInputPortIndex(connection->getInputPort()));
+    int input_port_index = parentView->getInputPortIndex(connection->getInputPort());
+
+    childView->getParameterizedItem()->setRegisteredProperty(ParameterizedItem::P_PORT,
+                                                             input_port_index);
     qDebug() << parentView->getInputPortIndex(connection->getInputPort());
     delete connection; // deleting just created connection because it will be recreated from the
                        // model

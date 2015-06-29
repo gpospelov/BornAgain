@@ -32,8 +32,6 @@ class ISampleIteratorStrategy;
 class IteratorState
 {
 public:
-    typedef typename std::list<const ISample*>::const_iterator const_iterator_t;
-
     IteratorState(const ISample* single_element);
     IteratorState(std::vector<const ISample*> samples);
 
@@ -84,7 +82,7 @@ protected:
 //! @brief Iterator through ISample tree of objects inside ISample object.
 //!
 //! Usage example:
-//!    SampleTreeIterator it(&sample);
+//!    SampleTreeIterator<Strategy> it(&sample);
 //!    it.first();
 //!    while( !it.is_done() ) {
 //!        ISample *p_sample = it.get_current();

@@ -80,6 +80,7 @@ private:
     void connectSignals();
     void clearSignalMapper();
     void setCurrentIndex(const QModelIndex &index);
+    QModelIndex getIndexAtColumnZero(const QModelIndex &index);
 
     SampleModel *getSampleModel();
     QTreeView *getTreeView();

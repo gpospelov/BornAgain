@@ -27,6 +27,8 @@ public:
     explicit ParticleCoreShellItem(ParameterizedItem *parent=0);
     ~ParticleCoreShellItem(){}
     void insertChildItem(int row, ParameterizedItem *item);
+private:
+    PortInfo::EPorts getFirstAvailableParticlePort() const;
 };
 
 

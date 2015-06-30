@@ -28,6 +28,7 @@ public:
     static const QString P_POSITION;
     explicit ParticleItem(ParameterizedItem *parent=0);
     ~ParticleItem(){}
+    void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // PARTICLEITEM_H

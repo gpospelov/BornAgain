@@ -27,7 +27,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
     setItemName(Constants::ParticleType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
+
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
@@ -36,8 +36,18 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
-
     setPropertyAppearance(ParameterizedItem::P_NAME,
                           PropertyAttribute::VISIBLE);
+}
+
+void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::TransformationType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
 }
 

@@ -32,11 +32,11 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     m_label_vspace = 45;
 }
 
-
 void ParticleCoreShellView::addView(IView *childView, int /* row */)
 {
-    int index = childView->getParameterizedItem()->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+    int index = childView->getParameterizedItem()
+                    ->getRegisteredProperty(ParameterizedItem::P_PORT)
+                    .toInt();
     qDebug() << "ParticleCoreShellView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
-
 }

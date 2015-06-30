@@ -25,7 +25,6 @@ TransformationItem::TransformationItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::TransformationType, parent)
 {
     setItemName(Constants::TransformationType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerGroupProperty(P_ROT, Constants::RotationGroup );
 }

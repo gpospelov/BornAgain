@@ -24,7 +24,7 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
 {
     setItemName(Constants::ParticleCoreShellType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
+
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
@@ -35,9 +35,38 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
+    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+    PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
     ParameterizedItem::insertChildItem(row, item);
     if (item->modelType()==Constants::ParticleType) {
         item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
         item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+        if (port == PortInfo::DEFAULT && first_available_particle_port != PortInfo::DEFAULT) {
+            item->setItemPort(first_available_particle_port);
+        }
     }
+}
+
+ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
+{
+    PortInfo::EPorts result = PortInfo::DEFAULT;
+    QList<PortInfo::EPorts> used_particle_ports;
+    QList<ParameterizedItem *> children = childItems();
+    for (QList<ParameterizedItem *>::const_iterator it = children.begin();
+         it != children.end(); ++it) {
+        ParameterizedItem *item = *it;
+        if (item->modelType() == Constants::ParticleType) {
+            PortInfo::EPorts port
+                = (PortInfo::EPorts)item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            used_particle_ports.append(port);
+        }
+    }
+    if (used_particle_ports.size() < 2) {
+        if (!used_particle_ports.contains(PortInfo::PORT_0)) {
+            result = PortInfo::PORT_0;
+        } else {
+            result = PortInfo::PORT_1;
+        }
+    }
+    return result;
 }

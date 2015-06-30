@@ -20,7 +20,6 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCompositionType, parent)
 {
     setItemName(Constants::ParticleCompositionType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
@@ -34,6 +33,14 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType) {
+        item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+        item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
 }

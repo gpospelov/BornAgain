@@ -56,6 +56,7 @@ private:
     GraphicsScene *m_scene;
     GraphicsView *m_view;
     GraphicsProxyWidget *m_widget;
+    QVBoxLayout *m_buttonLayout;
 };
 
 #endif

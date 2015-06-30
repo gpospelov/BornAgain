@@ -24,11 +24,6 @@ RectangleView::RectangleView() : m_resizeMode(false), m_rotationMode(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemIgnoresTransformations, false);
-    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
-    connect(this, SIGNAL(xChanged()), this, SLOT(onXValueChanged()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onYValueChanged()));
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -326,7 +321,7 @@ void RectangleView::setParameterizedItem(ParameterizedItem *item)
             SLOT(onPropertyChange(const QString &)));
 }
 
-void RectangleView::onXValueChanged()
+void RectangleView::onChangedX()
 {
     m_block_update = true;
     qDebug() << "onXValueChanged(double xValue)-> x value changed" << x()
@@ -335,7 +330,7 @@ void RectangleView::onXValueChanged()
     m_block_update = false;
 }
 
-void RectangleView::onYValueChanged()
+void RectangleView::onChangedY()
 {
     m_block_update = true;
     qDebug() << "onYValueChanged(double yValue)-> y value changed" << y()

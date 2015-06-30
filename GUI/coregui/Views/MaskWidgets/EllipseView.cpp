@@ -9,10 +9,6 @@ EllipseView::EllipseView()
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIgnoresTransformations, false);
-    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
-    connect(this, SIGNAL(xChanged()), this, SLOT(onXValueChanged()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onYValueChanged()));
 }
 
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -307,7 +303,7 @@ void EllipseView::setParameterizedItem(ParameterizedItem *item)
             SLOT(onPropertyChange(const QString &)));
 }
 
-void EllipseView::onXValueChanged()
+void EllipseView::onChangedX()
 {
     m_block_update = true;
     qDebug() << "onXValueChanged(double xValue)-> x value changed" << x();
@@ -315,7 +311,7 @@ void EllipseView::onXValueChanged()
     m_block_update = false;
 }
 
-void EllipseView::onYValueChanged()
+void EllipseView::onChangedY()
 {
     m_block_update = true;
     qDebug() << "onYValueChanged(double yValue)-> y value changed" << y();

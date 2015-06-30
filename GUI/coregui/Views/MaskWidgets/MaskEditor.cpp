@@ -25,6 +25,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
     , m_scene(new GraphicsScene)
     , m_view(new GraphicsView)
+    , m_buttonLayout(new QVBoxLayout)
 {
 
     setMouseTracking(true);
@@ -128,11 +129,10 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     // create widget with buttons
     QWidget *buttons = new QWidget;
-    QVBoxLayout *buttonLayout = new QVBoxLayout;
-    buttonLayout->addWidget(drawingMode);
-    buttonLayout->addWidget(selectionMode);
-    buttonLayout->addStretch(1);
-    buttons->setLayout(buttonLayout);
+    m_buttonLayout->addWidget(drawingMode);
+    m_buttonLayout->addWidget(selectionMode);
+    m_buttonLayout->addStretch(1);
+    buttons->setLayout(m_buttonLayout);
 
 
 
@@ -141,11 +141,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
-    QTreeView *treeView = new QTreeView;
-    m_scene->setTreeView(treeView);
-    buttonLayout->addWidget(treeView);
-
-
 }
 
 void MaskEditor::rectangleButtonPressed()
@@ -253,6 +248,9 @@ void MaskEditor::changeToDrawingMode()
 void MaskEditor::setModel(MaskModel *maskModel)
 {
     m_scene->setModel(maskModel);
+    QTreeView *treeView = new QTreeView;
+    m_scene->setTreeView(treeView);
+    m_buttonLayout->addWidget(treeView);
 }
 
 

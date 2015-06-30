@@ -54,8 +54,8 @@ public:
     ParameterizedItem *getParameterizedItem();
     void setParameterizedItem(ParameterizedItem *item);
 public slots:
-    void onXValueChanged();
-    void onYValueChanged();
+    void onChangedX();
+    void onChangedY();
     void onPropertyChange(const QString &propertyName);
 protected:
     //! paintEvent paints Rectangle and corners

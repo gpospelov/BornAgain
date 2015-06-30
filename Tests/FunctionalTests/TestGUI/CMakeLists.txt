@@ -23,26 +23,26 @@ include_directories(
 )
 
 set(list_of_tests
-#    "GUISuite/FormFactors"
-#    "GUISuite/CylindersAndPrisms"
-#    "GUISuite/RadialParaCrystal"
+    "GUISuite/FormFactors"
+    "GUISuite/CylindersAndPrisms"
+    "GUISuite/RadialParaCrystal"
     "GUISuite/HexParaCrystal"
     "GUISuite/RectParaCrystal"
-#    "GUISuite/CoreShellParticle"
-#    "GUISuite/MultiLayerWithRoughness"
-#    "GUISuite/SquareLattice"
-#    "GUISuite/CenteredSquareLattice"
-#    "GUISuite/RotatedSquareLattice"
-#    "GUISuite/RotatedPyramids"
-#    "GUISuite/ParticleComposition"
-#    "GUISuite/CylindersWithSizeDistribution"
-##    "GUISuite/TwoTypesCylindersDistribution" # broken
-#    "GUISuite/BeamDivergence"
-#    "GUISuite/DetectorResolution"
-#    "GUISuite/MultipleLayout"
-##    "GUISuite/ParticlesInSSCA" # broken
-#    "GUISuite/CosineRipple"
-#    "GUISuite/TriangularRipple"
+    "GUISuite/CoreShellParticle"
+    "GUISuite/MultiLayerWithRoughness"
+    "GUISuite/SquareLattice"
+    "GUISuite/CenteredSquareLattice"
+    "GUISuite/RotatedSquareLattice"
+    "GUISuite/RotatedPyramids"
+    "GUISuite/ParticleComposition"
+    "GUISuite/CylindersWithSizeDistribution"
+    "GUISuite/TwoTypesCylindersDistribution"
+    "GUISuite/BeamDivergence"
+    "GUISuite/DetectorResolution"
+    "GUISuite/MultipleLayout"
+#    "GUISuite/ParticlesInSSCA" # broken
+    "GUISuite/CosineRipple"
+    "GUISuite/TriangularRipple"
 )
 
 # Adding executables.

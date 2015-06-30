@@ -110,6 +110,13 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item, doubl
 {
     boost::scoped_ptr<IMaterial> P_material(createDomainMaterial(item));
     Particle *result = new Particle(*P_material);
+
+    PropertyAttribute attribute = item.getPropertyAttribute(ParticleItem::P_ABUNDANCE);
+//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
+//        throw GUIHelpers::Error("TransformToDomain::createParticle() -> Logic Error? "
+//            "You are trying to get the value of DISABLED abundancy for model "+ item.modelType());
+//    }
+
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     result->setName(item.itemName().toStdString());
 

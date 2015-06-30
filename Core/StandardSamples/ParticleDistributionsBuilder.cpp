@@ -126,10 +126,10 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
     DistributionGaussian gauss2(m_radius2, sigma2);
 
     // building distribution of nano particles
-    ParameterDistribution par_distr1("*/radius", gauss1, nbins, n_sigma);
+    ParameterDistribution par_distr1("/Particle/FormFactorCylinder/radius", gauss1, nbins, n_sigma);
     ParticleDistribution particle_collection1(cylinder1, par_distr1);
     particle_layout.addParticle(particle_collection1, 0.95);
-    ParameterDistribution par_distr2("*/radius", gauss2, nbins, n_sigma);
+    ParameterDistribution par_distr2("/Particle/FormFactorCylinder/radius", gauss2, nbins, n_sigma);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
     particle_layout.addParticle(particle_collection2, 0.05);
 

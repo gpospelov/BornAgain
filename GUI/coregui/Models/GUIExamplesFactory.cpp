@@ -40,8 +40,9 @@ QMap<QString, QString > init_NameToRegistry()
 
     // temporary for testing
     //result["example09"] = "MultipleLayoutBuilder";
-    //result["example09"] = "TwoTypesCylindersDistributionBuilder";
+    result["example09"] = "TwoTypesCylindersDistributionBuilder";
     //result["example09"] = "RectParaCrystalBuilder";
+
 
     return result;
 }

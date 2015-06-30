@@ -112,6 +112,7 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(const ParameterizedItem
                 }
                 if (grandchildren[0]->modelType() == Constants::ParticleType) {
                     ParameterizedItem *particle_item = grandchildren[0];
+                    particle_item->print();
                     boost::scoped_ptr<Particle> P_particle(
                         buildParticle(*particle_item, abundance));
                     if (P_particle.get()) {
@@ -239,16 +240,20 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
         return p_result;
     }
     boost::scoped_ptr<IParticle> P_particle;
+
+    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+
+    double disabled_abundance(0);
     for(int i=0; i<children.size(); ++i) {
         ParameterizedItem *p_child = children[i];
         if (p_child->modelType() == Constants::ParticleType) {
-            P_particle.reset(buildParticle(*p_child, abundance));
+            P_particle.reset(buildParticle(*p_child, disabled_abundance));
             break;
         } else if (p_child->modelType() == Constants::ParticleCoreShellType) {
-            P_particle.reset(buildParticleCoreShell(*p_child, abundance));
+            P_particle.reset(buildParticleCoreShell(*p_child, disabled_abundance));
             break;
         } else if (p_child->modelType() == Constants::ParticleCompositionType) {
-            P_particle.reset(buildParticleComposition(*p_child, abundance));
+            P_particle.reset(buildParticleComposition(*p_child, disabled_abundance));
             break;
         }
     }

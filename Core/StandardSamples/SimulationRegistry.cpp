@@ -116,6 +116,9 @@ SimulationRegistry::SimulationRegistry()
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS,
                  "Basic GISAS simulation with the detector phi[0,2], theta[0,2]");
 
+    registerItem("BasicGISAS00", StandardSimulations::BasicGISAS00,
+                 "Basic GISAS for polarization studies");
+
     registerItem("MiniGISAS", StandardSimulations::MiniGISAS,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]");
 
@@ -127,6 +130,12 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem("MiniGISASForMeso", StandardSimulations::MiniGISASForMeso,
                  "GISAS simulation for meso crystal related tests");
+
+    registerItem("MaxiGISAS", StandardSimulations::MaxiGISAS,
+                 "GISAS simulation with large detector to test performance");
+    registerItem("MaxiGISAS00", StandardSimulations::MaxiGISAS00,
+                 "GISAS simulation with large detector to test performance");
+
 
     registerItem("IsGISAXSSimulation1", StandardSimulations::IsGISAXSSimulation1,
                  "Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]");

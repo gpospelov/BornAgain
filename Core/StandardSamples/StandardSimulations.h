@@ -27,10 +27,13 @@ GISASSimulation *PolarizedDWBAMagCylinders2();
 
 // new functional test machinery
 GISASSimulation *BasicGISAS();
+GISASSimulation *BasicGISAS00();
 GISASSimulation *MiniGISAS();
 GISASSimulation *MiniGISASBeamDivergence();
 GISASSimulation *MiniGISASDetectorResolution();
 GISASSimulation *MiniGISASForMeso();
+GISASSimulation *MaxiGISAS();
+GISASSimulation *MaxiGISAS00();
 GISASSimulation *IsGISAXSSimulation1();
 GISASSimulation *IsGISAXSSimulation2();
 

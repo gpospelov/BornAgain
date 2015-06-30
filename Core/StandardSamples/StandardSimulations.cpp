@@ -497,6 +497,17 @@ GISASSimulation *StandardSimulations::BasicGISAS()
     return result;
 }
 
+//! Basic GISAS for polarization studies
+GISASSimulation *StandardSimulations::BasicGISAS00()
+{
+    GISASSimulation *result = BasicGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, 1.0, 0.5);
+    return result;
+}
+
+
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2]
 GISASSimulation *StandardSimulations::MiniGISAS()
 {
@@ -536,6 +547,28 @@ GISASSimulation *StandardSimulations::MiniGISASForMeso()
 {
     GISASSimulation *result = MiniGISAS();
     result->setBeamIntensity(5.0090e+12);
+    return result;
+}
+
+
+//! GISAS simulation with large detector to test performance
+GISASSimulation *StandardSimulations::MaxiGISAS()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(256, -2.0*Units::degree, 2.0*Units::degree,
+                                     256, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    return result;
+}
+
+//! Basic GISAS for polarization studies
+GISASSimulation *StandardSimulations::MaxiGISAS00()
+{
+    GISASSimulation *result = MaxiGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, 1.0, 0.5);
     return result;
 }
 

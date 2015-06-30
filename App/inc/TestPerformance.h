@@ -24,66 +24,46 @@
 #include <map>
 #include <iostream>
 
-class PerformanceTest;
 
 //! Run standard tests to trace changes in the performance.
 
 class TestPerformance : public IApplicationTest
 {
 public:
+    class PerfTest {
+    public:
+        PerfTest(const std::string &name, const std::string &simulation_name,
+                 const std::string &sample_builder, size_t nrepetitions)
+            : m_test_name(name), m_simulation_name(simulation_name)
+            , m_sample_builder_name(sample_builder)
+            , m_nrepetitions(nrepetitions)
+            , m_cpu_time(0.0), m_real_time(0) {}
+        std::string m_test_name;
+        std::string m_simulation_name;
+        std::string m_sample_builder_name;
+        size_t m_nrepetitions;
+        double m_cpu_time;
+        double m_real_time;
+    };
+
     TestPerformance();
     virtual ~TestPerformance();
     virtual void execute();
+
 private:
+    void add(const std::string &name, const std::string &simulation_name,
+             const std::string &sample_builder, size_t nrepetitions);
+
+    void runTest(PerfTest *test);
+
     void write_results();
     void write_header(std::ofstream &file);
     void write_performance(std::ofstream &file);
-    void set_sysinfo(PerformanceTest *test);
-    std::vector<PerformanceTest *> m_tests;
-};
-
-
-//! class for performance measurements
-class PerformanceTest : public IApplicationTest {
-public:
-    PerformanceTest(const std::string &name, int nrepetitions)
-        : IApplicationTest(name)
-        , m_nrepetitions(nrepetitions)
-        , m_nthreads(0)
-        , m_cpu_time(0)
-        , m_real_time(0){}
-
-    virtual ~PerformanceTest(){}
-
-    virtual void execute();
-    virtual void runTests();
-
-    double m_nrepetitions;
-    int m_nthreads;
-    double m_cpu_time;
-    double m_real_time;
+    void init_sysinfo();
+    std::vector<PerfTest> m_tests;
     std::string m_datime;
     std::string m_hostname;
     std::string m_sysinfo;
-};
-
-
-//! custom test for specular matrix
-class SpecularMatrixPerformanceTest : public PerformanceTest
-{
-public:
-    SpecularMatrixPerformanceTest(const std::string &name, int nrepetitions)
-        : PerformanceTest(name, nrepetitions){}
-    virtual void runTests();
-};
-
-//! custom test for specular magnetic
-class SpecularMagneticPerformanceTest : public PerformanceTest
-{
-public:
-    SpecularMagneticPerformanceTest(const std::string &name, int nrepetitions)
-        : PerformanceTest(name, nrepetitions){}
-    virtual void runTests();
 };
 
 

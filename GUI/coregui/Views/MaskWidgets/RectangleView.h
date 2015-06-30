@@ -70,6 +70,8 @@ private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     bool m_block_update;
+    bool m_resizeMode;
+    bool m_rotationMode;
 };
 #endif
 

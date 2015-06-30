@@ -164,23 +164,23 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     // if one of the corners is clicked then go in to resize Mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
+        m_resizeMode = true;
         m_corner = TOPLEFT;
         setCursor(Qt::SizeFDiagCursor);
 
     } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
+        m_resizeMode = true;
         m_corner = BOTTOMLEFT;
         setCursor(Qt::SizeBDiagCursor);
 
     } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
+        m_resizeMode = true;
         m_corner = TOPRIGHT;
         setCursor(Qt::SizeBDiagCursor);
     }
 
     else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, true);
+        m_resizeMode = true;;
         m_corner = BOTTOMRIGHT;
         setCursor(Qt::SizeFDiagCursor);
 
@@ -193,14 +193,11 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "RectangleView::mouseMoveEvent()";
-
     // check which mode is active and process with the active mode
-    if (m_corner != NONE && m_item->getRegisteredProperty(EllipseItem::P_RESIZEMODE).toBool()) {
+    if (m_corner != NONE && m_resizeMode) {
         calculateResize(event);
 
-    } else if (m_corner != NONE
-               && m_item->getRegisteredProperty(EllipseItem::P_ROTATIONMODE).toBool()) {
+    } else if (m_corner != NONE && m_rotationMode) {
         QTransform transform;
         transform.translate(m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
                             m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
@@ -220,8 +217,8 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     // set all modes off, change cursor and process as usual
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
-    m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, false);
+    m_resizeMode =  false;
+    m_rotationMode = false;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
 }
@@ -230,37 +227,37 @@ void EllipseView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     // activate rotation mode
     if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
-        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
+        m_resizeMode =  false;
+        m_rotationMode = true;
         m_corner = TOPLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
-        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
+        m_resizeMode =  false;;
+        m_rotationMode = true;
         ;
         m_corner = BOTTOMLEFT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
-        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
+        m_resizeMode =  false;
+        m_rotationMode = true;
         m_corner = TOPRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
     }
 
     else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
-        m_item->setRegisteredProperty(EllipseItem::P_RESIZEMODE, false);
-        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, true);
+        m_resizeMode =  false;
+        m_rotationMode = true;
         m_corner = BOTTOMRIGHT;
         this->setFlag(QGraphicsItem::ItemIsMovable, false);
         setCursor(Qt::ClosedHandCursor);
 
     } else {
-        m_item->setRegisteredProperty(EllipseItem::P_ROTATIONMODE, false);
+        m_rotationMode = false;
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
         QGraphicsItem::mouseDoubleClickEvent(event);
     }

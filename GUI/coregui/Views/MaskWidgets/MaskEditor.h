@@ -24,9 +24,7 @@ class MaskEditor : public QWidget
     Q_OBJECT
 public:
     MaskEditor(QWidget *parent = 0);
-
-    // enum Activity {SELECT, CREATE_POLYGON, NONE}
-
+    void setModel(MaskModel *maskModel);
     virtual ~MaskEditor()
     {
     }

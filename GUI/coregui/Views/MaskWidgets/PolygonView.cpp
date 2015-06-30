@@ -7,16 +7,13 @@
 #include <cmath>
 
 PolygonView::PolygonView()
-    : m_firstPoint(QRectF()), m_changeCornerMode(false), m_corner(NONE), m_currentPoint1(0),
-      m_currentPoint2(0)
+    : m_changeCornerMode(false), m_indexOfCurrentSelectedPoint(0)
 
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable);
     this->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     this->cursor().setShape(Qt::ClosedHandCursor);
     this->setAcceptHoverEvents(true);
-    m_width = 100;
-    m_heigth = 100;
 }
 
 void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -29,22 +26,20 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
     // draws polygon
     for (int i = 0; i < points.length(); ++i) {
-        polygon << QPoint(points[i]->getRegisteredProperty(PointItem::P_POSX).toInt(),
-                          points[i]->getRegisteredProperty(PointItem::P_POSY).toInt());
+        polygon << QPoint(points[i]->getRegisteredProperty(PointItem::P_POSX).toReal(),
+                          points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
     }
     painter->drawPolyline(polygon);
 
     // fills polygon with a color
-    if (getFirstPoint().contains(getLastPoint()) && points.length() >= 2) {
+    if (getFirstPoint().center().x() == polygon[polygon.length() - 1].x() && getFirstPoint().center().y() == polygon[polygon.length() - 1].y() && points.length() >= 2) {
 
         QPainterPath path;
         QBrush transRed(QColor(0xFF, 0, 0, 0x80));
         QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
-        path.moveTo(points[0]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                    points[0]->getRegisteredProperty(PointItem::P_POSY).toReal());
-        for (int i = 1; i < points.length() - 1; ++i) {
-            path.lineTo(points[i]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                        points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
+        path.moveTo(polygon[0].x(),polygon[0].y());
+        for (int i = 1; i < polygon.length(); ++i) {
+            path.lineTo(polygon[i].x(), polygon[i].y());
         }
         painter->setPen(Qt::NoPen);
         if (m_item->getRegisteredProperty(PolygonItem::P_COLOR).toInt() == 0) {
@@ -57,10 +52,6 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     if (points.length() >= 1
         && m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
         pen.setWidth(1);
-        m_item->setRegisteredProperty(PolygonItem::P_FIRSTPOINTXVALUE,
-                                      points[0]->getRegisteredProperty(PointItem::P_POSX));
-        m_item->setRegisteredProperty(PolygonItem::P_FIRSTPOINTYVALUE,
-                                      points[0]->getRegisteredProperty(PointItem::P_POSY));
         if (m_item->getRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT).toBool()) {
             painter->fillRect(getFirstPoint(), Qt::green);
         } else {
@@ -76,13 +67,13 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         painter->drawRect(getTopRightCorner());
         painter->drawRect(getBottomRightCorner());
     }
+    // draw all points if item is finised with drawing and is selected
     if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {
         pen.setWidth(5);
         painter->setPen(pen);
         for (int i = 0; i < points.length() - 1; ++i) {
             painter->drawPoint(
-                QPointF(points[i]->getRegisteredProperty(PointItem::P_POSX).toReal(),
-                        points[i]->getRegisteredProperty(PointItem::P_POSY).toReal()));
+                QPointF(polygon[i].x(), polygon[i].y()));
         }
         painter->setPen(QPen());
     }
@@ -93,54 +84,22 @@ QRectF PolygonView::boundingRect() const
     if (m_item->childItems().length() >= 1) {
         return calculateBoundingRectangle();
     } else {
-        return QRectF(0, 0, m_width, m_heigth);
+        return QRectF(0, 0, 20, 20);
     }
 }
 
-// void PolygonView::setWidth(qreal width)
-//{
-//    m_width = width;
-//}
-
-// void PolygonView::setHeigth(qreal heigth)
-//{
-//    m_heigth = heigth;
-//}
-
-// void PolygonView::isDrawingMode(QPointF firstPoint)
-//{
-//    QPoint point(firstPoint.x(), firstPoint.y());
-//    QList<ParameterizedItem*> points =  m_item->childItems();
-//    m_item->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, true);
-//    m_polygon.append(point);
-//    if (m_firstPoint.contains(point) && points.length() - 1 >= 2) {
-//        points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSX,
-//        points[0]->getRegisteredProperty(PointItem::P_POSX).toReal());
-//        points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSY,
-//        points[0]->getRegisteredProperty(PointItem::P_POSY).toReal());
-//        m_item->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
-//    }
-//    calculateBoundingRectangle();
-//}
-
-// bool PolygonView::getDrawingMode() const
-//{
-//    return m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool();
-//}
-
-bool PolygonView::checkCornerClicked(QGraphicsSceneMouseEvent *event)
+bool PolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
 {
     QList<ParameterizedItem *> points = m_item->childItems();
     for (int i = 0; i < points.length() - 1; ++i) {
-        QGraphicsRectItem rectangle(
+        QRectF rectangle(
             points[i]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
             points[i]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
         if (rectangle.contains(event->pos())) {
             if (i != points.length() - 1 && i != 0) {
-                m_currentPoint1 = i;
+                m_indexOfCurrentSelectedPoint = i;
             } else {
-                m_currentPoint1 = 0;
-                m_currentPoint2 = points.length() - 1;
+                m_indexOfCurrentSelectedPoint = 0;
             }
             m_changeCornerMode = true;
             this->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -172,18 +131,13 @@ QRectF PolygonView::calculateBoundingRectangle() const
             biggestYValue = points[i]->getRegisteredProperty(PointItem::P_POSY).toReal();
         }
     }
-    //    setX(smallestXValue - 20);
-    //    setY(smallestYValue - 20);
-    //    m_width = biggestXValue + 20 - x();
-    //    m_heigth = biggestYValue + 20 - y();
-
     return QRectF(QPointF(smallestXValue - 20, smallestYValue - 20),
                   QPointF(biggestXValue + 20, biggestYValue + 20));
 }
 
 void PolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (checkCornerClicked(event)) {
+    if (isCornerClicked(event)) {
         m_changeCornerMode = true;
     } else if (event->button() == Qt::RightButton) {
         m_item->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
@@ -195,28 +149,22 @@ void PolygonView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void PolygonView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-
-        if (m_changeCornerMode) {
-            QList<ParameterizedItem *> points = m_item->childItems();
-            //        calculateBoundingRectangle();
-            setCursor(Qt::CrossCursor);
-            if (m_currentPoint1 == 0 || m_currentPoint1 == m_polygon.length() - 1) {
-                points[m_currentPoint1]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-                points[m_currentPoint1]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-                points[m_currentPoint2]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-                points[m_currentPoint2]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-            } else {
-                points[m_currentPoint1]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
-                points[m_currentPoint1]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
-            }
-            update();
-            //        calculateBoundingRectangle();
-
-        } else if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
-            this->setFlag(QGraphicsItem::ItemIsMovable, true);
-            QGraphicsItem::mouseMoveEvent(event);
+    if (m_changeCornerMode) {
+        QList<ParameterizedItem *> points = m_item->childItems();
+        setCursor(Qt::CrossCursor);
+        if (m_indexOfCurrentSelectedPoint == 0) {
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
+            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
+            points[points.length() - 1]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
+        } else {
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSX, event->pos().x());
+            points[m_indexOfCurrentSelectedPoint]->setRegisteredProperty(PointItem::P_POSY, event->pos().y());
         }
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
+    } else if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
+        this->setFlag(QGraphicsItem::ItemIsMovable, true);
+        QGraphicsItem::mouseMoveEvent(event);
+    }
 }
 
 void PolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -239,7 +187,7 @@ QRectF PolygonView::getTopLeftCorner()
 
 QRectF PolygonView::getTopRightCorner()
 {
-    return QRectF(boundingRect().x() + boundingRect().width() - 10, boundingRect().y() + 10, 10,
+    return QRectF(boundingRect().x() + boundingRect().width() - 10, boundingRect().y(), 10,
                   10);
 }
 
@@ -256,9 +204,9 @@ QRectF PolygonView::getBottomRightCorner()
 
 QRectF PolygonView::getFirstPoint() const
 {
-    return QRectF(m_item->getRegisteredProperty(PolygonItem::P_FIRSTPOINTXVALUE).toReal() - 2.5,
-                  m_item->getRegisteredProperty(PolygonItem::P_FIRSTPOINTYVALUE).toReal() - 2.5, 5,
-                  5);
+    QList<ParameterizedItem *> points = m_item->childItems();
+    return QRectF(points[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
+                  points[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5, 5, 5);
 }
 
 QPointF PolygonView::getLastPoint() const
@@ -285,14 +233,4 @@ void PolygonView::setParameterizedItem(ParameterizedItem *item)
 void PolygonView::setExclude()
 {
     m_item->setRegisteredProperty(PolygonItem::P_COLOR, 1);
-}
-
-void PolygonView::onPropertyChange(const QString &propertyName)
-{
-    qDebug() << "void PolygonView::onPropertyChange(const QString &propertyName)";
-}
-
-void PolygonView::onSubItemPropertyChanged(QString, QString)
-{
-    qDebug() << "void PolygonView::onSubItemPropertyChanged(QString,QString)";
 }

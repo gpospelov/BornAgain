@@ -64,9 +64,9 @@ TestView::TestView(QWidget *parent)
 //   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
 
     MaskModel *maskModel = new MaskModel;
-    ParameterizedItem *rectangle = maskModel->insertNewItem(Constants::RectangleType);
-    rectangle->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
-    rectangle->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+//    ParameterizedItem *rectangle = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
+//    rectangle->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
 
 //    ParameterizedItem *polygon = maskModel->insertNewItem(Constants::PolygonType);
 //    maskModel->insertNewItem(Constants::PointType, maskModel->indexOfItem(polygon));
@@ -76,6 +76,7 @@ TestView::TestView(QWidget *parent)
 //    Q_ASSERT(0);
 
     MaskEditor *maskEditor = new MaskEditor;
+    maskEditor->setModel(maskModel);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     this->setLayout(mainLayout);

@@ -395,25 +395,25 @@
 //}
 
 
-//GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
-//{
-//    SampleBuilderFactory factory;
-//    SampleBuilder_t builder = factory.createBuilder("polmagcylinders2");
+GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("MagneticCylindersBuilder");
 
-//    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation *result = new GISASSimulation();
 
 
-//    result->setDetectorParameters(
-//        100, -1.0*Units::degree, 1.0*Units::degree, 100,
-//        0.0*Units::degree, 2.0*Units::degree);
-//    result->setBeamParameters(
-//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-//    result->setBeamIntensity(1e7);
+    result->setDetectorParameters(
+        100, -1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    result->setBeamIntensity(1e7);
 
-//    result->setSampleBuilder( builder );
+    result->setSampleBuilder( builder );
 
-//    return result;
-//}
+    return result;
+}
 
 
 //GISASSimulation *StandardSimulations::LayerWithRoughness()
@@ -540,7 +540,7 @@ GISASSimulation *StandardSimulations::MiniGISASForMeso()
 }
 
 
-//! Typical IsGISAXS simulation with the detector phi[0,2], theta[-1,1]
+//! Typical IsGISAXS simulation with the detector phi[-1,1], theta[0,2]
 GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
 {
     GISASSimulation *result = new GISASSimulation();
@@ -553,6 +553,7 @@ GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
 }
 
 
+//! Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2]
 GISASSimulation *StandardSimulations::IsGISAXSSimulation2()
 {
     GISASSimulation *result = new GISASSimulation();

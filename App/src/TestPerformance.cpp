@@ -34,12 +34,12 @@
 
 TestPerformance::TestPerformance()
 {
-    m_tests.push_back(new PerformanceTest("isgisaxs02",1));
-    m_tests.push_back(new PerformanceTest("isgisaxs06a",50));
-    m_tests.push_back(new PerformanceTest("isgisaxs09b",50));
-    m_tests.push_back(new PerformanceTest("isgisaxs11",50));
-    m_tests.push_back(new PerformanceTest("isgisaxs15",20));
-    m_tests.push_back(new PerformanceTest("mesocrystal01",1));
+    m_tests.push_back(new PerformanceTest("isgisaxs02",1));    // TwoTypesCylindersDistributionBuilder
+    m_tests.push_back(new PerformanceTest("isgisaxs06a",50)); //SquareLatticeBuilder
+    m_tests.push_back(new PerformanceTest("isgisaxs09b",50)); // RotatedPyramidsBuilder
+    m_tests.push_back(new PerformanceTest("isgisaxs11",50)); // CoreShellParticleBuilder
+    m_tests.push_back(new PerformanceTest("isgisaxs15",20)); // ParticlesInSSCABuilder
+    m_tests.push_back(new PerformanceTest("mesocrystal01",1)); // MesoCrystalBuilder
     m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
     m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
     m_tests.push_back(new PerformanceTest("polmagcylinders2",50));

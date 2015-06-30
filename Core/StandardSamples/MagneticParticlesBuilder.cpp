@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/PolarizedDWBAZeroMagBuilder.cpp
-//! @brief     Implements class PolarizedDWBAZeroMagBuilder
+//! @file      StandardSamples/PolarizedParticlesBuilder.cpp
+//! @brief     Implements classes to build magnetic samples
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "PolarizedDWBAMagCylindersBuilder.h"
+#include "MagneticParticlesBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -72,7 +72,7 @@ ISample *MagneticParticleZeroFieldBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and non-zero magnetic field
 // ----------------------------------------------------------------------------
-PolarizedDWBAMagCylinders2Builder::PolarizedDWBAMagCylinders2Builder()
+MagneticCylindersBuilder::MagneticCylindersBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
     ,  m_cylinder_height(5*Units::nanometer)
 {
@@ -80,7 +80,7 @@ PolarizedDWBAMagCylinders2Builder::PolarizedDWBAMagCylinders2Builder()
 }
 
 
-void PolarizedDWBAMagCylinders2Builder::init_parameters()
+void MagneticCylindersBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_radius", &m_cylinder_radius);
@@ -88,7 +88,7 @@ void PolarizedDWBAMagCylinders2Builder::init_parameters()
 }
 
 
-ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
+ISample *MagneticCylindersBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

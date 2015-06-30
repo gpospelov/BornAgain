@@ -93,9 +93,9 @@ SimulationRegistry::SimulationRegistry()
 //        "polmagcylinders1", StandardSimulations::PolarizedDWBAMagCylinders1,
 //        "Polarized DWBA with zero magnetic field");
 
-//    registerItem(
-//        "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
-//        "Polarized DWBA with non-zero magnetic field");
+    registerItem(
+        "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
+        "Polarized DWBA with non-zero magnetic field");
 
 //    registerItem(
 //        "LayerWithRoughness", StandardSimulations::LayerWithRoughness,

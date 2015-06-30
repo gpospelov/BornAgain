@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/PolarizedDWBAMagCylindersBuilder.h
-//! @brief     Defines class PolarizedDWBAMagCylinders1Builder
+//! @file      StandardSamples/PolarizedParticlesBuilder.h
+//! @brief     Defines class to build magnetic samples
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POLARIZEDDWBAMAGCYLINDERSBUILDER_H
-#define POLARIZEDDWBAMAGCYLINDERSBUILDER_H
+#ifndef MAGNETICPARTICLESBUILDER_H
+#define MAGNETICPARTICLESBUILDER_H
 
 #include "ISampleBuilder.h"
 
@@ -36,14 +36,14 @@ private:
     double m_cylinder_height;
 };
 
-//! @class PolarizedDWBAMagCylinders2Builder
+//! @class MagneticCylindersBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and non-zero magnetic field.
 
-class BA_CORE_API_ PolarizedDWBAMagCylinders2Builder : public ISampleBuilder
+class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
-    PolarizedDWBAMagCylinders2Builder();
+    MagneticCylindersBuilder();
     ISample *buildSample() const;
 
 protected:
@@ -55,4 +55,4 @@ private:
 };
 
 
-#endif // POLARIZEDDWBAMAGCYLINDERSBUILDER_H
+#endif // MAGNETICPARTICLESBUILDER_H

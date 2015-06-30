@@ -21,7 +21,7 @@ include_directories(
 # Various Python scripts
 # ------------------------------------------------------------------------------------------------
 
-set(list_of_tests
+set(list_of_python_tests
     "intensitydata.py"
     "intensitydata_io.py"
     "isgisaxs01.py"
@@ -49,7 +49,7 @@ set(list_of_tests
     "detector_resolution.py"
 )
 
-foreach(_test ${list_of_tests})
+foreach(_test ${list_of_python_tests})
     add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
 endforeach()
 

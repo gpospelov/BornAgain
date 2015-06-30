@@ -11,8 +11,6 @@ public:
     static const QString P_COLOR;
     static const QString P_DRAWINGMODE;
     static const QString P_MOUSEISOVERFIRSTPOINT;
-    static const QString P_FIRSTPOINTXVALUE;
-    static const QString P_FIRSTPOINTYVALUE;
 
     explicit PolygonItem(ParameterizedItem *parent=0);
     ~PolygonItem(){}

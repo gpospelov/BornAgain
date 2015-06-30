@@ -16,22 +16,11 @@
 #include <sstream>
 
 GraphicsScene::GraphicsScene()
-    : m_maskModel(new MaskModel), m_rectangleItem(0), m_ellipseItem(0),m_polygonItem(0), m_ellipse(0), m_polygon(0),
-      isFinished(true), m_currentMousePosition(QPointF(0, 0)), m_lastAddedPoint(QPointF(0, 0)),
+    : m_maskModel(0), m_rectangleItem(0), m_ellipseItem(0), m_polygonItem(0),
+      isDrawing(false), m_currentMousePosition(QPointF(0, 0)), m_lastAddedPoint(QPointF(0, 0)),
       m_block_selection(false), m_numberOfRectangle(0), m_numberOfEllipse(0), m_numberOfPolygon(0)
 {
     m_drawing = NONE;
-    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
-    connect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-    connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-            SLOT(onRowsInserted(QModelIndex, int, int)));
-    connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-            SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-    connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-            SLOT(onRowsRemoved(QModelIndex, int, int)));
-    connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
-    resetScene();
-    updateScene();
 }
 
 void GraphicsScene::setDrawing(GraphicsScene::Drawing drawing)
@@ -52,43 +41,37 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSX, event->scenePos().x());
         m_ellipseItem->setRegisteredProperty(EllipseItem::P_POSY, event->scenePos().y());
     } else if (event->button() == Qt::LeftButton && m_drawing == POLYGON) {
-        if (m_polygonItem && m_polygonItem->childItems().length() >= 2) {
-//            if (m_polygonItem->childItems().length() >= 2) {
-//                if (m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX)
-//                        == m_polygonItem->childItems()[m_polygonItem->childItems().length() - 1]
-//                               ->getRegisteredProperty(PointItem::P_POSX)
-//                    && m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSY)
-//                           == m_polygonItem->childItems()[m_polygonItem->childItems().length() - 1]
-//                                  ->getRegisteredProperty(PointItem::P_POSY)) {
-//                     m_polygonItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
-//                }
-//            }
-        }
-
-
-        if (isFinished) {
+        if (!m_polygonItem && !isDrawing) {
+            isDrawing = true;
             m_polygonItem = m_maskModel->insertNewItem(Constants::PolygonType);
             m_polygonItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, true);
-            m_pointItem = m_maskModel->insertNewItem(Constants::PointType,
-                                                     m_maskModel->indexOfItem(m_polygonItem));
-            m_polygonItem->setRegisteredProperty(
-                PolygonItem::P_FIRSTPOINTXVALUE,
-                m_pointItem->getRegisteredProperty(PointItem::P_POSX).toReal());
-            m_polygonItem->setRegisteredProperty(
-                PolygonItem::P_FIRSTPOINTYVALUE,
-                m_pointItem->getRegisteredProperty(PointItem::P_POSY).toReal());
-            m_pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
-            m_pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
             setItemName(m_polygonItem);
-            isFinished = false;
-            m_polygonItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, true);
-        } else {
+        }
+        if (m_polygonItem && isDrawing && m_polygonItem->childItems().length() > 2) {
+            QRectF firstPoint(
+                m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX).toReal()
+                    - 2.5,
+                m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSY).toReal()
+                    - 2.5,
+                5, 5);
+            if (firstPoint.contains(event->scenePos())) {
+                m_pointItem = m_maskModel->insertNewItem(Constants::PointType,
+                                                         m_maskModel->indexOfItem(m_polygonItem));
+                m_pointItem->setRegisteredProperty(PointItem::P_POSX, firstPoint.center().x());
+                m_pointItem->setRegisteredProperty(PointItem::P_POSY, firstPoint.center().y());
+                isDrawing = false;
+                m_polygonItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
+                m_polygonItem = 0;
+                m_drawing = NONE;
+                emit itemIsDrawn();
+            }
+        }
+        if (m_polygonItem && isDrawing) {
             m_pointItem = m_maskModel->insertNewItem(Constants::PointType,
                                                      m_maskModel->indexOfItem(m_polygonItem));
             m_pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
             m_pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
         }
-        m_polygonItem->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool();
     } else {
         QGraphicsScene::mousePressEvent(event);
     }
@@ -116,19 +99,15 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             event->scenePos().y()
                 - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal());
     } else if (m_drawing == POLYGON && m_polygonItem) {
-        //        QRectF
-        //        firstPoint(m_polygonItem->getRegisteredProperty(PolygonItem::P_FIRSTPOINTXVALUE).toReal()
-        //        - 2.5,
-        //        m_polygonItem->getRegisteredProperty(PolygonItem::P_FIRSTPOINTYVALUE).toReal() -
-        //        2.5, 5, 5);
-        //        if(firstPoint.contains(event->scenePos())) {
-        //            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT,
-        //            true);
-        //        }
-        //        else {
-        //            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT,
-        //            false);
-        //        }
+        QRectF firstPoint(
+            m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
+            m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5,
+            5, 5);
+        if (firstPoint.contains(event->scenePos())) {
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT, true);
+        } else {
+            m_polygonItem->setRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT, false);
+        }
     } else {
         QGraphicsScene::mouseMoveEvent(event);
     }
@@ -145,35 +124,32 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         if (abs(xDifference) <= 10 && abs(yDifference) <= 10) {
             QModelIndex index = m_maskModel->indexOfItem(m_rectangleItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
+            m_numberOfRectangle--;
+        }
+    } else if (m_drawing == ELLIPSE && m_ellipseItem) {
+        qreal xDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+                            - event->scenePos().x();
+        qreal yDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+                            - event->scenePos().y();
+        if (abs(xDifference) <= 10 && abs(yDifference) <= 10) {
+            QModelIndex index = m_maskModel->indexOfItem(m_ellipseItem);
+            m_maskModel->removeRows(index.row(), 1, index.parent());
+            m_numberOfRectangle--;
         }
     }
-    //    else if(m_drawing == ELLIPSE && m_ellipseItem) {
-    //        qreal xDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-    //        - event->scenePos().x();
-    //        qreal yDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-    //        - event->scenePos().y();
-    //        if(abs(xDifference) <= 10 && abs(yDifference) <= 10) {
-    //            QModelIndex index = m_maskModel->indexOfItem(m_ellipseItem);
-    //            m_maskModel->removeRows(index.row(), 1, index.parent());
-    //        }
-    //    }
-    else if (m_drawing == POLYGON
-             && !m_polygonItem->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
+
+    if (m_drawing == RECTANGLE || m_drawing == ELLIPSE) {
         m_drawing = NONE;
-        m_polygonItem = 0;
+        m_rectangleItem = 0;
+        m_ellipseItem = 0;
         emit itemIsDrawn();
     }
-    m_rectangleItem = 0;
-    m_ellipseItem = 0;
-    //    m_pointItem = 0;
-    //    m_drawing = NONE;
-    //    emit itemIsDrawn();
     QGraphicsScene::mouseReleaseEvent(event);
 }
 
 void GraphicsScene::drawForeground(QPainter *painter, const QRectF & /* rect */)
 {
-    if (m_drawing == POLYGON && !isFinished) {
+    if (m_drawing == POLYGON && isDrawing) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
         painter->drawLine(QLineF(m_lastAddedPoint, m_currentMousePosition));
         invalidate();
@@ -194,17 +170,6 @@ void GraphicsScene::updateViews(const QModelIndex &parentIndex)
         }
     }
 }
-
-// QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)
-//{
-//    qDebug() << "QGraphicsItem *GraphicsScene::addViewForItem(ParameterizedItem *item)-> runing";
-//    RectangleView *view = new RectangleView();
-//    view->setItem(item);
-//    connect(view, SIGNAL(xChanged()), this, SLOT(positionChanged(view)));
-//    addItem(view);
-//    m_ItemToView.insert(item, view);
-//    return view;
-//}
 
 IView *GraphicsScene::addViewForItem(ParameterizedItem *item)
 {
@@ -241,16 +206,6 @@ void GraphicsScene::resetScene()
     m_ItemToView.clear();
 }
 
-void GraphicsScene::setListView(QListView *listview)
-{
-    m_listView = listview;
-    m_listView->setModel(m_maskModel);
-    m_selectionModel = m_listView->selectionModel();
-
-    connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-            SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-}
-
 void GraphicsScene::setTreeView(QTreeView *treeView)
 {
     m_treeView = treeView;
@@ -259,6 +214,22 @@ void GraphicsScene::setTreeView(QTreeView *treeView)
 
     connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
             SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
+}
+
+void GraphicsScene::setModel(MaskModel *maskModel)
+{
+    m_maskModel = maskModel;
+    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
+    connect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
+    connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+            SLOT(onRowsInserted(QModelIndex, int, int)));
+    connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
+            SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+    connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+            SLOT(onRowsRemoved(QModelIndex, int, int)));
+    connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+    resetScene();
+    updateScene();
 }
 
 void GraphicsScene::onSessionSelectionChanged(const QItemSelection &, const QItemSelection &)

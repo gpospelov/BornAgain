@@ -31,8 +31,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setMouseTracking(true);
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
     m_view->setRenderHint(QPainter::TextAntialiasing);
-//    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-//    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
@@ -120,44 +118,19 @@ MaskEditor::MaskEditor(QWidget *parent)
     selectionModeBoxLayout->addWidget(deleteButton);
     selectionModeBoxLayout->addWidget(bringToFrontButton);
     selectionModeBoxLayout->addWidget(sendToBackButton);
-//    selectionModeBoxLayout->addWidget(panButton);
-//    selectionModeBoxLayout->addWidget(drawingButton);
-
-//    connect(selectionButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setDisabled(bool)));
-//    connect(selectionButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setEnabled(bool)));
-
-//    connect(drawingButton, SIGNAL(clicked(bool)), selectionMode, SLOT(setDisabled(bool)));
-//    connect(drawingButton, SIGNAL(clicked(bool)), drawingMode, SLOT(setEnabled(bool)));
 
     QButtonGroup *buttonGroup = new QButtonGroup(this);
     buttonGroup->addButton(rectangleButton);
     buttonGroup->addButton(ellipseButton);
     buttonGroup->addButton(polygonButton);
     buttonGroup->addButton(panButton);
-//    buttonGroup->addButton(sendToBackButton);
-//    buttonGroup->addButton(includeButton);
-//    buttonGroup->addButton(excludeButton);
-//    buttonGroup->addButton(deleteButton);
-//    buttonGroup->addButton(sendToBackButton);
-//    buttonGroup->addButton(bringToFrontButton);
     buttonGroup->addButton(selectionButton);
-//    buttonGroup->addButton(drawingButton);
 
     // create widget with buttons
     QWidget *buttons = new QWidget;
     QVBoxLayout *buttonLayout = new QVBoxLayout;
     buttonLayout->addWidget(drawingMode);
     buttonLayout->addWidget(selectionMode);
-//    buttonLayout->addWidget(includeButton);
-//    buttonLayout->addWidget(excludeButton);
-//    buttonLayout->addWidget(rectangleButton);
-//    buttonLayout->addWidget(ellipseButton);
-//    buttonLayout->addWidget(polygonButton);
-//    buttonLayout->addWidget(panButton);
-//    buttonLayout->addWidget(deleteButton);
-//    buttonLayout->addWidget(bringToFrontButton);
-//    buttonLayout->addWidget(sendToBackButton);
-//    buttonLayout->addWidget(selectionButton);
     buttonLayout->addStretch(1);
     buttons->setLayout(buttonLayout);
 
@@ -168,12 +141,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
-
     QTreeView *treeView = new QTreeView;
-//    QListView *listView = new QListView;
-//    m_scene->setListView(listView);
-//    buttonLayout->addWidget(listView);
-
     m_scene->setTreeView(treeView);
     buttonLayout->addWidget(treeView);
 
@@ -280,6 +248,11 @@ void MaskEditor::changeToDrawingMode()
 {
     m_view->setDragMode(QGraphicsView::NoDrag);
     m_view->setInteractive(true);
+}
+
+void MaskEditor::setModel(MaskModel *maskModel)
+{
+    m_scene->setModel(maskModel);
 }
 
 

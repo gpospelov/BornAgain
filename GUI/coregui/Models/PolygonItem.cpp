@@ -3,8 +3,6 @@
 const QString PolygonItem::P_COLOR = "Color";
 const QString PolygonItem::P_DRAWINGMODE = "Drawing Mode";
 const QString PolygonItem::P_MOUSEISOVERFIRSTPOINT = "Mouse is over first point";
-const QString PolygonItem::P_FIRSTPOINTXVALUE = "X value of first point";
-const QString PolygonItem::P_FIRSTPOINTYVALUE = "Y value of first point";
 
 PolygonItem::PolygonItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::PolygonType, parent)
@@ -13,8 +11,6 @@ PolygonItem::PolygonItem(ParameterizedItem *parent)
     registerProperty(P_COLOR, 0);
     registerProperty(P_DRAWINGMODE, false);
     registerProperty(P_MOUSEISOVERFIRSTPOINT, false);
-    registerProperty(P_FIRSTPOINTXVALUE, 0.0);
-    registerProperty(P_FIRSTPOINTYVALUE, 0.0);
 
     addToValidChildren(Constants::PointType);
 }

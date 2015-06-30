@@ -148,8 +148,9 @@ void SampleView::addItem(const QString &item_name)
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
     ParameterizedItem *new_item
         = getSampleModel()->insertNewItem(item_name, currentIndexAtColumnZero);
-    if (new_item)
+    if (new_item) {
         setCurrentIndex(getSampleModel()->indexOfItem(new_item));
+    }
     setDirty();
 }
 
@@ -305,6 +306,7 @@ void SampleView::setCurrentIndex(const QModelIndex &index)
 {
     if (index.isValid()) {
         m_tree_view->scrollTo(index);
+        m_tree_view->selectionModel()->clearSelection();
         m_tree_view->setCurrentIndex(index);
     }
 }

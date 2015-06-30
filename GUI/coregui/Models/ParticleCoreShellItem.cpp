@@ -29,8 +29,8 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
                      PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1); // Shell particle
 }
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
@@ -49,7 +49,8 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 
 ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
 {
-    PortInfo::EPorts result = PortInfo::DEFAULT;
+    // Also when no ports are available, return the first port (core particle will then be replaced)
+    PortInfo::EPorts result = PortInfo::PORT_0;
     QList<PortInfo::EPorts> used_particle_ports;
     QList<ParameterizedItem *> children = childItems();
     for (QList<ParameterizedItem *>::const_iterator it = children.begin();
@@ -62,9 +63,7 @@ ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailablePart
         }
     }
     if (used_particle_ports.size() < 2) {
-        if (!used_particle_ports.contains(PortInfo::PORT_0)) {
-            result = PortInfo::PORT_0;
-        } else {
+        if (used_particle_ports.contains(PortInfo::PORT_0)) {
             result = PortInfo::PORT_1;
         }
     }

@@ -36,7 +36,7 @@ set(list_of_tests
     "GUISuite/RotatedPyramids"
     "GUISuite/ParticleComposition"
     "GUISuite/CylindersWithSizeDistribution"
-#    "GUISuite/TwoTypesCylindersDistribution" # broken
+    "GUISuite/TwoTypesCylindersDistribution"
     "GUISuite/BeamDivergence"
     "GUISuite/DetectorResolution"
     "GUISuite/MultipleLayout"

@@ -250,6 +250,14 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
             "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property " + name
             + " model=" + modelType());
 
+
+    // for debugging purpose
+//    PropertyAttribute attribute = getPropertyAttribute(name);
+//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
+//        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Logic Error? "
+//            "You are trying to get DISABLED property with name '" +name +"', model " + modelType());
+//    }
+
     return property(name.toUtf8().constData());
 }
 

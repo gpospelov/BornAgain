@@ -152,8 +152,8 @@ ISample *RectParaCrystalBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
-            new InterferenceFunction2DParaCrystal(10.0*Units::nanometer,
-                    10.0*Units::nanometer, Units::PI/2.0, 0.0, 0.0);
+            InterferenceFunction2DParaCrystal::createSquare(10*Units::nanometer, 0*Units::nanometer);
+
     p_interference_function->setDomainSizes(20.0*Units::micrometer,
             20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);

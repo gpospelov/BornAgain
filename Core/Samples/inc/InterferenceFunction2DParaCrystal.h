@@ -33,7 +33,7 @@ public:
     //! @param length_2 Lattice length 2.
     //! @param alpha_lattice Angle between lattice basis vectors.
     //! @param xi Angle between first basis vector and the x-axis of incoming beam.
-    //! @param m_corr_length correlation length of paracrystal
+    //! @param damping_length damping length to introfuce finite size effects
     InterferenceFunction2DParaCrystal(double length_1, double length_2,
             double alpha_lattice, double xi=0.0, double damping_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
@@ -43,10 +43,10 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     static InterferenceFunction2DParaCrystal *createSquare(
-            double peak_distance, double corr_length=0.0,
+            double peak_distance, double damping_length=0.0,
             double domain_size_1=0.0, double domain_size_2=0.0);
     static InterferenceFunction2DParaCrystal *createHexagonal(
-            double peak_distance, double corr_length=0.0,
+            double peak_distance, double damping_length=0.0,
             double domain_size_1=0.0, double domain_size_2=0.0);
 
     //! @brief Sets sizes of coherence domain

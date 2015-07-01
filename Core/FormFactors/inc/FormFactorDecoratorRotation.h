@@ -29,8 +29,8 @@ class BA_CORE_API_ FormFactorDecoratorRotation : public IFormFactorDecorator
 public:
     //! Constructor, setting form factor and rotation.
     FormFactorDecoratorRotation(
-        IFormFactor *p_form_factor, const IRotation& transform)
-        : IFormFactorDecorator(p_form_factor)
+        const IFormFactor& form_factor, const IRotation& transform)
+        : IFormFactorDecorator(form_factor.clone())
     {
         setName("FormFactorDecoratorRotation");
         m_transform = transform.getTransform3D();

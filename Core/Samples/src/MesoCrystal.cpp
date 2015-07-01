@@ -101,12 +101,11 @@ IFormFactor *MesoCrystal::createTransformationDecoratedFormFactor(const IFormFac
                                                                   const IRotation *p_rotation,
                                                                   kvector_t translation) const
 {
-    IFormFactor *p_bare_clone = bare_ff.clone();
     IFormFactor *p_intermediate;
     if (p_rotation) {
-        p_intermediate = new FormFactorDecoratorRotation(p_bare_clone, *p_rotation);
+        p_intermediate = new FormFactorDecoratorRotation(bare_ff, *p_rotation);
     } else {
-        p_intermediate = p_bare_clone;
+        p_intermediate = bare_ff.clone();
     }
     IFormFactor *p_result;
     if (translation != kvector_t()) {

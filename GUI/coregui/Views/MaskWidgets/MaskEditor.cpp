@@ -21,6 +21,93 @@
 #include "RectangleItem.h"
 #include "RectangleView.h"
 
+
+// See other FIXME in GraphicsScene.h GraphicsScene.cpp, GraphicsView.cpp, RectangleView.h, RectangleView.cpp
+
+// All
+// Cleanup the code. Remove old versions of Ellipse, Polygon, Rectangle
+
+// *.h
+// In all headers remove all includes placed before #ifndef, includes should be inside #ifndef
+
+// *.h
+// In all headers remove unnecessary includes, use class forward declaration, where possible
+
+// Renaming
+// Rename GraphicsScene to MaskGraphicsScene
+// Rename GraphicsView to MaskGraphicsView
+
+// MaskToolBar (MaskEditor)
+// 1) Create MaskToolBar widget which will contain vertically aligned QToolButtons of 25x25 size
+//    SELECT
+//    PAN
+//    ------ separator
+//    RECTANGLE
+//    ELLIPSE
+//    POLYGON
+//    ------
+//    BLUE (include button) <-- these two buttons should be in the group, so only one is active
+//    RED  (exclude button) <--
+//    ------
+//    SEND_TO_ONE_LEVEL_DOWN
+//    SEND_TO_ON_LEVEL_UP
+//    INVERT_MASK <-- will change the color of item to the opposite
+//
+
+// 2) Think of icons for whose buttons
+// 3) Provide buttons will tooltip
+// 4) MaskEditor will own MaskToolBar widget, create MaskEditor::init_connections() which will connect all signals in one place (i.e. not in constructor)
+
+
+// Move up/down functionality
+// Use SessionModel::moveParameterizedItem(item_to_move, new_parent, row);
+//
+// For example, you have rectangleItem which belongs to model (to the root of the model), and it is located in the row #5
+// You want to move it in the raw number 4, you write
+// model->moveParameterizedItem(rectangleItem, 0, 4);
+//
+// This will trigger onRowInserted
+// You will have to run through all views and update they z-coordinate, i.e. will recalculate them from row number of corresponding items
+
+
+// Drawing of rectangle
+// When one tries to draw a rectangle and draws it too small, the rectangle is not drawn. That's ok.
+// But if it was the case, the scene should not switch automatically in selection mode, it should stays in rectangle mode.
+// Only if creation of view was successfull -> switch to selection mode.
+
+// RectangleView, EllipseView
+// 1) Rectangle should have a tiny frame around, which is a bit darker, than filling color.
+//    use QColor::darker() for that
+// 2) Green rectangular corners are ugly and too big. Use smaller rectangle as in Libreoffice/Impress.
+//    The color of corner rectangle should be as main rectangle's frame
+// 3) Same of EllipseView
+
+// Selection of Rectangle or Ellipse
+// 1) First click on the rectangle should select it
+// 2) second click on selected rectangle should switch it to the rotation mode
+//    Corner rectangle should be replaced with rotation symbols, as in inkscape
+// 3) Every next click just switch between selected/rotate modes
+// 4) Same for EllipseView
+
+// Bug (deleting rectangle)
+// Sometimes, but now always, deleting of rectangle gives an exception throw
+// "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property Height model=Rectangle"
+
+// GraphicsView - zoom in/out, pan
+// 1) No scroll bars appears when zoom in
+// 2) Pan seems to be not making a pan over the whole area
+// 3) Make pan automatic then user holds on "spacebar" key.
+// 4) zoom out to far should not be possible, i.e. maximum size of scene should be defined
+
+
+
+
+
+
+
+
+
+
 MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
     , m_scene(new GraphicsScene)

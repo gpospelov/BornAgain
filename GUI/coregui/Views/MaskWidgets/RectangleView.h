@@ -18,6 +18,7 @@ Q_OBJECT
 
 public:
     //! describes corner
+
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
     enum {Type = UserType + 1};
 
@@ -33,6 +34,8 @@ public:
 
     //! check if resize rules are correct
     //! @param event mouse event to check if resizes correct
+
+    // FIXME Rename this. It is not a "check", it is an action
     void checkResizeRules(QGraphicsSceneMouseEvent *event);
 
     //! calculates resized rectangle
@@ -70,6 +73,8 @@ private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     bool m_block_update;
+
+    // FIXME These two booleans have to be replaced with one enumerator
     bool m_resizeMode;
     bool m_rotationMode;
 };

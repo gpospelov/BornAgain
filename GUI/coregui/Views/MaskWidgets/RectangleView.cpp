@@ -5,20 +5,7 @@
 #include <cmath>
 #include "ParameterizedItem.h"
 
-// FIXME Revise scene update(). Do not update on mouse click, rather than on rawinserted, rawremoved
-//       Use map to not to recreate already existing views [FIXED]
 
-// FIXME Why addViewForItem called too often while mouse move [FIXED]
-
-// FIXME Change Drawing mode, so after item is drawn, scene is switched to the selection mode
-// [FIXED]
-//       But provide possibility to rev ert to the previous way [FIXED]
-
-// FIXME Make mouse pointing exactly on buttom right corner [FIXED]
-
-// FIXME Make automatic removal of too small rectangles [FIXED]
-
-// Make automatic namig of items Rectangle1, Rectangle2 [FIXED]
 
 RectangleView::RectangleView() : m_resizeMode(false), m_rotationMode(false)
 {
@@ -26,6 +13,8 @@ RectangleView::RectangleView() : m_resizeMode(false), m_rotationMode(false)
     setFlag(QGraphicsItem::ItemIsMovable);
 }
 
+
+// FIXME Color of items should be centrally defined, we use DesignerHelper.h
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 
@@ -55,6 +44,8 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     }
 }
 
+// FIXME Let's discuss this method, too much to type to explain
+
 QRectF RectangleView::boundingRect() const
 {
     return QRectF(0 - 10, 0 - 10,
@@ -62,6 +53,8 @@ QRectF RectangleView::boundingRect() const
                   m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 15);
 }
 
+
+// FIXME refactor this or explain me what is going on  here
 void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
 {
     if (m_corner == TOPLEFT) {
@@ -105,6 +98,7 @@ void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
     }
 }
 
+// FIXME refactor this or explain me what is going on  here
 void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
 {
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -143,6 +137,8 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
     }
 }
 
+
+// FIXME Rename function, it returns some value, getRotationAngle() ?
 qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
 {
     QPointF middlePoint
@@ -170,6 +166,16 @@ qreal RectangleView::calculateRotation(QGraphicsSceneMouseEvent *event)
     }
     return 0;
 }
+
+
+// FIXME Refactor this
+// You should split if's --> Create nested if.
+//      In one 'if' you check event->button() == Qt::LeftButton,
+//      In another (nested) 'if' you check corner position
+
+// FIXME The logic of action is also bad. It is a mouse press event, and you calculate right here which corner it is.
+// You have to pass event->pos() to another function which calculates the corners.
+
 
 void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -288,6 +294,9 @@ void RectangleView::setExclude()
 {
     m_item->setRegisteredProperty(RectangleItem::P_COLOR, 1);
 }
+
+// FIXME Remove 5,10 hardoced values, what if I want smaller rectangles?
+//       I have to be able to replace numbers in one place
 
 QRectF RectangleView::getTopLeftCorner()
 {

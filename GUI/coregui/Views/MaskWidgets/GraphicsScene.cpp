@@ -28,6 +28,11 @@ void GraphicsScene::setDrawing(GraphicsScene::Drawing drawing)
     m_drawing = drawing;
 }
 
+
+// FIXME Refactor this.
+// I do not understand what you check in if statements, and what you do inside
+// Please replace with function calls
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && m_drawing == RECTANGLE) {
@@ -99,6 +104,10 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             event->scenePos().y()
                 - m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal());
     } else if (m_drawing == POLYGON && m_polygonItem) {
+
+        // FIXME I'm confused here. Why do you need to store such things like PolygonItem::P_MOUSEISOVERFIRSTPOINT in ParameterizedItem ??
+        //       It is not its business, it has to be in a view
+
         QRectF firstPoint(
             m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSX).toReal() - 2.5,
             m_polygonItem->childItems()[0]->getRegisteredProperty(PointItem::P_POSY).toReal() - 2.5,
@@ -113,6 +122,16 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
     m_currentMousePosition = event->scenePos();
 }
+
+// FIXME Please refactor, one can do better
+// When you do like this:
+//  m_drawing = NONE;
+//  m_rectangleItem = 0;
+//  m_ellipseItem = 0;
+// it is bad, because
+// a) it is hard to understand for external programmer what you want to do here
+// b) It seems that you want to terminate drawing, but why you change 3 variables for that?
+
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -131,6 +150,9 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                             - event->scenePos().x();
         qreal yDifference = m_ellipseItem->getRegisteredProperty(EllipseItem::P_POSY).toReal()
                             - event->scenePos().y();
+
+        // FIXME You are using abs from stdlib.h here, use std::abs
+
         if (abs(xDifference) <= 10 && abs(yDifference) <= 10) {
             QModelIndex index = m_maskModel->indexOfItem(m_ellipseItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
@@ -216,6 +238,7 @@ void GraphicsScene::setTreeView(QTreeView *treeView)
             SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
 }
 
+// FIXME You should have a code responsible for the disconnection of old model, if any
 void GraphicsScene::setModel(MaskModel *maskModel)
 {
     m_maskModel = maskModel;
@@ -355,6 +378,10 @@ void GraphicsScene::onRowsInserted(const QModelIndex & /* parent */, int /* firs
     updateScene();
 }
 
+// FIXME It can be made easier, without m_numberOfRectangle
+// FIXME You have your model, you can analyse it on the flight how many rectangles you have.
+//
+// FIXME Why you areusing std::string at all here? In Qt world you have to use QString, where possible
 void GraphicsScene::setItemName(ParameterizedItem *item)
 {
     std::string itemName(item->itemName().toStdString());

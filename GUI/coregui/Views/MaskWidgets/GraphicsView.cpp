@@ -13,6 +13,15 @@
 //}
 
 
+// FIXME - UP_TO_YOU
+// Refactoring book advices to create private functions to be able to write like this
+// if(controlButtonIsPressed(event) {
+//  do this
+// else if(eventPosIsWithinRange())
+//
+// It's up to you, but please refactor this function, I do not understand what is going here
+
+
 void GraphicsView::wheelEvent(QWheelEvent *event)
 {
 
@@ -21,6 +30,7 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
         centerOn(mapToScene(event->pos()));
 
         // Scale the view / do the zoom
+        // FIXME Can you make it "const double scaleFactor" to stress that it is not supposed to be modified ?
         double scaleFactor = 1.15;
 
         if(event->delta() > 0) {

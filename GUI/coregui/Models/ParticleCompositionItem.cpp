@@ -36,8 +36,6 @@ void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
-        item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-        item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
         int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
             item->setItemPort(PortInfo::PORT_0);

@@ -288,7 +288,6 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     ParameterDistribution par_distr(par_name.toStdString(), *distr, nbr_samples, sigma_factor);
     delete distr;
     p_result = new ParticleDistribution(*P_particle, par_distr);
-    setTransformationInfo(p_result, item);
     return p_result;
 }
 

@@ -249,7 +249,6 @@ void GUIObjectBuilder::visit(const ParticleDistribution *sample)
     ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::ParticleDistributionType,
                                                            m_sampleModel->indexOfItem(layoutItem));
     Q_ASSERT(item);
-    buildPositionInfo(item, sample);
 
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;

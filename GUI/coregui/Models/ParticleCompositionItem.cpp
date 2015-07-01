@@ -22,7 +22,7 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     setItemName(Constants::ParticleCompositionType);
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
@@ -41,6 +41,18 @@ void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
         int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
             item->setItemPort(PortInfo::PORT_0);
+        }
+    }
+}
+
+void ParticleCompositionItem::onPropertyChange(const QString &name)
+{
+    ParameterizedItem::onPropertyChange(name);
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
         }
     }
 }

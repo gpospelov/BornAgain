@@ -19,14 +19,13 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
 {
     setItemName(Constants::ParticleCoreShellType);
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
     registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
@@ -38,9 +37,21 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
     PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
     ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType()==Constants::ParticleType) {
+    if (item->modelType() == Constants::ParticleType) {
         if (port == PortInfo::DEFAULT && first_available_particle_port != PortInfo::DEFAULT) {
             item->setItemPort(first_available_particle_port);
+        }
+    }
+}
+
+void ParticleCoreShellItem::onPropertyChange(const QString &name)
+{
+    ParameterizedItem::onPropertyChange(name);
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
         }
     }
 }
@@ -51,8 +62,8 @@ ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailablePart
     PortInfo::EPorts result = PortInfo::PORT_0;
     QList<PortInfo::EPorts> used_particle_ports;
     QList<ParameterizedItem *> children = childItems();
-    for (QList<ParameterizedItem *>::const_iterator it = children.begin();
-         it != children.end(); ++it) {
+    for (QList<ParameterizedItem *>::const_iterator it = children.begin(); it != children.end();
+         ++it) {
         ParameterizedItem *item = *it;
         if (item->modelType() == Constants::ParticleType) {
             PortInfo::EPorts port

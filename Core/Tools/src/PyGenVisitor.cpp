@@ -648,6 +648,17 @@ std::string PyGenVisitor::defineParticleDistributions() const
                << "\"" << par_distr.getMainParameterName() << "\""
                << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
                << PyGenTools::printDouble(par_distr.getSigmaFactor()) << ")\n";
+
+        // linked parameters
+        std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
+        if(linked_pars.size()) {
+            result << indent() << s_par_distr.str();
+            for(size_t i=0; i<linked_pars.size(); ++i) {
+                result << ".linkParameter(\"" << linked_pars[i] << "\")";
+            }
+            result << "\n";
+        }
+
         result << indent() << it->second << " = ParticleDistribution("
                << m_label->getLabel(it->first->getParticle()) << ", " << s_par_distr.str() << ")\n";
         it++;

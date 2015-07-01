@@ -21,66 +21,66 @@ include_directories(
 # Various Python scripts
 # ------------------------------------------------------------------------------------------------
 
-#set(list_of_python_tests
-#    "intensitydata.py"
-#    "intensitydata_io.py"
-#    "isgisaxs01.py"
-#    "isgisaxs01_normalize.py"
-#    "isgisaxs02.py"
-#    "cylinders_ba_dwba_size.py"
-#    "isgisaxs04.py"
-#    "isgisaxs06.py"
-#    "isgisaxs07.py"
-#    "isgisaxs08.py"
-#    "isgisaxs09.py"
-#    "isgisaxs10.py"
-#    "isgisaxs11.py"
-#    "isgisaxs15.py"
-#    "mesocrystal1.py"
-#    "polmagcylinders1.py"
-#    "polmagcylinders2.py"
-#    "layerwithroughness.py"
-#    "ripple2_sym.py"
-#    "ripple2_asym.py"
-#    "ripple1.py"
-#    "customformfactor.py"
-#    "montecarlo_integration.py"
-##    "beam_divergence.py"
-#    "detector_resolution.py"
-#)
+set(list_of_python_tests
+    "intensitydata.py"
+    "intensitydata_io.py"
+    "isgisaxs01.py"
+    "isgisaxs01_normalize.py"
+    "isgisaxs02.py"
+    "cylinders_ba_dwba_size.py"
+    "isgisaxs04.py"
+    "isgisaxs06.py"
+    "isgisaxs07.py"
+    "isgisaxs08.py"
+    "isgisaxs09.py"
+    "isgisaxs10.py"
+    "isgisaxs11.py"
+    "isgisaxs15.py"
+    "mesocrystal1.py"
+    "polmagcylinders1.py"
+    "polmagcylinders2.py"
+    "layerwithroughness.py"
+    "ripple2_sym.py"
+    "ripple2_asym.py"
+    "ripple1.py"
+    "customformfactor.py"
+    "montecarlo_integration.py"
+#    "beam_divergence.py"
+    "detector_resolution.py"
+)
 
-#foreach(_test ${list_of_python_tests})
-#    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
-#endforeach()
+foreach(_test ${list_of_python_tests})
+    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
+endforeach()
 
 # ------------------------------------------------------------------------------------------------
 # PySuite and possibly other compiled tests
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
-#    "PySuite/CylindersAndPrisms"
-#    "PySuite/FormFactors"
-#    "PySuite/RadialParaCrystal"
-#    "PySuite/HexParaCrystal"
-#    "PySuite/RectParaCrystal"
-#    "PySuite/CoreShellParticle"
-#    "PySuite/MultiLayerWithRoughness"
-#    "PySuite/SquareLattice"
-#    "PySuite/CenteredSquareLattice"
-#    "PySuite/RotatedSquareLattice"
-#    "PySuite/RotatedPyramids"
-#    "PySuite/ParticleComposition"
-#    "PySuite/CylindersWithSizeDistribution"
-#    "PySuite/TwoTypesCylindersDistribution"
-#    "PySuite/BeamDivergence"
-#    "PySuite/DetectorResolution"
-#    "PySuite/MultipleLayout"
+    "PySuite/CylindersAndPrisms"
+    "PySuite/FormFactors"
+    "PySuite/RadialParaCrystal"
+    "PySuite/HexParaCrystal"
+    "PySuite/RectParaCrystal"
+    "PySuite/CoreShellParticle"
+    "PySuite/MultiLayerWithRoughness"
+    "PySuite/SquareLattice"
+    "PySuite/CenteredSquareLattice"
+    "PySuite/RotatedSquareLattice"
+    "PySuite/RotatedPyramids"
+    "PySuite/ParticleComposition"
+    "PySuite/CylindersWithSizeDistribution"
+    "PySuite/TwoTypesCylindersDistribution"
+    "PySuite/BeamDivergence"
+    "PySuite/DetectorResolution"
+    "PySuite/MultipleLayout"
     "PySuite/ApproximationDA"
     "PySuite/ApproximationLMA"
     "PySuite/ApproximationSSCA"
     "PySuite/CylindersInSSCA"
-#    "PySuite/CosineRipple"
-#    "PySuite/TriangularRipple"
+    "PySuite/CosineRipple"
+    "PySuite/TriangularRipple"
 )
 
 # Adding executables.

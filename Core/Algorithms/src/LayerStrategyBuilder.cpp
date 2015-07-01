@@ -149,18 +149,18 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
-    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
-    IFormFactor *p_ff_framework(p_ff_particle);
+    boost::scoped_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor(factor));
+    IFormFactor *p_ff_framework;
     size_t n_layers = mp_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs()) {
-            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
-                    p_ff_particle);
+            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);
         }
         else {
-            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
-                    p_ff_particle);
+            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(*P_ff_particle);
         }
+    } else {
+        p_ff_framework = P_ff_particle->clone();
     }
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance)

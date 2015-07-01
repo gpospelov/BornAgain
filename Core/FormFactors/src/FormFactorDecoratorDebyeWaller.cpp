@@ -15,57 +15,42 @@
 
 #include "FormFactorDecoratorDebyeWaller.h"
 
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-        IFormFactor* p_form_factor, double dw_factor)
-: IFormFactorDecorator(p_form_factor)
-, m_h_dw_factor(dw_factor)
-, m_r_dw_factor(dw_factor)
+FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
+                                                               double dw_factor)
+    : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
     check_initialization();
     init_parameters();
 }
 
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-        IFormFactor* p_form_factor, double dw_h_factor, double dw_r_factor)
-: IFormFactorDecorator(p_form_factor)
-, m_h_dw_factor(dw_h_factor)
-, m_r_dw_factor(dw_r_factor)
+FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
+                                                               double dw_h_factor,
+                                                               double dw_r_factor)
+    : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
     check_initialization();
     init_parameters();
 }
 
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-        const IFormFactor& p_form_factor, double dw_h_factor,
-        double dw_r_factor)
-: IFormFactorDecorator(p_form_factor.clone())
-, m_h_dw_factor(dw_h_factor)
-, m_r_dw_factor(dw_r_factor)
+FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
 {
-    setName("FormFactorDecoratorDebyeWaller");
-    check_initialization();
-    init_parameters();
-}
-
-FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const
-{
-    FormFactorDecoratorDebyeWaller *result =
-            new FormFactorDecoratorDebyeWaller(
-        mp_form_factor->clone(), m_h_dw_factor, m_r_dw_factor);
+    FormFactorDecoratorDebyeWaller *result
+        = new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
     result->setName(getName());
     return result;
 }
 
-complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
+complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t &k_i,
+                                                   const Bin1DCVector &k_f_bin,
+                                                   const Bin1D &alpha_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     double qr2 = std::norm(q.x()) + std::norm(q.y());
     double qz2 = std::norm(q.z());
-    double dw = std::exp(-qz2*m_h_dw_factor-qr2*m_r_dw_factor);
-    return dw*mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+    double dw = std::exp(-qz2 * m_h_dw_factor - qr2 * m_r_dw_factor);
+    return dw * mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
 }
 
 bool FormFactorDecoratorDebyeWaller::check_initialization() const

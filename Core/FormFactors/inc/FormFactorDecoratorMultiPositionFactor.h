@@ -25,23 +25,28 @@
 class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,
-            std::vector<kvector_t> positions);
-    virtual ~FormFactorDecoratorMultiPositionFactor() {}
+    FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor,
+                                           std::vector<kvector_t> positions);
+    virtual ~FormFactorDecoratorMultiPositionFactor()
+    {
+    }
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const
+    {
+        visitor->visit(this);
+    }
 
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                               const Bin1D &alpha_f_bin) const;
 
 #ifndef GCCXML_SKIP_THIS
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
-            const Bin1D &phi_f_bin) const;
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+                                         const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const;
 #endif
 
-    virtual int getNumberOfStochasticParameters() const {
+    virtual int getNumberOfStochasticParameters() const
+    {
         return mp_form_factor->getNumberOfStochasticParameters();
     }
 
@@ -51,5 +56,3 @@ private:
 };
 
 #endif /* FORMFACTORDECORATORMULTIPOSITIONFACTOR_H_ */
-
-

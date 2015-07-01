@@ -90,7 +90,14 @@ QString SampleValidator::validateParticleLayoutItem(ParameterizedItem *item)
 QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
 {
     QString result;
-    if(item->childItems().size() != 2) {
+    int number_of_subparticles = 0;
+    QList<ParameterizedItem*> children = item->childItems();
+    for (int i=0; i<children.size(); ++i) {
+        if (children[i]->modelType()==Constants::ParticleType) {
+            number_of_subparticles++;
+        }
+    }
+    if(number_of_subparticles != 2) {
         result = QString("ParticleCoreShell doesn't have either core or shell defined.");
     }
     return result;
@@ -98,7 +105,7 @@ QString SampleValidator::validateParticleCoreShellItem(ParameterizedItem *item)
 
 
 
-bool SampleValidator::isVaildSampleModel(SampleModel *sampleModel)
+bool SampleValidator::isValidSampleModel(SampleModel *sampleModel)
 {
     m_validation_message.clear();
 

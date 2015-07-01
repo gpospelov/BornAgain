@@ -172,6 +172,8 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
             coreParticle = buildParticle(*children[i], tmp_abundance);
         } else if (port == ParameterizedItem::PortInfo::PORT_1) {
             shellParticle = buildParticle(*children[i], tmp_abundance);
+        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
+            continue;
         } else {
             throw GUIHelpers::Error(
                 "DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error.");

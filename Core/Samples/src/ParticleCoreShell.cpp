@@ -43,7 +43,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
     p_new->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get()) {
-        p_new->mP_rotation.reset(mP_rotation->clone());
+        p_new->setRotation(*mP_rotation);
     }
     p_new->setName(getName());
     return p_new;
@@ -56,7 +56,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     p_new->mp_core = this->mp_core->cloneInvertB();
     p_new->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
     if (mP_rotation.get()) {
-        p_new->mP_rotation.reset(mP_rotation->clone());
+        p_new->setRotation(*mP_rotation);
     }
     p_new->setName(getName() + "_inv");
     return p_new;

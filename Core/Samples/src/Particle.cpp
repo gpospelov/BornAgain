@@ -95,7 +95,7 @@ Particle *Particle::cloneInvertB() const
             Materials::createInvertedMaterial(mP_ambient_material.get()));
 
     if (mP_rotation.get())
-        p_result->mP_rotation.reset(mP_rotation->clone());
+        p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
 
     p_result->setName(getName() + "_inv");

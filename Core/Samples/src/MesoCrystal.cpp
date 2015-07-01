@@ -54,7 +54,7 @@ MesoCrystal* MesoCrystal::clone() const
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
             mp_meso_form_factor->clone());
     if (mP_rotation.get()) {
-        p_result->mP_rotation.reset(mP_rotation->clone());
+        p_result->setRotation(*mP_rotation);
     }
     p_result->setPosition(m_position);
     return p_result;
@@ -65,7 +65,7 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
             mp_meso_form_factor->clone());
     if (mP_rotation.get()) {
-        p_result->mP_rotation.reset(mP_rotation->clone());
+        p_result->setRotation(*mP_rotation);
     }
     p_result->setPosition(m_position);
     return p_result;

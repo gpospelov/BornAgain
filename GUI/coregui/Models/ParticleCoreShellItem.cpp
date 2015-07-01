@@ -30,6 +30,7 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1); // Shell particle
+    addToValidChildren(Constants::TransformationType, PortInfo::PORT_2, 1);
 }
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
@@ -40,6 +41,8 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT
         && first_available_particle_port != PortInfo::DEFAULT) {
         item->setItemPort(first_available_particle_port);
+    } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
+        item->setItemPort(PortInfo::PORT_2);
     }
 }
 

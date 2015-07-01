@@ -28,6 +28,8 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
     addPort("core", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
     addPort("shell", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
+    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION);
+
     m_roundpar = 5;
     m_label_vspace = 45;
 }

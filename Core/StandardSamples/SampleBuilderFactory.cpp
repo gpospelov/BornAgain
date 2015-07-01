@@ -21,7 +21,6 @@
 #include "CustomMorphologyBuilder.h"
 #include "RotatedPyramidsBuilder.h"
 #include "CoreShellParticleBuilder.h"
-#include "ParticlesInSSCABuilder.h"
 #include "MesoCrystalBuilder.h"
 #include "MultipleLayoutBuilder.h"
 #include "MagneticParticlesBuilder.h"
@@ -30,6 +29,7 @@
 #include "ParticleInTheAirBuilder.h"
 #include "ParticleDistributionsBuilder.h"
 #include "RipplesBuilder.h"
+#include "SizeDistributionModelsBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -108,8 +108,23 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Core shell nanoparticles");
 
     registerItem(
-        "ParticlesInSSCABuilder",
-        IFactoryCreateFunction<ParticlesInSSCABuilder, ISampleBuilder>,
+        "SizeDistributionDAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionDAModelBuilder, ISampleBuilder>,
+        "Size distribution model: decoupling approximation");
+
+    registerItem(
+        "SizeDistributionLMAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionLMAModelBuilder, ISampleBuilder>,
+        "Size distribution model: local monodisperse approximation");
+
+    registerItem(
+        "SizeDistributionSSCAModelBuilder",
+        IFactoryCreateFunction<SizeDistributionSSCAModelBuilder, ISampleBuilder>,
+        "Size distribution model: size space coupling approximation");
+
+    registerItem(
+        "CylindersInSSCABuilder",
+        IFactoryCreateFunction<CylindersInSSCABuilder, ISampleBuilder>,
         "Size spacing correlation approximation");
 
     registerItem(

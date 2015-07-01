@@ -140,10 +140,31 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
-    add("ParticlesInSSCA",
+    add("ApproximationDA",
+        "Size distribution model: decoupling approximation",
+        "MiniGISAS",
+        "SizeDistributionDAModelBuilder",
+        "None",
+        2e-10);
+
+    add("ApproximationLMA",
+        "Size distribution model: local monodisperse approximation",
+        "MiniGISAS",
+        "SizeDistributionLMAModelBuilder",
+        "None",
+        2e-10);
+
+    add("ApproximationSSCA",
+        "Size distribution model: size space coupling approximation",
+        "MiniGISAS",
+        "SizeDistributionSSCAModelBuilder",
+        "None",
+        2e-10);
+
+    add("CylindersInSSCA",
         "Size spacing correlation approximation",
         "MiniGISAS",
-        "ParticlesInSSCABuilder",
+        "CylindersInSSCABuilder",
         "None",
         2e-10);
 
@@ -181,7 +202,6 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "MagneticParticleZeroFieldBuilder",
         "None",
         2e-10);
-
 
 }
 

@@ -3,12 +3,18 @@
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
 #include "Distributions.h"
+#include "SampleBuilderFactory.h"
 #include "Units.h"
 
-int main(int argc, char **argv)
+int main()
 {
     SimulationRegistry sim_registry;
-    GISASSimulation* simulation = sim_registry.createSimulation("isgisaxs06d");
+    GISASSimulation* simulation = sim_registry.createSimulation("IsGISAXSSimulation2");
+
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("CustomRotatedLatticeBuilder");
+    simulation->setSampleBuilder(builder);
+
 
     // loading reference data
     std::string filename = Utils::FileSystem::GetReferenceDataDir() +

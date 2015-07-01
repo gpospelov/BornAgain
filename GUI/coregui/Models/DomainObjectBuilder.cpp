@@ -220,6 +220,8 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
             if (P_composition.get()) {
                 p_result->addParticle(*P_composition);
             }
+        } else if (children[i]->modelType() == Constants::TransformationType) {
+            continue;
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
                                     " -> Error! Not implemented");

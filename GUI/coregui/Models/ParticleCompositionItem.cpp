@@ -28,19 +28,24 @@ ParticleCompositionItem::ParticleCompositionItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
     addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
+    addToValidChildren(Constants::TransformationType, PortInfo::PORT_1, 1);
+
 }
 
 void ParticleCompositionItem::insertChildItem(int row, ParameterizedItem *item)
 {
+    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
     ParameterizedItem::insertChildItem(row, item);
     if (item->modelType() == Constants::ParticleType
         || item->modelType() == Constants::ParticleCoreShellType
         || item->modelType() == Constants::ParticleCompositionType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
         if (port == PortInfo::DEFAULT) {
             item->setItemPort(PortInfo::PORT_0);
         }
+    } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
+        item->setItemPort(PortInfo::PORT_1);
     }
+
 }
 
 void ParticleCompositionItem::onPropertyChange(const QString &name)

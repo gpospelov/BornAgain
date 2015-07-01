@@ -54,10 +54,14 @@ ParticleDistributionItem::~ParticleDistributionItem()
 
 void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
     ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT) {
-        item->setItemPort(PortInfo::PORT_0);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
     }
 }
 

@@ -37,10 +37,9 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
     PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
     ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType) {
-        if (port == PortInfo::DEFAULT && first_available_particle_port != PortInfo::DEFAULT) {
-            item->setItemPort(first_available_particle_port);
-        }
+    if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT
+        && first_available_particle_port != PortInfo::DEFAULT) {
+        item->setItemPort(first_available_particle_port);
     }
 }
 

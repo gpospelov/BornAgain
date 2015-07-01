@@ -54,16 +54,10 @@ ParticleDistributionItem::~ParticleDistributionItem()
 
 void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
+    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
     ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType
-        || item->modelType() == Constants::ParticleCoreShellType
-        || item->modelType() == Constants::ParticleCompositionType) {
-        item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-        item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
-        }
+    if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT) {
+        item->setItemPort(PortInfo::PORT_0);
     }
 }
 
@@ -101,8 +95,9 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QStringList result;
     QList<ParameterizedItem *> children = childItems();
     if (children.size() > 1) {
-        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
-                                " -> Error! More than one child item");
+        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
+                 << "More than one child item";
+        return result;
     }
     if (children.size() == 0) {
         result << NO_SELECTION;

@@ -37,6 +37,8 @@
 #include "PyGenTools.h"
 #include "ParameterDistribution.h"
 #include "Rotations.h"
+#include "ConvolutionDetectorResolution.h"
+#include "ResolutionFunction2DGaussian.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {
@@ -322,6 +324,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation)
     //    result << indent() << "# Creating and returning GISAXS simulation\n";
     result << indent() << "simulation = GISASSimulation()\n";
     result << defineDetector(simulation);
+    result << defineDetectorResolutionFunction(simulation);
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
     result << indent() << "return simulation\n\n\n";
@@ -1286,6 +1289,38 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation *simulation) cons
         index++;
     }
     result << ")\n";
+    return result.str();
+}
+
+std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation *simulation) const
+{
+    std::ostringstream result;
+    Detector detector = simulation->getInstrument().getDetector();
+
+    if (const IDetectorResolution *p_resfunc = detector.getDetectorResolutionFunction()) {
+        if (const ConvolutionDetectorResolution *p_convfunc
+            = dynamic_cast<const ConvolutionDetectorResolution *>(p_resfunc)) {
+            if (const ResolutionFunction2DGaussian *resfunc
+                = dynamic_cast<const ResolutionFunction2DGaussian *>(
+                    p_convfunc->getResolutionFunction2D())) {
+
+                result << indent() << "simulation.setDetectorResolutionFunction(";
+                result << "ResolutionFunction2DGaussian(";
+                result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
+                result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";
+
+            } else {
+                std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+                message += "Unknown detector resolution function";
+                throw Exceptions::RuntimeErrorException(message);
+            }
+        } else {
+            std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+            message += "Not a ConvolutionDetectorResolution function";
+            throw Exceptions::RuntimeErrorException(message);
+        }
+    }
+
     return result.str();
 }
 

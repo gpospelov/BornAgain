@@ -49,9 +49,9 @@ set(list_of_python_tests
     "detector_resolution.py"
 )
 
-#foreach(_test ${list_of_python_tests})
-#    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
-#endforeach()
+foreach(_test ${list_of_python_tests})
+    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore/${_test}")
+endforeach()
 
 # ------------------------------------------------------------------------------------------------
 # PySuite and possibly other compiled tests
@@ -73,7 +73,7 @@ set(list_of_tests
     "PySuite/CylindersWithSizeDistribution"
     "PySuite/TwoTypesCylindersDistribution"
     "PySuite/BeamDivergence"
-#    "PySuite/DetectorResolution"              # not yet implemented
+    "PySuite/DetectorResolution"              # not yet implemented
     "PySuite/MultipleLayout"
 #    "PySuite/ParticlesInSSCA"                 # broken
     "PySuite/CosineRipple"

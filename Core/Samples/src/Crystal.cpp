@@ -18,10 +18,8 @@
 #include "Units.h"
 #include "MathFunctions.h"
 
-Crystal::Crystal(const ParticleComposition& lattice_basis,
-        const Lattice& lattice)
-: m_lattice(lattice)
-, m_dw_factor(0.0)
+Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
+    : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName("Crystal");
     mp_lattice_basis = lattice_basis.clone();
@@ -33,14 +31,14 @@ Crystal::~Crystal()
     delete mp_lattice_basis;
 }
 
-Crystal* Crystal::clone() const
+Crystal *Crystal::clone() const
 {
     Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
     return p_new;
 }
 
-Crystal* Crystal::cloneInvertB() const
+Crystal *Crystal::cloneInvertB() const
 {
     Crystal *p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
     p_new->setDWFactor(m_dw_factor);
@@ -56,12 +54,12 @@ IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form
     Lattice transformed_lattice = getTransformedLattice(p_rotation);
     boost::scoped_ptr<IFormFactor> P_basis_ff(mp_lattice_basis->createTransformedFormFactor(
         wavevector_scattering_factor, p_rotation, translation));
-    FormFactorCrystal *p_ff_crystal
-        = new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor);
+    boost::scoped_ptr<FormFactorCrystal> P_ff_crystal(
+        new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
     if (m_dw_factor > 0.0) {
-        return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
+        return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);
     }
-    return p_ff_crystal;
+    return P_ff_crystal->clone();
 }
 
 Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
@@ -73,9 +71,8 @@ Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
     }
 }
 
-Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
-: m_lattice(lattice)
-, m_dw_factor(0.0)
+Crystal::Crystal(ParticleComposition *p_lattice_basis, const Lattice &lattice)
+    : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName("Crystal");
     mp_lattice_basis = p_lattice_basis;

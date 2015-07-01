@@ -16,6 +16,8 @@
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
 #include "MaterialUtils.h"
+#include "VectorItem.h"
+
 #include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
@@ -27,7 +29,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
     setItemName(Constants::ParticleType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
+
     registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     registerProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
@@ -36,8 +38,39 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     registerGroupProperty(P_POSITION, Constants::VectorType);
 
     addToValidChildren(Constants::TransformationType, PortInfo::PORT_0, 1);
-
     setPropertyAppearance(ParameterizedItem::P_NAME,
                           PropertyAttribute::VISIBLE);
 }
 
+void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::TransformationType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
+}
+
+void ParticleItem::onPropertyChange(const QString &name)
+{
+    ParameterizedItem::onPropertyChange(name);
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCoreShellType
+            || parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+            int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            if (parent()->modelType() == Constants::ParticleCoreShellType
+                && port == PortInfo::PORT_1) {
+                ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
+                p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
+                p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
+                p_position_item->setRegisteredProperty(VectorItem::P_Z, 0.0);
+                setPropertyAppearance(ParticleItem::P_POSITION, PropertyAttribute::DISABLED);
+            }
+        }
+    }
+}

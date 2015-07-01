@@ -95,7 +95,7 @@ Particle *Particle::cloneInvertB() const
             Materials::createInvertedMaterial(mP_ambient_material.get()));
 
     if (mP_rotation.get())
-        p_result->mP_rotation.reset(mP_rotation->clone());
+        p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
 
     p_result->setName(getName() + "_inv");
@@ -108,22 +108,20 @@ IFormFactor *Particle::createTransformedFormFactor(complex_t wavevector_scatteri
     if (!mP_form_factor.get()) return 0;
     boost::scoped_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    IFormFactor *p_bare_clone = mP_form_factor->clone();
-    IFormFactor *p_temp_ff1;
+    boost::scoped_ptr<IFormFactor> P_temp_ff1;
     if (P_total_rotation.get()) {
-        p_temp_ff1 = new FormFactorDecoratorRotation(p_bare_clone, *P_total_rotation);
+        P_temp_ff1.reset(new FormFactorDecoratorRotation(*mP_form_factor, *P_total_rotation));
     } else {
-        p_temp_ff1 = p_bare_clone;
+        P_temp_ff1.reset(mP_form_factor->clone());
     }
-    IFormFactor *p_temp_ff2;
+    boost::scoped_ptr<IFormFactor> P_temp_ff2;
     if (total_position != kvector_t()) {
-        p_temp_ff2 = new FormFactorDecoratorPositionFactor(*p_temp_ff1, total_position);
-        delete p_temp_ff1;
+        P_temp_ff2.reset(new FormFactorDecoratorPositionFactor(*P_temp_ff1, total_position));
     } else {
-        p_temp_ff2 = p_temp_ff1;
+        P_temp_ff2.swap(P_temp_ff1);
     }
     FormFactorDecoratorMaterial *p_ff
-        = new FormFactorDecoratorMaterial(p_temp_ff2, wavevector_scattering_factor);
+        = new FormFactorDecoratorMaterial(*P_temp_ff2, wavevector_scattering_factor);
     if (mP_material.get()) {
         if (mP_rotation.get()) {
             boost::scoped_ptr<const IMaterial> P_transformed_material(

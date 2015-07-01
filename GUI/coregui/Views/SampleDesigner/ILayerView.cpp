@@ -155,7 +155,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    // Layer was moved from MultiLayer he belong's to, to the empty place of
+    // Layer was moved from MultiLayer it belongs to, to an empty place of
     // the scene: changing ownership.
     if(parentItem() && !requested_parent) {
         qDebug() << "1.3 Layer->Scene";

@@ -46,12 +46,11 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
     HomogeneousMaterial particle_material("particle", complex_t(1.0, 0.0));
     HomogeneousMaterial ambient_material("ambient", complex_t(0.0, 0.0));
 
-    FormFactorDecoratorMaterial *p_material_ff =
-            new FormFactorDecoratorMaterial(new FormFactorCylinder(1.0, 1.0));
-    p_material_ff->setMaterial(particle_material);
-    p_material_ff->setAmbientMaterial(ambient_material);
-    mp_matrix_ff = new FormFactorDWBAPol(p_material_ff);
-    mp_scalar_ff = new FormFactorDWBA(p_material_ff->clone());
+    FormFactorDecoratorMaterial material_ff(FormFactorCylinder(1.0, 1.0));
+    material_ff.setMaterial(particle_material);
+    material_ff.setAmbientMaterial(ambient_material);
+    mp_matrix_ff = new FormFactorDWBAPol(material_ff);
+    mp_scalar_ff = new FormFactorDWBA(material_ff);
     mp_specular_info = new LayerSpecularInfo();
     initSpecularInfo();
 }

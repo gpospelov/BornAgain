@@ -359,7 +359,7 @@ void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
     writer->writeEndElement(); // m_model_tag
 }
 
-//! Move given parameterized item to the new_parent at given raw. If new_parent is not defined,
+//! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
 //! use root_item as a new parent.
 void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent,
                                          int row)
@@ -377,7 +377,7 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
     if (item->parent() == new_parent && indexOfItem(item).row() == row) {
         qDebug()
-            << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
+            << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
         return;
     }
 

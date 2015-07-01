@@ -173,6 +173,8 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
             coreParticle = buildParticle(*children[i], tmp_abundance);
         } else if (port == ParameterizedItem::PortInfo::PORT_1) {
             shellParticle = buildParticle(*children[i], tmp_abundance);
+        } else if (port == ParameterizedItem::PortInfo::PORT_2) {
+            continue;
         } else {
             throw GUIHelpers::Error(
                 "DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error.");
@@ -219,6 +221,8 @@ ParticleComposition *DomainObjectBuilder::buildParticleComposition(const Paramet
             if (P_composition.get()) {
                 p_result->addParticle(*P_composition);
             }
+        } else if (children[i]->modelType() == Constants::TransformationType) {
+            continue;
         } else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleComposition()"
                                     " -> Error! Not implemented");
@@ -289,7 +293,6 @@ ParticleDistribution *DomainObjectBuilder::buildParticleDistribution(const Param
     ParameterDistribution par_distr(par_name.toStdString(), *distr, nbr_samples, sigma_factor);
     delete distr;
     p_result = new ParticleDistribution(*P_particle, par_distr);
-    setTransformationInfo(p_result, item);
     return p_result;
 }
 

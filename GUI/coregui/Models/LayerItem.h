@@ -27,6 +27,7 @@ public:
     static const QString P_MATERIAL;
     explicit LayerItem(ParameterizedItem *parent=0);
     ~LayerItem(){}
+    void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // LAYERITEM_H

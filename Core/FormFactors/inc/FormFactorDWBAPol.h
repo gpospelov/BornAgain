@@ -26,7 +26,7 @@
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {
 public:
-    FormFactorDWBAPol(IFormFactor *p_form_factor);
+    FormFactorDWBAPol(const IFormFactor &form_factor);
     virtual ~FormFactorDWBAPol();
 
     virtual FormFactorDWBAPol *clone() const;

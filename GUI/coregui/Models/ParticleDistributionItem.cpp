@@ -32,11 +32,9 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
 {
     setItemName(Constants::ParticleDistributionType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
-    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
     registerGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
 
@@ -56,8 +54,14 @@ ParticleDistributionItem::~ParticleDistributionItem()
 void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
 }
 
 void ParticleDistributionItem::onChildPropertyChange()
@@ -94,8 +98,9 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QStringList result;
     QList<ParameterizedItem *> children = childItems();
     if (children.size() > 1) {
-        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
-                                " -> Error! More than one child item");
+        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
+                 << "More than one child item";
+        return result;
     }
     if (children.size() == 0) {
         result << NO_SELECTION;

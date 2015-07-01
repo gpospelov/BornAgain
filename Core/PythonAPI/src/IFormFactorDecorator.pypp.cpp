@@ -30,6 +30,13 @@ namespace bp = boost::python;
 
 struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
 
+    IFormFactorDecorator_wrapper(::IFormFactor const & form_factor )
+    : IFormFactorDecorator( boost::ref(form_factor) )
+      , bp::wrapper< IFormFactorDecorator >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
     virtual void accept( ::ISampleVisitor * visitor ) const {
         bp::override func_accept = this->get_override( "accept" );
         func_accept( boost::python::ptr(visitor) );
@@ -288,7 +295,7 @@ void register_IFormFactorDecorator_class(){
 
     { //::IFormFactorDecorator
         typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, std::auto_ptr< IFormFactorDecorator_wrapper >, boost::noncopyable > IFormFactorDecorator_exposer_t;
-        IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", "Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor,.", bp::no_init );
+        IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", "Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor,.", bp::init< IFormFactor const & >(( bp::arg("form_factor") )) );
         bp::scope IFormFactorDecorator_scope( IFormFactorDecorator_exposer );
         { //::IFormFactorDecorator::accept
         

@@ -79,7 +79,8 @@ private:
     void createActions();
     void connectSignals();
     void clearSignalMapper();
-    void setCurrentIndex(const QModelIndex &index);
+    void scrollToIndex(const QModelIndex &index);
+    QModelIndex getIndexAtColumnZero(const QModelIndex &index);
 
     SampleModel *getSampleModel();
     QTreeView *getTreeView();

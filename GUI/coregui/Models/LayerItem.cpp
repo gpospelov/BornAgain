@@ -32,3 +32,14 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
 }
+
+void LayerItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::ParticleLayoutType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
+}

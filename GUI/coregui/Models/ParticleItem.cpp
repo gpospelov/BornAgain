@@ -56,12 +56,15 @@ void ParticleItem::insertChildItem(int row, ParameterizedItem *item)
 void ParticleItem::onPropertyChange(const QString &name)
 {
     ParameterizedItem::onPropertyChange(name);
-    if (name==P_PORT && parent()) {
-        if (parent()->modelType()==Constants::ParticleCoreShellType) {
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCoreShellType
+            || parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
             setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
             setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
             int port = getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-            if (port == PortInfo::PORT_1) {
+            if (parent()->modelType() == Constants::ParticleCoreShellType
+                && port == PortInfo::PORT_1) {
                 ParameterizedItem *p_position_item = getSubItems()[ParticleItem::P_POSITION];
                 p_position_item->setRegisteredProperty(VectorItem::P_X, 0.0);
                 p_position_item->setRegisteredProperty(VectorItem::P_Y, 0.0);
@@ -71,4 +74,3 @@ void ParticleItem::onPropertyChange(const QString &name)
         }
     }
 }
-

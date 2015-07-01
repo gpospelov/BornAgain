@@ -39,8 +39,6 @@ void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
     PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
     ParameterizedItem::insertChildItem(row, item);
     if (item->modelType()==Constants::ParticleType) {
-        item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-        item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
         if (port == PortInfo::DEFAULT && first_available_particle_port != PortInfo::DEFAULT) {
             item->setItemPort(first_available_particle_port);
         }

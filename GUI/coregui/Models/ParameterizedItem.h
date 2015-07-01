@@ -53,7 +53,7 @@ public:
     //! retrieve parent item
     ParameterizedItem *parent() const
     {
-        return m_parent;
+        return mp_parent;
     }
 
     //! retrieve child item in given row
@@ -188,7 +188,7 @@ private:
     QMap<int, PortInfo> m_port_info;
 
     QString m_model_type;
-    ParameterizedItem *m_parent;
+    ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
 };

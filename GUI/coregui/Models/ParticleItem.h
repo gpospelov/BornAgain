@@ -29,6 +29,7 @@ public:
     explicit ParticleItem(ParameterizedItem *parent=0);
     ~ParticleItem(){}
     void insertChildItem(int row, ParameterizedItem *item);
+    virtual void onPropertyChange(const QString &name);
 };
 
 #endif // PARTICLEITEM_H

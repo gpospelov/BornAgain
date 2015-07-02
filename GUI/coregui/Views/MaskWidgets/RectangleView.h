@@ -1,16 +1,11 @@
-#include <QWidget>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include "DistributionEditor.h"
-#include <QGraphicsView>
-#include <QPainterPath>
-#include "IView.h"
-
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
-class RectangleItem;
+#include "IView.h"
+
+class QPainter;
+class ParameterizedItem;
+class QGraphicsSceneMouseEvent;
 
 class RectangleView :public IView
 {
@@ -20,6 +15,7 @@ public:
     //! describes corner
 
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+    enum Mode { SELECTION, RESIZE, ROTATION };
     enum {Type = UserType + 1};
 
     //! create Rectangle
@@ -45,7 +41,7 @@ public:
     //! calculates rotated rectangle
     //! @param event mouse event to set new coordinates
     //! @return degree of rotation
-    qreal calculateRotation(QGraphicsSceneMouseEvent *event);
+    qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
 
     int type() const {return Type;}
     void setInclude();
@@ -72,11 +68,10 @@ protected:
 private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
+    Mode m_mode;
     bool m_block_update;
 
-    // FIXME These two booleans have to be replaced with one enumerator
-    bool m_resizeMode;
-    bool m_rotationMode;
+    void setSelectedCorner(QGraphicsSceneMouseEvent *event);
 };
 #endif
 

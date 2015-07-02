@@ -2,7 +2,6 @@
 #define RECTANGLEITEM_H
 
 #include "ParameterizedItem.h"
-//#include "RectangleView.h"
 
 class RectangleItem : public ParameterizedItem
 {

@@ -1,17 +1,11 @@
-#include <QWidget>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include "DistributionEditor.h"
-#include <QGraphicsView>
-#include <QPainterPath>
-#include <QBrush>
-#include "IView.h"
-
-
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
+
+#include "IView.h"
+
 class PolygonItem;
+class QPainter;
+class QGraphicsSceneMouseEvent;
 
 class PolygonView : public IView
 {
@@ -44,10 +38,12 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     bool m_changeCornerMode;
     int m_indexOfCurrentSelectedPoint;
+    bool m_mouseIsOverFirstPoint;
     ParameterizedItem *m_item;
 };
 #endif

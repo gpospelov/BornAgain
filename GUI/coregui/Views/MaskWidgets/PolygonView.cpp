@@ -1,17 +1,18 @@
-
 #include "PolygonView.h"
 #include "ParameterizedItem.h"
 #include "PolygonItem.h"
 #include "PointItem.h"
-#include <iostream>
 #include <cmath>
+#include <QDebug>
+#include <QPainter>
+#include <QCursor>
+#include <QGraphicsSceneMouseEvent>
 
 PolygonView::PolygonView()
-    : m_changeCornerMode(false), m_indexOfCurrentSelectedPoint(0)
+    : m_changeCornerMode(false), m_indexOfCurrentSelectedPoint(0), m_mouseIsOverFirstPoint(false)
 
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable);
-    this->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     this->cursor().setShape(Qt::ClosedHandCursor);
     this->setAcceptHoverEvents(true);
 }
@@ -52,7 +53,7 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     if (points.length() >= 1
         && m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
         pen.setWidth(1);
-        if (m_item->getRegisteredProperty(PolygonItem::P_MOUSEISOVERFIRSTPOINT).toBool()) {
+        if (m_mouseIsOverFirstPoint) {
             painter->fillRect(getFirstPoint(), Qt::green);
         } else {
             painter->drawRect(getFirstPoint());
@@ -173,6 +174,17 @@ void PolygonView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_changeCornerMode = false;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void PolygonView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    if(getFirstPoint().contains(event->pos())) {
+        m_mouseIsOverFirstPoint =  true;
+    }
+    else {
+         m_mouseIsOverFirstPoint =  false;
+    }
+    QGraphicsItem::hoverMoveEvent(event);
 }
 
 void PolygonView::setInclude()

@@ -1,8 +1,11 @@
 #include "EllipseView.h"
 #include "EllipseItem.h"
-#include <iostream>
-#include <cmath>
 #include "ParameterizedItem.h"
+#include <cmath>
+#include <QPainter>
+#include <QGraphicsSceneMouseEvent>
+#include <QCursor>
+#include <QDebug>
 
 EllipseView::EllipseView()
 {

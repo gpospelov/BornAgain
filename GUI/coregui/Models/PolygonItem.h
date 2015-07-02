@@ -10,16 +10,9 @@ class PolygonItem : public ParameterizedItem
 public:
     static const QString P_COLOR;
     static const QString P_DRAWINGMODE;
-    static const QString P_MOUSEISOVERFIRSTPOINT;
 
     explicit PolygonItem(ParameterizedItem *parent=0);
     ~PolygonItem(){}
-
-
-    int getColor();
-    bool isDrawingMode();
-    void setColor(int color);
-    void setDrawingMode(bool drawingMode);
 };
 
 #endif

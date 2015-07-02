@@ -1,41 +1,32 @@
 #include <QDebug>
-#include "DistributionEditor.h"
-#include <QtGui>
-#include <QGraphicsItem>
-#include <QGraphicsRectItem>
-#include <QGraphicsView>
-#include <QGraphicsScene>
 #include <ColorMapPlot.h>
 #include "GraphicsProxyWidget.h"
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
 #include "SimulationRegistry.h"
-#include "GraphicsScene.h"
-#include "GraphicsView.h"
+#include "MaskGraphicsScene.h"
+#include "MaskGraphicsView.h"
 #include "MaskEditor.h"
 #include "RectangleView.h"
-#include "AwesomePropertyEditor.h"
-#include "RectangleItem.h"
-#include "RectangleView.h"
+#include "EllipseView.h"
+#include "PolygonView.h"
+#include "MaskModel.h"
 
 
 // See other FIXME in GraphicsScene.h GraphicsScene.cpp, GraphicsView.cpp, RectangleView.h, RectangleView.cpp
 
 // All
-// Cleanup the code. Remove old versions of Ellipse, Polygon, Rectangle
+// Cleanup the code. Remove old versions of Ellipse, Polygon, Rectangle [FIXED]
 
 // *.h
-// In all headers remove all includes placed before #ifndef, includes should be inside #ifndef
+// In all headers remove all includes placed before #ifndef, includes should be inside #ifndef [FIXED]
 
 // *.h
-// In all headers remove unnecessary includes, use class forward declaration, where possible
+// In all headers remove unnecessary includes, use class forward declaration, where possible [FIXED]
 
 // Renaming
-// Rename GraphicsScene to MaskGraphicsScene
-// Rename GraphicsView to MaskGraphicsView
+// Rename GraphicsScene to MaskGraphicsScene [FIXED]
+// Rename GraphicsView to MaskGraphicsView [FIXED]
 
 // MaskToolBar (MaskEditor)
 // 1) Create MaskToolBar widget which will contain vertically aligned QToolButtons of 25x25 size
@@ -73,7 +64,7 @@
 // Drawing of rectangle
 // When one tries to draw a rectangle and draws it too small, the rectangle is not drawn. That's ok.
 // But if it was the case, the scene should not switch automatically in selection mode, it should stays in rectangle mode.
-// Only if creation of view was successfull -> switch to selection mode.
+// Only if creation of view was successfull -> switch to selection mode. [FIXED]
 
 // RectangleView, EllipseView
 // 1) Rectangle should have a tiny frame around, which is a bit darker, than filling color.
@@ -110,8 +101,8 @@
 
 MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
-    , m_scene(new GraphicsScene)
-    , m_view(new GraphicsView)
+    , m_scene(new MaskGraphicsScene)
+    , m_view(new MaskGraphicsView)
     , m_buttonLayout(new QVBoxLayout)
 {
 
@@ -232,18 +223,18 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 void MaskEditor::rectangleButtonPressed()
 {
-    m_scene->setDrawing(GraphicsScene::RECTANGLE);
+    m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
     qDebug() << "void MaskEditor::rectangleButtonPressed()";
 }
 
 void MaskEditor::ellipseButtonPressed()
 {
-    m_scene->setDrawing(GraphicsScene::ELLIPSE);
+    m_scene->setDrawing(MaskGraphicsScene::ELLIPSE);
 }
 
 void MaskEditor::polygonButtonPressed()
 {
-    m_scene->setDrawing(GraphicsScene::POLYGON);
+    m_scene->setDrawing(MaskGraphicsScene::POLYGON);
 }
 
 void MaskEditor::panMode()
@@ -283,8 +274,8 @@ void MaskEditor::sendToBackClicked()
         selectedItems[i]->setZValue(selectedItems[i]->zValue()-1);
     }
     // To make sure that ColorMap is always bottom level item
-    if(m_widget->zValue() > selectedItems[0]->zValue()) {
-            m_widget->setZValue(selectedItems[0]->zValue()-1);
+    if(m_proxyWidget->zValue() > selectedItems[0]->zValue()) {
+            m_proxyWidget->setZValue(selectedItems[0]->zValue()-1);
     }
     qDebug() << "void MaskEditor::sendToBackClicked()-> current value:" << selectedItems[0]->zValue();
 }
@@ -293,14 +284,14 @@ void MaskEditor::includeClicked()
 {
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        if(Rectangle::Type == selectedItems[i]->type()) {
+        if(RectangleView::Type == selectedItems[i]->type()) {
             qgraphicsitem_cast<RectangleView* >(selectedItems[i])->setInclude();
         }
-        else if(Ellipse::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setInclude();
+        else if(EllipseView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setInclude();
         }
-        else if(Polygon::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Polygon* >(selectedItems[i])->setInclude();
+        else if(PolygonView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setInclude();
         }
     }
 }
@@ -309,21 +300,21 @@ void MaskEditor::excludeClicked()
 {
     QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
     for(int i = 0; i < selectedItems.length(); ++i) {
-        if(Rectangle::Type == selectedItems[i]->type()) {
+        if(RectangleView::Type == selectedItems[i]->type()) {
             qgraphicsitem_cast<RectangleView * >(selectedItems[i])->setExclude();
         }
-        else if(Ellipse::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Ellipse* >(selectedItems[i])->setExclude();
+        else if(EllipseView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<EllipseView* >(selectedItems[i])->setExclude();
         }
-        else if(Polygon::Type == selectedItems[i]->type()) {
-            qgraphicsitem_cast<Polygon* >(selectedItems[i])->setExclude();
+        else if(PolygonView::Type == selectedItems[i]->type()) {
+            qgraphicsitem_cast<PolygonView* >(selectedItems[i])->setExclude();
         }
     }
 }
 
 void MaskEditor::changeToSelectionMode()
 {
-    m_scene->setDrawing(GraphicsScene::NONE);
+    m_scene->setDrawing(MaskGraphicsScene::NONE);
 }
 
 void MaskEditor::changeToDrawingMode()
@@ -334,10 +325,11 @@ void MaskEditor::changeToDrawingMode()
 
 void MaskEditor::setModel(MaskModel *maskModel)
 {
+    QListView *listView = new QListView;
+    listView->setModel(maskModel);
     m_scene->setModel(maskModel);
-    QTreeView *treeView = new QTreeView;
-    m_scene->setTreeView(treeView);
-    m_buttonLayout->addWidget(treeView);
+    m_scene->setSelectionModel(listView->selectionModel());
+    m_buttonLayout->addWidget(listView);
 }
 
 

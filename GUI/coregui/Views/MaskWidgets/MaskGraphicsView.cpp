@@ -1,9 +1,6 @@
-#include "GraphicsView.h"
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
+#include "MaskGraphicsView.h"
 #include "GraphicsProxyWidget.h"
-#include "GraphicsScene.h"
+#include "MaskGraphicsScene.h"
 
 
 //GraphicsView::GraphicsView() : m_rectangle(0), m_ellipse(0), m_polygon(0), isFinished(true),
@@ -13,25 +10,15 @@
 //}
 
 
-// FIXME - UP_TO_YOU
-// Refactoring book advices to create private functions to be able to write like this
-// if(controlButtonIsPressed(event) {
-//  do this
-// else if(eventPosIsWithinRange())
-//
-// It's up to you, but please refactor this function, I do not understand what is going here
-
-
-void GraphicsView::wheelEvent(QWheelEvent *event)
+void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 {
 
     // hold control button
-    if(event->modifiers().testFlag(Qt::ControlModifier)) {
+    if(controlButtonIsPressed(event)) {
         centerOn(mapToScene(event->pos()));
 
         // Scale the view / do the zoom
-        // FIXME Can you make it "const double scaleFactor" to stress that it is not supposed to be modified ?
-        double scaleFactor = 1.15;
+        const double scaleFactor = 1.15;
 
         if(event->delta() > 0) {
             // Zoom in
@@ -42,7 +29,7 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
             this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
         }
     }
-    else if(this->scene()->items()[0]->boundingRect().contains(event->pos())) {
+    else if(eventPosIsOnColorMap(event)) {
         this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         QGraphicsView::wheelEvent(event);
@@ -52,7 +39,7 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
     }
 }
 
-void GraphicsView::resizeEvent(QResizeEvent *event)
+void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 {
 //    qDebug() << "resize";
 //    for(int i = 0; i < scene()->items().length()-1; ++i)
@@ -72,7 +59,7 @@ void GraphicsView::resizeEvent(QResizeEvent *event)
     QGraphicsView::resizeEvent(event);
 }
 
-void  GraphicsView::keyPressEvent(QKeyEvent *event)
+void  MaskGraphicsView::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Delete:
@@ -83,10 +70,29 @@ void  GraphicsView::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void GraphicsView::deleteSelectedItems()
+void MaskGraphicsView::deleteSelectedItems()
 {
-    GraphicsScene *graphicsScene = dynamic_cast<GraphicsScene *>(scene());
+    MaskGraphicsScene *graphicsScene = dynamic_cast<MaskGraphicsScene *>(scene());
     Q_ASSERT(graphicsScene);
     graphicsScene->deleteSelectedItems();
 }
 
+bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
+{
+    if(event->modifiers().testFlag(Qt::ControlModifier)){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool MaskGraphicsView::eventPosIsOnColorMap(QWheelEvent *event)
+{
+    if(this->scene()->items()[0]->boundingRect().contains(event->pos())) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}

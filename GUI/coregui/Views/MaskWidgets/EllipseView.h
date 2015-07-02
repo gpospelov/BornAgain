@@ -1,16 +1,11 @@
-#include <QWidget>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include "DistributionEditor.h"
-#include <QGraphicsView>
-#include <QPainterPath>
-#include "IView.h"
-
 #ifndef ELLIPSEVIEW_H
 #define ELLIPSEVIEW_H
 
+#include "IView.h"
+
 class EllipseItem;
+class QGraphicsSceneMouseEvent;
+class QPainter;
 
 class EllipseView :public IView
 {

@@ -45,23 +45,6 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_createTransformedFormFactor( wavevector_scattering_factor, boost::python::ptr(p_rotation), translation );
     }
 
-    virtual ::IMaterial const * getAmbientMaterial(  ) const {
-        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
-        return func_getAmbientMaterial(  );
-    }
-
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
-        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
-        else{
-            this->IParticle::setAmbientMaterial( boost::ref(material) );
-        }
-    }
-    
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IParticle::setAmbientMaterial( boost::ref(material) );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -108,6 +91,11 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -244,8 +232,8 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 void register_IParticle_class(){
 
     { //::IParticle
-        typedef bp::class_< IParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
-        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a generic particl.", bp::no_init );
+        typedef bp::class_< IParticle_wrapper, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
+        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a real particle (one that has position/rotation and form factor.", bp::no_init );
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyRotation
         
@@ -314,17 +302,6 @@ void register_IParticle_class(){
                 , "Create a form factor for this particle with an extra scattering factor." );
         
         }
-        { //::IParticle::getAmbientMaterial
-        
-            typedef ::IMaterial const * ( ::IParticle::*getAmbientMaterial_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getAmbientMaterial"
-                , bp::pure_virtual( getAmbientMaterial_function_type(&::IParticle::getAmbientMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns particle's material." );
-        
-        }
         { //::IParticle::getPosition
         
             typedef ::kvector_t ( ::IParticle::*getPosition_function_type)(  ) const;
@@ -344,18 +321,6 @@ void register_IParticle_class(){
                 , getRotation_function_type( &::IParticle::getRotation )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns rotation object." );
-        
-        }
-        { //::IParticle::setAmbientMaterial
-        
-            typedef void ( ::IParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            
-            IParticle_exposer.def( 
-                "setAmbientMaterial"
-                , setAmbientMaterial_function_type(&::IParticle::setAmbientMaterial)
-                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
         
         }
         { //::IParticle::setPosition
@@ -434,6 +399,17 @@ void register_IParticle_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&IParticle_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IAbstractParticle::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::IAbstractParticle::*getAmbientMaterial_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IAbstractParticle::getAmbientMaterial) )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns particle's material." );
         
         }
         { //::ICompositeSample::getCompositeSample

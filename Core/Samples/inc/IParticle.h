@@ -22,20 +22,20 @@
 
 #include <boost/scoped_ptr.hpp>
 
-//! @class IParticle
+//! @class IAbstractParticle
 //! @ingroup samples
 //! @brief Interface for a generic particle
 
-class BA_CORE_API_ IParticle : public ICompositeSample
+class BA_CORE_API_ IAbstractParticle : public ICompositeSample
 {
 public:
-    virtual ~IParticle()
+    virtual ~IAbstractParticle()
     {
     }
-    virtual IParticle *clone() const = 0;
+    virtual IAbstractParticle *clone() const = 0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IParticle *cloneInvertB() const = 0;
+    virtual IAbstractParticle *cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const
@@ -52,14 +52,36 @@ public:
 
     //! Returns particle's material.
     virtual const IMaterial *getAmbientMaterial() const = 0;
+};
+
+//! @class IParticle
+//! @ingroup samples
+//! @brief Interface for a real particle (one that has position/rotation and form factor)
+
+class BA_CORE_API_ IParticle : public IAbstractParticle
+{
+public:
+    virtual ~IParticle()
+    {
+    }
+    virtual IParticle *clone() const = 0;
+
+    //! Returns a clone with inverted magnetic fields
+    virtual IParticle *cloneInvertB() const = 0;
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const
+    {
+        visitor->visit(this);
+    }
 
     //! Create a form factor for this particle with an extra scattering factor
     IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
 
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
-                                                     const IRotation* p_rotation,
-                                                     kvector_t translation) const=0;
+                                                     const IRotation *p_rotation,
+                                                     kvector_t translation) const = 0;
 
     //! Returns particle position.
     kvector_t getPosition() const

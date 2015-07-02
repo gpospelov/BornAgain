@@ -18,6 +18,7 @@
 #include "FormFactors.h"
 #include "FTDistributions.h"
 
+
 TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
 {
     add(BornAgain::FTDistribution2DCauchyType, new FTDistribution2DCauchy(0.5, 1.0));

@@ -232,6 +232,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
                                 "(const Particle *sample) -> Logic error.");
     }
 
+    buildAbundanceInfo(particleItem);
     buildPositionInfo(particleItem, sample);
 
     particleItem->setItemName(sample->getName().c_str());
@@ -246,13 +247,15 @@ void GUIObjectBuilder::visit(const ParticleDistribution *sample)
 
     ParameterizedItem *layoutItem = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(layoutItem);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::ParticleDistributionType,
-                                                           m_sampleModel->indexOfItem(layoutItem));
-    Q_ASSERT(item);
+    ParameterizedItem *particle_distribution_item = m_sampleModel->insertNewItem(
+        Constants::ParticleDistributionType, m_sampleModel->indexOfItem(layoutItem));
+    Q_ASSERT(particle_distribution_item);
 
-    TransformFromDomain::setItemFromSample(item, sample);
-    m_levelToParentItem[getLevel()] = item;
-    m_itemToSample[item] = sample;
+    TransformFromDomain::setItemFromSample(particle_distribution_item, sample);
+    buildAbundanceInfo(particle_distribution_item);
+
+    m_levelToParentItem[getLevel()] = particle_distribution_item;
+    m_itemToSample[particle_distribution_item] = sample;
 }
 
 void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
@@ -264,6 +267,7 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 
     ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
+    buildAbundanceInfo(coreshellItem);
     buildPositionInfo(coreshellItem, sample);
 
     coreshellItem->setItemName(sample->getName().c_str());
@@ -280,6 +284,7 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     Q_ASSERT(parent);
     ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
+    buildAbundanceInfo(particle_composition_item);
     buildPositionInfo(particle_composition_item, sample);
 
     particle_composition_item->setItemName(sample->getName().c_str());
@@ -645,14 +650,8 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
-void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem,
-                                               const IParticle *sample)
+void GUIObjectBuilder::buildAbundanceInfo(ParameterizedItem *particleItem)
 {
-    kvector_t position = sample->getPosition();
-    ParameterizedItem *p_position_item = particleItem->getSubItems()[ParticleItem::P_POSITION];
-    p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
-    p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
-    p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     if(parent->modelType() == Constants::ParticleLayoutType) {
@@ -663,6 +662,15 @@ void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem,
         particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
             m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     }
+}
+
+void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample)
+{
+    kvector_t position = sample->getPosition();
+    ParameterizedItem *p_position_item = particleItem->getSubItems()[ParticleItem::P_POSITION];
+    p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
+    p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
+    p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(

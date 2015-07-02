@@ -22,6 +22,7 @@
 #include <boost/shared_ptr.hpp>
 
 class IFormFactor;
+class IFTDistribution2D;
 class GISASSimulation;
 class IFunctionalTest;
 
@@ -33,6 +34,7 @@ class BA_CORE_API_ IComponentService
 {
 public:
     virtual IFormFactor *getFormFactor() const = 0;
+    virtual IFTDistribution2D *getFTDistribution2D() const = 0;
     virtual GISASSimulation *getSimulation() const = 0;
     virtual SampleBuilder_t getSampleBuilder() const = 0;
     virtual OutputData<double> *getReferenceData() const = 0;

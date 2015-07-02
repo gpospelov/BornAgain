@@ -17,6 +17,7 @@
 #define PARACRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
+class IFTDistribution2D;
 
 //! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples
@@ -37,6 +38,23 @@ private:
     double m_corr_length;
     double m_cylinder_height;
     double m_cylinder_radius;
+};
+
+//! @class Basic2DParaCrystalBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: basic two dimensional paracrystal with various probability
+//! distribution functions (PDF's). They are initialized via component service.
+
+class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
+{
+public:
+    Basic2DParaCrystalBuilder();
+    ~Basic2DParaCrystalBuilder();
+    void init_from(const IComponentService *service);
+    ISample *buildSample() const;
+private:
+    IFTDistribution2D *m_pdf1;
+    IFTDistribution2D *m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder
@@ -68,7 +86,7 @@ private:
 class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    RectParaCrystalBuilder();
+    RectParaCrystalBuilder(){}
     ISample *buildSample() const;
 };
 
@@ -80,7 +98,7 @@ public:
 class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS08BBuilder();
+    IsGISAXS08BBuilder(){}
     ISample *buildSample() const;
 };
 

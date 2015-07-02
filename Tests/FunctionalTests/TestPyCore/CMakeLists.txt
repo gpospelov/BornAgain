@@ -58,9 +58,10 @@ endforeach()
 # ------------------------------------------------------------------------------------------------
 
 set(list_of_tests
-    "PySuite/CylindersAndPrisms"
     "PySuite/FormFactors"
+    "PySuite/CylindersAndPrisms"
     "PySuite/RadialParaCrystal"
+    "PySuite/Basic2DParaCrystal"
     "PySuite/HexParaCrystal"
     "PySuite/RectParaCrystal"
     "PySuite/CoreShellParticle"

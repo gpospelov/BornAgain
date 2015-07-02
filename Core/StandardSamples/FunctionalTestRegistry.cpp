@@ -42,15 +42,22 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("Basic2DParaCrystal",
+        "Interference function of basic 2D paracrystal with variety of FT distributions",
+        "MiniGISAS",
+        "Basic2DParaCrystalBuilder",
+        "FTDistributions2DRegistry",
+        2e-10);
+
     add("HexParaCrystal",
-        "Interference function of 2D paracrystal",
+        "Interference function of 2D hexagonal paracrystal",
         "MiniGISAS",
         "HexParaCrystalBuilder",
         "None",
         2e-10);
 
     add("RectParaCrystal",
-        "Interference function of 2D paracrystal",
+        "Interference function of 2D rectanguler paracrystal",
         "MiniGISAS",
         "RectParaCrystalBuilder",
         "None",

@@ -24,6 +24,7 @@
 class IFormFactor;
 class GISASSimulation;
 class TestFormFactorsRegistry;
+class TestFTDistribution2DRegistry;
 class IFunctionalTest;
 
 //! @class FunctionalTestComponentService
@@ -38,6 +39,7 @@ public:
     ~FunctionalTestComponentService();
 
     IFormFactor *getFormFactor() const;
+    IFTDistribution2D *getFTDistribution2D() const;
     GISASSimulation *getSimulation() const;
     SampleBuilder_t getSampleBuilder() const;
     OutputData<double> *getReferenceData() const;
@@ -58,7 +60,10 @@ protected:
 
     FunctionalTestInfo m_testInfo;
     IFormFactor *m_form_factor;
+    IFTDistribution2D *m_ft_distribution_2d;
+
     TestFormFactorsRegistry *m_ff_registry;
+    TestFTDistribution2DRegistry *m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
 };

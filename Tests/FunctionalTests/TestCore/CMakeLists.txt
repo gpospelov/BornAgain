@@ -21,6 +21,7 @@ set(list_of_tests
     "CoreSuite/FormFactors"
     "CoreSuite/CylindersAndPrisms"
     "CoreSuite/RadialParaCrystal"
+    "CoreSuite/Basic2DParaCrystal"
     "CoreSuite/HexParaCrystal"
     "CoreSuite/RectParaCrystal"
     "CoreSuite/CoreShellParticle"

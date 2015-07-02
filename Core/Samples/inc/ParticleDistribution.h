@@ -67,7 +67,7 @@ public:
 
 
     //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;
+    std::vector<std::pair<const IParticle*, double> > generateParticleInfos(double abundance) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const

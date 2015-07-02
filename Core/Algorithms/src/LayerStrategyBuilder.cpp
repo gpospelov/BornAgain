@@ -110,14 +110,14 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double total_abundance = mp_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
     complex_t wavevector_scattering_factor = Units::PI/wavelength/wavelength;
-    std::vector<const ParticleInfo*> particle_infos = p_layout->getParticleInfos();
+    std::vector<std::pair<const IParticle *, double> > particle_infos = p_layout->getParticleInfos();
     size_t number_of_particles = particle_infos.size();
     for (size_t particle_index = 0; particle_index<number_of_particles; ++particle_index) {
-        const ParticleInfo *p_particle_info = particle_infos[particle_index];
+        std::pair<const IParticle *, double> particle_info = particle_infos[particle_index];
         FormFactorInfo *p_ff_info;
-        p_ff_info = createFormFactorInfo(*p_particle_info, p_layer_material,
+        p_ff_info = createFormFactorInfo(particle_info, p_layer_material,
                 wavevector_scattering_factor);
-        p_ff_info->m_abundance = p_particle_info->getAbundance()/total_abundance;
+        p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
     return;
@@ -139,13 +139,12 @@ double LayerStrategyBuilder::getWavelength()
 }
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
-        const ParticleInfo &particle_info,
+        std::pair<const IParticle *, double> &particle_info,
         const IMaterial *p_ambient_material,
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<IParticle> P_particle_clone(particle_info.
-            getParticle()->clone());
+    boost::scoped_ptr<IParticle> P_particle_clone(particle_info.first->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
@@ -167,7 +166,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     kvector_t position = P_particle_clone->getPosition();
     p_result->m_pos_x = position.x();
     p_result->m_pos_y = position.y();
-    p_result->m_abundance = particle_info.getAbundance();
+    p_result->m_abundance = particle_info.second;
     return p_result;
 }
 

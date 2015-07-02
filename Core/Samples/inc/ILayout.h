@@ -17,8 +17,11 @@
 #define ILAYOUT_H_
 
 #include "ICompositeSample.h"
+#include "IParticle.h"
 #include "IFormFactor.h"
 #include "SafePointerVector.h"
+
+#include <utility>
 
 class IInterferenceFunctionStrategy;
 class IInterferenceFunction;
@@ -48,11 +51,11 @@ public:
     virtual size_t getNumberOfParticles() const=0;
 
     //! Returns information about particle with index
-    virtual const IParticle *getParticle(size_t index) const=0;
+    virtual const IAbstractParticle *getParticle(size_t index) const=0;
 
     //! Returns information on all particles (type and abundance)
-    //! and generates new particles if an IParticle denotes a collection
-    virtual std::vector<const ParticleInfo*> getParticleInfos() const=0;
+    //! and generates new particles if an IAbstractParticle denotes a collection
+    virtual std::vector<std::pair<const IParticle*, double> > getParticleInfos() const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceOfParticle(size_t index) const=0;

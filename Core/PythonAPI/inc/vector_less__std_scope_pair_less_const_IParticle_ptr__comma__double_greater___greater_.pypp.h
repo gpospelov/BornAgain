@@ -15,21 +15,9 @@
 //
 // ************************************************************************** //
 
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_OFF(missing-field-initializers)
-#include "boost/python.hpp"
-#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
-GCC_DIAG_ON(unused-parameter)
-GCC_DIAG_ON(missing-field-initializers)
-#include "PythonCoreList.h"
-#include "vector_less__const_ParticleInfo_ptr___greater_.pypp.h"
+#ifndef vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater__hpp__pyplusplus_wrapper
+#define vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater__hpp__pyplusplus_wrapper
 
-namespace bp = boost::python;
+void register_vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater__class();
 
-void register_vector_less__const_ParticleInfo_ptr___greater__class(){
-
-    bp::class_< std::vector< const ParticleInfo* > >("vector_less__const_ParticleInfo_ptr___greater_")    
-        .def( bp::vector_indexing_suite< ::std::vector< const ParticleInfo* > >() );
-
-}
+#endif//vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater__hpp__pyplusplus_wrapper

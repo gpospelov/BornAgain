@@ -79,12 +79,12 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::IParticle const * getParticle( ::std::size_t index ) const {
+    virtual ::IAbstractParticle const * getParticle( ::std::size_t index ) const {
         bp::override func_getParticle = this->get_override( "getParticle" );
         return func_getParticle( index );
     }
 
-    virtual ::std::vector< const ParticleInfo* > getParticleInfos(  ) const {
+    virtual ::std::vector< std::pair<const IParticle*, double> > getParticleInfos(  ) const {
         bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
         return func_getParticleInfos(  );
     }
@@ -365,7 +365,7 @@ void register_ILayout_class(){
         }
         { //::ILayout::getParticle
         
-            typedef ::IParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
+            typedef ::IAbstractParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
                 "getParticle"
@@ -377,12 +377,12 @@ void register_ILayout_class(){
         }
         { //::ILayout::getParticleInfos
         
-            typedef ::std::vector<const ParticleInfo*,std::allocator<const ParticleInfo*> > ( ::ILayout::*getParticleInfos_function_type)(  ) const;
+            typedef ::std::vector<std::pair<const IParticle*, double>,std::allocator<std::pair<const IParticle*, double> > > ( ::ILayout::*getParticleInfos_function_type)(  ) const;
             
             ILayout_exposer.def( 
                 "getParticleInfos"
                 , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
-                , "Returns information on all particles (type and abundance) and generates new particles if an IParticle denotes a collection " );
+                , "Returns information on all particles (type and abundance) and generates new particles if an IAbstractParticle denotes a collection " );
         
         }
         { //::ILayout::getTotalAbundance

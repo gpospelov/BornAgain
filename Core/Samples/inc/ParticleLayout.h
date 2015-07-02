@@ -29,7 +29,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IParticle &particle, double abundance = 1.);
+    ParticleLayout(const IAbstractParticle &particle, double abundance = 1.);
 
     virtual ~ParticleLayout();
 
@@ -48,7 +48,7 @@ public:
     void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
 
     //! Adds particle without rotation
-    void addParticle(const IParticle &particle, double abundance = 1.0);
+    void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const
@@ -57,11 +57,11 @@ public:
     }
 
     //! get information about particle with index
-    virtual const IParticle *getParticle(size_t index) const;
+    virtual const IAbstractParticle *getParticle(size_t index) const;
 
     //! Returns information on all particles (type and abundance)
-    //! and generates new particles if an IParticle denotes a collection
-    virtual std::vector<const ParticleInfo*> getParticleInfos() const;
+    //! and generates new particles if an IAbstractParticle denotes a collection
+    virtual std::vector<std::pair<const IParticle*, double> > getParticleInfos() const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
@@ -102,7 +102,7 @@ private:
     SafePointerVector<IInterferenceFunction> m_interference_functions;
 
     //! Cache for generated particles (needed for IParticle objects that are collections)
-    mutable SafePointerVector<ParticleInfo> m_particle_info_cache;
+    mutable SafePointerVector<const IParticle> m_particle_cache;
 };
 
 #endif // PARTICLEDECORATION_H

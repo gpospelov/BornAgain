@@ -18,10 +18,22 @@
 
 #include "ICloneableRegistry.h"
 #include "IFormFactor.h"
+#include "FTDistributions.h"
+
+//! @class TestFTDistribution2DRegistry
+//! @ingroup standard_samples
+//! @brief Registry with predifined fourier transformed distributions for functional tests purpose.
+
+class TestFTDistribution2DRegistry : public ICloneableRegistry<std::string, IFTDistribution2D>
+{
+public:
+    TestFTDistribution2DRegistry();
+};
+
 
 //! @class TestFormFactorsRegistry
 //! @ingroup standard_samples
-//! @brief Registry with predifined form factors for functional tests purpose
+//! @brief Registry with predifined form factors for functional tests purpose.
 
 class TestFormFactorsRegistry : public ICloneableRegistry<std::string, IFormFactor>
 {

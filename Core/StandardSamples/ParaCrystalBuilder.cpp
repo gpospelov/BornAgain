@@ -22,6 +22,7 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
+#include "IComponentService.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -77,6 +78,24 @@ ISample *RadialParaCrystalBuilder::buildSample() const
 // Basic2DParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
+Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
+    : m_pdf1(new FTDistribution2DCauchy(0.1*Units::nanometer, 0.2*Units::nanometer))
+    , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
+{}
+
+Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
+{
+    delete m_pdf1;
+    delete m_pdf2;
+}
+
+void Basic2DParaCrystalBuilder::init_from(const IComponentService *service)
+{
+    // we will read only second function from component service
+    delete m_pdf2;
+    m_pdf2 = service->getFTDistribution2D();
+}
+
 ISample *Basic2DParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
@@ -89,13 +108,12 @@ ISample *Basic2DParaCrystalBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
-            InterferenceFunction2DParaCrystal::createSquare(10*Units::nanometer, 0*Units::nanometer);
+            new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 20.0*Units::nanometer, 30.0*Units::degree, 45.0*Units::degree, 1000.0*Units::nanometer);
 
     p_interference_function->setDomainSizes(20.0*Units::micrometer,
-            20.0*Units::micrometer);
-    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
-    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
-    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
+            40.0*Units::micrometer);
+
+    p_interference_function->setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -111,10 +129,6 @@ ISample *Basic2DParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-void Basic2DParaCrystalBuilder::init_from(const IComponentService *service)
-{
-
-}
 
 
 // -----------------------------------------------------------------------------

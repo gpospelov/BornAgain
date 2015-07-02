@@ -26,6 +26,7 @@ set(list_of_tests
     "GUISuite/FormFactors"
 #    "GUISuite/CylindersAndPrisms"
 #    "GUISuite/RadialParaCrystal"
+    "GUISuite/Basic2DParaCrystal"
     "GUISuite/HexParaCrystal"
 #    "GUISuite/RectParaCrystal"
 #    "GUISuite/CoreShellParticle"

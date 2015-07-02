@@ -17,6 +17,7 @@
 #define PARACRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
+class IFTDistribution2D;
 
 //! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples
@@ -47,10 +48,13 @@ private:
 class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    Basic2DParaCrystalBuilder(){}
-    ISample *buildSample() const;
+    Basic2DParaCrystalBuilder();
+    ~Basic2DParaCrystalBuilder();
     void init_from(const IComponentService *service);
-
+    ISample *buildSample() const;
+private:
+    IFTDistribution2D *m_pdf1;
+    IFTDistribution2D *m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder

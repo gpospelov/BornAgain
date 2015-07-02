@@ -63,6 +63,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Interference function of radial paracrystal");
 
     registerItem(
+        "Basic2DParaCrystalBuilder",
+        IFactoryCreateFunction<Basic2DParaCrystalBuilder, ISampleBuilder>,
+        "Interference function of 2D basic paracrystal with variety of FT distributions");
+
+    registerItem(
         "HexParaCrystalBuilder",
         IFactoryCreateFunction<HexParaCrystalBuilder, ISampleBuilder>,
         "Interference function of 2D hexagonal paracrystal");

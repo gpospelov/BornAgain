@@ -1,7 +1,21 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/TestComponentsRegistry.cpp
+//! @brief     Defines different registries for functional test component service.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFormFactorsRegistry.h"
 #include "Constants.h"
 #include "FormFactors.h"
-#include "Exceptions.h"
 
 TestFormFactorsRegistry::TestFormFactorsRegistry()
 {
@@ -24,24 +38,4 @@ TestFormFactorsRegistry::TestFormFactorsRegistry()
     add(Constants::TruncatedCubeType, new FormFactorTruncatedCube(15.0, 6.0));
     add(Constants::TruncatedSphereType, new FormFactorTruncatedSphere(5.0, 7.0));
     add(Constants::TruncatedSpheroidType, new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
-}
-
-IFormFactor *TestFormFactorsRegistry::createItem(const std::string &item_name) const
-{
-    const_iterator it = m_data.find(item_name);
-    if(it == m_data.end()) {
-        throw UnknownClassRegistrationException("TestFormFactorsRegistry::createItem() -> Error. "
-                                                "Not existing item name '"+item_name+"'");
-    }
-    return it->second->clone();
-}
-
-void TestFormFactorsRegistry::add(const std::string &key, IFormFactor *formfactor)
-{
-    const_iterator it = m_data.find(key);
-    if(it != m_data.end()) {
-        throw ExistingClassRegistrationException("TestFormFactorsRegistry::add() -> Error. "
-                                                "Already existing item name '"+key+"'");
-    }
-    m_data[key] = formfactor;
 }

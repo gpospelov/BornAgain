@@ -74,6 +74,50 @@ ISample *RadialParaCrystalBuilder::buildSample() const
 }
 
 // -----------------------------------------------------------------------------
+// Basic2DParaCrystalBuilder
+// -----------------------------------------------------------------------------
+
+ISample *Basic2DParaCrystalBuilder::buildSample() const
+{
+    MultiLayer *multi_layer = new MultiLayer();
+
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    InterferenceFunction2DParaCrystal *p_interference_function =
+            InterferenceFunction2DParaCrystal::createSquare(10*Units::nanometer, 0*Units::nanometer);
+
+    p_interference_function->setDomainSizes(20.0*Units::micrometer,
+            20.0*Units::micrometer);
+    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
+    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
+    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
+
+    FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
+
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout(particle);
+    particle_layout.addInterferenceFunction(p_interference_function);
+
+    air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+void Basic2DParaCrystalBuilder::init_from(const IComponentService *service)
+{
+
+}
+
+
+// -----------------------------------------------------------------------------
 // HexParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
@@ -136,10 +180,6 @@ ISample *HexParaCrystalBuilder::buildSample() const
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-RectParaCrystalBuilder::RectParaCrystalBuilder()
-{
-}
-
 ISample *RectParaCrystalBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
@@ -174,17 +214,10 @@ ISample *RectParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-
-
 // -----------------------------------------------------------------------------
-// RectParaCrystalBuilder
+// IsGISAXS08BBuilder
 // -----------------------------------------------------------------------------
 
-IsGISAXS08BBuilder::IsGISAXS08BBuilder()
-{
-}
-
-// IsGISAXS8 functional test: 2D paracrystal lattice with isotropic pdfs
 ISample *IsGISAXS08BBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();

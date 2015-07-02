@@ -1,27 +1,32 @@
-#ifndef TESTFORMFACTORSREGISTRY_H
-#define TESTFORMFACTORSREGISTRY_H
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/TestComponentsRegistry.h
+//! @brief     Defines different registries for functional test component service.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
-#include <map>
-#include <string>
+#ifndef TESTCOMPONENTSREGISTRY_H
+#define TESTCOMPONENTSREGISTRY_H
 
-class IFormFactor;
+#include "ICloneableRegistry.h"
+#include "IFormFactor.h"
 
-class TestFormFactorsRegistry {
+//! @class TestFormFactorsRegistry
+//! @ingroup standard_samples
+//! @brief Registry with predifined form factors for functional tests purpose
+
+class TestFormFactorsRegistry : public ICloneableRegistry<std::string, IFormFactor>
+{
 public:
-    typedef std::map<std::string, IFormFactor *>::iterator iterator;
-    typedef std::map<std::string, IFormFactor *>::const_iterator const_iterator;
     TestFormFactorsRegistry();
-
-    iterator begin() { return m_data.begin();}
-    iterator end() { return m_data.end();}
-
-    IFormFactor *createItem(const std::string &item_name) const;
-
-protected:
-    void add(const std::string &key, IFormFactor *formfactor);
-
-private:
-    std::map<std::string, IFormFactor *> m_data;
 };
 
-#endif
+#endif // TESTCOMPONENTREGISTRY_H

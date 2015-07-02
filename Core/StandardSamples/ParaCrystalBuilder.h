@@ -39,6 +39,20 @@ private:
     double m_cylinder_radius;
 };
 
+//! @class Basic2DParaCrystalBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: basic two dimensional paracrystal with various probability
+//! distribution functions (PDF's). They are initialized via component service.
+
+class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
+{
+public:
+    Basic2DParaCrystalBuilder(){}
+    ISample *buildSample() const;
+    void init_from(const IComponentService *service);
+
+};
+
 //! @class HexParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
@@ -68,7 +82,7 @@ private:
 class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    RectParaCrystalBuilder();
+    RectParaCrystalBuilder(){}
     ISample *buildSample() const;
 };
 
@@ -80,7 +94,7 @@ public:
 class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS08BBuilder();
+    IsGISAXS08BBuilder(){}
     ISample *buildSample() const;
 };
 

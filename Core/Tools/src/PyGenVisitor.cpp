@@ -966,7 +966,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             }
 
             else {
-                result << indent() << it->second << " = InterferenceFunction2DParaCrystal"
+                result << indent() << it->second << " = InterferenceFunction2DParaCrystal("
                        << twoDParaCrystal->getLatticeLengths()[0] << "*nanometer, "
                        << twoDParaCrystal->getLatticeLengths()[1] << "*nanometer, "
                        << PyGenTools::printDegrees(twoDParaCrystal->getAlphaLattice()) << ", "
@@ -1126,7 +1126,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             }
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
-                   << "_pdf_2, " << it->second << "_pdf_2)\n";
+                   << "_pdf_1, " << it->second << "_pdf_2)\n";
         }
 
         else {

@@ -52,12 +52,14 @@ const QString AngleUnitsAttribute("Units");
 }
 
 class IconProvider;
+class SessionModelAssistant;
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
+
     explicit SessionModel(QString model_tag, QObject *parent = 0);
     ~SessionModel();
 
@@ -169,6 +171,7 @@ private:
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
     IconProvider *m_iconProvider;
+    SessionModelAssistant *m_modelAssistant;
 };
 
 #endif // SESSIONMODEL_H

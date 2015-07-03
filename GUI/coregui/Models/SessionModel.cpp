@@ -25,7 +25,7 @@
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
 #include "ParameterizedGraphicsItem.h"
-
+#include "SessionModelAssistant.h"
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>
@@ -37,8 +37,9 @@ enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
 }
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
-    : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag),
-      m_iconProvider(0)
+    : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag)
+    , m_iconProvider(0)
+    , m_modelAssistant(new SessionModelAssistant)
 {
 }
 
@@ -46,6 +47,7 @@ SessionModel::~SessionModel()
 {
     delete m_root_item;
     delete m_iconProvider;
+    delete m_modelAssistant;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -327,6 +329,8 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
+    m_modelAssistant->start_error_recording();
+
     qDebug() << "SessionModel::readFrom()" << m_model_tag << reader->name() << m_root_item;
 
     if (reader->name() != m_model_tag) {
@@ -344,6 +348,8 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());
     endResetModel();
+
+    m_modelAssistant->stop_error_recording();
 }
 
 void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
@@ -559,6 +565,12 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         = reader->attributes().value(SessionXML::ParameterTypeAttribute).toString();
     // qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType()
     // << parameter_name << parameter_type << parameter_name.toUtf8().constData();
+
+    if(!item->isRegisteredProperty(parameter_name)) {
+        m_modelAssistant->report_unknown_item_property(item, parameter_name);
+        return parameter_name;
+    }
+
     if (parameter_type == "double") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();

@@ -59,14 +59,14 @@ private:
 //    ProjectDocument *createNewProject();
     void addToRecentProjects();
 
-    QString getDefaultProjectPath();
+    QString getDefaultWorkingDirectory();
     QString getUntitledProjectName();
 
     MainWindow *m_mainWindow;
 
     ProjectDocument *m_project_document;
 
-    QString m_defaultProjectPath;
+    QString m_defaultWorkingDirectory;
     QStringList m_recentProjects;
 
 };

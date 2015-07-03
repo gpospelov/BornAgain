@@ -116,16 +116,17 @@ void ProjectManager::newProject()
 
     NewProjectDialog dialog(m_mainWindow);
     // give projectDialog something to start with
-    dialog.setProjectPath(getDefaultProjectPath());
+    dialog.setWorkingDirectory(getDefaultWorkingDirectory());
     dialog.setProjectName(getUntitledProjectName());
 
     if (dialog.exec() == QDialog::Accepted) {
 
         createNewProject();
 
-        m_defaultProjectPath = dialog.getProjectPath();
-        m_project_document->setProjectName(dialog.getProjectName());
-        m_project_document->setProjectPath(dialog.getProjectPath());
+        m_defaultWorkingDirectory = dialog.getWorkingDirectory();
+        m_project_document->setProjectFileName(dialog.getProjectFileName());
+//        m_project_document->setProjectName(dialog.getProjectName());
+//        m_project_document->setProjectDir(dialog.getProjectPath());
         saveProject();
         emit modified();
     }
@@ -151,13 +152,14 @@ bool ProjectManager::saveProject()
     } else {
         NewProjectDialog dialog(m_mainWindow);
         // give projectDialog something to start with
-        dialog.setProjectPath(getDefaultProjectPath());
+        dialog.setWorkingDirectory(getDefaultWorkingDirectory());
         dialog.setProjectName(getUntitledProjectName());
 
         if (dialog.exec() == QDialog::Accepted) {
-            m_defaultProjectPath = dialog.getProjectPath();
-            m_project_document->setProjectName(dialog.getProjectName());
-            m_project_document->setProjectPath(dialog.getProjectPath());
+            m_defaultWorkingDirectory = dialog.getWorkingDirectory();
+//            m_project_document->setProjectName(dialog.getProjectName());
+//            m_project_document->setProjectDir(dialog.getProjectPath());
+            m_project_document->setProjectFileName(dialog.getProjectFileName());
             m_project_document->save();
             addToRecentProjects();
         } else {
@@ -172,13 +174,14 @@ bool ProjectManager::saveProjectAs()
 {
     NewProjectDialog dialog(m_mainWindow);
     // give projectDialog something to start with
-    dialog.setProjectPath(getDefaultProjectPath());
+    dialog.setWorkingDirectory(getDefaultWorkingDirectory());
     dialog.setProjectName(getUntitledProjectName());
 
     if (dialog.exec() == QDialog::Accepted) {
-        m_defaultProjectPath = dialog.getProjectPath();
-        m_project_document->setProjectName(dialog.getProjectName());
-        m_project_document->setProjectPath(dialog.getProjectPath());
+        m_defaultWorkingDirectory = dialog.getWorkingDirectory();
+//        m_project_document->setProjectName(dialog.getProjectName());
+//        m_project_document->setProjectDir(dialog.getProjectPath());
+        m_project_document->setProjectFileName(dialog.getProjectFileName());
         m_project_document->save();
         addToRecentProjects();
     } else {
@@ -228,7 +231,7 @@ void ProjectManager::openProject(QString fileName)
 
     if(fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
-                                                    getDefaultProjectPath(),
+                                                    getDefaultWorkingDirectory(),
                                          tr("BornAgain project Files (*.pro)"));
     }
 
@@ -280,23 +283,23 @@ void ProjectManager::addToRecentProjects()
 //! read settings of ProjectManager from global settings
 void ProjectManager::readSettings(QSettings *settings)
 {
-    m_defaultProjectPath = QDir::homePath();
+    m_defaultWorkingDirectory = QDir::homePath();
     if(settings->childGroups().contains(Constants::S_PROJECTMANAGER)) {
         settings->beginGroup(Constants::S_PROJECTMANAGER);
-        m_defaultProjectPath = settings->value("DefaultProjectPath").toString();
+        m_defaultWorkingDirectory = settings->value("DefaultProjectPath").toString();
         m_recentProjects = settings->value("RecentProjects").toStringList();
         settings->endGroup();
     }
-    qDebug() << "ProjectManager::readSettings() -> " << this->objectName() << m_defaultProjectPath << m_recentProjects;
+    qDebug() << "ProjectManager::readSettings() -> " << this->objectName() << m_defaultWorkingDirectory << m_recentProjects;
 }
 
 
 //! saves settings of ProjectManager in global settings
 void ProjectManager::writeSettings(QSettings *settings)
 {
-    qDebug() << "ProjectManager::writeSettings() -> Writing " << m_defaultProjectPath << m_recentProjects;
+    qDebug() << "ProjectManager::writeSettings() -> Writing " << m_defaultWorkingDirectory << m_recentProjects;
     settings->beginGroup(Constants::S_PROJECTMANAGER);
-    settings->setValue("DefaultProjectPath", m_defaultProjectPath);
+    settings->setValue("DefaultProjectPath", m_defaultWorkingDirectory);
     settings->setValue("RecentProjects", m_recentProjects);
     settings->endGroup();
 }
@@ -324,9 +327,9 @@ void ProjectManager::clearRecentProjects()
 
 
 //! returns default project path
-QString ProjectManager::getDefaultProjectPath()
+QString ProjectManager::getDefaultWorkingDirectory()
 {
-    return m_defaultProjectPath;
+    return m_defaultWorkingDirectory;
 }
 
 
@@ -335,11 +338,11 @@ QString ProjectManager::getDefaultProjectPath()
 QString ProjectManager::getUntitledProjectName()
 {
     QString result = "Untitled";
-    QDir projectDir = getDefaultProjectPath() + "/" + result;
+    QDir projectDir = getDefaultWorkingDirectory() + "/" + result;
     if(projectDir.exists()) {
         for(size_t i=1; i<99; ++i) {
             result = QString("Untitled")+QString::number(i);
-            projectDir = getDefaultProjectPath() + "/" + result;
+            projectDir = getDefaultWorkingDirectory() + "/" + result;
             if(!projectDir.exists()) break;
         }
     }

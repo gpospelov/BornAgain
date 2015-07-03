@@ -42,7 +42,6 @@ const QString InfoNameAttribute("ProjectName");
 //!
 //! e.g. if project file is /home/users/development/Untitled/Untitled.pro
 //! getProjectName()     - 'Untitled'
-//! getProgectPath()     - '/home/users/development'
 //! getProjectDir()      - 'home/users/development/Untitled
 //! getProjectFileName() - '/home/users/development/Untitled/Untitled.pro'
 class BA_CORE_API_ ProjectDocument : public QObject
@@ -51,29 +50,31 @@ class BA_CORE_API_ ProjectDocument : public QObject
 
 public:
     ProjectDocument();
-    ProjectDocument(const QString &projectfilename);
-    ProjectDocument(const QString &path, const QString &name);
+    ProjectDocument(const QString &projectFileName);
+    ProjectDocument(const QString &project_dir, const QString &project_name);
 
-    bool save();
-    bool load(const QString &project_file_name);
+    QString getProjectName() const;
+    void setProjectName(const QString &text);
 
-    QString getProjectPath() const { return m_project_path; }
-    QString getProjectName() const { return m_project_name; }
+    QString getProjectDir() const;
+    void setProjectDir(const QString &text);
 
-    void setProjectPath(const QString &text) { m_project_path = text; }
-    void setProjectName(const QString &text) { m_project_name = text; emit modified();}
+    QString getProjectFileName() const;
     void setProjectFileName(const QString &text);
 
-    QString getProjectFileName();
-    QString getProjectDir();
+    static QString getProjectFileExtension();
 
-    bool isModified() { return m_modified; }
     void setMaterialModel(MaterialModel *materialModel);
     void setInstrumentModel(InstrumentModel *model);
     void setSampleModel(SampleModel *model);
     void setJobModel(JobModel *model);
 
+    bool save();
+    bool load(const QString &project_file_name);
+
     bool hasValidNameAndPath();
+
+    bool isModified();
 
     QString getErrorMessage() const { return m_error_message; }
 
@@ -86,14 +87,14 @@ public slots:
     void onRowsChanged(const QModelIndex &parent, int first, int last);
 
 private:
-    bool writeTo(QIODevice *device);
     bool readFrom(QIODevice *device);
+    bool writeTo(QIODevice *device);
 
     void reviseOutputData();
     void saveOutputData();
     void loadOutputData();
 
-    QString m_project_path;
+    QString m_project_dir;
     QString m_project_name;
     MaterialModel *m_materialModel;
     InstrumentModel *m_instrumentModel;

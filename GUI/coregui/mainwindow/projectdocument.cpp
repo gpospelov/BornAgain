@@ -42,45 +42,52 @@ ProjectDocument::ProjectDocument(const QString &projectFileName)
     : m_sampleModel(0), m_jobModel(0), m_modified(false)
 {
     setProjectFileName(projectFileName);
-    qDebug() << "ProjectDocument::ProjectDocument(const QString &projectFileName)"
-             << projectFileName << getProjectPath() << getProjectName() << getProjectFileName();
+}
+
+ProjectDocument::ProjectDocument(const QString &project_dir, const QString &project_name)
+    : m_project_dir(project_dir), m_project_name(project_name), m_materialModel(0), m_sampleModel(0),
+      m_jobModel(0), m_modified(false)
+{
+}
+
+
+QString ProjectDocument::getProjectName() const
+{
+    return m_project_name;
+}
+
+void ProjectDocument::setProjectName(const QString &text)
+{
+    m_project_name = text;
+    emit modified();
+}
+
+QString ProjectDocument::getProjectDir() const
+{
+    return m_project_dir;
+}
+
+void ProjectDocument::setProjectDir(const QString &text)
+{
+    m_project_dir = text;
+}
+
+QString ProjectDocument::getProjectFileName() const
+{
+    QString result = getProjectDir() + "/" + getProjectName() + getProjectFileExtension();
+    return result;
 }
 
 void ProjectDocument::setProjectFileName(const QString &projectFileName)
 {
     QFileInfo info(projectFileName);
     setProjectName(info.baseName());
-
-    QFileInfo info_dir(info.path());
-    setProjectPath(info_dir.path());
+    setProjectDir(info.path());
 }
 
-ProjectDocument::ProjectDocument(const QString &path, const QString &name)
-    : m_project_path(path), m_project_name(name), m_materialModel(0), m_sampleModel(0),
-      m_jobModel(0), m_modified(false)
+QString ProjectDocument::getProjectFileExtension()
 {
-}
-
-void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
-{
-    qDebug() << "ProjectDocument::onDataChanged()";
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onJobModelChanged(const QString &)
-{
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onRowsChanged(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-    m_modified = true;
-    emit modified();
+    return QString(".pro");
 }
 
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
@@ -169,18 +176,9 @@ void ProjectDocument::setJobModel(JobModel *model)
     }
 }
 
-bool ProjectDocument::hasValidNameAndPath()
-{
-    return (!m_project_name.isEmpty() && !m_project_path.isEmpty());
-}
-
 bool ProjectDocument::save()
 {
-    qDebug() << "ProjectDocument::save() -> " << getProjectName() << getProjectPath()
-             << getProjectFileName();
-
     reviseOutputData();
-
     QString filename = getProjectFileName();
 
     QFile file(filename);
@@ -206,11 +204,18 @@ bool ProjectDocument::load(const QString &project_file_name)
     bool success_read(false);
     m_error_message.clear();
     setProjectFileName(project_file_name);
+    Q_ASSERT(project_file_name == getProjectFileName());
 
     QFile file(getProjectFileName());
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+//    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_error_message
-            = QString("Can't open '%1'. Wrong permissions or binary file.").arg(project_file_name);
+            = QString("Can't open '%1'. \n").arg(getProjectFileName());
+        m_error_message.append(file.errorString());
+        qDebug() << "XXX" << "project_file_name" << project_file_name
+                 << "getProjectFileName()" << getProjectFileName()
+                 << "getProjectDir()" << getProjectDir()
+                 << "file_error:" << file.error() << file.errorString();
         return false;
     }
 
@@ -228,6 +233,38 @@ bool ProjectDocument::load(const QString &project_file_name)
     }
 
     return success_read;
+}
+
+bool ProjectDocument::hasValidNameAndPath()
+{
+    return (!m_project_name.isEmpty() && !m_project_dir.isEmpty());
+}
+
+bool ProjectDocument::isModified()
+{
+    return m_modified;
+}
+
+void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
+{
+    qDebug() << "ProjectDocument::onDataChanged()";
+    m_modified = true;
+    emit modified();
+}
+
+void ProjectDocument::onJobModelChanged(const QString &)
+{
+    m_modified = true;
+    emit modified();
+}
+
+void ProjectDocument::onRowsChanged(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    m_modified = true;
+    emit modified();
 }
 
 bool ProjectDocument::readFrom(QIODevice *device)
@@ -366,23 +403,6 @@ bool ProjectDocument::writeTo(QIODevice *device)
     return true;
 }
 
-//! returns project file name
-//!
-//! if ProjectPath=/home/username and ProjectName=MultiLayer then project file
-//! will be /home/username/MultiLayer/MultiLayer.pro
-QString ProjectDocument::getProjectFileName()
-{
-    QString result = getProjectPath() + "/" + getProjectName() + "/" + getProjectName() + ".pro";
-    return result;
-}
-
-//! returns project directory
-QString ProjectDocument::getProjectDir()
-{
-    QString result = getProjectPath() + "/" + getProjectName();
-    return result;
-}
-
 //! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
 //! *.int files in project directory by removing them.
 void ProjectDocument::reviseOutputData()
@@ -457,3 +477,4 @@ void ProjectDocument::loadOutputData()
         }
     }
 }
+

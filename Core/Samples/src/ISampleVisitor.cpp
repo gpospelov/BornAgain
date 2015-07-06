@@ -94,7 +94,13 @@ void ISampleVisitor::visit(const LayerInterface *)
 void ISampleVisitor::visit(const MultiLayer *)
 {
     throw NotImplementedException(
-        "ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
+                "ISampleVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const IAbstractParticle *)
+{
+    throw NotImplementedException(
+        "ISampleVisitor::visit(const IAbstractParticle *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IParticle *)

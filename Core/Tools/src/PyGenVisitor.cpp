@@ -1157,9 +1157,8 @@ std::string PyGenVisitor::defineParticleLayouts() const
             size_t particleIndex = 0;
 
             while (particleIndex != numberOfParticles) {
-                const IParticle *p_particle = particleLayout->getParticle(particleIndex);
+                const IAbstractParticle *p_particle = particleLayout->getParticle(particleIndex);
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
-                kvector_t pos = p_particle->getPosition();
                 result << indent() << it->second << ".addParticle("
                        << m_label->getLabel(p_particle) << ", "
                        << PyGenTools::printDouble(abundance) << ")\n";

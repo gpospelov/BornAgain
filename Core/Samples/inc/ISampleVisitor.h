@@ -34,6 +34,7 @@ class LayerInterface;
 // -
 class MultiLayer;
 // -
+class IAbstractParticle;
 class IParticle;
 class Particle;
 class ParticleDistribution;
@@ -137,6 +138,7 @@ public:
 
     virtual void visit(const MultiLayer *);
 
+    virtual void visit(const IAbstractParticle *);
     virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
     virtual void visit(const ParticleDistribution *);

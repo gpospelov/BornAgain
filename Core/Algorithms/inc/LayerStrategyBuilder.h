@@ -72,15 +72,13 @@ private:
     //! retrieve wavelength from simulation
     double getWavelength();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(
-        const ParticleInfo &particle_info,
-        const IMaterial *p_ambient_material,
-        complex_t factor) const;
+    FormFactorInfo *createFormFactorInfo(const IParticle *particle, double abundance,
+                                         const IMaterial *p_ambient_material,
+                                         complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;
 };
-
 
 //! @class FormFactorInfo
 //! @ingroup formfactors_internal

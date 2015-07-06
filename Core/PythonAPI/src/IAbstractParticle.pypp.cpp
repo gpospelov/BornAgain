@@ -24,69 +24,44 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "ILayout.pypp.h"
+#include "IAbstractParticle.pypp.h"
 
 namespace bp = boost::python;
 
-struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
+struct IAbstractParticle_wrapper : IAbstractParticle, bp::wrapper< IAbstractParticle > {
 
-    ILayout_wrapper( )
-    : ILayout( )
-      , bp::wrapper< ILayout >(){
+    IAbstractParticle_wrapper()
+    : IAbstractParticle()
+      , bp::wrapper< IAbstractParticle >(){
         // null constructor
-    m_pyobj = 0;
+        m_pyobj = 0;
     }
 
-    virtual void accept( ::ISampleVisitor * visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(visitor) );
-    }
-
-    virtual ::ILayout * clone(  ) const {
+    virtual ::IAbstractParticle * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
     }
 
-    virtual ::ILayout * cloneInvertB(  ) const {
+    virtual ::IAbstractParticle * cloneInvertB(  ) const {
         bp::override func_cloneInvertB = this->get_override( "cloneInvertB" );
         return func_cloneInvertB(  );
     }
 
-    virtual double getAbundanceOfParticle( ::std::size_t index ) const {
-        bp::override func_getAbundanceOfParticle = this->get_override( "getAbundanceOfParticle" );
-        return func_getAbundanceOfParticle( index );
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
     }
 
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
-        bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" );
-        return func_getInterferenceFunctions(  );
-    }
-
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
         else{
-            return this->ILayout::getNumberOfInterferenceFunctions(  );
+            this->IAbstractParticle::setAmbientMaterial( boost::ref(material) );
         }
     }
     
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ILayout::getNumberOfInterferenceFunctions( );
-    }
-
-    virtual ::std::size_t getNumberOfParticles(  ) const {
-        bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" );
-        return func_getNumberOfParticles(  );
-    }
-
-    virtual ::IAbstractParticle const * getParticle( ::std::size_t index ) const {
-        bp::override func_getParticle = this->get_override( "getParticle" );
-        return func_getParticle( index );
-    }
-
-    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const {
-        bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
-        func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IAbstractParticle::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -196,7 +171,7 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer, ::AttLimits const & limits=AttLimits::limitless( ) ){
-        if( dynamic_cast< ILayout_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< IAbstractParticle_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
         else{
@@ -268,263 +243,154 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
 
 };
 
-void register_ILayout_class(){
+void register_IAbstractParticle_class(){
 
-    { //::ILayout
-        typedef bp::class_< ILayout_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< ILayout_wrapper >, boost::noncopyable > ILayout_exposer_t;
-        ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", "Interface to equip a sample component with various properties.", bp::init< >() );
-        bp::scope ILayout_scope( ILayout_exposer );
-        bp::enum_< ILayout::EInterferenceApproximation>("EInterferenceApproximation")
-            .value("DA", ILayout::DA)
-            .value("SSCA", ILayout::SSCA)
-            .value("ISGISAXSMOR", ILayout::ISGISAXSMOR)
-            .export_values()
-            ;
-        { //::ILayout::accept
+    { //::IAbstractParticle
+        typedef bp::class_< IAbstractParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IAbstractParticle_wrapper >, boost::noncopyable > IAbstractParticle_exposer_t;
+        IAbstractParticle_exposer_t IAbstractParticle_exposer = IAbstractParticle_exposer_t( "IAbstractParticle", "Interface for a generic particl." );
+        bp::scope IAbstractParticle_scope( IAbstractParticle_exposer );
+        { //::IAbstractParticle::clone
         
-            typedef void ( ::ILayout::*accept_function_type)( ::ISampleVisitor * ) const;
+            typedef ::IAbstractParticle * ( ::IAbstractParticle::*clone_function_type)(  ) const;
             
-            ILayout_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ILayout::accept) )
-                , ( bp::arg("visitor") )
-                , "calls the ISampleVisitor's visit method." );
-        
-        }
-        { //::ILayout::clone
-        
-            typedef ::ILayout * ( ::ILayout::*clone_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "clone"
-                , bp::pure_virtual( clone_function_type(&::ILayout::clone) )
+                , bp::pure_virtual( clone_function_type(&::IAbstractParticle::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ILayout::cloneInvertB
+        { //::IAbstractParticle::cloneInvertB
         
-            typedef ::ILayout * ( ::ILayout::*cloneInvertB_function_type)(  ) const;
+            typedef ::IAbstractParticle * ( ::IAbstractParticle::*cloneInvertB_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "cloneInvertB"
-                , bp::pure_virtual( cloneInvertB_function_type(&::ILayout::cloneInvertB) )
+                , bp::pure_virtual( cloneInvertB_function_type(&::IAbstractParticle::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns a clone with inverted magnetic fields." );
         
         }
-        { //::ILayout::getAbundanceOfParticle
+        { //::IAbstractParticle::getAmbientMaterial
         
-            typedef double ( ::ILayout::*getAbundanceOfParticle_function_type)( ::std::size_t ) const;
+            typedef ::IMaterial const * ( ::IAbstractParticle::*getAmbientMaterial_function_type)(  ) const;
             
-            ILayout_exposer.def( 
-                "getAbundanceOfParticle"
-                , bp::pure_virtual( getAbundanceOfParticle_function_type(&::ILayout::getAbundanceOfParticle) )
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::ILayout::getApproximation
-        
-            typedef ::ILayout::EInterferenceApproximation ( ::ILayout::*getApproximation_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getApproximation"
-                , getApproximation_function_type( &::ILayout::getApproximation )
-                , "Gets the used approximation for particles and interference functions." );
-        
-        }
-        { //::ILayout::getInterferenceFunctions
-        
-            typedef ::SafePointerVector<IInterferenceFunction> ( ::ILayout::*getInterferenceFunctions_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getInterferenceFunctions"
-                , bp::pure_virtual( getInterferenceFunctions_function_type(&::ILayout::getInterferenceFunctions) )
-                , "Returns interference functions." );
-        
-        }
-        { //::ILayout::getNumberOfInterferenceFunctions
-        
-            typedef ::std::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type)(  ) const;
-            typedef ::std::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ILayout::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ILayout_wrapper::default_getNumberOfInterferenceFunctions) );
-        
-        }
-        { //::ILayout::getNumberOfParticles
-        
-            typedef ::std::size_t ( ::ILayout::*getNumberOfParticles_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getNumberOfParticles"
-                , bp::pure_virtual( getNumberOfParticles_function_type(&::ILayout::getNumberOfParticles) )
-                , "Returns number of particles." );
-        
-        }
-        { //::ILayout::getParticle
-        
-            typedef ::IAbstractParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
-            
-            ILayout_exposer.def( 
-                "getParticle"
-                , bp::pure_virtual( getParticle_function_type(&::ILayout::getParticle) )
-                , ( bp::arg("index") )
+            IAbstractParticle_exposer.def( 
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IAbstractParticle::getAmbientMaterial) )
                 , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns information about particle with index." );
+                , "Returns particle's material." );
         
         }
-        { //::ILayout::getParticleInfos
+        { //::IAbstractParticle::setAmbientMaterial
         
-            typedef void ( ::ILayout::*getParticleInfos_function_type)( ::SafePointerVector<const IParticle> &,::std::vector<double, std::allocator<double> > & ) const;
+            typedef void ( ::IAbstractParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IAbstractParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
             
-            ILayout_exposer.def( 
-                "getParticleInfos"
-                , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
-                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") )
-                , "Returns information on all particles (type and abundance) and generates new particles if an IAbstractParticle denotes a collection " );
-        
-        }
-        { //::ILayout::getTotalAbundance
-        
-            typedef double ( ::ILayout::*getTotalAbundance_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getTotalAbundance"
-                , getTotalAbundance_function_type( &::ILayout::getTotalAbundance ) );
-        
-        }
-        { //::ILayout::getTotalParticleSurfaceDensity
-        
-            typedef double ( ::ILayout::*getTotalParticleSurfaceDensity_function_type)(  ) const;
-            
-            ILayout_exposer.def( 
-                "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity )
-                , "Returns surface density of all particles." );
-        
-        }
-        { //::ILayout::setApproximation
-        
-            typedef void ( ::ILayout::*setApproximation_function_type)( ::ILayout::EInterferenceApproximation ) ;
-            
-            ILayout_exposer.def( 
-                "setApproximation"
-                , setApproximation_function_type( &::ILayout::setApproximation )
-                , ( bp::arg("approximation") )
-                , "Sets the used approximation for particles and interference functions." );
-        
-        }
-        { //::ILayout::setTotalParticleSurfaceDensity
-        
-            typedef void ( ::ILayout::*setTotalParticleSurfaceDensity_function_type)( double ) ;
-            
-            ILayout_exposer.def( 
-                "setTotalParticleSurfaceDensity"
-                , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
-                , ( bp::arg("surface_density") )
-                , "Sets surface density of all particles." );
+            IAbstractParticle_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IAbstractParticle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IAbstractParticle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
-            typedef bool ( ILayout_wrapper::*default_areParametersChanged_function_type)(  ) ;
+            typedef bool ( IAbstractParticle_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ILayout_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&IAbstractParticle_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
-            typedef void ( ILayout_wrapper::*default_clearParameterPool_function_type)(  ) ;
+            typedef void ( IAbstractParticle_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&ILayout_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&IAbstractParticle_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
-            typedef bool ( ILayout_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( IAbstractParticle_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&ILayout_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&IAbstractParticle_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
-            typedef ::ParameterPool * ( ILayout_wrapper::*default_createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IAbstractParticle_wrapper::*default_createParameterTree_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ILayout_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&IAbstractParticle_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
-            typedef ::ICompositeSample * ( ILayout_wrapper::*default_getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( IAbstractParticle_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&IAbstractParticle_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
-            typedef ::ICompositeSample const * ( ILayout_wrapper::*default_getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( IAbstractParticle_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&IAbstractParticle_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
-            typedef void ( ILayout_wrapper::*default_printParameters_function_type)(  ) const;
+            typedef void ( IAbstractParticle_wrapper::*default_printParameters_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ILayout_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&IAbstractParticle_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
-            typedef void ( ILayout_wrapper::*default_printSampleTree_function_type)(  ) ;
+            typedef void ( IAbstractParticle_wrapper::*default_printSampleTree_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&ILayout_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&IAbstractParticle_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int,::AttLimits const & );
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &ILayout_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &IAbstractParticle_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
                 , "main method to register data address in the pool." );
         
@@ -532,46 +398,46 @@ void register_ILayout_class(){
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
-            typedef bool ( ILayout_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IAbstractParticle_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&ILayout_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&IAbstractParticle_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
-            typedef void ( ILayout_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IAbstractParticle_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ILayout_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&IAbstractParticle_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size
         
             typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
-            typedef ::std::size_t ( ILayout_wrapper::*default_size_function_type)(  ) const;
+            typedef ::std::size_t ( IAbstractParticle_wrapper::*default_size_function_type)(  ) const;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&ILayout_wrapper::default_size) );
+                , default_size_function_type(&IAbstractParticle_wrapper::default_size) );
         
         }
         { //::ICloneable::transferToCPP
         
             typedef void ( ::ICloneable::*transferToCPP_function_type)(  ) ;
-            typedef void ( ILayout_wrapper::*default_transferToCPP_function_type)(  ) ;
+            typedef void ( IAbstractParticle_wrapper::*default_transferToCPP_function_type)(  ) ;
             
-            ILayout_exposer.def( 
+            IAbstractParticle_exposer.def( 
                 "transferToCPP"
                 , transferToCPP_function_type(&::ICloneable::transferToCPP)
-                , default_transferToCPP_function_type(&ILayout_wrapper::default_transferToCPP) );
+                , default_transferToCPP_function_type(&IAbstractParticle_wrapper::default_transferToCPP) );
         
         }
     }

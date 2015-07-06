@@ -19,6 +19,7 @@
 #include "IParticle.h"
 #include "ParticleInfo.h"
 #include "ParameterDistribution.h"
+#include "SafePointerVector.h"
 
 class ParticleInfo;
 
@@ -66,8 +67,10 @@ public:
                                                      kvector_t translation) const;
 
 
-    //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;
+    //! Initializes list of new particles generated according to a distribution
+    virtual void generateParticleInfos(std::vector<const IParticle*>& particle_vector,
+                                  std::vector<double>& abundance_vector,
+                                  double abundance) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const

@@ -57,7 +57,7 @@ std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
     return m_MultiLayerLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const IParticle *sample)
+std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
 {
     if (const ParticleCoreShell *core_shell_particle =
             dynamic_cast<const ParticleCoreShell*>(sample))

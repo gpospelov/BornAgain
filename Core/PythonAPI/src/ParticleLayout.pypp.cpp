@@ -37,7 +37,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
-    ParticleLayout_wrapper(::IParticle const & particle, double abundance=1.0e+0 )
+    ParticleLayout_wrapper(::IAbstractParticle const & particle, double abundance=1.0e+0 )
     : ParticleLayout( boost::ref(particle), abundance )
       , bp::wrapper< ParticleLayout >(){
         // constructor
@@ -116,7 +116,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getNumberOfParticles( );
     }
 
-    virtual ::IParticle const * getParticle( ::std::size_t index ) const  {
+    virtual ::IAbstractParticle const * getParticle( ::std::size_t index ) const  {
         if( bp::override func_getParticle = this->get_override( "getParticle" ) )
             return func_getParticle( index );
         else{
@@ -124,20 +124,20 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         }
     }
     
-    ::IParticle const * default_getParticle( ::std::size_t index ) const  {
+    ::IAbstractParticle const * default_getParticle( ::std::size_t index ) const  {
         return ParticleLayout::getParticle( index );
     }
 
-    virtual ::std::vector< const ParticleInfo* > getParticleInfos(  ) const  {
+    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
         if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
-            return func_getParticleInfos(  );
+            func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
         else{
-            return this->ParticleLayout::getParticleInfos(  );
+            this->ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
         }
     }
     
-    ::std::vector< const ParticleInfo* > default_getParticleInfos(  ) const  {
-        return ParticleLayout::getParticleInfos( );
+    void default_getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
+        ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -325,7 +325,7 @@ void register_ParticleLayout_class(){
         typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, std::auto_ptr< ParticleLayout_wrapper >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", "Decorator class that adds particles to ISample object.", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
-        ParticleLayout_exposer.def( bp::init< IParticle const &, bp::optional< double > >(( bp::arg("particle"), bp::arg("abundance")=1.0e+0 )) );
+        ParticleLayout_exposer.def( bp::init< IAbstractParticle const &, bp::optional< double > >(( bp::arg("particle"), bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleLayout::addInterferenceFunction
         
             typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type)( ::IInterferenceFunction const & ) ;
@@ -350,7 +350,7 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const &,double ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"
@@ -442,8 +442,8 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getParticle
         
-            typedef ::IParticle const * ( ::ParticleLayout::*getParticle_function_type)( ::std::size_t ) const;
-            typedef ::IParticle const * ( ParticleLayout_wrapper::*default_getParticle_function_type)( ::std::size_t ) const;
+            typedef ::IAbstractParticle const * ( ::ParticleLayout::*getParticle_function_type)( ::std::size_t ) const;
+            typedef ::IAbstractParticle const * ( ParticleLayout_wrapper::*default_getParticle_function_type)( ::std::size_t ) const;
             
             ParticleLayout_exposer.def( 
                 "getParticle"
@@ -455,13 +455,14 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getParticleInfos
         
-            typedef ::std::vector< const ParticleInfo* > ( ::ParticleLayout::*getParticleInfos_function_type)(  ) const;
-            typedef ::std::vector< const ParticleInfo* > ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)(  ) const;
+            typedef void ( ::ParticleLayout::*getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
+            typedef void ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
             
             ParticleLayout_exposer.def( 
                 "getParticleInfos"
                 , getParticleInfos_function_type(&::ParticleLayout::getParticleInfos)
-                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos) );
+                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos)
+                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") ) );
         
         }
         { //::IParameterized::areParametersChanged

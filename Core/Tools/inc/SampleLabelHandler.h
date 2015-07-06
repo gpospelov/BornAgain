@@ -27,7 +27,7 @@ class MultiLayer;
 class LayerRoughness;
 class IMaterial;
 class Particle;
-class IParticle;
+class IAbstractParticle;
 class ParticleCoreShell;
 class ParticleDistribution;
 class ILayout;
@@ -74,7 +74,7 @@ public:
     std::string getLabel(const Layer *sample);
     std::string getLabel(const LayerRoughness *sample);
     std::string getLabel(const MultiLayer *sample);
-    std::string getLabel(const IParticle *sample);
+    std::string getLabel(const IAbstractParticle *sample);
     std::string getLabel(const ParticleCoreShell *sample);
     std::string getLabel(const ParticleDistribution *sample);
     std::string getLabel(const ILayout *sample);

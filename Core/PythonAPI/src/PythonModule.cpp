@@ -16,7 +16,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "RealParameterWrapper.pypp.h"
 #include "vdouble1d_t.pypp.h"
 #include "SimulationParameters.pypp.h"
-#include "vector_less__const_ParticleInfo_ptr___greater_.pypp.h"
 #include "ThreadInfo.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
 #include "LayerInterface.pypp.h"
@@ -92,6 +91,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
+#include "IAbstractParticle.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
 #include "cvector_t.pypp.h"
@@ -154,7 +154,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_complex_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
-    register_vector_less__const_ParticleInfo_ptr___greater__class();
     register_vector_less__const_ISample_ptr___greater__class();
     register_vector_kvector_t_class();
     register_AttLimits_class();
@@ -233,6 +232,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
+    register_IAbstractParticle_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();

@@ -19,16 +19,11 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialState)
 
     ParticleInfo particleInfo(particle);
 
-    kvector_t position;
-    EXPECT_EQ(position, particleInfo.getPosition());
     EXPECT_EQ(1.0, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 
     //set new parameter
-    position = kvector_t(1.0, 2.0, 3.0);
-    particleInfo.setPosition(position);
     particleInfo.setAbundance(2.0);
-    EXPECT_EQ(position, particleInfo.getPosition());
     EXPECT_EQ(2.0, particleInfo.getAbundance());
 }
 

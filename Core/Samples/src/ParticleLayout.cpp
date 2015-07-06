@@ -29,7 +29,7 @@ ParticleLayout::ParticleLayout()
     setName("ParticleLayout");
 }
 
-ParticleLayout::ParticleLayout(const IParticle& particle, double abundance)
+ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
 {
     setName("ParticleLayout");
     addParticle(particle, abundance);
@@ -75,7 +75,7 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
     return p_new;
 }
 
-//! Adds generic particle, &-version.
+//! Adds generic particle with rotation.
 void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rotation,
                                  double abundance)
 {
@@ -84,14 +84,14 @@ void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rot
     addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }
 
-//! Adds particle without rotation, &-version.
-void ParticleLayout::addParticle(const IParticle& particle, double abundance)
+//! Adds particle without rotation.
+void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
 {
     addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
 }
 
 //! Returns particle info
-const IParticle* ParticleLayout::getParticle(size_t index) const
+const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
     if (index<m_particles.size())
         return m_particles[index]->getParticle();
@@ -100,25 +100,31 @@ const IParticle* ParticleLayout::getParticle(size_t index) const
         "Error! Not so many particles in this decoration.");
 }
 
-std::vector<const ParticleInfo *> ParticleLayout::getParticleInfos() const
+void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
+                                      std::vector<double>& abundance_vector) const
 {
-    m_particle_info_cache.clear();
+    particle_vector.clear();
+    abundance_vector.clear();
     for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
          it != m_particles.end(); ++it) {
         const ParticleInfo *p_info = (*it);
         const ParticleDistribution *p_part_distr
             = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
+        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_info->getParticle());
         if (p_part_distr) {
-            std::vector<ParticleInfo *> generated_particles =
-                p_part_distr->generateParticleInfos(p_info->getAbundance());
-            for (size_t i=0; i<generated_particles.size(); ++i) {
-                m_particle_info_cache.push_back(generated_particles[i]);
+            std::vector<const IParticle*> generated_particles;
+            std::vector<double> abundances;
+            p_part_distr->generateParticleInfos(generated_particles, abundances, p_info->getAbundance());
+            for (size_t i = 0; i < generated_particles.size(); ++i) {
+                particle_vector.push_back(generated_particles[i]);
+                abundance_vector.push_back(abundances[i]);
             }
-        } else {
-            m_particle_info_cache.push_back(p_info->clone());
+        } else if (p_iparticle) {
+            particle_vector.push_back(p_iparticle->clone());
+            abundance_vector.push_back(p_info->getAbundance());
         }
     }
-    return m_particle_info_cache.getSTLVector();
+    return;
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const

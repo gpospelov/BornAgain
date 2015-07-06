@@ -96,6 +96,7 @@ public:
     void visit(const RotationEuler *);
 
 private:
+    void buildAbundanceInfo(ParameterizedItem *particleItem);
     void buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample);
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 

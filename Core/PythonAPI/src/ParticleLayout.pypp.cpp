@@ -128,16 +128,16 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
         return ParticleLayout::getParticle( index );
     }
 
-    virtual ::std::vector< std::pair<const IParticle*, double> > getParticleInfos(  ) const  {
+    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
         if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
-            return func_getParticleInfos(  );
+            func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
         else{
-            return this->ParticleLayout::getParticleInfos(  );
+            this->ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
         }
     }
     
-    ::std::vector< std::pair<const IParticle*, double> > default_getParticleInfos(  ) const  {
-        return ParticleLayout::getParticleInfos( );
+    void default_getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
+        ParticleLayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -455,13 +455,14 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::getParticleInfos
         
-            typedef ::std::vector< std::pair<const IParticle*, double> > ( ::ParticleLayout::*getParticleInfos_function_type)(  ) const;
-            typedef ::std::vector< std::pair<const IParticle*, double> > ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)(  ) const;
+            typedef void ( ::ParticleLayout::*getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
+            typedef void ( ParticleLayout_wrapper::*default_getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
             
             ParticleLayout_exposer.def( 
                 "getParticleInfos"
                 , getParticleInfos_function_type(&::ParticleLayout::getParticleInfos)
-                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos) );
+                , default_getParticleInfos_function_type(&ParticleLayout_wrapper::default_getParticleInfos)
+                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") ) );
         
         }
         { //::IParameterized::areParametersChanged

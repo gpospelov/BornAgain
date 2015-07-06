@@ -127,7 +127,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorCone.pypp.h"
 #include "ParticleComposition.pypp.h"
 #include "RotationX.pypp.h"
-#include "vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater_.pypp.h"
 #include "FTDistribution2DGauss.pypp.h"
 #include "FormFactorTruncatedSphere.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
@@ -151,7 +150,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     boost::python::docstring_options doc_options(true, true, false);
 
     register_vector_longinteger_t_class();
-    register_vector_less__std_scope_pair_less_const_IParticle_ptr__comma__double_greater___greater__class();
     register_vector_complex_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();

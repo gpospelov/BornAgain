@@ -84,9 +84,16 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getParticle( index );
     }
 
-    virtual ::std::vector< std::pair<const IParticle*, double> > getParticleInfos(  ) const {
-        bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
-        return func_getParticleInfos(  );
+    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
+        if( bp::override func_getParticleInfos = this->get_override( "getParticleInfos" ) )
+            func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+        else{
+            this->ILayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
+        }
+    }
+    
+    void default_getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const  {
+        ILayout::getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -377,12 +384,14 @@ void register_ILayout_class(){
         }
         { //::ILayout::getParticleInfos
         
-            typedef ::std::vector<std::pair<const IParticle*, double>,std::allocator<std::pair<const IParticle*, double> > > ( ::ILayout::*getParticleInfos_function_type)(  ) const;
+            typedef void ( ::ILayout::*getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
+            typedef void ( ILayout_wrapper::*default_getParticleInfos_function_type)( ::SafePointerVector< const IParticle > &,::std::vector< double > & ) const;
             
             ILayout_exposer.def( 
                 "getParticleInfos"
-                , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
-                , "Returns information on all particles (type and abundance) and generates new particles if an IAbstractParticle denotes a collection " );
+                , getParticleInfos_function_type(&::ILayout::getParticleInfos)
+                , default_getParticleInfos_function_type(&ILayout_wrapper::default_getParticleInfos)
+                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") ) );
         
         }
         { //::ILayout::getTotalAbundance

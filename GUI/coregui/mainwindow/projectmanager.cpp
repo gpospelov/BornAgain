@@ -20,6 +20,7 @@
 #include "actionmanager.h"
 #include "mainwindow_constants.h"
 #include "GUIHelpers.h"
+#include "ProjectLoadWarningDialog.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
@@ -112,6 +113,12 @@ void ProjectManager::onDocumentModified()
 
 void ProjectManager::newProject()
 {
+    ProjectLoadWarningDialog xxx(m_mainWindow);
+    if (xxx.exec() == QDialog::Accepted) {
+
+    }
+
+
     if( !closeCurrentProject()) return;
 
     NewProjectDialog dialog(m_mainWindow);
@@ -252,6 +259,7 @@ void ProjectManager::openProject(QString fileName)
         createNewProject();
         bool success_read = m_project_document->load(fileName);
         if(!success_read) {
+
             QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
                                  QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
             delete m_project_document;

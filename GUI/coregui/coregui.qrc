@@ -48,5 +48,6 @@
         <file>images/warning@2x.png</file>
         <file>images/warning.png</file>
         <file>images/magnifier.png</file>
+        <file>images/warning_64x64.png</file>
     </qresource>
 </RCC>

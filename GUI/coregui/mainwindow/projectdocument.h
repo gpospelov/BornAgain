@@ -23,10 +23,13 @@
 class QIODevice;
 class QModelIndex;
 class JobItem;
+class SessionModel;
 class InstrumentModel;
 class MaterialModel;
 class SampleModel;
 class JobModel;
+class QXmlStreamReader;
+class WarningMessageService;
 
 namespace ProjectDocumentXML
 {
@@ -51,7 +54,7 @@ class BA_CORE_API_ ProjectDocument : public QObject
 public:
     ProjectDocument();
     ProjectDocument(const QString &projectFileName);
-    ProjectDocument(const QString &project_dir, const QString &project_name);
+//    ProjectDocument(const QString &project_dir, const QString &project_name);
 
     QString getProjectName() const;
     void setProjectName(const QString &text);
@@ -78,6 +81,11 @@ public:
 
     QString getErrorMessage() const { return m_error_message; }
 
+    void setMessageService(WarningMessageService *messageService)
+    {
+        m_messageService = messageService;
+    }
+
 signals:
     void modified();
 
@@ -89,6 +97,7 @@ public slots:
 private:
     bool readFrom(QIODevice *device);
     bool writeTo(QIODevice *device);
+    void readModel(SessionModel *model, QXmlStreamReader *reader);
 
     void reviseOutputData();
     void saveOutputData();
@@ -102,6 +111,7 @@ private:
     JobModel *m_jobModel;
     bool m_modified;
     QString m_error_message;
+    WarningMessageService *m_messageService;
 };
 
 

@@ -21,6 +21,7 @@
 #include "mainwindow_constants.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
+#include "WarningMessageService.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
@@ -31,6 +32,7 @@
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)
     , m_project_document(0)
+    , m_messageService(new WarningMessageService)
 
 {
     setParent(parent);
@@ -257,6 +259,7 @@ void ProjectManager::openProject(QString fileName)
 
     if(!fileName.isEmpty()) {
         createNewProject();
+        m_project_document->setMessageService(m_messageService);
         bool success_read = m_project_document->load(fileName);
         if(!success_read) {
 

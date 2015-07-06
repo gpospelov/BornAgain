@@ -1,0 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/utils/GUIMessage.h
+//! @brief     Defines class GUIMessage.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#include "GUIMessage.h"
+
+
+
+GUIMessage::GUIMessage(const QString &senderName, const QString &messageType, const QString &messageDescription)
+    : m_senderName(senderName)
+    , m_messageType(messageType)
+    , m_messageDescription(messageDescription)
+{
+
+}

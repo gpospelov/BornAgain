@@ -23,6 +23,7 @@
 #include "SampleModel.h"
 #include "IntensityDataIOFactory.h"
 #include "BAVersion.h"
+#include "WarningMessageService.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -34,21 +35,21 @@
 #include <QDebug>
 
 ProjectDocument::ProjectDocument()
-    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0), m_modified(false)
+    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0), m_modified(false), m_messageService(0)
 {
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_sampleModel(0), m_jobModel(0), m_modified(false)
+    : m_sampleModel(0), m_jobModel(0), m_modified(false), m_messageService(0)
 {
     setProjectFileName(projectFileName);
 }
 
-ProjectDocument::ProjectDocument(const QString &project_dir, const QString &project_name)
-    : m_project_dir(project_dir), m_project_name(project_name), m_materialModel(0), m_sampleModel(0),
-      m_jobModel(0), m_modified(false)
-{
-}
+//ProjectDocument::ProjectDocument(const QString &project_dir, const QString &project_name)
+//    : m_project_dir(project_dir), m_project_name(project_name), m_materialModel(0), m_sampleModel(0),
+//      m_jobModel(0), m_modified(false)
+//{
+//}
 
 
 QString ProjectDocument::getProjectName() const
@@ -322,16 +323,20 @@ bool ProjectDocument::readFrom(QIODevice *device)
             } else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             } else if (reader.name() == SessionXML::MaterialModelTag) {
-                m_materialModel->readFrom(&reader);
-
+//                m_materialModel->readFrom(&reader);
+                readModel(m_materialModel, &reader);
             } else if (reader.name() == SessionXML::InstrumentModelTag) {
-                m_instrumentModel->readFrom(&reader);
+//                m_instrumentModel->readFrom(&reader);
+                readModel(m_instrumentModel, &reader);
 
             } else if (reader.name() == SessionXML::SampleModelTag) {
-                m_sampleModel->readFrom(&reader);
+//                m_sampleModel->readFrom(&reader);
+                readModel(m_sampleModel, &reader);
 
             } else if (reader.name() == SessionXML::JobModelTag) {
-                m_jobModel->readFrom(&reader);
+//                m_jobModel->readFrom(&reader);
+                readModel(m_jobModel, &reader);
+
             }
         }
     }
@@ -401,6 +406,14 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.writeEndDocument();
 
     return true;
+}
+
+void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
+{
+    model->setMessageService(m_messageService);
+    m_messageService->subscribe(model);
+    model->readFrom(reader);
+    model->setMessageService(0);
 }
 
 //! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old

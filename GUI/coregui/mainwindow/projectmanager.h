@@ -20,9 +20,11 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+
 class MainWindow;
 class ProjectDocument;
 class QSettings;
+class WarningMessageService;
 
 //! handles activity related to opening/save projects
 class BA_CORE_API_ ProjectManager : public QObject
@@ -68,7 +70,7 @@ private:
 
     QString m_defaultWorkingDirectory;
     QStringList m_recentProjects;
-
+    WarningMessageService *m_messageService;
 };
 
 

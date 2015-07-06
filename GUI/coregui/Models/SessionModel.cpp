@@ -25,7 +25,7 @@
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
 #include "ParameterizedGraphicsItem.h"
-#include "SessionModelAssistant.h"
+#include "WarningMessageService.h"
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>
@@ -39,7 +39,7 @@ enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
 SessionModel::SessionModel(QString model_tag, QObject *parent)
     : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag)
     , m_iconProvider(0)
-    , m_modelAssistant(new SessionModelAssistant)
+    , m_messageService(0)
 {
 }
 
@@ -47,7 +47,6 @@ SessionModel::~SessionModel()
 {
     delete m_root_item;
     delete m_iconProvider;
-    delete m_modelAssistant;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -329,8 +328,6 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-    m_modelAssistant->start_error_recording();
-
     qDebug() << "SessionModel::readFrom()" << m_model_tag << reader->name() << m_root_item;
 
     if (reader->name() != m_model_tag) {
@@ -349,7 +346,6 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
         throw GUIHelpers::Error(reader->errorString());
     endResetModel();
 
-    m_modelAssistant->stop_error_recording();
 }
 
 void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
@@ -478,6 +474,11 @@ ParameterizedItem *SessionModel::getTopItem(const QString &model_type,
     return result;
 }
 
+void SessionModel::setMessageService(WarningMessageService *messageService)
+{
+    m_messageService = messageService;
+}
+
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, ParameterizedItem *parent,
                                                int row, ParameterizedItem::PortInfo::EPorts port)
 {
@@ -566,8 +567,10 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     // qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType()
     // << parameter_name << parameter_type << parameter_name.toUtf8().constData();
 
-    if(!item->isRegisteredProperty(parameter_name)) {
-        m_modelAssistant->report_unknown_item_property(item, parameter_name);
+    if(m_messageService && !item->isRegisteredProperty(parameter_name)) {
+        QString message = QString("Unknown property '%1' for item type '%2'")
+                          .arg(item->modelType()).arg(parameter_name);
+        m_messageService->register_warning(this, WarningMessageService::SET_ITEM_PROPERTY_ERROR, message);
         return parameter_name;
     }
 

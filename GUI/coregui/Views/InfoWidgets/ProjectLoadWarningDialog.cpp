@@ -143,9 +143,9 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     QLabel *adviceLabel = new QLabel;
     QString adviceText("Check parameters of your items and re-enter uninitialized values. ");
     adviceText.append("Use detailed log below to get a hint what went wrong.");
+    adviceText.append("When save you project and work as normal.");
     adviceLabel->setText(adviceText);
     adviceLabel->setWordWrap(true);
-
 
     layout->addWidget(whyLabel);
     layout->addWidget(explanationLabel);

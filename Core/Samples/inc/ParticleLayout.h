@@ -21,6 +21,8 @@
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
 
+#include <boost/shared_ptr.hpp>
+
 //! @class ParticleLayout
 //! @ingroup samples
 //! @brief Decorator class that adds particles to ISample objects
@@ -61,7 +63,8 @@ public:
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual std::vector<std::pair<const IParticle*, double> > getParticleInfos() const;
+    virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
+                                  std::vector<double>& abundance_vector) const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
@@ -100,9 +103,6 @@ private:
 
     //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
-
-    //! Cache for generated particles (needed for IParticle objects that are collections)
-    mutable SafePointerVector<const IParticle> m_particle_cache;
 };
 
 #endif // PARTICLEDECORATION_H

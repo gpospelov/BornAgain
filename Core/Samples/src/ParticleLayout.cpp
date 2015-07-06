@@ -100,10 +100,11 @@ const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
         "Error! Not so many particles in this decoration.");
 }
 
-std::vector<std::pair<const IParticle *, double> > ParticleLayout::getParticleInfos() const
+void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
+                                      std::vector<double>& abundance_vector) const
 {
-    m_particle_cache.clear();
-    std::vector<std::pair<const IParticle *, double> > result;
+    particle_vector.clear();
+    abundance_vector.clear();
     for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
          it != m_particles.end(); ++it) {
         const ParticleInfo *p_info = (*it);
@@ -114,17 +115,15 @@ std::vector<std::pair<const IParticle *, double> > ParticleLayout::getParticleIn
             std::vector<std::pair<const IParticle *, double> > generated_particles
                 = p_part_distr->generateParticleInfos(p_info->getAbundance());
             for (size_t i = 0; i < generated_particles.size(); ++i) {
-                m_particle_cache.push_back(generated_particles[i].first);
-                result.push_back(generated_particles[i]);
+                particle_vector.push_back(generated_particles[i].first);
+                abundance_vector.push_back(generated_particles[i].second);
             }
         } else if (p_iparticle) {
-            IParticle *p_particle_clone = p_iparticle->clone();
-            m_particle_cache.push_back(p_particle_clone);
-            result.push_back(
-                std::pair<const IParticle *, double>(p_particle_clone, p_info->getAbundance()));
+            particle_vector.push_back(p_iparticle->clone());
+            abundance_vector.push_back(p_info->getAbundance());
         }
     }
-    return result;
+    return;
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const

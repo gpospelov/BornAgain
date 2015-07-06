@@ -91,6 +91,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
 #include "HomogeneousMagneticMaterial.pypp.h"
+#include "IAbstractParticle.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "FormFactorCuboctahedron.pypp.h"
 #include "cvector_t.pypp.h"
@@ -231,6 +232,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();
+    register_IAbstractParticle_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();

@@ -52,10 +52,9 @@ IFormFactor *ParticleDistribution::createTransformedFormFactor(complex_t, const 
         "createTransformedFormFactor: should never be called");
 }
 
-std::vector<std::pair<const IParticle *, double> >
-ParticleDistribution::generateParticleInfos(double abundance) const
+void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &particle_vector,
+                                            std::vector<double> &abundance_vector, double abundance) const
 {
-    std::vector<std::pair<const IParticle *, double> > result;
     boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
     std::vector<ParameterPool::parameter_t> main_par_matches
@@ -88,8 +87,6 @@ ParticleDistribution::generateParticleInfos(double abundance) const
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = abundance * main_sample.weight;
         IParticle *p_particle_clone = mP_particle->clone();
-        std::pair<const IParticle *, double> particle_abundance_pair(p_particle_clone,
-                                                                     particle_abundance);
         boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
@@ -109,9 +106,9 @@ ParticleDistribution::generateParticleInfos(double abundance) const
                     "one parameter");
             }
         }
-        result.push_back(particle_abundance_pair);
+        particle_vector.push_back(p_particle_clone);
+        abundance_vector.push_back(particle_abundance);
     }
-    return result;
 }
 
 void ParticleDistribution::checkParticleType(const IParticle &p_particle)

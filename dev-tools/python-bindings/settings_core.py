@@ -112,6 +112,7 @@ include_classes = [
     "GISASSimulation",
     "HomogeneousMaterial",
     "HomogeneousMagneticMaterial",
+    "IAbstractParticle",
     "IAxis",
     "ICloneable",
     "IClusteredParticles",

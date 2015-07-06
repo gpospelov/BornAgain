@@ -56,7 +56,7 @@ public:
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
     virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
-                                  std::vector<double>& abundance_vector) const;
+                                  std::vector<double>& abundance_vector) const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceOfParticle(size_t index) const=0;

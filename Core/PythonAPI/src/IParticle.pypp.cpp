@@ -165,6 +165,18 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         }
     }
 
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IAbstractParticle::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IAbstractParticle::setAmbientMaterial( boost::ref(material) );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -232,7 +244,7 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 void register_IParticle_class(){
 
     { //::IParticle
-        typedef bp::class_< IParticle_wrapper, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
+        typedef bp::class_< IParticle_wrapper, bp::bases< IAbstractParticle >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
         IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a real particle (one that has position/rotation and form factor.", bp::no_init );
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyRotation
@@ -467,6 +479,18 @@ void register_IParticle_class(){
                 , default_registerParameter_function_type( &IParticle_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
                 , "main method to register data address in the pool." );
+        
+        }
+        { //::IAbstractParticle::setAmbientMaterial
+        
+            typedef void ( ::IAbstractParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            IParticle_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IAbstractParticle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::setParameterValue

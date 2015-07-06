@@ -112,11 +112,12 @@ void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle>& partic
             = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
         const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_info->getParticle());
         if (p_part_distr) {
-            std::vector<std::pair<const IParticle *, double> > generated_particles
-                = p_part_distr->generateParticleInfos(p_info->getAbundance());
+            std::vector<const IParticle*> generated_particles;
+            std::vector<double> abundances;
+            p_part_distr->generateParticleInfos(generated_particles, abundances, p_info->getAbundance());
             for (size_t i = 0; i < generated_particles.size(); ++i) {
-                particle_vector.push_back(generated_particles[i].first);
-                abundance_vector.push_back(generated_particles[i].second);
+                particle_vector.push_back(generated_particles[i]);
+                abundance_vector.push_back(abundances[i]);
             }
         } else if (p_iparticle) {
             particle_vector.push_back(p_iparticle->clone());

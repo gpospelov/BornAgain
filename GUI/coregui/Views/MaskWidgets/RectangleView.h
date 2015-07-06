@@ -15,7 +15,7 @@ public:
     //! describes corner
 
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
-    enum Mode { SELECTION, RESIZE, ROTATION };
+    enum Mode { ROTATION, RESIZE };
     enum {Type = UserType + 1};
 
     //! create Rectangle
@@ -62,7 +62,6 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 
 private:
@@ -72,6 +71,7 @@ private:
     bool m_block_update;
 
     void setSelectedCorner(QGraphicsSceneMouseEvent *event);
+    void showRotationArrows();
 };
 #endif
 

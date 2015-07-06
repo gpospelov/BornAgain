@@ -80,7 +80,7 @@
 // 3) Every next click just switch between selected/rotate modes
 // 4) Same for EllipseView
 
-// Bug (deleting rectangle)
+// Bug (deleting rectangle) [FIXED]
 // Sometimes, but now always, deleting of rectangle gives an exception throw
 // "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property Height model=Rectangle"
 
@@ -110,8 +110,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setMouseTracking(true);
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
     m_view->setRenderHint(QPainter::TextAntialiasing);
-    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
     m_scene->setSceneRect(m_view->viewport()->frameGeometry());
 
@@ -129,9 +129,9 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 
 //    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-//    widget->setWidget(colorMapPlot);
-//    widget->resize(m_scene->width(), m_scene->height());
-//    m_widget = widget;
+//    m_proxyWidget->setWidget(colorMapPlot);
+//    m_proxyWidget->resize(m_scene->width(), m_scene->height());
+//    m_proxyWidget = widget;
 //    m_scene->addItem(widget);
 
 

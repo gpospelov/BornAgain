@@ -2,6 +2,7 @@
 #include "RectangleItem.h"
 #include "ParameterizedItem.h"
 #include "DesignerHelper.h"
+#include "RotationArrow.h"
 #include <QPainterPath>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -9,18 +10,14 @@
 #include <cmath>
 #include <QCursor>
 
-
-
 RectangleView::RectangleView()
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
 }
-
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
@@ -38,24 +35,29 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
 
     // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
-
         painter->setBrush(Qt::green);
         painter->drawRect(getTopLeftCorner());
         painter->drawRect(getBottomLeftCorner());
         painter->drawRect(getTopRightCorner());
         painter->drawRect(getBottomRightCorner());
     }
+//    showRotationArrows();
 }
 
 // FIXME Let's discuss this method, too much to type to explain
 
 QRectF RectangleView::boundingRect() const
 {
-    return QRectF(0 - 10, 0 - 10,
-                  m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() + 15,
-                  m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 15);
+    if(m_item != NULL) {
+        double width = m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() + 10;
+        double height = m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 10;
+        return QRectF(0 - 5, 0 - 5, m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() + 10,
+                      m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() + 10);
+    }
+    else {
+        return QRectF(0,0,0,0);
+    }
 }
-
 
 // FIXME refactor this or explain me what is going on  here
 void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
@@ -104,33 +106,34 @@ void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
 // FIXME refactor this or explain me what is going on  here
 void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
 {
-    this->setFlag(QGraphicsItem::ItemIsMovable, false);
     checkResizeRules(event);
 
     if (m_corner == TOPLEFT) {
         m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
-                                      m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal()
-                                          - event->pos().x());
+                                      std::abs(m_item->getRegisteredProperty(RectangleItem::P_WIDTH)
+                                                   .toReal() - event->pos().x()));
         m_item->setRegisteredProperty(
-            RectangleItem::P_HEIGHT,
-            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() - event->pos().y());
+            RectangleItem::P_HEIGHT, std::abs(m_item->getRegisteredProperty(RectangleItem::P_HEIGHT)
+                                                  .toReal() - event->pos().y()));
         this->setX(event->scenePos().x());
         this->setY(event->scenePos().y());
 
     } else if (m_corner == BOTTOMLEFT) {
         m_item->setRegisteredProperty(
             RectangleItem::P_WIDTH,
-            x() + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal()
-                - event->scenePos().x());
-        m_item->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y() - y());
+            std::abs(x() + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal()
+                     - event->scenePos().x()));
+        m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
+                                      std::abs(event->scenePos().y() - y()));
         this->setX(event->scenePos().x());
 
     } else if (m_corner == TOPRIGHT) {
-        m_item->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x() - x());
+        m_item->setRegisteredProperty(RectangleItem::P_WIDTH,
+                                      std::abs(event->scenePos().x() - x()));
         m_item->setRegisteredProperty(
             RectangleItem::P_HEIGHT,
-            y() + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal()
-                - event->scenePos().y());
+            std::abs(y() + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal()
+                     - event->scenePos().y()));
         this->setY(event->scenePos().y());
     }
 
@@ -168,44 +171,31 @@ qreal RectangleView::getRotationAngle(QGraphicsSceneMouseEvent *event)
     return 0;
 }
 
-
-// FIXME Refactor this
-// You should split if's --> Create nested if.
-//      In one 'if' you check event->button() == Qt::LeftButton,
-//      In another (nested) 'if' you check corner position
-
-// FIXME The logic of action is also bad. It is a mouse press event, and you calculate right here which corner it is.
-// You have to pass event->pos() to another function which calculates the corners.
-
-
 void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
-    if(m_mode == RESIZE) {
-        m_mode = ROTATION;
-    }
-    else if(m_mode == ROTATION) {
-        m_mode = RESIZE;
-    }
-
-    if(event->button() == Qt::LeftButton) {
+    if (event->button() == Qt::LeftButton) {
         setSelectedCorner(event);
-    }
-     else {
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        QGraphicsItem::mousePressEvent(event);
+
+        if (m_corner == NONE) {
+            if ((m_mode == RESIZE)) {
+                m_mode = ROTATION;
+            } else if ((m_mode == ROTATION)) {
+                m_mode = RESIZE;
+            }
+            this->setFlag(QGraphicsItem::ItemIsMovable, true);
+            QGraphicsItem::mousePressEvent(event);
+        }
     }
 }
 
 void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "RectangleView::mouseMoveEvent()";
-
     // check which mode is active and process with the active mode
-    if (m_mode == RESIZE) {
+    if (m_mode == RESIZE && m_corner != NONE) {
         calculateResize(event);
-
     } else if (m_corner != NONE && m_mode == ROTATION) {
         QTransform transform;
         transform.translate(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5,
@@ -226,45 +216,11 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     // set all modes off, change cursor and process as usual
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    m_mode = SELECTION;
+    //    this->setFlag(QGraphicsItem::ItemIsMovable, true);
+    //    m_mode = SELECTION;
+    m_corner = NONE;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
-}
-
-void RectangleView::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-    // activate rotation mode
-    if (event->button() == Qt::LeftButton && getTopLeftCorner().contains(event->pos())) {
-        m_mode = ROTATION;
-        m_corner = TOPLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::ClosedHandCursor);
-
-    } else if (event->button() == Qt::LeftButton && getBottomLeftCorner().contains(event->pos())) {
-        m_mode = ROTATION;
-        m_corner = BOTTOMLEFT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::ClosedHandCursor);
-
-    } else if (event->button() == Qt::LeftButton && getTopRightCorner().contains(event->pos())) {
-        m_mode = ROTATION;
-        m_corner = TOPRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::ClosedHandCursor);
-    }
-
-    else if (event->button() == Qt::LeftButton && getBottomRightCorner().contains(event->pos())) {
-        m_mode = ROTATION;
-        m_corner = BOTTOMRIGHT;
-        this->setFlag(QGraphicsItem::ItemIsMovable, false);
-        setCursor(Qt::ClosedHandCursor);
-
-    } else {
-        m_mode = SELECTION;
-        this->setFlag(QGraphicsItem::ItemIsMovable, true);
-        QGraphicsItem::mouseDoubleClickEvent(event);
-    }
 }
 
 void RectangleView::setInclude()
@@ -354,25 +310,35 @@ ParameterizedItem *RectangleView::getParameterizedItem()
 
 void RectangleView::setSelectedCorner(QGraphicsSceneMouseEvent *event)
 {
-    if(getTopLeftCorner().contains(event->pos())) {
+    if (getTopLeftCorner().contains(event->pos())) {
+        qDebug() << "TOPLEFT";
         m_corner = TOPLEFT;
         setCursor(Qt::SizeFDiagCursor);
-    }
-    else if(getTopRightCorner().contains(event->pos())) {
+    } else if (getTopRightCorner().contains(event->pos())) {
+        qDebug() << "TOPRIGHT";
         m_corner = TOPRIGHT;
         setCursor(Qt::SizeBDiagCursor);
-    }
-    else if(getBottomLeftCorner().contains(event->pos())) {
+    } else if (getBottomLeftCorner().contains(event->pos())) {
+        qDebug() << "BOTTOMLEFT";
         m_corner = BOTTOMLEFT;
         setCursor(Qt::SizeBDiagCursor);
-    }
-    else if(getBottomRightCorner().contains(event->pos())) {
+    } else if (getBottomRightCorner().contains(event->pos())) {
+        qDebug() << "BOTTOMRIGHT";
         m_corner = BOTTOMRIGHT;
         setCursor(Qt::SizeFDiagCursor);
+    } else {
+        m_corner = NONE;
     }
 
-    if(m_mode == ROTATION) {
+    if (m_mode == ROTATION) {
         setCursor(Qt::ClosedHandCursor);
     }
+}
 
+void RectangleView::showRotationArrows()
+{
+    RotationArrow *topLeftArrow = new RotationArrow(this);
+    RotationArrow *topRightArrow = new RotationArrow(this);
+    topRightArrow->setRotation(90);
+    topRightArrow->setPos(0,m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal());
 }

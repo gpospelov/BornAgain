@@ -57,7 +57,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 pointItem->setRegisteredProperty(PointItem::P_POSX, event->scenePos().x());
                 pointItem->setRegisteredProperty(PointItem::P_POSY, event->scenePos().y());
             }
-        } else {
+        }
+        else {
             QGraphicsScene::mousePressEvent(event);
         }
     }
@@ -76,7 +77,8 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
                 - m_currentItem->getRegisteredProperty(EllipseItem::P_POSX).toReal());
         m_currentItem->setRegisteredProperty(EllipseItem::P_HEIGHT,event->scenePos().y()
                 - m_currentItem->getRegisteredProperty(EllipseItem::P_POSY).toReal());
-    } else {
+    }
+    else {
         QGraphicsScene::mouseMoveEvent(event);
     }
     m_currentMousePosition = event->scenePos();
@@ -282,7 +284,7 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
             view->setSelected(false);
             m_ItemToView.erase(it);
             emit view->aboutToBeDeleted();
-            view->deleteLater();
+            delete view;
             update();
             break;
         }

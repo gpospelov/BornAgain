@@ -23,6 +23,7 @@
 
 SampleModel::SampleModel(QObject *parent) : SessionModel(SessionXML::SampleModelTag, parent)
 {
+    setObjectName(SessionXML::SampleModelTag);
 }
 
 SampleModel *SampleModel::createCopy(ParameterizedItem *parent)

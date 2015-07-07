@@ -29,6 +29,15 @@ public:
     MessageContainer();
     virtual ~MessageContainer();
 
+    typedef QList<GUIMessage *> container_t;
+    typedef container_t::iterator iterator;
+    typedef container_t::const_iterator const_iterator;
+
+    iterator begin() { return m_messages.begin(); }
+    const_iterator begin() const { return m_messages.begin(); }
+    iterator end() { return m_messages.end(); }
+    const_iterator end() const { return m_messages.end(); }
+
     void clear();
 
     void setActive(bool active);
@@ -36,9 +45,11 @@ public:
 
     void append(GUIMessage *message);
 
+    int size() const { return m_messages.size(); }
+
 private:
     bool m_is_active;
-    QList<GUIMessage *> m_messages;
+    container_t m_messages;
 };
 
 #endif

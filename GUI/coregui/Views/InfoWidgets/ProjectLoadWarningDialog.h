@@ -17,6 +17,10 @@
 #define PROJECTLOADWARNINGDIALOG_H
 
 #include <QDialog>
+#include <QStringList>
+
+class WarningMessageService;
+class QTableWidget;
 
 //! @class ProjectLoadWarningDialog
 //! @brief The dialog to inform user about encountered problems during the loading of old project
@@ -26,7 +30,7 @@ class ProjectLoadWarningDialog : public QDialog
     Q_OBJECT
 
 public:
-    ProjectLoadWarningDialog(QWidget *parent);
+    ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService = 0);
 
 
 private:
@@ -34,6 +38,11 @@ private:
     QWidget *createModelInfoPanel();
     QWidget *createExplanationPanel();
     QWidget *createDetailsPanel();
+    QTableWidget *createTableWidget();
+    int getNumberOfRows() const;
+    QStringList getHeaderLabels() const;
+
+    const WarningMessageService *m_messageService;
 };
 
 #endif

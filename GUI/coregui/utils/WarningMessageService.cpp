@@ -22,9 +22,9 @@
 
 namespace {
 
-QMap<WarningMessageService::EWarningType, QString> initWarningTypeToString()
+QMap<WarningMessageService::EMessageType, QString> initWarningTypeToString()
 {
-    QMap<WarningMessageService::EWarningType, QString> result;
+    QMap<WarningMessageService::EMessageType, QString> result;
     result[WarningMessageService::XML_FORMAT_ERROR]= "XML_FORMAT_ERROR";
     result[WarningMessageService::SET_ITEM_PROPERTY_ERROR]= "SET_ITEM_PROPERTY_ERROR";
     return result;
@@ -32,7 +32,7 @@ QMap<WarningMessageService::EWarningType, QString> initWarningTypeToString()
 
 }
 
-QMap<WarningMessageService::EWarningType, QString> WarningMessageService::m_warningTypeToString
+QMap<WarningMessageService::EMessageType, QString> WarningMessageService::m_warningTypeToString
 = initWarningTypeToString();
 
 
@@ -50,6 +50,11 @@ void WarningMessageService::clear()
 }
 
 MessageContainer *WarningMessageService::getMessageContainer(QObject *sender)
+{
+    return m_messageContainer[sender];
+}
+
+const MessageContainer *WarningMessageService::getMessageContainer(QObject *sender) const
 {
     return m_messageContainer[sender];
 }
@@ -72,20 +77,20 @@ void WarningMessageService::unsubscribe(QObject *sender)
     }
 }
 
-void WarningMessageService::register_warning(QObject *sender, WarningMessageService::EWarningType warning_type, const QString &description)
+void WarningMessageService::send_message(QObject *sender, WarningMessageService::EMessageType warning_type, const QString &description)
 {
     MessageContainer *container = getMessageContainer(sender);
     if(container && container->isActive()) {
-        GUIMessage *message = new GUIMessage(sender->objectName(), getWarningTypeString(warning_type), description);
+        GUIMessage *message = new GUIMessage(sender->objectName(), getMessageTypeString(warning_type), description);
         container->append(message);
     } else {
-        QString message = QString("Warning %1 from object '%2' ->'%3'").arg(getWarningTypeString(warning_type))
+        QString message = QString("Warning %1 from object '%2' ->'%3'").arg(getMessageTypeString(warning_type))
                 .arg(sender->objectName()).arg(description);
         throw GUIHelpers::Error(message);
     }
 }
 
-QString WarningMessageService::getWarningTypeString(WarningMessageService::EWarningType warningType) const
+QString WarningMessageService::getMessageTypeString(WarningMessageService::EMessageType messageType) const
 {
-    return m_warningTypeToString[warningType];
+    return m_warningTypeToString[messageType];
 }

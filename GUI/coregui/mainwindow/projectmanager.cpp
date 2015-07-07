@@ -42,6 +42,7 @@ ProjectManager::ProjectManager(MainWindow *parent)
 ProjectManager::~ProjectManager()
 {
     delete m_project_document;
+    delete m_messageService;
 }
 
 
@@ -92,6 +93,8 @@ void ProjectManager::createNewProject()
     if(m_project_document)
         throw GUIHelpers::Error("ProjectManager::createNewProject() -> Project already exists");
 
+    m_messageService->clear();
+
     m_project_document = new ProjectDocument();
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
@@ -99,6 +102,7 @@ void ProjectManager::createNewProject()
     m_project_document->setInstrumentModel(m_mainWindow->getInstrumentModel());
     m_project_document->setSampleModel(m_mainWindow->getSampleModel());
     m_project_document->setJobModel(m_mainWindow->getJobModel());
+    m_project_document->setMessageService(m_messageService);
 }
 
 
@@ -115,10 +119,6 @@ void ProjectManager::onDocumentModified()
 
 void ProjectManager::newProject()
 {
-    ProjectLoadWarningDialog xxx(m_mainWindow);
-    if (xxx.exec() == QDialog::Accepted) {
-
-    }
 
 
     if( !closeCurrentProject()) return;
@@ -188,8 +188,6 @@ bool ProjectManager::saveProjectAs()
 
     if (dialog.exec() == QDialog::Accepted) {
         m_defaultWorkingDirectory = dialog.getWorkingDirectory();
-//        m_project_document->setProjectName(dialog.getProjectName());
-//        m_project_document->setProjectDir(dialog.getProjectPath());
         m_project_document->setProjectFileName(dialog.getProjectFileName());
         m_project_document->save();
         addToRecentProjects();
@@ -259,19 +257,38 @@ void ProjectManager::openProject(QString fileName)
 
     if(!fileName.isEmpty()) {
         createNewProject();
-        m_project_document->setMessageService(m_messageService);
-        bool success_read = m_project_document->load(fileName);
-        if(!success_read) {
-
+//        bool success_read = m_project_document->load(fileName);
+        ProjectDocument::EDocumentStatus status = m_project_document->load(fileName);
+        if(status&ProjectDocument::STATUS_FAILED) {
             QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
-                                 QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
+                                QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
             delete m_project_document;
             m_project_document = 0;
             m_mainWindow->resetModels();
             createNewProject();
-        } else {
+        }
+        else if(status&ProjectDocument::STATUS_WARNING) {
+            ProjectLoadWarningDialog xxx(m_mainWindow, m_messageService);
+            if (xxx.exec() == QDialog::Accepted) {
+
+            }
+
+        }
+        else {
             addToRecentProjects();
         }
+
+//        if(!success_read) {
+
+//            QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
+//                                 QString("Failed to load the project '%1' \n\n%2").arg(fileName).arg(m_project_document->getErrorMessage()));
+//            delete m_project_document;
+//            m_project_document = 0;
+//            m_mainWindow->resetModels();
+//            createNewProject();
+//        } else {
+//            addToRecentProjects();
+//        }
         emit modified();
     }
 }

@@ -24,3 +24,9 @@ GUIMessage::GUIMessage(const QString &senderName, const QString &messageType, co
 {
 
 }
+
+QString GUIMessage::getText() const
+{
+    QString result = QString("%1 %2 %3").arg(m_senderName).arg(m_messageType).arg(m_messageDescription);
+    return result;
+}

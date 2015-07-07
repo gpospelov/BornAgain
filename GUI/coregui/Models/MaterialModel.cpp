@@ -23,7 +23,7 @@
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
 {
-
+    setObjectName(SessionXML::MaterialModelTag);
 }
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)

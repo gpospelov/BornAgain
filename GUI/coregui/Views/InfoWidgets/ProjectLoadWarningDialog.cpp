@@ -15,19 +15,26 @@
 
 #include "ProjectLoadWarningDialog.h"
 #include "DesignerHelper.h"
+#include "WarningMessageService.h"
+#include "MessageContainer.h"
+#include "GUIMessage.h"
 #include <QBoxLayout>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QFrame>
 #include <QTextEdit>
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QHeaderView>
 
 namespace {
 const int top_panel_height = 80;
 }
 
-ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent)
+ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService)
     : QDialog(parent)
+    , m_messageService(messageService)
 {
     setMinimumSize(256, 256);
     resize(480, 640);
@@ -170,11 +177,60 @@ QWidget *ProjectLoadWarningDialog::createDetailsPanel()
     detailsLabel->setText("Details");
 
     layout->addWidget(detailsLabel);
-    layout->addWidget(new QTextEdit);
+    layout->addWidget(createTableWidget());
 
     result->setLayout(layout);
     return result;
 
 
 }
+
+//! Creates QTableWidget and fills it with error messages
+QTableWidget *ProjectLoadWarningDialog::createTableWidget()
+{
+    Q_ASSERT(m_messageService);
+    QTableWidget *result = new QTableWidget;
+
+    result->setRowCount(getNumberOfRows());
+    result->setColumnCount(getHeaderLabels().size());
+    result->setHorizontalHeaderLabels(getHeaderLabels());
+    result->verticalHeader()->setVisible(false);
+    result->horizontalHeader()->setStretchLastSection(true);
+
+    int rowCount(0);
+    for(WarningMessageService::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
+        const MessageContainer *messageContainer = it.value();
+        for(MessageContainer::const_iterator it=messageContainer->begin(); it!=messageContainer->end(); ++it) {
+            const GUIMessage *guiMessage = (*it);
+
+            result->setItem(rowCount, 0, new QTableWidgetItem(guiMessage->getSenderName()));
+            result->setItem(rowCount, 1, new QTableWidgetItem(guiMessage->getMessageType()));
+            result->setItem(rowCount, 2, new QTableWidgetItem(guiMessage->getMessageDescription()));
+            ++rowCount;
+
+        }
+    }
+
+    return result;
+}
+
+//! Returns number of rows in table with error messages, each row represents an error message
+int ProjectLoadWarningDialog::getNumberOfRows() const
+{
+    Q_ASSERT(m_messageService);
+    int result(0);
+    for(WarningMessageService::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
+        result += it.value()->size();
+    }
+    return result;
+}
+
+//! Returns labels for table header
+QStringList ProjectLoadWarningDialog::getHeaderLabels() const
+{
+    QStringList result;
+    result << "Sender" << "Warning" << "Description";
+    return result;
+}
+
 

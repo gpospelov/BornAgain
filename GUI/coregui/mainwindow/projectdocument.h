@@ -52,6 +52,12 @@ class BA_CORE_API_ ProjectDocument : public QObject
     Q_OBJECT
 
 public:
+    enum EDocumentStatus {
+        STATUS_OK = 0x0001,
+        STATUS_WARNING = 0x0002,
+        STATUS_FAILED = 0x0004
+    };
+
     ProjectDocument();
     ProjectDocument(const QString &projectFileName);
 //    ProjectDocument(const QString &project_dir, const QString &project_name);
@@ -68,12 +74,12 @@ public:
     static QString getProjectFileExtension();
 
     void setMaterialModel(MaterialModel *materialModel);
-    void setInstrumentModel(InstrumentModel *model);
-    void setSampleModel(SampleModel *model);
-    void setJobModel(JobModel *model);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setSampleModel(SampleModel *sampleModel);
+    void setJobModel(JobModel *jobModel);
 
     bool save();
-    bool load(const QString &project_file_name);
+    EDocumentStatus load(const QString &project_file_name);
 
     bool hasValidNameAndPath();
 
@@ -86,13 +92,15 @@ public:
         m_messageService = messageService;
     }
 
+    EDocumentStatus getDocumentStatus() const { return m_documentStatus; }
+
 signals:
     void modified();
 
 public slots:
     void onDataChanged(const QModelIndex &, const QModelIndex &);
     void onJobModelChanged(const QString &);
-    void onRowsChanged(const QModelIndex &parent, int first, int last);
+    void onRowsChanged(const QModelIndex &parent, int, int);
 
 private:
     bool readFrom(QIODevice *device);
@@ -103,6 +111,9 @@ private:
     void saveOutputData();
     void loadOutputData();
 
+    void disconnectModel(SessionModel *model);
+    void connectModel(SessionModel *model);
+
     QString m_project_dir;
     QString m_project_name;
     MaterialModel *m_materialModel;
@@ -111,6 +122,7 @@ private:
     JobModel *m_jobModel;
     bool m_modified;
     QString m_error_message;
+    EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;
 };
 

@@ -569,8 +569,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
     if(m_messageService && !item->isRegisteredProperty(parameter_name)) {
         QString message = QString("Unknown property '%1' for item type '%2'")
-                          .arg(item->modelType()).arg(parameter_name);
-        m_messageService->register_warning(this, WarningMessageService::SET_ITEM_PROPERTY_ERROR, message);
+                          .arg(parameter_name).arg(item->modelType());
+        m_messageService->send_message(this, WarningMessageService::SET_ITEM_PROPERTY_ERROR, message);
         return parameter_name;
     }
 

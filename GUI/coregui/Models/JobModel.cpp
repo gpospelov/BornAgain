@@ -34,6 +34,7 @@ JobModel::JobModel(QObject *parent)
     m_queue_data = new JobQueueData(this);
     connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
     connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
+    setObjectName(SessionXML::JobModelTag);
 }
 
 JobModel::~JobModel()

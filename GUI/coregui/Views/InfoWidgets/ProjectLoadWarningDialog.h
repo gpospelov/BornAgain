@@ -42,7 +42,7 @@ private:
     int getNumberOfRows() const;
     QStringList getTableHeaderLabels() const;
 
-    QMap<QLabel *, QLabel *> createModelInfoLabels() const;
+    QStringList getModelNames() const;
     QLabel *createModelStatusLabel(const QString &model_name) const;
 
     const WarningMessageService *m_messageService;

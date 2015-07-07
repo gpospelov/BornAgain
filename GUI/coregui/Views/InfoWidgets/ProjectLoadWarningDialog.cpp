@@ -38,7 +38,7 @@ ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
     : QDialog(parent), m_messageService(messageService)
 {
     setMinimumSize(256, 256);
-    resize(480, 640);
+    resize(520, 620);
     setWindowTitle("Problems encountered while loading project");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setModal(true);
@@ -56,7 +56,7 @@ ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
-    buttonLayout->setContentsMargins(10, 10, 10, 10);
+    buttonLayout->setContentsMargins(0, 8, 5, 0);
     buttonLayout->addWidget(button);
 
     mainLayout->addLayout(buttonLayout);
@@ -109,12 +109,11 @@ QWidget *ProjectLoadWarningDialog::createModelInfoPanel()
 
 
     QGridLayout *gridLayout = new QGridLayout;
-    QMap<QLabel *, QLabel *> labels = createModelInfoLabels();
-    int rowCount(0);
-    for(QMap<QLabel *, QLabel *>::iterator it=labels.begin(); it!=labels.end(); ++it) {
-        gridLayout->addWidget(it.key(), rowCount, 0);
-        gridLayout->addWidget(it.value(), rowCount, 1);
-        ++rowCount;
+
+    QStringList names = getModelNames();
+    for(int irow=0; irow<names.size(); ++irow) {
+        gridLayout->addWidget(new QLabel(names.at(irow)), irow, 0);
+        gridLayout->addWidget(createModelStatusLabel(names.at(irow)), irow, 1);
     }
 
     layout->addWidget(line);
@@ -241,19 +240,13 @@ QStringList ProjectLoadWarningDialog::getTableHeaderLabels() const
 }
 
 
-//! Creates map of labels with model names and corresponding warning status
-QMap<QLabel *, QLabel *> ProjectLoadWarningDialog::createModelInfoLabels() const
+//! Returns list of model names to form summary
+QStringList ProjectLoadWarningDialog::getModelNames() const
 {
-    QMap<QLabel *, QLabel *> result;
-
     QStringList names;
     names << SessionXML::MaterialModelTag << SessionXML::InstrumentModelTag
           << SessionXML::SampleModelTag << SessionXML::JobModelTag;
-
-    for(int i=0; i<names.size(); ++i) {
-        result[new QLabel(names.at(i))] = createModelStatusLabel(names.at(i));
-    }
-    return result;
+    return names;
 }
 
 //! create status label "OK"/"WARNING" depending on presence of warning messages in the container

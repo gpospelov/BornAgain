@@ -18,6 +18,7 @@
 
 #include "IMessageService.h"
 #include <QMap>
+#include <QStringList>
 
 class MessageContainer;
 class QObject;
@@ -52,12 +53,17 @@ public:
 
     const MessageContainer *getMessageContainer(QObject *sender) const;
 
-    void subscribe(QObject *sender);
-    void unsubscribe(QObject *sender);
+//    void subscribe(QObject *sender);
+//    void unsubscribe(QObject *sender);
 
     void send_message(QObject *sender, EMessageType warning_type, const QString &description);
 
     QString getMessageTypeString(EMessageType messageType) const;
+
+    bool hasWarnings(QObject *sender);
+
+    QStringList getMessageStringList(QObject *sender) const;
+    QString getMessages(QObject *sender) const;
 
 private:
     container_t m_messageContainer;

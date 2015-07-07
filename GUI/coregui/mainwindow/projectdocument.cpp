@@ -39,21 +39,16 @@ ProjectDocument::ProjectDocument()
     : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
     , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
+    setObjectName("ProjectDocument");
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
     : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
     , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
+    setObjectName("ProjectDocument");
     setProjectFileName(projectFileName);
 }
-
-//ProjectDocument::ProjectDocument(const QString &project_dir, const QString &project_name)
-//    : m_project_dir(project_dir), m_project_name(project_name), m_materialModel(0), m_sampleModel(0),
-//      m_jobModel(0), m_modified(false)
-//{
-//}
-
 
 QString ProjectDocument::getProjectName() const
 {
@@ -186,12 +181,11 @@ ProjectDocument::EDocumentStatus ProjectDocument::load(const QString &project_fi
         // loading accompanying non-xml data
         loadOutputData();
     } catch (const std::exception &ex) {
-        m_error_message.append(
-            QString("Exception was thrown with the error message '%1'").arg(QString(ex.what())));
+//        m_error_message.append(
+//            QString("Exception was thrown with the error message '%1'").arg(QString(ex.what())));
 //        success_read = false;
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
         m_messageService->send_message(this, WarningMessageService::EXCEPTION_THROW, QString(ex.what()));
-
     }
 
     return m_documentStatus;
@@ -225,7 +219,7 @@ void ProjectDocument::onRowsChanged(const QModelIndex &, int , int )
     emit modified();
 }
 
-bool ProjectDocument::readFrom(QIODevice *device)
+void ProjectDocument::readFrom(QIODevice *device)
 {
     disconnectModel(m_materialModel);
     disconnectModel(m_instrumentModel);
@@ -242,29 +236,26 @@ bool ProjectDocument::readFrom(QIODevice *device)
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
                 if (version != GUIHelpers::getBornAgainVersionString()) {
-                    m_error_message.append(
-                        QString("Given project was created using BornAgain ver. %1").arg(version));
-                    m_error_message.append(
-                        QString(" which is different from the version %1 you are currently using.")
-                            .arg(GUIHelpers::getBornAgainVersionString()));
-                    m_error_message.append(QString(
-                        " At the moment we do not support import from older versions.\n\n"));
+//                    m_error_message.append(
+//                        QString("Given project was created using BornAgain ver. %1").arg(version));
+//                    m_error_message.append(
+//                        QString(" which is different from the version %1 you are currently using.")
+//                            .arg(GUIHelpers::getBornAgainVersionString()));
+//                    m_error_message.append(QString(
+//                        " At the moment we do not support import from older versions.\n\n"));
                 }
             } else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             } else if (reader.name() == SessionXML::MaterialModelTag) {
-//                m_materialModel->readFrom(&reader);
                 readModel(m_materialModel, &reader);
+
             } else if (reader.name() == SessionXML::InstrumentModelTag) {
-//                m_instrumentModel->readFrom(&reader);
                 readModel(m_instrumentModel, &reader);
 
             } else if (reader.name() == SessionXML::SampleModelTag) {
-//                m_sampleModel->readFrom(&reader);
                 readModel(m_sampleModel, &reader);
 
             } else if (reader.name() == SessionXML::JobModelTag) {
-//                m_jobModel->readFrom(&reader);
                 readModel(m_jobModel, &reader);
 
             }
@@ -274,21 +265,16 @@ bool ProjectDocument::readFrom(QIODevice *device)
     if (reader.hasError()) {
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
         m_messageService->send_message(this, WarningMessageService::XML_FORMAT_ERROR, reader.errorString());
-
-//        m_error_message.append(
-//            QString("File parse error with error message '%1").arg(reader.errorString()));
-        return false;
+        return;
     }
 
     connectModel(m_materialModel);
     connectModel(m_instrumentModel);
     connectModel(m_sampleModel);
     connectModel(m_jobModel);
-
-    return true;
 }
 
-bool ProjectDocument::writeTo(QIODevice *device)
+void ProjectDocument::writeTo(QIODevice *device)
 {
     QXmlStreamWriter writer(device);
     writer.setAutoFormatting(true);
@@ -308,17 +294,15 @@ bool ProjectDocument::writeTo(QIODevice *device)
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-
-    return true;
 }
 
 void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
 {
     model->setMessageService(m_messageService);
-    m_messageService->subscribe(model);
+//    m_messageService->subscribe(model);
     model->readFrom(reader);
 
-    if(m_messageService->getMessageContainer(model)->size()) {
+    if(m_messageService->hasWarnings(model)) {
         m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
     }
     model->setMessageService(0);
@@ -328,8 +312,6 @@ void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
 //! *.int files in project directory by removing them.
 void ProjectDocument::reviseOutputData()
 {
-    //    QMap<QString, int> name_to_copy_number;
-
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
@@ -344,15 +326,6 @@ void ProjectDocument::reviseOutputData()
 
             // making new name of *.int file from jobItem name
             dataItem->setNameFromProposed(jobItem->itemName());
-
-            // handling name repetition
-            //            int ncopy = name_to_copy_number[dataItem->itemName()];
-            //            if(ncopy > 0) {
-            //                QString new_name =
-            //                QString("%1(%2)").arg(dataItem->itemName()).arg(ncopy);
-            //                dataItem->setItemName(new_name);
-            //            }
-            //            name_to_copy_number[dataItem->itemName()] = ncopy+1;
         }
     }
 }
@@ -377,8 +350,6 @@ void ProjectDocument::saveOutputData()
 //! load OutputData from project directory
 void ProjectDocument::loadOutputData()
 {
-    Q_ASSERT(m_jobModel);
-
     for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
         IntensityDataItem *dataItem = jobItem->getIntensityDataItem();

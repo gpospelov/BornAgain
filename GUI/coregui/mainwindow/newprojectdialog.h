@@ -32,7 +32,8 @@ class BA_CORE_API_ NewProjectDialog : public QDialog
 {
     Q_OBJECT
 public:
-    NewProjectDialog(QWidget *parent = 0);
+    NewProjectDialog(QWidget *parent = 0, const QString &workingDirectory = QString(),
+                     const QString &projectName = QString());
 
     QString getWorkingDirectory() const;
     void setWorkingDirectory(const QString &text);

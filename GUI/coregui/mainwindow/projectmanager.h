@@ -64,6 +64,11 @@ private:
     QString getDefaultWorkingDirectory();
     QString getUntitledProjectName();
 
+    void riseProjectLoadFailedDialog();
+    void riseProjectLoadWarningDialog();
+
+    void deleteCurrentProject();
+
     MainWindow *m_mainWindow;
 
     ProjectDocument *m_project_document;

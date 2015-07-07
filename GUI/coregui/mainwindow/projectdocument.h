@@ -60,7 +60,6 @@ public:
 
     ProjectDocument();
     ProjectDocument(const QString &projectFileName);
-//    ProjectDocument(const QString &project_dir, const QString &project_name);
 
     QString getProjectName() const;
     void setProjectName(const QString &text);
@@ -85,8 +84,6 @@ public:
 
     bool isModified();
 
-    QString getErrorMessage() const { return m_error_message; }
-
     void setMessageService(WarningMessageService *messageService)
     {
         m_messageService = messageService;
@@ -103,8 +100,8 @@ public slots:
     void onRowsChanged(const QModelIndex &parent, int, int);
 
 private:
-    bool readFrom(QIODevice *device);
-    bool writeTo(QIODevice *device);
+    void readFrom(QIODevice *device);
+    void writeTo(QIODevice *device);
     void readModel(SessionModel *model, QXmlStreamReader *reader);
 
     void reviseOutputData();
@@ -121,7 +118,6 @@ private:
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
     bool m_modified;
-    QString m_error_message;
     EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;
 };

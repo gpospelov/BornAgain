@@ -41,7 +41,7 @@ ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
     resize(520, 620);
     setWindowTitle("Problems encountered while loading project");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setModal(true);
+    //setModal(true);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
@@ -62,6 +62,8 @@ ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
+
+    setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
 //! Top panel with warning icon and the header
@@ -155,7 +157,7 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     QString adviceText(
         "Check parameters of your items and re-enter uninitialized values. "
         "Use detailed log below to get a hint what went wrong."
-        "When save you project and work as normal."
+        "After that, save you project and work as normal."
                 );
     adviceLabel->setText(adviceText);
     adviceLabel->setWordWrap(true);
@@ -255,6 +257,7 @@ QLabel *ProjectLoadWarningDialog::createModelStatusLabel(const QString &model_na
     QLabel *result = new QLabel("OK");
     for (WarningMessageService::container_t::const_iterator it = m_messageService->begin();
          it != m_messageService->end(); ++it) {
+
         const MessageContainer *messageContainer = it.value();
         if (model_name == it.key()->objectName() && messageContainer->size()) {
             result->setText("WARNING");

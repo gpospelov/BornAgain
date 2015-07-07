@@ -133,29 +133,29 @@ bool ProjectManager::saveProject()
     Q_ASSERT(m_project_document);
     qDebug() << "ProjectManager::saveProject()";
 
-    if(m_project_document->hasValidNameAndPath()) {
-        bool success = m_project_document->save();
-        if(success == false) {
-            QMessageBox::warning(m_mainWindow, tr("Error while saving project"),
-                                 QString("Failed to save project under '%1'.")
-                                 .arg(m_project_document->getProjectDir()));
-
-        } else {
-            addToRecentProjects();
-        }
-    } else {
+    if(!m_project_document->hasValidNameAndPath()) {
         NewProjectDialog dialog(m_mainWindow, getDefaultWorkingDirectory(), getUntitledProjectName());
 
         if (dialog.exec() == QDialog::Accepted) {
             m_defaultWorkingDirectory = dialog.getWorkingDirectory();
             m_project_document->setProjectFileName(dialog.getProjectFileName());
-            m_project_document->save();
-            addToRecentProjects();
         } else {
-            return false;
+           return false;
         }
     }
+
+    bool success = m_project_document->save();
+    if(success == false) {
+        QMessageBox::warning(m_mainWindow, tr("Error while saving project"),
+                             QString("Failed to save project under '%1'.")
+                             .arg(m_project_document->getProjectDir()));
+        return false;
+
+     }
+
+    addToRecentProjects();
     modified();
+
     return true;
 }
 
@@ -176,9 +176,6 @@ bool ProjectManager::saveProjectAs()
     return true;
 }
 
-
-
-
 //! Opens existing project. If fileName is empty, will popup file selection dialog
 void ProjectManager::openProject(QString fileName)
 {
@@ -194,17 +191,10 @@ void ProjectManager::openProject(QString fileName)
 
     }
 
-    fileName = "xxx";
-//    QFile fin(fileName);
-//    if(!fin.exists()) {
-//        QMessageBox::warning(m_mainWindow, tr("Error while opening project file"),
-//                             QString("File '%1' doesn't exist").arg(fileName));
-//        return;
-//    }
-
     createNewProject();
 
     ProjectDocument::EDocumentStatus status = m_project_document->load(fileName);
+
     if(status&ProjectDocument::STATUS_FAILED) {
         riseProjectLoadFailedDialog();
         deleteCurrentProject();
@@ -212,7 +202,7 @@ void ProjectManager::openProject(QString fileName)
     }
     else if(status&ProjectDocument::STATUS_WARNING) {
         riseProjectLoadWarningDialog();
-
+        addToRecentProjects();
     }
     else {
         addToRecentProjects();
@@ -224,17 +214,12 @@ void ProjectManager::openProject(QString fileName)
 
 void ProjectManager::addToRecentProjects()
 {
-    Q_ASSERT(m_project_document);
-
-    std::cout << "ProjectManager::closeProject() -> XXX" << m_project_document->getProjectFileName().toStdString() << std::endl;
     QString fileName = m_project_document->getProjectFileName();
-
     m_recentProjects.removeAll(fileName);
     m_recentProjects.prepend(fileName);
     while (m_recentProjects.size() > Constants::MAX_RECENT_PROJECTS)
         m_recentProjects.removeLast();
 }
-
 
 //! read settings of ProjectManager from global settings
 void ProjectManager::readSettings(QSettings *settings)
@@ -247,7 +232,6 @@ void ProjectManager::readSettings(QSettings *settings)
         settings->endGroup();
     }
 }
-
 
 //! saves settings of ProjectManager in global settings
 void ProjectManager::writeSettings(QSettings *settings)

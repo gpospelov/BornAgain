@@ -247,8 +247,8 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
     if (!m_registered_properties.contains(name))
         throw GUIHelpers::Error(
-            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property " + name
-            + " model=" + modelType());
+            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
+            + "', item '" + modelType() + "'");
 
 
     // for debugging purpose

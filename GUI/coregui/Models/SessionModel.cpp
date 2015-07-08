@@ -25,7 +25,7 @@
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
 #include "ParameterizedGraphicsItem.h"
-
+#include "WarningMessageService.h"
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>
@@ -34,11 +34,13 @@ namespace
 {
 const int MaxCompression = 9;
 enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
+const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
 }
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
-    : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag),
-      m_iconProvider(0)
+    : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag)
+    , m_iconProvider(0)
+    , m_messageService(0)
 {
 }
 
@@ -344,6 +346,7 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());
     endResetModel();
+
 }
 
 void SessionModel::writeTo(QXmlStreamWriter *writer, ParameterizedItem *parent)
@@ -472,6 +475,11 @@ ParameterizedItem *SessionModel::getTopItem(const QString &model_type,
     return result;
 }
 
+void SessionModel::setMessageService(WarningMessageService *messageService)
+{
+    m_messageService = messageService;
+}
+
 ParameterizedItem *SessionModel::insertNewItem(QString model_type, ParameterizedItem *parent,
                                                int row, ParameterizedItem::PortInfo::EPorts port)
 {
@@ -559,6 +567,14 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         = reader->attributes().value(SessionXML::ParameterTypeAttribute).toString();
     // qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType()
     // << parameter_name << parameter_type << parameter_name.toUtf8().constData();
+
+    if(m_messageService && !item->isRegisteredProperty(parameter_name)) {
+        QString message = QString("Unknown property '%1' for item type '%2'")
+                          .arg(parameter_name).arg(item->modelType());
+        m_messageService->send_message(this, SET_ITEM_PROPERTY_ERROR, message);
+        return parameter_name;
+    }
+
     if (parameter_type == "double") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();

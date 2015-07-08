@@ -22,14 +22,37 @@ int maximum_number_of_messages = 100;
 }
 
 MessageContainer::MessageContainer()
-    : m_is_active(true)
 {
-
 }
 
 MessageContainer::~MessageContainer()
 {
     clear();
+}
+
+MessageContainer::iterator MessageContainer::begin()
+{
+    return m_messages.begin();
+}
+
+MessageContainer::const_iterator MessageContainer::begin() const
+{
+    return m_messages.begin();
+}
+
+MessageContainer::iterator MessageContainer::end()
+{
+    return m_messages.end();
+}
+
+MessageContainer::const_iterator MessageContainer::end() const
+{
+    return m_messages.end();
+}
+
+int MessageContainer::size() const
+{
+    return m_messages.size();
 }
 
 void MessageContainer::clear()
@@ -40,23 +63,8 @@ void MessageContainer::clear()
     m_messages.clear();
 }
 
-//! Sets active flag to accept new messages
-void MessageContainer::setActive(bool active)
-{
-    m_is_active = active;
-}
-
-bool MessageContainer::isActive() const
-{
-    return m_is_active;
-}
-
 void MessageContainer::append(GUIMessage *message)
 {
-    if(!isActive()) {
-        GUIHelpers::Error("MessageContainer::append() -> Error. Not active.");
-    }
-
     if(m_messages.size() < maximum_number_of_messages) {
         m_messages.append(message);
     } else {

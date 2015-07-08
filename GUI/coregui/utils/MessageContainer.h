@@ -33,22 +33,17 @@ public:
     typedef container_t::iterator iterator;
     typedef container_t::const_iterator const_iterator;
 
-    iterator begin() { return m_messages.begin(); }
-    const_iterator begin() const { return m_messages.begin(); }
-    iterator end() { return m_messages.end(); }
-    const_iterator end() const { return m_messages.end(); }
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+    int size() const;
 
     void clear();
 
-    void setActive(bool active);
-    bool isActive() const;
-
     void append(GUIMessage *message);
 
-    int size() const { return m_messages.size(); }
-
 private:
-    bool m_is_active;
     container_t m_messages;
 };
 

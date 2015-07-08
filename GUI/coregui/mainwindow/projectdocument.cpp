@@ -35,6 +35,12 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 
+namespace {
+const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
+const QString EXCEPTION_THROW = "EXCEPTION_THROW";
+const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
+}
+
 ProjectDocument::ProjectDocument()
     : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
     , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
@@ -160,7 +166,7 @@ ProjectDocument::EDocumentStatus ProjectDocument::load(const QString &project_fi
     QFile file(getProjectFileName());
 //    if (!file.open(QFile::ReadOnly | QFile::Text)) {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        m_messageService->send_message(this, WarningMessageService::OPEN_FILE_ERROR, file.errorString());
+        m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
         m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_FAILED);
 //        m_error_message
 //            = QString("Can't open '%1'. \n").arg(getProjectFileName());
@@ -185,7 +191,7 @@ ProjectDocument::EDocumentStatus ProjectDocument::load(const QString &project_fi
 //            QString("Exception was thrown with the error message '%1'").arg(QString(ex.what())));
 //        success_read = false;
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
-        m_messageService->send_message(this, WarningMessageService::EXCEPTION_THROW, QString(ex.what()));
+        m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
     }
 
     return m_documentStatus;
@@ -264,7 +270,7 @@ void ProjectDocument::readFrom(QIODevice *device)
 
     if (reader.hasError()) {
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
-        m_messageService->send_message(this, WarningMessageService::XML_FORMAT_ERROR, reader.errorString());
+        m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }
 
@@ -299,7 +305,7 @@ void ProjectDocument::writeTo(QIODevice *device)
 void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
 {
     model->setMessageService(m_messageService);
-//    m_messageService->subscribe(model);
+
     model->readFrom(reader);
 
     if(m_messageService->hasWarnings(model)) {

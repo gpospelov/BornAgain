@@ -21,11 +21,12 @@
 class GUIMessage
 {
 public:
-    GUIMessage(const QString &senderName, const QString &messageType, const QString &messageDescription);
+    GUIMessage(const QString &senderName, const QString &messageType,
+               const QString &messageDescription);
 
-    QString getSenderName() const { return m_senderName; }
-    QString getMessageType() const { return m_messageType; }
-    QString getMessageDescription() const { return m_messageDescription; }
+    QString getSenderName() const;
+    QString getMessageType() const;
+    QString getMessageDescription() const;
 
     QString getText() const;
 

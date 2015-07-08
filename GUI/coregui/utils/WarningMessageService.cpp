@@ -19,25 +19,6 @@
 #include "GUIHelpers.h"
 #include <QObject>
 
-
-namespace {
-
-QMap<WarningMessageService::EMessageType, QString> initWarningTypeToString()
-{
-    QMap<WarningMessageService::EMessageType, QString> result;
-    result[WarningMessageService::XML_FORMAT_ERROR]= "XML_FORMAT_ERROR";
-    result[WarningMessageService::SET_ITEM_PROPERTY_ERROR]= "SET_ITEM_PROPERTY_ERROR";
-    result[WarningMessageService::OPEN_FILE_ERROR]= "OPEN_FILE_ERROR";
-    result[WarningMessageService::EXCEPTION_THROW]= "EXCEPTION_THROW";
-    return result;
-}
-
-}
-
-QMap<WarningMessageService::EMessageType, QString> WarningMessageService::m_warningTypeToString
-= initWarningTypeToString();
-
-
 WarningMessageService::~WarningMessageService()
 {
     clear();
@@ -51,6 +32,26 @@ void WarningMessageService::clear()
     m_messageContainer.clear();
 }
 
+WarningMessageService::iterator WarningMessageService::begin()
+{
+    return m_messageContainer.begin();
+}
+
+WarningMessageService::const_iterator WarningMessageService::begin() const
+{
+    return m_messageContainer.begin();
+}
+
+WarningMessageService::iterator WarningMessageService::end()
+{
+    return m_messageContainer.end();
+}
+
+WarningMessageService::const_iterator WarningMessageService::end() const
+{
+    return m_messageContainer.end();
+}
+
 MessageContainer *WarningMessageService::getMessageContainer(QObject *sender)
 {
     iterator it = m_messageContainer.find(sender);
@@ -62,63 +63,33 @@ MessageContainer *WarningMessageService::getMessageContainer(QObject *sender)
 
 const MessageContainer *WarningMessageService::getMessageContainer(QObject *sender) const
 {
-    return m_messageContainer[sender];
+    const_iterator it = m_messageContainer.find(sender);
+    if(it != m_messageContainer.end()) {
+        return it.value();
+    }
+    return 0;
 }
 
-//void WarningMessageService::subscribe(QObject *sender)
-//{
-//    MessageContainer *container = getMessageContainer(sender);
-//    if(!container) {
-//        container = new MessageContainer();
-//        m_messageContainer[sender] = container;
-//    }
-//    container->setActive(true);
-//}
-
-//void WarningMessageService::unsubscribe(QObject *sender)
-//{
-//    MessageContainer *container = getMessageContainer(sender);
-//    if(container) {
-//        container->setActive(false);
-//    }
-//}
-
-void WarningMessageService::send_message(QObject *sender, WarningMessageService::EMessageType warning_type, const QString &description)
+void WarningMessageService::send_message(QObject *sender, const QString &message_type, const QString &description)
 {
-//    MessageContainer *container = getMessageContainer(sender);
-//    if(container && container->isActive()) {
-//        GUIMessage *message = new GUIMessage(sender->objectName(), getMessageTypeString(warning_type), description);
-//        container->append(message);
-//    } else {
-//        QString message = QString("Warning %1 from object '%2' ->'%3'").arg(getMessageTypeString(warning_type))
-//                .arg(sender->objectName()).arg(description);
-//        throw GUIHelpers::Error(message);
-//    }
-
     MessageContainer *container = getMessageContainer(sender);
     if(!container) {
         container = new MessageContainer();
         m_messageContainer[sender] = container;
     }
 
-    GUIMessage *message = new GUIMessage(sender->objectName(), getMessageTypeString(warning_type), description);
+    GUIMessage *message = new GUIMessage(sender->objectName(), message_type, description);
     container->append(message);
-
-}
-
-QString WarningMessageService::getMessageTypeString(WarningMessageService::EMessageType messageType) const
-{
-    return m_warningTypeToString[messageType];
 }
 
 bool WarningMessageService::hasWarnings(QObject *sender)
 {
-    bool result(false);
     MessageContainer *container = getMessageContainer(sender);
-    if(container && container->size()) result = true;
-    return result;
+    if(container && container->size()) return true;
+    return false;
 }
 
+//! Returns list of string with error messages
 QStringList WarningMessageService::getMessageStringList(QObject *sender) const
 {
     QStringList result;
@@ -131,6 +102,7 @@ QStringList WarningMessageService::getMessageStringList(QObject *sender) const
     return result;
 }
 
+//! Returns multi line string representing all messages
 QString WarningMessageService::getMessages(QObject *sender) const
 {
     QString result;

@@ -34,6 +34,7 @@ namespace
 {
 const int MaxCompression = 9;
 enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
+const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
 }
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
@@ -570,7 +571,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     if(m_messageService && !item->isRegisteredProperty(parameter_name)) {
         QString message = QString("Unknown property '%1' for item type '%2'")
                           .arg(parameter_name).arg(item->modelType());
-        m_messageService->send_message(this, WarningMessageService::SET_ITEM_PROPERTY_ERROR, message);
+        m_messageService->send_message(this, SET_ITEM_PROPERTY_ERROR, message);
         return parameter_name;
     }
 

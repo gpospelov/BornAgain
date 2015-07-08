@@ -19,6 +19,7 @@
 #include "MessageContainer.h"
 #include "GUIMessage.h"
 #include "SessionModel.h"
+#include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QGridLayout>
 #include <QPushButton>
@@ -28,14 +29,17 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
+#include <QDebug>
 
 namespace {
 const int top_panel_height = 80;
 }
 
 ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
-                                                   const WarningMessageService *messageService)
+                                                   const WarningMessageService *messageService,
+                                                   const QString &documentVersion)
     : QDialog(parent), m_messageService(messageService)
+    , m_projectDocumentVersion(documentVersion)
 {
     setMinimumSize(256, 256);
     resize(520, 620);
@@ -141,12 +145,7 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     whyLabel->setText("Why did this happen to me?");
 
     QLabel *explanationLabel = new QLabel;
-    QString explanationText(
-        "Given project was created using BornAgain version 1.0 "
-        "which is different from version 2.0 you are currently using."
-        "At the moment we provide only limited support for import from older versions. "
-                );
-    explanationLabel->setText(explanationText);
+    explanationLabel->setText(getExplanationText());
     explanationLabel->setWordWrap(true);
 
     QLabel *whatLabel = new QLabel;
@@ -156,7 +155,7 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     QLabel *adviceLabel = new QLabel;
     QString adviceText(
         "Check parameters of your items and re-enter uninitialized values. "
-        "Use detailed log below to get a hint what went wrong."
+        "Use detailed log below to get a hint what went wrong. "
         "After that, save you project and work as normal."
                 );
     adviceLabel->setText(adviceText);
@@ -198,7 +197,7 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
     Q_ASSERT(m_messageService);
     QTableWidget *result = new QTableWidget;
 
-    result->setRowCount(getNumberOfRows());
+    result->setRowCount(getNumberOfTableRows());
     result->setColumnCount(getTableHeaderLabels().size());
     result->setHorizontalHeaderLabels(getTableHeaderLabels());
     result->verticalHeader()->setVisible(false);
@@ -223,7 +222,7 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
 }
 
 //! Returns number of rows in table with error messages, each row represents an error message
-int ProjectLoadWarningDialog::getNumberOfRows() const
+int ProjectLoadWarningDialog::getNumberOfTableRows() const
 {
     Q_ASSERT(m_messageService);
     int result(0);
@@ -262,6 +261,26 @@ QLabel *ProjectLoadWarningDialog::createModelStatusLabel(const QString &model_na
         if (model_name == it.key()->objectName() && messageContainer->size()) {
             result->setText("WARNING");
         }
+    }
+    return result;
+}
+
+//! Returns explanations what went wrong.
+QString ProjectLoadWarningDialog::getExplanationText() const
+{
+    QString result;
+    if(m_projectDocumentVersion != GUIHelpers::getBornAgainVersionString()) {
+        result = QString(
+                    "Given project was created using BornAgain version %1 "
+                    " which is different from version %2 you are currently using. "
+                    "At the moment we provide only limited support for import from older versions."
+                    ).arg(m_projectDocumentVersion).arg(GUIHelpers::getBornAgainVersionString());
+    } else {
+        result = QString(
+            "Given project was created using BornAgain version %1 "
+            "which is the same as the current version of the framework. "
+            "Strangely enough, some parts was not loaded correctly due to format mismatch. "
+            "Please contact developpers.").arg(m_projectDocumentVersion);
     }
     return result;
 }

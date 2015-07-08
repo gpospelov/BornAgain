@@ -31,7 +31,8 @@ class ProjectLoadWarningDialog : public QDialog
     Q_OBJECT
 
 public:
-    ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService = 0);
+    ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService = 0,
+            const QString &documentVersion = QString());
 
 private:
     QWidget *createTopPanel();
@@ -39,13 +40,16 @@ private:
     QWidget *createExplanationPanel();
     QWidget *createDetailsPanel();
     QTableWidget *createTableWidget();
-    int getNumberOfRows() const;
+    int getNumberOfTableRows() const;
     QStringList getTableHeaderLabels() const;
 
     QStringList getModelNames() const;
     QLabel *createModelStatusLabel(const QString &model_name) const;
 
+    QString getExplanationText() const;
+
     const WarningMessageService *m_messageService;
+    QString m_projectDocumentVersion;
 };
 
 #endif

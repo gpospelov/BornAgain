@@ -193,25 +193,25 @@ void ProjectManager::openProject(QString fileName)
 
     createNewProject();
 
-    ProjectDocument::EDocumentStatus status = m_project_document->load(fileName);
+    m_project_document->load(fileName);
 
-    if(status&ProjectDocument::STATUS_FAILED) {
+    if(m_project_document->isReady()) {
+        addToRecentProjects();
+
+    } else if (m_project_document->hasErrors()) {
         riseProjectLoadFailedDialog();
         deleteCurrentProject();
         createNewProject();
-    }
-    else if(status&ProjectDocument::STATUS_WARNING) {
+
+    } else if(m_project_document->hasWarnings()) {
         riseProjectLoadWarningDialog();
-        addToRecentProjects();
-    }
-    else {
         addToRecentProjects();
     }
 
     emit modified();
 }
 
-
+//! Add name of the current project to the name of recent projects
 void ProjectManager::addToRecentProjects()
 {
     QString fileName = m_project_document->getProjectFileName();
@@ -296,8 +296,10 @@ void ProjectManager::riseProjectLoadFailedDialog()
 
 void ProjectManager::riseProjectLoadWarningDialog()
 {
+    Q_ASSERT(m_project_document);
     ProjectLoadWarningDialog *warningDialog
-            = new ProjectLoadWarningDialog(m_mainWindow, m_messageService);
+            = new ProjectLoadWarningDialog(m_mainWindow, m_messageService,
+                                           m_project_document->getDocumentVersion());
 
     warningDialog->show();
     warningDialog->raise();

@@ -137,7 +137,6 @@ bool ProjectDocument::save()
     QString filename = getProjectFileName();
 
     QFile file(filename);
-    // if (!file.open(QFile::WriteOnly | QFile::Text)) {
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
         qDebug() << "ProjectDocument::save() -> Error! Can't save file";
         return false;
@@ -154,29 +153,17 @@ bool ProjectDocument::save()
     return true;
 }
 
-ProjectDocument::EDocumentStatus ProjectDocument::load(const QString &project_file_name)
+bool ProjectDocument::load(const QString &project_file_name)
 {
     m_documentStatus = STATUS_OK;
 
-//    bool success_read(false);
-//    m_error_message.clear();
     setProjectFileName(project_file_name);
-//    Q_ASSERT(project_file_name == getProjectFileName());
 
     QFile file(getProjectFileName());
-//    if (!file.open(QFile::ReadOnly | QFile::Text)) {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
         m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_FAILED);
-//        m_error_message
-//            = QString("Can't open '%1'. \n").arg(getProjectFileName());
-//        m_error_message.append(file.errorString());
-//        qDebug() << "XXX" << "project_file_name" << project_file_name
-//                 << "getProjectFileName()" << getProjectFileName()
-//                 << "getProjectDir()" << getProjectDir()
-//                 << "file_error:" << file.error() << file.errorString();
-//        return false;
-        return m_documentStatus;
+        return false;
     }
 
     try {
@@ -186,15 +173,14 @@ ProjectDocument::EDocumentStatus ProjectDocument::load(const QString &project_fi
 
         // loading accompanying non-xml data
         loadOutputData();
+
     } catch (const std::exception &ex) {
-//        m_error_message.append(
-//            QString("Exception was thrown with the error message '%1'").arg(QString(ex.what())));
-//        success_read = false;
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
+        return false;
     }
 
-    return m_documentStatus;
+    return true;
 }
 
 bool ProjectDocument::hasValidNameAndPath()
@@ -205,6 +191,39 @@ bool ProjectDocument::hasValidNameAndPath()
 bool ProjectDocument::isModified()
 {
     return m_modified;
+}
+
+void ProjectDocument::setMessageService(WarningMessageService *messageService)
+{
+    m_messageService = messageService;
+}
+
+ProjectDocument::EDocumentStatus ProjectDocument::getDocumentStatus() const
+{
+    return m_documentStatus;
+}
+
+bool ProjectDocument::isReady() const
+{
+    return (m_documentStatus == STATUS_OK);
+}
+
+bool ProjectDocument::hasWarnings() const
+{
+    return (m_documentStatus & STATUS_WARNING);
+}
+
+bool ProjectDocument::hasErrors() const
+{
+    return (m_documentStatus & STATUS_FAILED);
+}
+
+QString ProjectDocument::getDocumentVersion() const
+{
+    QString result(m_currentVersion);
+    if(result.isEmpty()) result = GUIHelpers::getBornAgainVersionString();
+    return QString("1.2.0");
+    return result;
 }
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
@@ -238,18 +257,9 @@ void ProjectDocument::readFrom(QIODevice *device)
         reader.readNext();
         if (reader.isStartElement()) {
             if (reader.name() == ProjectDocumentXML::BornAgainTag) {
-                const QString version = reader.attributes()
+                m_currentVersion = reader.attributes()
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
-                if (version != GUIHelpers::getBornAgainVersionString()) {
-//                    m_error_message.append(
-//                        QString("Given project was created using BornAgain ver. %1").arg(version));
-//                    m_error_message.append(
-//                        QString(" which is different from the version %1 you are currently using.")
-//                            .arg(GUIHelpers::getBornAgainVersionString()));
-//                    m_error_message.append(QString(
-//                        " At the moment we do not support import from older versions.\n\n"));
-                }
             } else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             } else if (reader.name() == SessionXML::MaterialModelTag) {

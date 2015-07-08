@@ -78,18 +78,23 @@ public:
     void setJobModel(JobModel *jobModel);
 
     bool save();
-    EDocumentStatus load(const QString &project_file_name);
+    bool load(const QString &project_file_name);
 
     bool hasValidNameAndPath();
 
     bool isModified();
 
-    void setMessageService(WarningMessageService *messageService)
-    {
-        m_messageService = messageService;
-    }
+    void setMessageService(WarningMessageService *messageService);
 
-    EDocumentStatus getDocumentStatus() const { return m_documentStatus; }
+    EDocumentStatus getDocumentStatus() const;
+
+    bool isReady() const;
+
+    bool hasWarnings() const;
+
+    bool hasErrors() const;
+
+    QString getDocumentVersion() const;
 
 signals:
     void modified();
@@ -120,6 +125,7 @@ private:
     bool m_modified;
     EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;
+    QString m_currentVersion;
 };
 
 

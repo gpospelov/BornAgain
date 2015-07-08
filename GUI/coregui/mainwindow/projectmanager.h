@@ -55,8 +55,6 @@ public slots:
     void openProject(QString fileName = QString());
     void newProject();
 
-//    bool saveModifiedProject();
-
 private:
 //    ProjectDocument *createNewProject();
     void addToRecentProjects();

@@ -211,9 +211,10 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
              it != messageContainer->end(); ++it) {
             const GUIMessage *guiMessage = (*it);
             // item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-            result->setItem(rowCount, 0, new QTableWidgetItem(guiMessage->getSenderName()));
-            result->setItem(rowCount, 1, new QTableWidgetItem(guiMessage->getMessageType()));
-            result->setItem(rowCount, 2, new QTableWidgetItem(guiMessage->getMessageDescription()));
+
+            result->setItem(rowCount, 0, createTableItem(guiMessage->getSenderName()));
+            result->setItem(rowCount, 1, createTableItem(guiMessage->getMessageType()));
+            result->setItem(rowCount, 2, createTableItem(guiMessage->getMessageDescription()));
             ++rowCount;
         }
     }
@@ -238,6 +239,13 @@ QStringList ProjectLoadWarningDialog::getTableHeaderLabels() const
     QStringList result;
     result << "Sender" << "Warning" << "Description";
     return result;
+}
+
+QTableWidgetItem *ProjectLoadWarningDialog::createTableItem(const QString &name)
+{
+  QTableWidgetItem *result = new QTableWidgetItem(name);
+  result->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+  return result;
 }
 
 

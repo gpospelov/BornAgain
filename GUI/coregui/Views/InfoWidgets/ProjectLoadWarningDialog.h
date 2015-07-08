@@ -22,6 +22,7 @@
 class WarningMessageService;
 class QTableWidget;
 class QLabel;
+class QTableWidgetItem;
 
 //! @class ProjectLoadWarningDialog
 //! @brief The dialog to inform user about encountered problems during the loading of old project
@@ -42,6 +43,7 @@ private:
     QTableWidget *createTableWidget();
     int getNumberOfTableRows() const;
     QStringList getTableHeaderLabels() const;
+    QTableWidgetItem *createTableItem(const QString &name);
 
     QStringList getModelNames() const;
     QLabel *createModelStatusLabel(const QString &model_name) const;

@@ -49,6 +49,14 @@ public:
     //! Adds generic particle
     void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
 
+
+//    void addParticle(const IParticle &particle, double abundance = 1.0);
+//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation);
+//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation, const kvector_t &position);
+
+//    void addParticle(const IParticle &particle, double abundance = 1.0, const IRotation& rotation, const IRotation& rotation);
+
+
     //! Adds particle without rotation
     void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
 

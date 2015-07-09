@@ -80,7 +80,8 @@ void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rot
                                  double abundance)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-    P_particle_clone->setRotation(rotation);
+//    P_particle_clone->setRotation(rotation);
+    P_particle_clone->applyRotation(rotation);
     addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }
 

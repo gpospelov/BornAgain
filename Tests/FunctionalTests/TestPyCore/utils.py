@@ -3,6 +3,8 @@ Collection of utils for testing
 """
 import sys
 import numpy
+import matplotlib
+import pylab
 import gzip
 import os
 
@@ -50,4 +52,23 @@ def get_reference_data(filename):
     #return reference
     return IntensityDataIOFactory.readIntensityData(path+'../../ReferenceData/BornAgain/'+filename)
 
+def get_simulation_MiniGISAS():
+    simulation = GISASSimulation()
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    # simulation.setDetectorParameters(100, 0*degree, 5.0*degree, 100, 0*degree, 5*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    return simulation
 
+def plot_intensity_data(intensity):
+    data = intensity.getArray() + 1
+    phi_min = rad2deg(intensity.getAxis(0).getMin())
+    phi_max = rad2deg(intensity.getAxis(0).getMax())
+    alpha_min = rad2deg(intensity.getAxis(1).getMin())
+    alpha_max = rad2deg(intensity.getAxis(1).getMax())
+    im = pylab.imshow(numpy.rot90(data, 1), norm=matplotlib.colors.LogNorm(),
+                      extent=[phi_min, phi_max, alpha_min, alpha_max])
+    cb = pylab.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    pylab.show()

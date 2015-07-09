@@ -759,7 +759,7 @@ void SessionModel::onItemPropertyChange(const QString & property_name , const QS
             || property_name == ParameterizedGraphicsItem::P_YPOS)
         return;
 
-    qDebug() << "SessionModel::onItemPropertyChange()" << property_name;
+    qDebug() << "SessionModel::onItemPropertyChange()" << property_name << name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     Q_ASSERT(item);
     QModelIndex itemIndex = indexOfItem(item);

@@ -44,6 +44,42 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     m_pyobj = 0;
     }
 
+    virtual void addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle), abundance, boost::ref(position) );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle), abundance, boost::ref(position) );
+        }
+    }
+    
+    void default_addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position ) {
+        ParticleLayout::addParticle( boost::ref(particle), abundance, boost::ref(position) );
+    }
+
+    virtual void addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position, ::IRotation const & rotation ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle), abundance, boost::ref(position), boost::ref(rotation) );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle), abundance, boost::ref(position), boost::ref(rotation) );
+        }
+    }
+    
+    void default_addParticle( ::IParticle const & particle, double abundance, ::kvector_t const & position, ::IRotation const & rotation ) {
+        ParticleLayout::addParticle( boost::ref(particle), abundance, boost::ref(position), boost::ref(rotation) );
+    }
+
+    virtual void addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+        if( bp::override func_addParticle = this->get_override( "addParticle" ) )
+            func_addParticle( boost::ref(particle), abundance );
+        else{
+            this->ParticleLayout::addParticle( boost::ref(particle), abundance );
+        }
+    }
+    
+    void default_addParticle( ::IAbstractParticle const & particle, double abundance=1.0e+0 ) {
+        ParticleLayout::addParticle( boost::ref(particle), abundance );
+    }
+
     virtual ::ParticleLayout * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -339,24 +375,38 @@ void register_ParticleLayout_class(){
         }
         { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double,::kvector_t const &,::IRotation const & ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double,::kvector_t const & ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IParticle const &,double,::kvector_t const & ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"
-                , addParticle_function_type( &::ParticleLayout::addParticle )
-                , ( bp::arg("particle"), bp::arg("abundance"), bp::arg("position"), bp::arg("rotation")=RotationZ(0.0) )
-                , "Adds particle to the layout.\n\n:Parameters:\n  - 'abundance' - Particle abundance\n  - 'position' - Particle position\n  - 'rotation' - Particle rotation\n" );
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle"), bp::arg("abundance"), bp::arg("position") ) );
+        
+        }
+        { //::ParticleLayout::addParticle
+        
+            typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IParticle const &,double,::kvector_t const &,::IRotation const & ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IParticle const &,double,::kvector_t const &,::IRotation const & ) ;
+            
+            ParticleLayout_exposer.def( 
+                "addParticle"
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle"), bp::arg("abundance"), bp::arg("position"), bp::arg("rotation") ) );
         
         }
         { //::ParticleLayout::addParticle
         
             typedef void ( ::ParticleLayout::*addParticle_function_type)( ::IAbstractParticle const &,double ) ;
+            typedef void ( ParticleLayout_wrapper::*default_addParticle_function_type)( ::IAbstractParticle const &,double ) ;
             
             ParticleLayout_exposer.def( 
                 "addParticle"
-                , addParticle_function_type( &::ParticleLayout::addParticle )
-                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 )
-                , "Adds particle without rotation." );
+                , addParticle_function_type(&::ParticleLayout::addParticle)
+                , default_addParticle_function_type(&ParticleLayout_wrapper::default_addParticle)
+                , ( bp::arg("particle"), bp::arg("abundance")=1.0e+0 ) );
         
         }
         { //::ParticleLayout::clone

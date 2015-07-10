@@ -48,7 +48,7 @@ public:
     virtual Geometry::Transform3D getTransform3D() const=0;
 
     //! Returns true if roation matrix is identity matrix (no rotations)
-    bool isIdentity() const { return getTransform3D().isIdentity(); }
+    virtual bool isIdentity() const { return getTransform3D().isIdentity(); }
 };
 
 BA_CORE_API_ IRotation *CreateProduct(const IRotation& left, const IRotation &right);

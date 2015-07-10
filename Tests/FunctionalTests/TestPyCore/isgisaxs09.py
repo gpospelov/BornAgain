@@ -63,7 +63,7 @@ def RunSimulation2():
     angle_around_z = 45.*degree
     transform = RotationZ(angle_around_z)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
+    particle_layout.addParticle(pyramid, 1.0, kvector_t(0,0,0), transform)
     
     particle_layout.addInterferenceFunction(interference)
 

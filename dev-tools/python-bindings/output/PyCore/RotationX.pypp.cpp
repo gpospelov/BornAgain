@@ -157,6 +157,18 @@ struct RotationX_wrapper : RotationX, bp::wrapper< RotationX > {
         return ISample::getCompositeSample( );
     }
 
+    virtual bool isIdentity(  ) const  {
+        if( bp::override func_isIdentity = this->get_override( "isIdentity" ) )
+            return func_isIdentity(  );
+        else{
+            return this->IRotation::isIdentity(  );
+        }
+    }
+    
+    bool default_isIdentity(  ) const  {
+        return IRotation::isIdentity( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -381,6 +393,17 @@ void register_RotationX_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&RotationX_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IRotation::isIdentity
+        
+            typedef bool ( ::IRotation::*isIdentity_function_type)(  ) const;
+            typedef bool ( RotationX_wrapper::*default_isIdentity_function_type)(  ) const;
+            
+            RotationX_exposer.def( 
+                "isIdentity"
+                , isIdentity_function_type(&::IRotation::isIdentity)
+                , default_isIdentity_function_type(&RotationX_wrapper::default_isIdentity) );
         
         }
         { //::IParameterized::printParameters

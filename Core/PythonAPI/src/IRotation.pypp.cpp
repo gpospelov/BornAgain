@@ -57,6 +57,18 @@ struct IRotation_wrapper : IRotation, bp::wrapper< IRotation > {
         return func_getTransform3D(  );
     }
 
+    virtual bool isIdentity(  ) const  {
+        if( bp::override func_isIdentity = this->get_override( "isIdentity" ) )
+            return func_isIdentity(  );
+        else{
+            return this->IRotation::isIdentity(  );
+        }
+    }
+    
+    bool default_isIdentity(  ) const  {
+        return IRotation::isIdentity( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -287,11 +299,12 @@ void register_IRotation_class(){
         { //::IRotation::isIdentity
         
             typedef bool ( ::IRotation::*isIdentity_function_type)(  ) const;
+            typedef bool ( IRotation_wrapper::*default_isIdentity_function_type)(  ) const;
             
             IRotation_exposer.def( 
                 "isIdentity"
-                , isIdentity_function_type( &::IRotation::isIdentity )
-                , "Returns true if roation matrix is identity matrix (no rotations)." );
+                , isIdentity_function_type(&::IRotation::isIdentity)
+                , default_isIdentity_function_type(&IRotation_wrapper::default_isIdentity) );
         
         }
         { //::IParameterized::areParametersChanged

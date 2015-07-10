@@ -87,14 +87,24 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
+                                 const kvector_t &position)
+{
+    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+    if(position != kvector_t(0,0,0)) {
+        P_particle_clone->applyTranslation(position);
+    }
+    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+}
+
+void ParticleLayout::addParticle(const IParticle &particle, double abundance,
                                  const kvector_t &position, const IRotation& rotation)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-    if(!rotation.isIdentity()) {
-        P_particle_clone->applyRotation(rotation);
-    }
     if(position != kvector_t(0,0,0)) {
         P_particle_clone->applyTranslation(position);
+    }
+    if(!rotation.isIdentity()) {
+        P_particle_clone->applyRotation(rotation);
     }
     addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }

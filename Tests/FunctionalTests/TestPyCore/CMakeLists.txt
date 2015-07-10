@@ -47,6 +47,7 @@ set(list_of_python_tests
     "montecarlo_integration.py"
 #    "beam_divergence.py"
     "detector_resolution.py"
+    "transform_cube.py"
 )
 
 foreach(_test ${list_of_python_tests})

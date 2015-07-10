@@ -76,14 +76,29 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
 }
 
 //! Adds generic particle with rotation.
-void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rotation,
-                                 double abundance)
+//void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rotation,
+//                                 double abundance)
+//{
+//    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+////    P_particle_clone->setRotation(rotation);
+//    P_particle_clone->applyRotation(rotation);
+//    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+//}
+
+
+void ParticleLayout::addParticle(const IParticle &particle, double abundance,
+                                 const kvector_t &position, const IRotation& rotation)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-//    P_particle_clone->setRotation(rotation);
-    P_particle_clone->applyRotation(rotation);
+    if(!rotation.isIdentity()) {
+        P_particle_clone->applyRotation(rotation);
+    }
+    if(position != kvector_t(0,0,0)) {
+        P_particle_clone->applyTranslation(position);
+    }
     addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }
+
 
 //! Adds particle without rotation.
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)

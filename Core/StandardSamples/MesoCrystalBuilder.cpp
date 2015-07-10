@@ -110,7 +110,8 @@ ISample* MesoCrystalBuilder::buildSample() const
                                     m_lattice_length_a, m_lattice_length_c,
                                     n_particle_adapted, &ff_meso) );
             P_meso->setPosition(0.0, 0.0, -m_meso_height);
-            particle_layout.addParticle(*P_meso, z_rotation);
+//            particle_layout.addParticle(*P_meso, z_rotation);
+            particle_layout.addParticle(*P_meso, 1.0, kvector_t(0,0,0), z_rotation);
         }
     }
 

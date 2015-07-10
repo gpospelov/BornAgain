@@ -20,6 +20,7 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
+#include "Rotations.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -47,14 +48,18 @@ public:
     }
 
     //! Adds generic particle
-    void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
+//    void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
 
 
 //    void addParticle(const IParticle &particle, double abundance = 1.0);
 //    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation);
 //    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation, const kvector_t &position);
 
-//    void addParticle(const IParticle &particle, double abundance = 1.0, const IRotation& rotation, const IRotation& rotation);
+    //! @brief Adds particle to the layout
+    //! @param abundance Particle abundance
+    //! @param position Particle position
+    //! @param rotation Particle rotation
+    void addParticle(const IParticle &particle, double abundance, const kvector_t &position, const IRotation& rotation = RotationZ());
 
 
     //! Adds particle without rotation

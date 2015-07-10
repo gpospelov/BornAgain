@@ -98,8 +98,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.2);
-    particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, -4.2);
+    particleDecoration.addParticle(particle3, 1.0, kvector_t(0,0,0), transform3);
+    particleDecoration.addParticle(particle4, -4.2, kvector_t(0,0,0), transform4);
 
     EXPECT_EQ(size_t(4), particleDecoration.getNumberOfParticles());
 
@@ -139,10 +139,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     particleDecoration.addParticle(particle2, 2.0);
     EXPECT_EQ(2.0, particleDecoration.getAbundanceOfParticle(size_t(1)));
 
-    particleDecoration.addParticle(particle3, transform3);
+    particleDecoration.addParticle(particle3, 1.0, kvector_t(0,0,0), transform3);
     EXPECT_EQ(1.0, particleDecoration.getAbundanceOfParticle(size_t(2)));
 
-    particleDecoration.addParticle(particle4, transform4, 4.0);
+    particleDecoration.addParticle(particle4, 4.0, kvector_t(0,0,0), transform4);
     EXPECT_EQ(4.0, particleDecoration.getAbundanceOfParticle(size_t(3)));
 }
 
@@ -161,8 +161,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.0);
-    particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.0);
+    particleDecoration.addParticle(particle3, 1.0, kvector_t(0,0,0), transform3);
+    particleDecoration.addParticle(particle4, 4.0, kvector_t(0,0,0), transform4);
 
     HomogeneousMaterial mat5("core", 0, 0);
     Particle particle5(mat5);
@@ -226,8 +226,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.0);
-    particleDecoration.addParticle(particle3, transform3);
-    particleDecoration.addParticle(particle4, transform4, 4.0);
+    particleDecoration.addParticle(particle3, 1.0, kvector_t(0,0,0), transform3);
+    particleDecoration.addParticle(particle4, 4.0, kvector_t(0,0,0), transform4);
 
     HomogeneousMaterial mat5("core",0,0);
     Particle particle5(mat5);

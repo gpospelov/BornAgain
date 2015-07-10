@@ -60,7 +60,7 @@ ISample *RotatedPyramidsBuilder::buildSample() const
     RotationZ z_rotation(m_zangle);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(pyramid, z_rotation);
+    particle_layout.addParticle(pyramid, 1.0, kvector_t(0,0,0), z_rotation);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.addLayout(particle_layout);

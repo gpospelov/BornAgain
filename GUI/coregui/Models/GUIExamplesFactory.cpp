@@ -42,8 +42,9 @@ QMap<QString, QString > init_NameToRegistry()
     //result["example09"] = "MultipleLayoutBuilder";
     //result["example09"] = "TwoTypesCylindersDistributionBuilder";
     //result["example09"] = "RectParaCrystalBuilder";
-//    result["example09"] = "SizeDistributionLMAModelBuilder";
-//    result["example09"] = "CylindersInSSCABuilder";
+    //result["example09"] = "SizeDistributionLMAModelBuilder";
+    //result["example09"] = "CylindersInSSCABuilder";
+    //result["example09"] = "TransformBoxBuilder";
 
     return result;
 }

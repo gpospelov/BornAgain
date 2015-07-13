@@ -210,6 +210,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("TransformBox",
+        "Rotated/translated box in 3 layers system",
+        "MiniGISAS",
+        "TransformBoxBuilder",
+        "None",
+        1e-10);
+
 }
 
 void FunctionalTestRegistry::add(const std::string &test_name,

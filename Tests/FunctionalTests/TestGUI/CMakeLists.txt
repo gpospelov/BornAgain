@@ -47,6 +47,8 @@ set(list_of_tests
 #    "GUISuite/CylindersInSSCA" # no yet implemented (linked parameter)
     "GUISuite/CosineRipple"
     "GUISuite/TriangularRipple"
+    "GUISuite/TransformBox"
+
 )
 
 # Adding executables.

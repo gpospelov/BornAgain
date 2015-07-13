@@ -1,13 +1,14 @@
-import sys
-import os
-import utils
+"""
+Test of rotation/positioning of simple cubic particle. Original particle is compared with the one obtained
+"""
 import unittest
+import utils
 from bornagain import *
 
 
 class RotationsCubeTest(unittest.TestCase):
     """
-    Test of rotations and translations of simple cube in the air layer of two layers system.
+    Test of rotations and translations of simple cube in three layers system
     """
     def get_sample(self, formfactor, rot = None, pos = None, layout_rot = None, layout_pos = None, add_to="air"):
         mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -46,12 +47,12 @@ class RotationsCubeTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_simulation(self, sample):
-        simulation = GISASSimulation()
-        simulation.setDetectorParameters(25, -1.0*degree, 1.0*degree, 25, 0.0*degree, 2.0*degree)
-        simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-        simulation.setSample(sample)
-        return simulation
+    # def get_simulation(self, sample):
+    #     simulation = GISASSimulation()
+    #     simulation.setDetectorParameters(25, -1.0*degree, 1.0*degree, 25, 0.0*degree, 2.0*degree)
+    #     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    #     simulation.setSample(sample)
+    #     return simulation
 
     def get_intensity_data(self, data, add_to="air"):
         ff = data[0]
@@ -60,12 +61,13 @@ class RotationsCubeTest(unittest.TestCase):
         layout_rot = data[3]
         layout_pos = data[4]
         sample = self.get_sample(ff, rot, pos, layout_rot, layout_pos, add_to)
-        simulation = self.get_simulation(sample)
+        # simulation = self.get_simulation(sample)
+        simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
         return simulation.getIntensityData()
 
-    def get_difference(self, reference_data, test_data):
-        intensity = self.get_intensity_data(test_data)
+    def get_difference(self, reference_data, test_data, add_to="air"):
+        intensity = self.get_intensity_data(test_data, add_to)
         return IntensityDataFunctions.getRelativeDifference(reference_data, intensity)
 
     def testRotationZ(self):
@@ -159,11 +161,11 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationX(90.*degree),  kvector_t(0,0,-20.0),  None,                   None),  # rotating and translating
         ]
 
-        reference_data = self.get_intensity_data(data_to_test[0])
+        reference_data = self.get_intensity_data(data_to_test[0], "add_to_middle")
 
         isSuccess = True
         for i in range(1, len(data_to_test)):
-            diff = self.get_difference(reference_data, data_to_test[i])
+            diff = self.get_difference(reference_data, data_to_test[i], "add_to_middle")
             print "{0}    #{1}   diff {2:.2e}".format(self.testRotationX.__name__, i, diff)
             if(diff > 1e-10) : isSuccess=False
 

@@ -45,6 +45,7 @@ set(list_of_tests
     "CoreSuite/MesoCrystal"
     "CoreSuite/CustomMorphology"
     "CoreSuite/MagneticParticleZeroField"
+    "CoreSuite/TransformBox"
     "BatchSimulation"
     "PolDWBAMagCylinders2"
     "CustomRotatedLattice"

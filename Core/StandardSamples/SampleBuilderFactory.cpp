@@ -30,6 +30,7 @@
 #include "ParticleDistributionsBuilder.h"
 #include "RipplesBuilder.h"
 #include "SizeDistributionModelsBuilder.h"
+#include "TransformationsBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -176,6 +177,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ParticleInTheAirBuilder",
         IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
         "Particle in the air layer to test form factors");
+
+    registerItem(
+        "TransformBoxBuilder",
+        IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
+        "Rotated and translated box in 3 layer system");
 
 }
 

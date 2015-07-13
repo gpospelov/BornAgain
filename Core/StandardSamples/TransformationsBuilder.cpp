@@ -26,10 +26,10 @@
 ISample *TransformBoxBuilder::buildSample() const
 {
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
-    HomogeneousMaterial mMiddle("MidleLayer", 5e-5, 2e-8);
-    HomogeneousMaterial mSubstrate("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
+    HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
 
-    HomogeneousMaterial mParticle("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial mParticle("Ag", 1.245e-5, 5.419e-7);
 
     Particle box(mParticle, FormFactorBox(50, 20, 10));
     box.setRotation(RotationZ(90.*Units::degree));

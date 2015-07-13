@@ -61,6 +61,15 @@ def get_simulation_MiniGISAS(sample = None):
         simulation.setSample(sample)
     return simulation
 
+def get_simulation_BasicGISAS(sample = None):
+    simulation = GISASSimulation()
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    # simulation.setDetectorParameters(100, 0*degree, 5.0*degree, 100, 0*degree, 5*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    if sample:
+        simulation.setSample(sample)
+    return simulation
+
 def plot_intensity_data(intensity):
     data = intensity.getArray() + 1
     phi_min = rad2deg(intensity.getAxis(0).getMin())

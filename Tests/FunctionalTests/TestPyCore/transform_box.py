@@ -12,8 +12,8 @@ class BoxTransformationsTest(unittest.TestCase):
 
     def get_sample(self, particle):
         mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
-        mMiddle= HomogeneousMaterial("MidleLayer", 5e-5, 2e-8)
-        mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        mMiddle= HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9)
+        mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8)
 
         layout = ParticleLayout()
         layout.addParticle(particle)
@@ -29,13 +29,6 @@ class BoxTransformationsTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    # def get_simulation(self, sample):
-    #     simulation = GISASSimulation()
-    #     simulation.setDetectorParameters(25, -1.0*degree, 1.0*degree, 25, 0.0*degree, 2.0*degree)
-    #     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    #     simulation.setSample(sample)
-    #     return simulation
-
     def get_intensity_data(self, particle):
         sample = self.get_sample(particle)
         simulation = utils.get_simulation_MiniGISAS(sample)
@@ -43,11 +36,12 @@ class BoxTransformationsTest(unittest.TestCase):
         return simulation.getIntensityData()
 
     def testBoxTransform(self):
-        mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+        mParticle = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
 
         box = Particle(mParticle, FormFactorBox(10, 50, 20))
         box.setPosition(kvector_t(0, 0, -50))
         reference_data = self.get_intensity_data(box)
+        #utils.plot_intensity_data(reference_data)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_TransformBox.int")
 
         box = Particle(mParticle, FormFactorBox(50, 20, 10))

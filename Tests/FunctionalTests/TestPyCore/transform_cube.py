@@ -47,13 +47,6 @@ class RotationsCubeTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    # def get_simulation(self, sample):
-    #     simulation = GISASSimulation()
-    #     simulation.setDetectorParameters(25, -1.0*degree, 1.0*degree, 25, 0.0*degree, 2.0*degree)
-    #     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    #     simulation.setSample(sample)
-    #     return simulation
-
     def get_intensity_data(self, data, add_to="air"):
         ff = data[0]
         rot = data[1]
@@ -110,7 +103,6 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationY(90.*degree),  kvector_t(0,0,5.0),    None,                   None),  # rotating and translating
             (box, None,                   None,                  RotationY(90.*degree),  kvector_t(0,0,5.0)),  # rotating and translating
             (box, RotationY(90.*degree),  None,                  None,                   kvector_t(0,0,5.0)),  # rotating and translating
-            #(box, None,                   kvector_t(0,0,5.0),    RotationY(90.*degree),  None),  # rotating and translating
             (box, RotationY(45.*degree),  kvector_t(0,0,0.0),    RotationY(45.*degree),  kvector_t(0,0,5.0)),  # rotating and translating
         ]
 

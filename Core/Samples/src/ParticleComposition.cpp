@@ -73,6 +73,7 @@ ParticleComposition* ParticleComposition::clone() const
     if (mP_rotation.get()) {
         p_new->setRotation(*mP_rotation);
     }
+    p_new->setPosition(m_position);
     return p_new;
 }
 
@@ -90,6 +91,7 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     if (mP_rotation.get()) {
         p_new->setRotation(*mP_rotation);
     }
+    p_new->setPosition(m_position);
 
     return p_new;
 }

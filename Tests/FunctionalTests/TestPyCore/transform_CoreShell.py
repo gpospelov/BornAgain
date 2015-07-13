@@ -18,8 +18,7 @@ class CoreShellTransformationsTest(unittest.TestCase):
 
         air_layer = Layer(mAmbience)
         middle_layer = Layer(mMiddle, 100.0)
-        air_layer.addLayout(layout)
-        #middle_layer.addLayout(layout)
+        middle_layer.addLayout(layout)
         substrate = Layer(mSubstrate)
 
         multi_layer = MultiLayer()
@@ -38,25 +37,20 @@ class CoreShellTransformationsTest(unittest.TestCase):
         mCore = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
 
         particle = Particle(mCore, FormFactorBox(50, 20, 10))
-        # particle.setPosition(kvector_t(0, 0, -55))
-        particle.setPosition(kvector_t(0, 0, 10))
-        #particle.setPosition(kvector_t(0, 0, 0))
+        particle.setPosition(kvector_t(0, 0, -55))
 
         reference_data = self.get_intensity_data(particle)
 
         shell = Particle(mCore, FormFactorBox(50, 20, 10))
         core = Particle(mCore, FormFactorBox(25, 10, 5))
         coreshell = ParticleCoreShell(shell, core, kvector_t(0, 0, 2.5))
-        # coreshell.setPosition(kvector_t(0, 0, -55))
-        coreshell.setPosition(kvector_t(0, 0, 10))
-        #coreshell.setPosition(kvector_t(0, 0, 0))
+        coreshell.setPosition(kvector_t(0, 0, -55))
 
         data = self.get_intensity_data(coreshell)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
         print diff
-#        self.assertLess(diff, 1e-10)
-        utils.plot_intensity_data(reference_data)
+        self.assertLess(diff, 1e-10)
 
 
 

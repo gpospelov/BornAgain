@@ -105,12 +105,44 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    // --- Compositions ---
+
     add("ParticleComposition",
         "Two layers of spheres at hex lattice",
         "MiniGISAS",
         "ParticleCompositionBuilder",
         "None",
         2e-10);
+
+    add("BoxCompositionRotateX",
+        "Two boxes in particle composition rotated in X by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateXBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateY",
+        "Two boxes in particle composition rotated in Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateYBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZ",
+        "Two boxes in particle composition rotated in Z by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZandY",
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZandYBuilder",
+        "None",
+        2e-10);
+
+    // ---
 
     add("CylindersWithSizeDistribution",
         "Cylinders in BA with size distributions",

@@ -45,6 +45,7 @@ QMap<QString, QString > init_NameToRegistry()
     //result["example09"] = "SizeDistributionLMAModelBuilder";
     //result["example09"] = "CylindersInSSCABuilder";
     //result["example09"] = "TransformBoxBuilder";
+    result["example09"] = "BoxCompositionRotateZandYBuilder";
 
     return result;
 }

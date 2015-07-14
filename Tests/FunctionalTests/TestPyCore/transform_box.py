@@ -8,6 +8,8 @@ import unittest
 import utils
 from bornagain import *
 
+layer_thickness = 100
+
 class BoxTransformationsTest(unittest.TestCase):
 
     def get_sample(self, particle):
@@ -19,7 +21,7 @@ class BoxTransformationsTest(unittest.TestCase):
         layout.addParticle(particle)
 
         air_layer = Layer(mAmbience)
-        middle_layer = Layer(mMiddle, 100.0)
+        middle_layer = Layer(mMiddle, layer_thickness)
         middle_layer.addLayout(layout)
         substrate = Layer(mSubstrate)
 
@@ -36,18 +38,31 @@ class BoxTransformationsTest(unittest.TestCase):
         return simulation.getIntensityData()
 
     def testBoxTransform(self):
+        """
+        Reference box of (10,50,20) size is compared against the box (50,20,10) with two rotations applied to get
+        reference one
+        """
         mParticle = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
 
-        box = Particle(mParticle, FormFactorBox(10, 50, 20))
-        box.setPosition(kvector_t(0, 0, -50))
+        # reference box
+        length = 10
+        width = 50
+        height = 20
+
+        box = Particle(mParticle, FormFactorBox(length, width, height))
+        box.setPosition(kvector_t(0, 0, -layer_thickness/2 - height/2))
         reference_data = self.get_intensity_data(box)
         #utils.plot_intensity_data(reference_data)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_TransformBox.int")
 
-        box = Particle(mParticle, FormFactorBox(50, 20, 10))
+        # second box
+        length = 50
+        width = 20
+        height = 10
+        box = Particle(mParticle, FormFactorBox(length, width, height))
         box.setRotation(RotationZ(90.*degree))
         box.applyRotation(RotationY(90.*degree))
-        box.setPosition(kvector_t(0, 0, -40))
+        box.setPosition(kvector_t(0, 0, -layer_thickness/2))
 
         data = self.get_intensity_data(box)
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParticleCompositionBuilder.h
-//! @brief     Defines class ParticleCompositionBuilder.
+//! @file      App/inc/TestRotations.h
+//! @brief     Defines class TestRotations.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,28 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECOMPOSITIONBUILDER_H
-#define PARTICLECOMPOSITIONBUILDER_H
+#ifndef TESTROTATIONS_H
+#define TESTROTATIONS_H
 
-#include "ISampleBuilder.h"
+#include "IApplicationTest.h"
+class MultiLayer;
 
-//! @class ParticleCompositionBuilder
-//! @ingroup standard_samples
-//! @brief Builds sample: two layers of spheres at hex lattice
 
-class BA_CORE_API_ ParticleCompositionBuilder : public ISampleBuilder
+//! Test rotated samples
+
+class TestRotations : public IApplicationTest
 {
 public:
-    ParticleCompositionBuilder(){}
-    ISample *buildSample() const;
+    TestRotations() : IApplicationTest("TestRotations") {}
+    virtual ~TestRotations(){}
 
+    virtual void execute();
+
+private:
+    MultiLayer *createComposition();
+    MultiLayer *createReferenceSample();
 };
 
-#endif // PARTICLECOMPOSITIONBUILDER_H
+#endif // TESTROTATIONS_H
+
+

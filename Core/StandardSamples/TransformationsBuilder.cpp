@@ -31,16 +31,21 @@ ISample *TransformBoxBuilder::buildSample() const
 
     HomogeneousMaterial mParticle("Ag", 1.245e-5, 5.419e-7);
 
-    Particle box(mParticle, FormFactorBox(50, 20, 10));
+    double layer_thickness(100);
+    double length(50);
+    double width(20);
+    double height(10);
+
+    Particle box(mParticle, FormFactorBox(length, width, height));
     box.setRotation(RotationZ(90.*Units::degree));
     box.applyRotation(RotationY(90.*Units::degree));
-    box.setPosition(kvector_t(0, 0, -40));
+    box.setPosition(kvector_t(0, 0, -layer_thickness/2.));
 
     ParticleLayout layout;
     layout.addParticle(box);
 
     Layer air_layer(mAmbience);
-    Layer middle_layer(mMiddle, 100.0);
+    Layer middle_layer(mMiddle, layer_thickness);
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 

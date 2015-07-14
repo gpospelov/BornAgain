@@ -49,6 +49,7 @@ set(list_of_python_tests
 #    "detector_resolution.py"
     "transform_cube.py"
     "transform_box.py"
+    "transform_BoxComposition.py"
 )
 
 foreach(_test ${list_of_python_tests})
@@ -85,6 +86,12 @@ set(list_of_tests
 #    "PySuite/CosineRipple"
 #    "PySuite/TriangularRipple"
     "PySuite/TransformBox"
+
+    "PySuite/BoxCompositionRotateX"
+    "PySuite/BoxCompositionRotateY"
+    "PySuite/BoxCompositionRotateZ"
+    "PySuite/BoxCompositionRotateZandY"
+
 )
 
 # Adding executables.

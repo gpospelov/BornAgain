@@ -22,15 +22,10 @@
 #include "ParticleLayout.h"
 #include "FTDistributions.h"
 #include "Units.h"
+#include "Rotations.h"
+#include "FormFactorBox.h"
 
-
-// ----------------------------------------------------------------------------
-// Pyramids on top of substrate
-// ----------------------------------------------------------------------------
-ParticleCompositionBuilder::ParticleCompositionBuilder()
-{
-}
-
+// --- ParticleCompositionBuilder ---
 
 ISample *ParticleCompositionBuilder::buildSample() const
 {
@@ -71,3 +66,4 @@ ISample *ParticleCompositionBuilder::buildSample() const
 
     return multi_layer;
 }
+

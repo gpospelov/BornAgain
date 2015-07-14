@@ -31,6 +31,7 @@
 #include "RipplesBuilder.h"
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
+#include "BoxCompositionBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -168,10 +169,34 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
+    // --- compositions ---
+
     registerItem(
         "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
+
+    registerItem(
+        "BoxCompositionRotateXBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateXBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in X by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Y by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZandYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZandYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees");
+
+    // ---
 
     registerItem(
         "ParticleInTheAirBuilder",

@@ -1,5 +1,5 @@
 """
-BornAgain functional tests.
+BornAgain functional test.
 Test of rotation/position of particle composition. The composition consists of two boxes made of the same
 material. It is compared against reference single box made of the same material. Composition might be rotated to
 get reference shape. Both, reference box and composition are placed in the center of middle layer of 3 layers system.
@@ -14,7 +14,7 @@ comp_width = 20
 comp_height = 10
 particle_material = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
 
-class TransformBoxCompositionTests(unittest.TestCase):
+class TransformBoxCompositionTest(unittest.TestCase):
 
     def get_sample(self, particle):
         mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)

@@ -49,6 +49,7 @@ set(list_of_python_tests
 #    "detector_resolution.py"
     "transform_cube.py"
     "transform_box.py"
+    "transform_CoreShellBox.py"
     "transform_BoxComposition.py"
 )
 
@@ -67,7 +68,9 @@ set(list_of_tests
 #    "PySuite/Basic2DParaCrystal"
 #    "PySuite/HexParaCrystal"
 #    "PySuite/RectParaCrystal"
-#    "PySuite/CoreShellParticle"
+    "PySuite/CoreShellParticle"
+    "PySuite/CoreShellBoxRotateZandY"
+
 #    "PySuite/MultiLayerWithRoughness"
 #    "PySuite/SquareLattice"
 #    "PySuite/CenteredSquareLattice"

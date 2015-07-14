@@ -22,10 +22,7 @@
 #include "InterferenceFunctionNone.h"
 #include "ParticleCoreShell.h"
 
-CoreShellParticleBuilder::CoreShellParticleBuilder()
-{
-}
-
+// --- CoreShellParticleBuilder ---
 
 ISample *CoreShellParticleBuilder::buildSample() const
 {
@@ -58,3 +55,46 @@ ISample *CoreShellParticleBuilder::buildSample() const
     return multi_layer;
 }
 
+// --- CoreShellBoxRotateZandYBuilder ---
+
+ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
+{
+    const double layer_thickness(100.0*Units::nanometer);
+
+    HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
+    HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
+    HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
+    HomogeneousMaterial mCore("Ag", 1.245e-5, 5.419e-7);
+    HomogeneousMaterial mShell("AgO2", 8.600e-6, 3.442e-7);
+
+
+    // core shell particle
+    const double shell_length(50.0*Units::nanometer);
+    const double shell_width(20.0*Units::nanometer);
+    const double shell_height(10.0*Units::nanometer);
+    double core_length = shell_length/2.0;
+    double core_width = shell_width/2.0;
+    double core_height = shell_height/2.0;
+
+    Particle core(mCore, FormFactorBox(core_length, core_width, core_height));
+    Particle shell(mShell, FormFactorBox(shell_length, shell_width, shell_height));
+    ParticleCoreShell coreshell(shell, core, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0));
+    coreshell.setRotation(RotationZ(90.0*Units::degree));
+    coreshell.applyRotation(RotationY(90.0*Units::degree));
+    coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0));
+
+    ParticleLayout layout;
+    layout.addParticle(coreshell);
+
+    Layer air_layer(mAmbience);
+    Layer middle_layer(mMiddle, layer_thickness);
+    middle_layer.addLayout(layout);
+    Layer substrate(mSubstrate);
+
+    MultiLayer *multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(middle_layer);
+    multi_layer->addLayer(substrate);
+
+    return multi_layer;
+}

@@ -63,12 +63,23 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    // --- CoreShell ---
+
     add("CoreShellParticle",
         "Core shell particle",
         "MiniGISAS",
         "CoreShellParticleBuilder",
         "None",
         2e-10);
+
+    add("CoreShellBoxRotateZandY",
+        "Rotation and translation of core shell box particle in 3 layers system",
+        "MiniGISAS",
+        "CoreShellBoxRotateZandYBuilder",
+        "None",
+        2e-10);
+
+    // ---
 
     add("MultiLayerWithRoughness",
         "Multilayer with roughness",

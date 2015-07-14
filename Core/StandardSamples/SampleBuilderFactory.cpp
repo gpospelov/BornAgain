@@ -109,10 +109,19 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
+    // --- CoreShell ---
+
     registerItem(
         "CoreShellParticleBuilder",
         IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
         "Core shell nanoparticles");
+
+    registerItem(
+        "CoreShellBoxRotateZandYBuilder",
+        IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
+        "Rotation and translation of core shell box particle in 3 layers system.");
+
+    // ---
 
     registerItem(
         "SizeDistributionDAModelBuilder",

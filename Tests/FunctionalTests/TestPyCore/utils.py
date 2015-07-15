@@ -73,6 +73,7 @@ def get_simulation_BasicGISAS(sample = None):
 def plot_intensity_data(intensity):
 
     data = intensity.getArray() + 1
+    # data = numpy.abs(intensity.getArray())
     phi_min = rad2deg(intensity.getAxis(0).getMin())
     phi_max = rad2deg(intensity.getAxis(0).getMax())
     alpha_min = rad2deg(intensity.getAxis(1).getMin())

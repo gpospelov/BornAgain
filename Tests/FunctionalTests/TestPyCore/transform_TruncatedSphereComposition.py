@@ -6,13 +6,11 @@ import unittest
 import utils
 from bornagain import *
 
-layer_thickness = 100
-comp_length = 50
-comp_width = 20
-comp_height = 10
+layer_thickness = 100.0
+sphere_radius = 10.0
 particle_material = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
 
-class TransformBoxCompositionTest(unittest.TestCase):
+class TransformTruncatedSphereCompositionTest(unittest.TestCase):
 
     def get_sample(self, particle):
         mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -36,35 +34,66 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
     def get_intensity_data(self, particle):
         sample = self.get_sample(particle)
-        simulation = utils.get_simulation_MiniGISAS(sample)
+        simulation = utils.get_simulation_BasicGISAS(sample)
         simulation.runSimulation()
         return simulation.getIntensityData()
 
-    def test_BoxComposition(self):
+    def test_TruncatedSphere(self):
         """
-        Compares simple box with the one composed from two smaller boxes of the same material to get same size
+        Full sphere is compared against truncated sphere (height=2*radius)
         """
-        # reference box
-        length = 50
-        width = 20
-        height = 10
-        particle = Particle(particle_material, FormFactorBox(length, width, height))
-        particle.setPosition(kvector_t(0, 0, -layer_thickness/2 - height/2))
+        # reference sphere
+        particle = Particle(particle_material, FormFactorFullSphere(sphere_radius))
+        particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - sphere_radius))
 
         reference_data = self.get_intensity_data(particle)
-        #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxComposition.int")
 
         # composition
-        box = Particle(particle_material, FormFactorBox(comp_length/2, comp_width, comp_height))
-        composition = ParticleComposition()
-        # composition = ParticleComposition(box, positions)
-        composition.addParticle(box, kvector_t(0, 0, 0))
-        composition.addParticle(box, kvector_t(comp_length/2, 0, 0))
-        composition.setPosition(kvector_t(0, 0, -layer_thickness/2 - comp_height/2))
+        sphere = Particle(particle_material, FormFactorTruncatedSphere(sphere_radius, 2.*sphere_radius))
+        sphere.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - sphere_radius))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_intensity_data(sphere)
+        # data -= reference_data
+        # print data.getArray()
+        # utils.plot_intensity_data(data)
 
         diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
-        print "test_BoxComposition:", diff
+        print "test_TruncatedSphere:", diff
         self.assertLess(diff, 1e-10)
         # utils.plot_intensity_data(reference_data)
+
+
+    # def test_TruncatedSphereComposition(self):
+    #     """
+    #     Two half spheres (one 180.0 Y-rotated) are composed into full sphere.Composition is compared against full sphere
+    #     """
+    #     # reference sphere
+    #     particle = Particle(particle_material, FormFactorFullSphere(sphere_radius))
+    #     particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - sphere_radius))
+    #
+    #     reference_data = self.get_intensity_data(particle)
+    #     #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxComposition.int")
+    #
+    #     # composition
+    #     half1 = Particle(particle_material, FormFactorTruncatedSphere(sphere_radius, sphere_radius))
+    #     half2 = Particle(particle_material, FormFactorTruncatedSphere(sphere_radius, sphere_radius))
+    #     half2.setRotation(RotationY(180.0*degree))
+    #
+    #     composition = ParticleComposition()
+    #     composition.addParticle(half1, kvector_t(0, 0, 0))
+    #     composition.addParticle(half2, kvector_t(0, 0, 0))
+    #     composition.setPosition(kvector_t(0, 0, -layer_thickness/2.0))
+    #
+    #     data = self.get_intensity_data(composition)
+    #
+    #     data -= reference_data
+    #     utils.plot_intensity_data(data)
+    #
+    #     diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+    #     print "test_TruncatedSphereComposition:", diff
+    #     self.assertLess(diff, 1e-10)
+    #     # utils.plot_intensity_data(reference_data)
+
+
+if __name__ == '__main__':
+    unittest.main()

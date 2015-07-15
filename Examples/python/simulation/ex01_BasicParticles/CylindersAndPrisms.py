@@ -38,6 +38,7 @@ def get_sample():
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
+    multi_layer.printParameters()
     return multi_layer
 
 

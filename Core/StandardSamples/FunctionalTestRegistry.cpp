@@ -63,12 +63,23 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    // --- CoreShell ---
+
     add("CoreShellParticle",
         "Core shell particle",
         "MiniGISAS",
         "CoreShellParticleBuilder",
         "None",
         2e-10);
+
+    add("CoreShellBoxRotateZandY",
+        "Rotation and translation of core shell box particle in 3 layers system",
+        "MiniGISAS",
+        "CoreShellBoxRotateZandYBuilder",
+        "None",
+        2e-10);
+
+    // ---
 
     add("MultiLayerWithRoughness",
         "Multilayer with roughness",
@@ -105,12 +116,51 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    // --- Compositions ---
+
     add("ParticleComposition",
         "Two layers of spheres at hex lattice",
         "MiniGISAS",
         "ParticleCompositionBuilder",
         "None",
         2e-10);
+
+    add("BoxCompositionRotateX",
+        "Two boxes in particle composition rotated in X by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateXBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateY",
+        "Two boxes in particle composition rotated in Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateYBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZ",
+        "Two boxes in particle composition rotated in Z by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZBuilder",
+        "None",
+        2e-10);
+
+    add("BoxCompositionRotateZandY",
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees",
+        "MiniGISAS",
+        "BoxCompositionRotateZandYBuilder",
+        "None",
+        2e-10);
+
+    add("BoxStackComposition",
+        "Two different boxes are first rotated and then composed, composition is then rotated.",
+        "MiniGISAS",
+        "BoxStackCompositionBuilder",
+        "None",
+        2e-10);
+
+    // ---
 
     add("CylindersWithSizeDistribution",
         "Cylinders in BA with size distributions",
@@ -209,6 +259,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "MagneticParticleZeroFieldBuilder",
         "None",
         2e-10);
+
+    add("TransformBox",
+        "Rotated/translated box in 3 layers system",
+        "MiniGISAS",
+        "TransformBoxBuilder",
+        "None",
+        1e-10);
 
 }
 

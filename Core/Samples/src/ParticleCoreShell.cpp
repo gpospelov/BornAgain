@@ -45,6 +45,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
     if (mP_rotation.get()) {
         p_new->setRotation(*mP_rotation);
     }
+    p_new->setPosition(m_position);
     p_new->setName(getName());
     return p_new;
 }
@@ -58,6 +59,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     if (mP_rotation.get()) {
         p_new->setRotation(*mP_rotation);
     }
+    p_new->setPosition(m_position);
     p_new->setName(getName() + "_inv");
     return p_new;
 }

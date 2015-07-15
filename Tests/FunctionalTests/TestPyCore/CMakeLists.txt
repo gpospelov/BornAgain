@@ -47,6 +47,11 @@ set(list_of_python_tests
     "montecarlo_integration.py"
 #    "beam_divergence.py"
     "detector_resolution.py"
+    "transform_cube.py"
+    "transform_box.py"
+    "transform_CoreShellBox.py"
+    "transform_BoxComposition.py"
+#    "transform_BoxComposition.py" # broken, problems with absoprtion in FormFactorTruncatedSphere
 )
 
 foreach(_test ${list_of_python_tests})
@@ -65,6 +70,7 @@ set(list_of_tests
     "PySuite/HexParaCrystal"
     "PySuite/RectParaCrystal"
     "PySuite/CoreShellParticle"
+    "PySuite/CoreShellBoxRotateZandY"
     "PySuite/MultiLayerWithRoughness"
     "PySuite/SquareLattice"
     "PySuite/CenteredSquareLattice"
@@ -82,6 +88,12 @@ set(list_of_tests
     "PySuite/CylindersInSSCA"
     "PySuite/CosineRipple"
     "PySuite/TriangularRipple"
+    "PySuite/TransformBox"
+    "PySuite/BoxCompositionRotateX"
+    "PySuite/BoxCompositionRotateY"
+    "PySuite/BoxCompositionRotateZ"
+    "PySuite/BoxCompositionRotateZandY"
+    "PySuite/BoxStackComposition"
 )
 
 # Adding executables.

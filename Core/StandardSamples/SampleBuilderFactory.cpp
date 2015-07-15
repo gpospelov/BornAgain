@@ -30,6 +30,8 @@
 #include "ParticleDistributionsBuilder.h"
 #include "RipplesBuilder.h"
 #include "SizeDistributionModelsBuilder.h"
+#include "TransformationsBuilder.h"
+#include "BoxCompositionBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -107,10 +109,19 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
+    // --- CoreShell ---
+
     registerItem(
         "CoreShellParticleBuilder",
         IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
         "Core shell nanoparticles");
+
+    registerItem(
+        "CoreShellBoxRotateZandYBuilder",
+        IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
+        "Rotation and translation of core shell box particle in 3 layers system.");
+
+    // ---
 
     registerItem(
         "SizeDistributionDAModelBuilder",
@@ -167,15 +178,49 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
+    // --- compositions ---
+
     registerItem(
         "ParticleCompositionBuilder",
         IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
 
     registerItem(
+        "BoxCompositionRotateXBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateXBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in X by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Y by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z by 90 degrees");
+
+    registerItem(
+        "BoxCompositionRotateZandYBuilder",
+        IFactoryCreateFunction<BoxCompositionRotateZandYBuilder, ISampleBuilder>,
+        "Two boxes in particle composition rotated in Z and Y by 90 degrees");
+
+    registerItem(
+        "BoxStackCompositionBuilder",
+        IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
+        "Two different boxes are first rotated and then composed, composition is then rotated.");
+
+    // ---
+
+    registerItem(
         "ParticleInTheAirBuilder",
         IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
         "Particle in the air layer to test form factors");
+
+    registerItem(
+        "TransformBoxBuilder",
+        IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
+        "Rotated and translated box in 3 layer system");
 
 }
 

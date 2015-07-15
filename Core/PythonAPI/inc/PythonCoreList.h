@@ -5,6 +5,7 @@
 
 #include "IAxis.h"
 #include "AttLimits.h"
+#include "Rotations.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "ConstKBinAxis.h"
@@ -94,7 +95,6 @@
 #include "PythonOutputData.h"
 #include "RealParameterWrapper.h"
 #include "ResolutionFunction2DGaussian.h"
-#include "Rotations.h"
 #include "SpecularSimulation.h"
 #include "GISASSimulation.h"
 #include "SimulationParameters.h"

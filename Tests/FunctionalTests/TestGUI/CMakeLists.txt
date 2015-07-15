@@ -30,6 +30,7 @@ set(list_of_tests
     "GUISuite/HexParaCrystal"
     "GUISuite/RectParaCrystal"
     "GUISuite/CoreShellParticle"
+    "GUISuite/CoreShellBoxRotateZandY"
     "GUISuite/MultiLayerWithRoughness"
     "GUISuite/SquareLattice"
     "GUISuite/CenteredSquareLattice"
@@ -47,6 +48,12 @@ set(list_of_tests
 #    "GUISuite/CylindersInSSCA" # no yet implemented (linked parameter)
     "GUISuite/CosineRipple"
     "GUISuite/TriangularRipple"
+    "GUISuite/TransformBox"
+    "GUISuite/BoxCompositionRotateX"
+    "GUISuite/BoxCompositionRotateY"
+    "GUISuite/BoxCompositionRotateZ"
+    "GUISuite/BoxCompositionRotateZandY"
+    "GUISuite/BoxStackComposition"
 )
 
 # Adding executables.

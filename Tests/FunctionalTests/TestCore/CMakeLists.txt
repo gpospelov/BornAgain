@@ -53,6 +53,7 @@ set(list_of_tests
     "CoreSuite/BoxCompositionRotateY"
     "CoreSuite/BoxCompositionRotateZ"
     "CoreSuite/BoxCompositionRotateZandY"
+    "CoreSuite/BoxStackComposition"
 
 #    "BatchSimulation"
 #    "PolDWBAMagCylinders2"

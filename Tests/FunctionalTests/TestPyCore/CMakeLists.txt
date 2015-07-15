@@ -94,6 +94,7 @@ set(list_of_tests
     "PySuite/BoxCompositionRotateY"
     "PySuite/BoxCompositionRotateZ"
     "PySuite/BoxCompositionRotateZandY"
+    "PySuite/BoxStackComposition"
 
 )
 

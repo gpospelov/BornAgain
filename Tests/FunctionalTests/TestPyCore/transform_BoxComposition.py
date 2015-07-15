@@ -188,6 +188,49 @@ class TransformBoxCompositionTest(unittest.TestCase):
         print "test_BoxCompositionRotateZandY:", diff
         self.assertLess(diff, 1e-10)
 
+    def test_BoxStackComposition(self):
+        """
+        2 different boxes are first rotated and then combined into the composition. Composition is then rotated.
+        Composition is compared against reference box.
+        """
+        # reference box
+        length = 10.0
+        width = 20.0
+        height = 50.0
+        particle = Particle(particle_material, FormFactorBox(length, width, height))
+        particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - height/2.0))
+        reference_data = self.get_intensity_data(particle)
+        #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxStackComposition.int")
+
+        # composition
+        composition = ParticleComposition()
+
+        # box1 (20,50,5), rotatedZ
+        box1_length = 20.0
+        box1_width = 50.0
+        box1_height = 5.0
+        box1 = Particle(particle_material, FormFactorBox(box1_length, box1_width, box1_height))
+        box1.setRotation(RotationZ(90.*degree))
+
+        # box2 (5,20,50), rotatedY
+        box2_length = 5.0
+        box2_width = 20.0
+        box2_height = 50.0
+        box2 = Particle(particle_material, FormFactorBox(box2_length, box2_width, box2_height))
+        box2.setRotation(RotationY(90.*degree))
+        box2.setPosition(kvector_t(-box2_height/2.0, 0.0, box2_length/2.0))
+
+        composition.addParticle(box1, kvector_t(0.0, 0.0, 0.0))
+        composition.addParticle(box2, kvector_t(0.0, 0.0, box1_height))
+        composition.setRotation(RotationY(90.0*degree))
+        composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.))
+
+        data = self.get_intensity_data(composition)
+
+        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        print "test_BoxStackComposition:", diff
+        self.assertLess(diff, 1e-10)
+
 
 if __name__ == '__main__':
     unittest.main()

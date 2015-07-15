@@ -55,6 +55,7 @@ set(list_of_tests
     "GUISuite/BoxCompositionRotateY"
     "GUISuite/BoxCompositionRotateZ"
     "GUISuite/BoxCompositionRotateZandY"
+    "GUISuite/BoxStackComposition"
 
 )
 

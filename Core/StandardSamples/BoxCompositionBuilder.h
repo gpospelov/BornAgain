@@ -23,7 +23,8 @@ class HomogeneousMaterial;
 
 //! @class BoxCompositionBuilder
 //! @ingroup standard_samples
-//! @brief Parent class to test all kind of compositions made out of boxes
+//! @brief Parent class to test all kind of compositions made out of boxes.
+//! Reproduces Python functional test transform_BoxComposition.py
 
 class BA_CORE_API_ BoxCompositionBuilder : public ISampleBuilder
 {
@@ -88,5 +89,18 @@ public:
     ISample *buildSample() const;
 
 };
+
+//! @class BoxStackCompositionBuilder
+//! @ingroup standard_samples
+//! @brief Two different boxes are first rotated and then composed, composition is then rotated.
+
+class BA_CORE_API_ BoxStackCompositionBuilder : public BoxCompositionBuilder
+{
+public:
+    BoxStackCompositionBuilder(){}
+    ISample *buildSample() const;
+
+};
+
 
 #endif // PARTICLECOMPOSITIONBUILDER_H

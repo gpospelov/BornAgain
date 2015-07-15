@@ -205,6 +205,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<BoxCompositionRotateZandYBuilder, ISampleBuilder>,
         "Two boxes in particle composition rotated in Z and Y by 90 degrees");
 
+    registerItem(
+        "BoxStackCompositionBuilder",
+        IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
+        "Two different boxes are first rotated and then composed, composition is then rotated.");
+
     // ---
 
     registerItem(

@@ -153,6 +153,13 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         "None",
         2e-10);
 
+    add("BoxStackComposition",
+        "Two different boxes are first rotated and then composed, composition is then rotated.",
+        "MiniGISAS",
+        "BoxStackCompositionBuilder",
+        "None",
+        2e-10);
+
     // ---
 
     add("CylindersWithSizeDistribution",

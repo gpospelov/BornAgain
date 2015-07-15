@@ -114,3 +114,33 @@ ISample *BoxCompositionRotateZandYBuilder::buildSample() const
     composition.setPosition(kvector_t(0.0, 0.0, -m_layer_thickness/2.0 ));
     return createMultiLayer(composition);
 }
+
+// --- BoxStackCompositionBuilder ---
+
+// Composition of two boxes which gives you the box (10,20,50) with reference point as usual.
+ISample *BoxStackCompositionBuilder::buildSample() const
+{
+    ParticleComposition composition;
+
+    // box1 (20,50,5), rotatedZ
+    const double box1_length = 20;
+    const double box1_width = 50;
+    const double box1_height = 5;
+    Particle box1(*m_particleMaterial, FormFactorBox(box1_length, box1_width, box1_height));
+    box1.setRotation(RotationZ(90.*Units::degree));
+
+    // box2 (5,20,50), rotatedY
+    const double box2_length = 5.0;
+    const double box2_width = 20.0;
+    const double box2_height = 50.0;
+    Particle box2(*m_particleMaterial, FormFactorBox(box2_length, box2_width, box2_height));
+    box2.setRotation(RotationY(90.*Units::degree));
+    box2.setPosition(kvector_t(-box2_height/2.0, 0.0, box2_length/2.0));
+
+    composition.addParticle(box1, kvector_t(0.0, 0.0, 0.0));
+    composition.addParticle(box2, kvector_t(0.0, 0.0, box1_height));
+    composition.setRotation(RotationY(90.0*Units::degree));
+    composition.setPosition(kvector_t(0.0, 0.0, -m_layer_thickness/2.));
+
+    return createMultiLayer(composition);
+}

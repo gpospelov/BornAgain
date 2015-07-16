@@ -380,16 +380,9 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
     qDebug() << "DesignerScene::dragMoveEvent()";
     const DesignerMimeData *mimeData = checkDragEvent(event);
-    if (mimeData) {
-        // Layer can be droped only on MultiLayer
-        if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
-            QGraphicsScene::dragMoveEvent(event);
-        }
+    if(isAcceptedByMultiLayer(mimeData, event)) {
+        QGraphicsScene::dragMoveEvent(event);
 
-        // MultiLayer can be droped on another MultiLayer if there is one nearby
-        if (mimeData->getClassName() == Constants::MultiLayerType && isMultiLayerNearby(event)) {
-            QGraphicsScene::dragMoveEvent(event);
-        }
     }
 }
 
@@ -402,15 +395,17 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
     qDebug() << "DesignerScene::dropEvent()" << mimeData;
     if (mimeData) {
 
-        // MultiLayer can be droped on another MultiLayer if there is one nearby
-        if (mimeData->getClassName() == Constants::MultiLayerType && isMultiLayerNearby(event)) {
+        // to have possibility to drop MultiLayer on another MultiLayer
+        // * edit function DesignerScene::isAcceptedByMultiLayer
+        // * edit MultiLayerItem for addToValidChildren
+        // * remove method MultiLayerView::itemChange
+
+        if(isAcceptedByMultiLayer(mimeData, event)) {
+            // certain views can be droped on MultiLayer and so will be processed there
             QGraphicsScene::dropEvent(event);
 
-        } else if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
-            QGraphicsScene::dropEvent(event);
-
-            // other views can be droped on canvas anywhere
         } else {
+            // other views can be droped on canvas anywhere
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
             if (SampleViewFactory::isValidItemName(mimeData->getClassName())) {
 
@@ -477,6 +472,22 @@ void DesignerScene::adjustSceneRect()
 
     boundingRect.adjust(20.0, 20.0, 20.0, 20.0);
     setSceneRect(sceneRect().united(boundingRect));
+}
+
+bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event)
+{
+    if(!mimeData) return false;
+
+//    // MultiLayer can be inserted in MultiLayer
+//    if (mimeData->getClassName() == Constants::MultiLayerType && isMultiLayerNearby(event)) {
+//        return true;
+//    }
+
+    // layer can be inserted in MultiLayer
+    if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
+        return true;
+    }
+    return false;
 }
 
 void DesignerScene::onSmartAlign()

@@ -6,7 +6,15 @@ compared with FormFactorBox(10, 50, 20)
 """
 import unittest
 import utils
-from bornagain import *
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+                os.path.join(os.path.split(__file__)[0],
+                '..', '..', '..', 'lib')))
+
+
+from libBornAgainCore import *
 
 layer_thickness = 100
 

@@ -35,6 +35,9 @@ public:
 
     void addView(IView *childView, int row = 0); // to add ParticleLayout
 
+protected:
+//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+
 };
 
 

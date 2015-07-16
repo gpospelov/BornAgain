@@ -132,6 +132,8 @@ if(WIN32)
         )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
+        # for functional tests
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
     endif()
 
     # system libraries

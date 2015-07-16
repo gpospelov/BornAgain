@@ -3,7 +3,15 @@ Test of rotation/positioning of simple cubic particle. Original particle is comp
 """
 import unittest
 import utils
-from bornagain import *
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+                os.path.join(os.path.split(__file__)[0],
+                '..', '..', '..', 'lib')))
+
+
+from libBornAgainCore import *
 
 
 class RotationsCubeTest(unittest.TestCase):

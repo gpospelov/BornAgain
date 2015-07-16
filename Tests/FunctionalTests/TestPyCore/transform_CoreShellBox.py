@@ -6,7 +6,15 @@ Particles are placed in the center of middle layer.
 """
 import unittest
 import utils
-from bornagain import *
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+                os.path.join(os.path.split(__file__)[0],
+                '..', '..', '..', 'lib')))
+
+
+from libBornAgainCore import *
 
 layer_thickness = 100.0
 
@@ -181,7 +189,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell_ref.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))  # center of coreshell in center of the layer
 
         reference_data = self.get_intensity_data(coreshell_ref)
-        IntensityDataIOFactory.writeIntensityData(reference_data, "ref_CoreShellBoxRotateZandY.int")
+        #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_CoreShellBoxRotateZandY.int")
 
         # building second CoreShell particle
         shell_length = 50.0

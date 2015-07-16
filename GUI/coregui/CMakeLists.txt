@@ -170,9 +170,9 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Xml.dll
     #${QTDIR}/bin/libGLESv2.dll
     #${QTDIR}/bin/libEGL.dll    
-    ${QTDIR}/bin/icuin52.dll
-    ${QTDIR}/bin/icuuc52.dll
-    ${QTDIR}/bin/icudt52.dll
+    ${QTDIR}/bin/icuin54.dll
+    ${QTDIR}/bin/icuuc54.dll
+    ${QTDIR}/bin/icudt54.dll
     ${QTDIR}/bin/Qt5Multimedia.dll
     ${QTDIR}/bin/Qt5MultimediaWidgets.dll
     ${QTDIR}/bin/Qt5OpenGL.dll

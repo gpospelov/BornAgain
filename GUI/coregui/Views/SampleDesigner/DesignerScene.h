@@ -92,6 +92,7 @@ private:
     void removeItemViewFromScene(ParameterizedItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
     void adjustSceneRect();
+    bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;

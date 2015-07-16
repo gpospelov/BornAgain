@@ -31,7 +31,7 @@ class IFunctionalTest;
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
 
-class FunctionalTestComponentService : public IComponentService
+class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
 {
 public:
 

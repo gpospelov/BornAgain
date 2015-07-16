@@ -42,7 +42,7 @@ public:
 #endif
 
     //! evaluate scattering amplitude for complex wavevector
-    //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
+    //! @param q  wavevector transfer q=k_i-k_f
     virtual complex_t evaluate_for_q(const cvector_t& q) const=0;
 
     //! Returns volume.

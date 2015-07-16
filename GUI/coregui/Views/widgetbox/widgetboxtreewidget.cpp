@@ -52,7 +52,10 @@
 // sdk
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerDnDItemInterface>
-#include <QtDesigner/QDesignerCustomWidgetInterface>
+
+//#include <QtDesigner/QDesignerCustomWidgetInterface> // seems to be obsolete, use one below
+#include <QtUiPlugin/QDesignerCustomWidgetInterface>
+
 //#include <QtDesigner/QDesignerSettingsInterface>
 
 //#include <QtWidgets/QHeaderView>

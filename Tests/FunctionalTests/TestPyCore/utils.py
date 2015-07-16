@@ -3,7 +3,6 @@ Collection of utils for testing
 """
 import sys
 import numpy
-import pylab
 import gzip
 import os
 
@@ -71,6 +70,7 @@ def get_simulation_BasicGISAS(sample = None):
 
 def plot_intensity_data(intensity):
     import matplotlib
+    import pylab
     data = intensity.getArray() + 1
     # data = numpy.abs(intensity.getArray())
     phi_min = rad2deg(intensity.getAxis(0).getMin())

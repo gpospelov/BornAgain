@@ -104,6 +104,15 @@ if(WIN32 AND BORNAGAIN_PYTHON)
         ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
         ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
     )
+    # for functional tests
+    ADD_CUSTOM_COMMAND(
+        TARGET ${library_name}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
+        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+    )
+    
 endif()
 
 

@@ -133,7 +133,15 @@ if(WIN32)
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
         # for functional tests
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
+        # install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
+        ADD_CUSTOM_COMMAND(
+            TARGET ${library_name}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        )
+        
     endif()
 
     # system libraries

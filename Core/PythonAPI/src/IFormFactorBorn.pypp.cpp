@@ -334,7 +334,7 @@ void register_IFormFactorBorn_class(){
                 "evaluate_for_q"
                 , bp::pure_virtual( evaluate_for_q_function_type(&::IFormFactorBorn::evaluate_for_q) )
                 , ( bp::arg("q") )
-                , "evaluate scattering amplitude for complex wavevector @param q  wavevector transfer \f$q\equiv k_i-k_f\f$ \n\n:Parameters:\n  - 'q' - wavevector transfer \f$q\equiv k_i-k_f\f$\n" );
+                , "evaluate scattering amplitude for complex wavevector @param q  wavevector transfer q=k_i-k_f \n\n:Parameters:\n  - 'q' - wavevector transfer q=k_i-k_f\n" );
         
         }
         { //::IFormFactorBorn::getVolume

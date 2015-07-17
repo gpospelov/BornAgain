@@ -53,8 +53,11 @@
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerDnDItemInterface>
 
-//#include <QtDesigner/QDesignerCustomWidgetInterface> // seems to be obsolete, use one below
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+#include <QtDesigner/QDesignerCustomWidgetInterface>
+#else
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
+#endif
 
 //#include <QtDesigner/QDesignerSettingsInterface>
 

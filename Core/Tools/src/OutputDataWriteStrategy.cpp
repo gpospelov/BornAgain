@@ -19,7 +19,8 @@
 #include <iomanip>
 
 
-void OutputDataWriteStreamINT::writeOutputData(const OutputData<double> &data, std::ostream &output_stream)
+void OutputDataWriteStreamINT::writeOutputData(const OutputData<double> &data,
+                                               std::ostream &output_stream)
 {
     output_stream << "# BornAgain Intensity Data" << std::endl;
 
@@ -29,17 +30,17 @@ void OutputDataWriteStreamINT::writeOutputData(const OutputData<double> &data, s
         output_stream << "# axis-" << i << std::endl;
         output_stream << (*axis) << std::endl;
     }
+    size_t n_columns = data.getAxis(data.getRank()-1)->getSize();
 
     output_stream << std::endl;
     output_stream << "# data" << std::endl;
     OutputData<double>::const_iterator it = data.begin();
-    int ncol(0);
-    const int ncol_max(10);
+    size_t ncol(0);
     while(it != data.end()) {
         ncol++;
         double z_value = *it++;
         output_stream << std::scientific << std::setprecision(m_precision) << z_value << "    ";
-        if(ncol == ncol_max) {
+        if(ncol == n_columns) {
             output_stream << std::endl;
             ncol = 0;
         }

@@ -99,6 +99,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("other") ) );
         
         }
+        { //::OutputData< double >::findClosestIndex
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::std::size_t ( exported_class_t::*findClosestIndex_function_type)( ::std::vector< double > ) const;
+            
+            IntensityData_exposer.def( 
+                "findClosestIndex"
+                , findClosestIndex_function_type( &::OutputData< double >::findClosestIndex )
+                , ( bp::arg("coordinates") ) );
+        
+        }
         { //::OutputData< double >::getAllSizes
         
             typedef OutputData< double > exported_class_t;

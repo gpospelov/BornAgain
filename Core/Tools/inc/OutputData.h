@@ -131,8 +131,11 @@ public:
     //! Returns coordinate for given index and axis number
     int toCoordinate(size_t index, size_t i_selected_axis) const;
 
-    //! Returns index for specified coordinates
+    //! Returns index for specified coordinates (bins of axes)
     size_t toIndex(std::vector<int> coordinates) const;
+
+    //! Returns index for specified axes values
+    size_t findClosestIndex(std::vector<double> coordinates) const;
 
     //! Returns index of axis with given name for given total index
     size_t getIndexOfAxis(const std::string& axis_name, size_t total_index) const;
@@ -466,6 +469,24 @@ size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
         step_size *= m_value_axes[i-1]->getSize();
     }
     return result;
+}
+
+
+template <class T>
+size_t OutputData<T>::findClosestIndex(std::vector<double> coordinates) const
+{
+    assert(mp_ll_data);
+    if (coordinates.size() != mp_ll_data->getRank())
+        throw LogicErrorException(
+                    "size_t OutputData<T>::toIndex() -> "
+                    "Error! Number of coordinates must match "
+                    "rank of data structure");
+    std::vector<int> axes_indexes;
+    axes_indexes.resize(mp_ll_data->getRank());
+    for(size_t i = 0; i<mp_ll_data->getRank(); ++i) {
+        axes_indexes[i] = m_value_axes[i]->findClosestIndex(coordinates[i]);
+    }
+    return toIndex(axes_indexes);
 }
 
 template <class T>

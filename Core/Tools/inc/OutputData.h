@@ -465,6 +465,14 @@ size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
     {
+        if(coordinates[i-1] < 0 || coordinates[i-1] >=m_value_axes[i-1]->getSize()) {
+            std::ostringstream message;
+            message << "size_t OutputData<T>::toIndex() -> Error. Index ";
+            message << coordinates[i-1] << " is out of range. Axis ";
+            message << m_value_axes[i-1]->getName();
+            message << " size " << m_value_axes[i-1]->getSize() << ".\n";
+            throw LogicErrorException(message.str());
+        }
         result += coordinates[i-1]*step_size;
         step_size *= m_value_axes[i-1]->getSize();
     }

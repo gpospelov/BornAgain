@@ -59,8 +59,9 @@ ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
     connect(button, SIGNAL(clicked()), this, SLOT(close()));
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addStretch(1);
-    buttonLayout->setContentsMargins(0, 8, 5, 0);
+    buttonLayout->addStretch(3);
+//    buttonLayout->setContentsMargins(0, 8, 5, 0);
+    buttonLayout->setContentsMargins(0, 0, 0, 0);
     buttonLayout->addWidget(button);
 
     mainLayout->addLayout(buttonLayout);
@@ -99,6 +100,8 @@ QWidget *ProjectLoadWarningDialog::createTopPanel()
     layout->addWidget(warningWidget);
     layout->addWidget(messageLabel);
 
+    layout ->setContentsMargins(0, 0, 0, 0);
+
     result->setLayout(layout);
     return result;
 }
@@ -125,6 +128,8 @@ QWidget *ProjectLoadWarningDialog::createModelInfoPanel()
     layout->addWidget(line);
     layout->addLayout(gridLayout);
     layout->addWidget(new QWidget);
+
+    layout ->setContentsMargins(0, 0, 0, 0);
 
     result->setLayout(layout);
     return result;
@@ -166,6 +171,8 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     layout->addWidget(whatLabel);
     layout->addWidget(adviceLabel);
 
+    layout ->setContentsMargins(0, 0, 0, 0);
+
     result->setLayout(layout);
     return result;
 }
@@ -186,6 +193,8 @@ QWidget *ProjectLoadWarningDialog::createDetailsPanel()
 
     layout->addWidget(detailsLabel);
     layout->addWidget(createTableWidget());
+
+    layout ->setContentsMargins(0, 0, 0, 0);
 
     result->setLayout(layout);
     return result;

@@ -168,6 +168,8 @@ private:
 
     void cleanItem(const QModelIndex &parent, int first, int last);
 
+    void report_error(const QString &error_type, const QString &message);
+
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name;      //!< model name

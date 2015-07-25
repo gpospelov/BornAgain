@@ -35,6 +35,8 @@ namespace
 const int MaxCompression = 9;
 enum EColumn { ITEM_NAME, MODEL_TYPE, MAX_COLUMNS };
 const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
+const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
+const QString NON_EXISTING_SUBITEM = "NON_EXISTING_SUBITEM";
 }
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
@@ -310,7 +312,7 @@ void SessionModel::save(const QString &filename)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("BornAgain");
-    writer.writeAttribute("Version", "1.9");
+    writer.writeAttribute("Version", GUIHelpers::getBornAgainVersionString());
     writeItemAndChildItems(&writer, m_root_item);
     writer.writeEndElement(); // BornAgain
     writer.writeEndDocument();
@@ -518,9 +520,11 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type, Parameterized
 
 void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item, int row)
 {
-    qDebug() << "SessionModel::readItems() ";
+    qDebug() << "SessionModel::readItems() " << row;
+    if(item) qDebug() << "  item" << item->modelType();
     bool inside_parameter_tag = false;
     QString parent_parameter_name;
+    ParameterizedItem *parent_backup(0);
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
@@ -533,10 +537,17 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item, 
                     Q_ASSERT(item);
                     ParameterizedItem *parent = item;
                     item = parent->getSubItems()[parent_parameter_name];
+                    if(!item) {
+                        // to provide partial loading of obsolete project files
+                        QString message = QString("Non existing SubItem '%1' of '%2'")
+                                          .arg(parent_parameter_name).arg(parent->modelType());
+                        report_error(NON_EXISTING_SUBITEM, message);
+                        parent_backup = parent;
+                    }
                 } else {
                     item = insertNewItem(model_type, item, row);
                 }
-                item->setItemName(item_name);
+                if(item) item->setItemName(item_name);
                 row = -1; // all but the first item should be appended
             } else if (reader->name() == SessionXML::ParameterTag) {
                 parent_parameter_name = readProperty(reader, item);
@@ -544,7 +555,13 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item, 
             }
         } else if (reader->isEndElement()) {
             if (reader->name() == SessionXML::ItemTag) {
-                item = item->parent();
+                if(item) {
+                    item = item->parent();
+                } else {
+                    // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
+                    item = parent_backup;
+                    parent_backup = 0;
+                }
             }
             if (reader->name() == m_model_tag) {
                 break;
@@ -568,10 +585,17 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     // qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType()
     // << parameter_name << parameter_type << parameter_name.toUtf8().constData();
 
-    if(m_messageService && !item->isRegisteredProperty(parameter_name)) {
+    if(!item) {
+        QString message = QString("Attempt to set property '%1' for non existing item")
+                          .arg(parameter_name);
+        report_error(ITEM_IS_NOT_INITIALIZED, message);
+        return parameter_name;
+    }
+
+    if(!item->isRegisteredProperty(parameter_name)) {
         QString message = QString("Unknown property '%1' for item type '%2'")
                           .arg(parameter_name).arg(item->modelType());
-        m_messageService->send_message(this, SET_ITEM_PROPERTY_ERROR, message);
+        report_error(SET_ITEM_PROPERTY_ERROR, message);
         return parameter_name;
     }
 
@@ -798,5 +822,15 @@ void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last *
     if (candidate_for_removal) {
         // qDebug() << " candidate_for_removal" << candidate_for_removal;
         moveParameterizedItem(candidate_for_removal, 0);
+    }
+}
+
+//! reports error
+void SessionModel::report_error(const QString &error_type, const QString &message)
+{
+    if(m_messageService) {
+        m_messageService->send_message(this, error_type, message);
+    } else {
+        throw GUIHelpers::Error(error_type + QString(" ") + message);
     }
 }

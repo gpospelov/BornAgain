@@ -26,6 +26,8 @@ namespace {
 
 // Computes refraction angles and transmission/reflection coefficients
 // for given coherent wave propagation in a multilayer.
+// k : length: wavenumber in vacuum, direction: defined in layer 0
+// roughness is modelled by tanh profile (see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993) )
 
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)

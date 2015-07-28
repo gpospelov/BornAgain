@@ -34,6 +34,9 @@ std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
     simulation->prepareSimulation();
     ISample *iSample = simulation->getSample();
+    if(!iSample) {
+        iSample = simulation->getSampleBuilder()->buildSample();
+    }
     MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
     PyGenVisitor visitor;
     VisitSampleTreePostorder(*multiLayer, visitor);

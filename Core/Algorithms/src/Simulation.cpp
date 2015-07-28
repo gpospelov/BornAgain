@@ -77,15 +77,15 @@ void Simulation::prepareSimulation()
 {
     gsl_set_error_handler_off();
     m_is_normalized = false;
-    updateSample();
+    //updateSample();
 }
 
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
     prepareSimulation();
-    if (!mp_sample)
-        throw NullPointerException("Simulation::runSimulation() -> Error! No sample set.");
+//    if (!mp_sample)
+//        throw NullPointerException("Simulation::runSimulation() -> Error! No sample set.");
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 

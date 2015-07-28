@@ -77,7 +77,7 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
 
     constructedSimulation.prepareSimulation();
 
-    EXPECT_FALSE( NULL == constructedSimulation.getSample());
+    EXPECT_TRUE( NULL == constructedSimulation.getSample());
     EXPECT_EQ( std::string("Layer"), constructedSimulation.getSample()->getName());
     EXPECT_EQ( double(0), dynamic_cast<Layer *>(constructedSimulation.getSample())->getThickness());
 }
@@ -107,7 +107,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     EXPECT_EQ( double(10), clonedSimulation->getInstrument().getIntensity());
     EXPECT_TRUE( NULL == clonedSimulation->getSample());
     clonedSimulation->prepareSimulation();
-    EXPECT_FALSE( NULL == clonedSimulation->getSample());
+    EXPECT_TRUE( NULL == clonedSimulation->getSample());
 
     delete clonedSimulation;
 }

@@ -89,7 +89,8 @@ exclude_patterns = [
     "vcomplex1d_t",
     "IObservable",
     "IObserver",
-    "IParameterized" ]
+    "IParameterized",
+    "vector_string_t"]
 
 
 # -----------------------------------------------------------------------------

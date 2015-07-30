@@ -84,8 +84,8 @@ TEST_F(OutputDataTest, DataInitialization)
 
 
     std::vector<int> coordinates2;
-    coordinates2.push_back(1);
-    coordinates2.push_back(55);
+    coordinates2.push_back(10);
+    coordinates2.push_back(5);
     EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toIndex(coordinates2)]);
 }
 

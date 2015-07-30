@@ -53,6 +53,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorTrivial.pypp.h"
 #include "FormFactorSphereLogNormalRadius.pypp.h"
 #include "RotationY.pypp.h"
+#include "vector_realparameter_t.pypp.h"
 #include "IInterferenceFunction.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "IFormFactor.pypp.h"
@@ -68,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IObservable.pypp.h"
 #include "ParticleCoreShell.pypp.h"
 #include "FormFactorCone.pypp.h"
+#include "vector_string_t.pypp.h"
 #include "FormFactorInfLongRipple1.pypp.h"
 #include "IDistribution1D.pypp.h"
 #include "MesoCrystal.pypp.h"
@@ -151,10 +153,12 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     boost::python::docstring_options doc_options(true, true, false);
 
     register_vector_longinteger_t_class();
+    register_vector_string_t_class();
     register_vector_complex_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
     register_vector_less__const_ISample_ptr___greater__class();
+    register_vector_realparameter_t_class();
     register_vector_kvector_t_class();
     register_AttLimits_class();
     register_IParameterized_class();

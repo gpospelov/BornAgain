@@ -5,6 +5,7 @@ class MaskGraphicsView;
 class MaskGraphicsScene;
 class GraphicsProxyWidget;
 class MaskModel;
+class QVBoxLayout;
 
 class MaskEditor : public QWidget
 {

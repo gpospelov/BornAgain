@@ -28,6 +28,7 @@ void MaskGraphicsScene::setDrawing(DrawingMode drawingMode)
 
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    qDebug() << " MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)" << event->scenePos();
     if(event->button() == Qt::LeftButton) {
         if (m_drawingMode == RECTANGLE) {
             m_currentItem = m_maskModel->insertNewItem(Constants::RectangleType);

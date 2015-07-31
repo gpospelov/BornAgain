@@ -71,7 +71,8 @@ private:
     bool m_block_update;
 
     void setSelectedCorner(QGraphicsSceneMouseEvent *event);
-    void showRotationArrows();
+    void updateRotationArrows();
+    void initializeArrow();
 };
 #endif
 

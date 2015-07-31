@@ -28,6 +28,7 @@
 #include "MaskEditor.h"
 #include "MaskModel.h"
 #include "RectangleItem.h"
+#include "Rectangle.h"
 
 
 TestView::TestView(QWidget *parent)
@@ -80,6 +81,12 @@ TestView::TestView(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     this->setLayout(mainLayout);
+//    Rectangle *rectangle = new Rectangle(300,300,100,100);
+//    QGraphicsScene *scene = new QGraphicsScene();
+//    scene->addItem(rectangle);
+//    QGraphicsView *view = new QGraphicsView;
+//    view->setScene(scene);
+//    scene->setSceneRect(view->rect());
     mainLayout->addWidget(maskEditor);
 
 }

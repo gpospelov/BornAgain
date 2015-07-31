@@ -14,6 +14,7 @@ Q_OBJECT
 public:
     //! describes corner
     enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+    enum Mode { ROTATION, RESIZE };
     enum {Type = UserType + 1};
 
     //! create Rectangle
@@ -37,7 +38,7 @@ public:
     //! calculates rotated rectangle
     //! @param event mouse event to set new coordinates
     //! @return degree of rotation
-    qreal calculateRotation(QGraphicsSceneMouseEvent *event);
+    qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
 
     int type() const {return Type;}
     void setInclude();
@@ -58,14 +59,17 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 
 private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
+    Mode m_mode;
     bool m_block_update;
     bool m_resizeMode;
     bool m_rotationMode;
+    void updateRotationArrows();
+    void initializeArrow();
+    void setSelectedCorner(QGraphicsSceneMouseEvent *event);
 };
 #endif

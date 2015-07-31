@@ -29,11 +29,11 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
             this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
         }
     }
-    else if(eventPosIsOnColorMap(event)) {
-        this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        QGraphicsView::wheelEvent(event);
-    }
+//    else if(eventPosIsOnColorMap(event)) {
+//        this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//        this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//        QGraphicsView::wheelEvent(event);
+//    }
     else {
         QGraphicsView::wheelEvent(event);
     }

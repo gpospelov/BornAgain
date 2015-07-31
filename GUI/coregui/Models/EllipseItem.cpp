@@ -5,6 +5,7 @@ const QString EllipseItem::P_POSY = "y positon";
 const QString EllipseItem::P_WIDTH = "Width";
 const QString EllipseItem::P_HEIGHT = "Height";
 const QString EllipseItem::P_COLOR = "Color";
+const QString EllipseItem::P_ANGLE = "Angle";
 
 EllipseItem::EllipseItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::EllipseType, parent)
@@ -15,5 +16,6 @@ EllipseItem::EllipseItem(ParameterizedItem *parent)
     registerProperty(P_WIDTH, 0.0);
     registerProperty(P_HEIGHT, 0.0);
     registerProperty(P_COLOR, 0);
+    registerProperty(P_ANGLE, 0.0);
 }
 

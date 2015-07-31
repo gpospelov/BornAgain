@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QItemSelection>
+#include <QModelIndex>
 
 class RectangleItem;
 class MaskModel;
@@ -12,9 +13,6 @@ class QTreeView;
 class QItemSelectionModel;
 class IView;
 class QSelectionModel;
-
-
-#include <QModelIndex>
 
 class MaskGraphicsScene : public QGraphicsScene
 {

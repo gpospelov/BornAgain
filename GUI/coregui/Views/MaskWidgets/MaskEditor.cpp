@@ -11,6 +11,10 @@
 #include "EllipseView.h"
 #include "PolygonView.h"
 #include "MaskModel.h"
+#include "SampleBuilderFactory.h"
+#include "AwesomePropertyEditor.h"
+#include "RectangleItem.h"
+
 
 
 // See other FIXME in GraphicsScene.h GraphicsScene.cpp, GraphicsView.cpp, RectangleView.h, RectangleView.cpp
@@ -103,6 +107,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
     , m_scene(new MaskGraphicsScene)
     , m_view(new MaskGraphicsView)
+    , m_proxyWidget(new GraphicsProxyWidget)
     , m_buttonLayout(new QVBoxLayout)
 {
 
@@ -113,26 +118,29 @@ MaskEditor::MaskEditor(QWidget *parent)
 //    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
-    m_scene->setSceneRect(m_view->viewport()->frameGeometry());
+    m_scene->setSceneRect(m_view->viewport()->rect());
 
 
 
     // convert widget into custom QProxywidget and put it in to the scene
-//    SimulationRegistry sim_registry;
-//    Simulation *sim = sim_registry.createSimulation("cylinders_ba");
-//    sim->runSimulation();
-//    IntensityDataItem *dataItem = new IntensityDataItem;
-//    dataItem->setOutputData(sim->getIntensityData());
+    SimulationRegistry sim_registry;
+    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
+    SampleBuilderFactory sampleFactory;
+    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
+    sim->setSampleBuilder(builder);
 
-//    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-//    colorMapPlot->setItem(dataItem);
+    sim->runSimulation();
+    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
 
+    IntensityDataItem *dataItem = new IntensityDataItem;
+    dataItem->setOutputData(sim->getIntensityData());
 
-//    GraphicsProxyWidget *widget = new GraphicsProxyWidget;
-//    m_proxyWidget->setWidget(colorMapPlot);
-//    m_proxyWidget->resize(m_scene->width(), m_scene->height());
-//    m_proxyWidget = widget;
-//    m_scene->addItem(widget);
+    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+    colorMapPlot->setItem(dataItem);
+
+    m_proxyWidget->setWidget(new QCustomPlot);
+    m_proxyWidget->resize(m_scene->width(), m_scene->height());
+    m_scene->addItem(m_proxyWidget);
 
 
     // connect buttons
@@ -206,10 +214,10 @@ MaskEditor::MaskEditor(QWidget *parent)
     buttonGroup->addButton(selectionButton);
 
     // create widget with buttons
-    QWidget *buttons = new QWidget;
+    QWidget *buttons = new QWidget(this);
+//    buttons->resize(200,200);
     m_buttonLayout->addWidget(drawingMode);
     m_buttonLayout->addWidget(selectionMode);
-    m_buttonLayout->addStretch(1);
     buttons->setLayout(m_buttonLayout);
 
 
@@ -219,11 +227,15 @@ MaskEditor::MaskEditor(QWidget *parent)
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(buttons);
     this->setLayout(mainLayout);
+
+
+
 }
 
 void MaskEditor::rectangleButtonPressed()
 {
     m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
+
     qDebug() << "void MaskEditor::rectangleButtonPressed()";
 }
 
@@ -325,9 +337,22 @@ void MaskEditor::changeToDrawingMode()
 
 void MaskEditor::setModel(MaskModel *maskModel)
 {
+
     QListView *listView = new QListView;
     listView->setModel(maskModel);
     m_scene->setModel(maskModel);
+
+//    ParameterizedItem *item = maskModel->insertNewItem(Constants::RectangleType);
+//    item->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
+//    item->setRegisteredProperty(RectangleItem::P_HEIGHT, 100.0);
+//    item->setRegisteredProperty(RectangleItem::P_POSX, 100.0);
+//    item->setRegisteredProperty(RectangleItem::P_POSY, 100.0);
+//    item->setRegisteredProperty(RectangleItem::P_ANGLE, 30.0);
+
+//    AwesomePropertyEditor *m_editor = new AwesomePropertyEditor();
+//    m_editor->setItem(item);
+//    m_buttonLayout->addWidget(m_editor);
+
     m_scene->setSelectionModel(listView->selectionModel());
     m_buttonLayout->addWidget(listView);
 }

@@ -44,7 +44,7 @@ TestPerformance::TestPerformance()
     add("SquareLattice",      "MaxiGISAS",    "SquareLatticeBuilder", 10);
     add("RadialParaCrystal",  "MaxiGISAS",    "RadialParaCrystalBuilder", 10);
     add("HexParaCrystal",     "BasicGISAS",   "HexParaCrystalBuilder", 1);
-    add("SSCA",               "MaxiGISAS",    "ParticlesInSSCABuilder", 10);
+    add("SSCA",               "MaxiGISAS",    "SizeDistributionSSCAModelBuilder", 10);
     add("Mesocrystal",        "MaxiGISAS",    "MesoCrystalBuilder", 2);
     add("PolMagCyl",          "MaxiGISAS00",  "MagneticCylindersBuilder", 10);
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run "

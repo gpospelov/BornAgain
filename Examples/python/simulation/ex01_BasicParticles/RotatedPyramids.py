@@ -24,7 +24,7 @@ def get_sample():
     pyramid = Particle(m_particle, pyramid_ff)
     transform = RotationZ(45.*degree)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
+    particle_layout.addParticle(pyramid, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)

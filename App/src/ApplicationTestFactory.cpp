@@ -50,6 +50,7 @@
 #include "TestInfLongRipple2.h"
 #include "TestPyGenerator.h"
 #include "TBenchmark.h"
+#include "TestRotations.h"
 
 
 ApplicationTestFactory::ApplicationTestFactory() : m_benchmark(0)
@@ -288,5 +289,11 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "iripple2",
         IFactoryCreateFunction<TestInfLongRipple2, IApplicationTest>,
         "test the new infinite ripple2 formfactor");
+
+    p_test_factory->registerItem(
+        "rotations",
+        IFactoryCreateFunction<TestRotations, IApplicationTest>,
+        "Test sample rotations");
+
 }
 

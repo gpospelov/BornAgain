@@ -32,10 +32,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleDistributionType, parent)
 {
     setItemName(Constants::ParticleDistributionType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
                      PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
 
@@ -43,6 +40,7 @@ ParticleDistributionItem::ParticleDistributionItem(ParameterizedItem *parent)
 
     addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0, 1);
+    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0, 1);
 
     ComboProperty par_prop;
     registerProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
@@ -56,8 +54,14 @@ ParticleDistributionItem::~ParticleDistributionItem()
 void ParticleDistributionItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    }
 }
 
 void ParticleDistributionItem::onChildPropertyChange()
@@ -94,17 +98,24 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QStringList result;
     QList<ParameterizedItem *> children = childItems();
     if (children.size() > 1) {
-        throw GUIHelpers::Error("ParticleDistributionItem::getChildParameterNames()"
-                                " -> Error! More than one child item");
+        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
+                 << "More than one child item";
+        return result;
     }
     if (children.size() == 0) {
         result << NO_SELECTION;
         return result;
     }
-    double depth(0.0), abundance(0.0);
+    double abundance(0.0);
     DomainObjectBuilder builder;
-    boost::scoped_ptr<ParticleDistribution> P_part_distr(
-        builder.buildParticleDistribution(*this, depth, abundance, true));
+    boost::scoped_ptr<ParticleDistribution> P_part_distr;
+    try {
+        P_part_distr.reset(builder.buildParticleDistribution(*this, abundance, true));
+    } catch(const std::exception &ex) {
+        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
+                 << "domain particle could not be build: "
+                 << QString::fromStdString(ex.what());
+    }
     if (P_part_distr.get()) {
         boost::scoped_ptr<ParameterPool> P_pool(P_part_distr->createDistributedParameterPool());
         result << extractFromParameterPool(P_pool.get());

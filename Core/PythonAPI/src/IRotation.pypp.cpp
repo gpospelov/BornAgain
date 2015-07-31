@@ -57,6 +57,18 @@ struct IRotation_wrapper : IRotation, bp::wrapper< IRotation > {
         return func_getTransform3D(  );
     }
 
+    virtual bool isIdentity(  ) const  {
+        if( bp::override func_isIdentity = this->get_override( "isIdentity" ) )
+            return func_isIdentity(  );
+        else{
+            return this->IRotation::isIdentity(  );
+        }
+    }
+    
+    bool default_isIdentity(  ) const  {
+        return IRotation::isIdentity( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -127,18 +139,6 @@ struct IRotation_wrapper : IRotation, bp::wrapper< IRotation > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -296,6 +296,17 @@ void register_IRotation_class(){
                 , "Returns transformation." );
         
         }
+        { //::IRotation::isIdentity
+        
+            typedef bool ( ::IRotation::*isIdentity_function_type)(  ) const;
+            typedef bool ( IRotation_wrapper::*default_isIdentity_function_type)(  ) const;
+            
+            IRotation_exposer.def( 
+                "isIdentity"
+                , isIdentity_function_type(&::IRotation::isIdentity)
+                , default_isIdentity_function_type(&IRotation_wrapper::default_isIdentity) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
@@ -363,17 +374,6 @@ void register_IRotation_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&IRotation_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( IRotation_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            IRotation_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&IRotation_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

@@ -209,6 +209,18 @@ piecewise solutions of the Schrödinger equations must be connected
 such that the wavefunction $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
 
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.46\textwidth]{fig/drawing/multilayer_boundary.ps}
+\end{center}
+\caption{The transfer matrix $M_l$ connects the wavefunctions 
+\index{Multilayer!transfer matrix}%
+\index{Layer!transfer matrix}%
+\index{Transfer matrix}%
+$\Phi_l$, $\Phi_{l-1}$ in adjacent layers.}
+\label{Fboundary}
+\end{figure}
+
 To deal with the coordinate offsets introduced in (\ref{Ephizwj}),
 we introduce the function
 \begin{equation}
@@ -217,14 +229,14 @@ we introduce the function
 which is the thickness of layer~$\il$,
 except for $\il=0$,
 where the special definition of $z_0$ (Fig.~\ref{Fdefz}) implies $d_0=0$.
-We consider the interface between layers $\il$ and $\il+1$,
-with~$\il=0,\ldots,N-1$.
-This interface has the vertical coordinate $z_{\il+1}=z_l-d_l$.
+We consider the interface between layers $\il$ and $\il-1$,
+with~$\il=1,\ldots,N$, as shown in Fig.~\ref{Fboundary}.
+This interface has the vertical coordinate $z_{\il}=z_{l-1}-d_{l-1}$.
 Accordingly, the continuity conditions at the interface are
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
-  \hphantom{\partial_z}\phi_{\il+1}(z_{\il+1}) &=& \hphantom{\partial_z}\phi_{\il}(z_{\il}-d_{\il}),\\
-            \partial_z \phi_{\il+1}(z_{\il+1}) &=&           \partial_z \phi_{\il}(z_{\il}-d_{\il}).
+ \hphantom{\partial_z}\phi_{\il}(z_{\il}) &=& \hphantom{\partial_z}\phi_{\il-1}(z_{\il-1}-d_{\il-1}),\\
+           \partial_z \phi_{\il}(z_{\il}) &=&           \partial_z \phi_{\il-1}(z_{\il-1}-d_{\il-1}).
   \end{array}
 \end{equation}
 We abbreviate
@@ -239,33 +251,33 @@ For the plane waves (\ref{Ephizwj}),
 the continuity conditions~(\ref{Econtcond}) take the form
 \begin{equation}\label{Econt2}
   \begin{array}{@{}l@{}lcl@{}l}
-  +A^-_{\il+1} &+A^+_{\il+1}
+  +A^-_{\il} &+A^+_{\il}
   &=&
-  +A^-_{\il}\delta_{\il} &+A^+_{\il}\delta_{\il}^*,
+  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^*,
   \\
-  -A^-_{\il+1} f_{\il+1}  &+A^+_{\il+1} f_{\il+1}
+  -A^-_{\il} f_{\il}  &+A^+_{\il} f_{\il}
   &=&
-  -A^-_{\il}\delta_{\il} f_{\il} &+A^+_{\il}\delta_{\il}^* f_{\il}.
+  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^* f_{\il-1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
 we can rewrite this equation system as
 \begin{equation}\label{EcMc}
-  \left( \begin{array}{c}A^-_{\il}\\ A^+_{\il}\end{array} \right)
-  = M_{\il} \left( \begin{array}{c}A^-_{\il+1}\\A^+_{\il+1}\end{array} \right)
+  \left( \begin{array}{c}A^-_{\il-1}\\ A^+_{\il-1}\end{array} \right)
+  = M_{\il} \left( \begin{array}{c}A^-_{\il}\\A^+_{\il}\end{array} \right)
 \end{equation}
 with the transfer matrix
 \begin{equation}\label{EMil}
   M_\il
    \coloneqq
    \left(\begin{array}{cc}
-       \delta_\il^*&0\\
-       0 & \delta_\il
+       \delta_{\il-1}^*&0\\
+       0 & \delta_{\il-1}
    \end{array}\right)
-   \frac{1}{2f_{\il}}
+   \frac{1}{2f_{\il-1}}
    \left(\begin{array}{cc}
-       (f_{\il}+f_{\il+1})&(f_{\il}-f_{\il+1})\\
-       (f_{\il}-f_{\il+1})&(f_{\il}+f_{\il+1})
+       (f_{\il-1}+f_{\il})&(f_{\il-1}-f_{\il})\\
+       (f_{\il-1}-f_{\il})&(f_{\il-1}+f_{\il})
    \end{array}\right).
 \end{equation}
 
@@ -281,7 +293,7 @@ the overall coefficients of transmission~$A^-_N$ and reflection~$A^+_0$.
 These two unknowns are  connected by a system of two linear equations,
 \begin{equation}
   \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
-  = M_0 \cdots M_{N-1} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
+  = M_1 \cdots M_{N} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
 \end{equation}
 While it is possible in principle
 to solve this as a matrix equation,
@@ -293,7 +305,7 @@ interface by interface,
 yielding unnormalized amplitudes
 \begin{equation}\label{EAtildel}
   \left( \begin{array}{c}\tilde A^-_{\il}\\ \tilde A^+_{\il}\end{array} \right)
-  \coloneqq M_{\il}\cdots M_{N-1} \left( \begin{array}{c}1\\0\end{array} \right).
+  \coloneqq M_{\il+1}\cdots M_{N} \left( \begin{array}{c}1\\0\end{array} \right).
 \end{equation}
 When the top layer is reached,
 the obtained values are renormalized
@@ -330,17 +342,17 @@ agree with Fresnel's result for $s$-polarized light,\footnote
   = \left|\frac{f_0-f_1}{f_0+f_1}\right|^2.
 \end{equation}
 
-The above algorithm fails if $f_l\to0$
-because $M_l$ becomes singular.
-A layer with $f_l=0$ only sustains horizontal wave propagation;
+The above algorithm fails if $f_{\il}\to0$
+because $M_{\il+1}$ becomes singular.
+A layer with $f_{\il}=0$ only sustains horizontal wave propagation;
 radiation from below or above is totally reflected at its boundaries.
 In \BornAgain,
-such total reflection is imposed if $|f_l|$ falls below a very small value
+such total reflection is imposed if $|f_{\il}|$ falls below a very small value
 (currently $10^{-20}$).
 However, except for the top vacuum layer
 this ought to be inconsequential
 because the index of refraction should always
-have an absorptive component that prevents $f_l$ from becoming zero.
+have an absorptive component that prevents $f_{\il}$ from becoming zero.
 
 
 %-------------------------------------------------------------------------------

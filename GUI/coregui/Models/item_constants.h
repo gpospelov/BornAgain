@@ -31,7 +31,7 @@ const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType ParticleCompositionType = "ParticleComposition";
-const ModelType TransformationType = "Transformation";
+const ModelType TransformationType = "Rotation";
 const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceFunctionRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
 const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
@@ -123,7 +123,7 @@ const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
-const ModelType RotationGroup = "Rotation";
+const ModelType RotationGroup = "Rotation group";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";

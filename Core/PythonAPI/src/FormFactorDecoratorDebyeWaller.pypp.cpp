@@ -30,8 +30,15 @@ namespace bp = boost::python;
 
 struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, bp::wrapper< FormFactorDecoratorDebyeWaller > {
 
-    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & p_form_factor, double dw_h_factor, double dw_r_factor )
-    : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
+    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & form_factor, double dw_factor )
+    : FormFactorDecoratorDebyeWaller( boost::ref(form_factor), dw_factor )
+      , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
+        // constructor
+    m_pyobj = 0;
+    }
+
+    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & form_factor, double dw_h_factor, double dw_r_factor )
+    : FormFactorDecoratorDebyeWaller( boost::ref(form_factor), dw_h_factor, dw_r_factor )
       , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
         // constructor
     m_pyobj = 0;
@@ -193,18 +200,6 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return IFormFactorDecorator::getVolume( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -316,8 +311,9 @@ void register_FormFactorDecoratorDebyeWaller_class(){
 
     { //::FormFactorDecoratorDebyeWaller
         typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, std::auto_ptr< FormFactorDecoratorDebyeWaller_wrapper >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
-        FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", "Debye-Waller factors in radial and z directions.", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") ), "Why the hell do we need this alternative form?.") );
+        FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", "Debye-Waller factors in radial and z directions.", bp::init< IFormFactor const &, double >(( bp::arg("form_factor"), bp::arg("dw_factor") ), "Isotropic Debye-Waller factor.") );
         bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
+        FormFactorDecoratorDebyeWaller_exposer.def( bp::init< IFormFactor const &, double, double >(( bp::arg("form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") ), "Anisotropic Debye-Waller factor.") );
         { //::FormFactorDecoratorDebyeWaller::clone
         
             typedef ::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::*clone_function_type)(  ) const;
@@ -465,17 +461,6 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorDecorator::getVolume)
                 , default_getVolume_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getVolume) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            FormFactorDecoratorDebyeWaller_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

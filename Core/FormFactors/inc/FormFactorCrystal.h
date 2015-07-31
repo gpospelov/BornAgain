@@ -26,16 +26,14 @@
 class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 {
 public:
-    FormFactorCrystal(
-        const Crystal& p_crystal, const IFormFactor& meso_crystal_form_factor,
-        const IMaterial &p_material, complex_t wavevector_scattering_factor);
+    FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
+                      const IFormFactor &meso_form_factor);
+
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
-
-    virtual void setAmbientMaterial(const IMaterial& material);
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
@@ -54,11 +52,8 @@ private:
     void calculateLargestReciprocalDistance();
 
     Lattice m_lattice;
-    complex_t m_wavevector_scattering_factor;
-    ParticleComposition *mp_lattice_basis;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
-    IMaterial *mp_ambient_material;
     double m_max_rec_length;
 };
 

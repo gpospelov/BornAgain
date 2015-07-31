@@ -57,11 +57,10 @@ public:
     //! Returns particle's material.
     virtual const IMaterial* getAmbientMaterial() const { return mP_ambient_material.get(); }
 
-    //! Create a form factor which includes the particle's shape,
-    //! material, ambient material, an optional transformation and an extra
-    //! scattering factor
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Sets _material_.
     virtual void setMaterial(const IMaterial& material) {
@@ -89,8 +88,6 @@ public:
     }
 
 protected:
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
     boost::scoped_ptr<IMaterial> mP_material;
     boost::scoped_ptr<IMaterial> mP_ambient_material;
     boost::scoped_ptr<IFormFactor> mP_form_factor;

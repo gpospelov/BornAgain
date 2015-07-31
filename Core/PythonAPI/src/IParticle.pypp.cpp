@@ -30,11 +30,6 @@ namespace bp = boost::python;
 
 struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 
-    virtual void applyTransformationToSubParticles( ::IRotation const & rotation ){
-        bp::override func_applyTransformationToSubParticles = this->get_override( "applyTransformationToSubParticles" );
-        func_applyTransformationToSubParticles( boost::ref(rotation) );
-    }
-
     virtual ::IParticle * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -45,26 +40,9 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return func_cloneInvertB(  );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const {
-        bp::override func_createFormFactor = this->get_override( "createFormFactor" );
-        return func_createFormFactor( wavevector_scattering_factor );
-    }
-
-    virtual ::IMaterial const * getAmbientMaterial(  ) const {
-        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
-        return func_getAmbientMaterial(  );
-    }
-
-    virtual void setAmbientMaterial( ::IMaterial const & material ) {
-        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
-            func_setAmbientMaterial( boost::ref(material) );
-        else{
-            this->IParticle::setAmbientMaterial( boost::ref(material) );
-        }
-    }
-    
-    void default_setAmbientMaterial( ::IMaterial const & material ) {
-        IParticle::setAmbientMaterial( boost::ref(material) );
+    virtual ::IFormFactor * createTransformedFormFactor( ::complex_t wavevector_scattering_factor, ::IRotation const * p_rotation, ::kvector_t translation ) const {
+        bp::override func_createTransformedFormFactor = this->get_override( "createTransformedFormFactor" );
+        return func_createTransformedFormFactor( wavevector_scattering_factor, boost::python::ptr(p_rotation), translation );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -115,6 +93,11 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::IMaterial const * getAmbientMaterial(  ) const {
+        bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
+        return func_getAmbientMaterial(  );
+    }
+
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -137,18 +120,6 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -192,6 +163,18 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
         else{
             inst.registerParameter(name, reinterpret_cast< double * >( parpointer ), limits);
         }
+    }
+
+    virtual void setAmbientMaterial( ::IMaterial const & material ) {
+        if( bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" ) )
+            func_setAmbientMaterial( boost::ref(material) );
+        else{
+            this->IAbstractParticle::setAmbientMaterial( boost::ref(material) );
+        }
+    }
+    
+    void default_setAmbientMaterial( ::IMaterial const & material ) {
+        IAbstractParticle::setAmbientMaterial( boost::ref(material) );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -261,8 +244,8 @@ struct IParticle_wrapper : IParticle, bp::wrapper< IParticle > {
 void register_IParticle_class(){
 
     { //::IParticle
-        typedef bp::class_< IParticle_wrapper, bp::bases< ICompositeSample >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
-        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a generic particl.", bp::no_init );
+        typedef bp::class_< IParticle_wrapper, bp::bases< IAbstractParticle >, std::auto_ptr< IParticle_wrapper >, boost::noncopyable > IParticle_exposer_t;
+        IParticle_exposer_t IParticle_exposer = IParticle_exposer_t( "IParticle", "Interface for a real particle (one that has position/rotation and form factor.", bp::no_init );
         bp::scope IParticle_scope( IParticle_exposer );
         { //::IParticle::applyRotation
         
@@ -275,14 +258,15 @@ void register_IParticle_class(){
                 , "Applies transformation by composing it with the existing one." );
         
         }
-        { //::IParticle::applyTransformationToSubParticles
+        { //::IParticle::applyTranslation
         
-            typedef void ( IParticle_wrapper::*applyTransformationToSubParticles_function_type)( ::IRotation const & ) ;
+            typedef void ( ::IParticle::*applyTranslation_function_type)( ::kvector_t ) ;
             
             IParticle_exposer.def( 
-                "applyTransformationToSubParticles"
-                , applyTransformationToSubParticles_function_type( &IParticle_wrapper::applyTransformationToSubParticles )
-                , ( bp::arg("rotation") ) );
+                "applyTranslation"
+                , applyTranslation_function_type( &::IParticle::applyTranslation )
+                , ( bp::arg("displacement") )
+                , "Applies extra translation by adding it to the current one." );
         
         }
         { //::IParticle::clone
@@ -312,31 +296,22 @@ void register_IParticle_class(){
             
             IParticle_exposer.def( 
                 "createFormFactor"
-                , bp::pure_virtual( createFormFactor_function_type(&::IParticle::createFormFactor) )
+                , createFormFactor_function_type( &::IParticle::createFormFactor )
                 , ( bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >()
-                , "Create a form factor which includes the particle's shape, material, ambient material, an optional transformation and an extra scattering factor " );
+                , "Create a form factor for this particle with an extra scattering factor." );
         
         }
-        { //::IParticle::getAmbientMaterial
+        { //::IParticle::createTransformedFormFactor
         
-            typedef ::IMaterial const * ( ::IParticle::*getAmbientMaterial_function_type)(  ) const;
+            typedef ::IFormFactor * ( ::IParticle::*createTransformedFormFactor_function_type)( ::complex_t,::IRotation const *,::kvector_t ) const;
             
             IParticle_exposer.def( 
-                "getAmbientMaterial"
-                , bp::pure_virtual( getAmbientMaterial_function_type(&::IParticle::getAmbientMaterial) )
-                , bp::return_value_policy< bp::reference_existing_object >()
-                , "Returns particle's material." );
-        
-        }
-        { //::IParticle::getDepth
-        
-            typedef double ( ::IParticle::*getDepth_function_type)(  ) const;
-            
-            IParticle_exposer.def( 
-                "getDepth"
-                , getDepth_function_type( &::IParticle::getDepth )
-                , "Returns depth of particle." );
+                "createTransformedFormFactor"
+                , bp::pure_virtual( createTransformedFormFactor_function_type(&::IParticle::createTransformedFormFactor) )
+                , ( bp::arg("wavevector_scattering_factor"), bp::arg("p_rotation"), bp::arg("translation") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Create a form factor for this particle with an extra scattering factor." );
         
         }
         { //::IParticle::getPosition
@@ -346,7 +321,7 @@ void register_IParticle_class(){
             IParticle_exposer.def( 
                 "getPosition"
                 , getPosition_function_type( &::IParticle::getPosition )
-                , "Returns particle position, including depth." );
+                , "Returns particle position." );
         
         }
         { //::IParticle::getRotation
@@ -360,18 +335,6 @@ void register_IParticle_class(){
                 , "Returns rotation object." );
         
         }
-        { //::IParticle::setAmbientMaterial
-        
-            typedef void ( ::IParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
-            
-            IParticle_exposer.def( 
-                "setAmbientMaterial"
-                , setAmbientMaterial_function_type(&::IParticle::setAmbientMaterial)
-                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
-                , ( bp::arg("material") ) );
-        
-        }
         { //::IParticle::setPosition
         
             typedef void ( ::IParticle::*setPosition_function_type)( ::kvector_t ) ;
@@ -380,7 +343,18 @@ void register_IParticle_class(){
                 "setPosition"
                 , setPosition_function_type( &::IParticle::setPosition )
                 , ( bp::arg("position") )
-                , "Sets particle position, including depth." );
+                , "Sets particle position." );
+        
+        }
+        { //::IParticle::setPosition
+        
+            typedef void ( ::IParticle::*setPosition_function_type)( double,double,double ) ;
+            
+            IParticle_exposer.def( 
+                "setPosition"
+                , setPosition_function_type( &::IParticle::setPosition )
+                , ( bp::arg("x"), bp::arg("y"), bp::arg("z") )
+                , "Sets particle position." );
         
         }
         { //::IParticle::setRotation
@@ -439,6 +413,17 @@ void register_IParticle_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IAbstractParticle::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::IAbstractParticle::*getAmbientMaterial_function_type)(  ) const;
+            
+            IParticle_exposer.def( 
+                "getAmbientMaterial"
+                , bp::pure_virtual( getAmbientMaterial_function_type(&::IAbstractParticle::getAmbientMaterial) )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Returns particle's material." );
+        
+        }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
@@ -461,17 +446,6 @@ void register_IParticle_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&IParticle_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( IParticle_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            IParticle_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&IParticle_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters
@@ -505,6 +479,18 @@ void register_IParticle_class(){
                 , default_registerParameter_function_type( &IParticle_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer"), bp::arg("limits")=AttLimits::limitless( ) )
                 , "main method to register data address in the pool." );
+        
+        }
+        { //::IAbstractParticle::setAmbientMaterial
+        
+            typedef void ( ::IAbstractParticle::*setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            typedef void ( IParticle_wrapper::*default_setAmbientMaterial_function_type)( ::IMaterial const & ) ;
+            
+            IParticle_exposer.def( 
+                "setAmbientMaterial"
+                , setAmbientMaterial_function_type(&::IAbstractParticle::setAmbientMaterial)
+                , default_setAmbientMaterial_function_type(&IParticle_wrapper::default_setAmbientMaterial)
+                , ( bp::arg("material") ) );
         
         }
         { //::IParameterized::setParameterValue

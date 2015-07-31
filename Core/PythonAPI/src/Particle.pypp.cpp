@@ -82,18 +82,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor( wavevector_scattering_factor );
-        else{
-            return this->Particle::createFormFactor( wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
-        return Particle::createFormFactor( wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
@@ -224,18 +212,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -376,19 +352,6 @@ void register_Particle_class(){
                 , cloneInvertB_function_type(&::Particle::cloneInvertB)
                 , default_cloneInvertB_function_type(&Particle_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Particle::createFormFactor
-        
-            typedef ::IFormFactor * ( ::Particle::*createFormFactor_function_type)( ::complex_t ) const;
-            typedef ::IFormFactor * ( Particle_wrapper::*default_createFormFactor_function_type)( ::complex_t ) const;
-            
-            Particle_exposer.def( 
-                "createFormFactor"
-                , createFormFactor_function_type(&::Particle::createFormFactor)
-                , default_createFormFactor_function_type(&Particle_wrapper::default_createFormFactor)
-                , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::Particle::getAmbientMaterial
@@ -539,17 +502,6 @@ void register_Particle_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&Particle_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( Particle_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            Particle_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&Particle_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

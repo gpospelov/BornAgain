@@ -8,7 +8,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IntensityFunctionSqrt.pypp.h"
 #include "MinimizerFactory.pypp.h"
 #include "IMinimizer.pypp.h"
-#include "vector_string_t.pypp.h"
 #include "SquaredFunctionSystematicError.pypp.h"
 #include "IntensityNormalizer.pypp.h"
 #include "IIntensityFunction.pypp.h"
@@ -40,7 +39,6 @@ GCC_DIAG_ON(missing-field-initializers)
 BOOST_PYTHON_MODULE(libBornAgainFit){
     boost::python::docstring_options doc_options(true, true, false);
 
-    register_vector_string_t_class();
     register_AttFitting_class();
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();

@@ -29,10 +29,10 @@ const QString ParameterizedItem::P_NAME = "Name";
 const QString ParameterizedItem::P_PORT = "Port";
 
 ParameterizedItem::ParameterizedItem(const QString &model_type, ParameterizedItem *parent)
-    : m_model_type(model_type), m_parent(parent)
+    : m_model_type(model_type), mp_parent(parent)
 {
-    if (m_parent) {
-        m_parent->insertChildItem(-1, this);
+    if (mp_parent) {
+        mp_parent->insertChildItem(-1, this);
     }
 
     registerProperty(P_NAME, QString(), PropertyAttribute(PropertyAttribute::HIDDEN));
@@ -65,7 +65,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 {
     if (row == -1)
         row = m_children.size();
-    item->m_parent = this;
+    item->mp_parent = this;
     m_children.insert(row, item);
     onChildPropertyChange();
 }
@@ -73,7 +73,7 @@ void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 {
     ParameterizedItem *item = m_children.takeAt(row);
-    item->m_parent = 0;
+    item->mp_parent = 0;
     onChildPropertyChange();
     return item;
 }
@@ -111,8 +111,8 @@ bool ParameterizedItem::event(QEvent *e)
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
     //    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
-    if (m_parent)
-        m_parent->onChildPropertyChange();
+    if (mp_parent)
+        mp_parent->onChildPropertyChange();
     emit propertyChanged(name);
 }
 
@@ -179,7 +179,7 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
         m_sub_items.remove(name);
     }
     m_sub_items[name] = item;
-    item->m_parent = this;
+    item->mp_parent = this;
     // connect(item, SIGNAL(propertyChanged(QString)), this,
     // SLOT(onSubItemPropertyChanged(QString)), Qt::UniqueConnection);
     onSubItemChanged(name);
@@ -247,8 +247,16 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
     if (!m_registered_properties.contains(name))
         throw GUIHelpers::Error(
-            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property " + name
-            + " model=" + modelType());
+            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + name
+            + "', item '" + modelType() + "'");
+
+
+    // for debugging purpose
+//    PropertyAttribute attribute = getPropertyAttribute(name);
+//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
+//        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Logic Error? "
+//            "You are trying to get DISABLED property with name '" +name +"', model " + modelType());
+//    }
 
     return property(name.toUtf8().constData());
 }
@@ -337,8 +345,8 @@ QStringList ParameterizedItem::getParameterTreeList() const
 void ParameterizedItem::onChildPropertyChange()
 {
     qDebug() << "ParameterizedItem::onChildPropertyChange()";
-    if (m_parent)
-        m_parent->onChildPropertyChange();
+    if (mp_parent)
+        mp_parent->onChildPropertyChange();
 }
 
 //! called when new SubItem appeared
@@ -374,8 +382,8 @@ void ParameterizedItem::onSubItemPropertyChanged(const QString &property_group,
                                                  const QString &property_name)
 {
     emit subItemPropertyChanged(property_group, property_name);
-    if (m_parent)
-        m_parent->onChildPropertyChange();
+    if (mp_parent)
+        mp_parent->onChildPropertyChange();
 }
 
 PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const

@@ -30,7 +30,7 @@ namespace bp = boost::python;
 
 struct RotationZ_wrapper : RotationZ, bp::wrapper< RotationZ > {
 
-    RotationZ_wrapper(double angle )
+    RotationZ_wrapper(double angle=0.0 )
     : RotationZ( angle )
       , bp::wrapper< RotationZ >(){
         // constructor
@@ -157,16 +157,16 @@ struct RotationZ_wrapper : RotationZ, bp::wrapper< RotationZ > {
         return ISample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
+    virtual bool isIdentity(  ) const  {
+        if( bp::override func_isIdentity = this->get_override( "isIdentity" ) )
+            return func_isIdentity(  );
         else{
-            return this->ISample::preprocess(  );
+            return this->IRotation::isIdentity(  );
         }
     }
     
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
+    bool default_isIdentity(  ) const  {
+        return IRotation::isIdentity( );
     }
 
     virtual void printParameters(  ) const  {
@@ -268,7 +268,7 @@ void register_RotationZ_class(){
 
     { //::RotationZ
         typedef bp::class_< RotationZ_wrapper, bp::bases< IRotation >, std::auto_ptr< RotationZ_wrapper >, boost::noncopyable > RotationZ_exposer_t;
-        RotationZ_exposer_t RotationZ_exposer = RotationZ_exposer_t( "RotationZ", bp::init< double >(( bp::arg("angle") )) );
+        RotationZ_exposer_t RotationZ_exposer = RotationZ_exposer_t( "RotationZ", bp::init< bp::optional< double > >(( bp::arg("angle")=0.0 )) );
         bp::scope RotationZ_scope( RotationZ_exposer );
         { //::RotationZ::clone
         
@@ -395,15 +395,15 @@ void register_RotationZ_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ISample::preprocess
+        { //::IRotation::isIdentity
         
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( RotationZ_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef bool ( ::IRotation::*isIdentity_function_type)(  ) const;
+            typedef bool ( RotationZ_wrapper::*default_isIdentity_function_type)(  ) const;
             
             RotationZ_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&RotationZ_wrapper::default_preprocess) );
+                "isIdentity"
+                , isIdentity_function_type(&::IRotation::isIdentity)
+                , default_isIdentity_function_type(&RotationZ_wrapper::default_isIdentity) );
         
         }
         { //::IParameterized::printParameters

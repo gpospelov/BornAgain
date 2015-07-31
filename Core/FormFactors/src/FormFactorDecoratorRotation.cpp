@@ -20,8 +20,8 @@
 FormFactorDecoratorRotation *FormFactorDecoratorRotation::clone() const
 {
     boost::scoped_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
-    FormFactorDecoratorRotation *result =  new FormFactorDecoratorRotation(
-                mp_form_factor->clone(), *P_rotation);
+    FormFactorDecoratorRotation *result
+        = new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
 
     result->setName(getName());
     return result;

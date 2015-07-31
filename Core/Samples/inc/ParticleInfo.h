@@ -30,7 +30,7 @@
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
 public:
-    ParticleInfo(const IParticle &p_particle, double abundance = 1.0);
+    ParticleInfo(const IAbstractParticle &p_particle, double abundance = 1.0);
 
     virtual ~ParticleInfo()
     {
@@ -48,25 +48,10 @@ public:
     }
 
     //! Returns particle.
-    const IParticle *getParticle() const
+    const IAbstractParticle *getParticle() const
     {
         return mP_particle.get();
     }
-
-    //! Returns depth.
-    double getDepth() const
-    {
-        return -mP_particle->getPosition().z();
-    }
-
-    //! Returns particle position, including depth.
-    kvector_t getPosition() const
-    {
-        return mP_particle->getPosition();
-    }
-
-    //! Sets particle position, including depth.
-    void setPosition(kvector_t position);
 
     //! Returns abundance.
     double getAbundance() const
@@ -91,7 +76,7 @@ protected:
 
     virtual void print(std::ostream &ostr) const;
 
-    boost::scoped_ptr<IParticle> mP_particle;
+    boost::scoped_ptr<IAbstractParticle> mP_particle;
     double m_abundance;
 };
 

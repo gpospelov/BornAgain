@@ -79,9 +79,14 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::IParticle const * getParticle( ::std::size_t index ) const {
+    virtual ::IAbstractParticle const * getParticle( ::std::size_t index ) const {
         bp::override func_getParticle = this->get_override( "getParticle" );
         return func_getParticle( index );
+    }
+
+    virtual void getParticleInfos( ::SafePointerVector< const IParticle > & particle_vector, ::std::vector< double > & abundance_vector ) const {
+        bp::override func_getParticleInfos = this->get_override( "getParticleInfos" );
+        func_getParticleInfos( boost::ref(particle_vector), boost::ref(abundance_vector) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -154,18 +159,6 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -372,7 +365,7 @@ void register_ILayout_class(){
         }
         { //::ILayout::getParticle
         
-            typedef ::IParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
+            typedef ::IAbstractParticle const * ( ::ILayout::*getParticle_function_type)( ::std::size_t ) const;
             
             ILayout_exposer.def( 
                 "getParticle"
@@ -380,6 +373,17 @@ void register_ILayout_class(){
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >()
                 , "Returns information about particle with index." );
+        
+        }
+        { //::ILayout::getParticleInfos
+        
+            typedef void ( ::ILayout::*getParticleInfos_function_type)( ::SafePointerVector<const IParticle> &,::std::vector<double, std::allocator<double> > & ) const;
+            
+            ILayout_exposer.def( 
+                "getParticleInfos"
+                , bp::pure_virtual( getParticleInfos_function_type(&::ILayout::getParticleInfos) )
+                , ( bp::arg("particle_vector"), bp::arg("abundance_vector") )
+                , "Returns information on all particles (type and abundance) and generates new particles if an IAbstractParticle denotes a collection " );
         
         }
         { //::ILayout::getTotalAbundance
@@ -490,17 +494,6 @@ void register_ILayout_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( ILayout_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            ILayout_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&ILayout_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

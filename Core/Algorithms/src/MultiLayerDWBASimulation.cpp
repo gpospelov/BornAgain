@@ -22,7 +22,6 @@
 #include "MessageService.h"
 #include "ScalarSpecularInfoMap.h"
 #include "MatrixSpecularInfoMap.h"
-#include "SamplePreprocessor.h"
 #include "BornAgainNamespace.h"
 
 
@@ -31,8 +30,6 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
   : mp_roughness_dwba_simulation(0)
 {
     mp_multi_layer = p_multi_layer->clone();
-    SamplePreprocessor preprocessor;
-    preprocessor.process(mp_multi_layer);
 }
 
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()

@@ -25,7 +25,6 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
     setItemName(Constants::ParticleLayoutType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
 
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
@@ -43,5 +42,26 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
 
 ParticleLayoutItem::~ParticleLayoutItem()
 {
+}
+
+void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    if (item->modelType() == Constants::ParticleType
+        || item->modelType() == Constants::ParticleCoreShellType
+        || item->modelType() == Constants::ParticleCompositionType
+        || item->modelType() == Constants::ParticleDistributionType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_0);
+        }
+    } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+               || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if (port == PortInfo::DEFAULT) {
+            item->setItemPort(PortInfo::PORT_1);
+        }
+    }
 }
 

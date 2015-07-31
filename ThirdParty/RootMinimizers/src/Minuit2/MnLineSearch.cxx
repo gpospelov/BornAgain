@@ -17,6 +17,7 @@
 #include "Minuit2/LaSum.h"
 
 #include <iostream>
+#include <algorithm>
 #include "Minuit2/MnPrint.h"
 
 #ifdef USE_OTHER_LS

@@ -107,24 +107,24 @@ std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
-    createSquare(double peak_distance, double corr_length, double domain_size_1,
+    createSquare(double peak_distance, double damping_length, double domain_size_1,
         double domain_size_2)
 {
     InterferenceFunction2DParaCrystal *p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    Units::PI/2.0, 0.0, corr_length);
+                    Units::PI/2.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
-    createHexagonal(double peak_distance, double corr_length,
+    createHexagonal(double peak_distance, double damping_length,
             double domain_size_1, double domain_size_2)
 {
     InterferenceFunction2DParaCrystal *p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    2.0*Units::PI/3.0, 0.0, corr_length);
+                    2.0*Units::PI/3.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;

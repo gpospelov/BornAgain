@@ -44,7 +44,7 @@ def get_sample(formfactor):
     # collection of particles
     particle = Particle(m_particle, formfactor)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(particle, 0.0, 1.0)
+    particle_layout.addParticle(particle, 1.0)
 
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)

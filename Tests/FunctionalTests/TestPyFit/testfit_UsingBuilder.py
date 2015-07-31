@@ -135,8 +135,8 @@ class MySampleBuilder(ISampleBuilder):
         interference = InterferenceFunctionNone()
 
         particle_layout = ParticleLayout()
-        particle_layout.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
-        particle_layout.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
+        particle_layout.addParticle(cylinder, self.cylinder_ratio.value)
+        particle_layout.addParticle(prism, 1.0 - self.cylinder_ratio.value)
         particle_layout.addInterferenceFunction(interference)
 
         air_layer.addLayout(particle_layout)

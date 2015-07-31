@@ -325,10 +325,10 @@ TEST_F(DistributionsTest, DistributionLogNormalClone)
     EXPECT_EQ(1/std::sqrt(2.0*Units::PI), id1D->probabilityDensity(1.0));
     EXPECT_EQ("DistributionLogNormal", id1D->getName());
 
-    std::vector<double> list1 = id1D->generateValueList(1.0, 0.0);
+    std::vector<double> list1 = id1D->generateValueList(1, 0.0);
     EXPECT_EQ(id1D->getMedian(), list1[0]);
 
-    std::vector<double> list2 = id1D->generateValueList(2.0,0.0);
+    std::vector<double> list2 = id1D->generateValueList(2,0.0);
     EXPECT_EQ(std::exp(-2), list2[0]);
     EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list2[1]);
 

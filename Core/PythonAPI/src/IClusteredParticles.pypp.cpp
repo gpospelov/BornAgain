@@ -64,18 +64,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return func_cloneInvertB(  );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
-            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        else{
-            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-        }
-    }
-    
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
-        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getAmbientMaterial(  ) const {
         bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" );
         return func_getAmbientMaterial(  );
@@ -156,18 +144,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
     }
 
     virtual void printParameters(  ) const  {
@@ -328,19 +304,6 @@ void register_IClusteredParticles_class(){
                 , "Returns a clone with inverted magnetic fields." );
         
         }
-        { //::IClusteredParticles::createTotalFormFactor
-        
-            typedef ::IFormFactor * ( ::IClusteredParticles::*createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            typedef ::IFormFactor * ( IClusteredParticles_wrapper::*default_createTotalFormFactor_function_type)( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "createTotalFormFactor"
-                , createTotalFormFactor_function_type(&::IClusteredParticles::createTotalFormFactor)
-                , default_createTotalFormFactor_function_type(&IClusteredParticles_wrapper::default_createTotalFormFactor)
-                , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::IClusteredParticles::getAmbientMaterial
         
             typedef ::IMaterial const * ( ::IClusteredParticles::*getAmbientMaterial_function_type)(  ) const;
@@ -429,17 +392,6 @@ void register_IClusteredParticles_class(){
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
                 , default_getCompositeSample_function_type(&IClusteredParticles_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( IClusteredParticles_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            IClusteredParticles_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&IClusteredParticles_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

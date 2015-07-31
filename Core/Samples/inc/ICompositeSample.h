@@ -26,9 +26,6 @@
 class BA_CORE_API_ ICompositeSample : public ISample
 {
 public:
-    typedef std::list<ISample*>::iterator iterator_t;
-    typedef std::list<ISample*>::const_iterator const_iterator_t;
-
     ICompositeSample() {}
     virtual ~ICompositeSample() {}
 
@@ -47,27 +44,24 @@ public:
     //! Removes registered child from the container
     virtual void deregisterChild(ISample *sample);
 
-    //! Begins iteration over local registered children.
-    iterator_t begin_shallow() { return m_samples.begin(); }
+    //! Returns child pointer by index (with range checking)
+    ISample *operator[](size_t index);
 
-    //! Ends iteration over local registered children.
-    iterator_t end_shallow() { return m_samples.end(); }
+    //! Returns child pointer by index (with range checking)
+    const ISample *operator[](size_t index) const;
 
-    //! Begins read-only iteration over local registered children.
-    const_iterator_t begin_shallow() const { return m_samples.begin(); }
-
-    //! Ends read-only iteration over local registered children.
-    const_iterator_t end_shallow() const { return m_samples.end(); }
+    //! Returns a vector of children (const)
+    std::vector<const ISample*> getChildren() const;
 
     //! Returns number of children.
     virtual size_t size() const { return m_samples.size(); }
 
-    //! Creates general iterator to walk through tree of composite children.
-    class ICompositeIterator createIterator() const;
-
 private:
+    //! Check child index
+    bool childIndexInRange(size_t index) const;
+
     //! List of registered children.
-    std::list<ISample*> m_samples;
+    std::vector<ISample*> m_samples;
 };
 
 #endif // ICOMPOSITESAMPLE_H

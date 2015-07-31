@@ -20,6 +20,9 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
+#include "Rotations.h"
+
+#include <boost/shared_ptr.hpp>
 
 //! @class ParticleLayout
 //! @ingroup samples
@@ -29,7 +32,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IParticle &particle, double depth = 0., double abundance = 1.);
+    ParticleLayout(const IAbstractParticle &particle, double abundance = 1.);
 
     virtual ~ParticleLayout();
 
@@ -45,11 +48,26 @@ public:
     }
 
     //! Adds generic particle
-    void addParticle(const IParticle &particle, const IRotation& rotation,
-                     double depth = 0.0, double abundance = 1.0);
+//    void addParticle(const IParticle &particle, const IRotation& rotation, double abundance = 1.0);
+
+
+//    void addParticle(const IParticle &particle, double abundance = 1.0);
+//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation);
+//    void addParticle(const IParticle &particle, double abundance, const IRotation& rotation, const kvector_t &position);
+
+    //! @brief Adds particle to the layout with abundance and position defined
+    //! @param abundance Particle abundance
+    //! @param position Particle position
+    virtual void addParticle(const IParticle &particle, double abundance, const kvector_t &position);
+
+    //! @brief Adds particle to the layout with abundance, position and the rotation defined
+    //! @param abundance Particle abundance
+    //! @param position Particle position
+    //! @param rotation Particle rotation
+    virtual void addParticle(const IParticle &particle, double abundance, const kvector_t &position, const IRotation& rotation);
 
     //! Adds particle without rotation
-    void addParticle(const IParticle &particle, double depth = 0.0, double abundance = 1.0);
+    virtual void addParticle(const IAbstractParticle &particle, double abundance = 1.0);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const
@@ -58,7 +76,12 @@ public:
     }
 
     //! get information about particle with index
-    virtual const IParticle *getParticle(size_t index) const;
+    virtual const IAbstractParticle *getParticle(size_t index) const;
+
+    //! Returns information on all particles (type and abundance)
+    //! and generates new particles if an IAbstractParticle denotes a collection
+    virtual void getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
+                                  std::vector<double>& abundance_vector) const;
 
     //! Get abundance fraction of particle with index
     double getAbundanceOfParticle(size_t index) const;
@@ -83,17 +106,12 @@ public:
     //! Returns interference function with index
     const IInterferenceFunction *getInterferenceFunction(size_t index) const;
 
-    virtual bool preprocess();
-
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
-
-    //! Replace ParticleDistribution with all the particles it represents
-    void replaceParticleDistribution(size_t index);
 
     void print(std::ostream &ostr) const;
 

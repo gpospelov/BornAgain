@@ -23,7 +23,7 @@ def RunSimulationDWBA():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
@@ -58,7 +58,7 @@ def RunSimulationBA():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
     

@@ -15,33 +15,68 @@
 
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "VectorItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
-
-const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
-
 
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
 {
     setItemName(Constants::ParticleCoreShellType);
-    setItemPort(ParameterizedItem::PortInfo::PORT_0);
-    registerProperty(ParticleItem::P_DEPTH, 0.0,
-                     PropertyAttribute(AttLimits::limited(-10000.0, 10000.0), 2));
+
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0,
-                     PropertyAttribute(AttLimits::limited(0.0, 1.0),3));
+                     PropertyAttribute(AttLimits::limited(0.0, 1.0), 3));
+    registerGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
 
-    registerGroupProperty(P_CORE_POS, Constants::VectorType);
-
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1);
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1);
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0, 1); // Core particle
+    addToValidChildren(Constants::ParticleType, PortInfo::PORT_1, 1); // Shell particle
+    addToValidChildren(Constants::TransformationType, PortInfo::PORT_2, 1);
 }
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
+    int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+    PortInfo::EPorts first_available_particle_port = getFirstAvailableParticlePort();
     ParameterizedItem::insertChildItem(row, item);
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    item->setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
-    item->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
-    item->setPropertyAppearance(ParticleItem::P_DEPTH, PropertyAttribute::DISABLED);
+    if (item->modelType() == Constants::ParticleType && port == PortInfo::DEFAULT
+        && first_available_particle_port != PortInfo::DEFAULT) {
+        item->setItemPort(first_available_particle_port);
+    } else if (item->modelType() == Constants::TransformationType && port == PortInfo::DEFAULT) {
+        item->setItemPort(PortInfo::PORT_2);
+    }
+}
+
+void ParticleCoreShellItem::onPropertyChange(const QString &name)
+{
+    ParameterizedItem::onPropertyChange(name);
+    if (name == P_PORT && parent()) {
+        if (parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setRegisteredProperty(ParticleItem::P_ABUNDANCE, 1.0);
+            setPropertyAppearance(ParticleItem::P_ABUNDANCE, PropertyAttribute::DISABLED);
+        }
+    }
+}
+
+ParameterizedItem::PortInfo::EPorts ParticleCoreShellItem::getFirstAvailableParticlePort() const
+{
+    // Also when no ports are available, return the first port (core particle will then be replaced)
+    PortInfo::EPorts result = PortInfo::PORT_0;
+    QList<PortInfo::EPorts> used_particle_ports;
+    QList<ParameterizedItem *> children = childItems();
+    for (QList<ParameterizedItem *>::const_iterator it = children.begin(); it != children.end();
+         ++it) {
+        ParameterizedItem *item = *it;
+        if (item->modelType() == Constants::ParticleType) {
+            PortInfo::EPorts port
+                = (PortInfo::EPorts)item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+            used_particle_ports.append(port);
+        }
+    }
+    if (used_particle_ports.size() < 2) {
+        if (used_particle_ports.contains(PortInfo::PORT_0)) {
+            result = PortInfo::PORT_1;
+        }
+    }
+    return result;
 }

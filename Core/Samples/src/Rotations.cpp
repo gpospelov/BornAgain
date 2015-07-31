@@ -43,6 +43,7 @@ IRotation *CreateProduct(const IRotation &left, const IRotation &right)
     return p_result;
 }
 
+// --- RotationX --------------------------------------------------------------
 
 RotationX::RotationX(double angle)
     : m_angle(angle)
@@ -77,6 +78,8 @@ void RotationX::init_parameters()
     registerParameter("angle", &m_angle);
 }
 
+// --- RotationY --------------------------------------------------------------
+
 RotationY::RotationY(double angle)
     : m_angle(angle)
 {
@@ -110,6 +113,8 @@ void RotationY::init_parameters()
     registerParameter("angle", &m_angle);
 }
 
+// --- RotationZ --------------------------------------------------------------
+
 RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
@@ -142,6 +147,8 @@ void RotationZ::init_parameters()
     clearParameterPool();
     registerParameter("angle", &m_angle);
 }
+
+// --- RotationEuler ----------------------------------------------------------
 
 RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     : m_alpha(alpha)

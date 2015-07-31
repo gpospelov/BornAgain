@@ -78,8 +78,8 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
 
     m_sampleModel = sampleModel;
 
-    VisitSampleTree(sample, *this);
-    ParameterizedItem *result = m_levelToParentItem[0];
+    VisitSampleTreePreorder(sample, *this);
+    ParameterizedItem *result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);
     return result;
@@ -123,7 +123,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     ParameterizedItem *item(0);
-    if(parent) {
+    if (parent) {
         item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType,
                                          m_sampleModel->indexOfItem(parent));
     } else {
@@ -201,38 +201,39 @@ void GUIObjectBuilder::visit(const Particle *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const Particle *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
     ParameterizedItem *particleItem(0);
-    if(parent->modelType() == Constants::ParticleCoreShellType) {
-        const ParticleCoreShell *coreshell =
-                dynamic_cast<const ParticleCoreShell *>(m_itemToSample[parent]);
+    if (parent->modelType() == Constants::ParticleCoreShellType) {
+        const ParticleCoreShell *coreshell
+            = dynamic_cast<const ParticleCoreShell *>(m_itemToSample[parent]);
         Q_ASSERT(coreshell);
-        if(sample == coreshell->getCoreParticle()) {
+        if (sample == coreshell->getCoreParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                m_sampleModel->indexOfItem(parent), -1,
-                ParameterizedItem::PortInfo::PORT_0);
-        }
-        else if(sample == coreshell->getShellParticle()) {
+                                                        m_sampleModel->indexOfItem(parent), -1,
+                                                        ParameterizedItem::PortInfo::PORT_0);
+        } else if (sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                m_sampleModel->indexOfItem(parent), -1,
-                ParameterizedItem::PortInfo::PORT_1);
+                                                        m_sampleModel->indexOfItem(parent), -1,
+                                                        ParameterizedItem::PortInfo::PORT_1);
         } else {
-            throw GUIHelpers::Error("GUIObjectBuilder::visit"
-             "(const Particle *sample) -> Error. Logically should not be here");
+            throw GUIHelpers::Error(
+                "GUIObjectBuilder::visit"
+                "(const Particle *sample) -> Error. Logically should not be here");
         }
-    } else if(parent->modelType() == Constants::ParticleCompositionType
-         || parent->modelType() == Constants::ParticleLayoutType
-         || parent->modelType() == Constants::ParticleDistributionType) {
+    } else if (parent->modelType() == Constants::ParticleCompositionType
+               || parent->modelType() == Constants::ParticleLayoutType
+               || parent->modelType() == Constants::ParticleDistributionType) {
         particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                      m_sampleModel->indexOfItem(parent));
+                                                    m_sampleModel->indexOfItem(parent));
     } else {
         throw GUIHelpers::Error("GUIObjectBuilder::visit"
-          "(const Particle *sample) -> Logic error.");
+                                "(const Particle *sample) -> Logic error.");
     }
 
-    buildTransformationInfo(particleItem, sample);
+    buildAbundanceInfo(particleItem);
+    buildPositionInfo(particleItem, sample);
 
     particleItem->setItemName(sample->getName().c_str());
     particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL,
@@ -242,44 +243,34 @@ void GUIObjectBuilder::visit(const Particle *sample)
 
 void GUIObjectBuilder::visit(const ParticleDistribution *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleDistribution *)"
-             << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleDistribution *)" << getLevel();
 
-    ParameterizedItem *layoutItem = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *layoutItem = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(layoutItem);
-    ParameterizedItem *item =
-            m_sampleModel->insertNewItem(Constants::ParticleDistributionType,
-                                        m_sampleModel->indexOfItem(layoutItem));
-    Q_ASSERT(item);
-    buildTransformationInfo(item, sample);
+    ParameterizedItem *particle_distribution_item = m_sampleModel->insertNewItem(
+        Constants::ParticleDistributionType, m_sampleModel->indexOfItem(layoutItem));
+    Q_ASSERT(particle_distribution_item);
 
-    TransformFromDomain::setItemFromSample(item, sample);
-    m_levelToParentItem[getLevel()] = item;
-    m_itemToSample[item] = sample;
+    TransformFromDomain::setItemFromSample(particle_distribution_item, sample);
+    buildAbundanceInfo(particle_distribution_item);
+
+    m_levelToParentItem[getLevel()] = particle_distribution_item;
+    m_itemToSample[particle_distribution_item] = sample;
 }
 
 void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)"
-             << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *coreshellItem =
-            m_sampleModel->insertNewItem(Constants::ParticleCoreShellType,
-                                         m_sampleModel->indexOfItem(parent));
-    buildTransformationInfo(coreshellItem, sample);
+    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(
+        Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
+    buildAbundanceInfo(coreshellItem);
+    buildPositionInfo(coreshellItem, sample);
 
     coreshellItem->setItemName(sample->getName().c_str());
-    kvector_t pos = sample->getRelativeCorePosition();
-
-    ParameterizedItem *vectorItem =
-            coreshellItem->getSubItems()[ParticleCoreShellItem::P_CORE_POS];
-
-    vectorItem->setRegisteredProperty(VectorItem::P_X, pos.x());
-    vectorItem->setRegisteredProperty(VectorItem::P_Y, pos.y());
-    vectorItem->setRegisteredProperty(VectorItem::P_Z, pos.z());
 
     m_levelToParentItem[getLevel()] = coreshellItem;
     m_itemToSample[coreshellItem] = sample;
@@ -287,14 +278,14 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
 
 void GUIObjectBuilder::visit(const ParticleComposition *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleComposition *)"  << getLevel();
+    qDebug() << "GUIObjectBuilder::visit(const ParticleComposition *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     ParameterizedItem *particle_composition_item = m_sampleModel->insertNewItem(
-                                         Constants::ParticleCompositionType,
-                                         m_sampleModel->indexOfItem(parent));
-    buildTransformationInfo(particle_composition_item, sample);
+        Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
+    buildAbundanceInfo(particle_composition_item);
+    buildPositionInfo(particle_composition_item, sample);
 
     particle_composition_item->setItemName(sample->getName().c_str());
     m_levelToParentItem[getLevel()] = particle_composition_item;
@@ -547,11 +538,10 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
 
 void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunctionRadialParaCrystalType,
-                m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -559,11 +549,10 @@ void GUIObjectBuilder::visit(const InterferenceFunctionRadialParaCrystal *sample
 
 void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DParaCrystalType,
-                m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -571,11 +560,10 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 
 void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
 {
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DLatticeType,
-                m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParentItem[getLevel()] = item;
@@ -601,7 +589,8 @@ void GUIObjectBuilder::visit(const RotationX *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
     p_rotationItem->setRegisteredProperty(XRotationItem::P_ANGLE,
@@ -613,14 +602,15 @@ void GUIObjectBuilder::visit(const RotationY *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationY *)" << getLevel();
 
-    ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParentItem[getLevel() - 1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
-                TransformationItem::P_ROT, Constants::YRotationType);
+        TransformationItem::P_ROT, Constants::YRotationType);
     p_rotationItem->setRegisteredProperty(YRotationItem::P_ANGLE,
-                                          Units::rad2deg(sample->getAngle()) );
+                                          Units::rad2deg(sample->getAngle()));
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -631,7 +621,8 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
     p_rotationItem->setRegisteredProperty(ZRotationItem::P_ANGLE,
@@ -646,7 +637,8 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    ParameterizedItem *transformation_item = parent->getChildOfType(Constants::TransformationType);
+    ParameterizedItem *transformation_item = m_sampleModel->insertNewItem(
+        Constants::TransformationType, m_sampleModel->indexOfItem(parent));
     ParameterizedItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
     p_rotationItem->setRegisteredProperty(EulerRotationItem::P_ALPHA,
@@ -658,32 +650,8 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
-void GUIObjectBuilder::buildTransformationInfo(ParameterizedItem *particleItem,
-                                               const IParticle *sample)
+void GUIObjectBuilder::buildAbundanceInfo(ParameterizedItem *particleItem)
 {
-    kvector_t position = sample->getPosition();
-    bool has_position_info = (position.x()!=0.0 || position.y()!=0.0);
-    const IRotation *p_rotation = sample->getRotation();
-    if (has_position_info || p_rotation) {
-        ParameterizedItem *transformation_item =
-                m_sampleModel->insertNewItem(Constants::TransformationType,
-                                             m_sampleModel->indexOfItem(particleItem));
-        if (has_position_info) {
-            ParameterizedItem *p_position_item =
-                    transformation_item->getSubItems()[TransformationItem::P_POS];
-            p_position_item->setRegisteredProperty(VectorItem::P_X,
-                                                   sample->getPosition().x());
-            p_position_item->setRegisteredProperty(VectorItem::P_Y,
-                                                   sample->getPosition().y());
-            p_position_item->setRegisteredProperty(VectorItem::P_Z,
-                                                   sample->getPosition().z());
-        }
-    }
-    if (has_position_info) {
-        particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, 0.0);
-    } else {
-        particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, sample->getDepth());
-    }
     ParameterizedItem *parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
     if(parent->modelType() == Constants::ParticleLayoutType) {
@@ -694,6 +662,15 @@ void GUIObjectBuilder::buildTransformationInfo(ParameterizedItem *particleItem,
         particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
             m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     }
+}
+
+void GUIObjectBuilder::buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample)
+{
+    kvector_t position = sample->getPosition();
+    ParameterizedItem *p_position_item = particleItem->getSubItems()[ParticleItem::P_POSITION];
+    p_position_item->setRegisteredProperty(VectorItem::P_X, position.x());
+    p_position_item->setRegisteredProperty(VectorItem::P_Y, position.y());
+    p_position_item->setRegisteredProperty(VectorItem::P_Z, position.z());
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(

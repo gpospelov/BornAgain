@@ -16,8 +16,8 @@
 #include "FormFactorDWBAPol.h"
 #include "Exceptions.h"
 
-FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_form_factor)
-: mp_form_factor(p_form_factor)
+FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
+: mp_form_factor(form_factor.clone())
 , mp_in_coeffs(0)
 , mp_out_coeffs(0)
 {
@@ -30,7 +30,7 @@ FormFactorDWBAPol::~FormFactorDWBAPol()
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
-    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(mp_form_factor->clone());
+    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(*mp_form_factor);
     p_result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     p_result->setName(getName());
     return p_result;

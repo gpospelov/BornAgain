@@ -22,7 +22,7 @@ TransformationView::TransformationView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName(Constants::TransformationType);
-    setLabel("Transformation");
+    setLabel("Rotation");
     setColor(DesignerHelper::getDefaultTransformationColor());
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION);

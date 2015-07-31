@@ -19,16 +19,11 @@ TEST_F(ParticleInfoTest , ParticleInfoInitialState)
 
     ParticleInfo particleInfo(particle);
 
-    kvector_t position;
-    EXPECT_EQ(position, particleInfo.getPosition());
     EXPECT_EQ(1.0, particleInfo.getAbundance());
     EXPECT_EQ("ParticleInfo", particleInfo.getName());
 
     //set new parameter
-    position = kvector_t(1.0, 2.0, 3.0);
-    particleInfo.setPosition(position);
     particleInfo.setAbundance(2.0);
-    EXPECT_EQ(position, particleInfo.getPosition());
     EXPECT_EQ(2.0, particleInfo.getAbundance());
 }
 
@@ -70,7 +65,6 @@ TEST_F(ParticleInfoTest , ParticleInfoClone)
     ParticleInfo original(particle, 2.0);
     ParticleInfo *clone = original.clone();
 
-    EXPECT_EQ(clone->getDepth(), original.getDepth());
     EXPECT_EQ(clone->getAbundance(), original.getAbundance());
     EXPECT_EQ(clone->getName(), original.getName());
     EXPECT_EQ(clone->getParticle()->getName(), original.getParticle()->getName());
@@ -85,7 +79,6 @@ TEST_F(ParticleInfoTest , ParticleInfoCloneInvertB)
     Particle particle2(mat);
     ParticleInfo particle_info2(particle2, 2.0);
     ParticleInfo *clone = particle_info2.cloneInvertB();
-    EXPECT_EQ(clone->getDepth(), particle_info2.getDepth());
     EXPECT_EQ(clone->getAbundance(), particle_info2.getAbundance());
     EXPECT_EQ(clone->getName(), particle_info2.getName());
     EXPECT_EQ(clone->getParticle()->getName(), particle2.getName()+"_inv");

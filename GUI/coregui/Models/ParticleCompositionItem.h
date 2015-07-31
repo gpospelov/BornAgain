@@ -27,6 +27,7 @@ public:
     explicit ParticleCompositionItem(ParameterizedItem *parent=0);
     ~ParticleCompositionItem() {}
     void insertChildItem(int row, ParameterizedItem *item);
+    virtual void onPropertyChange(const QString &name);
 };
 
 #endif // PARTICLECOMPOSITIONITEM_H

@@ -23,18 +23,11 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
+    registerParameter("position_x", &m_position[0]);
+    registerParameter("position_y", &m_position[1]);
+    registerParameter("position_z", &m_position[2]);
+    checkParticleType(prototype);
     mP_particle.reset(prototype.clone());
-    registerChild(mP_particle.get());
-}
-
-ParticleDistribution::ParticleDistribution(const IParticle &prototype,
-                                           const ParameterDistribution &par_distr,
-                                           kvector_t position)
-    : m_par_distribution(par_distr)
-{
-    setName("ParticleDistribution");
-    mP_particle.reset(prototype.clone());
-    mP_particle->setPosition(position);
     registerChild(mP_particle.get());
 }
 
@@ -51,17 +44,18 @@ ParticleDistribution *ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-IFormFactor *ParticleDistribution::createFormFactor(complex_t wavevector_scattering_factor) const
+IFormFactor *ParticleDistribution::createTransformedFormFactor(complex_t, const IRotation *,
+                                                               kvector_t) const
 {
-    (void)wavevector_scattering_factor;
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "createFormFactor: should never be called");
+    throw Exceptions::NotImplementedException(
+        "ParticleDistribution::"
+        "createTransformedFormFactor: should never be called");
 }
 
-std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double abundance) const
+void ParticleDistribution::generateParticleInfos(std::vector<const IParticle*> &particle_vector,
+                                            std::vector<double> &abundance_vector, double abundance) const
 {
-    std::vector<ParticleInfo *> result;
-    boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool() );
+    boost::scoped_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
     std::vector<ParameterPool::parameter_t> main_par_matches
         = P_pool->getMatchedParameters(main_par_name);
@@ -92,10 +86,8 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
     for (size_t i = 0; i < main_par_samples.size(); ++i) {
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = abundance * main_sample.weight;
-        ParticleInfo *p_particle_info = new ParticleInfo(*mP_particle);
-        p_particle_info->setAbundance(particle_abundance);
-        boost::scoped_ptr<ParameterPool> P_new_pool(
-                    p_particle_info->getParticle()->createParameterTree() );
+        IParticle *p_particle_clone = mP_particle->clone();
+        boost::scoped_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
@@ -114,13 +106,16 @@ std::vector<ParticleInfo *> ParticleDistribution::generateParticleInfos(double a
                     "one parameter");
             }
         }
-        result.push_back(p_particle_info);
+        particle_vector.push_back(p_particle_clone);
+        abundance_vector.push_back(particle_abundance);
     }
-    return result;
 }
 
-void ParticleDistribution::applyTransformationToSubParticles(const IRotation& rotation)
+void ParticleDistribution::checkParticleType(const IParticle &p_particle)
 {
-    mP_particle->applyRotation(rotation);
-    return;
+    const ParticleDistribution *p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
+    if (p_distr) {
+        throw Exceptions::ClassInitializationException("ParticleDistribution::checkParticleType: "
+                                                       "cannot add ParticleDistribution!");
+    }
 }

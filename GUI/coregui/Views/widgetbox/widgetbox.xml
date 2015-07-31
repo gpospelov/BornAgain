@@ -219,8 +219,8 @@
 
     <category name="Transformations">
 
-        <categoryentry name="Transformation" icon="images/Transformation.png">
-            <widget class="Transformation">
+        <categoryentry name="Rotation" icon="images/Transformation.png">
+            <widget class="Rotation">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

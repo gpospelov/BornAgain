@@ -26,13 +26,14 @@
 class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
 {
 public:
-    IFormFactorDecorator(IFormFactor *p_form_factor)
-        : mp_form_factor(p_form_factor) {}
+    IFormFactorDecorator(const IFormFactor &form_factor) : mp_form_factor(form_factor.clone())
+    {
+    }
     virtual ~IFormFactorDecorator();
-    virtual IFormFactorDecorator *clone() const=0;
+    virtual IFormFactorDecorator *clone() const = 0;
     virtual void accept(ISampleVisitor *visitor) const = 0;
 
-    virtual void setAmbientMaterial(const IMaterial& material);
+    virtual void setAmbientMaterial(const IMaterial &material);
 
     virtual double getVolume() const;
 
@@ -49,9 +50,10 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
     delete mp_form_factor;
 }
 
-inline void IFormFactorDecorator::setAmbientMaterial(const IMaterial& material)
+inline void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
 {
-    if (mp_form_factor) mp_form_factor->setAmbientMaterial(material);
+    if (mp_form_factor)
+        mp_form_factor->setAmbientMaterial(material);
 }
 
 inline double IFormFactorDecorator::getVolume() const
@@ -79,5 +81,3 @@ inline double IFormFactorDecorator::getRadius() const
 }
 
 #endif /* IFORMFACTORDECORATOR_H_ */
-
-

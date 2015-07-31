@@ -16,7 +16,7 @@
 #include "ParticleInfo.h"
 
 
-ParticleInfo::ParticleInfo(const IParticle& p_particle, double abundance)
+ParticleInfo::ParticleInfo(const IAbstractParticle& p_particle, double abundance)
     : mP_particle(p_particle.clone())
     , m_abundance(abundance)
 {
@@ -32,14 +32,9 @@ ParticleInfo *ParticleInfo::clone() const
 
 ParticleInfo *ParticleInfo::cloneInvertB() const
 {
-    boost::scoped_ptr<IParticle> P_inverted_particle(
+    boost::scoped_ptr<IAbstractParticle> P_inverted_particle(
                 mP_particle->cloneInvertB());
     return new ParticleInfo(*P_inverted_particle, m_abundance);
-}
-
-void ParticleInfo::setPosition(kvector_t position)
-{
-    mP_particle->setPosition(position);
 }
 
 void ParticleInfo::init_parameters()

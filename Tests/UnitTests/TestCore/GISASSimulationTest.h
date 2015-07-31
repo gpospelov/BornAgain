@@ -8,7 +8,7 @@
 #include "ISampleBuilder.h"
 #include "BornAgainNamespace.h"
 
-
+#include <boost/scoped_ptr.hpp>
 #include <cmath>
 #include "gtest/gtest.h"
 
@@ -77,9 +77,10 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
 
     constructedSimulation.prepareSimulation();
 
-    EXPECT_FALSE( NULL == constructedSimulation.getSample());
-    EXPECT_EQ( std::string("Layer"), constructedSimulation.getSample()->getName());
-    EXPECT_EQ( double(0), dynamic_cast<Layer *>(constructedSimulation.getSample())->getThickness());
+    EXPECT_TRUE( NULL == constructedSimulation.getSample());
+    boost::scoped_ptr<ISample> sample(constructedSimulation.getSampleBuilder()->buildSample());
+    EXPECT_EQ( std::string("Layer"), sample->getName());
+    EXPECT_EQ( double(0), dynamic_cast<Layer *>(sample.get())->getThickness());
 }
 
 TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
@@ -107,7 +108,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     EXPECT_EQ( double(10), clonedSimulation->getInstrument().getIntensity());
     EXPECT_TRUE( NULL == clonedSimulation->getSample());
     clonedSimulation->prepareSimulation();
-    EXPECT_FALSE( NULL == clonedSimulation->getSample());
+    EXPECT_TRUE( NULL == clonedSimulation->getSample());
 
     delete clonedSimulation;
 }

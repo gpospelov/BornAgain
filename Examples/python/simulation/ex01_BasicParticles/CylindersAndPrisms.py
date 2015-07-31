@@ -26,8 +26,8 @@ def get_sample():
     prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 0.5)
-    particle_layout.addParticle(prism, 0.0, 0.5)
+    particle_layout.addParticle(cylinder, 0.5)
+    particle_layout.addParticle(prism, 0.5)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 
@@ -38,6 +38,7 @@ def get_sample():
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
+    multi_layer.printParameters()
     return multi_layer
 
 

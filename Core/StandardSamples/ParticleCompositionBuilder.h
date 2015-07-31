@@ -25,7 +25,7 @@
 class BA_CORE_API_ ParticleCompositionBuilder : public ISampleBuilder
 {
 public:
-    ParticleCompositionBuilder();
+    ParticleCompositionBuilder(){}
     ISample *buildSample() const;
 
 };

@@ -29,11 +29,10 @@ ParticleLayout::ParticleLayout()
     setName("ParticleLayout");
 }
 
-ParticleLayout::ParticleLayout(
-        const IParticle& particle, double depth, double abundance)
+ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
 {
     setName("ParticleLayout");
-    addParticle(particle, depth, abundance);
+    addParticle(particle, abundance);
 }
 
 ParticleLayout::~ParticleLayout()
@@ -76,41 +75,82 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
     return p_new;
 }
 
-//! Adds generic particle, &-version.
-void ParticleLayout::addParticle(
-    const IParticle& particle, const IRotation& rotation,
-    double depth, double abundance)
+//! Adds generic particle with rotation.
+//void ParticleLayout::addParticle(const IParticle& particle, const IRotation& rotation,
+//                                 double abundance)
+//{
+//    boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
+////    P_particle_clone->setRotation(rotation);
+//    P_particle_clone->applyRotation(rotation);
+//    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+//}
+
+
+void ParticleLayout::addParticle(const IParticle &particle, double abundance,
+                                 const kvector_t &position)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-    P_particle_clone->setRotation(rotation);
-    kvector_t position = particle.getPosition();
-    position.setZ(position.z()-depth);
-    P_particle_clone->setPosition(position);
-    addAndRegisterParticleInfo(
-        new ParticleInfo(*P_particle_clone, abundance));
+    if(position != kvector_t(0,0,0)) {
+        P_particle_clone->applyTranslation(position);
+    }
+    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
 }
 
-//! Adds particle without rotation, &-version.
-void ParticleLayout::addParticle(
-    const IParticle& particle,
-    double depth, double abundance)
+void ParticleLayout::addParticle(const IParticle &particle, double abundance,
+                                 const kvector_t &position, const IRotation& rotation)
 {
     boost::scoped_ptr<IParticle> P_particle_clone(particle.clone());
-    kvector_t position = particle.getPosition();
-    position.setZ(position.z()-depth);
-    P_particle_clone->setPosition(position);
-    addAndRegisterParticleInfo(
-        new ParticleInfo(*P_particle_clone, abundance));
+    if(!rotation.isIdentity()) {
+        P_particle_clone->applyRotation(rotation);
+    }
+    if(position != kvector_t(0,0,0)) {
+        P_particle_clone->applyTranslation(position);
+    }
+    addAndRegisterParticleInfo(new ParticleInfo(*P_particle_clone, abundance));
+}
+
+
+//! Adds particle without rotation.
+void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
+{
+    addAndRegisterParticleInfo(new ParticleInfo(particle, abundance));
 }
 
 //! Returns particle info
-const IParticle* ParticleLayout::getParticle(size_t index) const
+const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
     if (index<m_particles.size())
         return m_particles[index]->getParticle();
     throw OutOfBoundsException(
         "ParticleLayout::getParticle() -> "
         "Error! Not so many particles in this decoration.");
+}
+
+void ParticleLayout::getParticleInfos(SafePointerVector<const IParticle>& particle_vector,
+                                      std::vector<double>& abundance_vector) const
+{
+    particle_vector.clear();
+    abundance_vector.clear();
+    for (SafePointerVector<ParticleInfo>::const_iterator it = m_particles.begin();
+         it != m_particles.end(); ++it) {
+        const ParticleInfo *p_info = (*it);
+        const ParticleDistribution *p_part_distr
+            = dynamic_cast<const ParticleDistribution *>(p_info->getParticle());
+        const IParticle *p_iparticle = dynamic_cast<const IParticle *>(p_info->getParticle());
+        if (p_part_distr) {
+            std::vector<const IParticle*> generated_particles;
+            std::vector<double> abundances;
+            p_part_distr->generateParticleInfos(generated_particles, abundances, p_info->getAbundance());
+            for (size_t i = 0; i < generated_particles.size(); ++i) {
+                particle_vector.push_back(generated_particles[i]);
+                abundance_vector.push_back(abundances[i]);
+            }
+        } else if (p_iparticle) {
+            particle_vector.push_back(p_iparticle->clone());
+            abundance_vector.push_back(p_info->getAbundance());
+        }
+    }
+    return;
 }
 
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
@@ -141,18 +181,6 @@ const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
                 "Not so many interference functions in this decoration.");
 }
 
-bool ParticleLayout::preprocess()
-{
-    for (size_t i=0; i<m_particles.size(); ++i) {
-        if (dynamic_cast<const ParticleDistribution *>(
-                    m_particles[i]->getParticle())) {
-            replaceParticleDistribution(i);
-            return true;
-        }
-    }
-    return false;
-}
-
 //! Adds particle information with simultaneous registration in parent class.
 void ParticleLayout::addAndRegisterParticleInfo(
     ParticleInfo *child)
@@ -167,21 +195,6 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 {
     m_interference_functions.push_back(child);
     registerChild(child);
-}
-
-void ParticleLayout::replaceParticleDistribution(size_t index)
-{
-    ParticleInfo *p_particle_info = m_particles[index];
-    const ParticleDistribution *p_particle_coll =
-                    dynamic_cast<const ParticleDistribution *>(
-                        p_particle_info->getParticle());
-    std::vector<ParticleInfo *> particles =
-        p_particle_coll->generateParticleInfos(p_particle_info->getAbundance());
-    for (size_t i=0; i<particles.size(); ++i) {
-        addAndRegisterParticleInfo(particles[i]);
-    }
-    deregisterChild(p_particle_info);
-    m_particles.deleteElement(p_particle_info);
 }
 
 void ParticleLayout::print(std::ostream& ostr) const

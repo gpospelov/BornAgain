@@ -33,10 +33,16 @@ class BA_CORE_API_ ParameterizedItem : public QObject
 public:
     static const QString P_NAME;
     static const QString P_PORT;
+    explicit ParameterizedItem(const QString &model_type = QString(),
+                               ParameterizedItem *parent = 0);
+
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
-    QString modelType() const { return m_model_type; }
+    QString modelType() const
+    {
+        return m_model_type;
+    }
 
     //! retrieves the item's name
     QString itemName() const;
@@ -45,26 +51,40 @@ public:
     void setItemName(const QString &item_name);
 
     //! retrieve parent item
-    ParameterizedItem *parent() const { return m_parent; }
+    ParameterizedItem *parent() const
+    {
+        return mp_parent;
+    }
 
     //! retrieve child item in given row
-    ParameterizedItem *childAt(int row) const {
+    ParameterizedItem *childAt(int row) const
+    {
         return m_children.value(row);
     }
 
     //! get row number of child
-    int rowOfChild(ParameterizedItem *child) const {
+    int rowOfChild(ParameterizedItem *child) const
+    {
         return m_children.indexOf(child);
     }
 
     //! get number of child items
-    int childItemCount() const { return m_children.count(); }
+    int childItemCount() const
+    {
+        return m_children.count();
+    }
 
     //! indicates if item has child items
-    bool hasChildItems() const { return !m_children.isEmpty(); }
+    bool hasChildItems() const
+    {
+        return !m_children.isEmpty();
+    }
 
     //! returns the a list of child items
-    QList<ParameterizedItem *> childItems() const { return m_children; }
+    QList<ParameterizedItem *> childItems() const
+    {
+        return m_children;
+    }
 
     //! inserts a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);
@@ -80,25 +100,28 @@ public:
     bool acceptsAsChild(const QString &child_name) const;
 
     //! get list of acceptable child object names
-    QList<QString> acceptableChildItems() const { return m_valid_children; }
+    QList<QString> acceptableChildItems() const
+    {
+        return m_valid_children;
+    }
 
-    bool event(QEvent * e );
+    bool event(QEvent *e);
 
-    QMap<QString, ParameterizedItem *> getSubItems() const {
+    QMap<QString, ParameterizedItem *> getSubItems() const
+    {
         return m_sub_items;
     }
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
-    explicit ParameterizedItem(const QString &model_type=QString(),
-                               ParameterizedItem *parent=0);
-
     bool isRegisteredProperty(const QString &name);
 
-    ParameterizedItem *registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
+    ParameterizedItem *registerGroupProperty(const QString &group_name,
+                                             const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
+    void registerProperty(const QString &name, const QVariant &variant,
+                          const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
     void removeRegisteredProperty(const QString &name);
@@ -111,24 +134,27 @@ public:
 
     virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
-    class PortInfo {
+    class PortInfo
+    {
     public:
-        enum EPorts {
-            DEFAULT = -1,
-            PORT_0 = 0,
-            PORT_1 = 1,
-            PORT_2 = 2
-        };
-        PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
+        enum EPorts { DEFAULT = -1, PORT_0 = 0, PORT_1 = 1, PORT_2 = 2 };
+        PortInfo(const QString &name = QString(), int nmax_items = 0)
+            : m_item_names(name), m_item_max_number(nmax_items)
+        {
+        }
         QStringList m_item_names;
         int m_item_max_number;
     };
 
     void setItemPort(PortInfo::EPorts nport);
 
-    virtual QString getItemLabel() const { return QString(""); }
+    virtual QString getItemLabel() const
+    {
+        return QString("");
+    }
 
-    void setPropertyAppearance(const QString &name, const PropertyAttribute::EAppearance &appearance);
+    void setPropertyAppearance(const QString &name,
+                               const PropertyAttribute::EAppearance &appearance);
 
     QStringList getParameterTreeList() const;
 
@@ -142,13 +168,15 @@ signals:
 
 protected slots:
     virtual void onSubItemChanged(const QString &propertyName);
-    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+    virtual void onSubItemPropertyChanged(const QString &property_group,
+                                          const QString &property_name);
 
 private slots:
     virtual void processSubItemPropertyChanged(const QString &propertyName);
 
 protected:
-    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0, int nmax_children = 0);
+    void addToValidChildren(const QString &name, PortInfo::EPorts nport = PortInfo::PORT_0,
+                            int nmax_children = 0);
 
     QStringList m_registered_properties;
 
@@ -160,7 +188,7 @@ private:
     QMap<int, PortInfo> m_port_info;
 
     QString m_model_type;
-    ParameterizedItem *m_parent;
+    ParameterizedItem *mp_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
 };

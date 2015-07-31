@@ -22,383 +22,383 @@
 #include "IntensityDataIOFactory.h"
 #include "Distributions.h"
 
-GISASSimulation *StandardSimulations::IsGISAXS01()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+//GISASSimulation *StandardSimulations::IsGISAXS01()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CylindersAndPrismsBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(
-        100,-1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+//    result->setDetectorParameters(
+//        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+//        0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(
+//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS02()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs02");
+//GISASSimulation *StandardSimulations::IsGISAXS02()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("TwoTypesCylindersDistributionBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree,
-                2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree,
+//                2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::CylindersInBA()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_ba");
+//GISASSimulation *StandardSimulations::CylindersInBA()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CylindersInBABuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                         100, 0.0*Units::degree, 2.0*Units::degree,
-                                         true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                         100, 0.0*Units::degree, 2.0*Units::degree,
+//                                         true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::CylindersInDWBA()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
+//GISASSimulation *StandardSimulations::CylindersInDWBA()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CylindersInDWBABuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                      100, 0.0*Units::degree, 2.0*Units::degree,
-                                      true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-             0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                      100, 0.0*Units::degree, 2.0*Units::degree,
+//                                      true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//             0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::CylindersWithSizeDistribution()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
+//GISASSimulation *StandardSimulations::CylindersWithSizeDistribution()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CylindersWithSizeDistributionBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                        100, 0.0*Units::degree, 2.0*Units::degree,
-                                        true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-               0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                        100, 0.0*Units::degree, 2.0*Units::degree,
+//                                        true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//               0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS041DDL()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
+//GISASSimulation *StandardSimulations::IsGISAXS041DDL()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("RadialParaCrystalBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
 
-GISASSimulation *StandardSimulations::IsGISAXS042DDL()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
+//GISASSimulation *StandardSimulations::IsGISAXS042DDL()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("HexParaCrystalBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS06L1()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
+//GISASSimulation *StandardSimulations::IsGISAXS06L1()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("SquareLatticeBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS06L2()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
+//GISASSimulation *StandardSimulations::IsGISAXS06L2()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CenteredSquareLatticeBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS06L3()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06c");
+//GISASSimulation *StandardSimulations::IsGISAXS06L3()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("RotatedSquareLatticeBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS06L4()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06d");
+//GISASSimulation *StandardSimulations::IsGISAXS06L4()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CustomRotatedLatticeBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS07()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs07");
+//GISASSimulation *StandardSimulations::IsGISAXS07()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CustomMorphologyBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
-                100, 0.0*Units::degree, 1.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
+//                100, 0.0*Units::degree, 1.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS08a()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs08a");
+//GISASSimulation *StandardSimulations::IsGISAXS08a()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("isgisaxs08a");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//            100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS08b()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs08b");
+//GISASSimulation *StandardSimulations::IsGISAXS08b()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("isgisaxs08b");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//            100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS09a()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs09a");
+//GISASSimulation *StandardSimulations::IsGISAXS09a()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("isgisaxs09a");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(
-        100, 0.0*Units::degree, 2.0*Units::degree,
-        100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+//    result->setDetectorParameters(
+//        100, 0.0*Units::degree, 2.0*Units::degree,
+//        100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(
+//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS09b()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
+//GISASSimulation *StandardSimulations::IsGISAXS09b()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("RotatedPyramidsBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(
-        100, 0.0*Units::degree, 2.0*Units::degree,
-        100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+//    result->setDetectorParameters(
+//        100, 0.0*Units::degree, 2.0*Units::degree,
+//        100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(
+//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS10()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs10");
+//GISASSimulation *StandardSimulations::IsGISAXS10()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("isgisaxs10");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//            100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS11()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
+//GISASSimulation *StandardSimulations::IsGISAXS11()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CoreShellParticleBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//            100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::IsGISAXS15()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs15");
+//GISASSimulation *StandardSimulations::IsGISAXS15()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("ParticlesInSSCABuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree,
-            150, 0.05*Units::degree, 1.5*Units::degree, true);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree,
+//            150, 0.05*Units::degree, 1.5*Units::degree, true);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
-GISASSimulation *StandardSimulations::MesoCrystal01()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("mesocrystal01");
+//GISASSimulation *StandardSimulations::MesoCrystal01()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("MesoCrystalBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
-    result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
-    result->setBeamIntensity(5.0090e+12);
-//    result->setDetectorParameters(100, 0.5*Units::degree, 2.5*Units::degree,
-//                                     120, 0.0*Units::degree, 2.5*Units::degree);
+//    GISASSimulation *result = new GISASSimulation();
+//    result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
+//    result->setBeamIntensity(5.0090e+12);
+////    result->setDetectorParameters(100, 0.5*Units::degree, 2.5*Units::degree,
+////                                     120, 0.0*Units::degree, 2.5*Units::degree);
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal01_reference.int.gz";
-    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
-    result->setDetectorParameters(*reference);
-    delete reference;
+//    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal01_reference.int.gz";
+//    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
+//    result->setDetectorParameters(*reference);
+//    delete reference;
 
-//    result->setDetectorResolutionFunction(
-//            new ResolutionFunction2DGaussian(0.0002, 0.0002));
+////    result->setDetectorResolutionFunction(
+////            new ResolutionFunction2DGaussian(0.0002, 0.0002));
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
 
-GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders1()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("polmagcylinders1");
+//GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders1()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("MagneticParticleZeroFieldBuilder");
 
-    GISASSimulation *result = new GISASSimulation();
+//    GISASSimulation *result = new GISASSimulation();
 
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                     100, 0.0*Units::degree, 2.0*Units::degree);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//            0.0*Units::degree);
 
-    result->setSampleBuilder( builder );
+//    result->setSampleBuilder( builder );
 
-    return result;
-}
+//    return result;
+//}
 
 
 GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("polmagcylinders2");
+    SampleBuilder_t builder = factory.createBuilder("MagneticCylindersBuilder");
 
     GISASSimulation *result = new GISASSimulation();
 
@@ -416,212 +416,112 @@ GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 }
 
 
-GISASSimulation *StandardSimulations::LayerWithRoughness()
+//GISASSimulation *StandardSimulations::LayerWithRoughness()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("MultiLayerWithRoughnessBuilder");
+
+//    GISASSimulation *result = new GISASSimulation();
+
+//    result->setDetectorParameters(
+//        100,-0.5*Units::degree, 0.5*Units::degree, 100,
+//        0.0*Units::degree, 1.0*Units::degree);
+//    result->setBeamParameters(
+//        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+//    result->setSampleBuilder( builder );
+//    //result->setBeamIntensity(1e+06);
+
+//    return result;
+//}
+
+//GISASSimulation *StandardSimulations::Ripple2()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("TriangularRippleBuilder");
+
+//    GISASSimulation *result = new GISASSimulation();
+
+//    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
+//    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+
+//    result->setSampleBuilder( builder );
+
+//    return result;
+//}
+
+//GISASSimulation *StandardSimulations::Ripple1()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("CosineRippleBuilder");
+
+//    GISASSimulation *result = new GISASSimulation();
+
+//    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
+//    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+
+//    result->setSampleBuilder( builder );
+
+//    return result;
+//}
+
+
+//// ---
+
+//GISASSimulation *StandardSimulations::gui_MultipleLayouts()
+//{
+//    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder("MultipleLayoutBuilder");
+
+//    GISASSimulation *result = new GISASSimulation();
+
+//    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                100, 0.0*Units::degree, 2.0*Units::degree);
+//    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+//                0.0*Units::degree);
+
+//    result->setSampleBuilder( builder );
+
+//    return result;
+//}
+
+
+//! Basic GISAS simulation with the detector phi[0,2], theta[0,2]
+GISASSimulation *StandardSimulations::BasicGISAS()
 {
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("LayerWithRoughness");
-
     GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(
-        100,-0.5*Units::degree, 0.5*Units::degree, 100,
-        0.0*Units::degree, 1.0*Units::degree);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-    //result->setBeamIntensity(1e+06);
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::Ripple2()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ripple2");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::Ripple1()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ripple1");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-
-// -----------------------------------------------------------------------------
-// Examples for GUI (no isgisaxs=true)
-// -----------------------------------------------------------------------------
-
-
-GISASSimulation *StandardSimulations::gui_CylinderAndPrisms()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(
-        100,-1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-
-GISASSimulation *StandardSimulations::gui_Interference1DParaCrystal()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
-
-    GISASSimulation *result = new GISASSimulation();
-
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::gui_Interference2DParaCrystal()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::gui_CoreShellParticles()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree);
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
     return result;
 }
 
-GISASSimulation *StandardSimulations::gui_Interference2DSquareLattice()
+//! Basic GISAS for polarization studies
+GISASSimulation *StandardSimulations::BasicGISAS00()
 {
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::gui_Interference2DCenteredLattice()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::gui_RotatedPyramids()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-
-GISASSimulation *StandardSimulations::gui_MultipleLayouts()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("multiple_layouts");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-    result->setSampleBuilder( builder );
-
+    GISASSimulation *result = BasicGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, 1.0, 0.5);
     return result;
 }
 
 
-GISASSimulation *StandardSimulations::BeamDivergence()
+//! GISAS simulation with small detector and phi[-2,2], theta[0,2]
+GISASSimulation *StandardSimulations::MiniGISAS()
 {
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
-
     GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(40, -0.2*Units::degree, 1.8*Units::degree,
-                60, 0.0*Units::degree, 2.2*Units::degree);
+    result->setDetectorParameters(25, -2.0*Units::degree, 2.0*Units::degree,
+                                     25, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+            0.0*Units::degree);
+    return result;
+}
 
+GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
+{
+    GISASSimulation *result = MiniGISAS();
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
     DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
@@ -632,65 +532,67 @@ GISASSimulation *StandardSimulations::BeamDivergence()
     result->addParameterDistribution("*/Beam/alpha", alpha_distr, 4);
     result->addParameterDistribution("*/Beam/phi", phi_distr, 3);
 
-    result->setSampleBuilder( builder );
-
     return result;
 }
 
-
-GISASSimulation *StandardSimulations::DetectorResolution()
+GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
 {
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_dwba");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(40, -0.2*Units::degree, 1.8*Units::degree,
-                60, 0.0*Units::degree, 2.2*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
+    GISASSimulation *result = MiniGISAS();
     ResolutionFunction2DGaussian resfunc(0.0025, 0.0025);
     result->setDetectorResolutionFunction(resfunc);
-
-    result->setSampleBuilder( builder );
-
     return result;
 }
 
-GISASSimulation *StandardSimulations::ParticleDistribution()
+GISASSimulation *StandardSimulations::MiniGISASForMeso()
 {
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("cylinders_basize");
+    GISASSimulation *result = MiniGISAS();
+    result->setBeamIntensity(5.0090e+12);
+    return result;
+}
 
+
+//! GISAS simulation with large detector to test performance
+GISASSimulation *StandardSimulations::MaxiGISAS()
+{
     GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(256, -2.0*Units::degree, 2.0*Units::degree,
+                                     256, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+    return result;
+}
 
-    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-                100, 0.0*Units::degree, 2.0*Units::degree);
+//! Basic GISAS for polarization studies
+GISASSimulation *StandardSimulations::MaxiGISAS00()
+{
+    GISASSimulation *result = MaxiGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, 1.0, 0.5);
+    return result;
+}
+
+
+//! Typical IsGISAXS simulation with the detector phi[-1,1], theta[0,2]
+GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(
+        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    return result;
+}
+
+
+//! Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2]
+GISASSimulation *StandardSimulations::IsGISAXSSimulation2()
+{
+    GISASSimulation *result = new GISASSimulation();
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree, true);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
                 0.0*Units::degree);
-
-
-    result->setSampleBuilder( builder );
-
     return result;
 }
-
-GISASSimulation *StandardSimulations::gui_ParticleComposition()
-{
-    SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("ParticleComposition");
-
-    GISASSimulation *result = new GISASSimulation();
-
-    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-                100, 0.0*Units::degree, 1.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
-
-
-    result->setSampleBuilder( builder );
-
-    return result;
-}
-

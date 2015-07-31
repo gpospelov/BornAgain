@@ -112,6 +112,7 @@ include_classes = [
     "GISASSimulation",
     "HomogeneousMaterial",
     "HomogeneousMagneticMaterial",
+    "IAbstractParticle",
     "IAxis",
     "ICloneable",
     "IClusteredParticles",
@@ -228,7 +229,7 @@ def ManualClassTunings(mb):
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     cl.member_functions().exclude()
     cl.member_function("addParticles").include()
-    cl.member_function("addParticle").include()
+    cl.member_functions("addParticle").include()
     #
     cl = mb.class_('RealParameterWrapper')
     cl.member_functions().exclude()
@@ -309,8 +310,8 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
-    cl.member_function("getMatchedParameters").exclude()
-    cl.member_function("getParameterNames").exclude()
+    # cl.member_function("getMatchedParameters").exclude()
+    # cl.member_function("getParameterNames").exclude()
     #
     mb.namespace("Units").include()
     #

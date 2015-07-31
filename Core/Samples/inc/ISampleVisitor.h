@@ -34,6 +34,7 @@ class LayerInterface;
 // -
 class MultiLayer;
 // -
+class IAbstractParticle;
 class IParticle;
 class Particle;
 class ParticleDistribution;
@@ -137,6 +138,7 @@ public:
 
     virtual void visit(const MultiLayer *);
 
+    virtual void visit(const IAbstractParticle *);
     virtual void visit(const IParticle *);
     virtual void visit(const Particle *);
     virtual void visit(const ParticleDistribution *);
@@ -224,7 +226,8 @@ private:
     int m_level;
 };
 
-BA_CORE_API_ void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor);
+BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor);
 
 
 #endif // ISAMPLEVISITOR_H

@@ -106,12 +106,17 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     return result;
 }
 
-Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
-                                            double &depth, double &abundance)
+Particle *TransformToDomain::createParticle(const ParameterizedItem &item, double &abundance)
 {
     boost::scoped_ptr<IMaterial> P_material(createDomainMaterial(item));
     Particle *result = new Particle(*P_material);
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+
+    PropertyAttribute attribute = item.getPropertyAttribute(ParticleItem::P_ABUNDANCE);
+//    if(attribute.getAppearance() == PropertyAttribute::DISABLED) {
+//        throw GUIHelpers::Error("TransformToDomain::createParticle() -> Logic Error? "
+//            "You are trying to get the value of DISABLED abundancy for model "+ item.modelType());
+//    }
+
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     result->setName(item.itemName().toStdString());
 
@@ -358,27 +363,19 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
 
 
 ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item,
-    const Particle &core, const Particle &shell, double &depth, double &abundance)
+    const Particle &core, const Particle &shell, double &abundance)
 {
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
-    ParameterizedItem *vectorItem = item.getSubItems()[ParticleCoreShellItem::P_CORE_POS];
-    Q_ASSERT(vectorItem);
 
-    kvector_t pos;
-    pos.setX(vectorItem->getRegisteredProperty(VectorItem::P_X).toDouble());
-    pos.setY(vectorItem->getRegisteredProperty(VectorItem::P_Y).toDouble());
-    pos.setZ(vectorItem->getRegisteredProperty(VectorItem::P_Z).toDouble());
-    ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
+    ParticleCoreShell *result = new ParticleCoreShell(shell, core);
     result->setName(item.itemName().toStdString());
     return result;
 }
 
 
 ParticleComposition *TransformToDomain::createParticleComposition(const ParameterizedItem &item,
-    double &depth, double &abundance)
+    double &abundance)
 {
-    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
     ParticleComposition *result = new ParticleComposition();
     return result;

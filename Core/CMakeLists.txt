@@ -132,10 +132,22 @@ if(WIN32)
         )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
+        # for functional tests
+        # install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
+        ADD_CUSTOM_COMMAND(
+            TARGET ${library_name}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        )
+        
     endif()
 
     # system libraries
-    set(boost_suffix "-vc110-mt-1_55.dll")
+    #set(boost_suffix "-vc110-mt-1_55.dll")
+    set(boost_suffix "-vc120-mt-1_58.dll")
+    
     install(FILES
     ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
@@ -149,6 +161,7 @@ if(WIN32)
     ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
     ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+    "C:/Anaconda/Python27.dll"
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()

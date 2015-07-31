@@ -25,52 +25,53 @@
 #include <string>
 
 
+// FIXME either refactor to the new functional tests machinery, or remove the code
 void TestFunctionalTests::execute()
 {
-    if(!readTestNames()) return;
+//    if(!readTestNames()) return;
 
-    for(size_t i=0; i<m_testNames.size(); ++i) {
-        boost::scoped_ptr<FunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
-        test->getSimulation()->setProgramOptions(mp_options);
-        test->runTest();
-        test->analyseResults();
+//    for(size_t i=0; i<m_testNames.size(); ++i) {
+//        boost::scoped_ptr<IFunctionalTest> test(m_testRegistry.getTest(m_testNames[i]));
+//        test->getSimulation()->setProgramOptions(mp_options);
+//        test->runTest();
+//        test->analyseResults();
 
-        IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
+//        IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-        boost::scoped_ptr<OutputData<double> > result_data(test->getSimulation()->getIntensityData());
-        double diff = IntensityDataFunctions::getRelativeDifference(*result_data.get(), *test->getReference());
-        std::cout << "diff: " << diff << std::endl;
+//        boost::scoped_ptr<OutputData<double> > result_data(test->getSimulation()->getIntensityData());
+//        double diff = IntensityDataFunctions::getRelativeDifference(*result_data.get(), *test->getReference());
+//        std::cout << "diff: " << diff << std::endl;
 
-        IsGISAXSTools::drawOutputDataComparisonResults( *result_data.get(),
-            *test->getReference(), test->getName(), test->getDescription());
-   }
+//        IsGISAXSTools::drawOutputDataComparisonResults( *result_data.get(),
+//            *test->getReference(), test->getName(), test->getDescription());
+//   }
 }
-
 
 bool TestFunctionalTests::readTestNames()
 {
-    if (mp_options->find("functest")) {
-        m_testNames = (*mp_options)["functest"].as<std::vector<std::string> >();
-    }
+//    if (mp_options->find("functest")) {
+//        m_testNames = (*mp_options)["functest"].as<std::vector<std::string> >();
+//    }
 
-    bool areCorrectNames(true);
-    if(m_testNames.empty()) {
-        std::cout << std::endl << "TestFunctionalTest::readTestNames() -> Info. No tests specified. Select one or more from list below." << std::endl;
-        areCorrectNames = false;
-    }
+//    bool areCorrectNames(true);
+//    if(m_testNames.empty()) {
+//        std::cout << std::endl << "TestFunctionalTest::readTestNames() -> Info. No tests specified. Select one or more from list below." << std::endl;
+//        areCorrectNames = false;
+//    }
 
-    for(size_t i=0; i<m_testNames.size(); ++i) {
-        if(!m_testRegistry.isRegisteredName(m_testNames[i])) {
-            std::cout << "TestFunctionalTest::readTestNames() -> Info. Not registered test with name '" << m_testNames[i] << "'." << std::endl;
-            areCorrectNames = false;
-        }
-    }
+//    for(size_t i=0; i<m_testNames.size(); ++i) {
+//        if(!m_testRegistry.isRegisteredName(m_testNames[i])) {
+//            std::cout << "TestFunctionalTest::readTestNames() -> Info. Not registered test with name '" << m_testNames[i] << "'." << std::endl;
+//            areCorrectNames = false;
+//        }
+//    }
 
-    if(areCorrectNames) {
-        return true;
-    } else {
-        m_testRegistry.printCatalogue();
-        std::cout << std::endl;
-        return false;
-    }
+//    if(areCorrectNames) {
+//        return true;
+//    } else {
+//        m_testRegistry.printCatalogue();
+//        std::cout << std::endl;
+//        return false;
+//    }
+    return false;
 }

@@ -1,4 +1,3 @@
-#include "FunctionalTestRegistry.h"
 #include "FileSystem.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
@@ -7,8 +6,6 @@
 
 int main(int argc, char **argv)
 {
-    if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
-
     boost::scoped_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readIntensityData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
     boost::scoped_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readIntensityData(

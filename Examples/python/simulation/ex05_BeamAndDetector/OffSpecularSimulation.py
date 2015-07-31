@@ -32,7 +32,7 @@ def get_sample():
     infbox = Particle(m_particle, infbox_ff)
     transform = RotationZ(90.0*degree)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(infbox, transform)
+    particle_layout.addParticle(infbox, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample

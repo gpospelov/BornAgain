@@ -23,8 +23,9 @@ def get_sample():
     # collection of particles
     ff_sphere = FormFactorFullSphere(10.2*nanometer)
     sphere = Particle(m_particle, ff_sphere)
+    sphere.setPosition(0.0, 0.0, -25.2)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(sphere, 25.2, 1.0)
+    particle_layout.addParticle(sphere, 1.0)
 
     # assembling the sample
     air_layer = Layer(m_ambience)

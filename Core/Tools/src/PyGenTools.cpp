@@ -33,10 +33,15 @@
 std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 {
     simulation->prepareSimulation();
-    ISample *iSample = simulation->getSample();
-    MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(iSample);
+    boost::scoped_ptr<ISample> sample;
+    if(simulation->getSample()) {
+        sample.reset(simulation->getSample()->clone());
+    } else {
+        sample.reset(simulation->getSampleBuilder()->buildSample());
+    }
+    MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(sample.get());
     PyGenVisitor visitor;
-    VisitSampleTree(*multiLayer, visitor);
+    VisitSampleTreePostorder(*multiLayer, visitor);
     std::ostringstream result;
     result << visitor.writePyScript(simulation);
     return result.str();
@@ -46,13 +51,14 @@ std::string PyGenTools::printDouble(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
-    if((input-floor(input)) == 0.0)
-    {
-        inter << input << ".0";
+    if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
+        inter << "0.0";
+        return inter.str();
     }
-    else
+    inter << input;
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
     {
-        inter << input;
+        inter << ".0";
     }
     return inter.str();
 }
@@ -62,13 +68,10 @@ std::string PyGenTools::printDegrees(double input)
     std::ostringstream inter;
     inter << std::setprecision(11);
     double in_degrees = input*180.0/M_PI;
-    if((in_degrees - floor(in_degrees)) == 0.0)
+    inter << in_degrees;
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
     {
-        inter << in_degrees << ".0";
-    }
-    else
-    {
-        inter << in_degrees;
+        inter << ".0";
     }
     inter << "*degree";
     return inter.str();
@@ -103,7 +106,7 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     pythonFile << genPyScript(simulation);
     pythonFile.close();
 
-    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " PythonScript.py";
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
     int return_code = std::system(command.c_str());
     (void)return_code;
     if (std::remove("PythonScript.py") != 0) {

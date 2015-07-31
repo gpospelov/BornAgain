@@ -218,7 +218,7 @@ ISample *TestInfLongRipple2::TestSampleBuilder::buildSample() const
     RotationZ transform(90.*Units::degree);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(ibox,transform);
+    particle_layout.addParticle(ibox,1.0, kvector_t(0,0,0), transform);
     InterferenceFunction1DLattice *p_interference_function =
             new InterferenceFunction1DLattice(m_lattice_length, m_xi);
     FTDistribution1DCauchy pdf(10e6*Units::nanometer);

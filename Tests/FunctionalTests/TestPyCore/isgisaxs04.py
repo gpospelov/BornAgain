@@ -27,7 +27,7 @@ def RunSimulation1():
     pdf = FTDistribution1DGauss(7 * nanometer)
     interference.setProbabilityDistribution(pdf)
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
@@ -67,7 +67,7 @@ def RunSimulation2():
     interference.setProbabilityDistributions(pdf, pdf)
 
     particle_layout = ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addParticle(cylinder, 1.0)
     particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)

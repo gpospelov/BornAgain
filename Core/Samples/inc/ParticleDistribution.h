@@ -19,6 +19,7 @@
 #include "IParticle.h"
 #include "ParticleInfo.h"
 #include "ParameterDistribution.h"
+#include "SafePointerVector.h"
 
 class ParticleInfo;
 
@@ -30,9 +31,6 @@ class BA_CORE_API_ ParticleDistribution : public IParticle
 {
 public:
     ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr);
-
-    ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr,
-                         kvector_t position);
 
     virtual ~ParticleDistribution()
     {
@@ -64,10 +62,15 @@ public:
     //! Should not be called for objects of this class:
     //! The object should spawn particles that will create the
     //! required form factors
-    virtual IFormFactor *createFormFactor(complex_t wavevector_scattering_factor) const;
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
-    //! Returns list of new particles generated according to a distribution
-    std::vector<ParticleInfo *> generateParticleInfos(double abundance) const;
+
+    //! Initializes list of new particles generated according to a distribution
+    virtual void generateParticleInfos(std::vector<const IParticle*>& particle_vector,
+                                  std::vector<double>& abundance_vector,
+                                  double abundance) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const
@@ -86,11 +89,12 @@ public:
         return mP_particle.get();
     }
 
-protected:
+private:
+    //! Checks if particle's type is suitable for adding
+    void checkParticleType(const IParticle& p_particle);
+
     boost::scoped_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;
-    //! Propagates a transformation to child particles
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
 };
 
 #endif // PARTICLEDISTRIBUTION_H

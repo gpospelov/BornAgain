@@ -205,18 +205,6 @@ struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFac
         return ISample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -499,17 +487,6 @@ void register_FormFactorInfLongBox_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorInfLongBox_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( FormFactorInfLongBox_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            FormFactorInfLongBox_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&FormFactorInfLongBox_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

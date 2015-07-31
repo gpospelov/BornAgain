@@ -157,18 +157,6 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
         return IInterferenceFunction::getKappa( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
-        else{
-            return this->ISample::preprocess(  );
-        }
-    }
-    
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -268,7 +256,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
 
     { //::InterferenceFunction2DParaCrystal
         typedef bp::class_< InterferenceFunction2DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, std::auto_ptr< InterferenceFunction2DParaCrystal_wrapper >, boost::noncopyable > InterferenceFunction2DParaCrystal_exposer_t;
-        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", "Interference function of 2D paracrystal.", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 ), "constructor of 2D paracrystal interference function @param length_1 Lattice length 1.\n\n:Parameters:\n  - 'length_1' - Lattice length 1.\n  - 'length_2' - Lattice length 2.\n  - 'alpha_lattice' - Angle between lattice basis vectors.\n  - 'xi' - Angle between first basis vector and the x-axis of incoming beam.\n  - 'm_corr_length' - correlation length of paracrystal\n") );
+        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", "Interference function of 2D paracrystal.", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 ), "constructor of 2D paracrystal interference function @param length_1 Lattice length 1.\n\n:Parameters:\n  - 'length_1' - Lattice length 1.\n  - 'length_2' - Lattice length 2.\n  - 'alpha_lattice' - Angle between lattice basis vectors.\n  - 'xi' - Angle between first basis vector and the x-axis of incoming beam.\n  - 'damping_length' - damping length to introfuce finite size effects\n") );
         bp::scope InterferenceFunction2DParaCrystal_scope( InterferenceFunction2DParaCrystal_exposer );
         { //::InterferenceFunction2DParaCrystal::clone
         
@@ -289,7 +277,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "createHexagonal"
                 , createHexagonal_function_type( &::InterferenceFunction2DParaCrystal::createHexagonal )
-                , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
+                , ( bp::arg("peak_distance"), bp::arg("damping_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -300,7 +288,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "createSquare"
                 , createSquare_function_type( &::InterferenceFunction2DParaCrystal::createSquare )
-                , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
+                , ( bp::arg("peak_distance"), bp::arg("damping_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -491,17 +479,6 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 "getKappa"
                 , getKappa_function_type(&::IInterferenceFunction::getKappa)
                 , default_getKappa_function_type(&InterferenceFunction2DParaCrystal_wrapper::default_getKappa) );
-        
-        }
-        { //::ISample::preprocess
-        
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_preprocess_function_type)(  ) ;
-            
-            InterferenceFunction2DParaCrystal_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&InterferenceFunction2DParaCrystal_wrapper::default_preprocess) );
         
         }
         { //::IParameterized::printParameters

@@ -97,6 +97,7 @@ private:
     std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
     std::string defineDetector(const GISASSimulation *simulation) const;
+    std::string defineDetectorResolutionFunction(const GISASSimulation *simulation) const;
     std::string defineBeam(const GISASSimulation *simulation) const;
     std::string defineParameterDistributions(const GISASSimulation *simulation) const;
     std::string definePlotting(const GISASSimulation *simulation) const;
@@ -104,6 +105,10 @@ private:
     SampleLabelHandler *m_label;
 
     std::string indent() const;
+    void setRotationInformation(const IParticle* particle, std::string particle_name,
+                                std::ostringstream& result) const;
+    void setPositionInformation(const IParticle *particle, std::string particle_name,
+                                std::ostringstream& result) const;
 };
 
 

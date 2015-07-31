@@ -40,14 +40,17 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
+    void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
-    virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
+    //! Create a form factor for this particle with an extra scattering factor
+    virtual IFormFactor *createTransformedFormFactor(complex_t wavevector_scattering_factor,
+                                                     const IRotation* p_rotation,
+                                                     kvector_t translation) const;
 
     //! Returns number of different particles
     size_t getNbrParticles() const {return m_particles.size(); }
@@ -60,9 +63,6 @@ public:
     kvector_t getParticlePosition(size_t index) const
     { return m_particles[check_index(index)]->getPosition(); }
 
-protected:
-    virtual void applyTransformationToSubParticles(const IRotation& rotation);
-
 private:
     //! Checks index
     inline size_t check_index(size_t index) const {
@@ -71,10 +71,11 @@ private:
                 : throw OutOfBoundsException("ParticleComposition::check_index()"
                         "-> Index is out of bounds"); }
 
+    //! Checks if particle's type is suitable for adding
+    void checkParticleType(const IParticle& p_particle);
+
     //! For internal use in cloneInvertB():
     void addParticlePointer(IParticle *p_particle);
-
-    void addParticleNoPosition(const IParticle& particle);
 
     std::vector<IParticle *> m_particles;
 };

@@ -157,16 +157,16 @@ struct RotationY_wrapper : RotationY, bp::wrapper< RotationY > {
         return ISample::getCompositeSample( );
     }
 
-    virtual bool preprocess(  ) {
-        if( bp::override func_preprocess = this->get_override( "preprocess" ) )
-            return func_preprocess(  );
+    virtual bool isIdentity(  ) const  {
+        if( bp::override func_isIdentity = this->get_override( "isIdentity" ) )
+            return func_isIdentity(  );
         else{
-            return this->ISample::preprocess(  );
+            return this->IRotation::isIdentity(  );
         }
     }
     
-    bool default_preprocess(  ) {
-        return ISample::preprocess( );
+    bool default_isIdentity(  ) const  {
+        return IRotation::isIdentity( );
     }
 
     virtual void printParameters(  ) const  {
@@ -395,15 +395,15 @@ void register_RotationY_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ISample::preprocess
+        { //::IRotation::isIdentity
         
-            typedef bool ( ::ISample::*preprocess_function_type)(  ) ;
-            typedef bool ( RotationY_wrapper::*default_preprocess_function_type)(  ) ;
+            typedef bool ( ::IRotation::*isIdentity_function_type)(  ) const;
+            typedef bool ( RotationY_wrapper::*default_isIdentity_function_type)(  ) const;
             
             RotationY_exposer.def( 
-                "preprocess"
-                , preprocess_function_type(&::ISample::preprocess)
-                , default_preprocess_function_type(&RotationY_wrapper::default_preprocess) );
+                "isIdentity"
+                , isIdentity_function_type(&::IRotation::isIdentity)
+                , default_isIdentity_function_type(&RotationY_wrapper::default_isIdentity) );
         
         }
         { //::IParameterized::printParameters

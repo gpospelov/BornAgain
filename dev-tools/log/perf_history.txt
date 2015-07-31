@@ -461,3 +461,7 @@
 | 2015-06-30 15:17:36 | jcnsopc126 | linuxx8664gcc | 0  | 20.347   | 1.699        | 1.319        | 2.010        | 1.003        | 2.822        | 1.197        | 2.031        | 3.861        | 1.890        | 2.515        |
 | 2015-06-30 15:19:12 | jcnsopc126 | linuxx8664gcc | 0  | 19.853   | 1.684        | 1.156        | 1.951        | 0.979        | 2.815        | 1.187        | 2.026        | 3.798        | 1.832        | 2.426        |
 
+# Release 1.3.0
+
+| date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
+| 2015-07-31 14:38:50 | jcnsopc63  | linuxx8664gcc | 0  | 15.590   | 1.537        | 0.977        | 1.673        | 0.855        | 2.524        | 0.996        | 1.874        | 1.505        | 1.581        | 2.068        |

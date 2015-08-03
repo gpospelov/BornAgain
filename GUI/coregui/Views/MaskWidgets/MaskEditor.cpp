@@ -72,25 +72,25 @@
 
 // RectangleView, EllipseView
 // 1) Rectangle should have a tiny frame around, which is a bit darker, than filling color.
-//    use QColor::darker() for that
+//    use QColor::darker() for that [FIXED]
 // 2) Green rectangular corners are ugly and too big. Use smaller rectangle as in Libreoffice/Impress.
-//    The color of corner rectangle should be as main rectangle's frame
-// 3) Same of EllipseView
+//    The color of corner rectangle should be as main rectangle's frame [FIXED]
+// 3) Same of EllipseView [FIXED]
 
 // Selection of Rectangle or Ellipse
-// 1) First click on the rectangle should select it
+// 1) First click on the rectangle should select it [FIXED]
 // 2) second click on selected rectangle should switch it to the rotation mode
-//    Corner rectangle should be replaced with rotation symbols, as in inkscape
-// 3) Every next click just switch between selected/rotate modes
-// 4) Same for EllipseView
+//    Corner rectangle should be replaced with rotation symbols, as in inkscape [FIXED]
+// 3) Every next click just switch between selected/rotate modes [FIXED]
+// 4) Same for EllipseView [FIXED]
 
 // Bug (deleting rectangle) [FIXED]
 // Sometimes, but now always, deleting of rectangle gives an exception throw
 // "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property Height model=Rectangle"
 
 // GraphicsView - zoom in/out, pan
-// 1) No scroll bars appears when zoom in
-// 2) Pan seems to be not making a pan over the whole area
+// 1) No scroll bars appears when zoom in [FIXED]
+// 2) Pan seems to be not making a pan over the whole area [FIXED]
 // 3) Make pan automatic then user holds on "spacebar" key.
 // 4) zoom out to far should not be possible, i.e. maximum size of scene should be defined
 
@@ -100,7 +100,8 @@
 
 
 
-
+const qreal widthOfScene = 2000;
+const qreal heightOfScene = 2000;
 
 
 MaskEditor::MaskEditor(QWidget *parent)
@@ -118,7 +119,6 @@ MaskEditor::MaskEditor(QWidget *parent)
 //    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
-    m_scene->setSceneRect(m_view->viewport()->rect());
 
 
 

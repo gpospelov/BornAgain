@@ -18,6 +18,7 @@ MaskGraphicsScene::MaskGraphicsScene()
     : m_maskModel(0), m_currentItem(0), m_currentMousePosition(QPointF(0, 0)),
       m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false)
 {
+    setSceneRect(QRectF(-800, 0, 1600, 1600));
     m_drawingMode = NONE;
 }
 

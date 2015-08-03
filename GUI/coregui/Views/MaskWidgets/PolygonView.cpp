@@ -62,11 +62,11 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
     // paint corner rectangles only if this item is selected
     if (this->isSelected()) {
-        painter->setBrush(Qt::green);
-        painter->drawRect(getTopLeftCorner());
-        painter->drawRect(getBottomLeftCorner());
-        painter->drawRect(getTopRightCorner());
-        painter->drawRect(getBottomRightCorner());
+//        painter->setBrush(Qt::green);
+//        painter->drawRect(getTopLeftCorner());
+//        painter->drawRect(getBottomLeftCorner());
+//        painter->drawRect(getTopRightCorner());
+//        painter->drawRect(getBottomRightCorner());
     }
     // draw all points if item is finised with drawing and is selected
     if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {

@@ -3,21 +3,24 @@
 #include "ParameterizedItem.h"
 #include "DesignerHelper.h"
 #include "RotationArrow.h"
+#include "ResizeArrow.h"
 #include <QPainterPath>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 #include <cmath>
 #include <QCursor>
+#include <QLabel>
 
-static const qreal widthAndHeight = 10;
-static const qreal OffsetPosition = 5;
+static const qreal widthAndHeight = 5;
+static const qreal OffsetPosition = 2.5;
 
 
 RectangleView::RectangleView()
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsMovable);
+    setAcceptHoverEvents(true);
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -25,31 +28,36 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     // paint rectangle
     painter->setRenderHints(QPainter::Antialiasing);
     prepareGeometryChange();
-    if (m_item->getRegisteredProperty(RectangleItem::P_COLOR).toInt() == 0) {
-        QBrush transRed(DesignerHelper::getDefaultColor("Transparant red"));
-        painter->fillRect(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal(),
-                          transRed);
-    } else {
-        QBrush transBlue(DesignerHelper::getDefaultColor("Transparant blue"));
-        painter->fillRect(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
-                          m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal(),
-                          transBlue);
-    }
-    painter->drawRect(boundingRect());
 
-    // paint corner rectangles only if this item is selected
-    if (this->isSelected()) {
-//        painter->drawRect(getTopLeftCorner());
-//        painter->drawRect(getBottomLeftCorner());
-//        painter->drawRect(getTopRightCorner());
-//        painter->drawRect(getBottomRightCorner());
-        updateRotationArrows();
+    QRectF rectangle(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+                m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
+                m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
+                m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    if (m_item->getRegisteredProperty(RectangleItem::P_COLOR).toInt() == 0) {
+        brush.setColor(DesignerHelper::getDefaultColor("Transparant red"));
+        painter->setPen(brush.color().darker());
+        painter->setBrush(brush);
+        painter->drawRect(rectangle);
+
+    } else {
+        brush.setColor(DesignerHelper::getDefaultColor("Transparant blue"));
+        painter->setPen(brush.color().darker());
+        painter->setBrush(brush);
+        painter->drawRect(rectangle);
     }
+
+    // paint rectangles on corners if this item is selected
+    if (this->isSelected()) {
+        painter->setBrush(painter->pen().color());
+        painter->drawRect(getTopLeftCorner());
+        painter->drawRect(getBottomLeftCorner());
+        painter->drawRect(getTopRightCorner());
+        painter->drawRect(getBottomRightCorner());
+    }
+
+        updateRotationArrows();
 }
 
 QRectF RectangleView::boundingRect() const
@@ -89,7 +97,6 @@ void RectangleView::checkResizeRules(QGraphicsSceneMouseEvent *event)
         if (m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
                 + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() <= event->pos().x()) {
             m_corner = BOTTOMRIGHT;
-            setC
             setCursor(Qt::SizeFDiagCursor);
 
         } else if (event->pos().y() <= m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()) {
@@ -192,7 +199,7 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
     if (event->button() == Qt::LeftButton) {
-        setSelectedCorner(event);
+        setSelectedCorner(event->pos());
 
         if (m_corner == NONE) {
             if ((m_mode == RESIZE)) {
@@ -237,6 +244,13 @@ void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_corner = NONE;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void RectangleView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << event->pos();
+    setSelectedCorner(event->pos());
+    m_corner = NONE;
 }
 
 void RectangleView::setInclude()
@@ -334,35 +348,41 @@ ParameterizedItem *RectangleView::getParameterizedItem()
     return m_item;
 }
 
-void RectangleView::setSelectedCorner(QGraphicsSceneMouseEvent *event)
+void RectangleView::setSelectedCorner(QPointF currentMousePosition)
 {
-    if (getTopLeftCorner().contains(event->pos())) {
+    if (getTopLeftCorner().contains(currentMousePosition)) {
         qDebug() << "TOPLEFT";
         m_corner = TOPLEFT;
-        setCursor(Qt::SizeFDiagCursor);
-    } else if (getTopRightCorner().contains(event->pos())) {
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeFDiagCursor);
+    } else if (getTopRightCorner().contains(currentMousePosition)) {
         qDebug() << "TOPRIGHT";
         m_corner = TOPRIGHT;
-        setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomLeftCorner().contains(event->pos())) {
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeBDiagCursor);
+    } else if (getBottomLeftCorner().contains(currentMousePosition)) {
         qDebug() << "BOTTOMLEFT";
         m_corner = BOTTOMLEFT;
-        setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomRightCorner().contains(event->pos())) {
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeBDiagCursor);
+    } else if (getBottomRightCorner().contains(currentMousePosition)) {
         qDebug() << "BOTTOMRIGHT";
         m_corner = BOTTOMRIGHT;
-        setCursor(Qt::SizeFDiagCursor);
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeFDiagCursor);
     } else {
         m_corner = NONE;
+        setCursor(QCursor());
     }
 
-    if (m_mode == ROTATION) {
-        setCursor(Qt::ClosedHandCursor);
+    if (m_mode == ROTATION && m_corner != NONE) {
+        setCursor(QCursor(QPixmap(":/images/rotationArrow.png")));
     }
 }
 
 void RectangleView::updateRotationArrows()
 {
+    // 0 - 3 are rotation arrows
     childItems()[0]->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
                             m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
 
@@ -378,49 +398,119 @@ void RectangleView::updateRotationArrows()
                             m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
                             m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
                             m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
-    if(m_mode == RESIZE) {
+
+    // 4 - 7 are resize arrows
+    childItems()[4]->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
+
+    childItems()[5]->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
+
+    childItems()[6]->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+
+    childItems()[7]->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+
+
+    if(isSelected() == false) {
         for(int i = 0; i < childItems().length(); ++i) {
             childItems()[i]->setVisible(false);
         }
+
     }
-    else if(m_mode == ROTATION) {
+    else if(m_mode == RESIZE) {
         for(int i = 0; i < childItems().length(); ++i) {
-            childItems()[i]->setVisible(true);
+            if(i < 4) {
+                childItems()[i]->setVisible(false);
+            }
+            else {
+                childItems()[i]->setVisible(true);
+            }
+        }
+    }    else if(m_mode == ROTATION) {
+        for(int i = 0; i < childItems().length(); ++i) {
+            if(i < 4) {
+                childItems()[i]->setVisible(true);
+            }
+            else {
+                childItems()[i]->setVisible(false);
+            }
         }
     }
 }
 
 void RectangleView::initializeArrow()
 {
-    RotationArrow *topLeftArrow = new RotationArrow(this);
-    RotationArrow *topRightArrow = new RotationArrow(this);
-    RotationArrow *bottomLeftArrow = new RotationArrow(this);
-    RotationArrow *bottomRightArrow = new RotationArrow(this);
+    RotationArrow *topLeftRotationArrow = new RotationArrow(this);
+    RotationArrow *topRightRotationArrow = new RotationArrow(this);
+    RotationArrow *bottomLeftRotationArrow = new RotationArrow(this);
+    RotationArrow *bottomRightRotationArrow = new RotationArrow(this);
 
-    topLeftArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+    ResizeArrow *topLeftResizeArrow = new ResizeArrow(this);
+    ResizeArrow *topRightResizeArrow = new ResizeArrow(this);
+    ResizeArrow *bottomLeftResizeArrow = new ResizeArrow(this);
+    ResizeArrow *bottomRightResizeArrow = new ResizeArrow(this);
+
+
+
+
+    topLeftRotationArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
 
-    topRightArrow->setRotation(90);
-    topRightArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+    topRightRotationArrow->setRotation(90);
+    topRightRotationArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
                           m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
                           m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
                           m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
 
-    bottomLeftArrow->setRotation(270);
-    bottomLeftArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+    bottomLeftRotationArrow->setRotation(270);
+    bottomLeftRotationArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
                             m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
                             m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
 
-    bottomRightArrow->setRotation(180);
-    bottomLeftArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+    bottomRightRotationArrow->setRotation(180);
+    bottomLeftRotationArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
                             m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
                             m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
                             m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
 
-    topRightArrow->setVisible(false);
-    topLeftArrow->setVisible(false);
-    bottomLeftArrow->setVisible(false);
-    bottomRightArrow->setVisible(false);
+
+    topLeftResizeArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+                         m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
+
+    topRightResizeArrow->setRotation(90);
+    topRightResizeArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+
+    bottomLeftResizeArrow->setRotation(270);
+    bottomLeftResizeArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+
+    bottomRightResizeArrow->setRotation(180);
+    bottomLeftResizeArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+
+
+
+    topRightRotationArrow->setVisible(false);
+    topLeftRotationArrow->setVisible(false);
+    bottomLeftRotationArrow->setVisible(false);
+    bottomRightRotationArrow->setVisible(false);
+
+    topRightResizeArrow->setVisible(false);
+    topLeftResizeArrow->setVisible(false);
+    bottomLeftResizeArrow->setVisible(false);
+    bottomRightResizeArrow->setVisible(false);
 }
 
 

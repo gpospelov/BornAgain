@@ -1,14 +1,16 @@
 #include "EllipseView.h"
 #include "EllipseItem.h"
 #include "ParameterizedItem.h"
+#include "RotationArrow.h"
+#include "ResizeArrow.h"
 #include <cmath>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QCursor>
 #include <QDebug>
 
-static const qreal widthAndHeight = 10;
-static const qreal OffsetPosition = 5;
+static const qreal widthAndHeight = 5;
+static const qreal OffsetPosition = 2.5;
 
 EllipseView::EllipseView()
 {
@@ -20,40 +22,45 @@ EllipseView::EllipseView()
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 
-    // paint rectangle
+    // paint ellipse
     painter->setRenderHints(QPainter::Antialiasing);
     this->prepareGeometryChange();
+
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
     if (m_item->getRegisteredProperty(EllipseItem::P_COLOR).toBool() == 0) {
-        QBrush transRed(QColor(0xFF, 0, 0, 0x80));
-        painter->setBrush(transRed);
+        brush.setColor(DesignerHelper::getDefaultColor("Transparant red"));
+        painter->setPen(brush.color().darker());
+        painter->setBrush(brush);
         painter->drawEllipse(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                             m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal(),
                              m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
                              m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
     } else {
-        QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
-        painter->setBrush(transBlue);
+        brush.setColor(DesignerHelper::getDefaultColor("Transparant blue"));
+        painter->setPen(brush.color().darker());
+        painter->setBrush(brush);
         painter->drawEllipse(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
-                             m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                             m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal(),
                              m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
                              m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
     }
 
-    // paint corner rectangles only if this item is selected
+    // paint rectangles on corners if this item is selected
     if (this->isSelected()) {
-
-        painter->setBrush(Qt::green);
+        painter->setBrush(painter->pen().color());
         painter->drawRect(getTopLeftCorner());
         painter->drawRect(getBottomLeftCorner());
         painter->drawRect(getTopRightCorner());
         painter->drawRect(getBottomRightCorner());
     }
+    updateRotationArrows();
 }
 
 QRectF EllipseView::boundingRect() const
 {
     return QRectF(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - 5,
-                  m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() - 5,
+                  m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() - 5,
                   m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() + 10,
                   m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() + 10);
 }
@@ -230,8 +237,6 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     // set all modes off, change cursor and process as usual
-    //    this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    //    m_mode = SELECTION;
     m_corner = NONE;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
@@ -282,8 +287,10 @@ QRectF EllipseView::getBottomRightCorner()
 void EllipseView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
-    setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal());
-    setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+    setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+         + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5);
+    setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+         + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
     setRotation(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));
@@ -334,63 +341,161 @@ void EllipseView::setSelectedCorner(QGraphicsSceneMouseEvent *event)
     if (getTopLeftCorner().contains(event->pos())) {
         qDebug() << "TOPLEFT";
         m_corner = TOPLEFT;
-        setCursor(Qt::SizeFDiagCursor);
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeFDiagCursor);
     } else if (getTopRightCorner().contains(event->pos())) {
         qDebug() << "TOPRIGHT";
         m_corner = TOPRIGHT;
-        setCursor(Qt::SizeBDiagCursor);
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeBDiagCursor);
     } else if (getBottomLeftCorner().contains(event->pos())) {
         qDebug() << "BOTTOMLEFT";
         m_corner = BOTTOMLEFT;
-        setCursor(Qt::SizeBDiagCursor);
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeBDiagCursor);
     } else if (getBottomRightCorner().contains(event->pos())) {
         qDebug() << "BOTTOMRIGHT";
         m_corner = BOTTOMRIGHT;
-        setCursor(Qt::SizeFDiagCursor);
+        if(m_mode == RESIZE)
+            setCursor(Qt::SizeFDiagCursor);
     } else {
         m_corner = NONE;
     }
 
-    if (m_mode == ROTATION) {
-        setCursor(Qt::ClosedHandCursor);
+    if (m_mode == ROTATION && m_corner != NONE) {
+        setCursor(QCursor(QPixmap(":/images/rotationArrow.png")));
     }
 }
 
 void EllipseView::updateRotationArrows()
 {
-//    childItems()[1]->setX(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal());
-//    childItems()[2]->setY(m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
-//    childItems()[3]->setPos(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
-//                            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
-//    if(m_mode == RESIZE) {
-//        for(int i = 0; i < childItems().length(); ++i) {
-//            childItems()[i]->setVisible(false);
-//        }
-//    }
-//    else if(m_mode == ROTATION) {
-//        for(int i = 0; i < childItems().length(); ++i) {
-//            childItems()[i]->setVisible(true);
-//        }
-//    }
+    // 0 - 3 are rotation arrows
+    childItems()[0]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    childItems()[1]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    childItems()[2]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    childItems()[3]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    // 4 - 7 are resize arrows
+    childItems()[4]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    childItems()[5]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    childItems()[6]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    childItems()[7]->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+
+    if(isSelected() == false) {
+        for(int i = 0; i < childItems().length(); ++i) {
+            childItems()[i]->setVisible(false);
+        }
+
+    }
+    else if(m_mode == RESIZE) {
+        for(int i = 0; i < childItems().length(); ++i) {
+            if(i < 4) {
+                childItems()[i]->setVisible(false);
+            }
+            else {
+                childItems()[i]->setVisible(true);
+            }
+        }
+    }    else if(m_mode == ROTATION) {
+        for(int i = 0; i < childItems().length(); ++i) {
+            if(i < 4) {
+                childItems()[i]->setVisible(true);
+            }
+            else {
+                childItems()[i]->setVisible(false);
+            }
+        }
+    }
 }
 
 void EllipseView::initializeArrow()
 {
-//    RotationArrow *topLeftArrow = new RotationArrow(this);
-//    RotationArrow *topRightArrow = new RotationArrow(this);
-//    RotationArrow *bottomLeftArrow = new RotationArrow(this);
-//    RotationArrow *bottomRightArrow = new RotationArrow(this);
+    RotationArrow *topLeftRotationArrow = new RotationArrow(this);
+    RotationArrow *topRightRotationArrow = new RotationArrow(this);
+    RotationArrow *bottomLeftRotationArrow = new RotationArrow(this);
+    RotationArrow *bottomRightRotationArrow = new RotationArrow(this);
 
-//    topRightArrow->setRotation(90);
-//    topRightArrow->setX(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal());
-//    bottomLeftArrow->setRotation(270);
-//    bottomLeftArrow->setY(m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
-//    bottomRightArrow->setRotation(180);
-//    bottomLeftArrow->setPos(m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal(),
-//                            m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
+    ResizeArrow *topLeftResizeArrow = new ResizeArrow(this);
+    ResizeArrow *topRightResizeArrow = new ResizeArrow(this);
+    ResizeArrow *bottomLeftResizeArrow = new ResizeArrow(this);
+    ResizeArrow *bottomRightResizeArrow = new ResizeArrow(this);
 
-//    topRightArrow->setVisible(false);
-//    topLeftArrow->setVisible(false);
-//    bottomLeftArrow->setVisible(false);
-//    bottomRightArrow->setVisible(false);
+
+
+
+    topLeftRotationArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                         m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    topRightRotationArrow->setRotation(90);
+    topRightRotationArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    bottomLeftRotationArrow->setRotation(270);
+    bottomLeftRotationArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    bottomRightRotationArrow->setRotation(180);
+    bottomLeftRotationArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+
+    topLeftResizeArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                         m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal());
+
+    topRightResizeArrow->setRotation(90);
+    topRightResizeArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                          m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                          m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    bottomLeftResizeArrow->setRotation(270);
+    bottomLeftResizeArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+    bottomRightResizeArrow->setRotation(180);
+    bottomLeftResizeArrow->setPos(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal(),
+                            m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal() +
+                            m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal());
+
+
+
+    topRightRotationArrow->setVisible(false);
+    topLeftRotationArrow->setVisible(false);
+    bottomLeftRotationArrow->setVisible(false);
+    bottomRightRotationArrow->setVisible(false);
+
+    topRightResizeArrow->setVisible(false);
+    topLeftResizeArrow->setVisible(false);
+    bottomLeftResizeArrow->setVisible(false);
+    bottomRightResizeArrow->setVisible(false);
 }

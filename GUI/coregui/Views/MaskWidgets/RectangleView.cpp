@@ -10,7 +10,6 @@
 #include <QDebug>
 #include <cmath>
 #include <QCursor>
-#include <QLabel>
 
 static const qreal widthAndHeight = 5;
 static const qreal OffsetPosition = 2.5;
@@ -248,8 +247,8 @@ void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void RectangleView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
-    qDebug() << event->pos();
     setSelectedCorner(event->pos());
+    qDebug() << this->zValue();
     m_corner = NONE;
 }
 
@@ -299,8 +298,8 @@ QRectF RectangleView::getBottomRightCorner()
 void RectangleView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
-    setX(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal());
-    setY(m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
+//    setX(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal());
+//    setY(m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal());
     setRotation(m_item->getRegisteredProperty(RectangleItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));

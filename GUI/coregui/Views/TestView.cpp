@@ -65,9 +65,34 @@ TestView::TestView(QWidget *parent)
 //   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
 
     MaskModel *maskModel = new MaskModel;
-//    ParameterizedItem *rectangle = maskModel->insertNewItem(Constants::RectangleType);
-//    rectangle->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
-//    rectangle->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+//    ParameterizedItem *rectangle1 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle1->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
+//    rectangle1->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+//    rectangle1->setItemName("rect1");
+//    ParameterizedItem *rectangle2 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle2->setRegisteredProperty(RectangleItem::P_WIDTH, 120.0);
+//    rectangle2->setRegisteredProperty(RectangleItem::P_HEIGHT, 220.0);
+//    rectangle2->setItemName("rect2");
+//    ParameterizedItem *rectangle3 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle3->setRegisteredProperty(RectangleItem::P_WIDTH, 120.0);
+//    rectangle3->setRegisteredProperty(RectangleItem::P_HEIGHT, 220.0);
+//    rectangle3->setItemName("rect3");
+
+
+//    QModelIndex itemIndex = maskModel->index(1, 0, QModelIndex());
+//    ParameterizedItem *item = maskModel->itemForIndex(itemIndex);
+//    maskModel->moveParameterizedItem(item, 0, 3);
+
+//    for (int i_row = 0; i_row < maskModel->rowCount(QModelIndex()); ++i_row) {
+//        QModelIndex itemIndex = maskModel->index(i_row, 0, QModelIndex());
+
+//        if (ParameterizedItem *item = maskModel->itemForIndex(itemIndex)) {
+
+//            qDebug() << i_row << item->itemName();
+//        }
+
+
+//    Q_ASSERT(0);
 
 //    ParameterizedItem *polygon = maskModel->insertNewItem(Constants::PolygonType);
 //    maskModel->insertNewItem(Constants::PointType, maskModel->indexOfItem(polygon));

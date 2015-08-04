@@ -59,7 +59,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
     ParameterizedItem *m_item;
@@ -70,6 +70,6 @@ private:
     bool m_rotationMode;
     void updateRotationArrows();
     void initializeArrow();
-    void setSelectedCorner(QGraphicsSceneMouseEvent *event);
+    void setSelectedCorner(QPointF currentMousePosition);
 };
 #endif

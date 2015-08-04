@@ -16,7 +16,7 @@ EllipseView::EllipseView()
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemIgnoresTransformations, false);
+    setAcceptHoverEvents(true);
 }
 
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -196,7 +196,7 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
     this->setFlag(QGraphicsItem::ItemIsMovable, false);
 
     if (event->button() == Qt::LeftButton) {
-        setSelectedCorner(event);
+        setSelectedCorner(event->pos());
 
         if (m_corner == NONE) {
             if ((m_mode == RESIZE)) {
@@ -240,6 +240,12 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_corner = NONE;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void EllipseView::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    setSelectedCorner(event->pos());
+    m_corner = NONE;
 }
 
 void EllipseView::setInclude()
@@ -287,10 +293,10 @@ QRectF EllipseView::getBottomRightCorner()
 void EllipseView::setParameterizedItem(ParameterizedItem *item)
 {
     m_item = item;
-    setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-         + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5);
-    setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-         + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
+//    setX(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+//         + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5);
+//    setY(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+//         + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
     setRotation(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));
@@ -336,30 +342,31 @@ ParameterizedItem *EllipseView::getParameterizedItem()
     return m_item;
 }
 
-void EllipseView::setSelectedCorner(QGraphicsSceneMouseEvent *event)
+void EllipseView::setSelectedCorner(QPointF currentMousePosition)
 {
-    if (getTopLeftCorner().contains(event->pos())) {
+    if (getTopLeftCorner().contains(currentMousePosition)) {
         qDebug() << "TOPLEFT";
         m_corner = TOPLEFT;
         if(m_mode == RESIZE)
             setCursor(Qt::SizeFDiagCursor);
-    } else if (getTopRightCorner().contains(event->pos())) {
+    } else if (getTopRightCorner().contains(currentMousePosition)) {
         qDebug() << "TOPRIGHT";
         m_corner = TOPRIGHT;
         if(m_mode == RESIZE)
             setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomLeftCorner().contains(event->pos())) {
+    } else if (getBottomLeftCorner().contains(currentMousePosition)) {
         qDebug() << "BOTTOMLEFT";
         m_corner = BOTTOMLEFT;
         if(m_mode == RESIZE)
             setCursor(Qt::SizeBDiagCursor);
-    } else if (getBottomRightCorner().contains(event->pos())) {
+    } else if (getBottomRightCorner().contains(currentMousePosition)) {
         qDebug() << "BOTTOMRIGHT";
         m_corner = BOTTOMRIGHT;
         if(m_mode == RESIZE)
             setCursor(Qt::SizeFDiagCursor);
     } else {
         m_corner = NONE;
+        setCursor(QCursor());
     }
 
     if (m_mode == ROTATION && m_corner != NONE) {

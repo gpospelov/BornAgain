@@ -91,8 +91,8 @@
 // GraphicsView - zoom in/out, pan
 // 1) No scroll bars appears when zoom in [FIXED]
 // 2) Pan seems to be not making a pan over the whole area [FIXED]
-// 3) Make pan automatic then user holds on "spacebar" key.
-// 4) zoom out to far should not be possible, i.e. maximum size of scene should be defined
+// 3) Make pan automatic then user holds on "spacebar" key. [FIXED]
+// 4) zoom out to far should not be possible, i.e. maximum size of scene should be defined [FIXED]
 
 
 
@@ -140,7 +140,7 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     m_proxyWidget->setWidget(new QCustomPlot);
     m_proxyWidget->resize(m_scene->width(), m_scene->height());
-    m_scene->addItem(m_proxyWidget);
+//    m_scene->addItem(m_proxyWidget);
 
 
     // connect buttons
@@ -162,7 +162,8 @@ MaskEditor::MaskEditor(QWidget *parent)
 
     QPushButton *panButton = new QPushButton("Pan Mode");
     panButton->setCheckable(true);
-    connect(panButton, SIGNAL(toggled(bool)), this, SLOT(panMode()));
+    connect(panButton, SIGNAL(toggled(bool)), this, SLOT(panMode(bool)));
+    connect(m_view, SIGNAL(panMode(bool)), this, SLOT(panMode(bool)));
 
     QPushButton *deleteButton = new QPushButton("Delete");
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteSelectedItem()));
@@ -232,6 +233,12 @@ MaskEditor::MaskEditor(QWidget *parent)
 
 }
 
+void MaskEditor::init_connections()
+{
+
+}
+
+
 void MaskEditor::rectangleButtonPressed()
 {
     m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
@@ -249,9 +256,9 @@ void MaskEditor::polygonButtonPressed()
     m_scene->setDrawing(MaskGraphicsScene::POLYGON);
 }
 
-void MaskEditor::panMode()
+void MaskEditor::panMode(bool active)
 {
-    if(((QPushButton*) this->sender())->isChecked()) {
+    if(active) {
         m_view->setDragMode(QGraphicsView::ScrollHandDrag);
         m_view->setInteractive(false);
     }
@@ -272,24 +279,18 @@ void MaskEditor::deleteSelectedItem()
 
 void MaskEditor::bringToFrontClicked()
 {
-    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    for(int i = 0; i < selectedItems.length(); ++i) {
-        selectedItems[i]->setZValue(selectedItems[i]->zValue()+1);
-    }
-    qDebug() << "void MaskEditor::bringToFrontClicked()-> current value:" << selectedItems[0]->zValue();
+    m_scene->onBringToFront();
+
 }
 
 void MaskEditor::sendToBackClicked()
 {
-    QList<QGraphicsItem*> selectedItems = m_view->scene()->selectedItems();
-    for(int i = 0; i < selectedItems.length(); ++i) {
-        selectedItems[i]->setZValue(selectedItems[i]->zValue()-1);
-    }
+    m_scene->onSendToBack();
     // To make sure that ColorMap is always bottom level item
-    if(m_proxyWidget->zValue() > selectedItems[0]->zValue()) {
-            m_proxyWidget->setZValue(selectedItems[0]->zValue()-1);
-    }
-    qDebug() << "void MaskEditor::sendToBackClicked()-> current value:" << selectedItems[0]->zValue();
+//    if(m_proxyWidget->zValue() > selectedItems[0]->zValue()) {
+//            m_proxyWidget->setZValue(selectedItems[0]->zValue()-1);
+//    }
+
 }
 
 void MaskEditor::includeClicked()

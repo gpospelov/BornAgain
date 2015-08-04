@@ -49,6 +49,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             if (numberOfPoints() > 2 && firstPointContainsMouseClick(event)) {
                 m_currentItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
+                m_ItemToView[m_currentItem]->setZValue(m_maskModel->rowCount(QModelIndex()) -1 );
+                m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
                 m_currentItem = 0;
                 m_drawingMode = NONE;
                 emit itemIsDrawn();
@@ -112,6 +114,8 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
     if (m_drawingMode == RECTANGLE || m_drawingMode == ELLIPSE) {
+        m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
+
         m_currentItem = 0;
         if(!drawingToSmall) {
             emit itemIsDrawn();
@@ -151,13 +155,13 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex)
 
 IView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 {
-    qDebug() << "GraphicsScene::addViewForItem() ->" << item->modelType();
+    qDebug() << "GraphicsScene::addViewForItem() ->" << item->modelType() << item;
     Q_ASSERT(item);
 
     IView *view = m_ItemToView[item];
     if (!view) {
         qDebug() << "       GraphicsScene::addViewForItem() -> Creating view for item"
-                 << item->modelType();
+                 << item->modelType();       
         view = SampleViewFactory::createSampleView(item->modelType());
         if (view) {
             m_ItemToView[item] = view;
@@ -175,6 +179,7 @@ IView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 void MaskGraphicsScene::updateScene()
 {
     updateViews();
+    setZValues();
 }
 
 void MaskGraphicsScene::resetScene()
@@ -293,7 +298,7 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
     }
 }
 
-void MaskGraphicsScene::onRowsRemoved(const QModelIndex & /* parent */, int /* first */, int /* last */)
+void MaskGraphicsScene::onRowsRemoved(const QModelIndex & parent , int /* first */, int /* last */)
 {
     //    resetScene();
     updateScene();
@@ -339,9 +344,12 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::onRowsInserted(const QModelIndex & /* parent */, int /* first */,
-                                   int /* last */)
+void MaskGraphicsScene::onRowsInserted(const QModelIndex &  parent , int /* first */, int /* last */)
 {
+    if(m_currentItem){
+
+    }
+
     updateScene();
 }
 
@@ -388,3 +396,49 @@ bool MaskGraphicsScene::firstPointContainsMouseClick(QGraphicsSceneMouseEvent *e
         return false;
     }
 }
+
+void MaskGraphicsScene::onBringToFront()
+{
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+    for(int i = 0; i < indexes.size(); i++) {
+        ParameterizedItem *item =  m_maskModel->itemForIndex(indexes.at(i));
+        int row = indexes.at(i).row() -1;
+
+        if(indexes.at(i).row() == 0) {
+            return;
+        }
+        else {
+            m_maskModel->moveParameterizedItem(item, 0, row);
+        }
+    }
+}
+
+void MaskGraphicsScene::onSendToBack()
+{
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    qDebug() << "MaskGraphicsScene::onSendToBack()" << indexes.size();
+    for(int i = 0; i < indexes.size(); i++) {
+        ParameterizedItem *item =  m_maskModel->itemForIndex(indexes.at(i));
+        int row = indexes.at(i).row() + 2;
+
+        if(indexes.at(i).row() == m_maskModel->rowCount(QModelIndex()) -1 ) {
+            return;
+        }
+        else {
+            m_maskModel->moveParameterizedItem(item, 0, row);
+        }
+
+    }
+}
+
+void MaskGraphicsScene::setZValues()
+{
+    for(int i = 0; i < m_maskModel->rowCount(QModelIndex()); i++) {
+        QModelIndex indexes = m_maskModel->index(i, 0, QModelIndex());
+        ParameterizedItem *item =  m_maskModel->itemForIndex(indexes);
+        m_ItemToView[item]->setZValue(m_maskModel->rowCount(QModelIndex()) -  indexes.row());
+    }
+}
+
+

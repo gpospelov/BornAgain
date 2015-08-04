@@ -12,7 +12,6 @@
 
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 {
-
     // hold control button
     if(controlButtonIsPressed(event)) {
         centerOn(mapToScene(event->pos()));
@@ -26,7 +25,8 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 
         } else {
             // Zooming out
-            this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+            if(horizontalScrollBar()->isVisible() || verticalScrollBar()->isVisible())
+                this->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
         }
     }
 //    else if(eventPosIsOnColorMap(event)) {
@@ -39,34 +39,32 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
     }
 }
 
-void MaskGraphicsView::resizeEvent(QResizeEvent *event)
+
+void MaskGraphicsView::keyPressEvent(QKeyEvent *event )
 {
-//    qDebug() << "resize";
-//    for(int i = 0; i < scene()->items().length()-1; ++i)
-//    {
-//        if(this->scene()->items()[i]->type() == QGraphicsProxyWidget::Type) {
-//            dynamic_cast<GraphicsProxyWidget*>(this->scene()->items()[i])->resize(this->viewport()->width(), this->viewport()->height());
-//            this->setSceneRect(this->rect());
-//        }
-//    }
-
-
-//    this->scale(this->rect().width()/this->scene()->width(), this->rect().height()/this->scene()->height());
-/*    qreal width = this->sceneRect().width() * this->rect().width()/this->scene()->width();
-    qreal height =  this->sceneRect().height() * this->rect().height()/this->scene()->height();
-    this->scene()->sceneRect().setWidth(width);
-    this->scene()->sceneRect().setHeight(height)*/;
-    QGraphicsView::resizeEvent(event);
+    switch ( event->key() ) {
+        case Qt::Key_Delete:
+            deleteSelectedItems();
+            break;
+        case Qt::Key_Space:
+            if(!event->isAutoRepeat())
+                emit panMode(true);
+            break;
+        default:
+            QWidget::keyPressEvent(event);
+            break;
+    }
 }
-
-void  MaskGraphicsView::keyPressEvent(QKeyEvent *event)
+void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
 {
-    switch (event->key()) {
-    case Qt::Key_Delete:
-        deleteSelectedItems();
+    switch ( event->key() ) {
+        case Qt::Key_Space:
+        if(!event->isAutoRepeat())
+            emit panMode(false);
         break;
-    default:
-        QWidget::keyPressEvent(event);
+        default:
+        QWidget::keyReleaseEvent(event);
+        break;
     }
 }
 

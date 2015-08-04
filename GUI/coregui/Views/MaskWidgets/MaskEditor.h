@@ -17,6 +17,7 @@ public:
 
     void setModel(MaskModel *maskModel);
 
+
 private slots:
 
     //! creates a rectangle on button press event
@@ -29,7 +30,7 @@ private slots:
     void polygonButtonPressed();
 
     //! switch on pan mode
-    void panMode();
+    void panMode(bool active);
 
     //! delete selected item
     void deleteSelectedItem();
@@ -58,6 +59,7 @@ private:
     GraphicsProxyWidget *m_proxyWidget;
     // FIXME this layout is not needed here
     QVBoxLayout *m_buttonLayout;
+    void init_connections();
 };
 
 #endif

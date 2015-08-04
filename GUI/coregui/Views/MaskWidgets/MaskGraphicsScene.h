@@ -24,6 +24,8 @@ public:
     void setDrawing(DrawingMode drawingMode);
     void setSelectionModel(QItemSelectionModel *selectionModel);
     void setModel(MaskModel *maskModel);
+    void onBringToFront();
+    void onSendToBack();
 
 public slots:
     void deleteSelectedItems();
@@ -63,5 +65,7 @@ private:
     bool m_block_selection;
     int numberOfPoints();
     bool firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event);
+    void sortModelByZValue();
+    void setZValues();
 };
 #endif

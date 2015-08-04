@@ -188,7 +188,7 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertChildItem(-1, result);
     }
-
+    qDebug() << "       result:" << result;
     return result;
 }
 

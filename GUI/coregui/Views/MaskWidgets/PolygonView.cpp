@@ -54,7 +54,7 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         && m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool()) {
         pen.setWidth(1);
         if (m_mouseIsOverFirstPoint) {
-            painter->fillRect(getFirstPoint(), Qt::green);
+            painter->fillRect(getFirstPoint(), Qt::red);
         } else {
             painter->drawRect(getFirstPoint());
         }
@@ -192,27 +192,27 @@ void PolygonView::setInclude()
     m_item->setRegisteredProperty(PolygonItem::P_COLOR, 0);
 }
 
-QRectF PolygonView::getTopLeftCorner()
-{
-    return QRectF(boundingRect().x(), boundingRect().y(), 10, 10);
-}
+//QRectF PolygonView::getTopLeftCorner()
+//{
+//    return QRectF(boundingRect().x(), boundingRect().y(), 10, 10);
+//}
 
-QRectF PolygonView::getTopRightCorner()
-{
-    return QRectF(boundingRect().x() + boundingRect().width() - 10, boundingRect().y(), 10,
-                  10);
-}
+//QRectF PolygonView::getTopRightCorner()
+//{
+//    return QRectF(boundingRect().x() + boundingRect().width() - 10, boundingRect().y(), 10,
+//                  10);
+//}
 
-QRectF PolygonView::getBottomLeftCorner()
-{
-    return QRectF(boundingRect().x(), boundingRect().y() + boundingRect().height() - 10, 10, 10);
-}
+//QRectF PolygonView::getBottomLeftCorner()
+//{
+//    return QRectF(boundingRect().x(), boundingRect().y() + boundingRect().height() - 10, 10, 10);
+//}
 
-QRectF PolygonView::getBottomRightCorner()
-{
-    return QRectF(boundingRect().x() + boundingRect().width() - 10,
-                  boundingRect().y() + boundingRect().height() - 10, 10, 10);
-}
+//QRectF PolygonView::getBottomRightCorner()
+//{
+//    return QRectF(boundingRect().x() + boundingRect().width() - 10,
+//                  boundingRect().y() + boundingRect().height() - 10, 10, 10);
+//}
 
 QRectF PolygonView::getFirstPoint() const
 {

@@ -51,7 +51,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
     complex_t iqzR = complex_t(0.0, 1.0)*qz*R;
     complex_t z_part = std::exp(iqzR);
 
-    complex_t qR = std::sqrt( std::norm(q.x()) + std::norm(q.y()) + std::norm(qz) )*R;
+    complex_t qR = std::sqrt( q.x()*q.x() + q.y()*q.y() + qz*qz )*R;
     double volume = 4*Units::PI*R*R*R/3;
     complex_t radial;
     if (std::abs(qR) < Numeric::double_epsilon) {
@@ -72,6 +72,3 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
 
     return radial*z_part;
 }
-
-
-

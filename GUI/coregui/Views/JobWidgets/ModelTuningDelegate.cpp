@@ -145,7 +145,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
         } else {
-            m_valueBox->setMinimum(minimum_doublespin_value);
+            m_valueBox->setMinimum(-maximum_doublespin_value);
         }
 
         if(limits.hasUpperLimit()) {

@@ -13,6 +13,7 @@ class QTreeView;
 class QItemSelectionModel;
 class IView;
 class QSelectionModel;
+class QGraphicsItem;
 
 class MaskGraphicsScene : public QGraphicsScene
 {
@@ -63,6 +64,7 @@ private:
     QPointF m_currentMousePosition;
     QPointF m_lastAddedPoint;
     bool m_block_selection;
+    QGraphicsItem *m_colorMap;
     int numberOfPoints();
     bool firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event);
     void sortModelByZValue();

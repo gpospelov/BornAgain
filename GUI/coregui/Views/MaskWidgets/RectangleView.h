@@ -52,10 +52,12 @@ public:
     QRectF getBottomRightCorner();
     ParameterizedItem *getParameterizedItem();
     void setParameterizedItem(ParameterizedItem *item);
+
 public slots:
     void onChangedX();
     void onChangedY();
     void onPropertyChange(const QString &propertyName);
+
 protected:
     //! paintEvent paints Rectangle and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
@@ -69,7 +71,7 @@ private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     Mode m_mode;
-    bool m_block_update;
+    bool m_block_mode;
 
     void setSelectedCorner(QPointF currentMousePosition);
     void updateRotationArrows();

@@ -199,11 +199,6 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
         setSelectedCorner(event->pos());
 
         if (m_corner == NONE) {
-            if ((m_mode == RESIZE)) {
-                m_mode = ROTATION;
-            } else if ((m_mode == ROTATION)) {
-                m_mode = RESIZE;
-            }
             this->setFlag(QGraphicsItem::ItemIsMovable, true);
             QGraphicsItem::mousePressEvent(event);
         }
@@ -212,6 +207,10 @@ void EllipseView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(m_corner == NONE) {
+        m_block_mode = true;
+    }
+
     // check which mode is active and process with the active mode
     if (m_mode == RESIZE && m_corner != NONE) {
         calculateResize(event);
@@ -236,7 +235,14 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    // set all modes off, change cursor and process as usual
+    if(!m_block_mode) {
+        if ((m_mode == RESIZE)) {
+            m_mode = ROTATION;
+        } else if ((m_mode == ROTATION)) {
+            m_mode = RESIZE;
+        }
+    }
+    m_block_mode = false;
     m_corner = NONE;
     setCursor(Qt::ArrowCursor);
     QGraphicsItem::mouseReleaseEvent(event);

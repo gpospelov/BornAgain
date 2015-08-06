@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <ColorMapPlot.h>
+#include <QPointF>
 #include "GraphicsProxyWidget.h"
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
@@ -7,13 +8,14 @@
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
 #include "MaskEditor.h"
+#include "MaskToolBar.h"
 #include "RectangleView.h"
 #include "EllipseView.h"
 #include "PolygonView.h"
 #include "MaskModel.h"
 #include "SampleBuilderFactory.h"
-#include "AwesomePropertyEditor.h"
-#include "RectangleItem.h"
+
+
 
 
 
@@ -49,12 +51,14 @@
 //    INVERT_MASK <-- will change the color of item to the opposite
 //
 
-// 2) Think of icons for whose buttons
-// 3) Provide buttons will tooltip
-// 4) MaskEditor will own MaskToolBar widget, create MaskEditor::init_connections() which will connect all signals in one place (i.e. not in constructor)
+// 2) Think of icons for whose buttons [FIXED]
+// 3) Provide buttons will tooltip [FIXED]
+// 4) MaskEditor will own MaskmToolBar widget,
+//    create MaskEditor::init_connections()
+//    which will connect all signals in one place (i.e. not in constructor) [FIXED]
 
 
-// Move up/down functionality
+// Move up/down functionality [FIXED]
 // Use SessionModel::moveParameterizedItem(item_to_move, new_parent, row);
 //
 // For example, you have rectangleItem which belongs to model (to the root of the model), and it is located in the row #5
@@ -97,9 +101,6 @@
 
 
 
-
-
-
 const qreal widthOfScene = 2000;
 const qreal heightOfScene = 2000;
 
@@ -109,133 +110,39 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_scene(new MaskGraphicsScene)
     , m_view(new MaskGraphicsView)
     , m_proxyWidget(new GraphicsProxyWidget)
-    , m_buttonLayout(new QVBoxLayout)
+    , m_listView(new QListView)
+    , m_toolBar(new MaskToolBar)
 {
 
     setMouseTracking(true);
     m_view->setMouseTracking(true);
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
     m_view->setRenderHint(QPainter::TextAntialiasing);
-//    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setScene(m_scene);
+    init_connections();
 
-
-
-    // convert widget into custom QProxywidget and put it in to the scene
-    SimulationRegistry sim_registry;
-    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
-    SampleBuilderFactory sampleFactory;
-    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
-    sim->setSampleBuilder(builder);
-
-    sim->runSimulation();
-    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
-
-    IntensityDataItem *dataItem = new IntensityDataItem;
-    dataItem->setOutputData(sim->getIntensityData());
-
-    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-    colorMapPlot->setItem(dataItem);
-
-    m_proxyWidget->setWidget(new QCustomPlot);
-    m_proxyWidget->resize(m_scene->width(), m_scene->height());
-//    m_scene->addItem(m_proxyWidget);
-
-
-    // connect buttons
-    QPushButton *rectangleButton = new QPushButton("Rectangle");
-    rectangleButton->setCheckable(true);
-    connect(rectangleButton, SIGNAL(pressed()), this, SLOT(rectangleButtonPressed()));
-
-    QPushButton *ellipseButton = new QPushButton("Ellipse");
-    ellipseButton->setCheckable(true);
-    connect(ellipseButton, SIGNAL(pressed()), this, SLOT(ellipseButtonPressed()));
-
-    QPushButton *polygonButton = new QPushButton("Polygon");
-    polygonButton->setCheckable(true);
-    connect(polygonButton, SIGNAL(pressed()), this, SLOT(polygonButtonPressed()));
-
-    QPushButton *selectionButton = new QPushButton("Selection Mode");
-    selectionButton->setCheckable(true);
-    connect(selectionButton, SIGNAL(pressed()), this, SLOT(changeToSelectionMode()));
-
-    QPushButton *panButton = new QPushButton("Pan Mode");
-    panButton->setCheckable(true);
-    connect(panButton, SIGNAL(toggled(bool)), this, SLOT(panMode(bool)));
-    connect(m_view, SIGNAL(panMode(bool)), this, SLOT(panMode(bool)));
-
-    QPushButton *deleteButton = new QPushButton("Delete");
-    connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteSelectedItem()));
-
-    QPushButton *bringToFrontButton = new QPushButton("Bring to front");
-    connect(bringToFrontButton, SIGNAL(clicked()), this, SLOT(bringToFrontClicked()));
-
-    QPushButton *sendToBackButton = new QPushButton("Send to back");
-    connect(sendToBackButton, SIGNAL(clicked()), this, SLOT(sendToBackClicked()));
-
-    QPushButton *includeButton = new QPushButton("Include area");
-    connect(includeButton, SIGNAL(clicked()), this, SLOT(includeClicked()));
-
-    QPushButton *excludeButton = new QPushButton("Exclude area");
-    connect(excludeButton, SIGNAL(clicked()), this, SLOT(excludeClicked()));
-
-    QPushButton *drawingButton = new QPushButton("Drawing Mode");
-    drawingButton->setCheckable(true);
-    connect(drawingButton, SIGNAL(pressed()), this, SLOT(changeToDrawingMode()));
-
-    connect(m_scene, SIGNAL(itemIsDrawn()), selectionButton, SLOT(click()));
-
-    QGroupBox *drawingMode = new QGroupBox(this);
-    QVBoxLayout *drawingModeLayout = new QVBoxLayout;
-    drawingMode->setLayout(drawingModeLayout);
-    drawingMode->setTitle("Drawing Mode");
-    drawingModeLayout->addWidget(rectangleButton);
-    drawingModeLayout->addWidget(ellipseButton);
-    drawingModeLayout->addWidget(polygonButton);
-    drawingModeLayout->addWidget(panButton);
-    drawingModeLayout->addWidget(selectionButton);
-//    drawingMode->setDisabled(true);
-
-    QGroupBox *selectionMode = new QGroupBox(this);
-    QVBoxLayout *selectionModeBoxLayout = new QVBoxLayout;
-    selectionMode->setLayout(selectionModeBoxLayout);
-    selectionMode->setTitle("Selection Mode");
-    selectionModeBoxLayout->addWidget(includeButton);
-    selectionModeBoxLayout->addWidget(excludeButton);
-    selectionModeBoxLayout->addWidget(deleteButton);
-    selectionModeBoxLayout->addWidget(bringToFrontButton);
-    selectionModeBoxLayout->addWidget(sendToBackButton);
-
-    QButtonGroup *buttonGroup = new QButtonGroup(this);
-    buttonGroup->addButton(rectangleButton);
-    buttonGroup->addButton(ellipseButton);
-    buttonGroup->addButton(polygonButton);
-    buttonGroup->addButton(panButton);
-    buttonGroup->addButton(selectionButton);
-
-    // create widget with buttons
-    QWidget *buttons = new QWidget(this);
-//    buttons->resize(200,200);
-    m_buttonLayout->addWidget(drawingMode);
-    m_buttonLayout->addWidget(selectionMode);
-    buttons->setLayout(m_buttonLayout);
-
-
-
-    //add scene and buttons into widget
-    QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(m_view);
-    mainLayout->addWidget(buttons);
-    this->setLayout(mainLayout);
-
-
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->addWidget(m_toolBar,0,0,1,0);
+    mainLayout->addWidget(m_view, 1,0);
+    mainLayout->addWidget(m_listView, 1,1);
+    setLayout(mainLayout);
 
 }
 
 void MaskEditor::init_connections()
 {
-
+    connect(m_toolBar, SIGNAL(changeToSelectionMode()), this, SLOT(changeToSelectionMode()));
+    connect(m_scene, SIGNAL(itemIsDrawn()), this, SLOT(changeToSelectionMode()));
+    connect(m_scene, SIGNAL(itemIsDrawn()), m_toolBar, SLOT(selectSelectionMode()));
+    connect(m_toolBar, SIGNAL(panMode(bool)), this, SLOT(panMode(bool)));
+    connect(m_view, SIGNAL(panMode(bool)), this, SLOT(panMode(bool)));
+    connect(m_toolBar, SIGNAL(rectangleButtonPressed()), this, SLOT(rectangleButtonPressed()));
+    connect(m_toolBar, SIGNAL(ellipseButtonPressed()), SLOT(ellipseButtonPressed()));
+    connect(m_toolBar, SIGNAL(polygonButtonPressed()), this, SLOT(polygonButtonPressed()));
+    connect(m_toolBar, SIGNAL(bringToFrontClicked()), this, SLOT(bringToFrontClicked()));
+    connect(m_toolBar, SIGNAL(sendToBackClicked()), this, SLOT(sendToBackClicked()));
+    connect(m_toolBar, SIGNAL(includeClicked()), this, SLOT(includeClicked()));
+    connect(m_toolBar, SIGNAL(excludeClicked()), this , SLOT(excludeClicked()));
 }
 
 
@@ -286,11 +193,6 @@ void MaskEditor::bringToFrontClicked()
 void MaskEditor::sendToBackClicked()
 {
     m_scene->onSendToBack();
-    // To make sure that ColorMap is always bottom level item
-//    if(m_proxyWidget->zValue() > selectedItems[0]->zValue()) {
-//            m_proxyWidget->setZValue(selectedItems[0]->zValue()-1);
-//    }
-
 }
 
 void MaskEditor::includeClicked()
@@ -338,24 +240,35 @@ void MaskEditor::changeToDrawingMode()
 
 void MaskEditor::setModel(MaskModel *maskModel)
 {
-
-    QListView *listView = new QListView;
-    listView->setModel(maskModel);
+    m_listView->setModel(maskModel);
     m_scene->setModel(maskModel);
+    m_scene->setSelectionModel(m_listView->selectionModel());
 
-//    ParameterizedItem *item = maskModel->insertNewItem(Constants::RectangleType);
-//    item->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
-//    item->setRegisteredProperty(RectangleItem::P_HEIGHT, 100.0);
-//    item->setRegisteredProperty(RectangleItem::P_POSX, 100.0);
-//    item->setRegisteredProperty(RectangleItem::P_POSY, 100.0);
-//    item->setRegisteredProperty(RectangleItem::P_ANGLE, 30.0);
+    SimulationRegistry sim_registry;
+    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
+    SampleBuilderFactory sampleFactory;
+    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
+    sim->setSampleBuilder(builder);
 
-//    AwesomePropertyEditor *m_editor = new AwesomePropertyEditor();
-//    m_editor->setItem(item);
-//    m_buttonLayout->addWidget(m_editor);
+    sim->runSimulation();
+    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
 
-    m_scene->setSelectionModel(listView->selectionModel());
-    m_buttonLayout->addWidget(listView);
+    IntensityDataItem *dataItem = new IntensityDataItem;
+    dataItem->setOutputData(sim->getIntensityData());
+
+    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+    colorMapPlot->setItem(dataItem);
+
+    m_proxyWidget->setWidget(colorMapPlot);
+
+    m_proxyWidget->setPos(m_scene->sceneRect().topLeft());
+    m_proxyWidget->resize(m_scene->width(), m_scene->height());
+    m_scene->addItem(m_proxyWidget);
+}
+
+void MaskEditor::onItemIsDrawn()
+{
+    emit itemIsDrawn();
 }
 
 

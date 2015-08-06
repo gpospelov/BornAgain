@@ -5,6 +5,8 @@ class MaskGraphicsView;
 class MaskGraphicsScene;
 class GraphicsProxyWidget;
 class MaskModel;
+class MaskToolBar;
+class QListView;
 class QVBoxLayout;
 
 class MaskEditor : public QWidget
@@ -53,13 +55,20 @@ private slots:
     //!change from selection mode to drawing mode
     void changeToDrawingMode();
 
+
+    //!change back to selecton mode if item is drawn
+    void onItemIsDrawn();
+
 private:
     MaskGraphicsScene *m_scene;
     MaskGraphicsView *m_view;
     GraphicsProxyWidget *m_proxyWidget;
-    // FIXME this layout is not needed here
-    QVBoxLayout *m_buttonLayout;
+    QListView *m_listView;
+    MaskToolBar *m_toolBar;
     void init_connections();
+
+signals:
+    void itemIsDrawn();
 };
 
 #endif

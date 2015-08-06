@@ -65,7 +65,7 @@ private:
     ParameterizedItem *m_item;
     Corner m_corner;                        //!< enum with all corners
     Mode m_mode;
-    bool m_block_update;
+    bool m_block_mode;
     bool m_resizeMode;
     bool m_rotationMode;
     void updateRotationArrows();

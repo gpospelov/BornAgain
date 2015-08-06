@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QTreeView>
 #include <QPainter>
+#include <QGraphicsProxyWidget>
+#include <QPushButton>
 
 MaskGraphicsScene::MaskGraphicsScene()
     : m_maskModel(0), m_currentItem(0), m_currentMousePosition(QPointF(0, 0)),
@@ -29,7 +31,6 @@ void MaskGraphicsScene::setDrawing(DrawingMode drawingMode)
 
 void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << " MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)" << event->scenePos();
     if(event->button() == Qt::LeftButton) {
         if (m_drawingMode == RECTANGLE) {
             m_currentItem = m_maskModel->insertNewItem(Constants::RectangleType);
@@ -178,8 +179,16 @@ IView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
 
 void MaskGraphicsScene::updateScene()
 {
-    updateViews();
-    setZValues();
+    if(this->items().size() > 0) {
+        m_colorMap = this->items().at(0);
+        updateViews();
+        setZValues();
+        addItem(m_colorMap);
+    }
+    else {
+        updateViews();
+        setZValues();
+    }
 }
 
 void MaskGraphicsScene::resetScene()
@@ -300,7 +309,6 @@ void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
 
 void MaskGraphicsScene::onRowsRemoved(const QModelIndex & parent , int /* first */, int /* last */)
 {
-    //    resetScene();
     updateScene();
 }
 

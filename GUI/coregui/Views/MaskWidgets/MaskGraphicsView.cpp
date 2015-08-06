@@ -68,6 +68,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+
 void MaskGraphicsView::deleteSelectedItems()
 {
     MaskGraphicsScene *graphicsScene = dynamic_cast<MaskGraphicsScene *>(scene());

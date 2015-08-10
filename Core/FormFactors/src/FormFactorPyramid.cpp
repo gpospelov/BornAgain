@@ -79,7 +79,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
 
     complex_t F;
     const complex_t im(0, 1);
-    if (std::abs(qx) > Numeric::double_epsilon && std::abs(qy) > Numeric::double_epsilon) {
+    if (std::norm(qx) > Numeric::double_epsilon && std::norm(qy) > Numeric::double_epsilon) {
         complex_t q1, q2, q3, q4;
         q1 = (H / 2.) * ((qx - qy) / tga + qz);
         q2 = (H / 2.) * ((qx - qy) / tga - qz);
@@ -97,8 +97,8 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
         F = K1 * std::cos((qx - qy) * R) + K2 * std::sin((qx - qy) * R)
             - K3 * std::cos((qx + qy) * R) - K4 * std::sin((qx + qy) * R);
         F = F * H / (qx * qy);
-    } else if (std::abs(qx) <= Numeric::double_epsilon && std::abs(qy) <= Numeric::double_epsilon) {
-        if (std::abs(qz) <= Numeric::double_epsilon)
+    } else if (std::norm(qx) <= Numeric::double_epsilon && std::norm(qy) <= Numeric::double_epsilon) {
+        if (std::norm(qz) <= Numeric::double_epsilon)
             F = 4. / 3. * tga * R * R * R
                 * (1. - (1. - H / R / tga) * (1. - H / R / tga) * (1. - H / R / tga));
         else
@@ -107,7 +107,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
                              * ((1. + im + H * qz) / tga - qz * R)) / std::pow(qz, 3);
     } else {
         complex_t qxy;
-        if (std::abs(qy) <= Numeric::double_epsilon && std::abs(qx) > Numeric::double_epsilon) {
+        if (std::norm(qy) <= Numeric::double_epsilon && std::norm(qx) > Numeric::double_epsilon) {
             qxy = qx;
         } else {
             qxy = qy;

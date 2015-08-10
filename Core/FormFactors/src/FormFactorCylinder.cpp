@@ -55,7 +55,8 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
     complex_t z_part = H*MathFunctions::Sinc(qzH_half) *
         std::exp(complex_t(0.0, 1.0)*qzH_half);
 
-    complex_t qrR = q.magxy()*R;
+    complex_t qxy = std::sqrt(q.x()*q.x()+q.y()*q.y());
+    complex_t qrR = qxy*R;
     complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ?
         MathFunctions::Bessel_C1(qrR) :
         0.5;

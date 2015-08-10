@@ -119,6 +119,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
     m_view->setRenderHint(QPainter::TextAntialiasing);
     m_view->setScene(m_scene);
+    m_scene->sceneRect().setWidth(widthOfScene);
+    m_scene->setSceneRect(0,0,widthOfScene, heightOfScene);
     init_connections();
 
     QGridLayout *mainLayout = new QGridLayout;
@@ -244,22 +246,22 @@ void MaskEditor::setModel(MaskModel *maskModel)
     m_scene->setModel(maskModel);
     m_scene->setSelectionModel(m_listView->selectionModel());
 
-    SimulationRegistry sim_registry;
-    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
-    SampleBuilderFactory sampleFactory;
-    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
-    sim->setSampleBuilder(builder);
+//    SimulationRegistry sim_registry;
+//    Simulation *sim = sim_registry.createSimulation("BasicGISAS");
+//    SampleBuilderFactory sampleFactory;
+//    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersAndPrismsBuilder");
+//    sim->setSampleBuilder(builder);
 
-    sim->runSimulation();
-    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
+//    sim->runSimulation();
+//    qDebug() << sim->getIntensityData() << sim->getIntensityData()->totalSum();
 
-    IntensityDataItem *dataItem = new IntensityDataItem;
-    dataItem->setOutputData(sim->getIntensityData());
+//    IntensityDataItem *dataItem = new IntensityDataItem;
+//    dataItem->setOutputData(sim->getIntensityData());
 
-    ColorMapPlot *colorMapPlot = new ColorMapPlot;
-    colorMapPlot->setItem(dataItem);
+//    ColorMapPlot *colorMapPlot = new ColorMapPlot;
+//    colorMapPlot->setItem(dataItem);
 
-    m_proxyWidget->setWidget(colorMapPlot);
+//    m_proxyWidget->setWidget(colorMapPlot);
 
     m_proxyWidget->setPos(m_scene->sceneRect().topLeft());
     m_proxyWidget->resize(m_scene->width(), m_scene->height());

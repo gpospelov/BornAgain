@@ -20,6 +20,8 @@ RectangleView::RectangleView()
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setAcceptHoverEvents(true);
+    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -148,7 +150,7 @@ void RectangleView::calculateResize(QGraphicsSceneMouseEvent *event)
         m_item->setRegisteredProperty(RectangleItem::P_HEIGHT,
                                       m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
                                       + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT)
-                                      .toReal() - std::abs(event->pos().y()));
+                                      .toReal() - event->pos().y());
         m_item->setRegisteredProperty(RectangleItem::P_POSY, event->pos().y());
     }
     else if (m_corner == BOTTOMRIGHT) {
@@ -202,6 +204,7 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (m_corner == NONE) {
             this->setFlag(QGraphicsItem::ItemIsMovable, true);
+            m_block_mode = false;
             QGraphicsItem::mousePressEvent(event);
         }
     }
@@ -210,14 +213,10 @@ void RectangleView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-
-    if(m_corner == NONE) {
-        m_block_mode = true;
-    }
-
     // check which mode is active and process with the active mode
     if (m_mode == RESIZE && m_corner != NONE) {
         calculateResize(event);
+        m_block_mode = true;
     } else if (m_corner != NONE && m_mode == ROTATION) {
         QTransform transform;
         transform.translate(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
@@ -231,17 +230,19 @@ void RectangleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
                             -(m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal()
                               + m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal() * 0.5));
         setTransform(transform);
+        m_block_mode = true;
 
 //         process as usual
     } else {
         this->setFlag(QGraphicsItem::ItemIsMovable, true);
+        m_block_mode = false;
         QGraphicsItem::mouseMoveEvent(event);
     }
 }
 
 void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(!m_block_mode) {
+    if(!m_block_mode && m_corner == NONE) {
         if ((m_mode == RESIZE)) {
             m_mode = ROTATION;
         } else if ((m_mode == ROTATION)) {
@@ -316,26 +317,23 @@ void RectangleView::setParameterizedItem(ParameterizedItem *item)
 
 void RectangleView::onChangedX()
 {
-//    qDebug() << "onChangedX():" << pos();
-//    m_block_update = true;
-//    qDebug() << "onXValueChanged(double xValue)-> x value changed" << x()
-//             << m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal();
-//    m_item->setRegisteredProperty(RectangleItem::P_POSX, x() + 5);
-//    m_block_update = false;
+    m_block_mode = true;
 }
 
 void RectangleView::onChangedY()
 {
-//    m_block_update = true;
-//    qDebug() << "onYValueChanged(double yValue)-> y value changed" << y()
-//             << m_item->getRegisteredProperty(RectangleItem::P_POSY).toReal();
-//    m_item->setRegisteredProperty(RectangleItem::P_POSY, boundingRect().y() + 5);
-//    m_block_update = false;
+    m_block_mode = true;
 }
 
 void RectangleView::onPropertyChange(const QString &propertyName)
 {
-    if(propertyName == RectangleItem::P_ANGLE) {
+    if(propertyName == RectangleItem::P_POSX) {
+         m_block_mode = true;
+    }
+    else if(propertyName == RectangleItem::P_POSY) {
+         m_block_mode = true;
+    }
+    else if(propertyName == RectangleItem::P_ANGLE) {
     QTransform transform;
     transform.translate(m_item->getRegisteredProperty(RectangleItem::P_POSX).toReal()
                         + m_item->getRegisteredProperty(RectangleItem::P_WIDTH).toReal() * 0.5,

@@ -14,6 +14,7 @@ class QItemSelectionModel;
 class IView;
 class QSelectionModel;
 class QGraphicsItem;
+class QGraphicsSceneMouseEvent;
 
 class MaskGraphicsScene : public QGraphicsScene
 {
@@ -69,5 +70,10 @@ private:
     bool firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event);
     void sortModelByZValue();
     void setZValues();
+    void checkDrawingDirection(QGraphicsSceneMouseEvent *event);
+    QPointF getBottomRightCorner();
+    QPointF getBottomLeftCorner();
+    QPointF getTopRightCorner();
+    QPointF getTopLeftCorner();
 };
 #endif

@@ -1,7 +1,7 @@
 #include "EllipseItem.h"
 
 const QString EllipseItem::P_POSX = "X position";
-const QString EllipseItem::P_POSY = "y positon";
+const QString EllipseItem::P_POSY = "Y position";
 const QString EllipseItem::P_WIDTH = "Width";
 const QString EllipseItem::P_HEIGHT = "Height";
 const QString EllipseItem::P_COLOR = "Color";

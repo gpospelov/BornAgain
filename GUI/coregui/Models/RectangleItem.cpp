@@ -1,7 +1,7 @@
 #include "RectangleItem.h"
 
 const QString RectangleItem::P_POSX = "X position";
-const QString RectangleItem::P_POSY = "y positon";
+const QString RectangleItem::P_POSY = "Y position";
 const QString RectangleItem::P_WIDTH = "Width";
 const QString RectangleItem::P_HEIGHT = "Height";
 const QString RectangleItem::P_COLOR = "Color";

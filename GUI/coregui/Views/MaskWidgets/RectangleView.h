@@ -72,6 +72,7 @@ private:
     Corner m_corner;                        //!< enum with all corners
     Mode m_mode;
     bool m_block_mode;
+    bool m_block_update;
 
     void setSelectedCorner(QPointF currentMousePosition);
     void updateRotationArrows();

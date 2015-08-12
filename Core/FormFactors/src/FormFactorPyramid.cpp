@@ -85,6 +85,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
         q2 = (H / 2.) * ((qx - qy) / tga - qz);
         q3 = (H / 2.) * ((qx + qy) / tga + qz);
         q4 = (H / 2.) * ((qx + qy) / tga - qz);
+        std::cout << "q's: " << q1 << q2 << q3 << q4 << "\n";
         complex_t K1, K2, K3, K4;
         K1 = MathFunctions::Sinc(q1) * std::exp(im * q1)
              + MathFunctions::Sinc(q2) * std::exp(-im * q2);
@@ -94,10 +95,17 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
              + MathFunctions::Sinc(q4) * std::exp(-im * q4);
         K4 = -MathFunctions::Sinc(q3) * std::exp(im * q3) * im
              + MathFunctions::Sinc(q4) * std::exp(-im * q4) * im;
-        F = K1 * std::cos((qx - qy) * R) + K2 * std::sin((qx - qy) * R)
-            - K3 * std::cos((qx + qy) * R) - K4 * std::sin((qx + qy) * R);
+        std::cout << "K's: " << K1 << K2 << K3 << K4 << "\n";
+        complex_t T1, T2, T3, T4;
+        T1 = K1 * std::cos((qx - qy) * R);
+        T2 = K2 * std::sin((qx - qy) * R);
+        T3 = K3 * std::cos((qx + qy) * R);
+        T4 = K4 * std::sin((qx + qy) * R);
+        std::cout << "T's: " << T1 << T2 << T3 << T4 << "\n";
+        F = T1 + T2 - T3 - T4;
         F = F * H / (qx * qy);
-    } else if (std::norm(qx) <= Numeric::double_epsilon && std::norm(qy) <= Numeric::double_epsilon) {
+    } else if (std::norm(qx) <= Numeric::double_epsilon
+               && std::norm(qy) <= Numeric::double_epsilon) {
         if (std::norm(qz) <= Numeric::double_epsilon)
             F = 4. / 3. * tga * R * R * R
                 * (1. - (1. - H / R / tga) * (1. - H / R / tga) * (1. - H / R / tga));

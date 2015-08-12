@@ -40,50 +40,12 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 }
 
 
-void MaskGraphicsView::keyPressEvent(QKeyEvent *event )
-{
-    switch ( event->key() ) {
-        case Qt::Key_Delete:
-            deleteSelectedItems();
-            break;
-        case Qt::Key_Space:
-            if(!event->isAutoRepeat())
-                emit panMode(true);
-            break;
-        default:
-            QWidget::keyPressEvent(event);
-            break;
-    }
-}
-void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
-{
-    switch ( event->key() ) {
-        case Qt::Key_Space:
-        if(!event->isAutoRepeat())
-            emit panMode(false);
-        break;
-        default:
-        QWidget::keyReleaseEvent(event);
-        break;
-    }
-}
-
-
-void MaskGraphicsView::deleteSelectedItems()
-{
-    MaskGraphicsScene *graphicsScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    Q_ASSERT(graphicsScene);
-    graphicsScene->deleteSelectedItems();
-}
-
 bool MaskGraphicsView::controlButtonIsPressed(QWheelEvent *event)
 {
     if(event->modifiers().testFlag(Qt::ControlModifier)){
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }
 
 bool MaskGraphicsView::eventPosIsOnColorMap(QWheelEvent *event)
@@ -91,7 +53,5 @@ bool MaskGraphicsView::eventPosIsOnColorMap(QWheelEvent *event)
     if(this->scene()->items()[0]->boundingRect().contains(event->pos())) {
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }

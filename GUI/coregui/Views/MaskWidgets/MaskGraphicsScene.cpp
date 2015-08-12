@@ -87,6 +87,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             std::abs(m_currentItem->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal()) <= 10){
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
+            m_numberOfRectangles--;
             drawingToSmall = true;
         }
     } else if (m_drawingMode == ELLIPSE && m_currentItem) {
@@ -94,16 +95,18 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 std::abs(m_currentItem->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()) <= 10) {
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
             m_maskModel->removeRows(index.row(), 1, index.parent());
+            m_numberOfEllipses--;
             drawingToSmall = true;
         }
     }
 
     if (m_drawingMode == RECTANGLE || m_drawingMode == ELLIPSE) {
-        m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
-        m_currentItem = 0;
         if(!drawingToSmall) {
-            emit itemIsDrawn();
+            m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
+            m_currentItem = 0;
+//            emit itemIsDrawn();
         }
+        m_currentItem = 0;
     }
     QGraphicsScene::mouseReleaseEvent(event);
 }
@@ -303,9 +306,9 @@ void MaskGraphicsScene::deleteSelectedItems()
 
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items, we need this
-    while (indexes.size()) {
-        m_maskModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
-        indexes = m_selectionModel->selectedIndexes();
+
+    for(int i = 0; i < indexes.size(); i++) {
+        m_maskModel->removeRows(indexes[i].row(), 1, indexes[i].parent());
     }
 }
 

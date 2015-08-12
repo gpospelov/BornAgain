@@ -8,6 +8,7 @@ class MaskModel;
 class MaskToolBar;
 class QListView;
 class QVBoxLayout;
+class QAction;
 
 class MaskEditor : public QWidget
 {
@@ -18,7 +19,6 @@ public:
     virtual ~MaskEditor() {}
 
     void setModel(MaskModel *maskModel);
-
 
 private slots:
 
@@ -65,10 +65,16 @@ private:
     GraphicsProxyWidget *m_proxyWidget;
     QListView *m_listView;
     MaskToolBar *m_toolBar;
+    QAction *m_deleteAction;
     void init_connections();
 
 signals:
     void itemIsDrawn();
+    void deleteSelectedItems();
+
+protected:
+    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 };
 
 #endif

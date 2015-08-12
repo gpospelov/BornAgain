@@ -113,7 +113,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     , m_listView(new QListView)
     , m_toolBar(new MaskToolBar)
 {
-
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setMouseTracking(true);
     m_view->setMouseTracking(true);
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
@@ -121,10 +121,13 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setScene(m_scene);
     m_scene->sceneRect().setWidth(widthOfScene);
     m_scene->setSceneRect(0,0,widthOfScene, heightOfScene);
+    m_listView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     init_connections();
 
     QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(m_toolBar,0,0,1,0);
+    mainLayout->setSpacing(0);
     mainLayout->addWidget(m_view, 1,0);
     mainLayout->addWidget(m_listView, 1,1);
     setLayout(mainLayout);
@@ -151,8 +154,6 @@ void MaskEditor::init_connections()
 void MaskEditor::rectangleButtonPressed()
 {
     m_scene->setDrawing(MaskGraphicsScene::RECTANGLE);
-
-    qDebug() << "void MaskEditor::rectangleButtonPressed()";
 }
 
 void MaskEditor::ellipseButtonPressed()

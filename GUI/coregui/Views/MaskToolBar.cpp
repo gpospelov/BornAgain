@@ -6,13 +6,15 @@
 #include <QSplitter>
 #include <QListView>
 #include <QButtonGroup>
+#include <QDebug>
 
 
 
 MaskToolBar::MaskToolBar(QWidget *parent)
 {
     this->setParent(parent);
-    QVBoxLayout * mainLayout = new QVBoxLayout;
+    this->setIconSize(QSize(25,25));
+
 
     // selection mode
     m_selectionButton = new QToolButton(this);
@@ -88,7 +90,6 @@ MaskToolBar::MaskToolBar(QWidget *parent)
     ColorGroup->addButton(m_excludeButton);
 
 
-
     this->addWidget(m_selectionButton);
     this->addWidget(m_panButton);
     this->addSeparator();
@@ -103,8 +104,6 @@ MaskToolBar::MaskToolBar(QWidget *parent)
     this->addWidget(m_sendToBackButton);
 
 
-    mainLayout->addWidget(this);
-    setLayout(mainLayout);
 }
 
 void MaskToolBar::onChangeToSelectionMode()

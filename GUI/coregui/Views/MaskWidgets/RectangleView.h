@@ -6,6 +6,7 @@
 class QPainter;
 class ParameterizedItem;
 class QGraphicsSceneMouseEvent;
+class QPointF;
 
 class RectangleView :public IView
 {
@@ -18,38 +19,11 @@ public:
     enum Mode { ROTATION, RESIZE };
     enum {Type = UserType + 1};
 
-    //! create Rectangle
-    //! @param posX x position in scene
-    //! @param posY y position in scene
-    //! @param width of rectangle
-    //! @param heigth of rectangle
     RectangleView();
-
-    //! bounding box of rectangle
     QRectF boundingRect() const;
-
-    //! check if resize rules are correct
-    //! @param event mouse event to check if resizes correct
-
-    // FIXME Rename this. It is not a "check", it is an action
-    void checkResizeRules(QGraphicsSceneMouseEvent *event);
-
-    //! calculates resized rectangle
-    //! @param event mouse event to set new coordinates
-    void calculateResize(QGraphicsSceneMouseEvent *event);
-
-    //! calculates rotated rectangle
-    //! @param event mouse event to set new coordinates
-    //! @return degree of rotation
-    qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
-
     int type() const {return Type;}
     void setInclude();
     void setExclude();
-    QRectF getTopLeftCorner();
-    QRectF getTopRightCorner();
-    QRectF getBottomLeftCorner();
-    QRectF getBottomRightCorner();
     ParameterizedItem *getParameterizedItem();
     void setParameterizedItem(ParameterizedItem *item);
 
@@ -72,11 +46,19 @@ private:
     Corner m_corner;                        //!< enum with all corners
     Mode m_mode;
     bool m_block_mode;
-    bool m_block_update;
+    QPointF *m_diagonalOpposedPoint;
 
+    void setDiagonalOpposedPoint();
+    QPointF getDiagonalOpposedPoint();
+    void calculateResize(QGraphicsSceneMouseEvent *event);
+    qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
     void setSelectedCorner(QPointF currentMousePosition);
     void updateRotationArrows();
     void initializeArrow();
+    QRectF getTopLeftCorner();
+    QRectF getTopRightCorner();
+    QRectF getBottomLeftCorner();
+    QRectF getBottomRightCorner();
 };
 #endif
 

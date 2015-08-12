@@ -17,7 +17,8 @@
 
 MaskGraphicsScene::MaskGraphicsScene()
     : m_maskModel(0), m_currentItem(0), m_currentMousePosition(QPointF(0, 0)),
-      m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false)
+      m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false), m_numberOfRectangles(0),
+      m_numberOfEllipses(0), m_numberOfPolygons(0)
 {
 //    setSceneRect(QRectF(-800, 0, 1600, 1600));
     m_drawingMode = NONE;
@@ -33,13 +34,9 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->button() == Qt::LeftButton) {
         if (m_drawingMode == RECTANGLE) {
             m_currentItem = m_maskModel->insertNewItem(Constants::RectangleType);
-            m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, event->scenePos().x());
-            m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, event->scenePos().y());
             setItemName(m_currentItem);
         } else if (m_drawingMode == ELLIPSE) {
             m_currentItem = m_maskModel->insertNewItem(Constants::EllipseType);
-            m_currentItem->setRegisteredProperty(EllipseItem::P_POSX, event->scenePos().x());
-            m_currentItem->setRegisteredProperty(EllipseItem::P_POSY, event->scenePos().y());
             setItemName(m_currentItem);
         } else if (m_drawingMode == POLYGON) {
             if (!m_currentItem) {
@@ -49,7 +46,6 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             if (numberOfPoints() > 2 && firstPointContainsMouseClick(event)) {
                 m_currentItem->setRegisteredProperty(PolygonItem::P_DRAWINGMODE, false);
-//                m_ItemToView[m_currentItem]->setZValue(m_maskModel->rowCount(QModelIndex()));
                 m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
                 m_currentItem = 0;
                 m_drawingMode = NONE;
@@ -66,7 +62,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             QGraphicsScene::mousePressEvent(event);
         }
     }
-    m_lastAddedPoint = event->scenePos();
+    m_lastAddedPoint = event->buttonDownScenePos(Qt::LeftButton);
+    m_currentPoint = event->buttonDownScenePos(Qt::LeftButton);
 }
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -86,10 +83,6 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     bool drawingToSmall = false;
     if (m_drawingMode == RECTANGLE && m_currentItem) {
-//        qreal xDifference = m_currentItem->getRegisteredProperty(RectangleItem::P_POSX).toReal()
-//                            - event->scenePos().x();
-//        qreal yDifference = m_currentItem->getRegisteredProperty(RectangleItem::P_POSY).toReal()
-//                            - event->scenePos().y();
         if (std::abs(m_currentItem->getRegisteredProperty(RectangleItem::P_WIDTH).toReal()) <= 10 &&
             std::abs(m_currentItem->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal()) <= 10){
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
@@ -97,10 +90,6 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             drawingToSmall = true;
         }
     } else if (m_drawingMode == ELLIPSE && m_currentItem) {
-//        qreal xDifference = m_currentItem->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-//                            - event->scenePos().x();
-//        qreal yDifference = m_currentItem->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-//                            - event->scenePos().y();
         if (std::abs(m_currentItem->getRegisteredProperty(EllipseItem::P_WIDTH).toReal()) <= 10 &&
                 std::abs(m_currentItem->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal()) <= 10) {
             QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
@@ -110,7 +99,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
     if (m_drawingMode == RECTANGLE || m_drawingMode == ELLIPSE) {
-//        m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
+        m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
         m_currentItem = 0;
         if(!drawingToSmall) {
             emit itemIsDrawn();
@@ -354,13 +343,40 @@ void MaskGraphicsScene::onRowsInserted(const QModelIndex & /* parent */, int /* 
 void MaskGraphicsScene::setItemName(ParameterizedItem *item)
 {
     int numberOfItems(0);
+    QString name;
     QMap<ParameterizedItem *, IView *>::iterator it;
     for(it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
         if(item->modelType() == it.key()->modelType()) {
             numberOfItems ++;
         }
     }
-    QString name = item->itemName().append(QString("%1")).arg(numberOfItems);
+    if(item->modelType() == "Rectangle") {
+        if(numberOfItems <= m_numberOfRectangles) {
+            m_numberOfRectangles ++;
+        }
+        else {
+            m_numberOfRectangles = numberOfItems;
+        }
+        name = item->itemName().append(QString("%1")).arg(m_numberOfRectangles);
+    }
+    else if(item->modelType() == "Ellipse") {
+        if(numberOfItems <= m_numberOfEllipses) {
+            m_numberOfEllipses ++;
+        }
+        else {
+            m_numberOfEllipses = numberOfItems;
+        }
+        name = item->itemName().append(QString("%1")).arg(m_numberOfEllipses);
+    }
+    else if(item->modelType() == "Polygon") {
+        if(numberOfItems <= m_numberOfPolygons) {
+            m_numberOfPolygons++;
+        }
+        else {
+            m_numberOfPolygons = numberOfItems;
+        }
+        name = item->itemName().append(QString("%1")).arg(m_numberOfPolygons);
+    }
     item->setItemName(name);
 }
 
@@ -453,89 +469,21 @@ void MaskGraphicsScene::setZValues()
 
 void MaskGraphicsScene::checkDrawingDirection(QGraphicsSceneMouseEvent *event)
 {
+   qreal xmin = std::min(event->scenePos().x(),m_currentPoint.x());
+   qreal xmax = std::max(event->scenePos().x(),m_currentPoint.x());
+   qreal ymin = std::min(event->scenePos().y(),m_currentPoint.y());
+   qreal ymax = std::max(event->scenePos().y(),m_currentPoint.y());
 
-   qreal xmin = std::min(m_currentItem->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
-                         event->scenePos().x());
-   qreal xmax = std::max(m_currentItem->getRegisteredProperty(RectangleItem::P_POSX).toReal(),
-                         event->scenePos().x());
+   m_currentItem->setRegisteredProperty("Width", xmax - xmin);
+   m_currentItem->setRegisteredProperty("Height", ymax - ymin);
 
-   qreal ymin = std::min(m_currentItem->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
-                         event->scenePos().y());
-   qreal ymax = std::max(m_currentItem->getRegisteredProperty(RectangleItem::P_POSY).toReal(),
-                         event->scenePos().y());
+   m_currentItem->setRegisteredProperty("X position", xmin);
+   m_currentItem->setRegisteredProperty("Y position", ymin);
 
-   m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH, xmax - xmin);
-   m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT, ymax - ymin);
-   m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, xmin);
-   m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, ymin);
-
-
-//    // top left corner
-//    if(event->scenePos().x() < getTopRightCorner().x() &&
-//            event->scenePos().y() <  getBottomLeftCorner().y()) {
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH,
-//                                             getTopRightCorner().x() - event->scenePos().x());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT,
-//                                             getBottomLeftCorner().y() - event->scenePos().y());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, event->scenePos().x());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, event->scenePos().y());
-
-//    }
-//    //bottom right
-//    if(event->scenePos().x() > getBottomLeftCorner().x() &&
-//            event->scenePos().y() > getTopRightCorner().y()){
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x()
-//                - getTopLeftCorner().x());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y()
-//                - getTopLeftCorner().y());
-//    }
-//    // top right corner
-//   if(event->scenePos().x() > getTopLeftCorner().x()
-//            && event->scenePos().y() <  getBottomRightCorner().y()) {
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH, event->scenePos().x()
-//                                      -  getTopLeftCorner().x());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT,
-//                                       getBottomRightCorner().y() - event->scenePos().y());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, event->scenePos().y());
-//    }
-//    // bottom left corner
-//    if(event->scenePos().x() <  getBottomRightCorner().x() &&
-//            event->scenePos().y() > getTopLeftCorner().y()) {
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_WIDTH,
-//                                      getTopRightCorner().x() - event->scenePos().x());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_HEIGHT, event->scenePos().y()
-//                                      - getTopLeftCorner().y());
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, event->scenePos().x());
-//    }
 
 }
 
-QPointF MaskGraphicsScene::getTopLeftCorner()
-{
-    return QPointF(m_currentItem->getRegisteredProperty("X position").toReal(),
-                               m_currentItem->getRegisteredProperty("Y position").toReal());
-}
 
-QPointF MaskGraphicsScene::getTopRightCorner()
-{
-    return QPointF(m_currentItem->getRegisteredProperty("X position").toReal() +
-                   m_currentItem->getRegisteredProperty("Width").toReal(),
-                   m_currentItem->getRegisteredProperty("Y position").toReal());
-}
 
-QPointF MaskGraphicsScene::getBottomLeftCorner()
-{
-    return QPointF(m_currentItem->getRegisteredProperty("X position").toReal(),
-                   m_currentItem->getRegisteredProperty("Y position").toReal() +
-                   m_currentItem->getRegisteredProperty("Height").toReal());
-}
-
-QPointF MaskGraphicsScene::getBottomRightCorner()
-{
-    return QPointF(m_currentItem->getRegisteredProperty("X position").toReal() +
-                   m_currentItem->getRegisteredProperty("Width").toReal(),
-                   m_currentItem->getRegisteredProperty("Y position").toReal() +
-                   m_currentItem->getRegisteredProperty("Height").toReal());
-}
 
 

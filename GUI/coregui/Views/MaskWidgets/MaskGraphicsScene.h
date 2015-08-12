@@ -50,13 +50,6 @@ protected:
     void drawForeground(QPainter *painter, const QRectF &);
 
 private:
-    void setItemName(ParameterizedItem *item);
-    void deleteViews(const QModelIndex &parentIndex);
-    void removeItemViewFromScene(ParameterizedItem *item);
-    void updateViews(const QModelIndex &parentIndex = QModelIndex());
-    IView *addViewForItem(ParameterizedItem *item);
-
-
     MaskModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
     QMap<ParameterizedItem *, IView *> m_ItemToView;
@@ -65,8 +58,19 @@ private:
     QPointF m_currentMousePosition;
     QPointF m_lastAddedPoint;
     bool m_block_selection;
+    QPointF m_currentPoint;
     QGraphicsItem *m_colorMap;
+    int m_numberOfRectangles;
+    int m_numberOfEllipses;
+    int m_numberOfPolygons;
+
     int numberOfPoints();
+
+    void setItemName(ParameterizedItem *item);
+    void deleteViews(const QModelIndex &parentIndex);
+    void removeItemViewFromScene(ParameterizedItem *item);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex());
+    IView *addViewForItem(ParameterizedItem *item);
     bool firstPointContainsMouseClick(QGraphicsSceneMouseEvent *event);
     void sortModelByZValue();
     void setZValues();
@@ -75,5 +79,6 @@ private:
     QPointF getBottomLeftCorner();
     QPointF getTopRightCorner();
     QPointF getTopLeftCorner();
+
 };
 #endif

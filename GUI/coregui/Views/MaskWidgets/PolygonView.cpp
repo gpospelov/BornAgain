@@ -33,7 +33,9 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     painter->drawPolyline(polygon);
 
     // fills polygon with a color
-    if (getFirstPoint().center().x() == polygon[polygon.length() - 1].x() && getFirstPoint().center().y() == polygon[polygon.length() - 1].y() && points.length() >= 2) {
+    if (getFirstPoint().center().x() == polygon[polygon.length() - 1].x()
+        && getFirstPoint().center().y() == polygon[polygon.length() - 1].y()
+        && points.length() >= 2) {
 
         QPainterPath path;
         QBrush transRed(QColor(0xFF, 0, 0, 0x80));
@@ -58,15 +60,6 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         } else {
             painter->drawRect(getFirstPoint());
         }
-    }
-
-    // paint corner rectangles only if this item is selected
-    if (this->isSelected()) {
-//        painter->setBrush(Qt::green);
-//        painter->drawRect(getTopLeftCorner());
-//        painter->drawRect(getBottomLeftCorner());
-//        painter->drawRect(getTopRightCorner());
-//        painter->drawRect(getBottomRightCorner());
     }
     // draw all points if item is finised with drawing and is selected
     if (!m_item->getRegisteredProperty(PolygonItem::P_DRAWINGMODE).toBool() && isSelected()) {
@@ -113,24 +106,17 @@ bool PolygonView::isCornerClicked(QGraphicsSceneMouseEvent *event)
 QRectF PolygonView::calculateBoundingRectangle() const
 {
     QList<ParameterizedItem *> points = m_item->childItems();
-    int smallestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    int biggestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
-    int smallestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
-    int biggestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
+    qreal smallestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
+    qreal biggestXValue = points[0]->getRegisteredProperty(PointItem::P_POSX).toReal();
+    qreal smallestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
+    qreal biggestYValue = points[0]->getRegisteredProperty(PointItem::P_POSY).toReal();
 
-    for (int i = 0; i < points.length(); ++i) {
-        if (points[i]->getRegisteredProperty(PointItem::P_POSX).toReal() < smallestXValue) {
-            smallestXValue = points[i]->getRegisteredProperty(PointItem::P_POSX).toReal();
-        }
-        if (points[i]->getRegisteredProperty(PointItem::P_POSX).toReal() > biggestXValue) {
-            biggestXValue = points[i]->getRegisteredProperty(PointItem::P_POSX).toReal();
-        }
-        if (points[i]->getRegisteredProperty(PointItem::P_POSY).toReal() < smallestYValue) {
-            smallestYValue = points[i]->getRegisteredProperty(PointItem::P_POSY).toReal();
-        }
-        if (points[i]->getRegisteredProperty(PointItem::P_POSY).toReal() > biggestYValue) {
-            biggestYValue = points[i]->getRegisteredProperty(PointItem::P_POSY).toReal();
-        }
+
+    for (int i = 1; i < points.length(); ++i) {
+        smallestXValue = std::min(smallestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
+        biggestXValue = std::max(biggestXValue, points[i]->getRegisteredProperty(PointItem::P_POSX).toReal());
+        smallestYValue = std::min(smallestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
+        biggestYValue = std::max(biggestYValue, points[i]->getRegisteredProperty(PointItem::P_POSY).toReal());
     }
     return QRectF(QPointF(smallestXValue - 20, smallestYValue - 20),
                   QPointF(biggestXValue + 20, biggestYValue + 20));
@@ -191,28 +177,6 @@ void PolygonView::setInclude()
 {
     m_item->setRegisteredProperty(PolygonItem::P_COLOR, 0);
 }
-
-//QRectF PolygonView::getTopLeftCorner()
-//{
-//    return QRectF(boundingRect().x(), boundingRect().y(), 10, 10);
-//}
-
-//QRectF PolygonView::getTopRightCorner()
-//{
-//    return QRectF(boundingRect().x() + boundingRect().width() - 10, boundingRect().y(), 10,
-//                  10);
-//}
-
-//QRectF PolygonView::getBottomLeftCorner()
-//{
-//    return QRectF(boundingRect().x(), boundingRect().y() + boundingRect().height() - 10, 10, 10);
-//}
-
-//QRectF PolygonView::getBottomRightCorner()
-//{
-//    return QRectF(boundingRect().x() + boundingRect().width() - 10,
-//                  boundingRect().y() + boundingRect().height() - 10, 10, 10);
-//}
 
 QRectF PolygonView::getFirstPoint() const
 {

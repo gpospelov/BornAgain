@@ -85,7 +85,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
         q2 = (H / 2.) * ((qx - qy) / tga - qz);
         q3 = (H / 2.) * ((qx + qy) / tga + qz);
         q4 = (H / 2.) * ((qx + qy) / tga - qz);
-        std::cout << "q's: " << q1 << q2 << q3 << q4 << "\n";
+        std::cout << std::setprecision(12) << "q's: " << q1 << q2 << q3 << q4 << "\n";
         complex_t K1, K2, K3, K4;
         K1 = MathFunctions::Sinc(q1) * std::exp(im * q1)
              + MathFunctions::Sinc(q2) * std::exp(-im * q2);

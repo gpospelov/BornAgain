@@ -80,30 +80,9 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
     complex_t F;
     const complex_t im(0, 1);
     if (std::norm(qx) > Numeric::double_epsilon && std::norm(qy) > Numeric::double_epsilon) {
-        complex_t q1, q2, q3, q4;
-        q1 = (H / 2.) * ((qx - qy) / tga + qz);
-        q2 = (H / 2.) * ((qx - qy) / tga - qz);
-        q3 = (H / 2.) * ((qx + qy) / tga + qz);
-        q4 = (H / 2.) * ((qx + qy) / tga - qz);
-        std::cout << std::setprecision(12) << "q's: " << q1 << q2 << q3 << q4 << "\n";
-        complex_t K1, K2, K3, K4;
-        K1 = MathFunctions::Sinc(q1) * std::exp(im * q1)
-             + MathFunctions::Sinc(q2) * std::exp(-im * q2);
-        K2 = -MathFunctions::Sinc(q1) * std::exp(im * q1) * im
-             + MathFunctions::Sinc(q2) * std::exp(-im * q2) * im;
-        K3 = MathFunctions::Sinc(q3) * std::exp(im * q3)
-             + MathFunctions::Sinc(q4) * std::exp(-im * q4);
-        K4 = -MathFunctions::Sinc(q3) * std::exp(im * q3) * im
-             + MathFunctions::Sinc(q4) * std::exp(-im * q4) * im;
-        std::cout << "K's: " << K1 << K2 << K3 << K4 << "\n";
-        complex_t T1, T2, T3, T4;
-        T1 = K1 * std::cos((qx - qy) * R);
-        T2 = K2 * std::sin((qx - qy) * R);
-        T3 = K3 * std::cos((qx + qy) * R);
-        T4 = K4 * std::sin((qx + qy) * R);
-        std::cout << "T's: " << T1 << T2 << T3 << T4 << "\n";
-        F = T1 + T2 - T3 - T4;
-        F = F * H / (qx * qy);
+        complex_t full = fullPyramidPrimitive(qx/tga, qy/tga, qz, -R*tga);
+        complex_t top = fullPyramidPrimitive(qx/tga, qy/tga, qz, H-R*tga);
+        F = std::exp(im*qz*R*tga)*(full-top)/(tga*tga);
     } else if (std::norm(qx) <= Numeric::double_epsilon
                && std::norm(qy) <= Numeric::double_epsilon) {
         if (std::norm(qz) <= Numeric::double_epsilon)
@@ -139,4 +118,15 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
     return F;
 }
 
-
+complex_t FormFactorPyramid::fullPyramidPrimitive(complex_t a, complex_t b, complex_t c,
+                                                  double z) const
+{
+    const complex_t im(0, 1);
+    complex_t phase = std::exp(im * c * z);
+    complex_t nominator = std::sin(a * z) * (b * (a * a - b * b + c * c) * std::cos(b * z)
+                                             + im * c * (a * a + b * b - c * c) * std::sin(b * z))
+                          + a * std::cos(a * z) * ((-a * a + b * b + c * c) * std::sin(b * z)
+                                                   + 2.0 * im * b * c * std::cos(b * z));
+    complex_t denominator = a * b * (a - b - c) * (a + b - c) * (a - b + c) * (a + b + c);
+    return 4.0 * phase * nominator / denominator;
+}

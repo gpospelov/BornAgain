@@ -54,6 +54,7 @@ protected:
     virtual void init_parameters();
 
 private:
+    complex_t fullPyramidPrimitive(complex_t a, complex_t b, complex_t c, double z) const;
     double m_length;
     double m_height;
     double m_alpha;

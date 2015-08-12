@@ -128,5 +128,5 @@ complex_t FormFactorPyramid::fullPyramidPrimitive(complex_t a, complex_t b, comp
                           + a * std::cos(a * z) * ((-a * a + b * b + c * c) * std::sin(b * z)
                                                    + 2.0 * im * b * c * std::cos(b * z));
     complex_t denominator = a * b * (a - b - c) * (a + b - c) * (a - b + c) * (a + b + c);
-    return 4.0 * phase * nominator / denominator;
+    return -4.0 * phase * nominator / denominator;
 }

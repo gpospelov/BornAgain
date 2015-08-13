@@ -64,21 +64,16 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
     double H = m_height;
     double R = m_length/2.;
     double tga = std::tan(m_alpha);
+    //TODO: check for tga==0 or tga<0 or tga->+-infinity
 
     complex_t qx = q.x();
     complex_t qy = q.y();
     complex_t qz = q.z();
 
-//    // comparison with isgisaxs trick
-//        double gisaxs_epsilon = 2.2204460492503131e-12;
-//        qx < 0 ? qx -= gisaxs_epsilon : qx += gisaxs_epsilon;
-//        qy < 0 ? qy -= gisaxs_epsilon : qy += gisaxs_epsilon;
-//        //double Z = 45.*Units::deg;
-//        //double qx =  std::cos(Z)*q.x() + std::sin(Z)*q.y();
-//        //double qy = -std::sin(Z)*q.x() + std::cos(Z)*q.y();
-
     complex_t F;
     const complex_t im(0, 1);
+    //TODO: the following checks came from the previous implementation and will only catch
+    //part of the numerical instabilities
     if (std::norm(qx) > Numeric::double_epsilon && std::norm(qy) > Numeric::double_epsilon) {
         complex_t full = fullPyramidPrimitive(qx/tga, qy/tga, qz, -R*tga);
         complex_t top = fullPyramidPrimitive(qx/tga, qy/tga, qz, H-R*tga);

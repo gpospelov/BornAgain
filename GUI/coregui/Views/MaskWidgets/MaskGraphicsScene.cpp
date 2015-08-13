@@ -101,9 +101,9 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
     if (m_drawingMode == RECTANGLE || m_drawingMode == ELLIPSE) {
-        if(!drawingToSmall) {
+        if(!drawingToSmall && m_currentItem) {
             m_maskModel->moveParameterizedItem(m_currentItem, 0, 0);
-            m_currentItem = 0;
+            // uncomment this if you want to change to selection mode after drawing an item.
 //            emit itemIsDrawn();
         }
         m_currentItem = 0;

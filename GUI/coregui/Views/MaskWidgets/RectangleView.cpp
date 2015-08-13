@@ -59,7 +59,7 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
         painter->drawRect(getBottomRightCorner());
     }
 
-        updateRotationArrows();
+        updateArrows();
 }
 
 QRectF RectangleView::boundingRect() const
@@ -252,7 +252,7 @@ void RectangleView::setParameterizedItem(ParameterizedItem *item)
     setRotation(m_item->getRegisteredProperty(RectangleItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));
-    initializeArrow();
+    initializeArrows();
 }
 
 void RectangleView::onChangedX()
@@ -325,7 +325,7 @@ void RectangleView::setSelectedCorner(QPointF currentMousePosition)
     }
 }
 
-void RectangleView::updateRotationArrows()
+void RectangleView::updateArrows()
 {
     // 0 - 3 are rotation arrows
     childItems()[0]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
@@ -367,7 +367,7 @@ void RectangleView::updateRotationArrows()
     }
 }
 
-void RectangleView::initializeArrow()
+void RectangleView::initializeArrows()
 {
     RotationArrow *topLeftRotationArrow = new RotationArrow(this);
     RotationArrow *topRightRotationArrow = new RotationArrow(this);

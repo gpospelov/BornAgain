@@ -56,7 +56,7 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         painter->drawRect(getTopRightCorner());
         painter->drawRect(getBottomRightCorner());
     }
-    updateRotationArrows();
+    updateArrows();
 }
 
 QRectF EllipseView::boundingRect() const
@@ -246,7 +246,7 @@ void EllipseView::setParameterizedItem(ParameterizedItem *item)
     setRotation(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
     connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
             SLOT(onPropertyChange(const QString &)));
-    initializeArrow();
+    initializeArrows();
 }
 
 void EllipseView::onChangedX()
@@ -314,7 +314,7 @@ void EllipseView::setSelectedCorner(QPointF currentMousePosition)
     }
 }
 
-void EllipseView::updateRotationArrows()
+void EllipseView::updateArrows()
 {
     // 0 - 3 are rotation arrows
     childItems()[0]->setPos(getTopLeftCorner().x(), getTopLeftCorner().y());
@@ -356,7 +356,7 @@ void EllipseView::updateRotationArrows()
     }
 }
 
-void EllipseView::initializeArrow()
+void EllipseView::initializeArrows()
 {
     RotationArrow *topLeftRotationArrow = new RotationArrow(this);
     RotationArrow *topRightRotationArrow = new RotationArrow(this);

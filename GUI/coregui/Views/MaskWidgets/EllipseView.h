@@ -8,53 +8,119 @@ class QGraphicsSceneMouseEvent;
 class QPainter;
 class QPointF;
 
-class EllipseView :public IView
+class EllipseView : public IView
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    //! describes corner
-    enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
-    enum Mode { ROTATION, RESIZE };
-    enum {Type = UserType + 1};
-
     EllipseView();
+
+    //! describes the corners
+    enum Corner { NONE, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
+
+    //! current active mode
+    enum Mode { ROTATION, RESIZE };
+
+    //! Type of this item
+    enum { Type = UserType + 2 };
+
+    //! boundingbox of this item
     QRectF boundingRect() const;
-    int type() const {return Type;}
+
+    //! returns the type of this item
+    //! @return number of type
+    int type() const
+    {
+        return Type;
+    }
+
+    //! ellipse including an area and it's color is changing to red
     void setInclude();
+
+    //! ellipse is excluding an area and it's color is changing to  blue
     void setExclude();
+
+    //! get current ellipse item
+    //! @return ellipse item as parameterized item
     void setParameterizedItem(ParameterizedItem *item);
 
+    //! get current ellipse item
+    //! @return ellipse item as parameterized item
+    ParameterizedItem *getParameterizedItem();
+
 public slots:
+    //! called when x-value changed
     void onChangedX();
+
+    //! called when x-value changed
     void onChangedY();
+
+    //! called when property of ellipse changed
     void onPropertyChange(const QString &propertyName);
 
 protected:
-    //! paintEvent paints Rectangle and corners
+    //! paintEvent paints ellipse and corners
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+
+    //! manages mouse press events
+    //! @param event from scene
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+    //! manages mouse move events
+    //! @param event from scene
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+
+    //! manages hover events
+    //! @param event from scene
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+    //! manages hover events
+    //! @param event from scene
     void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 private:
-    ParameterizedItem *m_item;
-    Corner m_corner;
-    Mode m_mode;
-    bool m_block_mode;
-    QPointF *m_diagonalOpposedPoint;
+    ParameterizedItem *m_item;       //!< ellipse item
+    Corner m_corner;                 //!< enum with all corners
+    Mode m_mode;                     //!< current active mode
+    bool m_block_mode;               //!< blocking modes
+    QPointF *m_diagonalOpposedPoint; //!< diagonally opposite point from current selected corner
 
+    //! calculates angle for rotation
+    //! @return angle between selected corner and mouse
+    //! @param event to receive current mouse position
     qreal getRotationAngle(QGraphicsSceneMouseEvent *event);
+
+    //! calculates resized ellipse
+    //! @param event to receive current mouse position
     void calculateResize(QGraphicsSceneMouseEvent *event);
-    void updateRotationArrows();
-    void initializeArrow();
+
+    //! updates all arrows;
+    void updateArrows();
+
+    //! initialize all arrows
+    void initializeArrows();
+
+    //! verfies clicked corner
+    //! @param current mouse position
     void setSelectedCorner(QPointF currentMousePosition);
+
+    //! set diagonally opposite point from current selected corner
     void setDiagonalOpposedPoint();
+
+    //! returns corner of rectangle
+    //! @return top left corner
     QRectF getTopLeftCorner();
+
+    //! returns corner of rectangle
+    //! @return top left corner
     QRectF getTopRightCorner();
+
+    //! returns corner of rectangle
+    //! @return top left corner
     QRectF getBottomLeftCorner();
+
+    //! returns corner of rectangle
+    //! @return top left corner
     QRectF getBottomRightCorner();
-    ParameterizedItem *getParameterizedItem();
 };
 #endif

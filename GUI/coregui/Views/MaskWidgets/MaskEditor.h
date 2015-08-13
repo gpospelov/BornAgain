@@ -16,8 +16,12 @@ class MaskEditor : public QWidget
 public:
     MaskEditor(QWidget *parent = 0);
 
-    virtual ~MaskEditor() {}
+    virtual ~MaskEditor()
+    {
+    }
 
+    //! set Model
+    //! param mask model that caries model for masking
     void setModel(MaskModel *maskModel);
 
 private slots:
@@ -55,24 +59,27 @@ private slots:
     //!change from selection mode to drawing mode
     void changeToDrawingMode();
 
-
     //!change back to selecton mode if item is drawn
     void onItemIsDrawn();
 
 private:
-    MaskGraphicsScene *m_scene;
-    MaskGraphicsView *m_view;
-    GraphicsProxyWidget *m_proxyWidget;
-    QListView *m_listView;
-    MaskToolBar *m_toolBar;
-    QAction *m_deleteAction;
-    void init_connections();
+    MaskGraphicsScene *m_scene; //!< scene contains all items
+    MaskGraphicsView *m_view; //!< view renders all items and show them item in the scene on display
+    GraphicsProxyWidget *m_proxyWidget; //!< color map (detector)
+    QListView *m_listView;              //!< list wiht currently created items as a list
+    MaskToolBar *m_toolBar;             //!< tool bar
+    QAction *m_deleteAction;            //!< delete action for the list view
+    void init_connections(); //!< initialie all connections between scene, view and toolbar
 
 signals:
+    //! emittes this signal to toolbar if item is drawn
     void itemIsDrawn();
+
+    //! signal is emitted when someone want to delete item
     void deleteSelectedItems();
 
 protected:
+    //! event that manages key press events
     void keyPressEvent(QKeyEvent *event);
 };
 

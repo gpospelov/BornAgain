@@ -37,6 +37,8 @@ void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
                 m_item->getRegisteredProperty(RectangleItem::P_HEIGHT).toReal());
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
+
+    // change color
     if (m_item->getRegisteredProperty(RectangleItem::P_COLOR).toInt() == 0) {
         brush.setColor(DesignerHelper::getDefaultColor("Transparant red"));
         painter->setPen(brush.color().darker());

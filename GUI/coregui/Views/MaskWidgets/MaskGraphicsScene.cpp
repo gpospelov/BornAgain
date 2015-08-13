@@ -15,10 +15,16 @@
 #include <QPainter>
 #include <QGraphicsProxyWidget>
 
-MaskGraphicsScene::MaskGraphicsScene()
-    : m_maskModel(0), m_currentItem(0), m_currentMousePosition(QPointF(0, 0)),
-      m_lastAddedPoint(QPointF(0, 0)), m_block_selection(false), m_numberOfRectangles(0),
-      m_numberOfEllipses(0), m_numberOfPolygons(0)
+MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
+    : QGraphicsScene(parent)
+    , m_maskModel(0)
+    , m_currentItem(0)
+    , m_currentMousePosition(QPointF(0, 0))
+    , m_lastAddedPoint(QPointF(0, 0))
+    , m_block_selection(false)
+    , m_numberOfRectangles(0)
+    , m_numberOfEllipses(0)
+    , m_numberOfPolygons(0)
 {
 //    setSceneRect(QRectF(-800, 0, 1600, 1600));
     m_drawingMode = NONE;

@@ -22,8 +22,8 @@ const qreal heightOfScene = 2000;
 
 MaskEditor::MaskEditor(QWidget *parent)
     : QWidget(parent)
-    , m_scene(new MaskGraphicsScene)
-    , m_view(new MaskGraphicsView)
+    , m_scene(new MaskGraphicsScene(this))
+    , m_view(new MaskGraphicsView(m_scene, this))
     , m_proxyWidget(new GraphicsProxyWidget)
     , m_listView(new QListView(this))
     , m_toolBar(new MaskToolBar)
@@ -34,7 +34,6 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_view->setMouseTracking(true);
     m_view->setRenderHint(QPainter::HighQualityAntialiasing);
     m_view->setRenderHint(QPainter::TextAntialiasing);
-    m_view->setScene(m_scene);
     m_scene->sceneRect().setWidth(widthOfScene);
     m_scene->setSceneRect(0,0,widthOfScene, heightOfScene);
     m_listView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -66,7 +65,7 @@ void MaskEditor::init_connections()
     connect(m_toolBar, SIGNAL(includeClicked()), this, SLOT(includeClicked()));
     connect(m_toolBar, SIGNAL(excludeClicked()), this , SLOT(excludeClicked()));
     connect(this, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
-    connect(m_deleteAction, SIGNAL(triggered(bool)), m_scene, SLOT(deleteSelectedItems()));
+    connect(m_deleteAction, SIGNAL(changed()), m_scene, SLOT(deleteSelectedItems()));
 }
 
 void MaskEditor::keyPressEvent(QKeyEvent *event)
@@ -75,26 +74,10 @@ void MaskEditor::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Delete:
         emit deleteSelectedItems();
         break;
-    case Qt::Key_Space:
-        if (!event->isAutoRepeat())
-            panMode(true);
-        break;
     default:
         QWidget::keyPressEvent(event);
         break;
-    }
-}
-void MaskEditor::keyReleaseEvent(QKeyEvent *event)
-{
-    switch (event->key()) {
-    case Qt::Key_Space:
-        if (!event->isAutoRepeat())
-            panMode(false);
-        break;
-    default:
-        QWidget::keyReleaseEvent(event);
-        break;
-    }
+    };
 }
 
 void MaskEditor::rectangleButtonPressed()

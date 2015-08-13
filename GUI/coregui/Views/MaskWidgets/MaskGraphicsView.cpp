@@ -3,11 +3,10 @@
 #include "MaskGraphicsScene.h"
 
 
-//GraphicsView::GraphicsView() : m_rectangle(0), m_ellipse(0), m_polygon(0), isFinished(true),
-//    m_currentMousePosition(QPointF(0,0)), m_lastAddedPoint(QPointF(0,0))
-//{
-//    m_drawing = NONE;
-//}
+MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
+    : QGraphicsView(scene, parent)
+{
+}
 
 
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)
@@ -36,6 +35,33 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 //    }
     else {
         QGraphicsView::wheelEvent(event);
+    }
+}
+void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Delete:
+        emit deleteSelectedItems();
+        break;
+    case Qt::Key_Space:
+        if (!event->isAutoRepeat())
+            panMode(true);
+        break;
+    default:
+        QWidget::keyPressEvent(event);
+        break;
+    }
+}
+void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Space:
+        if (!event->isAutoRepeat())
+            panMode(false);
+        break;
+    default:
+        QWidget::keyReleaseEvent(event);
+        break;
     }
 }
 

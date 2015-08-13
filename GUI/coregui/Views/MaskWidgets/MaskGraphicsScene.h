@@ -21,7 +21,7 @@ class MaskGraphicsScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    MaskGraphicsScene();
+    MaskGraphicsScene(QObject *parent = 0);
     enum DrawingMode { NONE, RECTANGLE, ELLIPSE, POLYGON };
     void setDrawing(DrawingMode drawingMode);
     void setSelectionModel(QItemSelectionModel *selectionModel);

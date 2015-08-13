@@ -73,7 +73,6 @@ signals:
     void deleteSelectedItems();
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
     void keyPressEvent(QKeyEvent *event);
 };
 

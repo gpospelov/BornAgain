@@ -39,6 +39,7 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_listView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     m_listView->setContextMenuPolicy(Qt::ActionsContextMenu);
     m_listView->addAction(m_deleteAction);
+    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     init_connections();
 

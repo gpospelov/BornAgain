@@ -313,8 +313,9 @@ void MaskGraphicsScene::deleteSelectedItems()
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items, we need this
 
-    for(int i = 0; i < indexes.size(); i++) {
-        m_maskModel->removeRows(indexes[i].row(), 1, indexes[i].parent());
+    while(indexes.size()) {
+        m_maskModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
     }
 }
 

@@ -65,7 +65,7 @@ void MaskEditor::init_connections()
     connect(m_toolBar, SIGNAL(includeClicked()), this, SLOT(includeClicked()));
     connect(m_toolBar, SIGNAL(excludeClicked()), this , SLOT(excludeClicked()));
     connect(this, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
-    connect(m_deleteAction, SIGNAL(changed()), m_scene, SLOT(deleteSelectedItems()));
+    connect(m_deleteAction, SIGNAL(triggered(bool)), m_scene, SLOT(deleteSelectedItems()));
     connect(m_view, SIGNAL(deleteSelectedItems()), m_scene, SLOT(deleteSelectedItems()));
 }
 

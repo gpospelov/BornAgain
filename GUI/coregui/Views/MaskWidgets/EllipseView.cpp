@@ -261,19 +261,25 @@ void EllipseView::onChangedY()
 
 void EllipseView::onPropertyChange(const QString &propertyName)
 {
-//    if(propertyName == EllipseItem::P_ANGLE) {
-//    QTransform transform;
-//    transform.translate(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-//                        + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
-//                        m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-//                        + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
-//    transform.rotate(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
-//    transform.translate(-(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
-//                          + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5),
-//                        -(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
-//                          + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5));
-//    setTransform(transform);
-//    }
+    if(propertyName == EllipseItem::P_POSX) {
+         m_block_mode = true;
+    }
+    else if(propertyName == EllipseItem::P_POSY) {
+         m_block_mode = true;
+    }
+    else if(propertyName == EllipseItem::P_ANGLE) {
+    QTransform transform;
+    transform.translate(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+                        + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5,
+                        m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+                        + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5);
+    transform.rotate(m_item->getRegisteredProperty(EllipseItem::P_ANGLE).toReal());
+    transform.translate(-(m_item->getRegisteredProperty(EllipseItem::P_POSX).toReal()
+                          + m_item->getRegisteredProperty(EllipseItem::P_WIDTH).toReal() * 0.5),
+                        -(m_item->getRegisteredProperty(EllipseItem::P_POSY).toReal()
+                          + m_item->getRegisteredProperty(EllipseItem::P_HEIGHT).toReal() * 0.5));
+    setTransform(transform);
+    }
 
 }
 

@@ -38,8 +38,8 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         && points.length() >= 2) {
 
         QPainterPath path;
-        QBrush transRed(QColor(0xFF, 0, 0, 0x80));
-        QBrush transBlue(QColor(0, 0, 0xFF, 0x80));
+        QBrush transRed(DesignerHelper::getDefaultColor("Transparant red"));
+        QBrush transBlue(DesignerHelper::getDefaultColor("Transparant blue"));
         path.moveTo(polygon[0].x(),polygon[0].y());
         for (int i = 1; i < polygon.length(); ++i) {
             path.lineTo(polygon[i].x(), polygon[i].y());

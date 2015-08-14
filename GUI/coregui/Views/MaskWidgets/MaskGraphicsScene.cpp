@@ -75,9 +75,9 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (m_drawingMode == RECTANGLE && m_currentItem) {
-        checkDrawingDirection(event);
+        drawingDirection(event);
     } else if (m_drawingMode == ELLIPSE && m_currentItem) {
-      checkDrawingDirection(event);
+      drawingDirection(event);
     }
     else {
         QGraphicsScene::mouseMoveEvent(event);
@@ -475,7 +475,7 @@ void MaskGraphicsScene::setZValues()
     }
 }
 
-void MaskGraphicsScene::checkDrawingDirection(QGraphicsSceneMouseEvent *event)
+void MaskGraphicsScene::drawingDirection(QGraphicsSceneMouseEvent *event)
 {
    qreal xmin = std::min(event->scenePos().x(),m_currentPoint.x());
    qreal xmax = std::max(event->scenePos().x(),m_currentPoint.x());

@@ -185,7 +185,14 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
         return QColor(210, 223, 237);
     } else if (name.startsWith("InterferenceFunction")) {
         return QColor(255, 236, 139);
-    } else {
+    }
+    else if(name == "Transparant red") {
+        return QColor(0xFF, 0, 0, 0x80);
+    }
+    else if(name == "Transparant blue") {
+        return QColor(0, 0, 0xFF, 0x80);
+    }
+    else {
         return QColor(Qt::lightGray);
     }
 }

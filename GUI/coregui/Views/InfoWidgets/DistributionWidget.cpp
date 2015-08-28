@@ -61,6 +61,8 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
+    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)
@@ -253,6 +255,7 @@ void DistributionWidget::onMousePress(QMouseEvent *event)
         menu.exec(point);
     }
 }
+
 void DistributionWidget::resetView()
 {
     m_plot->xAxis->setRange(*m_xRange);
@@ -283,3 +286,4 @@ void DistributionWidget::resizeEvent(QResizeEvent *event)
         m_warningSign->setPosition(pos.x(), pos.y());
     }
 }
+

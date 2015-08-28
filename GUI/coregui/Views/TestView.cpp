@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+
 #include "TestView.h"
 #include "TestItem.h"
 #include "LayerItem.h"
@@ -24,62 +25,93 @@
 #include <QDebug>
 #include "DistributionEditor.h"
 #include "qgroupbox.h"
+#include "MaskEditor.h"
+#include "MaskModel.h"
+#include "RectangleItem.h"
+#include "Rectangle.h"
+
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent)
-    , m_item(0)
+//    , m_item(0)
 {
-    setMinimumSize(128, 128);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setMouseTracking(true);
 
-//    BeamWavelengthItem *item = new BeamWavelengthItem;
-//    DistributionEditor *distributionEditor = new DistributionEditor;
-//    distributionEditor->setItem(item);
-//    m_propertyEditor = new AwesomePropertyEditor(this);
+//   QGraphicsScene *scene = new QGraphicsScene;
+//   QGraphicsPolygonItem *polygonItem = new QGraphicsPolygonItem(
+//   QPolygonF(QVector<QPointF>() << QPointF(10, 10) << QPointF(0, 90) << QPointF(40, 70)
+//                                    << QPointF(80, 110) << QPointF(70, 20)),0);
+//   polygonItem->setPen(QPen(Qt::darkGreen));
+//   polygonItem->setBrush(Qt::transparent);
+//   this->setScene(scene);
+//   scene->itemsBoundingRect();
 
-    // main layout
+//   DistributionEditor *editor = new DistributionEditor;
+//   editor->setItem(new BeamWavelengthItem);
+//   editor->resize(800,600);
+//   GraphicsProxyWidget *widget = new GraphicsProxyWidget;
+//   widget->setWidget(editor);
+//   scene->addItem(widget);
+
+//   Rectangle *rectangle = new Rectangle(0,0,200,200);
+//   scene->addItem(rectangle);
+//   rectangle->setFlag(QGraphicsItem::ItemIsMovable);
+
+
+//   polygonItem->setFlag(QGraphicsItem::ItemIsMovable);
+
+//   Ellipse *ellipse = new Ellipse(0,0,100,50);
+//   scene->addItem(ellipse);
+//   ellipse->setFlag(QGraphicsItem::ItemIsMovable);
+
+    MaskModel *maskModel = new MaskModel;
+//    ParameterizedItem *rectangle1 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle1->setRegisteredProperty(RectangleItem::P_WIDTH, 100.0);
+//    rectangle1->setRegisteredProperty(RectangleItem::P_HEIGHT, 200.0);
+//    rectangle1->setItemName("rect1");
+//    ParameterizedItem *rectangle2 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle2->setRegisteredProperty(RectangleItem::P_WIDTH, 120.0);
+//    rectangle2->setRegisteredProperty(RectangleItem::P_HEIGHT, 220.0);
+//    rectangle2->setItemName("rect2");
+//    ParameterizedItem *rectangle3 = maskModel->insertNewItem(Constants::RectangleType);
+//    rectangle3->setRegisteredProperty(RectangleItem::P_WIDTH, 120.0);
+//    rectangle3->setRegisteredProperty(RectangleItem::P_HEIGHT, 220.0);
+//    rectangle3->setItemName("rect3");
+
+
+//    QModelIndex itemIndex = maskModel->index(1, 0, QModelIndex());
+//    ParameterizedItem *item = maskModel->itemForIndex(itemIndex);
+//    maskModel->moveParameterizedItem(item, 0, 3);
+
+//    for (int i_row = 0; i_row < maskModel->rowCount(QModelIndex()); ++i_row) {
+//        QModelIndex itemIndex = maskModel->index(i_row, 0, QModelIndex());
+
+//        if (ParameterizedItem *item = maskModel->itemForIndex(itemIndex)) {
+
+//            qDebug() << i_row << item->itemName();
+//        }
+
+
+//    Q_ASSERT(0);
+
+//    ParameterizedItem *polygon = maskModel->insertNewItem(Constants::PolygonType);
+//    maskModel->insertNewItem(Constants::PointType, maskModel->indexOfItem(polygon));
+
+//    maskModel->save("masks.xml");
+
+//    Q_ASSERT(0);
+
+    MaskEditor *maskEditor = new MaskEditor;
+    maskEditor->setModel(maskModel);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    this->setLayout(mainLayout);
+//    Rectangle *rectangle = new Rectangle(300,300,100,100);
+//    QGraphicsScene *scene = new QGraphicsScene();
+//    scene->addItem(rectangle);
+//    QGraphicsView *view = new QGraphicsView;
+//    view->setScene(scene);
+//    scene->setSceneRect(view->rect());
+    mainLayout->addWidget(maskEditor);
 
-//    mainLayout->addWidget(m_propertyEditor);
-//    mainLayout->addWidget(distributionEditor);
-    setLayout(mainLayout);
 }
-
-
-//TestView::TestView(QWidget *parent)
-//    : QWidget(parent)
-//{
-//    setMinimumSize(128, 128);
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-//    QGroupBox *groupBox = new QGroupBox("Beam Parameters");
-//    QVBoxLayout *groupLayout = new QVBoxLayout;
-//    groupBox->setLayout(groupLayout);
-
-//    // whole content is represented as grid layout
-//    QGridLayout *gridLayout = new QGridLayout;
-
-//    AwesomePropertyEditor *editor1 = new AwesomePropertyEditor(this);
-//    editor1->setMinimumSize(256, 256);
-//    AwesomePropertyEditor *editor2 = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
-
-//    TestItem *item1 = new TestItem;
-//    LayerItem *layer = new LayerItem();
-//    editor1->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
-//    editor1->addItemProperties(item1, "MyGroup");
-
-////    editor2->addItemProperty(layer, LayerItem::P_THICKNESS, "MyGroup");
-//    editor2->addItemProperties(item1, QString(), AwesomePropertyEditor::INSERT_AFTER);
-
-//    gridLayout->addWidget(editor1, 0, 0);
-//    gridLayout->addWidget(editor2, 0, 1);
-
-//    groupLayout->addLayout(gridLayout);
-
-//    // main layout
-//    QVBoxLayout *mainLayout = new QVBoxLayout;
-//    mainLayout->addWidget(groupBox);
-//    setLayout(mainLayout);
-
-
-//}

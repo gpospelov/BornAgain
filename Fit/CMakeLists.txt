@@ -10,16 +10,19 @@ endif()
 # --- source and include files ------
 set(include_dirs 
     ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
 )
 include_directories(${include_dirs})
 
 file(GLOB fitkernel_source_files
     "FitKernel/src/*.cpp"
     "FitKernel/src/*.cxx"
+    "StandardFits/*.cpp"
 )
 
 file(GLOB fitkernel_include_files
     "FitKernel/inc/*.h"
+    "StandardFits/*.h"
 )
 
 # genetic minimizer only available if ROOT present

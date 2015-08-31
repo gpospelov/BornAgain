@@ -37,7 +37,7 @@ class BA_CORE_API_ FitSuiteParameters
     typedef parameters_t::const_iterator const_iterator;
 
     FitSuiteParameters() {}
-    virtual ~FitSuiteParameters(){}
+    virtual ~FitSuiteParameters(){clear();}
 
     //! clear all defined parameters
     void clear();

@@ -20,6 +20,9 @@
 #include "OutputData.h"
 #include <vector>
 
+class IMinimizer;
+class FitSuite;
+
 //! @class IMinimizerFunctionalTest
 //! @ingroup standard_samples
 //! @brief Basic class for all minimizer functional tests
@@ -27,27 +30,30 @@
 class BA_CORE_API_ IMinimizerFunctionalTest : public IFunctionalTest
 {
 public:
-        IMinimizerFunctionalTest(const std::string &minimizer_name, const std::string &minimizer_algorithm);
+        IMinimizerFunctionalTest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string());
 
         void runTest();
         int analyseResults();
 
         class TestParameter {
         public:
-            TestParameter(const std::string &name, double real_value, double start_value, double threshold=0.01);
+            TestParameter(const std::string &name, double real_value, double start_value);
             std::string m_name;   //!< sample parameter name
             double m_real_value;  //!< real value to construct the sample
             double m_start_value; //!< starting value for the minimizer
             double m_found_value; //!< the value found during the fit
-            double m_threshold;   //!< threshold on difference between real and found parameter
         };
 
+        void setParameterTolerance(double value);
 protected:
+    virtual FitSuite *createFitSuite();
+
     std::vector<TestParameter> m_parameters;
     std::string m_minimizer_name;
     std::string m_minimizer_algorithm;
     std::string m_simulation_name;
     std::string m_sample_builder_name;
+    double m_parameter_tolerance;
 };
 
 

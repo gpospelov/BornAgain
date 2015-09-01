@@ -14,6 +14,12 @@ class BA_CORE_API_ StandardFitsFactory : public IFactory<std::string, IFunctiona
 public:
     StandardFitsFactory();
 
+    IFunctionalTest *createTest(const std::string &test_name);
+
+    bool isValidTest(const std::string &test_name);
+
+    void printCatalogue(std::ostream &ostr);
+
 };
 
 

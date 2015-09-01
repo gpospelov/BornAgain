@@ -37,7 +37,10 @@ public:
     virtual int analyseResults() = 0;
 
     std::string getName() const;
+    void setName(const std::string &name);
+
     std::string getDescription() const;
+    void setDescription(const std::string &description);
 
     ETestResult getTestResult() const;
     std::string getTestResultString() const;

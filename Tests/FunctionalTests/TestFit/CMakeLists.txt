@@ -6,10 +6,14 @@ set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 
 set(list_of_tests
 #    "TestFit01"
-#    "TestFit02"
+    "TestFit02"
     "FitSuite/Minuit2_Migrad"
-#    "FitSuite/Minuit2_Fumili"
-#    "FitSuite/GSLLevenbergMarquardt"
+    "FitSuite/Minuit2_Fumili"
+    "FitSuite/GSLLevenbergMarquardt"
+    "FitSuite/GSLMultiMinBFGS"
+    "FitSuite/GSLMultiMinSteepestDescent"
+    "FitSuite/GSLSimulatedAnnealing"
+    "FitSuite/GeneticMinimizer"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

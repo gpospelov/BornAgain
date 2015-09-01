@@ -51,8 +51,18 @@ std::string IFunctionalTest::getName() const
     return m_name;
 }
 
+void IFunctionalTest::setName(const std::string &name)
+{
+    m_name = name;
+}
+
 std::string IFunctionalTest::getDescription() const {
     return m_description;
+}
+
+void IFunctionalTest::setDescription(const std::string &description)
+{
+    m_description = description;
 }
 
 IFunctionalTest::ETestResult IFunctionalTest::getTestResult() const

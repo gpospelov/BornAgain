@@ -7,15 +7,3 @@ and minimization strategies.
 Tests are executed automatically when user builds the whole project with 'check' target
 cmake; make check
 
---- List of tests ---
-
-
-
-testfit_Genetic.py       Test of Genetic minimizer with default settings
-testfit_GSLLMA.py        Test of GSL LMA minimizer with default settings
-testfit_GSLMultiMin.py   Test of various GSL gradient descent minimizers
-testfit_GSLSimAn.py      Test of GSL Simmulated Annealing minimizer
-testfit_Minuit2.py       Test of Minuit2 minimizer
-
-testfit_UsingBuilder.py  Fitting via sample builder
-

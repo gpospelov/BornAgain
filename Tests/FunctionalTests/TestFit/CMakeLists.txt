@@ -5,8 +5,6 @@
 set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 
 set(list_of_tests
-#    "TestFit01"
-    "TestFit02"
     "FitSuite/Minuit2_Migrad"
     "FitSuite/Minuit2_Fumili"
     "FitSuite/GSLLevenbergMarquardt"
@@ -29,12 +27,6 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
 )
-
-#foreach(_test ${list_of_tests})
-#    BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainFit_LIBRARY} ${BornAgainCore_LIBRARY})
-#    BORNAGAIN_ADD_TEST(${_test} ${_test})
-#endforeach()
-
 
 # Adding executables.
 get_list_of_executables_from_list_of_tests("${list_of_tests}" ${list_of_executables})

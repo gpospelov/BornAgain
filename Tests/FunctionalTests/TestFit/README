@@ -7,8 +7,6 @@ and minimization strategies.
 Tests are compiled and executed automatically when user builds the whole project with 'check' target
 cmake; make check
 
---- List of tests ---
+One can run tests manually by running in the build directory ./bin/FitSuite
 
-TestFit01 - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.
-TestFit02 - Fitting using sample builder
 

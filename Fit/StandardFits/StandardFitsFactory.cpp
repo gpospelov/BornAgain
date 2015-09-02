@@ -52,7 +52,7 @@ IFunctionalTest *StandardFitsFactory::createTest(const std::string &test_name)
 
 bool StandardFitsFactory::isValidTest(const std::string &test_name)
 {
-    typename CallbackMap_t::const_iterator it = m_callbacks.find(test_name);
+    CallbackMap_t::const_iterator it = m_callbacks.find(test_name);
     if( it != m_callbacks.end() ) {
         return true;
     } else {

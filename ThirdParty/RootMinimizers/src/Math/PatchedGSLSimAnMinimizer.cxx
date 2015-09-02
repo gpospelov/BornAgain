@@ -20,6 +20,7 @@
 
 #include <iostream> 
 #include <cassert>
+#include <iomanip>
 
 namespace ROOT { 
 
@@ -101,11 +102,11 @@ bool GSLSimAnMinimizer::Minimize() {
       else 
          std::cout << "GSLSimAnMinimizer: Error in solving" << std::endl;  
 
-      int pr = std::cout.precision(18);
+      //int pr = std::cout.precision(18);
       std::cout << "FVAL         = " << MinValue() << std::endl;
-      std::cout.precision(pr);
+	  std::cout << std::setprecision(18);
       for (unsigned int i = 0; i < NDim(); ++i) 
-         std::cout << VariableName(i) << "\t  = " << X()[i] << std::endl; 
+         std::cout << VariableName(i) << std::string("\t  = ") << X()[i] << std::endl; 
    }
                                                            
 

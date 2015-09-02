@@ -331,13 +331,13 @@ void BasicMinimizer::SetFinalValues(const double * x) {
 }
 
 void BasicMinimizer::PrintResult() const {
-   int pr = std::cout.precision(18);
-   std::cout << "FVAL         = " << fMinVal << std::endl;
-   std::cout.precision(pr);
+   //int pr = std::cout.precision(18);
+   std::cout << std::string("FVAL         = ") << fMinVal << std::endl;
+   std::cout << std::setprecision(18);
 //      std::cout << "Edm   = " << fState.Edm() << std::endl;
-   std::cout << "Niterations  = " << NIterations() << std::endl;
+   std::cout << std::string("Niterations  = ") << NIterations() << std::endl;
    unsigned int ncalls = NCalls();
-   if (ncalls) std::cout << "NCalls     = " << ncalls << std::endl;
+   if (ncalls) std::cout << std::string("NCalls     = ") << ncalls << std::endl;
    for (unsigned int i = 0; i < fDim; ++i)
       std::cout << fNames[i] << "\t  = " << fValues[i] << std::endl;
 }

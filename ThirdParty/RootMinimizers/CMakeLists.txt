@@ -53,3 +53,6 @@ target_link_libraries(${library_name} ${GSL_LIBRARIES})
 #    include_directories(${ROOT_INCLUDE_DIR})
 #endif()
 
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+)

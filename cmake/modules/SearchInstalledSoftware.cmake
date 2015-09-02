@@ -85,6 +85,6 @@ endif()
 
 
 # --- ROOT ---
-if(ROOT_SUPPORT OR BORNAGAIN_APP)
+if(BORNAGAIN_APP)
     find_package(ROOT)
 endif()

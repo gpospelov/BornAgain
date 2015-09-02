@@ -20,9 +20,9 @@
 #include "ROOTMultiMinMinimizer.h"
 #include "ROOTSimAnMinimizer.h"
 #include "ROOTLMAMinimizer.h"
-#ifdef HAS_GENETIC_MINIMIZER
+//#ifdef HAS_GENETIC_MINIMIZER
 #include "ROOTGeneticMinimizer.h"
-#endif
+//#endif
 #include <boost/assign/list_of.hpp>
 #include <iomanip>
 
@@ -105,10 +105,10 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     } else if( minimizer == "GSLSimAn" ) {
         result = new ROOTSimAnMinimizer(minimizer, algorithm);
 
-#ifdef HAS_GENETIC_MINIMIZER
+//#ifdef HAS_GENETIC_MINIMIZER
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
-#else
+//#else
     } else if( minimizer == "Genetic" ) {
         std::cout << "MinimizerFactory::createMinimizer() -> Error! Genetic minimizer doesn't exists (project was compiled without ROOT support)." << std::endl;
         result = 0;

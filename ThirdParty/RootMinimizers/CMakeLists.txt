@@ -13,6 +13,7 @@ file(GLOB source_files
     "src/Minuit2/*.cxx"
     "src/Math/*.cxx"
     "src/Fit/*.cxx"
+    "src/TMVA/*.cxx"
 )
 
 file(GLOB include_files 
@@ -20,12 +21,13 @@ file(GLOB include_files
     "inc/Math/*.h"
     "inc/Minuit2/*.h"
     "src/Math/*.h"
+    "inc/TMVA/*.h"
 )
 
-if(NOT ROOT_FOUND)
-    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/src/Math/GeneticMinimizer.cxx")
-    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/inc/Math/GeneticMinimizer.h")
-endif()
+#if(NOT ROOT_FOUND)
+#    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/src/Math/GeneticMinimizer.cxx")
+#    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/inc/Math/GeneticMinimizer.h")
+#endif()
 
 
 # --- definitions ---------
@@ -47,7 +49,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 include_directories(${GSL_INCLUDE_DIR})
 target_link_libraries(${library_name} ${GSL_LIBRARIES})
 
-if(ROOT_FOUND)
-    include_directories(${ROOT_INCLUDE_DIR})
-endif()
+#if(ROOT_FOUND)
+#    include_directories(${ROOT_INCLUDE_DIR})
+#endif()
 

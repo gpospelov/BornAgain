@@ -109,10 +109,10 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
 //#else
-    } else if( minimizer == "Genetic" ) {
-        std::cout << "MinimizerFactory::createMinimizer() -> Error! Genetic minimizer doesn't exists (project was compiled without ROOT support)." << std::endl;
-        result = 0;
-#endif
+//    } else if( minimizer == "Genetic" ) {
+//        std::cout << "MinimizerFactory::createMinimizer() -> Error! Genetic minimizer doesn't exists (project was compiled without ROOT support)." << std::endl;
+//        result = 0;
+//#endif
 
     }
 

@@ -52,15 +52,15 @@ const UInt_t                           TMVA::MsgLogger::fgMaxSourceSize = 25;
 
 const std::string                      TMVA::MsgLogger::fgPrefix = "--- ";
 const std::string                      TMVA::MsgLogger::fgSuffix = ": ";
-#if __cplusplus > 199711L
-std::atomic<Bool_t>                                       TMVA::MsgLogger::fgInhibitOutput{kFALSE};
-std::atomic<const std::map<TMVA::EMsgType, std::string>*> TMVA::MsgLogger::fgTypeMap{0};
-std::atomic<const std::map<TMVA::EMsgType, std::string>*> TMVA::MsgLogger::fgColorMap{0};
-#else
+//#if __cplusplus > 199711L
+//std::atomic<Bool_t>                                       TMVA::MsgLogger::fgInhibitOutput{kFALSE};
+//std::atomic<const std::map<TMVA::EMsgType, std::string>*> TMVA::MsgLogger::fgTypeMap{0};
+//std::atomic<const std::map<TMVA::EMsgType, std::string>*> TMVA::MsgLogger::fgColorMap{0};
+//#else
 Bool_t                                       TMVA::MsgLogger::fgInhibitOutput = kFALSE;
 const std::map<TMVA::EMsgType, std::string>* TMVA::MsgLogger::fgTypeMap  = 0;
 const std::map<TMVA::EMsgType, std::string>* TMVA::MsgLogger::fgColorMap = 0;
-#endif
+//#endif
 static std::auto_ptr<const std::map<TMVA::EMsgType, std::string> > gOwnTypeMap;
 static std::auto_ptr<const std::map<TMVA::EMsgType, std::string> > gOwnColorMap;
  
@@ -195,36 +195,37 @@ void TMVA::MsgLogger::Send()
 //_______________________________________________________________________
 void TMVA::MsgLogger::WriteMsg( EMsgType type, const std::string& line ) const
 {
-   // putting the output string, the message type, and the color
-   // switcher together into a single string
+//   // putting the output string, the message type, and the color
+//   // switcher together into a single string
 
-   if ( (type < fMinType || fgInhibitOutput) && type!=kFATAL ) return; // no output
+//   if ( (type < fMinType || fgInhibitOutput) && type!=kFATAL ) return; // no output
 
-   std::map<EMsgType, std::string>::const_iterator stype;
+//   std::map<EMsgType, std::string>::const_iterator stype;
 
-   if ((stype = fgTypeMap.load()->find( type )) != fgTypeMap.load()->end()) {
-      if (!gConfig().IsSilent() || type==kFATAL) {
-         if (gConfig().UseColor()) {
-            // no text for INFO or VERBOSE
-            if (type == kINFO || type == kVERBOSE)
-               std::cout << fgPrefix << line << std::endl; // no color for info
-            else
- 	       std::cout << fgColorMap.load()->find( type )->second << fgPrefix << "<"
-                         << stype->second << "> " << line  << "\033[0m" << std::endl;
-         }
-         else {
-            if (type == kINFO) std::cout << fgPrefix << line << std::endl;
-            else               std::cout << fgPrefix << "<" << stype->second << "> " << line << std::endl;
-         }
-      }
-   }
+//   if ((stype = fgTypeMap->find( type )) != fgTypeMap->end()) {
+//      if (!gConfig().IsSilent() || type==kFATAL) {
+//         if (gConfig().UseColor()) {
+//            // no text for INFO or VERBOSE
+//            if (type == kINFO || type == kVERBOSE)
+//               std::cout << fgPrefix << line << std::endl; // no color for info
+//            else
+// 	       std::cout << fgColorMap.load()->find( type )->second << fgPrefix << "<"
+//                         << stype->second << "> " << line  << "\033[0m" << std::endl;
+//         }
+//         else {
+//            if (type == kINFO) std::cout << fgPrefix << line << std::endl;
+//            else               std::cout << fgPrefix << "<" << stype->second << "> " << line << std::endl;
+//         }
+//      }
+//   }
 
-   // take decision to stop if fatal error
-   if (type == kFATAL) {
-      std::cout << "***> abort program execution" << std::endl;
-      std::exit(1);
-      assert(false);
-   }
+//   // take decision to stop if fatal error
+//   if (type == kFATAL) {
+//      std::cout << "***> abort program execution" << std::endl;
+//      std::exit(1);
+//      assert(false);
+//   }
+    assert(0);
 }
 
 //_______________________________________________________________________
@@ -240,44 +241,44 @@ void TMVA::MsgLogger::InitMaps()
 {
    // Create the message type and color maps
 
-   if(!fgTypeMap) {
-     std::map<TMVA::EMsgType, std::string>*tmp  = new std::map<TMVA::EMsgType, std::string>();
+//   if(!fgTypeMap) {
+//     std::map<TMVA::EMsgType, std::string>*tmp  = new std::map<TMVA::EMsgType, std::string>();
    
-     (*tmp)[kVERBOSE]  = std::string("VERBOSE");
-     (*tmp)[kDEBUG]    = std::string("DEBUG");
-     (*tmp)[kINFO]     = std::string("INFO");
-     (*tmp)[kWARNING]  = std::string("WARNING");
-     (*tmp)[kERROR]    = std::string("ERROR");
-     (*tmp)[kFATAL]    = std::string("FATAL");
-     (*tmp)[kSILENT]   = std::string("SILENT");
-     const std::map<TMVA::EMsgType, std::string>* expected=0;
-     if(fgTypeMap.compare_exchange_strong(expected,tmp)) {
-       //Have the global own this
-       gOwnTypeMap.reset(tmp);
-     } else {
-       //Another thread beat us in creating the instance
-       delete tmp;
-     }
-   }
+//     (*tmp)[kVERBOSE]  = std::string("VERBOSE");
+//     (*tmp)[kDEBUG]    = std::string("DEBUG");
+//     (*tmp)[kINFO]     = std::string("INFO");
+//     (*tmp)[kWARNING]  = std::string("WARNING");
+//     (*tmp)[kERROR]    = std::string("ERROR");
+//     (*tmp)[kFATAL]    = std::string("FATAL");
+//     (*tmp)[kSILENT]   = std::string("SILENT");
+//     const std::map<TMVA::EMsgType, std::string>* expected=0;
+//     if(fgTypeMap->compare_exchange_strong(expected,tmp)) {
+//       //Have the global own this
+//       gOwnTypeMap.reset(tmp);
+//     } else {
+//       //Another thread beat us in creating the instance
+//       delete tmp;
+//     }
+//   }
 
-   if(!fgColorMap) {
-     std::map<TMVA::EMsgType, std::string>*tmp  = new std::map<TMVA::EMsgType, std::string>();
+//   if(!fgColorMap) {
+//     std::map<TMVA::EMsgType, std::string>*tmp  = new std::map<TMVA::EMsgType, std::string>();
 
-     (*tmp)[kVERBOSE] = std::string("");
-     (*tmp)[kDEBUG]   = std::string("\033[34m");
-     (*tmp)[kINFO]    = std::string("");
-     (*tmp)[kWARNING] = std::string("\033[1;31m");
-     (*tmp)[kERROR]   = std::string("\033[31m");
-     (*tmp)[kFATAL]   = std::string("\033[37;41;1m");
-     (*tmp)[kSILENT]  = std::string("\033[30m");
+//     (*tmp)[kVERBOSE] = std::string("");
+//     (*tmp)[kDEBUG]   = std::string("\033[34m");
+//     (*tmp)[kINFO]    = std::string("");
+//     (*tmp)[kWARNING] = std::string("\033[1;31m");
+//     (*tmp)[kERROR]   = std::string("\033[31m");
+//     (*tmp)[kFATAL]   = std::string("\033[37;41;1m");
+//     (*tmp)[kSILENT]  = std::string("\033[30m");
 
-     const std::map<TMVA::EMsgType, std::string>* expected=0;
-     if(fgColorMap.compare_exchange_strong(expected,tmp)) {
-       //Have the global own this
-       gOwnColorMap.reset(tmp);
-     } else {
-       //Another thread beat us in creating the instance
-       delete tmp;
-     }
-   }
+//     const std::map<TMVA::EMsgType, std::string>* expected=0;
+//     if(fgColorMap.compare_exchange_strong(expected,tmp)) {
+//       //Have the global own this
+//       gOwnColorMap.reset(tmp);
+//     } else {
+//       //Another thread beat us in creating the instance
+//       delete tmp;
+//     }
+//   }
 }

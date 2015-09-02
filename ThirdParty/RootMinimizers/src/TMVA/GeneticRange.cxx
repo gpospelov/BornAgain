@@ -29,7 +29,7 @@
 // Range definition for genetic algorithm                               
 //_______________________________________________________________________
 
-//#include "TRandom3.h"
+#include "TMVA/TRandom3.h"
 
 #include "TMVA/GeneticRange.h"
 

@@ -60,7 +60,7 @@ class TRandom3;
 
 namespace TMVA {
 
-   class MsgLogger;
+//   class MsgLogger;
    
    class Interval {
 
@@ -92,7 +92,7 @@ namespace TMVA {
       Int_t    fNbins;        // when >0 : number of bins (discrete interval); when ==0 continuous interval
 
    private:
-      MsgLogger& Log() const;          
+//      MsgLogger& Log() const;
 
 //      ClassDef(Interval,0)    // Interval definition, continous and discrete
    };

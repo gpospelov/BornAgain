@@ -68,11 +68,12 @@
 End_Html */
 
 //#include "TMath.h"
-//#include "TRandom3.h"
+#include "TMVA/TRandom3.h"
 //#include "ThreadLocalStorage.h"
 
 #include "TMVA/Interval.h"
 #include "TMVA/MsgLogger.h"
+#include <stdexcept>
 
 //ClassImp(TMVA::Interval)
 
@@ -86,13 +87,18 @@ TMVA::Interval::Interval( Double_t min, Double_t max, Int_t nbins ) :
    // when nbins > 0, interval describes a discrete distribution (equally distributed in the interval)
    // when nbins == 0, interval describes a continous interval
    //
-   if (fMax - fMin < 0) Log() << kFATAL << "maximum lower than minimum" << Endl;
+   if (fMax - fMin < 0) {
+//       Log() << kFATAL << "maximum lower than minimum" << Endl;
+       throw std::logic_error("maximum lower than minimum");
+   }
    if (nbins < 0) {
-      Log() << kFATAL << "nbins < 0" << Endl;
+//      Log() << kFATAL << "nbins < 0" << Endl;
+      throw std::logic_error("nbins < 0");
       return;
    }
    else if (nbins == 1) {
-      Log() << kFATAL << "interval has to have at least 2 bins if discrete" << Endl;
+//      Log() << kFATAL << "interval has to have at least 2 bins if discrete" << Endl;
+      throw std::logic_error("interval has to have at least 2 bins if discrete");
       return;
    }
 }
@@ -118,11 +124,13 @@ Double_t TMVA::Interval::GetElement( Int_t bin ) const
    //        Double_t position
    //
    if (fNbins <= 0) {
-      Log() << kFATAL << "GetElement only defined for discrete value Intervals" << Endl;
+//      Log() << kFATAL << "GetElement only defined for discrete value Intervals" << Endl;
+       throw std::logic_error("GetElement only defined for discrete value Intervals");
       return 0.0;
    }
    else if (bin < 0 || bin >= fNbins) {
-      Log() << kFATAL << "bin " << bin << " out of range: interval *bins* count from 0 to " << fNbins-1  << Endl;
+//      Log() << kFATAL << "bin " << bin << " out of range: interval *bins* count from 0 to " << fNbins-1  << Endl;
+      throw std::logic_error("out of range: interval *bins*");
       return 0.0;
    }
       return fMin + ( (Double_t(bin)/(fNbins-1)) *(fMax - fMin) );
@@ -133,11 +141,13 @@ Double_t TMVA::Interval::GetStepSize( Int_t iBin )  const
 {
    // retuns the step size between the numbers of a "discrete Interval"
    if (fNbins <= 0) {
-      Log() << kFATAL << "GetElement only defined for discrete value Intervals" << Endl;
+//      Log() << kFATAL << "GetElement only defined for discrete value Intervals" << Endl;
+      throw std::logic_error("GetElement only defined for discrete value Intervals");
    }
    if (iBin<0) {
-      Log() << kFATAL << "You asked for iBin=" << iBin
-            <<" in interval .. and.. sorry, I cannot let this happen.."<<Endl;
+//      Log() << kFATAL << "You asked for iBin=" << iBin
+//            <<" in interval .. and.. sorry, I cannot let this happen.."<<Endl;
+       throw std::logic_error("iBin out of range");
    }
    return (fMax-fMin)/(Double_t)(fNbins-1);
 }
@@ -165,7 +175,7 @@ void TMVA::Interval::Print(std::ostream &os) const
    }
 }
 
-TMVA::MsgLogger& TMVA::Interval::Log() const {
-  TTHREAD_TLS_DECL_ARG(MsgLogger,logger,"Interval");   // message logger
-  return logger;
-}
+//TMVA::MsgLogger& TMVA::Interval::Log() const {
+//  TTHREAD_TLS_DECL_ARG(MsgLogger,logger,"Interval");   // message logger
+//  return logger;
+//}

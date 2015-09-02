@@ -61,38 +61,49 @@ typedef long           Long_t;      //Signed long integer 8 bytes (long)
 typedef long double    LongDouble_t;//Long Double
 typedef long long          Long64_t; //Portable signed long integer 8 bytes
 typedef unsigned long  ULong_t;     //Unsigned long integer 4 bytes (unsigned long)
+typedef unsigned char  UChar_t;     //Unsigned Character 1 byte (unsigned char)
+
 
 const Bool_t kTRUE  = true;
 const Bool_t kFALSE = false;
 
-extern void Info(const char *location, const char *msgfmt, ...)
-#if defined(__GNUC__) && !defined(__CINT__)
-__attribute__((format(printf, 2, 3)))
-#endif
-;
-extern void Warning(const char *location, const char *msgfmt, ...)
-#if defined(__GNUC__) && !defined(__CINT__)
-__attribute__((format(printf, 2, 3)))
-#endif
-;
-extern void Error(const char *location, const char *msgfmt, ...)
-#if defined(__GNUC__) && !defined(__CINT__)
-__attribute__((format(printf, 2, 3)))
-#endif
-;
+//extern void Info(const char *location, const char *msgfmt, ...)
+//#if defined(__GNUC__) && !defined(__CINT__)
+//__attribute__((format(printf, 2, 3)))
+//#endif
+//;
+//extern void Warning(const char *location, const char *msgfmt, ...)
+//#if defined(__GNUC__) && !defined(__CINT__)
+//__attribute__((format(printf, 2, 3)))
+//#endif
+//;
+//extern void Error(const char *location, const char *msgfmt, ...)
+//#if defined(__GNUC__) && !defined(__CINT__)
+//__attribute__((format(printf, 2, 3)))
+//#endif
+//;
 
-class TObject {};
 
 class TNamed {
 public:
+    TNamed() {}
+
     TNamed(const std::string &name, const std::string &title) {
         m_name = name;
         m_title = title;
     }
+
+    void SetName(const std::string &name) { m_name = name; }
+    void SetTitle(const std::string &title) { m_title = title; }
+
+    std::string GetName() const { return m_name; }
+
 private:
     std::string m_name;
     std::string m_title;
 };
+
+class TObject : public TNamed {};
 
 
 namespace TMVA {

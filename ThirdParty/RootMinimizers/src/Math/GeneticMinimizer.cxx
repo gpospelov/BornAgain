@@ -7,6 +7,7 @@
 #include "Math/GenAlgoOptions.h"
 
 //#include "TError.h"
+#include "TMVA/Types.h"
 
 #include <cassert>
 
@@ -156,8 +157,10 @@ bool GeneticMinimizer::SetVariable(unsigned int, const std::string& name, double
    //It does nothing! As there is no variable if it has no limits!
    double lower = value - (50 * step);
    double upper = value + (50 * step);
-   Info("GeneticMinimizer::SetVariable", "Variables should be limited - set automatic range to 50 times step size for %s : [%f, %f]",
-        name.c_str(),lower,upper);
+//   Info("GeneticMinimizer::SetVariable", "Variables should be limited - set automatic range to 50 times step size for %s : [%f, %f]",
+//        name.c_str(),lower,upper);
+   std::cout << "GeneticMinimizer::SetVariable() -> Info. Variables should be limited - set automatic range to 50 times step size for "
+             << name << " , lower " << lower << " , upper" << upper << std::endl;
    fRanges.push_back( new TMVA::Interval(lower, upper ) );
 
    return true;
@@ -166,7 +169,8 @@ bool GeneticMinimizer::SetVariable(unsigned int, const std::string& name, double
 bool GeneticMinimizer::SetFixedVariable(unsigned int par, const std::string& name, double value) {
    // set a fixed variable
    if (!fFitness) {
-      Error("GeneticMinimizer::SetFixedVariable", "Function has not been set - cannot set fixed variables %s",name.c_str());
+//      Error("GeneticMinimizer::SetFixedVariable", "Function has not been set - cannot set fixed variables %s",name.c_str());
+       std::cout << "GeneticMinimizer::SetFixedVariable -> Error!. Function has not been set - cannot set fixed variables '" << name << "'" << std::endl;
       return false;
    }
 
@@ -227,7 +231,8 @@ void GeneticMinimizer::SetOptions(const ROOT::Math::MinimizerOptions & opt)
    // set genetic parameter from minimizer options
    const ROOT::Math::IOptions * geneticOpt = opt.ExtraOptions();
    if (!geneticOpt) {
-      Warning("GeneticMinimizer::SetOptions", "No specific genetic minimizer options have been set");
+//      Warning("GeneticMinimizer::SetOptions", "No specific genetic minimizer options have been set");
+      std::cout << "GeneticMinimizer::SetOptions() -> Warning. No specific genetic minimizer options have been set" << std::endl;
       return;
    }
 
@@ -244,7 +249,8 @@ void GeneticMinimizer::SetOptions(const ROOT::Math::MinimizerOptions & opt)
    // use same of options in base class
    int maxiter = opt.MaxIterations();
    if (maxiter > 0 && fParameters.fNsteps > 0 && maxiter !=  fParameters.fNsteps  )    {
-      Warning("GeneticMinimizer::SetOptions", "max iterations value given different than  than Steps - set equal to Steps %d",fParameters.fNsteps);
+//      Warning("GeneticMinimizer::SetOptions", "max iterations value given different than  than Steps - set equal to Steps %d",fParameters.fNsteps);
+        std::cout << "GeneticMinimizer::SetOptions() -> Warning.max iterations value given different than  than Steps - set equal to Steps" << fParameters.fNsteps << std::endl;
    }
    if (fParameters.fNsteps > 0) SetMaxIterations(fParameters.fNsteps);
 
@@ -254,7 +260,8 @@ bool GeneticMinimizer::Minimize()
 {
 
    if (!fFitness) {
-      Error("GeneticMinimizer::Minimize","Fitness function has not been set");
+//      Error("GeneticMinimizer::Minimize","Fitness function has not been set");
+       std::cout << "GeneticMinimizer::Minimize() -> Error. Fitness function has not been set" << std::endl;
       return false;
    }
 
@@ -299,7 +306,8 @@ bool GeneticMinimizer::Minimize()
       niter++;
       if ( niter > MaxIterations() && MaxIterations() > 0) {
          if (PrintLevel() > 0) {
-            Info("GeneticMinimizer::Minimize","Max number of iterations %d reached - stop iterating",MaxIterations());
+//            Info("GeneticMinimizer::Minimize","Max number of iterations %d reached - stop iterating",MaxIterations());
+            std::cout << "GeneticMinimizer::Minimize() -> Info. Max number of iterations " << MaxIterations() << " reached - stop iterating." << std::endl;
          }
          fStatus = 1;
          break;

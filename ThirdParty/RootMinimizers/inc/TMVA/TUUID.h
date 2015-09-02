@@ -7,6 +7,8 @@
 class TUUID {
 public:
 
+    TUUID();
+
     void GetUUID(UChar_t uuid[16]) const;
 
 protected:

@@ -29,6 +29,9 @@
 #include "Math/Error.h"
 #endif
 
+#ifndef ROOT_Fit_ParameterSettings
+#include "Fit/ParameterSettings.h"
+#endif
 
 
 #include <vector>
@@ -39,10 +42,6 @@
 
 
 namespace ROOT {
-
-   namespace Fit {
-      class ParameterSettings;
-   }
 
 
    namespace Math {

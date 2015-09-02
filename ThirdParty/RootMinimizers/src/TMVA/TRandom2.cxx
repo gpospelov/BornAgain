@@ -84,7 +84,7 @@ void TRandom2::RndmArray(Int_t n, Float_t *array)
 
       iy = fSeed ^ fSeed1 ^ fSeed2;
       if (iy) array[i] = (Float_t)(kScale*static_cast<Double_t>(iy));
-      else    array[i] = Rndm();
+      else    array[i] = (Float_t)Rndm();
    }
 }
 

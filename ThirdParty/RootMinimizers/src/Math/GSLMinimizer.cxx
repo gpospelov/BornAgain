@@ -42,6 +42,7 @@
 #include <functional>
 #include <ctype.h>   // need to use c version of tolower defined here
 #include <limits>
+#include <iomanip>
 
 namespace ROOT {
 
@@ -205,9 +206,9 @@ bool GSLMinimizer::Minimize() {
 
       if (debugLevel >=2) {
          std::cout << "----------> Iteration " << std::setw(4) << iter;
-         int pr = std::cout.precision(18);
+//         int pr = std::cout.precision(18);
          std::cout << "            FVAL = " << fGSLMultiMin->Minimum() << std::endl;
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
          if (debugLevel >=3) {
             std::cout << "            Parameter Values : ";
             const double * xtmp = fGSLMultiMin->X();
@@ -246,9 +247,9 @@ bool GSLMinimizer::Minimize() {
    if (minFound) {
       if (debugLevel >=1 ) {
          std::cout << "GSLMinimizer: Minimum Found" << std::endl;
-         int pr = std::cout.precision(18);
+//         int pr = std::cout.precision(18);
          std::cout << "FVAL         = " << MinValue() << std::endl;
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
 //      std::cout << "Edm   = " << fState.Edm() << std::endl;
          std::cout << "Niterations  = " << iter << std::endl;
          unsigned int ncalls = NCalls();

@@ -271,9 +271,9 @@ bool GSLNLSMinimizer::Minimize() {
          std::cout << "----------> Iteration " << iter << " / " << MaxIterations() << " status " << gsl_strerror(status)  << std::endl; 
          const double * x = fGSLMultiFit->X();
          if (trFunc.get()) x = trFunc->Transformation(x);
-         int pr = std::cout.precision(18);
+         //int pr = std::cout.precision(18);
          std::cout << "            FVAL = " << (*fChi2Func)(x) << std::endl; 
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
          std::cout << "            X Values : "; 
          for (unsigned int i = 0; i < NDim(); ++i) 
             std::cout << " " << VariableName(i) << " = " << X()[i]; 
@@ -350,10 +350,10 @@ bool GSLNLSMinimizer::Minimize() {
 
       if (debugLevel >=1 ) { 
          std::cout << "GSLNLSMinimizer: Minimum Found" << std::endl;  
-         int pr = std::cout.precision(18);
+         //int pr = std::cout.precision(18);
          std::cout << "FVAL         = " << MinValue() << std::endl;
          std::cout << "Edm          = " << fEdm    << std::endl;
-         std::cout.precision(pr);
+         std::cout << std::setprecision(18);
          std::cout << "NIterations  = " << iter << std::endl;
          std::cout << "NFuncCalls   = " << fChi2Func->NCalls() << std::endl;
          for (unsigned int i = 0; i < NDim(); ++i) 

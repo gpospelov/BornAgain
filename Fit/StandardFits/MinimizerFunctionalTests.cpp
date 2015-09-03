@@ -61,7 +61,7 @@ FitSuite *GeneticTest::createFitSuite()
     result->initPrint(200);
     IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions().setMaxIterations(1);
-//    minimizer->getOptions().setValue("RandomSeed",1);
+    minimizer->getOptions().setValue("RandomSeed",1);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,

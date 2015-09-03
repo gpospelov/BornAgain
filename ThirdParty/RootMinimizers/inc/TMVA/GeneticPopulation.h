@@ -53,7 +53,7 @@
 
 namespace TMVA {
 
-   class MsgLogger;
+//   class MsgLogger;
 
    class GeneticPopulation {
 
@@ -106,8 +106,8 @@ namespace TMVA {
 
       TRandom3*fRandomGenerator;    // random Generator for this population
 
-      mutable MsgLogger* fLogger;   // message logger
-      MsgLogger& Log() const { return *fLogger; }    
+//      mutable MsgLogger* fLogger;   // message logger
+//      MsgLogger& Log() const { return *fLogger; }
 
       Int_t fPopulationSizeLimit;
 

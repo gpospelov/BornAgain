@@ -32,7 +32,7 @@
 #endif
 
 #include "TMVA/Types.h"
-#include "TMVA/MsgLogger.h"
+//#include "MsgLogger.h"
 
 #if __cplusplus > 199711L
 std::atomic<TMVA::Types*> TMVA::Types::fgTypesPtr{0};
@@ -43,7 +43,7 @@ TMVA::Types* TMVA::Types::fgTypesPtr = 0;
 
 //_______________________________________________________________________
 TMVA::Types::Types()
-   : fLogger( new MsgLogger("Types") )
+//   : fLogger( new MsgLogger("Types") )
 {
    // constructor
 }
@@ -51,7 +51,7 @@ TMVA::Types::Types()
 TMVA::Types::~Types()
 {
    // destructor
-   delete fLogger;
+//   delete fLogger;
 }
 
 //_______________________________________________________________________
@@ -92,9 +92,12 @@ Bool_t TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& metho
 //#endif
    std::map<std::string, EMVA>::const_iterator it = fStr2type.find( methodname );
    if (it != fStr2type.end()) {
-      Log() << kFATAL
-            << "Cannot add method " << methodname
-            << " to the name->type map because it exists already" << Endl;
+//       Log() << kFATAL
+//             << "Cannot add method " << methodname
+//             << " to the name->type map because it exists already" << Endl;
+       std::cout << kFATAL
+             << "TMVA::Types::AddTypeMapping() -> Fatal. Cannot add method " << methodname
+             << " to the name->type map because it exists already" << std::endl;
       return kFALSE;
    }
 
@@ -111,7 +114,8 @@ TMVA::Types::EMVA TMVA::Types::GetMethodType( const std::string& method ) const
    // returns the method type (enum) for a given method (string)
    std::map<std::string, EMVA>::const_iterator it = fStr2type.find( method );
    if (it == fStr2type.end()) {
-      Log() << kFATAL << "Unknown method in map: " << method << Endl;
+//       Log() << kFATAL << "Unknown method in map: " << method << Endl;
+       std::cout << kFATAL << "TMVA::Types::GetMethodType-> Fatal. Unknown method in map: " << method << std::endl;
       return kVariable; // Inserted to get rid of GCC warning...
    }
    else return it->second;
@@ -125,6 +129,7 @@ std::string TMVA::Types::GetMethodName( TMVA::Types::EMVA method ) const
 //#endif
    std::map<std::string, EMVA>::const_iterator it = fStr2type.begin();
    for (; it!=fStr2type.end(); it++) if (it->second == method) return it->first;
-   Log() << kFATAL << "Unknown method index in map: " << method << Endl;
+//   Log() << kFATAL << "Unknown method index in map: " << method << Endl;
+   std::cout << kFATAL << "TMVA::Types::GetMethodName() -> Fatal. Unknown method index in map: " << method << std::endl;
    return "";
 }

@@ -33,7 +33,7 @@
 
 #include "TMVA/GeneticPopulation.h"
 #include "TMVA/GeneticGenes.h"
-#include "TMVA/MsgLogger.h"
+//#include "MsgLogger.h"
 
 //ClassImp(TMVA::GeneticPopulation)
 
@@ -47,8 +47,8 @@ using namespace std;
 //_______________________________________________________________________
 TMVA::GeneticPopulation::GeneticPopulation(const std::vector<Interval*>& ranges, Int_t size, UInt_t seed) 
    : fGenePool(size),
-     fRanges(ranges.size()),
-     fLogger( new MsgLogger("GeneticPopulation") )
+     fRanges(ranges.size())
+//     fLogger( new MsgLogger("GeneticPopulation") )
 {
    // Constructor
    
@@ -82,7 +82,7 @@ TMVA::GeneticPopulation::~GeneticPopulation()
    std::vector<GeneticRange*>::iterator it = fRanges.begin();
    for (;it!=fRanges.end(); it++) delete *it;
 
-   delete fLogger;
+//   delete fLogger;
 }
 
 
@@ -209,12 +209,19 @@ void TMVA::GeneticPopulation::Print( Int_t untilIndex )
             if (untilIndex == -1 ) return;
             untilIndex--;
          }
-         Log() << "fitness: " << fGenePool[it].GetFitness() << "    ";
-         for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin(); 
+//         Log() << "fitness: " << fGenePool[it].GetFitness() << "    ";
+//         for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin();
+//              vec < fGenePool[it].GetFactors().end(); vec++ ) {
+//            Log() << "f_" << n++ << ": " << (*vec) << "     ";
+//         }
+//         Log() << Endl;
+         std::cout << "fitness: " << fGenePool[it].GetFitness() << "    ";
+         for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin();
               vec < fGenePool[it].GetFactors().end(); vec++ ) {
-            Log() << "f_" << n++ << ": " << (*vec) << "     ";
+            std::cout << "f_" << n++ << ": " << (*vec) << "     ";
          }
-         Log() << Endl;
+         std::cout << std::endl;
+
       }
 }
 

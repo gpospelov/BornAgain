@@ -103,14 +103,14 @@ private:
     std::string m_title;
 };
 
-class TObject : public TNamed {};
+//class TObject : public TNamed {};
 
 
 namespace TMVA {
 
    typedef UInt_t TMVAVersion_t;
 
-   class MsgLogger;
+//   class MsgLogger;
 
    // message types for MsgLogger
    // define outside of Types class to facilite access
@@ -230,8 +230,8 @@ namespace TMVA {
    private:
 
       std::map<std::string, TMVA::Types::EMVA> fStr2type; // types-to-text map
-      mutable MsgLogger* fLogger;   // message logger
-      MsgLogger& Log() const { return *fLogger; }
+//      mutable MsgLogger* fLogger;   // message logger
+//      MsgLogger& Log() const { return *fLogger; }
 
    };
 }

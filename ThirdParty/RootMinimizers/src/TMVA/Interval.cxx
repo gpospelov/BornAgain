@@ -72,8 +72,9 @@ End_Html */
 //#include "ThreadLocalStorage.h"
 
 #include "TMVA/Interval.h"
-#include "TMVA/MsgLogger.h"
+//#include "MsgLogger.h"
 #include <stdexcept>
+#include <iostream>
 
 //ClassImp(TMVA::Interval)
 

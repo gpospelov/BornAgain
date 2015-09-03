@@ -51,7 +51,7 @@ namespace TMVA {
      
    class IFitterTarget;
    class Interval;
-   class MsgLogger;
+//   class MsgLogger;
 
    class GeneticAlgorithm {
 
@@ -104,8 +104,8 @@ namespace TMVA {
       GeneticPopulation fPopulation;      // contains and controls the "individual"
       Double_t fBestFitness;
 
-      mutable MsgLogger* fLogger;         // message logger
-      MsgLogger& Log() const { return *fLogger; }          
+//      mutable MsgLogger* fLogger;         // message logger
+//      MsgLogger& Log() const { return *fLogger; }
 
 //      ClassDef(GeneticAlgorithm, 0)  // Genetic algorithm controller
    };

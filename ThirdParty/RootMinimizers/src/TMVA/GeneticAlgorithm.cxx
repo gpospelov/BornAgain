@@ -39,7 +39,7 @@
 #include "TMVA/Interval.h"
 #include "TMVA/IFitterTarget.h"
 
-#include "TMVA/MsgLogger.h"
+//#include "MsgLogger.h"
 #include <cmath>
 namespace TMVA {
    const Bool_t GeneticAlgorithm__DEBUG__ = kFALSE;
@@ -61,8 +61,8 @@ TMVA::GeneticAlgorithm::GeneticAlgorithm( IFitterTarget& target, Int_t populatio
      fPopulationSize(populationSize),
      fRanges( ranges ),
      fPopulation(ranges, populationSize, seed),
-     fBestFitness(DBL_MAX),
-     fLogger( new MsgLogger("GeneticAlgorithm") )
+     fBestFitness(DBL_MAX)
+//     fLogger( new MsgLogger("GeneticAlgorithm") )
 {
    // Constructor
    // Parameters: 
@@ -79,7 +79,7 @@ TMVA::GeneticAlgorithm::GeneticAlgorithm( IFitterTarget& target, Int_t populatio
 TMVA::GeneticAlgorithm::~GeneticAlgorithm() 
 {
    // destructor; deletes fLogger
-   delete fLogger;
+//   delete fLogger;
 }
 
 
@@ -221,14 +221,17 @@ Double_t TMVA::GeneticAlgorithm::SpreadControl( Int_t ofSteps, Int_t successStep
       fSuccessList.pop_back();
       if ( sum > successSteps ) { // too much success
          fSpread /= factor;
-         if (GeneticAlgorithm__DEBUG__) Log() << kINFO << ">" << std::flush;
+//         if (GeneticAlgorithm__DEBUG__) Log() << kINFO << ">" << std::flush;
+         if (GeneticAlgorithm__DEBUG__) std::cout << kINFO << ">" << std::flush;
       }
       else if ( sum == successSteps ) { // on the optimal path
-         if (GeneticAlgorithm__DEBUG__) Log() << "=" << std::flush;
+//          if (GeneticAlgorithm__DEBUG__) Log() << "=" << std::flush;
+          if (GeneticAlgorithm__DEBUG__) std::cout << "=" << std::flush;
       }
       else {        // not very successful
          fSpread *= factor;
-         if (GeneticAlgorithm__DEBUG__) Log() << "<" << std::flush;
+//         if (GeneticAlgorithm__DEBUG__) Log() << "<" << std::flush;
+         if (GeneticAlgorithm__DEBUG__) std::cout << "<" << std::flush;
       }
    }
 
@@ -254,7 +257,8 @@ Bool_t TMVA::GeneticAlgorithm::HasConverged( Int_t steps, Double_t improvement )
       fConvCounter = 0;
       fConvValue = fBestFitness;
    }
-   if (GeneticAlgorithm__DEBUG__) Log() << "." << std::flush;
+//   if (GeneticAlgorithm__DEBUG__) Log() << "." << std::flush;
+   if (GeneticAlgorithm__DEBUG__) std::cout << "." << std::flush;
    if (fConvCounter < steps) return kFALSE;
    return kTRUE;
 }

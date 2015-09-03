@@ -15,7 +15,7 @@
 #include "Minuit2/FunctionGradient.h"
 #include "Minuit2/MnVectorTransform.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

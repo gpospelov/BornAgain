@@ -38,7 +38,7 @@
 
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Math {
 
@@ -59,7 +59,7 @@ namespace Math {
 */
 
 
-class BasicMinimizer : public ROOT::Math::Minimizer {
+class BasicMinimizer : public BA_ROOT::Math::Minimizer {
 
 public:
 
@@ -93,10 +93,10 @@ private:
 public:
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func);
 
    /// set gradient the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func);
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGradFunction & func);
 
    /// set free variable
    virtual bool SetVariable(unsigned int ivar, const std::string & name, double val, double step);
@@ -130,7 +130,7 @@ public:
    /// note that by default all variables are not fixed
    virtual bool IsFixedVariable(unsigned int ivar)  const;
    /// get variable settings in a variable object (like ROOT::Fit::ParamsSettings)
-   virtual bool GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & varObj) const;
+   virtual bool GetVariableSettings(unsigned int ivar, BA_ROOT::Fit::ParameterSettings & varObj) const;
    /// get name of variables (override if minimizer support storing of variable names)
    virtual std::string VariableName(unsigned int ivar) const;
    /// get index of variable given a variable given a name
@@ -156,13 +156,13 @@ public:
    virtual unsigned int NPar() const { return fValues.size(); }
 
    /// return pointer to used objective function
-   const ROOT::Math::IMultiGenFunction * ObjFunction() const { return fObjFunc; }
+   const BA_ROOT::Math::IMultiGenFunction * ObjFunction() const { return fObjFunc; }
 
    /// return pointer to used gradient object function  (NULL if gradient is not supported)
-   const ROOT::Math::IMultiGradFunction * GradObjFunction() const;
+   const BA_ROOT::Math::IMultiGradFunction * GradObjFunction() const;
 
    /// return transformation function (NULL if not having a transformation)
-   const ROOT::Math::MinimTransformFunction * TransformFunction() const;
+   const BA_ROOT::Math::MinimTransformFunction * TransformFunction() const;
 
    /// print result of minimization
    void PrintResult() const;
@@ -176,7 +176,7 @@ protected:
 
    bool CheckObjFunction() const;
 
-   MinimTransformFunction * CreateTransformation(std::vector<double> & startValues, const ROOT::Math::IMultiGradFunction * func = 0);
+   MinimTransformFunction * CreateTransformation(std::vector<double> & startValues, const BA_ROOT::Math::IMultiGradFunction * func = 0);
 
    void SetFinalValues(const double * x);
 
@@ -187,13 +187,13 @@ private:
    // dimension of the function to be minimized
    unsigned int fDim;
 
-   const ROOT::Math::IMultiGenFunction * fObjFunc;
+   const BA_ROOT::Math::IMultiGenFunction * fObjFunc;
 
    double fMinVal;
    std::vector<double> fValues;
    std::vector<double> fSteps;
    std::vector<std::string> fNames;
-   std::vector<ROOT::Math::EMinimVariableType> fVarTypes;  // vector specifyng the type of variables
+   std::vector<BA_ROOT::Math::EMinimVariableType> fVarTypes;  // vector specifyng the type of variables
    std::map< unsigned int, std::pair<double, double> > fBounds; // map specifying the bound using as key the parameter index
 
 };

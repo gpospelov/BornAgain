@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_SinParameterTransformation
 #define ROOT_Minuit2_SinParameterTransformation
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

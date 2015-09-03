@@ -14,7 +14,7 @@
 #include "Minuit2/MnUserCovariance.h"
 #include "Minuit2/MnGlobalCorrelationCoeff.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -111,7 +111,7 @@ public:
    /** facade: forward interface of MnUserParameters and MnUserTransformation */
 
    //access to parameters (row-wise)
-   const std::vector<ROOT::Minuit2::MinuitParameter>& MinuitParameters() const;
+   const std::vector<BA_ROOT::Minuit2::MinuitParameter>& MinuitParameters() const;
    //access to parameters and errors in column-wise representation
    std::vector<double> Params() const;
    std::vector<double> Errors() const;

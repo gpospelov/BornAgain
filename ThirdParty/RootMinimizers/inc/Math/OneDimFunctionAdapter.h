@@ -22,7 +22,7 @@
 
 #include <cassert>
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Math {
 
@@ -38,8 +38,8 @@ struct EvaluatorOneDim {
 };
 // specialized for param functions
 template<>
-struct EvaluatorOneDim< const ROOT::Math::IParamMultiFunction &> {
-   static double F ( const ROOT::Math::IParamMultiFunction &  f, const double * x, const double * p = 0 ) {
+struct EvaluatorOneDim< const BA_ROOT::Math::IParamMultiFunction &> {
+   static double F ( const BA_ROOT::Math::IParamMultiFunction &  f, const double * x, const double * p = 0 ) {
       return f( x, p );
    }
 };
@@ -56,8 +56,8 @@ struct EvaluatorOneDim< const ROOT::Math::IParamMultiFunction &> {
    @ingroup  GenFunc
 
 */
-template <class MultiFuncType = const ROOT::Math::IMultiGenFunction &>
-class OneDimMultiFunctionAdapter : public ROOT::Math::IGenFunction  {
+template <class MultiFuncType = const BA_ROOT::Math::IMultiGenFunction &>
+class OneDimMultiFunctionAdapter : public BA_ROOT::Math::IGenFunction  {
 
 public:
 
@@ -213,8 +213,8 @@ private:
    @ingroup  GenFunc
 
 */
-template <class ParamFuncType = ROOT::Math::IParamMultiFunction &>
-class OneDimParamFunctionAdapter :  public ROOT::Math::IGenFunction {
+template <class ParamFuncType = BA_ROOT::Math::IParamMultiFunction &>
+class OneDimParamFunctionAdapter :  public BA_ROOT::Math::IGenFunction {
 
 public:
 

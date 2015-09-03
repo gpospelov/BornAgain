@@ -17,11 +17,12 @@
 #include <algorithm>
 #include <functional>
 #include <ctype.h>   // need to use c version of tolower defined here
+#include <string>
 
-namespace ROOT {
+namespace BA_ROOT {
 namespace Math {
 
-typedef std::map<std::string, ROOT::Math::GenAlgoOptions > OptionsMap;
+typedef std::map<std::string, BA_ROOT::Math::GenAlgoOptions > OptionsMap;
 
 namespace GenAlgoOptUtil {
 
@@ -58,7 +59,7 @@ namespace GenAlgoOptUtil {
       IOptions * opt = GenAlgoOptUtil::DoFindDefault(algoname, gOpts);
       if (opt == 0) {
          // create new extra options for the given type
-         std::pair<OptionsMap::iterator,bool> ret = gOpts.insert( OptionsMap::value_type(algoname, ROOT::Math::GenAlgoOptions()) );
+         std::pair<OptionsMap::iterator,bool> ret = gOpts.insert( OptionsMap::value_type(algoname, BA_ROOT::Math::GenAlgoOptions()) );
          assert(ret.second);
          opt = &((ret.first)->second);
       }
@@ -69,7 +70,7 @@ namespace GenAlgoOptUtil {
       const OptionsMap & gOpts = GenAlgoOptUtil::gAlgoOptions;
       for (  OptionsMap::const_iterator pos = gOpts.begin();
           pos != gOpts.end(); ++pos) {
-            os << "Default specific options for algorithm "  << pos->first << " : " << std::endl;
+            os << std::string("Default specific options for algorithm ")  << pos->first << std::string(" : ") << std::endl;
             (pos->second).Print(os);
       }
    }

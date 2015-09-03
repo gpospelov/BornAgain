@@ -52,7 +52,7 @@
 
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Math {
 
@@ -91,14 +91,14 @@ namespace Math {
 
    @ingroup MultiMin
 */
-class GSLMinimizer : public ROOT::Math::BasicMinimizer {
+class GSLMinimizer : public BA_ROOT::Math::BasicMinimizer {
 
 public:
 
    /**
       Default constructor
    */
-   GSLMinimizer (ROOT::Math::EGSLMinimizerType type = ROOT::Math::kConjugateFR  );
+   GSLMinimizer (BA_ROOT::Math::EGSLMinimizerType type = BA_ROOT::Math::kConjugateFR  );
 
    /**
       Constructor with a string giving name of algorithm
@@ -129,10 +129,10 @@ private:
 public:
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func);
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func) { BasicMinimizer::SetFunction(func);}
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGradFunction & func) { BasicMinimizer::SetFunction(func);}
 
    /// method to perform the minimization
    virtual  bool Minimize();
@@ -171,7 +171,7 @@ protected:
 private:
 
 
-   ROOT::Math::GSLMultiMinimizer * fGSLMultiMin;
+   BA_ROOT::Math::GSLMultiMinimizer * fGSLMultiMin;
 
    double fLSTolerance;  // Line Search Tolerance
 

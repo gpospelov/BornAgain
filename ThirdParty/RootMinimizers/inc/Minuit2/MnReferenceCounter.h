@@ -14,7 +14,7 @@
 
 #include "StackAllocator.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

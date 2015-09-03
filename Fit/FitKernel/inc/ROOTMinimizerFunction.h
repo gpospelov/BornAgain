@@ -26,10 +26,10 @@
 //! @ingroup fitting_internal
 //! @brief minimizer chi2 function
 
-class ROOTMinimizerChiSquaredFunction : public ROOT::Math::Functor
+class ROOTMinimizerChiSquaredFunction : public BA_ROOT::Math::Functor
 {
  public:
-    ROOTMinimizerChiSquaredFunction(IMinimizer::function_chi2_t fcn, int ndims ) : ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
+    ROOTMinimizerChiSquaredFunction(IMinimizer::function_chi2_t fcn, int ndims ) : BA_ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
     virtual ~ROOTMinimizerChiSquaredFunction(){}
     IMinimizer::function_chi2_t m_fcn;
 };
@@ -40,19 +40,19 @@ class ROOTMinimizerChiSquaredFunction : public ROOT::Math::Functor
 //! @brief Minimizer function with access to single data element residuals.
 //! Required by Fumili, Fumili2 and GSLMultiMin minimizers
 
-class ROOTMinimizerGradientFunction : public ROOT::Math::FitMethodFunction
+class ROOTMinimizerGradientFunction : public BA_ROOT::Math::FitMethodFunction
 {
  public:
-    typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
+    typedef BA_ROOT::Math::BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
     ROOTMinimizerGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t npars, size_t ndatasize)
-        : ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
+        : BA_ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
         , m_fun_gradient(fun_gradient) { }
 
     virtual ~ROOTMinimizerGradientFunction(){}
 
-    Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
-    ROOT::Math::IMultiGenFunction * Clone() const { return new ROOTMinimizerGradientFunction(m_fun_gradient, NDim(), NPoints()); }
+    Type_t Type() const { return BA_ROOT::Math::FitMethodFunction::kLeastSquare; }
+    BA_ROOT::Math::IMultiGenFunction * Clone() const { return new ROOTMinimizerGradientFunction(m_fun_gradient, NDim(), NPoints()); }
 
     //! evaluation of single data element residual
     double DataElement(const double *pars, unsigned int i_data, double *gradient = 0) const {

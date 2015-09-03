@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MnStrategy
 #define ROOT_Minuit2_MnStrategy
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

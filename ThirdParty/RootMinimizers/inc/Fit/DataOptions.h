@@ -14,7 +14,7 @@
 #define ROOT_Fit_DataOptions
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

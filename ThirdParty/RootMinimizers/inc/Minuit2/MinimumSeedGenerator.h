@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MinimumSeedGenerator
 #define ROOT_Minuit2_MinimumSeedGenerator
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

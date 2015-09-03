@@ -32,7 +32,7 @@ public:
 protected:
    virtual void propagateOptions();
 
-   ROOT::Math::GSLMinimizer *m_gsl_minimizer;
+   BA_ROOT::Math::GSLMinimizer *m_gsl_minimizer;
 
 };
 

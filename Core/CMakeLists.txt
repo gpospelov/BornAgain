@@ -201,7 +201,7 @@ else()
 endif()
 
 if(NOT BORNAGAIN_APPLE_BUNDLE)
-    # installing bornagain/__init.py
+    # installing bornagain/__init__.py
     install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
 endif()
 

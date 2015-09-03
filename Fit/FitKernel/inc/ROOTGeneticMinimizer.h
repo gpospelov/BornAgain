@@ -34,7 +34,7 @@ public:
 protected:
    virtual void propagateOptions();
 
-   ROOT::Math::GeneticMinimizer *m_genetic_minimizer;
+   BA_ROOT::Math::GeneticMinimizer *m_genetic_minimizer;
 
 };
 

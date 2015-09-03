@@ -15,7 +15,7 @@
 #include <cassert>
 #include <string>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

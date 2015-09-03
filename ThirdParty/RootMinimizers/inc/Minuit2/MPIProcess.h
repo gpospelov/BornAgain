@@ -21,7 +21,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Minuit2 {
 
@@ -63,8 +63,8 @@ namespace Minuit2 {
       inline unsigned int GetMPISize() const { return fSize; }
       inline unsigned int GetMPIRank() const { return fRank; }
 
-      bool SyncVector(ROOT::Minuit2::MnAlgebraicVector &mnvector);
-      bool SyncSymMatrixOffDiagonal(ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix);
+      bool SyncVector(BA_ROOT::Minuit2::MnAlgebraicVector &mnvector);
+      bool SyncSymMatrixOffDiagonal(BA_ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix);
 
       static unsigned int GetMPIGlobalRank() { StartMPI(); return fgGlobalRank; }
       static unsigned int GetMPIGlobalSize() { StartMPI(); return fgGlobalSize; }

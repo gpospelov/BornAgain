@@ -17,7 +17,7 @@
 #include <vector>
 #include <utility>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

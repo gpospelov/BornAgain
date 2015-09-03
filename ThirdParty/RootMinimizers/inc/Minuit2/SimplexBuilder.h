@@ -14,7 +14,7 @@
 #include "Minuit2/MinimumBuilder.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

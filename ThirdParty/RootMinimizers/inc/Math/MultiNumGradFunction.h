@@ -37,7 +37,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -77,7 +77,7 @@ public:
       fOwner(true)
    {
       // create a wrapped function
-      fFunc = new ROOT::Math::WrappedMultiFunction<FuncType> (f, n);
+      fFunc = new BA_ROOT::Math::WrappedMultiFunction<FuncType> (f, n);
    }
 
    /**

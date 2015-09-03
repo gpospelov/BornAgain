@@ -14,7 +14,7 @@
 #include "Minuit2/MinimumErrorUpdator.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

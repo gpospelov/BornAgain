@@ -35,7 +35,7 @@
 #include <vector>
 #include <cassert>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

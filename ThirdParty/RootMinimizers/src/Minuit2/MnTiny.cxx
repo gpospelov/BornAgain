@@ -9,7 +9,7 @@
 
 #include "Minuit2/MnTiny.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

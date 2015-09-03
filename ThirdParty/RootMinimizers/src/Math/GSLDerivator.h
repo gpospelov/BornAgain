@@ -44,7 +44,7 @@
 #include "Math/IFunctionfwd.h"
 #include "Math/IFunction.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 namespace Math {
 
 

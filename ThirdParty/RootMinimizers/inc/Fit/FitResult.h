@@ -27,7 +27,7 @@
 #include <cassert>
 #include <memory>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
       class Minimizer;
@@ -53,7 +53,7 @@ class FitResult {
 
 public:
 
-   typedef  ROOT::Math::IParamMultiFunction IModelFunction;
+   typedef  BA_ROOT::Math::IParamMultiFunction IModelFunction;
 
    /**
       Default constructor for an empty (non valid) fit result
@@ -89,8 +89,8 @@ public:
       Fill the fit result from a Minimizer instance after fitting
       Run also Minos if requested from the configuration
     */
-   void FillResult(const std::shared_ptr<ROOT::Math::Minimizer> & min, const FitConfig & fconfig,  const std::shared_ptr<IModelFunction> & f,
-              bool isValid, unsigned int sizeOfData = 0, bool binFit = true, const ROOT::Math::IMultiGenFunction * chi2func = 0, unsigned int ncalls = 0);
+   void FillResult(const std::shared_ptr<BA_ROOT::Math::Minimizer> & min, const FitConfig & fconfig,  const std::shared_ptr<IModelFunction> & f,
+              bool isValid, unsigned int sizeOfData = 0, bool binFit = true, const BA_ROOT::Math::IMultiGenFunction * chi2func = 0, unsigned int ncalls = 0);
 
 
    /**
@@ -99,7 +99,7 @@ public:
       Note that in this case MINOS is not re-run. If one wants to run also MINOS
       a new result must be created
     */
-   bool Update(const std::shared_ptr<ROOT::Math::Minimizer> & min, bool isValid, unsigned int ncalls = 0 );
+   bool Update(const std::shared_ptr<BA_ROOT::Math::Minimizer> & min, bool isValid, unsigned int ncalls = 0 );
 
    /** minimization quantities **/
 
@@ -347,8 +347,8 @@ protected:
    double fVal;             // minimum function value
    double fEdm;             // expected distance from mimimum
    double fChi2;            // fit chi2 value (different than fval in case of chi2 fits)
-   std::shared_ptr<ROOT::Math::Minimizer> fMinimizer; //! minimizer object used for fitting
-   std::shared_ptr<ROOT::Math::IMultiGenFunction> fObjFunc; //! objective function used for fitting
+   std::shared_ptr<BA_ROOT::Math::Minimizer> fMinimizer; //! minimizer object used for fitting
+   std::shared_ptr<BA_ROOT::Math::IMultiGenFunction> fObjFunc; //! objective function used for fitting
    std::shared_ptr<IModelFunction> fFitFunc; //! model function resulting  from the fit. 
    std::shared_ptr<FitData>    fFitData; //! data set used in the fit
    std::map<unsigned int, bool>           fFixedParams; // list of fixed parameters

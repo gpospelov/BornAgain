@@ -34,7 +34,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -50,7 +50,7 @@ double MultiNumGradFunction::DoDerivative (const double * x, unsigned int icoord
    //double step = (x0 > 0) ? kPrecision * x0 : kPrecision;
    // this seems to work better than above
    double step = (x0>0) ? std::max( fgEps* x0, 8.0*kPrecision*(x0 + kPrecision) ) : kPrecision;
-   return ROOT::Math::Derivator::Eval(*fFunc, x, icoord, step);
+   return BA_ROOT::Math::Derivator::Eval(*fFunc, x, icoord, step);
 }
 
 void MultiNumGradFunction::SetDerivPrecision(double eps) { fgEps = eps; }

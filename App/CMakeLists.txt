@@ -30,6 +30,7 @@ include_directories(
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${ROOT_INCLUDE_DIR}
+    ${RootMinimizers_INCLUDE_DIRS}
 )
 
 add_executable(${executable_name} ${source_files} AppDict.cxx ${include_files})

@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_ABTypes
 #define ROOT_Minuit2_ABTypes
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

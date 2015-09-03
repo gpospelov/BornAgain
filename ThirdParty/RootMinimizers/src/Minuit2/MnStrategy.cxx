@@ -9,7 +9,7 @@
 
 #include "Minuit2/MnStrategy.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

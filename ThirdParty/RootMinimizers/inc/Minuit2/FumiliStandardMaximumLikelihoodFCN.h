@@ -15,7 +15,7 @@
 #include "Minuit2/ParametricFunction.h"
 #include <vector>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

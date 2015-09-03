@@ -11,7 +11,7 @@
 #include "Minuit2/LAVector.h"
 #include "Minuit2/LaProd.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

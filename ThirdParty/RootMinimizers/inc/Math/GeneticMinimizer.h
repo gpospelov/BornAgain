@@ -19,7 +19,7 @@
 #include "TMVA/IFitterTarget.h"
 #include "TMVA/Interval.h"
 
-namespace ROOT {
+namespace BA_ROOT {
    namespace Math {
 
 
@@ -51,7 +51,7 @@ struct GeneticMinimizerParameters {
 
    @ingroup MultiMin
 */
-class GeneticMinimizer: public ROOT::Math::Minimizer {
+class GeneticMinimizer: public BA_ROOT::Math::Minimizer {
 
 public:
 
@@ -60,8 +60,8 @@ public:
    virtual ~GeneticMinimizer ();
 
    virtual void Clear();
-   using ROOT::Math::Minimizer::SetFunction;
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   using BA_ROOT::Math::Minimizer::SetFunction;
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func);
 
    virtual bool SetLimitedVariable(unsigned int , const std::string& , double , double , double, double);
    virtual bool SetVariable(unsigned int ivar, const std::string & name, double val, double step);
@@ -88,16 +88,16 @@ public:
 
    const GeneticMinimizerParameters & MinimizerParameters() const { return fParameters; }
 
-   virtual ROOT::Math::MinimizerOptions Options() const;
+   virtual BA_ROOT::Math::MinimizerOptions Options() const;
 
-   virtual void SetOptions(const ROOT::Math::MinimizerOptions & opt);
+   virtual void SetOptions(const BA_ROOT::Math::MinimizerOptions & opt);
 
 protected:
 
-   void GetGeneticOptions(ROOT::Math::MinimizerOptions & opt) const;
+   void GetGeneticOptions(BA_ROOT::Math::MinimizerOptions & opt) const;
 
-   std::vector<TMVA::Interval*> fRanges;
-   TMVA::IFitterTarget* fFitness;
+   std::vector<BA_TMVA::Interval*> fRanges;
+   BA_TMVA::IFitterTarget* fFitness;
    double fMinValue;
    std::vector<double> fResult;
 

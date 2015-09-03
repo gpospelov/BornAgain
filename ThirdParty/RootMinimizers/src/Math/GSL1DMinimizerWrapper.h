@@ -33,7 +33,7 @@
 #include "gsl/gsl_min.h"
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Math {
 

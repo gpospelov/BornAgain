@@ -24,7 +24,7 @@
 #include "Minuit2/MnUserFcn.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

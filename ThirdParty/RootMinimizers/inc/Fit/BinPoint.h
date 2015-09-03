@@ -16,7 +16,7 @@
 
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

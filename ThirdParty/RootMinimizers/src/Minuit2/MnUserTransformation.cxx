@@ -15,7 +15,7 @@
 #include <string>
 #include <sstream>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

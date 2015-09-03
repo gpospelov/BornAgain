@@ -16,7 +16,7 @@
 typedef ROOT::Minuit2::MinimumState MinimumState;
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -66,7 +66,7 @@ public:
    void Add(const MinimumState& state, MnAboveMaxEdm) {fData->Add(state,BasicFunctionMinimum::MnAboveMaxEdm());}
 
    const MinimumSeed& Seed() const {return fData->Seed();}
-   const std::vector<ROOT::Minuit2::MinimumState>& States() const {return fData->States();}
+   const std::vector<BA_ROOT::Minuit2::MinimumState>& States() const {return fData->States();}
 
 // user representation of state at Minimum
    const MnUserParameterState& UserState() const {

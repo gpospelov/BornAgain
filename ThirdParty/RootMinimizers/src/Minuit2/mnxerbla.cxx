@@ -15,7 +15,7 @@
 #include "Minuit2/MnConfig.h"
 #include <iostream>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

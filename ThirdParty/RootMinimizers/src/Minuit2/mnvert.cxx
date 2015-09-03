@@ -11,7 +11,7 @@
 
 #include <cmath>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

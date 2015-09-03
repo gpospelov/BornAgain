@@ -27,7 +27,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

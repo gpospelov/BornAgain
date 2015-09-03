@@ -43,7 +43,7 @@
 #include <iostream>
 #include <cmath>
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Math {
 

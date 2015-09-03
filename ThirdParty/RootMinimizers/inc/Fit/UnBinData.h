@@ -23,7 +23,7 @@
 
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 
@@ -139,7 +139,7 @@ public :
          fDataVector = new DataVector(n);
 
          // use data wrapper to get the data
-         ROOT::Fit::DataWrapper wdata(fPointSize, dataItr);
+         BA_ROOT::Fit::DataWrapper wdata(fPointSize, dataItr);
          for (unsigned int i = 0; i < maxpoints; ++i) {
             bool isInside = true;
             for (unsigned int icoord = 0; icoord < dim; ++icoord)

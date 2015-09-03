@@ -32,8 +32,8 @@
 namespace
 {
     QString name_of_groupbox_wavenlength("Wavelength [nm]");
-    QString name_of_groupbox_inclination = "Inclination angle [deg]";
-    QString name_of_groupbox_azimuthal = "Azimuthal angle [deg]";
+    QString name_of_groupbox_inclination("Inclination angle [deg]");
+    QString name_of_groupbox_azimuthal("Azimuthal angle [deg]");
 }
 
 BeamEditorWidget::BeamEditorWidget(QWidget *parent)

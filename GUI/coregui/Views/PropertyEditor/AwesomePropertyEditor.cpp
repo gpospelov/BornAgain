@@ -104,8 +104,8 @@ AwesomePropertyEditor::AwesomePropertyEditor(QWidget *parent, EBrowserType brows
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("AwesomePropertyEditor"));
 
-    //m_d->m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_d->m_browser->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    m_d->m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+//    m_d->m_browser->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);

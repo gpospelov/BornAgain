@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-namespace ROOT {
+namespace BA_ROOT {
 
 namespace Minuit2 {
 
@@ -157,7 +157,7 @@ namespace Minuit2 {
 
    }
 
-   bool MPIProcess::SyncVector(ROOT::Minuit2::MnAlgebraicVector &mnvector)
+   bool MPIProcess::SyncVector(BA_ROOT::Minuit2::MnAlgebraicVector &mnvector)
    {
 
       // In case of just one job, don't need sync, just go
@@ -198,7 +198,7 @@ namespace Minuit2 {
    }
 
 
-   bool MPIProcess::SyncSymMatrixOffDiagonal(ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix)
+   bool MPIProcess::SyncSymMatrixOffDiagonal(BA_ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix)
    {
 
       // In case of just one job, don't need sync, just go

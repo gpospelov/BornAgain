@@ -13,7 +13,7 @@
 #include "Minuit2/MnUserParameterState.h"
 #include "Minuit2/MnStrategy.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -82,7 +82,7 @@ public:
 // via MnUserParameterState
 
    //access to parameters (row-wise)
-   const std::vector<ROOT::Minuit2::MinuitParameter>& MinuitParameters() const;
+   const std::vector<BA_ROOT::Minuit2::MinuitParameter>& MinuitParameters() const;
    //access to parameters and errors in column-wise representation
    std::vector<double> Params() const;
    std::vector<double> Errors() const;

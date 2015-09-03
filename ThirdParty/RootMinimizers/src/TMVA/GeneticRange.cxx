@@ -36,7 +36,7 @@
 //ClassImp(TMVA::GeneticRange)
 
 //_______________________________________________________________________
-TMVA::GeneticRange::GeneticRange( TRandom3*rnd, Interval *interval )
+BA_TMVA::GeneticRange::GeneticRange( BA_ROOT::TRandom3*rnd, Interval *interval )
 {
    // defines the "f" (from) and "t" (to) of the coefficient
    // and takes a randomgenerator
@@ -52,7 +52,7 @@ TMVA::GeneticRange::GeneticRange( TRandom3*rnd, Interval *interval )
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticRange::RandomDiscrete()
+Double_t BA_TMVA::GeneticRange::RandomDiscrete()
 {
    // creates a new random value for the coefficient; returns a discrete value
    //
@@ -61,7 +61,7 @@ Double_t TMVA::GeneticRange::RandomDiscrete()
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticRange::Random( Bool_t near, Double_t value, Double_t spread, Bool_t mirror )
+Double_t BA_TMVA::GeneticRange::Random( Bool_t near, Double_t value, Double_t spread, Bool_t mirror )
 {
    // creates a new random value for the coefficient
    // Parameters:
@@ -88,7 +88,7 @@ Double_t TMVA::GeneticRange::Random( Bool_t near, Double_t value, Double_t sprea
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticRange::ReMap( Double_t val )
+Double_t BA_TMVA::GeneticRange::ReMap( Double_t val )
 {
    // remapping the value to the allowed space
    //
@@ -99,7 +99,7 @@ Double_t TMVA::GeneticRange::ReMap( Double_t val )
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticRange::ReMapMirror( Double_t val )
+Double_t BA_TMVA::GeneticRange::ReMapMirror( Double_t val )
 {
    // remapping the value to the allowed space by reflecting on the 
    // boundaries
@@ -110,7 +110,7 @@ Double_t TMVA::GeneticRange::ReMapMirror( Double_t val )
 }
 
 //_______________________________________________________________________
-TMVA::GeneticRange::~GeneticRange()
+BA_TMVA::GeneticRange::~GeneticRange()
 {
    // destructor
 }

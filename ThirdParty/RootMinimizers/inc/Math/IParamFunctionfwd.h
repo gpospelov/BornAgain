@@ -17,7 +17,7 @@
 #include "Math/IFunctionfwd.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 

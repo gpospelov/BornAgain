@@ -37,15 +37,17 @@
 #include "TMVA/Interval.h"
 #endif
 
+namespace BA_ROOT {
 class TRandom3;
+}
 
-namespace TMVA {
+namespace BA_TMVA {
 
    class GeneticRange {
 
    public:
 
-      GeneticRange( TRandom3* rnd, Interval *interval );
+      GeneticRange( BA_ROOT::TRandom3* rnd, Interval *interval );
       virtual ~GeneticRange();
 
       Double_t Random( Bool_t near = kFALSE, Double_t value=0, Double_t spread=0.1, Bool_t mirror=kFALSE );
@@ -70,7 +72,7 @@ namespace TMVA {
       // same as before, but the values leaving the allowed range, are mirrored into the range.
       Double_t ReMapMirror( Double_t val );
 
-      TRandom3* fRandomGenerator;  // the randomGenerator for calculating the new values
+      BA_ROOT::TRandom3* fRandomGenerator;  // the randomGenerator for calculating the new values
 
 //      ClassDef(GeneticRange,0) // Range definition for genetic algorithm
    };

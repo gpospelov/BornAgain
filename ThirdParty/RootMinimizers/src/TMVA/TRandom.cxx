@@ -135,6 +135,8 @@
 
 //ClassImp(TRandom)
 
+namespace BA_ROOT {
+
 //______________________________________________________________________________
 TRandom::TRandom(UInt_t seed): TNamed("Random","Default Random number generator")
 {
@@ -626,3 +628,5 @@ Double_t TRandom::Uniform(Double_t x1, Double_t x2)
 //      delete file;
 //   }
 //}
+
+}

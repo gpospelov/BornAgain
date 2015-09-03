@@ -14,7 +14,7 @@
 #include "Minuit2/VariableMetricMinimizer.h"
 #include "Minuit2/SimplexMinimizer.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

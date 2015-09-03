@@ -28,6 +28,8 @@
 
 #include "TMVA/Types.h"
 
+namespace BA_ROOT {
+
 class TRandom : public TNamed {
 
 protected:
@@ -62,5 +64,5 @@ public:
 };
 
 //R__EXTERN TRandom *gRandom;
-
+}
 #endif

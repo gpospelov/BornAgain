@@ -31,7 +31,7 @@
 
 #include <vector>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -53,14 +53,14 @@ public:
    /**
       construct from an interface of a multi-dimensional function
     */
-   GSLSimAnFunc(const ROOT::Math::IMultiGenFunction & func, const double * x);
+   GSLSimAnFunc(const BA_ROOT::Math::IMultiGenFunction & func, const double * x);
 
    /**
       construct from an interface of a multi-dimensional function
       Use optionally a scale factor (for each coordinate) which can  be used to scale the step sizes
       (this is used for example by the minimization algorithm)
     */
-   GSLSimAnFunc(const ROOT::Math::IMultiGenFunction & func, const double * x, const double * scale);
+   GSLSimAnFunc(const BA_ROOT::Math::IMultiGenFunction & func, const double * x, const double * scale);
 
 protected:
 
@@ -148,7 +148,7 @@ private:
 
    std::vector<double>  fX;
    std::vector<double>  fScale;
-   const ROOT::Math::IMultiGenFunction * fFunc;
+   const BA_ROOT::Math::IMultiGenFunction * fFunc;
 
 };
 
@@ -227,7 +227,7 @@ public:
       solve the simulated annealing given a multi-dim function, the initial vector parameters
       and a vector containing the scaling factors for the parameters
    */
-   int Solve(const ROOT::Math::IMultiGenFunction & func, const double * x0, const double * scale, double * xmin, bool debug = false);
+   int Solve(const BA_ROOT::Math::IMultiGenFunction & func, const double * x0, const double * scale, double * xmin, bool debug = false);
 
    /**
       solve the simulated annealing given a GSLSimAnFunc object

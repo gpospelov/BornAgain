@@ -38,24 +38,24 @@
 std::atomic<TMVA::Types*> TMVA::Types::fgTypesPtr{0};
 static std::mutex gTypesMutex;
 #else
-TMVA::Types* TMVA::Types::fgTypesPtr = 0;
+BA_TMVA::Types* BA_TMVA::Types::fgTypesPtr = 0;
 #endif
 
 //_______________________________________________________________________
-TMVA::Types::Types()
+BA_TMVA::Types::Types()
 //   : fLogger( new MsgLogger("Types") )
 {
    // constructor
 }
 
-TMVA::Types::~Types()
+BA_TMVA::Types::~Types()
 {
    // destructor
 //   delete fLogger;
 }
 
 //_______________________________________________________________________
-TMVA::Types& TMVA::Types::Instance()
+BA_TMVA::Types& BA_TMVA::Types::Instance()
 {
    // the the single instance of "Types" if existin already, or create it  (Signleton)
 //#if __cplusplus > 199711L
@@ -73,7 +73,7 @@ TMVA::Types& TMVA::Types::Instance()
 //#endif
 }
 //_______________________________________________________________________
-void   TMVA::Types::DestroyInstance()
+void   BA_TMVA::Types::DestroyInstance()
 {
    // "destructor" of the single instance
 //#if __cplusplus > 199711L
@@ -85,7 +85,7 @@ void   TMVA::Types::DestroyInstance()
 
 
 //_______________________________________________________________________
-Bool_t TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& methodname )
+Bool_t BA_TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& methodname )
 {
 //#if __cplusplus > 199711L
 //   std::lock_guard<std::mutex> guard(gTypesMutex);
@@ -106,7 +106,7 @@ Bool_t TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& metho
 }
 
 //_______________________________________________________________________
-TMVA::Types::EMVA TMVA::Types::GetMethodType( const std::string& method ) const
+BA_TMVA::Types::EMVA BA_TMVA::Types::GetMethodType( const std::string& method ) const
 {
 //#if __cplusplus > 199711L
 //   std::lock_guard<std::mutex> guard(gTypesMutex);
@@ -122,7 +122,7 @@ TMVA::Types::EMVA TMVA::Types::GetMethodType( const std::string& method ) const
 }
 
 //_______________________________________________________________________
-std::string TMVA::Types::GetMethodName( TMVA::Types::EMVA method ) const
+std::string BA_TMVA::Types::GetMethodName( BA_TMVA::Types::EMVA method ) const
 {
 //#if __cplusplus > 199711L
 //   std::lock_guard<std::mutex> guard(gTypesMutex);

@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MnPosDef
 #define ROOT_Minuit2_MnPosDef
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

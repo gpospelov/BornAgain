@@ -20,7 +20,7 @@
 
 #include "Minuit2/StackAllocator.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

@@ -22,11 +22,11 @@
 // (ROOT::Math::IMultiGenFunction)
 //
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 
-class FcnAdapter : public ROOT::Math::IMultiGenFunction {
+class FcnAdapter : public BA_ROOT::Math::IMultiGenFunction {
 
 public:
 
@@ -39,7 +39,7 @@ public:
 
    virtual  unsigned int NDim() const { return fDim; }
 
-   ROOT::Math::IMultiGenFunction * Clone() const {
+   BA_ROOT::Math::IMultiGenFunction * Clone() const {
       return new FcnAdapter(fFCN,fDim);
    }
 

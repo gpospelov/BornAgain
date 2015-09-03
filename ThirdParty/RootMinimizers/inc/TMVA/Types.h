@@ -83,6 +83,7 @@ const Bool_t kFALSE = false;
 //#endif
 //;
 
+namespace BA_ROOT {
 
 class TNamed {
 public:
@@ -104,9 +105,9 @@ private:
 };
 
 //class TObject : public TNamed {};
+}
 
-
-namespace TMVA {
+namespace BA_TMVA {
 
    typedef UInt_t TMVAVersion_t;
 
@@ -229,7 +230,7 @@ namespace TMVA {
 
    private:
 
-      std::map<std::string, TMVA::Types::EMVA> fStr2type; // types-to-text map
+      std::map<std::string, BA_TMVA::Types::EMVA> fStr2type; // types-to-text map
 //      mutable MsgLogger* fLogger;   // message logger
 //      MsgLogger& Log() const { return *fLogger; }
 

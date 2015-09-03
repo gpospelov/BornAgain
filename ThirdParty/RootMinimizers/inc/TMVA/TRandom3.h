@@ -26,6 +26,8 @@
 #include "TMVA/TRandom.h"
 #endif
 
+namespace BA_ROOT {
+
 class TRandom3 : public TRandom {
 
 private:
@@ -47,4 +49,5 @@ public:
 
 //R__EXTERN TRandom *gRandom;
 
+}
 #endif

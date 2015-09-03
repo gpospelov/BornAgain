@@ -23,7 +23,7 @@
 #include <vector>
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 

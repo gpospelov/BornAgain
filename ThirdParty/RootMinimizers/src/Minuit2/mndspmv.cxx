@@ -12,7 +12,7 @@
    -lf2c -lm   (in that order)
 */
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

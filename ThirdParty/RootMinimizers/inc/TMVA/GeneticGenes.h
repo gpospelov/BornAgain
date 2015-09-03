@@ -39,7 +39,7 @@
 #include "TMVA/Types.h"
 #include <vector>
 
-namespace TMVA {
+namespace BA_TMVA {
    
    class GeneticGenes {
       

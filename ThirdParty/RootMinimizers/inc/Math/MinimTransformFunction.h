@@ -27,7 +27,7 @@
 #include <vector>
 #include <map>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -44,8 +44,8 @@ class MinimTransformFunction : public IMultiGradFunction {
 
 public:
 
-   typedef  ROOT::Math::IMultiGradFunction BaseGradFunc;
-   typedef  ROOT::Math::IMultiGradFunction::BaseFunc BaseFunc;
+   typedef  BA_ROOT::Math::IMultiGradFunction BaseGradFunc;
+   typedef  BA_ROOT::Math::IMultiGradFunction::BaseFunc BaseFunc;
 
 
    /**
@@ -54,7 +54,7 @@ public:
      variable values (used for the fixed ones) and a map with the bounds (for the bounded variables)
 
    */
-   MinimTransformFunction ( const IMultiGradFunction * f, const std::vector<ROOT::Math::EMinimVariableType> & types, const std::vector<double> & values,
+   MinimTransformFunction ( const IMultiGradFunction * f, const std::vector<BA_ROOT::Math::EMinimVariableType> & types, const std::vector<double> & values,
                             const std::map<unsigned int, std::pair<double, double> > & bounds);
 
 

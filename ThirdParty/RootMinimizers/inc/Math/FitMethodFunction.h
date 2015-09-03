@@ -21,7 +21,7 @@
 // #include "Math/IParamFunctionfwd.h"
 // #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -114,8 +114,8 @@ private:
 };
 
       // define the normal and gradient function
-      typedef BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>  FitMethodFunction;
-      typedef BasicFitMethodFunction<ROOT::Math::IMultiGradFunction> FitMethodGradFunction;
+      typedef BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>  FitMethodFunction;
+      typedef BasicFitMethodFunction<BA_ROOT::Math::IMultiGradFunction> FitMethodGradFunction;
 
 
       // useful template definition to use these interface in

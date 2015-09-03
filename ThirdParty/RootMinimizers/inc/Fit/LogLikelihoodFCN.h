@@ -37,7 +37,7 @@
 
 #include <memory>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 
@@ -58,10 +58,10 @@ public:
 
    typedef  BasicFCN<FunType,UnBinData> BaseFCN; 
 
-   typedef  ::ROOT::Math::BasicFitMethodFunction<FunType> BaseObjFunction;
+   typedef  ::BA_ROOT::Math::BasicFitMethodFunction<FunType> BaseObjFunction;
    typedef typename  BaseObjFunction::BaseFunction BaseFunction;
 
-   typedef  ::ROOT::Math::IParamMultiFunction IModelFunction;
+   typedef  ::BA_ROOT::Math::IParamMultiFunction IModelFunction;
 
 
    /**
@@ -190,8 +190,8 @@ private:
 };
 
       // define useful typedef's
-      typedef LogLikelihoodFCN<ROOT::Math::IMultiGenFunction>  LogLikelihoodFunction;
-      typedef LogLikelihoodFCN<ROOT::Math::IMultiGradFunction> LogLikelihoodGradFunction;
+      typedef LogLikelihoodFCN<BA_ROOT::Math::IMultiGenFunction>  LogLikelihoodFunction;
+      typedef LogLikelihoodFCN<BA_ROOT::Math::IMultiGradFunction> LogLikelihoodGradFunction;
 
    } // end namespace Fit
 

@@ -79,7 +79,7 @@ End_Html */
 //ClassImp(TMVA::Interval)
 
 //_______________________________________________________________________
-TMVA::Interval::Interval( Double_t min, Double_t max, Int_t nbins ) :
+BA_TMVA::Interval::Interval( Double_t min, Double_t max, Int_t nbins ) :
    fMin(min),
    fMax(max),
    fNbins(nbins)
@@ -104,7 +104,7 @@ TMVA::Interval::Interval( Double_t min, Double_t max, Int_t nbins ) :
    }
 }
 
-TMVA::Interval::Interval( const Interval& other ) :
+BA_TMVA::Interval::Interval( const Interval& other ) :
    fMin  ( other.fMin ),
    fMax  ( other.fMax ),
    fNbins( other.fNbins )
@@ -112,13 +112,13 @@ TMVA::Interval::Interval( const Interval& other ) :
 }
 
 //_______________________________________________________________________
-TMVA::Interval::~Interval()
+BA_TMVA::Interval::~Interval()
 {
    // destructor
 }
 
 //_______________________________________________________________________
-Double_t TMVA::Interval::GetElement( Int_t bin ) const
+Double_t BA_TMVA::Interval::GetElement( Int_t bin ) const
 {
    // calculates the value of the "number" bin in a discrete interval.
    // Parameters:
@@ -138,7 +138,7 @@ Double_t TMVA::Interval::GetElement( Int_t bin ) const
 }
 
 //_______________________________________________________________________
-Double_t TMVA::Interval::GetStepSize( Int_t iBin )  const
+Double_t BA_TMVA::Interval::GetStepSize( Int_t iBin )  const
 {
    // retuns the step size between the numbers of a "discrete Interval"
    if (fNbins <= 0) {
@@ -154,22 +154,22 @@ Double_t TMVA::Interval::GetStepSize( Int_t iBin )  const
 }
 
 //_______________________________________________________________________
-Double_t TMVA::Interval::GetRndm( TRandom3& rnd )  const
+Double_t BA_TMVA::Interval::GetRndm( BA_ROOT::TRandom3& rnd )  const
 {
    // get uniformely distributed number within interval
    return rnd.Rndm()*(fMax - fMin) + fMin;
 }
 
-Double_t TMVA::Interval::GetWidth() const
+Double_t BA_TMVA::Interval::GetWidth() const
 {
    return fMax - fMin;
 }
-Double_t TMVA::Interval::GetMean()  const
+Double_t BA_TMVA::Interval::GetMean()  const
 {
    return (fMax + fMin)/2;
 }
 
-void TMVA::Interval::Print(std::ostream &os) const
+void BA_TMVA::Interval::Print(std::ostream &os) const
 {
    for (Int_t i=0; i<GetNbins(); i++){
       os << "| " << GetElement(i)<<" |" ;

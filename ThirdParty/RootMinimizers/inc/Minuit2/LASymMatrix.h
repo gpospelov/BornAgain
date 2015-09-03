@@ -27,7 +27,7 @@
 // for memcopy
 #include <string.h>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

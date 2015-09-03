@@ -27,7 +27,7 @@
 
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -56,14 +56,14 @@ namespace ROOT {
    Using a string  (used by the plugin manager) or via an enumeration
    an one can set all the possible minimization algorithms (Migrad, Simplex, Combined, Scan and Fumili).
 */
-class Minuit2Minimizer : public ROOT::Math::Minimizer {
+class Minuit2Minimizer : public BA_ROOT::Math::Minimizer {
 
 public:
 
    /**
       Default constructor
    */
-   Minuit2Minimizer (ROOT::Minuit2::EMinimizerType type = ROOT::Minuit2::kMigrad);
+   Minuit2Minimizer (BA_ROOT::Minuit2::EMinimizerType type = BA_ROOT::Minuit2::kMigrad);
 
    /**
       Constructor with a char (used by PM)
@@ -94,10 +94,10 @@ public:
    virtual void Clear();
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func);
 
    /// set gradient the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func);
+   virtual void SetFunction(const BA_ROOT::Math::IMultiGradFunction & func);
 
    /// set free variable
    virtual bool SetVariable(unsigned int ivar, const std::string & name, double val, double step);
@@ -130,7 +130,7 @@ public:
    /// note that by default all variables are not fixed
    virtual bool IsFixedVariable(unsigned int ivar)  const;
    /// get variable settings in a variable object (like ROOT::Fit::ParamsSettings)
-   virtual bool GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & varObj) const;
+   virtual bool GetVariableSettings(unsigned int ivar, BA_ROOT::Fit::ParameterSettings & varObj) const;
    /// get name of variables (override if minimizer support storing of variable names)
    virtual std::string VariableName(unsigned int ivar) const;
    /// get index of variable given a variable given a name
@@ -289,33 +289,33 @@ public:
    void SetStorageLevel(int level);
 
    /// return the minimizer state (containing values, step size , etc..)
-   const ROOT::Minuit2::MnUserParameterState & State() { return fState; }
+   const BA_ROOT::Minuit2::MnUserParameterState & State() { return fState; }
 
 protected:
 
    // protected function for accessing the internal Minuit2 object. Needed for derived classes
 
-   virtual const ROOT::Minuit2::ModularFunctionMinimizer * GetMinimizer() const { return fMinimizer; }
+   virtual const BA_ROOT::Minuit2::ModularFunctionMinimizer * GetMinimizer() const { return fMinimizer; }
 
-   virtual void SetMinimizer( ROOT::Minuit2::ModularFunctionMinimizer * m)  { fMinimizer = m; }
+   virtual void SetMinimizer( BA_ROOT::Minuit2::ModularFunctionMinimizer * m)  { fMinimizer = m; }
 
-   void SetMinimizerType( ROOT::Minuit2::EMinimizerType type);
+   void SetMinimizerType( BA_ROOT::Minuit2::EMinimizerType type);
 
-   virtual const  ROOT::Minuit2::FCNBase * GetFCN() const { return fMinuitFCN; }
+   virtual const  BA_ROOT::Minuit2::FCNBase * GetFCN() const { return fMinuitFCN; }
 
    /// examine the minimum result
-   bool ExamineMinimum(const ROOT::Minuit2::FunctionMinimum & min);
+   bool ExamineMinimum(const BA_ROOT::Minuit2::FunctionMinimum & min);
 
 private:
 
    unsigned int fDim;       // dimension of the function to be minimized
    bool fUseFumili;
 
-   ROOT::Minuit2::MnUserParameterState fState;
+   BA_ROOT::Minuit2::MnUserParameterState fState;
    // std::vector<ROOT::Minuit2::MinosError> fMinosErrors;
-   ROOT::Minuit2::ModularFunctionMinimizer * fMinimizer;
-   ROOT::Minuit2::FCNBase * fMinuitFCN;
-   ROOT::Minuit2::FunctionMinimum * fMinimum;
+   BA_ROOT::Minuit2::ModularFunctionMinimizer * fMinimizer;
+   BA_ROOT::Minuit2::FCNBase * fMinuitFCN;
+   BA_ROOT::Minuit2::FunctionMinimum * fMinimum;
    mutable std::vector<double> fValues;
    mutable std::vector<double> fErrors;
 

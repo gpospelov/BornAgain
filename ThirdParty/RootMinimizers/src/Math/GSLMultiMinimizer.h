@@ -38,7 +38,7 @@
 
 #include <cassert>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -57,23 +57,23 @@ public:
    /**
       Default constructor
    */
-   GSLMultiMinimizer (ROOT::Math::EGSLMinimizerType type)  :
+   GSLMultiMinimizer (BA_ROOT::Math::EGSLMinimizerType type)  :
       fMinimizer(0),
       fType(0),
       fVec(0)
    {
       switch(type)
       {
-      case ROOT::Math::kConjugateFR :
+      case BA_ROOT::Math::kConjugateFR :
          fType = gsl_multimin_fdfminimizer_conjugate_fr;
          break;
-      case ROOT::Math::kConjugatePR :
+      case BA_ROOT::Math::kConjugatePR :
          fType = gsl_multimin_fdfminimizer_conjugate_pr;
          break;
-      case ROOT::Math::kVectorBFGS :
+      case BA_ROOT::Math::kVectorBFGS :
          fType = gsl_multimin_fdfminimizer_vector_bfgs;
          break;
-      case ROOT::Math::kVectorBFGS2 :
+      case BA_ROOT::Math::kVectorBFGS2 :
 #if (GSL_MAJOR_VERSION > 1) || ((GSL_MAJOR_VERSION == 1) && (GSL_MINOR_VERSION >= 9))
          // bfgs2 is available only for v>= 1.9
          fType = gsl_multimin_fdfminimizer_vector_bfgs2;
@@ -82,7 +82,7 @@ public:
          fType = gsl_multimin_fdfminimizer_vector_bfgs;
 #endif
          break;
-      case ROOT::Math::kSteepestDescent:
+      case BA_ROOT::Math::kSteepestDescent:
          fType = gsl_multimin_fdfminimizer_steepest_descent;
          break;
       default:
@@ -123,7 +123,7 @@ public:
       set the function to be minimize the initial minimizer parameters,
       step size and tolerance in the line search
     */
-   int Set(const ROOT::Math::IMultiGradFunction & func, const double * x, double stepSize, double tol) {
+   int Set(const BA_ROOT::Math::IMultiGradFunction & func, const double * x, double stepSize, double tol) {
       // create function wrapper
       fFunc.SetFunction(func);
       // create minimizer object (free previous one if already existing)

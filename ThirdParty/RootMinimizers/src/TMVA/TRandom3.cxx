@@ -60,6 +60,8 @@
 
 //ClassImp(TRandom3)
 
+namespace BA_ROOT {
+
 //______________________________________________________________________________
 TRandom3::TRandom3(UInt_t seed)
 {
@@ -243,3 +245,5 @@ void TRandom3::SetSeed(UInt_t seed)
 //      R__b.WriteClassBuffer(TRandom3::Class(),this);
 //   }
 //}
+
+}

@@ -22,7 +22,7 @@
 #include <cassert>
 #include <iomanip>
 
-namespace ROOT { 
+namespace BA_ROOT { 
 
    namespace Math { 
 
@@ -49,7 +49,7 @@ bool GSLSimAnMinimizer::Minimize() {
 
    if (debugLevel >=1 ) std::cout <<"Minimize using GSLSimAnMinimizer " << std::endl; 
 
-   const ROOT::Math::IMultiGenFunction * function = ObjFunction();
+   const BA_ROOT::Math::IMultiGenFunction * function = ObjFunction();
    if (function == 0) { 
       MATH_ERROR_MSG("GSLSimAnMinimizer::Minimize","Function has not been set");
       return false; 
@@ -116,11 +116,11 @@ bool GSLSimAnMinimizer::Minimize() {
 
 unsigned int GSLSimAnMinimizer::NCalls() const { 
    // return number of function calls 
-   const ROOT::Math::MinimTransformFunction * tfunc = dynamic_cast<const ROOT::Math::MinimTransformFunction *>(ObjFunction());   
-   const ROOT::Math::MultiNumGradFunction * f = 0; 
-   if (tfunc) f = dynamic_cast<const ROOT::Math::MultiNumGradFunction *>(tfunc->OriginalFunction());
+   const BA_ROOT::Math::MinimTransformFunction * tfunc = dynamic_cast<const BA_ROOT::Math::MinimTransformFunction *>(ObjFunction());   
+   const BA_ROOT::Math::MultiNumGradFunction * f = 0; 
+   if (tfunc) f = dynamic_cast<const BA_ROOT::Math::MultiNumGradFunction *>(tfunc->OriginalFunction());
    else 
-      f = dynamic_cast<const ROOT::Math::MultiNumGradFunction *>(ObjFunction());
+      f = dynamic_cast<const BA_ROOT::Math::MultiNumGradFunction *>(ObjFunction());
    if (f) return f->NCalls();
    return 0; 
 }

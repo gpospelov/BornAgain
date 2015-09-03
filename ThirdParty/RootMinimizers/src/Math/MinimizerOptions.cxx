@@ -19,7 +19,7 @@
 
 #include <iomanip>
 
-namespace ROOT {
+namespace BA_ROOT {
 
 
 namespace Math {

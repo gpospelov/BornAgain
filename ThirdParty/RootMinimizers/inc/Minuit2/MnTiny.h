@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MnTiny
 #define ROOT_Minuit2_MnTiny
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

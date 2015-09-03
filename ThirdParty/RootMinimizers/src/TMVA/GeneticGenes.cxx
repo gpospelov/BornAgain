@@ -33,7 +33,7 @@
 //ClassImp(TMVA::GeneticGenes)
    
 //_______________________________________________________________________
-TMVA::GeneticGenes::GeneticGenes( std::vector<Double_t> & f  ) 
+BA_TMVA::GeneticGenes::GeneticGenes( std::vector<Double_t> & f  ) 
 {
    // Constructor:
    // set the factors of this individual
@@ -41,7 +41,7 @@ TMVA::GeneticGenes::GeneticGenes( std::vector<Double_t> & f  )
    fFitness = 0;
 }
 
-Bool_t TMVA::operator <(const TMVA::GeneticGenes& first, const TMVA::GeneticGenes& second)
+Bool_t BA_TMVA::operator <(const BA_TMVA::GeneticGenes& first, const BA_TMVA::GeneticGenes& second)
 {
    return first.fFitness < second.fFitness;
 }

@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_NegativeG2LineSearch
 #define ROOT_Minuit2_NegativeG2LineSearch
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

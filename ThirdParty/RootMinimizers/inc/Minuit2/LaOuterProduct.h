@@ -19,7 +19,7 @@
 #include "Minuit2/LAVector.h"
 #include "Minuit2/LASymMatrix.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

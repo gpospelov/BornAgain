@@ -14,7 +14,7 @@
 #include "Minuit2/MnMatrix.h"
 #include <utility>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

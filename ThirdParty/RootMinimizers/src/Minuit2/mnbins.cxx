@@ -9,7 +9,7 @@
 
 #include <math.h>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

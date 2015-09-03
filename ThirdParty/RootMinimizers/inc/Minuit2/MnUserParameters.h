@@ -15,7 +15,7 @@
 
 #include <vector>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -59,7 +59,7 @@ public:
    }
 
    /// access to parameters (row-wise)
-   const std::vector<ROOT::Minuit2::MinuitParameter>& Parameters() const;
+   const std::vector<BA_ROOT::Minuit2::MinuitParameter>& Parameters() const;
 
    /// access to parameters and errors in column-wise representation
    std::vector<double> Params() const;

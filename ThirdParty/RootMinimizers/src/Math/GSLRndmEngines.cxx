@@ -47,7 +47,7 @@ extern double gsl_ran_gaussian_acr(  const gsl_rng * r, const double sigma);
 
 //#include <iostream>
 
-namespace ROOT {
+namespace BA_ROOT {
 namespace Math {
 
 

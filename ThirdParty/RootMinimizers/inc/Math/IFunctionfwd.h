@@ -14,7 +14,7 @@
 #define ROOT_Math_IFunctionfwd
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 

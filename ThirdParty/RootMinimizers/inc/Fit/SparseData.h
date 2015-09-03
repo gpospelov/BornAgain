@@ -22,7 +22,7 @@
 #include "Fit/BinData.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

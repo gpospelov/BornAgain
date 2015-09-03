@@ -27,7 +27,7 @@
 #include "Minuit2/MnStrategy.h"
 #include "Minuit2/MnPrint.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

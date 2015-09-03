@@ -16,7 +16,7 @@
 
 #include "Minuit2/FCNBase.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

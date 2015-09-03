@@ -13,7 +13,7 @@
 #include "Minuit2/MnCross.h"
 #include <iostream>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

@@ -44,24 +44,24 @@
 #include <limits>
 #include <iomanip>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
 
-GSLMinimizer::GSLMinimizer( ROOT::Math::EGSLMinimizerType type) :
+GSLMinimizer::GSLMinimizer( BA_ROOT::Math::EGSLMinimizerType type) :
    BasicMinimizer()
 {
    // Constructor implementation : create GSLMultiMin wrapper object
    //std::cout << "create GSL Minimizer of type " << type << std::endl;
 
-   fGSLMultiMin = new GSLMultiMinimizer((ROOT::Math::EGSLMinimizerType) type);
+   fGSLMultiMin = new GSLMultiMinimizer((BA_ROOT::Math::EGSLMinimizerType) type);
 
    fLSTolerance = 0.1; // line search tolerance (use fixed)
-   int niter = ROOT::Math::MinimizerOptions::DefaultMaxIterations();
+   int niter = BA_ROOT::Math::MinimizerOptions::DefaultMaxIterations();
    if (niter <=0 ) niter = 1000;
    SetMaxIterations(niter);
-   SetPrintLevel(ROOT::Math::MinimizerOptions::DefaultPrintLevel());
+   SetPrintLevel(BA_ROOT::Math::MinimizerOptions::DefaultPrintLevel());
 }
 
 GSLMinimizer::GSLMinimizer( const char *  type) :    BasicMinimizer()
@@ -70,7 +70,7 @@ GSLMinimizer::GSLMinimizer( const char *  type) :    BasicMinimizer()
    std::string algoname(type);
    std::transform(algoname.begin(), algoname.end(), algoname.begin(), (int(*)(int)) tolower );
 
-   ROOT::Math::EGSLMinimizerType algo =   kVectorBFGS2; // default value
+   BA_ROOT::Math::EGSLMinimizerType algo =   kVectorBFGS2; // default value
 
    if (algoname == "conjugatefr") algo = kConjugateFR;
    if (algoname == "conjugatepr") algo = kConjugatePR;
@@ -84,10 +84,10 @@ GSLMinimizer::GSLMinimizer( const char *  type) :    BasicMinimizer()
    fGSLMultiMin = new GSLMultiMinimizer(algo);
 
    fLSTolerance = 0.1; // use 10**-4
-   int niter = ROOT::Math::MinimizerOptions::DefaultMaxIterations();
+   int niter = BA_ROOT::Math::MinimizerOptions::DefaultMaxIterations();
    if (niter <=0 ) niter = 1000;
    SetMaxIterations(niter);
-   SetPrintLevel(ROOT::Math::MinimizerOptions::DefaultPrintLevel());
+   SetPrintLevel(BA_ROOT::Math::MinimizerOptions::DefaultPrintLevel());
 }
 
 
@@ -98,11 +98,11 @@ GSLMinimizer::~GSLMinimizer () {
 
 
 
-void GSLMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
+void GSLMinimizer::SetFunction(const BA_ROOT::Math::IMultiGenFunction & func) {
    // set the function to minimizer
    // need to calculate numerically the derivatives: do via class MultiNumGradFunction
    // no need to clone the passed function
-   ROOT::Math::MultiNumGradFunction gradFunc(func);
+   BA_ROOT::Math::MultiNumGradFunction gradFunc(func);
    // function is cloned inside so can be delete afterwards
    // called base class method setfunction
    // (note: write explicitly otherwise it will call back itself)
@@ -113,9 +113,9 @@ void GSLMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
 unsigned int GSLMinimizer::NCalls() const {
    // return numbr of function calls
    // if method support
-   const ROOT::Math::MultiNumGradFunction * fnumgrad = dynamic_cast<const ROOT::Math::MultiNumGradFunction *>(ObjFunction());
+   const BA_ROOT::Math::MultiNumGradFunction * fnumgrad = dynamic_cast<const BA_ROOT::Math::MultiNumGradFunction *>(ObjFunction());
    if (fnumgrad) return fnumgrad->NCalls();
-   const ROOT::Math::FitMethodGradFunction * ffitmethod = dynamic_cast<const ROOT::Math::FitMethodGradFunction *>(ObjFunction());
+   const BA_ROOT::Math::FitMethodGradFunction * ffitmethod = dynamic_cast<const BA_ROOT::Math::FitMethodGradFunction *>(ObjFunction());
    if (ffitmethod) return ffitmethod->NCalls();
    // not supported in the other case
    return 0;
@@ -125,7 +125,7 @@ bool GSLMinimizer::Minimize() {
    // set initial parameters of the minimizer
 
    if (fGSLMultiMin == 0) return false;
-   const ROOT::Math::IMultiGradFunction * function = GradObjFunction();
+   const BA_ROOT::Math::IMultiGradFunction * function = GradObjFunction();
    if (function == 0) {
       MATH_ERROR_MSG("GSLMinimizer::Minimize","Function has not been set");
       return false;

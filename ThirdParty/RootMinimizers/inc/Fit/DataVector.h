@@ -41,7 +41,7 @@ Classes for describing the input data for fitting
 #include <iostream>
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

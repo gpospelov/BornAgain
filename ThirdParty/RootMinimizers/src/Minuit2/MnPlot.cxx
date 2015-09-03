@@ -9,7 +9,7 @@
 
 #include "Minuit2/MnPlot.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

@@ -24,14 +24,14 @@
 #include <cmath>
 #include <vector>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
 
 // implementation of GSLSimAnFunc
 
-GSLSimAnFunc::GSLSimAnFunc(const ROOT::Math::IMultiGenFunction & func, const double * x) :
+GSLSimAnFunc::GSLSimAnFunc(const BA_ROOT::Math::IMultiGenFunction & func, const double * x) :
    fX( std::vector<double>(x, x + func.NDim() ) ),
    fScale( std::vector<double>(func.NDim() )),
    fFunc(&func)
@@ -40,7 +40,7 @@ GSLSimAnFunc::GSLSimAnFunc(const ROOT::Math::IMultiGenFunction & func, const dou
    fScale.assign(fScale.size(), 1.);
 }
 
-GSLSimAnFunc::GSLSimAnFunc(const ROOT::Math::IMultiGenFunction & func, const double * x, const double * scale) :
+GSLSimAnFunc::GSLSimAnFunc(const BA_ROOT::Math::IMultiGenFunction & func, const double * x, const double * scale) :
    fX( std::vector<double>(x, x + func.NDim() ) ),
    fScale( std::vector<double>(scale, scale + func.NDim() ) ),
    fFunc(&func)
@@ -180,7 +180,7 @@ GSLSimAnnealing::GSLSimAnnealing()
 
 // function for solving (from a Genfunction interface)
 
-int GSLSimAnnealing::Solve(const ROOT::Math::IMultiGenFunction & func, const double * x0, const double * scale, double * xmin, bool debug) {
+int GSLSimAnnealing::Solve(const BA_ROOT::Math::IMultiGenFunction & func, const double * x0, const double * scale, double * xmin, bool debug) {
    // solve the simulated annealing problem given starting point and objective function interface
 
 

@@ -47,7 +47,7 @@
 #include "TMVA/Types.h"
 #endif
 
-namespace TMVA {
+namespace BA_TMVA {
      
    class IFitterTarget;
    class Interval;
@@ -58,7 +58,7 @@ namespace TMVA {
    public:
     
       GeneticAlgorithm( IFitterTarget& target, Int_t populationSize, 
-                        const std::vector<TMVA::Interval*>& ranges, UInt_t seed = 0 );
+                        const std::vector<BA_TMVA::Interval*>& ranges, UInt_t seed = 0 );
       virtual ~GeneticAlgorithm();
 
       void Init();
@@ -99,7 +99,7 @@ namespace TMVA {
                                           // avoid for speed performance.
       Int_t             fPopulationSize;  // the size of the population
 
-      const std::vector<TMVA::Interval*>& fRanges; // parameter ranges
+      const std::vector<BA_TMVA::Interval*>& fRanges; // parameter ranges
 
       GeneticPopulation fPopulation;      // contains and controls the "individual"
       Double_t fBestFitness;

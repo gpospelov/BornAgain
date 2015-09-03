@@ -14,7 +14,7 @@
 #define ROOT_Fit_DataVectorfwd
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 

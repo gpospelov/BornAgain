@@ -11,7 +11,7 @@
 #include "Minuit2/MnParabola.h"
 #include "Minuit2/MnParabolaPoint.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

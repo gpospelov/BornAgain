@@ -41,7 +41,7 @@
 // for OLD GSL versions
 //#include "gsl/gsl_diff.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 namespace Math {
 
 Derivator::Derivator() {

@@ -17,7 +17,7 @@
 #define ROOT_Minuit2_SqrtUpParameterTransformation
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

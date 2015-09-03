@@ -28,6 +28,8 @@
 
 #include "TMVA/TRandom.h"
 
+namespace BA_ROOT {
+
 class TRandom2 : public TRandom {
 
 protected:
@@ -46,5 +48,6 @@ public:
 };
 
 //R__EXTERN TRandom *gRandom;
+}
 
 #endif

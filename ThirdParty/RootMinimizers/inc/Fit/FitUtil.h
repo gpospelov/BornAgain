@@ -22,7 +22,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Fit {
 
@@ -37,8 +37,8 @@ namespace ROOT {
 */
 namespace FitUtil {
 
-   typedef  ROOT::Math::IParamMultiFunction IModelFunction;
-   typedef  ROOT::Math::IParamMultiGradFunction IGradModelFunction;
+   typedef  BA_ROOT::Math::IParamMultiFunction IModelFunction;
+   typedef  BA_ROOT::Math::IParamMultiGradFunction IGradModelFunction;
 
    /** Chi2 Functions */
 

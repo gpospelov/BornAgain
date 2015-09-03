@@ -37,7 +37,7 @@
 //ClassImp(TMVA::IFitterTarget)
 
 //_______________________________________________________________________
-TMVA::IFitterTarget::IFitterTarget() 
+BA_TMVA::IFitterTarget::IFitterTarget() 
 {
    // constructor
 }            

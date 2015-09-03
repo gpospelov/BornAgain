@@ -56,9 +56,11 @@
 
 #include "TMVA/Types.h"
 
+namespace BA_ROOT {
 class TRandom3;
+}
 
-namespace TMVA {
+namespace BA_TMVA {
 
 //   class MsgLogger;
    
@@ -77,7 +79,7 @@ namespace TMVA {
       virtual Double_t GetWidth() const;
       virtual Int_t    GetNbins() const { return fNbins; }
       virtual Double_t GetMean()  const;
-      virtual Double_t GetRndm( TRandom3& )  const;
+      virtual Double_t GetRndm( BA_ROOT::TRandom3& )  const;
       virtual Double_t GetElement( Int_t position ) const;      
       virtual Double_t GetStepSize(Int_t iBin=0) const;
 

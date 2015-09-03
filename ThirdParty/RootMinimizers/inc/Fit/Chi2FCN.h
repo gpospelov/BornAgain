@@ -49,7 +49,7 @@ Classes describing Fit Method functions
 */
 
 
-namespace ROOT {
+namespace BA_ROOT {
 
 
    namespace Fit {
@@ -69,11 +69,11 @@ public:
 
    typedef  BasicFCN<FunType,BinData> BaseFCN; 
 
-   typedef  ::ROOT::Math::BasicFitMethodFunction<FunType> BaseObjFunction;
+   typedef  ::BA_ROOT::Math::BasicFitMethodFunction<FunType> BaseObjFunction;
    typedef typename  BaseObjFunction::BaseFunction BaseFunction;
 
    //typedef  typename ::ROOT::Math::ParamFunctionTrait<FunType>::PFType IModelFunction;
-   typedef  ::ROOT::Math::IParamMultiFunction IModelFunction;
+   typedef  ::BA_ROOT::Math::IParamMultiFunction IModelFunction;
    typedef typename BaseObjFunction::Type_t Type_t;
 
    /**
@@ -184,8 +184,8 @@ private:
 };
 
       // define useful typedef's
-      typedef Chi2FCN<ROOT::Math::IMultiGenFunction> Chi2Function;
-      typedef Chi2FCN<ROOT::Math::IMultiGradFunction> Chi2GradFunction;
+      typedef Chi2FCN<BA_ROOT::Math::IMultiGenFunction> Chi2Function;
+      typedef Chi2FCN<BA_ROOT::Math::IMultiGradFunction> Chi2GradFunction;
 
 
    } // end namespace Fit

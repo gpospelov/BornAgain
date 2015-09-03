@@ -47,7 +47,7 @@
 #endif
 
 
-namespace ROOT {
+namespace BA_ROOT {
 namespace Math {
 
 

@@ -17,7 +17,7 @@
 #include "Minuit2/ParametricFunction.h"
 #include "Math/Util.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 
@@ -151,7 +151,7 @@ public:
         double tmp = vecElements[i];
         //for max likelihood probability have to be positive
         assert(tmp >= 0);
-        sumoflogs -= ROOT::Math::Util::EvalLog(tmp);
+        sumoflogs -= BA_ROOT::Math::Util::EvalLog(tmp);
         //std::cout << " i " << tmp << " lik " << sumoflogs << std::endl;
      }
 

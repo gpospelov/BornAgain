@@ -32,7 +32,7 @@
 #include <ctype.h>   // need to use c version of tolower defined here
 #include <limits>
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Math {
 
@@ -46,10 +46,10 @@ BasicMinimizer::BasicMinimizer( ) :
    fNames.reserve(10);
    fSteps.reserve(10);
 
-   int niter = ROOT::Math::MinimizerOptions::DefaultMaxIterations();
+   int niter = BA_ROOT::Math::MinimizerOptions::DefaultMaxIterations();
    if (niter <=0 ) niter = 1000;
    SetMaxIterations(niter);
-   SetPrintLevel(ROOT::Math::MinimizerOptions::DefaultPrintLevel());
+   SetPrintLevel(BA_ROOT::Math::MinimizerOptions::DefaultPrintLevel());
 }
 
 
@@ -205,7 +205,7 @@ bool BasicMinimizer::IsFixedVariable(unsigned int ivar) const {
    return (fVarTypes[ivar] == kFix ) ;
 }
 
-bool BasicMinimizer::GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & varObj) const {
+bool BasicMinimizer::GetVariableSettings(unsigned int ivar, BA_ROOT::Fit::ParameterSettings & varObj) const {
    if (ivar > fValues.size() ) return false;
    assert(fValues.size() == fNames.size() && fValues.size() == fVarTypes.size() );
    varObj.Set(fNames[ivar],fValues[ivar],fSteps[ivar]);
@@ -234,15 +234,15 @@ int BasicMinimizer::VariableIndex(const std::string & name) const {
 
 
 
-void BasicMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
+void BasicMinimizer::SetFunction(const BA_ROOT::Math::IMultiGenFunction & func) {
    // set the function to minimizer
    fObjFunc = func.Clone();
    fDim = fObjFunc->NDim();
 }
 
-void BasicMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction & func) {
+void BasicMinimizer::SetFunction(const BA_ROOT::Math::IMultiGradFunction & func) {
    // set the function to minimize
-   fObjFunc = dynamic_cast<const ROOT::Math::IMultiGradFunction *>( func.Clone());
+   fObjFunc = dynamic_cast<const BA_ROOT::Math::IMultiGradFunction *>( func.Clone());
    assert(fObjFunc != 0);
    fDim = fObjFunc->NDim();
 }
@@ -266,7 +266,7 @@ bool BasicMinimizer::CheckObjFunction() const {
 }
 
 
-MinimTransformFunction * BasicMinimizer::CreateTransformation(std::vector<double> & startValues, const ROOT::Math::IMultiGradFunction * func) {
+MinimTransformFunction * BasicMinimizer::CreateTransformation(std::vector<double> & startValues, const BA_ROOT::Math::IMultiGradFunction * func) {
 
    bool doTransform = (fBounds.size() > 0);
    unsigned int ivar = 0;
@@ -342,8 +342,8 @@ void BasicMinimizer::PrintResult() const {
       std::cout << fNames[i] << "\t  = " << fValues[i] << std::endl;
 }
 
-const ROOT::Math::IMultiGradFunction * BasicMinimizer::GradObjFunction() const {
-      return  dynamic_cast<const ROOT::Math::IMultiGradFunction *>(fObjFunc);
+const BA_ROOT::Math::IMultiGradFunction * BasicMinimizer::GradObjFunction() const {
+      return  dynamic_cast<const BA_ROOT::Math::IMultiGradFunction *>(fObjFunc);
 }
 
 const MinimTransformFunction * BasicMinimizer::TransformFunction() const {

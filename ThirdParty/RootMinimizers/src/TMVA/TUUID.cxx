@@ -6,6 +6,8 @@
 #include <boost/uuid/uuid_generators.hpp>
 //#include <boost/uuid/uuid_io.hpp>
 
+namespace BA_ROOT {
+
 TUUID::TUUID() : fTimeLow(0)
 {
 
@@ -19,4 +21,6 @@ void TUUID::GetUUID(UChar_t uuid[16]) const
    boost::uuids::uuid boost_uuid = generator();
    memcpy(uuid, boost_uuid.begin(), 16);
 //   std::cout << boost_uuid << "aaa" << uuid[0] << std::endl;
+}
+
 }

@@ -15,7 +15,7 @@
 #include "Minuit2/SqrtLowParameterTransformation.h"
 #include "Minuit2/MnMachinePrecision.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

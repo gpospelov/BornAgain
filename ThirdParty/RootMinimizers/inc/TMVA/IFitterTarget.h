@@ -41,7 +41,7 @@
 #endif
 
 
-namespace TMVA {
+namespace BA_TMVA {
 
    class IFitterTarget {
 

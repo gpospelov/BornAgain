@@ -4,6 +4,8 @@
 
 #include "TMVA/Types.h"
 
+namespace BA_ROOT {
+
 class TUUID {
 public:
 
@@ -15,6 +17,6 @@ protected:
     UInt_t    fTimeLow;               // 60 bit time, lower 32 bits
 };
 
-
+}
 #endif
 

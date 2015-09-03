@@ -17,7 +17,7 @@
 #include "Minuit2/MnPrint.h"
 #endif
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

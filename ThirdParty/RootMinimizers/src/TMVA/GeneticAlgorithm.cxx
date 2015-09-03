@@ -41,14 +41,14 @@
 
 //#include "MsgLogger.h"
 #include <cmath>
-namespace TMVA {
+namespace BA_TMVA {
    const Bool_t GeneticAlgorithm__DEBUG__ = kFALSE;
 }
 
 //ClassImp(TMVA::GeneticAlgorithm)
    
 //_______________________________________________________________________
-TMVA::GeneticAlgorithm::GeneticAlgorithm( IFitterTarget& target, Int_t populationSize, 
+BA_TMVA::GeneticAlgorithm::GeneticAlgorithm( IFitterTarget& target, Int_t populationSize,
                                           const std::vector<Interval*>& ranges, UInt_t seed )
    : fConvCounter(-1),
      fFitterTarget( target ),
@@ -76,7 +76,7 @@ TMVA::GeneticAlgorithm::GeneticAlgorithm( IFitterTarget& target, Int_t populatio
    fPopulation.SetRandomSeed( seed );
 }
 
-TMVA::GeneticAlgorithm::~GeneticAlgorithm() 
+BA_TMVA::GeneticAlgorithm::~GeneticAlgorithm()
 {
    // destructor; deletes fLogger
 //   delete fLogger;
@@ -84,7 +84,7 @@ TMVA::GeneticAlgorithm::~GeneticAlgorithm()
 
 
 //_______________________________________________________________________
-void TMVA::GeneticAlgorithm::Init()
+void BA_TMVA::GeneticAlgorithm::Init()
 {
    // calls evolution, but if it is not the first time. 
    // If it's the first time, the random population created by the
@@ -97,7 +97,7 @@ void TMVA::GeneticAlgorithm::Init()
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticAlgorithm::NewFitness( Double_t /*oldValue*/, Double_t newValue )
+Double_t BA_TMVA::GeneticAlgorithm::NewFitness( Double_t /*oldValue*/, Double_t newValue )
 {
    // if the "fitnessFunction" is called multiple times for one set of 
    // factors (because i.e. each event of a TTree has to be assessed with 
@@ -115,7 +115,7 @@ Double_t TMVA::GeneticAlgorithm::NewFitness( Double_t /*oldValue*/, Double_t new
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticAlgorithm::CalculateFitness()
+Double_t BA_TMVA::GeneticAlgorithm::CalculateFitness()
 {
    // starts the evaluation of the fitness of all different individuals of
    // the population. 
@@ -169,7 +169,7 @@ Double_t TMVA::GeneticAlgorithm::CalculateFitness()
 }
 
 //_______________________________________________________________________
-void TMVA::GeneticAlgorithm::Evolution()
+void BA_TMVA::GeneticAlgorithm::Evolution()
 {
    // this function is called from "init" and controls the evolution of the 
    // individuals. 
@@ -184,7 +184,7 @@ void TMVA::GeneticAlgorithm::Evolution()
 }
 
 //_______________________________________________________________________
-Double_t TMVA::GeneticAlgorithm::SpreadControl( Int_t ofSteps, Int_t successSteps, Double_t factor )
+Double_t BA_TMVA::GeneticAlgorithm::SpreadControl( Int_t ofSteps, Int_t successSteps, Double_t factor )
 {
    // this function provides the ability to change the stepSize of a mutation according to
    // the success of the last generations. 
@@ -239,7 +239,7 @@ Double_t TMVA::GeneticAlgorithm::SpreadControl( Int_t ofSteps, Int_t successStep
 }
 
 //_______________________________________________________________________
-Bool_t TMVA::GeneticAlgorithm::HasConverged( Int_t steps, Double_t improvement )
+Bool_t BA_TMVA::GeneticAlgorithm::HasConverged( Int_t steps, Double_t improvement )
 {
    // gives back true if the last "steps" steps have lead to an improvement of the
    // "fitness" of the "individuals" of at least "improvement"

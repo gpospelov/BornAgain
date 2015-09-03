@@ -17,7 +17,7 @@
 #include "Minuit2/MatrixInverse.h"
 #include "Minuit2/LASymMatrix.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

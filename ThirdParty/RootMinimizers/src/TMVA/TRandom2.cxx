@@ -27,6 +27,8 @@
 
 //ClassImp(TRandom2)
 
+namespace BA_ROOT {
+
 //______________________________________________________________________________
 TRandom2::TRandom2(UInt_t seed)
 {
@@ -158,3 +160,4 @@ void TRandom2::SetSeed(UInt_t seed)
    return;
 }
 
+}

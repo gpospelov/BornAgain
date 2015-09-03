@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_VariableMetricEDMEstimator
 #define ROOT_Minuit2_VariableMetricEDMEstimator
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

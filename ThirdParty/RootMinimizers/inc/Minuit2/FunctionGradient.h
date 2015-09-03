@@ -13,7 +13,7 @@
 #include "Minuit2/MnRefCountedPointer.h"
 #include "Minuit2/BasicFunctionGradient.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

@@ -33,7 +33,7 @@
 
 #include "Minuit2/MPIProcess.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

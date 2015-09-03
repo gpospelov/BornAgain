@@ -11,7 +11,7 @@
 #include "Minuit2/FCNBase.h"
 #include "Minuit2/MnUserTransformation.h"
 
-namespace ROOT {
+namespace BA_ROOT {
 
    namespace Minuit2 {
 

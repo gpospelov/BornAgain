@@ -54,6 +54,12 @@ void MultiLayerItem::updateLayers()
         } else {
             childAt(i)->setPropertyAppearance(LayerItem::P_ROUGHNESS, PropertyAttribute::VISIBLE);
         }
+
+        if(i==0 || i==childItemCount()-1) {
+            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::DISABLED);
+        } else {
+            childAt(i)->setPropertyAppearance(LayerItem::P_THICKNESS, PropertyAttribute::VISIBLE);
+        }
     }
 }
 

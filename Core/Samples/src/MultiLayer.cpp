@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
+#include "MultiLayer.h"
+#include "MessageService.h"
 #include <algorithm>
 #include <stdexcept>
 #include <iomanip>
-
-#include "MultiLayer.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
@@ -174,6 +174,12 @@ void MultiLayer::addLayerWithTopRoughness(
         addAndRegisterLayer(p_new_layer);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
         return;
+    } else {
+        if(p_new_layer->getThickness() != 0.0) {
+            msglog(MSG::ERROR) << "MultiLayer::addLayer() -> Attempt to add top layer with "
+                << "thickness defined. The layer is semi-infinite. Thickness will be ignored.";
+            p_new_layer->setThickness(0.0);
+        }
     }
     addAndRegisterLayer(p_new_layer);
     m_layers_z.push_back(0.0);

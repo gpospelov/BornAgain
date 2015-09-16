@@ -47,32 +47,32 @@ private:
     double m_sum_of_weights;
 };
 
-CumulativeValue::CumulativeValue()
+inline CumulativeValue::CumulativeValue()
 {
     clear();
 }
 
-int CumulativeValue::getNumberOfEntries() const
+inline int CumulativeValue::getNumberOfEntries() const
 {
     return m_n_entries;
 }
 
-double CumulativeValue::getValue() const
+inline double CumulativeValue::getValue() const
 {
     return m_sum;
 }
 
-double CumulativeValue::getAverage() const
+inline double CumulativeValue::getAverage() const
 {
     return m_average;
 }
 
-double CumulativeValue::getRMS() const
+inline double CumulativeValue::getRMS() const
 {
     return std::sqrt(m_rms2);
 }
 
-void CumulativeValue::add(double value, double weight)
+inline void CumulativeValue::add(double value, double weight)
 {
     m_n_entries++;
     m_sum += value;
@@ -82,7 +82,7 @@ void CumulativeValue::add(double value, double weight)
     m_sum_of_weights += weight;
 }
 
-void CumulativeValue::clear()
+inline void CumulativeValue::clear()
 {
     m_n_entries = 0;
     m_sum = 0.0;

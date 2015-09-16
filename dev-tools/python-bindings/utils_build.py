@@ -83,7 +83,7 @@ def IncludeClasses(mb, include_classes):
                     for cl in mb.classes() ):
             not_found_classes.append(name)
     if len(not_found_classes):
-        print( "Error! Can't find classes with requested names " % (not_found_classes) )
+        print( "Error! Can't find classes with requested names {0}".format(not_found_classes) )
         exit()
     mb.classes( lambda cls: cls.name in include_classes ).include()
 

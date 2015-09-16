@@ -126,6 +126,8 @@ include_classes = [
     "IFormFactorBorn",
     "IFormFactorDecorator",
     "IInterferenceFunction",
+    "IHistogram",
+    "Histogram1D",
     "IMaterial",
     "IObserver",
     "IObservable",

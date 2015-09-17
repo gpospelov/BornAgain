@@ -40,10 +40,13 @@ public:
     //! Constructor for 1D histogram with custom axis
     Histogram1D(const IAxis &axis);
 
+    //! Constructor for 1D histograms from basic OutputData object
+    Histogram1D(const OutputData<double> &data);
+
+    size_t getRank() const { return 1;}
+
     //! Increment bin with abscissa x with a weight.
     int fill(double x, double weight = 1.0);
-
-    const IAxis *getXaxis() const;
 
     std::vector<double> getBinCenters() const;
 

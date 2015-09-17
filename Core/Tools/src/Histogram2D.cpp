@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Histogram2D.h"
+#include "Histogram1D.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 
@@ -36,6 +37,12 @@ Histogram2D::Histogram2D(const IAxis &axis_x, const IAxis &axis_y)
 
 }
 
+Histogram2D::Histogram2D(const OutputData<double> &data)
+    : IHistogram(data)
+{
+
+}
+
 int Histogram2D::fill(double x, double y, double weight)
 {
     if(x < getXaxis()->getMin() || x >= getXaxis()->getMax()) return -1;
@@ -50,12 +57,25 @@ int Histogram2D::fill(double x, double y, double weight)
     return (int)index;
 }
 
-const IAxis *Histogram2D::getXaxis() const
+Histogram1D *Histogram2D::projectionX(IHistogram::ProjectionType projectionType)
 {
-    return m_data.getAxis(0);
+    Histogram1D *result = new Histogram1D(*this->getXaxis());
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        double x = getXaxisValue(index);
+        result->fill(x, getBinValue(index));
+    }
+
+    return result;
 }
 
-const IAxis *Histogram2D::getYaxis() const
+Histogram1D *Histogram2D::projectionX(double yvalue)
 {
-    return m_data.getAxis(1);
+
+    return 0;
+}
+
+Histogram1D *Histogram2D::projectionX(double ylow, double yup, IHistogram::ProjectionType projectionType)
+{
+
+    return 0;
 }

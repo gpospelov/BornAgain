@@ -34,6 +34,12 @@ Histogram1D::Histogram1D(const IAxis &axis)
 
 }
 
+Histogram1D::Histogram1D(const OutputData<double> &data)
+    : IHistogram(data)
+{
+
+}
+
 int Histogram1D::fill(double x, double weight)
 {
     const IAxis *axis = m_data.getAxis(0);
@@ -44,11 +50,6 @@ int Histogram1D::fill(double x, double weight)
     m_data[index].add(weight);
 
     return (int)index;
-}
-
-const IAxis *Histogram1D::getXaxis() const
-{
-    return m_data.getAxis(0);
 }
 
 std::vector<double> Histogram1D::getBinCenters() const

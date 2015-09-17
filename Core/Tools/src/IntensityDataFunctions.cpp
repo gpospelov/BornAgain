@@ -99,8 +99,8 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
     OutputData<double>::iterator it_result = result->begin();
     while (it_origin != origin.end())
     {
-        double x = origin.getValueOfAxis(0, it_origin.getIndex());
-        double y = origin.getValueOfAxis(1, it_origin.getIndex());
+        double x = origin.getAxisValue(it_origin.getIndex(), 0);
+        double y = origin.getAxisValue(it_origin.getIndex(), 1);
         if(result->getAxis(0)->contains(x) && result->getAxis(1)->contains(y)) {
             *it_result = *it_origin;
             ++it_result;

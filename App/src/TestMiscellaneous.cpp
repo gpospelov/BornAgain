@@ -236,10 +236,8 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis(BornAgain::PHI_AXIS_NAME,
-                                                 it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME,
-                                                 it.getIndex());
+        size_t index0 = p_output->getAxisBinIndex(it.getIndex(), BornAgain::PHI_AXIS_NAME);
+        size_t index1 = p_output->getAxisBinIndex(it.getIndex(), BornAgain::ALPHA_AXIS_NAME);
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
@@ -350,13 +348,13 @@ void TestMiscellaneous::test_FormFactor()
     p_data->addAxis(std::string("qz"), nbins, qmin, qmax);
     OutputData<double>::const_iterator it = p_data->begin();
     while (it != p_data->end()) {
-        double x = p_data->getValueOfAxis("qx", it.getIndex());
-        double y = p_data->getValueOfAxis("qy", it.getIndex());
-        double z = p_data->getValueOfAxis("qz", it.getIndex());
+        double x = p_data->getAxisValue(it.getIndex(), "qx");
+        double y = p_data->getAxisValue(it.getIndex(), "qy");
+        double z = p_data->getAxisValue(it.getIndex(), "qz");
 
-        int ix = (int)p_data->getIndexOfAxis("qx", it.getIndex());
-        int iy = (int)p_data->getIndexOfAxis("qy", it.getIndex());
-        int iz = (int)p_data->getIndexOfAxis("qz", it.getIndex());
+        int ix = (int)p_data->getAxisValue(it.getIndex(), "qx");
+        int iy = (int)p_data->getAxisValue(it.getIndex(), "qy");
+        int iz = (int)p_data->getAxisValue(it.getIndex(), "qz");
 
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);
@@ -465,11 +463,11 @@ void TestMiscellaneous::test_FormFactor1()
     p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
     p_data->addAxis(std::string("qz"), 1, qmin, qmax);
     OutputData<double>::const_iterator it = p_data->begin();
-    double z = p_data->getValueOfAxis("qz", it.getIndex());
+    double z = p_data->getAxisValue(it.getIndex(), "qz");
 
     while (it != p_data->end()) {
-        double x = p_data->getValueOfAxis("qx", it.getIndex());
-        double y = p_data->getValueOfAxis("qy", it.getIndex());
+        double x = p_data->getAxisValue(it.getIndex(), "qx");
+        double y = p_data->getAxisValue(it.getIndex(), "qy");
 
         cvector_t q(x,y,z);
         cvector_t q0(0.0,0.0,0.0);

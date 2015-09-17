@@ -26,14 +26,228 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace bp = boost::python;
 
+struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
+
+    IHistogram_wrapper( )
+    : IHistogram( )
+      , bp::wrapper< IHistogram >(){
+        // null constructor
+    
+    }
+
+    IHistogram_wrapper(::IAxis const & axis_x )
+    : IHistogram( boost::ref(axis_x) )
+      , bp::wrapper< IHistogram >(){
+        // constructor
+    
+    }
+
+    IHistogram_wrapper(::IAxis const & axis_x, ::IAxis const & axis_y )
+    : IHistogram( boost::ref(axis_x), boost::ref(axis_y) )
+      , bp::wrapper< IHistogram >(){
+        // constructor
+    
+    }
+
+    IHistogram_wrapper(::OutputData< double > const & source )
+    : IHistogram( boost::ref(source) )
+      , bp::wrapper< IHistogram >(){
+        // constructor
+    
+    }
+
+    virtual ::std::size_t getRank(  ) const  {
+        if( bp::override func_getRank = this->get_override( "getRank" ) )
+            return func_getRank(  );
+        else{
+            return this->IHistogram::getRank(  );
+        }
+    }
+    
+    ::std::size_t default_getRank(  ) const  {
+        return IHistogram::getRank( );
+    }
+
+    virtual ::std::size_t getTotalNumberOfBins(  ) const  {
+        if( bp::override func_getTotalNumberOfBins = this->get_override( "getTotalNumberOfBins" ) )
+            return func_getTotalNumberOfBins(  );
+        else{
+            return this->IHistogram::getTotalNumberOfBins(  );
+        }
+    }
+    
+    ::std::size_t default_getTotalNumberOfBins(  ) const  {
+        return IHistogram::getTotalNumberOfBins( );
+    }
+
+    virtual ::IAxis const * getXaxis(  ) const  {
+        if( bp::override func_getXaxis = this->get_override( "getXaxis" ) )
+            return func_getXaxis(  );
+        else{
+            return this->IHistogram::getXaxis(  );
+        }
+    }
+    
+    ::IAxis const * default_getXaxis(  ) const  {
+        return IHistogram::getXaxis( );
+    }
+
+    virtual double getXaxisValue( ::std::size_t binGlobalIndex ) {
+        if( bp::override func_getXaxisValue = this->get_override( "getXaxisValue" ) )
+            return func_getXaxisValue( binGlobalIndex );
+        else{
+            return this->IHistogram::getXaxisValue( binGlobalIndex );
+        }
+    }
+    
+    double default_getXaxisValue( ::std::size_t binGlobalIndex ) {
+        return IHistogram::getXaxisValue( binGlobalIndex );
+    }
+
+    virtual ::IAxis const * getYaxis(  ) const  {
+        if( bp::override func_getYaxis = this->get_override( "getYaxis" ) )
+            return func_getYaxis(  );
+        else{
+            return this->IHistogram::getYaxis(  );
+        }
+    }
+    
+    ::IAxis const * default_getYaxis(  ) const  {
+        return IHistogram::getYaxis( );
+    }
+
+    virtual double getYaxisValue( ::std::size_t binGlobalIndex ) {
+        if( bp::override func_getYaxisValue = this->get_override( "getYaxisValue" ) )
+            return func_getYaxisValue( binGlobalIndex );
+        else{
+            return this->IHistogram::getYaxisValue( binGlobalIndex );
+        }
+    }
+    
+    double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
+        return IHistogram::getYaxisValue( binGlobalIndex );
+    }
+
+    virtual void reset(  ) {
+        if( bp::override func_reset = this->get_override( "reset" ) )
+            func_reset(  );
+        else{
+            this->IHistogram::reset(  );
+        }
+    }
+    
+    void default_reset(  ) {
+        IHistogram::reset( );
+    }
+
+};
+
 void register_IHistogram_class(){
 
     { //::IHistogram
-        typedef bp::class_< IHistogram, boost::noncopyable > IHistogram_exposer_t;
-        IHistogram_exposer_t IHistogram_exposer = IHistogram_exposer_t( "IHistogram", "Base class for 1D and 2D histogram.", bp::init< >() );
+        typedef bp::class_< IHistogram_wrapper, boost::noncopyable > IHistogram_exposer_t;
+        IHistogram_exposer_t IHistogram_exposer = IHistogram_exposer_t( "IHistogram", "Base class for 1D and 2D histograms holding values of double typ.", bp::init< >() );
         bp::scope IHistogram_scope( IHistogram_exposer );
+        bp::enum_< IHistogram::ProjectionType>("ProjectionType")
+            .value("INTEGRAL", IHistogram::INTEGRAL)
+            .value("AVERAGE", IHistogram::AVERAGE)
+            .export_values()
+            ;
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
+        IHistogram_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("source") )) );
+        { //::IHistogram::getBinValue
+        
+            typedef double ( ::IHistogram::*getBinValue_function_type)( ::std::size_t ) const;
+            
+            IHistogram_exposer.def( 
+                "getBinValue"
+                , getBinValue_function_type( &::IHistogram::getBinValue )
+                , ( bp::arg("binGlobalIndex") )
+                , "Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. " );
+        
+        }
+        { //::IHistogram::getRank
+        
+            typedef ::std::size_t ( ::IHistogram::*getRank_function_type)(  ) const;
+            typedef ::std::size_t ( IHistogram_wrapper::*default_getRank_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getRank"
+                , getRank_function_type(&::IHistogram::getRank)
+                , default_getRank_function_type(&IHistogram_wrapper::default_getRank) );
+        
+        }
+        { //::IHistogram::getTotalNumberOfBins
+        
+            typedef ::std::size_t ( ::IHistogram::*getTotalNumberOfBins_function_type)(  ) const;
+            typedef ::std::size_t ( IHistogram_wrapper::*default_getTotalNumberOfBins_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getTotalNumberOfBins"
+                , getTotalNumberOfBins_function_type(&::IHistogram::getTotalNumberOfBins)
+                , default_getTotalNumberOfBins_function_type(&IHistogram_wrapper::default_getTotalNumberOfBins) );
+        
+        }
+        { //::IHistogram::getXaxis
+        
+            typedef ::IAxis const * ( ::IHistogram::*getXaxis_function_type)(  ) const;
+            typedef ::IAxis const * ( IHistogram_wrapper::*default_getXaxis_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getXaxis"
+                , getXaxis_function_type(&::IHistogram::getXaxis)
+                , default_getXaxis_function_type(&IHistogram_wrapper::default_getXaxis)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IHistogram::getXaxisValue
+        
+            typedef double ( ::IHistogram::*getXaxisValue_function_type)( ::std::size_t ) ;
+            typedef double ( IHistogram_wrapper::*default_getXaxisValue_function_type)( ::std::size_t ) ;
+            
+            IHistogram_exposer.def( 
+                "getXaxisValue"
+                , getXaxisValue_function_type(&::IHistogram::getXaxisValue)
+                , default_getXaxisValue_function_type(&IHistogram_wrapper::default_getXaxisValue)
+                , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::getYaxis
+        
+            typedef ::IAxis const * ( ::IHistogram::*getYaxis_function_type)(  ) const;
+            typedef ::IAxis const * ( IHistogram_wrapper::*default_getYaxis_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getYaxis"
+                , getYaxis_function_type(&::IHistogram::getYaxis)
+                , default_getYaxis_function_type(&IHistogram_wrapper::default_getYaxis)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IHistogram::getYaxisValue
+        
+            typedef double ( ::IHistogram::*getYaxisValue_function_type)( ::std::size_t ) ;
+            typedef double ( IHistogram_wrapper::*default_getYaxisValue_function_type)( ::std::size_t ) ;
+            
+            IHistogram_exposer.def( 
+                "getYaxisValue"
+                , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
+                , default_getYaxisValue_function_type(&IHistogram_wrapper::default_getYaxisValue)
+                , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::reset
+        
+            typedef void ( ::IHistogram::*reset_function_type)(  ) ;
+            typedef void ( IHistogram_wrapper::*default_reset_function_type)(  ) ;
+            
+            IHistogram_exposer.def( 
+                "reset"
+                , reset_function_type(&::IHistogram::reset)
+                , default_reset_function_type(&IHistogram_wrapper::default_reset) );
+        
+        }
     }
 
 }

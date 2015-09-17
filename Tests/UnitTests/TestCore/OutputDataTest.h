@@ -80,13 +80,13 @@ TEST_F(OutputDataTest, DataInitialization)
     coordinates.push_back(11);
     coordinates.push_back(4);
     coordinates.push_back(3);
-    EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toIndex(coordinates)]);
+    EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toGlobalIndex(coordinates)]);
 
 
     std::vector<int> coordinates2;
     coordinates2.push_back(10);
     coordinates2.push_back(5);
-    EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toIndex(coordinates2)]);
+    EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toGlobalIndex(coordinates2)]);
 }
 
 
@@ -179,36 +179,36 @@ TEST_F(OutputDataTest, ValueOfAxis)
     OutputData<double > data;
     data.addAxis("axis1", 10, 0., 10.);
     data.addAxis("axis2", 2, 0., 10.);
-    EXPECT_EQ( 0.5, data.getValueOfAxis("axis1", 0));
-    EXPECT_EQ( 0.5, data.getValueOfAxis("axis1", 1));
-    EXPECT_EQ( 1.5, data.getValueOfAxis("axis1", 2));
-    EXPECT_EQ( 1.5, data.getValueOfAxis("axis1", 3));
-    EXPECT_EQ( 9.5, data.getValueOfAxis("axis1", 18));
-    EXPECT_EQ( 9.5, data.getValueOfAxis("axis1", 19));
+    EXPECT_EQ( 0.5, data.getAxisValue(0, "axis1"));
+    EXPECT_EQ( 0.5, data.getAxisValue(1, "axis1"));
+    EXPECT_EQ( 1.5, data.getAxisValue(2, "axis1"));
+    EXPECT_EQ( 1.5, data.getAxisValue(3, "axis1"));
+    EXPECT_EQ( 9.5, data.getAxisValue(18, "axis1"));
+    EXPECT_EQ( 9.5, data.getAxisValue(19, "axis1"));
 
-    EXPECT_EQ( 2.5, data.getValueOfAxis("axis2", 0));
-    EXPECT_EQ( 7.5, data.getValueOfAxis("axis2", 1));
-    EXPECT_EQ( 2.5, data.getValueOfAxis("axis2", 2));
-    EXPECT_EQ( 7.5, data.getValueOfAxis("axis2", 3));
-    EXPECT_EQ( 2.5, data.getValueOfAxis("axis2", 18));
-    EXPECT_EQ( 7.5, data.getValueOfAxis("axis2", 19));
+    EXPECT_EQ( 2.5, data.getAxisValue(0, "axis2"));
+    EXPECT_EQ( 7.5, data.getAxisValue(1, "axis2"));
+    EXPECT_EQ( 2.5, data.getAxisValue(2, "axis2"));
+    EXPECT_EQ( 7.5, data.getAxisValue(3, "axis2"));
+    EXPECT_EQ( 2.5, data.getAxisValue(18, "axis2"));
+    EXPECT_EQ( 7.5, data.getAxisValue(19, "axis2"));
 
     OutputData<Eigen::Matrix2d > mdata;
     mdata.addAxis("axis1", 10, 0., 10.);
     mdata.addAxis("axis2", 2, 0., 10.);
-    EXPECT_EQ( 0.5, mdata.getValueOfAxis("axis1", 0));
-    EXPECT_EQ( 0.5, mdata.getValueOfAxis("axis1", 1));
-    EXPECT_EQ( 1.5, mdata.getValueOfAxis("axis1", 2));
-    EXPECT_EQ( 1.5, mdata.getValueOfAxis("axis1", 3));
-    EXPECT_EQ( 9.5, mdata.getValueOfAxis("axis1", 18));
-    EXPECT_EQ( 9.5, mdata.getValueOfAxis("axis1", 19));
+    EXPECT_EQ( 0.5, mdata.getAxisValue(0, "axis1"));
+    EXPECT_EQ( 0.5, mdata.getAxisValue(1, "axis1"));
+    EXPECT_EQ( 1.5, mdata.getAxisValue(2, "axis1"));
+    EXPECT_EQ( 1.5, mdata.getAxisValue(3, "axis1"));
+    EXPECT_EQ( 9.5, mdata.getAxisValue(18, "axis1"));
+    EXPECT_EQ( 9.5, mdata.getAxisValue(19, "axis1"));
 
-    EXPECT_EQ( 2.5, mdata.getValueOfAxis("axis2", 0));
-    EXPECT_EQ( 7.5, mdata.getValueOfAxis("axis2", 1));
-    EXPECT_EQ( 2.5, mdata.getValueOfAxis("axis2", 2));
-    EXPECT_EQ( 7.5, mdata.getValueOfAxis("axis2", 3));
-    EXPECT_EQ( 2.5, mdata.getValueOfAxis("axis2", 18));
-    EXPECT_EQ( 7.5, mdata.getValueOfAxis("axis2", 19));
+    EXPECT_EQ( 2.5, mdata.getAxisValue(0, "axis2"));
+    EXPECT_EQ( 7.5, mdata.getAxisValue(1, "axis2"));
+    EXPECT_EQ( 2.5, mdata.getAxisValue(2, "axis2"));
+    EXPECT_EQ( 7.5, mdata.getAxisValue(3, "axis2"));
+    EXPECT_EQ( 2.5, mdata.getAxisValue(18, "axis2"));
+    EXPECT_EQ( 7.5, mdata.getAxisValue(19, "axis2"));
 }
 
 
@@ -241,8 +241,8 @@ TEST_F(OutputDataTest, SetInverseRectangularMask)
     std::vector<double> yref = boost::assign::list_of(1.5)(2.5)(1.5)(2.5)(1.5)(2.5)(1.5)(2.5);
     std::vector<double> vref = boost::assign::list_of(7)(8)(13)(14)(19)(20)(25)(26);
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
-        double x = data.getValueOfAxis("x", it.getIndex());
-        double y = data.getValueOfAxis("y", it.getIndex());
+        double x = data.getAxisValue(it.getIndex(), "x");
+        double y = data.getAxisValue(it.getIndex(), "y");
         EXPECT_EQ(x, xref[index]);
         EXPECT_EQ(y, yref[index]);
         EXPECT_EQ(*it, vref[index]);
@@ -284,8 +284,8 @@ TEST_F(OutputDataTest, SetRectangularMask)
     std::vector<double> yref = boost::assign::list_of(0.0)(1.0)(2.0)(2.0)(2.0)(2.0)(2.0)(2.0)(0.0)(1.0)(2.0)(0.0)(1.0)(2.0);
     std::vector<double> vref = boost::assign::list_of(0)(1)(2)(5)(8)(11)(14)(17)(18)(19)(20)(21)(22)(23);
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
-        double x = data.getValueOfAxis("x", it.getIndex());
-        double y = data.getValueOfAxis("y", it.getIndex());
+        double x = data.getAxisValue(it.getIndex(), "x");
+        double y = data.getAxisValue(it.getIndex(), "y");
         EXPECT_EQ(x, xref[index]);
         EXPECT_EQ(y, yref[index]);
         EXPECT_EQ(*it, vref[index]);
@@ -360,8 +360,8 @@ TEST_F(OutputDataTest, RectangularMaskVariableAxis)
     std::vector<double> yref = boost::assign::list_of(2.0)(4.0)(2.0)(4.0)(2.0)(4.0)(2.0)(4.0);
     std::vector<double> vref = boost::assign::list_of(5)(6)(9)(10)(13)(14)(17)(18);
     for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
-        double x = data.getValueOfAxis("x", it.getIndex());
-        double y = data.getValueOfAxis("y", it.getIndex());
+        double x = data.getAxisValue(it.getIndex(), "x");
+        double y = data.getAxisValue(it.getIndex(), "y");
         double val = *it;
         EXPECT_EQ(x, xref[index]);
         EXPECT_EQ(y, yref[index]);

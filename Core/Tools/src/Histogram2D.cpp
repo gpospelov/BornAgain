@@ -70,8 +70,17 @@ Histogram1D *Histogram2D::projectionX(IHistogram::ProjectionType projectionType)
 
 Histogram1D *Histogram2D::projectionX(double yvalue)
 {
+    Histogram1D *result = new Histogram1D(*this->getXaxis());
+    int ybin_selected = getYaxis()->findClosestIndex(yvalue);
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        int ybin_current = m_data.getAxisBinIndex(index, 1);
+        if(ybin_selected == ybin_current) {
+            double x = getXaxisValue(index);
+            result->fill(x, getBinValue(index));
+        }
+    }
 
-    return 0;
+    return result;
 }
 
 Histogram1D *Histogram2D::projectionX(double ylow, double yup, IHistogram::ProjectionType projectionType)

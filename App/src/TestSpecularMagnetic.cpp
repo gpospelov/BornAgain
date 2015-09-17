@@ -56,8 +56,7 @@ void TestSpecularMagnetic::test_standard_sample()
         OutputData<SpecularMagnetic::MultiLayerCoeff_t >::iterator it =
                 mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
-            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i",
-                    it.getIndex());
+            double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
@@ -91,7 +90,7 @@ void TestSpecularMagnetic::draw_standard_sample()
             mp_coeffs->begin();
     int i_point = 0;
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getAxisValue(it.getIndex(), "alpha_i");
         const SpecularMagnetic::MultiLayerCoeff_t coeffs = *it++;
 
         // Filling graphics for R coefficients as a function of alpha_i

@@ -77,13 +77,13 @@ const IAxis *IHistogram::getYaxis() const
 double IHistogram::getXaxisValue(size_t binGlobalIndex)
 {
     check_x_axis();
-    return m_data.getValueOfAxis(0, binGlobalIndex);
+    return m_data.getAxisValue(binGlobalIndex, 0);
 }
 
 double IHistogram::getYaxisValue(size_t binGlobalIndex)
 {
     check_y_axis();
-    return m_data.getValueOfAxis(1, binGlobalIndex);
+    return m_data.getAxisValue(binGlobalIndex, 1);
 }
 
 void IHistogram::reset()

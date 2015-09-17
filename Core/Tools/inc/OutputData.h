@@ -53,9 +53,14 @@ public:
     void addAxis(const std::string& name, size_t size,
                  double start, double end);
 
-    const IAxis *getAxis(size_t index) const;
-    const IAxis *getAxis(const std::string& label) const;
-    size_t getAxisIndex(const std::string& label) const;
+    //! returns axis with given serial number
+    const IAxis *getAxis(size_t serial_number) const;
+
+    //! returns axis with given name
+    const IAxis *getAxis(const std::string& axis_name) const;
+
+    //! returns serial number of axis with given name
+    size_t getAxisSerialNumber(const std::string& axis_name) const;
 
     // ---------------------------------
     // retrieve basic info
@@ -125,29 +130,50 @@ public:
     // coordinate and index functions
     // ---------------------------------
 
-    //! Returns vector of coordinates for given index
-    std::vector<int> toCoordinates(size_t index) const;
+    //! Returns vector of axes indices for given global index
+    //! @param global_index The global index of this data structure.
+    //! @return Vector of bin indices for all axes defined
+    std::vector<int> getAxesBinIndices(size_t global_index) const;
 
-    //! Returns coordinate for given index and axis number
-    int toCoordinate(size_t index, size_t i_selected_axis) const;
+    //! Returns axis bin index for given global index
+    //! @param global_index The global index of this data structure.
+    //! @param i_selected_axis Serial number of selected axis.
+    //! @return Corresponding bin index for selected axis
+    int getAxisBinIndex(size_t global_index, size_t i_selected_axis) const;
 
-    //! Returns index for specified coordinates (bins of axes)
-    size_t toIndex(std::vector<int> coordinates) const;
+    //! Returns axis bin index for given global index
+    //! @param global_index The global index of this data structure.
+    //! @param axis_name The name of selected axis.
+    //! @return Corresponding bin index for selected axis
+    int getAxisBinIndex(size_t global_index, const std::string &axis_name) const;
 
-    //! Returns index for specified axes values
-    size_t findClosestIndex(std::vector<double> coordinates) const;
+    //! Returns global index for specified indices of axes
+    //! @param axes_indices Vector of axes indices for all specified axes in this dataset
+    //! @return Corresponding global index
+    size_t toGlobalIndex(const std::vector<int> &axes_indices) const;
 
-    //! Returns index of axis with given name for given total index
-    size_t getIndexOfAxis(const std::string& axis_name, size_t total_index) const;
+    //! Returns global index for specified axes values
+    //! @param coordinates Vector of axes coordinates for all specified axes in this dataset
+    //! @return Closest global index
+    size_t findClosestIndex(const std::vector<double> &coordinates) const;
 
-    //! Returns value of axis with given name at given index
-    double getValueOfAxis(const std::string& axis_name, size_t index) const;
+    //! Returns the value of selected axis for given global_index.
+    //! @param global_index The global index of this data structure.
+    //! @param i_selected_axis Serial number of selected axis.
+    //! @return corresponding bin center of selected axis
+    double getAxisValue(size_t global_index, size_t i_selected_axis) const;
 
-    //! Returns value of axis with given axis_number at given index
-    double getValueOfAxis(size_t axis_number, size_t index) const;
+    //! Returns the value of selected axis for given global_index.
+    //! @param global_index The global index of this data structure.
+    //! @param axis_name The name of selected axis.
+    //! @return corresponding bin center of selected axis
+    double getAxisValue(size_t global_index, const std::string& axis_name) const;
 
-    //! Returns bin of axis with given name and index
-    Bin1D getBinOfAxis(const std::string& axis_name, size_t index) const;
+    //! Returns bin of selected axis for given global_index.
+    //! @param global_index The global index of this data structure.
+    //! @param axis_name The name of selected axis.
+    //! @return Corresponding Bin1D object
+    Bin1D getAxisBin(size_t global_index, const std::string& axis_name) const;
 
     // ---------
     // modifiers
@@ -309,16 +335,16 @@ void OutputData<T>::addAxis(const std::string& name, size_t size,
 }
 
 template <class T>
-const IAxis *OutputData<T>::getAxis(size_t index) const
+const IAxis *OutputData<T>::getAxis(size_t serial_number) const
 {
-    return m_value_axes[index];
+    return m_value_axes[serial_number];
 }
 
 template <class T>
-const IAxis *OutputData<T>::getAxis(const std::string& label) const
+const IAxis *OutputData<T>::getAxis(const std::string& axis_name) const
 {
     for (size_t i = 0; i < m_value_axes.size(); ++i) {
-        if (m_value_axes[i]->getName() == label) {
+        if (m_value_axes[i]->getName() == axis_name) {
             return m_value_axes[i];
         }
     }
@@ -327,14 +353,14 @@ const IAxis *OutputData<T>::getAxis(const std::string& label) const
 
 // return index of axis
 template <class T>
-size_t OutputData<T>::getAxisIndex(const std::string& label) const
+size_t OutputData<T>::getAxisSerialNumber(const std::string &axis_name) const
 {
     for (size_t i = 0; i < m_value_axes.size(); ++i) {
-        if (m_value_axes[i]->getName() == label) return i;
+        if (m_value_axes[i]->getName() == axis_name) return i;
     }
     throw LogicErrorException(
         "OutputData<T>::getAxisIndex() -> "
-        "Error! Axis with given name not found '"+label+std::string("'"));
+        "Error! Axis with given name not found '"+axis_name+std::string("'"));
 }
 
 
@@ -420,10 +446,10 @@ void OutputData<T>::removeAllMasks()
 }
 
 template<class T>
-std::vector<int> OutputData<T>::toCoordinates(size_t index) const
+std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
 {
     assert(mp_ll_data);
-    size_t remainder = index;
+    size_t remainder = global_index;
     std::vector<int> result;
     result.resize(mp_ll_data->getRank());
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
@@ -437,10 +463,10 @@ std::vector<int> OutputData<T>::toCoordinates(size_t index) const
 }
 
 template<class T>
-int OutputData<T>::toCoordinate(size_t index, size_t i_selected_axis) const
+int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const
 {
     assert(mp_ll_data);
-    size_t remainder(index);
+    size_t remainder(global_index);
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
         size_t i_axis = mp_ll_data->getRank()-1-i;
@@ -452,11 +478,18 @@ int OutputData<T>::toCoordinate(size_t index, size_t i_selected_axis) const
                               "Error! No axis with given number");
 }
 
+
+template<class T>
+int OutputData<T>::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
+{
+    return getAxisBinIndex(global_index, getAxisSerialNumber(axis_name));
+}
+
 template <class T>
-size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
+size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
 {
     assert(mp_ll_data);
-    if (coordinates.size() != mp_ll_data->getRank())
+    if (axes_indices.size() != mp_ll_data->getRank())
         throw LogicErrorException(
                     "size_t OutputData<T>::toIndex() -> "
                     "Error! Number of coordinates must match "
@@ -465,15 +498,15 @@ size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
     {
-        if(coordinates[i-1] < 0 || coordinates[i-1] >=m_value_axes[i-1]->getSize()) {
+        if(axes_indices[i-1] < 0 || axes_indices[i-1] >=m_value_axes[i-1]->getSize()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toIndex() -> Error. Index ";
-            message << coordinates[i-1] << " is out of range. Axis ";
+            message << axes_indices[i-1] << " is out of range. Axis ";
             message << m_value_axes[i-1]->getName();
             message << " size " << m_value_axes[i-1]->getSize() << ".\n";
             throw LogicErrorException(message.str());
         }
-        result += coordinates[i-1]*step_size;
+        result += axes_indices[i-1]*step_size;
         step_size *= m_value_axes[i-1]->getSize();
     }
     return result;
@@ -481,12 +514,12 @@ size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
 
 
 template <class T>
-size_t OutputData<T>::findClosestIndex(std::vector<double> coordinates) const
+size_t OutputData<T>::findClosestIndex(const std::vector<double> &coordinates) const
 {
     assert(mp_ll_data);
     if (coordinates.size() != mp_ll_data->getRank())
         throw LogicErrorException(
-                    "size_t OutputData<T>::toIndex() -> "
+                    "OutputData<T>::findClosestIndex() -> "
                     "Error! Number of coordinates must match "
                     "rank of data structure");
     std::vector<int> axes_indexes;
@@ -494,55 +527,28 @@ size_t OutputData<T>::findClosestIndex(std::vector<double> coordinates) const
     for(size_t i = 0; i<mp_ll_data->getRank(); ++i) {
         axes_indexes[i] = m_value_axes[i]->findClosestIndex(coordinates[i]);
     }
-    return toIndex(axes_indexes);
+    return toGlobalIndex(axes_indexes);
 }
 
 template <class T>
-size_t OutputData<T>::getIndexOfAxis(
-        const std::string& axis_name, size_t total_index) const
+double OutputData<T>::getAxisValue(size_t global_index, size_t i_selected_axis) const
 {
-    std::vector<int> coordinates = toCoordinates(total_index);
-    for (size_t i=0; i<m_value_axes.size(); ++i) {
-        if (m_value_axes[i]->getName() == axis_name) {
-            return coordinates[i];
-        }
-    }
-    throw LogicErrorException(
-                "OutputData<T>::getIndexOfAxis() -> "
-                "Error! Axis with given name not found '" + axis_name+"'");
+    int axis_index = getAxisBinIndex(global_index, i_selected_axis);
+    return (*m_value_axes[i_selected_axis])[axis_index];
 }
 
 template <class T>
-double OutputData<T>::getValueOfAxis(
-    const std::string& axis_name, size_t index) const
+double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const
+{
+    return getAxisValue(global_index, getAxisSerialNumber(axis_name));
+}
+
+template <class T>
+Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const
 {
     for (size_t i=0; i<m_value_axes.size(); ++i) {
         if (m_value_axes[i]->getName() == axis_name) {
-            int axis_index = toCoordinate(index, i);
-            return (*m_value_axes[i])[axis_index];
-        }
-    }
-    throw LogicErrorException(
-                "OutputData<T>::getValueOfAxis() -> "
-                "Error! Axis with given name not found '" + axis_name + "'");
-}
-
-template <class T>
-double OutputData<T>::getValueOfAxis(
-    size_t axis_number, size_t index) const
-{
-    int axis_index = toCoordinate(index, axis_number);
-    return (*m_value_axes[axis_number])[axis_index];
-}
-
-
-
-template <class T>
-Bin1D OutputData<T>::getBinOfAxis(const std::string& axis_name, size_t index) const
-{
-    for (size_t i=0; i<m_value_axes.size(); ++i) {
-        if (m_value_axes[i]->getName() == axis_name) {
-            int axis_index = toCoordinate(index, i);
+            int axis_index = getAxisBinIndex(global_index, i);
             return m_value_axes[i]->getBin(axis_index);
         }
     }

@@ -32,18 +32,7 @@ IHistogram::IHistogram(const IAxis &axis_x, const IAxis &axis_y)
 
 IHistogram::IHistogram(const OutputData<double> &source)
 {
-    if(getRank() != source.getRank()) {
-        std::ostringstream message;
-        message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
-        message << "The dimension of this histogram " << getRank() << " ";
-        message << "is differ from the dimension of source " << source.getRank() << std::endl;
-        throw LogicErrorException(message.str());
-    }
-    m_data.copyShapeFrom(source);
-    for(size_t i=0; i<source.getAllocatedSize(); ++i) {
-        m_data[i].add(source[i]);
-    }
-
+    init_from_data(source);
 }
 
 size_t IHistogram::getRank() const
@@ -110,3 +99,12 @@ void IHistogram::check_y_axis() const
         throw LogicErrorException(message.str());
     }
 }
+
+void IHistogram::init_from_data(const OutputData<double> &source)
+{
+    m_data.copyShapeFrom(source);
+    for(size_t i=0; i<source.getAllocatedSize(); ++i) {
+        m_data[i].add(source[i]);
+    }
+}
+

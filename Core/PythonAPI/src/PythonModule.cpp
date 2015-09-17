@@ -68,6 +68,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorAnisoPyramid.pypp.h"
 #include "IObservable.pypp.h"
 #include "ParticleCoreShell.pypp.h"
+#include "Histogram2D.pypp.h"
 #include "FormFactorCone.pypp.h"
 #include "vector_string_t.pypp.h"
 #include "FormFactorInfLongRipple1.pypp.h"
@@ -237,6 +238,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_cvector_t_class();
     register_IHistogram_class();
     register_Histogram1D_class();
+    register_Histogram2D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_HomogeneousMagneticMaterial_class();

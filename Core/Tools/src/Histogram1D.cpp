@@ -37,12 +37,18 @@ Histogram1D::Histogram1D(const IAxis &axis)
 Histogram1D::Histogram1D(const OutputData<double> &data)
     : IHistogram(data)
 {
-
+    if(getRank() != m_data.getRank()) {
+        std::ostringstream message;
+        message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
+        message << "The dimension of this histogram " << getRank() << " ";
+        message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
+        throw LogicErrorException(message.str());
+    }
 }
 
 int Histogram1D::fill(double x, double weight)
 {
-    const IAxis *axis = m_data.getAxis(0);
+    const IAxis *axis = getXaxis();
     if(x < axis->getMin() || x>=axis->getMax()) return -1;
 
     size_t index = axis->findClosestIndex(x);

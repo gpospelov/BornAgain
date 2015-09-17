@@ -105,6 +105,7 @@
 #include "MessageService.h"
 #include "IHistogram.h"
 #include "Histogram1D.h"
+#include "Histogram2D.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

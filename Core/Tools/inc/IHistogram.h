@@ -65,6 +65,7 @@ public:
 protected:
     void check_x_axis() const;
     void check_y_axis() const;
+    void init_from_data(const OutputData<double> &source);
 
     OutputData<CumulativeValue> m_data;
 };

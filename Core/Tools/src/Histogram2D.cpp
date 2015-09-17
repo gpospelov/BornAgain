@@ -40,7 +40,13 @@ Histogram2D::Histogram2D(const IAxis &axis_x, const IAxis &axis_y)
 Histogram2D::Histogram2D(const OutputData<double> &data)
     : IHistogram(data)
 {
-
+    if(getRank() != m_data.getRank()) {
+        std::ostringstream message;
+        message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
+        message << "The dimension of this histogram " << getRank() << " ";
+        message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
+        throw LogicErrorException(message.str());
+    }
 }
 
 int Histogram2D::fill(double x, double y, double weight)
@@ -60,6 +66,7 @@ int Histogram2D::fill(double x, double y, double weight)
 Histogram1D *Histogram2D::projectionX(IHistogram::ProjectionType projectionType)
 {
     Histogram1D *result = new Histogram1D(*this->getXaxis());
+
     for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
         double x = getXaxisValue(index);
         result->fill(x, getBinValue(index));
@@ -71,6 +78,7 @@ Histogram1D *Histogram2D::projectionX(IHistogram::ProjectionType projectionType)
 Histogram1D *Histogram2D::projectionX(double yvalue)
 {
     Histogram1D *result = new Histogram1D(*this->getXaxis());
+
     int ybin_selected = getYaxis()->findClosestIndex(yvalue);
     for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
         int ybin_current = m_data.getAxisBinIndex(index, 1);
@@ -85,6 +93,18 @@ Histogram1D *Histogram2D::projectionX(double yvalue)
 
 Histogram1D *Histogram2D::projectionX(double ylow, double yup, IHistogram::ProjectionType projectionType)
 {
+    Histogram1D *result = new Histogram1D(*this->getXaxis());
 
-    return 0;
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+
+        double ybin = getYaxisValue(index);
+
+        if(ybin >= ylow && ybin <= yup) {
+            double x = getXaxisValue(index);
+            result->fill(x, getBinValue(index));
+        }
+    }
+
+    return result;
 }
+

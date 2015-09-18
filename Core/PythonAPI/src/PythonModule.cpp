@@ -24,6 +24,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "InterferenceFunctionNone.pypp.h"
 #include "FTDistribution2DGate.pypp.h"
 #include "FormFactorPrism6.pypp.h"
+#include "vdouble2d_t.pypp.h"
 #include "FormFactorTruncatedCube.pypp.h"
 #include "IFTDistribution2D.pypp.h"
 #include "FormFactorLorentz.pypp.h"
@@ -156,6 +157,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     boost::python::docstring_options doc_options(true, true, false);
 
     register_vector_longinteger_t_class();
+    register_vdouble2d_t_class();
     register_vector_string_t_class();
     register_vector_complex_t_class();
     register_vector_integer_t_class();

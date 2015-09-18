@@ -104,6 +104,30 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
         return IHistogram::getXaxisValue( binGlobalIndex );
     }
 
+    virtual double getXmax(  ) const  {
+        if( bp::override func_getXmax = this->get_override( "getXmax" ) )
+            return func_getXmax(  );
+        else{
+            return this->IHistogram::getXmax(  );
+        }
+    }
+    
+    double default_getXmax(  ) const  {
+        return IHistogram::getXmax( );
+    }
+
+    virtual double getXmin(  ) const  {
+        if( bp::override func_getXmin = this->get_override( "getXmin" ) )
+            return func_getXmin(  );
+        else{
+            return this->IHistogram::getXmin(  );
+        }
+    }
+    
+    double default_getXmin(  ) const  {
+        return IHistogram::getXmin( );
+    }
+
     virtual ::IAxis const * getYaxis(  ) const  {
         if( bp::override func_getYaxis = this->get_override( "getYaxis" ) )
             return func_getYaxis(  );
@@ -126,6 +150,30 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
     
     double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
         return IHistogram::getYaxisValue( binGlobalIndex );
+    }
+
+    virtual double getYmax(  ) const  {
+        if( bp::override func_getYmax = this->get_override( "getYmax" ) )
+            return func_getYmax(  );
+        else{
+            return this->IHistogram::getYmax(  );
+        }
+    }
+    
+    double default_getYmax(  ) const  {
+        return IHistogram::getYmax( );
+    }
+
+    virtual double getYmin(  ) const  {
+        if( bp::override func_getYmin = this->get_override( "getYmin" ) )
+            return func_getYmin(  );
+        else{
+            return this->IHistogram::getYmin(  );
+        }
+    }
+    
+    double default_getYmin(  ) const  {
+        return IHistogram::getYmin( );
     }
 
     virtual void reset(  ) {
@@ -227,6 +275,28 @@ void register_Histogram1D_class(){
                 , ( bp::arg("binGlobalIndex") ) );
         
         }
+        { //::IHistogram::getXmax
+        
+            typedef double ( ::IHistogram::*getXmax_function_type)(  ) const;
+            typedef double ( Histogram1D_wrapper::*default_getXmax_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "getXmax"
+                , getXmax_function_type(&::IHistogram::getXmax)
+                , default_getXmax_function_type(&Histogram1D_wrapper::default_getXmax) );
+        
+        }
+        { //::IHistogram::getXmin
+        
+            typedef double ( ::IHistogram::*getXmin_function_type)(  ) const;
+            typedef double ( Histogram1D_wrapper::*default_getXmin_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "getXmin"
+                , getXmin_function_type(&::IHistogram::getXmin)
+                , default_getXmin_function_type(&Histogram1D_wrapper::default_getXmin) );
+        
+        }
         { //::IHistogram::getYaxis
         
             typedef ::IAxis const * ( ::IHistogram::*getYaxis_function_type)(  ) const;
@@ -249,6 +319,28 @@ void register_Histogram1D_class(){
                 , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
                 , default_getYaxisValue_function_type(&Histogram1D_wrapper::default_getYaxisValue)
                 , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::getYmax
+        
+            typedef double ( ::IHistogram::*getYmax_function_type)(  ) const;
+            typedef double ( Histogram1D_wrapper::*default_getYmax_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "getYmax"
+                , getYmax_function_type(&::IHistogram::getYmax)
+                , default_getYmax_function_type(&Histogram1D_wrapper::default_getYmax) );
+        
+        }
+        { //::IHistogram::getYmin
+        
+            typedef double ( ::IHistogram::*getYmin_function_type)(  ) const;
+            typedef double ( Histogram1D_wrapper::*default_getYmin_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "getYmin"
+                , getYmin_function_type(&::IHistogram::getYmin)
+                , default_getYmin_function_type(&Histogram1D_wrapper::default_getYmin) );
         
         }
         { //::IHistogram::reset

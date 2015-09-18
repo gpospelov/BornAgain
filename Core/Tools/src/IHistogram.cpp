@@ -63,6 +63,36 @@ const IAxis *IHistogram::getYaxis() const
     return m_data.getAxis(1);
 }
 
+double IHistogram::getXmin() const
+{
+    return getXaxis()->getMin();
+}
+
+double IHistogram::getXmax() const
+{
+    return getXaxis()->getMax();
+}
+
+double IHistogram::getYmin() const
+{
+    return getYaxis()->getMin();
+}
+
+double IHistogram::getYmax() const
+{
+    return getYaxis()->getMax();
+}
+
+int IHistogram::getXaxisIndex(size_t binGlobalIndex) const
+{
+    return m_data.getAxisBinIndex(binGlobalIndex, 0);
+}
+
+int IHistogram::getYaxisIndex(size_t binGlobalIndex) const
+{
+    return m_data.getAxisBinIndex(binGlobalIndex, 1);
+}
+
 double IHistogram::getXaxisValue(size_t binGlobalIndex)
 {
     check_x_axis();
@@ -78,6 +108,16 @@ double IHistogram::getYaxisValue(size_t binGlobalIndex)
 void IHistogram::reset()
 {
     m_data.setAllTo(CumulativeValue());
+}
+
+PyObject *IHistogram::getArray() const
+{
+    OutputData<double> array;
+    array.copyShapeFrom(m_data);
+    for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
+        array[i] = m_data[i].getValue();
+    }
+    return array.getArray();
 }
 
 void IHistogram::check_x_axis() const

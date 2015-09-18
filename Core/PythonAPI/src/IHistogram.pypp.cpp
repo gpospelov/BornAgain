@@ -104,6 +104,30 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
         return IHistogram::getXaxisValue( binGlobalIndex );
     }
 
+    virtual double getXmax(  ) const  {
+        if( bp::override func_getXmax = this->get_override( "getXmax" ) )
+            return func_getXmax(  );
+        else{
+            return this->IHistogram::getXmax(  );
+        }
+    }
+    
+    double default_getXmax(  ) const  {
+        return IHistogram::getXmax( );
+    }
+
+    virtual double getXmin(  ) const  {
+        if( bp::override func_getXmin = this->get_override( "getXmin" ) )
+            return func_getXmin(  );
+        else{
+            return this->IHistogram::getXmin(  );
+        }
+    }
+    
+    double default_getXmin(  ) const  {
+        return IHistogram::getXmin( );
+    }
+
     virtual ::IAxis const * getYaxis(  ) const  {
         if( bp::override func_getYaxis = this->get_override( "getYaxis" ) )
             return func_getYaxis(  );
@@ -126,6 +150,30 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
     
     double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
         return IHistogram::getYaxisValue( binGlobalIndex );
+    }
+
+    virtual double getYmax(  ) const  {
+        if( bp::override func_getYmax = this->get_override( "getYmax" ) )
+            return func_getYmax(  );
+        else{
+            return this->IHistogram::getYmax(  );
+        }
+    }
+    
+    double default_getYmax(  ) const  {
+        return IHistogram::getYmax( );
+    }
+
+    virtual double getYmin(  ) const  {
+        if( bp::override func_getYmin = this->get_override( "getYmin" ) )
+            return func_getYmin(  );
+        else{
+            return this->IHistogram::getYmin(  );
+        }
+    }
+    
+    double default_getYmin(  ) const  {
+        return IHistogram::getYmin( );
     }
 
     virtual void reset(  ) {
@@ -156,6 +204,15 @@ void register_IHistogram_class(){
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
         IHistogram_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("source") )) );
+        { //::IHistogram::getArray
+        
+            typedef ::PyObject * ( ::IHistogram::*getArray_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getArray"
+                , getArray_function_type( &::IHistogram::getArray ) );
+        
+        }
         { //::IHistogram::getBinValue
         
             typedef double ( ::IHistogram::*getBinValue_function_type)( ::std::size_t ) const;
@@ -201,6 +258,16 @@ void register_IHistogram_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::IHistogram::getXaxisIndex
+        
+            typedef int ( ::IHistogram::*getXaxisIndex_function_type)( ::std::size_t ) const;
+            
+            IHistogram_exposer.def( 
+                "getXaxisIndex"
+                , getXaxisIndex_function_type( &::IHistogram::getXaxisIndex )
+                , ( bp::arg("binGlobalIndex") ) );
+        
+        }
         { //::IHistogram::getXaxisValue
         
             typedef double ( ::IHistogram::*getXaxisValue_function_type)( ::std::size_t ) ;
@@ -211,6 +278,28 @@ void register_IHistogram_class(){
                 , getXaxisValue_function_type(&::IHistogram::getXaxisValue)
                 , default_getXaxisValue_function_type(&IHistogram_wrapper::default_getXaxisValue)
                 , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::getXmax
+        
+            typedef double ( ::IHistogram::*getXmax_function_type)(  ) const;
+            typedef double ( IHistogram_wrapper::*default_getXmax_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getXmax"
+                , getXmax_function_type(&::IHistogram::getXmax)
+                , default_getXmax_function_type(&IHistogram_wrapper::default_getXmax) );
+        
+        }
+        { //::IHistogram::getXmin
+        
+            typedef double ( ::IHistogram::*getXmin_function_type)(  ) const;
+            typedef double ( IHistogram_wrapper::*default_getXmin_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getXmin"
+                , getXmin_function_type(&::IHistogram::getXmin)
+                , default_getXmin_function_type(&IHistogram_wrapper::default_getXmin) );
         
         }
         { //::IHistogram::getYaxis
@@ -225,6 +314,16 @@ void register_IHistogram_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::IHistogram::getYaxisIndex
+        
+            typedef int ( ::IHistogram::*getYaxisIndex_function_type)( ::std::size_t ) const;
+            
+            IHistogram_exposer.def( 
+                "getYaxisIndex"
+                , getYaxisIndex_function_type( &::IHistogram::getYaxisIndex )
+                , ( bp::arg("binGlobalIndex") ) );
+        
+        }
         { //::IHistogram::getYaxisValue
         
             typedef double ( ::IHistogram::*getYaxisValue_function_type)( ::std::size_t ) ;
@@ -235,6 +334,28 @@ void register_IHistogram_class(){
                 , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
                 , default_getYaxisValue_function_type(&IHistogram_wrapper::default_getYaxisValue)
                 , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::getYmax
+        
+            typedef double ( ::IHistogram::*getYmax_function_type)(  ) const;
+            typedef double ( IHistogram_wrapper::*default_getYmax_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getYmax"
+                , getYmax_function_type(&::IHistogram::getYmax)
+                , default_getYmax_function_type(&IHistogram_wrapper::default_getYmax) );
+        
+        }
+        { //::IHistogram::getYmin
+        
+            typedef double ( ::IHistogram::*getYmin_function_type)(  ) const;
+            typedef double ( IHistogram_wrapper::*default_getYmin_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getYmin"
+                , getYmin_function_type(&::IHistogram::getYmin)
+                , default_getYmin_function_type(&IHistogram_wrapper::default_getYmin) );
         
         }
         { //::IHistogram::reset

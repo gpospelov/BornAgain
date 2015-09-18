@@ -362,6 +362,10 @@ def ManualClassTunings(mb):
     mb.namespace("BornAgain").free_function("GetVersionNumber").include()
     mb.namespace("BornAgain").free_function("GetName").include()
 
+
+    cl = mb.class_("IHistogram")
+    cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
+
     #
     cl = mb.class_("Histogram2D")
     for fun in cl.member_functions():

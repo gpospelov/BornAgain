@@ -104,6 +104,30 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
         return IHistogram::getXaxisValue( binGlobalIndex );
     }
 
+    virtual double getXmax(  ) const  {
+        if( bp::override func_getXmax = this->get_override( "getXmax" ) )
+            return func_getXmax(  );
+        else{
+            return this->IHistogram::getXmax(  );
+        }
+    }
+    
+    double default_getXmax(  ) const  {
+        return IHistogram::getXmax( );
+    }
+
+    virtual double getXmin(  ) const  {
+        if( bp::override func_getXmin = this->get_override( "getXmin" ) )
+            return func_getXmin(  );
+        else{
+            return this->IHistogram::getXmin(  );
+        }
+    }
+    
+    double default_getXmin(  ) const  {
+        return IHistogram::getXmin( );
+    }
+
     virtual ::IAxis const * getYaxis(  ) const  {
         if( bp::override func_getYaxis = this->get_override( "getYaxis" ) )
             return func_getYaxis(  );
@@ -126,6 +150,30 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
     
     double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
         return IHistogram::getYaxisValue( binGlobalIndex );
+    }
+
+    virtual double getYmax(  ) const  {
+        if( bp::override func_getYmax = this->get_override( "getYmax" ) )
+            return func_getYmax(  );
+        else{
+            return this->IHistogram::getYmax(  );
+        }
+    }
+    
+    double default_getYmax(  ) const  {
+        return IHistogram::getYmax( );
+    }
+
+    virtual double getYmin(  ) const  {
+        if( bp::override func_getYmin = this->get_override( "getYmin" ) )
+            return func_getYmin(  );
+        else{
+            return this->IHistogram::getYmin(  );
+        }
+    }
+    
+    double default_getYmin(  ) const  {
+        return IHistogram::getYmin( );
     }
 
     virtual void reset(  ) {
@@ -160,6 +208,15 @@ void register_Histogram2D_class(){
                 , fill_function_type( &::Histogram2D::fill )
                 , ( bp::arg("x"), bp::arg("y"), bp::arg("weight")=1.0e+0 )
                 , "Increment bin with abscissa x and ordinate y with a weight." );
+        
+        }
+        { //::Histogram2D::getData
+        
+            typedef ::vdouble2d_t ( ::Histogram2D::*getData_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "getData"
+                , getData_function_type( &::Histogram2D::getData ) );
         
         }
         { //::Histogram2D::getRank
@@ -209,6 +266,42 @@ void register_Histogram2D_class(){
                 , "Project a 2D histogram into 1D histogram along X. The projection is made from all y-bins corresponding to ordinate between ylow and yup. The content is either integrated or averaged. @param ylow lower edje on y-axis @param yup upper edje on y-axis @param projectionType defines type of projection (INTEGRAL or AVERAGE) \n\n:Parameters:\n  - 'ylow' - lower edje on y-axis\n  - 'yup' - upper edje on y-axis\n  - 'projectionType' - defines type of projection (INTEGRAL or AVERAGE)\n" );
         
         }
+        { //::Histogram2D::projectionY
+        
+            typedef ::Histogram1D * ( ::Histogram2D::*projectionY_function_type)( ::IHistogram::ProjectionType ) ;
+            
+            Histogram2D_exposer.def( 
+                "projectionY"
+                , projectionY_function_type( &::Histogram2D::projectionY )
+                , ( bp::arg("projectionType")=::IHistogram::INTEGRAL )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Project a 2D histogram into 1D histogram along Y. The projection is made from all bins along x-axis. The content is either integrated or averaged. @param projectionType defines type of projection (INTEGRAL or AVERAGE) \n\n:Parameters:\n  - 'projectionType' - defines type of projection (INTEGRAL or AVERAGE)\n" );
+        
+        }
+        { //::Histogram2D::projectionY
+        
+            typedef ::Histogram1D * ( ::Histogram2D::*projectionY_function_type)( double ) ;
+            
+            Histogram2D_exposer.def( 
+                "projectionY"
+                , projectionY_function_type( &::Histogram2D::projectionY )
+                , ( bp::arg("xvalue") )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Project a 2D histogram into 1D histogram along Y. The projection is made from the x-bin corresponding to abscissa xvalue. @param xvalue the value on x-axis at which projection is taken \n\n:Parameters:\n  - 'xvalue' - the value on x-axis at which projection is taken\n" );
+        
+        }
+        { //::Histogram2D::projectionY
+        
+            typedef ::Histogram1D * ( ::Histogram2D::*projectionY_function_type)( double,double,::IHistogram::ProjectionType ) ;
+            
+            Histogram2D_exposer.def( 
+                "projectionY"
+                , projectionY_function_type( &::Histogram2D::projectionY )
+                , ( bp::arg("xlow"), bp::arg("xup"), bp::arg("projectionType")=::IHistogram::INTEGRAL )
+                , bp::return_value_policy< bp::manage_new_object >()
+                , "Project a 2D histogram into 1D histogram along Y. The projection is made from all x-bins corresponding to abscissa between xlow and xup. The content is either integrated or averaged. @param xlow lower edje on x-axis @param xup upper edje on x-axis @param projectionType defines type of projection (INTEGRAL or AVERAGE) \n\n:Parameters:\n  - 'xlow' - lower edje on x-axis\n  - 'xup' - upper edje on x-axis\n  - 'projectionType' - defines type of projection (INTEGRAL or AVERAGE)\n" );
+        
+        }
         { //::IHistogram::getTotalNumberOfBins
         
             typedef ::std::size_t ( ::IHistogram::*getTotalNumberOfBins_function_type)(  ) const;
@@ -244,6 +337,28 @@ void register_Histogram2D_class(){
                 , ( bp::arg("binGlobalIndex") ) );
         
         }
+        { //::IHistogram::getXmax
+        
+            typedef double ( ::IHistogram::*getXmax_function_type)(  ) const;
+            typedef double ( Histogram2D_wrapper::*default_getXmax_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "getXmax"
+                , getXmax_function_type(&::IHistogram::getXmax)
+                , default_getXmax_function_type(&Histogram2D_wrapper::default_getXmax) );
+        
+        }
+        { //::IHistogram::getXmin
+        
+            typedef double ( ::IHistogram::*getXmin_function_type)(  ) const;
+            typedef double ( Histogram2D_wrapper::*default_getXmin_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "getXmin"
+                , getXmin_function_type(&::IHistogram::getXmin)
+                , default_getXmin_function_type(&Histogram2D_wrapper::default_getXmin) );
+        
+        }
         { //::IHistogram::getYaxis
         
             typedef ::IAxis const * ( ::IHistogram::*getYaxis_function_type)(  ) const;
@@ -266,6 +381,28 @@ void register_Histogram2D_class(){
                 , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
                 , default_getYaxisValue_function_type(&Histogram2D_wrapper::default_getYaxisValue)
                 , ( bp::arg("binGlobalIndex") ) );
+        
+        }
+        { //::IHistogram::getYmax
+        
+            typedef double ( ::IHistogram::*getYmax_function_type)(  ) const;
+            typedef double ( Histogram2D_wrapper::*default_getYmax_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "getYmax"
+                , getYmax_function_type(&::IHistogram::getYmax)
+                , default_getYmax_function_type(&Histogram2D_wrapper::default_getYmax) );
+        
+        }
+        { //::IHistogram::getYmin
+        
+            typedef double ( ::IHistogram::*getYmin_function_type)(  ) const;
+            typedef double ( Histogram2D_wrapper::*default_getYmin_function_type)(  ) const;
+            
+            Histogram2D_exposer.def( 
+                "getYmin"
+                , getYmin_function_type(&::IHistogram::getYmin)
+                , default_getYmin_function_type(&Histogram2D_wrapper::default_getYmin) );
         
         }
         { //::IHistogram::reset

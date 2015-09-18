@@ -17,7 +17,15 @@
 #define HISTOGRAM2D_H
 
 #include "IHistogram.h"
+#include "Types.h"
 class Histogram1D;
+
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
 
 ////! @class Histogram2D
 ////! @ingroup tools
@@ -55,6 +63,7 @@ public:
     //! Increment bin with abscissa x and ordinate y with a weight.
     int fill(double x, double y, double weight = 1.0);
 
+
     //! Project a 2D histogram into 1D histogram along X. The projection is made
     //! from all bins along y-axis. The content is either integrated or averaged.
     //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
@@ -72,6 +81,29 @@ public:
     //! @param yup upper edje on y-axis
     //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
     Histogram1D *projectionX(double ylow, double yup, ProjectionType projectionType = INTEGRAL);
+
+
+    //! Project a 2D histogram into 1D histogram along Y. The projection is made
+    //! from all bins along x-axis. The content is either integrated or averaged.
+    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
+    Histogram1D *projectionY(ProjectionType projectionType = INTEGRAL);
+
+    //! Project a 2D histogram into 1D histogram along Y. The projection is made
+    //! from the x-bin corresponding to abscissa xvalue.
+    //! @param xvalue the value on x-axis at which projection is taken
+    Histogram1D *projectionY(double xvalue);
+
+    //! Project a 2D histogram into 1D histogram along Y. The projection is made from
+    //! all x-bins corresponding to abscissa between xlow and xup.
+    //! The content is either integrated or averaged.
+    //! @param xlow lower edje on x-axis
+    //! @param xup upper edje on x-axis
+    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
+    Histogram1D *projectionY(double xlow, double xup, ProjectionType projectionType = INTEGRAL);
+
+
+
+    vdouble2d_t getData() const;
 
 //    //! Project a 2D histogram into 1D histogram along Y.
 //    Histogram1D *projectionY(ProjectionType = INTEGRAL);
@@ -104,6 +136,15 @@ public:
 
 //    //! Reset this object (intensities, masks, etc)
 //    void reset();
+
+protected:
+    //! Creates projection along X. The projections is made by collecting the data in the range
+    //! between [ybinlow, ybinup].
+    Histogram1D *create_projectionX(int ybinlow, int ybinup, ProjectionType projectionType = INTEGRAL);
+
+    //! Creates projection along Y. The projections is made by collecting the data in the range
+    //! between [xbinlow, xbinup].
+    Histogram1D *create_projectionY(int xbinlow, int xbinup, ProjectionType projectionType = INTEGRAL);
 
 };
 

@@ -19,6 +19,13 @@
 #include "OutputData.h"
 #include "CumulativeValue.h"
 
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
+
 //! @class IHistogram
 //! @ingroup tools
 //! @brief Base class for 1D and 2D histograms holding values of double type
@@ -51,6 +58,15 @@ public:
     //! returns y-axis (throws an exception for 1D histograms)
     virtual const IAxis *getYaxis() const;
 
+
+    virtual double getXmin() const;
+    virtual double getXmax() const;
+    virtual double getYmin() const;
+    virtual double getYmax() const;
+
+    int getXaxisIndex(size_t binGlobalIndex) const;
+    int getYaxisIndex(size_t binGlobalIndex) const;
+
     //! Returns the value on x-axis corresponding to the global bin index.
     //! @param binGlobalIndex The global bin index
     virtual double getXaxisValue(size_t binGlobalIndex);
@@ -61,6 +77,10 @@ public:
 
     //! Reset histogram content (axes remains)
     virtual void reset();
+
+#ifdef BORNAGAIN_PYTHON
+    PyObject *getArray() const;
+#endif
 
 protected:
     void check_x_axis() const;

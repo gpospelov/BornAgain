@@ -65,46 +65,91 @@ int Histogram2D::fill(double x, double y, double weight)
 
 Histogram1D *Histogram2D::projectionX(IHistogram::ProjectionType projectionType)
 {
-    Histogram1D *result = new Histogram1D(*this->getXaxis());
-
-    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
-        double x = getXaxisValue(index);
-        result->fill(x, getBinValue(index));
-    }
-
-    return result;
+    return create_projectionX(0, getXaxis()->getSize()-1, projectionType);
 }
 
 Histogram1D *Histogram2D::projectionX(double yvalue)
 {
-    Histogram1D *result = new Histogram1D(*this->getXaxis());
-
     int ybin_selected = getYaxis()->findClosestIndex(yvalue);
-    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
-        int ybin_current = m_data.getAxisBinIndex(index, 1);
-        if(ybin_selected == ybin_current) {
-            double x = getXaxisValue(index);
-            result->fill(x, getBinValue(index));
+    return create_projectionX(ybin_selected, ybin_selected);
+}
+
+Histogram1D *Histogram2D::projectionX(double ylow, double yup, IHistogram::ProjectionType projectionType)
+{
+    int ybinlow = getYaxis()->findClosestIndex(ylow);
+    int ybinup = getYaxis()->findClosestIndex(yup);
+    return create_projectionX(ybinlow, ybinup, projectionType);
+}
+
+Histogram1D *Histogram2D::projectionY(IHistogram::ProjectionType projectionType)
+{
+    return create_projectionX(0, getYaxis()->getSize()-1, projectionType);
+}
+
+Histogram1D *Histogram2D::projectionY(double xvalue)
+{
+    int xbin_selected = getXaxis()->findClosestIndex(xvalue);
+    return create_projectionY(xbin_selected, xbin_selected);
+}
+
+Histogram1D *Histogram2D::projectionY(double xlow, double xup, IHistogram::ProjectionType projectionType)
+{
+    int xbinlow = getXaxis()->findClosestIndex(xlow);
+    int xbinup = getXaxis()->findClosestIndex(xup);
+    return create_projectionY(xbinlow, xbinup, projectionType);
+}
+
+
+vdouble2d_t Histogram2D::getData() const
+{
+    vdouble2d_t result;
+    result.resize(getXaxis()->getSize());
+
+    vdouble1d_t column;
+    column.resize(getYaxis()->getSize());
+
+    for(size_t i=0; i< result.size(); ++i) {
+        result[i] = column;
+    }
+
+    size_t index = 0;
+    for (size_t ix=0; ix<getXaxis()->getSize(); ++ix) {
+        for(size_t iy=0; iy<getYaxis()->getSize(); ++iy) {
+            result[ix][iy] = m_data[index].getValue();
+            ++index;
         }
     }
 
     return result;
 }
 
-Histogram1D *Histogram2D::projectionX(double ylow, double yup, IHistogram::ProjectionType projectionType)
+Histogram1D *Histogram2D::create_projectionX(int ybinlow, int ybinup, IHistogram::ProjectionType projectionType)
 {
     Histogram1D *result = new Histogram1D(*this->getXaxis());
 
     for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
 
-        double ybin = getYaxisValue(index);
+        int ybin = getYaxisIndex(index);
 
-        if(ybin >= ylow && ybin <= yup) {
-            double x = getXaxisValue(index);
-            result->fill(x, getBinValue(index));
+        if(ybin >= ybinlow && ybin <= ybinup) {
+            result->fill(getXaxisValue(index), getBinValue(index));
         }
     }
+    return result;
+}
 
+Histogram1D *Histogram2D::create_projectionY(int xbinlow, int xbinup, IHistogram::ProjectionType projectionType)
+{
+    Histogram1D *result = new Histogram1D(*this->getYaxis());
+
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+
+        int xbin = getXaxisIndex(index);
+
+        if(xbin >= xbinlow && xbin <= xbinup) {
+            result->fill(getYaxisValue(index), getBinValue(index));
+        }
+    }
     return result;
 }
 

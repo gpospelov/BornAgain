@@ -359,7 +359,7 @@ size_t OutputData<T>::getAxisSerialNumber(const std::string &axis_name) const
         if (m_value_axes[i]->getName() == axis_name) return i;
     }
     throw LogicErrorException(
-        "OutputData<T>::getAxisIndex() -> "
+        "OutputData<T>::getAxisSerialNumber() -> "
         "Error! Axis with given name not found '"+axis_name+std::string("'"));
 }
 
@@ -474,7 +474,7 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
         if(i_selected_axis == i_axis ) return result;
         remainder /= m_value_axes[i_axis]->getSize();
     }
-    throw LogicErrorException("OutputData<T>::toCoordinate() -> "
+    throw LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
                               "Error! No axis with given number");
 }
 
@@ -491,7 +491,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     assert(mp_ll_data);
     if (axes_indices.size() != mp_ll_data->getRank())
         throw LogicErrorException(
-                    "size_t OutputData<T>::toIndex() -> "
+                    "size_t OutputData<T>::toGlobalIndex() -> "
                     "Error! Number of coordinates must match "
                     "rank of data structure");
     size_t result = 0;
@@ -500,7 +500,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     {
         if(axes_indices[i-1] < 0 || axes_indices[i-1] >=m_value_axes[i-1]->getSize()) {
             std::ostringstream message;
-            message << "size_t OutputData<T>::toIndex() -> Error. Index ";
+            message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
             message << axes_indices[i-1] << " is out of range. Axis ";
             message << m_value_axes[i-1]->getName();
             message << " size " << m_value_axes[i-1]->getSize() << ".\n";
@@ -553,7 +553,7 @@ Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_nam
         }
     }
     throw LogicErrorException(
-                "OutputData<T>::getBinOfAxis() -> "
+                "OutputData<T>::getAxisBin() -> "
                 "Error! Axis with given name not found '" + axis_name + "'");
 }
 

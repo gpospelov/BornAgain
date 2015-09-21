@@ -92,16 +92,16 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
         return IHistogram::getXaxis( );
     }
 
-    virtual double getXaxisValue( ::std::size_t binGlobalIndex ) {
+    virtual double getXaxisValue( ::std::size_t globalbin ) {
         if( bp::override func_getXaxisValue = this->get_override( "getXaxisValue" ) )
-            return func_getXaxisValue( binGlobalIndex );
+            return func_getXaxisValue( globalbin );
         else{
-            return this->IHistogram::getXaxisValue( binGlobalIndex );
+            return this->IHistogram::getXaxisValue( globalbin );
         }
     }
     
-    double default_getXaxisValue( ::std::size_t binGlobalIndex ) {
-        return IHistogram::getXaxisValue( binGlobalIndex );
+    double default_getXaxisValue( ::std::size_t globalbin ) {
+        return IHistogram::getXaxisValue( globalbin );
     }
 
     virtual double getXmax(  ) const  {
@@ -140,16 +140,16 @@ struct Histogram1D_wrapper : Histogram1D, bp::wrapper< Histogram1D > {
         return IHistogram::getYaxis( );
     }
 
-    virtual double getYaxisValue( ::std::size_t binGlobalIndex ) {
+    virtual double getYaxisValue( ::std::size_t globalbin ) {
         if( bp::override func_getYaxisValue = this->get_override( "getYaxisValue" ) )
-            return func_getYaxisValue( binGlobalIndex );
+            return func_getYaxisValue( globalbin );
         else{
-            return this->IHistogram::getYaxisValue( binGlobalIndex );
+            return this->IHistogram::getYaxisValue( globalbin );
         }
     }
     
-    double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
-        return IHistogram::getYaxisValue( binGlobalIndex );
+    double default_getYaxisValue( ::std::size_t globalbin ) {
+        return IHistogram::getYaxisValue( globalbin );
     }
 
     virtual double getYmax(  ) const  {
@@ -220,6 +220,15 @@ void register_Histogram1D_class(){
                 , "Increment bin with abscissa x with a weight." );
         
         }
+        { //::Histogram1D::getBinErrors
+        
+            typedef ::std::vector< double > ( ::Histogram1D::*getBinErrors_function_type)(  ) const;
+            
+            Histogram1D_exposer.def( 
+                "getBinErrors"
+                , getBinErrors_function_type( &::Histogram1D::getBinErrors ) );
+        
+        }
         { //::Histogram1D::getBinValues
         
             typedef ::std::vector< double > ( ::Histogram1D::*getBinValues_function_type)(  ) const;
@@ -272,7 +281,7 @@ void register_Histogram1D_class(){
                 "getXaxisValue"
                 , getXaxisValue_function_type(&::IHistogram::getXaxisValue)
                 , default_getXaxisValue_function_type(&Histogram1D_wrapper::default_getXaxisValue)
-                , ( bp::arg("binGlobalIndex") ) );
+                , ( bp::arg("globalbin") ) );
         
         }
         { //::IHistogram::getXmax
@@ -318,7 +327,7 @@ void register_Histogram1D_class(){
                 "getYaxisValue"
                 , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
                 , default_getYaxisValue_function_type(&Histogram1D_wrapper::default_getYaxisValue)
-                , ( bp::arg("binGlobalIndex") ) );
+                , ( bp::arg("globalbin") ) );
         
         }
         { //::IHistogram::getYmax

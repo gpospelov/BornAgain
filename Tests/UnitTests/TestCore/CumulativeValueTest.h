@@ -73,7 +73,6 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights)
     EXPECT_DOUBLE_EQ(10.0, cv1.getValue());
     EXPECT_DOUBLE_EQ(2.0, cv1.getAverage());
     EXPECT_FLOAT_EQ(1.0, cv1.getRMS());
-
 }
 
 

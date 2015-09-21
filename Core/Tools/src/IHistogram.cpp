@@ -18,6 +18,7 @@
 #include "VariableBinAxis.h"
 #include "Exceptions.h"
 #include <sstream>
+#include <boost/assign/list_of.hpp>
 
 IHistogram::IHistogram(const IAxis &axis_x)
 {
@@ -46,10 +47,10 @@ size_t IHistogram::getTotalNumberOfBins() const
     return m_data.getAllocatedSize();
 }
 
-double IHistogram::getBinValue(size_t binGlobalIndex) const
-{
-    return m_data[binGlobalIndex].getValue();
-}
+//double IHistogram::getBinValue(size_t binGlobalIndex) const
+//{
+//    return m_data[binGlobalIndex].getValue();
+//}
 
 const IAxis *IHistogram::getXaxis() const
 {
@@ -83,31 +84,64 @@ double IHistogram::getYmax() const
     return getYaxis()->getMax();
 }
 
-int IHistogram::getXaxisIndex(size_t binGlobalIndex) const
+int IHistogram::getGlobalBin(int binx, int biny) const
 {
-    return m_data.getAxisBinIndex(binGlobalIndex, 0);
+    std::vector<int > axes_indices;
+    axes_indices.push_back(binx);
+    if(getRank() == 2) axes_indices.push_back(biny);
+    return m_data.toGlobalIndex(axes_indices);
 }
 
-int IHistogram::getYaxisIndex(size_t binGlobalIndex) const
+int IHistogram::getXaxisIndex(size_t globalbin) const
 {
-    return m_data.getAxisBinIndex(binGlobalIndex, 1);
+    return m_data.getAxisBinIndex(globalbin, 0);
 }
 
-double IHistogram::getXaxisValue(size_t binGlobalIndex)
+int IHistogram::getYaxisIndex(size_t globalbin) const
+{
+    return m_data.getAxisBinIndex(globalbin, 1);
+}
+
+double IHistogram::getXaxisValue(size_t globalbin)
 {
     check_x_axis();
-    return m_data.getAxisValue(binGlobalIndex, 0);
+    return m_data.getAxisValue(globalbin, 0);
 }
 
-double IHistogram::getYaxisValue(size_t binGlobalIndex)
+double IHistogram::getYaxisValue(size_t globalbin)
 {
     check_y_axis();
-    return m_data.getAxisValue(binGlobalIndex, 1);
+    return m_data.getAxisValue(globalbin, 1);
 }
 
-void IHistogram::reset()
+double IHistogram::getBinContent(int bin) const
 {
-    m_data.setAllTo(CumulativeValue());
+    return m_data[bin].getValue();
+}
+
+double IHistogram::getBinContent(int binx, int biny) const
+{
+    return getBinContent(getGlobalBin(binx, biny));
+}
+
+double IHistogram::getBinError(int bin) const
+{
+    return m_data[bin].getRMS();
+}
+
+double IHistogram::getBinError(int binx, int biny) const
+{
+    return getBinError(getGlobalBin(binx, biny));
+}
+
+int IHistogram::getBinNumberOfEntries(int bin) const
+{
+    return m_data[bin].getNumberOfEntries();
+}
+
+int IHistogram::getBinNumberOfEntries(int binx, int biny) const
+{
+    return getBinNumberOfEntries(getGlobalBin(binx, biny));
 }
 
 PyObject *IHistogram::getArray() const
@@ -119,6 +153,12 @@ PyObject *IHistogram::getArray() const
     }
     return array.getArray();
 }
+
+void IHistogram::reset()
+{
+    m_data.setAllTo(CumulativeValue());
+}
+
 
 void IHistogram::check_x_axis() const
 {

@@ -57,8 +57,24 @@ PyObject *OutputData<double>::getArray() const
         *array_buffer++ = (*this)[index];
     }
 
+//    for(size_t index=0; index<getAllocatedSize(); ++index) {
+
+//        std::vector<int> indices = getAxesBinIndices(index);
+//        int offset(0);
+//        int step_size = 1;
+//        for(size_t i_axis=0; i_axis<getRank(); ++i_axis ) {
+//            offset += indices[i_axis]*step_size;
+//            step_size *= dimensions[i_axis];
+//        }
+//        std::cout << index << " offset" << offset << std::endl;
+
+//        *(array_buffer+offset) = (*this)[index];
+//    }
+
     return pyarray;
 }
+
+
 
 #endif
 

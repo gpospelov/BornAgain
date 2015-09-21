@@ -66,9 +66,19 @@ std::vector<double> Histogram1D::getBinCenters() const
 std::vector<double> Histogram1D::getBinValues() const
 {
     std::vector<double> result;
-    result.resize(getXaxis()->getSize(), 0.0);
-    for(size_t index = 0; index<m_data.getAllocatedSize(); ++index) {
-        result[index] = m_data[index].getValue();
+    result.resize(getTotalNumberOfBins(), 0.0);
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        result[index] = getBinContent(index);
+    }
+    return result;
+}
+
+std::vector<double> Histogram1D::getBinErrors() const
+{
+    std::vector<double> result;
+    result.resize(getTotalNumberOfBins(), 0.0);
+    for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
+        result[index] = getBinError(index);
     }
     return result;
 }

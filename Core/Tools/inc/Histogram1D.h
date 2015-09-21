@@ -51,6 +51,9 @@ public:
     std::vector<double> getBinCenters() const;
 
     std::vector<double> getBinValues() const;
+
+    std::vector<double> getBinErrors() const;
+
 };
 
 

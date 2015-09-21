@@ -48,39 +48,84 @@ public:
 
     //! Returns total number of histogram bins. For 2D histograms the result will be the product
     //! of bin numbers along X and Y axes.
-    virtual size_t getTotalNumberOfBins() const;
-
-    double getBinValue(size_t binGlobalIndex) const;
+    size_t getTotalNumberOfBins() const;
 
     //! returns x-axis
-    virtual const IAxis *getXaxis() const;
+    const IAxis *getXaxis() const;
 
-    //! returns y-axis (throws an exception for 1D histograms)
-    virtual const IAxis *getYaxis() const;
+    //! returns y-axis for 2D histograms
+    const IAxis *getYaxis() const;
+
+    //! Returns x-axis min (lower edge of first bin).
+    double getXmin() const;
+
+    //! Returns x-axis max (upper edge of last bin).
+    double getXmax() const;
+
+    //! Returns y-axis min (lower edge of first bin) for 2D histograms.
+    double getYmin() const;
+
+    //! Returns y-axis max (upper edge of last bin) for 2D histograms.
+    double getYmax() const;
+
+    //! Returns global bin index for given axes indices. For 1D histogram the global bin
+    //! index coinside with axis index.
+    //! @param binx X-axis bin index
+    //! @param biny Y-axis bin index
+    //! @return The global bin index
+    int getGlobalBin(int binx, int biny = 0) const;
+
+    //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
+    //! with globalbin value
+    int getXaxisIndex(size_t globalbin) const;
 
 
-    virtual double getXmin() const;
-    virtual double getXmax() const;
-    virtual double getYmin() const;
-    virtual double getYmax() const;
-
-    int getXaxisIndex(size_t binGlobalIndex) const;
-    int getYaxisIndex(size_t binGlobalIndex) const;
+    //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
+    //! with globalbin value
+    int getYaxisIndex(size_t globalbin) const;
 
     //! Returns the value on x-axis corresponding to the global bin index.
     //! @param binGlobalIndex The global bin index
-    virtual double getXaxisValue(size_t binGlobalIndex);
+    //! @return The center of axis's corresponding bin
+    double getXaxisValue(size_t globalbin);
 
-    //! Returns the value on y-axis corresponding to the global bin index.
+    //! Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
     //! @param globalbin The global bin index
-    virtual double getYaxisValue(size_t binGlobalIndex);
+    //! @return The center of axis's corresponding bin
+    double getYaxisValue(size_t globalbin);
 
-    //! Reset histogram content (axes remains)
-    virtual void reset();
+
+    //! Returns content of the bin with given index. For 1D histograms bin index is related
+    //! to x-axis. For 2D histograms bin index is global bin index.
+    //! @param bin Bin index
+    //! @return The content of the bin (which is normally the value accumulated by the bin)
+    double getBinContent(int bin) const;
+
+    //! Returns content of the bin of 2D histogram with given axes indices.
+    //! @param binx X-axis bin index
+    //! @param biny Y-axis bin index
+    //! @return The content of the bin (which is normally the value accumulated by the bin)
+    double getBinContent(int binx, int biny) const;
+
+    //! Returns error of the bin with given index.
+    double getBinError(int bin) const;
+
+    //! Returns error of the bin of 2D histogram with given axes indices.
+    double getBinError(int binx, int biny) const;
+
+    //! Returns number of entries in the bin with given index.
+    int getBinNumberOfEntries(int bin) const;
+
+    //! Returns number of entries in the bin of 2D histogram with given axes indices.
+    int getBinNumberOfEntries(int binx, int biny) const;
+
 
 #ifdef BORNAGAIN_PYTHON
     PyObject *getArray() const;
 #endif
+
+    //! Reset histogram content (axes remains)
+    virtual void reset();
 
 protected:
     void check_x_axis() const;

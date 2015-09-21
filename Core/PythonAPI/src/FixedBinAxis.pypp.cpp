@@ -95,6 +95,18 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::getBinBoundaries( );
     }
 
+    virtual double getBinCenter( ::std::size_t index ) const  {
+        if( bp::override func_getBinCenter = this->get_override( "getBinCenter" ) )
+            return func_getBinCenter( index );
+        else{
+            return this->FixedBinAxis::getBinCenter( index );
+        }
+    }
+    
+    double default_getBinCenter( ::std::size_t index ) const  {
+        return FixedBinAxis::getBinCenter( index );
+    }
+
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
@@ -247,6 +259,18 @@ void register_FixedBinAxis_class(){
                 "getBinBoundaries"
                 , getBinBoundaries_function_type(&::FixedBinAxis::getBinBoundaries)
                 , default_getBinBoundaries_function_type(&FixedBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::FixedBinAxis::getBinCenter
+        
+            typedef double ( ::FixedBinAxis::*getBinCenter_function_type)( ::std::size_t ) const;
+            typedef double ( FixedBinAxis_wrapper::*default_getBinCenter_function_type)( ::std::size_t ) const;
+            
+            FixedBinAxis_exposer.def( 
+                "getBinCenter"
+                , getBinCenter_function_type(&::FixedBinAxis::getBinCenter)
+                , default_getBinCenter_function_type(&FixedBinAxis_wrapper::default_getBinCenter)
+                , ( bp::arg("index") ) );
         
         }
         { //::FixedBinAxis::getBinCenters

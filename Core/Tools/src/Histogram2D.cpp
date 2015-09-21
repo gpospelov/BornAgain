@@ -17,7 +17,7 @@
 #include "Histogram1D.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
-
+#include <boost/scoped_ptr.hpp>
 
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 {
@@ -99,29 +99,51 @@ Histogram1D *Histogram2D::projectionY(double xlow, double xup, IHistogram::Proje
     return create_projectionY(xbinlow, xbinup, projectionType);
 }
 
-
-vdouble2d_t Histogram2D::getData() const
+Histogram2D *Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 {
-    vdouble2d_t result;
-    result.resize(getXaxis()->getSize());
+    boost::scoped_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
+    boost::scoped_ptr<IAxis > yaxis(getYaxis()->createClippedAxis(ymin, ymax));
 
-    vdouble1d_t column;
-    column.resize(getYaxis()->getSize());
-
-    for(size_t i=0; i< result.size(); ++i) {
-        result[i] = column;
-    }
-
-    size_t index = 0;
-    for (size_t ix=0; ix<getXaxis()->getSize(); ++ix) {
-        for(size_t iy=0; iy<getYaxis()->getSize(); ++iy) {
-            result[ix][iy] = m_data[index].getValue();
-            ++index;
+    Histogram2D *result = new Histogram2D(*xaxis, *yaxis);
+    OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
+    OutputData<CumulativeValue>::iterator it_result = result->m_data.begin();
+    while (it_origin != m_data.end())
+    {
+        double x = m_data.getAxisValue(it_origin.getIndex(), 0);
+        double y = m_data.getAxisValue(it_origin.getIndex(), 1);
+        if(result->getXaxis()->contains(x) && result->getYaxis()->contains(y)) {
+            *it_result = *it_origin;
+            ++it_result;
         }
+        ++it_origin;
     }
-
     return result;
 }
+
+
+
+//vdouble2d_t Histogram2D::getData() const
+//{
+//    vdouble2d_t result;
+//    result.resize(getXaxis()->getSize());
+
+//    vdouble1d_t column;
+//    column.resize(getYaxis()->getSize());
+
+//    for(size_t i=0; i< result.size(); ++i) {
+//        result[i] = column;
+//    }
+
+//    size_t index = 0;
+//    for (size_t ix=0; ix<getXaxis()->getSize(); ++ix) {
+//        for(size_t iy=0; iy<getYaxis()->getSize(); ++iy) {
+//            result[ix][iy] = m_data[index].getValue();
+//            ++index;
+//        }
+//    }
+
+//    return result;
+//}
 
 Histogram1D *Histogram2D::create_projectionX(int ybinlow, int ybinup, IHistogram::ProjectionType projectionType)
 {
@@ -132,7 +154,7 @@ Histogram1D *Histogram2D::create_projectionX(int ybinlow, int ybinup, IHistogram
         int ybin = getYaxisIndex(index);
 
         if(ybin >= ybinlow && ybin <= ybinup) {
-            result->fill(getXaxisValue(index), getBinValue(index));
+            result->fill(getXaxisValue(index), getBinContent(index));
         }
     }
     return result;
@@ -147,7 +169,7 @@ Histogram1D *Histogram2D::create_projectionY(int xbinlow, int xbinup, IHistogram
         int xbin = getXaxisIndex(index);
 
         if(xbin >= xbinlow && xbin <= xbinup) {
-            result->fill(getYaxisValue(index), getBinValue(index));
+            result->fill(getYaxisValue(index), getBinContent(index));
         }
     }
     return result;

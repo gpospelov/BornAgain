@@ -92,16 +92,16 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
         return IHistogram::getXaxis( );
     }
 
-    virtual double getXaxisValue( ::std::size_t binGlobalIndex ) {
+    virtual double getXaxisValue( ::std::size_t globalbin ) {
         if( bp::override func_getXaxisValue = this->get_override( "getXaxisValue" ) )
-            return func_getXaxisValue( binGlobalIndex );
+            return func_getXaxisValue( globalbin );
         else{
-            return this->IHistogram::getXaxisValue( binGlobalIndex );
+            return this->IHistogram::getXaxisValue( globalbin );
         }
     }
     
-    double default_getXaxisValue( ::std::size_t binGlobalIndex ) {
-        return IHistogram::getXaxisValue( binGlobalIndex );
+    double default_getXaxisValue( ::std::size_t globalbin ) {
+        return IHistogram::getXaxisValue( globalbin );
     }
 
     virtual double getXmax(  ) const  {
@@ -140,16 +140,16 @@ struct Histogram2D_wrapper : Histogram2D, bp::wrapper< Histogram2D > {
         return IHistogram::getYaxis( );
     }
 
-    virtual double getYaxisValue( ::std::size_t binGlobalIndex ) {
+    virtual double getYaxisValue( ::std::size_t globalbin ) {
         if( bp::override func_getYaxisValue = this->get_override( "getYaxisValue" ) )
-            return func_getYaxisValue( binGlobalIndex );
+            return func_getYaxisValue( globalbin );
         else{
-            return this->IHistogram::getYaxisValue( binGlobalIndex );
+            return this->IHistogram::getYaxisValue( globalbin );
         }
     }
     
-    double default_getYaxisValue( ::std::size_t binGlobalIndex ) {
-        return IHistogram::getYaxisValue( binGlobalIndex );
+    double default_getYaxisValue( ::std::size_t globalbin ) {
+        return IHistogram::getYaxisValue( globalbin );
     }
 
     virtual double getYmax(  ) const  {
@@ -199,6 +199,18 @@ void register_Histogram2D_class(){
         Histogram2D_exposer.def( bp::init< int, std::vector< double > const &, int, std::vector< double > const & >(( bp::arg("nbinsx"), bp::arg("xbins"), bp::arg("nbinsy"), bp::arg("ybins") ), "Constructor for variable bin size histograms. @param nbinsx number of bins on X-axis @param xbins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. @param nbinsy number of bins on Y-axis @param ybins Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. \n\n:Parameters:\n  - 'nbinsx' - number of bins on X-axis\n  - 'xbins' - Array of size nbins+1 containing low-edges for each\n  - 'nbinsy' - number of bins on Y-axis\n  - 'ybins' - Array of size nbins+1 containing low-edges for each\n") );
         Histogram2D_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") ), "Constructor for 2D histogram with custom axes.") );
         Histogram2D_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("data") ), "Constructor for 2D histograms from basic OutputData object.") );
+        { //::Histogram2D::crop
+        
+            typedef ::Histogram2D * ( ::Histogram2D::*crop_function_type)( double,double,double,double ) ;
+            
+            Histogram2D_exposer.def( 
+                "crop"
+                , crop_function_type( &::Histogram2D::crop )
+                , ( bp::arg("xmin"), bp::arg("ymin"), bp::arg("xmax"), bp::arg("ymax") )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "Create new histogram by applying rectangular clip." );
+        
+        }
         { //::Histogram2D::fill
         
             typedef int ( ::Histogram2D::*fill_function_type)( double,double,double ) ;
@@ -208,15 +220,6 @@ void register_Histogram2D_class(){
                 , fill_function_type( &::Histogram2D::fill )
                 , ( bp::arg("x"), bp::arg("y"), bp::arg("weight")=1.0e+0 )
                 , "Increment bin with abscissa x and ordinate y with a weight." );
-        
-        }
-        { //::Histogram2D::getData
-        
-            typedef ::vdouble2d_t ( ::Histogram2D::*getData_function_type)(  ) const;
-            
-            Histogram2D_exposer.def( 
-                "getData"
-                , getData_function_type( &::Histogram2D::getData ) );
         
         }
         { //::Histogram2D::getRank
@@ -334,7 +337,7 @@ void register_Histogram2D_class(){
                 "getXaxisValue"
                 , getXaxisValue_function_type(&::IHistogram::getXaxisValue)
                 , default_getXaxisValue_function_type(&Histogram2D_wrapper::default_getXaxisValue)
-                , ( bp::arg("binGlobalIndex") ) );
+                , ( bp::arg("globalbin") ) );
         
         }
         { //::IHistogram::getXmax
@@ -380,7 +383,7 @@ void register_Histogram2D_class(){
                 "getYaxisValue"
                 , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
                 , default_getYaxisValue_function_type(&Histogram2D_wrapper::default_getYaxisValue)
-                , ( bp::arg("binGlobalIndex") ) );
+                , ( bp::arg("globalbin") ) );
         
         }
         { //::IHistogram::getYmax

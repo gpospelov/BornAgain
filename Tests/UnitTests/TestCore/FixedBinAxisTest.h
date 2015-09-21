@@ -140,6 +140,11 @@ TEST_F(FixedBinAxisTest, BinCenters)
     EXPECT_DOUBLE_EQ(-1.0, centers[0]);
     EXPECT_DOUBLE_EQ(0.0, centers[1]);
     EXPECT_DOUBLE_EQ(1.0, centers[2]);
+
+    EXPECT_DOUBLE_EQ(axis.getBinCenter(0), centers[0]);
+    EXPECT_DOUBLE_EQ(axis.getBinCenter(1), centers[1]);
+    EXPECT_DOUBLE_EQ(axis.getBinCenter(2), centers[2]);
+
 }
 
 TEST_F(FixedBinAxisTest, BinBoundaries)

@@ -25,7 +25,8 @@ VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const st
     , m_nbins(nbins)
 {
     if(m_nbins != bin_boundaries.size()-1)
-        throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error! The size of value_vector should be of size [nbins+1].");
+        throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error! "
+            "The size of bin_boundaries should be of size [nbins+1].");
 
     setBinBoundaries(bin_boundaries);
 }
@@ -77,6 +78,11 @@ double VariableBinAxis::getMin() const
 double VariableBinAxis::getMax() const
 {
     return m_bin_boundaries.back();
+}
+
+double VariableBinAxis::getBinCenter(size_t index) const
+{
+    return getBin(index).getMidPoint();
 }
 
 

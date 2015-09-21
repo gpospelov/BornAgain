@@ -102,30 +102,13 @@ public:
     Histogram1D *projectionY(double xlow, double xup, ProjectionType projectionType = INTEGRAL);
 
 
+    //! Create new histogram by applying rectangular clip.
+    Histogram2D *crop(double xmin, double ymin, double xmax, double ymax);
 
-    vdouble2d_t getData() const;
 
-//    //! Project a 2D histogram into 1D histogram along Y.
-//    Histogram1D *projectionY(ProjectionType = INTEGRAL);
+//    vdouble2d_t getData() const;
 
-//    //! Project a 2D histogram into 1D histogram along X, the projection
-//    //! is made from the channels along the Y axis at 'yvalue'.
-//    Histogram1D *profileX(double yvalue);
 
-//    //! Project a 2D histogram into 1D histogram along X, the projection
-//    //! is made from the channels along the Y axis ranging from ymin to ymax.
-//    Histogram1D *profileX(double ymin, double ymax, ProjectionType = INTEGRAL);
-
-//    //! Project a 2D histogram into 1D histogram along X, the projection
-//    //! is made from the channels along the Y axis at 'yvalue'.
-//    Histogram1D *profileY(double yvalue);
-
-//    //! Project a 2D histogram into 1D histogram along X, the projection
-//    //! is made from the channels along the Y axis ranging from ymin to ymax.
-//    Histogram1D *profileX(double ymin, double ymax, ProjectionType projectionType = INTEGRAL);
-
-//    //! Create new intensity data by applying rectangular clip.
-//    Histogram1D *createClipped(double xmin, double ymin, double xmax, double ymax);
 
 //    //!
 //    //! The function returns the corresponding global bin number which has its content

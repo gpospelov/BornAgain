@@ -59,6 +59,8 @@ protected:
     virtual void init_parameters();
 
 private:
+    complex_t fullAnisoPyramidPrimitive(complex_t a, complex_t b, complex_t c,
+                                        double d, double z) const;
     double m_length;
     double m_width;
     double m_height;

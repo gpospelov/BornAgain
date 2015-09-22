@@ -92,104 +92,51 @@ complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
     complex_t qy = q.y();
     complex_t qz = q.z();
 
-    complex_t F;
     const complex_t im(0,1);
-
-    if( std::abs(qx) > Numeric::double_epsilon
-            && std::abs(qy) > Numeric::double_epsilon ) {
-        // General case
-        complex_t q1, q2, q3, q4;
-        q1=(H/2.)*((qx-qy)/tga + qz);
-        q2=(H/2.)*((qx-qy)/tga - qz);
-        q3=(H/2.)*((qx+qy)/tga + qz);
-        q4=(H/2.)*((qx+qy)/tga - qz);
-        complex_t K1,K2,K3,K4;
-        K1 = MathFunctions::Sinc(q1)*std::exp(im*q1)
-                + MathFunctions::Sinc(q2)*std::exp(-im*q2);
-        K2 = -MathFunctions::Sinc(q1)*std::exp(im*q1)*im
-                + MathFunctions::Sinc(q2)*std::exp(-im*q2)*im;
-        K3 = MathFunctions::Sinc(q3)*std::exp(im*q3)
-                + MathFunctions::Sinc(q4)*std::exp(-im*q4);
-        K4 = -MathFunctions::Sinc(q3)*std::exp(im*q3)*im
-                + MathFunctions::Sinc(q4)*std::exp(-im*q4)*im;
-        F = K1*std::cos( (qx*L-qy*W)/2. ) + K2*std::sin( (qx*L-qy*W)/2.  )
-                - K3*std::cos( (qx*L+qy*W)/2. ) - K4*std::sin( (qx*L+qy*W)/2. );
-        F = F*H/(qx*qy);
-    } else if(std::abs(qx) <= Numeric::double_epsilon
-              && std::abs(qy) <= Numeric::double_epsilon) {
-
-        if (std::abs(qz) <= Numeric::double_epsilon) {
-        //Volume qx=qy=qz=0
-        F = L*W*H - (L + W)*H*H/tga + 4.0/3.0*H*H*H/(tga*tga);
-        } else {
-            //qx=0 qy=0 qz!=0
-             F=im*(
-                - 8.0/std::pow(tga,2) - 2.0*im*qz*(L+W)/tga + std::pow(qz,2)*L*W
-                - std::exp(im*H*qz)*(L*W*qz*qz - 2.0*(L+W)*qz/tga*(H*qz+im)
-                + 4.0*(std::pow(qz*H,2)+2.0*im*qz*H-2.0)/std::pow(tga,2))
-                   )/std::pow(qz,3);
-        }
-
+    if (L < W) {
+        complex_t full = fullAnisoPyramidPrimitive(qx/tga, qy/tga, qz, (W-L)*tga/2.0, -L*tga/2.0);
+        complex_t top = fullAnisoPyramidPrimitive(qx/tga, qy/tga, qz, (W-L)*tga/2.0, H-L*tga/2.0);
+        return std::exp(im*qz*L*tga/2.0) * (full-top) / (tga*tga);
     } else {
+        complex_t full = fullAnisoPyramidPrimitive(qy/tga, qx/tga, qz, (L-W)*tga/2.0, -W*tga/2.0);
+        complex_t top = fullAnisoPyramidPrimitive(qy/tga, qx/tga, qz, (L-W)*tga/2.0, H-W*tga/2.0);
+        return std::exp(im*qz*W*tga/2.0) * (full-top) / (tga*tga);
+    }
+}
 
-        complex_t qxy, q5, q6;
-         double R0, Rxy;
-        if(std::abs(qy) <= Numeric::double_epsilon
-                && std::abs(qx) > Numeric::double_epsilon) {
-            // qx!=0 qy=0
-            qxy=qx;
-            Rxy = L/2.0;
-            R0 = W/2.0;
-        } else {
-            // qy!=0 qx=0
-            qxy=qy;
-            R0 = L/2.0;
-            Rxy = W/2.0;
+complex_t FormFactorAnisoPyramid::fullAnisoPyramidPrimitive(complex_t a, complex_t b, complex_t c,
+                                                            double d, double z) const
+{
+    const complex_t im(0, 1);
+    if (std::norm(a*z) > Numeric::double_epsilon && std::norm(b*z) > Numeric::double_epsilon) {
+        if (std::abs((a-b)*(a-b)-c*c)*z*z > Numeric::double_epsilon &&
+            std::abs((a+b)*(a+b)-c*c)*z*z > Numeric::double_epsilon) {
+            complex_t phase = std::exp(im * c * z);
+            complex_t numerator = std::sin(a*z) * (b*(a*a - b*b + c*c)*std::cos(b*(d-z))
+                                                   -im*c*(a*a + b*b - c*c)*std::sin(b*(d-z)))
+                              + a*std::cos(a*z)*((a*a - b*b - c*c)*std::sin(b*(d-z))
+                                                 + 2.0*im*b*c*std::cos(b*(d-z)));
+            complex_t denominator = a*b*(a - b - c)*(a + b - c)*(a - b + c)*(a + b + c);
+            return -4.0 * phase * numerator / denominator;
+        } /* else {
+            return 2.0 * (g(a-b, c, z) - g(a+b, c, z)) / (a*b);
         }
-
-        q5 = (qz - qxy/tga)/2.;
-        q6 = (qz + qxy/tga)/2.;
-
-        if (std::abs(q5) <= Numeric::double_epsilon) {
-            //q5 = 0, q6!=0
-        F= -2.0*H*im/qxy*(
-                    (R0 - H/(2.0*tga))*std::exp(im*qxy*Rxy)
-                    - std::exp(im*q6*H-im*qxy*Rxy)*
-                    ( R0*MathFunctions::Sinc(q6*H)
-                    + im*( std::exp(im*q6*H)
-                           - MathFunctions::Sinc(q6*H) )/(2.0*q6*tga))
-                    );
-
+    } else if (std::norm(a*z) <= Numeric::double_epsilon
+               && std::norm(b*z) <= Numeric::double_epsilon) {
+        if (std::norm(c*z) <= Numeric::double_epsilon) {
+            return -4.0*std::pow(z, 3)/3.0;
+        } else
+            return 4.0*im * (2.0 + std::exp(im*c*z)*(c*c*z*z + 2.0*im*c*z - 2.0)) / std::pow(c, 3);
+    } else {
+        complex_t abmax;
+        if (std::norm(b*z) <= Numeric::double_epsilon && std::norm(a*z) > Numeric::double_epsilon) {
+            abmax = a;
         } else {
-
-            if (std::abs(q6) <= Numeric::double_epsilon) {
-
-                //q5!= 0, q6=0
-                F=-2.0*H*im/qxy*(
-                            std::exp(im*q5*H+im*qxy*Rxy)*
-                            ( R0*MathFunctions::Sinc(q5*H)
-                            + im*( std::exp(im*q5*H)
-                                   - MathFunctions::Sinc(q5*H) )/(2.0*q5*tga))
-                            +(H/(2.0*tga)-R0)*std::exp(-im*qxy*Rxy)
-                            );
-
-            } else {
-
-                //q5!= 0, q6!=0
-                F=-2.0*H*im/qxy*(
-                            std::exp(im*q5*H+im*qxy*Rxy)*
-                            (R0*MathFunctions::Sinc(q5*H)
-                            + im*( std::exp(im*q5*H)
-                                   - MathFunctions::Sinc(q5*H) )/(2.0*q5*tga))
-                            - std::exp(im*q6*H-im*qxy*Rxy)
-                            *(R0*MathFunctions::Sinc(q6*H)
-                            + im*( std::exp(im*q6*H)
-                                   - MathFunctions::Sinc(q6*H))/(2.0*q6*tga))
-                            );
-            }
-}
-}
-    return F;
+            abmax = b;
+        }
+        return 2.0 * (h(c - abmax, z) - h(c + abmax, z)) / abmax; */
+    }
+    return 0.0;
 }
 
 

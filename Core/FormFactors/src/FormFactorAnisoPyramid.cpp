@@ -31,6 +31,26 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
 bool FormFactorAnisoPyramid::check_initialization() const
 {
     bool result(true);
+    if(m_alpha<0.0 || m_alpha>Units::PID2) {
+        std::ostringstream ostr;
+        ostr << "FormFactorAnisoPyramid() -> Error in class initialization with parameters ";
+        ostr << " length:" << m_length;
+        ostr << " width:" << m_width;
+        ostr << " height:" << m_height;
+        ostr << " alpha:" << m_alpha << "\n\n";
+        ostr << "Check for '0 <= alpha <= pi/2' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    if(m_length<0.0 || m_width<0.0 || m_height<0.0) {
+        std::ostringstream ostr;
+        ostr << "FormFactorAnisoPyramid() -> Error in class initialization with parameters ";
+        ostr << " length:" << m_length;
+        ostr << " width:" << m_width;
+        ostr << " height:" << m_height;
+        ostr << " alpha:" << m_alpha << "\n\n";
+        ostr << "Check for '0 <= length, 0<= width and 0 <= height' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     if(2.*m_height > std::min(m_length, m_width)*std::tan(m_alpha)) {
         std::ostringstream ostr;
         ostr << "FormFactorAnisoPyramid() -> Error in class initialization ";

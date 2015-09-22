@@ -65,41 +65,35 @@ public:
 
 
     //! Project a 2D histogram into 1D histogram along X. The projection is made
-    //! from all bins along y-axis. The content is either integrated or averaged.
-    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
-    Histogram1D *projectionX(ProjectionType projectionType = INTEGRAL);
+    //! from all bins along y-axis.
+    Histogram1D *projectionX();
 
     //! Project a 2D histogram into 1D histogram along X. The projection is made
-    //! from the y-bin corresponding to ordinate yvalue.
+    //! from the y-bin closest to given ordinate yvalue.
     //! @param yvalue the value on y-axis at which projection is taken
     Histogram1D *projectionX(double yvalue);
 
     //! Project a 2D histogram into 1D histogram along X. The projection is made from
     //! all y-bins corresponding to ordinate between ylow and yup.
-    //! The content is either integrated or averaged.
     //! @param ylow lower edje on y-axis
     //! @param yup upper edje on y-axis
-    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
-    Histogram1D *projectionX(double ylow, double yup, ProjectionType projectionType = INTEGRAL);
+    Histogram1D *projectionX(double ylow, double yup);
 
 
     //! Project a 2D histogram into 1D histogram along Y. The projection is made
-    //! from all bins along x-axis. The content is either integrated or averaged.
-    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
-    Histogram1D *projectionY(ProjectionType projectionType = INTEGRAL);
+    //! from all bins along x-axis.
+    Histogram1D *projectionY();
 
     //! Project a 2D histogram into 1D histogram along Y. The projection is made
-    //! from the x-bin corresponding to abscissa xvalue.
+    //! from the x-bin closest to given abscissa xvalue.
     //! @param xvalue the value on x-axis at which projection is taken
     Histogram1D *projectionY(double xvalue);
 
     //! Project a 2D histogram into 1D histogram along Y. The projection is made from
     //! all x-bins corresponding to abscissa between xlow and xup.
-    //! The content is either integrated or averaged.
     //! @param xlow lower edje on x-axis
     //! @param xup upper edje on x-axis
-    //! @param projectionType defines type of projection (INTEGRAL or AVERAGE)
-    Histogram1D *projectionY(double xlow, double xup, ProjectionType projectionType = INTEGRAL);
+    Histogram1D *projectionY(double xlow, double xup);
 
 
     //! Create new histogram by applying rectangular clip.
@@ -123,11 +117,11 @@ public:
 protected:
     //! Creates projection along X. The projections is made by collecting the data in the range
     //! between [ybinlow, ybinup].
-    Histogram1D *create_projectionX(int ybinlow, int ybinup, ProjectionType projectionType = INTEGRAL);
+    Histogram1D *create_projectionX(int ybinlow, int ybinup);
 
     //! Creates projection along Y. The projections is made by collecting the data in the range
     //! between [xbinlow, xbinup].
-    Histogram1D *create_projectionY(int xbinlow, int xbinup, ProjectionType projectionType = INTEGRAL);
+    Histogram1D *create_projectionY(int xbinlow, int xbinup);
 
 };
 

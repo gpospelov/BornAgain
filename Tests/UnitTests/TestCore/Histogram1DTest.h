@@ -98,12 +98,20 @@ TEST_F(Histogram1DTest, FixedBinFill)
     const double xvalue(1.5);
     const int xbin = 1;
 
-    hist.fill(xvalue);
+    hist.fill(xvalue, 1.0);
     hist.fill(xvalue, 3.0);
     EXPECT_EQ(2, hist.getBinNumberOfEntries(xbin));
     EXPECT_EQ(4.0, hist.getBinContent(xbin));
     EXPECT_EQ(1.0, hist.getBinError(xbin));
 
+    // another fill
+    hist.reset();
+    hist.fill(xvalue, 1.0);
+    hist.fill(xvalue, 2.0);
+    hist.fill(xvalue, 3.0);
+    EXPECT_EQ(3, hist.getBinNumberOfEntries(xbin));
+    EXPECT_EQ(6.0, hist.getBinContent(xbin));
+    EXPECT_EQ(2.0/3.0, hist.getBinError(xbin)*hist.getBinError(xbin));
 }
 
 

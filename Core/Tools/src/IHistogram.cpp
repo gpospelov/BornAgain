@@ -17,23 +17,28 @@
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "Exceptions.h"
+#include "Histogram1D.h"
+#include "Histogram2D.h"
 #include <sstream>
 #include <boost/assign/list_of.hpp>
 
+IHistogram::IHistogram()
+    : m_data_type(INTEGRAL)
+{
+
+}
+
 IHistogram::IHistogram(const IAxis &axis_x)
+    : m_data_type(INTEGRAL)
 {
     m_data.addAxis(axis_x);
 }
 
 IHistogram::IHistogram(const IAxis &axis_x, const IAxis &axis_y)
+    : m_data_type(INTEGRAL)
 {
     m_data.addAxis(axis_x);
     m_data.addAxis(axis_y);
-}
-
-IHistogram::IHistogram(const OutputData<double> &source)
-{
-    init_from_data(source);
 }
 
 size_t IHistogram::getRank() const
@@ -74,6 +79,11 @@ double IHistogram::getXmax() const
     return getXaxis()->getMax();
 }
 
+size_t IHistogram::getNbinsX() const
+{
+    return getXaxis()->getSize();
+}
+
 double IHistogram::getYmin() const
 {
     return getYaxis()->getMin();
@@ -82,6 +92,11 @@ double IHistogram::getYmin() const
 double IHistogram::getYmax() const
 {
     return getYaxis()->getMax();
+}
+
+size_t IHistogram::getNbinsY() const
+{
+    return getYaxis()->getSize();
 }
 
 int IHistogram::getGlobalBin(int binx, int biny) const
@@ -116,7 +131,21 @@ double IHistogram::getYaxisValue(size_t globalbin)
 
 double IHistogram::getBinContent(int bin) const
 {
-    return m_data[bin].getValue();
+    if(m_data_type == INTEGRAL) {
+        return m_data[bin].getValue();
+    }
+    else if(m_data_type == AVERAGE) {
+        return m_data[bin].getAverage();
+    }
+    else if(m_data_type == ERROR) {
+        return m_data[bin].getRMS();
+    }
+    else if(m_data_type == NENTRIES) {
+        return m_data[bin].getNumberOfEntries();
+    }
+    else {
+        throw LogicErrorException("IHistogram::getBinContent() -> Error. Wrong data type.");
+    }
 }
 
 double IHistogram::getBinContent(int binx, int biny) const
@@ -149,7 +178,7 @@ PyObject *IHistogram::getArray() const
     OutputData<double> array;
     array.copyShapeFrom(m_data);
     for(size_t i=0; i<m_data.getAllocatedSize(); ++i) {
-        array[i] = m_data[i].getValue();
+        array[i] = getBinContent(i);
     }
     return array.getArray();
 }
@@ -158,6 +187,23 @@ void IHistogram::reset()
 {
     m_data.setAllTo(CumulativeValue());
 }
+
+void IHistogram::setDataType(IHistogram::DataType data_type)
+{
+    m_data_type = data_type;
+}
+
+//Histogram1D *IHistogram::createHistogram1D(const OutputData<double> &source)
+//{
+//    Histogram1D *result = new Histogram1D(source);
+//    return result;
+//}
+
+//Histogram2D *IHistogram::createHistogram2D(const OutputData<double> &source)
+//{
+//    Histogram2D *result = new Histogram2D(source);
+//    return result;
+//}
 
 
 void IHistogram::check_x_axis() const
@@ -182,6 +228,14 @@ void IHistogram::check_y_axis() const
 
 void IHistogram::init_from_data(const OutputData<double> &source)
 {
+    if(getRank() != source.getRank()) {
+        std::ostringstream message;
+        message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
+        message << "The dimension of this histogram " << getRank() << " ";
+        message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
+        throw LogicErrorException(message.str());
+    }
+
     m_data.copyShapeFrom(source);
     for(size_t i=0; i<source.getAllocatedSize(); ++i) {
         m_data[i].add(source[i]);

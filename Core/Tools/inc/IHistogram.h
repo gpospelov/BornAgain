@@ -26,6 +26,9 @@ typedef _object PyObject;
 #endif
 #endif
 
+class Histogram1D;
+class Histogram2D;
+
 //! @class IHistogram
 //! @ingroup tools
 //! @brief Base class for 1D and 2D histograms holding values of double type
@@ -34,14 +37,13 @@ class IHistogram
 {
 public:
 
-    enum ProjectionType {INTEGRAL, AVERAGE};
+    enum DataType {INTEGRAL, AVERAGE, ERROR, NENTRIES};
 
-    IHistogram(){}
+    IHistogram();
     virtual ~IHistogram(){}
 
     IHistogram(const IAxis &axis_x);
     IHistogram(const IAxis &axis_x, const IAxis &axis_y);
-    IHistogram(const OutputData<double> &source);
 
     //! Returns number of histogram dimensions (1 or 2).
     virtual size_t getRank() const;
@@ -62,11 +64,17 @@ public:
     //! Returns x-axis max (upper edge of last bin).
     double getXmax() const;
 
+    //! Returns number of bins on x-axis
+    size_t getNbinsX() const;
+
     //! Returns y-axis min (lower edge of first bin) for 2D histograms.
     double getYmin() const;
 
     //! Returns y-axis max (upper edge of last bin) for 2D histograms.
     double getYmax() const;
+
+    //! Returns number of bins on y-axis
+    size_t getNbinsY() const;
 
     //! Returns global bin index for given axes indices. For 1D histogram the global bin
     //! index coinside with axis index.
@@ -125,9 +133,16 @@ public:
 #endif
 
     //! Reset histogram content (axes remains)
-    virtual void reset();
+    void reset();
+
+//    static Histogram1D *createHistogram1D(const OutputData<double> &source);
+//    static Histogram2D *createHistogram2D(const OutputData<double> &source);
+
+    void setDataType(DataType data_type);
 
 protected:
+    DataType m_data_type;
+
     void check_x_axis() const;
     void check_y_axis() const;
     void init_from_data(const OutputData<double> &source);

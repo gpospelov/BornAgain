@@ -43,7 +43,7 @@ private:
     int m_n_entries;
     double m_sum;
     double m_average;
-    double m_rms2;
+    double m_rms2; //sum[ (x-x_aver)^2]/nentries
     double m_sum_of_weights;
 };
 

@@ -49,13 +49,6 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
     
     }
 
-    IHistogram_wrapper(::OutputData< double > const & source )
-    : IHistogram( boost::ref(source) )
-      , bp::wrapper< IHistogram >(){
-        // constructor
-    
-    }
-
     virtual ::std::size_t getRank(  ) const  {
         if( bp::override func_getRank = this->get_override( "getRank" ) )
             return func_getRank(  );
@@ -68,126 +61,6 @@ struct IHistogram_wrapper : IHistogram, bp::wrapper< IHistogram > {
         return IHistogram::getRank( );
     }
 
-    virtual ::std::size_t getTotalNumberOfBins(  ) const  {
-        if( bp::override func_getTotalNumberOfBins = this->get_override( "getTotalNumberOfBins" ) )
-            return func_getTotalNumberOfBins(  );
-        else{
-            return this->IHistogram::getTotalNumberOfBins(  );
-        }
-    }
-    
-    ::std::size_t default_getTotalNumberOfBins(  ) const  {
-        return IHistogram::getTotalNumberOfBins( );
-    }
-
-    virtual ::IAxis const * getXaxis(  ) const  {
-        if( bp::override func_getXaxis = this->get_override( "getXaxis" ) )
-            return func_getXaxis(  );
-        else{
-            return this->IHistogram::getXaxis(  );
-        }
-    }
-    
-    ::IAxis const * default_getXaxis(  ) const  {
-        return IHistogram::getXaxis( );
-    }
-
-    virtual double getXaxisValue( ::std::size_t globalbin ) {
-        if( bp::override func_getXaxisValue = this->get_override( "getXaxisValue" ) )
-            return func_getXaxisValue( globalbin );
-        else{
-            return this->IHistogram::getXaxisValue( globalbin );
-        }
-    }
-    
-    double default_getXaxisValue( ::std::size_t globalbin ) {
-        return IHistogram::getXaxisValue( globalbin );
-    }
-
-    virtual double getXmax(  ) const  {
-        if( bp::override func_getXmax = this->get_override( "getXmax" ) )
-            return func_getXmax(  );
-        else{
-            return this->IHistogram::getXmax(  );
-        }
-    }
-    
-    double default_getXmax(  ) const  {
-        return IHistogram::getXmax( );
-    }
-
-    virtual double getXmin(  ) const  {
-        if( bp::override func_getXmin = this->get_override( "getXmin" ) )
-            return func_getXmin(  );
-        else{
-            return this->IHistogram::getXmin(  );
-        }
-    }
-    
-    double default_getXmin(  ) const  {
-        return IHistogram::getXmin( );
-    }
-
-    virtual ::IAxis const * getYaxis(  ) const  {
-        if( bp::override func_getYaxis = this->get_override( "getYaxis" ) )
-            return func_getYaxis(  );
-        else{
-            return this->IHistogram::getYaxis(  );
-        }
-    }
-    
-    ::IAxis const * default_getYaxis(  ) const  {
-        return IHistogram::getYaxis( );
-    }
-
-    virtual double getYaxisValue( ::std::size_t globalbin ) {
-        if( bp::override func_getYaxisValue = this->get_override( "getYaxisValue" ) )
-            return func_getYaxisValue( globalbin );
-        else{
-            return this->IHistogram::getYaxisValue( globalbin );
-        }
-    }
-    
-    double default_getYaxisValue( ::std::size_t globalbin ) {
-        return IHistogram::getYaxisValue( globalbin );
-    }
-
-    virtual double getYmax(  ) const  {
-        if( bp::override func_getYmax = this->get_override( "getYmax" ) )
-            return func_getYmax(  );
-        else{
-            return this->IHistogram::getYmax(  );
-        }
-    }
-    
-    double default_getYmax(  ) const  {
-        return IHistogram::getYmax( );
-    }
-
-    virtual double getYmin(  ) const  {
-        if( bp::override func_getYmin = this->get_override( "getYmin" ) )
-            return func_getYmin(  );
-        else{
-            return this->IHistogram::getYmin(  );
-        }
-    }
-    
-    double default_getYmin(  ) const  {
-        return IHistogram::getYmin( );
-    }
-
-    virtual void reset(  ) {
-        if( bp::override func_reset = this->get_override( "reset" ) )
-            func_reset(  );
-        else{
-            this->IHistogram::reset(  );
-        }
-    }
-    
-    void default_reset(  ) {
-        IHistogram::reset( );
-    }
-
 };
 
 void register_IHistogram_class(){
@@ -196,14 +69,15 @@ void register_IHistogram_class(){
         typedef bp::class_< IHistogram_wrapper, boost::noncopyable > IHistogram_exposer_t;
         IHistogram_exposer_t IHistogram_exposer = IHistogram_exposer_t( "IHistogram", "Base class for 1D and 2D histograms holding values of double typ.", bp::init< >() );
         bp::scope IHistogram_scope( IHistogram_exposer );
-        bp::enum_< IHistogram::ProjectionType>("ProjectionType")
+        bp::enum_< IHistogram::DataType>("DataType")
             .value("INTEGRAL", IHistogram::INTEGRAL)
             .value("AVERAGE", IHistogram::AVERAGE)
+            .value("ERROR", IHistogram::ERROR)
+            .value("NENTRIES", IHistogram::NENTRIES)
             .export_values()
             ;
         IHistogram_exposer.def( bp::init< IAxis const & >(( bp::arg("axis_x") )) );
         IHistogram_exposer.def( bp::init< IAxis const &, IAxis const & >(( bp::arg("axis_x"), bp::arg("axis_y") )) );
-        IHistogram_exposer.def( bp::init< OutputData< double > const & >(( bp::arg("source") )) );
         { //::IHistogram::getArray
         
             typedef ::PyObject * ( ::IHistogram::*getArray_function_type)(  ) const;
@@ -290,6 +164,26 @@ void register_IHistogram_class(){
                 , "Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with axis index. @param binx X-axis bin index @param biny Y-axis bin index @return The global bin index \n\n:Parameters:\n  - 'binx' - X-axis bin index\n  - 'biny' - Y-axis bin index\n" );
         
         }
+        { //::IHistogram::getNbinsX
+        
+            typedef ::std::size_t ( ::IHistogram::*getNbinsX_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getNbinsX"
+                , getNbinsX_function_type( &::IHistogram::getNbinsX )
+                , "Returns number of bins on x-axis." );
+        
+        }
+        { //::IHistogram::getNbinsY
+        
+            typedef ::std::size_t ( ::IHistogram::*getNbinsY_function_type)(  ) const;
+            
+            IHistogram_exposer.def( 
+                "getNbinsY"
+                , getNbinsY_function_type( &::IHistogram::getNbinsY )
+                , "Returns number of bins on y-axis." );
+        
+        }
         { //::IHistogram::getRank
         
             typedef ::std::size_t ( ::IHistogram::*getRank_function_type)(  ) const;
@@ -304,24 +198,22 @@ void register_IHistogram_class(){
         { //::IHistogram::getTotalNumberOfBins
         
             typedef ::std::size_t ( ::IHistogram::*getTotalNumberOfBins_function_type)(  ) const;
-            typedef ::std::size_t ( IHistogram_wrapper::*default_getTotalNumberOfBins_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getTotalNumberOfBins"
-                , getTotalNumberOfBins_function_type(&::IHistogram::getTotalNumberOfBins)
-                , default_getTotalNumberOfBins_function_type(&IHistogram_wrapper::default_getTotalNumberOfBins) );
+                , getTotalNumberOfBins_function_type( &::IHistogram::getTotalNumberOfBins )
+                , "Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. " );
         
         }
         { //::IHistogram::getXaxis
         
             typedef ::IAxis const * ( ::IHistogram::*getXaxis_function_type)(  ) const;
-            typedef ::IAxis const * ( IHistogram_wrapper::*default_getXaxis_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getXaxis"
-                , getXaxis_function_type(&::IHistogram::getXaxis)
-                , default_getXaxis_function_type(&IHistogram_wrapper::default_getXaxis)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , getXaxis_function_type( &::IHistogram::getXaxis )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns x-axis." );
         
         }
         { //::IHistogram::getXaxisIndex
@@ -338,47 +230,43 @@ void register_IHistogram_class(){
         { //::IHistogram::getXaxisValue
         
             typedef double ( ::IHistogram::*getXaxisValue_function_type)( ::std::size_t ) ;
-            typedef double ( IHistogram_wrapper::*default_getXaxisValue_function_type)( ::std::size_t ) ;
             
             IHistogram_exposer.def( 
                 "getXaxisValue"
-                , getXaxisValue_function_type(&::IHistogram::getXaxisValue)
-                , default_getXaxisValue_function_type(&IHistogram_wrapper::default_getXaxisValue)
-                , ( bp::arg("globalbin") ) );
+                , getXaxisValue_function_type( &::IHistogram::getXaxisValue )
+                , ( bp::arg("globalbin") )
+                , "Returns the value on x-axis corresponding to the global bin index. @param binGlobalIndex The global bin index @return The center of axis's corresponding bin \n\n:Parameters:\n  - 'binGlobalIndex' - The global bin index\n" );
         
         }
         { //::IHistogram::getXmax
         
             typedef double ( ::IHistogram::*getXmax_function_type)(  ) const;
-            typedef double ( IHistogram_wrapper::*default_getXmax_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getXmax"
-                , getXmax_function_type(&::IHistogram::getXmax)
-                , default_getXmax_function_type(&IHistogram_wrapper::default_getXmax) );
+                , getXmax_function_type( &::IHistogram::getXmax )
+                , "Returns x-axis max (upper edge of last bin)." );
         
         }
         { //::IHistogram::getXmin
         
             typedef double ( ::IHistogram::*getXmin_function_type)(  ) const;
-            typedef double ( IHistogram_wrapper::*default_getXmin_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getXmin"
-                , getXmin_function_type(&::IHistogram::getXmin)
-                , default_getXmin_function_type(&IHistogram_wrapper::default_getXmin) );
+                , getXmin_function_type( &::IHistogram::getXmin )
+                , "Returns x-axis min (lower edge of first bin)." );
         
         }
         { //::IHistogram::getYaxis
         
             typedef ::IAxis const * ( ::IHistogram::*getYaxis_function_type)(  ) const;
-            typedef ::IAxis const * ( IHistogram_wrapper::*default_getYaxis_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getYaxis"
-                , getYaxis_function_type(&::IHistogram::getYaxis)
-                , default_getYaxis_function_type(&IHistogram_wrapper::default_getYaxis)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , getYaxis_function_type( &::IHistogram::getYaxis )
+                , bp::return_value_policy< bp::reference_existing_object >()
+                , "returns y-axis for 2D histograms." );
         
         }
         { //::IHistogram::getYaxisIndex
@@ -395,46 +283,52 @@ void register_IHistogram_class(){
         { //::IHistogram::getYaxisValue
         
             typedef double ( ::IHistogram::*getYaxisValue_function_type)( ::std::size_t ) ;
-            typedef double ( IHistogram_wrapper::*default_getYaxisValue_function_type)( ::std::size_t ) ;
             
             IHistogram_exposer.def( 
                 "getYaxisValue"
-                , getYaxisValue_function_type(&::IHistogram::getYaxisValue)
-                , default_getYaxisValue_function_type(&IHistogram_wrapper::default_getYaxisValue)
-                , ( bp::arg("globalbin") ) );
+                , getYaxisValue_function_type( &::IHistogram::getYaxisValue )
+                , ( bp::arg("globalbin") )
+                , "Returns the value on y-axis corresponding to the global bin index (for 2D histograms). @param globalbin The global bin index @return The center of axis's corresponding bin \n\n:Parameters:\n  - 'globalbin' - The global bin index\n" );
         
         }
         { //::IHistogram::getYmax
         
             typedef double ( ::IHistogram::*getYmax_function_type)(  ) const;
-            typedef double ( IHistogram_wrapper::*default_getYmax_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getYmax"
-                , getYmax_function_type(&::IHistogram::getYmax)
-                , default_getYmax_function_type(&IHistogram_wrapper::default_getYmax) );
+                , getYmax_function_type( &::IHistogram::getYmax )
+                , "Returns y-axis max (upper edge of last bin) for 2D histograms." );
         
         }
         { //::IHistogram::getYmin
         
             typedef double ( ::IHistogram::*getYmin_function_type)(  ) const;
-            typedef double ( IHistogram_wrapper::*default_getYmin_function_type)(  ) const;
             
             IHistogram_exposer.def( 
                 "getYmin"
-                , getYmin_function_type(&::IHistogram::getYmin)
-                , default_getYmin_function_type(&IHistogram_wrapper::default_getYmin) );
+                , getYmin_function_type( &::IHistogram::getYmin )
+                , "Returns y-axis min (lower edge of first bin) for 2D histograms." );
         
         }
         { //::IHistogram::reset
         
             typedef void ( ::IHistogram::*reset_function_type)(  ) ;
-            typedef void ( IHistogram_wrapper::*default_reset_function_type)(  ) ;
             
             IHistogram_exposer.def( 
                 "reset"
-                , reset_function_type(&::IHistogram::reset)
-                , default_reset_function_type(&IHistogram_wrapper::default_reset) );
+                , reset_function_type( &::IHistogram::reset )
+                , "Reset histogram content (axes remains)." );
+        
+        }
+        { //::IHistogram::setDataType
+        
+            typedef void ( ::IHistogram::*setDataType_function_type)( ::IHistogram::DataType ) ;
+            
+            IHistogram_exposer.def( 
+                "setDataType"
+                , setDataType_function_type( &::IHistogram::setDataType )
+                , ( bp::arg("data_type") ) );
         
         }
     }
